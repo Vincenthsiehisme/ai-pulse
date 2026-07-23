@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .venv/
 Thumbs.db
+
+# 作廢草稿：patch 合併完即刪，勿留原地被下次誤判
+sources-*-patch.yaml

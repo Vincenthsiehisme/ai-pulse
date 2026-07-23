@@ -1,4 +1,4 @@
-# _config/sources.yaml — 來源清單（雙軌：官方線 / KOL 線）
+# _config/sources.yaml — 來源清單（三軌：官方線 / KOL 線 / 聚合線）
 # ---------------------------------------------------------------------------
 # 分軌不是分類整齊，是因為兩條線在 gate 裡權利不同，且互為對照組：
 #   官方線 = 事情何時被「承認」
@@ -7,25 +7,54 @@
 #   混在同一組抓 → 這個差值永遠算不出來。
 #
 # track 欄位是硬約束，不是標籤：
-#   official → 可滿足 require_primary_evidence
-#   kol      → 永遠不可滿足 require_primary_evidence，只貢獻 heat 與領先訊號
-#   aggregator → 只當候選來源，不作任何事實依據（沿用原設計）
+#   official   → 可滿足 require_primary_evidence
+#   kol        → 永遠不可滿足 require_primary_evidence，只貢獻 heat 與領先訊號
+#   aggregator → 只當候選來源，不作任何事實依據
 #
-# 新源一律 lifecycle: draft，通過 probe checklist（見檔末）才人為升 active。
+# 新源一律 lifecycle: probing，通過 probe checklist（見檔末）才人為升 active。
+# ---------------------------------------------------------------------------
+#
+# ⚠ 已知互鎖（實作 lifecycle 過濾前務必先解）
+#   SKILL.md 規格寫「probe 只跑 active/degraded」，但本檔目前沒有任何一條是
+#   active。過濾一旦實作，probe 會拿到 0 個來源、exit 0、心跳正常、報告全空。
+#   且 checklist 第 4 項要求「連續觀察 ≥7 天」才能升 active ——
+#   不是 active 就不會被抓，不被抓就永遠滿足不了升級條件。
+#   解法擇一：(a) 新增 probing 狀態（會被抓、產出不計入正式統計）
+#             (b) 明確讓過濾放行 draft
+#   在決定之前，不要合入 lifecycle 過濾。
 # ---------------------------------------------------------------------------
 
 meta:
-  version: "2.0.0"
+  version: "2.2.0"
   updated: "2026-07-24"
   note: >
     v2 引入 track 雙軌與 person_id 關聯。KOL 線的 author 必須能解析到
     people.yaml 的條目，否則獨立性求值退回 media_group 層級（見
     people-and-relations.md 保守預設對照表）。
+    v2.1 增補六條官方線候選（公司發布 / 研究 / 政策三類），
+    並新增 corpus_type 欄位以支撐「語料型態多樣性」的量測。
+    v2.2 政策類拍板：arXiv 照字面停用（robots Disallow: /）；
+    EC digital-strategy 判死（站台無 RSS）；改由 Council press（EU-Council）
+    與 EP ITRE（EU-Parliament）兩條不同機構互為獨立佐證補齊 policy 類。
+    兩條 robots 尚未實測，robots_ok: null，待 verify-policy-sources.py 出值後回填。
+
+# ---------------------------------------------------------------------------
+# corpus_type —— v2.1 新增欄位
+#   source_category 分的是「誰發的」（vendor / research / framework / regulator）
+#   corpus_type 分的是「講的是什麼」。M1 的瓶頸診斷需要後者：
+#   arXiv 是 research + research_paper，vLLM 是 framework + oss_release，
+#   兩者 source_category 不同但語料型態同樣單一 —— 這是 M1 沒看出來的原因。
+#   值域：company_release | research_paper | oss_release | policy | person_signal
+#
+#   若決定不採用此欄位，全域刪除 corpus_type 行即可，其餘不受影響。
+# ---------------------------------------------------------------------------
 
 # ===========================================================================
 # 官方線 — 一手發布：實驗室 blog、論文、release、申報、主管機關公告
 # ===========================================================================
 official_sources:
+
+  # ── 既有三條 ──
   - id: src-openai-blog
     track: official
     owner: OpenAI
@@ -35,15 +64,20 @@ official_sources:
     tier: 1
     role: official
     source_category: vendor
+    corpus_type: company_release
     adapter: rss
-    endpoint: "https://openai.com/news/rss.xml"   # 官方 feed（舊路徑 /blog/rss.xml 已遷移）
+    endpoint: "https://openai.com/news/rss.xml"
     region: US
     language: en
-    lifecycle: draft
-    robots_ok: true
+    lifecycle: dormant
+    robots_ok: false
     license_note: "titles + links only"
     frequency: daily
     quota_per_run: 50
+    # 2026-07-24 實測：/news/rss.xml 與舊 /blog/rss.xml 皆被 robots 擋。
+    # 紅線不繞，維持 dormant，不改用第三方鏡像或聚合代理。
+    # 這是目前最大的一手來源缺口，且無合規替代品：
+    # 聚合線提到 OpenAI 的內容永遠只能進 watch，不能升 primary。
 
   - id: src-arxiv-cs-cl
     track: official
@@ -54,15 +88,24 @@ official_sources:
     tier: 1
     role: official
     source_category: research
+    corpus_type: research_paper
     adapter: rss
-    endpoint: "http://export.arxiv.org/rss/cs.CL"  # [待驗證] RSS 格式 2024 改版過
+    endpoint: "http://export.arxiv.org/rss/cs.CL"
     region: global
     language: en
-    lifecycle: draft
-    robots_ok: true
+    lifecycle: dormant
+    robots_ok: false
     license_note: "abstract + link"
     frequency: daily
-    quota_per_run: 100
+    quota_per_run: 30
+    # 停用（2026-07-24，已拍板不重議、不去信詢問）。
+    # export.arxiv.org/robots.txt 為 User-agent: * / Disallow: /，全面禁止。
+    # 與主站 robots 及 arXiv 自身「harvest 請改用 export 站」說明頁矛盾，
+    # 但矛盾不構成放行理由——照字面遵守。
+    # M1 那 100 筆係在 robots_allows 缺陷下抓取，已自 _corpus 移除。
+    # 事件紀錄見 2026-07-24-arxiv-robots.md。
+    # 連帶：arXiv 是唯一具名作者來源，出局後 checklist 5b 分子近零，人物層 M1 不做。
+    # author / PERSON_KINDS / people.yaml / corpus_type: person_signal 保留但不出報表，待 M3 復用。
 
   - id: src-gh-vllm-releases
     track: official
@@ -73,15 +116,222 @@ official_sources:
     tier: 1
     role: official
     source_category: framework
+    corpus_type: oss_release
     adapter: github-releases
     endpoint: "vllm-project/vllm"                  # owner/repo
     region: global
     language: en
-    lifecycle: draft
+    lifecycle: probing
     robots_ok: true
     license_note: "release notes + link"
     frequency: daily
     quota_per_run: 20
+    # author 是發版者 login，常為 bot。checklist 5b 應計為 0。
+
+  # ── v2.1 新增：公司發布類 ──
+  - id: src-deepmind-blog
+    track: official
+    owner: Google DeepMind
+    media_group: Google           # 與任何 Google Research / Google AI 來源同組，
+                                  # 兩條同時收不構成獨立佐證
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: vendor
+    corpus_type: company_release
+    adapter: rss
+    endpoint: "https://deepmind.google/blog/rss.xml"   # 舊路徑 /blog/feed/basic/ 會 302 到此
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true               # [待驗證] probe 實測會覆寫
+    license_note: "titles + links only"
+    frequency: daily
+    quota_per_run: 30
+    # 2026-07-24 實抓確認活著：最新項目 2026-07-22，發文密度高，backlog 上百則。
+    # 收進來後，字典裡 Google / Gemini / Gemma 那批實體才第一次有語料可命中。
+
+  - id: src-hf-blog
+    track: official
+    owner: Hugging Face
+    media_group: HuggingFace
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: vendor
+    corpus_type: company_release
+    adapter: rss
+    endpoint: "https://huggingface.co/blog/feed.xml"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true               # [待驗證]
+    license_note: "titles + excerpt + link"
+    frequency: weekly             # [待驗證] 索引顯示最新到 2026-04，可能低頻也可能是快取
+    quota_per_run: 20
+    # 已知格式坑：item 缺 <link>，只有 <guid isPermaLink="true">。
+    # rss adapter 取 URL 時要 fallback 到 guid，否則靜默拿到空字串。
+    # 若 7 天 0 筆，直接標 dormant，不要留著當「有在跑」的假象。
+
+  - id: src-nvidia-blog
+    track: official
+    owner: NVIDIA
+    media_group: NVIDIA
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: vendor
+    corpus_type: company_release
+    adapter: rss
+    endpoint: "https://blogs.nvidia.com/feed/"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true               # [待驗證]
+    license_note: "titles + links only"
+    frequency: daily
+    quota_per_run: 20
+    # 內容偏行銷。若 checklist 第 6 項命中率高但集中在同幾個實體，
+    # 判為「命中但無資訊」，降 quota 而非移除。
+
+  # ── v2.1 新增：研究發布類 ──
+  - id: src-msr-blog
+    track: official
+    owner: Microsoft Research
+    media_group: Microsoft        # Microsoft 與 OpenAI 有投資關係。
+                                  # 兩者對同一事件的報導是否算獨立佐證，
+                                  # 需在 people-and-relations.md 補一條機構邊，
+                                  # 依保守預設應判為非獨立。
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: research
+    corpus_type: research_paper
+    adapter: rss
+    endpoint: "https://www.microsoft.com/en-us/research/feed/"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true               # [待驗證]
+    license_note: "abstract + link"
+    frequency: daily
+    quota_per_run: 30
+
+  - id: src-meta-research
+    track: official
+    owner: Meta
+    media_group: Meta
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: research
+    corpus_type: research_paper
+    adapter: rss
+    endpoint: "https://research.facebook.com/feed/"   # [待驗證] 可能已改址
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true               # [待驗證]
+    license_note: "abstract + link"
+    frequency: weekly
+    quota_per_run: 20
+    # Meta 的 AI 內容近年多在 ai.meta.com/blog。
+    # 若 probe 回 404 或連續 0 筆，先找 ai.meta.com 的 feed，再標 dormant。
+
+  # ── v2.1 新增：政策法規類（目前完全空白的一類）──
+  - id: src-ec-digital-strategy
+    track: official
+    owner: European Commission
+    media_group: EuropeanCommission
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: regulator    # v2.1 新增值域
+    corpus_type: policy
+    adapter: rss
+    endpoint: null               # 判死：站台無 RSS，端點永久為 null
+    region: EU
+    language: en
+    lifecycle: dormant
+    robots_ok: null              # 無端點可測，維持未確立
+    license_note: "titles + links only"
+    frequency: weekly
+    quota_per_run: 20
+    # 判死（2026-07-24）。站台為 Drupal 10 + oe_theme，首頁 head 無任何
+    # rel="alternate" feed link，官方訂閱入口僅 newsletter / email 通知，不提供 RSS。
+    # 若日後仍要收，唯一合規路徑是訂閱 newsletter 再解信（IMAP + 解信，另一條管線），
+    # 不併入 probe，也不應復用本 id。
+    # policy 類為何仍值得追（發現 2 / 發現 3 的解）：政策文本用公司名與產品名指涉
+    # 監管對象，是字典裡公司實體唯一可能命中的語境，且與論文摘要 / release notes
+    # 詞彙重疊度最低——此需求現改由 src-consilium-press 與 src-ep-itre 承接。
+
+  - id: src-consilium-press
+    track: official
+    owner: Council of the EU
+    media_group: EU-Council           # v2.2：自 EuropeanCommission 拆出。
+                                      # 與 src-ep-itre（EU-Parliament）為不同機構，互為獨立佐證。
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: regulator
+    corpus_type: policy
+    adapter: rss
+    endpoint: "https://www.consilium.europa.eu/en/rss/pressreleases.ashx"
+    region: EU
+    language: en
+    lifecycle: probing
+    robots_ok: null               # 尚未實測。null ≠ 允許，probe 不得放行。待 verify 出值回填。
+    license_note: "titles + links only"
+    frequency: weekly
+    quota_per_run: 30
+    # 出處：https://www.consilium.europa.eu/en/about-site/rss/（last review 2026-07-15）。
+    # 端點是 .ashx handler 不是 .xml，adapter 不可用副檔名判格式，靠 Content-Type 或直接試解析。
+    # 全主題新聞稿，AI 相關佔比預期低到個位數百分比。判讀時看「有無」不看筆數，
+    # 不與 src-deepmind-blog 這類單一主題來源比命中率——它補的是 policy 語料型態與獨立機構。
+    # 備選同源端點（暫不啟用，同 media_group 不增加獨立來源數）：
+    #   THMTTE https://www.consilium.europa.eu/en/register/rss/THMTTE.xml（運輸/電信/能源）
+    #   THMCOM https://www.consilium.europa.eu/en/register/rss/THMCOM.xml（競爭力）
+
+  - id: src-ep-itre
+    track: official
+    owner: European Parliament
+    media_group: EU-Parliament        # 與 src-consilium-press（EU-Council）不同機構，互為獨立佐證。
+                                      # 解掉了「EU 兩條同 media_group、都收不增加獨立來源數」的問題。
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: regulator
+    corpus_type: policy
+    adapter: rss
+    endpoint: "https://www.europarl.europa.eu/rss/committee/itre/en.xml"
+    region: EU
+    language: en
+    lifecycle: probing
+    robots_ok: null               # 尚未實測。null ≠ 允許。待 verify 出值回填。
+    license_note: "titles + links only"
+    frequency: weekly
+    quota_per_run: 30
+    # ITRE = Industry, Research and Energy 委員會，AI Act 共同主責之一。
+    # 官方 RSS hub：https://www.europarl.europa.eu/at-your-service/en/stay-informed/rss-feeds
+    # 備選同源端點（暫不啟用，同 media_group）：
+    #   IMCO /rss/committee/imco/en.xml、新聞稿全量 /rss/doc/press-releases/en.xml、
+    #   主題 909 /rss/topic/909/en.xml
+
+  # ── v2.2 語料型態盤點（人工核對用，非設定）──
+  #   corpus_type       來源數  獨立 media_group
+  #   company_release      3    Google / HuggingFace / NVIDIA   -> 3
+  #   research_paper       2    Microsoft / Meta                -> 2（Microsoft↔OpenAI 有投資關係，最薄一類）
+  #   oss_release          1    vLLM                            -> 1
+  #   policy               2    EU-Council / EU-Parliament      -> 2
+  #   person_signal        0    （M3）
 
 # ===========================================================================
 # KOL 線 — 具名個人的公開發表
@@ -92,31 +342,53 @@ official_sources:
 #   3. 發表內容與 entities.yaml 的追蹤範圍有實質重疊
 #
 # 已知偏差（必須記錄，勿事後才發現）：
-#   X / Threads / LinkedIn 無合法公開 feed，實際抓得到的只剩個人 blog RSS、
-#   Substack、YouTube channel feed、GitHub 個人動態、Mastodon / Bluesky。
+#   實際抓得到的只剩個人 blog RSS、Substack、YouTube channel feed、
+#   GitHub 個人動態、Mastodon / Bluesky。
 #   → KOL 線起手會嚴重偏向「寫長文的人」，漏掉純社群發言者。
-#   → 任何以本線計算的 lead_days 都必須附註此偏差，不可當成全體 KOL 的領先度。
+#   → 任何以本線計算的 lead_days 都必須附註此偏差。
+#
+# X 的處置（2026-07-24 評估，M1 不接，M3 前不重議）：
+#   1. 官方 API 於 2026-02 改為 pay-per-use，無免費 tier。
+#      讀取約 $0.005/則，搜尋僅回溯 7 天，全檔案需 Enterprise（$42k/月起）。
+#   2. 第三方轉售商（便宜 50–100 倍者）作法是爬取公開資料再轉賣。
+#      若採用，等於在 OpenAI 已因 robots 標 dormant 的同時繞過另一家 ToS，
+#      紅線變成看心情執行，整個 evidence 體系的可信度跟著鬆掉。不採用。
+#   3. 語料型態為 person_signal，不在四類缺口內 ——
+#      它補的不是多樣性，是人物層。
+#
+#   不可刪除此記錄：離職、內部風聲、模型提前流出，
+#   最早只出現在 X 上的具名個人帳號。
+#   lead_days / first_observed_at / watch / unverifiable_primary
+#   這整套機制的主要適用對象就是它。
+#
+#   重議前置條件（兩者皆須成立）：
+#     a. 七天觀測後判讀為「人物層值得建」
+#     b. 找到不違反 ToS 且成本可接受的取用路徑
+#
+#   接入形態：以 person_id 為單位逐人建條目，不是建一條叫「X」的站台來源。
 # ===========================================================================
-kol_sources:
-  - id: src-kol-<slug>
-    track: kol
-    owner: "<個人公開署名>"
-    media_group: "<所屬機構；無則填 independent>"
-    author: "<feed 中出現的署名字串>"
-    person_id: person-<slug>       # 必填，對應 people.yaml；缺 → 獨立性不加分
-    tier: 2                        # KOL 永不為 tier 1，即使本人任職於目標公司
-    role: expert                   # expert | social
-    source_category: individual
-    adapter: rss                   # rss | atom | json-api
-    endpoint: "<個人 blog / Substack / channel feed>"
-    region: <ISO>
-    language: <ISO>
-    lifecycle: draft
-    robots_ok: true
-    license_note: "titles + excerpt + link"
-    frequency: daily
-    quota_per_run: 20              # 低於官方線：雜訊比高
-    can_satisfy_primary: false     # 硬約束，勿逐源覆寫
+kol_sources: []
+  # 範本（實際新增時取消註解並填值）：
+  # - id: src-kol-<slug>
+  #   track: kol
+  #   owner: "<個人公開署名>"
+  #   media_group: "<所屬機構；無則填 independent>"
+  #   author: "<feed 中出現的署名字串>"
+  #   person_id: person-<slug>       # 必填，對應 people.yaml；缺 → 獨立性不加分
+  #   tier: 2                        # KOL 永不為 tier 1，即使本人任職於目標公司
+  #   role: expert                   # expert | social
+  #   source_category: individual
+  #   corpus_type: person_signal
+  #   adapter: rss                   # rss | atom | json-api
+  #   endpoint: "<個人 blog / Substack / channel feed>"
+  #   region: <ISO>
+  #   language: <ISO>
+  #   lifecycle: probing
+  #   robots_ok: true
+  #   license_note: "titles + excerpt + link"
+  #   frequency: daily
+  #   quota_per_run: 20              # 低於官方線：雜訊比高
+  #   can_satisfy_primary: false     # 硬約束，勿逐源覆寫
 
 # ===========================================================================
 # 聚合線 — 只當候選與熱度提示，永不作為任何事實的唯一證據
@@ -131,6 +403,7 @@ aggregator_sources:
     tier: 3
     role: aggregator
     source_category: aggregator
+    corpus_type: aggregated
     adapter: json-api
     endpoint: "https://hacker-news.firebaseio.com/v0/topstories.json"  # [待驗證]
     region: global
@@ -149,9 +422,19 @@ aggregator_sources:
 # 2. robots.txt 允許該路徑
 # 3. license / ToS 允許存標題與節錄
 # 4. 連續觀察 ≥7 天，記錄實際發文頻率（用於校準 quota 與 freshness）
-# 5. 抽樣 20 筆，記錄 author 欄位存在率 ← 這個數字決定人物層有沒有用
+# 5a. 抽樣 20 筆，記錄 author 欄位存在率
+#     ← 僅供偵測 adapter 解析失敗，不作任何人物層判斷
+# 5b. 抽樣 20 筆，記錄可解析為單一自然人的比率
+#     ← 這個數字才決定人物層有沒有用
+#     判定規則：具名個人 = 1；bot / 組織名 / 帳號 login = 0；
+#               無法判定 = 0（保守預設，缺資料往非獨立倒）
 # 6. 抽樣 20 筆，記錄 entities.yaml 命中率 ← 這個數字決定字典要往哪長
 # 7. 官方線另需：確認是一手發布而非轉載（轉載的官方帳號不算 tier 1）
 # 8. KOL 線另需：person_id 已建、任職邊已依 people-and-relations.md 驗證
 #
-# 第 5、6 項是 M1 真正的產出。條目數與來源數都不是驗收標準，這兩個比率才是。
+# 第 5b、6 項是 M1 真正的產出。條目數與來源數都不是驗收標準，這兩個比率才是。
+#
+# 5a / 5b 拆分緣由（M1 實測）：
+#   120/120 有 author，但 arXiv 是具名論文作者、GitHub release 是發版者 login
+#   （常為 bot）。存在率 100% 是假象 —— 量到的是「欄位有沒有值」，
+#   不是「值能不能用」。operating-manual.md 的判讀表需同步改。
