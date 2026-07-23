@@ -1,0 +1,157 @@
+# _config/sources.yaml — 來源清單（雙軌：官方線 / KOL 線）
+# ---------------------------------------------------------------------------
+# 分軌不是分類整齊，是因為兩條線在 gate 裡權利不同，且互為對照組：
+#   官方線 = 事情何時被「承認」
+#   KOL 線 = 事情何時被「談論」
+#   兩者時間差 = lead_days，本系統唯一做得出、RSS 聚合器做不出的產物。
+#   混在同一組抓 → 這個差值永遠算不出來。
+#
+# track 欄位是硬約束，不是標籤：
+#   official → 可滿足 require_primary_evidence
+#   kol      → 永遠不可滿足 require_primary_evidence，只貢獻 heat 與領先訊號
+#   aggregator → 只當候選來源，不作任何事實依據（沿用原設計）
+#
+# 新源一律 lifecycle: draft，通過 probe checklist（見檔末）才人為升 active。
+# ---------------------------------------------------------------------------
+
+meta:
+  version: "2.0.0"
+  updated: "2026-07-24"
+  note: >
+    v2 引入 track 雙軌與 person_id 關聯。KOL 線的 author 必須能解析到
+    people.yaml 的條目，否則獨立性求值退回 media_group 層級（見
+    people-and-relations.md 保守預設對照表）。
+
+# ===========================================================================
+# 官方線 — 一手發布：實驗室 blog、論文、release、申報、主管機關公告
+# ===========================================================================
+official_sources:
+  - id: src-openai-blog
+    track: official
+    owner: OpenAI
+    media_group: OpenAI          # 獨立性判斷用（單一真相源，勿在 entities.yaml 重複）
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: vendor
+    adapter: rss
+    endpoint: "https://openai.com/news/rss.xml"   # 官方 feed（舊路徑 /blog/rss.xml 已遷移）
+    region: US
+    language: en
+    lifecycle: draft
+    robots_ok: true
+    license_note: "titles + links only"
+    frequency: daily
+    quota_per_run: 50
+
+  - id: src-arxiv-cs-cl
+    track: official
+    owner: arXiv
+    media_group: arXiv
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: research
+    adapter: rss
+    endpoint: "http://export.arxiv.org/rss/cs.CL"  # [待驗證] RSS 格式 2024 改版過
+    region: global
+    language: en
+    lifecycle: draft
+    robots_ok: true
+    license_note: "abstract + link"
+    frequency: daily
+    quota_per_run: 100
+
+  - id: src-gh-vllm-releases
+    track: official
+    owner: vllm-project
+    media_group: vllm
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: framework
+    adapter: github-releases
+    endpoint: "vllm-project/vllm"                  # owner/repo
+    region: global
+    language: en
+    lifecycle: draft
+    robots_ok: true
+    license_note: "release notes + link"
+    frequency: daily
+    quota_per_run: 20
+
+# ===========================================================================
+# KOL 線 — 具名個人的公開發表
+#
+# 收錄條件（三者皆須成立）：
+#   1. 有穩定可解析的署名（能對到 people.yaml 的 person_id）
+#   2. 有合法可抓的 feed（不繞 login / WAF / 付費牆）
+#   3. 發表內容與 entities.yaml 的追蹤範圍有實質重疊
+#
+# 已知偏差（必須記錄，勿事後才發現）：
+#   X / Threads / LinkedIn 無合法公開 feed，實際抓得到的只剩個人 blog RSS、
+#   Substack、YouTube channel feed、GitHub 個人動態、Mastodon / Bluesky。
+#   → KOL 線起手會嚴重偏向「寫長文的人」，漏掉純社群發言者。
+#   → 任何以本線計算的 lead_days 都必須附註此偏差，不可當成全體 KOL 的領先度。
+# ===========================================================================
+kol_sources:
+  - id: src-kol-<slug>
+    track: kol
+    owner: "<個人公開署名>"
+    media_group: "<所屬機構；無則填 independent>"
+    author: "<feed 中出現的署名字串>"
+    person_id: person-<slug>       # 必填，對應 people.yaml；缺 → 獨立性不加分
+    tier: 2                        # KOL 永不為 tier 1，即使本人任職於目標公司
+    role: expert                   # expert | social
+    source_category: individual
+    adapter: rss                   # rss | atom | json-api
+    endpoint: "<個人 blog / Substack / channel feed>"
+    region: <ISO>
+    language: <ISO>
+    lifecycle: draft
+    robots_ok: true
+    license_note: "titles + excerpt + link"
+    frequency: daily
+    quota_per_run: 20              # 低於官方線：雜訊比高
+    can_satisfy_primary: false     # 硬約束，勿逐源覆寫
+
+# ===========================================================================
+# 聚合線 — 只當候選與熱度提示，永不作為任何事實的唯一證據
+# ===========================================================================
+aggregator_sources:
+  - id: src-hn-frontpage
+    track: aggregator
+    owner: Hacker News
+    media_group: YCombinator
+    author: null
+    person_id: null
+    tier: 3
+    role: aggregator
+    source_category: aggregator
+    adapter: json-api
+    endpoint: "https://hacker-news.firebaseio.com/v0/topstories.json"  # [待驗證]
+    region: global
+    language: en
+    lifecycle: dormant        # M1 不接：json-api adapter 未實作，且聚合線對兩個比率無貢獻
+    robots_ok: true
+    license_note: "titles + links only"
+    frequency: daily
+    quota_per_run: 30
+    can_satisfy_primary: false
+
+# ===========================================================================
+# probe checklist — 每個新源升 active 前必須逐項通過並留紀錄
+# ===========================================================================
+# 1. endpoint 回 200 且格式可解析（非 HTML 錯誤頁偽裝成 200）
+# 2. robots.txt 允許該路徑
+# 3. license / ToS 允許存標題與節錄
+# 4. 連續觀察 ≥7 天，記錄實際發文頻率（用於校準 quota 與 freshness）
+# 5. 抽樣 20 筆，記錄 author 欄位存在率 ← 這個數字決定人物層有沒有用
+# 6. 抽樣 20 筆，記錄 entities.yaml 命中率 ← 這個數字決定字典要往哪長
+# 7. 官方線另需：確認是一手發布而非轉載（轉載的官方帳號不算 tier 1）
+# 8. KOL 線另需：person_id 已建、任職邊已依 people-and-relations.md 驗證
+#
+# 第 5、6 項是 M1 真正的產出。條目數與來源數都不是驗收標準，這兩個比率才是。

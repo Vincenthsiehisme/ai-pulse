@@ -1,0 +1,6 @@
+﻿_evidence_raw/
+.obsidian/workspace*
+__pycache__/
+*.pyc
+.venv/
+Thumbs.db

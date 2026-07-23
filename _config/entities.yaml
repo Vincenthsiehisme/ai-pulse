@@ -1,0 +1,791 @@
+# _config/entities.yaml — 命名實體字典（去AI化聚類的地基）
+# ---------------------------------------------------------------------------
+# 本檔是「字典本體」：只放 Identifier / Term / Definition / Aliases / Parent。
+#
+# 不在本檔的東西（刻意排除，避免層級混淆）：
+#   - 聚類主鍵資格、共現規則、權重  → _config/gate.yaml 的 clustering: 段
+#   - media_group / 獨立性判斷      → _config/sources.yaml（單一真相源）
+#   - 來源健康、tier                → _config/sources.yaml + tiers.md
+#
+# 正規化約定（由 collector 的 normalize 層負責，字典不重複列）：
+#   大小寫、全半形、連字號/空白、簡繁轉換。
+#   → aliases 只列「一種寫法」，簡體別名不必再列繁體版本，反之亦然。
+#
+# aliases 收錄原則：**同一實體的不同稱呼**才算別名。
+#   ✅ 深度求索 = DeepSeek（同一家公司的中文名）
+#   ❌ multi-agent 不是 AI Agent 的別名（不同概念，各自獨立條目）
+#   ❌ 谷歌 不是 Google DeepMind 的別名（上位公司，用 parent 表達）
+#
+# status: active（已驗證可用） | unverified（待人工查證） | watch（觀察中，未升 active）
+# ---------------------------------------------------------------------------
+
+meta:
+  version: "1.0.0"
+  updated: "2026-07-24"
+  review_cycle: quarterly
+  note: >
+    v1 由 M0 建立。公司層與產品線層為手工維護；版本層由 version_pattern
+    自動衍生，不手工列舉（發布頻率為每週級，手工維護必然落後）。
+
+# ===========================================================================
+# term_types — 本字典的實體型別，決定它在 gate.yaml 裡的聚類資格
+# ===========================================================================
+term_types:
+  company:        "法人實體：AI 實驗室、模型供應商、晶片廠、雲廠、應用公司"
+  product_line:   "持續演進的產品或模型系列，版本由 version_pattern 衍生"
+  product:        "單一產品，無版本序列或版本不具情報意義"
+  infrastructure: "運算硬體、加速器、資料中心層級的具名產物"
+  framework:      "開源框架、函式庫、推論引擎、開發工具"
+  technology:     "技術方法或協定；不具法人或產品身分"
+  policy:         "法規、行政命令、標準文件等具名治理文件"
+
+# ===========================================================================
+# COMPANIES
+# ===========================================================================
+companies:
+  # --- 美系前沿實驗室 ---
+  - id: openai
+    canonical: OpenAI
+    term_type: company
+    definition: "以 GPT 系列與 ChatGPT 為核心產品的美國 AI 實驗室，2015 年成立。"
+    aliases: ["Open AI", "OpenAI Inc"]
+    status: active
+
+  - id: anthropic
+    canonical: Anthropic
+    term_type: company
+    definition: "以 Claude 系列模型為核心產品的美國 AI 安全研究公司，2021 年成立。"
+    aliases: ["安索匹克"]
+    status: active
+
+  - id: google
+    canonical: Google
+    term_type: company
+    definition: "Alphabet 旗下主體公司，AI 研究由 Google DeepMind 統籌。"
+    aliases: ["谷歌", "Alphabet"]
+    status: active
+
+  - id: google-deepmind
+    canonical: Google DeepMind
+    term_type: company
+    definition: "Google 的 AI 研究部門，2023 年由 DeepMind 與 Google Brain 合併而成。"
+    aliases: ["DeepMind", "GDM", "Google Brain"]
+    parent: google
+    status: active
+
+  - id: microsoft
+    canonical: Microsoft
+    term_type: company
+    definition: "OpenAI 主要投資方與雲端供應商，自有 Copilot 產品線與 MAI 模型。"
+    aliases: ["微軟", "MSFT"]
+    status: active
+
+  - id: meta
+    canonical: Meta
+    term_type: company
+    definition: "Llama 開放權重模型系列的發布方，前身為 Facebook。"
+    aliases: ["Meta AI", "FAIR", "Facebook"]
+    status: active
+
+  - id: xai
+    canonical: xAI
+    term_type: company
+    definition: "Elon Musk 創立的 AI 公司，產品為 Grok 系列模型。"
+    aliases: ["x.AI"]
+    status: unverified
+    note: "[待驗證] 2026 有來源將其寫為 SpaceXAI，疑為改名或與 SpaceX 合併；需一手證據確認。"
+
+  - id: mistral
+    canonical: Mistral AI
+    term_type: company
+    definition: "法國 AI 公司，以開放權重與歐洲主權 AI 定位為主。"
+    aliases: ["Mistral"]
+    status: active
+
+  - id: cohere
+    canonical: Cohere
+    term_type: company
+    definition: "加拿大 AI 公司，主打企業與 RAG 場景的 Command 模型系列。"
+    aliases: []
+    status: active
+
+  - id: safe-superintelligence
+    canonical: Safe Superintelligence
+    term_type: company
+    definition: "Ilya Sutskever 於 2024 年創立、宣稱只做單一超智慧產品的研究公司。"
+    aliases: ["SSI"]
+    status: active
+
+  - id: thinking-machines
+    canonical: Thinking Machines Lab
+    term_type: company
+    definition: "Mira Murati 於 2025 年創立的 AI 研究公司。"
+    aliases: []
+    status: watch
+
+  - id: perplexity
+    canonical: Perplexity
+    term_type: company
+    definition: "以 AI 搜尋與問答介面為主要產品的美國公司。"
+    aliases: ["Perplexity AI"]
+    status: active
+
+  - id: anysphere
+    canonical: Anysphere
+    term_type: company
+    definition: "AI 程式編輯器 Cursor 的開發公司。"
+    aliases: ["Cursor Inc"]
+    status: active
+
+  - id: cognition
+    canonical: Cognition
+    term_type: company
+    definition: "AI 軟體工程代理 Devin 的開發公司。"
+    aliases: ["Cognition AI", "Cognition Labs"]
+    status: active
+
+  - id: huggingface
+    canonical: Hugging Face
+    term_type: company
+    definition: "模型與資料集託管平台，兼 Transformers 等開源函式庫維護者。"
+    aliases: ["HuggingFace", "抱抱臉", "HF"]
+    status: active
+
+  - id: scale-ai
+    canonical: Scale AI
+    term_type: company
+    definition: "資料標註與模型評測服務供應商。"
+    aliases: ["Scale"]
+    status: active
+
+  # --- 中系實驗室 ---
+  - id: deepseek
+    canonical: DeepSeek
+    term_type: company
+    definition: "中國 AI 公司，以低成本開放權重推理模型著稱。"
+    aliases: ["深度求索"]
+    status: active
+
+  - id: alibaba
+    canonical: Alibaba
+    term_type: company
+    definition: "中國電商與雲端集團，AI 模型以通義千問（Qwen）系列為主。"
+    aliases: ["阿里巴巴", "阿里雲", "Alibaba Cloud"]
+    status: active
+
+  - id: zhipu
+    canonical: Z.ai
+    term_type: company
+    definition: "中國 AI 公司（智譜），產品為 GLM 系列模型。"
+    aliases: ["智譜", "智譜AI", "Zhipu", "Zhipu AI"]
+    status: active
+
+  - id: moonshot
+    canonical: Moonshot AI
+    term_type: company
+    definition: "中國 AI 公司（月之暗面），產品為 Kimi 系列。"
+    aliases: ["月之暗面"]
+    status: active
+
+  - id: bytedance
+    canonical: ByteDance
+    term_type: company
+    definition: "TikTok 母公司，AI 模型以豆包（Doubao）與 Seed 系列為主。"
+    aliases: ["字節跳動", "字节"]
+    status: active
+
+  - id: baidu
+    canonical: Baidu
+    term_type: company
+    definition: "中國搜尋引擎公司，AI 模型為文心（Ernie）系列。"
+    aliases: ["百度"]
+    status: active
+
+  - id: tencent
+    canonical: Tencent
+    term_type: company
+    definition: "中國網路集團，AI 模型為混元（Hunyuan）系列。"
+    aliases: ["騰訊"]
+    status: active
+
+  - id: minimax
+    canonical: MiniMax
+    term_type: company
+    definition: "中國 AI 公司，產品含長上下文與多模態模型。"
+    aliases: ["稀宇科技"]
+    status: active
+
+  # --- 晶片、運算與雲 ---
+  - id: nvidia
+    canonical: NVIDIA
+    term_type: company
+    definition: "AI 加速器市場主導廠商，同時維護 CUDA 軟體生態。"
+    aliases: ["輝達", "英偉達"]
+    status: active
+
+  - id: amd
+    canonical: AMD
+    term_type: company
+    definition: "Instinct 系列 AI 加速器與 ROCm 生態的供應商。"
+    aliases: ["超微"]
+    status: active
+
+  - id: tsmc
+    canonical: TSMC
+    term_type: company
+    definition: "先進製程晶圓代工廠，前沿 AI 加速器的主要製造方。"
+    aliases: ["台積電", "台積", "台湾积体电路"]
+    status: active
+
+  - id: broadcom
+    canonical: Broadcom
+    term_type: company
+    definition: "客製化 AI ASIC 與網通晶片供應商。"
+    aliases: ["博通"]
+    status: active
+
+  - id: groq
+    canonical: Groq
+    term_type: company
+    definition: "以低延遲推論為訴求的 AI 加速器與雲端推論服務商。"
+    aliases: []
+    status: active
+
+  - id: cerebras
+    canonical: Cerebras
+    term_type: company
+    definition: "晶圓級 AI 加速器供應商。"
+    aliases: []
+    status: active
+
+  - id: coreweave
+    canonical: CoreWeave
+    term_type: company
+    definition: "以 GPU 算力租賃為主的 AI 專用雲端供應商。"
+    aliases: []
+    status: active
+
+  - id: aws
+    canonical: AWS
+    term_type: company
+    definition: "Amazon 雲端部門，自研 Trainium/Inferentia 加速器與 Bedrock 模型平台。"
+    aliases: ["Amazon Web Services", "亞馬遜雲"]
+    status: active
+
+# ===========================================================================
+# PRODUCT LINES — 手工維護；版本實體由 version_pattern 自動衍生
+#
+# 衍生規則（collector 執行，見 gate.yaml clustering.version_derivation）：
+#   標題/摘要命中 canonical 或 alias，且其後接上符合 version_pattern 的字串
+#   → 產生衍生實體 id：<line_id>@<正規化版本號>，parent = <line_id>
+#   例：「Claude Opus 4.8 released」→ claude@opus-4.8，parent: claude
+#   衍生實體是聚類主鍵；產品線本身只在無版本可辨識時當主鍵。
+# ===========================================================================
+product_lines:
+  - id: gpt
+    canonical: GPT
+    term_type: product_line
+    definition: "OpenAI 的基礎語言模型系列，以版本號區分世代。"
+    aliases: ["GPT-3", "GPT-4", "GPT-5"]
+    company: openai
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?(?:[a-z]|-(?:pro|mini|turbo|nano|sol|luna|terra))*)'
+    status: active
+    note: "GPT-5.5 / GPT-5.6（Sol / Luna / Terra 三軌）已於 2026 H1 出現；由 pattern 衍生，不手工列。"
+
+  - id: chatgpt
+    canonical: ChatGPT
+    term_type: product
+    definition: "OpenAI 面向終端使用者的對話應用，與 GPT 模型線分屬不同實體。"
+    aliases: []
+    company: openai
+    status: active
+    note: "刻意與 gpt 分開：模型發表與應用當機是兩類 Event，合併會誤併。"
+
+  - id: codex
+    canonical: Codex
+    term_type: product
+    definition: "OpenAI 的程式撰寫代理產品線。"
+    aliases: []
+    company: openai
+    status: active
+
+  - id: sora
+    canonical: Sora
+    term_type: product_line
+    definition: "OpenAI 的影片生成模型系列。"
+    aliases: []
+    company: openai
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: claude
+    canonical: Claude
+    term_type: product_line
+    definition: "Anthropic 的語言模型系列，以層級名（Opus/Sonnet/Haiku 等）加版本號命名。"
+    aliases: []
+    company: anthropic
+    version_pattern: '(?:\s)?(opus|sonnet|haiku|fable|mythos)?(?:\s|-)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+    note: "2026 H1 已知層級名含 Opus / Sonnet / Haiku / Fable / Mythos；新層級名出現時需人工補進 pattern。"
+
+  - id: claude-code
+    canonical: Claude Code
+    term_type: product
+    definition: "Anthropic 的命令列與 IDE 程式代理產品。"
+    aliases: []
+    company: anthropic
+    status: active
+
+  - id: gemini
+    canonical: Gemini
+    term_type: product_line
+    definition: "Google DeepMind 的多模態模型系列。"
+    aliases: ["Bard"]
+    company: google-deepmind
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?(?:\s?(?:pro|flash|ultra|nano))*)'
+    status: active
+
+  - id: veo
+    canonical: Veo
+    term_type: product_line
+    definition: "Google DeepMind 的影片生成模型系列。"
+    aliases: []
+    company: google-deepmind
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: grok
+    canonical: Grok
+    term_type: product_line
+    definition: "xAI 的語言模型系列。"
+    aliases: []
+    company: xai
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: unverified
+    note: "[待驗證] 2026 春季版本號在來源間不一致（4.20 vs 4.5），需一手來源確認命名慣例。"
+
+  - id: llama
+    canonical: Llama
+    term_type: product_line
+    definition: "Meta 的開放權重語言模型系列。"
+    aliases: ["LLaMA", "羊駝"]
+    company: meta
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: muse-spark
+    canonical: Muse Spark
+    term_type: product_line
+    definition: "Meta 於 2026 年推出的模型線。"
+    aliases: []
+    company: meta
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: unverified
+    note: "[待驗證] 僅見於單一次級來源，需 Tier-1 證據確認產品線名稱與歸屬。"
+
+  - id: deepseek-model
+    canonical: DeepSeek-V
+    term_type: product_line
+    definition: "DeepSeek 的基礎模型系列（V 系列為通用、R 系列為推理）。"
+    aliases: ["DeepSeek-R", "DeepSeek V", "DeepSeek R"]
+    company: deepseek
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: qwen
+    canonical: Qwen
+    term_type: product_line
+    definition: "Alibaba 的開放權重模型系列。"
+    aliases: ["通義千問", "通义千问", "千問"]
+    company: alibaba
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: glm
+    canonical: GLM
+    term_type: product_line
+    definition: "Z.ai（智譜）的模型系列。"
+    aliases: ["ChatGLM"]
+    company: zhipu
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: kimi
+    canonical: Kimi
+    term_type: product_line
+    definition: "Moonshot AI 的模型與助理產品線。"
+    aliases: []
+    company: moonshot
+    version_pattern: '(?:-|\s)?(k[0-9]+(?:\.[0-9]+)?|[0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: doubao
+    canonical: Doubao
+    term_type: product_line
+    definition: "ByteDance 的模型與助理產品線。"
+    aliases: ["豆包"]
+    company: bytedance
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: ernie
+    canonical: Ernie
+    term_type: product_line
+    definition: "Baidu 的模型系列。"
+    aliases: ["文心", "文心一言", "ERNIE"]
+    company: baidu
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: hunyuan
+    canonical: Hunyuan
+    term_type: product_line
+    definition: "Tencent 的模型系列。"
+    aliases: ["混元"]
+    company: tencent
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: command
+    canonical: Command
+    term_type: product_line
+    definition: "Cohere 的企業用語言模型系列。"
+    aliases: ["Command R", "Command A"]
+    company: cohere
+    version_pattern: '(?:-|\s)?(r\+?|a|[0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: mistral-model
+    canonical: Mistral Model
+    term_type: product_line
+    definition: "Mistral AI 的模型系列（含 Small / Large / Mixtral 等分支）。"
+    aliases: ["Mixtral", "Mistral Large", "Mistral Small", "Magistral"]
+    company: mistral
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: copilot
+    canonical: Copilot
+    term_type: product_line
+    definition: "Microsoft 的 AI 助理產品線，含 GitHub Copilot 與 Microsoft 365 Copilot。"
+    aliases: ["GitHub Copilot", "M365 Copilot"]
+    company: microsoft
+    version_pattern: '(?:-|\s)?([0-9]+(?:\.[0-9]+)?)'
+    status: active
+
+  - id: cursor
+    canonical: Cursor
+    term_type: product
+    definition: "Anysphere 開發的 AI 程式編輯器。"
+    aliases: []
+    company: anysphere
+    status: active
+
+  - id: devin
+    canonical: Devin
+    term_type: product
+    definition: "Cognition 開發的自主軟體工程代理。"
+    aliases: []
+    company: cognition
+    status: active
+
+# ===========================================================================
+# INFRASTRUCTURE — 硬體與加速器
+# ===========================================================================
+infrastructure:
+  - id: blackwell
+    canonical: Blackwell
+    term_type: infrastructure
+    definition: "NVIDIA 的 GPU 架構世代，產品含 B200 與 GB200。"
+    aliases: ["B200", "GB200", "B300"]
+    company: nvidia
+    status: active
+
+  - id: rubin
+    canonical: Rubin
+    term_type: infrastructure
+    definition: "NVIDIA 於 Blackwell 之後的 GPU 架構世代。"
+    aliases: []
+    company: nvidia
+    status: active
+
+  - id: hopper
+    canonical: Hopper
+    term_type: infrastructure
+    definition: "NVIDIA 的前一代 GPU 架構，產品含 H100 與 H200。"
+    aliases: ["H100", "H200", "H20"]
+    company: nvidia
+    status: active
+
+  - id: tpu
+    canonical: TPU
+    term_type: infrastructure
+    definition: "Google 自研的張量處理器加速器系列。"
+    aliases: ["Tensor Processing Unit", "Trillium", "Ironwood"]
+    company: google
+    status: active
+
+  - id: trainium
+    canonical: Trainium
+    term_type: infrastructure
+    definition: "AWS 自研的模型訓練加速器系列。"
+    aliases: ["Inferentia"]
+    company: aws
+    status: active
+
+  - id: instinct
+    canonical: Instinct
+    term_type: infrastructure
+    definition: "AMD 的資料中心 AI 加速器系列。"
+    aliases: ["MI300", "MI325", "MI350"]
+    company: amd
+    status: active
+
+  - id: cuda
+    canonical: CUDA
+    term_type: infrastructure
+    definition: "NVIDIA 的平行運算平台與程式模型，構成其生態護城河。"
+    aliases: []
+    company: nvidia
+    status: active
+
+# ===========================================================================
+# FRAMEWORKS — 開源框架與工具
+# ===========================================================================
+frameworks:
+  - id: pytorch
+    canonical: PyTorch
+    term_type: framework
+    definition: "主流深度學習訓練框架，由 PyTorch Foundation 維護。"
+    aliases: []
+    status: active
+
+  - id: jax
+    canonical: JAX
+    term_type: framework
+    definition: "Google 主導的可微分數值運算框架。"
+    aliases: []
+    status: active
+
+  - id: vllm
+    canonical: vLLM
+    term_type: framework
+    definition: "以 PagedAttention 為核心的高吞吐 LLM 推論引擎。"
+    aliases: []
+    status: active
+
+  - id: sglang
+    canonical: SGLang
+    term_type: framework
+    definition: "面向結構化生成與高併發的 LLM 推論引擎。"
+    aliases: []
+    status: active
+
+  - id: ollama
+    canonical: Ollama
+    term_type: framework
+    definition: "本機執行開放權重模型的封裝工具。"
+    aliases: []
+    status: active
+
+  - id: llamacpp
+    canonical: llama.cpp
+    term_type: framework
+    definition: "以 C/C++ 實作的輕量本機推論引擎。"
+    aliases: ["llama cpp", "GGUF"]
+    status: active
+
+  - id: transformers
+    canonical: Transformers
+    term_type: framework
+    definition: "Hugging Face 的模型載入與訓練函式庫。"
+    aliases: ["HF Transformers"]
+    company: huggingface
+    status: active
+
+  - id: langchain
+    canonical: LangChain
+    term_type: framework
+    definition: "LLM 應用編排框架。"
+    aliases: ["LangGraph"]
+    status: active
+
+  - id: llamaindex
+    canonical: LlamaIndex
+    term_type: framework
+    definition: "以檢索與索引為核心的 LLM 資料框架。"
+    aliases: []
+    status: active
+
+  - id: ray
+    canonical: Ray
+    term_type: framework
+    definition: "分散式運算框架，常用於訓練與推論調度。"
+    aliases: []
+    status: active
+
+  - id: triton
+    canonical: Triton
+    term_type: framework
+    definition: "GPU kernel 撰寫語言與編譯器。"
+    aliases: []
+    status: active
+    note: "與 NVIDIA Triton Inference Server 同名不同物；歧義高，使用時需靠共現實體消歧。"
+
+# ===========================================================================
+# TECHNOLOGIES — 依 M0 決議：不可單獨當聚類主鍵，需與 company / product 共現
+# 每個條目是獨立實體，不互為別名
+# ===========================================================================
+technologies:
+  - id: mcp
+    canonical: MCP
+    term_type: technology
+    definition: "Model Context Protocol，模型與外部工具、資料源之間的開放介接協定。"
+    aliases: ["Model Context Protocol", "模型上下文協定"]
+    status: active
+
+  - id: rag
+    canonical: RAG
+    term_type: technology
+    definition: "檢索增強生成：以外部檢索結果作為生成依據的架構。"
+    aliases: ["Retrieval-Augmented Generation", "檢索增強生成"]
+    status: active
+
+  - id: ai-agent
+    canonical: AI Agent
+    term_type: technology
+    definition: "能自主規劃與呼叫工具以完成任務的 LLM 應用形態。"
+    aliases: ["agentic", "智能體", "智慧代理"]
+    status: active
+
+  - id: multi-agent
+    canonical: Multi-Agent
+    term_type: technology
+    definition: "多個代理分工協作的系統架構；與單一 agent 為不同概念。"
+    aliases: ["多代理", "multi agent"]
+    status: active
+
+  - id: moe
+    canonical: MoE
+    term_type: technology
+    definition: "混合專家架構：僅啟用部分參數子網路以降低推論成本。"
+    aliases: ["Mixture of Experts", "混合專家"]
+    status: active
+
+  - id: rlhf
+    canonical: RLHF
+    term_type: technology
+    definition: "以人類回饋進行強化學習的對齊訓練方法。"
+    aliases: ["Reinforcement Learning from Human Feedback"]
+    status: active
+
+  - id: rlvr
+    canonical: RLVR
+    term_type: technology
+    definition: "以可驗證獎勵訊號進行強化學習的訓練方法。"
+    aliases: ["Reinforcement Learning with Verifiable Rewards"]
+    status: active
+
+  - id: distillation
+    canonical: Distillation
+    term_type: technology
+    definition: "以大模型輸出訓練小模型的壓縮方法。"
+    aliases: ["知識蒸餾", "模型蒸餾"]
+    status: active
+
+  - id: quantization
+    canonical: Quantization
+    term_type: technology
+    definition: "降低權重數值精度以縮減記憶體與運算成本的方法。"
+    aliases: ["量化", "INT4", "FP8"]
+    status: active
+
+  - id: long-context
+    canonical: Long Context
+    term_type: technology
+    definition: "擴大單次輸入上下文長度的模型能力方向。"
+    aliases: ["長上下文", "context window", "上下文視窗"]
+    status: active
+
+  - id: inference-scaling
+    canonical: Inference-Time Scaling
+    term_type: technology
+    definition: "在推論階段增加運算以換取品質的做法，含延長思考與取樣重排。"
+    aliases: ["test-time compute", "推論時擴展", "extended thinking"]
+    status: active
+
+  - id: world-model
+    canonical: World Model
+    term_type: technology
+    definition: "以模擬環境動態為目標的模型類別。"
+    aliases: ["世界模型"]
+    status: active
+
+  - id: embedding
+    canonical: Embedding
+    term_type: technology
+    definition: "將內容映射為向量表示的技術。"
+    aliases: ["向量表示", "嵌入"]
+    status: active
+
+  - id: vector-db
+    canonical: Vector Database
+    term_type: technology
+    definition: "以向量近似最近鄰檢索為核心的資料庫類別。"
+    aliases: ["向量資料庫", "向量数据库"]
+    status: active
+
+  - id: open-weights
+    canonical: Open Weights
+    term_type: technology
+    definition: "公開模型權重但未必公開訓練資料或程式碼的發布形態。"
+    aliases: ["開放權重", "开源模型"]
+    status: active
+
+# ===========================================================================
+# POLICIES — 法規與治理文件（AI 產業情報的重要事件類別）
+# ===========================================================================
+policies:
+  - id: eu-ai-act
+    canonical: EU AI Act
+    term_type: policy
+    definition: "歐盟人工智慧法，以風險分級為架構的橫向 AI 監管法規。"
+    aliases: ["歐盟AI法", "欧盟AI法案", "AI Act"]
+    status: active
+
+  - id: us-export-controls
+    canonical: US AI Export Controls
+    term_type: policy
+    definition: "美國商務部針對先進晶片與模型的出口管制措施集合。"
+    aliases: ["出口管制", "晶片禁令", "BIS rule"]
+    status: active
+
+  - id: nist-ai-rmf
+    canonical: NIST AI RMF
+    term_type: policy
+    definition: "美國 NIST 發布的 AI 風險管理框架。"
+    aliases: ["AI Risk Management Framework"]
+    status: active
+
+  - id: tw-ai-basic-act
+    canonical: 人工智慧基本法
+    term_type: policy
+    definition: "台灣的 AI 治理基本法制。"
+    aliases: ["AI基本法"]
+    status: unverified
+    note: "[待驗證] 立法進度與正式名稱需以主管機關公告為準。"
+
+# ===========================================================================
+# 刻意不收（v1 決議，非遺漏）
+# ===========================================================================
+# people（Sam Altman / Elon Musk 等）：
+#   人物名穩定但歧義低、情報價值多半附著於公司事件；且人事變動頻繁、
+#   維護成本高。v1 不收，待實際跑過一輪後若證實有「人物獨立成 Event」
+#   的需求再開 people 段。
+#
+# benchmarks（SWE-Bench / GPQA / MMLU 等）：
+#   名稱穩定，但常出現在模型發表文的比較段落，收進來會讓不相關的模型
+#   發表互相聚類。待 gate 進入 shadow mode 有實測資料後再決定。
+#
+# funding rounds / 估值數字：
+#   非命名實體，屬事件屬性，應由 Event frontmatter 承載，不進字典。

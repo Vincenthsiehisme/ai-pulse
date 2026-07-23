@@ -1,0 +1,101 @@
+# _config/gate.yaml — 所有可調門檻集中管理（改門檻不改碼；改動要 docs-first）
+
+quality:
+  discard_below: 40          # total < 此值直接丟棄，不進聚類
+  grade_thresholds:          # A/B/C/D/F
+    A: 85
+    B: 70
+    C: 55
+    D: 40
+  weights:                   # 五維上限（總和 100）
+    authority: 25
+    richness: 25
+    freshness: 20
+    originality: 15
+    completeness: 15
+  freshness_full_hours: 24   # < 此小時給滿分
+  freshness_zero_days: 30    # > 此天數給 0
+
+dedup:
+  minhash_jaccard: 0.80      # 標題近似重複門檻
+  ngram: 4                   # char n-gram 大小
+  event_window_hours: 72     # 同實體 ± 此窗口內併為一 Event
+
+# ---------------------------------------------------------------------------
+# clustering — 字典的「執行控制層」。entities.yaml 只管實體是什麼；
+# 這一段管實體在聚類時怎麼用。M0 決議固化於此。
+# ---------------------------------------------------------------------------
+clustering:
+  # 各 term_type 能不能單獨作為聚類主鍵
+  #   standalone         = 可單獨當主鍵
+  #   co_occurrence_only = 必須與 requires 清單中的型別共現才成立
+  #   never              = 永不當主鍵，只作標籤與檢索
+  key_eligibility:
+    company:        standalone
+    product_line:   standalone
+    product:        standalone
+    infrastructure: standalone
+    framework:      standalone
+    policy:         standalone
+    technology:
+      mode: co_occurrence_only
+      requires: [company, product_line, product]
+      # 理由：技術概念（agent / RAG / MCP）跨廠商高頻出現，單獨當主鍵會把
+      # 不同公司的無關消息併成一個 Event。
+
+  # 版本實體衍生：產品線手工維護，版本由 pattern 自動產生，避免每週手改字典
+  version_derivation:
+    enabled: true
+    id_format: "{line_id}@{version_slug}"   # 例：claude@opus-4.8
+    parent_field: line_id
+    # 衍生實體優先於產品線本身作為主鍵；辨識不出版本時退回產品線
+    prefer_derived_as_key: true
+    # 版本號正規化：小寫、空白轉連字號、去除前綴 v
+    slug_rules: [lowercase, space_to_hyphen, strip_leading_v]
+    # 同一產品線的不同版本視為不同實體，不互相聚類
+    versions_are_distinct: true
+
+  # 未知實體：命中不到任何字典條目的訊號怎麼辦
+  unknown_entity:
+    action: retain_as_observed   # 保留為 observed，不丟棄
+    key_from_title_hash: true    # 用標題 hash 當臨時主鍵，避免全部擠成一堆
+    report_to: _dashboards/dictionary-gaps.md   # 累積成字典補漏清單
+
+  # 已知的跨語言限制（去AI化下無法解，記錄在案）
+  cross_language:
+    supported: false
+    mitigation: aliases_only     # 只靠字典別名部分覆蓋
+    # 副作用防護：見下方 evidence.translation_chain
+
+readiness:                   # 事件發布硬門禁
+  thin_fact_min_chars: 20
+  min_confidence: 60
+  heat_threshold: 70         # 超過此熱度才檢查熱度支撐
+  heat_min_independent_sources: 2
+  heat_min_platform_breadth: 2
+  require_primary_evidence: true
+
+evidence:                    # 發布證據門檻
+  need_tier1_primary: 1      # 或
+  need_independent_tier2: 2
+
+  # 轉載鏈防護：跨語言聚類做不到，導致翻譯轉載會被誤判為獨立來源，
+  # 同時虛增 independent_sources 與 heat，繞過 unsupported_heat 防線。
+  translation_chain:
+    enabled: true
+    # 命中相同實體主鍵、時間窗內、語言不同，且標題實體集合高度重疊
+    # → 標記 suspected_repost，不計入獨立性、不計入 heat
+    entity_overlap_min: 0.80
+    window_hours: 48
+    excluded_from: [independent_sources, heat]
+
+source_health:
+  success_gain: 8
+  not_modified_gain: 3
+  failure_penalty: 15
+  severe_failure_penalty: 25
+  degrade_after_consecutive: 2
+  quarantine_after_consecutive: 5
+
+monitor:
+  stale_after_days: 2        # health.md 超過此天數沒成功抓取 → 紅燈 / workflow fail
