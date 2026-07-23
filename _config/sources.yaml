@@ -36,7 +36,9 @@ meta:
     v2.2 政策類拍板：arXiv 照字面停用（robots Disallow: /）；
     EC digital-strategy 判死（站台無 RSS）；改由 Council press（EU-Council）
     與 EP ITRE（EU-Parliament）兩條不同機構互為獨立佐證補齊 policy 類。
-    兩條 robots 尚未實測，robots_ok: null，待 verify-policy-sources.py 出值後回填。
+    2026-07-23 verify 實測：EP ITRE robots 允許（robots_ok: true, probing）；
+    Council press robots 回 403 判拒（robots_ok: false, dormant）——policy 類實際剩 EP 一條 live，
+    跨機構獨立佐證暫失，待另尋第二個不同機構的合規 policy 來源。
 
 # ---------------------------------------------------------------------------
 # corpus_type —— v2.1 新增欄位
@@ -286,8 +288,10 @@ official_sources:
     endpoint: "https://www.consilium.europa.eu/en/rss/pressreleases.ashx"
     region: EU
     language: en
-    lifecycle: probing
-    robots_ok: null               # 尚未實測。null ≠ 允許，probe 不得放行。待 verify 出值回填。
+    lifecycle: dormant
+    robots_ok: false              # 2026-07-23 實測 with probe UA：robots.txt 回 403（control probe OK，
+                                  # 非代理問題），依保守分支視為拒絕。同域備選端點(THMTTE/THMCOM)共用同一
+                                  # robots，無用。不改 UA 繞行（紅線）。
     license_note: "titles + links only"
     frequency: weekly
     quota_per_run: 30
@@ -315,7 +319,8 @@ official_sources:
     region: EU
     language: en
     lifecycle: probing
-    robots_ok: null               # 尚未實測。null ≠ 允許。待 verify 出值回填。
+    robots_ok: true               # 2026-07-23 實測 with probe UA：robots 200 path allowed；
+                                  # feed 200 / 25 items / title·link·date 25/25 / author 0/25。
     license_note: "titles + links only"
     frequency: weekly
     quota_per_run: 30
@@ -330,7 +335,7 @@ official_sources:
   #   company_release      3    Google / HuggingFace / NVIDIA   -> 3
   #   research_paper       2    Microsoft / Meta                -> 2（Microsoft↔OpenAI 有投資關係，最薄一類）
   #   oss_release          1    vLLM                            -> 1
-  #   policy               2    EU-Council / EU-Parliament      -> 2
+  #   policy               1    EU-Parliament(live) / EU-Council(dormant, robots 403)  -> 1 live
   #   person_signal        0    （M3）
 
 # ===========================================================================

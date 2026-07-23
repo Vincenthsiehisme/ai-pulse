@@ -1,0 +1,51 @@
+{
+  "ua": "ai-pulse-probe/1.0 (+deterministic; contact via repo)",
+  "results": [
+    {
+      "id": "src-consilium-press",
+      "media_group": "EU-Council",
+      "url": "https://www.consilium.europa.eu/en/rss/pressreleases.ashx",
+      "robots_ok": false,
+      "robots_reason": "robots.txt returned 403 -- treated as refusal",
+      "feed": null
+    },
+    {
+      "id": "src-ep-itre",
+      "media_group": "EU-Parliament",
+      "url": "https://www.europarl.europa.eu/rss/committee/itre/en.xml",
+      "robots_ok": true,
+      "robots_reason": "robots.txt 200, path allowed",
+      "feed": {
+        "url": "https://www.europarl.europa.eu/rss/committee/itre/en.xml",
+        "status": 200,
+        "content_type": "application/rss+xml;charset=UTF-8",
+        "bytes": 31960,
+        "dialect": "rss",
+        "feed_title": "ITRE - European Parliament",
+        "items": 25,
+        "field_coverage": {
+          "title": 25,
+          "link": 25,
+          "date": 25,
+          "guid": 25,
+          "author": 0
+        },
+        "samples": [
+          {
+            "title": "AMENDMENTS 603 - 857 - Draft report Establishing a framework of measures for strengthening",
+            "date": "Thu, 23 Jul 2026 09:23:02 GMT"
+          },
+          {
+            "title": "AMENDMENTS 2048 - 2330 - Draft report Establishing a framework of measures for strengtheni",
+            "date": "Thu, 23 Jul 2026 08:56:53 GMT"
+          },
+          {
+            "title": "AMENDMENTS 1076 - 1412 - Draft report Establishing a framework of measures for strengtheni",
+            "date": "Thu, 23 Jul 2026 08:53:07 GMT"
+          }
+        ],
+        "link_fallback_needed": false
+      }
+    }
+  ]
+}
