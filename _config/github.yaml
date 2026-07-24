@@ -1,0 +1,25 @@
+# GitHub 動能榜設定（星數＝注意力訊號，零 LLM）
+# 用 GitHub Search API 掃關鍵字，取近期活躍且有一定規模的 repo，
+# 比對 _github/state.json 的歷史快照算 Δstars/day。
+keywords:
+  - ai agent
+  - llm
+  - rag
+  - mcp server
+  - agent framework
+  - llm inference
+  - vector database
+min_stars: 300        # 低於此星數不進榜（濾掉一日新秀噪音）
+active_days: 45       # 最近推送需在這天數內
+top_n: 25             # 榜單長度
+exclude:              # 標題含這些字樣直接排除（教材/清單類非產品動能）
+  - awesome
+  - roadmap
+  - tutorial
+  - course
+  - cheatsheet
+  - handbook
+  - interview
+  - 資料
+  - 教學
+  - learn-

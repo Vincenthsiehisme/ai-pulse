@@ -93,6 +93,28 @@
 2. git 身份：`git config user.name "ai-pulse-enrich" && git config user.email "ai-pulse-enrich@users.noreply.github.com"`
 3. `export VAULT_DIR="$PWD"`
 
+**0. 前置檢查：今晚的資料到底進來了沒**（一定要做，這是 2026-07-24 那次空轉的補丁）
+
+這條鏈跟 GitHub Actions 只靠時鐘耦合：Actions 的 cron 是「最早不早於」，實測誤點過 96 分鐘。
+你比它早到 → clone 到的是昨天的 repo → worklist 空 → 整晚看起來「正常無事」，其實今天的事件沒人潤。
+所以先確認資料在不在，不在就自己補跑一次抓取（那條鏈本來就是純規則、零 LLM，你只是代跑，不是代判斷）：
+
+```
+TODAY=$(date -u +%F)
+if [ -d "_corpus/$TODAY" ]; then
+  echo "[pre] 今日 corpus 已就緒：_corpus/$TODAY"
+else
+  echo "[pre] 今日 corpus 不存在——Actions 還沒跑到或誤點，改由我補跑抓取鏈"
+  pip install requests feedparser --quiet
+  python scripts/pulse-probe.py || echo "[warn] probe 無新料或部分來源失敗，續跑"
+  python scripts/pulse-score.py
+  python scripts/pulse-cluster.py
+fi
+```
+
+補跑不會撞車：`pulse-probe` 有 cursor、`pulse-cluster` 以 fingerprint 去重，Actions 之後再跑一次是冪等的。
+補跑過就在收尾摘要註明「今晚由潤稿端補跑抓取」——這是要被看見的異常，不是可以吞掉的細節。
+
 **A. 事件潤稿（敘述）**
 4. prep：`python scripts/pulse-enrich-prep.py` → 讀 `_probe/enrich-worklist.json`。若為空陣列 → A 段跳過。
 5. 依本檔「流程 步驟 2–3」的 schema 與 speak-human-tw 規則，為 worklist 每個 Event 產出 `enrich-result.json`（dict keyed by event_id）。紅線：判斷不由你決定發不發、只依證據不編造、去 AI 口吻。
@@ -113,6 +135,11 @@
 10. 推回：
     `git add -A`
     `git diff --cached --quiet && echo "無變更" || (git commit -m "nightly: enrich + narrative $(date -u +%F)" && git push)`
-11. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、push 的 commit hash（或「今晚無待潤事件、無主線變動」）。
+11. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`
+    把它的輸出原樣放進收尾摘要。重點看三個數字：`probe_lag_days`（資料幾天沒更新）、
+    `待處理`（扣掉 stale_backfill 這種設計上就該擋著的，真正卡住的有幾則）、`未 enrich`。
+12. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、push 的 commit hash
+    （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 11 步的監看輸出。
+    **「今晚沒事做」跟「今晚沒跑到」長得一樣**——所以摘要一定要帶監看數字，讓人一眼分得出來是哪一種。
 
 失敗處理：任一步非預期失敗就停、印出錯誤、**不要 push 半成品**。enrich 與敘事刷新都冪等，明晚會再挑同一批。

@@ -6,7 +6,10 @@ import io
 import urllib.error
 import urllib.request
 
-spec = importlib.util.spec_from_file_location("v", "/home/claude/work/verify-policy-sources.py")
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
+spec = importlib.util.spec_from_file_location(
+    "v", os.path.join(_HERE, "verify-policy-sources.py"))
 v = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(v)
 
