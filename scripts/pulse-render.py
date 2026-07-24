@@ -162,17 +162,16 @@ a{color:inherit;text-decoration:none}
 .hero.compact{padding:clamp(38px,5vw,58px) 0 clamp(22px,3vw,32px)}
 .hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 .5rem;font-weight:680}
 .hero p{color:var(--muted);font-size:1.06rem;max-width:60ch;margin:.2rem 0 0}
-.home-hero{position:relative;display:grid;grid-template-columns:1.3fr .9fr;gap:24px;align-items:center}
-.signal-field svg{width:100%;height:auto}
-.signal-link{fill:none;stroke:var(--accent);stroke-width:1.4;opacity:.5;stroke-dasharray:4 6}
-.signal-link-secondary{stroke:var(--fact);opacity:.35}
-.signal-node{fill:var(--fact)}
-.signal-pulse{fill:none;stroke:var(--accent);stroke-width:2;transform-origin:center;animation:pulse 3.4s ease-out infinite}
-.signal-pulse-delay{animation-delay:1.5s;stroke:var(--fact)}
-@keyframes pulse{0%{r:6;opacity:.9}100%{r:20;opacity:0}}
-@media(max-width:720px){.home-hero{grid-template-columns:1fr}.signal-field{display:none}}
 .statline{display:flex;flex-wrap:wrap;gap:22px;margin-top:24px;color:var(--quiet);font:11px var(--mono);letter-spacing:.05em}
 .statline b{color:var(--text);font-weight:600}
+/* masthead */
+.masthead{text-align:center;padding:clamp(56px,9vw,116px) 0 clamp(30px,5vw,52px);border-bottom:1px solid var(--border-soft)}
+.mh-rule{border:0;height:1px;background:var(--border-soft);margin:0}
+.mh-eyebrow{display:block;color:var(--fact);font:10px var(--mono);letter-spacing:.3em;margin:clamp(30px,4vw,48px) 0 clamp(18px,2.5vw,28px)}
+.mh-title{font-size:clamp(2.3rem,6.5vw,4.5rem);line-height:1.03;letter-spacing:-.03em;font-weight:720;margin:0 auto;max-width:18ch;text-wrap:balance}
+.mh-sub{color:var(--muted);font:13px/1.7 var(--mono);letter-spacing:.05em;margin:clamp(22px,3vw,34px) auto clamp(30px,4vw,48px);max-width:62ch}
+.mh-meta{color:var(--quiet);font:11px var(--mono);letter-spacing:.06em;margin:clamp(20px,3vw,30px) 0 0}
+.mh-meta b{color:var(--text);font-weight:600}
 
 .section{padding:clamp(34px,5vw,56px) 0}
 .section-tint{background:var(--surface-soft);border-block:1px solid var(--border-soft)}
@@ -606,17 +605,14 @@ def score_grid_html(ev):
 def build_home(events, narratives, generated):
     n = len(events)
     companies = len({e["company"] for e in events if e["company"]})
-    signal_svg = """<div class="signal-field" aria-hidden="true"><svg viewBox="0 0 320 220">
-<path class="signal-link" d="M40 158 C79 127 100 139 132 103 S197 73 226 96 S269 108 294 61"/>
-<path class="signal-link signal-link-secondary" d="M57 69 C91 93 115 71 149 89 S211 135 276 146"/>
-<circle class="signal-pulse" cx="226" cy="96" r="6"/><circle class="signal-pulse signal-pulse-delay" cx="132" cy="103" r="6"/>
-<circle class="signal-node" cx="40" cy="158" r="4"/><circle class="signal-node" cx="57" cy="69" r="3"/><circle class="signal-node" cx="132" cy="103" r="5"/><circle class="signal-node" cx="149" cy="89" r="3"/><circle class="signal-node" cx="226" cy="96" r="5"/><circle class="signal-node" cx="276" cy="146" r="3"/><circle class="signal-node" cx="294" cy="61" r="4"/></svg></div>"""
-    hero_html = f"""<section class="hero shell"><div class="home-hero"><div>
-<span class="kicker">DETERMINISTIC AI INTELLIGENCE</span>
-<h1>看清 AI 產業的<br>關鍵變化</h1>
-<p>從一手證據出發，看每項變化的影響與接下來要觀察什麼。判斷走規則、零 LLM；敘述去 AI 口吻。</p>
-<div class="statline"><span><b>{n}</b> 則已發布</span><span><b>{companies}</b> 家主體</span><span>更新 <b>{esc(generated)}</b></span></div>
-</div>{signal_svg}</div></section>"""
+    hero_html = f"""<section class="masthead"><div class="shell">
+<hr class="mh-rule">
+<span class="mh-eyebrow">DETERMINISTIC AI INTELLIGENCE</span>
+<h1 class="mh-title">看清 AI 產業的關鍵變化</h1>
+<p class="mh-sub">判斷走規則、零 LLM · 敘述去 AI 口吻 · 每則附一手證據</p>
+<hr class="mh-rule">
+<p class="mh-meta"><b>{n}</b> 則已發布　·　<b>{companies}</b> 家主體　·　更新 {esc(generated)}</p>
+</div></section>"""
     latest = events[0] if events else None
     latest_html = (f'<section class="section shell">{section_head("LATEST MATERIAL SHIFT", "最新重大變化")}'
                    f'{event_card(latest, "", full=True)}</section>') if latest else ""
