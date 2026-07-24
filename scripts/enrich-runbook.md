@@ -78,3 +78,30 @@
 
 - prep 只挑「還有待编辑佔位」的 Event；apply 寫完後佔位消失、`enriched: true`，下次 prep 自動跳過。
 - 所以重跑不會重潤已潤的，成本只跟「新事件數」走。
+
+## 自動化模式（排程 Cowork 任務用）
+
+這一節給無人值守的排程任務照著跑。呼叫端（scheduled task）會先用帶 token 的 URL clone 好 repo、cd 進去，再叫你「照這節做」。**token 只出現在 clone 指令裡，絕不寫進這個 repo 任何檔案。**
+
+前置（呼叫端已完成）：
+`git clone https://<user>:<TOKEN>@github.com/<owner>/ai-pulse.git && cd ai-pulse`
+（clone 後 origin remote 已內含憑證，後面 push 不必再帶 token。）
+
+你依序做：
+
+1. 環境：`pip install pyyaml --quiet`（prep / apply / gate / render 只需 pyyaml）。
+2. git 身份：`git config user.name "ai-pulse-enrich" && git config user.email "ai-pulse-enrich@users.noreply.github.com"`
+3. `export VAULT_DIR="$PWD"`
+4. prep：`python scripts/pulse-enrich-prep.py`
+   - 讀 `_probe/enrich-worklist.json`。**若為空陣列 → 今晚無待潤事件，直接結束、不要 commit**（印一行「無待潤事件」）。
+5. 依本檔「流程 步驟 2–3」的 schema 與 speak-human-tw 規則，為 worklist 每個 Event 產出結構化結果，組成 `enrich-result.json`（dict keyed by event_id）。
+   - 紅線：判斷不由你決定發不發（那是 gate）；只依 evidence、不編造；去 AI 口吻。
+   - 套 speak-human-tw 的**自動化工作流模式**（跳過確認、事後摘要），不要中途丟問句停住。
+6. apply：先 `python scripts/pulse-enrich-apply.py --in enrich-result.json --dry-run` 自檢，再 `python scripts/pulse-enrich-apply.py --in enrich-result.json` 正式寫入。
+7. 過門禁 + 重建索引與站：`python scripts/pulse-gate.py && python scripts/pulse-dashboard.py && python scripts/pulse-render.py`
+8. 推回：
+   `git add -A`
+   `git diff --cached --quiet && echo "無變更" || (git commit -m "enrich: nightly rewrite $(date -u +%F)" && git push)`
+9. 收尾：印事後摘要——潤了幾則、gate 讓幾則上線、push 的 commit hash。
+
+失敗處理：任一步非預期失敗就停、印出錯誤、**不要 push 半成品**。enrich 冪等，明晚會再挑同一批。
