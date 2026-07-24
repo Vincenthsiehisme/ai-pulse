@@ -164,14 +164,16 @@ a{color:inherit;text-decoration:none}
 .hero p{color:var(--muted);font-size:1.06rem;max-width:60ch;margin:.2rem 0 0}
 .statline{display:flex;flex-wrap:wrap;gap:22px;margin-top:24px;color:var(--quiet);font:11px var(--mono);letter-spacing:.05em}
 .statline b{color:var(--text);font-weight:600}
-/* masthead */
-.masthead{text-align:center;padding:clamp(56px,9vw,116px) 0 clamp(30px,5vw,52px);border-bottom:1px solid var(--border-soft)}
+/* masthead — 極簡刊頭（靠左，與內文共用同一條左軸）*/
+.masthead{padding:clamp(56px,9vw,116px) 0 clamp(30px,5vw,52px);border-bottom:1px solid var(--border-soft)}
 .mh-rule{border:0;height:1px;background:var(--border-soft);margin:0}
 .mh-eyebrow{display:block;color:var(--fact);font:10px var(--mono);letter-spacing:.3em;margin:clamp(30px,4vw,48px) 0 clamp(18px,2.5vw,28px)}
-.mh-title{font-size:clamp(2.3rem,6.5vw,4.5rem);line-height:1.03;letter-spacing:-.03em;font-weight:720;margin:0 auto;max-width:18ch;text-wrap:balance}
-.mh-sub{color:var(--muted);font:13px/1.7 var(--mono);letter-spacing:.05em;margin:clamp(22px,3vw,34px) auto clamp(30px,4vw,48px);max-width:62ch}
+.mh-title{font-size:clamp(2.3rem,6.5vw,4.6rem);line-height:1.02;letter-spacing:-.03em;font-weight:720;margin:0;max-width:20ch;text-wrap:balance}
+.mh-sub{color:var(--muted);font:13px/1.7 var(--mono);letter-spacing:.05em;margin:clamp(22px,3vw,34px) 0 clamp(30px,4vw,48px);max-width:64ch}
 .mh-meta{color:var(--quiet);font:11px var(--mono);letter-spacing:.06em;margin:clamp(20px,3vw,30px) 0 0}
 .mh-meta b{color:var(--text);font-weight:600}
+.empty-lines{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.empty-line{font:11px var(--mono);letter-spacing:.05em;color:var(--quiet);border:1px solid var(--border-soft);border-left:3px solid var(--tc,var(--border));border-radius:7px;padding:6px 12px}
 
 .section{padding:clamp(34px,5vw,56px) 0}
 .section-tint{background:var(--surface-soft);border-block:1px solid var(--border-soft)}
@@ -630,7 +632,7 @@ def build_home(events, narratives, generated):
         if tr:
             by_track[tr[0]].append(e)
     blocks = []
-    for slug, name, color in TRACKS:
+    for slug, name, color in sorted(TRACKS, key=lambda t: -len(by_track.get(t[0], []))):
         evs = by_track.get(slug, [])
         th = (narratives.get(slug) or {}).get("thesis")
         if th:
@@ -669,23 +671,25 @@ def build_lines(events, narratives, generated):
     h = hero("六大主線", "領域趨勢", "把事件收斂進六條主線——每條看得到相關事件、最新進展與獨立來源數。",
              extra=stat, cls="compact")
     secs = []
-    for slug, name, color in TRACKS:
+    empties = []
+    # 有事件的主線在前、依事件數多寡排序；沒事件的收成底部一條 compact strip
+    for slug, name, color in sorted(TRACKS, key=lambda t: -len(by_track.get(t[0], []))):
         evs = by_track.get(slug, [])
+        if not evs:
+            empties.append((slug, name, color))
+            continue
         narr = narratives.get(slug) or {}
-        if evs:
-            cards = "".join(event_card(e, "../", full=False) for e in evs)
-            meta = f"{len(evs)} 則事件 · 最新 {evs[0]['date']}"
-            sub = '<p class="line-sub">相關事件</p>'
-        else:
-            cards = '<p class="line-empty">這條主線目前沒有已發布事件——等抓取鏈收斂出來後會自動補上。</p>'
-            meta = "0 則事件"
-            sub = ""
-        narrative = narrative_block(narr)
-        lenses = lens_grid(narr.get("lenses"))
+        cards = "".join(event_card(e, "../", full=False) for e in evs)
+        meta = f"{len(evs)} 則事件 · 最新 {evs[0]['date']}"
         secs.append(f"""<section class="section shell line-section" style="--tc:{color}">
 <h2>{esc(name)}</h2><p class="line-meta">{esc(meta)}</p>
-{narrative}{lenses}{sub}{cards}</section>""")
-    body = h + "".join(secs)
+{narrative_block(narr)}{lens_grid(narr.get("lenses"))}<p class="line-sub">相關事件</p>{cards}</section>""")
+    empty_strip = ""
+    if empties:
+        chips = "".join(f'<span class="empty-line" style="--tc:{c}">{esc(nm)}</span>' for _, nm, c in empties)
+        empty_strip = (f'<section class="section shell"><p class="line-sub">尚無已發布事件的主線</p>'
+                       f'<div class="empty-lines">{chips}</div></section>')
+    body = h + "".join(secs) + empty_strip
     return page_layout("lines", "領域趨勢 — AI Pulse",
                        "六大主線的事件收斂：模型能力、Agent、產品、基礎設施、資本、全球版圖。", body, 1, generated)
 
@@ -695,7 +699,9 @@ def build_timeline(events, generated):
     for e in events:
         d = e["date"] or "0000-00"
         by_ym[d[:4]][d[5:7]].append(e)
-    filters = "".join(f'<button type="button" data-filter="{slug}">{esc(name)}</button>' for slug, name, _ in TRACKS)
+    present_tracks = {track_of(e)[0] for e in events if track_of(e)}
+    filters = "".join(f'<button type="button" data-filter="{slug}">{esc(name)}</button>'
+                      for slug, name, _ in TRACKS if slug in present_tracks)
     MONTH_TW = {f"{i:02d}": f"{i} 月" for i in range(1, 13)}
     years_html = []
     for y in sorted(by_ym, reverse=True):
@@ -753,7 +759,9 @@ def build_signals(signals, sources, generated):
 <div class="sig-meta"><span class="sig-tags"><span class="sig-tag">{esc(facet)}</span><span class="sig-tag">{esc(region)}</span>{f'<span class="sig-tag">{esc(grade)} 級</span>' if grade else ''}</span><time>{esc(date)}</time></div>
 <h2>{esc(s.get('title'))}</h2>{f'<p>{esc(summ)}</p>' if summ else ''}
 <div class="sig-foot"><span>{esc(srcname)} · {esc(tier_label(tier))}</span><span class="go">看原文 {EXT}</span></div></a>""")
-    kind_opts = "".join(f'<option value="{esc(k)}">{esc(lbl)}</option>' for k, lbl in SIG_KINDS)
+    present_kinds = {signal_kind(s, sources) for s in signals}
+    kind_opts = "".join(f'<option value="{esc(k)}">{esc(lbl)}</option>'
+                        for k, lbl in SIG_KINDS if k == "all" or k in present_kinds)
     region_opts = '<option value="all">全部地域</option>' + "".join(
         f'<option value="{esc(r)}">{esc(r)}</option>' for r in regions)
     stat = page_status([("已收更新", len(signals)), ("來源", src_count), ("最新", latest)])
