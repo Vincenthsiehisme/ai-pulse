@@ -318,8 +318,8 @@ official_sources:
     endpoint: "https://www.europarl.europa.eu/rss/committee/itre/en.xml"
     region: EU
     language: en
-    lifecycle: probing
-    robots_ok: true               # 2026-07-23 實測 with probe UA：robots 200 path allowed；
+    lifecycle: dormant
+    robots_ok: true               # 已驗證允許，但 2026-07-24 判 dormant：AI 命中率低（工業/研究/能源委員會發生技/國防/礦產），非 AI 情報               # 2026-07-23 實測 with probe UA：robots 200 path allowed；
                                   # feed 200 / 25 items / title·link·date 25/25 / author 0/25。
     license_note: "titles + links only"
     frequency: weekly

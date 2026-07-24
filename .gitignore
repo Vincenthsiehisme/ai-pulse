@@ -7,3 +7,9 @@ Thumbs.db
 
 # 作廢草稿：patch 合併完即刪，勿留原地被下次誤判
 sources-*-patch.yaml
+
+# 產物：render 每次重建，勿入庫
+dist/
+# 本機刪除暫存區，不上公開 repo
+_to_delete/
+_git_lock_trash/

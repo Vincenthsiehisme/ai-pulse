@@ -1,0 +1,44 @@
+# 部署 AI Pulse 靜態站到 GitHub Pages。
+# 觸發：任何 push 到 main（含你手動 commit、Cowork 潤稿推回），或手動 Run。
+# 只做確定性 render（讀 Events/ → dist/index.html），零 LLM。
+name: Deploy AI Pulse to Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Events/**'
+      - 'scripts/pulse-render.py'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: Render static site (0 LLM)
+        run: python scripts/pulse-render.py
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

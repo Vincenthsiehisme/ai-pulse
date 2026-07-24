@@ -1,0 +1,55 @@
+# 半夜自動抓取鏈：probe → score → cluster → gate → dashboard → render → commit → 部署 Pages。
+# 全程 0 LLM（判斷走規則）。潤稿（enrich）不在這條鏈上，由排程 Cowork 任務另跑。
+# cron 16:00 UTC == 00:00 Asia/Taipei（台北半夜）。也可在 Actions 頁手動 Run。
+name: AI Pulse nightly refresh
+
+on:
+  schedule:
+    - cron: '0 16 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests pyyaml feedparser
+      - name: Configure git identity
+        run: |
+          git config user.name  "ai-pulse-bot"
+          git config user.email "ai-pulse-bot@users.noreply.github.com"
+      - name: Deterministic pipeline (0 LLM)
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: |
+          python scripts/pulse-probe.py || echo "[warn] probe 無新料或部分來源失敗，續跑"
+          python scripts/pulse-score.py
+          python scripts/pulse-cluster.py
+          python scripts/pulse-gate.py
+          python scripts/pulse-dashboard.py
+          python scripts/pulse-render.py
+      - name: Commit & push data changes
+        run: |
+          git add -A
+          git diff --cached --quiet && echo "本次無變更" || \
+            (git commit -m "chore: nightly refresh" && git push)
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
