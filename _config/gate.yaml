@@ -15,6 +15,7 @@ quality:
     completeness: 15
   freshness_full_hours: 24   # < 此小時給滿分
   freshness_zero_days: 30    # > 此天數給 0
+  recency_max_lead_days: 7   # 首次觀測距 published > 此天數 → 判為歷史存檔，不進事件/來源更新（0=關閉）
 
 dedup:
   minhash_jaccard: 0.80      # 標題近似重複門檻

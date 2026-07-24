@@ -70,11 +70,13 @@ def main():
     q = gate.get("quality", {})
     thresholds = q.get("grade_thresholds", {"A": 85, "B": 70, "C": 55, "D": 40})
     discard_below = q.get("discard_below", 40)
+    recency_days = q.get("recency_max_lead_days", 0)  # 首次觀測距 published > 此天數 → 歷史存檔，0=關閉
     run_now = datetime.now(timezone.utc)  # 僅在 record 無 first_observed_at 時 fallback
 
     kept = []
     discarded = 0
     skipped_dormant = 0
+    skipped_stale = 0
     grade_dist = Counter()
     facet_dist = Counter()
     flag_dist = Counter()
@@ -97,6 +99,14 @@ def main():
                 missing_source[sid] += 1
                 src = {"track": rec.get("track"), "tier": rec.get("tier"),
                        "role": None, "source_category": None}
+            # 新鮮度閘（確定性）：首次觀測距 published 太久 → 歷史存檔，不進 pipeline。
+            # 用 first_observed_at − published（都是固定值），不吃 wall-clock，可重現。
+            pub_dt = quality.parse_dt(rec.get("published"))
+            obs_dt = quality.parse_dt(rec.get("first_observed_at"))
+            lead_days = (obs_dt - pub_dt).days if (pub_dt and obs_dt) else None
+            if recency_days and lead_days is not None and lead_days > recency_days:
+                skipped_stale += 1
+                continue
             sc = quality.score_signal(rec, src, run_now, thresholds)
             title = rec.get("title") or ""
             fingerprint = cluster.event_fingerprint(title)
@@ -118,11 +128,12 @@ def main():
             rec2["effective_role"] = sc["effective_role"]
             rec2["fingerprint"] = fingerprint
             rec2["facet"] = facet
+            rec2["lead_days"] = lead_days
             kept.append(rec2)
 
     total = len(kept) + discarded
     print(f"pulse-score  day={day}  files={len(files)}  signals={total}")
-    print(f"  kept={len(kept)}  discarded(<{discard_below})={discarded}  skipped(dormant來源)={skipped_dormant}")
+    print(f"  kept={len(kept)}  discarded(<{discard_below})={discarded}  skipped(dormant來源)={skipped_dormant}  skipped(歷史存檔>lead{recency_days}d)={skipped_stale}")
     print("  grade:", dict(sorted(grade_dist.items())))
     pct = (100 * fp_hits // total) if total else 0
     print(f"  fingerprint 命中: {fp_hits}/{total}  ({pct}%)")

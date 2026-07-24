@@ -730,7 +730,7 @@ def build_timeline(events, generated):
 
 def build_signals(signals, sources, generated):
     src_count = len({s.get("source_id") for s in signals})
-    latest = fmt_date(signals[0].get("first_observed_at") or signals[0].get("published")) if signals else "—"
+    latest = fmt_date(signals[0].get("published") or signals[0].get("first_observed_at")) if signals else "—"
     regions = sorted({signal_region(s, sources) for s in signals})
     cards = []
     for s in signals:
@@ -745,7 +745,7 @@ def build_signals(signals, sources, generated):
         region = signal_region(s, sources)
         tone = "research" if (facet in ("benchmark", "paper") or "research" in role
                               or "arxiv" in str(s.get("source_id", "")).lower()) else ("high" if tier == 1 else "")
-        date = fmt_date(s.get("first_observed_at") or s.get("published"))
+        date = fmt_date(s.get("published") or s.get("first_observed_at"))
         summ = (s.get("summary") or "").strip()
         if len(summ) > 160:
             summ = summ[:158].rstrip() + "…"
@@ -851,7 +851,7 @@ def load_signals(vault):
                         pass
 
             def _key(r):
-                d = parse_dt(r.get("first_observed_at") or r.get("published") or "")
+                d = parse_dt(r.get("published") or r.get("first_observed_at") or "")
                 return d.timestamp() if d else 0.0
             rows.sort(key=_key, reverse=True)
             return rows

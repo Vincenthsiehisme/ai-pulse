@@ -32,6 +32,55 @@ def section(body, heading):
     return (m.group(1).strip() if m else "")
 
 
+def _parse_iso(s):
+    if not s:
+        return None
+    try:
+        d = datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
+
+
+def load_first_observed(vault):
+    """url / url_canonical → first_observed_at（給事件新鮮度閘用；讀 _corpus 全量）。"""
+    import json as _json
+    idx = {}
+    corpus = vault / "_corpus"
+    if not corpus.exists():
+        return idx
+    for day_dir in sorted(corpus.iterdir()):
+        if not day_dir.is_dir():
+            continue
+        for f in day_dir.glob("*.jsonl"):
+            for line in f.read_text("utf-8").splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    r = _json.loads(line)
+                except ValueError:
+                    continue
+                fo = r.get("first_observed_at")
+                for u in (r.get("url"), r.get("url_canonical")):
+                    if u and u not in idx:
+                        idx[u] = fo
+    return idx
+
+
+def event_lead_days(fm, first_obs):
+    """事件新鮮度 lead = min(證據 first_observed) − happened_at（天）；算不出→None。"""
+    hp = _parse_iso(fm.get("happened_at") or fm.get("date"))
+    if hp is None:
+        return None
+    leads = []
+    for e in (fm.get("evidence") or []):
+        d = _parse_iso(first_obs.get(e.get("url")))
+        if d is not None:
+            leads.append((d - hp).days)
+    return min(leads) if leads else None
+
+
 def evaluate(fm, body, gate):
     r = gate.get("readiness", {})
     min_conf = r.get("min_confidence", 60)
@@ -94,16 +143,44 @@ def main():
         return 2
 
     now = datetime.now(timezone.utc).isoformat()
-    reviewed = published = blocked = 0
+    recency = (gate.get("quality") or {}).get("recency_max_lead_days", 0)
+    first_obs = load_first_observed(vault) if recency else {}
+    reviewed = published = blocked = demoted = 0
     blocker_hist = {}
     published_titles = []
 
+    def _write(path, fm, body):
+        if not args.dry_run:
+            path.write_text(f"---\n{dump_frontmatter(fm)}\n---{body if body.startswith(chr(10)) else chr(10)+body}",
+                            encoding="utf-8")
+
     for p in sorted(events_dir.glob("*.md")):
         fm, body = parse_note(p.read_text("utf-8"))
-        if fm.get("status") != "review":
+        status = fm.get("status")
+        if status not in ("review", "published"):
             continue
+        lead = event_lead_days(fm, first_obs) if recency else None
+        stale = bool(recency) and lead is not None and lead > recency
+
+        # 已上線的事件：只做新鮮度重審。陳舊（歷史存檔倒貨）→ 降級退回 review。
+        if status == "published":
+            if stale:
+                fm["status"] = "review"
+                bl = list(fm.get("blockers") or [])
+                if "stale_backfill" not in bl:
+                    bl.append("stale_backfill")
+                fm["blockers"] = bl
+                demoted += 1
+                blocked += 1
+                blocker_hist["stale_backfill"] = blocker_hist.get("stale_backfill", 0) + 1
+                _write(p, fm, body)
+            continue
+
+        # status == review：正常門禁 + 新鮮度閘
         reviewed += 1
         blockers, warnings = evaluate(fm, body, gate)
+        if stale and "stale_backfill" not in blockers:
+            blockers = blockers + ["stale_backfill"]
         fm["blockers"] = blockers
         fm["warnings"] = warnings
         if not blockers:
@@ -116,11 +193,9 @@ def main():
             blocked += 1
             for b in blockers:
                 blocker_hist[b] = blocker_hist.get(b, 0) + 1
-        if not args.dry_run:
-            p.write_text(f"---\n{dump_frontmatter(fm)}\n---{body if body.startswith(chr(10)) else chr(10)+body}",
-                         encoding="utf-8")
+        _write(p, fm, body)
 
-    print(f"pulse-gate  reviewed={reviewed}  published={published}  blocked={blocked}"
+    print(f"pulse-gate  reviewed={reviewed}  published={published}  blocked={blocked}  demoted(陳舊退回)={demoted}"
           f"{'  [dry-run]' if args.dry_run else ''}")
     if published_titles:
         print("  ── published ──")
