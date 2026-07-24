@@ -1,4 +1,4 @@
-# 已發布事件（13）
+# 已發布事件（14）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
@@ -37,3 +37,7 @@
   Google 推專用資安模型 Gemini 3.5 Flash Cyber，主打找漏洞、修漏洞。
 - **[[Events/evt-2026-07-17-593335|NVIDIA Vera Rubin Maximizes Intelligence per Dollar for Post-Training Workloads — a Key Metric for Agentic AI]]** — NVIDIA · infra · conf 73 · heat 10
   NVIDIA Vera Rubin 主打每 token 成本最低，鎖定 agent 時代的後訓練。
+
+## 2026-07-07
+- **[[Events/evt-2026-07-07-81e525|AI Innovators Adopt NVIDIA Vera — Why Max Single-Threaded CPU at Scale Matters]]** — NVIDIA · infra · conf 73 · heat 8
+  NVIDIA 拋出 Vera，把 CPU 重新講成 agentic AI 的關鍵瓶頸。
