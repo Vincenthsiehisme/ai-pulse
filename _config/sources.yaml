@@ -48,6 +48,52 @@ meta:
     src-openai-blog 由 dormant/robots_ok:false 更正為 probing/true（原判定是 403 造成的
     假陰性，robots 實為 Allow: /）；src-hn-frontpage 換掉 robots 全禁的 firebaseio 端點，
     改走 hn.algolia.com 並拉起為 probing。arXiv 維持停用（robots 確為 Disallow: /，已複驗）。
+    v2.4 新增 coverage_watch（必盯清單，供 pulse-monitor 的覆蓋率看門狗使用），
+    並開張 KOL 線——lead_days（事情被承認 vs 被談論的時間差）在 kol_sources 為空時
+    恆為不可計算，那是本系統唯一做得出的產物，不能一直掛在範本狀態。
+    v2.4 同時新增一個欄位 revive_when_allowed（bool，預設 false）：
+    「本機量不到 robots，別把未知寫成拒絕，等真網路環境判。」
+    robots_ok 從此有三個值：true 放行 / false 站方明文 Disallow / null 未知。
+    只有 null + revive_when_allowed 的 dormant 來源，會被 pulse-robots-recheck --revive
+    在確認放行後自動升為 probing。看 null 就復活是不行的——null 也可能只是漏填，
+    靠推論復活等於把漏填當成授權。
+
+# ---------------------------------------------------------------------------
+# coverage_watch —— v2.4 新增。給 pulse-monitor 的覆蓋率看門狗吃。
+#
+# 為什麼需要它：2026-07-24 那晚 Claude Opus 5 發布，這條鏈的所有健康指標都是綠的
+# （probe_lag_days: 0、來源全部回 200、事件照常產出），因為鏈確實跑得很順。
+# 它只是從頭到尾沒有任何一條來源指向 Anthropic。**靜默死掉有死人開關，靜默瞎掉沒有。**
+#
+# 這份清單是一句白紙黑字的承諾：「這幾家公司的動靜，我們應該看得見。」
+# 看門狗只做一件事——如果某家連續 max_silent_days 天沒在語料裡出現過，就叫。
+# 它不判斷該不該發（那是 gate 的事），也不會自己去補來源（那是人的事）。
+#
+# 門檻怎麼定：按這家公司「安靜多久才算異常」抓，不是按重要性抓。
+#   前沿實驗室（OpenAI / Anthropic / Google DeepMind）兩週不出聲＝幾乎必然是我們瞎了。
+#   基礎設施與二線廠商本來就發得稀，門檻放寬，否則警報會變成背景雜訊被關掉。
+# 語料期間短於門檻時不觸警（新 vault 第一天不該對著整份清單狂叫）。
+# ---------------------------------------------------------------------------
+coverage_watch:
+  window_days: 30            # 統計窗口：近 N 天的 _corpus/
+  max_silent_days: 14        # 預設沉默門檻，可被逐條覆寫
+  must_watch:
+    - {entity_id: openai,          label: OpenAI,          max_silent_days: 14}
+    - {entity_id: anthropic,       label: Anthropic,       max_silent_days: 14}
+    - {entity_id: google-deepmind, label: Google DeepMind, max_silent_days: 14}
+    - {entity_id: google,          label: Google,          max_silent_days: 14}
+    - {entity_id: meta,            label: Meta,            max_silent_days: 21}
+    - {entity_id: microsoft,       label: Microsoft,       max_silent_days: 21}
+    - {entity_id: nvidia,          label: NVIDIA,          max_silent_days: 21}
+    - {entity_id: huggingface,     label: Hugging Face,    max_silent_days: 21}
+    # pending: true ＝白紙黑字承認「這家我們還沒有任何來源在看」。
+    # 照樣列在報表上（缺口要看得見），但不觸 exit code——待辦事項每晚讓 CI 紅一次，
+    # 人只會學會忽略 CI，連帶忽略真正的回歸。補上來源後把這行 pending 拿掉即可。
+    # 要把待辦逼到零時，跑 pulse-monitor --alert-no-source。
+    - {entity_id: xai,             label: xAI,             max_silent_days: 30, pending: true}
+    - {entity_id: mistral,         label: Mistral AI,      max_silent_days: 30, pending: true}
+    - {entity_id: deepseek,        label: DeepSeek,        max_silent_days: 30, pending: true}
+    - {entity_id: alibaba,         label: Alibaba,         max_silent_days: 30, pending: true}
 
 # ---------------------------------------------------------------------------
 # corpus_type —— v2.1 新增欄位
@@ -379,13 +425,14 @@ official_sources:
     #   IMCO /rss/committee/imco/en.xml、新聞稿全量 /rss/doc/press-releases/en.xml、
     #   主題 909 /rss/topic/909/en.xml
 
-  # ── v2.2 語料型態盤點（人工核對用，非設定）──
+  # ── 語料型態盤點（人工核對用，非設定；v2.4 更新）──
   #   corpus_type       來源數  獨立 media_group
-  #   company_release      3    Google / HuggingFace / NVIDIA   -> 3
+  #   company_release      5    Google / HuggingFace / NVIDIA / Anthropic / OpenAI  -> 5
   #   research_paper       2    Microsoft / Meta                -> 2（Microsoft↔OpenAI 有投資關係，最薄一類）
   #   oss_release          1    vLLM                            -> 1
   #   policy               1    EU-Parliament(live) / EU-Council(dormant, robots 403)  -> 1 live
-  #   person_signal        0    （M3）
+  #   person_signal        8    逐人一條，media_group 互不相同  -> 8（6 probing / 2 dormant 待重驗）
+  #                             ↑ v2.4 從 0 開張。在此之前 lead_days 恆為不可計算。
 
 # ===========================================================================
 # KOL 線 — 具名個人的公開發表
@@ -421,7 +468,218 @@ official_sources:
 #
 #   接入形態：以 person_id 為單位逐人建條目，不是建一條叫「X」的站台來源。
 # ===========================================================================
-kol_sources: []
+# v2.4 開張。在此之前這一節是空的，於是 lead_days（事情被官方承認 vs 被個人談論
+# 的時間差）恆為不可計算——那是本系統唯一做得出來、別處抄不到的產物，不能一直
+# 掛在範本狀態。紅線 8：以下每一條的驗證程度都白紙黑字寫在該條的註解裡。
+#
+# 本機能驗到什麼、驗不到什麼（2026-07-25，寫下來免得日後誤以為都驗過）：
+#   robots.txt 讀得到 → 下面標 robots_ok: true 的，是真的逐條讀過該站 robots.txt，
+#                       確認 /feed 或 /atom/ 沒有被 Disallow。
+#   feed 本體讀不到   → 本容器的抓取工具無法解碼 application/rss+xml，一律回
+#                       [binary data]。除 Karpathy 外，沒有任何一條的 feed 內容
+#                       在本機被解析過。**這不是「驗過沒問題」，是「沒驗過」。**
+#                       所以全部起手 lifecycle: probing，由 Actions 端用真網路驗。
+#   紅線 7            → 不換 User-Agent、不用 curl/python 繞過抓取工具的限制。
+#                       量不到就寫量不到。
+#
+# person_id 一律 null：people.yaml 這個檔案不存在，pulse-cluster.py 也不讀它
+# （獨立性純粹由 distinct media_group 算出，見該檔第 135 行）。上面範本寫「必填」
+# 是設計意圖，不是現況。填一個指向空氣的 id 只會讓人以為人物層已經建好了。
+#
+# media_group 一律填「該刊物名」而非「Substack」：三個人都掛 Substack 的話，
+# 獨立來源數會從 3 塌成 1，門檻 4（heat ≥70 需 ≥2 獨立來源）就被自己做假了。
+kol_sources:
+  - id: src-kol-karpathy
+    track: kol
+    owner: Andrej Karpathy
+    media_group: Karpathy Blog
+    author: karpathy
+    person_id: null                 # people.yaml 不存在，見本節開頭說明
+    tier: 2
+    role: expert
+    source_category: individual
+    corpus_type: person_signal
+    adapter: atom
+    endpoint: "https://karpathy.bearblog.dev/feed/"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true
+    license_note: "titles + excerpt + link"
+    frequency: monthly              # 產量極低但單篇訊號極強，quota 用不完是正常的
+    quota_per_run: 20
+    can_satisfy_primary: false
+    # 本節唯一「feed 本體真的在本機解析成功」的一條：Atom 格式、署名 karpathy、
+    # 最近兩篇為 2026-04-30 與 2025-12-19。其餘各條只驗到 robots.txt。
+
+  - id: src-kol-simonwillison
+    track: kol
+    owner: Simon Willison
+    media_group: Simon Willison's Weblog
+    author: Simon Willison
+    person_id: null
+    tier: 2
+    role: expert
+    source_category: individual
+    corpus_type: person_signal
+    adapter: atom
+    endpoint: "https://simonwillison.net/atom/everything/"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true                 # robots.txt 讀過，/atom/ 未被擋
+    license_note: "titles + excerpt + link"
+    frequency: daily
+    quota_per_run: 20
+    can_satisfy_primary: false
+    # [待驗證] feed payload 未在本機解碼（工具限制），由 Actions 端首跑驗證。
+    # 日更且大量轉述他人發布 → 對 lead_days 特別有用，但雜訊比也最高。
+
+  - id: src-kol-interconnects
+    track: kol
+    owner: Nathan Lambert
+    media_group: Interconnects
+    author: Nathan Lambert
+    person_id: null
+    tier: 2
+    role: expert
+    source_category: individual
+    corpus_type: person_signal
+    adapter: rss
+    endpoint: "https://www.interconnects.ai/feed"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true                 # robots.txt 明文 Allow: /feed
+    license_note: "titles + excerpt + link"
+    frequency: weekly
+    quota_per_run: 20
+    can_satisfy_primary: false
+    # [待驗證] feed payload 未在本機解碼。
+
+  - id: src-kol-thezvi
+    track: kol
+    owner: Zvi Mowshowitz
+    media_group: Don't Worry About the Vase
+    author: Zvi Mowshowitz
+    person_id: null
+    tier: 2
+    role: expert
+    source_category: individual
+    corpus_type: person_signal
+    adapter: rss
+    endpoint: "https://thezvi.substack.com/feed"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true                 # robots.txt 明文 Allow: /feed
+    license_note: "titles + excerpt + link"
+    frequency: weekly
+    quota_per_run: 20
+    can_satisfy_primary: false
+    # [待驗證] feed payload 未在本機解碼。
+    # 單篇動輒上萬字的週報型彙整 → 摘要截斷後資訊密度會很低，首週要看實際產出再調。
+
+  - id: src-kol-oneusefulthing
+    track: kol
+    owner: Ethan Mollick
+    media_group: One Useful Thing
+    author: Ethan Mollick
+    person_id: null
+    tier: 2
+    role: expert
+    source_category: individual
+    corpus_type: person_signal
+    adapter: rss
+    endpoint: "https://www.oneusefulthing.org/feed"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true                 # robots.txt 明文 Allow: /feed
+    license_note: "titles + excerpt + link"
+    frequency: weekly
+    quota_per_run: 20
+    can_satisfy_primary: false
+    # [待驗證] feed payload 未在本機解碼。
+
+  - id: src-kol-lilianweng
+    track: kol
+    owner: Lilian Weng
+    media_group: Lil'Log
+    author: Lilian Weng
+    person_id: null
+    tier: 2
+    role: expert
+    source_category: individual
+    corpus_type: person_signal
+    adapter: rss
+    endpoint: "https://lilianweng.github.io/index.xml"
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true                 # GitHub Pages 預設 robots，未擋 /index.xml
+    license_note: "titles + excerpt + link"
+    frequency: quarterly
+    quota_per_run: 20
+    can_satisfy_primary: false
+    # [待驗證] feed payload 未在本機解碼。
+
+  # ── 以下兩條起手就是 dormant：抓取工具回報 ROBOTS_DISALLOWED，但第一次嘗試
+  # 的錯誤碼是 429（rate limited）。這正是 07-24 事故那個「抓不到被當成不准抓」
+  # 的形狀，而且同一批 Substack 同儕站（interconnects / thezvi / oneusefulthing）
+  # 的 robots.txt 都明文放行 /feed。所以：
+  #   不編造 robots_ok: false（那等於複製當初殺掉 src-openai-blog 的那一刀），
+  #   也不擅自寫 true（本機確實沒讀到），改標 revive_when_allowed: true，
+  #   交給 pulse-robots-recheck 在 Actions 的真網路環境裡下判斷。
+  # 判定為真 Disallow 的話它會維持 dormant；判定放行則自動升 probing。
+  - id: src-kol-importai
+    track: kol
+    owner: Jack Clark
+    media_group: Import AI
+    author: Jack Clark
+    person_id: null
+    tier: 2
+    role: expert
+    source_category: individual
+    corpus_type: person_signal
+    adapter: rss
+    endpoint: "https://importai.substack.com/feed"
+    region: US
+    language: en
+    lifecycle: dormant
+    robots_ok: null                 # 本機量不到；null＝未知，不是拒絕
+    revive_when_allowed: true
+    license_note: "titles + excerpt + link"
+    frequency: weekly
+    quota_per_run: 20
+    can_satisfy_primary: false
+
+  - id: src-kol-raschka
+    track: kol
+    owner: Sebastian Raschka
+    media_group: Ahead of AI
+    author: Sebastian Raschka
+    person_id: null
+    tier: 2
+    role: expert
+    source_category: individual
+    corpus_type: person_signal
+    adapter: rss
+    endpoint: "https://magazine.sebastianraschka.com/feed"
+    region: US
+    language: en
+    lifecycle: dormant
+    robots_ok: null
+    revive_when_allowed: true
+    license_note: "titles + excerpt + link"
+    frequency: monthly
+    quota_per_run: 20
+    can_satisfy_primary: false
+
+  # 評估後不收：SemiAnalysis（Dylan Patel）。它是分析機構不是個人發表，
+  # 混進 KOL 線會讓 lead_days 的語意變成「機構 vs 機構」，而且付費牆讓
+  # license_note 說不清楚。要收的話應該進 official/analyst 線，另議。
+
   # 範本（實際新增時取消註解並填值）：
   # - id: src-kol-<slug>
   #   track: kol
@@ -438,7 +696,10 @@ kol_sources: []
   #   region: <ISO>
   #   language: <ISO>
   #   lifecycle: probing
-  #   robots_ok: true
+  #   robots_ok: true                # true 放行 / false 站方明文 Disallow / null 本機量不到
+  #   revive_when_allowed: true      # 僅 robots_ok: null 時填；意思是「等真網路環境判」，
+  #                                  # 由 pulse-robots-recheck --revive 確認放行後升 probing。
+  #                                  # 沒讀到 robots 卻寫 false ＝ 把量測失敗偽裝成站方政策，禁止。
   #   license_note: "titles + excerpt + link"
   #   frequency: daily
   #   quota_per_run: 20              # 低於官方線：雜訊比高

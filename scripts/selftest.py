@@ -209,6 +209,132 @@ acase("sources.yaml: 官方線含 Anthropic（07-24 漏抓 Opus 5 的根因）",
       any(s.get("owner") == "Anthropic" for s in _cfg.get("official_sources") or []),
       True)
 
+acase("sources.yaml: KOL 線不是空的（空的話 lead_days 恆不可計算）",
+      len(_cfg.get("kol_sources") or []) > 0, True)
+acase("sources.yaml: KOL 各條 media_group 互不相同"
+      "（都填 Substack 的話獨立來源數會塌成 1，等於自己作弊過門檻 4）",
+      len({s["media_group"] for s in _cfg["kol_sources"]}),
+      len(_cfg["kol_sources"]))
+acase("sources.yaml: KOL 一律非 tier 1（即使本人任職於被追蹤公司）",
+      sorted({s["tier"] for s in _cfg["kol_sources"]}), [2])
+acase("sources.yaml: KOL 一律 can_satisfy_primary: false",
+      sorted({bool(s["can_satisfy_primary"]) for s in _cfg["kol_sources"]}), [False])
+# robots_ok 只有兩種誠實的值：真的讀過 robots.txt → true；本機量不到 → null。
+# 沒讀到卻寫 false，就是把量測失敗偽裝成站方政策——那正是 07-24 的病灶。
+acase("sources.yaml: 沒有任何 KOL 條目寫著未經證實的 robots_ok: false",
+      [s["id"] for s in _cfg["kol_sources"] if s.get("robots_ok") is False], [])
+acase("sources.yaml: robots_ok 為 null 者必須明示 revive_when_allowed（否則永遠不會被重驗）",
+      [s["id"] for s in _cfg["kol_sources"]
+       if s.get("robots_ok") is None and not s.get("revive_when_allowed")], [])
+
+# ------------------------------------------------ 重驗：明示 opt-in 才會被復活
+_rr._probe.safe_fetch = lambda u: (200, PERMISSIVE, {})
+_D2 = {"kol_sources": [
+    {"id": "opt-in", "lifecycle": "dormant", "robots_ok": None,
+     "revive_when_allowed": True, "endpoint": "https://a.test/feed"},
+    {"id": "hand-off", "lifecycle": "dormant", "robots_ok": None,
+     "endpoint": "https://b.test/feed"},
+]}
+_ch = _rr.apply_changes(_D2, _rr.check(_D2), revive=True)
+acase("重驗：robots_ok 為 null + revive_when_allowed → 真網路放行時升 probing",
+      [c["to"] for c in _ch if c["id"] == "opt-in" and c["field"] == "lifecycle"],
+      ["probing"])
+acase("重驗：同樣是 null 但沒有明示旗標 → 不碰（漏填不等於授權復活）",
+      [c for c in _ch if c["id"] == "hand-off" and c["field"] == "lifecycle"], [])
+
+# ------------------------------------------------------- 覆蓋率看門狗
+# 這幾條測的是「警報會不會在該叫的時候叫、在不該叫的時候閉嘴」。
+# 後者跟前者一樣重要：天天誤叫的警報，三天後就會被人整條關掉。
+import tempfile  # noqa: E402
+from datetime import date as _date  # noqa: E402
+from pathlib import Path  # noqa: E402
+
+_ms = importlib.util.spec_from_file_location(
+    "pulse_monitor", os.path.join(_HERE, "pulse-monitor.py"))
+_mm = importlib.util.module_from_spec(_ms)
+_ms.loader.exec_module(_mm)
+
+_TODAY = _date(2026, 7, 25)
+_ENT = {"companies": [
+    {"id": "openai", "canonical": "OpenAI", "aliases": ["Open AI"]},
+    {"id": "anthropic", "canonical": "Anthropic", "aliases": []},
+    {"id": "meta", "canonical": "Meta", "aliases": []},
+]}
+
+
+def _vault(days):
+    """days: {'2026-07-25': [corpus row, ...]} → 一個臨時 vault 路徑。"""
+    root = Path(tempfile.mkdtemp())
+    for d, rows in days.items():
+        p = root / "_corpus" / d
+        p.mkdir(parents=True)
+        (p / "src-x.jsonl").write_text(
+            "\n".join(_json.dumps(r, ensure_ascii=False) for r in rows), encoding="utf-8")
+    return root
+
+
+_SRC_OK = {"official_sources": [{"id": "s-oa", "owner": "OpenAI", "lifecycle": "active"}]}
+
+
+def _cov(watch, sources, days):
+    cfg = dict(sources)
+    cfg["coverage_watch"] = watch
+    return _mm.coverage(_vault(days), _TODAY, cfg, _ENT)
+
+
+_c1 = _cov({"window_days": 30, "max_silent_days": 14,
+            "must_watch": [{"entity_id": "anthropic", "label": "Anthropic"}]},
+           _SRC_OK, {"2026-07-25": [{"title": "hello", "summary": ""}]})
+acase("覆蓋率：沒有任何來源指向該實體 → no_source，第一天就叫（Opus 5 那格）",
+      (_c1["must_watch"][0]["reason"], _c1["must_watch"][0]["alerting"]),
+      ("no_source", True))
+
+_c2 = _cov({"window_days": 30, "max_silent_days": 14,
+            "must_watch": [{"entity_id": "anthropic", "label": "Anthropic",
+                            "pending": True}]},
+           _SRC_OK, {"2026-07-25": [{"title": "hello", "summary": ""}]})
+acase("覆蓋率：pending 仍列出破洞，但不觸警（天天紅的燈等於沒有燈）",
+      (_c2["must_watch"][0]["reason"], _c2["must_watch"][0]["alerting"]),
+      ("no_source", False))
+
+_c3 = _cov({"window_days": 30, "max_silent_days": 14,
+            "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
+           _SRC_OK, {"2026-07-25": [{"title": "unrelated", "summary": ""}]})
+acase("覆蓋率：有來源但語料只有 1 天 → 不判 silent（新 vault 不該一開機就滿螢幕紅字）",
+      (_c3["history_days"], _c3["must_watch"][0]["reason"]), (1, None))
+
+_c4 = _cov({"window_days": 60, "max_silent_days": 14,
+            "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
+           _SRC_OK, {"2026-06-01": [{"title": "old", "summary": ""}],
+                     "2026-07-25": [{"title": "unrelated", "summary": ""}]})
+acase("覆蓋率：語料期間夠長且該實體從未出現 → silent",
+      _c4["must_watch"][0]["reason"], "silent")
+
+# entity_hits 是 probe 用 entities.yaml 判的，跟聚類同一把尺；監看自己的 regex 只是退路。
+_c5 = _cov({"window_days": 30, "max_silent_days": 14,
+            "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
+           _SRC_OK,
+           {"2026-07-25": [{"title": "OpenAI ships thing", "summary": "",
+                            "entity_hits": ["meta"]}]})
+acase("覆蓋率：有 entity_hits 時以它為準，不用自己的 regex 覆寫聚類的判定",
+      _c5["must_watch"][0]["corpus_hits"], 0)
+
+_c6 = _cov({"window_days": 30, "max_silent_days": 14,
+            "must_watch": [{"entity_id": "meta", "label": "Meta"}]},
+           {"official_sources": [{"id": "s-m", "owner": "Meta", "lifecycle": "active"}]},
+           {"2026-07-25": [{"title": "metadata schema update", "summary": ""}]})
+acase("覆蓋率：alias「Meta」不得命中 metadata（假陽性會讓看門狗在沒東西時安靜）",
+      _c6["must_watch"][0]["corpus_hits"], 0)
+
+_ent_ids = {i["id"] for sec in ("companies", "product_lines", "infrastructure")
+            for i in (_yaml.safe_load(
+                open(os.path.join(_HERE, "..", "_config", "entities.yaml"),
+                     encoding="utf-8")).get(sec) or [])}
+acase("設定一致性：coverage_watch 每個 entity_id 都在 entities.yaml 裡查得到"
+      "（查不到會退化成用 label 當別名，看起來有在看其實在看空氣）",
+      [w["entity_id"] for w in _cfg["coverage_watch"]["must_watch"]
+       if w["entity_id"] not in _ent_ids], [])
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:

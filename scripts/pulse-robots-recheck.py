@@ -26,9 +26,14 @@
   VAULT_DIR=... python scripts/pulse-robots-recheck.py --stale-days 30         # 只重驗超過 30 天沒驗過的
   VAULT_DIR=... python scripts/pulse-robots-recheck.py --json
 
-`--revive` 只動「當初因 robots 被判 false、現在 robots 放行」的 dormant 來源，而且
+`--revive` 只動「當初被 robots 擋在門外、現在 robots 放行」的 dormant 來源，而且
 只升到 `probing`（會被抓，但還沒通過 checklist）。人為停用的來源（robots 本來就 true
 卻是 dormant）不碰——那是判斷，不是量測。
+
+第二種資格是設定檔裡明示 `revive_when_allowed: true` 的來源：登記當下本機根本量不到
+robots（robots_ok 寫 null），於是老實承認「等真網路環境給答案」。v2.4 開張的 KOL 線
+有兩條是這樣進來的。判準是明示旗標而不是「robots_ok 是 null 就復活」——null 也可能
+只是漏填，靠推論復活等於把漏填當成授權。
 
 寫回用 ruamel.yaml round-trip，sources.yaml 的註解是文件的一部分，不能被 dump 洗掉。
 依賴：ruamel.yaml（只有 --apply 需要）。
@@ -78,6 +83,7 @@ def check(doc, stale_days=0):
                 "id": src.get("id"),
                 "lifecycle": src.get("lifecycle"),
                 "stored": src.get("robots_ok"),
+                "revive_opt_in": bool(src.get("revive_when_allowed")),
                 "checked_at": src.get("robots_checked_at"),
                 "age_days": _age_days(src.get("robots_checked_at")),
                 "now": None,
@@ -138,9 +144,16 @@ def apply_changes(doc, rows, revive=False):
                             "from": r["stored"], "to": r["now"],
                             "reason": "robots-recheck"})
             src["robots_ok"] = r["now"]
-        # 只復活「當初就是被 robots 判死」的，且只升到 probing。
+        # 只復活「當初就是被 robots 擋在門外」的，且只升到 probing。
+        # 兩種資格，共通點是**曾經明示登記過「我是被 robots 卡住的」**：
+        #   stored is False          當初被判死（src-openai-blog 那類）
+        #   revive_when_allowed      登記時本機就量不到 robots（robots_ok: null），
+        #                            白紙黑字說明「等真網路環境給答案」。
+        # 為什麼不直接看 robots_ok is None 就復活：null 也可能只是漏填。
+        # 靠明示旗標而非推論 null，才守得住原本那條「人為停用的來源不碰」的意思。
         if (revive and r["verdict"] == "opened"
-                and r["stored"] is False and r["lifecycle"] == "dormant"):
+                and (r["stored"] is False or r["revive_opt_in"])
+                and r["lifecycle"] == "dormant"):
             changes.append({"at": stamp, "id": r["id"], "field": "lifecycle",
                             "from": "dormant", "to": "probing",
                             "reason": "robots-reopened"})

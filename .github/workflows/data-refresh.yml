@@ -81,4 +81,8 @@ jobs:
             python scripts/pulse-robots-recheck.py || true
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-          python scripts/pulse-monitor.py --alert-unenriched-days 2 > /dev/null
+          # --alert-coverage：鏈在跑、但看不見某家必盯公司時要叫。前面那些指標
+          # 回答的都是「有沒有動」，07-24 漏抓 Opus 5 那晚它們全綠。
+          # 標了 pending 的已知缺口不觸警（要把待辦逼到零時另外跑 --alert-no-source），
+          # 否則 CI 天天紅，人只會學會忽略 CI，連帶忽略真正的回歸。
+          python scripts/pulse-monitor.py --alert-unenriched-days 2 --alert-coverage > /dev/null
