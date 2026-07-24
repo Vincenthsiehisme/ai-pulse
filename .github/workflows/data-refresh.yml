@@ -36,6 +36,7 @@ jobs:
       - name: Deterministic pipeline (0 LLM)
         env:
           VAULT_DIR: ${{ github.workspace }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           python scripts/pulse-probe.py || echo "[warn] probe 無新料或部分來源失敗，續跑"
           python scripts/pulse-score.py
@@ -43,6 +44,7 @@ jobs:
           python scripts/pulse-gate.py
           python scripts/pulse-dashboard.py
           python scripts/pulse-render.py
+          python scripts/pulse-github.py --snapshot
       - name: Commit & push data changes
         run: |
           git add -A
@@ -53,3 +55,17 @@ jobs:
           path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
+      # 死人開關：放在部署之後，紅燈不擋上線，但會寄失敗通知。
+      # 觸發條件＝有事件「未 enrich 且放了 ≥2 天」——那代表半夜潤稿那條鏈連續兩晚沒跑到。
+      - name: Health monitor (dead-man's switch)
+        if: always()
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: |
+          {
+            echo '### AI Pulse 健康監看'
+            echo '```'
+            python scripts/pulse-monitor.py --top 5 || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          python scripts/pulse-monitor.py --alert-unenriched-days 2 > /dev/null

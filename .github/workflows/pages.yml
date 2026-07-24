@@ -9,6 +9,8 @@ on:
     paths:
       - 'Events/**'
       - 'scripts/pulse-render.py'
+      - 'scripts/pulse-github.py'
+      - '_config/github.yaml'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -32,11 +34,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install pyyaml
+      - run: pip install pyyaml requests
       - name: Render static site (0 LLM)
         run: python scripts/pulse-render.py
         env:
           VAULT_DIR: ${{ github.workspace }}
+      - name: GitHub momentum board (0 LLM)
+        run: python scripts/pulse-github.py
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+          GITHUB_TOKEN: ${{ github.token }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

@@ -57,7 +57,8 @@ TRACK_ALIASES = {"模型能力與研究": "模型能力與研究", "基礎設施
                  "產品與商業驗證": "產品與商業驗證", "資本與公司演化": "資本與公司演化",
                  "Agent與軟體重構": "Agent 與軟體重構", "全球創新版圖": "全球創新版圖"}
 NAV = [("home", "關鍵變化", ""), ("lines", "領域趨勢", "lines/"),
-       ("timeline", "事件時間軸", "timeline/"), ("signals", "來源更新", "signals/")]
+       ("timeline", "事件時間軸", "timeline/"), ("signals", "來源更新", "signals/"),
+       ("github", "GitHub 動能", "github/")]
 
 # 發展歷程分型（純規則）：type -> (中文標籤, css class)
 DEV_LABEL = {"origin": ("起點", "fact"), "official": ("官方", "accent"),
