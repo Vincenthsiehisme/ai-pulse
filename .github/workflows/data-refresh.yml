@@ -28,11 +28,20 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install requests pyyaml feedparser
+      - run: pip install requests pyyaml feedparser ruamel.yaml
       - name: Configure git identity
         run: |
           git config user.name  "ai-pulse-bot"
           git config user.email "ai-pulse-bot@users.noreply.github.com"
+      # robots_ok 是快取不是判決。放在 probe 之前，讓今晚就吃到最新的判定。
+      # --stale-days 7：每條來源最多一週重驗一次，不是每晚打人家 robots.txt。
+      # --revive：只把「當初因 robots 被判死、現在放行」的 dormant 升回 probing，
+      # 人為停用的來源不碰。每筆異動都寫進 _probe/source-history.jsonl 並進 commit diff。
+      - name: Robots recheck (0 LLM)
+        continue-on-error: true
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: python scripts/pulse-robots-recheck.py --stale-days 7 --apply --revive
       - name: Deterministic pipeline (0 LLM)
         env:
           VAULT_DIR: ${{ github.workspace }}
@@ -66,6 +75,10 @@ jobs:
             echo '### AI Pulse 健康監看'
             echo '```'
             python scripts/pulse-monitor.py --top 5 || true
+            echo '```'
+            echo '### 來源 robots 狀態'
+            echo '```'
+            python scripts/pulse-robots-recheck.py || true
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
           python scripts/pulse-monitor.py --alert-unenriched-days 2 > /dev/null

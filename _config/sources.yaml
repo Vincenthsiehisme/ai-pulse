@@ -14,19 +14,23 @@
 # 新源一律 lifecycle: probing，通過 probe checklist（見檔末）才人為升 active。
 # ---------------------------------------------------------------------------
 #
-# ⚠ 已知互鎖（實作 lifecycle 過濾前務必先解）
-#   SKILL.md 規格寫「probe 只跑 active/degraded」，但本檔目前沒有任何一條是
-#   active。過濾一旦實作，probe 會拿到 0 個來源、exit 0、心跳正常、報告全空。
-#   且 checklist 第 4 項要求「連續觀察 ≥7 天」才能升 active ——
-#   不是 active 就不會被抓，不被抓就永遠滿足不了升級條件。
-#   解法擇一：(a) 新增 probing 狀態（會被抓、產出不計入正式統計）
-#             (b) 明確讓過濾放行 draft
-#   在決定之前，不要合入 lifecycle 過濾。
+# ✅ 已解：lifecycle 互鎖（原記載已過期，2026-07-25 更新）
+#   原問題：規格寫「只跑 active/degraded」，但沒有一條是 active，過濾一上線就會
+#   拿到 0 個來源、exit 0、心跳綠燈、報告全空；而升 active 又要求先被連續觀察七天。
+#   已採解法 (a)：pulse-probe 的 RUN_LIFECYCLES = {active, degraded, probing}，
+#   並加了「可跑來源為 0 就 exit 3」的硬防護。probing 會被抓，但不計入正式統計。
+#
+# ⚠ 真正該盯的是另一件事（2026-07-24 事故的教訓）
+#   dormant 不會讓任何東西變紅。清單上 14 條、實際在跑 8 條，看起來都一樣正常。
+#   來源被關掉是靜音的，而漏掉一整家公司也是靜音的——07-24 漏抓 Claude Opus 5
+#   就是這樣發生的：鏈跑得很完美，只是它什麼都看不見。
+#   對策：pulse-robots-recheck.py 定期重驗 robots_ok 並記錄異動；
+#         每次改 lifecycle 都要在該源底下寫明原因與日期。
 # ---------------------------------------------------------------------------
 
 meta:
-  version: "2.2.0"
-  updated: "2026-07-24"
+  version: "2.3.0"
+  updated: "2026-07-25"
   note: >
     v2 引入 track 雙軌與 person_id 關聯。KOL 線的 author 必須能解析到
     people.yaml 的條目，否則獨立性求值退回 media_group 層級（見
@@ -39,6 +43,11 @@ meta:
     2026-07-23 verify 實測：EP ITRE robots 允許（robots_ok: true, probing）；
     Council press robots 回 403 判拒（robots_ok: false, dormant）——policy 類實際剩 EP 一條 live，
     跨機構獨立佐證暫失，待另尋第二個不同機構的合規 policy 來源。
+    v2.3 覆蓋率修補（起因：2026-07-24 漏抓 Claude Opus 5，根因是清單裡沒有 Anthropic）：
+    新增 src-anthropic-news（sitemap adapter，官方站無 RSS，走 robots 宣告的 Sitemap）；
+    src-openai-blog 由 dormant/robots_ok:false 更正為 probing/true（原判定是 403 造成的
+    假陰性，robots 實為 Allow: /）；src-hn-frontpage 換掉 robots 全禁的 firebaseio 端點，
+    改走 hn.algolia.com 並拉起為 probing。arXiv 維持停用（robots 確為 Disallow: /，已複驗）。
 
 # ---------------------------------------------------------------------------
 # corpus_type —— v2.1 新增欄位
@@ -71,15 +80,55 @@ official_sources:
     endpoint: "https://openai.com/news/rss.xml"
     region: US
     language: en
-    lifecycle: dormant
-    robots_ok: false
+    lifecycle: probing
+    robots_ok: true
+    robots_checked_at: "2026-07-24T22:50:00+00:00"
     license_note: "titles + links only"
     frequency: daily
     quota_per_run: 50
-    # 2026-07-24 實測：/news/rss.xml 與舊 /blog/rss.xml 皆被 robots 擋。
-    # 紅線不繞，維持 dormant，不改用第三方鏡像或聚合代理。
-    # 這是目前最大的一手來源缺口，且無合規替代品：
-    # 聚合線提到 OpenAI 的內容永遠只能進 watch，不能升 primary。
+    # 2026-07-25 更正——先前的 dormant + robots_ok:false 是假陰性，整條 OpenAI 線
+    # 被它靜靜關掉，直接參與了 07-24 漏抓 Claude Opus 5 的那次事故。
+    # 重驗結果：openai.com/robots.txt 是 `User-Agent: * / Allow: /`（唯一 Disallow
+    # 是 /microsoft-for-startups/），/news/rss.xml 是活的 RSS，最新項目 2026-07-23。
+    # 當初判 false 的原因是取 robots.txt 時收到 403，而 robots_allows() 依慣例
+    # 把 403 當全面拒絕——那是**抓取失敗**，不是站方政策，兩者被混為一談。
+    # 執行期若再遇 403，probe 仍會保守跳過（正確行為），但 pulse-robots-recheck.py
+    # 會持續重驗並把每次變動寫進 _probe/source-history.jsonl，不再永久寫死。
+
+  # ── 2026-07-25 新增：漏抓 Claude Opus 5 的直接補洞 ──
+  # 事故本體不是門禁誤判，是**這份清單裡從來沒有 Anthropic**。
+  # 沒有 RSS：/rss.xml、/news/rss.xml、/news/feed.xml、/sitemap_index.xml 全 404。
+  # 唯一的機器可讀入口是 robots.txt 自己宣告的那個 Sitemap:，所以走 sitemap adapter。
+  # 合規性：只走站方主動指出的入口，不猜路徑、不爬全站、不抓內文（紅線 7）。
+  # 代價要講清楚（紅線 8）：sitemap 沒有標題也沒有摘要，標題由 URL slug 還原、
+  # 摘要留空。所以這條來源撐得起「Anthropic 在 X 日發了 Y」，撐不起細節——
+  # 細節要等第二個獨立來源，或人工補。
+  # 狀態誠實聲明：本機容器對 anthropic.com 直連收 403（WAF 擋容器 IP），
+  # 因此 endpoint 尚未在本機跑通，只驗到 robots.txt 允許。掛 probing 讓它在
+  # Actions 上自證；跑不起來會照常出現在來源狀態表，不會被吞掉。
+  - id: src-anthropic-news
+    track: official
+    owner: Anthropic
+    media_group: Anthropic
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: vendor
+    corpus_type: company_release
+    adapter: sitemap
+    endpoint: "https://www.anthropic.com/sitemap.xml"
+    url_prefix: "/news/"
+    sitemap_hints: ["news"]
+    max_sitemaps: 3
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true
+    robots_checked_at: "2026-07-24T22:50:00+00:00"
+    license_note: "titles + links only"
+    frequency: daily
+    quota_per_run: 40
 
   - id: src-arxiv-cs-cl
     track: official
@@ -410,11 +459,24 @@ aggregator_sources:
     source_category: aggregator
     corpus_type: aggregated
     adapter: json-api
-    endpoint: "https://hacker-news.firebaseio.com/v0/topstories.json"  # [待驗證]
+    # 2026-07-25 換端點。原本指 hacker-news.firebaseio.com，但那個 host 的
+    # robots.txt 是全面 Disallow——紅線 7 不繞，直接換掉。
+    # 改用 HN 官方文件列出的 Algolia 搜尋 API：hn.algolia.com 沒有 robots.txt（404），
+    # 依 robots 慣例視為允許，且 tags=front_page 拿到的就是首頁那批。
+    endpoint: "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=30"
+    root_path: hits
+    field_map: {title: title, url: url, author: author,
+                published: created_at, summary: story_text}
+    url_fallback: "https://news.ycombinator.com/item?id={id}"
+    id_field: objectID
     region: global
     language: en
-    lifecycle: dormant        # M1 不接：json-api adapter 未實作，且聚合線對兩個比率無貢獻
+    # 2026-07-25 從 dormant 拉起。這是「大事發生時至少有人喊一聲」的兜底層，
+    # 07-24 漏抓 Opus 5 時它是關的。仍受 can_satisfy_primary: false 硬約束，
+    # 只當候選與熱度提示——補的是視野，不是證據權利。
+    lifecycle: probing
     robots_ok: true
+    robots_checked_at: "2026-07-24T22:50:00+00:00"
     license_note: "titles + links only"
     frequency: daily
     quota_per_run: 30

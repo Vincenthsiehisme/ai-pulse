@@ -196,6 +196,45 @@ def safe_fetch(url: str, etag: str | None = None) -> tuple[int, str | None, dict
     raise ValueError("upstream: too many redirects")
 
 
+def robots_verdict(url: str) -> tuple[bool | None, str]:
+    """→ (允許與否, 原因碼)。原因碼是這支存在的理由。
+
+    2026-07-24 漏抓 Claude Opus 5 的最深層根因就在這裡：舊版只回一個布林值，
+    於是「拿不到 robots.txt（401/403）」跟「站方明文 Disallow」被壓成同一個 False。
+    抓取端把兩者都當成拒絕還算保守合理；但**設定檔把這個 False 存了下來**，
+    一次 WAF 擋包就永久關掉了整條 OpenAI 線，而且看起來像是對方的政策。
+
+    抓不到 ≠ 不准抓。這是量測失敗，不是站方意志。分開回報之後，抓取端可以照樣
+    保守跳過，重驗端則能拒絕把它寫成永久判決。
+
+    原因碼：
+      ok                 200 且規則放行
+      disallow           200 且規則明文擋住 → 這才是站方政策
+      no_robots          其餘 4xx（404 / 410…）＝沒有 robots.txt，依慣例放行
+      unavailable_403    401 / 403：拿不到檔案。抓取端當拒絕，但不得寫成政策
+      unreachable        5xx / 空 body：對方壞了
+      error              連線層例外
+    """
+    try:
+        p = urlparse(url)
+        robots_url = f"{p.scheme}://{p.netloc}/robots.txt"
+        status, body, _ = safe_fetch(robots_url)
+    except Exception:  # noqa: BLE001
+        return None, "error"
+
+    if status in (401, 403):
+        return False, "unavailable_403"
+    if status != 200 or body is None:
+        if 400 <= status < 500:
+            return True, "no_robots"
+        return None, "unreachable"
+
+    rp = RobotFileParser()
+    rp.parse(body.splitlines())
+    allowed = rp.can_fetch(UA, url)
+    return allowed, "ok" if allowed else "disallow"
+
+
 def robots_allows(url: str) -> bool | None:
     """→ True 允許 / False 拒絕 / None 未知（呼叫端保守跳過）。
 
@@ -203,27 +242,11 @@ def robots_allows(url: str) -> bool | None:
     舊版直接用 RobotFileParser.read()，那是 urllib 的預設 UA（Python-urllib/x.y），
     不少站台擋它 —— 等於「用 A 身分問可不可以，用 B 身分去抓」，檢查本身無效。
 
-    狀態碼處理依 robots 慣例：
-      200        → 依內容判定
-      401 / 403  → 視為全面拒絕
-      其餘 4xx   → 沒有 robots.txt，視為允許（含 404 / 410）
-      5xx / 例外 → 未知，交給呼叫端保守跳過
+    抓取端要的就是一個「跑不跑」的布林值，維持原本的保守語意：
+    401/403 → False（今晚不抓）。要區分「不准抓」與「抓不到」的呼叫端請改用
+    robots_verdict()——差別只在能不能把結論寫進設定檔。
     """
-    try:
-        p = urlparse(url)
-        robots_url = f"{p.scheme}://{p.netloc}/robots.txt"
-        status, body, _ = safe_fetch(robots_url)
-    except Exception:  # noqa: BLE001
-        return None
-
-    if status in (401, 403):
-        return False
-    if status != 200 or body is None:
-        return True if 400 <= status < 500 else None
-
-    rp = RobotFileParser()
-    rp.parse(body.splitlines())
-    return rp.can_fetch(UA, url)
+    return robots_verdict(url)[0]
 
 
 # ------------------------------------------------------------------- entities
@@ -341,6 +364,139 @@ def adapt_rss(source: dict, body: str) -> list[dict]:
     return items
 
 
+SM_NS = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+
+
+def _slug_to_title(url: str) -> str:
+    """從 URL 尾段還原標題：/news/claude-opus-5 → "Claude Opus 5"。
+
+    這是**推導**不是原文標題。sitemap 沒有標題欄位，要嘛從 slug 還原、要嘛去抓內文；
+    抓內文超出 license_note 的 "titles + links only"，所以選還原。
+    還原不準的代價由 cluster 的實體比對吸收，不由編造吸收。
+    """
+    seg = urlsplit(url).path.rstrip("/").rsplit("/", 1)[-1]
+    seg = re.sub(r"\.(html?|php|aspx?)$", "", seg)
+    words = [w for w in re.split(r"[-_]+", seg) if w]
+    return " ".join(w if (w.isupper() or any(c.isdigit() for c in w))
+                    else w.capitalize() for w in words)
+
+
+def adapt_sitemap(source: dict, body: str) -> list[dict]:
+    """sitemap.xml → 項目清單。給「沒有 RSS，但 robots.txt 自己宣告 Sitemap:」的官方站。
+
+    合規邊界（紅線 7）：只走站方 robots.txt 主動指出的入口，不猜路徑、不爬全站、
+    不抓任何一篇內文；拿到的只有 <loc> 與 <lastmod>。
+    摘要一律留空——sitemap 本來就沒有摘要，**空摘要比生出來的摘要好**（紅線 2）。
+
+    設定欄位：
+      url_prefix     只收 path 以此開頭的 URL（例：/news/）。缺省＝全收。
+      sitemap_hints  遇上 sitemap index 時，只展開 <loc> 含這些字串的子 sitemap。
+      max_sitemaps   子 sitemap 展開上限（預設 3），避免一次打爆對方。
+    """
+    import xml.etree.ElementTree as ET
+
+    prefix = source.get("url_prefix") or ""
+    quota = int(source.get("quota_per_run", 50))
+
+    def parse(xml_text: str) -> tuple[str, list[tuple[str, str]]]:
+        root = ET.fromstring(xml_text.lstrip("﻿ \r\n\t"))
+        tag = root.tag.split("}")[-1]
+        child = "sitemap" if tag == "sitemapindex" else "url"
+        nodes = root.findall(f"{SM_NS}{child}") or root.findall(child)
+        out = []
+        for node in nodes:
+            loc = node.findtext(f"{SM_NS}loc") or node.findtext("loc") or ""
+            mod = node.findtext(f"{SM_NS}lastmod") or node.findtext("lastmod") or ""
+            if loc.strip():
+                out.append((loc.strip(), mod.strip()))
+        return tag, out
+
+    kind, entries = parse(body)
+
+    if kind == "sitemapindex":
+        hints = source.get("sitemap_hints") or ([prefix.strip("/")] if prefix else [])
+        picked = [loc for loc, _ in entries
+                  if not hints or any(h and h in loc for h in hints)]
+        picked = picked[: int(source.get("max_sitemaps", 3))]
+        entries = []
+        for sub in picked:
+            status, sub_body, _ = safe_fetch(sub)
+            if status == 200 and sub_body:
+                entries.extend(parse(sub_body)[1])
+
+    rows = [(loc, mod) for loc, mod in entries
+            if not prefix or urlsplit(loc).path.startswith(prefix)]
+    # sitemap 不保證排序；lastmod 新的排前面，「今天發生什麼」才問得出來。
+    rows.sort(key=lambda r: r[1] or "", reverse=True)
+
+    return [{
+        "title": _slug_to_title(loc),
+        "summary": "",
+        "url": loc,
+        "published": mod,
+        "author": None,
+    } for loc, mod in rows[:quota]]
+
+
+def adapt_json_api(source: dict, body: str) -> list[dict]:
+    """JSON 端點 → 項目清單。目前的使用者是 HN topstories：第一跳只回 id 陣列，
+    內容要對每個 id 再打一次 item 端點。這個第二跳用 item_endpoint 表達。
+
+    設定欄位：
+      root_path      回應是物件時，陣列藏在哪個 key（例：Algolia 的 "hits"）。
+      item_endpoint  第二跳 URL 樣板，含 {id}。缺省＝第一跳回的就是物件陣列。
+      field_map      {輸出欄位: 來源欄位}，預設照 HN 的 title / url / by / time / text。
+      url_fallback   url 欄位為空時的替代樣板，含 {id}（例：Ask HN 沒有外連）。
+      id_field       url_fallback 取 id 用哪個欄位，預設 objectID。
+    """
+    quota = int(source.get("quota_per_run", 30))
+    fm = source.get("field_map") or {"title": "title", "url": "url",
+                                     "author": "by", "published": "time",
+                                     "summary": "text"}
+    data = json.loads(body)
+    for key in str(source.get("root_path") or "").split("."):
+        if key and isinstance(data, dict):
+            data = data.get(key)
+    if not isinstance(data, list):
+        return []
+    tmpl = source.get("item_endpoint")
+
+    records = []
+    if tmpl:
+        for ident in data[:quota]:
+            status, sub, _ = safe_fetch(tmpl.replace("{id}", str(ident)))
+            if status != 200 or not sub:
+                continue
+            try:
+                obj = json.loads(sub)
+            except ValueError:
+                continue
+            if isinstance(obj, dict):
+                records.append(obj)
+    else:
+        records = [o for o in data[:quota] if isinstance(o, dict)]
+
+    items = []
+    for obj in records:
+        pub = obj.get(fm.get("published", "published")) or ""
+        # HN 的 time 是 unix epoch；下游只認字串日期，這裡就地正規化。
+        if isinstance(pub, (int, float)):
+            pub = datetime.fromtimestamp(pub, timezone.utc).isoformat()
+        url = obj.get(fm.get("url", "url")) or ""
+        if not url and source.get("url_fallback"):
+            ident = obj.get(source.get("id_field", "objectID"))
+            url = source["url_fallback"].replace("{id}", str(ident)) if ident else ""
+        items.append({
+            "title": obj.get(fm.get("title", "title"), "") or "",
+            "summary": re.sub(r"<[^>]+>", " ",
+                              str(obj.get(fm.get("summary", "summary")) or ""))[:SUMMARY_CHARS],
+            "url": url,
+            "published": pub,
+            "author": obj.get(fm.get("author", "author")) or None,
+        })
+    return items
+
+
 def adapt_github_releases(source: dict, _body: str) -> list[dict]:
     repo = source["endpoint"]
     status, body, _ = safe_fetch(f"https://api.github.com/repos/{repo}/releases")
@@ -359,6 +515,7 @@ def adapt_github_releases(source: dict, _body: str) -> list[dict]:
 
 
 ADAPTERS = {"rss": adapt_rss, "atom": adapt_rss,
+            "sitemap": adapt_sitemap, "json-api": adapt_json_api,
             "github-releases": adapt_github_releases}
 
 # 這些 adapter 的 endpoint 不是 URL（例如 github-releases 是 owner/repo），
@@ -658,6 +815,14 @@ def main() -> int:
                 runnable.append(src)   # 明示除錯，覆寫 lifecycle
             continue
         (runnable if src.get("lifecycle") in RUN_LIFECYCLES else skipped).append(src)
+
+    # 幽靈設定防護：adapter 沒註冊的來源＝寫在設定檔裡但永遠跑不起來。
+    # 這種東西看起來像覆蓋範圍，其實是零。dormant 的也要唸出來，因為它就是
+    # 「哪天把它拉起來」時會踩到的地雷。（src-hn-frontpage 當過這個地雷。）
+    ghosts = [s["id"] for s in sources if s.get("adapter") not in ADAPTERS]
+    if ghosts:
+        print(f"[warn] {len(ghosts)} 條來源的 adapter 未註冊，永遠跑不起來："
+              + ", ".join(ghosts), file=sys.stderr)
 
     # 硬防護：可跑來源為 0 時，不准安靜地成功收工。
     # 目前九條來源可能全是 draft，過濾一上線就會發生這件事。

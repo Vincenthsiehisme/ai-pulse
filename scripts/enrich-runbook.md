@@ -105,7 +105,8 @@ if [ -d "_corpus/$TODAY" ]; then
   echo "[pre] 今日 corpus 已就緒：_corpus/$TODAY"
 else
   echo "[pre] 今日 corpus 不存在——Actions 還沒跑到或誤點，改由我補跑抓取鏈"
-  pip install requests feedparser --quiet
+  pip install requests feedparser ruamel.yaml --quiet
+  python scripts/pulse-robots-recheck.py --stale-days 7 --apply --revive || true
   python scripts/pulse-probe.py || echo "[warn] probe 無新料或部分來源失敗，續跑"
   python scripts/pulse-score.py
   python scripts/pulse-cluster.py
