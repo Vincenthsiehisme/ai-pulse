@@ -131,16 +131,48 @@ fi
    - 組成 `narrative-result.json`：`{"<track-slug>":{"now":"...","next":"..."}, ...}`（只放 dirty 主線）。
    - `python scripts/pulse-narrative-apply.py --in narrative-result.json`（過 voice_clean、更新 updated、記錄簽章）。
 
+**C2. GitHub 星速榜的中文描述（敘述；同樣過 speak-human-tw）**
+
+repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀者看的，所以描述要翻。
+翻譯是**敘述**不是判斷——排名、星速、上不上榜全部還是規則算的，你一個數字都不碰。
+
+9. 重建榜單（**不要加 `--snapshot`**：星速基線只由 Actions 那班更新，你多打一次會把 Δ/天洗掉）：
+   ```
+   python scripts/pulse-github.py
+   ```
+   `dist/` 沒進版控，所以每次 clone 都要重建。環境有 `GITHUB_TOKEN` 會自動帶上；沒有也跑得動
+   （未認證額度較緊）。這步失敗就整個 C2 段跳過，不影響其他段——榜會維持上一晚的英文原文。
+10. prep：`python scripts/pulse-github-desc-prep.py --limit 25` → 讀 `_probe/github-desc-worklist.json`。
+    **若為空陣列 → C2 跳過**（穩定之後多數夜晚如此：只有新上榜、或上游改了 description 的才會排進來）。
+11. 逐條翻寫，組成 `github-desc-result.json`：`{"<owner/repo>": "中文描述", ...}`。規則：
+    - **只翻 `desc` 那句，不加料。** 不知道這個 repo 在做什麼就照字面翻，不要靠印象補背景、
+      不要寫「業界廣泛採用」這種原文沒有的話。worklist 只給你原文、語言、topics、星數。
+    - **一行字，≤60 字**，寫成人看得懂的白話，不是詞典式硬翻。專有名詞（LLM、RAG、MCP、
+      Kubernetes…）保留原文不要硬翻成中文。
+    - 去 AI 腔：不要「值得關注」「無限可能」「賦能」「助力」「打造」「旨在」「隨著…」。
+      apply 會擋掉這些字，退件不是靜靜丟掉，是印出來下次重排。
+    - `stale_zh` 有值 ＝ 上游改了描述、舊譯文失效要重譯，不是新 repo。對照著改，別整句重寫。
+12. apply：先 `--dry-run` 自檢，再正式寫入：
+    ```
+    python scripts/pulse-github-desc-apply.py --in github-desc-result.json --dry-run
+    python scripts/pulse-github-desc-apply.py --in github-desc-result.json
+    ```
+    譯文存進 `_github/desc-zh.json`（**這個檔進版控**，所以翻過的不會白翻，明晚 Actions
+    重建榜單時會自動掛回去）。原文永遠留在 `desc` 欄且前台一併顯示——譯文是二手的，
+    讀者要能看到一手的那句。
+
 **D. 產站 + 推回**
-9. render：`python scripts/pulse-render.py`
-10. 推回：
+13. render：`python scripts/pulse-render.py`
+14. 推回：
     `git add -A`
     `git diff --cached --quiet && echo "無變更" || (git commit -m "nightly: enrich + narrative $(date -u +%F)" && git push)`
-11. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`
+15. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`
     把它的輸出原樣放進收尾摘要。重點看三個數字：`probe_lag_days`（資料幾天沒更新）、
-    `待處理`（扣掉 stale_backfill 這種設計上就該擋著的，真正卡住的有幾則）、`未 enrich`。
-12. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、push 的 commit hash
-    （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 11 步的監看輸出。
+    `待處理`（扣掉 stale_backfill 這種設計上就該擋著的，真正卡住的有幾則）、`未 enrich`，
+    外加最後那張覆蓋範圍表——「來源」那欄是 0 的必盯公司代表沒有任何來源在看它。
+16. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、翻了幾條 repo 描述
+    （退件幾條、為什麼）、push 的 commit hash
+    （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 15 步的監看輸出。
     **「今晚沒事做」跟「今晚沒跑到」長得一樣**——所以摘要一定要帶監看數字，讓人一眼分得出來是哪一種。
 
 失敗處理：任一步非預期失敗就停、印出錯誤、**不要 push 半成品**。enrich 與敘事刷新都冪等，明晚會再挑同一批。

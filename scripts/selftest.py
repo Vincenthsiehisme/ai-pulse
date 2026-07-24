@@ -335,6 +335,71 @@ acase("設定一致性：coverage_watch 每個 entity_id 都在 entities.yaml �
       [w["entity_id"] for w in _cfg["coverage_watch"]["must_watch"]
        if w["entity_id"] not in _ent_ids], [])
 
+# ------------------------------------------------- 星速榜中文描述（ghdesc）
+# 這一層唯一會出事的地方是「譯文跟原文脫鉤」：上游改了 description，榜上還掛著
+# 一句在講舊版本的漂亮中文。所以測的重點不是翻得好不好（那是潤稿端的事），
+# 是**綁定失效時會不會誠實地退回英文**，以及退件會不會被靜靜吞掉。
+import sys as _sys  # noqa: E402
+
+_sys.path.insert(0, _HERE)
+from lib import ghdesc as _gd  # noqa: E402
+
+_da = importlib.util.spec_from_file_location(
+    "gh_desc_apply", os.path.join(_HERE, "pulse-github-desc-apply.py"))
+_dam = importlib.util.module_from_spec(_da)
+_da.loader.exec_module(_dam)
+
+_EN = "A toolkit for building agents"
+_ZH = "拿來組 agent 的工具包"
+
+
+def _repos(desc):
+    return [{"full_name": "acme/kit", "desc": desc, "language": "Python",
+             "topics": ["llm"], "stars": 1200, "url": "https://x/acme/kit"}]
+
+
+_store_ok = {"acme/kit": {"zh": _ZH, "src_hash": _gd.src_hash(_EN), "at": "t"}}
+
+acase("ghdesc：src_hash 對得上 → 中文掛上去",
+      _gd.attach(_repos(_EN), _store_ok)[0]["desc_zh"], _ZH)
+acase("ghdesc：上游改了 description（雜湊對不上）→ 中文作廢退回英文，"
+      "寧可空著也不掛一句在講舊版本的中文",
+      _gd.attach(_repos(_EN + " and tools"), _store_ok)[0]["desc_zh"], "")
+acase("ghdesc：有效譯文不進待譯清單",
+      _gd.pending(_repos(_EN), _store_ok), [])
+_p = _gd.pending(_repos(_EN + " and tools"), _store_ok)
+acase("ghdesc：描述改過的 repo 自動重排進待譯清單",
+      [t["full_name"] for t in _p], ["acme/kit"])
+acase("ghdesc：重譯的條目附上舊譯文，潤稿端才知道這不是全新的 repo",
+      _p[0]["stale_zh"], _ZH)
+acase("ghdesc：從沒譯過的 repo，stale_zh 是 None（跟「重譯」區分得開）",
+      _gd.pending(_repos(_EN), {})[0]["stale_zh"], None)
+
+acase("apply：乾淨的一行過關，並吃掉句尾句號（榜是一行字不是句子）",
+      _dam.validate("acme/kit", "拿來組 agent 的工具包。", _EN)[:2], (_ZH, None))
+acase("apply：英文原樣貼回來不算翻譯 → 退件",
+      _dam.validate("acme/kit", _EN, _EN)[1],
+      "沒有任何中文字（英文原樣貼回來不算翻譯）")
+acase("apply：空白 → 退件",
+      _dam.validate("acme/kit", "   ", _EN)[1], "空白")
+acase(f"apply：超過 {_dam.MAX_LEN} 字 → 退件（版面是一行）",
+      _dam.validate("acme/kit", "工" * (_dam.MAX_LEN + 1), _EN)[1],
+      f"超過 {_dam.MAX_LEN} 字（榜是一行字的版面）")
+acase("apply：AI 腔套話 → 退件",
+      _dam.validate("acme/kit", "值得關注的 agent 工具包", _EN)[1],
+      "含 AI 腔套話：值得關注")
+acase("apply：不在當下榜單上的 repo → 退件（榜換過了，別亂寫進去）",
+      _dam.validate("ghost/repo", _ZH, None)[1],
+      "不在目前榜單上（榜換過了，下次 prep 會再排進來）")
+# voice_clean.clean 回的是 tuple。這條同時測「中國用語有換掉」與「apply 有把
+# tuple 拆開」——沒拆的話 zh 會變成一整串 tuple 的字串，長度爆表、CJK 也還在，
+# 前四關全部放行，最後是榜上掛一句 "('...', [...])"。這種錯只有測得到才看得到。
+_v_cn = _dam.validate("acme/kit", "短視頻的推薦引擎工具包", _EN)
+acase("apply：中國用語走 voice_clean 後洗（跟 enrich 同一支後洗）",
+      _v_cn[0], "短影音的推薦引擎工具包")
+acase("apply：後洗改了什麼要帶回來（不能只有機器自己知道）",
+      [c[1] for c in _v_cn[2]], ["短視頻"])
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:

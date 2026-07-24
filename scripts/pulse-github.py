@@ -5,9 +5,14 @@
 答「GitHub 竄起什麼」：打 GitHub Search API 撈 AI 主題白名單的活躍 repo，
 跨執行累積星數快照、算星速（Δstars / 天），排名輸出。星數是硬數字，不推斷。
 
-  dist/data/github.json     竄起榜（repo / stars / 星速 / 語言 / 主題 / 連結）
+  dist/data/github.json     竄起榜（repo / stars / 星速 / 語言 / 主題 / 連結 / 中文描述）
   dist/github/index.html    自帶「動能」視圖（讀 ../data/github.json）
   _github/state.json        star 快照歷史（跨次累積星速用；進版控）
+  _github/desc-zh.json      中文描述儲存（潤稿端寫，本檔只讀；見 lib/ghdesc.py）
+
+中文描述：repo 的 description 來自 API，是英文。翻譯屬於**敘述**不是判斷，所以由潤稿端
+（pulse-github-desc-prep / -apply）寫，本檔只負責把驗過章的譯文掛回榜上。抓取鏈不等它——
+沒有譯文就顯示英文原文，榜照樣出得來。原文永遠保留在 desc 欄且前台一併顯示。
 
 紅線：抓取＋度量全確定性；API 失敗不炸整條鏈（沿用上次 github.json）。
 用法：VAULT_DIR=/path/to/AI-Pulse GITHUB_TOKEN=... python scripts/pulse-github.py
@@ -22,6 +27,8 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import yaml  # noqa: E402
+
+from lib import ghdesc  # noqa: E402
 
 
 def search_repos(keyword, cfg, token, cutoff_date):
@@ -107,6 +114,8 @@ GH_VIEW = """<!doctype html><html lang="zh-Hant"><head>
 .gh-main .n{font-size:1.05rem;font-weight:600;line-height:1.35}
 .gh-main .n a{color:var(--text)}.gh-main .n a:hover{color:var(--accent)}
 .gh-main .d{color:var(--muted);font-size:.9rem;margin:3px 0 0}
+/* 原文一律留著。譯文是二手的，讀者要能一眼看到一手的那句。 */
+.gh-main .d-src{color:var(--quiet);font:11px/1.5 var(--mono);margin:2px 0 0}
 .gh-main .t{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
 .gh-tag{font:9px var(--mono);letter-spacing:.04em;padding:2px 7px;border-radius:5px;background:var(--surface-soft);color:var(--muted);border:1px solid var(--border-soft)}
 .gh-new{color:var(--fact);border-color:color-mix(in srgb,var(--fact) 40%,var(--border))}
@@ -138,12 +147,16 @@ function row(r,i){
       .concat(r.is_new?'<span class="gh-tag gh-new">首次觀測</span>':"").join("");
   return '<div class="gh-row"><div class="gh-rank">'+(i+1)+'</div>'
     +'<div class="gh-main"><div class="n"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.full_name)+'</a></div>'
-    +(r.desc?'<div class="d">'+esc(r.desc)+'</div>':"")+'<div class="t">'+tags+'</div></div>'
+    +(r.desc_zh?'<div class="d">'+esc(r.desc_zh)+'</div>':"")
+    +(r.desc?'<div class="'+(r.desc_zh?"d-src":"d")+'">'+esc(r.desc)+'</div>':"")
+    +'<div class="t">'+tags+'</div></div>'
     +'<div class="gh-metric"><span class="v'+cls+'">'+esc(mv)+'</span><span class="s">'+fmt(r.stars)+' ★</span></div></div>';
 }
 function draw(d){
   var repos=d.repos||[];
-  document.getElementById("meta").textContent=(d.count||repos.length)+" 個 repo · 更新 "+(d.generated||"");
+  var zh=repos.filter(r=>r.desc_zh).length;
+  document.getElementById("meta").textContent=(d.count||repos.length)+" 個 repo · 更新 "+(d.generated||"")
+    +" · 中文描述 "+zh+"/"+repos.length+"（排名純規則；描述由潤稿端翻寫，英文原文一併保留）";
   document.getElementById("none").style.display=repos.length?"none":"block";
   document.getElementById("list").innerHTML=repos.map(row).join("");
 }
@@ -184,6 +197,9 @@ def main():
         return 0
 
     ranked = rank(current, state, now, cfg.get("top_n", 25))
+    # 掛上潤稿端翻好的中文描述。抓取鏈不等它、也不產生它——沒有就是英文原文，
+    # 榜照樣出得來。中文晚一步到（潤稿任務比 Actions 晚三小時）是設計，不是缺陷。
+    ghdesc.attach(ranked, ghdesc.load(vault))
     (out / "data" / "github.json").write_text(
         json.dumps({"generated": generated, "count": len(ranked), "repos": ranked},
                    ensure_ascii=False, indent=2), encoding="utf-8")
@@ -196,8 +212,10 @@ def main():
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
     n_new = sum(1 for r in ranked if r["is_new"])
+    n_zh = sum(1 for r in ranked if r.get("desc_zh"))
     snap = " [snapshot 已更新]" if args.snapshot else ""
-    print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}  首次觀測={n_new}{snap}  → data/github.json + github/")
+    print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}  首次觀測={n_new}  "
+          f"中文描述={n_zh}/{len(ranked)}{snap}  → data/github.json + github/")
     return 0
 
 
