@@ -1,0 +1,326 @@
+[
+  {
+    "id": "evt-2026-05-17-c9a5ce",
+    "path": "evt-2026-05-17-c9a5ce.md",
+    "title": "Introducing Google Antigravity 2.0",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "Google",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/introducing-google-antigravity-2-0/",
+        "title": "Introducing Google Antigravity 2.0",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-05-17-feeb57",
+    "path": "evt-2026-05-17-feeb57.md",
+    "title": "Introducing Gemini Omni",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/introducing-gemini-omni/",
+        "title": "Introducing Gemini Omni",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-05-21-814d64",
+    "path": "evt-2026-05-21-814d64.md",
+    "title": "We’re launching the Google DeepMind Accelerator program in Asia Pacific to tackle environmental risks",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "Google DeepMind",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/were-launching-the-google-deepmind-accelerator-program-in-asia-pacific-to-tackle-environmental-risks/",
+        "title": "We’re launching the Google DeepMind Accelerator program in Asia Pacific to tackle environmental risks",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-06-09-51af74",
+    "path": "evt-2026-06-09-51af74.md",
+    "title": "Introducing Gemma 4 12B: a unified, encoder-free multimodal model",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/introducing-gemma-4-12b-a-unified-encoder-free-multimodal-model/",
+        "title": "Introducing Gemma 4 12B: a unified, encoder-free multimodal model",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-06-24-484ed7",
+    "path": "evt-2026-06-24-484ed7.md",
+    "title": "Introducing computer use in Gemini 3.5 Flash",
+    "fingerprint": "google:gemini:3.5-flash",
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/",
+        "title": "Introducing computer use in Gemini 3.5 Flash",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-03-209541",
+    "path": "evt-2026-07-03-209541.md",
+    "title": "Google DeepMind and A24 announce first-of-its-kind research partnership",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "Google DeepMind",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/",
+        "title": "Google DeepMind and A24 announce first-of-its-kind research partnership",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-13-cdd3fe",
+    "path": "evt-2026-07-13-cdd3fe.md",
+    "title": "Empowering India’s next generation of innovators with ATL Saathi",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Google",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/empowering-indias-next-generation-of-innovators-with-atl-saathi/",
+        "title": "Empowering India’s next generation of innovators with ATL Saathi",
+        "summary": "Google and AIM launched ATL Saathi, a Gemini-powered AI tool empowering Indian educators in robotics labs."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-15-3154bf",
+    "path": "evt-2026-07-15-3154bf.md",
+    "title": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/real-world-voiceeq",
+        "title": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-15-5f31db",
+    "path": "evt-2026-07-15-5f31db.md",
+    "title": "NVIDIA and Japan Bring Full-Stack AI and Robotics to Every Industry",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/japan-ecosystem-2026/",
+        "title": "NVIDIA and Japan Bring Full-Stack AI and Robotics to Every Industry",
+        "summary": "Home to leading manufacturers, robotics pioneers, infrastructure builders and iconic gaming companies, of course, Japan is one of the world’s centers of AI — building across the full stack with NVIDIA technologies. This week NVIDIA and its partners in Japan are showcasing the AI ecosystem’s latest a"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-20-2da7a6",
+    "path": "evt-2026-07-20-2da7a6.md",
+    "title": "At SIGGRAPH, NVIDIA Advances Graphics and Simulation With Agentic and Physical AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/siggraph-news-2026/",
+        "title": "At SIGGRAPH, NVIDIA Advances Graphics and Simulation With Agentic and Physical AI",
+        "summary": "From open models to real-time simulation, AI and graphics breakthroughs are transforming media, content creation and robotics."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-20-a01040",
+    "path": "evt-2026-07-20-a01040.md",
+    "title": "Bristol Myers Squibb Building Life Science Industry’s Most Advanced AI Factory on NVIDIA Vera Rubin",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/bristol-myers-squibb-building-life-science-industrys-most-advanced-ai-factory-on-nvidia-vera-rubin/",
+        "title": "Bristol Myers Squibb Building Life Science Industry’s Most Advanced AI Factory on NVIDIA Vera Rubin",
+        "summary": "Erin Davis calls it the “SuperDuperPOD.” That’s two things in one name: pharmaceutical giant Bristol Myers Squibb (BMS) already runs one of the largest AI clusters in life sciences, with serious results to show for it. And they’re doubling down. BMS announced today it is deploying its second NVIDIA "
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-21-11f6a7",
+    "path": "evt-2026-07-21-11f6a7.md",
+    "title": "NVIDIA and Partners Build in America, for America",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/nvidia-and-partners-build-in-america-for-america/",
+        "title": "NVIDIA and Partners Build in America, for America",
+        "summary": "NVIDIA and its partners are investing in American manufacturing, supply chains, energy grids and skilled workforces so the U.S. can produce the infrastructure needed for better healthcare, breakthrough scientific discovery, stronger industrial productivity and global technology leadership."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-21-2d1482",
+    "path": "evt-2026-07-21-2d1482.md",
+    "title": "Built for Vera Rubin, NVIDIA Spectrum-6 Arrives in Gigascale AI Factories",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/nvidia-spectrum-six-arrives-in-gigascale-ai-factories/",
+        "title": "Built for Vera Rubin, NVIDIA Spectrum-6 Arrives in Gigascale AI Factories",
+        "summary": "AI has entered the gigascale era. The world’s most advanced AI factories are bringing together hundreds of thousands of GPUs and CPUs to train frontier models, power agentic AI and generate intelligence at unprecedented scale. At this level, networking becomes a critical computing power multiplier i"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-21-34af41",
+    "path": "evt-2026-07-21-34af41.md",
+    "title": "NVIDIA Vera Rubin Driving Performance Per Watt, Lowest Token Cost for Partners Worldwide",
+    "fingerprint": null,
+    "facet": "capability",
+    "company_guess": "Microsoft",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/vera-rubin/",
+        "title": "NVIDIA Vera Rubin Driving Performance Per Watt, Lowest Token Cost for Partners Worldwide",
+        "summary": "NVIDIA Vera Rubin is here, and it’s going gigascale. Vera Rubin NVL72 production is ramping up with racks running at partners CoreWeave, Google Cloud, Microsoft Azure and Oracle Cloud Infrastructure. Spanning 350+ factory sites in 30 countries, Vera Rubin has the largest, most mature rack-scale supp"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-21-ce1fa4",
+    "path": "evt-2026-07-21-ce1fa4.md",
+    "title": "Built in Fort Worth: Wistron Opens Advanced Manufacturing Plant to Produce NVIDIA AI Systems",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/wistron-manufacturing-texas/",
+        "title": "Built in Fort Worth: Wistron Opens Advanced Manufacturing Plant to Produce NVIDIA AI Systems",
+        "summary": "The AI era runs on AI infrastructure. Many of these advanced systems are built and tested in Texas. Wistron opened its first U.S. manufacturing facility today in Fort Worth — a 324,000-square-foot greenfield plant producing superchips at the heart of some of the world’s most capable AI systems. In f"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-23-0475fe",
+    "path": "evt-2026-07-23-0475fe.md",
+    "title": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nunchaku-diffusers",
+        "title": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-23-4fb946",
+    "path": "evt-2026-07-23-4fb946.md",
+    "title": "GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-path-of-exile-allflame/",
+        "title": "GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud",
+        "summary": "Lock in and load up the cloud. GFN Thursday brings fresh updates and new adventures, all ready to play without waiting for downloads. Set sail in Path of Exile: Curse of the Allflame and charge in Battlefield 6 Season 4 both launching major content for members this week. Then revisit Capcom legends "
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-23-821bb6",
+    "path": "evt-2026-07-23-821bb6.md",
+    "title": "NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/naval-postgraduate-school-dgx-ai-supercomputer/",
+        "title": "NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School",
+        "summary": "NVIDIA founder and CEO Jensen Huang today visited the Naval Postgraduate School in Monterey, California, to commission an NVIDIA DGX GB300 system — bringing one of the world’s most powerful AI platforms fully online for the students, researchers and faculty at the U.S. military’s flagship graduate u"
+      }
+    ]
+  }
+]

@@ -1,1 +1,137 @@
-[]
+[
+  {
+    "slug": "model-research",
+    "name": "模型能力與研究",
+    "current_thesis": "訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。",
+    "current_now": "Google 一次上 Gemini 3.6 Flash、3.5 Flash-Lite、Flash Cyber，把輕量線切得更細；NVIDIA Nemotron 3 Ultra 綁 LangChain 測 agent、主打接近閉源但更便宜。兩邊都往『夠用、便宜、可組裝進 agent』走。",
+    "current_next": "看 Flash 系列的分化是真差異化定位、還是命名膨脹，以及 Nemotron 的 benchmark 有沒有第三方複現。",
+    "events": [
+      {
+        "slug": "introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cy-1bdb",
+        "date": "2026-07-21",
+        "company": "Google DeepMind",
+        "title": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
+        "summary": "Google 一次上多個 Gemini Flash 變體，把輕量線切得更細。",
+        "confidence": 73,
+        "heat": 12
+      }
+    ]
+  },
+  {
+    "slug": "product-market",
+    "name": "產品與商業驗證",
+    "current_thesis": "本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。",
+    "current_now": "兩則都是把既有模型能力包成產品：Flash Cyber 主打漏洞的找與修、Live Translate 把近即時語音翻譯鋪進三個產品。都是 Google 單邊、單一來源。",
+    "current_next": "看這些功能有沒有實際採用數據（不是發布稿），以及對手（微軟、OpenAI）在同場景的回應。",
+    "events": [
+      {
+        "slug": "geforce-now-sets-sail-with-path-of-exile-curse-of-the-allfla-4fb9",
+        "date": "2026-07-23",
+        "company": "NVIDIA",
+        "title": "GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud",
+        "summary": "GeForce NOW 本週上架《流亡黯道：Curse of the Allflame》等遊戲。",
+        "confidence": 73,
+        "heat": 15
+      },
+      {
+        "slug": "at-siggraph-nvidia-advances-graphics-and-simulation-with-age-2da7",
+        "date": "2026-07-20",
+        "company": "NVIDIA",
+        "title": "At SIGGRAPH, NVIDIA Advances Graphics and Simulation With Agentic and Physical AI",
+        "summary": "NVIDIA 在 SIGGRAPH 秀 agentic 與實體 AI，推進繪圖與模擬。",
+        "confidence": 73,
+        "heat": 11
+      },
+      {
+        "slug": "introducing-gemini-3-5-flash-cyber-484e",
+        "date": "2026-07-17",
+        "company": "Google DeepMind",
+        "title": "Introducing Gemini 3.5 Flash Cyber",
+        "summary": "Google 推專用資安模型 Gemini 3.5 Flash Cyber，主打找漏洞、修漏洞。",
+        "confidence": 73,
+        "heat": 10
+      }
+    ]
+  },
+  {
+    "slug": "infra-cost",
+    "name": "基礎設施與成本",
+    "current_thesis": "本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。",
+    "current_now": "四則事件全是 NVIDIA：Vera Rubin 打『每 token 成本最低』的後訓練、Vera 把 CPU 重新講成 agentic 瓶頸、Jetson Thor 卡機器人量產、開源醫療物理模擬降低機器人訓練門檻。方向一致：供給端在替 agent 工作負載重新定價，戰線鋪到實體 AI。",
+    "current_next": "要驗證這不是單一廠商的行銷敘事，得看第二個獨立來源（雲廠、對手晶片、實際部署者）是否印證『每 token 成本』的說法，以及 Jetson Thor 有沒有真實量產訂單。目前四則都是單一來源、標待證實。",
+    "events": [
+      {
+        "slug": "nvidia-ai-supercomputer-comes-online-at-naval-postgraduate-s-821b",
+        "date": "2026-07-23",
+        "company": "NVIDIA",
+        "title": "NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School",
+        "summary": "NVIDIA 在美國海軍研究院裝上 DGX GB300，黃仁勳到場啟用。",
+        "confidence": 73,
+        "heat": 14
+      },
+      {
+        "slug": "nvidia-open-sources-first-gpu-accelerated-medical-physics-si-d804",
+        "date": "2026-07-22",
+        "company": "NVIDIA",
+        "title": "NVIDIA Open Sources First GPU-Accelerated Medical Physics Simulation Framework",
+        "summary": "NVIDIA 開源 GPU 加速的醫療物理模擬框架，降低醫療機器人訓練門檻。",
+        "confidence": 73,
+        "heat": 14
+      },
+      {
+        "slug": "nvidia-and-partners-build-in-america-for-america-11f6",
+        "date": "2026-07-21",
+        "company": "NVIDIA",
+        "title": "NVIDIA and Partners Build in America, for America",
+        "summary": "NVIDIA 和夥伴宣示在美國本土投資製造、供應鏈、電網與人力。",
+        "confidence": 73,
+        "heat": 12
+      },
+      {
+        "slug": "built-for-vera-rubin-nvidia-spectrum-6-arrives-in-gigascale--2d14",
+        "date": "2026-07-21",
+        "company": "NVIDIA",
+        "title": "Built for Vera Rubin, NVIDIA Spectrum-6 Arrives in Gigascale AI Factories",
+        "summary": "NVIDIA 推 Spectrum-6 網通，搭 Vera Rubin 進入 gigascale AI 工廠。",
+        "confidence": 73,
+        "heat": 12
+      },
+      {
+        "slug": "nvidia-vera-rubin-driving-performance-per-watt-lowest-token--34af",
+        "date": "2026-07-21",
+        "company": "NVIDIA",
+        "title": "NVIDIA Vera Rubin Driving Performance Per Watt, Lowest Token Cost for Partners Worldwide",
+        "summary": "NVIDIA Vera Rubin 量產鋪開，主打每瓦效能與更低的 token 成本。",
+        "confidence": 73,
+        "heat": 12
+      },
+      {
+        "slug": "built-in-fort-worth-wistron-opens-advanced-manufacturing-pla-ce1f",
+        "date": "2026-07-21",
+        "company": "NVIDIA",
+        "title": "Built in Fort Worth: Wistron Opens Advanced Manufacturing Plant to Produce NVIDIA AI Systems",
+        "summary": "緯創在德州福和市開第一座美國廠，生產 NVIDIA AI 系統。",
+        "confidence": 73,
+        "heat": 13
+      },
+      {
+        "slug": "bristol-myers-squibb-building-life-science-industry-s-most-a-a010",
+        "date": "2026-07-20",
+        "company": "NVIDIA",
+        "title": "Bristol Myers Squibb Building Life Science Industry’s Most Advanced AI Factory on NVIDIA Vera Rubin",
+        "summary": "必治妥施貴寶（BMS）要在 NVIDIA Vera Rubin 上蓋新一代 AI 工廠。",
+        "confidence": 73,
+        "heat": 11
+      },
+      {
+        "slug": "nvidia-vera-rubin-maximizes-intelligence-per-dollar-for-post-5933",
+        "date": "2026-07-17",
+        "company": "NVIDIA",
+        "title": "NVIDIA Vera Rubin Maximizes Intelligence per Dollar for Post-Training Workloads — a Key Metric for Agentic AI",
+        "summary": "NVIDIA Vera Rubin 主打每 token 成本最低，鎖定 agent 時代的後訓練。",
+        "confidence": 73,
+        "heat": 10
+      }
+    ]
+  }
+]
