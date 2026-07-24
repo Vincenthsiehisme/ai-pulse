@@ -89,19 +89,30 @@
 
 你依序做：
 
-1. 環境：`pip install pyyaml --quiet`（prep / apply / gate / render 只需 pyyaml）。
+1. 環境：`pip install pyyaml --quiet`。
 2. git 身份：`git config user.name "ai-pulse-enrich" && git config user.email "ai-pulse-enrich@users.noreply.github.com"`
 3. `export VAULT_DIR="$PWD"`
-4. prep：`python scripts/pulse-enrich-prep.py`
-   - 讀 `_probe/enrich-worklist.json`。**若為空陣列 → 今晚無待潤事件，直接結束、不要 commit**（印一行「無待潤事件」）。
-5. 依本檔「流程 步驟 2–3」的 schema 與 speak-human-tw 規則，為 worklist 每個 Event 產出結構化結果，組成 `enrich-result.json`（dict keyed by event_id）。
-   - 紅線：判斷不由你決定發不發（那是 gate）；只依 evidence、不編造；去 AI 口吻。
-   - 套 speak-human-tw 的**自動化工作流模式**（跳過確認、事後摘要），不要中途丟問句停住。
-6. apply：先 `python scripts/pulse-enrich-apply.py --in enrich-result.json --dry-run` 自檢，再 `python scripts/pulse-enrich-apply.py --in enrich-result.json` 正式寫入。
-7. 過門禁 + 重建索引與站：`python scripts/pulse-gate.py && python scripts/pulse-dashboard.py && python scripts/pulse-render.py`
-8. 推回：
-   `git add -A`
-   `git diff --cached --quiet && echo "無變更" || (git commit -m "enrich: nightly rewrite $(date -u +%F)" && git push)`
-9. 收尾：印事後摘要——潤了幾則、gate 讓幾則上線、push 的 commit hash。
 
-失敗處理：任一步非預期失敗就停、印出錯誤、**不要 push 半成品**。enrich 冪等，明晚會再挑同一批。
+**A. 事件潤稿（敘述）**
+4. prep：`python scripts/pulse-enrich-prep.py` → 讀 `_probe/enrich-worklist.json`。若為空陣列 → A 段跳過。
+5. 依本檔「流程 步驟 2–3」的 schema 與 speak-human-tw 規則，為 worklist 每個 Event 產出 `enrich-result.json`（dict keyed by event_id）。紅線：判斷不由你決定發不發、只依證據不編造、去 AI 口吻。
+6. apply：先 `python scripts/pulse-enrich-apply.py --in enrich-result.json --dry-run` 自檢，再正式 `python scripts/pulse-enrich-apply.py --in enrich-result.json`。
+
+**B. 過門禁 + 索引**
+7. `python scripts/pulse-gate.py && python scripts/pulse-dashboard.py`
+
+**C. 主線敘事刷新（只在有主線變動時；這也是敘述、同樣過 speak-human-tw）**
+8. `python scripts/pulse-narrative-prep.py` → 讀 `_probe/narrative-worklist.json`。
+   - **若為空陣列 → 整個 C 段跳過**（多數夜晚如此：只有某主線今晚新增／變動事件才會 dirty；dirty 由事件集合簽章決定，不由你判斷）。
+   - 否則對每個 dirty 主線，依它的 `events`（附 title/summary/date/confidence/heat）**只重寫 `now` 與 `next` 兩段——thesis 與 lenses 不要動**。只依事件、不編造、套 speak-human-tw 自動化模式、去 AI 口吻。`now`＝這條線目前狀態；`next`＝接下來要觀察的可驗證訊號。
+   - 組成 `narrative-result.json`：`{"<track-slug>":{"now":"...","next":"..."}, ...}`（只放 dirty 主線）。
+   - `python scripts/pulse-narrative-apply.py --in narrative-result.json`（過 voice_clean、更新 updated、記錄簽章）。
+
+**D. 產站 + 推回**
+9. render：`python scripts/pulse-render.py`
+10. 推回：
+    `git add -A`
+    `git diff --cached --quiet && echo "無變更" || (git commit -m "nightly: enrich + narrative $(date -u +%F)" && git push)`
+11. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、push 的 commit hash（或「今晚無待潤事件、無主線變動」）。
+
+失敗處理：任一步非預期失敗就停、印出錯誤、**不要 push 半成品**。enrich 與敘事刷新都冪等，明晚會再挑同一批。
