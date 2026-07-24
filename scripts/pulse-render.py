@@ -226,6 +226,22 @@ article.event h2 a:hover{color:var(--accent)}
 .line-empty{color:var(--quiet);font-size:.9rem;margin-top:12px}
 .line-section h2{display:flex;align-items:center;gap:10px;font-size:1.3rem;margin:0 0 4px}
 .line-section h2::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--tc,var(--accent))}
+.line-meta{color:var(--quiet);font:11px var(--mono);letter-spacing:.05em;margin:0 0 18px}
+.line-thesis{color:var(--muted);font-size:.9rem;line-height:1.6;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.narrative{background:var(--surface);border:1px solid var(--border-soft);border-left:3px solid var(--tc,var(--accent));border-radius:var(--radius-md);padding:20px 24px;margin:0 0 18px}
+.narrative .thesis{font-size:1.08rem;line-height:1.7;margin:0;color:var(--text)}
+.narrative .nn{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+@media(max-width:640px){.narrative .nn{grid-template-columns:1fr}}
+.narrative .nn .lbl{display:block;font:9px var(--mono);letter-spacing:.12em;color:var(--tc,var(--accent));margin-bottom:5px}
+.narrative .nn p{margin:0;font-size:.95rem;color:var(--muted);line-height:1.65}
+.lens-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:0 0 22px}
+.lens{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:18px 20px}
+.lens-role{display:inline-block;font:9px var(--mono);letter-spacing:.1em;color:var(--tc,var(--accent));border:1px solid color-mix(in srgb,var(--tc,var(--accent)) 40%,var(--border));border-radius:999px;padding:3px 9px;margin-bottom:11px}
+.lens-q{font-size:.98rem;font-weight:580;line-height:1.45;margin:0 0 8px}
+.lens-a{font-size:.9rem;color:var(--muted);line-height:1.6;margin:0 0 10px}
+.lens-w{font:10px var(--mono);color:var(--quiet);line-height:1.55;margin:0;display:flex;gap:6px}
+.lens-w span{color:var(--tc,var(--accent));flex:none}
+.line-sub{font:11px var(--mono);letter-spacing:.1em;color:var(--muted);margin:4px 0 14px;text-transform:uppercase}
 
 .tl-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 26px}
 .chip-row{display:flex;flex-wrap:wrap;gap:7px}
@@ -445,6 +461,34 @@ def signal_region(s, sources):
     return (sources.get(s.get("source_id")) or {}).get("region") or "global"
 
 
+def narrative_block(narr):
+    thesis = (narr or {}).get("thesis")
+    if not thesis:
+        return ""
+    now = (narr or {}).get("now")
+    nxt = (narr or {}).get("next")
+    nn = ""
+    if now or nxt:
+        cells = ""
+        if now:
+            cells += f'<div><span class="lbl">現況 NOW</span><p>{esc(now)}</p></div>'
+        if nxt:
+            cells += f'<div><span class="lbl">接下來看 NEXT</span><p>{esc(nxt)}</p></div>'
+        nn = f'<div class="nn">{cells}</div>'
+    return f'<div class="narrative"><p class="thesis">{esc(thesis)}</p>{nn}</div>'
+
+
+def lens_grid(lenses):
+    if not lenses:
+        return ""
+    cards = []
+    for L in lenses:
+        watch = f'<p class="lens-w"><span>觀察</span>{esc(L.get("watch"))}</p>' if L.get("watch") else ""
+        cards.append(f"""<article class="lens"><span class="lens-role">{esc(L.get("role"))}</span>
+<p class="lens-q">{esc(L.get("question"))}</p><p class="lens-a">{esc(L.get("answer"))}</p>{watch}</article>""")
+    return f'<div class="lens-grid">{"".join(cards)}</div>'
+
+
 def track_of(ev):
     name = TRACK_ALIASES.get((ev.get("track") or "").strip())
     return TRACK_BY_NAME.get(name) if name else None
@@ -559,7 +603,7 @@ def score_grid_html(ev):
 
 
 # ─────────────────────── pages ───────────────────────
-def build_home(events, generated):
+def build_home(events, narratives, generated):
     n = len(events)
     companies = len({e["company"] for e in events if e["company"]})
     signal_svg = """<div class="signal-field" aria-hidden="true"><svg viewBox="0 0 320 220">
@@ -592,13 +636,16 @@ def build_home(events, generated):
     blocks = []
     for slug, name, color in TRACKS:
         evs = by_track.get(slug, [])
-        if evs:
-            items = "".join(f'<li><time>{esc(e["date"])}</time><span><b>{esc(e["company"])}</b> {esc(e["title"])}</span></li>'
-                            for e in evs[:3])
-            body_l = f"<ul>{items}</ul>"
+        th = (narratives.get(slug) or {}).get("thesis")
+        if th:
+            inner = f'<p class="line-thesis">{esc(th)}</p>'
+        elif evs:
+            inner = "".join(f'<li><time>{esc(e["date"])}</time><span><b>{esc(e["company"])}</b> {esc(e["title"])}</span></li>'
+                            for e in evs[:2])
+            inner = f"<ul>{inner}</ul>"
         else:
-            body_l = '<p class="line-empty">暫無已發布事件</p>'
-        blocks.append(f'<div class="line-block" style="--tc:{color}"><span class="lc">{len(evs)} 則事件</span><h3>{esc(name)}</h3>{body_l}</div>')
+            inner = '<p class="line-empty">暫無已發布事件</p>'
+        blocks.append(f'<div class="line-block" style="--tc:{color}"><span class="lc">{len(evs)} 則事件</span><h3>{esc(name)}</h3>{inner}</div>')
     lines_html = f"""<section class="section shell">
 {section_head("SIX INDUSTRY TRENDS", "六大領域趨勢", "把事件收斂進六條主線，看產業往哪走。")}
 <div class="line-grid">{''.join(blocks)}</div>
@@ -612,7 +659,7 @@ def build_home(events, generated):
                        body, 0, generated)
 
 
-def build_lines(events, generated):
+def build_lines(events, narratives, generated):
     by_track = defaultdict(list)
     for e in events:
         tr = track_of(e)
@@ -626,15 +673,20 @@ def build_lines(events, generated):
     secs = []
     for slug, name, color in TRACKS:
         evs = by_track.get(slug, [])
+        narr = narratives.get(slug) or {}
         if evs:
             cards = "".join(event_card(e, "../", full=False) for e in evs)
             meta = f"{len(evs)} 則事件 · 最新 {evs[0]['date']}"
+            sub = '<p class="line-sub">相關事件</p>'
         else:
             cards = '<p class="line-empty">這條主線目前沒有已發布事件——等抓取鏈收斂出來後會自動補上。</p>'
             meta = "0 則事件"
+            sub = ""
+        narrative = narrative_block(narr)
+        lenses = lens_grid(narr.get("lenses"))
         secs.append(f"""<section class="section shell line-section" style="--tc:{color}">
-<h2>{esc(name)}</h2><p style="color:var(--quiet);font:11px var(--mono);letter-spacing:.05em;margin:0 0 18px">{esc(meta)}</p>
-{cards}</section>""")
+<h2>{esc(name)}</h2><p class="line-meta">{esc(meta)}</p>
+{narrative}{lenses}{sub}{cards}</section>""")
     body = h + "".join(secs)
     return page_layout("lines", "領域趨勢 — AI Pulse",
                        "六大主線的事件收斂：模型能力、Agent、產品、基礎設施、資本、全球版圖。", body, 1, generated)
@@ -843,6 +895,15 @@ def load_sources(vault):
     return out
 
 
+def load_narratives(vault):
+    """讀編輯性敘事層（獨立於 pipeline，可缺）。回傳 track_slug -> {thesis,now,next,lenses}。"""
+    f = vault / "_config" / "narratives.yaml"
+    if not f.exists():
+        return {}
+    raw = yaml.safe_load(f.read_text("utf-8")) or {}
+    return raw.get("tracks") or {}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="dist")
@@ -856,12 +917,13 @@ def main():
     signals = load_signals(vault)
     corpus_idx = load_corpus_index(vault)
     sources = load_sources(vault)
+    narratives = load_narratives(vault)
     generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%MZ")
 
     (out / "assets" / "app.css").write_text(CSS, encoding="utf-8")
     (out / "assets" / "app.js").write_text(JS, encoding="utf-8")
-    (out / "index.html").write_text(build_home(events, generated), encoding="utf-8")
-    (out / "lines" / "index.html").write_text(build_lines(events, generated), encoding="utf-8")
+    (out / "index.html").write_text(build_home(events, narratives, generated), encoding="utf-8")
+    (out / "lines" / "index.html").write_text(build_lines(events, narratives, generated), encoding="utf-8")
     (out / "timeline" / "index.html").write_text(build_timeline(events, generated), encoding="utf-8")
     (out / "signals" / "index.html").write_text(build_signals(signals, sources, generated), encoding="utf-8")
     for ev in events:
