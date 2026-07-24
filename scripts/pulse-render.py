@@ -650,9 +650,11 @@ def build_home(events, narratives, generated):
 {section_head("SIX INDUSTRY TRENDS", "六大領域趨勢", "把事件收斂進六條主線，看產業往哪走。")}
 <div class="line-grid">{''.join(blocks)}</div>
 <a class="text-link" href="lines/">進入領域趨勢 {ARROW}</a></section>"""
-    manifesto = """<section class="section section-tint"><div class="shell section-head">
-<span class="kicker">為什麼是這個系統</span><h2>一個追蹤 AI 的系統，證明自己不靠 LLM 也能跑</h2>
-<p>判斷這一層零 LLM——由規則決定一則消息夠不夠格發、熱度可不可信。敘述由 Cowork 依 speak-human-tw 潤稿、去 AI 口吻。全程可審計、可重現、零 API 成本、可離線。</p></div></section>"""
+    manifesto = ('<section class="section section-tint"><div class="shell">'
+                 + section_head("為什麼是這個系統", "一個追蹤 AI 的系統，證明自己不靠 LLM 也能跑",
+                                "判斷這一層零 LLM——由規則決定一則消息夠不夠格發、熱度可不可信。"
+                                "敘述由 Cowork 依 speak-human-tw 潤稿、去 AI 口吻。全程可審計、可重現、零 API 成本、可離線。")
+                 + '</div></section>')
     body = hero_html + latest_html + recent_html + lines_html + manifesto
     return page_layout("home", "AI Pulse — 看清 AI 產業的關鍵變化",
                        "去 AI 口吻的 AI 產業情報：判斷走規則、敘述過 speak-human-tw，每則附一手證據。",
