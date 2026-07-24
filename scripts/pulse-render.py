@@ -74,6 +74,7 @@ BRAND = '<span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span
 ARROW = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 BACK = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>'
 EXT = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M18 14v5H5V6h5"/></svg>'
+SEARCH = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
 SUN = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/>'
        '<path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>')
 
@@ -259,6 +260,23 @@ article.event h2 a:hover{color:var(--accent)}
 .sig-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--quiet);font:10px var(--mono);letter-spacing:.04em;border-top:1px solid var(--border-soft);padding-top:10px}
 .sig-foot .go{color:var(--fact);display:inline-flex;align-items:center;gap:4px}
 
+/* page-status strip + signal toolbar */
+.page-status{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:26px;border:1px solid var(--border-soft);border-radius:var(--radius-md);overflow:hidden;background:var(--border-soft)}
+.page-status div{background:var(--canvas);padding:14px 16px}
+.page-status span{display:block;color:var(--quiet);font:9px var(--mono);letter-spacing:.1em;margin-bottom:4px}
+.page-status b{font-size:1.15rem;font-weight:620;font-variant-numeric:tabular-nums}
+@media(max-width:560px){.page-status{grid-template-columns:1fr}}
+.sig-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 22px}
+.sig-search{display:flex;align-items:center;gap:8px;flex:1;min-width:220px;padding:0 14px;height:40px;border:1px solid var(--border-soft);border-radius:999px;background:var(--surface);color:var(--quiet)}
+.sig-search input{flex:1;border:0;background:transparent;color:var(--text);font-size:13px;outline:none}
+.sig-select{position:relative}
+.sig-select select{appearance:none;-webkit-appearance:none;height:40px;padding:0 32px 0 14px;border:1px solid var(--border-soft);border-radius:999px;background:var(--surface);color:var(--muted);font:12px var(--mono);cursor:pointer}
+.sig-select::after{content:"▾";position:absolute;right:13px;top:11px;color:var(--quiet);pointer-events:none}
+.sig-count{margin-left:auto;color:var(--quiet);font:11px var(--mono)}
+.sig-more{margin:24px auto 0;display:block;padding:9px 22px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--muted);font:12px var(--mono);cursor:pointer}
+.sig-more:hover{color:var(--text);border-color:var(--accent)}
+.sig-none{display:none;color:var(--quiet);font:12px var(--mono);text-align:center;padding:36px}
+
 /* ── event detail ── */
 .crumb{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font:11px var(--mono);letter-spacing:.05em;margin-bottom:16px}
 .crumb:hover{color:var(--text)}
@@ -323,6 +341,32 @@ JS = """
       var cnt=document.querySelector('[data-count]');if(cnt)cnt.textContent=n+' 則事件';
     });
   }
+  // signals 搜尋 / 來源類型 / 地域篩選 + 分頁（漸進增強：無 JS 時前 36 條照顯示）
+  var sb=document.querySelector('[data-sig]');
+  if(sb){
+    var scards=[].slice.call(sb.querySelectorAll('.sig-card'));
+    var q=sb.querySelector('[data-sig-q]'),kind=sb.querySelector('[data-sig-kind]'),region=sb.querySelector('[data-sig-region]');
+    var moreBtn=sb.querySelector('[data-sig-more]'),countEl=sb.querySelector('[data-sig-count]'),noneEl=sb.querySelector('[data-sig-none]');
+    var CAP=36,expanded=false;
+    function apply(){
+      var term=(q&&q.value||'').trim().toLowerCase(),k=kind?kind.value:'all',r=region?region.value:'all';
+      var active=term||k!=='all'||r!=='all';
+      var matched=scards.filter(function(c){
+        if(k!=='all'&&c.getAttribute('data-kind')!==k)return false;
+        if(r!=='all'&&c.getAttribute('data-region')!==r)return false;
+        if(term&&c.getAttribute('data-s').indexOf(term)<0)return false;
+        return true;
+      });
+      scards.forEach(function(c){c.style.display='none';});
+      matched.forEach(function(c,i){if(active||expanded||i<CAP)c.style.display='';});
+      if(countEl)countEl.textContent=matched.length+' / '+scards.length;
+      if(noneEl)noneEl.style.display=matched.length?'none':'block';
+      if(moreBtn)moreBtn.style.display=(!active&&!expanded&&matched.length>CAP)?'block':'none';
+    }
+    [q,kind,region].forEach(function(el){if(el){el.addEventListener('input',apply);el.addEventListener('change',apply);}});
+    if(moreBtn)moreBtn.addEventListener('click',function(){expanded=true;apply();});
+    apply();
+  }
 })();
 """
 
@@ -372,6 +416,33 @@ def section_head(kicker, title, desc=""):
     d = f"<p>{esc(desc)}</p>" if desc else ""
     return (f'<div class="section-head"><span class="kicker">{esc(kicker)}</span>'
             f'<h2>{esc(title)}</h2>{d}</div>')
+
+
+def page_status(cells):
+    inner = "".join(f'<div><span>{esc(l)}</span><b>{esc(v)}</b></div>' for l, v in cells)
+    return f'<div class="page-status">{inner}</div>'
+
+
+SIG_KINDS = [("all", "全部來源"), ("official", "官方 / 政策"), ("research", "研究 / 專家"),
+             ("media", "媒體 / 社群"), ("aggregator", "聚合")]
+
+
+def signal_kind(s, sources):
+    src = sources.get(s.get("source_id")) or {}
+    cat = (src.get("source_category") or "").lower()
+    role = (s.get("effective_role") or "").lower()
+    sid = str(s.get("source_id") or "").lower()
+    if cat == "aggregator" or src.get("track") == "aggregator":
+        return "aggregator"
+    if cat == "research" or "research" in role or "arxiv" in sid:
+        return "research"
+    if cat in ("vendor", "official", "policy") or src.get("track") == "official":
+        return "official"
+    return "media"
+
+
+def signal_region(s, sources):
+    return (sources.get(s.get("source_id")) or {}).get("region") or "global"
 
 
 def track_of(ev):
@@ -547,7 +618,11 @@ def build_lines(events, generated):
         tr = track_of(e)
         if tr:
             by_track[tr[0]].append(e)
-    h = hero("六大主線", "領域趨勢", "把事件收斂進六條主線——每條看得到相關事件、最新進展與獨立來源數。", cls="compact")
+    active_tracks = sum(1 for slug, _, _ in TRACKS if by_track.get(slug))
+    latest = events[0]["date"] if events else "—"
+    stat = page_status([("主線", f"{active_tracks} / 6"), ("已收事件", len(events)), ("最新", latest)])
+    h = hero("六大主線", "領域趨勢", "把事件收斂進六條主線——每條看得到相關事件、最新進展與獨立來源數。",
+             extra=stat, cls="compact")
     secs = []
     for slug, name, color in TRACKS:
         evs = by_track.get(slug, [])
@@ -588,7 +663,10 @@ def build_timeline(events, generated):
 <div class="tl-meta"><span>{esc(e['company'])}</span>{f'<span>{esc(tname)}</span>' if tname else ''}<span>confidence {esc(e['confidence'])}</span></div></div>""")
             months.append(f'<div class="tl-month"><time>{esc(y)} · {MONTH_TW.get(m, m)}</time>{"".join(cards)}</div>')
         years_html.append(f'<section class="tl-year"><h2>{esc(y)}</h2>{"".join(months)}</section>')
-    body = f"""{hero("EVENT TIMELINE", "事件時間軸", "已發布事件依時間排列，最新在前。點主線標籤可篩選、點標題看完整事件。", cls="compact")}
+    companies = len({e["company"] for e in events if e["company"]})
+    latest = events[0]["date"] if events else "—"
+    tl_stat = page_status([("事件", len(events)), ("主體", companies), ("最新", latest)])
+    body = f"""{hero("EVENT TIMELINE", "事件時間軸", "已發布事件依時間排列，最新在前。點主線標籤可篩選、點標題看完整事件。", extra=tl_stat, cls="compact")}
 <section class="section shell">
 <div class="tl-controls" data-filter-row>
 <div class="chip-row"><button type="button" class="active" data-filter="all">全部</button>{filters}</div>
@@ -598,11 +676,12 @@ def build_timeline(events, generated):
                        "已發布 AI 產業事件的時間軸，依年月分組、可依主線篩選。", body, 1, generated)
 
 
-def build_signals(signals, generated):
+def build_signals(signals, sources, generated):
     src_count = len({s.get("source_id") for s in signals})
     latest = fmt_date(signals[0].get("first_observed_at") or signals[0].get("published")) if signals else "—"
+    regions = sorted({signal_region(s, sources) for s in signals})
     cards = []
-    for s in signals[:60]:
+    for s in signals:
         url = s.get("url")
         if not url or not str(url).startswith(("http://", "https://")):
             continue
@@ -610,22 +689,35 @@ def build_signals(signals, generated):
         tier = s.get("tier")
         grade = s.get("grade") or ""
         role = (s.get("effective_role") or "")
+        kind = signal_kind(s, sources)
+        region = signal_region(s, sources)
         tone = "research" if (facet in ("benchmark", "paper") or "research" in role
                               or "arxiv" in str(s.get("source_id", "")).lower()) else ("high" if tier == 1 else "")
         date = fmt_date(s.get("first_observed_at") or s.get("published"))
         summ = (s.get("summary") or "").strip()
         if len(summ) > 160:
             summ = summ[:158].rstrip() + "…"
-        cards.append(f"""<a class="sig-card {tone}" href="{esc(url)}" target="_blank" rel="noopener">
-<div class="sig-meta"><span class="sig-tags"><span class="sig-tag">{esc(facet)}</span>{f'<span class="sig-tag">{esc(grade)} 級</span>' if grade else ''}</span><time>{esc(date)}</time></div>
+        srcname = prettify_source(s.get("source_id"))
+        search = " ".join([s.get("title") or "", srcname, facet, region, kind]).lower()
+        cards.append(f"""<a class="sig-card {tone}" href="{esc(url)}" target="_blank" rel="noopener" data-kind="{esc(kind)}" data-region="{esc(region)}" data-s="{esc(search)}">
+<div class="sig-meta"><span class="sig-tags"><span class="sig-tag">{esc(facet)}</span><span class="sig-tag">{esc(region)}</span>{f'<span class="sig-tag">{esc(grade)} 級</span>' if grade else ''}</span><time>{esc(date)}</time></div>
 <h2>{esc(s.get('title'))}</h2>{f'<p>{esc(summ)}</p>' if summ else ''}
-<div class="sig-foot"><span>{esc(prettify_source(s.get('source_id')))} · {esc(tier_label(tier))}</span><span class="go">看原文 {EXT}</span></div></a>""")
-    stat = (f'<div class="statline"><span><b>{len(signals)}</b> 條更新</span>'
-            f'<span><b>{src_count}</b> 個來源</span><span>最新 <b>{esc(latest)}</b></span></div>')
+<div class="sig-foot"><span>{esc(srcname)} · {esc(tier_label(tier))}</span><span class="go">看原文 {EXT}</span></div></a>""")
+    kind_opts = "".join(f'<option value="{esc(k)}">{esc(lbl)}</option>' for k, lbl in SIG_KINDS)
+    region_opts = '<option value="all">全部地域</option>' + "".join(
+        f'<option value="{esc(r)}">{esc(r)}</option>' for r in regions)
+    stat = page_status([("已收更新", len(signals)), ("來源", src_count), ("最新", latest)])
+    toolbar = f"""<div class="sig-toolbar">
+<label class="sig-search">{SEARCH}<input type="search" data-sig-q placeholder="搜尋標題、來源、分類或地域"></label>
+<div class="sig-select"><select data-sig-kind aria-label="依來源類型篩選">{kind_opts}</select></div>
+<div class="sig-select"><select data-sig-region aria-label="依地域篩選">{region_opts}</select></div>
+<span class="sig-count" data-sig-count>{len(cards)} / {len(cards)}</span></div>"""
     body = f"""{hero("SOURCE UPDATES", "來源更新", "各來源剛發布的內容與原文連結。這裡只是待核驗線索，通過證據檢查後才會進入事件時間軸。", extra=stat, cls="compact")}
-<section class="section section-tint"><div class="shell">
+<section class="section section-tint"><div class="shell" data-sig>
+{toolbar}
 <div class="sig-stream">{''.join(cards)}</div>
-{f'<p style="color:var(--quiet);font:11px var(--mono);margin-top:22px">顯示最新 {len(cards)} 條，共 {len(signals)} 條。</p>' if len(signals) > len(cards) else ''}
+<p class="sig-none" data-sig-none>沒有符合條件的更新。</p>
+<button class="sig-more" type="button" data-sig-more>顯示更多</button>
 </div></section>"""
     return page_layout("signals", "來源更新 — AI Pulse",
                        "各追蹤來源剛發布的待核驗線索，附原文連結。通過證據檢查後才進入事件時間軸。",
@@ -771,7 +863,7 @@ def main():
     (out / "index.html").write_text(build_home(events, generated), encoding="utf-8")
     (out / "lines" / "index.html").write_text(build_lines(events, generated), encoding="utf-8")
     (out / "timeline" / "index.html").write_text(build_timeline(events, generated), encoding="utf-8")
-    (out / "signals" / "index.html").write_text(build_signals(signals, generated), encoding="utf-8")
+    (out / "signals" / "index.html").write_text(build_signals(signals, sources, generated), encoding="utf-8")
     for ev in events:
         d = out / "events" / ev["slug"]
         d.mkdir(parents=True, exist_ok=True)
