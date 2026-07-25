@@ -116,7 +116,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 3 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 4 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕。
