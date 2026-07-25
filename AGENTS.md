@@ -9,10 +9,13 @@
 硬送假問題（紅線 8）。
 
 **2. 只有資料 commit 可以直推 `main`。** `chore: nightly refresh` 那一類，動的是
-`_corpus/ _probe/ Events/ Sources/ _dashboards/ dist/`。這是 `data-refresh.yml` 每
-兩小時一班的產物，改成走 PR 會讓鏈卡死——刻意保留的例外。
+`_corpus/ _probe/ Events/ Sources/ _dashboards/ dist/`，外加 `_config/sources.yaml`
+的 `lifecycle` 與 `robots_ok` 兩欄（robots 重驗的實測結果，機器自己寫）。這是
+`data-refresh.yml` 每兩小時一班的產物，改成走 PR 會讓鏈卡死——刻意保留的例外。
 
 **3. 碼、CI、`_config/`、文件一律走 PR。** 判斷邏輯與門禁門檻住在這裡；沒被審過
 的規則不該直接決定什麼上線。改門檻 / 排名 / schema 前先改說明文件（紅線 9）。
+`_config/sources.yaml` 除了上面那兩欄之外的所有欄位（新增來源、tier、role、
+quota、覆蓋門檻）也走這條。
 
 **憑證**：token 只出現在 clone / push 指令裡，絕不寫進任何檔案、commit 或摘要。
