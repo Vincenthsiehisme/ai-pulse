@@ -284,7 +284,9 @@ def main():
                 slug = f"{slugify(title)}-{h[:4]}"
                 ev = Event(eid, slug, title, published, fp, sig.get("facet"))
                 ev.company = infer_company(sig.get("entity_hits"), entities)
-                ev.keywords = list(cluster.title_tokens(title))[:8]
+                # 曾經是 list(cluster.title_tokens(title))[:8]，那是 set → 順序隨機，
+                # 同一個標題每跑一次就換一組關鍵詞。理由與實測見 lib/cluster.py。
+                ev.keywords = cluster.keyword_tokens(title, 8)
                 events.append(ev)
                 existing_by_id[eid] = ev
                 created += 1

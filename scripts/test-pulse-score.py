@@ -145,6 +145,25 @@ check_true("gate 佔位被擋", "placeholder_content" in bk_ph and "missing_cate
 bk_gen, _w3 = _gate.evaluate(dict(fm_ok, company="industry"), body_ok, GATE)
 check_true("gate 泛稱實體被擋", "generic_entity" in bk_gen)
 
+# ── keyword_tokens：確定性 + 虛詞過濾 ──
+# 真實案例：evt-2026-07-24-dd57bd 當初拿到的 keywords 是
+# ['at','future','summit','ai','outlines','south','its','partners'] —— nvidia 不在裡面。
+_T = "At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners"
+_kw = cluster.keyword_tokens(_T, 8)
+# 寫死期望值而不是拿兩次呼叫互比：同一個行程裡比不出雜湊隨機化，
+# 要跨行程才看得到。寫死了，任何一次「順序又飄了」都會在這裡紅。
+check("keyword 同輸入同輸出", _kw,
+      ["ai", "summit", "south", "korea", "outlines", "future", "nvidia", "partners"])
+check_true("keyword 濾掉 at/its", "at" not in _kw and "its" not in _kw)
+check_true("keyword 留住 nvidia", "nvidia" in _kw)
+check_true("keyword 依標題原順序", _kw.index("summit") < _kw.index("nvidia"))
+check("keyword 上限生效", len(cluster.keyword_tokens(_T, 3)), 3)
+check("keyword 去重", cluster.keyword_tokens("Gemini Gemini Gemini", 8), ["gemini"])
+check("keyword 濾純數字", cluster.keyword_tokens("Qwen 3 2026", 8), ["qwen"])
+# STOP_WORDS 參與 title_similarity＝參與聚類；分家才不會被關鍵詞的需求帶著改掉聚類。
+check_true("兩份停用詞分家", cluster.KEYWORD_STOP_WORDS > cluster.STOP_WORDS)
+check("STOP_WORDS 維持 11 個未被擴張", len(cluster.STOP_WORDS), 11)
+
 # ── 報告 ──
 if FAILS:
     print(f"FAIL — {len(FAILS)} 個：")
