@@ -176,6 +176,50 @@ check("keyword 濾純數字", cluster.keyword_tokens("Qwen 3 2026", 8), ["qwen"]
 check_true("兩份停用詞分家", cluster.KEYWORD_STOP_WORDS > cluster.STOP_WORDS)
 check("STOP_WORDS 維持 11 個未被擴張", len(cluster.STOP_WORDS), 11)
 
+# ── 當日快照重寫時 backfill / is_new 不能被本輪值抹掉 ──
+# 真實案例：2026-07-25 改成每 2 小時一班之後，05:21 那班標了 300 筆 backfill，
+# 08:13 那班把同一批全部翻成 false，report 開頭那句「lead_days 與熱度統計應排除」
+# 整段消失。檔案還在、筆數一樣、沒有錯誤——典型的靜默失敗，只有這裡會紅。
+import json as _json  # noqa: E402
+import tempfile as _tf  # noqa: E402
+from pathlib import Path as _P  # noqa: E402
+
+_pp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pulse-probe.py")
+_pspec = _ilu.spec_from_file_location("pulse_probe", _pp)
+_probe = _ilu.module_from_spec(_pspec)
+_pspec.loader.exec_module(_probe)
+
+with _tf.TemporaryDirectory() as _td:
+    _snap = _P(_td) / "src-x.jsonl"
+    _snap.write_text(
+        _json.dumps({"url_canonical": "https://e.com/a", "backfill": True,
+                     "is_new": True, "title": "早上那批"}, ensure_ascii=False)
+        + "\n\n{ 這行是壞掉的 JSON\n"
+        + _json.dumps({"url_canonical": "https://e.com/b", "backfill": False,
+                       "is_new": True, "title": "早上第一次看到"}, ensure_ascii=False)
+        + "\n", encoding="utf-8")
+    _prior = _probe.load_day_flags(_snap)
+    check("壞行與空行不擋整班（只讀到 2 筆）", len(_prior), 2)
+
+    # 第二班：backfill / is_new 都被算成 False，必須被早上的值蓋回來。
+    _r1 = {"url_canonical": "https://e.com/a", "backfill": False, "is_new": False}
+    _probe.carry_day_flags(_r1, _prior)
+    check_true("同日第二班不得抹掉 backfill", _r1["backfill"] is True)
+    check_true("同日第二班不得抹掉 is_new", _r1["is_new"] is True)
+
+    # 早上就是 False 的不能因為「沿用」被硬升成 True。
+    _r2 = {"url_canonical": "https://e.com/b", "backfill": False, "is_new": False}
+    _probe.carry_day_flags(_r2, _prior)
+    check_true("沿用是照抄不是硬設 True", _r2["backfill"] is False and _r2["is_new"] is True)
+
+    # 當日第一次出現的項目維持本輪判定——那才是它真正的第一次。
+    _r3 = {"url_canonical": "https://e.com/new", "backfill": True, "is_new": True}
+    _probe.carry_day_flags(_r3, _prior)
+    check_true("當日新項目維持本輪判定", _r3["backfill"] is True and _r3["is_new"] is True)
+
+    check("檔案不存在時回空 dict", _probe.load_day_flags(_P(_td) / "無此檔.jsonl"), {})
+    check("sticky 欄位就是這兩個", _probe.DAY_STICKY_FIELDS, ("backfill", "is_new"))
+
 # ── 報告 ──
 if FAILS:
     print(f"FAIL — {len(FAILS)} 個：")

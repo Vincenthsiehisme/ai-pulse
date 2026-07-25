@@ -744,6 +744,55 @@ def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
     return path
 
 
+# 當日快照被同日的下一班整包重寫時，這兩個欄位要沿用**當天第一次**的判定。
+#
+# 它們描述的是「這一天第一次看到這則」，不是「這一輪看到什麼」。`backfill` 由
+# `not st["first_fetch_at"]` 決定，第二班跑的時候 first_fetch_at 已經有值，於是
+# 整批變成 false；`is_new` 由 seen.json 決定，第二班也一律 false。把本輪值寫回
+# 檔案，早上標好的存量標記就這樣被抹掉。
+#
+# 壞掉的時候看不出來：檔案還在、筆數一樣、沒有錯誤，只有 report 開頭那句
+# 「本輪含 N 筆 backfill，lead_days 與熱度統計應排除」會安靜消失，而該被排除的
+# 存量從此跟當期訊號長得一模一樣。一天只跑一班的時代這條路徑永遠踩不到，是
+# 2026-07-25 改成每 2 小時一班之後才第一次踩出來的（實測：05:21 那班標了 300
+# 筆 backfill，08:13 那班把 300 筆全部翻成 false，警語整段不見）。
+DAY_STICKY_FIELDS = ("backfill", "is_new")
+
+
+def load_day_flags(path: Path) -> dict:
+    """讀當日既有快照，回傳 {canonical_url: {sticky 欄位}}。
+
+    檔不存在、空行、壞掉的 JSON 一律當作沒有——保護性讀取，不該讓一行壞資料擋掉
+    整班抓取。
+    """
+    out: dict = {}
+    if not path.exists():
+        return out
+    for line in path.read_text("utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        key = row.get("url_canonical") or row.get("url")
+        if key:
+            out[key] = {k: row[k] for k in DAY_STICKY_FIELDS if k in row}
+    return out
+
+
+def carry_day_flags(row: dict, prior: dict) -> dict:
+    """就地把當日既有的 sticky 欄位蓋回 row，回傳同一個 row。
+
+    當日沒看過的項目維持本輪判定——那才是它第一次被看到。
+    """
+    keep = prior.get(row.get("url_canonical") or row.get("url"))
+    if keep:
+        row.update(keep)
+    return row
+
+
 def git_commit(vault: Path, msg: str) -> None:
     try:
         subprocess.run(["git", "-C", str(vault), "add", "-A"], check=True)
@@ -862,7 +911,19 @@ def main() -> int:
         heartbeat("dry_run", vault, f"{len(rows)} items")
         return 0
 
-    for sid in {r["source_id"] for r in rows}:
+    sids = sorted({r["source_id"] for r in rows})
+
+    # 先把當日既有快照的 sticky 欄位讀出來，蓋回本輪的 rows，再整包重寫。
+    # 順序很重要：report 也吃同一份 rows，不先蓋回去的話，檔案修好了、報告
+    # 開頭那句 backfill 警語還是會消失。見 DAY_STICKY_FIELDS 上方的說明。
+    prior: dict = {}
+    for sid in sids:
+        prior.update(load_day_flags(vault / "_corpus" / day / f"{sid}.jsonl"))
+    if prior:
+        for r in rows:
+            carry_day_flags(r, prior)
+
+    for sid in sids:
         p = vault / "_corpus" / day / f"{sid}.jsonl"
         p.parent.mkdir(parents=True, exist_ok=True)
         # "w" 不是 "a"：每個 source 的當日資料是一次全寫的，附加模式只會讓
