@@ -6,7 +6,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
-| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 3/30 = 10% |
+| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 1/30 = 3% |
 | kol | 90 | 70/90 = 78% | 60/90 = 67% | 35/90 = 39% |
 | official | 218 | 48/218 = 22% | 27/218 = 12% | 159/218 = 73% |
 
@@ -41,12 +41,12 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Nathan Lambert | person | src-kol-interconnects |
 | Ethan Mollick | person | src-kol-oneusefulthing |
 | Sebastian Raschka, PhD | multi_person | src-kol-raschka |
-| alvis | handle | src-hn-frontpage |
+| shscs911 | handle | src-hn-frontpage |
 
 ## 命中的實體型別分佈
 
-- company: 94
-- product_line: 91
+- company: 93
+- product_line: 89
 - product: 23
 - technology: 22
 - framework: 18
@@ -116,7 +116,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 4 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 12 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕。
