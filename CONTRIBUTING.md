@@ -20,8 +20,15 @@
 
 ```
 _corpus/**  _probe/**  Events/**  Sources/**  _dashboards/**  dist/**
-_config/sources.yaml   ← 只有兩個機器欄位，見下一段
+_config/sources.yaml     ← 只有兩個機器欄位，見下一段
+_config/narratives.yaml  ← 每夜 enrich 的主線敘事（now / next），見下一段
 ```
+
+`_config/narratives.yaml` 跟 `sources.yaml` 一樣是「人跟機器都會寫」的檔：主線的
+`thesis` / `lenses`（編輯層）歸人、走 PR；每夜 enrich 只重寫 `now` / `next` 兩段，
+由 `pulse-narrative-apply.py` 就地寫回、隨資料 commit 直推 `main`（實例：`a52e6c4`
+「nightly: enrich + narrative 2026-07-24」，bot 直推，未經 PR）。改成走 PR 一樣會
+卡死每夜鏈。所以規矩同樣按欄位分：`now` / `next` 歸鏈直推，`thesis` / `lenses` 歸人開 PR。
 
 這些是鏈自己的產物。把它們改成開 PR 會有兩個後果：一天 12 班就是 12 個沒人會看
 的 PR；而且下一班的 rebase 基準永遠停在沒合併的狀態，鏈直接卡死。所以這條路刻意
@@ -64,6 +71,7 @@ lifecycle    robots_ok
 ```
 scripts/**  .github/workflows/**  _config/**  *.md  其餘所有檔案
 （`_config/sources.yaml` 的 lifecycle / robots_ok 除外——那兩欄歸鏈，見上）
+（`_config/narratives.yaml` 的 now / next 除外——那兩段歸鏈，見上）
 ```
 
 含腳本、CI、`_config/*.yaml`（門檻、來源、實體字典）、文件。判斷邏輯與門禁門檻
