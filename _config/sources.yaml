@@ -78,14 +78,14 @@ coverage_watch:
   window_days: 30            # 統計窗口：近 N 天的 _corpus/
   max_silent_days: 14        # 預設沉默門檻，可被逐條覆寫
   must_watch:
-    - {entity_id: openai,          label: OpenAI,          max_silent_days: 14}
-    - {entity_id: anthropic,       label: Anthropic,       max_silent_days: 14}
-    - {entity_id: google-deepmind, label: Google DeepMind, max_silent_days: 14}
-    - {entity_id: google,          label: Google,          max_silent_days: 14}
-    - {entity_id: meta,            label: Meta,            max_silent_days: 21}
-    - {entity_id: microsoft,       label: Microsoft,       max_silent_days: 21}
-    - {entity_id: nvidia,          label: NVIDIA,          max_silent_days: 21}
-    - {entity_id: huggingface,     label: Hugging Face,    max_silent_days: 21}
+  - {entity_id: openai, label: OpenAI, max_silent_days: 14}
+  - {entity_id: anthropic, label: Anthropic, max_silent_days: 14}
+  - {entity_id: google-deepmind, label: Google DeepMind, max_silent_days: 14}
+  - {entity_id: google, label: Google, max_silent_days: 14}
+  - {entity_id: meta, label: Meta, max_silent_days: 21}
+  - {entity_id: microsoft, label: Microsoft, max_silent_days: 21}
+  - {entity_id: nvidia, label: NVIDIA, max_silent_days: 21}
+  - {entity_id: huggingface, label: Hugging Face, max_silent_days: 21}
     # pending: true ＝白紙黑字承認「這家我們還沒有任何來源在看」。
     # 照樣列在報表上（缺口要看得見），但不觸 exit code——待辦事項每晚讓 CI 紅一次，
     # 人只會學會忽略 CI，連帶忽略真正的回歸。補上來源後把這行 pending 拿掉即可。
@@ -95,13 +95,13 @@ coverage_watch:
     # probing、feed 本體沒在本機驗過。拿掉 pending 之後，它們若真的一直不產出，
     # 30 天後 reason 會從 no_source 變成 silent 並且照樣觸警——那正是要的：
     # 「加了來源就當補完了」是這套系統最想防的那種假完成。
-    - {entity_id: xai,             label: xAI,             max_silent_days: 30}
-    - {entity_id: mistral,         label: Mistral AI,      max_silent_days: 30}
-    - {entity_id: alibaba,         label: Alibaba,         max_silent_days: 30}
+  - {entity_id: xai, label: xAI, max_silent_days: 30}
+  - {entity_id: mistral, label: Mistral AI, max_silent_days: 30}
+  - {entity_id: alibaba, label: Alibaba, max_silent_days: 30}
     # DeepSeek 維持 pending：唯一找得到的官方入口（api-docs sitemap）沒有 lastmod、
     # slug 是不透明日期碼，接了也是零實體命中。詳細退件理由寫在 official_sources
     # 末尾那段。這一格應該紅著，直到有帶標題的官方 feed。
-    - {entity_id: deepseek,        label: DeepSeek,        max_silent_days: 30, pending: true}
+  - {entity_id: deepseek, label: DeepSeek, max_silent_days: 30, pending: true}
 
 # ---------------------------------------------------------------------------
 # corpus_type —— v2.1 新增欄位
@@ -120,26 +120,26 @@ coverage_watch:
 official_sources:
 
   # ── 既有三條 ──
-  - id: src-openai-blog
-    track: official
-    owner: OpenAI
-    media_group: OpenAI          # 獨立性判斷用（單一真相源，勿在 entities.yaml 重複）
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: vendor
-    corpus_type: company_release
-    adapter: rss
-    endpoint: "https://openai.com/news/rss.xml"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true
-    robots_checked_at: "2026-07-24T22:50:00+00:00"
-    license_note: "titles + links only"
-    frequency: daily
-    quota_per_run: 50
+- id: src-openai-blog
+  track: official
+  owner: OpenAI
+  media_group: OpenAI            # 獨立性判斷用（單一真相源，勿在 entities.yaml 重複）
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: rss
+  endpoint: "https://openai.com/news/rss.xml"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  robots_checked_at: "2026-07-24T22:50:00+00:00"
+  license_note: "titles + links only"
+  frequency: daily
+  quota_per_run: 50
     # 2026-07-25 更正——先前的 dormant + robots_ok:false 是假陰性，整條 OpenAI 線
     # 被它靜靜關掉，直接參與了 07-24 漏抓 Claude Opus 5 的那次事故。
     # 重驗結果：openai.com/robots.txt 是 `User-Agent: * / Allow: /`（唯一 Disallow
@@ -160,49 +160,49 @@ official_sources:
   # 狀態誠實聲明：本機容器對 anthropic.com 直連收 403（WAF 擋容器 IP），
   # 因此 endpoint 尚未在本機跑通，只驗到 robots.txt 允許。掛 probing 讓它在
   # Actions 上自證；跑不起來會照常出現在來源狀態表，不會被吞掉。
-  - id: src-anthropic-news
-    track: official
-    owner: Anthropic
-    media_group: Anthropic
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: vendor
-    corpus_type: company_release
-    adapter: sitemap
-    endpoint: "https://www.anthropic.com/sitemap.xml"
-    url_prefix: "/news/"
-    sitemap_hints: ["news"]
-    max_sitemaps: 3
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true
-    robots_checked_at: "2026-07-24T22:50:00+00:00"
-    license_note: "titles + links only"
-    frequency: daily
-    quota_per_run: 40
+- id: src-anthropic-news
+  track: official
+  owner: Anthropic
+  media_group: Anthropic
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: sitemap
+  endpoint: "https://www.anthropic.com/sitemap.xml"
+  url_prefix: "/news/"
+  sitemap_hints: ["news"]
+  max_sitemaps: 3
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  robots_checked_at: "2026-07-24T22:50:00+00:00"
+  license_note: "titles + links only"
+  frequency: daily
+  quota_per_run: 40
 
-  - id: src-arxiv-cs-cl
-    track: official
-    owner: arXiv
-    media_group: arXiv
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: research
-    corpus_type: research_paper
-    adapter: rss
-    endpoint: "http://export.arxiv.org/rss/cs.CL"
-    region: global
-    language: en
-    lifecycle: dormant
-    robots_ok: false
-    license_note: "abstract + link"
-    frequency: daily
-    quota_per_run: 30
+- id: src-arxiv-cs-cl
+  track: official
+  owner: arXiv
+  media_group: arXiv
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: research
+  corpus_type: research_paper
+  adapter: rss
+  endpoint: "http://export.arxiv.org/rss/cs.CL"
+  region: global
+  language: en
+  lifecycle: dormant
+  robots_ok: false
+  license_note: "abstract + link"
+  frequency: daily
+  quota_per_run: 30
     # 停用（2026-07-24，已拍板不重議、不去信詢問）。
     # export.arxiv.org/robots.txt 為 User-agent: * / Disallow: /，全面禁止。
     # 與主站 robots 及 arXiv 自身「harvest 請改用 export 站」說明頁矛盾，
@@ -212,162 +212,168 @@ official_sources:
     # 連帶：arXiv 是唯一具名作者來源，出局後 checklist 5b 分子近零，人物層 M1 不做。
     # author / PERSON_KINDS / people.yaml / corpus_type: person_signal 保留但不出報表，待 M3 復用。
 
-  - id: src-gh-vllm-releases
-    track: official
-    owner: vllm-project
-    media_group: vllm
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: framework
-    corpus_type: oss_release
-    adapter: github-releases
-    endpoint: "vllm-project/vllm"                  # owner/repo
-    region: global
-    language: en
-    lifecycle: probing
-    robots_ok: true
-    license_note: "release notes + link"
-    frequency: daily
-    quota_per_run: 20
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-gh-vllm-releases
+  track: official
+  owner: vllm-project
+  media_group: vllm
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: framework
+  corpus_type: oss_release
+  adapter: github-releases
+  endpoint: "vllm-project/vllm"                    # owner/repo
+  region: global
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  license_note: "release notes + link"
+  frequency: daily
+  quota_per_run: 20
     # author 是發版者 login，常為 bot。checklist 5b 應計為 0。
 
   # ── v2.1 新增：公司發布類 ──
-  - id: src-deepmind-blog
-    track: official
-    owner: Google DeepMind
-    media_group: Google           # 與任何 Google Research / Google AI 來源同組，
+- id: src-deepmind-blog
+  track: official
+  owner: Google DeepMind
+  media_group: Google             # 與任何 Google Research / Google AI 來源同組，
                                   # 兩條同時收不構成獨立佐證
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: vendor
-    corpus_type: company_release
-    adapter: rss
-    endpoint: "https://deepmind.google/blog/rss.xml"   # 舊路徑 /blog/feed/basic/ 會 302 到此
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true               # [待驗證] probe 實測會覆寫
-    license_note: "titles + links only"
-    frequency: daily
-    quota_per_run: 30
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: rss
+  endpoint: "https://deepmind.google/blog/rss.xml"     # 舊路徑 /blog/feed/basic/ 會 302 到此
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                 # [待驗證] probe 實測會覆寫
+  license_note: "titles + links only"
+  frequency: daily
+  quota_per_run: 30
     # 2026-07-24 實抓確認活著：最新項目 2026-07-22，發文密度高，backlog 上百則。
     # 收進來後，字典裡 Google / Gemini / Gemma 那批實體才第一次有語料可命中。
 
-  - id: src-hf-blog
-    track: official
-    owner: Hugging Face
-    media_group: HuggingFace
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: vendor
-    corpus_type: company_release
-    adapter: rss
-    endpoint: "https://huggingface.co/blog/feed.xml"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true               # [待驗證]
-    license_note: "titles + excerpt + link"
-    frequency: weekly             # [待驗證] 索引顯示最新到 2026-04，可能低頻也可能是快取
-    quota_per_run: 20
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-hf-blog
+  track: official
+  owner: Hugging Face
+  media_group: HuggingFace
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: rss
+  endpoint: "https://huggingface.co/blog/feed.xml"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                 # [待驗證]
+  license_note: "titles + excerpt + link"
+  frequency: weekly               # [待驗證] 索引顯示最新到 2026-04，可能低頻也可能是快取
+  quota_per_run: 20
     # 已知格式坑：item 缺 <link>，只有 <guid isPermaLink="true">。
     # rss adapter 取 URL 時要 fallback 到 guid，否則靜默拿到空字串。
     # 若 7 天 0 筆，直接標 dormant，不要留著當「有在跑」的假象。
 
-  - id: src-nvidia-blog
-    track: official
-    owner: NVIDIA
-    media_group: NVIDIA
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: vendor
-    corpus_type: company_release
-    adapter: rss
-    endpoint: "https://blogs.nvidia.com/feed/"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true               # [待驗證]
-    license_note: "titles + links only"
-    frequency: daily
-    quota_per_run: 20
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-nvidia-blog
+  track: official
+  owner: NVIDIA
+  media_group: NVIDIA
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: rss
+  endpoint: "https://blogs.nvidia.com/feed/"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                 # [待驗證]
+  license_note: "titles + links only"
+  frequency: daily
+  quota_per_run: 20
     # 內容偏行銷。若 checklist 第 6 項命中率高但集中在同幾個實體，
     # 判為「命中但無資訊」，降 quota 而非移除。
 
   # ── v2.1 新增：研究發布類 ──
-  - id: src-msr-blog
-    track: official
-    owner: Microsoft Research
-    media_group: Microsoft        # Microsoft 與 OpenAI 有投資關係。
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-msr-blog
+  track: official
+  owner: Microsoft Research
+  media_group: Microsoft          # Microsoft 與 OpenAI 有投資關係。
                                   # 兩者對同一事件的報導是否算獨立佐證，
                                   # 需在 people-and-relations.md 補一條機構邊，
                                   # 依保守預設應判為非獨立。
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: research
-    corpus_type: research_paper
-    adapter: rss
-    endpoint: "https://www.microsoft.com/en-us/research/feed/"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true               # [待驗證]
-    license_note: "abstract + link"
-    frequency: daily
-    quota_per_run: 30
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: research
+  corpus_type: research_paper
+  adapter: rss
+  endpoint: "https://www.microsoft.com/en-us/research/feed/"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                 # [待驗證]
+  license_note: "abstract + link"
+  frequency: daily
+  quota_per_run: 30
 
-  - id: src-meta-research
-    track: official
-    owner: Meta
-    media_group: Meta
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: research
-    corpus_type: research_paper
-    adapter: rss
-    endpoint: "https://research.facebook.com/feed/"   # [待驗證] 可能已改址
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true               # [待驗證]
-    license_note: "abstract + link"
-    frequency: weekly
-    quota_per_run: 20
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-meta-research
+  track: official
+  owner: Meta
+  media_group: Meta
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: research
+  corpus_type: research_paper
+  adapter: rss
+  endpoint: "https://research.facebook.com/feed/"     # [待驗證] 可能已改址
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                 # [待驗證]
+  license_note: "abstract + link"
+  frequency: weekly
+  quota_per_run: 20
     # Meta 的 AI 內容近年多在 ai.meta.com/blog。
     # 若 probe 回 404 或連續 0 筆，先找 ai.meta.com 的 feed，再標 dormant。
 
   # ── v2.1 新增：政策法規類（目前完全空白的一類）──
-  - id: src-ec-digital-strategy
-    track: official
-    owner: European Commission
-    media_group: EuropeanCommission
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: regulator    # v2.1 新增值域
-    corpus_type: policy
-    adapter: rss
-    endpoint: null               # 判死：站台無 RSS，端點永久為 null
-    region: EU
-    language: en
-    lifecycle: dormant
-    robots_ok: null              # 無端點可測，維持未確立
-    license_note: "titles + links only"
-    frequency: weekly
-    quota_per_run: 20
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-ec-digital-strategy
+  track: official
+  owner: European Commission
+  media_group: EuropeanCommission
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: regulator      # v2.1 新增值域
+  corpus_type: policy
+  adapter: rss
+  endpoint:                      # 判死：站台無 RSS，端點永久為 null
+  region: EU
+  language: en
+  lifecycle: dormant
+  robots_ok:                     # 無端點可測，維持未確立
+  license_note: "titles + links only"
+  frequency: weekly
+  quota_per_run: 20
     # 判死（2026-07-24）。站台為 Drupal 10 + oe_theme，首頁 head 無任何
     # rel="alternate" feed link，官方訂閱入口僅 newsletter / email 通知，不提供 RSS。
     # 若日後仍要收，唯一合規路徑是訂閱 newsletter 再解信（IMAP + 解信，另一條管線），
@@ -376,28 +382,28 @@ official_sources:
     # 監管對象，是字典裡公司實體唯一可能命中的語境，且與論文摘要 / release notes
     # 詞彙重疊度最低——此需求現改由 src-consilium-press 與 src-ep-itre 承接。
 
-  - id: src-consilium-press
-    track: official
-    owner: Council of the EU
-    media_group: EU-Council           # v2.2：自 EuropeanCommission 拆出。
+- id: src-consilium-press
+  track: official
+  owner: Council of the EU
+  media_group: EU-Council             # v2.2：自 EuropeanCommission 拆出。
                                       # 與 src-ep-itre（EU-Parliament）為不同機構，互為獨立佐證。
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: regulator
-    corpus_type: policy
-    adapter: rss
-    endpoint: "https://www.consilium.europa.eu/en/rss/pressreleases.ashx"
-    region: EU
-    language: en
-    lifecycle: dormant
-    robots_ok: false              # 2026-07-23 實測 with probe UA：robots.txt 回 403（control probe OK，
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: regulator
+  corpus_type: policy
+  adapter: rss
+  endpoint: "https://www.consilium.europa.eu/en/rss/pressreleases.ashx"
+  region: EU
+  language: en
+  lifecycle: dormant
+  robots_ok: false                # 2026-07-23 實測 with probe UA：robots.txt 回 403（control probe OK，
                                   # 非代理問題），依保守分支視為拒絕。同域備選端點(THMTTE/THMCOM)共用同一
                                   # robots，無用。不改 UA 繞行（紅線）。
-    license_note: "titles + links only"
-    frequency: weekly
-    quota_per_run: 30
+  license_note: "titles + links only"
+  frequency: weekly
+  quota_per_run: 30
     # 出處：https://www.consilium.europa.eu/en/about-site/rss/（last review 2026-07-15）。
     # 端點是 .ashx handler 不是 .xml，adapter 不可用副檔名判格式，靠 Content-Type 或直接試解析。
     # 全主題新聞稿，AI 相關佔比預期低到個位數百分比。判讀時看「有無」不看筆數，
@@ -406,27 +412,28 @@ official_sources:
     #   THMTTE https://www.consilium.europa.eu/en/register/rss/THMTTE.xml（運輸/電信/能源）
     #   THMCOM https://www.consilium.europa.eu/en/register/rss/THMCOM.xml（競爭力）
 
-  - id: src-ep-itre
-    track: official
-    owner: European Parliament
-    media_group: EU-Parliament        # 與 src-consilium-press（EU-Council）不同機構，互為獨立佐證。
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-ep-itre
+  track: official
+  owner: European Parliament
+  media_group: EU-Parliament          # 與 src-consilium-press（EU-Council）不同機構，互為獨立佐證。
                                       # 解掉了「EU 兩條同 media_group、都收不增加獨立來源數」的問題。
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: regulator
-    corpus_type: policy
-    adapter: rss
-    endpoint: "https://www.europarl.europa.eu/rss/committee/itre/en.xml"
-    region: EU
-    language: en
-    lifecycle: dormant
-    robots_ok: true               # 已驗證允許，但 2026-07-24 判 dormant：AI 命中率低（工業/研究/能源委員會發生技/國防/礦產），非 AI 情報               # 2026-07-23 實測 with probe UA：robots 200 path allowed；
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: regulator
+  corpus_type: policy
+  adapter: rss
+  endpoint: "https://www.europarl.europa.eu/rss/committee/itre/en.xml"
+  region: EU
+  language: en
+  lifecycle: dormant
+  robots_ok: true                 # 已驗證允許，但 2026-07-24 判 dormant：AI 命中率低（工業/研究/能源委員會發生技/國防/礦產），非 AI 情報               # 2026-07-23 實測 with probe UA：robots 200 path allowed；
                                   # feed 200 / 25 items / title·link·date 25/25 / author 0/25。
-    license_note: "titles + links only"
-    frequency: weekly
-    quota_per_run: 30
+  license_note: "titles + links only"
+  frequency: weekly
+  quota_per_run: 30
     # ITRE = Industry, Research and Energy 委員會，AI Act 共同主責之一。
     # 官方 RSS hub：https://www.europarl.europa.eu/at-your-service/en/stay-informed/rss-feeds
     # 備選同源端點（暫不啟用，同 media_group）：
@@ -455,29 +462,30 @@ official_sources:
   #      只看 title+summary，slug 還原不出人話就等於零實體命中——看起來有蓋到，
   #      實際上一條線索都生不出來。
 
-  - id: src-xai-news
-    track: official
-    owner: xAI
-    media_group: xAI
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: vendor
-    corpus_type: company_release
-    adapter: sitemap
-    endpoint: "https://x.ai/sitemap.xml"
-    url_prefix: "/news/"
-    sitemap_hints: ["news"]
-    max_sitemaps: 3
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true
-    robots_checked_at: "2026-07-25T00:16:00+00:00"
-    license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, search=yes, ai-input=no"
-    frequency: daily
-    quota_per_run: 40
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-xai-news
+  track: official
+  owner: xAI
+  media_group: xAI
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: sitemap
+  endpoint: "https://x.ai/sitemap.xml"
+  url_prefix: "/news/"
+  sitemap_hints: ["news"]
+  max_sitemaps: 3
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  robots_checked_at: "2026-07-25T00:16:00+00:00"
+  license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, search=yes, ai-input=no"
+  frequency: daily
+  quota_per_run: 40
     # robots.txt 實測（2026-07-25T00:16Z）：`User-Agent: * / Allow: / / Disallow: /tools/`，
     # 且 robots.txt 自己宣告 `Sitemap: https://x.ai/sitemap.xml`——我們只走站方主動
     # 指出的入口，不猜路徑、不爬全站。
@@ -486,54 +494,54 @@ official_sources:
     # 只有標題與連結，屬於 search 用途。**若日後有人替這條加上內文抽取，這一段就
     # 失效，必須重新評估。** 記在這裡免得那天沒人想起來。
 
-  - id: src-mistral-news
-    track: official
-    owner: Mistral AI
-    media_group: Mistral AI
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: vendor
-    corpus_type: company_release
-    adapter: sitemap
-    endpoint: "https://mistral.ai/sitemap-index.xml"
-    url_prefix: "/news/"
-    sitemap_hints: ["news", "blog"]
-    max_sitemaps: 3
-    region: EU
-    language: en
-    lifecycle: probing
-    robots_ok: true
-    robots_checked_at: "2026-07-25T00:16:00+00:00"
-    license_note: "titles + links only"
-    frequency: daily
-    quota_per_run: 40
+- id: src-mistral-news
+  track: official
+  owner: Mistral AI
+  media_group: Mistral AI
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: sitemap
+  endpoint: "https://mistral.ai/sitemap-index.xml"
+  url_prefix: "/news/"
+  sitemap_hints: ["news", "blog"]
+  max_sitemaps: 3
+  region: EU
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  robots_checked_at: "2026-07-25T00:16:00+00:00"
+  license_note: "titles + links only"
+  frequency: daily
+  quota_per_run: 40
     # robots.txt 實測（2026-07-25T00:16Z）：`User-agent: * / Allow: /`，無任何
     # Disallow；`Sitemap: https://mistral.ai/sitemap-index.xml` 是站方自己宣告的入口。
     # 這也是目前唯一一條 region: EU 的 vendor 來源——既有的 EU 只有監理機關
     # （EP-ITRE / EU-Council），歐洲的「業者說了什麼」在此之前完全沒有入口。
 
-  - id: src-qwen-blog
-    track: official
-    owner: Alibaba (Qwen Team)
-    media_group: Alibaba-Qwen     # 與其他中國來源不同集團；獨立性看 media_group，勿併成「China」
-    author: null
-    person_id: null
-    tier: 1
-    role: official
-    source_category: vendor
-    corpus_type: company_release
-    adapter: rss
-    endpoint: "https://qwenlm.github.io/blog/index.xml"
-    region: CN
-    language: en
-    lifecycle: probing
-    robots_ok: true
-    robots_checked_at: "2026-07-25T00:16:00+00:00"
-    license_note: "titles + links only"
-    frequency: weekly
-    quota_per_run: 30
+- id: src-qwen-blog
+  track: official
+  owner: Alibaba (Qwen Team)
+  media_group: Alibaba-Qwen       # 與其他中國來源不同集團；獨立性看 media_group，勿併成「China」
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: rss
+  endpoint: "https://qwenlm.github.io/blog/index.xml"
+  region: CN
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  robots_checked_at: "2026-07-25T00:16:00+00:00"
+  license_note: "titles + links only"
+  frequency: weekly
+  quota_per_run: 30
     # robots.txt 實測（2026-07-25T00:16Z）：`User-agent: * / Disallow:`（空值＝全站允許）。
     # 這是 Qwen 團隊自營的技術部落格（GitHub Pages），不是轉載站，所以掛 tier 1。
     # endpoint 未驗：RSS 本體在本機一律回 [binary data]。`/blog/index.xml` 是這類
@@ -625,139 +633,144 @@ official_sources:
 # media_group 一律填「該刊物名」而非「Substack」：三個人都掛 Substack 的話，
 # 獨立來源數會從 3 塌成 1，門檻 4（heat ≥70 需 ≥2 獨立來源）就被自己做假了。
 kol_sources:
-  - id: src-kol-karpathy
-    track: kol
-    owner: Andrej Karpathy
-    media_group: Karpathy Blog
-    author: karpathy
-    person_id: null                 # people.yaml 不存在，見本節開頭說明
-    tier: 2
-    role: expert
-    source_category: individual
-    corpus_type: person_signal
-    adapter: atom
-    endpoint: "https://karpathy.bearblog.dev/feed/"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true
-    license_note: "titles + excerpt + link"
-    frequency: monthly              # 產量極低但單篇訊號極強，quota 用不完是正常的
-    quota_per_run: 20
-    can_satisfy_primary: false
+- id: src-kol-karpathy
+  track: kol
+  owner: Andrej Karpathy
+  media_group: Karpathy Blog
+  author: karpathy
+  person_id:                        # people.yaml 不存在，見本節開頭說明
+  tier: 2
+  role: expert
+  source_category: individual
+  corpus_type: person_signal
+  adapter: atom
+  endpoint: "https://karpathy.bearblog.dev/feed/"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  license_note: "titles + excerpt + link"
+  frequency: monthly                # 產量極低但單篇訊號極強，quota 用不完是正常的
+  quota_per_run: 20
+  can_satisfy_primary: false
     # 本節唯一「feed 本體真的在本機解析成功」的一條：Atom 格式、署名 karpathy、
     # 最近兩篇為 2026-04-30 與 2025-12-19。其餘各條只驗到 robots.txt。
 
-  - id: src-kol-simonwillison
-    track: kol
-    owner: Simon Willison
-    media_group: Simon Willison's Weblog
-    author: Simon Willison
-    person_id: null
-    tier: 2
-    role: expert
-    source_category: individual
-    corpus_type: person_signal
-    adapter: atom
-    endpoint: "https://simonwillison.net/atom/everything/"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true                 # robots.txt 讀過，/atom/ 未被擋
-    license_note: "titles + excerpt + link"
-    frequency: daily
-    quota_per_run: 20
-    can_satisfy_primary: false
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-kol-simonwillison
+  track: kol
+  owner: Simon Willison
+  media_group: Simon Willison's Weblog
+  author: Simon Willison
+  person_id:
+  tier: 2
+  role: expert
+  source_category: individual
+  corpus_type: person_signal
+  adapter: atom
+  endpoint: "https://simonwillison.net/atom/everything/"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                   # robots.txt 讀過，/atom/ 未被擋
+  license_note: "titles + excerpt + link"
+  frequency: daily
+  quota_per_run: 20
+  can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼（工具限制），由 Actions 端首跑驗證。
     # 日更且大量轉述他人發布 → 對 lead_days 特別有用，但雜訊比也最高。
 
-  - id: src-kol-interconnects
-    track: kol
-    owner: Nathan Lambert
-    media_group: Interconnects
-    author: Nathan Lambert
-    person_id: null
-    tier: 2
-    role: expert
-    source_category: individual
-    corpus_type: person_signal
-    adapter: rss
-    endpoint: "https://www.interconnects.ai/feed"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true                 # robots.txt 明文 Allow: /feed
-    license_note: "titles + excerpt + link"
-    frequency: weekly
-    quota_per_run: 20
-    can_satisfy_primary: false
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-kol-interconnects
+  track: kol
+  owner: Nathan Lambert
+  media_group: Interconnects
+  author: Nathan Lambert
+  person_id:
+  tier: 2
+  role: expert
+  source_category: individual
+  corpus_type: person_signal
+  adapter: rss
+  endpoint: "https://www.interconnects.ai/feed"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                   # robots.txt 明文 Allow: /feed
+  license_note: "titles + excerpt + link"
+  frequency: weekly
+  quota_per_run: 20
+  can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼。
 
-  - id: src-kol-thezvi
-    track: kol
-    owner: Zvi Mowshowitz
-    media_group: Don't Worry About the Vase
-    author: Zvi Mowshowitz
-    person_id: null
-    tier: 2
-    role: expert
-    source_category: individual
-    corpus_type: person_signal
-    adapter: rss
-    endpoint: "https://thezvi.substack.com/feed"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true                 # robots.txt 明文 Allow: /feed
-    license_note: "titles + excerpt + link"
-    frequency: weekly
-    quota_per_run: 20
-    can_satisfy_primary: false
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-kol-thezvi
+  track: kol
+  owner: Zvi Mowshowitz
+  media_group: Don't Worry About the Vase
+  author: Zvi Mowshowitz
+  person_id:
+  tier: 2
+  role: expert
+  source_category: individual
+  corpus_type: person_signal
+  adapter: rss
+  endpoint: "https://thezvi.substack.com/feed"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                   # robots.txt 明文 Allow: /feed
+  license_note: "titles + excerpt + link"
+  frequency: weekly
+  quota_per_run: 20
+  can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼。
     # 單篇動輒上萬字的週報型彙整 → 摘要截斷後資訊密度會很低，首週要看實際產出再調。
 
-  - id: src-kol-oneusefulthing
-    track: kol
-    owner: Ethan Mollick
-    media_group: One Useful Thing
-    author: Ethan Mollick
-    person_id: null
-    tier: 2
-    role: expert
-    source_category: individual
-    corpus_type: person_signal
-    adapter: rss
-    endpoint: "https://www.oneusefulthing.org/feed"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true                 # robots.txt 明文 Allow: /feed
-    license_note: "titles + excerpt + link"
-    frequency: weekly
-    quota_per_run: 20
-    can_satisfy_primary: false
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-kol-oneusefulthing
+  track: kol
+  owner: Ethan Mollick
+  media_group: One Useful Thing
+  author: Ethan Mollick
+  person_id:
+  tier: 2
+  role: expert
+  source_category: individual
+  corpus_type: person_signal
+  adapter: rss
+  endpoint: "https://www.oneusefulthing.org/feed"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                   # robots.txt 明文 Allow: /feed
+  license_note: "titles + excerpt + link"
+  frequency: weekly
+  quota_per_run: 20
+  can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼。
 
-  - id: src-kol-lilianweng
-    track: kol
-    owner: Lilian Weng
-    media_group: Lil'Log
-    author: Lilian Weng
-    person_id: null
-    tier: 2
-    role: expert
-    source_category: individual
-    corpus_type: person_signal
-    adapter: rss
-    endpoint: "https://lilianweng.github.io/index.xml"
-    region: US
-    language: en
-    lifecycle: probing
-    robots_ok: true                 # GitHub Pages 預設 robots，未擋 /index.xml
-    license_note: "titles + excerpt + link"
-    frequency: quarterly
-    quota_per_run: 20
-    can_satisfy_primary: false
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-kol-lilianweng
+  track: kol
+  owner: Lilian Weng
+  media_group: Lil'Log
+  author: Lilian Weng
+  person_id:
+  tier: 2
+  role: expert
+  source_category: individual
+  corpus_type: person_signal
+  adapter: rss
+  endpoint: "https://lilianweng.github.io/index.xml"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true                   # GitHub Pages 預設 robots，未擋 /index.xml
+  license_note: "titles + excerpt + link"
+  frequency: quarterly
+  quota_per_run: 20
+  can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼。
 
   # ── 以下兩條起手就是 dormant：抓取工具回報 ROBOTS_DISALLOWED，但第一次嘗試
@@ -768,49 +781,51 @@ kol_sources:
   #   也不擅自寫 true（本機確實沒讀到），改標 revive_when_allowed: true，
   #   交給 pulse-robots-recheck 在 Actions 的真網路環境裡下判斷。
   # 判定為真 Disallow 的話它會維持 dormant；判定放行則自動升 probing。
-  - id: src-kol-importai
-    track: kol
-    owner: Jack Clark
-    media_group: Import AI
-    author: Jack Clark
-    person_id: null
-    tier: 2
-    role: expert
-    source_category: individual
-    corpus_type: person_signal
-    adapter: rss
-    endpoint: "https://importai.substack.com/feed"
-    region: US
-    language: en
-    lifecycle: dormant
-    robots_ok: null                 # 本機量不到；null＝未知，不是拒絕
-    revive_when_allowed: true
-    license_note: "titles + excerpt + link"
-    frequency: weekly
-    quota_per_run: 20
-    can_satisfy_primary: false
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-kol-importai
+  track: kol
+  owner: Jack Clark
+  media_group: Import AI
+  author: Jack Clark
+  person_id:
+  tier: 2
+  role: expert
+  source_category: individual
+  corpus_type: person_signal
+  adapter: rss
+  endpoint: "https://importai.substack.com/feed"
+  region: US
+  language: en
+  lifecycle: dormant
+  robots_ok:                        # 本機量不到；null＝未知，不是拒絕
+  revive_when_allowed: true
+  license_note: "titles + excerpt + link"
+  frequency: weekly
+  quota_per_run: 20
+  can_satisfy_primary: false
 
-  - id: src-kol-raschka
-    track: kol
-    owner: Sebastian Raschka
-    media_group: Ahead of AI
-    author: Sebastian Raschka
-    person_id: null
-    tier: 2
-    role: expert
-    source_category: individual
-    corpus_type: person_signal
-    adapter: rss
-    endpoint: "https://magazine.sebastianraschka.com/feed"
-    region: US
-    language: en
-    lifecycle: dormant
-    robots_ok: null
-    revive_when_allowed: true
-    license_note: "titles + excerpt + link"
-    frequency: monthly
-    quota_per_run: 20
-    can_satisfy_primary: false
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
+- id: src-kol-raschka
+  track: kol
+  owner: Sebastian Raschka
+  media_group: Ahead of AI
+  author: Sebastian Raschka
+  person_id:
+  tier: 2
+  role: expert
+  source_category: individual
+  corpus_type: person_signal
+  adapter: rss
+  endpoint: "https://magazine.sebastianraschka.com/feed"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  revive_when_allowed: true
+  license_note: "titles + excerpt + link"
+  frequency: monthly
+  quota_per_run: 20
+  can_satisfy_primary: false
 
   # 評估後不收：SemiAnalysis（Dylan Patel）。它是分析機構不是個人發表，
   # 混進 KOL 線會讓 lead_days 的語意變成「機構 vs 機構」，而且付費牆讓
@@ -844,40 +859,40 @@ kol_sources:
 # ===========================================================================
 # 聚合線 — 只當候選與熱度提示，永不作為任何事實的唯一證據
 # ===========================================================================
+  robots_checked_at: '2026-07-25T05:21:15+00:00'
 aggregator_sources:
-  - id: src-hn-frontpage
-    track: aggregator
-    owner: Hacker News
-    media_group: YCombinator
-    author: null
-    person_id: null
-    tier: 3
-    role: aggregator
-    source_category: aggregator
-    corpus_type: aggregated
-    adapter: json-api
+- id: src-hn-frontpage
+  track: aggregator
+  owner: Hacker News
+  media_group: YCombinator
+  author:
+  person_id:
+  tier: 3
+  role: aggregator
+  source_category: aggregator
+  corpus_type: aggregated
+  adapter: json-api
     # 2026-07-25 換端點。原本指 hacker-news.firebaseio.com，但那個 host 的
     # robots.txt 是全面 Disallow——紅線 7 不繞，直接換掉。
     # 改用 HN 官方文件列出的 Algolia 搜尋 API：hn.algolia.com 沒有 robots.txt（404），
     # 依 robots 慣例視為允許，且 tags=front_page 拿到的就是首頁那批。
-    endpoint: "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=30"
-    root_path: hits
-    field_map: {title: title, url: url, author: author,
-                published: created_at, summary: story_text}
-    url_fallback: "https://news.ycombinator.com/item?id={id}"
-    id_field: objectID
-    region: global
-    language: en
+  endpoint: "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=30"
+  root_path: hits
+  field_map: {title: title, url: url, author: author, published: created_at, summary: story_text}
+  url_fallback: "https://news.ycombinator.com/item?id={id}"
+  id_field: objectID
+  region: global
+  language: en
     # 2026-07-25 從 dormant 拉起。這是「大事發生時至少有人喊一聲」的兜底層，
     # 07-24 漏抓 Opus 5 時它是關的。仍受 can_satisfy_primary: false 硬約束，
     # 只當候選與熱度提示——補的是視野，不是證據權利。
-    lifecycle: probing
-    robots_ok: true
-    robots_checked_at: "2026-07-24T22:50:00+00:00"
-    license_note: "titles + links only"
-    frequency: daily
-    quota_per_run: 30
-    can_satisfy_primary: false
+  lifecycle: probing
+  robots_ok: true
+  robots_checked_at: "2026-07-24T22:50:00+00:00"
+  license_note: "titles + links only"
+  frequency: daily
+  quota_per_run: 30
+  can_satisfy_primary: false
 
 # ===========================================================================
 # probe checklist — 每個新源升 active 前必須逐項通過並留紀錄

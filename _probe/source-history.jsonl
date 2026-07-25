@@ -1,0 +1,2 @@
+{"at": "2026-07-25T05:21:15+00:00", "id": "src-kol-raschka", "field": "robots_ok", "from": null, "to": true, "reason": "robots-recheck"}
+{"at": "2026-07-25T05:21:15+00:00", "id": "src-kol-raschka", "field": "lifecycle", "from": "dormant", "to": "probing", "reason": "robots-reopened"}
