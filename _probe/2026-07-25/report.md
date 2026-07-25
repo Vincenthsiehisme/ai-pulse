@@ -6,8 +6,8 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
-| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 1/30 = 3% |
-| kol | 110 | 70/110 = 64% | 60/110 = 55% | 40/110 = 36% |
+| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 4/30 = 13% |
+| kol | 110 | 70/110 = 64% | 60/110 = 55% | 39/110 = 35% |
 | official | 218 | 48/218 = 22% | 27/218 = 12% | 159/218 = 73% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
@@ -46,9 +46,9 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 ## 命中的實體型別分佈
 
 - company: 97
-- product_line: 88
+- product_line: 89
+- product: 25
 - technology: 25
-- product: 24
 - framework: 19
 - infrastructure: 9
 
@@ -60,7 +60,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 |---|---|---|
 | LLMs | 9 | 4 |
 | LLM | 7 | 4 |
-| U.S | 5 | 2 |
+| U.S | 6 | 3 |
 | Learn | 5 | 2 |
 | Building | 4 | 4 |
 | Gemma | 4 | 3 |
@@ -85,6 +85,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 |---|---|---|
 | Highlights | 14 | src-gh-vllm-releases |
 | Co-Scientist | 5 | src-deepmind-blog |
+| Show HN | 5 | src-hn-frontpage |
 | Release Notes | 4 | src-gh-vllm-releases |
 | AI-native | 3 | src-openai-blog |
 | Fix | 3 | src-gh-vllm-releases |
@@ -93,7 +94,6 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
 | List | 3 | src-kol-raschka |
-| Show HN | 3 | src-hn-frontpage |
 
 ## 來源狀態
 
@@ -116,13 +116,13 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-mistral-news | official | 200 | 0 | 0 |  | True |  |
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
-| src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-simonwillison | kol | 200 | 20 | 1 |  | True |  |
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-thezvi | kol | robots_disallow | 0 | 0 |  | False |  |
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 5 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 12 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕。

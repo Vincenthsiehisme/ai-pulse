@@ -136,7 +136,7 @@ official_sources:
   language: en
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-24T22:50:00+00:00"
+  robots_checked_at: "2026-07-25T22:59:06+00:00"
   license_note: "titles + links only"
   frequency: daily
   quota_per_run: 50
@@ -179,7 +179,7 @@ official_sources:
   language: en
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-24T22:50:00+00:00"
+  robots_checked_at: "2026-07-25T22:59:06+00:00"
   license_note: "titles + links only"
   frequency: daily
   quota_per_run: 40
@@ -888,7 +888,7 @@ aggregator_sources:
     # 只當候選與熱度提示——補的是視野，不是證據權利。
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-24T22:50:00+00:00"
+  robots_checked_at: "2026-07-25T22:59:06+00:00"
   license_note: "titles + links only"
   frequency: daily
   quota_per_run: 30
