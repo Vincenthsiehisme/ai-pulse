@@ -8,7 +8,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 |---|---|---|---|---|
 | aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 4/30 = 13% |
 | kol | 110 | 70/110 = 64% | 60/110 = 55% | 40/110 = 36% |
-| official | 218 | 48/218 = 22% | 27/218 = 12% | 158/218 = 72% |
+| official | 218 | 48/218 = 22% | 27/218 = 12% | 159/218 = 73% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
 - **5b（可解析自然人）才決定人物層與獨立性升級有沒有用。**官方線若過低，people.yaml 只在 KOL 線生效。
@@ -49,8 +49,8 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 - product_line: 91
 - technology: 25
 - product: 24
-- framework: 17
-- infrastructure: 8
+- framework: 18
+- infrastructure: 9
 
 ## 字典補漏候選（未命中且跨來源出現）
 
@@ -62,6 +62,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | LLM | 7 | 4 |
 | U.S | 5 | 2 |
 | Learn | 5 | 2 |
+| Building | 4 | 4 |
 | Gemma | 4 | 3 |
 | Python | 4 | 2 |
 | Updated | 4 | 2 |
@@ -70,7 +71,6 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Frontier | 3 | 2 |
 | AI-powered | 3 | 3 |
 | Pro | 3 | 2 |
-| Building | 3 | 3 |
 | Plus | 3 | 3 |
 | Power | 3 | 3 |
 | They | 3 | 3 |
@@ -83,10 +83,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Highlights | 13 | src-gh-vllm-releases |
+| Highlights | 14 | src-gh-vllm-releases |
 | Co-Scientist | 5 | src-deepmind-blog |
+| Release Notes | 4 | src-gh-vllm-releases |
 | AI-native | 3 | src-openai-blog |
-| Release Notes | 3 | src-gh-vllm-releases |
 | Fix | 3 | src-gh-vllm-releases |
 | Fable | 3 | src-kol-simonwillison |
 | Open | 3 | src-kol-interconnects |
@@ -105,7 +105,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-importai | kol | skipped_lifecycle | 0 | 0 |  | None | dormant |
 | src-openai-blog | official | 200 | 50 | 0 |  | True |  |
 | src-anthropic-news | official | 200 | 40 | 0 |  | True |  |
-| src-gh-vllm-releases | official | 200 | 20 | 0 |  | None |  |
+| src-gh-vllm-releases | official | 200 | 20 | 1 |  | None |  |
 | src-deepmind-blog | official | 200 | 30 | 0 |  | True |  |
 | src-hf-blog | official | 304 | 0 | 0 |  | True |  |
 | src-nvidia-blog | official | 200 | 18 | 0 |  | True |  |
@@ -121,7 +121,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 8 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 5 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕。
