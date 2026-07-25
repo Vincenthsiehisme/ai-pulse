@@ -2,16 +2,13 @@
 
 M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是。
 
-> ⚠ 本輪含 300 筆 backfill（首次抓取的既有存量）。
-> backfill 不代表當期訊號，lead_days 與熱度統計應排除。
-
 ## 兩個決定性比率
 
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
 | aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 4/30 = 13% |
 | kol | 110 | 70/110 = 64% | 60/110 = 55% | 40/110 = 36% |
-| official | 248 | 48/248 = 19% | 27/248 = 11% | 188/248 = 76% |
+| official | 218 | 48/218 = 22% | 27/218 = 12% | 158/218 = 72% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
 - **5b（可解析自然人）才決定人物層與獨立性升級有沒有用。**官方線若過低，people.yaml 只在 KOL 線生效。
@@ -21,7 +18,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | kind | 筆數 | 計入 5b |
 |---|---|---|
-| none | 240 |  |
+| none | 210 |  |
 | person | 58 | ✓ |
 | handle | 51 |  |
 | multi_person | 29 | ✓ |
@@ -48,9 +45,9 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 ## 命中的實體型別分佈
 
-- company: 126
-- product_line: 99
-- technology: 29
+- company: 98
+- product_line: 91
+- technology: 25
 - product: 24
 - framework: 17
 - infrastructure: 8
@@ -61,46 +58,36 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| LLMs | 12 | 5 |
+| LLMs | 9 | 4 |
 | LLM | 7 | 4 |
-| Here | 6 | 3 |
 | U.S | 5 | 2 |
 | Learn | 5 | 2 |
-| Understanding | 5 | 3 |
-| Learning | 5 | 3 |
-| Building | 4 | 4 |
 | Gemma | 4 | 3 |
 | Python | 4 | 2 |
 | Updated | 4 | 2 |
-| Built | 4 | 2 |
-| Power | 4 | 4 |
+| Understanding | 4 | 2 |
+| Learning | 4 | 2 |
 | Frontier | 3 | 2 |
 | AI-powered | 3 | 3 |
 | Pro | 3 | 2 |
+| Building | 3 | 3 |
 | Plus | 3 | 3 |
-| Extending | 3 | 2 |
+| Power | 3 | 3 |
 | They | 3 | 3 |
-| However | 3 | 2 |
-| January | 3 | 2 |
-| Chinese | 3 | 2 |
+| Here | 3 | 2 |
 
 ### 單來源高頻（觀察用，不列入晉升）
 
-目前活躍來源 16 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
+目前活躍來源 15 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
 上表為空不代表收割機制壞掉。此區僅供觀察，不得直接寫進字典。
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
 | Highlights | 13 | src-gh-vllm-releases |
-| Qwen | 8 | src-qwen-blog |
 | Co-Scientist | 5 | src-deepmind-blog |
 | AI-native | 3 | src-openai-blog |
 | Release Notes | 3 | src-gh-vllm-releases |
 | Fix | 3 | src-gh-vllm-releases |
-| Qwen3 | 3 | src-qwen-blog |
-| MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
-| FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
-| Qwen2.5 | 3 | src-qwen-blog |
 | Fable | 3 | src-kol-simonwillison |
 | Open | 3 | src-kol-interconnects |
 | Enough Data Part | 3 | src-kol-lilianweng |
@@ -116,25 +103,25 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-consilium-press | official | skipped_lifecycle | 0 | 0 |  | None | dormant |
 | src-ep-itre | official | skipped_lifecycle | 0 | 0 |  | None | dormant |
 | src-kol-importai | kol | skipped_lifecycle | 0 | 0 |  | None | dormant |
-| src-openai-blog | official | 200 | 50 | 50 | ✓ | True |  |
-| src-anthropic-news | official | 200 | 40 | 40 | ✓ | True |  |
+| src-openai-blog | official | 200 | 50 | 0 |  | True |  |
+| src-anthropic-news | official | 200 | 40 | 0 |  | True |  |
 | src-gh-vllm-releases | official | 200 | 20 | 0 |  | None |  |
 | src-deepmind-blog | official | 200 | 30 | 0 |  | True |  |
 | src-hf-blog | official | 304 | 0 | 0 |  | True |  |
 | src-nvidia-blog | official | 200 | 18 | 0 |  | True |  |
 | src-msr-blog | official | 200 | 10 | 0 |  | True |  |
 | src-meta-research | official | 200 | 10 | 0 |  | True |  |
-| src-xai-news | official | 200 | 40 | 40 | ✓ | True |  |
-| src-mistral-news | official | 200 | 0 | 0 | ✓ | True |  |
-| src-qwen-blog | official | 200 | 30 | 30 | ✓ | True |  |
-| src-kol-karpathy | kol | 200 | 10 | 10 | ✓ | True |  |
-| src-kol-simonwillison | kol | 200 | 20 | 20 | ✓ | True |  |
-| src-kol-interconnects | kol | 200 | 20 | 20 | ✓ | True |  |
+| src-xai-news | official | 200 | 40 | 0 |  | True |  |
+| src-mistral-news | official | 200 | 0 | 0 |  | True |  |
+| src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
+| src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
+| src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-thezvi | kol | robots_disallow | 0 | 0 |  | False |  |
-| src-kol-oneusefulthing | kol | 200 | 20 | 20 | ✓ | True |  |
-| src-kol-lilianweng | kol | 200 | 20 | 20 | ✓ | True |  |
-| src-kol-raschka | kol | 200 | 20 | 20 | ✓ | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 29 | ✓ | True |  |
+| src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-lilianweng | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 8 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕。

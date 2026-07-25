@@ -5,12 +5,12 @@
   },
   "src-gh-vllm-releases": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:19+00:00",
+    "last_run": "2026-07-25T08:13:30+00:00",
     "first_fetch_at": "2026-07-23T23:52:35+00:00"
   },
   "src-deepmind-blog": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:20+00:00",
+    "last_run": "2026-07-25T08:13:31+00:00",
     "first_fetch_at": "2026-07-23T23:52:37+00:00"
   },
   "src-hf-blog": {
@@ -19,18 +19,18 @@
     "first_fetch_at": "2026-07-23T23:52:39+00:00"
   },
   "src-nvidia-blog": {
-    "etag": "\"bd0c4223e728b8407ed48b7b1581573b-gzip\"",
-    "last_run": "2026-07-25T05:21:23+00:00",
+    "etag": "\"10231850245dc395b5103ccb6c77935b-gzip\"",
+    "last_run": "2026-07-25T08:13:34+00:00",
     "first_fetch_at": "2026-07-23T23:52:42+00:00"
   },
   "src-msr-blog": {
     "etag": "\"de7d111c71b1c343f54ea89a175c63a0\"",
-    "last_run": "2026-07-25T05:21:25+00:00",
+    "last_run": "2026-07-25T08:13:35+00:00",
     "first_fetch_at": "2026-07-23T23:52:44+00:00"
   },
   "src-meta-research": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:27+00:00",
+    "last_run": "2026-07-25T08:13:38+00:00",
     "first_fetch_at": "2026-07-23T23:52:48+00:00"
   },
   "src-ep-itre": {
@@ -40,22 +40,22 @@
   },
   "src-openai-blog": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:16+00:00",
+    "last_run": "2026-07-25T08:13:27+00:00",
     "first_fetch_at": "2026-07-25T05:21:16+00:00"
   },
   "src-anthropic-news": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:18+00:00",
+    "last_run": "2026-07-25T08:13:28+00:00",
     "first_fetch_at": "2026-07-25T05:21:18+00:00"
   },
   "src-xai-news": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:28+00:00",
+    "last_run": "2026-07-25T08:13:39+00:00",
     "first_fetch_at": "2026-07-25T05:21:28+00:00"
   },
   "src-mistral-news": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:29+00:00",
+    "last_run": "2026-07-25T08:13:40+00:00",
     "first_fetch_at": "2026-07-25T05:21:29+00:00"
   },
   "src-qwen-blog": {
@@ -65,37 +65,37 @@
   },
   "src-kol-karpathy": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:31+00:00",
+    "last_run": "2026-07-25T08:13:42+00:00",
     "first_fetch_at": "2026-07-25T05:21:31+00:00"
   },
   "src-kol-simonwillison": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:33+00:00",
+    "last_run": "2026-07-25T08:13:44+00:00",
     "first_fetch_at": "2026-07-25T05:21:33+00:00"
   },
   "src-kol-interconnects": {
-    "etag": "W/\"7cf3f-IGqmfmdV/1qYThlHfzRCxDZsR24\"",
-    "last_run": "2026-07-25T05:21:34+00:00",
+    "etag": "W/\"7cf3f-2+d1OElYThbOozeyCctbdKguCP8\"",
+    "last_run": "2026-07-25T08:13:45+00:00",
     "first_fetch_at": "2026-07-25T05:21:34+00:00"
   },
   "src-kol-oneusefulthing": {
-    "etag": "W/\"df8d7-6K7TwG/HUg5mRcjrIe9YrB8lRVA\"",
-    "last_run": "2026-07-25T05:21:36+00:00",
+    "etag": "W/\"df8d7-m2iyc0V40vfpDXFAhxTjPPOeYnk\"",
+    "last_run": "2026-07-25T08:13:47+00:00",
     "first_fetch_at": "2026-07-25T05:21:36+00:00"
   },
   "src-kol-lilianweng": {
-    "etag": "W/\"6a55d3e4-13718\"",
-    "last_run": "2026-07-25T05:21:37+00:00",
+    "etag": "W/\"6a55d3e3-13718\"",
+    "last_run": "2026-07-25T08:13:49+00:00",
     "first_fetch_at": "2026-07-25T05:21:37+00:00"
   },
   "src-kol-raschka": {
-    "etag": "W/\"265614-3/VnYkDq4CLA2dornF511CeD1Ro\"",
-    "last_run": "2026-07-25T05:21:39+00:00",
+    "etag": "W/\"265614-kSCJwXadFuM9nH/O8ncq3ePyrAo\"",
+    "last_run": "2026-07-25T08:13:50+00:00",
     "first_fetch_at": "2026-07-25T05:21:39+00:00"
   },
   "src-hn-frontpage": {
     "etag": null,
-    "last_run": "2026-07-25T05:21:40+00:00",
+    "last_run": "2026-07-25T08:13:52+00:00",
     "first_fetch_at": "2026-07-25T05:21:40+00:00"
   }
 }
