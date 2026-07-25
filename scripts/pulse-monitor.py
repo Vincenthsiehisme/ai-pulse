@@ -235,6 +235,7 @@ def coverage(vault, today, sources_cfg, entities_cfg):
 def scan(vault, today):
     events = vault / "Events"
     review, published, unenriched = [], 0, 0
+    dropped = 0
     blocker_hist = {}
 
     for p in sorted(events.glob("*.md")) if events.exists() else []:
@@ -242,6 +243,12 @@ def scan(vault, today):
         status = fm.get("status")
         if status == "published":
             published += 1
+            continue
+        # dropped＝人工判定不追。不算卡關、不算未潤稿、不觸任何警報，
+        # 但**要有數字**：人工按掉的量自己會說話，一路長上去就代表門檻或來源該調了。
+        # 逐則的理由在 _dashboards/dropped.md。
+        if status == "dropped":
+            dropped += 1
             continue
         if status != "review":
             continue
@@ -283,6 +290,7 @@ def scan(vault, today):
         "last_probe_date": last_probe.isoformat() if last_probe else None,
         "probe_lag_days": probe_lag,
         "published_total": published,
+        "dropped_total": dropped,
         "review_total": len(review),
         "review_terminal": len(review) - len(actionable),
         "review_actionable": len(actionable),
@@ -330,6 +338,8 @@ def main():
         print(f"  已上線={r['published_total']}  review={r['review_total']}"
               f"（待處理={r['review_actionable']}／設計上擋著={r['review_terminal']}）"
               f"  未 enrich={r['review_unenriched']}  待處理最久={r['oldest_stuck_days']} 天")
+        if r["dropped_total"]:
+            print(f"  人工判定不追={r['dropped_total']}（理由見 _dashboards/dropped.md）")
         if r["blocker_hist"]:
             print("  ── blocker 分佈 ──")
             for b, n in r["blocker_hist"].items():

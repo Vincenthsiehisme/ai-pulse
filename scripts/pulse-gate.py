@@ -8,6 +8,17 @@
 
 紅線：這一層是**判斷**——由規則決定發不發，零 LLM。未 enrich 的事件必被 placeholder_content
 擋住（body 還有「待编辑」），所以雜訊不會混上線。
+
+status 值域（2026-07-25 起三個）：
+  review     等門禁。每次跑都重審，blockers[] 會被重寫。
+  published  過了門禁。之後只做新鮮度重審，陳舊會被降級退回 review。
+  dropped    **人工判定不追。** 這一層直接跳過它，不重審、不改 blockers、不改 status。
+             enrich-prep / render / monitor 也都不看它。設計上它是隱形的，
+             所以 pulse-dashboard.py 會另外產一頁 `_dashboards/dropped.md` 把它們
+             連理由一起列出來——人工按掉可以，靜默丟棄不行。
+             要復活就把 status 改回 review，下一班門禁自己會重跑。
+             按掉時請一併寫 dropped_at / dropped_by / drop_reason，沒理由的 drop
+             跟資料不見了沒有區別。
 用法：VAULT_DIR=/path/to/AI-Pulse python scripts/pulse-gate.py [--dry-run]
 依賴：PyYAML。
 """

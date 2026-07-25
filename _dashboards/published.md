@@ -1,8 +1,10 @@
-# 已發布事件（14）
+# 已發布事件（15）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-07-23
+- **[[Events/evt-2026-07-23-0475fe|Bringing Nunchaku 4-bit Diffusion Inference to Diffusers]]** — Hugging Face · infra · conf 73 · heat 14
+  Nunchaku 把 4-bit 擴散模型推論接進 Diffusers 函式庫。
 - **[[Events/evt-2026-07-23-4fb946|GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud]]** — NVIDIA · product · conf 73 · heat 15
   GeForce NOW 本週上架《流亡黯道：Curse of the Allflame》等遊戲。
 - **[[Events/evt-2026-07-23-821bb6|NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School]]** — NVIDIA · infra · conf 73 · heat 14

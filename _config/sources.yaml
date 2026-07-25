@@ -90,10 +90,18 @@ coverage_watch:
     # 照樣列在報表上（缺口要看得見），但不觸 exit code——待辦事項每晚讓 CI 紅一次，
     # 人只會學會忽略 CI，連帶忽略真正的回歸。補上來源後把這行 pending 拿掉即可。
     # 要把待辦逼到零時，跑 pulse-monitor --alert-no-source。
-    - {entity_id: xai,             label: xAI,             max_silent_days: 30, pending: true}
-    - {entity_id: mistral,         label: Mistral AI,      max_silent_days: 30, pending: true}
+    # 2026-07-25：xAI / Mistral / Alibaba 三家補上來源了，pending 拿掉——留著等於
+    # 對自己謊報「這家沒人在看」（紅線 8）。但**有來源 ≠ 有產能**：三條都還是
+    # probing、feed 本體沒在本機驗過。拿掉 pending 之後，它們若真的一直不產出，
+    # 30 天後 reason 會從 no_source 變成 silent 並且照樣觸警——那正是要的：
+    # 「加了來源就當補完了」是這套系統最想防的那種假完成。
+    - {entity_id: xai,             label: xAI,             max_silent_days: 30}
+    - {entity_id: mistral,         label: Mistral AI,      max_silent_days: 30}
+    - {entity_id: alibaba,         label: Alibaba,         max_silent_days: 30}
+    # DeepSeek 維持 pending：唯一找得到的官方入口（api-docs sitemap）沒有 lastmod、
+    # slug 是不透明日期碼，接了也是零實體命中。詳細退件理由寫在 official_sources
+    # 末尾那段。這一格應該紅著，直到有帶標題的官方 feed。
     - {entity_id: deepseek,        label: DeepSeek,        max_silent_days: 30, pending: true}
-    - {entity_id: alibaba,         label: Alibaba,         max_silent_days: 30, pending: true}
 
 # ---------------------------------------------------------------------------
 # corpus_type —— v2.1 新增欄位
@@ -425,9 +433,137 @@ official_sources:
     #   IMCO /rss/committee/imco/en.xml、新聞稿全量 /rss/doc/press-releases/en.xml、
     #   主題 909 /rss/topic/909/en.xml
 
-  # ── 語料型態盤點（人工核對用，非設定；v2.4 更新）──
+  # ═══════════════════════════════════════════════════════════════════════
+  # 2026-07-25 新增：拉廣度的三條（xAI / Mistral / Qwen）
+  #
+  # 為什麼補這三家：既有 12 條 official 裡，company_release 全是美系
+  # （OpenAI / Anthropic / Google / NVIDIA / HuggingFace）。前沿模型發表這件事
+  # 上，xAI、Mistral、阿里 Qwen 都是會單獨帶動一整條 Track 的角色，缺了它們，
+  # 「AI 產業」這四個字在這個 vault 裡其實只涵蓋半個產業。
+  #
+  # 三條共同的誠實聲明（紅線 8）——**以下沒有一條的 feed／sitemap 內容在本機被
+  # 解析過**。本容器的抓取工具對 x.ai／mistral.ai 的 sitemap 與 qwenlm 的 RSS
+  # 一律回 [binary data]，而紅線 7 不准改 User-Agent 或用 curl/python 繞過去。
+  # 本機真正驗到的只有一件事：三站的 robots.txt 都讀得到、都允許（逐條抄在各條
+  # 底下）。所以三條全部起手 lifecycle: probing，由 Actions 端用真網路自證。
+  #
+  # 第一次 probe 之後**一定要去看一眼**（這是待辦，不是建議）：
+  #   a. 回 0 筆 → 八成是 url_prefix 猜錯（本機驗不到實際路徑）。去看站上真正的
+  #      新聞路徑再改，**不要直接把這條刪掉**——0 筆是「猜錯」，不是「沒東西」。
+  #   b. 有筆數但標題像 `News260424` 這種日期碼 → 這條是裝飾性覆蓋，要撤。
+  #      理由見本節最後 DeepSeek 那段：sitemap adapter 摘要留空，match_entities
+  #      只看 title+summary，slug 還原不出人話就等於零實體命中——看起來有蓋到，
+  #      實際上一條線索都生不出來。
+
+  - id: src-xai-news
+    track: official
+    owner: xAI
+    media_group: xAI
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: vendor
+    corpus_type: company_release
+    adapter: sitemap
+    endpoint: "https://x.ai/sitemap.xml"
+    url_prefix: "/news/"
+    sitemap_hints: ["news"]
+    max_sitemaps: 3
+    region: US
+    language: en
+    lifecycle: probing
+    robots_ok: true
+    robots_checked_at: "2026-07-25T00:16:00+00:00"
+    license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, search=yes, ai-input=no"
+    frequency: daily
+    quota_per_run: 40
+    # robots.txt 實測（2026-07-25T00:16Z）：`User-Agent: * / Allow: / / Disallow: /tools/`，
+    # 且 robots.txt 自己宣告 `Sitemap: https://x.ai/sitemap.xml`——我們只走站方主動
+    # 指出的入口，不猜路徑、不爬全站。
+    # Content-Signal 那行要當真：ai-train=no、ai-input=no、search=yes。這條鏈**不抓
+    # 內文**（sitemap 只給 URL，摘要一律留空），也不訓練任何模型，潤稿端看得到的
+    # 只有標題與連結，屬於 search 用途。**若日後有人替這條加上內文抽取，這一段就
+    # 失效，必須重新評估。** 記在這裡免得那天沒人想起來。
+
+  - id: src-mistral-news
+    track: official
+    owner: Mistral AI
+    media_group: Mistral AI
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: vendor
+    corpus_type: company_release
+    adapter: sitemap
+    endpoint: "https://mistral.ai/sitemap-index.xml"
+    url_prefix: "/news/"
+    sitemap_hints: ["news", "blog"]
+    max_sitemaps: 3
+    region: EU
+    language: en
+    lifecycle: probing
+    robots_ok: true
+    robots_checked_at: "2026-07-25T00:16:00+00:00"
+    license_note: "titles + links only"
+    frequency: daily
+    quota_per_run: 40
+    # robots.txt 實測（2026-07-25T00:16Z）：`User-agent: * / Allow: /`，無任何
+    # Disallow；`Sitemap: https://mistral.ai/sitemap-index.xml` 是站方自己宣告的入口。
+    # 這也是目前唯一一條 region: EU 的 vendor 來源——既有的 EU 只有監理機關
+    # （EP-ITRE / EU-Council），歐洲的「業者說了什麼」在此之前完全沒有入口。
+
+  - id: src-qwen-blog
+    track: official
+    owner: Alibaba (Qwen Team)
+    media_group: Alibaba-Qwen     # 與其他中國來源不同集團；獨立性看 media_group，勿併成「China」
+    author: null
+    person_id: null
+    tier: 1
+    role: official
+    source_category: vendor
+    corpus_type: company_release
+    adapter: rss
+    endpoint: "https://qwenlm.github.io/blog/index.xml"
+    region: CN
+    language: en
+    lifecycle: probing
+    robots_ok: true
+    robots_checked_at: "2026-07-25T00:16:00+00:00"
+    license_note: "titles + links only"
+    frequency: weekly
+    quota_per_run: 30
+    # robots.txt 實測（2026-07-25T00:16Z）：`User-agent: * / Disallow:`（空值＝全站允許）。
+    # 這是 Qwen 團隊自營的技術部落格（GitHub Pages），不是轉載站，所以掛 tier 1。
+    # endpoint 未驗：RSS 本體在本機一律回 [binary data]。`/blog/index.xml` 是這類
+    # 靜態站的慣例路徑，是**推測**不是實測。若 Actions 上回 404，先試
+    # `https://qwenlm.github.io/index.xml`，再不行改走 robots.txt 宣告的
+    # `https://qwenlm.github.io/sitemap.xml`（但那會退化成無摘要，見上面 b 點）。
+    # 這條也是目前唯一一條 region: CN 的來源。
+
+  # ── 退件候選：DeepSeek（2026-07-25 評估，不接）──
+  # 候選端點 `https://api-docs.deepseek.com/sitemap.xml` 讀得到、解得開，裡面有
+  # 15 條 /news/ 路徑，robots 也允許。看起來完全可以接。不接的理由有兩個，都是
+  # 機械事實、不是口味問題：
+  #   1. 整份 sitemap **沒有任何 <lastmod>**。adapt_sitemap 靠 lastmod 排序取最新，
+  #      沒有它就只能取一個沒有時間意義的前 N 筆，first_observed_at 會被寫成
+  #      「我第一次看到的那天」而不是「它發表的那天」——lead_days 直接污染。
+  #   2. slug 是 `news260424` 這種不透明日期碼。sitemap adapter 摘要一律留空，
+  #      而 match_entities 只吃 title+summary，`_slug_to_title("news260424")` 還原
+  #      出來是 "News260424"，**實體命中恆為 0**。
+  # 兩者合起來的結果是：來源清單上多一行 DeepSeek、覆蓋率看門狗變綠、實際產出
+  # 一條都沒有。那比沒有這條來源更糟，因為它會讓人以為這一塊已經蓋到了。
+  # 重議條件：DeepSeek 開出帶標題的 RSS/Atom，或找到有 lastmod 且 slug 是人話的
+  # 官方入口。在那之前，DeepSeek 在覆蓋率報表上就是應該紅著。
+
+  # ── 語料型態盤點（人工核對用，非設定；2026-07-25 更新）──
   #   corpus_type       來源數  獨立 media_group
-  #   company_release      5    Google / HuggingFace / NVIDIA / Anthropic / OpenAI  -> 5
+  #   company_release      8    Google / HuggingFace / NVIDIA / Anthropic / OpenAI
+  #                             / xAI / Mistral AI / Alibaba-Qwen              -> 8
+  #                             ↑ 07-25 從 5 補到 8。地域也從「全美系」變成
+  #                               US 6 / EU 1 / CN 1——但三條新的都還在 probing，
+  #                               在它們真的產出東西之前，這行寫的是清單不是產能。
   #   research_paper       2    Microsoft / Meta                -> 2（Microsoft↔OpenAI 有投資關係，最薄一類）
   #   oss_release          1    vLLM                            -> 1
   #   policy               1    EU-Parliament(live) / EU-Council(dormant, robots 403)  -> 1 live

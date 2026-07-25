@@ -170,6 +170,8 @@ def main():
     ap.add_argument("--out", default="dist")
     ap.add_argument("--snapshot", action="store_true",
                     help="更新 _github/state.json 星數快照（只在每晚跑一次，維持乾淨的 Δ/天）")
+    ap.add_argument("--snapshot-if-older-than", type=float, default=None, metavar="HOURS",
+                    help="只有當現有快照已舊過 N 小時才更新。給一天跑很多班的排程用。")
     args = ap.parse_args()
     vault = Path(os.environ["VAULT_DIR"])
     cfg = yaml.safe_load((vault / "_config" / "github.yaml").read_text("utf-8"))
@@ -178,6 +180,20 @@ def main():
 
     state_path = vault / "_github" / "state.json"
     state = json.loads(state_path.read_text("utf-8")) if state_path.exists() else {}
+
+    # 一天只跑一班時 --snapshot 就夠。一天跑很多班時它會班班覆蓋基線，而 rank() 的
+    # days 有 max(..., 0.5) 下限——基線才隔兩小時，Δ 卻被除以半天，星速就變成一個
+    # 看起來很正常的假數字。假數字比空欄危險，因為沒有人會去查它。
+    #
+    # 所以改讓「該不該更新基線」由快照自己的年紀決定，不由班次順序或時鐘判斷：
+    # Actions 的 cron 是「最早不早於」，實測誤點過 96 分鐘，用 `date +%H` 判小時
+    # 會在誤點那天整天不更新基線，而且一樣沒人會發現。
+    do_snapshot = args.snapshot
+    age_h = None
+    if args.snapshot_if_older_than is not None:
+        newest = max((v.get("ts") or 0) for v in state.values()) if state else 0
+        age_h = (now.timestamp() - newest) / 3600.0 if newest else float("inf")
+        do_snapshot = age_h >= args.snapshot_if_older_than
 
     current = collect(cfg, token, now)
     generated = now.strftime("%Y-%m-%d %H:%MZ")
@@ -205,15 +221,20 @@ def main():
                    ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "github" / "index.html").write_text(GH_VIEW, encoding="utf-8")
 
-    # 更新快照（只在 --snapshot：每晚一次，維持乾淨的 Δ/天基線）；進版控
-    if args.snapshot:
+    # 更新快照（一天一次，維持乾淨的 Δ/天基線）；進版控
+    if do_snapshot:
         state.update({full: {"stars": r["stars"], "ts": now.timestamp()} for full, r in current.items()})
         state_path.parent.mkdir(parents=True, exist_ok=True)
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
     n_new = sum(1 for r in ranked if r["is_new"])
     n_zh = sum(1 for r in ranked if r.get("desc_zh"))
-    snap = " [snapshot 已更新]" if args.snapshot else ""
+    if do_snapshot:
+        snap = " [snapshot 已更新]"
+    elif age_h is not None:
+        snap = f" [snapshot 未更新：基線才 {age_h:.1f} 小時大，還沒到門檻]"
+    else:
+        snap = ""
     print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}  首次觀測={n_new}  "
           f"中文描述={n_zh}/{len(ranked)}{snap}  → data/github.json + github/")
     return 0

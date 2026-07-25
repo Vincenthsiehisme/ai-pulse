@@ -1,4 +1,4 @@
-# 被門禁擋下（14）
+# 被門禁擋下（12）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
@@ -14,5 +14,3 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-07-23-0475fe|Bringing Nunchaku 4-bit Diffusion Inference to Diffusers]]** — industry — blockers: generic_entity
-- **[[Events/evt-2026-07-15-3154bf|Introducing Real World VoiceEQ: Measuring the human quality of voice A]]** — industry — blockers: thin_research_analysis, generic_entity, stale_backfill

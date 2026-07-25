@@ -603,6 +603,20 @@ frameworks:
     company: huggingface
     status: active
 
+  # 2026-07-25 補。補的原因是被一則具體事件逼出來的：
+  # evt-2026-07-23-0475fe「Bringing Nunchaku 4-bit Diffusion Inference to Diffusers」
+  # 一直卡在 generic_entity——標題裡的 Diffusers 字典裡沒有，infer_company 找不到
+  # 任何 company 型別命中就退回 "industry"，然後被門禁擋掉。
+  # 這不是門禁太嚴，是字典有洞：擴散模型那一整塊（生圖／生影片）在這份字典裡
+  # 之前完全沒有入口，凡是走這條線的事件都會是同樣下場，不只這一則。
+  - id: diffusers
+    canonical: Diffusers
+    term_type: framework
+    definition: "Hugging Face 的擴散模型（diffusion）推論與訓練函式庫，生圖／生影片的常用入口。"
+    aliases: ["HF Diffusers"]
+    company: huggingface
+    status: active
+
   - id: langchain
     canonical: LangChain
     term_type: framework
