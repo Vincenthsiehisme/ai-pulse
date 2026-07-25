@@ -3,6 +3,7 @@
 （移植 agent-pulse src/domain/clustering.ts，純規則、零 embedding、零 LLM）。
 
 - titleTokens / title_similarity：標題 token 化 + Jaccard 近似重複
+- keyword_tokens：標題 → 給人看的關鍵詞（有序、確定性；與上面那組刻意分家）
 - event_fingerprint：model 家族正則 → "family:version"（同一版本聚成一個 Event 的主鍵）
 - event_facet / event_facet_bucket：事件面向（release/capital/pricing/...）
 - belongs_to_event：3b 聚類判定（同 fingerprint+facet+時間窗，或標題相似度 ≥ 門檻）
@@ -15,8 +16,36 @@ from datetime import timezone
 
 from .quality import parse_dt  # 共用日期解析
 
+# 給 Jaccard 用的停用詞。**這份清單刻意留小。**
+# 它參與 title_similarity，也就是參與「兩則標題算不算同一個 Event」的判定；
+# 加一個詞就等於改聚類結果，屬於排名規則變更（紅線 9：要先改文件再改碼）。
+# 所以不要為了「關鍵詞欄位太醜」順手往這裡加詞——那是下面那份的工作。
 STOP_WORDS = {
     "a", "an", "and", "for", "in", "of", "on", "the", "to", "update", "with",
+}
+
+# 給 keywords 欄位用的停用詞。這欄只給人看、不參與任何判定，所以可以放心加大。
+# 兩份分家的理由就是上面那段：共用一份的話，「調關鍵詞」會悄悄改掉聚類，
+# 而且改完沒有任何一個測試會紅。
+KEYWORD_STOP_WORDS = STOP_WORDS | {
+    # 冠詞、介系詞、連接詞
+    "as", "at", "by", "from", "into", "over", "than", "that", "this", "these",
+    "those", "or", "but", "nor", "if", "then", "so", "up", "out", "off",
+    "about", "after", "before", "during", "via", "per", "amid", "across",
+    # 代名詞、限定詞
+    "it", "its", "we", "our", "us", "you", "your", "they", "their", "them",
+    "he", "she", "his", "her", "who", "whose", "which", "what", "all", "any",
+    "both", "each", "more", "most", "other", "some", "such", "no", "not",
+    # be 動詞與常見助動詞
+    "is", "are", "was", "were", "be", "been", "being", "am", "do", "does",
+    "did", "has", "have", "had", "can", "could", "will", "would", "may",
+    "might", "should", "must",
+    # 新聞稿套語（標題天天出現，指不到任何東西）
+    "new", "how", "why", "when", "where", "now", "today", "here", "introducing",
+    "announcing", "announces", "announce", "launching", "launches", "launch",
+    "presenting", "unveils", "unveiling", "brings", "bringing", "meet",
+    "read", "more", "blog", "post", "news", "release", "released", "using",
+    "use", "make", "makes", "get", "gets", "way", "ways",
 }
 
 _TOKEN_STRIP = re.compile(r"[^a-z0-9一-鿿]+")
@@ -29,6 +58,32 @@ def _nfkc_lower(s):
 def title_tokens(title):
     text = _TOKEN_STRIP.sub(" ", _nfkc_lower(title))
     return {t for t in text.split() if len(t) > 1 and t not in STOP_WORDS}
+
+
+def keyword_tokens(title, limit=8):
+    """標題 → keywords[]：**依標題原順序**、去重、去虛詞、去純數字。
+
+    不要用 `list(title_tokens(t))[:limit]` 代替這支。title_tokens 回傳的是 set，
+    而 CPython 的字串雜湊預設每個行程都重新隨機化，於是 `list(set)` 的順序
+    每跑一次就換一次——同一個標題、同一份程式碼，會得到不同的 keywords。
+
+    實測（同一句標題跑五種 PYTHONHASHSEED）：
+        'At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners'
+        → 五次五種結果；at / its 每次都在，nvidia 有兩次被擠出前八。
+    也就是說被隨機丟掉的，剛好是唯一有指涉的那個詞。
+
+    這條鏈對外的承諾是「同樣的輸入給同樣的輸出」。順序不確定就沒有這回事，
+    所以這裡走 list 不走 set，截斷發生在過濾之後、順序固定之時。
+    """
+    out, seen = [], set()
+    for tok in _TOKEN_STRIP.sub(" ", _nfkc_lower(title)).split():
+        if len(tok) < 2 or tok.isdigit() or tok in KEYWORD_STOP_WORDS or tok in seen:
+            continue
+        seen.add(tok)
+        out.append(tok)
+        if len(out) >= limit:
+            break
+    return out
 
 
 def title_similarity(left, right):
