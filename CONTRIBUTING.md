@@ -20,6 +20,7 @@
 
 ```
 _corpus/**  _probe/**  Events/**  Sources/**  _dashboards/**  dist/**
+_config/sources.yaml   ← 只有兩個機器欄位，見下一段
 ```
 
 這些是鏈自己的產物。把它們改成開 PR 會有兩個後果：一天 12 班就是 12 個沒人會看
@@ -29,10 +30,40 @@ _corpus/**  _probe/**  Events/**  Sources/**  _dashboards/**  dist/**
 同理，人也不要手改這些檔案再送 PR ——下一班就被覆蓋掉了。要改資料，改的是產生
 資料的規則（那就落到第二條）。
 
+#### `_config/sources.yaml` 是唯一一個人跟機器都會寫的檔
+
+它同時是人維護的來源清單，也是鏈的狀態存放處。每班第一步的
+`pulse-robots-recheck.py --stale-days 1 --apply --revive` 會就地改寫這兩個欄位，
+異動記進 `_probe/source-history.jsonl`，然後隨資料 commit 直推 `main`：
+
+```
+lifecycle    robots_ok
+```
+
+實例：`4ce6043`（2026-07-25 05:21，bot 直推）把 `src-kol-raschka` 的
+`robots_ok: null → true`、`lifecycle: dormant → probing`——robots 重驗實測放行，
+機器自己改的，沒有經過 PR。
+
+**所以這個檔的規矩按欄位分，不按檔案分。** 上面兩個欄位歸鏈；其餘一切（新增或
+移除來源、`tier`、`role`、`quota_per_run`、`can_satisfy_primary`、`adapter`、
+`coverage_watch` 的門檻）歸人，走第二條路開 PR。
+
+兩個實務提醒：
+
+**手改 `lifecycle` 沒有意義。** 下一次 robots 重驗會依實測結果覆蓋掉。要停用一條
+來源，用人為停用那條路——`--revive` 刻意不碰人為停用的來源，把 `lifecycle` 直接
+打成 `dormant` 則會被下一班救回來。
+
+**寫回用 ruamel round-trip，註解會完整保留**（刻意的，`sources.yaml` 的註解是文件
+的一部分），但手寫的對齊空白會被重排成 ruamel 的標準格式。所以你手改完 push 之
+後，下一班常會出現一個「整份檔案都動了」的 diff——那是重排，不是有人偷改你的設
+定，別追。`4ce6043` 那個 1019 行的 diff 就是這樣來的（前一次人手編輯是 `22eefde`）。
+
 ### 二、其他一律走 PR
 
 ```
 scripts/**  .github/workflows/**  _config/**  *.md  其餘所有檔案
+（`_config/sources.yaml` 的 lifecycle / robots_ok 除外——那兩欄歸鏈，見上）
 ```
 
 含腳本、CI、`_config/*.yaml`（門檻、來源、實體字典）、文件。判斷邏輯與門禁門檻
