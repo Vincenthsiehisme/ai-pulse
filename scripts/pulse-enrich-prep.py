@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 """pulse-enrich-prep.py — Sprint 3c 前置（確定性）：掃出要 enrich 的 Event，打包成 worklist。
 
-只挑 status=review 且 body 仍含「待编辑」佔位的 Event（已 enrich 的跳過 → 冪等、成本封頂）。
+只挑 status=review 且 body 仍含「待編輯」佔位的 Event（已 enrich 的跳過 → 冪等、成本封頂）。
+佔位詞比對走 lib.notes.PLACEHOLDER_RE，不用字串 in：既有事件寫的是簡體舊寫法，
+只認新寫法的話它們會永遠排不進潤稿佇列，而且不會有任何錯誤訊息。
 把每個 Event 綁定的證據，從 _corpus 解析出真正的標題 + 摘要文字，湊成一份乾淨的 worklist，
 交給 Cowork（或排程 Cowork 任務）依 references/enrich-runbook.md 逐個寫 prose。
 
@@ -16,9 +18,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib.notes import parse_note  # noqa: E402
-
-PLACEHOLDER = "待编辑"
+from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
 
 
 def build_corpus_index(vault):
@@ -61,7 +61,7 @@ def main():
         fm, body = parse_note(text)
         if fm.get("status") != "review":
             continue
-        if PLACEHOLDER not in body:
+        if not PLACEHOLDER_RE.search(body):
             skipped_enriched += 1
             continue
         evidence = []

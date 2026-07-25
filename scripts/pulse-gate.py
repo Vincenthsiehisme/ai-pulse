@@ -7,7 +7,8 @@
 否則把 blockers[] 寫進 frontmatter（blocked 佇列看得到原因）。門檻讀 _config/gate.yaml。
 
 紅線：這一層是**判斷**——由規則決定發不發，零 LLM。未 enrich 的事件必被 placeholder_content
-擋住（body 還有「待编辑」），所以雜訊不會混上線。
+擋住（body 還有「待編輯」佔位），所以雜訊不會混上線。佔位詞的正則放在 lib/notes.py，
+與產生端共用一份；那邊同時認得簡體舊寫法，理由見該檔註解。
 
 status 值域（2026-07-25 起三個）：
   review     等門禁。每次跑都重審，blockers[] 會被重寫。
@@ -30,11 +31,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib.notes import dump_frontmatter, parse_note  # noqa: E402
+from lib.notes import PLACEHOLDER_RE, dump_frontmatter, parse_note  # noqa: E402
 
 import yaml  # noqa: E402
 
-PLACEHOLDER_RE = re.compile(r"待编辑|待補充|待补充|TBD|TODO|placeholder", re.I)
 GENERIC_ENTITY = {"industry", "unknown", "other", "其他", "未知", ""}
 
 
