@@ -1,4 +1,4 @@
-# 被門禁擋下（31）
+# 被門禁擋下（32）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
@@ -27,6 +27,7 @@
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-07-25-0fa594|Claude Opus 5]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-07-25-74ed64|v0.26.0]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-07-24-4f2f9f|Economic Futures Research Fund Agenda]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-07-23-4f7d28|Claude For Creative Work Dev]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-07-23-b82259|Launching Health in ChatGPT]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
