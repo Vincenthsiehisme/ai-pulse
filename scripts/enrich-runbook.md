@@ -1,7 +1,7 @@
 # enrich-runbook.md — Cowork 潤稿執行說明（Sprint 3c）
 
 這份是給 **Cowork**（互動 session 或排程 Cowork 任務）照著做的 runbook。目的：把 pulse-cluster
-產出的 `status: review` Event（六層 prose 還是「待编辑」佔位）潤成人話並過 speak-human-tw。
+產出的 `status: review` Event（六層 prose 還是「待編輯」佔位）潤成人話並過 speak-human-tw。
 
 ## 紅線（不可違反）
 
@@ -76,7 +76,7 @@
 
 ## 冪等 / 成本
 
-- prep 只挑「還有待编辑佔位」的 Event；apply 寫完後佔位消失、`enriched: true`，下次 prep 自動跳過。
+- prep 只挑「還有待編輯佔位」的 Event；apply 寫完後佔位消失、`enriched: true`，下次 prep 自動跳過。
 - 所以重跑不會重潤已潤的，成本只跟「新事件數」走。
 
 ## 自動化模式（排程 Cowork 任務用）

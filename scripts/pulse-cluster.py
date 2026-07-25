@@ -5,7 +5,7 @@
 讀 _probe/<day>/signals-scored.jsonl（3a 產）+ _config/{sources,entities,gate}.yaml，
 依「同 fingerprint+facet+時間窗 / 或標題相似度 ≥0.46」把 signals 聚成 Event，
 綁定證據、算 confidence/heat/independent_sources/primary_evidence，
-寫 Events/<id>.md（六層標題 + 待编辑佔位；prose 留給 3c enrich 填）。
+寫 Events/<id>.md（六層標題 + 待編輯佔位；prose 留給 3c enrich 填）。
 跨日：會讀既有 Events/*.md，新 signal 可 attach 到昨天的 Event 並重評分。
 
 紅線：獨立數用 distinct media_group（框架規則第 5 條），比 agent-pulse 原碼嚴。
@@ -24,11 +24,10 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import cluster, scoring  # noqa: E402
+from lib.notes import PLACEHOLDER  # noqa: E402  單一來源，見 lib/notes.py
 from lib.quality import authority_score_from_tier, parse_dt  # noqa: E402
 
 import yaml  # noqa: E402
-
-PLACEHOLDER = "待编辑"  # 與 readiness gate 的 placeholder 正則一致，確保未 enrich 前被擋
 
 
 def load_sources(cfg):

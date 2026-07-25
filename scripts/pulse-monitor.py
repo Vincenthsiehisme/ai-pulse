@@ -8,7 +8,7 @@
 只讀不寫、不判斷該不該發（那是 gate 的事），只把「現在卡住什麼」算成數字：
   1. 資料新鮮度：最新 _corpus/<date>/ 是不是今天；最後一次 probe 幾天前
   2. 卡關佇列：status=review 的事件數、最久卡幾天、blocker 分佈
-  3. 未 enrich：review 且 body 仍含「待编辑」的（＝ enrich 沒跑到）
+  3. 未 enrich：review 且 body 仍含「待編輯」佔位的（＝ enrich 沒跑到；簡體舊寫法也算）
   4. 敘事鮮度：_probe/narrative-state.json 的簽章數
   5. **覆蓋範圍**：必盯實體多久沒被看見、可跑來源多久沒產出（見下）
 
@@ -41,9 +41,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib.notes import parse_note  # noqa: E402
-
-PLACEHOLDER = "待编辑"
+from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
 
 # 這些 blocker 是「設計上就該永遠擋著」的（歷史存檔倒貨被新鮮度閘擋下），
 # 不是漏跑、也修不好——算警報會天天狼來了，所以只計數、不觸警。
@@ -257,7 +255,8 @@ def scan(vault, today):
         blockers = list(fm.get("blockers") or [])
         for b in blockers:
             blocker_hist[b] = blocker_hist.get(b, 0) + 1
-        if PLACEHOLDER in body:
+        unenriched_here = bool(PLACEHOLDER_RE.search(body))
+        if unenriched_here:
             unenriched += 1
         # 只被 terminal blocker 擋著＝設計上的擋，不算「卡關待處理」
         terminal = bool(blockers) and set(blockers) <= TERMINAL_BLOCKERS
@@ -267,7 +266,7 @@ def scan(vault, today):
             "title": (fm.get("title") or "")[:70],
             "age_days": age,
             "blockers": blockers,
-            "unenriched": PLACEHOLDER in body,
+            "unenriched": unenriched_here,
             "terminal": terminal,
         })
 
