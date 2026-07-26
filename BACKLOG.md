@@ -55,19 +55,24 @@ workflow 第 16-18 行已經把這句話寫在註解裡。一天 12 次去打人
 ## P1 — `Sources/*.md` 把「量不到」印成「0 筆」（紅線 8 違規）
 
 `pulse-source-notes.py:102-103` 寫 `items_observed` / `events_bound`，`:130` 把
-零值渲染成「已觀測 0 筆」。今天實測：
+零值渲染成「已觀測 0 筆」。**首班 CI（`158d60f`，425 items / 32 sources）跑完之後**
+重測：
 
 ```
-可跑來源 27 條
-從未進過 _probe/state.json 的  8 條：
-  src-media-venturebeat, src-media-techcrunch, src-media-ieee-spectrum,
-  src-media-mit-techreview, src-media-theregister, src-media-arstechnica,
-  src-media-theverge, src-kol-thezvi
-會被印出「已觀測 0 筆」的   9 條 ＝ 上面 8 條 + src-mistral-news
+Sources/*.md 裡印「已觀測 0 筆」的 7 條：
+  src-arxiv-cs-cl        進過 state ✓   （已停用）
+  src-consilium-press    從沒抓過 ✗
+  src-ec-digital-strategy 從沒抓過 ✗
+  src-kol-importai       從沒抓過 ✗
+  src-kol-thezvi         從沒抓過 ✗     ← 可跑
+  src-media-theregister  從沒抓過 ✗     ← 可跑
+  src-mistral-news       進過 state ✓   ← 真的產出 0
 ```
 
-九條裡有**八條從來沒有被抓過**。「0 筆」對它們來說是量不到，不是量到 0。這正是
+七條裡**五條從來沒有被抓過**。「0 筆」對它們來說是量不到，不是量到 0 —— 這正是
 紅線 8 那句「量不到就寫量不到」要防的東西，而且它出現在給人看的頁面上。
+（首班之前是 9 條印 0、其中 8 條沒抓過；媒體線跑起來之後名單換人，**比例沒變**——
+這個 bug 跟哪些來源沒關係，跟「用空值代表兩種完全不同的事」有關係。）
 
 同一支腳本還有第二個量錯：
 
@@ -220,8 +225,12 @@ selftest 從來沒有呼叫過 `_mm.main()`，只在 `:1270` 用
 **那個 debug 輸出本身就值得做**——現在的 report 只說「200 / 0 筆」，分不出
 「站上真的沒新東西」跟「我們解析不出來」。（跟 P1「量不到 ≠ 0」是同一個病灶。）
 
-另外七條 `src-media-*` 也是零產出，但它們是 `feat/media-line` 剛併進來的、
-**還沒在 CI 跑過任何一班**，零產出正常。下一班之後如果還是零，才當成 adapter 沒接上。
+**首班 CI 已經跑過了（`158d60f`：425 items / 32 sources），媒體線的判決出來了**：
+七條 `src-media-*` 裡有六條開始產出，只剩 `src-media-theregister` 從沒進過
+`_probe/state.json`——那條要單獨查，不能再算在「剛併進來所以還沒跑」裡面。
+`src-kol-thezvi` 同樣從沒抓過。這兩條加上 `src-mistral-news` 是目前僅有的三個
+「可跑但沒東西」，其中前兩條是**抓取端**的問題、後一條是**解析端**的問題，
+查法不同。
 
 ---
 
@@ -319,6 +328,18 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 
 本地驗證狀態：selftest **222/222**、monitor 三個 alert flag 全開 **rc=0**、
 robots rc=0、workflow YAML 可解析。
+
+**首班結果（`158d60f` + `0dab90b`，2026-07-26）**：
+
+- probe **425 items / 32 sources**，媒體線七條裡六條開始產出（見 P8）。
+- `Sources/*.md` 產生 **32 張**，`_dashboards/health.md` 綠燈、`generated_day`
+  是當天、`last_success` 是當天、`probe_lag_days: 0`。
+- `_probe/source-health.json` **首次落地**（32 條），而它的 key 是
+  `["at", "runs_considered", "sources"]` —— **線上資料確認了 P2**：
+  `quarantine_candidates` 真的不在磁碟上。
+- `sources.yaml` 唯一的機器改動是 robots recheck 補上 `robots_ok: true` 與
+  `robots_checked_at`（量到才寫，不是預設 true）。**lifecycle 沒有任何自動降級，
+  沒有誤殺來源。**
 
 ## 附：2026-07-26 併掉的（已從上面的清單移除）
 
