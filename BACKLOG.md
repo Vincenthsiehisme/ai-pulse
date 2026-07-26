@@ -1,9 +1,24 @@
 # AI-Pulse：應做而未做（已排序）
 
-盤點時間 2026-07-26。`main` 在 `1ce43e9`，遠端零未合併分支，本地 selftest **222/222**、
-monitor 三個 alert flag 全開 **rc=0**。
+盤點時間 2026-07-26（第二輪）。`main` 在 `8a6c1e8`，遠端 **28 條分支、其中 4 條未併**，
+`main` 上的 selftest **224/224**。四條未併分支各自的 selftest：
+`fix/observed-counts-item-days` 235、`fix/health-snapshot-dry-run` 243、
+`fix/coverage-uses-own-clock` 233、`test/monitor-exit-codes` 241。
 
-這份清單只寫「**已知有問題、但還沒動手**」的事。修掉的不列。
+> 同日稍晚追記：這份清單所在的 `docs/backlog-refresh` 又長出了變異盤點層
+> （P3），selftest 到 **238**，未併分支變成 **5 條**。這幾個數字也一樣，
+> 在合併之前都只描述分支、不描述 `main`。
+
+> 再追記（同日）：P2 做完，`fix/heat-claims-a-measurement` 上 selftest **247**、
+> 變異清單 **25 條**（新增 M21–M25，全部被殺），未併分支 **6 條**。
+> 一樣：這三個數字描述的是那條分支，`main` 上仍然是 224。
+
+> 上一版這一段寫的是「`main` 在 `1ce43e9`，遠端零未合併分支，本地 selftest 222/222」。
+> 三個數字**現在全是假的**。清單自己過期不會讓任何東西變紅——這正是這份清單第一條
+> 排序準則在講的病，只是這次得的是清單本人。所以盤點結果一律附「怎麼量出來的」。
+
+這份清單只寫「**已知有問題、但還沒動手**」的事。修掉的不列；**修好了但還沒併進
+`main` 的，算沒修**（見 P1）。
 
 ## 排序準則
 
@@ -14,25 +29,23 @@ monitor 三個 alert flag 全開 **rc=0**。
 2. **它現在是不是正在輸出一個錯的數字？** 「沉默的缺工」比不上「有聲的假數字」——
    空欄位沒人會信，假數字沒人會查。
 
-所以順序大致是：**有時限 → 正在騙人且不會紅 → 守門的東西自己沒被守 →
+所以順序大致是：**有時限 → 修了但沒生效 → 正在騙人且不會紅 → 守門的東西自己沒被守 →
 寫好了沒人叫 → 資料進不來 → 做了一半 → 要你動手**。
 
 | # | 事 | 壞了會紅嗎 | 現在在騙人嗎 |
 |---|---|---|---|
 | P0 | 07-27 cron 收班 | 不會 | — |
-| P1 | `已觀測 0 筆`＝量不到 | 不會 | **是** |
-| P2 | 隔離候選是死路 | 不會 | **是**（永遠空） |
-| P3 | dry run 會寫髒 state | 不會 | **是** |
-| P4 | `--alert-coverage` 用外面的時鐘 | 不會 | 是（漏叫） |
-| P5 | `unsupported_heat` 從沒觸發過 | 不會 | 是（門檻在值域外） |
-| P6 | `pulse-monitor.main()` 沒有測試 | 不會 | — |
-| P7 | 12 個未接線的 gate key | 不會（已標記） | 已止血 |
-| P8 | `src-mistral-news` 零產出 | 不會 | — |
-| P9 | 21 家 pending 覆蓋盲點 | 刻意不會 | 否（誠實掛著） |
-| P10 | people layer 第三步 | 不會 | — |
-| P11 | `_corpus/` 累不累積 | — | — |
-| P12 | 11 則 `stale_backfill` 沒有出口 | 不會 | 否 |
-| P13 | 22 條已合併分支刪不掉 | — | — |
+| P1 | 六條修好的分支還躺在遠端 | 不會 | **是**（修了不等於生效） |
+| P2 | ~~heat 印出一個沒量過的數字~~ **已修，等併** | 會（selftest 247 + M21–M25） | 否（改成 null 了） |
+| P2.5 | `narratives.yaml` 有依那個假數字寫成的句子 | 不會 | **是**（結論還在站上） |
+| P3 | 變異盤點已做成工具，但也還沒併 | 會（在分支上） | 否（改成可重跑的判準了） |
+| P4 | 12 個未接線的 gate key | 不會（已標記） | 已止血 |
+| P5 | 三條「可跑但零產出」的來源 | 不會 | — |
+| P6 | 20 家 pending 覆蓋盲點 | 刻意不會 | 否（誠實掛著） |
+| P7 | people layer 第三步 | 不會 | — |
+| P8 | `_corpus/` 累不累積 | — | — |
+| P9 | 12 則 `stale_backfill` 沒有出口 | 不會 | 否 |
+| P10 | 24 條已合併分支刪不掉 | — | — |
 
 ---
 
@@ -40,173 +53,181 @@ monitor 三個 alert flag 全開 **rc=0**。
 
 `data-refresh.yml` 現在的 cron 是 `0 */2 * * *`，一天 12 班；`robots --stale-days`
 也一起從 7 調成 1。排程任務 `trig_01F52Q24UntdNVTd3DWbxFgs` 會在
-**2026-07-27 12:00Z** 觸發，把兩個值改回 `0 16 * * *` 與 7。任務目前 enabled、
-next_run 正確。
+**2026-07-27 12:00Z** 觸發，把兩個值改回 `0 16 * * *` 與 7。
 
 一天 12 次去打人家的 robots.txt 是不禮貌的，而且我們自己沒有那個量的需求。
 
 排 P0 只有一個理由：**它是這份清單上唯一一條「今天不做，明天就沒得做」的事。**
 其他每一條都可以晚一週，這條晚一週就是連續一週失禮。
 
-### 已排的兩層（2026-07-26）
+### 兩層都還在（2026-07-26 複查）
 
-| 何時 | 任務 | 做什麼 |
+| 何時 | 任務 | 狀態 |
 |---|---|---|
-| 2026-07-27 12:00Z | `trig_01F52Q24UntdNVTd3DWbxFgs` | 收班：cron → `0 16 * * *`、`--stale-days` → 7 |
-| 每週一 16:00Z（首跑 07-27 16:00Z） | `trig_015SHn9yjL6LtA9TsbeyGCdo` | 禮貌檢查：讀 workflow 的事實，超標就當場改回來並推 `main` |
+| 2026-07-27 12:00Z | `trig_01F52Q24UntdNVTd3DWbxFgs` | enabled，next_run 正確 |
+| 每週一 16:00Z | `trig_015SHn9yjL6LtA9TsbeyGCdo` | enabled，首跑 2026-07-27 16:04Z |
 
 第二層不是備援心態，是這個 repo 的核心毛病：**一個只靠單次觸發的收班安排，如果沒
-觸發，沒有任何東西會變紅** —— 跟目錄名代表「那天有語料」、`max()` 代表「最舊的
-未潤稿」是同一個形態。所以第二層刻意**不去查第一層跑了沒**（那又是一個代理指標），
-只讀 `data-refresh.yml` 裡的實際值：cron 一天超過一班、或任一處 `--stale-days < 7`，
-就改回來。收班不是改設計，所以它直接推 `main`、不開 PR。
+觸發，沒有任何東西會變紅**。所以第二層刻意**不去查第一層跑了沒**（那又是一個代理
+指標），只讀 `data-refresh.yml` 裡的實際值：cron 一天超過一班、或任一處
+`--stale-days < 7`，就改回來。收班不是改設計，所以它直接推 `main`、不開 PR。
 
 也就是說這個頻率上限現在是**每週自癒**的，不是靠人記得。剩下要人管的只有一件：
 如果連禮貌檢查也沒跑到，那就真的沒人管了 —— 但那需要兩個獨立的排程同時失效。
 
 ---
 
-## P1 — `Sources/*.md` 把「量不到」印成「0 筆」（紅線 8 違規）
-
-`pulse-source-notes.py:102-103` 寫 `items_observed` / `events_bound`，`:130` 把
-零值渲染成「已觀測 0 筆」。**首班 CI（`158d60f`，425 items / 32 sources）跑完之後**
-重測：
+## P1 — 六條修好的分支還躺在遠端，`main` 上一條都沒生效
 
 ```
-Sources/*.md 裡印「已觀測 0 筆」的 7 條：
-  src-arxiv-cs-cl        進過 state ✓   （已停用）
-  src-consilium-press    從沒抓過 ✗
-  src-ec-digital-strategy 從沒抓過 ✗
-  src-kol-importai       從沒抓過 ✗
-  src-kol-thezvi         從沒抓過 ✗     ← 可跑
-  src-media-theregister  從沒抓過 ✗     ← 可跑
-  src-mistral-news       進過 state ✓   ← 真的產出 0
+$ git branch -r --no-merged origin/main
+  fix/coverage-uses-own-clock
+  fix/health-snapshot-dry-run
+  fix/observed-counts-item-days
+  test/monitor-exit-codes
 ```
 
-七條裡**五條從來沒有被抓過**。「0 筆」對它們來說是量不到，不是量到 0 —— 這正是
-紅線 8 那句「量不到就寫量不到」要防的東西，而且它出現在給人看的頁面上。
-（首班之前是 9 條印 0、其中 8 條沒抓過；媒體線跑起來之後名單換人，**比例沒變**——
-這個 bug 跟哪些來源沒關係，跟「用空值代表兩種完全不同的事」有關係。）
+| 分支 | 原編號 | 修了什麼 | selftest |
+|---|---|---|---|
+| `fix/observed-counts-item-days` | 舊 P1 | `Sources/*.md` 不再把「量不到」印成「0 筆」；`items_observed` 改數相異 `(source_id, url)`；`events_bound` 排除 `dropped` | 235 |
+| `fix/health-snapshot-dry-run` | 舊 P2+P3 | 隔離候選真的寫進磁碟快照（機器交棒給人的唯一介面接回來了）；`--json` 這種只看的跑法不再改持久狀態 | 243 |
+| `fix/coverage-uses-own-clock` | 舊 P4 | 沉默判準改用每條實體自己的 `first_fetch_at`，不再拿整個語料庫的長度當尺 | 233 |
+| `test/monitor-exit-codes` | 舊 P6 (a/c/d) | 死人開關的 exit code 走真子行程釘住；`FM_FROM_CONFIG` 白名單邊界改由行為守；`ingested_at` 黏性改成真的跑第二輪 | 241 |
+| `docs/backlog-refresh` | 本檔 + P3 | 這份清單本身；變異盤點層（`scripts/mutate.py` + `mutations.yaml` + 獨立工作流），並補掉它第一輪抓到的五個洞 | 238 |
+| `fix/heat-claims-a-measurement` | P2 | `heat` 沒量到就寫 null 不編數字；新 blocker `unmeasured_heat`；`references/readiness-gate.md`（SKILL.md 引用了 v1 就存在、但這個檔一直沒有）；51 則遷移 + 回滾 | 247 |
 
-同一支腳本還有第二個量錯：
+**這一條的重點不是「還有六件事沒做」，是「六件事做完了，而系統的行為一點都沒變」。**
+`main` 上跑的還是舊碼：Sources 頁還在印「已觀測 0 筆」、`--json` 還會寫髒 state、
+coverage 還在拿外面的時鐘量自己的鏈、`return rc` 改成 `return 0` 在 `main` 上仍然
+**224/224 全過**。
 
-```
-items_observed 加總（jsonl 行數）= 869
-相異 (source_id, url)            = 461
-差                                = 408
-```
+而且這個狀態自己不會變紅：CI 只跑 `main`，六條分支綠得再漂亮也沒有任何一格會亮。
+上一版清單把 P1–P4 從表上劃掉的那一刻，如果沒有這一條，就等於宣稱它們生效了——
+那是紅線 8 的違規，只是主詞換成這份文件。
 
-`items_observed` 數的是**項目 × 天**，不是項目數。一條每天都出現在 feed 裡的
-新聞，會讓那條來源的「已觀測」每天 +1。`references/vault-pages.md` 的四態表寫的是
-「`_corpus/**/*.jsonl` 累計行數」——文件跟碼是一致的，**錯的是這個定義本身**：
-它跟旁邊那格「有效產出」數的是不同的東西（那格數的是事件數，刻意去重），
-兩格擺在一起比較時會得到錯的印象。
-
-**該做的事**（照紅線 9，先改 `references/vault-pages.md` 再改碼）：
-`items_observed` 改數相異 `(source_id, url)`；沒有 `first_fetch_at` 的來源印
-「尚未抓取過」而不是 0；`events_bound` 排除 `status: dropped`。
+**要人動手的原因**：這個環境的 proxy 擋掉 GitHub API（403），我開不了 PR；
+分支都已經推上去了，合併要在網頁上按。見 P10。
 
 ---
 
-## P2 — 唯一的人工升級路徑是一條死路（隔離候選永遠是空的）
+## P2 — ~~`unsupported_heat` 從上線到現在一次都沒有擋過東西~~（**已修，在 `fix/heat-claims-a-measurement` 上**）
 
-`pulse-source-health.py:261` 把 `quarantine_candidates` 放進 `--json` 的 **stdout
-字典**裡。寫到磁碟的 `snapshot` 是 `{"at", "runs_considered", "sources"}` ——
-**沒有這個 key**。於是 `pulse-monitor.py:370` 的
-`hjson.get("quarantine_candidates") or []` 永遠拿到 `[]`，`:498-500` 據此渲染的
-health.md「隔離候選」那一行永遠是空的。
+> 2026-07-26 改寫。原本這條寫著「要你先決定方向我才動」；方向決定了，也做完了，
+> 等併。決策與規格：`references/readiness-gate.md`。
 
-這條線的設計是：機器只能寫到 `degraded`（而 degraded 仍然每班被抓，連三班成功會
-自己回來），`dormant` **只有人能寫**。也就是說「隔離候選」清單是**機器交棒給人的
-唯一介面**。這個介面現在是斷的：達到隔離門檻的來源不會出現在任何人看得到的地方。
+**題目比原本寫的嚴重。** 舊敘述說「門檻在值域外，所以這條 blocker 走不到」——
+走不到只是症狀。真正的問題是 `heat` **永遠算得出一個數字，而那個數字量的不是熱度**。
 
-順帶三件同一支腳本的事，一起修比較省：
+四項傳播輸入（`uniqueAuthors` 30、`velocity` 20、`platformBreadth` 7、
+`regionBreadth` 6，共 63 分）在 51 個 Event 上全是 0。舊敘述說那是「輸入不存在、
+來源形態量不出來」——**那句話是錯的**。`pulse-cluster.py:144` 呼叫
+`scoring.score_event(...)` 時第四個參數直接寫死 `metrics=[]`。
+**不是輸入端沒東西，是連接線沒有接。** 沒有任何東西曾經被接到那個參數上。
 
-- `_probe/source-health.json` **現在根本不存在於 repo**。而 `source-lifecycle.md`
-  推薦的回滾動作就是「刪掉這個檔案」——刪掉之後健康分從零開始，而且沒有任何東西
-  會把它重新標記成「這是重置後的第一班」。**這是一個吸收態**：進去了看起來跟
-  「一切正常、只是還沒累積」一模一樣。
-- 機器會寫 `lifecycle: active`，跟「機器只能寫 degraded」這條不變式互相矛盾。
-- **dry run 會改到持久狀態**：`atomic_write_text(hpath, ...)` 在
-  `if not args.apply: return 0` **之前**執行，所以 `--json` 那種只想看看的跑法，
-  會把 `degraded_by: "health"` / `degraded_from` 寫進 `source-health.json`，
-  而 `sources.yaml` 沒有動 —— 兩個檔案從此互相矛盾，沒人知道是哪一次跑的。
+而下游真的把那個數字當量過的用了：`_config/narratives.yaml` 裡有 LLM 依它寫成的
+句子（「四則皆單源、heat 偏低（8–14），還沒跨來源共振」）。一個沒接線的欄位變成
+敘述層的論據——紅線 2 與紅線 8 同時被繞過，**因為那個數字看起來像量出來的**。
 
-（最後這條單獨排在 P3 是因為它的損害形態不同：P2 是「該叫的沒叫」，P3 是
-「看一眼就改壞」。）
+### 兩條原本寫在這裡的修法都被否決了
 
----
+上面那段舊文字建議「把門檻降到實際值域裡」。`_config/gate.yaml` 自己的註解則
+反對它（「正確的修法是去真的收集社群指標，**不是**把 70 調到 45」）。
+**repo 內部本來就有這個分歧**，這次站在 gate.yaml 那邊：降門檻會讓
+`unsupported_heat` 開始有反應，但那個反應是假的——它會對「單一來源 + 剛發布」
+發火，跟傳播沒有關係（紅線 4）。
 
-## P3 — `--json` 這種「只看不動」的跑法會留下改動
+重算權重把 63 分分給還活著的兩項也否決：值域補滿之後，一個 0–100 的「熱度」
+看起來**比現在的 8–32 更像**真的量出來的。把謊講得更順不是修好。
 
-見 P2 最後一段。獨立列出來是因為它會咬到**未來的自己**：任何人為了 debug 跑一次
-`pulse-source-health.py --json`，就在 `source-health.json` 裡留下一筆機器降級紀錄，
-而 `sources.yaml` 是乾淨的。下一班讀到這個 state 時，會以為降級是真的發生過。
+補來源那條路要等 M3（X／社群線 M1 不接、已拍板）。所以中間這段時間唯一誠實的
+動作是第三條——兩份既有文件都沒走的那條：**不要輸出那個數字**。
 
-修法是一行：把 `atomic_write_text` 移到 `--apply` 的守衛之後。要留一個
-`--write-state` 之類的旗標的話，那是另一個決定，先把預設行為修正。
+### 做了什麼
 
----
+`heat` 可為 null；`score_factors.propagationSignals` 記下四項裡有幾項非零；
+新 blocker `unmeasured_heat` 擋下「有數字但 propagationSignals 為 0」；
+前台與敘述層印／送「未量測」而不是 0（**0 會被讀成「量過了，很冷」**）。
+三個門檻刻意不動，`unsupported_heat` 保留並誠實記成「休眠，等 M3」，
+selftest 釘住「四項餵滿時 heat 跨得過 70」——那條紅了才表示門檻該重談。
 
-## P4 — `--alert-coverage` 拿外面的時鐘量自己的鏈
+遷移 51 則，`value` +10 ~ +14（平均 +12.00），回滾 = `git revert`。
+selftest 238 → 247，`mutations.yaml` 加 M21–M25，全部被殺。
 
-守衛條件是 `history_days >= max_silent_days`：`history_days` 是**整個語料庫**的
-歷史長度，`max_silent_days` 是**單一觀察對象**允許沉默的天數。語料庫才 3 天的
-現在，所有 coverage 警報都被這個守衛壓住不叫；等語料庫長到 30 天，一條**昨天才
-加進來**的觀察項也會立刻被拿 30 天的尺去量。
+### 這一輪掉出來的兩個新發現（都還沒處理）
 
-兩邊都錯，而且錯的方向相反：現在該叫的不叫，將來不該叫的會叫。
-
-候選修法：改用每條來源自己的 `first_fetch_at`（`_probe/state.json` 有），
-量「這條**自己**被觀察了多久」。這件事已經寫進
-`references/health-alarms.md` 的「這一層不保證什麼」，所以下一個人不必再推導一次，
-但**文件寫了不等於修了**。
-
----
-
-## P5 — `unsupported_heat` 從上線到現在一次都沒有擋過東西
-
-實測 48 個 Event：`uniqueAuthors`(權重 30)、`velocity`(20)、`platformBreadth`(7)、
-`regionBreadth`(6) —— 四個因子**全部 0/48**，63% 的權重恆為零。實際會動的只有
-`independentSources × 8` 加上 `freshness × 0.08`，而 47/48 的 `independentSources`
-是 1。heat 的理論上限約 48，`gate.yaml` 的 `heat_threshold` 是 70。
-
-門檻沒設錯，是**輸入不存在**：24 條來源全是 blog / newsroom 形態，量不出平台廣度；
-EU 三條 dormant、CN 只剩 Qwen，量不出地域廣度。已記錄在 `399687a`，刻意只記錄
-不改公式（紅線 9）。
-
-**該做的事**：要嘛承認 heat 現在就是「獨立來源數 × 新鮮度」，改名、刪掉那 30 分
-權重、把門檻降到實際值域裡；要嘛去補能量出平台廣度的來源形態。
-**兩件都不做就這樣掛著，是目前的狀態，也是最糟的狀態。**
-
-排在 P1-P4 之後而不是更前面，是因為它的失效方向是「該擋的沒擋」，而現在被它放行的
-事件還要再過 readiness gate 的其他規則；P1-P4 是直接把錯的東西端到人面前。
+1. **`_config/narratives.yaml` 裡有依假數字寫成的句子，還在站上。** 遷移只改了
+   Events 的 frontmatter，改不到已經寫成散文的結論。那幾句要重寫——但重寫是敘述層
+   的事（LLM 寫、過 speak-human-tw），不是這個 PR 的範圍。**排 P2.5，見下。**
+2. **`value` 是一個沒有任何消費者的計算欄位。** `pulse-render.py` 只依日期排序，
+   全站沒有任何地方依 `value` 排序，`dist/index.html` 裡出現 0 次 "value"。
+   所以這次遷移的 rank delta（36/51 換位、最大位移 12 名）**不是使用者看得到的
+   排名變動**，只是顯示值變動——這件事必須誠實講清楚，不然聽起來像改了排名。
+   一個沒人用的分數欄位本身就值得問：它是要接上，還是該刪掉。**排 P8.5。**
 
 ---
 
-## P6 — 死人開關自己的 exit code 沒有測試
+## P2.5 — `_config/narratives.yaml` 裡有拿假數字當論據寫成的句子
 
-今天實測：把 `pulse-monitor.py` 的 `main()` 結尾 `return rc` 改成 `return 0`，
-重跑 selftest —— **222/222 passed**。這個變異完整存活。
+P2 修好了數字的源頭，但**已經寫成散文的結論改不到**。現在站上還有這樣的句子：
 
-selftest 從來沒有呼叫過 `_mm.main()`，只在 `:1270` 用
-`_inspect.getsource(_mm.main)` 檢查原始碼字串。也就是說：整條鏈的最後一道防線是
-「monitor 回非零 → CI 紅燈」，而**那個非零本身沒有任何測試在守**。
-`--alert-*` 三個旗標的計算邏輯都有測試，把計算結果轉成 exit code 的那一步沒有。
+> 「四則皆單源、heat 偏低（8–14），還沒跨來源共振」
 
-一起處理的還有：
+`heat 8–14` 是那個沒接線的欄位算出來的，「還沒跨來源共振」是從它推出來的結論。
+數字現在是 `null` 了，這句話卻還在。
 
-- **先前一輪手動變異盤點：94 個注入點裡 47 個存活**（約一半）。那是 174 條測試時
-  的數字，今天併入四條分支後測試長到 222 條，**這個數字要重跑才算數**。
-- `FM_FROM_CONFIG` 的白名單繞過還是活的（紅線 6 那條邊界沒有測試在守）。
-- `ingested_at` 黏性的那條釘子是**空轉的**——它斷言的條件在 fixture 裡恆真。
+排在這裡而不是 P2 裡面，是因為修法不同：這是敘述層的活，要 LLM 重寫、要過
+speak-human-tw，不是改碼。範圍很小（`grep -n "heat" _config/narratives.yaml`
+數得出來），但它是紅線 2「證據撐不住的那一層寫『（證據不足，待補）』」的
+直接應用——**沒量到的東西不該有結論**。
 
 ---
 
-## P7 — `gate.yaml` 還有 12 個 key 沒有任何程式碼讀它
+## P3 — 變異盤點是手工做的，所以它一定會過期（而且已經過期了）
+
+上一版寫「94 個注入點裡 47 個存活」。那是 **174 條測試**時的數字。今天 `main` 上是
+224 條，四條分支上是 233–243 條，**那個比例現在沒有任何意義**，但它還印在清單上，
+看起來像個現況。這就是清單本人得的病。
+
+`test/monitor-exit-codes` 那一輪也是手工的：一條一條 `sed` 進去、跑 selftest、
+看幾條紅、再還原。過程中踩到兩個坑，都值得寫進工具裡：
+
+- **針腳不唯一會假裝成「存活」**。needle `'        if r.get("unenriched_undated"):'`
+  同時命中 console print 與 `[alert]` 兩個區塊，`str.replace(a, b, 1)` 改到了前者，
+  於是 alert 那條路徑根本沒被動過，selftest 全綠 —— 差一點就得出「這個釘子不存在」
+  的結論。守則：**注入前先 `assert s.count(needle) == 1`**。
+- **改壞語法不算變異**。一個讓 `render()` 直接 raise 的改動會讓 selftest 紅，但那
+  紅的是崩潰不是斷言，量到的東西是假的。守則：注入後要能跑得完才算數。
+
+**已經做完（在 `docs/backlog-refresh` 上，同樣未併）**：規格
+`references/mutation-inventory.md`、清單 `scripts/mutations.yaml`（20 條，P2 之後 25 條）、
+跑法 `scripts/mutate.py`、獨立工作流 `.github/workflows/mutation.yml`。
+selftest 那一端只做 0.5 秒的鮮度檢查（針腳還在不在），慢的那一半留給獨立工作流。
+
+第一輪跑出來 **16 被殺、4 存活**，四條存活的全部指向 P1（`main` 上沒有東西守著
+死人開關的出口與白名單邊界）。過程中另外發生兩件值得記的事：
+
+- **五個原本以為守得住、其實沒人守的地方**：`health()` 的「從來沒抓到過」判成綠燈、
+  `missing_primary_evidence`（紅線 2 的執法點）、`unsupported_heat`（紅線 4）、
+  聚類的 96 小時窗口、keywords 的順序。其中 `pulse-gate.py` 是**唯一**決定發不發的
+  地方，而在這一輪之前 selftest 從來沒有 import 過它——把那兩行 `blockers.append`
+  刪掉，224 條測試一條都不會紅。**五個都當場補了行為釘子，不是掛在這裡。**
+- **工具自己犯了它要抓的病**：selftest 新加的「每個針腳剛好出現一次」在注入期間
+  必紅（針腳正被換掉），於是**每一條變異都「被殺」**，kill 訊號變成常數，四條已知
+  的存活者全被誤判。修法與理由寫在規格的「坑三」。
+
+先做工具再補數字，順序不能反：先補數字就是再生產一個一樣會過期的東西。所以這一條
+現在不留任何數字在清單上——要數字就跑 `python3 scripts/mutate.py`。
+
+（舊 P6 的另外三個子項——exit code 測試、白名單邊界、`ingested_at` 黏性——已經在
+`test/monitor-exit-codes` 上做完，等併，見 P1。規格寫在
+`references/health-alarms.md`「算對了不等於會叫」那一節。）
+
+---
+
+## P4 — `gate.yaml` 還有 12 個 key 沒有任何程式碼讀它
 
 `docs/gate-unconsumed`（已併）把它們全部標成 `⚠ 未接線`，並用 selftest 釘住標記，
-所以**現在不會再騙人了**——這也是它排在這裡而不是 P1 區的理由。標記不等於修好：
+所以**現在不會再騙人了**——這也是它排在這裡而不是更前面的理由。標記不等於修好：
 
 - **`dedup:` 整塊未接線**（`minhash_jaccard: 0.80`、`ngram: 4`、
   `event_window_hours: 72`）。真正在跑的是 `lib/cluster.py` 裡硬寫的 token-Jaccard
@@ -219,52 +240,54 @@ selftest 從來沒有呼叫過 `_mm.main()`，只在 `:1270` 用
 - **`evidence.need_independent_tier2: 2`** 描述的「兩個獨立 Tier-2 也可以放行」
   這條替代路徑 **不存在**；實際只有 `missing_primary_evidence` 一條規則在擋。
 - **`evidence.translation_chain` 未接線**，後果很具體：一篇英文原文加上一篇中文
-  改寫，現在算成**兩個獨立來源**。`feat/media-line` 那七條媒體線之所以全部只收
-  英文就是在閃這個坑（`sources.yaml` 第 92 行）。**中文媒體要進來之前，這個必須
-  先接上**——這是這一區裡唯一有前置關係的一條。
+  改寫，現在算成**兩個獨立來源**。七條媒體線之所以全部只收英文就是在閃這個坑
+  （`sources.yaml` 第 92 行）。**中文媒體要進來之前，這個必須先接上**——這是這一區
+  裡唯一有前置關係的一條。
 - `quality.freshness_full_hours` / `freshness_zero_days` 未接線（實際是
   `lib/quality.py:_freshness()` 的硬寫階梯）。
 
 ---
 
-## P8 — `src-mistral-news` 連兩天 200 / robots True / 0 筆
+## P5 — 三條來源「可跑但零產出」，兩種完全不同的病
 
-設定是 `adapter: sitemap` 指到 `sitemap-index.xml`，配 `url_prefix: /news/`。
-兩個可能：sitemap-index → 子 sitemap 的展開沒做（或 `max_sitemaps: 3` 抓到的三張
-剛好都不含新聞），或 `url_prefix` 對不上實際路徑。
+首班 CI（`158d60f`，425 items / 32 sources）之後，判決已經出來了：
+
+| 來源 | 進過 `_probe/state.json` | 病灶 |
+|---|---|---|
+| `src-mistral-news` | ✓ | **解析端**：抓到了，解不出東西 |
+| `src-media-theregister` | ✗ | **抓取端**：從來沒抓過 |
+| `src-kol-thezvi` | ✗ | **抓取端**：從來沒抓過 |
+
+`src-mistral-news` 的設定是 `adapter: sitemap` 指到 `sitemap-index.xml`，配
+`url_prefix: /news/`。兩個可能：sitemap-index → 子 sitemap 的展開沒做（或
+`max_sitemaps: 3` 抓到的三張剛好都不含新聞），或 `url_prefix` 對不上實際路徑。
 
 **今天查不出來的原因要講清楚**：這個容器的 proxy 擋外部連線（403），我沒辦法在
 本地抓那張 sitemap 驗證。要查只能在 CI 裡查，作法是讓 sitemap adapter 在零產出時
 把「展開到幾張子 sitemap、過濾前的前幾條 URL」印進 `_probe/<日>/report.md`。
 **那個 debug 輸出本身就值得做**——現在的 report 只說「200 / 0 筆」，分不出
-「站上真的沒新東西」跟「我們解析不出來」。（跟 P1「量不到 ≠ 0」是同一個病灶。）
-
-**首班 CI 已經跑過了（`158d60f`：425 items / 32 sources），媒體線的判決出來了**：
-七條 `src-media-*` 裡有六條開始產出，只剩 `src-media-theregister` 從沒進過
-`_probe/state.json`——那條要單獨查，不能再算在「剛併進來所以還沒跑」裡面。
-`src-kol-thezvi` 同樣從沒抓過。這兩條加上 `src-mistral-news` 是目前僅有的三個
-「可跑但沒東西」，其中前兩條是**抓取端**的問題、後一條是**解析端**的問題，
-查法不同。
+「站上真的沒新東西」跟「我們解析不出來」。跟舊 P1「量不到 ≠ 0」是同一個病灶，
+只是換到了 report 上。
 
 ---
 
-## P9 — 覆蓋盲點還有 21 家標著 pending
+## P6 — 覆蓋盲點還有 20 家標著 pending
 
+`_config/sources.yaml` 的 `coverage_watch.must_watch` 共 32 條，其中 20 條 `pending`：
 DeepSeek、SSI、Thinking Machines、Perplexity、Cursor、Cognition、Scale AI、Z.ai、
 Moonshot、MiniMax、ByteDance、Baidu、Tencent、TSMC、Broadcom、Groq、Cerebras、
 CoreWeave、AWS、Cohere。
 
 標了 `pending` 所以**不觸警**——這是誠實的做法（紅線 8），但「誠實地承認沒覆蓋」
-跟「覆蓋到了」是兩回事。其中 DeepSeek(22)、Scale AI(22)、MiniMax(6)、Broadcom(2)、
-Cerebras(2) 已經**在別人的語料裡被看見**，代表它們有新聞在流動，只是我們沒有第一手
-來源。
+跟「覆蓋到了」是兩回事。其中 DeepSeek、Scale AI、MiniMax、Broadcom、Cerebras
+已經**在別人的語料裡被看見**，代表它們有新聞在流動，只是我們沒有第一手來源。
 
 排這麼後面不是因為不重要，是因為它**沒有在騙人**：清單上寫著「沒有」，實際也沒有。
 這是純粹的擴充工作，隨時可以做，做多少算多少。
 
 ---
 
-## P10 — People layer 第三步沒開始
+## P7 — People layer 第三步沒開始
 
 `person_id` 的獨立性計算（連通分量）已經接上、selftest 有釘。但
 **每一列語料的 `author` 還沒有真的綁到 `person_id`** —— 現在 `person_id` 只從
@@ -275,96 +298,102 @@ Cerebras(2) 已經**在別人的語料裡被看見**，代表它們有新聞在�
 
 ---
 
-## P11 — `_corpus/<day>/` 要不要累積（這題在你手上）
+## P8 — `_corpus/<day>/` 要不要累積（這題也在你手上）
 
-現在是每天一個目錄、只放當天新看到的列。覆蓋範圍檢查因此只有 3 天的實有語料，
+現在是每天一個目錄、只放當天新看到的列。覆蓋範圍檢查因此只有幾天的實有語料，
 monitor 自己會印「語料期間不足 30 天，沉默天數僅供參考」。要不要改成累積視窗，
 我沒有動，因為那會改變所有「近 30 天」統計的意義。
 
-這條跟 P4 有關：P4 修好之後，coverage 的守衛就不再依賴語料庫總長度，這題的急迫性
-會降一階。**建議 P4 先做，這題再決定。**
+這條跟 P1 裡的 `fix/coverage-uses-own-clock` 有關：那條併進去之後，coverage 的
+守衛就不再依賴語料庫總長度，這題的急迫性會降一階。**建議先合那條，這題再決定。**
 
 ---
 
-## P12 — 11 則 `stale_backfill` 擋著的 Event 沒有出口
+## P8.5 — `value` 是一個沒有任何消費者的分數欄位
 
-monitor 顯示 review=14 裡有 11 則是「設計上擋著」的舊聞回填，不是卡住。行為是對的，
-但**沒有任何路徑讓它們離開這個狀態**——它們會永遠留在 review。要嘛給一個
-`archived` 終態，要嘛定期清掉。現在只是靠 monitor 把它們跟真正的待處理分開印，
-不讓數字互相污染。
+P2 的遷移過程中量到的：`scoring.py` 每則 Event 都算一個 `value`，寫進 frontmatter，
+**然後沒有任何東西讀它**。`pulse-render.py` 只依日期排序；全站沒有一處依 `value`
+排序或篩選；`dist/index.html` 裡 "value" 出現 **0 次**。
+
+所以 P2 遷移造成的 rank delta（51 則裡 36 則換位、最大位移 12 名）**不是使用者
+看得到的排名變動**。這件事必須這樣講，不然聽起來像動了排名。
+
+一個算得很認真、沒人用的欄位有兩個誠實的出路：接上（讓它真的決定排序或門檻），
+或刪掉。第三條路——繼續算著、繼續寫進 frontmatter、繼續沒人用——是紅線 8 那種
+「留著看起來像有功能的東西」。
+
+沒有排更前面是因為它**不騙人**：`value` 沒有對外宣稱它決定什麼。它只是浪費。
+但它跟 P2 是同一個家族——`heat` 是「算了一個沒量到的東西」，`value` 是「算了一個
+沒人要的東西」，兩個都是「這段碼看起來在做事」。
 
 ---
 
-## P13 — 需要你動手的兩件（我在這個環境做不到）
+## P9 — 12 則 `stale_backfill` 擋著的 Event 沒有出口
 
-### 22 條已合併的遠端分支刪不掉
+現況：`Events/` 共 51 則，`published` 36、`review` 14、`dropped` 1，
+其中帶 `stale_backfill` 的有 **12** 則（上一版寫 11，數字會漲）。
 
-`main` 現在是 `1ce43e9`，遠端上除 `main` 外的 **22 條分支全部已完整併入**
-（`git branch -r --no-merged origin/main` 回 0），可以安全刪除：
+這些是「設計上擋著」的舊聞回填，不是卡住。行為是對的，但**沒有任何路徑讓它們離開
+這個狀態**——它們會永遠留在 review，而且數量只會單調增加。要嘛給一個 `archived`
+終態，要嘛定期清掉。現在只是靠 monitor 把它們跟真正的待處理分開印，不讓數字互相
+污染。
 
-```
-docs/backlog                            docs/config-sources-machine-written
-docs/gate-unconsumed                    docs/heat-dead-terms
-docs/pr-first-workflow                  feat/health-dashboard
-feat/media-line                         feat/official-sources-coverage
-feat/people-layer                       feat/source-health
-fix/alarms-that-mute-themselves         fix/author-classifier
-fix/backfill-flag-erased-by-second-run  fix/ci-swallows-failures
-fix/doc-narratives-direct-push          fix/keywords-nondeterministic
-fix/nonatomic-config-write              fix/probe-mislabels-403-as-disallow
-fix/retry-exhaustion-mislabels-429      fix/traditional-placeholder
-fix/unenriched-age-uses-news-date       test/backfill-sticky-flags
-```
+---
+
+## P10 — 需要你動手的兩件（我在這個環境做不到）
+
+### 一、合併四條分支（見 P1），然後刪掉已合併的分支
+
+遠端現在 **28 條分支**，除 `main` 與 P1 那四條之外的 **24 條全部已完整併入**
+（`git branch -r --no-merged origin/main` 只回那四條），可以安全刪除。
 
 `git push origin --delete` 被這個 session 的安全分類器擋著，我送不出去。
 GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 
-### GitHub API 在這個環境被 proxy 擋（403）
+### 二、GitHub API 在這個環境被 proxy 擋（403）
 
-所以我**開不了真正的 PR**，只能推分支 + 你在網頁上合，或像今天這樣在本地合了再推
-`main`。這不影響「發現問題自己開分支」那條規則，但要知道「PR」在這裡實際上是
-「分支 + 我在對話裡寫的 review 說明」。
+所以我**開不了真正的 PR**，只能推分支 + 你在網頁上合。這不影響「發現問題自己開
+分支」那條規則，但要知道「PR」在這裡實際上是「分支 + 我在對話裡寫的 review 說明」。
+
+**這件事本身就是 P1 的成因**：一條「我做完、你來合」的交棒，如果你那頭沒動作，
+沒有任何東西會變紅。跟舊 P2 那個「隔離候選是機器交棒給人的唯一介面，而它是斷的」
+是同一個形態，只是這次的介面是你我之間。
 
 ---
 
-## 附：下一班 CI 是真正的驗收
+## 附：2026-07-26 這一輪併掉的
 
-今天併進 `main` 的東西裡，有幾樣**還沒有在 GitHub Actions 上跑過一次**：
-
-- `feat/media-line` 的七條媒體來源（本地 selftest 綠，但沒真的抓過）
-- `feat/source-health` 的 lifecycle 自動升降級（會**寫回 `sources.yaml`**）
-- `feat/health-dashboard` 的 `Vault pages` 步驟（會產生 32+ 張 `Sources/*.md`）
-- `fix/unenriched-age-uses-news-date` 的 `ingested_at`（新 Event 才會帶）
-- `fix/ci-swallows-failures`：probe 的 exit 3 現在會讓整條 job 紅。**第一次紅燈時
-  先看是不是 0 可跑來源，不要直接當成 flaky。**
-- `fix/alarms-that-mute-themselves`：空的 `_corpus/<日>/` 目錄不再算「這天有語料」。
-  如果第一班就紅，代表過去有一天是空目錄撐著綠燈的——那是這條分支要抓的東西。
-
-本地驗證狀態：selftest **222/222**、monitor 三個 alert flag 全開 **rc=0**、
-robots rc=0、workflow YAML 可解析。
-
-**首班結果（`158d60f` + `0dab90b`，2026-07-26）**：
-
-- probe **425 items / 32 sources**，媒體線七條裡六條開始產出（見 P8）。
-- `Sources/*.md` 產生 **32 張**，`_dashboards/health.md` 綠燈、`generated_day`
-  是當天、`last_success` 是當天、`probe_lag_days: 0`。
-- `_probe/source-health.json` **首次落地**（32 條），而它的 key 是
-  `["at", "runs_considered", "sources"]` —— **線上資料確認了 P2**：
-  `quarantine_candidates` 真的不在磁碟上。
-- `sources.yaml` 唯一的機器改動是 robots recheck 補上 `robots_ok: true` 與
-  `robots_checked_at`（量到才寫，不是預設 true）。**lifecycle 沒有任何自動降級，
-  沒有誤殺來源。**
-
-## 附：2026-07-26 併掉的（已從上面的清單移除）
-
-| 分支 | 修了什麼 |
+| 分支 / PR | 修了什麼 |
 |---|---|
 | `fix/retry-exhaustion-mislabels-429` | 重試耗盡不再謊報成重導；robots 回 200 但內容不是 robots.txt 不算放行 |
 | `fix/ci-swallows-failures` | CI 不再吞掉 probe 的 exit 3；Vault pages 兩支拆成獨立 step，`bash -e` 管得到 |
-| `fix/nonatomic-config-write` | 狀態檔一律 tmp + `os.replace()`，失敗刪 tmp，不讓半份檔案被 `git add -A` 提交上去 |
+| `fix/nonatomic-config-write` | 狀態檔一律 tmp + `os.replace()`，失敗刪 tmp |
 | `fix/alarms-that-mute-themselves` | 目錄名不是證據（嚴格日期 + 內容驗證）；未來日期判紅；缺 `ingested_at` 本身就算警報 |
+| `fix/machine-writes-unbacked-robots-false`（PR #1） | 機器寫 `robots_ok: false` 也要交入場券；selftest 掛進 CI |
 
-四條的共同主題是**警報自己把自己關掉**：用一個比事實寬鬆的代理指標去代表事實
-（目錄名代表「那天有語料」、`max()` 代表「最舊的未潤稿」）。代理在順利的日子跟事實
-重合，所以平常測不出來；它只在你最需要它準的那一天分岔。
-新增的規格寫在 `references/health-alarms.md`。
+共同主題是**警報自己把自己關掉**：用一個比事實寬鬆的代理指標去代表事實。代理在
+順利的日子跟事實重合，所以平常測不出來；它只在你最需要它準的那一天分岔。規格寫在
+`references/health-alarms.md`。
+
+`test/monitor-exit-codes` 又加了第四個實例：**用「碼裡有沒有這句話」代理「跑起來
+會不會叫」**。那條還沒併（P1）。
+
+第五個實例是 P3 那一層在講的：**用「測試有幾條」代理「壞掉會不會被抓到」**。
+規格 `references/mutation-inventory.md`，同樣還沒併。
+
+## 附：怎麼重新盤點這份清單
+
+清單過期不會讓任何東西變紅，所以下次盤點請直接跑這些，不要相信上面的數字：
+
+```bash
+git log --oneline -1 main                  # 標頭的 commit
+git branch -r --no-merged origin/main      # P1 還剩幾條
+git ls-remote --heads origin | wc -l       # P10 的分支總數
+python3 scripts/selftest.py | tail -1      # 標頭的測試數
+python3 -c "import yaml;w=yaml.safe_load(open('_config/sources.yaml'))['coverage_watch']['must_watch'];print(len(w),sum(1 for x in w if x.get('pending')))"   # P6
+grep -l stale_backfill Events/*.md | wc -l  # P9
+python3 scripts/mutate.py                  # P3：現在有幾格守不住（幾分鐘）
+```
+
+最後那一行才是「測試守不守得住」的答案。`selftest | tail -1` 給的是**有幾條測試**，
+那是兩件不同的事——這正是 P3 的整個重點。

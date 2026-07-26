@@ -5,6 +5,17 @@
 這份只記錄量到的東西，不改公式、不改門檻。改排名規則前要先有這份（紅線 9
 docs-first），改不改是另一個決定。
 
+> **追記（同日稍晚，`fix/heat-claims-a-measurement`）**：上面那個「另一個決定」
+> 已經做了，而且做的過程推翻了這份筆記的兩個推論。表格與分佈數字仍然成立
+> （那是實測），但下面兩處結論是錯的，已在原地標出：
+>
+> 1. 「heat 的可達上限約 48 …… 結構性不可達」——現在不成立了，而且它答錯了問題。
+> 2. 「這三項不是壞掉，是**輸入端沒有東西**」——不對。是 `pulse-cluster.py:144`
+>    呼叫 `scoring.score_event()` 時第四個參數寫死 `metrics=[]`：
+>    **不是輸入端沒東西，是連接線沒有接。**
+>
+> 現行行為與完整決策過程見 `references/readiness-gate.md`。
+
 ## 量到什麼
 
 `scripts/lib/scoring.py` 的 heat：
@@ -53,11 +64,23 @@ heat_min_independent_sources: 2
 heat_min_platform_breadth: 2
 ```
 
-heat 的可達上限約 48（`5 * 8 + 8`），永遠碰不到 70，所以熱度支撐檢查從來沒有
-執行過一次。同一段的 `translation_chain`（`excluded_from: [independent_sources,
+~~heat 的可達上限約 48（`5 * 8 + 8`），永遠碰不到 70，所以熱度支撐檢查從來沒有
+執行過一次。~~ 同一段的 `translation_chain`（`excluded_from: [independent_sources,
 heat]`）也一樣——它防的是虛增 heat 繞過 `unsupported_heat`，但那條路本來就沒開。
 
-門檻不是設錯，是它預設的輸入不存在。
+~~門檻不是設錯，是它預設的輸入不存在。~~
+
+**訂正（同日稍晚）**：「碰不到 70」這件事本身是對的，但把它寫成結論是搞錯了
+主詞。可達上限是 48 還是 32 都不重要——重要的是那個數字**根本不是量出來的**。
+盯著上限看，會很自然地想到「那就把門檻降到 45」，而那是把手工分數包裝成已測量
+熱度（紅線 4 明文禁止）。
+
+現在（2026-07-26 起）四項傳播輸入全 0 時 `scoring.score_event()` 回
+`heat: None`，不是 48、不是 32、也不是 0——0 會被讀成「量過了，很冷」，比不印
+更難察覺。`unsupported_heat` 因此依然走不到，但那是**休眠等社群線（M3）**，
+不是空防線：`selftest.py` 兩個方向都釘住了（`metrics=[]` 時 `None`；四項餵滿時
+heat 跨得過 70）。另外新增 `unmeasured_heat` 擋「有 heat 數字但
+`score_factors.propagationSignals` 為 0」。規格：`references/readiness-gate.md`。
 
 ## 為什麼三個因子恆為 0
 
@@ -67,7 +90,16 @@ heat]`）也一樣——它防的是虛增 heat 繞過 `unsupported_heat`，但�
   `src-consilium-press`、`src-ep-itre`）都是 `dormant`，CN 線只有 `src-qwen-blog`，
   實際只剩 US。
 
-所以這三項不是壞掉，是**輸入端沒有東西**。補來源比改公式優先。
+~~所以這三項不是壞掉，是**輸入端沒有東西**。補來源比改公式優先。~~
+
+**訂正（同日稍晚）**：這段推論是錯的，而且錯得有代價——它會讓人以為「補來源」
+就能讓那三項動起來。實際上 `pulse-cluster.py:144` 呼叫 `scoring.score_event()`
+時第四個參數寫死 `metrics=[]`，**連接線根本沒有接**。今天把 24 條來源加到
+240 條，那三項還是 0。
+
+上面對「為什麼沒有社群資料」的描述本身沒錯（來源形態確實只有一種），但它是
+第二個原因，不是第一個。第一個原因是那行寫死的 `metrics=[]`——先接線，
+補來源才有意義。
 
 ## 刻意沒做的事
 

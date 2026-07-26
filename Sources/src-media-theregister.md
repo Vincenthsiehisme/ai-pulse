@@ -18,7 +18,7 @@ endpoint: "https://www.theregister.com/software/ai_ml/headlines.atom"
 robots_checked_day: "2026-07-26"
 first_fetch_at:
 last_observed_day:
-items_observed: 0
+items_observed:
 events_bound: 0
 events_published: 0
 health_score: 100
@@ -34,10 +34,12 @@ last_status: "robots_disallow"
 
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
-| 收錄 | `probing` | 會被抓 |
-| 已觀測 | 0 筆 | 抓不到，或站方那陣子沒發東西 |
+| 收錄 | `probing` | **每班都被跳過**：站方 robots.txt 明文 Disallow（合規，不是故障） |
+| 已觀測 | **尚未抓取過** | 我們對它的產出量一無所知 |
 | 有效產出 | 0 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 0 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+
+> 這條來源**從來沒有成功抓取過一次**（`_probe/state.json` 沒有它的 `first_fetch_at`）。所以上面那格是**量不到**，不是量到 0——我們對它的產出量一無所知。（紅線 8）上一班的狀態是 `robots_disallow`。
 
 > 這條來源不能單獨作為一手證據（`can_satisfy_primary: false`）。它的角色是佐證與獨立性，不是「事情發生了」的來源。
 

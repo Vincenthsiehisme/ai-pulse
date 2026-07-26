@@ -37,7 +37,9 @@ def main():
             "id": fm.get("id"), "title": fm.get("title", fm.get("id")),
             "date": str(fm.get("date") or ""), "company": fm.get("company", ""),
             "category": fm.get("category") or "", "summary": fm.get("summary") or "",
-            "confidence": fm.get("confidence", 0), "heat": fm.get("heat", 0),
+            # heat 可能是 None（一項傳播訊號都沒量到）。不給預設 0：
+            # 「沒量」跟「量到 0」是兩件事，見 references/readiness-gate.md。
+            "confidence": fm.get("confidence", 0), "heat": fm.get("heat"),
             "blockers": fm.get("blockers") or [],
             "dropped_at": str(fm.get("dropped_at") or ""),
             "dropped_by": str(fm.get("dropped_by") or ""),
@@ -60,7 +62,8 @@ def main():
     for d in sorted(by_date, reverse=True):
         lines.append(f"## {d}")
         for it in by_date[d]:
-            meta = f"{it['company']} · {it['category']} · conf {it['confidence']} · heat {it['heat']}"
+            heat_txt = "未量測" if it["heat"] is None else it["heat"]
+            meta = f"{it['company']} · {it['category']} · conf {it['confidence']} · heat {heat_txt}"
             lines.append(f"- **[[Events/{it['id']}|{it['title']}]]** — {meta}")
             if it["summary"]:
                 lines.append(f"  {it['summary']}")

@@ -88,8 +88,10 @@ meta:
     腳本裡，漏改任一個都是靜默失效），並在 lib/quality.effective_role() 補
     media 分岔——沒那一行，media 會被評成 primary，等於用評分把轉述包裝成第一手。
     明確不修的兩件事（紅線 8）：媒體線**不會**讓 heat 越過 70（heat 公式吃的
-    metrics 在 pulse-cluster 恆為空，可達上限約 48，是結構性不可達，不是設定
-    問題）；中文媒體暫緩，因為 evidence.translation_chain 還沒有消費者，
+    metrics 在 pulse-cluster 呼叫時寫死 []，四項傳播輸入恆為 0；2026-07-26 起
+    這種情況下 heat 直接是 null 而不是一個低分，見 references/readiness-gate.md，
+    所以媒體線再多也不會讓它長出數字——要等社群線 M3）；中文媒體暫緩，
+    因為 evidence.translation_chain 還沒有消費者，
     現在接等於讓「英文原文 + 中文編譯」被算成兩個獨立聲音。
 
 # ---------------------------------------------------------------------------
@@ -822,9 +824,14 @@ official_sources:
 #
 # 講清楚它**不會**修好什麼（紅線 8）
 #   開媒體線不會讓 heat 動起來。heat 的公式吃 metrics（uniqueAuthors / tweets /
-#   platforms / regions），而 pulse-cluster 呼叫 score_event 時 metrics 恆為 []，
-#   所以 heat 的可達上限是 min(independent,5)*8 + freshness*0.08 ≈ 48，
-#   `readiness.heat_threshold: 70` 在現行程式下**結構性不可達**。
+#   platforms / regions），而 pulse-cluster 呼叫 score_event 時 metrics 寫死 []
+#   ——不是輸入端沒東西，是連接線沒有接。
+#   2026-07-26 之前這裡寫的是「heat 可達上限 ≈ 48，heat_threshold: 70 結構性
+#   不可達」。那句話現在不成立了，而且它本來就答錯了問題：可達上限多少不重要，
+#   重要的是那個數字根本不是量出來的。現在四項傳播輸入全 0 時 heat 是 null
+#   （紅線 8：量不到就寫量不到），不是 48、也不是 0。規格見
+#   references/readiness-gate.md。媒體線接上也一樣是 null——媒體稿不產生
+#   uniqueAuthors / tweets / platforms / regions，那要等社群線（M3）。
 #   媒體線能改善的是 independent_sources 與 confidence（每個獨立聲音 +7，上限
 #   +28），以及那句 single-source 警語。heat 門檻是另一個問題，記在 gate.yaml。
 #

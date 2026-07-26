@@ -565,23 +565,54 @@ acase("lib/sources.py: SECTIONS 四節齊全且官方線排第一"
       list(_SECTIONS),
       ["official_sources", "media_sources", "kol_sources", "aggregator_sources"])
 
-# 開媒體線**不會**讓熱度活過來，這條測試就是要讓那個誤會沒有生存空間。
-# pulse-cluster.rescore() 呼叫 score_event 時 metrics=[]，於是 platforms=regions=0，
-# heat 的可達上限＝min(獨立,5)*8 + freshness*0.08 ≦ 40 + 8 = 48。
-# gate.yaml 的 heat_threshold: 70 因此結構上跨不過去，unsupported_heat 永遠不會觸發。
-# 正確的做法是記錄這個上限並釘住它，不是把公式改大讓數字好看——那就是紅線 4
-# 「禁止把手工分數包裝成已測量熱度」。
+# heat 這一段釘的是 2026-07-26 的決定（規格：references/readiness-gate.md）。
+#
+# 舊狀態：pulse-cluster.rescore() 呼叫 score_event 時 metrics=[]，四項傳播輸入
+# （作者/推文/平台/地區，合計 63 分權重）恆為 0，但 heat 照樣算得出 8–48 的數字。
+# 那個數字名字叫「傳播熱度」，量到的卻是「獨立來源數＋新鮮度」——用一個比事實
+# 寬鬆的代理指標去代表事實。敘述層已經拿它當論據寫過句子（_config/narratives.yaml）。
+#
+# 修法不是降門檻（會讓 unsupported_heat 開始有反應，但那個反應是假的，紅線 4），
+# 也不是重算權重把值域填滿（0–100 的假數字比 8–32 的假數字更難被發現）。
+# 修法是紅線 8：量不到就寫量不到——scoring.py 在源頭回 None。
 from lib import scoring as _sc  # noqa: E402
-_heat_ceiling = max(_sc.score_event([90], 2, ind, metrics=[], age_hours=0)["heat"]
-                    for ind in range(0, 9))
-acase("heat 上限：metrics=[] 時 heat 到頂 48，遠低於 gate 的 70"
-      "（媒體線只修 independent_sources 與 confidence，修不了熱度；"
-      "要讓這條測試變綠必須先真的收集社群指標，不是調公式）",
-      _heat_ceiling, 48)
-acase("gate.yaml: heat_threshold 仍高於可達上限 → 這三個門檻目前是死設定，"
-      "得標註為未消費而不是假裝生效",
-      _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
-                           encoding="utf-8"))["readiness"]["heat_threshold"] > _heat_ceiling,
+_heat_none = [_sc.score_event([90], 2, ind, metrics=[], age_hours=0)["heat"]
+              for ind in range(0, 9)]
+acase("heat：metrics=[] 時不論獨立來源數多少都是 None，不是一個低分"
+      "（「沒有任何傳播證據」算不出熱度，不是算出一個冷的熱度——"
+      "這條要是變回數字，敘述層就又有東西可以拿來瞎推論了）",
+      sorted(set(str(h) for h in _heat_none)), ["None"])
+acase("heat：metrics=[] 時 propagationSignals 記 0"
+      "（把「什麼都沒量到」寫成事實欄位，不要人從 heat 缺席去推論）",
+      _sc.score_event([90], 2, 3, metrics=[], age_hours=0)["factors"]["propagationSignals"],
+      0)
+# 反方向：真的量到東西時 heat 必須是數字。只釘 None 那一邊的話，
+# 「永遠 None」跟「量到才有值」在測試裡長得一模一樣。
+_heat_live = _sc.score_event([90], 2, 3, metrics=[{"platforms": ["x", "y"]}], age_hours=0)
+acase("heat：有一項傳播訊號就回數字，propagationSignals 跟著記 1"
+      "（反方向；沒有這條，把 heat 寫死成 None 也會全綠）",
+      [isinstance(_heat_live["heat"], int), _heat_live["factors"]["propagationSignals"]],
+      [True, 1])
+# value 的重新配權。heat 缺席時把它那 0.25 按比例分回還在的三項，而不是丟掉——
+# 丟掉會讓 value 上限變成 75，跟遷移前的資料不可比。
+_v = _sc.score_event([90], 2, 3, metrics=[], age_hours=0)
+acase("value：heat 缺席時用 conf·0.40 + impact·0.40 + freshness·0.20"
+      "（權重和仍是 1.0；值域不縮水，新舊資料才可比）",
+      _v["value"],
+      max(0, min(100, round(_v["confidence"] * 0.40 + _v["impact"] * 0.40
+                            + _v["factors"]["freshness"] * 0.20))))
+# 門檻**不動**的前提就是這一條：社群線接上以後 heat 真的到得了 70。
+# 到不了的話「留著 unsupported_heat」就只是把死碼講成休眠碼（紅線 8）。
+_heat_full = _sc.score_event(
+    [90], 2, 5,
+    metrics=[{"authors": 80, "tweets": 300,
+              "platforms": ["x", "hn", "reddit", "yt"],
+              "regions": ["us", "eu", "cn"]}], age_hours=0)["heat"]
+acase("heat：四項傳播輸入都餵滿時跨得過 gate 的 70 → unsupported_heat 是休眠不是報廢"
+      "（不動門檻的前提。這條紅了就表示門檻該重談，而不是繼續留著假裝有守）",
+      _heat_full >= _yaml.safe_load(
+          open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+               encoding="utf-8"))["readiness"]["heat_threshold"],
       True)
 
 # ---------------------------------------------- 人物層：獨立性 + 參照完整性
@@ -675,24 +706,49 @@ _ENT = {"companies": [
 ]}
 
 
-def _vault(days):
-    """days: {'2026-07-25': [corpus row, ...]} → 一個臨時 vault 路徑。"""
+def _vault(days, first_fetch=None, runs=None):
+    """days: {'2026-07-25': [corpus row, ...]} → 一個臨時 vault 路徑。
+
+    first_fetch: {sid: 'YYYY-MM-DD...'} → 寫成 `_probe/state.json`
+    runs:        [{'day': ..., 'sources': [{'id':..., 'status':...}]}]
+                 → 寫成 `_probe/source-runs.jsonl`
+    兩個都是 watch entry 觀察期的起算點來源，預設都不寫（＝這條線還沒被觀察過）。
+    """
     root = Path(tempfile.mkdtemp())
     for d, rows in days.items():
         p = root / "_corpus" / d
         p.mkdir(parents=True)
         (p / "src-x.jsonl").write_text(
             "\n".join(_json.dumps(r, ensure_ascii=False) for r in rows), encoding="utf-8")
+    if first_fetch or runs:
+        (root / "_probe").mkdir(parents=True, exist_ok=True)
+    if first_fetch:
+        (root / "_probe" / "state.json").write_text(
+            _json.dumps({k: {"first_fetch_at": v} for k, v in first_fetch.items()}),
+            encoding="utf-8")
+    if runs:
+        (root / "_probe" / "source-runs.jsonl").write_text(
+            "".join(_json.dumps(r, ensure_ascii=False) + "\n" for r in runs),
+            encoding="utf-8")
     return root
 
 
 _SRC_OK = {"official_sources": [{"id": "s-oa", "owner": "OpenAI", "lifecycle": "active"}]}
 
 
-def _cov(watch, sources, days):
+def _cov(watch, sources, days, first_fetch=None, runs=None):
     cfg = dict(sources)
     cfg["coverage_watch"] = watch
-    return _mm.coverage(_vault(days), _TODAY, cfg, _ENT)
+    return _mm.coverage(_vault(days, first_fetch, runs), _TODAY, cfg, _ENT)
+
+
+def _watch_oa(**kw):
+    return {"window_days": 30, "max_silent_days": 14,
+            "must_watch": [dict({"entity_id": "openai", "label": "OpenAI"}, **kw)]}
+
+
+# 語料本身跟這幾條無關（誰都沒提到 OpenAI），變的只有觀察期的起算點。
+_NO_HIT = {"2026-07-25": [{"title": "unrelated", "summary": ""}]}
 
 
 _c1 = _cov({"window_days": 30, "max_silent_days": 14,
@@ -710,18 +766,98 @@ acase("覆蓋率：pending 仍列出破洞，但不觸警（天天紅的燈等�
       (_c2["must_watch"][0]["reason"], _c2["must_watch"][0]["alerting"]),
       ("no_source", False))
 
-_c3 = _cov({"window_days": 30, "max_silent_days": 14,
-            "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
-           _SRC_OK, {"2026-07-25": [{"title": "unrelated", "summary": ""}]})
-acase("覆蓋率：有來源但語料只有 1 天 → 不判 silent（新 vault 不該一開機就滿螢幕紅字）",
-      (_c3["history_days"], _c3["must_watch"][0]["reason"]), (1, None))
+_c3 = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+           first_fetch={"s-oa": "2026-07-25T01:00:00+00:00"})
+acase("覆蓋率：來源今天才第一次被觀察到 → 不判 silent"
+      "（新 vault 不該一開機就滿螢幕紅字）",
+      (_c3["must_watch"][0]["observed_days"], _c3["must_watch"][0]["reason"]),
+      (1, None))
 
-_c4 = _cov({"window_days": 60, "max_silent_days": 14,
-            "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
-           _SRC_OK, {"2026-06-01": [{"title": "old", "summary": ""}],
-                     "2026-07-25": [{"title": "unrelated", "summary": ""}]})
-acase("覆蓋率：語料期間夠長且該實體從未出現 → silent",
-      _c4["must_watch"][0]["reason"], "silent")
+acase("觀察期：沉默過久但時鐘還沒到門檻的，報表要標記出來"
+      "（一個沒有紅字的「從未」，人分不出是「還沒到時候」還是「判斷漏了」）",
+      _c3["must_watch"][0]["silent_pending_clock"], True)
+
+_c3b = _cov(_watch_oa(), _SRC_OK,
+            {"2026-07-25": [{"title": "OpenAI ships thing", "summary": ""}]},
+            first_fetch={"s-oa": "2026-07-25T01:00:00+00:00"})
+acase("觀察期：今天才看見過的根本不算沉默，就不該掛「只差時鐘」的記號"
+      "（這個記號說的是「只差時鐘」，不是「時鐘還年輕」——名字要跟判準一樣窄）",
+      (_c3b["must_watch"][0]["corpus_hits"],
+       _c3b["must_watch"][0]["silent_pending_clock"]), (1, False))
+
+_c4 = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+           first_fetch={"s-oa": "2026-06-01T01:00:00+00:00"})
+acase("覆蓋率：來源被觀察夠久且該實體從未出現 → silent",
+      (_c4["must_watch"][0]["observed_days"], _c4["must_watch"][0]["reason"]),
+      (55, "silent"))
+
+# ---- 觀察期要拿「這條線自己的時鐘」量，不是拿整個語料庫的長度（BACKLOG P4）----
+# 舊護欄是 `history_days >= max_silent_days`：history_days 是**整個語料庫**的歷史
+# 長度，max_silent_days 是**單一觀察對象**允許沉默的天數。兩個不同層級的數字放進
+# 同一個不等式，同一個護欄在兩個方向上都會錯，而且錯法相反。下面兩條就是那兩個
+# 方向，各自釘一個。只修其中一邊、或把門檻調高調低，都只會換一格錯。
+acase("觀察期：語料庫才 1 天，但這條來源已經被觀察 55 天 → 該叫"
+      "（舊護欄拿 history_days 量，這格會安靜——「該叫的不叫」）",
+      (_c4["history_days"], _c4["must_watch"][0]["reason"]), (1, "silent"))
+
+_c4b = _cov({"window_days": 400, "max_silent_days": 14,
+             "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
+            _SRC_OK,
+            {"2025-07-01": [{"title": "old", "summary": ""}],
+             "2026-07-25": [{"title": "unrelated", "summary": ""}]},
+            first_fetch={"s-oa": "2026-07-24T01:00:00+00:00"})
+acase("觀察期：語料庫已經 390 天，但這條來源昨天才開始被觀察 → 不該叫"
+      "（舊護欄拿 history_days 量，這格會誤叫——「不該叫的叫」）",
+      (_c4b["history_days"], _c4b["must_watch"][0]["observed_days"],
+       _c4b["must_watch"][0]["reason"]), (390, 2, None))
+
+_c4c = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+            first_fetch={"s-oa": "2026-07-24T01:00:00+00:00"},
+            runs=[{"day": "2026-06-01",
+                   "sources": [{"id": "s-oa", "status": 500}]}])
+acase("觀察期：兩個檔案都問、取最早（state.json 說 07-24，班表說 06-01 就在試了）"
+      "——「有沒有在看」問的是嘗試不是成功，試了很久才第一次成功，"
+      "中間那段沉默是真的沉默",
+      (_c4c["must_watch"][0]["observed_days"], _c4c["must_watch"][0]["reason"]),
+      (55, "silent"))
+
+_c4d = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+            runs=[{"day": "2026-06-01",
+                   "sources": [{"id": "s-oa", "status": 500}]}])
+acase("觀察期：從沒成功抓過的來源也要有起算點（只信 first_fetch_at 的話，"
+      "一條壞掉的來源會把它自己造成的沉默一起靜音掉——警報自己把自己關掉）",
+      (_c4d["must_watch"][0]["observed_days"], _c4d["must_watch"][0]["reason"]),
+      (55, "silent"))
+
+_c4e = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+            runs=[{"day": "2026-06-01",
+                   "sources": [{"id": "s-oa", "status": "robots_disallow"}]},
+                  {"day": "2026-06-02",
+                   "sources": [{"id": "s-oa", "status": "robots_unknown"}]},
+                  {"day": "2026-06-03",
+                   "sources": [{"id": "s-oa", "status": "skipped_lifecycle"}]}])
+acase("觀察期：三種 skip 不算嘗試（被 robots 擋住、或還在 dormant 的那些日子，"
+      "我們並沒有在看那條線，不能拿來灌觀察期）",
+      (_c4e["must_watch"][0]["observed_days"], _c4e["must_watch"][0]["reason"]),
+      (0, None))
+
+_c4f = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+            first_fetch={"s-oa": "2026-08-30T01:00:00+00:00"})
+acase("觀察期：未來日期的起算點不採計（時鐘壞了不代表我們從未來開始觀察）"
+      "——這種狀況由 --alert-stale 的 clock_skew 判紅，訊息才會指向「日期壞了」",
+      (_c4f["must_watch"][0]["observed_days"], _c4f["must_watch"][0]["reason"]),
+      (0, None))
+
+_c4g = _cov(_watch_oa(),
+            {"official_sources": [
+                {"id": "s-oa", "owner": "OpenAI", "lifecycle": "active"},
+                {"id": "s-oa2", "owner": "OpenAI Newsroom", "lifecycle": "active"}]},
+            _NO_HIT,
+            first_fetch={"s-oa": "2026-07-24T01:00:00+00:00",
+                         "s-oa2": "2026-06-01T01:00:00+00:00"})
+acase("觀察期：多條來源取最早的那一條（有一條在看，這家就算被看著了）",
+      (len(_c4g["must_watch"][0]["sources"]),
+       _c4g["must_watch"][0]["observed_days"]), (2, 55))
 
 # entity_hits 是 probe 用 entities.yaml 判的，跟聚類同一把尺；監看自己的 regex 只是退路。
 _c5 = _cov({"window_days": 30, "max_silent_days": 14,
@@ -938,8 +1074,10 @@ acase("降級：dormant 不在自動降級範圍（根本沒有觀測）",
       _decide([503] * 10, _D_DORMANT)[0], [])
 
 _PRIOR_MACHINE = {"s1": {"degraded_by": "health", "degraded_from": "probing"}}
-acase("回復：機器自己降的級，連續 3 班成功後自己撤銷，且回到原本那個狀態"
-      "（不是升到 active——機器不發信任）",
+# 這條的標題以前寫「不是升到 active——機器不發信任」，但 fixture 的 degraded_from
+# 就是 probing，還到 active 這件事它**根本沒有能力測**。名字比判準寬，跟這個 repo
+# 修過的其他幾條同病。標題改成它真的在測的東西，該測的另外補在下面。
+acase("回復：機器自己降的級，連續 3 班成功後自己撤銷，還回降級前那一個狀態",
       [(c[1], c[2], c[3]) for c in _decide([200, 200, 200], _D_DEGRADED, _PRIOR_MACHINE)[0]],
       [("degraded", "probing", "health-recovered")])
 acase("回復：連續 2 班成功還不夠（門檻是 3）",
@@ -947,6 +1085,30 @@ acase("回復：連續 2 班成功還不夠（門檻是 3）",
 acase("回復：**人手**設的 degraded 機器不碰"
       "（沒有 degraded_by: health 記號＝那是判斷不是量測，不該被三班 200 推翻）",
       _decide([200] * 10, _D_DEGRADED, {})[0], [])
+
+# 還原目標：不變式不是「機器只能寫 degraded」，是「不得把信任抬高到超過人設過的
+# 那一級，但要把自己做過的降級**原樣**還回去」。degraded_from 是 active 就還 active
+# ——那不是發信任，是還東西。反過來「一律還到 probing」才有害：probing → active
+# 需要人跑 checklist，而那個 checklist 至今一次都沒跑過，等於機器可以靜靜收掉人給的
+# 信任，而且沒有自癒路徑。（見 references/source-lifecycle.md）
+acase("回復：機器把 active 降下來的，就要還回 active"
+      "（還東西不是發信任；一律還到 probing ＝機器靜靜收掉人給的信任，而且收掉後"
+      "沒有自癒路徑——probing → active 需要人跑 checklist，至今一次都沒跑過）",
+      [c[2] for c in _decide([200] * 3, _D_DEGRADED,
+                             {"s1": {"degraded_by": "health",
+                                     "degraded_from": "active"}})[0]],
+      ["active"])
+# degraded_from 讀自 source-health.json，那是機器自己寫的檔。不信任它的內容，
+# 只信任它的形狀：不在 RESTORABLE 裡的一律退回 probing。
+for _bad in ("dormant", "draft", None, "", "active_", 123):
+    acase(f"回復：degraded_from = {_bad!r} 不是合法的還原目標 → 退回 probing"
+          "（這個值來自機器自己寫的檔案，護欄信任它的形狀不信任它的內容）",
+          [c[2] for c in _decide([200] * 3, _D_DEGRADED,
+                                 {"s1": {"degraded_by": "health",
+                                         "degraded_from": _bad}})[0]],
+          ["probing"])
+acase("回復：RESTORABLE 的成員逐一釘住（放進 dormant 等於讓機器有一條寫 dormant 的路）",
+      sorted(_sh.RESTORABLE), ["active", "probing"])
 
 # 管線那一端：健康分的輸入本來不存在。stats 只餵給 markdown 報告，
 # 所以 gate.yaml 的 source_health 躺了一整個月沒有消費者——不是評分邏輯沒寫，
@@ -977,6 +1139,132 @@ _wf = open(os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml")
 acase("排程：data-refresh.yml 真的會跑 pulse-source-health.py"
       "（沒排進去的話這支腳本就是下一塊沒有消費者的東西）",
       "pulse-source-health.py" in _wf, True)
+
+# ── 隔離候選：機器交棒給人的唯一介面 ────────────────────────────────────────
+#
+# dormant 只有人能寫，所以「哪幾條該停用」機器只能用說的。這份清單斷掉的時候
+# **不會有任何東西變紅**：機器以為自己講了，人這邊沒收到。它以前就是斷的——
+# quarantine_candidates 只放進 --json 的 stdout 字典，寫到磁碟的 snapshot 沒有這個
+# key，於是 pulse-monitor 的 `hjson.get(...) or []` 永遠拿到空清單。
+#
+# 所以下面測的是**磁碟上的檔案**，不是 stdout：讀它的是別支程式，不是人的眼睛。
+_SH_SRC = ("official_sources:\n"
+           "  - id: s1\n    lifecycle: degraded\n    endpoint: https://e.test/f\n")
+
+
+def _sh_vault(tmp, runs_statuses, history_lines=None, health_json=None):
+    v = Path(tmp)
+    (v / "_config").mkdir(parents=True)
+    (v / "_probe").mkdir(parents=True)
+    (v / "_config" / "sources.yaml").write_text(_SH_SRC, encoding="utf-8")
+    (v / "_config" / "gate.yaml").write_text(
+        open(os.path.join(_HERE, "..", "_config", "gate.yaml"), encoding="utf-8").read(),
+        encoding="utf-8")
+    for i, st in enumerate(runs_statuses):
+        _pp.write_run_stats(v, "2026-07-%02d" % (i + 1),
+                            [{"id": "s1", "status": st, "items": 0, "error": None}])
+    if history_lines is not None:
+        (v / "_probe" / "source-history.jsonl").write_text(
+            "".join(_json.dumps(r, ensure_ascii=False) + "\n" for r in history_lines),
+            encoding="utf-8")
+    if health_json is not None:
+        (v / "_probe" / "source-health.json").write_text(
+            _json.dumps(health_json, ensure_ascii=False), encoding="utf-8")
+    return v
+
+
+def _run_sh(vault, *argv):
+    """在子行程跑 pulse-source-health.py，回傳 (returncode, stdout)。
+
+    刻意走子行程而不是直接呼叫 main()：這幾條要測的正是「跑完之後磁碟上多了什麼」，
+    而 main() 讀 os.environ["VAULT_DIR"]、還會 argparse sys.argv——在同一個行程裡
+    模擬那兩件事，測到的就不再是真正會發生的那條路徑了。
+    """
+    env = dict(os.environ, VAULT_DIR=str(vault))
+    p = _subprocess.run([sys.executable,
+                         os.path.join(_HERE, "pulse-source-health.py"), *argv],
+                        capture_output=True, text=True, env=env)
+    return p.returncode, p.stdout
+
+
+import subprocess as _subprocess  # noqa: E402
+
+with _tf2.TemporaryDirectory() as _td3:
+    # 連續 5 班 503 → 達到 quarantine_after_consecutive，而且來源已經是 degraded。
+    _vq = _sh_vault(_td3, [503] * 5)
+    _rc, _out = _run_sh(_vq, "--apply")
+    _snap = _json.loads((_vq / "_probe" / "source-health.json").read_text("utf-8"))
+    acase("隔離候選：寫進**磁碟上的** source-health.json，不是只印在 stdout"
+          "（dormant 只有人能寫，這份清單是機器交棒給人的唯一介面；"
+          "它斷掉的時候不會有任何東西變紅）",
+          _snap.get("quarantine_candidates"), ["s1"])
+    # 真正的消費者長什麼樣，照抄 pulse-monitor.py 那一行。
+    acase("隔離候選：pulse-monitor 那一行讀得到它"
+          "（測 stdout 會漏掉這個 bug——它以前就是 stdout 有、檔案沒有）",
+          sorted(_snap.get("quarantine_candidates") or []), ["s1"])
+
+with _tf2.TemporaryDirectory() as _td4:
+    # 「只看」的跑法一個檔案都不該留下。以前 atomic_write_text 排在 --apply 的守衛
+    # 之前，所以 debug 跑一次 --json，就把 degraded_by: "health" 寫進 state，而
+    # sources.yaml 一個字沒動——兩個檔案從此互相矛盾，下一班會以為降級真的發生過。
+    _vd = _sh_vault(_td4, [503] * 5)
+    _before = sorted(p.name for p in (_vd / "_probe").iterdir())
+    _rc, _out = _run_sh(_vd, "--json")
+    acase("dry run：`--json` 跑完，_probe/ 一個新檔案都沒有"
+          "（宣稱「只看」的旗標留下改動，咬到的是未來的自己）",
+          sorted(p.name for p in (_vd / "_probe").iterdir()), _before)
+    acase("dry run：`--json` 的 stdout 真的解得開"
+          "（那句「加 --apply 才會寫回」以前無條件印在 JSON 後面）",
+          sorted(_json.loads(_out)), ["changes", "prior_source",
+                                      "quarantine_candidates", "runs", "sources"])
+    _rc2, _out2 = _run_sh(_vd, )
+    acase("dry run：不加旗標也一樣不寫",
+          sorted(p.name for p in (_vd / "_probe").iterdir()), _before)
+
+with _tf2.TemporaryDirectory() as _td5:
+    # 刪掉 source-health.json 以前是一個**吸收態**：掉的不是分數（分數每班都從
+    # source-runs.jsonl 完整重算），是 degraded_by / degraded_from。少了那兩個記號，
+    # 機器降下去的來源跟人手設的 degraded 長得一模一樣，而人手設的機器不碰——
+    # 那幾條就永遠停在 degraded。而且進去之後的樣子跟「一切正常」完全一樣，
+    # 沒有任何一格會變紅。修法不是加警告，是讓它不再是吸收態。
+    _hist = [{"at": "2026-07-01T00:00:00+00:00", "id": "s1", "field": "lifecycle",
+              "from": "active", "to": "degraded", "reason": "health-degraded"}]
+    _vr = _sh_vault(_td5, [200] * 3, history_lines=_hist)
+    acase("吸收態：source-health.json 不見時，降級記號從 append-only 的歷史重建"
+          "（不然機器自己降的級會跟人手設的長得一模一樣，永遠回不來，而且不會變紅）",
+          _sh.rebuild_prior_from_history(_vr),
+          {"s1": {"degraded_by": "health", "degraded_from": "active"}})
+    _rc, _out = _run_sh(_vr, "--apply")
+    _snap5 = _json.loads((_vr / "_probe" / "source-health.json").read_text("utf-8"))
+    # 判準看的是 sources.yaml 真的被寫成什麼，不是 degraded_by 變成 None——
+    # 沒重建成功時 degraded_by 本來就是 None，拿它當判準的話這條測試測不到東西。
+    acase("吸收態：重建之後那條來源真的自己回到降級前的那個狀態（active）",
+          [_yaml.safe_load((_vr / "_config" / "sources.yaml").read_text("utf-8"))
+           ["official_sources"][0]["lifecycle"],
+           _snap5["sources"]["s1"]["degraded_by"]], ["active", None])
+    acase("吸收態：snapshot 記下記號是重建來的，讓「重建過」在檔案裡看得見"
+          "（重建靠的是 --apply 有寫進歷史，那個假設哪天不成立時這一欄是唯一線索）",
+          _snap5["prior_source"], "history")
+    acase("吸收態：正常路徑的 prior_source 是 snapshot",
+          _json.loads(_run_sh(_vr, "--json")[1])["prior_source"], "snapshot")
+
+with _tf2.TemporaryDirectory() as _td6:
+    _hist6 = [{"at": "2026-07-01T00:00:00+00:00", "id": "s1", "field": "lifecycle",
+               "from": "active", "to": "degraded", "reason": "health-degraded"},
+              {"at": "2026-07-02T00:00:00+00:00", "id": "s1", "field": "lifecycle",
+               "from": "degraded", "to": "active", "reason": "health-recovered"}]
+    acase("吸收態：已經還過的降級不會被重建成還沒還"
+          "（歷史是 append-only，要照順序放完才是當下的狀態）",
+          _sh.rebuild_prior_from_history(_sh_vault(_td6, [200], history_lines=_hist6)),
+          {})
+
+with _tf2.TemporaryDirectory() as _td7:
+    _hist7 = [{"at": "2026-07-01T00:00:00+00:00", "id": "s1", "field": "robots_ok",
+               "from": None, "to": False, "reason": "robots-recheck"}]
+    acase("吸收態：歷史裡 robots 那些列不是 lifecycle 異動，重建時要跳過"
+          "（兩支腳本共用同一個檔）",
+          _sh.rebuild_prior_from_history(_sh_vault(_td7, [200], history_lines=_hist7)),
+          {})
 
 # ------------------------------------------- gate.yaml 未接線標記（2026-07-26）
 # gate.yaml 原本有 13 個 key 沒有任何程式碼讀它。未接線不是 bug（好幾個是預留
@@ -1029,7 +1317,10 @@ acase("gate.yaml：每個未接線的 key 旁邊都要留著「⚠ …未接線�
 acase("gate.yaml：heat 那三個標的是「接線了但走不到」而不是「未接線」"
       "（它們確實被 pulse-gate.py 讀到，病因不同，修法也不同——"
       "把 70 調小是紅線 4 禁止的那種修法）",
-      "接線了但走不到" in _gate_txt and "heat 上限 48" in _gate_txt, True)
+      "接線了但走不到" in _gate_txt and "M3" in _gate_txt, True)
+acase("gate.yaml：heat 那段要寫著門檻刻意不動、以及 heat 現在會是 null"
+      "（這段註解被改回「上限 48」那種描述＝又退回「有數字但數字是假的」的世界）",
+      "unmeasured_heat" in _gate_txt and "null" in _gate_txt, True)
 acase("references/gate-config-status.md 存在（gate.yaml 的標記指向它）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "gate-config-status.md")),
       True)
@@ -1086,6 +1377,76 @@ acase("來源頁：白名單內的公開欄位還是要進得去"
                                   'endpoint: "https://example.invalid/feed.xml"')],
       [True, True, True])
 
+# ── 量不到 ≠ 量到 0（紅線 8），而且這個違規印在給人看的頁面上 ──────────────
+# `items_observed: 0` 有兩個完全不同的意思：這條來源成功抓過、只是那陣子站上
+# 沒東西（量到 0），跟它從來沒有成功抓過一次（量不到，我們一無所知）。
+# 2026-07-26 首班之後有 3 條在 Sources/*.md 上印「已觀測 0 筆」，其中 2 條
+# 從沒抓過——這正是「用空值代表兩種不同的事」，跟目錄名代表「那天有語料」同形態。
+# 判準是 first_fetch_at 有沒有值，不是 state.json 裡有沒有這個條目：
+# 失敗也會留下 etag / last_run，只有成功抓過一次才 setdefault 那個欄位。
+_SRC_N = {"id": "s-never", "lifecycle": "probing", "endpoint": "https://e.test/f"}
+_never = _sn.render(_SRC_N, 0, None, 0, 0, {"etag": "x", "last_run": "2026-07-26"}, None)
+_measured = _sn.render(_SRC_N, 0, None, 0, 0, {"first_fetch_at": "2026-07-26"}, None)
+acase("來源頁：從沒抓過的來源印「尚未抓取過」，不印「0 筆」（紅線 8）",
+      ["尚未抓取過" in _never, "0 筆" in _never], [True, False])
+acase("來源頁：從沒抓過時 items_observed 留空，不寫 0"
+      "（0 是量到 0，空是量不到——寫 0 就是把量測失敗當成事實）",
+      _re.search(r"^items_observed:\s*$", _never, _re.M) is not None, True)
+acase("來源頁：抓過但相異數是 0 的來源照舊印「0 筆」（那是真的量到 0）",
+      ["0 筆" in _measured, "尚未抓取過" in _measured], [True, False])
+acase("來源頁：光有 state.json 條目不算抓過（失敗也會留下 etag / last_run）",
+      "尚未抓取過" in _never, True)
+
+# ── 「收錄」那格印事實，不印設定意圖 ────────────────────────────────────
+# lifecycle 是設定意圖，last_status 是上一班的事實，兩者會分岔：一條
+# lifecycle: probing 的來源如果每班都被 robots 擋掉，設定說「會被抓」，
+# 事實是一次都沒抓。只印 lifecycle 就是拿比事實寬鬆的代理指標代表事實——
+# 這一頁本來就是為了不讓那種事發生才存在的。
+# 2026-07-26 實測：src-media-theregister 是 robots_disallow（站方政策），
+# src-kol-thezvi 與 src-amd-ir 是 robots_unknown（robots.txt 取不到，保守跳過）。
+# 三種都不是故障，但頁面不能說「會被抓」。
+for _st, _want in (("robots_disallow", "Disallow"),
+                   ("robots_unknown", "取不到"),
+                   ("skipped_lifecycle", "不會被抓")):
+    _pg = _sn.render(_SRC_N, 0, None, 0, 0, {}, {"last_status": _st})
+    acase(f"來源頁：last_status = {_st} 時，「收錄」那格印被跳過的理由而不是「會被抓」",
+          [_want in _pg, "| 會被抓 |" in _pg], [True, False])
+_pg_ok = _sn.render(_SRC_N, 1, "2026-07-26", 0, 0,
+                    {"first_fetch_at": "2026-07-26"}, {"last_status": 200})
+acase("來源頁：真的抓得到的來源，「收錄」那格照舊印「會被抓」"
+      "（判準對齊事實不是放寬規則，正常的路徑不能跟著變模糊）",
+      "會被抓" in _pg_ok, True)
+
+# 「已觀測」數的是相異項目，不是行數。`_corpus/<日>/` 是**當天看到的清單**不是
+# 當天新增的清單：還掛在 feed 上的新聞每天都會再被寫一次。累計行數數的是
+# 「項目 × 天」——2026-07-26 實測 956 行對 553 個相異項目，虛胖近一倍。
+# 虛胖還不是最糟的，最糟的是它跟旁邊那格「有效產出」（刻意去重過的事件數）
+# **不同單位**：兩個不同單位的數字並排比較，得到的印象一定是錯的。
+#
+# 這幾條刻意自己開一個 vault，不借用下面那個：下面那個的日曆是「07-03 有跑班、
+# 語料只到 07-02」，是專門用來釘死人開關的形狀。往它的 _corpus/2026-07-03/ 塞
+# 語料，會把那個形狀弄平，而且弄平的方式是讓紅燈測試變綠——測試 fixture 之間
+# 互相把對方的警報關掉，也是「警報自己把自己關掉」。
+with tempfile.TemporaryDirectory() as _dc:
+    _vc = Path(_dc)
+    for _day in ("2026-07-01", "2026-07-02", "2026-07-03"):
+        (_vc / "_corpus" / _day).mkdir(parents=True)
+        (_vc / "_corpus" / _day / "s2.jsonl").write_text(
+            '{"url_canonical":"https://e.test/a"}\n'
+            '{"url_canonical":"https://e.test/b"}\n', encoding="utf-8")
+    (_vc / "_corpus" / "2026-07-03" / "s3.jsonl").write_text(
+        '{"url":"https://e.test/x"}\n'
+        '{"url":"https://e.test/x"}\n'
+        '{"title":"沒有任何 url 的一列"}\n'
+        '這一行不是 JSON\n', encoding="utf-8")
+    _cntc, _lastc = _corpuslib.observed(_vc)
+    acase("來源頁：已觀測數相異項目、不數行數"
+          "（同兩則新聞連續掛三天＝6 行，但只有 2 個項目）",
+          [_cntc["s2"], _lastc["s2"]], [2, "2026-07-03"])
+    acase("來源頁：沒有 url_canonical 的舊列退回用 url；連 url 都沒有、或整行解不出來的"
+          "各算一個（分不出是不是同一則就寧可高估，不要靜靜把資料吃掉）",
+          _cntc["s3"], 3)
+
 with tempfile.TemporaryDirectory() as _d3:
     _v3 = Path(_d3)
     (_v3 / "Events").mkdir(parents=True)
@@ -1097,18 +1458,27 @@ with tempfile.TemporaryDirectory() as _d3:
     (_v3 / "Events" / "e2.md").write_text(
         "---\nid: e2\nstatus: review\nevidence:\n  - source_id: s1\n---\n\n內文\n",
         encoding="utf-8")
+    # 被丟掉的事件不是「有效產出」。算進來的話，「抓到了但聚類沒綁上」跟
+    # 「綁上了但被丟掉」在頁面上長得一模一樣。
+    (_v3 / "Events" / "e3.md").write_text(
+        "---\nid: e3\nstatus: dropped\nevidence:\n  - source_id: s1\n---\n\n內文\n",
+        encoding="utf-8")
     _ev, _pub = _sn.bound(_v3)
     acase("來源頁：有效產出數的是**事件數**不是證據筆數"
           "（一則事件引同一條來源三次仍然只算一則）", [_ev["s1"], _pub["s1"]], [2, 1])
+    acase("來源頁：有效產出不含 status: dropped 的事件"
+          "（被丟掉的不是產出，算進來會讓「沒綁上」跟「綁上了但被丟」看起來一樣）",
+          _ev["s1"], 2)
 
     # _corpus/ 的盤點單一真相源：兩天各一條，累計 3 筆，最後一天取較晚的那天。
     for _day, _n in (("2026-07-01", 1), ("2026-07-02", 2)):
         (_v3 / "_corpus" / _day).mkdir(parents=True)
         (_v3 / "_corpus" / _day / "s1.jsonl").write_text(
-            "".join('{"a":1}\n' for _ in range(_n)), encoding="utf-8")
+            "".join('{"url_canonical":"https://e.test/%d"}\n' % i
+                    for i in range(_n)), encoding="utf-8")
     _cnt, _last = _corpuslib.observed(_v3)
     acase("來源頁：已觀測是跨日累計，最後一天取最晚的那天",
-          [_cnt["s1"], _last["s1"]], [3, "2026-07-02"])
+          [_cnt["s1"], _last["s1"]], [2, "2026-07-02"])
 
     # 兩條時間軸：跑了班但沒抓到東西的那天，只會出現在 _probe/ 不會出現在 _corpus/。
     # report.md 是「這班真的跑完了」的判準（見 references/health-alarms.md）——
@@ -1695,6 +2065,169 @@ acase(".gitignore 蓋得住原子寫的暫存檔（runner 被砍時它會留在�
 
 acase("references/atomic-writes.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "atomic-writes.md")), True)
+
+# ── 變異盤點清單的鮮度：規格 references/mutation-inventory.md ────────────────
+# 這一區**不跑變異**。跑一輪要幾十次 selftest，掛在每次 push 上太慢——那是
+# scripts/mutate.py 與 .github/workflows/mutation.yml 的事。這裡只釘一件
+# 0.5 秒內查得完、而且錯了最貴的事：**清單自己過期了**。
+# 針腳在目標檔案裡不是剛好出現一次，注入就會改到隔壁那一處，於是那一條會
+# 假裝成「存活」——又一顆永遠綠的燈（規格：坑一）。
+_mut = _yaml.safe_load(
+    open(os.path.join(_HERE, "mutations.yaml"), encoding="utf-8"))["mutations"]
+_MUT_REQ = ("id", "file", "find", "replace", "why", "survives")
+acase("mutations.yaml 讀得進來，且 id 不重複",
+      [len(_mut) > 0, len({m["id"] for m in _mut}) == len(_mut)], [True, True])
+acase("mutations.yaml 每一條的必填欄位都在",
+      sorted(m.get("id", "?") for m in _mut
+             if any(k not in m for k in _MUT_REQ)), [])
+
+# mutate.py 跑到某一條時，那一條的針腳**正被它自己換掉**，這裡當然數到 0。
+# 不排除的話，這條會在每一次注入都紅——於是每一條變異都「被殺」，kill 訊號
+# 變成常數，整個變異盤點就只是在量「這條檢查還在不在」。第一次跑就踩到了：
+# M01/M02/M03/M11 四條已知的存活者全部被誤判成 killed。
+# MUTATE_IN_FLIGHT 只由 scripts/mutate.py 在注入期間設，一次一個 id；CI 不設。
+_inflight = os.environ.get("MUTATE_IN_FLIGHT", "").strip()
+_mut_stale = []
+for _m in _mut:
+    if _m["id"] == _inflight:
+        continue
+    _mp = os.path.join(_HERE, _m["file"])
+    _mn = open(_mp, encoding="utf-8").read().count(_m["find"]) if os.path.isfile(_mp) else -1
+    if _mn != 1:
+        _mut_stale.append(f"{_m['id']}:{_m['file']}×{_mn}")
+acase("mutations.yaml 每個 find 在目標檔案裡剛好出現一次"
+      "（不是 1 就會改到隔壁那一處，然後假裝成「存活」）"
+      + (f"｜注入中，略過 {_inflight}" if _inflight else ""), _mut_stale, [])
+acase("MUTATE_IN_FLIGHT 只認得清單裡的 id（打錯字就等於憑空關掉一條檢查）",
+      not _inflight or _inflight in {m["id"] for m in _mut}, True)
+
+acase("mutations.yaml 記 survives: true 的都寫了 why"
+      "（已知的缺口掛著是誠實，沒有理由的存活是掩蓋）",
+      sorted(m["id"] for m in _mut
+             if m.get("survives") and not str(m.get("why") or "").strip()), [])
+
+acase("references/mutation-inventory.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "mutation-inventory.md")),
+      True)
+
+# ── 變異盤點第一輪抓到的五個沒人守的地方 ────────────────────────────────────
+# 2026-07-26，mutate.py 第一次跑就把碼改壞，而 224 條測試一條都沒紅。以下五條
+# 不是為了讓數字好看，是把那五個洞補起來——掛著不補就是紅線 8 講的那件事。
+# 對應 mutations.yaml 的 M09 / M14 / M15 / M19 / M20。
+
+# M14 / M15：pulse-gate.py 是**唯一**決定發不發的地方（紅線 1：判斷走規則不走 LLM），
+# 而在此之前 selftest 從來沒有 import 過它。把 `blockers.append(...)` 那兩行刪掉，
+# 沒有一條測試會紅——門禁形同虛設而看板一片綠。
+_gs = importlib.util.spec_from_file_location(
+    "pulse_gate", os.path.join(_HERE, "pulse-gate.py"))
+_gm = importlib.util.module_from_spec(_gs)
+_gs.loader.exec_module(_gm)
+
+_GATE_T = {"readiness": {"min_confidence": 60, "thin_fact_min_chars": 20,
+                         "heat_threshold": 70, "heat_min_independent_sources": 2,
+                         "heat_min_platform_breadth": 2}}
+_GBODY = ("## 事實\nOpenAI 在官方部落格宣布了一項新的模型定價方案，生效日為下月一日。\n\n"
+          "## 證據\n- 官方部落格\n\n## 脈絡\n這是今年第三次調整。\n")
+
+
+def _gfm(**kw):
+    # 基準線的 heat 是 None：2026-07-26 起這才是「沒量到傳播訊號」的正常長相。
+    # 不要為了方便把它改回一個數字——那會讓下面 unmeasured_heat 的基準線失效。
+    d = {"summary": "OpenAI 宣布新的模型定價方案，下月一日生效。", "category": "product",
+         "company": "OpenAI", "keywords": ["openai"], "track": "模型能力",
+         "evidence": [{"source_id": "src-openai-blog"}], "primary_evidence": 1,
+         "confidence": 70, "heat": None,
+         "score_factors": {"propagationSignals": 0}, "independent_sources": 2}
+    d.update(kw)
+    return d
+
+
+acase("pulse-gate：一則各項都合格的 Event 沒有任何 blocker"
+      "（基準線；沒有這條，下面幾條可能是被別的 blocker 擋住而不是被守住）",
+      _gm.evaluate(_gfm(), _GBODY, _GATE_T)[0], [])
+acase("pulse-gate：沒有一手證據 → missing_primary_evidence（紅線 2 的執法點）",
+      _gm.evaluate(_gfm(primary_evidence=0), _GBODY, _GATE_T)[0],
+      ["missing_primary_evidence"])
+# unmeasured_heat：有 heat 數字但一項傳播訊號都沒量到 → 擋。這是 scoring.py 回 None
+# 的執法點，守的是「手改 frontmatter / 遷移腳本寫壞 / 有人把無條件計算加回去」這三種
+# 走回頭路的方式。規格見 references/readiness-gate.md。
+acase("pulse-gate：heat 有數字但 propagationSignals=0 → unmeasured_heat"
+      "（紅線 8：量不到就寫量不到，不是編一個低分出來）",
+      _gm.evaluate(_gfm(heat=12), _GBODY, _GATE_T)[0], ["unmeasured_heat"])
+acase("pulse-gate：heat 是 None 時不擋（反方向；缺席是合法狀態，不是錯誤狀態）",
+      _gm.evaluate(_gfm(heat=None), _GBODY, _GATE_T)[0], [])
+acase("pulse-gate：heat 有數字且真的量到傳播訊號 → 不擋 unmeasured_heat"
+      "（第二個反方向：擋的是「沒證據卻有數字」，不是「有數字」）",
+      _gm.evaluate(_gfm(heat=30, score_factors={"propagationSignals": 2,
+                                                "independentSources": 2,
+                                                "platformBreadth": 2}),
+                   _GBODY, _GATE_T)[0], [])
+acase("pulse-gate：heat 過門檻但獨立來源/平台廣度撐不住 → unsupported_heat"
+      "（紅線 4：禁止把手工分數包裝成已測量熱度。這條現在要靠社群線接上才走得到，"
+      "但語意正確且正反兩面都釘住，那天它會是活的碼）",
+      _gm.evaluate(_gfm(heat=75, score_factors={"propagationSignals": 1,
+                                                "independentSources": 1,
+                                                "platformBreadth": 1}),
+                   _GBODY, _GATE_T)[0], ["unsupported_heat"])
+acase("pulse-gate：heat 高但證據撐得住就不擋（反方向；只釘一邊的話"
+      "「永遠擋」跟「永遠不擋」一樣沒有資訊）",
+      _gm.evaluate(_gfm(heat=75, score_factors={"propagationSignals": 3,
+                                                "independentSources": 2,
+                                                "platformBreadth": 2}),
+                   _GBODY, _GATE_T)[0], [])
+
+# 缺席要一路走到前台。heat=None 在後端誠實、在畫面上印成 0 的話，讀的人看到的
+# 還是「量過了，很冷」——那是這次要修掉的那個謊，只是換一層出現。
+_rs = importlib.util.spec_from_file_location(
+    "pulse_render", os.path.join(_HERE, "pulse-render.py"))
+_rmod = importlib.util.module_from_spec(_rs)
+_rs.loader.exec_module(_rmod)
+acase("pulse-render.heat_text：None → 「未量測」，不是 0"
+      "（0 會被讀成「量過了，很冷」，比不印更糟）",
+      [_rmod.heat_text(None), _rmod.heat_text(0), _rmod.heat_text(42)],
+      ["未量測", 0, 42])
+# 這條是文字釘（該邏輯寫在 pulse-narrative-prep.py 的 dict 字面值裡，抽不出函式）。
+# 守的是紅線 2 與 8：送 0 給敘述層，LLM 就會寫出「熱度低、還沒共振」這種
+# 拿沒量過的東西當論據的句子——_config/narratives.yaml 裡已經有這樣的句子。
+_np_txt = open(os.path.join(_HERE, "pulse-narrative-prep.py"), encoding="utf-8").read()
+acase("pulse-narrative-prep：heat 沒量到時送「未量測」給敘述層，不送 0",
+      '"未量測" if fm.get("heat") is None' in _np_txt, True)
+
+# M09：從來沒抓到過（item_lag is None）必須判紅。改成 `is not None and ...` 的話，
+# 一個**完全空的 vault** 會顯示綠燈——死人開關在最該叫的那一天最安靜。
+import datetime as _dt_m  # noqa: E402
+
+_hv = Path(tempfile.mkdtemp(prefix="health-"))
+acase("pulse-monitor.health()：一次都沒抓到過 → 紅燈，不是綠燈"
+      "（量不到不等於沒事，紅線 8）",
+      [_mm.health(_hv, _dt_m.date(2026, 7, 26), {}, 2)[_k]
+       for _k in ("probe_lag_days", "last_success", "status")],
+      [None, None, "red"])
+(_hv / "_corpus" / "2026-07-26").mkdir(parents=True)
+(_hv / "_corpus" / "2026-07-26" / "a.jsonl").write_text('{"title": "x"}\n', "utf-8")
+acase("pulse-monitor.health()：今天有語料 → 綠燈（反方向，確認上一條不是恆紅）",
+      _mm.health(_hv, _dt_m.date(2026, 7, 26), {}, 2)["status"], "green")
+shutil.rmtree(_hv, ignore_errors=True)
+
+# M19：聚類的 96 小時窗口。拿掉它，兩則標題相近但隔了兩週的新聞會被併成同一則
+# 事件——去AI化聚類的地基就是這個窗口，它壞掉不會有任何東西看起來不對。
+_C19A = "Nvidia unveils Rubin platform at its annual developer conference"
+_C19B = "Nvidia unveils Rubin platform at annual developer conference recap"
+_c19 = _dt_m.datetime(2026, 7, 1, tzinfo=_dt_m.timezone.utc)
+acase("lib.cluster.belongs_to_event：標題再像，隔 120 小時就不是同一則事件"
+      "（沒有 fingerprint 時全靠這個 96 小時窗口）",
+      [_cm.cluster.belongs_to_event(
+          _C19A, (_c19 + _dt_m.timedelta(hours=_h)).isoformat(),
+          _C19B, _c19.isoformat()) for _h in (48, 120)],
+      [True, False])
+
+# M20：關鍵詞的順序。`list(title_tokens(t))[:8]` 走的是 set，CPython 每個行程重新
+# 隨機化字串雜湊 → 同一個標題每跑一次換一組關鍵詞。理由與實測見 lib/cluster.py。
+# 這條比對的是上面那輪真的 main() 產出的 frontmatter，不是原始碼字串。
+acase("pulse-cluster 跑完一輪：keywords 照標題原順序、濾過虛詞"
+      "（退回 list(set) 的話這裡會變成 7 個亂序的詞）",
+      _cm.parse_frontmatter(_txt)[0].get("keywords"),
+      ["openai", "thing", "exist"])
 
 print("offline self-test\n" + "-" * 70)
 fails = 0
