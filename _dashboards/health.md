@@ -63,8 +63,8 @@ events_published: 36
 | Anthropic | 1 | 19 | 7 | 6 | 0d 前 |
 | Google DeepMind | 1 | 18 | 3 | 2 | 0d 前 |
 | Google | 1 | 41 | 5 | 3 | 0d 前 |
-| Meta | 1 | 16 | 0 | 0 | 0d 前 |
-| Microsoft | 1 | 13 | 0 | 0 | 0d 前 |
+| Meta | 1 | 15 | 0 | 0 | 0d 前 |
+| Microsoft | 1 | 14 | 0 | 0 | 0d 前 |
 | NVIDIA | 1 | 43 | 15 | 12 | 0d 前 |
 | Hugging Face | 1 | 35 | 1 | 1 | 0d 前 |
 | xAI | 1 | 3 | 2 | 2 | 0d 前 |
