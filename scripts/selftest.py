@@ -138,6 +138,83 @@ _IDX = ('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 acase("sitemap: index 的 hint 沒命中 → 回空清單，不得爆炸",
       _pp.adapt_sitemap({"url_prefix": "/news/"}, _IDX), [])
 
+# ── 零產出診斷：一條「200 / 0 筆」有四種成因，報告上以前只有一種形狀 ──
+# 規格見 references/health-alarms.md〈零產出不是沉默〉。
+# 這幾條全部不碰網路：判斷只讀 adapter 留下的計數，這正是設計成 diag 的理由。
+
+_d_ok: dict = {}
+_pp.adapt_sitemap({"url_prefix": "/news/", "quota_per_run": 10}, SITEMAP, _d_ok)
+acase("零產出診斷：正常那班也要留中途數字（過濾前 3、過濾後 2）"
+      "——只在出事那天才記錄的東西，出事那天才發現它沒在記錄",
+      (_d_ok["kind"], _d_ok["urls_before_filter"], _d_ok["urls_after_filter"]),
+      ("urlset", 3, 2))
+
+_d_hint: dict = {}
+_pp.adapt_sitemap({"url_prefix": "/news/"}, _IDX, _d_hint)
+acase("零產出診斷：hints 一張都沒命中 → 是我們的設定對不上，不是站上沒東西",
+      _pp.zero_yield_reason(_d_hint)[0], "hints_matched_nothing")
+acase("零產出診斷：hints 沒命中時要記下 index 有幾張可選"
+      "（沒有這個數字，人分不出「站上沒子 sitemap」跟「我們挑錯」）",
+      (_d_hint["index_entries"], _d_hint["hint_matched"]), (1, 0))
+
+_SM_NO_NEWS = ('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+               '<url><loc>https://x.test/careers/a</loc></url>'
+               '<url><loc>https://x.test/about/b</loc></url></urlset>')
+_d_prefix: dict = {}
+acase("零產出診斷：prefix 濾掉全部 → 回空清單（行為不變）",
+      _pp.adapt_sitemap({"url_prefix": "/news/"}, _SM_NO_NEWS, _d_prefix), [])
+acase("零產出診斷：抓到 URL 但 prefix 一條都不放行 → prefix_filtered_all"
+      "（跟「站上沒東西」是相反的修法：一個改設定，一個什麼都不用做）",
+      _pp.zero_yield_reason(_d_prefix)[0], "prefix_filtered_all")
+acase("零產出診斷：prefix 濾光時要留過濾前的樣本 URL"
+      "（過濾後的樣本回答不了「為什麼被濾掉」）",
+      _d_prefix["sample_before_filter"],
+      ["https://x.test/careers/a", "https://x.test/about/b"])
+
+_d_empty: dict = {}
+_pp.adapt_sitemap({"url_prefix": "/news/"},
+                  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>',
+                  _d_empty)
+acase("零產出診斷：入口通、裡面沒有 URL → source_empty（這一種才是站方那邊）",
+      _pp.zero_yield_reason(_d_empty)[0], "source_empty")
+
+acase("零產出診斷：沒有 diag 的 adapter 誠實回 no_diagnosis，不假裝判得出來（紅線 8）",
+      _pp.zero_yield_reason({})[0], "no_diagnosis")
+acase("零產出診斷：diag 是 None 也走同一條路，不得爆炸",
+      _pp.zero_yield_reason(None)[0], "no_diagnosis")
+
+# adapter 的呼叫約定：run_source 一律傳三個位置參數。少收一個的 adapter 會在
+# 那一班整條炸掉，而炸掉的訊息會指向 run_source，不指向漏改的那支。
+acase("零產出診斷：每個 adapter 都收得下第三個參數（diag）",
+      sorted(n for n, f in _pp.ADAPTERS.items()
+             if f.__code__.co_argcount >= 3),
+      ["atom", "github-releases", "json-api", "rss", "sitemap"])
+
+# ── 渲染層：分得出來還要印得出來 ──
+_ZSTATS = [
+    {"id": "s-empty", "track": "official", "status": 200, "items": 0,
+     "diag": dict(_d_empty)},
+    {"id": "s-prefix", "track": "official", "status": 200, "items": 0,
+     "diag": dict(_d_prefix)},
+    {"id": "s-304", "track": "official", "status": 304, "items": 0, "diag": {}},
+    {"id": "s-blocked", "track": "media", "status": "robots_disallow",
+     "items": 0, "diag": {}},
+    {"id": "s-fine", "track": "kol", "status": 200, "items": 7, "diag": {}},
+]
+_zsec = "\n".join(_pp.zero_yield_section(_ZSTATS))
+acase("零產出診斷：只收 200 且 0 筆——304 是「內容沒變」，"
+      "robots_disallow 根本沒抓，混進來會讓「零產出」同時指兩件事",
+      [s in _zsec for s in ("s-empty", "s-prefix", "s-304", "s-blocked", "s-fine")],
+      [True, True, False, False, False])
+acase("零產出診斷：兩種成因在報告上要標成不同的「是誰那邊」"
+      "（同一句話印給兩種成因，等於沒有印）",
+      [l.split("|")[3].strip() for l in _zsec.split("\n")
+       if l.startswith("| s-")], ["站方", "我們"])
+acase("零產出診斷：這一區空的時候要印「本輪沒有」，不是整段不印"
+      "（看不見的區塊有兩種意思：沒有零產出，或這段壞了）",
+      "本輪沒有" in "\n".join(_pp.zero_yield_section(
+          [{"id": "s", "status": 200, "items": 5, "diag": {}}])), True)
+
 ALGOLIA = _json.dumps({"hits": [
     {"title": "A", "url": "https://a.test/x", "author": "pg",
      "created_at": "2026-07-24T16:02:00.000Z", "objectID": "1", "story_text": None},

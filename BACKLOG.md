@@ -204,12 +204,23 @@ Claude Opus 5 那次同形態（容器／CI 的 IP 被 WAF 擋，不是站方拒
 `url_prefix: /news/`。兩個可能：sitemap-index → 子 sitemap 的展開沒做（或
 `max_sitemaps: 3` 抓到的三張剛好都不含新聞），或 `url_prefix` 對不上實際路徑。
 
-**今天查不出來的原因要講清楚**：這個容器的 proxy 擋外部連線（403），我沒辦法在
-本地抓那張 sitemap 驗證。要查只能在 CI 裡查，作法是讓 sitemap adapter 在零產出時
-把「展開到幾張子 sitemap、過濾前的前幾條 URL」印進 `_probe/<日>/report.md`。
-**那個 debug 輸出本身就值得做**——現在的 report 只說「200 / 0 筆」，分不出
-「站上真的沒新東西」跟「我們解析不出來」。跟已經修掉的「量不到 ≠ 0」是同一個病灶，
-只是換到了 report 上。
+**在這個容器裡查不出來的原因要講清楚**：proxy 擋外部連線（403），沒辦法在本地
+抓那張 sitemap 驗證。要查只能在 CI 裡查。
+
+**診斷輸出已經做了**（`fix/sitemap-zero-yield-is-not-silence`，規格
+`references/health-alarms.md`〈零產出不是沉默〉）：`_probe/<日>/report.md` 多一區
+〈零產出診斷〉，把「200 / 0 筆」拆成四個 code——`source_empty`（站方那邊）、
+`hints_matched_nothing` / `prefix_filtered_all`（我們這邊）、
+`sub_sitemap_unreachable`（中間那一跳），並印出中途數字與過濾前的樣本 URL。
+
+**所以這條剩下的不是動手，是等一班。** 那條分支併進 `main` 之後跑過一班，去讀
+`_probe/<日>/report.md` 的〈零產出診斷〉，`src-mistral-news` 屬於哪一種當場就有
+答案。**併之前先跑，等於什麼都不會發生**——這個 repo 已經量過兩次了。
+
+還沒接的那一半也要記著：那個 code 目前只渲染給人看，**沒有寫進
+`_probe/source-runs.jsonl`，也沒有任何警報吃它**。`prefix_filtered_all` 連續三十班
+CI 一樣是綠的。不順手接上去是刻意的——接之前得先想清楚門檻與消費者，否則就是再
+造一個 [`value-沒人用`](#value-沒人用)。
 
 ---
 
