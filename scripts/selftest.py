@@ -1092,12 +1092,60 @@ with tempfile.TemporaryDirectory() as _d3:
 # 兩支都必須真的被排進 workflow，否則只是把「寫好了但沒人叫它」搬個地方。
 acase("排程：data-refresh.yml 真的會跑 pulse-source-notes.py 與 --write-health",
       ["pulse-source-notes.py" in _wf, "--write-health" in _wf], [True, True])
+
+# 以下四條改成解析 YAML 結構來判，不再用字串位置。字串位置的問題是：
+# 改個 step 名字就會紅，而真正該紅的（兩個指令被塞進同一個 run:）它看不見。
+_wfdoc = _yaml.safe_load(_wf)
+_steps = _wfdoc["jobs"]["refresh"]["steps"]
+
+
+def _step_run(i):
+    return str(_steps[i].get("run") or "")
+
+
+def _step_with(needle):
+    """→ 含這個字串的 step 索引清單。"""
+    return [i for i in range(len(_steps)) if needle in _step_run(i)]
+
+
+# bash -e：同一個 run: 底下，前面那行非零，後面那行根本不會執行。
+# pulse-source-notes 與 --write-health 曾經同處一個 run:，後果很具體：
+# state.json 被寫壞成非 dict → 筆記產生器炸掉 → health.md 停在昨天 →
+# generated_day 不動 → 死人開關報「排程死了」。鏈是好的，死的是一支觀測腳本，
+# 而假訊號指向錯的地方比沒有訊號更花時間。
+acase("排程：source-notes 與 --write-health 不得共用同一個 run:"
+      "（bash -e 會讓前者一炸就吃掉後者，health.md 停住＝偽造「排程死了」）",
+      _step_with("pulse-source-notes.py") == _step_with("--write-health"), False)
+
+# probe 的非零全部是致命的（2 = 環境不見了，3 = 0 個可跑來源的硬防護）。
+# 單條來源抓失敗只寫進 stats，main() 照樣 return 0——也就是說 `|| ...` 沒有接住
+# 任何「部分失敗」，只接住了兩種必須紅燈的狀況。實測：全部 lifecycle 改 draft，
+# probe 回 3 被吞掉，後面照跑、網站照部署、job 全綠，只是再也不會更新。
+_probe_lines = [ln.strip() for i in _step_with("pulse-probe.py")
+                for ln in _step_run(i).splitlines()
+                if "pulse-probe.py" in ln and not ln.strip().startswith("#")]
+acase("排程：pulse-probe.py 的離開碼不得被 || 或 ; true 吞掉"
+      "（它的非零全是致命的，硬防護寫了不接等於沒寫）",
+      [ln for ln in _probe_lines if "||" in ln or "; true" in ln], [])
+
+# 純顯示用的那次 robots 重驗如果不給 --stale-days，預設 0；而 check() 判的是
+# `if stale_days and ...`，0 是 falsy＝一條都不跳，於是整份來源的 robots.txt
+# 被再抓一次。加上 apply 那次、probe 抓每條來源那次，一班三抓。
+_recheck_lines = [ln.strip() for i in _step_with("pulse-robots-recheck.py")
+                  for ln in _step_run(i).splitlines()
+                  if "pulse-robots-recheck.py" in ln and not ln.strip().startswith("#")]
+acase("排程：每一次 pulse-robots-recheck 都要明示 --stale-days"
+      "（省略＝預設 0＝一條都不跳＝每班把所有來源的 robots.txt 再抓一遍）",
+      [ln for ln in _recheck_lines if "--stale-days" not in ln], [])
+
 # 順序有兩個硬條件：在 Source health 之後（才讀得到這一班的分數）、
 # 在 commit 之前（不然寫出來的檔案下一次 checkout 就被洗掉）。
 acase("排程：vault 頁排在 Source health 之後、Commit 之前"
       "（排在 commit 之後＝每班寫完就被洗掉，等於整天沒產出）",
-      _wf.index("Source health (0 LLM)") < _wf.index("Vault pages (0 LLM)")
-      < _wf.index("Commit & push data changes"), True)
+      (max(_step_with("pulse-source-health.py"))
+       < min(_step_with("pulse-source-notes.py") + _step_with("--write-health"))
+       <= max(_step_with("pulse-source-notes.py") + _step_with("--write-health"))
+       < min(_step_with("git push"))), True)
 acase("references/vault-pages.md 存在（這兩頁的規格書，紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "vault-pages.md")), True)
 
