@@ -2188,10 +2188,115 @@ acase("pulse-render.heat_text：None → 「未量測」，不是 0"
       ["未量測", 0, 42])
 # 這條是文字釘（該邏輯寫在 pulse-narrative-prep.py 的 dict 字面值裡，抽不出函式）。
 # 守的是紅線 2 與 8：送 0 給敘述層，LLM 就會寫出「熱度低、還沒共振」這種
-# 拿沒量過的東西當論據的句子——_config/narratives.yaml 裡已經有這樣的句子。
+# 拿沒量過的東西當論據的句子——_config/narratives.yaml 裡曾經有兩句這樣寫成的
+# 句子（2026-07-26 已改掉，見 references/narrative-layer.md）。
 _np_txt = open(os.path.join(_HERE, "pulse-narrative-prep.py"), encoding="utf-8").read()
 acase("pulse-narrative-prep：heat 沒量到時送「未量測」給敘述層，不送 0",
       '"未量測" if fm.get("heat") is None' in _np_txt, True)
+
+# ── 敘述層的量化熱度宣稱（references/narrative-layer.md）─────────────────
+# 上面那條守的是**入口**：以後不要再寫出這種句子。它擋不住已經寫出來的那兩句，
+# 而那兩句待的是 lenses——夜間鏈永遠不會重寫的那一格。堵住上游只擋得住新的謊。
+from lib import narrative_guard as _ng  # noqa: E402
+
+acase("narrative_guard：把沒量到的熱度講成數字 → 命中",
+      [bool(_ng.find_heat_claims("四則皆單源、heat 偏低（8–14），還沒跨來源共振。")),
+       bool(_ng.find_heat_claims("目前只有官方發布、無採用數字，heat 8–10 偏低。")),
+       bool(_ng.find_heat_claims("熱度 70 以上才算共振。"))],
+      [True, True, True])
+# 反方向。一條會誤傷誠實句子的檢查會被改寫繞過去，繞過去之後它就是一顆永遠綠的燈。
+acase("narrative_guard：講「量不到」而且旁邊剛好有數字 → 不命中（否定詞豁免）",
+      [_ng.find_heat_claims("傳播熱度量不到（社群訊號沒接線），12 則全部單源。"),
+       _ng.find_heat_claims("所有事件的 heat 都是未量測，12 則單源。"),
+       _ng.find_heat_claims("12 則單源，還沒有第二個獨立聲音。"),
+       _ng.find_heat_claims("這批訊號沒有人轉述。")],
+      [[], [], [], []])
+
+# 檔案本身要乾淨——包含 thesis 與 lenses。apply 只看得到當班寫入的東西。
+_narr_doc = _yaml.safe_load(
+    open(os.path.join(_HERE, "..", "_config", "narratives.yaml"), encoding="utf-8"))
+
+
+def _narr_heat_hits(node, path=""):
+    if isinstance(node, dict):
+        return [h for k, v in node.items() for h in _narr_heat_hits(v, f"{path}.{k}")]
+    if isinstance(node, list):
+        return [h for i, v in enumerate(node) for h in _narr_heat_hits(v, f"{path}[{i}]")]
+    if isinstance(node, str):
+        return [f"{path}: {x}" for x in _ng.find_heat_claims(node)]
+    return []
+
+
+_VAULT_ROOT = Path(os.path.join(_HERE, ".."))
+acase("vault 目前沒有任何量到的 heat（這條垮了代表社群線接上了，下一條要跟著改）",
+      _ng.vault_has_measured_heat(_VAULT_ROOT), False)
+acase("narratives.yaml 全檔（含 thesis / lenses）沒有量化熱度宣稱",
+      _narr_heat_hits(_narr_doc), [])
+
+# 反方向：vault 真的量到 heat 之後，這種句子是引用而不是編造，不該再擋。
+with _tf2.TemporaryDirectory() as _tdh:
+    _hvault = Path(_tdh)
+    (_hvault / "Events").mkdir()
+    (_hvault / "Events" / "a.md").write_text(
+        "---\nid: e1\nheat: null\n---\n本文\n", "utf-8")
+    acase("vault_has_measured_heat：heat 全是 null → False",
+          _ng.vault_has_measured_heat(_hvault), False)
+    (_hvault / "Events" / "b.md").write_text(
+        "---\nid: e2\nheat: 74\n---\n本文\n", "utf-8")
+    acase("vault_has_measured_heat：有一則量到就 True（反方向，確認上一條不是恆假）",
+          _ng.vault_has_measured_heat(_hvault), True)
+
+
+# 走真的子行程：這條要測的是「那一班紅不紅、磁碟上寫了什麼」，
+# 在同一個行程裡呼叫 main() 測到的就不是真正會發生的那條路徑。
+def _run_narr_apply(vault, result):
+    (vault / "result.json").write_text(_json.dumps(result, ensure_ascii=False), "utf-8")
+    p = _subprocess.run(
+        [sys.executable, os.path.join(_HERE, "pulse-narrative-apply.py"),
+         "--in", str(vault / "result.json")],
+        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(vault)))
+    doc = _yaml.safe_load((vault / "_config" / "narratives.yaml").read_text("utf-8"))
+    return p.returncode, doc["tracks"]
+
+
+def _narr_vault(td, heat="null"):
+    v = Path(td)
+    (v / "_config").mkdir(parents=True, exist_ok=True)
+    (v / "_probe").mkdir(parents=True, exist_ok=True)
+    (v / "Events").mkdir(parents=True, exist_ok=True)
+    (v / "Events" / "a.md").write_text(f"---\nid: e1\nheat: {heat}\n---\n本文\n", "utf-8")
+    (v / "_config" / "narratives.yaml").write_text(
+        "version: 1\nupdated: '2026-07-26'\ntracks:\n"
+        "  infra-cost:\n    thesis: 原本的\n    now: 原本的 now\n    next: 原本的 next\n",
+        "utf-8")
+    return v
+
+
+with _tf2.TemporaryDirectory() as _td_n1:
+    _nv = _narr_vault(_td_n1)
+    _rc_n, _tr_n = _run_narr_apply(_nv, {"infra-cost": {
+        "now": "這輪 heat 8–10 偏低，還沒共振。",
+        "next": "看第二個獨立來源會不會出現。"}})
+    acase("narrative-apply：LLM 寫回量化熱度宣稱 → 拒收該欄位、原文不動、"
+          "乾淨的那欄照寫、整班回非零",
+          [_rc_n, _tr_n["infra-cost"]["now"], _tr_n["infra-cost"]["next"]],
+          [1, "原本的 now", "看第二個獨立來源會不會出現。"])
+
+with _tf2.TemporaryDirectory() as _td_n2:
+    _nv2 = _narr_vault(_td_n2)
+    _rc_n2, _tr_n2 = _run_narr_apply(_nv2, {"infra-cost": {
+        "now": "傳播熱度量不到，12 則全部單源。"}})
+    acase("narrative-apply：誠實句子照寫、exit 0（反方向，確認上一條不是恆擋）",
+          [_rc_n2, _tr_n2["infra-cost"]["now"]],
+          [0, "傳播熱度量不到，12 則全部單源。"])
+
+with _tf2.TemporaryDirectory() as _td_n3:
+    _nv3 = _narr_vault(_td_n3, heat="74")
+    _rc_n3, _tr_n3 = _run_narr_apply(_nv3, {"infra-cost": {
+        "now": "這輪 heat 8–10 偏低，還沒共振。"}})
+    acase("narrative-apply：vault 真的量到 heat 時不擋（那時它是引用，不是編造）",
+          [_rc_n3, _tr_n3["infra-cost"]["now"]],
+          [0, "這輪 heat 8–10 偏低，還沒共振。"])
 
 # M09：從來沒抓到過（item_lag is None）必須判紅。改成 `is not None and ...` 的話，
 # 一個**完全空的 vault** 會顯示綠燈——死人開關在最該叫的那一天最安靜。

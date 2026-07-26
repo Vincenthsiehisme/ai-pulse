@@ -244,3 +244,29 @@ mutations:
     replace: "            \"heat\": fm.get(\"heat\") or 0,"
     survives: false
     why: ""
+
+  # ── 敘述層的量化熱度宣稱：堵一個出口不等於堵住（references/narrative-layer.md）──
+
+  - id: M26
+    title: "判準永遠豁免（find_heat_claims 從此回空 list，擋線變成裝飾）"
+    file: lib/narrative_guard.py
+    find: "        if any(neg in window for neg in _NEGATIONS):"
+    replace: "        if True:"
+    survives: false
+    why: ""
+
+  - id: M27
+    title: "命中了照樣寫進去（stderr 有抱怨，磁碟上還是那句謊）"
+    file: pulse-narrative-apply.py
+    find: "                    continue\n            tracks[slug][k] = cleaned"
+    replace: "                    pass\n            tracks[slug][k] = cleaned"
+    survives: false
+    why: ""
+
+  - id: M28
+    title: "拒收了但那一班回 0（沒寫進去，也沒有人會知道）"
+    file: pulse-narrative-apply.py
+    find: "        print(f\"[fail] 另有 {rejected} 段因量化熱度宣稱被拒收，未寫入。\", file=sys.stderr)\n        return 1"
+    replace: "        print(f\"[fail] 另有 {rejected} 段因量化熱度宣稱被拒收，未寫入。\", file=sys.stderr)\n        return 0"
+    survives: false
+    why: ""
