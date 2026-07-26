@@ -1,2 +1,9 @@
 {"at": "2026-07-25T05:21:15+00:00", "id": "src-kol-raschka", "field": "robots_ok", "from": null, "to": true, "reason": "robots-recheck"}
 {"at": "2026-07-25T05:21:15+00:00", "id": "src-kol-raschka", "field": "lifecycle", "from": "dormant", "to": "probing", "reason": "robots-reopened"}
+{"at": "2026-07-26T10:04:46+00:00", "id": "src-media-venturebeat", "field": "robots_ok", "from": null, "to": true, "reason": "robots-recheck"}
+{"at": "2026-07-26T10:04:46+00:00", "id": "src-media-techcrunch", "field": "robots_ok", "from": null, "to": true, "reason": "robots-recheck"}
+{"at": "2026-07-26T10:04:46+00:00", "id": "src-media-ieee-spectrum", "field": "robots_ok", "from": null, "to": true, "reason": "robots-recheck"}
+{"at": "2026-07-26T10:04:46+00:00", "id": "src-media-mit-techreview", "field": "robots_ok", "from": null, "to": true, "reason": "robots-recheck"}
+{"at": "2026-07-26T10:04:46+00:00", "id": "src-media-theregister", "field": "robots_ok", "from": null, "to": false, "reason": "robots-recheck"}
+{"at": "2026-07-26T10:04:46+00:00", "id": "src-media-arstechnica", "field": "robots_ok", "from": null, "to": true, "reason": "robots-recheck"}
+{"at": "2026-07-26T10:04:46+00:00", "id": "src-media-theverge", "field": "robots_ok", "from": null, "to": true, "reason": "robots-recheck"}

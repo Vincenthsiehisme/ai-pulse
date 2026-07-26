@@ -2,16 +2,17 @@
 
 M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是。
 
-> ⚠ 本輪含 10 筆 backfill（首次抓取的既有存量）。
+> ⚠ 本輪含 87 筆 backfill（首次抓取的既有存量）。
 > backfill 不代表當期訊號，lead_days 與熱度統計應排除。
 
 ## 兩個決定性比率
 
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
-| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 2/30 = 7% |
+| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 3/30 = 10% |
 | kol | 90 | 70/90 = 78% | 60/90 = 67% | 34/90 = 38% |
-| official | 228 | 48/228 = 21% | 18/228 = 8% | 169/228 = 74% |
+| media | 87 | 87/87 = 100% | 79/87 = 91% | 43/87 = 49% |
+| official | 218 | 48/218 = 22% | 18/218 = 8% | 159/218 = 73% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
 - **5b（可解析自然人）才決定人物層與獨立性升級有沒有用。**官方線若過低，people.yaml 只在 KOL 線生效。
@@ -21,11 +22,11 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | kind | 筆數 | 計入 5b |
 |---|---|---|
-| none | 200 |  |
-| person | 69 | ✓ |
-| handle | 60 |  |
-| org | 10 |  |
-| multi_person | 9 | ✓ |
+| none | 190 |  |
+| person | 142 | ✓ |
+| handle | 67 |  |
+| multi_person | 15 | ✓ |
+| org | 11 |  |
 
 分類全為字面規則，無推論。判不出來一律 unknown 且不計入 5b（保守預設）。
 `multi_person` 是共同作者串，本專案判定為可解析到自然人；
@@ -40,6 +41,16 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | David Niewolny | person | src-nvidia-blog |
 | Son Ho, Cédric Fournet, Antoine Delignat-Lavaud, Samuel Lee, | multi_person | src-msr-blog |
 | Jianfeng Gao | person | src-msr-blog |
+| michael.nunez@venturebeat.com (Michael Nuñez) | handle | src-media-venturebeat |
+| Rebecca Bellan, Connie Loizos | multi_person | src-media-techcrunch |
+| Amanda Silberling | person | src-media-techcrunch |
+| Matthew S. Smith | person | src-media-ieee-spectrum |
+| Jessica Hamzelou | person | src-media-mit-techreview |
+| Christine McGuiness and Devang Khariwala | multi_person | src-media-mit-techreview |
+| Kyle Orland | person | src-media-arstechnica |
+| Molly Taft, wired.com | multi_person | src-media-arstechnica |
+| WIRED | org | src-media-arstechnica |
+| Terrence O’Brien | person | src-media-theverge |
 | karpathy (hidden) | handle | src-kol-karpathy |
 | Nathan Lambert | person | src-kol-interconnects |
 | Ethan Mollick | person | src-kol-oneusefulthing |
@@ -48,12 +59,12 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 ## 命中的實體型別分佈
 
-- company: 104
-- product_line: 88
-- product: 23
-- technology: 23
+- company: 136
+- product_line: 95
+- product: 31
+- technology: 27
 - framework: 18
-- infrastructure: 11
+- infrastructure: 10
 
 ## 字典補漏候選（未命中且跨來源出現）
 
@@ -61,22 +72,41 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| LLMs | 7 | 3 |
-| U.S | 6 | 3 |
-| LLM | 6 | 4 |
+| LLMs | 11 | 4 |
+| LLM | 8 | 6 |
+| U.S | 7 | 4 |
 | Learn | 5 | 2 |
+| San Francisco | 5 | 4 |
+| One | 5 | 4 |
+| Fable | 5 | 3 |
+| Some | 5 | 5 |
+| AI-native | 4 | 2 |
+| Pro | 4 | 3 |
 | Gemma | 4 | 3 |
 | Python | 4 | 2 |
 | Understanding | 4 | 2 |
+| There | 4 | 3 |
 | Frontier | 3 | 2 |
 | AI-powered | 3 | 3 |
-| Pro | 3 | 2 |
+| Building | 3 | 3 |
+| Users | 3 | 2 |
+| Flash | 3 | 2 |
+| GPUs | 3 | 3 |
 | Plus | 3 | 3 |
 | Power | 3 | 3 |
+| Here | 3 | 3 |
+| Opus | 3 | 3 |
+| NASA | 3 | 2 |
+| With | 3 | 3 |
+| These | 3 | 2 |
+| January | 3 | 2 |
+| July | 3 | 3 |
+| China | 3 | 2 |
+| Trump | 3 | 2 |
 
 ### 單來源高頻（觀察用，不列入晉升）
 
-目前活躍來源 15 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
+目前活躍來源 20 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
 上表為空不代表收割機制壞掉。此區僅供觀察，不得直接寫進字典。
 
 | 候選 | 次數 | 唯一來源 |
@@ -84,9 +114,8 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Highlights | 14 | src-gh-vllm-releases |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Release Notes | 4 | src-gh-vllm-releases |
-| AI-native | 3 | src-openai-blog |
+| The Download | 4 | src-media-mit-techreview |
 | Fix | 3 | src-gh-vllm-releases |
-| Fable | 3 | src-kol-simonwillison |
 | Open | 3 | src-kol-interconnects |
 | LLM Research Papers | 3 | src-kol-raschka |
 | List | 3 | src-kol-raschka |
@@ -112,18 +141,26 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-xai-news | official | 200 | 40 | 0 |  | True |  |
 | src-mistral-news | official | 200 | 0 | 0 |  | True |  |
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
-| src-amd-ir | official | 200 | 10 | 10 | ✓ | True |  |
+| src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
+| src-media-venturebeat | media | 200 | 7 | 7 | ✓ | True |  |
+| src-media-techcrunch | media | 200 | 20 | 20 | ✓ | True |  |
+| src-media-ieee-spectrum | media | 200 | 20 | 20 | ✓ | True |  |
+| src-media-mit-techreview | media | 200 | 10 | 10 | ✓ | True |  |
+| src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
+| src-media-arstechnica | media | 200 | 20 | 20 | ✓ | True |  |
+| src-media-theverge | media | 200 | 10 | 10 | ✓ | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
 | src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
-| src-kol-thezvi | kol | robots_disallow | 0 | 0 |  | False |  |
+| src-kol-thezvi | kol | robots_unknown | 0 | 0 |  | False | robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕） |
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 7 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 6 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
-`robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕。
+`robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
+`robots_disallow` = robots.txt 取得成功且明文 Disallow —— 只有這個才是站方政策，也只有這個可以拿來降級。
 
 
 ## 本輪已知缺口（勿當成已實現）
