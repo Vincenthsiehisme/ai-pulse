@@ -2,7 +2,7 @@
 
 M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是。
 
-> ⚠ 本輪含 65 筆 backfill（首次抓取的既有存量）。
+> ⚠ 本輪含 63 筆 backfill（首次抓取的既有存量）。
 > backfill 不代表當期訊號，lead_days 與熱度統計應排除。
 
 ## 兩個決定性比率
@@ -48,7 +48,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Kyle Orland | person | src-media-arstechnica |
 | Molly Taft, wired.com | multi_person | src-media-arstechnica |
 | WIRED | org | src-media-arstechnica |
-| David Pierce | person | src-media-theverge |
+| Cameron Faulkner | person | src-media-theverge |
 | karpathy (hidden) | handle | src-kol-karpathy |
 | Nathan Lambert | person | src-kol-interconnects |
 | Ethan Mollick | person | src-kol-oneusefulthing |
@@ -82,7 +82,6 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Understanding | 4 | 2 |
 | There | 4 | 3 |
 | Fable | 4 | 2 |
-| Some | 4 | 4 |
 | One | 4 | 3 |
 | Frontier | 3 | 2 |
 | AI-powered | 3 | 3 |
@@ -92,7 +91,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Power | 3 | 3 |
 | NASA | 3 | 2 |
 | With | 3 | 3 |
-| These | 3 | 2 |
+| Some | 3 | 3 |
 | January | 3 | 2 |
 | July | 3 | 3 |
 | China | 3 | 2 |
@@ -138,11 +137,11 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
 | src-media-venturebeat | media | 200 | 7 | 0 |  | True |  |
 | src-media-techcrunch | media | 304 | 0 | 0 |  | True |  |
-| src-media-ieee-spectrum | media | 200 | 20 | 1 |  | True |  |
+| src-media-ieee-spectrum | media | 200 | 20 | 0 |  | True |  |
 | src-media-mit-techreview | media | 200 | 10 | 0 |  | True |  |
 | src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
 | src-media-arstechnica | media | 200 | 20 | 0 |  | True |  |
-| src-media-theverge | media | 200 | 10 | 1 |  | True |  |
+| src-media-theverge | media | 200 | 10 | 2 |  | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
 | src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
@@ -150,7 +149,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 8 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 3 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
