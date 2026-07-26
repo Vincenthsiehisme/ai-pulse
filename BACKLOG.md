@@ -1,29 +1,40 @@
 # AI-Pulse：應做而未做
 
 這份清單只寫「**已知有問題、但還沒動手**」的事。修掉的移到最後的〈附：已經修掉的〉；
-**修好了但還沒併進 `main` 的，算沒修**（見 [`未併分支`](#未併分支)）。
+**修好了但還沒併進 `main` 的，算沒修**——這一版量的時候遠端零條未併，所以那一區是空的，
+但規矩不變：分支上的數字不能寫進〈現況〉。
 
 每一條有一個**不會變的名字**（`cron-收班`、`gate-未接線`…），沒有編號。
 理由寫在下面〈為什麼這裡沒有編號〉——不是排版偏好，是量到的一個 bug。
 
-## 現況（2026-07-26 傍晚量的）
+## 現況（2026-07-26 23:30Z 量的 ／ 台北 07-27 早上）
 
 | 量到什麼 | 值 | 怎麼量的 |
 |---|---|---|
-| `main` | `4f3b23f chore: nightly refresh` | `git fetch && git log --oneline -1 origin/main` |
-| `main` 的 selftest | **303/303** | 在 `origin/main` 的 worktree 上 `python3 scripts/selftest.py` |
-| `main` 的變異 | **25 條：25 被殺、0 存活** | 同上，`python3 scripts/mutate.py` |
-| 遠端分支 | **33 條** = `main` + **2 條未併** + **30 條已併可刪** | `git ls-remote --heads`、`git branch -r --no-merged/--merged origin/main` |
-| 兩條未併能不能乾淨併 | 都可以 | `git merge-tree --write-tree origin/main <branch>` |
-| 夜間鏈 | 每 2 小時一班，最近一班 425 items / 32 sources | `data-refresh.yml` + `_probe/` |
-| Events | 51 則：`published` 36 / `review` 14 / `dropped` 1 | `grep -c` |
+| `main` | `124a58c Merge pull request #10 …/docs/backlog-tidy` | `git fetch && git log --oneline -1 origin/main` |
+| `main` 的 selftest | **322/322** | 在 `origin/main` 的 worktree 上 `python3 scripts/selftest.py` |
+| `main` 的變異 | **32 條：32 被殺、0 存活** | 同上，`python3 scripts/mutate.py` |
+| 遠端分支 | **34 條** = `main` + **0 條未併** + **33 條已併可刪** | `git ls-remote --heads`、`git branch -r --no-merged/--merged origin/main` |
+| 夜間鏈 | 每 2 小時一班，最近一班 07-26 23:03Z：425 items / 32 sources | `data-refresh.yml` + `_probe/source-runs.jsonl` |
+| Events | 51 則：`published` 36 / `review` 14 / `dropped` 1 | `grep -l '^status: …' Events/*.md` |
 | `_corpus/` | **3 天**（07-24…07-26） | `ls _corpus/` |
 
-兩條未併分支各自量到的：`fix/narrative-drops-the-fake-heat` selftest **312**、變異 **28 條全殺**；
-`fix/gate-keys-unmarked` selftest **322**、變異 **32 條全殺**。
-**這兩組數字描述的是分支，不是 `main`**——`main` 上仍然是 303 / 25。
-
 複量指令在最後一節。上面每一格都是跑出來的，沒有一格是估的。
+
+### 上一版這張表在合併的那一刻就過期了
+
+上一版量的是 `4f3b23f` / 303 / 25 / 2 條未併，而且特別註明「分支上的 322 與 32
+描述的是分支，不是 `main`」——那句話當天是對的。三條分支在台北 07-27 06:58–07:04
+全部併進 `main` 之後，分支上的數字**變成了** `main` 的數字，表上卻還寫著 303 / 25。
+
+**這是這份清單自己在講的病，第二次發生在它自己身上。**〈為什麼這裡沒有編號〉那節
+講的是「用編號代理清單上的某一件事」；這一節是**用一張量過的表代理現況**。形態一樣：
+沒有進展的日子裡兩者重合，正好在有進展的那天分岔，而有進展正是最多人來讀它的時候。
+方向還特別不利——數字是往**變好**的方向跑掉的（303→322、2 條未併→0），沒有人會
+因為看到一個偏低的測試數而起疑。
+
+所以這一版把量的時間寫進標題，並且在最後一節重申：**不要相信上面的數字，直接複量。**
+這條進了〈已經修掉的〉底下的實例清單，第 9 個。
 
 ## 為什麼這裡沒有編號
 
@@ -59,25 +70,27 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 所以順序大致是：**有時限 → 修了但沒生效 → 正在騙人且不會紅 → 守門的東西自己沒被守 →
 資料進不來 → 做了一半 → 要你動手**。
 
+這一版「修了但沒生效」與「正在騙人且不會紅」兩格是**空的**：三條分支都併進 `main` 了，
+`main` 上也沒有已知的假話在對外輸出。空著是好消息，但這兩格是最會悄悄長回來的——
+下一次盤點先問這兩格。
+
 | 名字 | 事 | 壞了會紅嗎 | 現在在騙人嗎 |
 |---|---|---|---|
-| [`cron-收班`](#cron-收班) | 07-27 要把抓取頻率調回一天一班 | 不會 | — |
-| [`未併分支`](#未併分支) | 2 條修好的分支還躺在遠端，`main` 上沒生效 | 不會 | 是（見下一條） |
-| [`站上還在說謊`](#站上還在說謊) | `main` 的 `narratives.yaml` 還有兩句拿假 heat 當論據 | 分支上會，`main` 上不會 | **是，現在正在** |
+| [`cron-收班`](#cron-收班) | 07-27 12:00Z 要把抓取頻率調回一天一班 | 不會 | — |
 | [`gate-未接線`](#gate-未接線) | 一批 `gate.yaml` 的 key 沒有任何碼讀它 | 不會（已標記，漏標會紅） | 部分 |
-| [`零產出來源`](#零產出來源) | 三條「可跑但零產出」，兩種不同的病 | 不會 | — |
+| [`零產出來源`](#零產出來源) | 三條「可跑但零產出」，三種不同的病 | 不會 | — |
 | [`pending-覆蓋`](#pending-覆蓋) | 20 家覆蓋盲點標著 pending | 刻意不會 | 否（誠實掛著） |
 | [`people-第三步`](#people-第三步) | 語料的 `author` 還沒綁到 `person_id` | 不會 | — |
 | [`corpus-累積`](#corpus-累積) | `_corpus/` 要不要改成累積視窗 | — | — |
 | [`value-沒人用`](#value-沒人用) | 每則都算 `value`，全站沒有一處讀它 | 不會 | 否（沒宣稱過什麼） |
 | [`stale-backfill-無出口`](#stale-backfill-無出口) | 12 則被擋著的 Event 沒有終態 | 不會 | 否 |
-| [`分支刪不掉`](#分支刪不掉) | 30 條已併分支刪不掉、PR 開不了 | — | — |
+| [`分支刪不掉`](#分支刪不掉) | 33 條已併分支刪不掉、PR 開不了 | — | — |
 
 ---
 
 ## `cron-收班`
 
-**唯一有時限的一條：明天（2026-07-27）。**
+**唯一有時限的一條：2026-07-27 12:00Z（台北當天晚上 8 點）——寫這一版的時候還沒到。**
 
 `data-refresh.yml` 現在的 cron 是 `0 */2 * * *`，一天 12 班；`robots --stale-days`
 也一起從 7 調成 1。一天 12 次去打人家的 robots.txt 是不禮貌的，而且我們自己沒有
@@ -86,12 +99,15 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 排第一只有一個理由：**這是唯一一條「今天不做，明天就沒得做」的事。**
 其他每一條都可以晚一週，這條晚一週就是連續一週失禮。
 
-兩層都還在（2026-07-26 複查，兩個都 enabled）：
+兩層都還在（2026-07-26 23:30Z 複查，`enabled: true`、`ended_reason` 空）：
 
-| 何時 | 任務 | 做什麼 |
-|---|---|---|
-| 2026-07-27 12:00Z（一次性） | `trig_01F52Q24UntdNVTd3DWbxFgs` | 把兩個值改回 `0 16 * * *` 與 7 |
-| 每週一 16:00Z（首跑 07-27 16:04Z） | `trig_015SHn9yjL6LtA9TsbeyGCdo` | 讀 `data-refresh.yml` 的實際值，超標就改回來 |
+| 何時 | 任務 | 做什麼 | 下次 |
+|---|---|---|---|
+| 2026-07-27 12:00Z（一次性） | `trig_01F52Q24UntdNVTd3DWbxFgs` | 把兩個值改回 `0 16 * * *` 與 7 | 07-27 12:00Z（未觸發） |
+| 每週一 16:00Z | `trig_015SHn9yjL6LtA9TsbeyGCdo` | 讀 `data-refresh.yml` 的實際值，超標就改回來 | 07-27 16:04Z |
+
+複查當下 `data-refresh.yml` 仍是 `0 */2 * * *`，`--stale-days 1` 出現在第 68 與
+第 212 行——**兩處都要改**，只改一處會讓「重驗頻率」跟「重驗門檻」對不上。
 
 第二層不是備援心態，是這個 repo 的核心毛病：**一個只靠單次觸發的收班安排，如果
 沒觸發，沒有任何東西會變紅**。所以第二層刻意**不去查第一層跑了沒**（那又是一個
@@ -103,63 +119,12 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 
 ---
 
-## `未併分支`
-
-```
-$ git branch -r --no-merged origin/main        # 2026-07-26 傍晚
-  origin/fix/narrative-drops-the-fake-heat
-  origin/fix/gate-keys-unmarked
-```
-
-| 分支 | 修了什麼 | 分支上的 selftest | 能不能乾淨併 |
-|---|---|---|---|
-| `fix/narrative-drops-the-fake-heat` | `narratives.yaml` 那兩句假 heat 重寫 + 判準 + 執法 + 掃全檔的測試（見下一條） | 312 | 可以 |
-| `fix/gate-keys-unmarked` | 未接線清單改成機械列舉；掉出兩個從來沒進過清單的 key（見 [`gate-未接線`](#gate-未接線)） | 322 | 可以（要排在上一條後面） |
-
-兩條疊在一起，**請按表格順序合**：後者是從前者長出來的。
-
-**還要人動手的原因**：這個環境的 proxy 擋掉 GitHub API（403），我開不了 PR；
-`git push origin main` 也被 classifier 擋下（跟 repo 的分支保護無關，是這個 session
-自己的護欄）。分支都推上去了、也都沒有衝突，網頁上按一下即可。
-
-上一輪這裡量到過一件值得留著的事：`fix/monitor-exit-codes-vs-main` 併進 `main` 的
-那一刻，四條在 `mutations.yaml` 上掛了兩輪 `survives: true` 的變異**全部倒了**，
-而且是 `mutate.py` 自己判紅告訴我的，不是我記得去看。「修好了但沒併進 `main` 的，
-算沒修」在那天被量了一次：那四條在分支上被殺是中午，在 `main` 上被殺是傍晚——
-中間那幾個小時，`main` 的 CI 對 `return rc → return 0` 一無所知。
-
----
-
-## `站上還在說謊`
-
-**`main` 上現在這兩句還在**（`_config/narratives.yaml` 第 18、48 行）：
-
-> 「四則皆單源、heat 偏低（8–14），還沒跨來源共振」
-> 「目前只有官方發布、無採用數字，heat 8–10 偏低」
-
-`heat 8–14` 是一個**沒接線的欄位**算出來的（`pulse-cluster.py` 呼叫 `score_event`
-時第四個參數寫死 `metrics=[]`），「還沒跨來源共振」是從它推出來的結論。源頭已經
-修掉了——`heat` 現在量不到就寫 `null`——但**已經寫成散文的結論改不到**。
-
-修好的版本在 `fix/narrative-drops-the-fake-heat` 上，所以嚴格說這條是
-[`未併分支`](#未併分支) 的一個實例。單獨列出來是因為它是這份清單上**唯一一條
-「此刻正在對外輸出假話」**的：其他每一條都是缺工或沉默，這一條是站上有字。
-
-動手之後才看見的那一半，值得留在這裡：那兩句都在 `lenses`，而 `lenses` 是夜間鏈
-**永遠不會重寫**的欄位（`thesis` 也是；會被重寫的只有 `now` / `next`）。也就是說
-把入口修好，**不管跑幾百班都碰不到這兩句**。**用「入口已經修好」代理「站上沒有
-假話」**——堵住上游只擋得住新的謊。所以那條分支上除了改字，還加了掃
-`_config/narratives.yaml` 全檔（含 `thesis` 與 `lenses`）的測試、拒收（不自動改寫）
-的執法、以及 M26–M28 三條互不相干的說謊路徑。
-
----
-
 ## `gate-未接線`
 
 `gate.yaml` 有一批 key 沒有任何程式碼讀它。它們**已經被標成 `⚠ 未接線`**，所以
 現在不會再騙人——這也是它排在這裡而不是更前面的理由。**標記不等於修好。**
 
-### 這一輪只做了止血補強（在 `fix/gate-keys-unmarked` 上，未併）
+### 上一輪只做了止血補強（`fix/gate-keys-unmarked`，PR #9，已在 `main`）
 
 上一版的標題寫「12 個」，那個 12 是**手工數的**；`selftest.py` 也是拿一份手寫的
 12 個名字去比對。手工清單只擋得住一個方向：「標了未接線、後來卻接上了」。反方向
@@ -209,13 +174,30 @@ $ git branch -r --no-merged origin/main        # 2026-07-26 傍晚
 
 ## `零產出來源`
 
-首班 CI（`158d60f`，425 items / 32 sources）之後，判決已經出來了：
+上一版把兩條寫成同一個病：「抓取端：從來沒抓過」。這一版改讀
+`_probe/source-runs.jsonl`（每班每條來源的 status），**那兩條的「沒抓過」是兩件
+不同的事**：
 
-| 來源 | 進過 `_probe/state.json` | 病灶 |
-|---|---|---|
-| `src-mistral-news` | ✓ | **解析端**：抓到了，解不出東西 |
-| `src-media-theregister` | ✗ | **抓取端**：從來沒抓過 |
-| `src-kol-thezvi` | ✗ | **抓取端**：從來沒抓過 |
+| 來源 | 每班的 status | 病灶 | 待修嗎 |
+|---|---|---|---|
+| `src-mistral-news` | `200`，items 全 0 | **解析端**：抓到了，解不出東西 | 是 |
+| `src-media-theregister` | `robots_disallow` | **站方 robots 明說不行**（`sources.yaml` 的 `robots_ok: false` 是實測寫回的） | **不是。這是合規在正常運作** |
+| `src-kol-thezvi` | `robots_unknown` | robots.txt 回 401/403 **取不到**，保守跳過——不是站方拒絕（`robots_ok` 仍是 `true`） | 是，但只能在 CI 裡查 |
+
+**這份紀錄的範圍要講清楚**：`source-runs.jsonl` 目前只有 7 班、全部在 07-26
+10:05Z–23:03Z 之間。所以上表說的是「這 7 班每一班都這樣」，不是「從上線以來」。
+狀態穩定到這個程度已經夠判斷病灶，但別把它當成長期紀錄。
+
+分開列的理由：**三條在儀表上都顯示成「零產出」，但只有第一條是我們的 bug。**
+併成一句「三條零產出來源」，下一個人會平均地去修三條，其中一條無論怎麼修都不會有
+產出——`theregister` 要有產出只有兩條路：站方改 robots，或我們決定不遵守。後者不會
+發生，所以它該做的動作是**移出待修、標成「已知不會有產出」**，不是留著當缺工。
+這跟「量不到 ≠ 0」是同一句話換個位置：**「被 robots 擋住」跟「壞了」不是同一件事，
+擠在同一格裡就分不出來。**
+
+`src-kol-thezvi` 的 401/403 是**打 robots.txt 就被擋**，跟 2026-07-24 漏抓
+Claude Opus 5 那次同形態（容器／CI 的 IP 被 WAF 擋，不是站方拒絕）。現在的處理是
+保守跳過、不記分、不降級——是對的；要注意的是別讓它日久被讀成「站方拒絕」。
 
 `src-mistral-news` 的設定是 `adapter: sitemap` 指到 `sitemap-index.xml`，配
 `url_prefix: /news/`。兩個可能：sitemap-index → 子 sitemap 的展開沒做（或
@@ -304,10 +286,11 @@ CoreWeave、AWS、Cohere。
 
 **需要你動手的兩件，我在這個環境做不到。**
 
-### 一、合併兩條分支，然後刪掉已合併的 30 條
+### 一、刪掉已合併的 33 條分支
 
-遠端現在 **33 條 head**：`main` + [`未併分支`](#未併分支) 那 2 條 + **30 條全部已完整
-併入**（`git branch -r --merged origin/main` 數出來的），可以安全刪除。
+遠端現在 **34 條 head**：`main` + **33 條全部已完整併入**
+（`git branch -r --merged origin/main | grep -v 'HEAD\|origin/main'` 數出來的），
+可以安全刪除。上一版是 30 條，中間又併進三條。
 
 `git push origin --delete` 被這個 session 的安全分類器擋著，我送不出去。
 GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
@@ -317,16 +300,17 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 所以我**開不了真正的 PR**，只能推分支 + 你在網頁上合。這不影響「發現問題自己開
 分支」那條規則，但要知道「PR」在這裡實際上是「分支 + 我在對話裡寫的 review 說明」。
 
-**這件事本身就是 [`未併分支`](#未併分支) 的成因**：一條「我做完、你來合」的交棒，
-如果你那頭沒動作，沒有任何東西會變紅。跟那個「隔離候選是機器交棒給人的唯一介面，
-而它是斷的」是同一個形態，只是這次的介面是你我之間。
+**這件事就是「修好了但沒併進 `main` 的算沒修」那條規矩會被踩到的原因**：一條
+「我做完、你來合」的交棒，如果你那頭沒動作，沒有任何東西會變紅。跟那個「隔離候選是
+機器交棒給人的唯一介面，而它是斷的」是同一個形態，只是這次的介面是你我之間。
+上一輪那兩條分支躺了半天才被合，就是這個介面的延遲——它自己不會叫。
 
 ---
 
 ## 附：已經修掉的
 
 按併進 `main` 的時間排。**這一節只放已經在 `main` 上的**——躺在分支上的不算修好，
-它們在 [`未併分支`](#未併分支)。
+它們留在上面各自的條目裡，直到併進來為止。
 
 | 事 | 修了什麼 |
 |---|---|
@@ -341,6 +325,9 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 | `docs/backlog-refresh` | 這份清單本身；變異盤點層（`scripts/mutate.py` + `mutations.yaml` + 獨立工作流），並補掉它第一輪抓到的五個洞 |
 | `fix/heat-claims-a-measurement`（PR #7） | `heat` 沒量到就寫 null 不編數字；新 blocker `unmeasured_heat`；`references/readiness-gate.md`；51 則遷移 + 回滾 |
 | `fix/monitor-exit-codes-vs-main`（PR #8） | 死人開關的 exit code 走真子行程釘住；`FM_FROM_CONFIG` 白名單邊界改由行為守；`ingested_at` 黏性改成真的跑第二輪；併回 `main` 解衝突 |
+| `fix/narrative-drops-the-fake-heat`（隨 PR #9 併入） | `narratives.yaml` 那兩句拿假 heat 當論據的話重寫；加上掃全檔（含 `thesis` / `lenses`，夜間鏈永遠不會重寫的兩段）的測試與拒收執法；M26–M28 三條說謊路徑 |
+| `fix/gate-keys-unmarked`（PR #9） | 未接線清單從手寫改成掃 `gate.yaml` 全部 55 個 leaf key 機械列舉（`scripts/lib/gate_keys.py`）；掉出 `quality.weights` 與 `readiness.require_primary_evidence` 兩個從沒被列過的 key；A／B／C 三類分開；M29–M32 |
+| `docs/backlog-tidy`（PR #10） | 這份清單的編號 P0–P10 改成不會變的名字；修掉 `selftest.py:794` 與 `references/readiness-gate.md:112` 兩處指著編號的死引用；補一條「原測試只比對 `path`，恆真」的空測試（`52752bd`） |
 
 共同主題是**警報自己把自己關掉**：用一個比事實寬鬆的代理指標去代表事實。代理在
 順利的日子跟事實重合，所以平常測不出來；它只在你最需要它準的那一天分岔。規格寫在
@@ -352,8 +339,12 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 4. 用「碼裡有沒有這句話」代理「跑起來會不會叫」（`references/health-alarms.md`「算對了不等於會叫」）
 5. 用「測試有幾條」代理「壞掉會不會被抓到」（`references/mutation-inventory.md`）
 6. 用「一份手工清單」代理「所有未接線的 key」（[`gate-未接線`](#gate-未接線)）
-7. 用「入口已經修好」代理「站上沒有假話」（[`站上還在說謊`](#站上還在說謊)）
+7. 用「入口已經修好」代理「站上沒有假話」（`fix/narrative-drops-the-fake-heat`：
+   假 heat 的源頭修掉了，但已經寫成散文的兩句結論在 `lenses` 裡，而 `lenses` 是夜間鏈
+   永遠不會重寫的欄位——堵住上游只擋得住新的謊）
 8. 用「編號」代理「清單上的某一件事」（就是上面〈為什麼這裡沒有編號〉那一節）
+9. 用「一張量過的現況表」代理「現況」（就是上面〈上一版這張表在合併的那一刻就過期了〉。
+   最刁的一點：它是往**變好**的方向失準的，303→322 沒有人會覺得不對勁）
 
 ## 附：怎麼重新盤點這份清單
 
@@ -368,18 +359,32 @@ git merge-tree --write-tree origin/main <branch>      # 那條能不能乾淨併
 python3 scripts/selftest.py | tail -1                 # 有幾條測試
 python3 scripts/mutate.py                             # 有幾格守不住（幾分鐘）
 python3 -c "import yaml;w=yaml.safe_load(open('_config/sources.yaml'))['coverage_watch']['must_watch'];print(len(w),sum(1 for x in w if x.get('pending')))"
+for s in published review dropped; do printf "$s "; grep -l "^status: $s" Events/*.md | wc -l; done
 grep -l stale_backfill Events/*.md | wc -l            # stale-backfill 幾則
 grep -n 'heat' _config/narratives.yaml                # 站上還在說謊嗎
 ls _corpus/                                           # 語料累積幾天
+grep -n "cron:\|stale-days" .github/workflows/data-refresh.yml   # cron-收班 收了沒
+# 零產出來源：每條來源每一班的 status，不是只看最後一班
+python3 -c "
+import json;from collections import Counter
+runs=[json.loads(l) for l in open('_probe/source-runs.jsonl')]
+for sid in ('src-mistral-news','src-media-theregister','src-kol-thezvi'):
+    print(sid, Counter(s['status'] for r in runs for s in r['sources'] if s['id']==sid))"
 ```
 
 `mutate.py` 那一行才是「測試守不守得住」的答案。`selftest | tail -1` 給的是**有幾條
 測試**，那是兩件不同的事。
 
-三個踩過的坑，複量的時候會再踩到：
+四個踩過的坑，複量的時候會再踩到：
 
 - **`git branch -r --merged | grep -v main` 會少數**——`fix/monitor-exit-codes-vs-main`
   的名字裡就有 `main`。要 `grep -v 'HEAD\|origin/main'`。
 - **`git log origin/main` 要在 `git fetch` 之後**，同一串命令裡順序寫反就會拿到舊的。
 - **在分支上跑的 selftest 不描述 `main`**。要量 `main` 就開一個
   `git worktree add /tmp/ap-main origin/main`，跑完 `git worktree remove` 掉。
+- **新容器要先 `pip install ruamel.yaml`**（CI 有裝，`data-refresh.yml` 第 52 行；
+  乾淨的容器沒有）。少了它，`selftest.py` 不會說「缺套件」，而是死在一個看起來
+  完全無關的 `FileNotFoundError: …/_probe/source-health.json`——因為 `_run_sh()`
+  只回傳 `(returncode, stdout)`，子行程那句 `[fatal] --apply 需要 ruamel.yaml`
+  寫在 stderr，被丟掉了。**紅的地方不是壞的地方**，2026-07-26 這次複量在這裡卡了
+  十分鐘。
