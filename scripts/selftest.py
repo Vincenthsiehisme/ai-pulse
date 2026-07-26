@@ -198,6 +198,69 @@ for _a, _want in _acases:
 acase("PERSON_KINDS 維持 {person, multi_person}（本次修分類器，不動 5b 定義）",
       sorted(_pp.PERSON_KINDS), ["multi_person", "person"])
 
+# --------------------------------------- 當日 sticky 欄位（backfill / is_new）
+# 為什麼補這批：`DAY_STICKY_FIELDS` 是 07-25「同日第二班把 backfill 全部翻成
+# false」那個修正的全部實作，而它上線時**一條測試都沒有**（本檔 grep backfill
+# 為 0）。這種東西沒測試特別危險，因為它的失效是靜默的——檔案還在、筆數一樣、
+# 沒有任何錯誤，只有報告開頭那句警語安靜消失。
+#
+# 更麻煩的是它**很難靠真語料自然驗到**。要踩到這條路徑，得剛好有一條「當天
+# 首抓（所以整批 backfill=True）」的來源「在同一天的後續班次又產出新料（所以
+# 檔案被整包重寫）」。2026-07-26 實測：第一班 backfill=0，第二班唯一的 backfill
+# 是新來源 src-amd-ir 的 10 筆，而它是最後一班才出現的，沒有後續班次碰過它。
+# 也就是說修正上線一整天，那條路徑一次都沒被執行。等資料自己長出測試案例，
+# 可能等好幾天、也可能永遠等不到——所以要用測試把它釘死，不是靠觀察。
+import pathlib as _pathlib   # noqa: E402
+import tempfile as _tempfile  # noqa: E402
+
+_sticky_prior = [
+    {"url_canonical": "https://ex.org/a", "backfill": True,  "is_new": True},
+    {"url_canonical": "https://ex.org/b", "backfill": True,  "is_new": False},
+    {"url": "https://ex.org/c", "backfill": False, "is_new": True},   # 只有 url
+]
+_sticky_dir = _tempfile.mkdtemp()
+_sticky_path = _pathlib.Path(_sticky_dir) / "src-x.jsonl"
+_sticky_path.write_text(
+    "\n".join(_json.dumps(r, ensure_ascii=False) for r in _sticky_prior) + "\n"
+    # 空行 + 壞掉的 JSON：保護性讀取，一行壞資料不該擋掉整班抓取。
+    + "\n{not json at all\n", encoding="utf-8")
+_prior = _pp.load_day_flags(_sticky_path)
+
+acase("load_day_flags：壞行與空行跳過，好的三筆都讀到",
+      sorted(_prior), ["https://ex.org/a", "https://ex.org/b", "https://ex.org/c"])
+acase("load_day_flags：url_canonical 缺席時退回 url 當 key",
+      _prior.get("https://ex.org/c"), {"backfill": False, "is_new": True})
+acase("load_day_flags：檔案不存在 → 空 dict（首班不該爆）",
+      _pp.load_day_flags(_pathlib.Path(_sticky_dir) / "nope.jsonl"), {})
+
+# 這一條就是 07-25 的事故本體：第二班算出來的 backfill/is_new 一律是 False
+# （first_fetch_at 已有值、seen.json 已收錄），若直接寫回檔案，早上標好的存量
+# 標記就被抹掉。carry_day_flags 必須讓**當天第一次**的判定勝出。
+_row_a = {"url_canonical": "https://ex.org/a", "backfill": False, "is_new": False}
+acase("carry_day_flags：同日第二班的 False 不得覆蓋首班的 True（07-25 事故本體）",
+      _pp.carry_day_flags(_row_a, _prior),
+      {"url_canonical": "https://ex.org/a", "backfill": True, "is_new": True})
+# 反方向也要守：sticky 是「沿用首班判定」，不是「一律 True」。首班判 False 的
+# 就該維持 False，否則會把當期新訊號整批誤標成存量，lead_days 與熱度被錯誤排除。
+_row_b = {"url_canonical": "https://ex.org/b", "backfill": False, "is_new": False}
+acase("carry_day_flags：首班判 False 的也沿用 False（不是一律 True）",
+      _pp.carry_day_flags(_row_b, _prior),
+      {"url_canonical": "https://ex.org/b", "backfill": True, "is_new": False})
+# 當日沒看過的項目維持本輪判定——那才是它第一次被看到。第二班抓到的新文章
+# 不能因為「第二班了」就被當成存量。
+_row_new = {"url_canonical": "https://ex.org/zzz", "backfill": False, "is_new": True}
+acase("carry_day_flags：當日沒看過的維持本輪判定（第二班的新料仍算新）",
+      _pp.carry_day_flags(_row_new, _prior),
+      {"url_canonical": "https://ex.org/zzz", "backfill": False, "is_new": True})
+acase("carry_day_flags：prior 為空時原樣返回（首班路徑）",
+      _pp.carry_day_flags({"url": "https://ex.org/q", "backfill": True}, {}),
+      {"url": "https://ex.org/q", "backfill": True})
+# 欄位清單本身要釘住。多加一個欄位進去，看起來只是「順手也沿用一下」，
+# 實際上會讓那個欄位在同日第二班之後永遠停在首班的值——包含 author_kind
+# 這種會被分類器修正改動的欄位。少一個則是直接退回事故狀態。
+acase("DAY_STICKY_FIELDS 維持 (backfill, is_new)：多一個或少一個都會靜默改變語意",
+      list(_pp.DAY_STICKY_FIELDS), ["backfill", "is_new"])
+
 # ------------------------------------------------- robots：抓不到 vs 不准抓
 # 這是 07-24 事故最深的一層。舊版把兩者壓成同一個 False，一次 403 就被存進
 # sources.yaml 變成永久判決，整條 OpenAI 線靜靜關掉。抓取端保守跳過沒問題，
