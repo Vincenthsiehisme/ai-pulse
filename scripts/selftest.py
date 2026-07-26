@@ -372,6 +372,27 @@ _rr.apply_changes(_DOC3, _rr.check(_DOC3))
 acase("重驗：真的驗到了才蓋 robots_checked_at",
       bool(_DOC3["official_sources"][0].get("robots_checked_at")), True)
 
+# 入場券要跟著結論一起動。設定檔的全域不變式是「robots_ok: false 必須附
+# robots_evidence: 200+disallow，而且這一欄只能出現在 false 上」——那兩條斷言
+# 之前只釘住人手寫的設定檔，機器寫回去的那條路沒釘。
+# 2026-07-26 首班 CI 就從那個缺口漏出去：recheck 把 src-media-theregister 寫成
+# false 卻沒附券，兩條全域斷言當場紅，但 CI 不跑 selftest，那一班仍是綠的。
+# closed 的唯一入口是 reason == "disallow"，所以這張券寫的是已經量到的事實。
+_DOC4 = {"official_sources": [{"id": "s4", "lifecycle": "probing",
+                               "robots_ok": True, "endpoint": "https://e.test/f"}]}
+_rr._probe.safe_fetch = lambda u: (200, "User-agent: *\nDisallow: /\n", {})
+_rr.apply_changes(_DOC4, _rr.check(_DOC4))
+acase("重驗：機器寫 robots_ok: false 時必須同時交出 robots_evidence 入場券",
+      (_DOC4["official_sources"][0]["robots_ok"],
+       _DOC4["official_sources"][0].get("robots_evidence")),
+      (False, "200+disallow"))
+_rr._probe.safe_fetch = lambda u: (200, "User-agent: *\nAllow: /\n", {})
+_rr.apply_changes(_DOC4, _rr.check(_DOC4))
+acase("重驗：改判 true 時要撕掉舊入場券（不得拿舊證據替新結論背書）",
+      (_DOC4["official_sources"][0]["robots_ok"],
+       "robots_evidence" in _DOC4["official_sources"][0]),
+      (True, False))
+
 # _looks_like_robots：content-type 是 html 就直接否決，即使 body 湊得出指令字樣。
 acase("robots：content-type html → 不當 robots.txt 看",
       _pp._looks_like_robots("User-agent: *\nDisallow: /admin\n",
@@ -475,9 +496,17 @@ acase("sources.yaml: 媒體線一律 tier 2（報導不是一手，tier 1 是唯
       sorted({s["tier"] for s in _cfg["media_sources"]}), [2])
 acase("sources.yaml: 媒體線一律 can_satisfy_primary: false",
       sorted({bool(s["can_satisfy_primary"]) for s in _cfg["media_sources"]}), [False])
+# 這條的名字一直寫著「**未經證實的** robots_ok: false」，判準卻是「有 false 就紅」——
+# 名字比判準寬，而寬的那一半正是後來全域規則允許的情況（拿得出 200+disallow 入場券）。
+# 寫的時候兩者不衝突，因為當時媒體線的 false 只可能來自本機 403 誤判。
+# 2026-07-26 首班 CI 讓它們分岔：recheck 在真網路環境量到 src-media-theregister
+# 是 200 且明文 Disallow——那是站方政策，全域規則允許，這條卻照紅。
+# 判準對齊名字，不是放寬規則：媒體線一樣不准出現沒有入場券的 false。
 acase("sources.yaml: 沒有任何媒體條目寫著未經證實的 robots_ok: false"
-      "（本機 403 分不出 WAF 擋包與站方政策，寫 false 就是把量測失敗當判決）",
-      [s["id"] for s in _cfg["media_sources"] if s.get("robots_ok") is False], [])
+      "（403 分不出 WAF 擋包與站方政策，沒有 200+disallow 就是把量測失敗當判決）",
+      [s["id"] for s in _cfg["media_sources"]
+       if s.get("robots_ok") is False
+       and s.get("robots_evidence") != "200+disallow"], [])
 
 # 上面兩條只蓋 kol_sources 與 media_sources，官方線是漏的——2026-07-26 的 review
 # 就在 official_sources 找到一條 `robots_ok: false  # …robots.txt 回 403…`，

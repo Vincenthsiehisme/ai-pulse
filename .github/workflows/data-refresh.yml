@@ -172,6 +172,23 @@ jobs:
           path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
+      # 設定檔不變式：機器這一班寫回 _config/ 的東西，還守不守得住規則。
+      #
+      # 為什麼要有這一步：selftest 從來只在人的機器上跑，而這條鏈**會自己改設定檔**
+      # （robots recheck 寫 robots_ok / robots_checked_at、source-health 寫 lifecycle）。
+      # 不變式只釘在人會走的那條路上，機器走的那條沒釘。
+      # 2026-07-26 首班就撞到：recheck 把 src-media-theregister 寫成 robots_ok: false
+      # 卻沒附 robots_evidence 入場券，兩條 selftest 當場紅——但 CI 不跑 selftest，
+      # 那一班仍然全綠，一筆看起來像人手寫死的 false 就這樣進了 main。
+      #
+      # 放在部署之後、if: always()：跟死人開關同一個位階。設定檔壞了要有人知道，
+      # 但不該讓已經生出來的 dist/ 停在門外——網站舊一天，跟網站不見了，不是同一件事。
+      # 0.5 秒，不值得為了省它而讓機器寫壞設定檔沒人發現。
+      - name: Config invariants (selftest)
+        if: always()
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: python scripts/selftest.py
       # 死人開關：放在部署之後，紅燈不擋上線，但會寄失敗通知。
       # 觸發條件＝有事件「未 enrich 且放了 ≥2 天」——那代表半夜潤稿那條鏈連續兩晚沒跑到。
       - name: Health monitor (dead-man's switch)

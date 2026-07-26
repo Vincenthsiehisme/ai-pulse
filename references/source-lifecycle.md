@@ -132,6 +132,20 @@ source_health:
 `false`（讀到 robots.txt 且明文擋住）。第三種是唯一會被寫成永久判決的，所以它必須
 附一欄 `robots_evidence: "200+disallow"`——沒有這張入場券的 `false`，selftest 全域紅。
 
+**這條規則對機器跟對人一視同仁。** `pulse-robots-recheck.py --apply` 寫 `false` 的
+時候必須同時寫上這張入場券；寫 `true` 的時候必須把舊的入場券撕掉（`robots_evidence`
+只能出現在 `false` 的條目上，否則就是拿舊證據替新結論背書）。
+
+2026-07-26 首班 CI 就撞到這件事：recheck 把 `src-media-theregister` 從 null 改成
+`false`（verdict `closed`，也就是 200 + 明文 Disallow，**判斷本身是對的**），但沒有
+寫入場券。兩條 selftest 當場紅——**而 CI 從來沒有跑過 selftest**，所以那一班是綠的，
+一筆看起來像「人手動寫死」的 `false` 就這樣進了 `main`。
+
+值得記下來的是形態，不是欄位：**不變式只釘在人會走的那條路上，機器走的那條沒釘。**
+機器手上明明有證據（只有 `reason == "disallow"` 才走得到 `closed`），只是沒寫下來。
+所以修法不是放寬 selftest，是讓機器也交出入場券，並且把 selftest 掛進 CI ——
+不然機器寫壞設定檔的時候，沒有任何東西會變紅。
+
 這條規則原本只釘在 `kol_sources` 與 `media_sources` 上，`official_sources` 是漏的。
 2026-07-26 的 review 在那裡撈到 `src-consilium-press`：`robots_ok: false`，註解自己
 寫著「robots.txt 回 403」——逐字就是設定檔開頭禁止的那個寫法。它還會自我封印：
