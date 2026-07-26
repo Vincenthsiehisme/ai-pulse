@@ -8,7 +8,7 @@ last_run_day: "2026-07-26"
 run_lag_days: 0
 stale_after_days: 2
 sources_runnable: 27
-items_observed: 558
+items_observed: 559
 events_total: 51
 events_published: 36
 ---
@@ -26,7 +26,7 @@ events_published: 36
 | 層 | 數字 | 這一格不對勁代表什麼 |
 |---|---|---|
 | 收錄 | 27 條可跑來源 | 設定檔現在有幾條會被抓 |
-| 已觀測 | 累計 558 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
+| 已觀測 | 累計 559 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
 | 有效產出 | 51 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
 | 已發布 | 36 則 | 卡在門禁是設計，不是故障 |
 
@@ -42,16 +42,13 @@ events_published: 36
 ## 佇列
 
 - 已上線 **36**／review **14**（待處理 3、設計上擋著 11）／人工判定不追 **1**
-- 未 enrich **3** 則，最久放了 **0** 天
+- 未 enrich **0** 則，最久放了 **0** 天
 - 待處理卡最久 **0** 天（天數＝**進庫**多久，不是新聞發布多久）
 
 | blocker | 則數 |
 |---|---|
 | `stale_backfill` | 11 |
-| `placeholder_content` | 3 |
 | `thin_fact` | 3 |
-| `missing_category` | 3 |
-| `missing_track` | 3 |
 
 ## 覆蓋範圍
 
@@ -62,7 +59,7 @@ events_published: 36
 | OpenAI | 1 | 85 | 10 | 10 | 0d 前 |
 | Anthropic | 1 | 19 | 7 | 6 | 0d 前 |
 | Google DeepMind | 1 | 18 | 3 | 2 | 0d 前 |
-| Google | 1 | 40 | 5 | 3 | 0d 前 |
+| Google | 1 | 39 | 5 | 3 | 0d 前 |
 | Meta | 1 | 15 | 0 | 0 | 0d 前 |
 | Microsoft | 1 | 14 | 0 | 0 | 0d 前 |
 | NVIDIA | 1 | 42 | 15 | 12 | 0d 前 |
@@ -70,7 +67,7 @@ events_published: 36
 | xAI | 1 | 3 | 2 | 2 | 0d 前 |
 | Mistral AI | 1 | 1 | 0 | 0 | 0d 前 |
 | Alibaba | 1 | 0 | 0 | 0 | **從未**（觀察期 2/30d，還沒到門檻，所以不判沉默） |
-| DeepSeek | 0 | 23 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| DeepSeek | 0 | 22 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | Safe Superintelligence | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Thinking Machines Lab | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Cohere | 0 | 2 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
