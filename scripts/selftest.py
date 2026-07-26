@@ -430,6 +430,7 @@ acase("重驗：同樣是 null 但沒有明示旗標 → 不碰（漏填不等�
 # 這幾條測的是「警報會不會在該叫的時候叫、在不該叫的時候閉嘴」。
 # 後者跟前者一樣重要：天天誤叫的警報，三天後就會被人整條關掉。
 import tempfile  # noqa: E402
+import shutil  # noqa: E402
 from datetime import date as _date  # noqa: E402
 from pathlib import Path  # noqa: E402
 
@@ -900,6 +901,121 @@ acase("排程：vault 頁排在 Source health 之後、Commit 之前"
       < _wf.index("Commit & push data changes"), True)
 acase("references/vault-pages.md 存在（這兩頁的規格書，紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "vault-pages.md")), True)
+
+# ─────────── 佇列年紀只能看 ingested_at（2026-07-26 誤報事故的回歸測試）───────────
+# 那天 CI 每兩小時紅一次，訊息是「有事件未 enrich 已放 4 天」。三則事件全是當天
+# 早上 06:41 才進 vault 的——夜間潤稿鏈前一晚根本碰不到它們。原因是年紀算的是
+# happened_at（新聞發布日）。也就是說**每新增一條會補歷史的來源，CI 就立刻紅，
+# 而且沒有自癒路徑**。事故與欄位規格見 references/event-timestamps.md。
+_EVT_FM = ("---\nid: {i}\ntitle: t\ndate: '{d}'\nhappened_at: '{h}T00:00:00+00:00'\n"
+           "{ing}status: review\nblockers: []\ntags: [event]\n---\n\n## 事實\n{body}\n")
+
+
+def _qvault(events):
+    d = tempfile.mkdtemp()
+    v = Path(d)
+    (v / "Events").mkdir()
+    (v / "_corpus" / "2026-07-26").mkdir(parents=True)
+    (v / "_corpus" / "2026-07-26" / "src-x.jsonl").write_text('{"a":1}\n', "utf-8")
+    for i, (hap, ing, body) in enumerate(events):
+        ingline = f"ingested_at: '{ing}T00:00:00+00:00'\n" if ing else ""
+        (v / "Events" / f"evt-{i}.md").write_text(
+            _EVT_FM.format(i=f"evt-{i}", d=hap, h=hap, ing=ingline, body=body), "utf-8")
+    return v
+
+
+_OLD_NEWS = ("2026-07-22", "2026-07-26", "待編輯：一句話")   # 4 天前的新聞，今天才進庫
+_REAL_LAG = ("2026-07-26", "2026-07-22", "待編輯：一句話")   # 今天的新聞，庫裡放了 4 天
+_TODAY26 = _date(2026, 7, 26)
+
+_r_old = _mm.scan(_qvault([_OLD_NEWS]), _TODAY26)
+acase("佇列年紀：4 天前的舊聞今天才進庫 → 0 天"
+      "（新增一條補歷史的來源不該讓死人開關立刻叫）",
+      _r_old["oldest_unenriched_days"], 0)
+
+_r_lag = _mm.scan(_qvault([_REAL_LAG]), _TODAY26)
+acase("佇列年紀：今天的新聞在庫裡放了 4 天沒潤 → 4 天（該叫的還是要叫）",
+      _r_lag["oldest_unenriched_days"], 4)
+
+acase("佇列年紀：卡在 review 的天數也吃 ingested_at，不是 happened_at",
+      [_r_old["oldest_stuck_days"], _r_lag["oldest_stuck_days"]], [0, 4])
+
+# 缺值＝量不到。紅線 8：不拿 happened_at 頂替（那正是要修掉的東西），
+# 但要有數字，否則「回填漏了一半」跟「真的沒有卡件」在報告上長得一模一樣。
+_r_none = _mm.scan(_qvault([("2026-07-01", None, "待編輯：一句話")]), _TODAY26)
+acase("佇列年紀：沒有 ingested_at 的舊 Event 不觸警，但要被數出來",
+      [_r_none["oldest_unenriched_days"], _r_none["undated_review"]], [0, 1])
+
+import inspect as _inspect  # noqa: E402
+acase("pulse-monitor.scan() 不再從 happened_at / date 算佇列年紀"
+      "（改回去的話上面兩條會紅，這條是講清楚改哪裡）",
+      [_s in _inspect.getsource(_mm.scan) for _s in
+       ('_as_date(fm.get("happened_at"))', '_as_date(fm.get("ingested_at"))')],
+      [False, True])
+
+# ingested_at 必須黏住：event_markdown() 會整份重寫 frontmatter，沒被明確帶過去的
+# 欄位會被抹掉——fix/backfill-flag-erased-by-second-run 修的就是這個坑。
+_cs = importlib.util.spec_from_file_location(
+    "pulse_cluster", os.path.join(_HERE, "pulse-cluster.py"))
+_cm = importlib.util.module_from_spec(_cs)
+_cs.loader.exec_module(_cm)
+
+_e = _cm.Event("evt-x", "x", "T", "2026-07-22T00:00:00+00:00")
+_e.ingested_at = "2026-07-26T06:41:46+00:00"
+_e.scores = {"tier_evidence": 1, "independent_sources": 1, "primary_evidence": 1,
+             "confidence": 70, "heat": 10, "impact": 50, "value": 40, "factors": {}}
+_out = _cm.event_markdown(_e)
+acase("pulse-cluster：新 Event 的 frontmatter 有 ingested_at，且與 happened_at 不同值",
+      ["ingested_at: '2026-07-26T06:41:46+00:00'" in _out,
+       "happened_at: '2026-07-22T00:00:00+00:00'" in _out], [True, True])
+
+_e2 = _cm.Event("evt-x", "x", "T", "2026-07-22T00:00:00+00:00")
+_e2.ingested_at = None
+acase("pulse-cluster：ingested_at 沒帶值時寫成空，不會偷偷填成今天",
+      "ingested_at: null" in _cm.event_markdown(
+          type("E", (), {**{k: getattr(_e, k) for k in
+                           ("id", "slug", "title", "happened_at", "fingerprint",
+                            "facet", "company", "keywords", "evidence", "scores")},
+                         "ingested_at": None})()), True)
+
+# M6：只釘寫檔那一端不夠。**建立時忘了塞值**是最惡劣的失敗——每則新 Event 都會
+# 生成 ingested_at: null，警報從此永遠閉嘴，而且看起來一切正常（一個被靜靜關掉的
+# 死人開關比沒有開關更糟）。所以這條走真的 main()，不看原始碼字串。
+_cvault = Path(tempfile.mkdtemp())
+(_cvault / "Events").mkdir()
+(_cvault / "_probe" / "2026-07-26").mkdir(parents=True)
+shutil.copytree(os.path.join(_HERE, "..", "_config"), _cvault / "_config")
+(_cvault / "_probe" / "2026-07-26" / "signals-scored.jsonl").write_text(_json.dumps({
+    "source_id": "src-openai-blog", "effective_role": "primary",
+    "title": "OpenAI announces a thing that does not exist",
+    "url": "https://example.invalid/a", "published": "2026-07-22T00:00:00+00:00",
+    # 這則的重點就在這兩個時間差 4 天：新聞是 07-22 發的，我們 07-26 才看到。
+    "first_observed_at": "2026-07-26T06:41:46+00:00", "total": 90,
+    "entity_hits": ["openai"], "facet": "product", "fingerprint": "openai|thing",
+}) + "\n", "utf-8")
+_argv, _env = sys.argv[:], os.environ.get("VAULT_DIR")
+sys.argv = ["pulse-cluster.py"]
+os.environ["VAULT_DIR"] = str(_cvault)
+try:
+    _cm.main()
+finally:
+    sys.argv = _argv
+    if _env is not None:
+        os.environ["VAULT_DIR"] = _env
+_made = sorted((_cvault / "Events").glob("*.md"))
+_txt = _made[0].read_text("utf-8") if _made else ""
+acase("pulse-cluster 跑完一輪：新建的 Event 真的帶著 probe 第一次看到的時刻"
+      "（忘了塞值＝每則新 Event 都是 null＝死人開關被靜靜關掉）",
+      [len(_made), "ingested_at: '2026-07-26T06:41:46+00:00'" in _txt,
+       "happened_at: '2026-07-22T00:00:00+00:00'" in _txt], [1, True, True])
+
+acase("pulse-cluster：reload 既有 note 時把 ingested_at 讀回物件"
+      "（不讀回去的話，下一次 rescore 整份重寫就抹掉了）",
+      'ev.ingested_at = fm.get("ingested_at")' in open(
+          os.path.join(_HERE, "pulse-cluster.py"), encoding="utf-8").read(), True)
+
+acase("references/event-timestamps.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "event-timestamps.md")), True)
 
 print("offline self-test\n" + "-" * 70)
 fails = 0

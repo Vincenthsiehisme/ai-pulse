@@ -9,6 +9,8 @@
   1. 資料新鮮度：最新 _corpus/<date>/ 是不是今天；最後一次 probe 幾天前
   2. 卡關佇列：status=review 的事件數、最久卡幾天、blocker 分佈
   3. 未 enrich：review 且 body 仍含「待編輯」佔位的（＝ enrich 沒跑到；簡體舊寫法也算）
+     天數一律算 `ingested_at`（進庫多久），不是 `happened_at`（新聞發布多久）——
+     理由與 2026-07-26 的誤報事故見 references/event-timestamps.md。
   4. 敘事鮮度：_probe/narrative-state.json 的簽章數
   5. **覆蓋範圍**：必盯實體多久沒被看見、可跑來源多久沒產出（見下）
 
@@ -252,8 +254,12 @@ def scan(vault, today):
             continue
         if status != "review":
             continue
-        d = _as_date(fm.get("happened_at")) or _as_date(fm.get("date"))
-        age = (today - d).days if d else None
+        # 佇列年紀＝**進我們庫裡多久**，不是新聞發布多久。用 happened_at 的話，
+        # 任何一條會補歷史的新來源，一上線就把整批舊聞灌進來、每則都自帶好幾天大，
+        # 當場撞穿門檻——2026-07-26 的 src-amd-ir 就是這樣讓 CI 每兩小時紅一次。
+        # 完整事故記錄與欄位規格見 references/event-timestamps.md。
+        ing = _as_date(fm.get("ingested_at"))
+        age = (today - ing).days if ing else None
         blockers = list(fm.get("blockers") or [])
         for b in blockers:
             blocker_hist[b] = blocker_hist.get(b, 0) + 1
@@ -266,6 +272,8 @@ def scan(vault, today):
             "id": fm.get("id"),
             "file": p.name,
             "title": (fm.get("title") or "")[:70],
+            # 2026-07-26 之前建的 Event 沒有 ingested_at，這裡就是 None。
+            # 紅線 8：量不到就說量不到，不拿 happened_at 頂替——那正是要修掉的東西。
             "age_days": age,
             "blockers": blockers,
             "unenriched": unenriched_here,
@@ -283,6 +291,9 @@ def scan(vault, today):
 
     actionable = [e for e in review if not e["terminal"]]
     ages = [e["age_days"] for e in actionable if e["age_days"] is not None]
+    # 缺 ingested_at 的舊 Event：不參與任何門檻判斷，但要有數字，
+    # 否則「回填漏了一半」跟「真的沒有卡件」在報告上長得一模一樣。
+    undated = len([e for e in review if e["age_days"] is None])
     # 「還沒 enrich 又放了幾天」＝ enrich 那條鏈根本沒跑到（不是門禁擋，是漏跑）
     stale_unenriched = [e["age_days"] for e in review
                         if e["unenriched"] and e["age_days"] is not None]
@@ -298,6 +309,7 @@ def scan(vault, today):
         "review_unenriched": unenriched,
         "oldest_unenriched_days": max(stale_unenriched) if stale_unenriched else 0,
         "oldest_stuck_days": max(ages) if ages else 0,
+        "undated_review": undated,
         "blocker_hist": dict(sorted(blocker_hist.items(), key=lambda x: -x[1])),
         "tracks_tracked": tracks_tracked,
         "stuck": sorted(actionable, key=lambda e: -(e["age_days"] or 0)),
@@ -424,7 +436,11 @@ def render_health(r, h):
             f"／人工判定不追 **{r['dropped_total']}**",
             f"- 未 enrich **{r['review_unenriched']}** 則，"
             f"最久放了 **{r['oldest_unenriched_days']}** 天",
-            f"- 待處理卡最久 **{r['oldest_stuck_days']}** 天", ""]
+            f"- 待處理卡最久 **{r['oldest_stuck_days']}** 天"
+            f"（天數＝**進庫**多久，不是新聞發布多久）", ""]
+    if r.get("undated_review"):
+        out += [f"- ⚠ 其中 **{r['undated_review']}** 則沒有 `ingested_at`"
+                "（2026-07-26 之前建的），年紀量不到，不參與任何門檻判斷。", ""]
     if r["blocker_hist"]:
         out += ["| blocker | 則數 |", "|---|---|"]
         out += [f"| `{b}` | {n} |" for b, n in r["blocker_hist"].items()]
@@ -512,7 +528,11 @@ def main():
         print(f"  最後一次 probe: {r['last_probe_date']}（{lag} 天前）{lag_flag}")
         print(f"  已上線={r['published_total']}  review={r['review_total']}"
               f"（待處理={r['review_actionable']}／設計上擋著={r['review_terminal']}）"
-              f"  未 enrich={r['review_unenriched']}  待處理最久={r['oldest_stuck_days']} 天")
+              f"  未 enrich={r['review_unenriched']}  待處理最久={r['oldest_stuck_days']} 天"
+              f"（進庫天數）")
+        if r.get("undated_review"):
+            print(f"  ⚠ 其中 {r['undated_review']} 則無 ingested_at（舊資料），"
+                  f"年紀量不到，不觸警")
         if r["dropped_total"]:
             print(f"  人工判定不追={r['dropped_total']}（理由見 _dashboards/dropped.md）")
         if r["blocker_hist"]:
@@ -569,11 +589,12 @@ def main():
               file=sys.stderr)
         rc = 1
     if args.alert_unenriched_days and r["oldest_unenriched_days"] >= args.alert_unenriched_days:
-        print(f"[alert] 有事件未 enrich 已放 {r['oldest_unenriched_days']} 天"
+        print(f"[alert] 有事件未 enrich 已在庫裡放 {r['oldest_unenriched_days']} 天"
               f"（門檻 {args.alert_unenriched_days}）——夜間潤稿那條鏈可能沒跑到", file=sys.stderr)
         rc = 1
     if args.alert_days and r["oldest_stuck_days"] >= args.alert_days:
-        print(f"[alert] 有事件卡在 review 已 {r['oldest_stuck_days']} 天（門檻 {args.alert_days}）",
+        print(f"[alert] 有事件卡在 review 已在庫裡放 {r['oldest_stuck_days']} 天"
+              f"（門檻 {args.alert_days}）",
               file=sys.stderr)
         rc = 1
     return rc

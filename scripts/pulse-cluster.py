@@ -108,6 +108,9 @@ class Event:
         self.enriched = False   # 已 enrich（3c）→ 重寫時只更新 frontmatter 分數，不動 prose body
         self.orig_body = None   # reload 時保存的原 body（enriched 時用來保留潤好的 prose）
         self.fm = None          # reload 時保存的完整 frontmatter
+        # 這則 Event **進到我們庫裡**的時刻，跟 happened_at（外面世界發生的時刻）
+        # 是兩件事。寫一次就不再動；規格見 references/event-timestamps.md。
+        self.ingested_at = None
 
     def add_evidence(self, source_id, url, title, relevance):
         if any(e["source_id"] == source_id and e["url"] == url for e in self.evidence):
@@ -154,6 +157,9 @@ def event_markdown(ev):
         "title": ev.title,
         "date": date_str,
         "happened_at": hd.isoformat() if hd else ev.happened_at,
+        # 監控佇列年紀只能看這個。拿 happened_at 去量「我們放了多久」，
+        # 等於新增一條會補歷史的來源就讓 CI 立刻紅——2026-07-26 就是這樣紅的。
+        "ingested_at": ev.ingested_at,
         "status": "review",
         "category": None,          # enrich 填
         "company": ev.company,
@@ -249,6 +255,9 @@ def main():
             ev.company = fm.get("company", "industry")
             ev.keywords = fm.get("keywords", [])
             ev.enriched = bool(fm.get("enriched"))   # 3c 已潤 → 重寫時保 prose
+            # sticky：event_markdown() 會整份重寫 frontmatter，沒帶過去的欄位
+            # 會被抹掉（fix/backfill-flag-erased-by-second-run 修的就是這個坑）。
+            ev.ingested_at = fm.get("ingested_at")
             ev.orig_body = body
             ev.fm = fm
             for e in (fm.get("evidence") or []):
@@ -286,6 +295,8 @@ def main():
             else:
                 slug = f"{slugify(title)}-{h[:4]}"
                 ev = Event(eid, slug, title, published, fp, sig.get("facet"))
+                # 建立這則 Event 的那個訊號，probe 是什麼時候第一次看到它的。
+                ev.ingested_at = sig.get("first_observed_at")
                 ev.company = infer_company(sig.get("entity_hits"), entities)
                 # 曾經是 list(cluster.title_tokens(title))[:8]，那是 set → 順序隨機，
                 # 同一個標題每跑一次就換一組關鍵詞。理由與實測見 lib/cluster.py。
