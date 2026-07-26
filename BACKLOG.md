@@ -52,7 +52,7 @@
 | P2 | ~~heat 印出一個沒量過的數字~~ **已併（PR #7）** | 會（selftest 286 + M21–M25） | 否（改成 null 了） |
 | P2.5 | ~~`narratives.yaml` 有依那個假數字寫成的句子~~ **已改，在 `fix/narrative-drops-the-fake-heat` 上** | 會（selftest 312 + M26–M28） | 否（兩句都重寫了） |
 | P3 | ~~變異盤點已做成工具，但也還沒併~~ **已併** | 會（`main` 上 25 條全殺） | 否 |
-| P4 | 12 個未接線的 gate key | 不會（已標記） | 已止血 |
+| P4 | 未接線的 gate key（清單本身**已改成機械列舉**，在 `fix/gate-keys-unmarked` 上；接線的工還在） | 不會（已標記，且漏標會紅） | 部分（止血補強，本體未修） |
 | P5 | 三條「可跑但零產出」的來源 | 不會 | — |
 | P6 | 20 家 pending 覆蓋盲點 | 刻意不會 | 否（誠實掛著） |
 | P7 | people layer 第三步 | 不會 | — |
@@ -285,10 +285,41 @@ selftest 那一端只做 0.5 秒的鮮度檢查（針腳還在不在），慢的
 
 ---
 
-## P4 — `gate.yaml` 還有 12 個 key 沒有任何程式碼讀它
+## P4 — `gate.yaml` 有一批 key 沒有任何程式碼讀它
 
-`docs/gate-unconsumed`（已併）把它們全部標成 `⚠ 未接線`，並用 selftest 釘住標記，
+`docs/gate-unconsumed`（已併）把它們標成 `⚠ 未接線`，並用 selftest 釘住標記，
 所以**現在不會再騙人了**——這也是它排在這裡而不是更前面的理由。標記不等於修好：
+
+### 動手之前先發現：那張清單自己是手寫的（2026-07-26 傍晚，`fix/gate-keys-unmarked`）
+
+上面標題原本寫「12 個」，而那個 12 是**手工數的**；`selftest.py` 也是拿一份手寫的
+12 個名字去比對。手工清單只擋得住一個方向：「標了未接線、後來卻接上了」。反方向
+——**有人新增一個沒接線的 key 而忘了標**——上一版誠實寫了「測不到」，然後就沒有
+再管它。**誠實地記下一個洞不會把洞補起來。**
+
+把 55 個 leaf key 全部機械列舉出來比對，當場掉出兩個從來沒進過那張清單的：
+
+- **`quality.weights` 整塊**（authority 25 / richness 25 / freshness 20 /
+  originality 15 / completeness 15）。五個數字、總和剛好 100、名字對得上五個維度
+  ——**這是整個檔案裡最像旋鈕的東西**。五個上限全部硬寫在 `lib/quality.py` 的五支
+  函式裡（`min(25, …)` / `min(15, …)` / `_freshness()` 的階梯），沒有任何一行碼讀
+  `weights`；`quality.py` 的 docstring 還寫著「各自上限見 gate.yaml.quality.weights」，
+  指向一組沒有人讀的數字。**這一條的待辦跟下面那些一樣：接上去或刪掉。**
+- **`readiness.require_primary_evidence`**。這一個相反：它**不該**被接上。接線只要
+  一行，而那一行會讓 `gate.yaml` 多一個能關掉紅線 2 唯一執法點的開關，然後 selftest
+  全綠——因為每一條測試都是拿預設值跑的。假開關的傷害是有人改了它、發現沒效果、
+  開始不信任這個檔案；真開關的傷害是有人改了它、**很有效果**。所以新增第三類
+  **「C. 刻意不接」**，跟「A. 未接線（待接）」分開列：混在一起，下一個人會很熱心地
+  幫我們接上。
+
+現在的規矩：**列舉是機械的，標記是人寫的，測試比對兩者。** 每一個 leaf 都要被
+`⚠ …未接線` 或 `消費者：<路徑>` 涵蓋（自己那一行或任何一層祖先），兩種都沒有就紅。
+判準在 `scripts/lib/gate_keys.py`，它不保證什麼寫在
+`references/gate-config-status.md` 最後一節。分支上量到的：selftest **322/322**、
+變異 **32 條全殺、0 存活**——其中 M30 第一輪存活，逼出一條「只比對 path 所以恆真」
+的空測試（`0b4efaa` 之後的那個 commit）。
+
+**還沒做的仍然是接線本身**，下面每一條都還在：
 
 - **`dedup:` 整塊未接線**（`minhash_jaccard: 0.80`、`ngram: 4`、
   `event_window_hours: 72`）。真正在跑的是 `lib/cluster.py` 裡硬寫的 token-Jaccard
@@ -306,6 +337,8 @@ selftest 那一端只做 0.5 秒的鮮度檢查（針腳還在不在），慢的
   裡唯一有前置關係的一條。
 - `quality.freshness_full_hours` / `freshness_zero_days` 未接線（實際是
   `lib/quality.py:_freshness()` 的硬寫階梯）。
+- **`quality.weights` 整塊未接線**（見上）。要真的能調，得把 `lib/quality.py` 的
+  五支函式改成讀這裡；在那之前它是一組會誤導人的正常數字。
 
 ---
 
