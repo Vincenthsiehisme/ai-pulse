@@ -53,11 +53,20 @@ TERMINAL_BLOCKERS = {"stale_backfill"}
 
 
 def _as_date(v):
+    """字串 → **UTC** 日期。
+
+    帶時區的值要先歸零到 UTC 再取 `date()`。`2026-07-22T02:00:00+08:00` 的
+    `.date()` 是 07-22，但那個瞬間的 UTC 日期是 07-21，而所有拿來相減的
+    `today` 都是 `datetime.now(timezone.utc).date()`。兩個不同時區的日期相減
+    可以差一天，而一天在 `stale_after_days: 2` 上就是叫與不叫的差別。
+    不帶時區的值視為 UTC（既有語意，不改）。見 references/health-alarms.md。
+    """
     if not v:
         return None
     s = str(v).replace("Z", "+00:00")
     try:
-        return datetime.fromisoformat(s).date()
+        dt = datetime.fromisoformat(s)
+        return dt.astimezone(timezone.utc).date() if dt.tzinfo else dt.date()
     except ValueError:
         pass
     try:
@@ -280,9 +289,9 @@ def scan(vault, today):
             "terminal": terminal,
         })
 
-    # 資料新鮮度
-    corpus = vault / "_corpus"
-    days = sorted([d.name for d in corpus.iterdir() if d.is_dir()]) if corpus.exists() else []
+    # 資料新鮮度。走 lib/corpus 的判準（合法日期名 + 目錄裡真的有非空白 jsonl 行），
+    # 不要在這裡自己 iterdir——同一個問題兩把尺，遲早量出兩個答案。
+    days = _corpus.corpus_days(vault)
     last_probe = _as_date(days[-1]) if days else None
     probe_lag = (today - last_probe).days if last_probe else None
 
@@ -297,6 +306,11 @@ def scan(vault, today):
     # 「還沒 enrich 又放了幾天」＝ enrich 那條鏈根本沒跑到（不是門禁擋，是漏跑）
     stale_unenriched = [e["age_days"] for e in review
                         if e["unenriched"] and e["age_days"] is not None]
+    # 未潤稿 **又量不到年紀** 的那幾則要單獨算。全部未潤稿的都缺 ingested_at 時，
+    # 上面那個 list 會空掉，`max(...) if ... else 0` 回退成 0，而 0 低於任何門檻
+    # ——死人開關就這樣把自己關掉了。量不到不是沒事（紅線 8）。
+    undated_unenriched = len([e for e in review
+                              if e["unenriched"] and e["age_days"] is None])
     return {
         "date": today.isoformat(),
         "last_probe_date": last_probe.isoformat() if last_probe else None,
@@ -310,6 +324,7 @@ def scan(vault, today):
         "oldest_unenriched_days": max(stale_unenriched) if stale_unenriched else 0,
         "oldest_stuck_days": max(ages) if ages else 0,
         "undated_review": undated,
+        "unenriched_undated": undated_unenriched,
         "blocker_hist": dict(sorted(blocker_hist.items(), key=lambda x: -x[1])),
         "tracks_tracked": tracks_tracked,
         "stuck": sorted(actionable, key=lambda e: -(e["age_days"] or 0)),
@@ -353,16 +368,21 @@ def health(vault: Path, today, r, stale_after_days: int):
                       if v.get("degraded_by") == "health")
     quarantine = sorted(hjson.get("quarantine_candidates") or [])
 
+    # lag 是負數＝最新的語料目錄寫在未來，時鐘壞了。原本 `-4 >= 2` 為假 → 綠燈，
+    # 而且時間往前走只會更綠，這個洞不會自癒。判紅，訊息跟「太久沒抓到」分開：
+    # 一個是鏈瞎了，一個是日期寫錯而資料可能是好的，找的方向完全不同。
+    future = item_lag is not None and item_lag < 0
     # 紅燈只綁在「多久沒抓到東西」上。run_lag 另外印但不判燈：鏈沒跑的時候
     # 這支腳本自己也不會被叫到，健康頁會停在舊日期——那才是它的死人開關。
     stale = item_lag is None or item_lag >= stale_after_days
     return {
+        "clock_skew": future,
         "last_run_day": last_run,
         "run_lag_days": run_lag,
         "last_success": last_item,      # 部署文件裡講的就是這個欄位
         "probe_lag_days": item_lag,
         "stale_after_days": stale_after_days,
-        "status": "red" if stale else "green",
+        "status": "red" if (stale or future) else "green",
         "items_total": sum(counts.values()),
         "sources_with_items": len([k for k, v in counts.items() if v]),
         "degraded_by_health": degraded,
@@ -441,6 +461,10 @@ def render_health(r, h):
     if r.get("undated_review"):
         out += [f"- ⚠ 其中 **{r['undated_review']}** 則沒有 `ingested_at`"
                 "（2026-07-26 之前建的），年紀量不到，不參與任何門檻判斷。", ""]
+    if r.get("unenriched_undated"):
+        out += [f"- 🔴 其中 **{r['unenriched_undated']}** 則**既未 enrich 又量不到年紀**"
+                "——這種會直接觸警，不會被當成「放了 0 天」"
+                "（見 references/health-alarms.md）。", ""]
     if r["blocker_hist"]:
         out += ["| blocker | 則數 |", "|---|---|"]
         out += [f"| `{b}` | {n} |" for b, n in r["blocker_hist"].items()]
@@ -533,6 +557,9 @@ def main():
         if r.get("undated_review"):
             print(f"  ⚠ 其中 {r['undated_review']} 則無 ingested_at（舊資料），"
                   f"年紀量不到，不觸警")
+        if r.get("unenriched_undated"):
+            print(f"  🔴 其中 {r['unenriched_undated']} 則既未 enrich 又無 ingested_at"
+                  f"——量不到不等於沒事，會觸警")
         if r["dropped_total"]:
             print(f"  人工判定不追={r['dropped_total']}（理由見 _dashboards/dropped.md）")
         if r["blocker_hist"]:
@@ -567,11 +594,19 @@ def main():
     rc = 0
     cv = r["coverage"]
     if args.alert_stale and h["status"] == "red":
-        lag = "從來沒有" if h["probe_lag_days"] is None else f"已 {h['probe_lag_days']} 天沒"
-        print(f"[alert] {lag}抓到任何項目（門檻 monitor.stale_after_days="
-              f"{h['stale_after_days']}）——最後一次跑班 {h['last_run_day'] or '從未'}，"
-              "跑班日期是今天而這裡紅了，代表鏈在跑但每條來源都沒東西進來",
-              file=sys.stderr)
+        if h.get("clock_skew"):
+            # 成因跟「太久沒抓到」完全不同，訊息不能共用：這裡資料可能是好的，
+            # 壞的是日期。共用訊息會讓人往「來源全死了」的方向找一整晚。
+            print(f"[alert] 最新的語料目錄 `_corpus/{h['last_success']}/` 是未來日期"
+                  f"（今天 {r['date']}，lag={h['probe_lag_days']} 天）——時鐘或寫入端"
+                  "的日期壞了。這個狀態不會自癒：日期在未來，新鮮度永遠算成綠燈",
+                  file=sys.stderr)
+        else:
+            lag = "從來沒有" if h["probe_lag_days"] is None else f"已 {h['probe_lag_days']} 天沒"
+            print(f"[alert] {lag}抓到任何項目（門檻 monitor.stale_after_days="
+                  f"{h['stale_after_days']}）——最後一次跑班 {h['last_run_day'] or '從未'}，"
+                  "跑班日期是今天而這裡紅了，代表鏈在跑但每條來源都沒東西進來",
+                  file=sys.stderr)
         rc = 1
     if args.alert_coverage:
         gone = [w["label"] for w in cv["must_watch"] if w["reason"] == "no_source"
@@ -588,10 +623,20 @@ def main():
         print(f"[alert] 尚無來源的必盯實體（含 pending）：{'、'.join(cv['no_source'])}",
               file=sys.stderr)
         rc = 1
-    if args.alert_unenriched_days and r["oldest_unenriched_days"] >= args.alert_unenriched_days:
-        print(f"[alert] 有事件未 enrich 已在庫裡放 {r['oldest_unenriched_days']} 天"
-              f"（門檻 {args.alert_unenriched_days}）——夜間潤稿那條鏈可能沒跑到", file=sys.stderr)
-        rc = 1
+    if args.alert_unenriched_days:
+        if r["oldest_unenriched_days"] >= args.alert_unenriched_days:
+            print(f"[alert] 有事件未 enrich 已在庫裡放 {r['oldest_unenriched_days']} 天"
+                  f"（門檻 {args.alert_unenriched_days}）——夜間潤稿那條鏈可能沒跑到",
+                  file=sys.stderr)
+            rc = 1
+        # 量不到年紀不等於年紀是 0（紅線 8）。這幾則被上面那個 max() 濾掉，
+        # 全部未潤稿都缺 ingested_at 時它會回退成 0，開關就自己閉嘴了。
+        # 沒有天數可以跟門檻比，所以只要開了這個旗標、數字大於 0 就叫。
+        if r.get("unenriched_undated"):
+            print(f"[alert] 有 {r['unenriched_undated']} 則未 enrich 的事件缺 "
+                  "`ingested_at`，放多久**量不到**——不是放了 0 天。"
+                  "先把 ingested_at 補上，這個死人開關才量得到東西", file=sys.stderr)
+            rc = 1
     if args.alert_days and r["oldest_stuck_days"] >= args.alert_days:
         print(f"[alert] 有事件卡在 review 已在庫裡放 {r['oldest_stuck_days']} 天"
               f"（門檻 {args.alert_days}）",

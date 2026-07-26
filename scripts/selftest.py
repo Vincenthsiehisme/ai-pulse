@@ -943,8 +943,11 @@ with tempfile.TemporaryDirectory() as _d3:
           [_cnt["s1"], _last["s1"]], [3, "2026-07-02"])
 
     # 兩條時間軸：跑了班但沒抓到東西的那天，只會出現在 _probe/ 不會出現在 _corpus/。
+    # report.md 是「這班真的跑完了」的判準（見 references/health-alarms.md）——
+    # 光有目錄不算，目錄是開跑前就建好的。
     for _day in ("2026-07-01", "2026-07-02", "2026-07-03"):
         (_v3 / "_probe" / _day).mkdir(parents=True)
+        (_v3 / "_probe" / _day / "report.md").write_text("# x\n", encoding="utf-8")
     acase("健康頁：跑班日曆與語料日曆分開數"
           "（07-03 有跑班但零產出——只看 _corpus/ 會把它誤判成鏈死了）",
           [_corpuslib.run_days(_v3)[-1], _corpuslib.corpus_days(_v3)[-1]],
@@ -972,6 +975,67 @@ with tempfile.TemporaryDirectory() as _d3:
           bool(_re.search(r"\d{2}:\d{2}", _md)), False)
     acase("健康頁：門檻值印在頁面上，讀的人不必回去翻 gate.yaml",
           "stale_after_days: 2" in _md, True)
+
+# ───────────── 警報自己把自己關掉（2026-07-26 code review）─────────────
+# 規格：references/health-alarms.md。這一組全部是「代理指標比事實寬鬆」的形態：
+# 目錄名代理「那天有語料」。三種情況真相都是「6 天沒抓到任何東西」，修之前全是綠燈，
+# 其中未來日期那個還**永遠**是綠的（lag 越來越負，`>= 門檻` 永遠為假），不會自癒。
+with tempfile.TemporaryDirectory() as _d4:
+    _T4 = _date(2026, 7, 26)
+    _R4 = {"date": "2026-07-26"}
+
+    def _v4(days, _root=_d4):
+        v = Path(_root) / f"v{len(list(Path(_root).iterdir()))}"
+        (v / "_probe" / "2026-07-20").mkdir(parents=True)
+        (v / "_probe" / "2026-07-20" / "report.md").write_text("# x\n", "utf-8")
+        for _name, _body in days.items():
+            (v / "_corpus" / _name).mkdir(parents=True)
+            if _body is not None:
+                (v / "_corpus" / _name / "src-a.jsonl").write_text(_body, "utf-8")
+        return v
+
+    _GOOD = '{"a":1}\n'
+    _h_empty = _mm.health(_v4({"2026-07-20": _GOOD, "2026-07-26": None}), _T4, _R4, 2)
+    acase("死人開關：空的 _corpus/<今天>/ 不算「今天有語料」"
+          "（目錄是開跑前就建的，建了目錄卻沒寫進東西＝那天什麼都沒抓到）",
+          [_h_empty["last_success"], _h_empty["probe_lag_days"], _h_empty["status"]],
+          ["2026-07-20", 6, "red"])
+    _h_blank = _mm.health(_v4({"2026-07-20": _GOOD, "2026-07-26": "\n  \n"}), _T4, _R4, 2)
+    acase("死人開關：只有空白行的 jsonl 不算語料（跟 observed() 用同一把尺）",
+          [_h_blank["last_success"], _h_blank["status"]], ["2026-07-20", "red"])
+    _h_fake = _mm.health(_v4({"2026-07-20": _GOOD, "2026-13-99": _GOOD}), _T4, _R4, 2)
+    acase("死人開關：`2026-13-99` 不是日期，不能當成語料日曆的最後一天"
+          "（舊判準只看長度 10＋第 5 字是 `-`，假日期會被印到健康頁上）",
+          [_h_fake["last_success"], _h_fake["status"]], ["2026-07-20", "red"])
+    _h_fut = _mm.health(_v4({"2026-07-20": _GOOD, "2026-07-30": _GOOD}), _T4, _R4, 2)
+    acase("死人開關：未來日期的語料目錄判紅、而且跟「太久沒抓到」分開報"
+          "（`-4 >= 2` 為假＝綠燈，時間往前走只會更綠，這個洞不會自癒）",
+          [_h_fut["probe_lag_days"], _h_fut["status"], _h_fut["clock_skew"]],
+          [-4, "red", True])
+    acase("死人開關：正常的 lag 不會被誤判成時鐘壞掉",
+          _h_empty["clock_skew"], False)
+
+    _v_norep = Path(_d4) / "norep"
+    (_v_norep / "_probe" / "2026-07-26").mkdir(parents=True)
+    (_v_norep / "_corpus").mkdir(parents=True)
+    acase("死人開關：沒寫出 report.md 的 _probe/<day>/ 不算跑過班"
+          "（判準是報告寫出來了，不是目錄建起來了）",
+          _corpuslib.run_days(_v_norep), [])
+
+# 時區：兩個不同時區的日期相減可以差一天，而一天在 stale_after_days: 2 上
+# 就是叫與不叫的差別。today 一律是 UTC，所以 _as_date 也必須歸零到 UTC。
+acase("時區：帶偏移量的時間先歸零到 UTC 再取日期"
+      "（+08:00 的 02:00 其實是前一天的 UTC；不歸零＝新鮮度差一天）",
+      [_mm._as_date("2026-07-22T02:00:00+08:00").isoformat(),
+       _mm._as_date("2026-07-21T20:00:00-08:00").isoformat()],
+      ["2026-07-21", "2026-07-22"])
+acase("時區：沒有偏移量的值維持既有語意（視為 UTC，不做任何位移）",
+      [_mm._as_date("2026-07-22").isoformat(),
+       _mm._as_date("2026-07-22T02:00:00Z").isoformat(),
+       _mm._as_date("2026-07-22T02:00:00").isoformat()],
+      ["2026-07-22", "2026-07-22", "2026-07-22"])
+acase("references/health-alarms.md 存在（這一層的規格書，紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "health-alarms.md")), True)
 
 # 兩支都必須真的被排進 workflow，否則只是把「寫好了但沒人叫它」搬個地方。
 acase("排程：data-refresh.yml 真的會跑 pulse-source-notes.py 與 --write-health",
@@ -1026,10 +1090,24 @@ acase("佇列年紀：卡在 review 的天數也吃 ingested_at，不是 happene
 # 缺值＝量不到。紅線 8：不拿 happened_at 頂替（那正是要修掉的東西），
 # 但要有數字，否則「回填漏了一半」跟「真的沒有卡件」在報告上長得一模一樣。
 _r_none = _mm.scan(_qvault([("2026-07-01", None, "待編輯：一句話")]), _TODAY26)
-acase("佇列年紀：沒有 ingested_at 的舊 Event 不觸警，但要被數出來",
+acase("佇列年紀：沒有 ingested_at 的 Event 不拿 happened_at 頂替，年紀留 0，但要被數出來",
       [_r_none["oldest_unenriched_days"], _r_none["undated_review"]], [0, 1])
-
+# ……而「年紀留 0」不可以連帶把警報也關掉。全部未潤稿的都缺 ingested_at 時，
+# oldest_unenriched_days 的 max() 沒東西可算會回退成 0，0 低於任何門檻＝安靜。
+# 這一格就是 2026-07-26 review 抓到的「警報自己把自己關掉」，見 health-alarms.md。
 import inspect as _inspect  # noqa: E402
+acase("死人開關：未潤稿又量不到年紀的 Event 自己就是一則警報"
+      "（不是「放了 0 天」——量不到不等於沒事，紅線 8）",
+      _r_none["unenriched_undated"], 1)
+acase("死人開關：量得到年紀的未潤稿 Event 不會被重複算進「量不到」那一格",
+      [_r_lag["unenriched_undated"], _r_lag["oldest_unenriched_days"]], [0, 4])
+acase("死人開關：--alert-unenriched-days 的觸發條件同時吃兩個數字"
+      "（只看 oldest_unenriched_days 的話，缺 ingested_at 就等於靜音）",
+      [_s in _inspect.getsource(_mm.main) for _s in
+       ('r["oldest_unenriched_days"] >= args.alert_unenriched_days',
+        'r.get("unenriched_undated")')],
+      [True, True])
+
 acase("pulse-monitor.scan() 不再從 happened_at / date 算佇列年紀"
       "（改回去的話上面兩條會紅，這條是講清楚改哪裡）",
       [_s in _inspect.getsource(_mm.scan) for _s in

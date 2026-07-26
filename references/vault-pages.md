@@ -75,9 +75,13 @@ VAULT_DIR=... python scripts/pulse-source-notes.py --prune   # 一併移除孤�
 
 ```
 status = red  if  今天 − last_success ≥ monitor.stale_after_days   （gate.yaml）
+             or  今天 − last_success < 0                           （時鐘壞了）
 ```
 
-`last_success` ＝ `_corpus/` 裡最後一個有語料的日子。
+`last_success` ＝ `_corpus/` 裡最後一個**有語料**的日子。「有語料」的判準是
+目錄裡至少有一行非空白的 `.jsonl`，而且目錄名要是真的日期——**光有目錄不算**。
+負的 lag 也判紅，而且訊息跟「太久沒抓到」分開。這兩條規則跟它們各自要防的
+「警報自己把自己關掉」的形態，寫在 `references/health-alarms.md`。
 
 ### 兩條時間軸為什麼要分開
 
