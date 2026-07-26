@@ -196,5 +196,8 @@ jobs:
           # --alert-stale：吃 gate.yaml 的 monitor.stale_after_days，判的是
           # 「幾天沒抓到任何項目」。排程整個死掉的那一種，靠的是 health.md 的
           # generated_day 停住不動——兩件事分開判，見 references/vault-pages.md。
+          # --alert-unenriched-days 有兩個觸發條件，不只天數那一個：未潤稿又缺
+          # ingested_at 的事件是「量不到年紀」，本身就算警報（紅線 8）。只看天數的話，
+          # 缺欄位會讓 max() 回退成 0，開關自己閉嘴——見 references/health-alarms.md。
           python scripts/pulse-monitor.py \
             --alert-unenriched-days 2 --alert-coverage --alert-stale > /dev/null
