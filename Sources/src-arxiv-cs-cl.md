@@ -17,7 +17,7 @@ endpoint: "http://export.arxiv.org/rss/cs.CL"
 robots_checked_day: "2026-07-26"
 first_fetch_at:
 last_observed_day:
-items_observed: 0
+items_observed:
 events_bound: 0
 events_published: 0
 health_score: 100
@@ -33,10 +33,12 @@ last_status: "skipped_lifecycle"
 
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
-| 收錄 | `dormant` | **不會被抓** |
-| 已觀測 | 0 筆 | 抓不到，或站方那陣子沒發東西 |
+| 收錄 | `dormant` | **不會被抓**：lifecycle 不在 active / degraded / probing |
+| 已觀測 | **尚未抓取過** | 我們對它的產出量一無所知 |
 | 有效產出 | 0 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 0 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+
+> 這條來源**從來沒有成功抓取過一次**（`_probe/state.json` 沒有它的 `first_fetch_at`）。所以上面那格是**量不到**，不是量到 0——我們對它的產出量一無所知。（紅線 8）上一班的狀態是 `skipped_lifecycle`。
 
 > 媒體集團：**arXiv**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 
