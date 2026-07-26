@@ -1264,6 +1264,96 @@ acase("pulse-cluster：reload 既有 note 時把 ingested_at 讀回物件"
 acase("references/event-timestamps.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "event-timestamps.md")), True)
 
+# ── 原子寫入：規格 references/atomic-writes.md ───────────────────────────────
+# 這一區釘的不是「檔案不會壞」，是「壞掉的檔案不會被當成好的讀回去」。
+# 實測過的最壞情況：y.dump 寫 sources.yaml 到第 0.012 秒被 SIGKILL，留下 17,777
+# bytes 的**合法 YAML**，四個 *_sources: 分節整段不見，safe_load 不報錯，
+# continue-on-error 讓 job 照樣 exit 0，git add -A 把它 commit 上去。
+import shutil as _shutil_aw  # noqa: E402
+import tempfile as _tf_aw  # noqa: E402
+
+sys.path.insert(0, _HERE)
+from lib.atomicwrite import atomic_write_text, atomic_write_with  # noqa: E402
+
+_awdir = _tf_aw.mkdtemp(prefix="aw-")
+_awp = os.path.join(_awdir, "sources.yaml")
+with open(_awp, "w", encoding="utf-8") as _f:
+    _f.write("official_sources:\n  - id: src-a\n")
+_orig_aw = open(_awp, encoding="utf-8").read()
+
+
+def _half_then_die(fh):
+    fh.write("official_sources:\n")   # 半份：合法 YAML，但來源全沒了
+    raise RuntimeError("SIGKILL 的替身")
+
+
+try:
+    atomic_write_with(_awp, _half_then_die)
+except RuntimeError:
+    pass
+_after_aw = open(_awp, encoding="utf-8").read()
+_leftovers = [n for n in os.listdir(_awdir) if n != "sources.yaml"]
+
+acase("atomicwrite：寫到一半炸掉 → 目標檔一個位元組都沒動"
+      "（舊寫法會留下一份讀得起來、但四個分節都不見的合法 YAML）",
+      [_after_aw == _orig_aw, "official_sources:\n  - id: src-a\n" == _after_aw],
+      [True, True])
+acase("atomicwrite：失敗路徑不留暫存檔（留著的話 git add -A 會把半份 commit 上去）",
+      _leftovers, [])
+
+atomic_write_text(_awp, "official_sources:\n  - id: src-b\n")
+acase("atomicwrite：正常路徑真的寫進去了",
+      open(_awp, encoding="utf-8").read(), "official_sources:\n  - id: src-b\n")
+
+_awnest = os.path.join(_awdir, "a", "b", "c.json")
+atomic_write_text(_awnest, "{}")
+acase("atomicwrite：目標目錄不存在時會自己建（取代了呼叫端原本的 mkdir）",
+      [os.path.isfile(_awnest), open(_awnest, encoding="utf-8").read()], [True, "{}"])
+
+# 暫存檔必須跟目標同目錄：os.replace() 只有在同一個檔案系統上才是原子的。
+# 丟去 /tmp 再搬過來就退化成「複製＋截斷」，等於這一整層白做。
+_seen_dirs = []
+_real_replace_aw = os.replace
+
+
+def _spy_replace(a, b):
+    _seen_dirs.append((os.path.dirname(str(a)), os.path.dirname(str(b))))
+    return _real_replace_aw(a, b)
+
+
+os.replace = _spy_replace
+try:
+    atomic_write_text(_awp, "official_sources: []\n")
+finally:
+    os.replace = _real_replace_aw
+acase("atomicwrite：暫存檔與目標同目錄（跨檔案系統的 rename 不是原子的）",
+      [d[0] == d[1] for d in _seen_dirs], [True])
+_shutil_aw.rmtree(_awdir, ignore_errors=True)
+
+# 回歸釘：這六個檔是「下一班會讀回來」的狀態檔，任何一個退回直接寫都要紅。
+# 判準寫在 references/atomic-writes.md：不是重不重要，是壞掉之後會不會被當成
+# 事實讀回去。dist/ 與 _probe/<day>/report.md 刻意不在此列。
+_aw_pins = [
+    ("pulse-source-health.py", "atomic_write_with(spath", "_config/sources.yaml"),
+    ("pulse-source-health.py", "atomic_write_text(hpath", "_probe/source-health.json"),
+    ("pulse-robots-recheck.py", "atomic_write_with(path", "_config/sources.yaml"),
+    ("pulse-probe.py", "atomic_write_text(state_path", "_probe/state.json"),
+    ("pulse-probe.py", "atomic_write_text(seen_path", "_probe/seen.json"),
+    ("pulse-probe.py", "atomic_write_text(hb,", "heartbeat.json"),
+    ("pulse-monitor.py", "atomic_write_text(p, body)", "_dashboards/health.md"),
+]
+for _fn, _needle, _target in _aw_pins:
+    _src_aw = open(os.path.join(_HERE, _fn), encoding="utf-8").read()
+    acase(f"{_fn} 寫 {_target} 走原子寫（退回直接寫 = 半份狀態檔被 commit）",
+          _needle in _src_aw, True)
+
+acase(".gitignore 蓋得住原子寫的暫存檔（runner 被砍時它會留在原地）",
+      ".*.tmp.*" in open(os.path.join(_HERE, "..", ".gitignore"), encoding="utf-8").read(),
+      True)
+
+acase("references/atomic-writes.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "atomic-writes.md")), True)
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:

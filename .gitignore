@@ -13,3 +13,9 @@ dist/
 # 本機刪除暫存區，不上公開 repo
 _to_delete/
 _git_lock_trash/
+
+# 原子寫入的暫存檔（scripts/lib/atomicwrite.py）。正常路徑上它活不過一次
+# os.replace()，但 runner 被砍時會留在原地——少了這一行，`git add -A` 會把
+# 半份 .sources.yaml.tmp.4711 commit 上去，等於換個方式犯了原本要防的錯。
+# 見 references/atomic-writes.md。
+.*.tmp.*

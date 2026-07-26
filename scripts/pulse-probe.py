@@ -49,6 +49,7 @@ from urllib.robotparser import RobotFileParser
 import yaml
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
 
 UA = "ai-pulse-probe/1.0 (+deterministic; contact via repo)"
@@ -972,7 +973,10 @@ def heartbeat(status: str, vault: Path, detail: str = "") -> None:
         prev["detail"] = detail
         if status == "ok":
             prev["last_success"] = now
-        hb.write_text(json.dumps(prev, ensure_ascii=False, indent=2), "utf-8")
+        # 原子寫：這個檔下一班會讀回來合併（prev）。半份的話 json.loads 丟例外、
+        # 被下面的 except 吞掉，last_success 就這樣掉了——而它是唯一能證明
+        # 「排程確實有跑」的訊號。見 references/atomic-writes.md。
+        atomic_write_text(hb, json.dumps(prev, ensure_ascii=False, indent=2))
     except Exception as e:  # noqa: BLE001
         print(f"[warn] heartbeat 寫入失敗：{e}", file=sys.stderr)
 
@@ -1078,16 +1082,18 @@ def main() -> int:
 
     for sid in sids:
         p = vault / "_corpus" / day / f"{sid}.jsonl"
-        p.parent.mkdir(parents=True, exist_ok=True)
-        # "w" 不是 "a"：每個 source 的當日資料是一次全寫的，附加模式只會讓
+        # 取代不是附加：每個 source 的當日資料是一次全寫的，附加模式只會讓
         # 同日重跑疊加重複資料、污染比率。同日重跑 = 取代當日快照。
-        with p.open("w", encoding="utf-8") as f:
-            for r in (x for x in rows if x["source_id"] == sid):
-                f.write(json.dumps(r, ensure_ascii=False) + "\n")
+        # 而「取代」要真的是取代——截斷一半的當日快照會被同日下一班的
+        # load_day_flags 讀回去當事實。見 references/atomic-writes.md。
+        atomic_write_text(p, "".join(
+            json.dumps(r, ensure_ascii=False) + "\n"
+            for r in rows if r["source_id"] == sid))
 
-    state_path.parent.mkdir(parents=True, exist_ok=True)
-    state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), "utf-8")
-    seen_path.write_text(json.dumps(seen, ensure_ascii=False, indent=2), "utf-8")
+    # state.json 半份的後果最重：每條來源都會變成「從沒抓過」，下一班整批重跑
+    # 成 backfill，事件全掛 stale_backfill 永不發布——而且沒有任何東西會變紅。
+    atomic_write_text(state_path, json.dumps(state, ensure_ascii=False, indent=2))
+    atomic_write_text(seen_path, json.dumps(seen, ensure_ascii=False, indent=2))
 
     write_run_stats(vault, day, stats)
 
