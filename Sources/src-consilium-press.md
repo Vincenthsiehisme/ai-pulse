@@ -11,7 +11,6 @@ corpus_type: "policy"
 region: "EU"
 language: "en"
 lifecycle: "dormant"
-robots_ok: false
 license_note: "titles + links only"
 endpoint: "https://www.consilium.europa.eu/en/rss/pressreleases.ashx"
 robots_checked_day: "2026-07-26"
@@ -20,6 +19,9 @@ last_observed_day:
 items_observed: 0
 events_bound: 0
 events_published: 0
+health_score: 100
+consecutive_failures: 0
+last_status: "skipped_lifecycle"
 ---
 
 # Council of the EU（src-consilium-press）
@@ -34,6 +36,8 @@ events_published: 0
 | 已觀測 | 0 筆 | 抓不到，或站方那陣子沒發東西 |
 | 有效產出 | 0 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 0 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+
+> robots 狀態未知（`robots_ok:` 空）。空值的意思是**還沒量到**，不是站方允許、也不是站方禁止。
 
 > 媒體集團：**EU-Council**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 

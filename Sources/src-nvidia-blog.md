@@ -20,6 +20,9 @@ last_observed_day: "2026-07-26"
 items_observed: 54
 events_bound: 15
 events_published: 12
+health_score: 100
+consecutive_failures: 0
+last_status: 200
 ---
 
 # NVIDIA（src-nvidia-blog）

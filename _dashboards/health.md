@@ -8,7 +8,7 @@ last_run_day: "2026-07-26"
 run_lag_days: 0
 stale_after_days: 2
 sources_runnable: 27
-items_observed: 869
+items_observed: 956
 events_total: 51
 events_published: 36
 ---
@@ -26,7 +26,7 @@ events_published: 36
 | 層 | 數字 | 這一格不對勁代表什麼 |
 |---|---|---|
 | 收錄 | 27 條可跑來源 | 設定檔現在有幾條會被抓 |
-| 已觀測 | 累計 869 筆，來自 19 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
+| 已觀測 | 累計 956 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
 | 有效產出 | 51 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
 | 已發布 | 36 則 | 卡在門禁是設計，不是故障 |
 
@@ -59,40 +59,40 @@ events_published: 36
 
 | 必盯實體 | 來源 | 看見 | 事件 | 上線 | 最後看見 |
 |---|---|---|---|---|---|
-| OpenAI | 1 | 76 | 10 | 10 | 0d 前 |
-| Anthropic | 1 | 11 | 7 | 6 | 0d 前 |
+| OpenAI | 1 | 84 | 10 | 10 | 0d 前 |
+| Anthropic | 1 | 19 | 7 | 6 | 0d 前 |
 | Google DeepMind | 1 | 18 | 3 | 2 | 0d 前 |
-| Google | 1 | 27 | 5 | 3 | 0d 前 |
-| Meta | 1 | 14 | 0 | 0 | 0d 前 |
-| Microsoft | 1 | 12 | 0 | 0 | 0d 前 |
-| NVIDIA | 1 | 39 | 15 | 12 | 0d 前 |
-| Hugging Face | 1 | 34 | 1 | 1 | 0d 前 |
-| xAI | 1 | 2 | 2 | 2 | 0d 前 |
-| Mistral AI | 1 | 0 | 0 | 0 | **從未** |
+| Google | 1 | 41 | 5 | 3 | 0d 前 |
+| Meta | 1 | 17 | 0 | 0 | 0d 前 |
+| Microsoft | 1 | 13 | 0 | 0 | 0d 前 |
+| NVIDIA | 1 | 43 | 15 | 12 | 0d 前 |
+| Hugging Face | 1 | 35 | 1 | 1 | 0d 前 |
+| xAI | 1 | 3 | 2 | 2 | 0d 前 |
+| Mistral AI | 1 | 1 | 0 | 0 | 0d 前 |
 | Alibaba | 1 | 0 | 0 | 0 | **從未** |
-| DeepSeek | 0 | 22 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| DeepSeek | 0 | 23 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | Safe Superintelligence | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Thinking Machines Lab | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Cohere | 0 | 2 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | Perplexity | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Anysphere (Cursor) | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
-| Cognition | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
-| Scale AI | 0 | 22 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Cognition | 0 | 1 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Scale AI | 0 | 25 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | Z.ai | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Moonshot AI | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | MiniMax | 0 | 6 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | ByteDance | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Baidu | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Tencent | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
-| AMD | 1 | 14 | 1 | 0 | 0d 前 |
+| AMD | 1 | 15 | 1 | 0 | 0d 前 |
 | TSMC | 0 | 1 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | Broadcom | 0 | 2 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | Groq | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Cerebras | 0 | 2 | 1 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | CoreWeave | 0 | 3 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
-| AWS | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| AWS | 0 | 1 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 
-- 可跑來源 27 條，本窗口零產出 9 條：`src-kol-thezvi`、`src-media-arstechnica`、`src-media-ieee-spectrum`、`src-media-mit-techreview`、`src-media-techcrunch`、`src-media-theregister`、`src-media-theverge`、`src-media-venturebeat`、`src-mistral-news`
+- 可跑來源 27 條，本窗口零產出 3 條：`src-kol-thezvi`、`src-media-theregister`、`src-mistral-news`
 
 ## 來源層
 

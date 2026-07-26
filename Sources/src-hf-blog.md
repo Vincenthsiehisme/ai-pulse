@@ -20,6 +20,9 @@ last_observed_day: "2026-07-24"
 items_observed: 20
 events_bound: 2
 events_published: 1
+health_score: 100
+consecutive_failures: 0
+last_status: 304
 ---
 
 # Hugging Face（src-hf-blog）

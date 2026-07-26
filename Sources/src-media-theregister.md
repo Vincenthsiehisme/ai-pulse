@@ -11,15 +11,19 @@ corpus_type: "media_report"
 region: "UK"
 language: "en"
 lifecycle: "probing"
+robots_ok: false
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://www.theregister.com/software/ai_ml/headlines.atom"
-robots_checked_day:
+robots_checked_day: "2026-07-26"
 first_fetch_at:
 last_observed_day:
 items_observed: 0
 events_bound: 0
 events_published: 0
+health_score: 100
+consecutive_failures: 0
+last_status: "robots_disallow"
 ---
 
 # The Register（src-media-theregister）
@@ -34,8 +38,6 @@ events_published: 0
 | 已觀測 | 0 筆 | 抓不到，或站方那陣子沒發東西 |
 | 有效產出 | 0 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 0 則 | 綁上了但門禁擋著——那是設計，不是故障 |
-
-> robots 狀態未知（`robots_ok:` 空）。空值的意思是**還沒量到**，不是站方允許、也不是站方禁止。
 
 > 這條來源不能單獨作為一手證據（`can_satisfy_primary: false`）。它的角色是佐證與獨立性，不是「事情發生了」的來源。
 

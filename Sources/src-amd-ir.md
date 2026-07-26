@@ -20,6 +20,9 @@ last_observed_day: "2026-07-26"
 items_observed: 10
 events_bound: 3
 events_published: 0
+health_score: 100
+consecutive_failures: 0
+last_status: "robots_unknown"
 ---
 
 # AMD（src-amd-ir）

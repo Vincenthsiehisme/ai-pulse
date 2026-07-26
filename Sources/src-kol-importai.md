@@ -21,6 +21,9 @@ last_observed_day:
 items_observed: 0
 events_bound: 0
 events_published: 0
+health_score: 100
+consecutive_failures: 0
+last_status: "skipped_lifecycle"
 ---
 
 # Jack Clark（src-kol-importai）

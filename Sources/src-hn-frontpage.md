@@ -21,6 +21,9 @@ last_observed_day: "2026-07-26"
 items_observed: 60
 events_bound: 1
 events_published: 1
+health_score: 100
+consecutive_failures: 0
+last_status: 200
 ---
 
 # Hacker News（src-hn-frontpage）

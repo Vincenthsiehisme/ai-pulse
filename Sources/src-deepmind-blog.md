@@ -20,6 +20,9 @@ last_observed_day: "2026-07-26"
 items_observed: 90
 events_bound: 11
 events_published: 3
+health_score: 100
+consecutive_failures: 0
+last_status: 200
 ---
 
 # Google DeepMind（src-deepmind-blog）
