@@ -25,29 +25,24 @@ mutations:
     file: pulse-monitor.py
     find: "    return rc\n"
     replace: "    return 0\n"
-    survives: true
-    why: >-
-      BACKLOG P1：修法在 test/monitor-exit-codes 上（selftest 241），還沒併進 main。
-      main 上 selftest 只用 inspect.getsource() 比對原始碼字串，測得到「有人寫了
-      這一行」，測不到「這一行會讓 CI 紅」。
+    survives: false
+    why: ""  # 2026-07-26 併入 test/monitor-exit-codes 後被殺（10 條紅）
 
   - id: M02
     title: "sys.exit(main()) 改成不看回傳值（exit code 恆為 0）"
     file: pulse-monitor.py
     find: "    sys.exit(main())"
     replace: "    main()"
-    survives: true
-    why: >-
-      BACKLOG P1，同 M01。這一格是任何「在同一個行程裡呼叫 main()」的測試都到不了
-      的地方——量到的是 main() 的 return，不是 CI 看到的 exit code。
+    survives: false
+    why: ""  # 同 M01。13 個釘子全走真的子行程，這一格才量得到（10 條紅）
 
   - id: M03
     title: "rc 一開始就是 1（天天紅的 CI，跟永遠綠的一樣沒資訊）"
     file: pulse-monitor.py
     find: "    rc = 0\n"
     replace: "    rc = 1\n"
-    survives: true
-    why: BACKLOG P1，同 M01。反方向也沒有測試在守。
+    survives: false
+    why: ""  # 同 M01。乾淨 vault 四旗標全開要 exit 0 就是那個反方向（5 條紅）
 
   # ── 「那天有沒有語料」的判準（references/health-alarms.md）─────────
 
@@ -114,11 +109,8 @@ mutations:
     file: pulse-source-notes.py
     find: "    for k in FM_FROM_CONFIG:"
     replace: "    for k in src:"
-    survives: true
-    why: >-
-      BACKLOG P1：行為層的釘子在 test/monitor-exit-codes 上，還沒併。main 上那條
-      只看**清單的名字**，不看 render() 有沒有照著清單走——清單一個字沒動，
-      整個 sources.yaml 條目照樣被倒進 vault。
+    survives: false
+    why: ""  # 同 M01。改成餵一筆帶祕密欄位的 src 進 render() 看輸出（1 條紅）
 
   - id: M12
     title: "重寫 frontmatter 時不把 ingested_at 讀回來（進庫時刻被抹成 null）"
