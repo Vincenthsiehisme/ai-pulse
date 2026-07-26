@@ -268,7 +268,7 @@ official_sources:
     # 連帶：arXiv 是唯一具名作者來源，出局後 checklist 5b 分子近零，人物層 M1 不做。
     # author / PERSON_KINDS / people.yaml / corpus_type: person_signal 保留但不出報表，待 M3 復用。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-gh-vllm-releases
   track: official
   owner: vllm-project
@@ -314,7 +314,7 @@ official_sources:
     # 2026-07-24 實抓確認活著：最新項目 2026-07-22，發文密度高，backlog 上百則。
     # 收進來後，字典裡 Google / Gemini / Gemma 那批實體才第一次有語料可命中。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-hf-blog
   track: official
   owner: Hugging Face
@@ -338,7 +338,7 @@ official_sources:
     # rss adapter 取 URL 時要 fallback 到 guid，否則靜默拿到空字串。
     # 若 7 天 0 筆，直接標 dormant，不要留著當「有在跑」的假象。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-nvidia-blog
   track: official
   owner: NVIDIA
@@ -362,7 +362,7 @@ official_sources:
     # 判為「命中但無資訊」，降 quota 而非移除。
 
   # ── v2.1 新增：研究發布類 ──
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-msr-blog
   track: official
   owner: Microsoft Research
@@ -386,7 +386,7 @@ official_sources:
   frequency: daily
   quota_per_run: 30
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-meta-research
   track: official
   owner: Meta
@@ -410,7 +410,7 @@ official_sources:
     # 若 probe 回 404 或連續 0 筆，先找 ai.meta.com 的 feed，再標 dormant。
 
   # ── v2.1 新增：政策法規類（目前完全空白的一類）──
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-ec-digital-strategy
   track: official
   owner: European Commission
@@ -468,7 +468,7 @@ official_sources:
     #   THMTTE https://www.consilium.europa.eu/en/register/rss/THMTTE.xml（運輸/電信/能源）
     #   THMCOM https://www.consilium.europa.eu/en/register/rss/THMCOM.xml（競爭力）
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-ep-itre
   track: official
   owner: European Parliament
@@ -518,7 +518,7 @@ official_sources:
   #      只看 title+summary，slug 還原不出人話就等於零實體命中——看起來有蓋到，
   #      實際上一條線索都生不出來。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-xai-news
   track: official
   owner: xAI
@@ -793,7 +793,7 @@ kol_sources:
     # 本節唯一「feed 本體真的在本機解析成功」的一條：Atom 格式、署名 karpathy、
     # 最近兩篇為 2026-04-30 與 2025-12-19。其餘各條只驗到 robots.txt。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-kol-simonwillison
   track: kol
   owner: Simon Willison
@@ -817,7 +817,7 @@ kol_sources:
     # [待驗證] feed payload 未在本機解碼（工具限制），由 Actions 端首跑驗證。
     # 日更且大量轉述他人發布 → 對 lead_days 特別有用，但雜訊比也最高。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-kol-interconnects
   track: kol
   owner: Nathan Lambert
@@ -840,7 +840,7 @@ kol_sources:
   can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-kol-thezvi
   track: kol
   owner: Zvi Mowshowitz
@@ -864,7 +864,7 @@ kol_sources:
     # [待驗證] feed payload 未在本機解碼。
     # 單篇動輒上萬字的週報型彙整 → 摘要截斷後資訊密度會很低，首週要看實際產出再調。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-kol-oneusefulthing
   track: kol
   owner: Ethan Mollick
@@ -887,7 +887,7 @@ kol_sources:
   can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼。
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-kol-lilianweng
   track: kol
   owner: Lilian Weng
@@ -918,7 +918,7 @@ kol_sources:
   #   也不擅自寫 true（本機確實沒讀到），改標 revive_when_allowed: true，
   #   交給 pulse-robots-recheck 在 Actions 的真網路環境裡下判斷。
   # 判定為真 Disallow 的話它會維持 dormant；判定放行則自動升 probing。
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-kol-importai
   track: kol
   owner: Jack Clark
@@ -941,7 +941,7 @@ kol_sources:
   quota_per_run: 20
   can_satisfy_primary: false
 
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 - id: src-kol-raschka
   track: kol
   owner: Sebastian Raschka
@@ -999,7 +999,7 @@ kol_sources:
 # ===========================================================================
 # 聚合線 — 只當候選與熱度提示，永不作為任何事實的唯一證據
 # ===========================================================================
-  robots_checked_at: '2026-07-25T05:21:15+00:00'
+  robots_checked_at: '2026-07-26T06:41:07+00:00'
 aggregator_sources:
 - id: src-hn-frontpage
   track: aggregator

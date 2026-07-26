@@ -2,13 +2,16 @@
 
 M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是。
 
+> ⚠ 本輪含 10 筆 backfill（首次抓取的既有存量）。
+> backfill 不代表當期訊號，lead_days 與熱度統計應排除。
+
 ## 兩個決定性比率
 
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
-| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 3/30 = 10% |
+| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 2/30 = 7% |
 | kol | 90 | 70/90 = 78% | 60/90 = 67% | 34/90 = 38% |
-| official | 218 | 48/218 = 22% | 27/218 = 12% | 159/218 = 73% |
+| official | 228 | 48/228 = 21% | 18/228 = 8% | 169/228 = 74% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
 - **5b（可解析自然人）才決定人物層與獨立性升級有沒有用。**官方線若過低，people.yaml 只在 KOL 線生效。
@@ -18,11 +21,11 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | kind | 筆數 | 計入 5b |
 |---|---|---|
-| none | 190 |  |
-| person | 58 | ✓ |
-| handle | 51 |  |
-| multi_person | 29 | ✓ |
-| unknown | 10 |  |
+| none | 200 |  |
+| person | 69 | ✓ |
+| handle | 60 |  |
+| org | 10 |  |
+| multi_person | 9 | ✓ |
 
 分類全為字面規則，無推論。判不出來一律 unknown 且不計入 5b（保守預設）。
 `multi_person` 是共同作者串，本專案判定為可解析到自然人；
@@ -33,24 +36,24 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | author 原值 | 判定 | 來源 |
 |---|---|---|
 | khluu | handle | src-gh-vllm-releases |
-| NVIDIA Writers | person | src-nvidia-blog |
-| NVIDIA | handle | src-nvidia-blog |
+| NVIDIA Writers | org | src-nvidia-blog |
+| David Niewolny | person | src-nvidia-blog |
 | Son Ho, Cédric Fournet, Antoine Delignat-Lavaud, Samuel Lee, | multi_person | src-msr-blog |
 | Jianfeng Gao | person | src-msr-blog |
-| karpathy (hidden) | unknown | src-kol-karpathy |
+| karpathy (hidden) | handle | src-kol-karpathy |
 | Nathan Lambert | person | src-kol-interconnects |
 | Ethan Mollick | person | src-kol-oneusefulthing |
-| Sebastian Raschka, PhD | multi_person | src-kol-raschka |
+| Sebastian Raschka, PhD | person | src-kol-raschka |
 | shscs911 | handle | src-hn-frontpage |
 
 ## 命中的實體型別分佈
 
-- company: 95
+- company: 104
 - product_line: 88
 - product: 23
-- technology: 22
+- technology: 23
 - framework: 18
-- infrastructure: 9
+- infrastructure: 11
 
 ## 字典補漏候選（未命中且跨來源出現）
 
@@ -73,7 +76,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 ### 單來源高頻（觀察用，不列入晉升）
 
-目前活躍來源 14 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
+目前活躍來源 15 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
 上表為空不代表收割機制壞掉。此區僅供觀察，不得直接寫進字典。
 
 | 候選 | 次數 | 唯一來源 |
@@ -109,6 +112,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-xai-news | official | 200 | 40 | 0 |  | True |  |
 | src-mistral-news | official | 200 | 0 | 0 |  | True |  |
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
+| src-amd-ir | official | 200 | 10 | 10 | ✓ | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
 | src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
@@ -116,7 +120,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 11 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 7 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕。
