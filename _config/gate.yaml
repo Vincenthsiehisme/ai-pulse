@@ -1,20 +1,38 @@
 # _config/gate.yaml — 所有可調門檻集中管理（改門檻不改碼；改動要 docs-first）
 #
-# 讀之前先看這行：**這個檔裡有 13 個 key 沒有任何程式碼讀它**，
-# 全部標了「⚠ 未接線」。標記旁邊會寫清楚實際由什麼決定那個行為。
-# 完整對照表與理由見 references/gate-config-status.md，selftest 有測試釘住標記。
-#
+# 讀之前先看這行：**這個檔裡有相當一部分 key 沒有任何程式碼讀它**。
 # 未接線不是 bug（好幾個是還沒做的功能的預留規格），沒標出來才是——
 # 一個寫著正常數字的假欄位，會讓下一個人把它改掉、重跑、然後懷疑資料壞了。
+#
+# 所以規矩是：**每一個 leaf key 都要帶標記**，標在自己那一行、或任何一層祖先上。
+#   ⚠ …未接線     → 沒有消費者。旁邊要寫清楚實際由什麼決定那個行為。
+#   消費者：<路徑> → 有人讀它，讀它的是這支腳本。
+# 兩種都沒有 → selftest 紅。列舉是機械的（scripts/lib/gate_keys.py 掃這個檔），
+# 標記是人寫的，測試比對兩者。對照表與理由見 references/gate-config-status.md。
+#
+# 這裡刻意不寫「有幾個未接線」。上一版寫「13 個」，那個 13 是手工數的，而它漏了
+# quality.weights 整塊與 readiness.require_primary_evidence。
+# 一個沒有人在維護的數字，比沒有數字更容易讓人放心。
 
 quality:
+  # 消費者：scripts/pulse-score.py
   discard_below: 40          # total < 此值直接丟棄，不進聚類
+  # 消費者：scripts/pulse-score.py
   grade_thresholds:          # A/B/C/D/F
     A: 85
     B: 70
     C: 55
     D: 40
-  weights:                   # 五維上限（總和 100）
+  # ⚠ 整塊未接線（2026-07-26 機械列舉才發現，在此之前它從來沒進過未接線清單）。
+  # 五個上限全部硬寫在 lib/quality.py 的五支函式裡——`min(25, …)`、`min(15, …)`、
+  # _freshness() 的階梯。沒有任何一行碼讀 weights。
+  # quality.py 開頭的 docstring 還寫著「各自上限見 gate.yaml.quality.weights」，
+  # 指向這裡；這裡是一組沒有人讀的數字。
+  #
+  # 它是這個檔裡**最像旋鈕的東西**：五個數、加起來剛好 100、名字對得上五個維度。
+  # 改任何一個，分數一分都不會變。要真的能調，得先把 lib/quality.py 的五支函式
+  # 改成讀這裡——那是 P4 剩下的工，不是改一行註解能了的事。
+  weights:                   # 五維上限（總和 100）⚠ 未接線
     authority: 25
     richness: 25
     freshness: 20
@@ -25,6 +43,8 @@ quality:
   # 也就是「24 小時內給滿分」與「30 天後給 0」兩句話目前都**不成立**。
   freshness_full_hours: 24   # ⚠ 未接線（實際：≤24h 給 15，不是滿分）
   freshness_zero_days: 30    # ⚠ 未接線（實際：>30 天給 1，永遠不歸零）
+  # 消費者：scripts/pulse-score.py（判歷史存檔）、scripts/pulse-gate.py（同一個值，
+  # 兩支各自讀一次；改這裡兩邊都會動）
   recency_max_lead_days: 7   # 首次觀測距 published > 此天數 → 判為歷史存檔，不進事件/來源更新（0=關閉）
 
 # ⚠ 整塊未接線。實際的近似重複與事件窗口都在 lib/cluster.py 裡硬寫：
@@ -89,7 +109,9 @@ clustering:
     mitigation: aliases_only     # 只靠字典別名部分覆蓋
     # 副作用防護：見下方 evidence.translation_chain
 
-readiness:                   # 事件發布硬門禁
+# 事件發布硬門禁。消費者：scripts/pulse-gate.py（下面每一個門檻都在那支裡讀，
+# require_primary_evidence 除外——那一個刻意不接，理由寫在它自己那一段）。
+readiness:
   thin_fact_min_chars: 20
   min_confidence: 60
   # 下面三個是另一種病：**接線了但走不到**（2026-07-26 更新，規格：
@@ -114,7 +136,21 @@ readiness:                   # 事件發布硬門禁
   heat_threshold: 70         # 接線了但走不到（要等社群線 M3；不是廢設定）
   heat_min_independent_sources: 2   # 同上
   heat_min_platform_breadth: 2      # 同上
-  require_primary_evidence: true
+
+  # ⚠ 未接線（**刻意**）。跟上面那些「還沒做」不一樣，這一個是「不要做」。
+  #
+  # 真正在擋的是 pulse-gate.py 的 missing_primary_evidence：primary_evidence 為 0
+  # 就掛 blocker，無條件。它不看這個值——把它改成 false，什麼都不會發生。
+  #
+  # 接上去只要一行（`if r.get("require_primary_evidence", True): …`），而那一行
+  # 不能寫。假開關的傷害是：有人改了它、發現沒效果、開始不信任這個檔案。真開關的
+  # 傷害是：有人改了它、**很有效果**，然後整個 vault 開始發布沒有一手證據的東西，
+  # 而 selftest 全綠——因為每一條測試都是拿預設值跑的。紅線 2 唯一的執法點，
+  # 不該有一個設定檔層級的關閉開關。
+  #
+  # 所以它留在這裡的身分是**聲明**：這條規則存在、值是 true、而且不可調。
+  # 要放寬得改 pulse-gate.py 並改 references/readiness-gate.md，讓它進 diff 被看見。
+  require_primary_evidence: true   # ⚠ 未接線（刻意；見上）
 
 evidence:                    # 發布證據門檻
   # ⚠ 兩個都未接線。真正在擋的是 pulse-gate.py 的 missing_primary_evidence
