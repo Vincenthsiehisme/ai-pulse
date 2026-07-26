@@ -5,6 +5,10 @@
 `fix/observed-counts-item-days` 235、`fix/health-snapshot-dry-run` 243、
 `fix/coverage-uses-own-clock` 233、`test/monitor-exit-codes` 241。
 
+> 同日稍晚追記：這份清單所在的 `docs/backlog-refresh` 又長出了變異盤點層
+> （P3），selftest 到 **238**，未併分支變成 **5 條**。這幾個數字也一樣，
+> 在合併之前都只描述分支、不描述 `main`。
+
 > 上一版這一段寫的是「`main` 在 `1ce43e9`，遠端零未合併分支，本地 selftest 222/222」。
 > 三個數字**現在全是假的**。清單自己過期不會讓任何東西變紅——這正是這份清單第一條
 > 排序準則在講的病，只是這次得的是清單本人。所以盤點結果一律附「怎麼量出來的」。
@@ -27,9 +31,9 @@
 | # | 事 | 壞了會紅嗎 | 現在在騙人嗎 |
 |---|---|---|---|
 | P0 | 07-27 cron 收班 | 不會 | — |
-| P1 | 四條修好的分支還躺在遠端 | 不會 | **是**（修了不等於生效） |
+| P1 | 五條修好的分支還躺在遠端 | 不會 | **是**（修了不等於生效） |
 | P2 | `unsupported_heat` 從沒觸發過 | 不會 | 是（門檻在值域外） |
-| P3 | 變異盤點是手工的，下次一定過期 | 不會 | **是**（「47/94 存活」已過期） |
+| P3 | 變異盤點已做成工具，但也還沒併 | 會（在分支上） | 否（改成可重跑的判準了） |
 | P4 | 12 個未接線的 gate key | 不會（已標記） | 已止血 |
 | P5 | 三條「可跑但零產出」的來源 | 不會 | — |
 | P6 | 20 家 pending 覆蓋盲點 | 刻意不會 | 否（誠實掛著） |
@@ -68,7 +72,7 @@
 
 ---
 
-## P1 — 四條修好的分支還躺在遠端，`main` 上一條都沒生效
+## P1 — 五條修好的分支還躺在遠端，`main` 上一條都沒生效
 
 ```
 $ git branch -r --no-merged origin/main
@@ -84,8 +88,9 @@ $ git branch -r --no-merged origin/main
 | `fix/health-snapshot-dry-run` | 舊 P2+P3 | 隔離候選真的寫進磁碟快照（機器交棒給人的唯一介面接回來了）；`--json` 這種只看的跑法不再改持久狀態 | 243 |
 | `fix/coverage-uses-own-clock` | 舊 P4 | 沉默判準改用每條實體自己的 `first_fetch_at`，不再拿整個語料庫的長度當尺 | 233 |
 | `test/monitor-exit-codes` | 舊 P6 (a/c/d) | 死人開關的 exit code 走真子行程釘住；`FM_FROM_CONFIG` 白名單邊界改由行為守；`ingested_at` 黏性改成真的跑第二輪 | 241 |
+| `docs/backlog-refresh` | 本檔 + P3 | 這份清單本身；變異盤點層（`scripts/mutate.py` + `mutations.yaml` + 獨立工作流），並補掉它第一輪抓到的五個洞 | 238 |
 
-**這一條的重點不是「還有四件事沒做」，是「四件事做完了，而系統的行為一點都沒變」。**
+**這一條的重點不是「還有五件事沒做」，是「五件事做完了，而系統的行為一點都沒變」。**
 `main` 上跑的還是舊碼：Sources 頁還在印「已觀測 0 筆」、`--json` 還會寫髒 state、
 coverage 還在拿外面的時鐘量自己的鏈、`return rc` 改成 `return 0` 在 `main` 上仍然
 **224/224 全過**。
@@ -137,11 +142,25 @@ EU 三條 dormant、CN 只剩 Qwen，量不出地域廣度。已記錄在 `39968
 - **改壞語法不算變異**。一個讓 `render()` 直接 raise 的改動會讓 selftest 紅，但那
   紅的是崩潰不是斷言，量到的東西是假的。守則：注入後要能跑得完才算數。
 
-**該做的事**：`scripts/mutate.py` —— 一份可重跑的變異清單（注入點 + 期望至少幾條
-紅），跑完印出存活的注入點。有了它，「幾個存活」才是一個可以放進 CI、下次自己會
-更新的數字，而不是一句寫在文件裡、當天就開始腐爛的話。
+**已經做完（在 `docs/backlog-refresh` 上，同樣未併）**：規格
+`references/mutation-inventory.md`、清單 `scripts/mutations.yaml`（20 條）、
+跑法 `scripts/mutate.py`、獨立工作流 `.github/workflows/mutation.yml`。
+selftest 那一端只做 0.5 秒的鮮度檢查（針腳還在不在），慢的那一半留給獨立工作流。
 
-先做工具再補數字，順序不能反：先補數字就是再生產一個一樣會過期的東西。
+第一輪跑出來 **16 被殺、4 存活**，四條存活的全部指向 P1（`main` 上沒有東西守著
+死人開關的出口與白名單邊界）。過程中另外發生兩件值得記的事：
+
+- **五個原本以為守得住、其實沒人守的地方**：`health()` 的「從來沒抓到過」判成綠燈、
+  `missing_primary_evidence`（紅線 2 的執法點）、`unsupported_heat`（紅線 4）、
+  聚類的 96 小時窗口、keywords 的順序。其中 `pulse-gate.py` 是**唯一**決定發不發的
+  地方，而在這一輪之前 selftest 從來沒有 import 過它——把那兩行 `blockers.append`
+  刪掉，224 條測試一條都不會紅。**五個都當場補了行為釘子，不是掛在這裡。**
+- **工具自己犯了它要抓的病**：selftest 新加的「每個針腳剛好出現一次」在注入期間
+  必紅（針腳正被換掉），於是**每一條變異都「被殺」**，kill 訊號變成常數，四條已知
+  的存活者全被誤判。修法與理由寫在規格的「坑三」。
+
+先做工具再補數字，順序不能反：先補數字就是再生產一個一樣會過期的東西。所以這一條
+現在不留任何數字在清單上——要數字就跑 `python3 scripts/mutate.py`。
 
 （舊 P6 的另外三個子項——exit code 測試、白名單邊界、`ingested_at` 黏性——已經在
 `test/monitor-exit-codes` 上做完，等併，見 P1。規格寫在
@@ -284,6 +303,9 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 `test/monitor-exit-codes` 又加了第四個實例：**用「碼裡有沒有這句話」代理「跑起來
 會不會叫」**。那條還沒併（P1）。
 
+第五個實例是 P3 那一層在講的：**用「測試有幾條」代理「壞掉會不會被抓到」**。
+規格 `references/mutation-inventory.md`，同樣還沒併。
+
 ## 附：怎麼重新盤點這份清單
 
 清單過期不會讓任何東西變紅，所以下次盤點請直接跑這些，不要相信上面的數字：
@@ -295,4 +317,8 @@ git ls-remote --heads origin | wc -l       # P10 的分支總數
 python3 scripts/selftest.py | tail -1      # 標頭的測試數
 python3 -c "import yaml;w=yaml.safe_load(open('_config/sources.yaml'))['coverage_watch']['must_watch'];print(len(w),sum(1 for x in w if x.get('pending')))"   # P6
 grep -l stale_backfill Events/*.md | wc -l  # P9
+python3 scripts/mutate.py                  # P3：現在有幾格守不住（幾分鐘）
 ```
+
+最後那一行才是「測試守不守得住」的答案。`selftest | tail -1` 給的是**有幾條測試**，
+那是兩件不同的事——這正是 P3 的整個重點。

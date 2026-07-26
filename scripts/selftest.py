@@ -1461,6 +1461,132 @@ acase(".gitignore 蓋得住原子寫的暫存檔（runner 被砍時它會留在�
 acase("references/atomic-writes.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "atomic-writes.md")), True)
 
+# ── 變異盤點清單的鮮度：規格 references/mutation-inventory.md ────────────────
+# 這一區**不跑變異**。跑一輪要幾十次 selftest，掛在每次 push 上太慢——那是
+# scripts/mutate.py 與 .github/workflows/mutation.yml 的事。這裡只釘一件
+# 0.5 秒內查得完、而且錯了最貴的事：**清單自己過期了**。
+# 針腳在目標檔案裡不是剛好出現一次，注入就會改到隔壁那一處，於是那一條會
+# 假裝成「存活」——又一顆永遠綠的燈（規格：坑一）。
+_mut = _yaml.safe_load(
+    open(os.path.join(_HERE, "mutations.yaml"), encoding="utf-8"))["mutations"]
+_MUT_REQ = ("id", "file", "find", "replace", "why", "survives")
+acase("mutations.yaml 讀得進來，且 id 不重複",
+      [len(_mut) > 0, len({m["id"] for m in _mut}) == len(_mut)], [True, True])
+acase("mutations.yaml 每一條的必填欄位都在",
+      sorted(m.get("id", "?") for m in _mut
+             if any(k not in m for k in _MUT_REQ)), [])
+
+# mutate.py 跑到某一條時，那一條的針腳**正被它自己換掉**，這裡當然數到 0。
+# 不排除的話，這條會在每一次注入都紅——於是每一條變異都「被殺」，kill 訊號
+# 變成常數，整個變異盤點就只是在量「這條檢查還在不在」。第一次跑就踩到了：
+# M01/M02/M03/M11 四條已知的存活者全部被誤判成 killed。
+# MUTATE_IN_FLIGHT 只由 scripts/mutate.py 在注入期間設，一次一個 id；CI 不設。
+_inflight = os.environ.get("MUTATE_IN_FLIGHT", "").strip()
+_mut_stale = []
+for _m in _mut:
+    if _m["id"] == _inflight:
+        continue
+    _mp = os.path.join(_HERE, _m["file"])
+    _mn = open(_mp, encoding="utf-8").read().count(_m["find"]) if os.path.isfile(_mp) else -1
+    if _mn != 1:
+        _mut_stale.append(f"{_m['id']}:{_m['file']}×{_mn}")
+acase("mutations.yaml 每個 find 在目標檔案裡剛好出現一次"
+      "（不是 1 就會改到隔壁那一處，然後假裝成「存活」）"
+      + (f"｜注入中，略過 {_inflight}" if _inflight else ""), _mut_stale, [])
+acase("MUTATE_IN_FLIGHT 只認得清單裡的 id（打錯字就等於憑空關掉一條檢查）",
+      not _inflight or _inflight in {m["id"] for m in _mut}, True)
+
+acase("mutations.yaml 記 survives: true 的都寫了 why"
+      "（已知的缺口掛著是誠實，沒有理由的存活是掩蓋）",
+      sorted(m["id"] for m in _mut
+             if m.get("survives") and not str(m.get("why") or "").strip()), [])
+
+acase("references/mutation-inventory.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "mutation-inventory.md")),
+      True)
+
+# ── 變異盤點第一輪抓到的五個沒人守的地方 ────────────────────────────────────
+# 2026-07-26，mutate.py 第一次跑就把碼改壞，而 224 條測試一條都沒紅。以下五條
+# 不是為了讓數字好看，是把那五個洞補起來——掛著不補就是紅線 8 講的那件事。
+# 對應 mutations.yaml 的 M09 / M14 / M15 / M19 / M20。
+
+# M14 / M15：pulse-gate.py 是**唯一**決定發不發的地方（紅線 1：判斷走規則不走 LLM），
+# 而在此之前 selftest 從來沒有 import 過它。把 `blockers.append(...)` 那兩行刪掉，
+# 沒有一條測試會紅——門禁形同虛設而看板一片綠。
+_gs = importlib.util.spec_from_file_location(
+    "pulse_gate", os.path.join(_HERE, "pulse-gate.py"))
+_gm = importlib.util.module_from_spec(_gs)
+_gs.loader.exec_module(_gm)
+
+_GATE_T = {"readiness": {"min_confidence": 60, "thin_fact_min_chars": 20,
+                         "heat_threshold": 70, "heat_min_independent_sources": 2,
+                         "heat_min_platform_breadth": 2}}
+_GBODY = ("## 事實\nOpenAI 在官方部落格宣布了一項新的模型定價方案，生效日為下月一日。\n\n"
+          "## 證據\n- 官方部落格\n\n## 脈絡\n這是今年第三次調整。\n")
+
+
+def _gfm(**kw):
+    d = {"summary": "OpenAI 宣布新的模型定價方案，下月一日生效。", "category": "product",
+         "company": "OpenAI", "keywords": ["openai"], "track": "模型能力",
+         "evidence": [{"source_id": "src-openai-blog"}], "primary_evidence": 1,
+         "confidence": 70, "heat": 10, "score_factors": {}, "independent_sources": 2}
+    d.update(kw)
+    return d
+
+
+acase("pulse-gate：一則各項都合格的 Event 沒有任何 blocker"
+      "（基準線；沒有這條，下面兩條可能是被別的 blocker 擋住而不是被守住）",
+      _gm.evaluate(_gfm(), _GBODY, _GATE_T)[0], [])
+acase("pulse-gate：沒有一手證據 → missing_primary_evidence（紅線 2 的執法點）",
+      _gm.evaluate(_gfm(primary_evidence=0), _GBODY, _GATE_T)[0],
+      ["missing_primary_evidence"])
+acase("pulse-gate：heat 過門檻但獨立來源/平台廣度撐不住 → unsupported_heat"
+      "（紅線 4：禁止把手工分數包裝成已測量熱度）",
+      _gm.evaluate(_gfm(heat=75, score_factors={"independentSources": 1,
+                                                "platformBreadth": 1}),
+                   _GBODY, _GATE_T)[0], ["unsupported_heat"])
+acase("pulse-gate：heat 高但證據撐得住就不擋（反方向；只釘一邊的話"
+      "「永遠擋」跟「永遠不擋」一樣沒有資訊）",
+      _gm.evaluate(_gfm(heat=75, score_factors={"independentSources": 2,
+                                                "platformBreadth": 2}),
+                   _GBODY, _GATE_T)[0], [])
+
+# M09：從來沒抓到過（item_lag is None）必須判紅。改成 `is not None and ...` 的話，
+# 一個**完全空的 vault** 會顯示綠燈——死人開關在最該叫的那一天最安靜。
+import datetime as _dt_m  # noqa: E402
+
+_hv = Path(tempfile.mkdtemp(prefix="health-"))
+acase("pulse-monitor.health()：一次都沒抓到過 → 紅燈，不是綠燈"
+      "（量不到不等於沒事，紅線 8）",
+      [_mm.health(_hv, _dt_m.date(2026, 7, 26), {}, 2)[_k]
+       for _k in ("probe_lag_days", "last_success", "status")],
+      [None, None, "red"])
+(_hv / "_corpus" / "2026-07-26").mkdir(parents=True)
+(_hv / "_corpus" / "2026-07-26" / "a.jsonl").write_text('{"title": "x"}\n', "utf-8")
+acase("pulse-monitor.health()：今天有語料 → 綠燈（反方向，確認上一條不是恆紅）",
+      _mm.health(_hv, _dt_m.date(2026, 7, 26), {}, 2)["status"], "green")
+shutil.rmtree(_hv, ignore_errors=True)
+
+# M19：聚類的 96 小時窗口。拿掉它，兩則標題相近但隔了兩週的新聞會被併成同一則
+# 事件——去AI化聚類的地基就是這個窗口，它壞掉不會有任何東西看起來不對。
+_C19A = "Nvidia unveils Rubin platform at its annual developer conference"
+_C19B = "Nvidia unveils Rubin platform at annual developer conference recap"
+_c19 = _dt_m.datetime(2026, 7, 1, tzinfo=_dt_m.timezone.utc)
+acase("lib.cluster.belongs_to_event：標題再像，隔 120 小時就不是同一則事件"
+      "（沒有 fingerprint 時全靠這個 96 小時窗口）",
+      [_cm.cluster.belongs_to_event(
+          _C19A, (_c19 + _dt_m.timedelta(hours=_h)).isoformat(),
+          _C19B, _c19.isoformat()) for _h in (48, 120)],
+      [True, False])
+
+# M20：關鍵詞的順序。`list(title_tokens(t))[:8]` 走的是 set，CPython 每個行程重新
+# 隨機化字串雜湊 → 同一個標題每跑一次換一組關鍵詞。理由與實測見 lib/cluster.py。
+# 這條比對的是上面那輪真的 main() 產出的 frontmatter，不是原始碼字串。
+acase("pulse-cluster 跑完一輪：keywords 照標題原順序、濾過虛詞"
+      "（退回 list(set) 的話這裡會變成 7 個亂序的詞）",
+      _cm.parse_frontmatter(_txt)[0].get("keywords"),
+      ["openai", "thing", "exist"])
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:
