@@ -208,6 +208,16 @@ def safe_fetch(url: str, etag: str | None = None) -> tuple[int, str | None, dict
     for _hop in range(MAX_REDIRECTS + 1):
         assert_public_url(current)
         last_exc: Exception | None = None
+        # 這一跳裡「重試耗盡但拿到過真實狀態碼」的紀錄。429 / 5xx 走 continue，
+        # 三次用完之後 for 會正常結束、落到 else，那裡必須把狀態碼還回去。
+        # 舊版沒有這個變數，於是 else 什麼都不做、外圈 for _hop 拿同一個 URL
+        # 再跑一輪：一次 429 變成 6 跳 × 3 次 = 18 個請求，最後丟
+        # 「too many redirects」——對方說「你太快了」，我們回他 18 個請求，
+        # 然後把自己的節流誤記成重導向迴圈。source-health 那邊 429 落在
+        # NEUTRAL_STATUSES（不記分），但它永遠收到的是 error（失敗 −15），
+        # 「不因為我們自己的請求頻率去扣來源的分」那條紅線因此執行不到。
+        last_status: int | None = None
+        redirected = False
         for attempt in range(3):
             try:
                 headers = {"User-Agent": UA}
@@ -222,12 +232,15 @@ def safe_fetch(url: str, etag: str | None = None) -> tuple[int, str | None, dict
                     if not loc:
                         raise ValueError("upstream: redirect without Location")
                     current = requests.compat.urljoin(current, loc)
+                    redirected = True
                     break  # 跳出 retry，回外圈重驗新 URL
                 if r.status_code == 429:
+                    last_status = 429
                     time.sleep(int(r.headers.get("Retry-After", 2 ** attempt))
                                + random.random())
                     continue
                 if r.status_code >= 500:
+                    last_status = r.status_code
                     time.sleep(2 ** attempt + random.random())
                     continue
                 body = r.raw.read(MAX_BODY + 1, decode_content=True)
@@ -242,6 +255,12 @@ def safe_fetch(url: str, etag: str | None = None) -> tuple[int, str | None, dict
         else:
             if last_exc:
                 raise last_exc
+            if last_status is not None:
+                # 退讓完了對方還是 429 / 5xx：把它本人回報出去。body 是 None，
+                # 呼叫端既有的 `status != 200` 分支會照樣不推進 cursor。
+                return last_status, None, {}
+        if not redirected:
+            break
     raise ValueError("upstream: too many redirects")
 
 
@@ -261,27 +280,68 @@ def robots_verdict(url: str) -> tuple[bool | None, str]:
       disallow           200 且規則明文擋住 → 這才是站方政策
       no_robots          其餘 4xx（404 / 410…）＝沒有 robots.txt，依慣例放行
       unavailable_403    401 / 403：拿不到檔案。抓取端當拒絕，但不得寫成政策
-      unreachable        5xx / 空 body：對方壞了
+      unreachable        5xx / 429 / 空 body：對方壞了或在節流我們
+      not_robots         200，但回來的不是 robots.txt（WAF / 登入頁 / 軟 404）
       error              連線層例外
     """
     try:
         p = urlparse(url)
         robots_url = f"{p.scheme}://{p.netloc}/robots.txt"
-        status, body, _ = safe_fetch(robots_url)
+        status, body, headers = safe_fetch(robots_url)
     except Exception:  # noqa: BLE001
         return None, "error"
 
     if status in (401, 403):
         return False, "unavailable_403"
     if status != 200 or body is None:
-        if 400 <= status < 500:
+        # 429 也走這裡。它是 4xx，但語意是「我們太快」，不是「這站沒有 robots.txt」——
+        # 掉進 no_robots 會把自己的節流讀成放行。
+        if 400 <= status < 500 and status != 429:
             return True, "no_robots"
         return None, "unreachable"
+
+    if not _looks_like_robots(body, headers):
+        # 200 不等於拿到 robots.txt。WAF 挑戰頁、SSO 導頁、軟 404 都回 200 加一坨
+        # HTML；RobotFileParser 解析不到任何指令，於是回一組空規則，can_fetch 一律
+        # True——「量測失敗」被讀成「站方全站放行」。方向比 401/403 那個舊 bug 更壞：
+        # 那個是把放行寫成禁止（保守），這個是把禁止寫成放行。
+        # 真的空 robots.txt（RFC 9309 明文放行）走上面 blank 那條，不受影響。
+        return None, "not_robots"
 
     rp = RobotFileParser()
     rp.parse(body.splitlines())
     allowed = rp.can_fetch(UA, url)
     return allowed, "ok" if allowed else "disallow"
+
+
+# robots.txt 是行導向格式，這是它僅有的指令集（RFC 9309 + 通用擴充）。
+_ROBOTS_DIRECTIVES = ("user-agent", "disallow", "allow", "sitemap", "crawl-delay",
+                      "host", "clean-param", "request-rate", "visit-time")
+
+
+def _looks_like_robots(body: str, headers: dict | None = None) -> bool:
+    """這坨 200 的 body 是不是 robots.txt。純語法判斷，不猜意圖。
+
+    空檔案（或整份都是註解）依 RFC 9309 就是合法的「全站放行」，回 True。
+    非空但一條指令都認不出來的，就當成不是 robots.txt。
+    """
+    ctype = ""
+    for k, v in (headers or {}).items():
+        if k.lower() == "content-type":
+            ctype = str(v).lower()
+            break
+    if ctype and "html" in ctype:
+        return False
+
+    saw_content = False
+    for raw in body.splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        saw_content = True
+        if line.split(":", 1)[0].strip().lower() in _ROBOTS_DIRECTIVES:
+            return True
+    return not saw_content
 
 
 def robots_allows(url: str) -> bool | None:

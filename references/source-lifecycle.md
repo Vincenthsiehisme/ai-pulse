@@ -99,6 +99,54 @@ source_health:
 | `unsupported_adapter` | **中性，不記分** | 這是設定檔的 bug 不是來源的問題，selftest 的幽靈來源檢查已經會擋。 |
 | `skipped_lifecycle` | **中性，不記分** | 根本沒去抓，沒有任何觀測 |
 
+> **這張表要成立，前提是 status 真的送得到這裡。** 2026-07-26 的 review 發現
+> `429` 那一列從上線以來是死碼：`safe_fetch` 對 429 / 5xx 走 `continue` 重試，
+> 三次用完之後那一層 `for` 正常結束、`else` 什麼都不做，外圈的 redirect 迴圈
+> 就拿同一個 URL 再跑一輪——一次 429 變成 6 跳 × 3 次 = **18 個請求**，最後丟
+> `too many redirects`，被記成 `error`（失敗 −15）。也就是說：對方說「你太快了」，
+> 我們回他 18 個請求，然後照著自己的請求頻率去扣他的分，而上面那一列白紙黑字
+> 寫著不准這樣做。修法是讓 `safe_fetch` 在重試耗盡時**把狀態碼本人回報出去**
+> （`return last_status, None, {}`），selftest 釘住「只打 3 次」與「回報 429 而非
+> too many redirects」兩件事。
+
+### robots.txt 回 200 不代表拿到了 robots.txt
+
+`robots_verdict()` 多一個原因碼 `not_robots`：HTTP 200，但 body 不是 robots.txt
+（WAF 挑戰頁、SSO 導頁、軟 404 這類 HTML）。判斷純語法——content-type 帶 html，
+或整份 body 非空卻認不出任何一條 robots 指令（`user-agent` / `disallow` /
+`allow` / `sitemap` / …），就不當 robots.txt 看。
+
+為什麼要擋：`RobotFileParser` 對一坨 HTML 解析出**空規則**，`can_fetch()` 於是
+一律回 `True`。量測失敗被讀成「站方全站放行」。方向比 07-24 那個舊 bug 更壞——
+那個是把放行寫成禁止（保守），這個是把禁止寫成放行。具體後果：`src-arxiv-cs-cl`
+的 robots.txt 明文 `Disallow: /`，現在掛 dormant；只要它哪天在 `--revive` 那一班
+回一次 200 加挑戰頁，舊碼就會把它寫成 `robots_ok: true` 並升回 `probing`。
+
+真的空 robots.txt（RFC 9309 明文的全站放行）不受影響：body 整份空白或只有註解時
+仍判 `ok`。`not_robots` 與 `unavailable_403` / `unreachable` / `error` 一樣走
+`unknown_keep`，**不寫回設定檔**。
+
+### `robots_ok: false` 需要入場券
+
+`robots_ok` 只有三種誠實的值：`true`（讀到 robots.txt 且放行）、`null`（量不到）、
+`false`（讀到 robots.txt 且明文擋住）。第三種是唯一會被寫成永久判決的，所以它必須
+附一欄 `robots_evidence: "200+disallow"`——沒有這張入場券的 `false`，selftest 全域紅。
+
+這條規則原本只釘在 `kol_sources` 與 `media_sources` 上，`official_sources` 是漏的。
+2026-07-26 的 review 在那裡撈到 `src-consilium-press`：`robots_ok: false`，註解自己
+寫著「robots.txt 回 403」——逐字就是設定檔開頭禁止的那個寫法。它還會自我封印：
+`dormant` 不會被抓 → 403 判 `unknown_keep` → 要 `opened` 才復活，於是沒有任何一班
+會去碰它。已改成 `robots_ok:`（null）＋ `revive_when_allowed: true`；抓取行為一個字
+沒變，改的只是「我們宣稱知道什麼」。
+
+`src-arxiv-cs-cl` 留著 `false`，因為它的 robots.txt 真的回 200 且寫著
+`User-agent: * / Disallow: /`——那是站方意志，不是我們量不到。
+
+同一趟還修掉 `robots_checked_at` 的語意：這一欄的意思是「最後一次**驗到**是什麼
+時候」，舊碼連 `unknown_keep` 也蓋時戳，等於把量測失敗記成一次成功的驗證
+（紅線 8）。而且它有後果——`--stale-days` 從 1 調回 7 之後，`check()` 會拿這個
+時戳判 `skip_fresh`，一次 WAF 擋包可以換來接下來七天連試都不試，看起來還很正常。
+
 ### 連續計數怎麼走
 
 - 成功（200 / 304）→ 連續失敗數歸零，連續成功數 +1

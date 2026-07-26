@@ -269,6 +269,7 @@ acase("DAY_STICKY_FIELDS 維持 (backfill, is_new)：多一個或少一個都會
 # 這是 07-24 事故最深的一層。舊版把兩者壓成同一個 False，一次 403 就被存進
 # sources.yaml 變成永久判決，整條 OpenAI 線靜靜關掉。抓取端保守跳過沒問題，
 # 但**判決不可以由量測失敗做出**——所以要有 reason code 把兩者分開。
+_REAL_SAFE_FETCH = _pp.safe_fetch   # 下面整段會 monkeypatch，測 safe_fetch 本人時要換回來
 _rcases = [
     ("robots 403 → 抓取端仍拒絕，但原因是 unavailable_403（非政策）",
      403, None, (False, "unavailable_403")),
@@ -277,6 +278,24 @@ _rcases = [
     ("robots 200 + 放行 → ok", 200, PERMISSIVE, (True, "ok")),
     ("robots 404 → no_robots，依慣例放行", 404, None, (True, "no_robots")),
     ("robots 503 → unreachable，不得變成放行", 503, None, (None, "unreachable")),
+    # 429 是 4xx，但它說的是「你太快」，不是「這站沒有 robots.txt」。
+    # 掉進 no_robots 等於把自己的節流讀成對方的放行。
+    ("robots 429 → unreachable，不得掉進 no_robots", 429, None, (None, "unreachable")),
+    # 200 不等於拿到 robots.txt。以下三種都是實際會遇到的 200-非-robots，
+    # RobotFileParser 對它們一律解析出空規則 → can_fetch 恆 True。
+    # 方向比 07-24 那個舊 bug 更壞：那個把放行寫成禁止，這個把禁止寫成放行。
+    ("robots 200 但回 WAF 挑戰頁 → not_robots，不得讀成全站放行",
+     200, "<!DOCTYPE html><html><body>Checking your browser…</body></html>",
+     (None, "not_robots")),
+    ("robots 200 但回 SSO 導頁 → not_robots",
+     200, "<html><head><meta http-equiv=refresh content=0;url=/login></head></html>",
+     (None, "not_robots")),
+    ("robots 200 但回軟 404 文字頁 → not_robots",
+     200, "Sorry, the page you requested could not be found.", (None, "not_robots")),
+    # 反向：真的空 robots.txt 是 RFC 9309 明文的全站放行，不可以被這個防護誤殺。
+    ("robots 200 空檔案 → 仍是 ok（RFC 9309 放行）", 200, "", (True, "ok")),
+    ("robots 200 只有註解 → 仍是 ok", 200, "# nothing here\n\n# really\n",
+     (True, "ok")),
 ]
 for _name, _st, _body, _want in _rcases:
     _pp.safe_fetch = (lambda st, bd: (lambda u: (st, bd, {})))(_st, _body)
@@ -325,6 +344,87 @@ acase("重驗：403 的 unknown_keep 不產生任何 robots_ok 異動",
 _rr._probe.safe_fetch = lambda u: (200, "User-agent: *\nDisallow: /\n", {})
 acase("重驗：200 + Disallow → closed（真政策才寫得回去）",
       _rr.check(_DOC)[0]["verdict"], "closed")
+
+# not_robots 走的必須是 unknown_keep 那條，不是 opened。
+# 若不擋：arXiv 的 robots.txt 明文 `Disallow: /`，現在是 dormant；只要它哪天在
+# --revive 那一班回一次 200 + 挑戰頁，就會被寫成 robots_ok: true 並升回 probing。
+_rr._probe.safe_fetch = lambda u: (200, "<html><body>Access denied</body></html>", {})
+_DOC2 = {"official_sources": [{"id": "s2", "lifecycle": "dormant",
+                               "robots_ok": False, "endpoint": "https://e.test/f"}]}
+acase("重驗：200 但不是 robots.txt → unknown_keep，不得判成 opened",
+      _rr.check(_DOC2)[0]["verdict"], "unknown_keep")
+acase("重驗：not_robots 不產生任何 robots_ok 異動",
+      _rr.apply_changes(_DOC2, _rr.check(_DOC2)), [])
+acase("重驗：not_robots 不得留下 robots_ok 被改掉的痕跡",
+      _DOC2["official_sources"][0]["robots_ok"], False)
+
+# robots_checked_at 的語意是「最後一次**驗到**」。量不到卻蓋時戳，是把失敗
+# 記成一次成功的驗證（紅線 8），而且 --stale-days 回到 7 之後，這個時戳會讓
+# check() 判 skip_fresh——一次 WAF 擋包換來七天連試都不試。
+_DOC3 = {"official_sources": [{"id": "s3", "lifecycle": "probing",
+                               "robots_ok": True, "endpoint": "https://e.test/f"}]}
+_rr._probe.safe_fetch = lambda u: (403, None, {})
+_rr.apply_changes(_DOC3, _rr.check(_DOC3))
+acase("重驗：量不到（unknown_keep）不得蓋 robots_checked_at",
+      "robots_checked_at" in _DOC3["official_sources"][0], False)
+_rr._probe.safe_fetch = lambda u: (200, "User-agent: *\nDisallow: /\n", {})
+_rr.apply_changes(_DOC3, _rr.check(_DOC3))
+acase("重驗：真的驗到了才蓋 robots_checked_at",
+      bool(_DOC3["official_sources"][0].get("robots_checked_at")), True)
+
+# _looks_like_robots：content-type 是 html 就直接否決，即使 body 湊得出指令字樣。
+acase("robots：content-type html → 不當 robots.txt 看",
+      _pp._looks_like_robots("User-agent: *\nDisallow: /admin\n",
+                             {"Content-Type": "text/html; charset=utf-8"}), False)
+acase("robots：content-type text/plain + 指令 → 是 robots.txt",
+      _pp._looks_like_robots("User-agent: *\nDisallow: /admin\n",
+                             {"Content-Type": "text/plain"}), True)
+
+# safe_fetch：429 / 5xx 重試耗盡之後要把狀態碼**本人**還回去。
+# 舊版在這裡什麼都不回，外圈 for _hop 拿同一個 URL 再跑一輪，一次 429 變成
+# 18 個請求、最後丟 too many redirects。對方說「你太快了」，我們回他 18 個請求，
+# 然後把自己的節流誤記成重導向迴圈——source-health 收到的永遠是 error（−15），
+# NEUTRAL_STATUSES 裡那個 429 是永遠到不了的死碼。
+import sys as _sysmod           # noqa: E402
+import time as _timemod         # noqa: E402
+import urllib.parse as _uparse  # noqa: E402
+
+
+class _FakeResp:
+    def __init__(self, status):
+        self.status_code = status
+        self.headers = {}
+
+
+class _CountingRequests:
+    compat = _uparse
+
+    def __init__(self, status):
+        self.status = status
+        self.calls = 0
+
+    def get(self, *a, **k):
+        self.calls += 1
+        return _FakeResp(self.status)
+
+
+_real_sleep = _timemod.sleep
+_timemod.sleep = lambda *a, **k: None
+_pp.safe_fetch = _REAL_SAFE_FETCH          # 測的是 safe_fetch 本人，不是上面的替身
+_real_assert = _pp.assert_public_url
+_pp.assert_public_url = lambda u: None     # e.test 不存在，SSRF 檢查不是這條在測的東西
+try:
+    for _st in (429, 503):
+        _fake = _CountingRequests(_st)
+        _sysmod.modules["requests"] = _fake
+        acase(f"safe_fetch：{_st} 重試耗盡 → 回報 {_st} 本人，不是 too many redirects",
+              _pp.safe_fetch("https://e.test/f"), (_st, None, {}))
+        acase(f"safe_fetch：{_st} 只重試 3 次就收手，不再乘上 redirect 跳數",
+              _fake.calls, 3)
+finally:
+    _timemod.sleep = _real_sleep
+    _pp.assert_public_url = _real_assert
+    _sysmod.modules.pop("requests", None)
 
 # 幽靈設定防護：設定檔裡每一條來源的 adapter 都必須註冊過。
 # 未註冊的來源看起來像覆蓋範圍，其實永遠是零——src-hn-frontpage 當過這個地雷。
@@ -378,6 +478,22 @@ acase("sources.yaml: 媒體線一律 can_satisfy_primary: false",
 acase("sources.yaml: 沒有任何媒體條目寫著未經證實的 robots_ok: false"
       "（本機 403 分不出 WAF 擋包與站方政策，寫 false 就是把量測失敗當判決）",
       [s["id"] for s in _cfg["media_sources"] if s.get("robots_ok") is False], [])
+
+# 上面兩條只蓋 kol_sources 與 media_sources，官方線是漏的——2026-07-26 的 review
+# 就在 official_sources 找到一條 `robots_ok: false  # …robots.txt 回 403…`，
+# 逐字就是設定檔開頭禁止的那個寫法，而且它自我封印：dormant 不會被抓 → 403 判
+# unknown_keep → 要 opened 才復活，於是永遠沒有人會發現。
+#
+# 全域規則改成正面表列：false 可以有，但必須拿得出「200 且明文 Disallow」這張入場券
+# （arXiv 就是，它的 robots.txt 真的寫著 Disallow: /）。量不到的一律寫 null。
+_bad_false = [(k, s["id"]) for k in _SECTIONS for s in (_cfg.get(k) or [])
+              if s.get("robots_ok") is False
+              and s.get("robots_evidence") != "200+disallow"]
+acase("sources.yaml: 全域——robots_ok: false 必須附 robots_evidence: 200+disallow",
+      _bad_false, [])
+acase("sources.yaml: 全域——robots_evidence 只出現在 false 的條目上（不得拿來替 true 背書）",
+      [(k, s["id"]) for k in _SECTIONS for s in (_cfg.get(k) or [])
+       if s.get("robots_evidence") and s.get("robots_ok") is not False], [])
 
 # can_satisfy_primary 在碼裡沒有任何消費者（grep scripts/*.py 是空的）——
 # 真正把關的是 pulse-cluster.rescore() 裡的 `tier == 1 and role != "aggregator"`。

@@ -107,7 +107,8 @@ def check(doc, stale_days=0):
                 row["verdict"] = f"error:{type(e).__name__}"
                 out.append(row)
                 continue
-            if row["reason"] in ("unavailable_403", "unreachable", "error"):
+            if row["reason"] in ("unavailable_403", "unreachable", "error",
+                                 "not_robots"):
                 # 拿不到 robots.txt＝量測失敗，不是站方政策。
                 # 這正是當初殺掉 src-openai-blog 的那一刀：一次 403 被存成永久判決。
                 # 抓取端照樣保守跳過（robots_allows 仍回 False），但這裡不准寫回設定檔。
@@ -137,9 +138,13 @@ def apply_changes(doc, rows, revive=False):
         src = index.get(r["id"])
         if src is None:
             continue
-        src["robots_checked_at"] = stamp
         if r["verdict"] == "unknown_keep":
+            # 不蓋 robots_checked_at。這一欄的意思是「最後一次**驗到**是什麼時候」，
+            # 量測失敗蓋上去就是把失敗記成一次成功的驗證——紅線 8。
+            # 而且它有後果：`--stale-days 7` 回來之後，check() 會拿這個時戳判 skip_fresh，
+            # 於是一次 WAF 擋包可以讓這條來源接下來七天連試都不試，看起來還很正常。
             continue
+        src["robots_checked_at"] = stamp
         if r["verdict"] in ("opened", "closed"):
             changes.append({"at": stamp, "id": r["id"], "field": "robots_ok",
                             "from": r["stored"], "to": r["now"],
