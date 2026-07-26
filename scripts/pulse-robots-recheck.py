@@ -151,6 +151,23 @@ def apply_changes(doc, rows, revive=False):
                             "from": r["stored"], "to": r["now"],
                             "reason": "robots-recheck"})
             src["robots_ok"] = r["now"]
+            # 入場券要跟著結論一起動（references/source-lifecycle.md）。
+            # `false` 是唯一會被存成永久判決的值，所以設定檔規定它必須附
+            # robots_evidence: "200+disallow"；而這張券只能出現在 false 上，
+            # 否則就是拿舊證據替新結論背書。
+            #
+            # 機器一直沒寫它，不是因為手上沒有證據——`closed` 這個 verdict 的
+            # 唯一入口就是 reason == "disallow"（200 且明文擋住）；unavailable_403
+            # / unreachable / not_robots / error 全部在上面被攔成 unknown_keep，
+            # 根本走不到這裡。所以這裡寫的是已經量到的事實，不是補一個好看的欄位。
+            #
+            # 2026-07-26 首班 CI 就是這樣把一筆沒有入場券的 false 寫進 sources.yaml
+            # （src-media-theregister）。兩條 selftest 當場紅，但 CI 不跑 selftest，
+            # 那一班仍是綠的——不變式只釘在人會走的路上，機器走的那條沒釘。
+            if r["now"] is False:
+                src["robots_evidence"] = "200+disallow"
+            elif "robots_evidence" in src:
+                del src["robots_evidence"]
         # 只復活「當初就是被 robots 擋在門外」的，且只升到 probing。
         # 兩種資格，共通點是**曾經明示登記過「我是被 robots 卡住的」**：
         #   stored is False          當初被判死（src-openai-blog 那類）

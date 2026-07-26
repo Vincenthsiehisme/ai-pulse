@@ -961,6 +961,10 @@ media_sources:
   language: en
   lifecycle: probing
   robots_ok: false
+  # 2026-07-26 首班 CI 的 recheck 量到的：verdict `closed` ＝ 200 且明文 Disallow，
+  # 是站方政策不是量測失敗（403 / 5xx / 非 robots.txt 全部走 unknown_keep，寫不回來）。
+  # 這一欄當時漏寫是 apply_changes() 的缺，不是這條來源的判定有問題。
+  robots_evidence: "200+disallow"
   license_note: "titles + excerpt + link"
   frequency: daily
   quota_per_run: 25
