@@ -6,7 +6,8 @@
 
 **1. 發現問題要自己開 PR。** 不是在摘要裡寫「建議修 X」就算交差，也不要直接推
 `main`。開分支、修好、推分支、留 PR。驗證不出來的懷疑就寫「查過、不成立」，不要
-硬送假問題（紅線 8）。
+硬送假問題（紅線 8）。**已知但還沒動手的問題記在 [BACKLOG.md](BACKLOG.md)** —— 開工前
+先看一眼，別重複盤點同一個洞；修掉一條就順手從清單刪掉，清單留著過期條目比沒有清單更糟。
 
 **2. 只有資料 commit 可以直推 `main`。** `chore: nightly refresh` 那一類，動的是
 `_corpus/ _probe/ Events/ Sources/ _dashboards/ dist/`，外加 `_config/sources.yaml`
