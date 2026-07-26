@@ -55,6 +55,7 @@ from pathlib import Path
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _HERE)
+from lib.atomicwrite import atomic_write_text, atomic_write_with  # noqa: E402  見 references/atomic-writes.md
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
 
 # 這支自動降級只會作用在會被抓的 lifecycle。draft / dormant 根本沒有觀測。
@@ -296,8 +297,10 @@ def main():
         elif why == "health-recovered":
             snapshot["sources"][sid]["degraded_by"] = None
             snapshot["sources"][sid]["degraded_from"] = None
-    hpath.parent.mkdir(parents=True, exist_ok=True)
-    hpath.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2), "utf-8")
+    # 原子寫：半份 source-health.json 會讓連續計數與 degraded_by 記號一起掉，
+    # 而 degraded_by 掉了就等於機器再也不會撤銷自己做過的降級——降下去回不來。
+    # 見 references/atomic-writes.md。
+    atomic_write_text(hpath, json.dumps(snapshot, ensure_ascii=False, indent=2))
 
     if not args.apply:
         if changes:
@@ -310,7 +313,10 @@ def main():
         sources_by_id[sid]["lifecycle"] = b
         recorded.append({"at": stamp, "id": sid, "field": "lifecycle",
                          "from": a, "to": b, "reason": why})
-    y.dump(doc, spath.open("w", encoding="utf-8"))
+    # tmp + os.replace()。直接開 "w" 的話，寫到一半被砍留下的是一份**合法但少了
+    # 整段 *_sources: 的 YAML**：讀得起來、不報錯、被 git add -A commit 上去，
+    # 下一班的 probe 才發現零條來源。見 references/atomic-writes.md。
+    atomic_write_with(spath, lambda fh: y.dump(doc, fh))
 
     hist = vault / "_probe" / "source-history.jsonl"
     hist.parent.mkdir(parents=True, exist_ok=True)

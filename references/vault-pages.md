@@ -36,6 +36,11 @@ Track / Actor / Source 靠 backlink 自動成關聯圖」——關聯圖的其�
 
 **內容沒變就不重寫檔案。** 同一天內第 2～12 班通常什麼都不寫。
 
+**要寫的時候走原子寫。** `health.md` 用 `lib/atomicwrite`（tmp + `os.replace()`）。
+`ulimit -f 2` 重現過直接寫的下場：一頁 frontmatter 沒閉合的 2048 bytes 被 CI
+提交上去——而這一頁就是死人開關本身，告訴人「鏈是活的」的那一頁自己是壞的。
+見 references/atomic-writes.md。
+
 **只放 allowlist 欄位（紅線 6）。** `endpoint` 是公開 URL 可以進；
 headers、api key、本機路徑、私有備註一個都不准進 vault。
 

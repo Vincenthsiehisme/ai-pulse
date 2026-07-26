@@ -54,6 +54,7 @@ _probe = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_probe)
 
 sys.path.insert(0, _HERE)
+from lib.atomicwrite import atomic_write_with  # noqa: E402  見 references/atomic-writes.md
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
 
 
@@ -215,7 +216,10 @@ def main():
         return 0
 
     changes = apply_changes(doc, rows, revive=args.revive)
-    y.dump(doc, path.open("w", encoding="utf-8"))
+    # tmp + os.replace()，不是直接開 "w"。直接開的話，寫到一半被砍留下的是一份
+    # **合法但少了整段 *_sources: 的 YAML**——讀得起來、不報錯、被 commit 上去。
+    # 規格與那次實測見 references/atomic-writes.md。
+    atomic_write_with(path, lambda fh: y.dump(doc, fh))
 
     hist = vault / "_probe" / "source-history.jsonl"
     hist.parent.mkdir(parents=True, exist_ok=True)

@@ -166,3 +166,8 @@ append 進去的觀測）。敢一上線就掛 `--apply`，是因為這支能自
 2. `_probe/source-health.json` —— 刪掉即可，下一班會從 100 分重新起算。
 
 `_probe/source-runs.jsonl` 只增不改，刪掉會失去歷史但不影響鏈的運作。
+
+兩個檔案都走 `lib/atomicwrite`（tmp + `os.replace()`）。理由不是「怕檔案壞」，
+是**半份 `sources.yaml` 是合法的 YAML**：四個 `*_sources:` 分節整段消失，
+`safe_load()` 讀得起來、不報錯，而這一步掛 `continue-on-error: true`，
+所以它會被 commit 上去，要到下一班 probe 才炸。見 references/atomic-writes.md。

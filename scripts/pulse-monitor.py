@@ -44,6 +44,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import corpus as _corpus  # noqa: E402  _corpus/、_probe/ 盤點的單一真相源
+from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 
@@ -514,10 +515,13 @@ def main():
     if args.write_health:
         body = render_health(r, h)
         p = vault / "_dashboards" / "health.md"
-        p.parent.mkdir(parents=True, exist_ok=True)
         # 一天 12 班：同一天內內容不變就不重寫，真正的變化才不會被淹掉。
         if not (p.exists() and p.read_text("utf-8") == body):
-            p.write_text(body, "utf-8")
+            # 原子寫。`ulimit -f 2` 重現過：直接 write_text 被砍會留下一頁
+            # frontmatter 沒閉合的 2048 bytes，被 CI 提交上去——而這一頁就是
+            # 死人開關本身，看板告訴人「鏈是活的」的那一頁自己是壞的。
+            # 見 references/atomic-writes.md。
+            atomic_write_text(p, body)
 
     if args.json:
         print(json.dumps(r, ensure_ascii=False, indent=2))
