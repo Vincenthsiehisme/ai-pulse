@@ -1063,6 +1063,29 @@ acase("來源頁：frontmatter 白名單裡沒有非公開欄位（紅線 6）",
        if any(bad in k for bad in ("token", "key", "secret", "header",
                                    "auth", "path", "cookie"))], [])
 
+# 上面那條只看**清單的名字**，不看 render() 有沒有照著清單走。
+# `for k in FM_FROM_CONFIG:` 改成 `for k in src:` 的話，清單一個字都沒動，
+# 上面那條照樣全綠，而整個 sources.yaml 條目——包含 api_key 與本機路徑——
+# 會被倒進 vault 裡跟著 commit 上去。紅線 6 那條邊界要由行為來守，不是由名單。
+_leaky = {"id": "s-leak", "owner": "Someone", "lifecycle": "active",
+          "endpoint": "https://example.invalid/feed.xml",
+          # 以下每一個都不在白名單裡，一個都不准出現在輸出中。
+          "api_key": "sk-THIS-MUST-NOT-LEAK", "headers": {"Authorization": "Bearer x"},
+          "local_path": "/home/someone/notes", "cookie": "sid=abc",
+          "private_note": "內部備註：這條是老闆朋友介紹的"}
+_leak_out = _sn.render(_leaky, 0, None, 0, 0, {}, {})
+acase("來源頁：白名單以外的欄位真的進不去（紅線 6 的邊界由行為守，不是由名單守）"
+      "——`for k in FM_FROM_CONFIG` 改成 `for k in src` 時上面那條不會紅",
+      [k for k in ("api_key", "THIS-MUST-NOT-LEAK", "headers", "Authorization",
+                   "local_path", "cookie", "private_note", "老闆")
+       if k in _leak_out], [])
+
+acase("來源頁：白名單內的公開欄位還是要進得去"
+      "（不然把 render 改成什麼都不寫也會讓上面那條變綠）",
+      [_s in _leak_out for _s in ('owner: "Someone"', 'lifecycle: "active"',
+                                  'endpoint: "https://example.invalid/feed.xml"')],
+      [True, True, True])
+
 with tempfile.TemporaryDirectory() as _d3:
     _v3 = Path(_d3)
     (_v3 / "Events").mkdir(parents=True)
@@ -1307,6 +1330,182 @@ acase("pulse-monitor.scan() 不再從 happened_at / date 算佇列年紀"
        ('_as_date(fm.get("happened_at"))', '_as_date(fm.get("ingested_at"))')],
       [False, True])
 
+# ─────────────── 死人開關的 exit code（規格 references/health-alarms.md）───────────────
+#
+# 上面那一條用 `inspect.getsource(_mm.main)` 比對原始碼字串。字串比對測得到
+# 「有人寫了這一行」，測不到「這一行真的會讓 CI 紅」。2026-07-26 實測：把
+# `main()` 結尾的 `return rc` 改成 `return 0`，整份 selftest 222/222 全過。
+#
+# CI 那一步是 `python scripts/pulse-monitor.py … > /dev/null`——**沒有人在讀那些
+# 字**，整條鏈紅不紅只取決於 `sys.exit(main())` 交出去的數字。三個旗標的計算邏輯
+# 都有測試，把計算結果轉成 exit code 的那一步一條都沒有。
+#
+# 所以下面每一條都走**真的子行程**：在同一個行程裡呼叫 main() 拿回傳值，量到的是
+# main() 的 return，不是 CI 會看到的 exit code——`sys.exit(main())` 被改掉照樣全綠。
+import subprocess as _subprocess  # noqa: E402
+from datetime import datetime as _dtmod  # noqa: E402
+from datetime import timedelta as _timedelta  # noqa: E402
+from datetime import timezone as _tzmod  # noqa: E402
+
+# main() 自己就是這樣算今天的，fixture 只能跟著它走（不能凍結子行程的時鐘）。
+_MTODAY = _dtmod.now(_tzmod.utc).date()
+
+
+def _mday(n):
+    """n 天前的日期字串（n 可以是負的＝未來，用來造時鐘壞掉的語料目錄）。"""
+    return (_MTODAY - _timedelta(days=n)).isoformat()
+
+
+_MSEEN = [{"title": "OpenAI ships a thing", "summary": "", "entity_hits": ["openai"]}]
+_MUNSEEN = [{"title": "unrelated", "summary": "", "entity_hits": []}]
+_MWATCH = [{"entity_id": "openai", "label": "OpenAI"}]
+_MSRC = [{"id": "s-oa", "owner": "OpenAI", "lifecycle": "active", "track": "t"}]
+
+
+def _mvault(corpus=(0,), rows=None, watch=(), sources=(), events=(),
+            stale_after=2, max_silent=2, first_fetch=None):
+    """組一個 `pulse-monitor.py` 真的跑得動的 vault，回傳路徑。
+
+    corpus:      幾天前有語料（0＝今天；負數＝未來日期的目錄）。() ＝一天都沒有。
+    events:      [(進庫幾天前 or None, 是否未潤稿)]，一律 status: review。
+    first_fetch: {sid: 幾天前第一次抓到} → `_probe/state.json`（觀察期的起算點）。
+
+    每個有語料的日子同時寫一份 `_probe/<day>/report.md`——那是「這班跑過了」的
+    判準，跟「這班抓到東西」是兩件事，健康頁兩個都要。
+    """
+    v = Path(tempfile.mkdtemp())
+    (v / "Events").mkdir()
+    (v / "_config").mkdir()
+    (v / "_dashboards").mkdir()
+    (v / "_probe").mkdir()
+    for n in corpus:
+        d = v / "_corpus" / _mday(n)
+        d.mkdir(parents=True)
+        (d / "src-x.jsonl").write_text(
+            "".join(_json.dumps(r, ensure_ascii=False) + "\n"
+                    for r in (rows if rows is not None else _MUNSEEN)), "utf-8")
+        p = v / "_probe" / _mday(n)
+        p.mkdir(parents=True, exist_ok=True)
+        (p / "report.md").write_text("# run\n", "utf-8")
+    (v / "_config" / "sources.yaml").write_text(_yaml.safe_dump(
+        {"official_sources": list(sources),
+         "coverage_watch": {"window_days": 30, "max_silent_days": max_silent,
+                            "must_watch": list(watch)}}, allow_unicode=True), "utf-8")
+    (v / "_config" / "entities.yaml").write_text(_yaml.safe_dump(
+        {"companies": [{"id": "openai", "canonical": "OpenAI", "aliases": []}]},
+        allow_unicode=True), "utf-8")
+    (v / "_config" / "gate.yaml").write_text(_yaml.safe_dump(
+        {"monitor": {"stale_after_days": stale_after}}), "utf-8")
+    if first_fetch:
+        (v / "_probe" / "state.json").write_text(_json.dumps(
+            {k: {"first_fetch_at": _mday(n) + "T00:00:00+00:00"}
+             for k, n in first_fetch.items()}), "utf-8")
+    for i, (ing, unenriched) in enumerate(events):
+        ingline = (f"ingested_at: '{_mday(ing)}T00:00:00+00:00'\n"
+                   if ing is not None else "")
+        (v / "Events" / f"evt-{i}.md").write_text(_EVT_FM.format(
+            i=f"evt-{i}", d=_mday(0), h=_mday(0), ing=ingline,
+            body="待編輯：一句話" if unenriched else "這則已經潤過稿了。"), "utf-8")
+    return v
+
+
+def _mrc(vault, *argv):
+    """子行程跑 pulse-monitor.py → (returncode, stderr)。"""
+    p = _subprocess.run(
+        [sys.executable, os.path.join(_HERE, "pulse-monitor.py"), *argv],
+        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(vault)))
+    return p.returncode, p.stderr
+
+
+_ALL_FLAGS = ("--alert-stale", "--alert-coverage",
+              "--alert-unenriched-days", "2", "--alert-days", "2")
+
+# 乾淨的 vault：今天有語料、必盯實體今天被看見、佇列是空的。四個旗標全開要回 0。
+# 這條釘的是反方向——只釘「該叫的會叫」的話，把 rc 寫死成 1 也會全過，
+# 而一個天天紅的 CI 跟一個永遠綠的 CI 一樣沒有資訊。
+_mv_ok = _mvault(rows=_MSEEN, watch=_MWATCH, sources=_MSRC,
+                 first_fetch={"s-oa": 10})
+acase("死人開關 exit code：一切正常時四個旗標全開要 exit 0"
+      "（只釘「該叫的會叫」的話，rc 寫死成 1 也會全過）",
+      _mrc(_mv_ok, *_ALL_FLAGS)[0], 0)
+
+# --alert-stale：10 天沒抓到任何東西。
+_mv_stale = _mvault(corpus=(10,), rows=_MSEEN, watch=_MWATCH, sources=_MSRC,
+                    first_fetch={"s-oa": 10})
+_rc_stale, _err_stale = _mrc(_mv_stale, "--alert-stale")
+acase("死人開關 exit code：10 天沒抓到東西 → --alert-stale exit 1"
+      "（CI 那一步是 `> /dev/null`，訊息沒人讀，只有這個數字算數）",
+      [_rc_stale, "[alert]" in _err_stale], [1, True])
+
+acase("死人開關 exit code：同一個壞掉的 vault，沒開旗標就不准叫"
+      "（旗標要真的是開關，不是裝飾）", _mrc(_mv_stale)[0], 0)
+
+# 未來日期的語料目錄：lag 是負數。`-3 >= 2` 為假 → 舊碼綠燈，而且時間往前走
+# 只會更綠，這個洞不會自癒（health-alarms.md 第 3 條）。
+_rc_skew, _err_skew = _mrc(_mvault(corpus=(-3,), rows=_MSEEN, watch=_MWATCH,
+                                   sources=_MSRC, first_fetch={"s-oa": 10}),
+                           "--alert-stale")
+acase("死人開關 exit code：未來日期的語料目錄 → exit 1，且訊息指向「日期壞了」"
+      "而不是「來源死了」（成因不同，共用訊息會讓人往錯方向找一整晚）",
+      [_rc_skew, "未來日期" in _err_skew], [1, True])
+
+# --alert-coverage 的兩種成因分開釘：結構破洞 vs 有來源卻沉默。
+acase("死人開關 exit code：必盯實體沒有任何來源在看 → --alert-coverage exit 1"
+      "（2026-07-24 漏抓 Opus 5 就是這一格）",
+      _mrc(_mvault(rows=_MSEEN, watch=_MWATCH, sources=()),
+           "--alert-coverage")[0], 1)
+
+# 語料橫跨 11 天、來源也被觀察了 11 天，都超過 max_silent_days=2，
+# 所以新舊兩種護欄（history_days / observed_days）下都該判 silent。
+_mv_silent = _mvault(corpus=(10, 0), rows=_MUNSEEN, watch=_MWATCH,
+                     sources=_MSRC, first_fetch={"s-oa": 10})
+_rc_silent, _err_silent = _mrc(_mv_silent, "--alert-coverage")
+acase("死人開關 exit code：有來源卻長期沒看見這家 → --alert-coverage exit 1",
+      [_rc_silent, "沉默" in _err_silent], [1, True])
+
+# pending＝設定檔白紙黑字承認「這家還沒補來源」。天天紅的燈等於沒有燈，
+# 所以 --alert-coverage 不叫；要把待辦逼到零時另外開 --alert-no-source。
+_mv_pending = _mvault(rows=_MSEEN,
+                      watch=[{"entity_id": "openai", "label": "OpenAI",
+                              "pending": True}], sources=())
+acase("死人開關 exit code：pending 的結構缺口不觸 --alert-coverage，"
+      "但 --alert-no-source 要抓得到（兩個旗標的界線在 exit code 上分得開）",
+      [_mrc(_mv_pending, "--alert-coverage")[0],
+       _mrc(_mv_pending, "--alert-no-source")[0]], [0, 1])
+
+# --alert-unenriched-days 的兩個觸發條件，各走一次真的 exit code。
+_mv_unenr = _mvault(rows=_MSEEN, watch=_MWATCH, sources=_MSRC,
+                    first_fetch={"s-oa": 10}, events=[(5, True)])
+acase("死人開關 exit code：未潤稿放了 5 天、門檻 2 天 → exit 1",
+      _mrc(_mv_unenr, "--alert-unenriched-days", "2")[0], 1)
+
+acase("死人開關 exit code：未潤稿放了 5 天、門檻 9 天 → exit 0"
+      "（門檻的方向也要釘，只釘一邊的話 >= 改成 <= 只有一半會紅）",
+      _mrc(_mv_unenr, "--alert-unenriched-days", "9")[0], 0)
+
+_mv_undated = _mvault(rows=_MSEEN, watch=_MWATCH, sources=_MSRC,
+                      first_fetch={"s-oa": 10}, events=[(None, True)])
+_rc_und, _err_und = _mrc(_mv_undated, "--alert-unenriched-days", "9")
+acase("死人開關 exit code：未潤稿又缺 ingested_at → 就算門檻是 9 天也要 exit 1"
+      "（量不到不等於放了 0 天，紅線 8——這是上面那條算式釘子的端到端版本）",
+      [_rc_und, "量不到" in _err_und], [1, True])
+
+# --alert-days：卡在 review 的天數。
+_mv_stuck = _mvault(rows=_MSEEN, watch=_MWATCH, sources=_MSRC,
+                    first_fetch={"s-oa": 10}, events=[(5, False)])
+acase("死人開關 exit code：卡在 review 5 天、門檻 2 天 → exit 1；門檻 9 天 → exit 0",
+      [_mrc(_mv_stuck, "--alert-days", "2")[0],
+       _mrc(_mv_stuck, "--alert-days", "9")[0]], [1, 0])
+
+# 輸出模式不准吞掉 exit code：這兩條路徑在 main() 裡都有自己的 return 點可以寫歪。
+acase("死人開關 exit code：--json 一樣要回非零（輸出模式不准吞掉警報）",
+      _mrc(_mv_stale, "--json", "--alert-stale")[0], 1)
+
+_rc_wh, _ = _mrc(_mv_stale, "--write-health", "--alert-stale")
+acase("死人開關 exit code：--write-health 寫完檔照樣要回非零，且檔真的寫出來了"
+      "（看板自己就是死人開關，寫檔那條路徑不能順便把 rc 吃掉）",
+      [_rc_wh, (_mv_stale / "_dashboards" / "health.md").exists()], [1, True])
+
 # ingested_at 必須黏住：event_markdown() 會整份重寫 frontmatter，沒被明確帶過去的
 # 欄位會被抹掉——fix/backfill-flag-erased-by-second-run 修的就是這個坑。
 _cs = importlib.util.spec_from_file_location(
@@ -1363,10 +1562,46 @@ acase("pulse-cluster 跑完一輪：新建的 Event 真的帶著 probe 第一次
       [len(_made), "ingested_at: '2026-07-26T06:41:46+00:00'" in _txt,
        "happened_at: '2026-07-22T00:00:00+00:00'" in _txt], [1, True, True])
 
-acase("pulse-cluster：reload 既有 note 時把 ingested_at 讀回物件"
-      "（不讀回去的話，下一次 rescore 整份重寫就抹掉了）",
-      'ev.ingested_at = fm.get("ingested_at")' in open(
-          os.path.join(_HERE, "pulse-cluster.py"), encoding="utf-8").read(), True)
+# 黏性：event_markdown() 會整份重寫 frontmatter，沒被明確帶過去的欄位會被抹掉。
+# 這一條以前是比對原始碼字串（`'ev.ingested_at = fm.get("ingested_at")' in ...`），
+# 字串比對測得到「有人寫了這一行」，測不到「重寫一輪之後值還在」——而那正是
+# fix/backfill-flag-erased-by-second-run 真正修的東西。改成跑第二輪。
+#
+# 第二輪的訊號**必須是新的 url**：同一筆訊號再跑一次會被 add_evidence 去重、
+# Event 不 dirty、檔案根本不會被重寫，那樣這條就是在斷言一個恆真的條件
+# ——一顆永遠綠的燈。所以下面連「真的被重寫了」也一起釘。
+(_cvault / "_probe" / "2026-07-26" / "signals-scored.jsonl").write_text(
+    "".join(_json.dumps({
+        "source_id": "src-openai-blog", "effective_role": "primary",
+        "title": "OpenAI announces a thing that does not exist",
+        "url": u, "published": "2026-07-22T00:00:00+00:00",
+        "first_observed_at": "2026-07-28T09:00:00+00:00", "total": 90,
+        "entity_hits": ["openai"], "facet": "product", "fingerprint": "openai|thing",
+    }) + "\n" for u in ("https://example.invalid/a", "https://example.invalid/b")),
+    "utf-8")
+_argv, _env = sys.argv[:], os.environ.get("VAULT_DIR")
+sys.argv = ["pulse-cluster.py"]
+os.environ["VAULT_DIR"] = str(_cvault)
+try:
+    _cm.main()
+finally:
+    sys.argv = _argv
+    if _env is not None:
+        os.environ["VAULT_DIR"] = _env
+_txt2 = _made[0].read_text("utf-8") if _made else ""
+acase("pulse-cluster 跑第二輪：整份重寫 frontmatter 之後 ingested_at 還在"
+      "（沒讀回物件的話會被寫成 null，佇列年紀從此量不到）",
+      ["ingested_at: '2026-07-26T06:41:46+00:00'" in _txt2,
+       "ingested_at: null" in _txt2], [True, False])
+
+acase("pulse-cluster 跑第二輪：這一輪真的重寫了那個檔"
+      "（沒重寫的話上一條在斷言一個恆真的條件——測試自己變成一顆永遠綠的燈）",
+      [_txt2 != _txt, "example.invalid/b" in _txt, "example.invalid/b" in _txt2],
+      [True, False, True])
+
+acase("pulse-cluster：第二輪不拿新訊號的 first_observed_at 蓋掉舊的 ingested_at"
+      "（進庫時刻是「我們第一次看到」，不是「最後一次看到」）",
+      "2026-07-28" in _txt2, False)
 
 acase("references/event-timestamps.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "event-timestamps.md")), True)
