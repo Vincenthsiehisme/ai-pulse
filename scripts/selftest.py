@@ -938,8 +938,10 @@ acase("降級：dormant 不在自動降級範圍（根本沒有觀測）",
       _decide([503] * 10, _D_DORMANT)[0], [])
 
 _PRIOR_MACHINE = {"s1": {"degraded_by": "health", "degraded_from": "probing"}}
-acase("回復：機器自己降的級，連續 3 班成功後自己撤銷，且回到原本那個狀態"
-      "（不是升到 active——機器不發信任）",
+# 這條的標題以前寫「不是升到 active——機器不發信任」，但 fixture 的 degraded_from
+# 就是 probing，還到 active 這件事它**根本沒有能力測**。名字比判準寬，跟這個 repo
+# 修過的其他幾條同病。標題改成它真的在測的東西，該測的另外補在下面。
+acase("回復：機器自己降的級，連續 3 班成功後自己撤銷，還回降級前那一個狀態",
       [(c[1], c[2], c[3]) for c in _decide([200, 200, 200], _D_DEGRADED, _PRIOR_MACHINE)[0]],
       [("degraded", "probing", "health-recovered")])
 acase("回復：連續 2 班成功還不夠（門檻是 3）",
@@ -947,6 +949,30 @@ acase("回復：連續 2 班成功還不夠（門檻是 3）",
 acase("回復：**人手**設的 degraded 機器不碰"
       "（沒有 degraded_by: health 記號＝那是判斷不是量測，不該被三班 200 推翻）",
       _decide([200] * 10, _D_DEGRADED, {})[0], [])
+
+# 還原目標：不變式不是「機器只能寫 degraded」，是「不得把信任抬高到超過人設過的
+# 那一級，但要把自己做過的降級**原樣**還回去」。degraded_from 是 active 就還 active
+# ——那不是發信任，是還東西。反過來「一律還到 probing」才有害：probing → active
+# 需要人跑 checklist，而那個 checklist 至今一次都沒跑過，等於機器可以靜靜收掉人給的
+# 信任，而且沒有自癒路徑。（見 references/source-lifecycle.md）
+acase("回復：機器把 active 降下來的，就要還回 active"
+      "（還東西不是發信任；一律還到 probing ＝機器靜靜收掉人給的信任，而且收掉後"
+      "沒有自癒路徑——probing → active 需要人跑 checklist，至今一次都沒跑過）",
+      [c[2] for c in _decide([200] * 3, _D_DEGRADED,
+                             {"s1": {"degraded_by": "health",
+                                     "degraded_from": "active"}})[0]],
+      ["active"])
+# degraded_from 讀自 source-health.json，那是機器自己寫的檔。不信任它的內容，
+# 只信任它的形狀：不在 RESTORABLE 裡的一律退回 probing。
+for _bad in ("dormant", "draft", None, "", "active_", 123):
+    acase(f"回復：degraded_from = {_bad!r} 不是合法的還原目標 → 退回 probing"
+          "（這個值來自機器自己寫的檔案，護欄信任它的形狀不信任它的內容）",
+          [c[2] for c in _decide([200] * 3, _D_DEGRADED,
+                                 {"s1": {"degraded_by": "health",
+                                         "degraded_from": _bad}})[0]],
+          ["probing"])
+acase("回復：RESTORABLE 的成員逐一釘住（放進 dormant 等於讓機器有一條寫 dormant 的路）",
+      sorted(_sh.RESTORABLE), ["active", "probing"])
 
 # 管線那一端：健康分的輸入本來不存在。stats 只餵給 markdown 報告，
 # 所以 gate.yaml 的 source_health 躺了一整個月沒有消費者——不是評分邏輯沒寫，
@@ -977,6 +1003,132 @@ _wf = open(os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml")
 acase("排程：data-refresh.yml 真的會跑 pulse-source-health.py"
       "（沒排進去的話這支腳本就是下一塊沒有消費者的東西）",
       "pulse-source-health.py" in _wf, True)
+
+# ── 隔離候選：機器交棒給人的唯一介面 ────────────────────────────────────────
+#
+# dormant 只有人能寫，所以「哪幾條該停用」機器只能用說的。這份清單斷掉的時候
+# **不會有任何東西變紅**：機器以為自己講了，人這邊沒收到。它以前就是斷的——
+# quarantine_candidates 只放進 --json 的 stdout 字典，寫到磁碟的 snapshot 沒有這個
+# key，於是 pulse-monitor 的 `hjson.get(...) or []` 永遠拿到空清單。
+#
+# 所以下面測的是**磁碟上的檔案**，不是 stdout：讀它的是別支程式，不是人的眼睛。
+_SH_SRC = ("official_sources:\n"
+           "  - id: s1\n    lifecycle: degraded\n    endpoint: https://e.test/f\n")
+
+
+def _sh_vault(tmp, runs_statuses, history_lines=None, health_json=None):
+    v = Path(tmp)
+    (v / "_config").mkdir(parents=True)
+    (v / "_probe").mkdir(parents=True)
+    (v / "_config" / "sources.yaml").write_text(_SH_SRC, encoding="utf-8")
+    (v / "_config" / "gate.yaml").write_text(
+        open(os.path.join(_HERE, "..", "_config", "gate.yaml"), encoding="utf-8").read(),
+        encoding="utf-8")
+    for i, st in enumerate(runs_statuses):
+        _pp.write_run_stats(v, "2026-07-%02d" % (i + 1),
+                            [{"id": "s1", "status": st, "items": 0, "error": None}])
+    if history_lines is not None:
+        (v / "_probe" / "source-history.jsonl").write_text(
+            "".join(_json.dumps(r, ensure_ascii=False) + "\n" for r in history_lines),
+            encoding="utf-8")
+    if health_json is not None:
+        (v / "_probe" / "source-health.json").write_text(
+            _json.dumps(health_json, ensure_ascii=False), encoding="utf-8")
+    return v
+
+
+def _run_sh(vault, *argv):
+    """在子行程跑 pulse-source-health.py，回傳 (returncode, stdout)。
+
+    刻意走子行程而不是直接呼叫 main()：這幾條要測的正是「跑完之後磁碟上多了什麼」，
+    而 main() 讀 os.environ["VAULT_DIR"]、還會 argparse sys.argv——在同一個行程裡
+    模擬那兩件事，測到的就不再是真正會發生的那條路徑了。
+    """
+    env = dict(os.environ, VAULT_DIR=str(vault))
+    p = _subprocess.run([sys.executable,
+                         os.path.join(_HERE, "pulse-source-health.py"), *argv],
+                        capture_output=True, text=True, env=env)
+    return p.returncode, p.stdout
+
+
+import subprocess as _subprocess  # noqa: E402
+
+with _tf2.TemporaryDirectory() as _td3:
+    # 連續 5 班 503 → 達到 quarantine_after_consecutive，而且來源已經是 degraded。
+    _vq = _sh_vault(_td3, [503] * 5)
+    _rc, _out = _run_sh(_vq, "--apply")
+    _snap = _json.loads((_vq / "_probe" / "source-health.json").read_text("utf-8"))
+    acase("隔離候選：寫進**磁碟上的** source-health.json，不是只印在 stdout"
+          "（dormant 只有人能寫，這份清單是機器交棒給人的唯一介面；"
+          "它斷掉的時候不會有任何東西變紅）",
+          _snap.get("quarantine_candidates"), ["s1"])
+    # 真正的消費者長什麼樣，照抄 pulse-monitor.py 那一行。
+    acase("隔離候選：pulse-monitor 那一行讀得到它"
+          "（測 stdout 會漏掉這個 bug——它以前就是 stdout 有、檔案沒有）",
+          sorted(_snap.get("quarantine_candidates") or []), ["s1"])
+
+with _tf2.TemporaryDirectory() as _td4:
+    # 「只看」的跑法一個檔案都不該留下。以前 atomic_write_text 排在 --apply 的守衛
+    # 之前，所以 debug 跑一次 --json，就把 degraded_by: "health" 寫進 state，而
+    # sources.yaml 一個字沒動——兩個檔案從此互相矛盾，下一班會以為降級真的發生過。
+    _vd = _sh_vault(_td4, [503] * 5)
+    _before = sorted(p.name for p in (_vd / "_probe").iterdir())
+    _rc, _out = _run_sh(_vd, "--json")
+    acase("dry run：`--json` 跑完，_probe/ 一個新檔案都沒有"
+          "（宣稱「只看」的旗標留下改動，咬到的是未來的自己）",
+          sorted(p.name for p in (_vd / "_probe").iterdir()), _before)
+    acase("dry run：`--json` 的 stdout 真的解得開"
+          "（那句「加 --apply 才會寫回」以前無條件印在 JSON 後面）",
+          sorted(_json.loads(_out)), ["changes", "prior_source",
+                                      "quarantine_candidates", "runs", "sources"])
+    _rc2, _out2 = _run_sh(_vd, )
+    acase("dry run：不加旗標也一樣不寫",
+          sorted(p.name for p in (_vd / "_probe").iterdir()), _before)
+
+with _tf2.TemporaryDirectory() as _td5:
+    # 刪掉 source-health.json 以前是一個**吸收態**：掉的不是分數（分數每班都從
+    # source-runs.jsonl 完整重算），是 degraded_by / degraded_from。少了那兩個記號，
+    # 機器降下去的來源跟人手設的 degraded 長得一模一樣，而人手設的機器不碰——
+    # 那幾條就永遠停在 degraded。而且進去之後的樣子跟「一切正常」完全一樣，
+    # 沒有任何一格會變紅。修法不是加警告，是讓它不再是吸收態。
+    _hist = [{"at": "2026-07-01T00:00:00+00:00", "id": "s1", "field": "lifecycle",
+              "from": "active", "to": "degraded", "reason": "health-degraded"}]
+    _vr = _sh_vault(_td5, [200] * 3, history_lines=_hist)
+    acase("吸收態：source-health.json 不見時，降級記號從 append-only 的歷史重建"
+          "（不然機器自己降的級會跟人手設的長得一模一樣，永遠回不來，而且不會變紅）",
+          _sh.rebuild_prior_from_history(_vr),
+          {"s1": {"degraded_by": "health", "degraded_from": "active"}})
+    _rc, _out = _run_sh(_vr, "--apply")
+    _snap5 = _json.loads((_vr / "_probe" / "source-health.json").read_text("utf-8"))
+    # 判準看的是 sources.yaml 真的被寫成什麼，不是 degraded_by 變成 None——
+    # 沒重建成功時 degraded_by 本來就是 None，拿它當判準的話這條測試測不到東西。
+    acase("吸收態：重建之後那條來源真的自己回到降級前的那個狀態（active）",
+          [_yaml.safe_load((_vr / "_config" / "sources.yaml").read_text("utf-8"))
+           ["official_sources"][0]["lifecycle"],
+           _snap5["sources"]["s1"]["degraded_by"]], ["active", None])
+    acase("吸收態：snapshot 記下記號是重建來的，讓「重建過」在檔案裡看得見"
+          "（重建靠的是 --apply 有寫進歷史，那個假設哪天不成立時這一欄是唯一線索）",
+          _snap5["prior_source"], "history")
+    acase("吸收態：正常路徑的 prior_source 是 snapshot",
+          _json.loads(_run_sh(_vr, "--json")[1])["prior_source"], "snapshot")
+
+with _tf2.TemporaryDirectory() as _td6:
+    _hist6 = [{"at": "2026-07-01T00:00:00+00:00", "id": "s1", "field": "lifecycle",
+               "from": "active", "to": "degraded", "reason": "health-degraded"},
+              {"at": "2026-07-02T00:00:00+00:00", "id": "s1", "field": "lifecycle",
+               "from": "degraded", "to": "active", "reason": "health-recovered"}]
+    acase("吸收態：已經還過的降級不會被重建成還沒還"
+          "（歷史是 append-only，要照順序放完才是當下的狀態）",
+          _sh.rebuild_prior_from_history(_sh_vault(_td6, [200], history_lines=_hist6)),
+          {})
+
+with _tf2.TemporaryDirectory() as _td7:
+    _hist7 = [{"at": "2026-07-01T00:00:00+00:00", "id": "s1", "field": "robots_ok",
+               "from": None, "to": False, "reason": "robots-recheck"}]
+    acase("吸收態：歷史裡 robots 那些列不是 lifecycle 異動，重建時要跳過"
+          "（兩支腳本共用同一個檔）",
+          _sh.rebuild_prior_from_history(_sh_vault(_td7, [200], history_lines=_hist7)),
+          {})
 
 # ------------------------------------------- gate.yaml 未接線標記（2026-07-26）
 # gate.yaml 原本有 13 個 key 沒有任何程式碼讀它。未接線不是 bug（好幾個是預留
