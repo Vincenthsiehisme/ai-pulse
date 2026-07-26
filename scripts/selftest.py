@@ -749,6 +749,59 @@ acase("排程：data-refresh.yml 真的會跑 pulse-source-health.py"
       "（沒排進去的話這支腳本就是下一塊沒有消費者的東西）",
       "pulse-source-health.py" in _wf, True)
 
+# ------------------------------------------- gate.yaml 未接線標記（2026-07-26）
+# gate.yaml 有 13 個 key 沒有任何程式碼讀它。未接線不是 bug（好幾個是預留規格），
+# 沒標出來才是：一個寫著正常數字的假欄位，會讓下一個人把它改掉、重跑、
+# 看到行為沒變，然後去懷疑資料壞了。對照表在 references/gate-config-status.md。
+_UNWIRED = [
+    "freshness_full_hours", "freshness_zero_days",
+    "minhash_jaccard", "ngram", "event_window_hours",
+    "key_eligibility", "version_derivation", "unknown_entity", "cross_language",
+    "need_tier1_primary", "need_independent_tier2", "translation_chain",
+    "stale_after_days",
+]
+_scripts_blob = "\n".join(
+    open(p, encoding="utf-8").read()
+    for p in sorted(_glob.glob(os.path.join(_HERE, "**", "*.py"), recursive=True))
+    if os.path.basename(p) != "selftest.py")
+acase("gate.yaml：標成「未接線」的 key 必須真的沒有消費者"
+      "（哪天有人去接線了，這條會紅，提醒他回來把標記跟 references/ 一起改掉）",
+      [k for k in _UNWIRED if k in _scripts_blob], [])
+
+_gate_txt = open(os.path.join(_HERE, "..", "_config", "gate.yaml"), encoding="utf-8").read()
+_gate_lines = _gate_txt.splitlines()
+
+
+def _marked(key):
+    """key 那一行本身、或它上面連續的註解區塊裡，要看得到「⚠ …未接線」。
+
+    接受「⚠ 未接線」與「⚠ 整塊未接線」兩種寫法：整塊標一次比每個 key 重複標
+    好讀，但兩者都必須帶著那個 ⚠，不能只在散文裡順口提到未接線。
+    """
+    for i, ln in enumerate(_gate_lines):
+        if not ln.lstrip().startswith(key):
+            continue
+        if "⚠" in ln and "未接線" in ln:
+            return True
+        j = i - 1
+        while j >= 0 and _gate_lines[j].lstrip().startswith("#"):
+            if "⚠" in _gate_lines[j] and "未接線" in _gate_lines[j]:
+                return True
+            j -= 1
+    return False
+
+
+acase("gate.yaml：每個未接線的 key 旁邊都要留著「⚠ …未接線」標記"
+      "（標記被刪掉＝那個假欄位又變回看起來很正常的樣子）",
+      [k for k in _UNWIRED if not _marked(k)], [])
+acase("gate.yaml：heat 那三個標的是「接線了但走不到」而不是「未接線」"
+      "（它們確實被 pulse-gate.py 讀到，病因不同，修法也不同——"
+      "把 70 調小是紅線 4 禁止的那種修法）",
+      "接線了但走不到" in _gate_txt and "heat 上限 48" in _gate_txt, True)
+acase("references/gate-config-status.md 存在（gate.yaml 的標記指向它）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "gate-config-status.md")),
+      True)
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:

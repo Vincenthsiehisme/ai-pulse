@@ -1,4 +1,11 @@
 # _config/gate.yaml — 所有可調門檻集中管理（改門檻不改碼；改動要 docs-first）
+#
+# 讀之前先看這行：**這個檔裡有 13 個 key 沒有任何程式碼讀它**，
+# 全部標了「⚠ 未接線」。標記旁邊會寫清楚實際由什麼決定那個行為。
+# 完整對照表與理由見 references/gate-config-status.md，selftest 有測試釘住標記。
+#
+# 未接線不是 bug（好幾個是還沒做的功能的預留規格），沒標出來才是——
+# 一個寫著正常數字的假欄位，會讓下一個人把它改掉、重跑、然後懷疑資料壞了。
 
 quality:
   discard_below: 40          # total < 此值直接丟棄，不進聚類
@@ -13,14 +20,21 @@ quality:
     freshness: 20
     originality: 15
     completeness: 15
-  freshness_full_hours: 24   # < 此小時給滿分
-  freshness_zero_days: 30    # > 此天數給 0
+  # ⚠ 未接線。lib/quality.py:_freshness() 用的是硬寫階梯，不讀這兩個值：
+  #   ≤1h→20（滿分） ≤6h→18 ≤24h→15 ≤72h→10 ≤168h→6 ≤720h→3 其餘→1
+  # 也就是「24 小時內給滿分」與「30 天後給 0」兩句話目前都**不成立**。
+  freshness_full_hours: 24   # ⚠ 未接線（實際：≤24h 給 15，不是滿分）
+  freshness_zero_days: 30    # ⚠ 未接線（實際：>30 天給 1，永遠不歸零）
   recency_max_lead_days: 7   # 首次觀測距 published > 此天數 → 判為歷史存檔，不進事件/來源更新（0=關閉）
 
+# ⚠ 整塊未接線。實際的近似重複與事件窗口都在 lib/cluster.py 裡硬寫：
+#   相似度 = title_similarity() 的 **token Jaccard**（不是 MinHash，也沒有 char n-gram）
+#   窗口   = 一般 96h／incident 類 7 天／同 facet 21 天（沒有一個是 72）
+# 把下面任何一個數字改掉，聚類結果一個字都不會變。
 dedup:
-  minhash_jaccard: 0.80      # 標題近似重複門檻
-  ngram: 4                   # char n-gram 大小
-  event_window_hours: 72     # 同實體 ± 此窗口內併為一 Event
+  minhash_jaccard: 0.80      # ⚠ 未接線
+  ngram: 4                   # ⚠ 未接線（沒有任何地方做 char n-gram）
+  event_window_hours: 72     # ⚠ 未接線（實際 96h / 7d / 21d）
 
 # ---------------------------------------------------------------------------
 # clustering — 字典的「執行控制層」。entities.yaml 只管實體是什麼；
@@ -31,6 +45,8 @@ clustering:
   #   standalone         = 可單獨當主鍵
   #   co_occurrence_only = 必須與 requires 清單中的型別共現才成立
   #   never              = 永不當主鍵，只作標籤與檢索
+  # ⚠ 未接線。technology 的 co_occurrence_only 限制目前不存在，
+  # 技術詞（agent / RAG / MCP）現在可以單獨當主鍵。
   key_eligibility:
     company:        standalone
     product_line:   standalone
@@ -45,8 +61,9 @@ clustering:
       # 不同公司的無關消息併成一個 Event。
 
   # 版本實體衍生：產品線手工維護，版本由 pattern 自動產生，避免每週手改字典
+  # ⚠ 整塊未接線。claude@opus-4.8 這種衍生實體目前不會產生。
   version_derivation:
-    enabled: true
+    enabled: true   # ⚠ 未接線（這個 true 沒有開啟任何東西）
     id_format: "{line_id}@{version_slug}"   # 例：claude@opus-4.8
     parent_field: line_id
     # 衍生實體優先於產品線本身作為主鍵；辨識不出版本時退回產品線
@@ -57,12 +74,16 @@ clustering:
     versions_are_distinct: true
 
   # 未知實體：命中不到任何字典條目的訊號怎麼辦
+  # ⚠ 整塊未接線。特別注意 report_to 指的檔案**不存在**，
+  # 也沒有任何一行碼會去產生它——字典補漏清單目前是不存在的東西。
   unknown_entity:
-    action: retain_as_observed   # 保留為 observed，不丟棄
-    key_from_title_hash: true    # 用標題 hash 當臨時主鍵，避免全部擠成一堆
-    report_to: _dashboards/dictionary-gaps.md   # 累積成字典補漏清單
+    action: retain_as_observed   # ⚠ 未接線
+    key_from_title_hash: true    # ⚠ 未接線
+    report_to: _dashboards/dictionary-gaps.md   # ⚠ 未接線，且此檔不存在
 
   # 已知的跨語言限制（去AI化下無法解，記錄在案）
+  # ⚠ 未接線。這塊本來就是「聲明」不是開關，但仍要標——
+  # 否則讀者會以為 supported: false 是某處讀到之後關掉了什麼。
   cross_language:
     supported: false
     mitigation: aliases_only     # 只靠字典別名部分覆蓋
@@ -71,19 +92,36 @@ clustering:
 readiness:                   # 事件發布硬門禁
   thin_fact_min_chars: 20
   min_confidence: 60
-  heat_threshold: 70         # 超過此熱度才檢查熱度支撐
-  heat_min_independent_sources: 2
-  heat_min_platform_breadth: 2
+  # 下面三個是另一種病：**接線了，但條件走不到**。
+  # pulse-gate.py 確實讀它們組成 unsupported_heat，可是那個 if 的第一關是
+  # heat >= 70，而 heat 目前的理論上限是 **48**——pulse-cluster.py 呼叫
+  # score_event() 時 metrics=[]，平台廣度與地域恆為 0，那 13 分永遠拿不到。
+  # 所以 unsupported_heat 的正確描述是「已寫好，尚未生效」。
+  #
+  # 正確的修法是去真的收集社群指標，**不是**把 70 調到 45。後者會讓這條
+  # blocker 開始有反應，但那個反應是假的——紅線 4：禁止把手工分數包裝成
+  # 已測量熱度。把門檻降到手工分數搆得到的高度是同一件事換個方向做。
+  # selftest 有一條測試釘住 48 這個上限。
+  heat_threshold: 70         # 接線了但走不到（heat 上限 48）
+  heat_min_independent_sources: 2   # 同上
+  heat_min_platform_breadth: 2      # 同上
   require_primary_evidence: true
 
 evidence:                    # 發布證據門檻
-  need_tier1_primary: 1      # 或
-  need_independent_tier2: 2
+  # ⚠ 兩個都未接線。真正在擋的是 pulse-gate.py 的 missing_primary_evidence
+  # （primary_evidence 欄位為 0 就擋），那個欄位由 pulse-cluster.rescore() 的
+  # `tier == 1 and role != "aggregator"` 算出來，跟下面這兩個數字無關。
+  # 尤其 need_independent_tier2：目前**沒有**「兩個獨立 Tier-2 也可以」這條路，
+  # primary 缺席就是擋，補幾個獨立來源都沒用。
+  need_tier1_primary: 1      # ⚠ 未接線（數字碰巧一致，不是被讀進去的）
+  need_independent_tier2: 2  # ⚠ 未接線（這條替代路徑不存在）
 
   # 轉載鏈防護：跨語言聚類做不到，導致翻譯轉載會被誤判為獨立來源，
   # 同時虛增 independent_sources 與 heat，繞過 unsupported_heat 防線。
+  # ⚠ 整塊未接線。這是媒體線的已知風險缺口：英文原文＋中文改寫目前會被算成
+  # 兩個獨立來源。feat/media-line 因此只收英文媒體。
   translation_chain:
-    enabled: true
+    enabled: true            # ⚠ 未接線（這個 true 沒有開啟任何東西）
     # 命中相同實體主鍵、時間窗內、語言不同，且標題實體集合高度重疊
     # → 標記 suspected_repost，不計入獨立性、不計入 heat
     entity_overlap_min: 0.80
@@ -106,4 +144,6 @@ source_health:
   recover_after_consecutive: 3      # 連續成功幾次 → 撤銷機器自己做的降級
 
 monitor:
-  stale_after_days: 2        # health.md 超過此天數沒成功抓取 → 紅燈 / workflow fail
+  # ⚠ 未接線。pulse-monitor.py 的新鮮度判斷沒讀它，
+  # 而且註解裡那個 _dashboards/health.md **本身也還不存在**。
+  stale_after_days: 2        # ⚠ 未接線，且 health.md 尚未產生
