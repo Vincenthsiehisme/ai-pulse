@@ -450,7 +450,7 @@ def harvest_candidates(text: str, matched: set[str]) -> list[str]:
 
 # -------------------------------------------------------------------- adapters
 
-def adapt_rss(source: dict, body: str) -> list[dict]:
+def adapt_rss(source: dict, body: str, diag: dict | None = None) -> list[dict]:
     import feedparser
 
     feed = feedparser.parse(body)
@@ -491,7 +491,7 @@ def _slug_to_title(url: str) -> str:
                     else w.capitalize() for w in words)
 
 
-def adapt_sitemap(source: dict, body: str) -> list[dict]:
+def adapt_sitemap(source: dict, body: str, diag: dict | None = None) -> list[dict]:
     """sitemap.xml → 項目清單。給「沒有 RSS，但 robots.txt 自己宣告 Sitemap:」的官方站。
 
     合規邊界（紅線 7）：只走站方 robots.txt 主動指出的入口，不猜路徑、不爬全站、
@@ -502,11 +502,19 @@ def adapt_sitemap(source: dict, body: str) -> list[dict]:
       url_prefix     只收 path 以此開頭的 URL（例：/news/）。缺省＝全收。
       sitemap_hints  遇上 sitemap index 時，只展開 <loc> 含這些字串的子 sitemap。
       max_sitemaps   子 sitemap 展開上限（預設 3），避免一次打爆對方。
+
+    `diag`：呼叫端給的 dict，這支會把**中途每一步各剩幾條**填進去。回空清單有四種
+    完全不同的成因（見 `zero_yield_reason()`），而回傳值只有一個 `[]`——把中途的
+    數字丟掉，等於把四種成因壓成同一句「0 筆」。那正是這個 repo 一直在抓的形態，
+    只是這次代理的是報告欄位：**「我們解析不出來」被印成「站上沒新東西」。**
     """
     import xml.etree.ElementTree as ET
 
     prefix = source.get("url_prefix") or ""
     quota = int(source.get("quota_per_run", 50))
+    d = diag if diag is not None else {}
+    d["adapter"] = "sitemap"
+    d["url_prefix"] = prefix
 
     def parse(xml_text: str) -> tuple[str, list[tuple[str, str]]]:
         root = ET.fromstring(xml_text.lstrip("﻿ \r\n\t"))
@@ -522,22 +530,36 @@ def adapt_sitemap(source: dict, body: str) -> list[dict]:
         return tag, out
 
     kind, entries = parse(body)
+    d["kind"] = kind
 
     if kind == "sitemapindex":
         hints = source.get("sitemap_hints") or ([prefix.strip("/")] if prefix else [])
-        picked = [loc for loc, _ in entries
-                  if not hints or any(h and h in loc for h in hints)]
-        picked = picked[: int(source.get("max_sitemaps", 3))]
+        matched = [loc for loc, _ in entries
+                   if not hints or any(h and h in loc for h in hints)]
+        cap = int(source.get("max_sitemaps", 3))
+        picked = matched[:cap]
+        d.update({"index_entries": len(entries), "hints": list(hints),
+                  "hint_matched": len(matched), "max_sitemaps": cap,
+                  "expanded": len(picked), "sub_ok": 0, "sub_failed": []})
         entries = []
         for sub in picked:
             status, sub_body, _ = safe_fetch(sub)
             if status == 200 and sub_body:
+                d["sub_ok"] += 1
                 entries.extend(parse(sub_body)[1])
+            else:
+                # 子 sitemap 抓不到跟「子 sitemap 裡沒東西」是兩件事。壓成同一個
+                # 空清單，人會去改 url_prefix，而真正壞的是那一跳。
+                d["sub_failed"].append([sub, status])
+
+    d["urls_before_filter"] = len(entries)
+    d["sample_before_filter"] = [loc for loc, _ in entries[:3]]
 
     rows = [(loc, mod) for loc, mod in entries
             if not prefix or urlsplit(loc).path.startswith(prefix)]
     # sitemap 不保證排序；lastmod 新的排前面，「今天發生什麼」才問得出來。
     rows.sort(key=lambda r: r[1] or "", reverse=True)
+    d["urls_after_filter"] = len(rows)
 
     return [{
         "title": _slug_to_title(loc),
@@ -548,7 +570,58 @@ def adapt_sitemap(source: dict, body: str) -> list[dict]:
     } for loc, mod in rows[:quota]]
 
 
-def adapt_json_api(source: dict, body: str) -> list[dict]:
+def zero_yield_reason(diag: dict | None) -> tuple[str, str]:
+    """把 adapter 留下的中途數字翻成「這 0 筆是哪一種 0」。回 (code, 人話)。
+
+    規格見 references/health-alarms.md〈零產出不是沉默〉。判斷全部走 diag 裡的
+    計數，不去猜、不去重抓——**這支不做任何 I/O**，所以在沒有外網的環境也測得動。
+
+    為什麼要有 code 而不是只印一段字：報告上的字是給人看的，但「這條到底該不該
+    去修」是要拿來做決定的。只印散文，下一個人得自己重讀一遍再判一次；而重判會
+    因人而異，那就又變成一個比事實寬鬆的代理。
+
+    五個 code 的分界線只有一條：**這 0 筆是站方那邊沒有東西，還是我們這邊接不上。**
+
+      source_empty            站方那邊：入口是通的，裡面就是沒有 URL
+      hints_matched_nothing   我們這邊：index 有子 sitemap，但沒有一張對得上 hints
+      sub_sitemap_unreachable 中間那一跳：子 sitemap 選到了，抓不下來
+      prefix_filtered_all     我們這邊：URL 拿到了，url_prefix 一條都不放行
+      no_diagnosis            這個 adapter 還沒有零產出診斷（誠實掛著，紅線 8）
+    """
+    if not diag or not diag.get("adapter"):
+        return "no_diagnosis", "這個 adapter 還沒有零產出診斷，分不出是哪一種 0"
+
+    kind = diag.get("kind")
+    before = diag.get("urls_before_filter", 0)
+    after = diag.get("urls_after_filter", 0)
+    prefix = diag.get("url_prefix") or "（無）"
+
+    if kind == "sitemapindex":
+        idx_n = diag.get("index_entries", 0)
+        hints = diag.get("hints") or []
+        matched = diag.get("hint_matched", 0)
+        if idx_n == 0:
+            return "source_empty", "sitemap index 裡一張子 sitemap 都沒有（站方那邊）"
+        if matched == 0:
+            return ("hints_matched_nothing",
+                    f"index 有 {idx_n} 張子 sitemap，hints {hints} 一張都沒命中"
+                    f"——**是我們的設定對不上，不是站上沒東西**")
+        if diag.get("expanded", 0) and not diag.get("sub_ok", 0):
+            fails = ", ".join(f"{u}→{s}" for u, s in diag.get("sub_failed") or [])
+            return ("sub_sitemap_unreachable",
+                    f"選到 {diag['expanded']} 張子 sitemap，一張都抓不下來（{fails}）")
+
+    if before == 0:
+        return "source_empty", "入口是通的，裡面就是沒有 URL（站方那邊）"
+    if after == 0:
+        return ("prefix_filtered_all",
+                f"抓到 {before} 條 URL，url_prefix `{prefix}` 一條都不放行"
+                f"——**是 prefix 對不上實際路徑，不是站上沒東西**")
+    return ("unknown",
+            f"過濾後還有 {after} 條 URL 卻沒有產出——這一格不該出現，去看 quota")
+
+
+def adapt_json_api(source: dict, body: str, diag: dict | None = None) -> list[dict]:
     """JSON 端點 → 項目清單。目前的使用者是 HN topstories：第一跳只回 id 陣列，
     內容要對每個 id 再打一次 item 端點。這個第二跳用 item_endpoint 表達。
 
@@ -607,7 +680,8 @@ def adapt_json_api(source: dict, body: str) -> list[dict]:
     return items
 
 
-def adapt_github_releases(source: dict, _body: str) -> list[dict]:
+def adapt_github_releases(source: dict, _body: str,
+                          diag: dict | None = None) -> list[dict]:
     repo = source["endpoint"]
     status, body, _ = safe_fetch(f"https://api.github.com/repos/{repo}/releases")
     if status != 200 or not body:
@@ -640,7 +714,7 @@ def run_source(src: dict, table, state: dict, seen: dict) -> tuple[list[dict], d
     st = state.get(sid, {})
     stat = {"id": sid, "track": src.get("track"), "tier": src.get("tier"),
             "status": None, "items": 0, "error": None, "robots": None,
-            "backfill": False, "new": 0}
+            "backfill": False, "new": 0, "diag": {}}
 
     adapter = ADAPTERS.get(src.get("adapter"))
     if adapter is None:
@@ -680,7 +754,7 @@ def run_source(src: dict, table, state: dict, seen: dict) -> tuple[list[dict], d
     try:
         if self_fetch:
             # endpoint 非 URL，交給 adapter 自己組並抓
-            items = adapter(src, "")
+            items = adapter(src, "", stat["diag"])
             stat["status"] = 200
             headers = {}
         else:
@@ -691,7 +765,7 @@ def run_source(src: dict, table, state: dict, seen: dict) -> tuple[list[dict], d
             if status != 200:
                 stat["error"] = f"http {status}"
                 return [], stat
-            items = adapter(src, body)
+            items = adapter(src, body, stat["diag"])
     except Exception as e:  # noqa: BLE001
         stat["status"] = "error"
         stat["error"] = f"{type(e).__name__}: {e}"
@@ -775,6 +849,61 @@ def write_run_stats(vault: Path, day: str, stats: list[dict]) -> Path:
     with path.open("a", encoding="utf-8") as f:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     return path
+
+
+def zero_yield_section(stats: list[dict]) -> list[str]:
+    """報告裡的〈零產出診斷〉。規格見 references/health-alarms.md〈零產出不是沉默〉。
+
+    只收 `status == 200 且 items == 0` 的來源。304 不收——那是「內容沒變」，本來就
+    講得清楚；非 200 也不收——error 欄已經說了是哪一種失敗。剩下的 200 / 0 筆才是
+    唯一一種「報告上兩種成因印起來一模一樣」的格子。
+
+    空的時候要印出「本輪沒有」，不能整段不印。**一個只在有東西時才出現的區塊，
+    看不見的時候有兩種意思**（沒有零產出／這段壞了），那又是同一隻病。
+    """
+    zero = [s for s in stats if s.get("status") == 200 and not s.get("items")]
+    out = ["", "## 零產出診斷（status 200 但 0 筆）", "",
+           "一條「200 / 0 筆」有兩種完全不同的成因：**站方那邊沒有東西**，"
+           "或**我們這邊接不上**。兩者在來源狀態表上印起來一模一樣，於是零產出的",
+           "來源只能靠人翻語料去猜。這張表把它們分開；判準是",
+           "`pulse-probe.zero_yield_reason()`，規格見 "
+           "`references/health-alarms.md`〈零產出不是沉默〉。", ""]
+    if not zero:
+        out += ["（本輪沒有 status 200 而 0 筆的來源。）", ""]
+        return out
+
+    out += ["| source | 判定 | 是誰那邊 | 說明 |", "|---|---|---|---|"]
+    for s in zero:
+        code, why = zero_yield_reason(s.get("diag"))
+        side = {"source_empty": "站方",
+                "no_diagnosis": "還不知道"}.get(code, "我們")
+        out.append(f"| {s['id']} | `{code}` | {side} | {why} |")
+
+    out += ["", "### 中途數字（過濾前後各剩幾條）", ""]
+    for s in zero:
+        d = s.get("diag") or {}
+        if not d.get("adapter"):
+            out.append(f"- `{s['id']}`：這個 adapter（{s.get('track') or '?'} 線）"
+                       "還沒有零產出診斷，中途數字沒有留。")
+            continue
+        bits = [f"kind={d.get('kind')}"]
+        if d.get("kind") == "sitemapindex":
+            bits.append(f"index {d.get('index_entries')} 張、"
+                        f"hints {d.get('hints')} 命中 {d.get('hint_matched')} 張"
+                        f"（上限 {d.get('max_sitemaps')}）、"
+                        f"展開 {d.get('expanded')} 張、抓成功 {d.get('sub_ok')} 張")
+            for url, st in d.get("sub_failed") or []:
+                bits.append(f"子 sitemap 失敗 {url} → {st}")
+        bits.append(f"過濾前 {d.get('urls_before_filter')} 條 URL、"
+                    f"url_prefix `{d.get('url_prefix') or '（無）'}`、"
+                    f"過濾後 {d.get('urls_after_filter')} 條")
+        out.append(f"- `{s['id']}`：" + "；".join(bits))
+        for sample in d.get("sample_before_filter") or []:
+            out.append(f"    - 過濾前樣本：{sample}")
+    out += ["",
+            "樣本只印過濾**前**的前三條 URL——過濾後的樣本回答不了「為什麼被濾掉」。",
+            "只有連結，不抓內文（紅線 7 的合規邊界沒有變）。", ""]
+    return out
 
 
 def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
@@ -881,6 +1010,8 @@ def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
               "（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。",
               "`robots_disallow` = robots.txt 取得成功且明文 Disallow —— "
               "只有這個才是站方政策，也只有這個可以拿來降級。", ""]
+
+    lines += zero_yield_section(stats)
 
     lines += ["", "## 本輪已知缺口（勿當成已實現）", "",
               f"- 簡繁正規化：{'已啟用 opencc' if simp_trad else '**未啟用**'}"

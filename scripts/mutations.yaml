@@ -304,3 +304,53 @@ mutations:
     replace: "            if text is None or name_in_code(e[\"marked_at\"], text):"
     survives: false
     why: ""
+
+  # ── 零產出診斷：「200 / 0 筆」有四種成因（references/health-alarms.md）──
+
+  - id: M33
+    title: "中途數字不記（過濾前永遠是 0，我們接不上就變成站上沒東西）"
+    file: pulse-probe.py
+    find: "    d[\"urls_before_filter\"] = len(entries)"
+    replace: "    d[\"urls_before_filter\"] = 0"
+    survives: false
+    why: ""
+
+  - id: M34
+    title: "判定一律回站方（把我們這邊的病全部推給對方，report 從此每天都對）"
+    file: pulse-probe.py
+    find: "    if before == 0:\n        return \"source_empty\", \"入口是通的，裡面就是沒有 URL（站方那邊）\""
+    replace: "    if True:\n        return \"source_empty\", \"入口是通的，裡面就是沒有 URL（站方那邊）\""
+    survives: false
+    why: ""
+
+  - id: M35
+    title: "命中數寫死成 1（一張都沒對上，report 卻說「站方那邊沒東西」）"
+    file: pulse-probe.py
+    find: "                  \"hint_matched\": len(matched), \"max_sitemaps\": cap,"
+    replace: "                  \"hint_matched\": 1, \"max_sitemaps\": cap,"
+    survives: false
+    why: ""
+
+  - id: M36
+    title: "零產出區塊沒東西就整段不印（看不見時分不出「沒有」與「壞了」）"
+    file: pulse-probe.py
+    find: "    if not zero:\n        out += [\"（本輪沒有 status 200 而 0 筆的來源。）\", \"\"]\n        return out"
+    replace: "    if not zero:\n        return []"
+    survives: false
+    why: ""
+
+  - id: M37
+    title: "零產出區塊不篩 status（304 與 robots_disallow 混進來，零產出同時指兩件事）"
+    file: pulse-probe.py
+    find: "    zero = [s for s in stats if s.get(\"status\") == 200 and not s.get(\"items\")]"
+    replace: "    zero = [s for s in stats if not s.get(\"items\")]"
+    survives: false
+    why: ""
+
+  - id: M38
+    title: "「是誰那邊」一律印我們（分了類卻印同一句，等於沒分）"
+    file: pulse-probe.py
+    find: "        side = {\"source_empty\": \"站方\",\n                \"no_diagnosis\": \"還不知道\"}.get(code, \"我們\")"
+    replace: "        side = \"我們\""
+    survives: false
+    why: ""
