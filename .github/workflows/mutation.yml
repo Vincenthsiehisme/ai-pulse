@@ -1,0 +1,69 @@
+# 變異盤點：真的把碼改壞，看 selftest 會不會紅。規格 references/mutation-inventory.md。
+#
+# 為什麼要獨立一支工作流，不塞進 data-refresh.yml：
+#   1. data-refresh 那條鏈會 `git add -A` 然後 commit。mutate.py 會**真的改寫**
+#      scripts/ 底下的原始碼再還原，兩件事撞在同一個 job 裡，只要還原那一步出事，
+#      被改壞的碼就會被 commit 上 main。mutate.py 自己有 sha256 護欄，但那道護欄
+#      不該是唯一一道——把它們放在不同的 job 裡，撞不到就是撞不到。
+#   2. 它要跑二十幾次 selftest（分鐘級），data-refresh 一天跑很多班，不該背這個。
+#
+# 為什麼不掛在每次 push 的必經路徑上：太慢。push 那一端由 selftest 裡的
+# 「清單鮮度」那幾條頂著（0.5 秒，只數針腳、不跑變異）。這支是慢的那一半：
+# 針腳還在，不代表那一格還守得住。
+#
+# 觸發：改到 scripts/ 或清單本身時跑一次；另外每週一跑一次。
+# 每週那一班不是為了「定期看看」——是為了抓**沒有人改碼、但守護消失了**的情況
+# （例如某條測試被別的改動連帶失效）。只靠 push 觸發的話，那種消失永遠沒人知道。
+name: Mutation inventory
+
+on:
+  push:
+    paths:
+      - 'scripts/**'
+      - 'references/mutation-inventory.md'
+      - '.github/workflows/mutation.yml'
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - 'references/mutation-inventory.md'
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mutation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mutate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests pyyaml feedparser ruamel.yaml
+      # 不 continue-on-error。這支紅了代表下面三件事之一，每一件都要有人看：
+      #   regression    記著「會被抓到」的地方，現在改壞了沒人管
+      #   stale-record  有人補了測試但沒更新清單（清單開始腐爛）
+      #   stale-needle / crashed  清單裡有條目已經不是有效的變異
+      # 它不擋部署——這支跟 data-refresh 完全分開，紅了只是寄通知。
+      - name: Mutation inventory
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: python scripts/mutate.py
+      # 還原護欄的第四道：mutate.py 自己比對 sha256，這裡再讓 CI 說一次話。
+      # 前面那步就算因為某種想不到的理由沒還原乾淨，這裡會紅，而且看得到 diff。
+      - name: 工作區必須乾淨（還原失敗的最後一道欄杆）
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::mutate.py 跑完後工作區不乾淨——原始碼沒還原回去"
+            git status --porcelain
+            git diff
+            exit 1
+          fi

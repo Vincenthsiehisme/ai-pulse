@@ -1,0 +1,204 @@
+# 變異盤點清單 — 規格見 references/mutation-inventory.md
+#
+# 每一條的意思是：「把這一行改成那樣，應該要有測試紅」。
+#
+# survives 記的是**上次實測的結果**，不是希望的樣子。兩個方向都會被比對：
+#   survives: false 卻活下來 → regression（測試被刪掉，或碼被改得繞過測試）
+#   survives: true  卻被殺掉 → stale-record（有人補了測試，清單該更新）
+# 只釘一個方向的話，把 survives 全填 true 就會永遠綠——那是許願單不是盤點。
+#
+# survives: true 一定要寫清楚 why：誰在管、出處在哪。已知的缺口掛著是誠實
+# （紅線 8），沒有理由的存活是掩蓋。
+#
+# 新增條目時挑「壞掉最痛」的地方，不是最好寫的地方。這份清單不保證覆蓋完整，
+# 它只回答「我列出來的這些地方守不守得住」。
+#
+# find 必須在目標檔案裡**剛好出現一次**——selftest 有一條在 0.5 秒內釘住這件事。
+# 針腳不唯一會改到隔壁那一處，然後假裝成「存活」（規格：坑一）。
+
+mutations:
+
+  # ── 死人開關的出口：整條鏈紅不紅只取決於這個數字 ──────────────────
+
+  - id: M01
+    title: "monitor 的 main() 直接回 0（算得再準也不會讓 CI 紅）"
+    file: pulse-monitor.py
+    find: "    return rc\n"
+    replace: "    return 0\n"
+    survives: true
+    why: >-
+      BACKLOG P1：修法在 test/monitor-exit-codes 上（selftest 241），還沒併進 main。
+      main 上 selftest 只用 inspect.getsource() 比對原始碼字串，測得到「有人寫了
+      這一行」，測不到「這一行會讓 CI 紅」。
+
+  - id: M02
+    title: "sys.exit(main()) 改成不看回傳值（exit code 恆為 0）"
+    file: pulse-monitor.py
+    find: "    sys.exit(main())"
+    replace: "    main()"
+    survives: true
+    why: >-
+      BACKLOG P1，同 M01。這一格是任何「在同一個行程裡呼叫 main()」的測試都到不了
+      的地方——量到的是 main() 的 return，不是 CI 看到的 exit code。
+
+  - id: M03
+    title: "rc 一開始就是 1（天天紅的 CI，跟永遠綠的一樣沒資訊）"
+    file: pulse-monitor.py
+    find: "    rc = 0\n"
+    replace: "    rc = 1\n"
+    survives: true
+    why: BACKLOG P1，同 M01。反方向也沒有測試在守。
+
+  # ── 「那天有沒有語料」的判準（references/health-alarms.md）─────────
+
+  - id: M04
+    title: "目錄名回到寬鬆判準（2026-13-99 也算一天）"
+    file: lib/corpus.py
+    find: "        datetime.strptime(name, \"%Y-%m-%d\")\n"
+    replace: "        pass\n"
+    survives: false
+    why: ""
+
+  - id: M05
+    title: "空的 _corpus/<日>/ 目錄又算「這天有語料」"
+    file: lib/corpus.py
+    find: "    return _day_dirs(vault / \"_corpus\", keep=_has_jsonl_rows)"
+    replace: "    return _day_dirs(vault / \"_corpus\")"
+    survives: false
+    why: ""
+
+  - id: M06
+    title: "沒寫出 report.md 的班也算「跑過了」"
+    file: lib/corpus.py
+    find: "    return _day_dirs(vault / \"_probe\", keep=lambda d: (d / \"report.md\").exists())"
+    replace: "    return _day_dirs(vault / \"_probe\")"
+    survives: false
+    why: ""
+
+  - id: M07
+    title: "_as_date 不先歸零到 UTC（跨時區的日期會差一天）"
+    file: pulse-monitor.py
+    find: "        return dt.astimezone(timezone.utc).date() if dt.tzinfo else dt.date()"
+    replace: "        return dt.date()"
+    survives: false
+    why: ""
+
+  - id: M08
+    title: "未來日期的語料目錄不再判紅（時鐘壞掉永遠綠）"
+    file: pulse-monitor.py
+    find: "    future = item_lag is not None and item_lag < 0"
+    replace: "    future = False"
+    survives: false
+    why: ""
+
+  - id: M09
+    title: "從來沒抓到過不算 stale（None 被當成健康）"
+    file: pulse-monitor.py
+    find: "    stale = item_lag is None or item_lag >= stale_after_days"
+    replace: "    stale = item_lag is not None and item_lag >= stale_after_days"
+    survives: false
+    why: ""
+
+  - id: M10
+    title: "缺 ingested_at 的未潤稿事件不再回報（量不到被寫成 0）"
+    file: pulse-monitor.py
+    find: "        \"unenriched_undated\": undated_unenriched,"
+    replace: "        \"unenriched_undated\": 0,"
+    survives: false
+    why: ""
+
+  # ── 隱私邊界（紅線 6）與進庫時刻的黏性 ─────────────────────────
+
+  - id: M11
+    title: "來源頁 frontmatter 繞過白名單（api_key / 本機路徑會進 vault）"
+    file: pulse-source-notes.py
+    find: "    for k in FM_FROM_CONFIG:"
+    replace: "    for k in src:"
+    survives: true
+    why: >-
+      BACKLOG P1：行為層的釘子在 test/monitor-exit-codes 上，還沒併。main 上那條
+      只看**清單的名字**，不看 render() 有沒有照著清單走——清單一個字沒動，
+      整個 sources.yaml 條目照樣被倒進 vault。
+
+  - id: M12
+    title: "重寫 frontmatter 時不把 ingested_at 讀回來（進庫時刻被抹成 null）"
+    file: pulse-cluster.py
+    find: "            ev.ingested_at = fm.get(\"ingested_at\")"
+    replace: "            pass"
+    survives: false
+    why: ""
+
+  # 這一條原本寫的是「在既有事件那一支再蓋一次 ingested_at」，注入後 selftest
+  # 印不出結尾那行——縮排對不上，那是改壞語法不是變異（規格：坑二），crashed
+  # 不算殺掉。改成一個同樣痛、但語法上合法的單行替換。
+  - id: M13
+    title: "ingested_at 拿發布時間當進庫時刻（回填的舊文一進庫就是「放了兩年」）"
+    file: pulse-cluster.py
+    find: "                ev.ingested_at = sig.get(\"first_observed_at\")"
+    replace: "                ev.ingested_at = sig.get(\"published\")"
+    survives: false
+    why: ""
+
+  # ── 發布門禁（references/readiness-gate.md）───────────────────────
+
+  - id: M14
+    title: "沒有一手證據也放行"
+    file: pulse-gate.py
+    find: "        blockers.append(\"missing_primary_evidence\")"
+    replace: "        pass"
+    survives: false
+    why: ""
+
+  - id: M15
+    title: "撐不住的熱度不再擋"
+    file: pulse-gate.py
+    find: "        blockers.append(\"unsupported_heat\")"
+    replace: "        pass"
+    survives: false
+    why: ""
+
+  # ── 合規抓取（紅線 7）：不准把量測失敗寫成站方政策 ────────────────
+
+  - id: M16
+    title: "robots.txt 回 401/403 又被當成站方拒絕"
+    file: pulse-probe.py
+    find: "    if status in (401, 403):"
+    replace: "    if status in (401,):"
+    survives: false
+    why: ""
+
+  - id: M17
+    title: "機器寫 robots_ok: false 不必附入場券"
+    file: pulse-robots-recheck.py
+    find: "                src[\"robots_evidence\"] = \"200+disallow\""
+    replace: "                pass"
+    survives: false
+    why: ""
+
+  # ── 狀態檔的原子寫（references/atomic-writes.md）─────────────────
+
+  - id: M18
+    title: "source-health.json 改成直接寫（半份檔案會被 commit 上去）"
+    file: pulse-source-health.py
+    find: "    atomic_write_text(hpath, json.dumps(snapshot, ensure_ascii=False, indent=2))"
+    replace: "    open(hpath, \"w\", encoding=\"utf-8\").write(json.dumps(snapshot, ensure_ascii=False, indent=2))"
+    survives: false
+    why: ""
+
+  # ── 聚類窗口（去AI化的地基）─────────────────────────────────────
+
+  - id: M19
+    title: "同標題不管隔多久都併成同一則事件"
+    file: lib/cluster.py
+    find: "    return hours <= 96 and title_similarity(cand_title, event_title) >= threshold"
+    replace: "    return title_similarity(cand_title, event_title) >= threshold"
+    survives: false
+    why: ""
+
+  - id: M20
+    title: "關鍵詞回到 set 順序（同一個標題每跑一次換一組）"
+    file: pulse-cluster.py
+    find: "                ev.keywords = cluster.keyword_tokens(title, 8)"
+    replace: "                ev.keywords = list(cluster.title_tokens(title))[:8]"
+    survives: false
+    why: ""
