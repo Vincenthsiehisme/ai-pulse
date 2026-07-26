@@ -626,19 +626,28 @@ official_sources:
 #   紅線 7            → 不換 User-Agent、不用 curl/python 繞過抓取工具的限制。
 #                       量不到就寫量不到。
 #
-# person_id 一律 null：people.yaml 這個檔案不存在，pulse-cluster.py 也不讀它
-# （獨立性純粹由 distinct media_group 算出，見該檔第 135 行）。上面範本寫「必填」
-# 是設計意圖，不是現況。填一個指向空氣的 id 只會讓人以為人物層已經建好了。
+# person_id（2026-07-26 從 null 變成真的）：
+#   在此之前 people.yaml 不存在、8 條全 null、pulse-cluster.py 也不讀它——
+#   設定檔上看起來人物層已經建好，實際一行都沒有。現在 _config/people.yaml
+#   落地、person_id 逐條填上，且**真的被 runtime 消費**：
+#   lib/cluster.independent_voices() 把獨立來源數改成連通分量，
+#   同 person_id 或同 media_group 就合併。
+#   → 同一個人在 blog 與 YouTube 各發一次，算 1 個獨立聲音，不是 2。
+#   selftest 驗參照完整性：這裡填的每個 id 都要在 people.yaml 查得到，
+#   people.yaml 的每個人也都要至少對回一條來源。
 #
 # media_group 一律填「該刊物名」而非「Substack」：三個人都掛 Substack 的話，
 # 獨立來源數會從 3 塌成 1，門檻 4（heat ≥70 需 ≥2 獨立來源）就被自己做假了。
+# 加了 person_id 之後這條規則**沒有被取代**：兩個欄位管的是相反方向的錯。
+#   media_group 填錯（都填 Substack）→ 低估獨立性，門檻變難過。
+#   person_id 沒填  → 高估獨立性，門檻被做假。後者才是危險的那一種。
 kol_sources:
 - id: src-kol-karpathy
   track: kol
   owner: Andrej Karpathy
   media_group: Karpathy Blog
   author: karpathy
-  person_id:                        # people.yaml 不存在，見本節開頭說明
+  person_id: person-andrej-karpathy
   tier: 2
   role: expert
   source_category: individual
@@ -662,7 +671,7 @@ kol_sources:
   owner: Simon Willison
   media_group: Simon Willison's Weblog
   author: Simon Willison
-  person_id:
+  person_id: person-simon-willison
   tier: 2
   role: expert
   source_category: individual
@@ -686,7 +695,7 @@ kol_sources:
   owner: Nathan Lambert
   media_group: Interconnects
   author: Nathan Lambert
-  person_id:
+  person_id: person-nathan-lambert
   tier: 2
   role: expert
   source_category: individual
@@ -709,7 +718,7 @@ kol_sources:
   owner: Zvi Mowshowitz
   media_group: Don't Worry About the Vase
   author: Zvi Mowshowitz
-  person_id:
+  person_id: person-zvi-mowshowitz
   tier: 2
   role: expert
   source_category: individual
@@ -733,7 +742,7 @@ kol_sources:
   owner: Ethan Mollick
   media_group: One Useful Thing
   author: Ethan Mollick
-  person_id:
+  person_id: person-ethan-mollick
   tier: 2
   role: expert
   source_category: individual
@@ -756,7 +765,7 @@ kol_sources:
   owner: Lilian Weng
   media_group: Lil'Log
   author: Lilian Weng
-  person_id:
+  person_id: person-lilian-weng
   tier: 2
   role: expert
   source_category: individual
@@ -787,7 +796,7 @@ kol_sources:
   owner: Jack Clark
   media_group: Import AI
   author: Jack Clark
-  person_id:
+  person_id: person-jack-clark
   tier: 2
   role: expert
   source_category: individual
@@ -810,7 +819,7 @@ kol_sources:
   owner: Sebastian Raschka
   media_group: Ahead of AI
   author: Sebastian Raschka
-  person_id:
+  person_id: person-sebastian-raschka
   tier: 2
   role: expert
   source_category: individual
@@ -837,7 +846,10 @@ kol_sources:
   #   owner: "<個人公開署名>"
   #   media_group: "<所屬機構；無則填 independent>"
   #   author: "<feed 中出現的署名字串>"
-  #   person_id: person-<slug>       # 必填，對應 people.yaml；缺 → 獨立性不加分
+  #   person_id: person-<slug>       # 必填，對應 people.yaml（selftest 會驗查得到）
+  #                                  # 缺 → 這條的獨立性只用 media_group 算，
+  #                                  #      同一個人換平台會被算成兩個獨立聲音。
+  #                                  #      不是「不加分」，是**會多加分**，方向相反。
   #   tier: 2                        # KOL 永不為 tier 1，即使本人任職於目標公司
   #   role: expert                   # expert | social
   #   source_category: individual

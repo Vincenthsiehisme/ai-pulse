@@ -1,0 +1,154 @@
+# people.yaml — 人物登錄表（v1）
+#
+# ===========================================================================
+# 這個檔案是什麼、不是什麼
+# ===========================================================================
+# 是：**已經有來源的人**的登錄表。一個人在這裡有條目，唯一的意思是
+#     「sources.yaml 裡至少有一條來源，發表者就是這個人」。
+#
+# 不是：AI 產業重要人物名單。那種名單這裡刻意不建，理由在下面「為什麼不建
+#       名人字典」一節，是實測結果不是偏好。
+#
+# 建檔緣由（2026-07-26）：sources.yaml 從 v2 起就有 person_id 欄位，範本註解
+# 寫著「必填，對應 people.yaml」，但這個檔案一直不存在，8 條 KOL 的 person_id
+# 全是 null，pulse-cluster.py 也不讀它。也就是說**人物層在設定檔上看起來已經
+# 建好了，實際上一行都沒有**——正是紅線 8 要防的那種自我欺騙。
+# 這一版把它變成真的：person_id 填上、people.yaml 落地、獨立性計算真的會用到。
+#
+# ===========================================================================
+# person_id 現在真的被消費在哪裡（別再寫「預留欄位」）
+# ===========================================================================
+# runtime：`lib/cluster.independent_voices()`。獨立來源數改成連通分量——
+#   同一個 person_id 或同一個 media_group 就合併。所以同一個人在 blog 與
+#   YouTube 各發一次，只算 **1** 個獨立聲音，不是 2。
+#   （改動前是純 distinct media_group，一個人會被算成兩個。今天沒破是因為
+#     8 條 KOL 剛好一人一站——靠巧合成立的正確，加來源那天就無聲失效。）
+#
+# 校驗：selftest.py 的參照完整性——
+#   sources.yaml 每個非空 person_id 都要在這裡查得到；
+#   這裡每個人都要至少對到一條來源（不准放沒有來源的人）。
+#
+# 尚未消費：aliases。它是為「被提到的人」那一層預留的比對用字串，
+#   目前**沒有任何程式讀它**。寫在這裡是因為它是實測得到的語料事實
+#   （見各條 measured_as），不是猜的；但它現在是資料不是能力。
+#
+# ===========================================================================
+# 為什麼不建名人字典（實測，不是偏好）
+# ===========================================================================
+# 2026-07-26 拿 3 天 859 筆語料，掃 45 個 AI 產業人名，命中的只有兩個：
+#   Jensen Huang ×6（全部來自 src-nvidia-blog，也就是 NVIDIA 自己的新聞稿）
+#   Sam Altman   ×2（來自 src-kol-simonwillison）
+# 其餘 43 個——Dario Amodei、Demis Hassabis、Ilya Sutskever、Lisa Su、
+# 梁文鋒、Mark Zuckerberg、Elon Musk……——**全部是 0**。
+#
+# 所以現在建一份人名字典，會得到一份 43/45 永遠不會命中的設定檔，
+# 然後在覆蓋率報表上顯示成「人物層已建置」。那是加了來源就當補完了的失敗形態。
+# 人名字典要等語料自己長出訊號再建，順序是：先量到誰被提到，再決定字典收誰。
+#
+# 另一半原因是取用路徑：真正會第一時間出現人物訊號的地方是 X，而 X 已拍板
+# M1 不接、M3 前不重議（理由見 sources.yaml 的 KOL 線註解）。把 Altman /
+# Musk / LeCun 寫進來只會產生一份看起來很完整、實際覆蓋為零的清單。
+#
+# ===========================================================================
+# 這一版刻意沒有 affiliation（任職）欄位
+# ===========================================================================
+# 任職關係會過期，而且**沒有任何合規的自動來源可以持續驗證它**。
+# 一個寫在設定檔裡、沒有人會去更新、又沒有任何程式驗證的 affiliation，
+# 過三個月就是錯的，而它錯掉的時候不會有任何燈亮。
+# 更糟的是它一旦存在，就會有人拿它去推「這則消息來自 X 公司內部人士」——
+# 那等於讓一個沒有證據的欄位參與判斷。紅線：任職關係永遠不得驅動 gate。
+# 要做的話得先有 people-and-relations.md 定義驗證程序與失效期，那是另一個 PR。
+#
+# ===========================================================================
+# source ↔ person 不是一對一（實測案例，別把它設計成一對一）
+# ===========================================================================
+# src-kol-interconnects 三天 40 筆裡，'Nathan Lambert' 36 筆、
+# 'Florian Brand' 4 筆——後者是客座作者。所以：
+#   一條來源可能有多個發表者 → 來源上的 person_id 是「這條線的主理人」，
+#     不是「每一筆的作者」。逐筆的作者要靠 author 欄位另外解析，那是下一步。
+#   Florian Brand 沒有自己的來源，所以**不進這個檔案**（見收錄條件）。
+#
+# ===========================================================================
+# 收錄條件（三者皆須成立，缺一不收）
+# ===========================================================================
+#   1. sources.yaml 裡至少有一條來源，發表者是這個人
+#   2. 該來源的 lifecycle 不是 retired
+#   3. 這裡寫的每個 alias 都是**在語料裡實際出現過的字串**，或該來源
+#      sources.yaml 上寫著的 author 值。不得憑印象加變體。
+#
+# 欄位說明：
+#   id          person-<slug>，與 sources.yaml 的 person_id 對應
+#   name        規範姓名（英文原名；本專案語料以英文署名為主）
+#   name_zh     中文慣用譯名，只給人看，不參與任何比對
+#   sources     反向索引，方便人工檢查，selftest 會驗它與 sources.yaml 一致
+#   aliases     實測到的署名變體。目前無程式消費，見上方說明
+#   measured_as 2026-07-26 三天語料裡該來源實際出現的 author 值與筆數，
+#               「（語料中無此來源的資料）」就是真的沒抓到，不是沒寫
+# ===========================================================================
+meta:
+  version: "1.0.0"
+  updated: "2026-07-26"
+  note: >-
+    v1 只收「已經有來源的人」，共 8 人，全部來自 kol_sources。
+    官方線的署名（NVIDIA blog 的具名員工、MSR 的論文共同作者）刻意不收：
+    他們沒有自己的來源，收進來會讓這份表變成一份沒有來源支撐的人名清單。
+
+people:
+
+- id: person-andrej-karpathy
+  name: Andrej Karpathy
+  name_zh: 安德烈·卡帕西
+  sources: [src-kol-karpathy]
+  aliases: ["karpathy"]
+  # 語料裡的原始值是 "karpathy (hidden)"——括號是 Substack/Bearblog 的顯示註記，
+  # 不是姓名的一部分。alias 只收剝掉註記後的 login。
+  measured_as: "karpathy (hidden) ×20"
+
+- id: person-simon-willison
+  name: Simon Willison
+  sources: [src-kol-simonwillison]
+  aliases: ["Simon Willison"]
+  # 這條 feed 的 author 欄位是空的（40/40 皆空），alias 取自 sources.yaml 的
+  # author 欄位而非語料。寫下來免得日後誤以為是量到的。
+  measured_as: "（author 欄位 40 筆全空，feed 不帶署名）"
+
+- id: person-nathan-lambert
+  name: Nathan Lambert
+  sources: [src-kol-interconnects]
+  aliases: ["Nathan Lambert"]
+  measured_as: "Nathan Lambert ×36（另有客座 Florian Brand ×4，該人無自有來源，不收）"
+
+- id: person-zvi-mowshowitz
+  name: Zvi Mowshowitz
+  sources: [src-kol-thezvi]
+  aliases: ["Zvi Mowshowitz"]
+  measured_as: "（語料中無此來源的資料：本機 robots 量不到，尚未抓過）"
+
+- id: person-ethan-mollick
+  name: Ethan Mollick
+  sources: [src-kol-oneusefulthing]
+  aliases: ["Ethan Mollick"]
+  measured_as: "Ethan Mollick ×40"
+
+- id: person-lilian-weng
+  name: Lilian Weng
+  name_zh: 翁荔
+  sources: [src-kol-lilianweng]
+  aliases: ["Lilian Weng"]
+  measured_as: "（author 欄位 20 筆全空，feed 不帶署名）"
+
+- id: person-jack-clark
+  name: Jack Clark
+  sources: [src-kol-importai]
+  aliases: ["Jack Clark"]
+  # 該來源目前 lifecycle: dormant（待重驗）。仍然收錄：條目在這裡不代表
+  # 來源在跑，來源狀態一律以 sources.yaml 為準，這裡不複製狀態。
+  measured_as: "（語料中無此來源的資料：來源為 dormant）"
+
+- id: person-sebastian-raschka
+  name: Sebastian Raschka
+  sources: [src-kol-raschka]
+  aliases: ["Sebastian Raschka"]
+  # 語料裡的原始值是 "Sebastian Raschka, PhD"——逗號後面是學位不是第二個人。
+  # 這正是 classify_author 把它誤判成 multi_person 的那 40 筆。
+  measured_as: "Sebastian Raschka, PhD ×40"

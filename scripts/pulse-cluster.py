@@ -8,7 +8,8 @@
 寫 Events/<id>.md（六層標題 + 待編輯佔位；prose 留給 3c enrich 填）。
 跨日：會讀既有 Events/*.md，新 signal 可 attach 到昨天的 Event 並重評分。
 
-紅線：獨立數用 distinct media_group（框架規則第 5 條），比 agent-pulse 原碼嚴。
+紅線：獨立數 = 「同人或同媒體集團就合併」的連通分量（框架規則第 5 條），
+      比 agent-pulse 原碼嚴。實作見 lib/cluster.independent_voices()。
 用法：
   VAULT_DIR=/path/to/AI-Pulse python scripts/pulse-cluster.py [--day YYYY-MM-DD] [--dry-run]
 依賴：PyYAML。
@@ -115,7 +116,7 @@ class Event:
 
 
 def rescore(ev, sources, ref_now):
-    authority_scores, tiers, media_groups, primary = [], [], set(), 0
+    authority_scores, tiers, voices, primary = [], [], [], 0
     for e in ev.evidence:
         src = sources.get(e["source_id"], {})
         tier = src.get("tier")
@@ -125,13 +126,15 @@ def rescore(ev, sources, ref_now):
             tier = 3
         authority_scores.append(authority_score_from_tier(tier))
         tiers.append(tier)
-        mg = src.get("media_group") or e["source_id"]
-        media_groups.add(mg)
+        voices.append((e["source_id"], src))
         role = src.get("role")
         scat = src.get("source_category")
         if tier == 1 and role != "aggregator" and scat != "aggregator":
             primary += 1
-    independent = len(media_groups)  # 紅線第 5 條：distinct media_group
+    # 紅線第 5 條：source + author + media group。2026-07-26 之前這裡只算了
+    # media group 那一半，同一個人在兩個站台發表會被當成兩個獨立來源。
+    # 判定搬到 lib/cluster.independent_voices()（連通分量），理由寫在該函式上方。
+    independent = cluster.independent_voices(voices)
     happened = parse_dt(ev.happened_at)
     age_hours = max(0.0, (ref_now - happened).total_seconds() / 3600.0) if (happened and ref_now) else 0.0
     ev.scores = scoring.score_event(authority_scores, primary, independent, metrics=[], age_hours=age_hours)
