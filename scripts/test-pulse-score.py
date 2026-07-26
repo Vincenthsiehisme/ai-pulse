@@ -108,7 +108,16 @@ se = scoring.score_event(authority_scores=[90, 65], primary_count=2, independent
                          metrics=[], age_hours=10)
 check_true("score confidence in range", 0 <= se["confidence"] <= 100)
 check_true("score confidence reflects authority+primary", se["confidence"] >= 70)
-check_true("score heat low without social", se["heat"] < 40)
+# 舊斷言是 `se["heat"] < 40`，它自己就是這個病的樣本：heat 在 metrics=[] 下結構性
+# 地拿不到那 63 分，「熱度偏低」這句話恆真，測試永遠綠，卻沒有守住任何東西。
+# 2026-07-26 起沒量到就是 None（紅線 8，規格 references/readiness-gate.md）。
+check("score heat is None without social metrics", se["heat"], None)
+check("score propagationSignals=0 without social metrics",
+      se["factors"]["propagationSignals"], 0)
+se_live = scoring.score_event(authority_scores=[90, 65], primary_count=2, independent_count=2,
+                              metrics=[{"platforms": ["x", "hn"]}], age_hours=10)
+check_true("score heat is a number once a propagation signal exists",
+           isinstance(se_live["heat"], int))
 check("score factors independent", se["factors"]["independentSources"], 2)
 se0 = scoring.score_event(authority_scores=[], primary_count=0, independent_count=0,
                           metrics=[], age_hours=1000)
@@ -133,9 +142,13 @@ _spec = _ilu.spec_from_file_location("pulse_gate", _gp)
 _gate = _ilu.module_from_spec(_spec)
 _spec.loader.exec_module(_gate)
 GATE = {"readiness": {"min_confidence": 60, "thin_fact_min_chars": 20}}
+# heat: None ＝ 沒量到傳播訊號時的正常長相（2026-07-26 起）。這裡本來寫 heat: 8 +
+# 空的 score_factors，新加的 unmeasured_heat 立刻把它擋下來——那正是這條 blocker
+# 要抓的東西：一個沒有任何傳播證據撐著的熱度數字。
 fm_ok = {"summary": "這是一段夠長的摘要內容超過二十個字元用來測試", "company": "NVIDIA",
          "category": "infra", "track": "基礎設施與成本", "keywords": ["a"], "evidence": [{"x": 1}],
-         "primary_evidence": 1, "confidence": 73, "heat": 8, "independent_sources": 1, "score_factors": {}}
+         "primary_evidence": 1, "confidence": 73, "heat": None, "independent_sources": 1,
+         "score_factors": {"propagationSignals": 0}}
 body_ok = "## 事實\n這是一段夠長的事實描述內容超過二十個字元有具體資訊。\n\n## 影響\nxxx\n"
 bk_ok, _w = _gate.evaluate(fm_ok, body_ok, GATE)
 check("gate 乾淨事件=0 blocker", bk_ok, [])

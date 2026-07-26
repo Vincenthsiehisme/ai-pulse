@@ -56,29 +56,46 @@
 
 ## B. 接線了但走不到：heat 那三個
 
+> 2026-07-26 改寫。完整規格與決策過程在 `references/readiness-gate.md`；
+> 這一節只留結論與現況。
+
 `readiness.heat_threshold: 70` / `heat_min_independent_sources: 2` /
-`heat_min_platform_breadth: 2` 確實被 `pulse-gate.py:96-136` 讀到，
-組成 `unsupported_heat` 這條 blocker。但那個 `if` 的第一個條件是 `heat >= 70`，
-而 **heat 目前的理論上限是 48**。
+`heat_min_platform_breadth: 2` 確實被 `pulse-gate.py` 讀到，組成
+`unsupported_heat`。它走不到——但**走不到只是症狀，不是病**。
 
-原因在 `pulse-cluster.py:141`：呼叫 `scoring.score_event(...)` 時 `metrics=[]`，
-所以 `platforms` 與 `regions` 恆為 0。heat 公式裡這兩項佔 `7 + 6 = 13` 分，
-再加上作者數／推文數兩項（沒有社群指標時也是 0），能拿到的只剩
+病是：`heat` 這個欄位名稱說的是傳播熱度，實際量到的是「獨立來源數 + 新鮮度」。
+公式六項裡有四項要社群訊號（作者 30、推文 20、平台 7、地域 6，合計 63 分），
+這四項在全部 51 個 Event 上都是 0，而且**不是資料還沒進來**：
+`pulse-cluster.py:144` 呼叫 `scoring.score_event(...)` 時第四個參數寫死
+`metrics=[]`。那條線從來沒有接過——不是輸入端沒東西，是連接線沒有接。
 
-```
-_logscale(0,80)*30 + _logscale(0,300)*20 + min(independent,5)*8 + 0 + 0 + freshness*0.08
-                                            ↑ 最多 40                    ↑ 最多 8
-```
+於是 heat 印出 8–32 的數字，看起來像量過的。下游真的把它當量過的用了：
+`_config/narratives.yaml` 裡有 LLM 依這個數字寫成的句子
+（「四則皆單源、heat 偏低（8–14），還沒跨來源共振」）。一個沒接線的欄位
+變成了敘述層的論據——紅線 2 與紅線 8 同時被繞過，**因為那個數字看起來像量出來的**。
 
-上限 48。selftest 有一條測試把這個 48 釘住。
+### 現在的狀態
 
-**正確的修法是去真的收集社群指標**（讓 `metrics` 不再是空的），
-不是把 `heat_threshold` 從 70 調到 45。後者會讓 `unsupported_heat` 開始有反應，
-但那個反應是假的——紅線 4 明講「禁止把手工分數包裝成已測量熱度」，
-把門檻調到手工分數搆得到的高度，是同一件事換個方向做。
+一項傳播訊號都沒量到時 `scoring.score_event()` 回 `heat: None`，
+不是一個低分（紅線 8：量不到就寫量不到）。**不印 0**：0 會被讀成
+「量過了，很冷」，那是更難察覺的一種謊。
 
-在社群指標接上之前，`unsupported_heat` 這條防線的正確描述是
-**「已寫好，尚未生效」**，不是「已生效」。
+`score_factors.propagationSignals` 記下四項裡有幾項非零，把「什麼都沒量到」
+寫成磁碟上的事實，而不是要下游從四個 0 自己推論。
+新的 `unmeasured_heat` blocker 擋下「有 heat 數字但 `propagationSignals` 為 0」的
+Event——包含未來有人把無條件計算加回來的那一天。
+
+三個門檻**刻意不動**。兩條被否決的修法與理由：
+
+| 修法 | 為什麼不做 |
+|---|---|
+| 把 `heat_threshold` 降到實際值域裡（70 → 45） | `unsupported_heat` 會開始有反應，但那個反應是假的：它會對「單一來源 + 剛發布」發火，那跟傳播沒有關係。紅線 4 明講禁止把手工分數包裝成已測量熱度；把門檻降到手工分數搆得到的高度是同一件事換個方向做。 |
+| 重新分配那 63 分的權重給還活著的兩項 | 值域補滿之後，一個 0–100 的「熱度」看起來**比現在的 8–32 更像**真的量出來的。把謊講得更順不是修好。 |
+
+所以 `unsupported_heat` 的正確描述是 **「休眠，等社群線（M3）」**，
+不是「已生效」，也不是「廢設定」。`selftest.py` 釘住兩個方向：
+`metrics=[]` 時 heat 是 `None`；四項餵滿時 heat 跨得過 70。
+第二條哪天紅了，就表示這個門檻該重談，而不是繼續留著假裝有守。
 
 ## 這份清單怎麼不腐爛
 

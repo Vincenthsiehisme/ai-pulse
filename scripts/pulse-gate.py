@@ -129,6 +129,17 @@ def evaluate(fm, body, gate):
     if (fm.get("confidence") or 0) < min_conf:
         blockers.append("low_confidence")
     factors = fm.get("score_factors") or {}
+    # heat 有數字就必須有傳播證據撐著（紅線 4：禁止把手工分數包裝成已測量熱度）。
+    # 2026-07-26 之前這件事沒有人守：四項傳播輸入全是 0，heat 照樣印出 8–32，
+    # 敘述層甚至已經開始拿那個數字當論據（_config/narratives.yaml）。
+    # scoring.py 現在在源頭就回 None，這條是它的執法點——手改 frontmatter、
+    # 遷移腳本寫壞、或者哪天有人把無條件計算加回去，都會在這裡紅。
+    # 規格見 references/readiness-gate.md。
+    if fm.get("heat") is not None and int(factors.get("propagationSignals", 0) or 0) <= 0:
+        blockers.append("unmeasured_heat")
+    # 休眠中、不是裝飾：heat 現在只有真的量到傳播訊號才有數字，所以這一關要等
+    # 社群線（M3）接上才走得到。留著是因為它語意正確且 selftest 正反兩面都釘住了，
+    # 那天它會是活的碼，不是一段兩個月沒跑過的碼。
     if (fm.get("heat") or 0) >= heat_th and (
         (factors.get("independentSources", 0) < heat_min_ind)
         or (factors.get("platformBreadth", 0) < heat_min_plat)
