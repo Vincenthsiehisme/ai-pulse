@@ -2,14 +2,14 @@
 
 M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是。
 
-> ⚠ 本輪含 78 筆 backfill（首次抓取的既有存量）。
+> ⚠ 本輪含 77 筆 backfill（首次抓取的既有存量）。
 > backfill 不代表當期訊號，lead_days 與熱度統計應排除。
 
 ## 兩個決定性比率
 
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
-| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 1/30 = 3% |
+| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 0/30 = 0% |
 | kol | 90 | 70/90 = 78% | 60/90 = 67% | 34/90 = 38% |
 | media | 87 | 87/87 = 100% | 79/87 = 91% | 41/87 = 47% |
 | official | 218 | 48/218 = 22% | 18/218 = 8% | 159/218 = 73% |
@@ -60,7 +60,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 ## 命中的實體型別分佈
 
-- company: 133
+- company: 132
 - product_line: 95
 - product: 31
 - technology: 27
@@ -80,14 +80,13 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | San Francisco | 5 | 4 |
 | One | 5 | 4 |
 | Fable | 5 | 3 |
+| There | 5 | 4 |
 | AI-native | 4 | 2 |
 | Pro | 4 | 3 |
 | Building | 4 | 4 |
 | Gemma | 4 | 3 |
 | Understanding | 4 | 2 |
 | Here | 4 | 4 |
-| There | 4 | 3 |
-| Some | 4 | 4 |
 | January | 4 | 3 |
 | China | 4 | 3 |
 | American | 3 | 3 |
@@ -102,6 +101,8 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Opus | 3 | 3 |
 | NASA | 3 | 2 |
 | With | 3 | 3 |
+| These | 3 | 2 |
+| Some | 3 | 3 |
 | July | 3 | 3 |
 | Trump | 3 | 2 |
 | June | 3 | 3 |
@@ -121,6 +122,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Open | 3 | src-kol-interconnects |
 | LLM Research Papers | 3 | src-kol-raschka |
 | List | 3 | src-kol-raschka |
+| Show HN | 3 | src-hn-frontpage |
 
 ## 來源狀態
 
@@ -144,20 +146,20 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
 | src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
 | src-media-venturebeat | media | 200 | 7 | 0 |  | True |  |
-| src-media-techcrunch | media | 200 | 20 | 1 |  | True |  |
+| src-media-techcrunch | media | 200 | 20 | 0 |  | True |  |
 | src-media-ieee-spectrum | media | 200 | 20 | 0 |  | True |  |
 | src-media-mit-techreview | media | 200 | 10 | 0 |  | True |  |
 | src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
 | src-media-arstechnica | media | 200 | 20 | 0 |  | True |  |
 | src-media-theverge | media | 200 | 10 | 1 |  | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
-| src-kol-simonwillison | kol | 200 | 20 | 1 |  | True |  |
+| src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-thezvi | kol | robots_unknown | 0 | 0 |  | False | robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕） |
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 5 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 7 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
