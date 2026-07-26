@@ -13,6 +13,19 @@
 > 變異清單 **25 條**（新增 M21–M25，全部被殺），未併分支 **6 條**。
 > 一樣：這三個數字描述的是那條分支，`main` 上仍然是 224。
 
+> **三追記（同日傍晚）——上面那句「`main` 上仍然是 224」已經不成立了。**
+> 六條併掉五條（PR #2–#7），`main` 在 `5c9e30d`，selftest **286/286**。
+> 剩下 `test/monitor-exit-codes` 一條，它是唯一一條**併不進去**的：從 `8a6c1e8`
+> 長出來，之後 `main` 進了六個 PR，`scripts/selftest.py` 兩邊各自往同一個錨點
+> 新增，GitHub 判衝突。已在 `fix/monitor-exit-codes-vs-main` 上把 `main` 併回去
+> 解掉——衝突的實體是「兩邊都在同一行後面加東西」，不是同一段被改成兩個樣子，
+> 所以兩邊都留、斷言一個都沒改。合併後 selftest **303/303**、
+> **變異 25 條全殺、0 存活**（那四條掛了兩輪的存活記錄一起結案）。
+> 遠端 **31 條分支**。
+>
+> 這幾個數字一樣是量出來的不是估的：`git branch -r --no-merged origin/main`、
+> `python3 scripts/selftest.py`、`python3 scripts/mutate.py`。
+
 > 上一版這一段寫的是「`main` 在 `1ce43e9`，遠端零未合併分支，本地 selftest 222/222」。
 > 三個數字**現在全是假的**。清單自己過期不會讓任何東西變紅——這正是這份清單第一條
 > 排序準則在講的病，只是這次得的是清單本人。所以盤點結果一律附「怎麼量出來的」。
@@ -35,10 +48,10 @@
 | # | 事 | 壞了會紅嗎 | 現在在騙人嗎 |
 |---|---|---|---|
 | P0 | 07-27 cron 收班 | 不會 | — |
-| P1 | 六條修好的分支還躺在遠端 | 不會 | **是**（修了不等於生效） |
-| P2 | ~~heat 印出一個沒量過的數字~~ **已修，等併** | 會（selftest 247 + M21–M25） | 否（改成 null 了） |
+| P1 | ~~六條修好的分支還躺在遠端~~ **併掉五條，剩解衝突那條** | 不會 | 剩最後一條 |
+| P2 | ~~heat 印出一個沒量過的數字~~ **已併（PR #7）** | 會（selftest 286 + M21–M25） | 否（改成 null 了） |
 | P2.5 | `narratives.yaml` 有依那個假數字寫成的句子 | 不會 | **是**（結論還在站上） |
-| P3 | 變異盤點已做成工具，但也還沒併 | 會（在分支上） | 否（改成可重跑的判準了） |
+| P3 | ~~變異盤點已做成工具，但也還沒併~~ **已併** | 會（`main` 上 25 條全殺） | 否 |
 | P4 | 12 個未接線的 gate key | 不會（已標記） | 已止血 |
 | P5 | 三條「可跑但零產出」的來源 | 不會 | — |
 | P6 | 20 家 pending 覆蓋盲點 | 刻意不會 | 否（誠實掛著） |
@@ -77,36 +90,57 @@
 
 ---
 
-## P1 — 六條修好的分支還躺在遠端，`main` 上一條都沒生效
+## P1 — ~~六條修好的分支還躺在遠端，`main` 上一條都沒生效~~（併掉五條，剩最後一條）
 
 ```
-$ git branch -r --no-merged origin/main
-  fix/coverage-uses-own-clock
-  fix/health-snapshot-dry-run
-  fix/observed-counts-item-days
-  test/monitor-exit-codes
+$ git branch -r --no-merged origin/main        # 2026-07-26 傍晚
+  fix/monitor-exit-codes-vs-main
+  test/monitor-exit-codes                      # ← 同一件事，前者是解完衝突的版本
 ```
 
-| 分支 | 原編號 | 修了什麼 | selftest |
-|---|---|---|---|
-| `fix/observed-counts-item-days` | 舊 P1 | `Sources/*.md` 不再把「量不到」印成「0 筆」；`items_observed` 改數相異 `(source_id, url)`；`events_bound` 排除 `dropped` | 235 |
-| `fix/health-snapshot-dry-run` | 舊 P2+P3 | 隔離候選真的寫進磁碟快照（機器交棒給人的唯一介面接回來了）；`--json` 這種只看的跑法不再改持久狀態 | 243 |
-| `fix/coverage-uses-own-clock` | 舊 P4 | 沉默判準改用每條實體自己的 `first_fetch_at`，不再拿整個語料庫的長度當尺 | 233 |
-| `test/monitor-exit-codes` | 舊 P6 (a/c/d) | 死人開關的 exit code 走真子行程釘住；`FM_FROM_CONFIG` 白名單邊界改由行為守；`ingested_at` 黏性改成真的跑第二輪 | 241 |
-| `docs/backlog-refresh` | 本檔 + P3 | 這份清單本身；變異盤點層（`scripts/mutate.py` + `mutations.yaml` + 獨立工作流），並補掉它第一輪抓到的五個洞 | 238 |
-| `fix/heat-claims-a-measurement` | P2 | `heat` 沒量到就寫 null 不編數字；新 blocker `unmeasured_heat`；`references/readiness-gate.md`（SKILL.md 引用了 v1 就存在、但這個檔一直沒有）；51 則遷移 + 回滾 | 247 |
+| 分支 | 原編號 | 修了什麼 | selftest | 狀態 |
+|---|---|---|---|---|
+| `fix/observed-counts-item-days` | 舊 P1 | `Sources/*.md` 不再把「量不到」印成「0 筆」；`items_observed` 改數相異 `(source_id, url)`；`events_bound` 排除 `dropped` | 235 | **已併 #3** |
+| `fix/health-snapshot-dry-run` | 舊 P2+P3 | 隔離候選真的寫進磁碟快照（機器交棒給人的唯一介面接回來了）；`--json` 這種只看的跑法不再改持久狀態 | 243 | **已併 #2** |
+| `fix/coverage-uses-own-clock` | 舊 P4 | 沉默判準改用每條實體自己的 `first_fetch_at`，不再拿整個語料庫的長度當尺 | 233 | **已併 #4** |
+| `docs/backlog-refresh` | 本檔 + P3 | 這份清單本身；變異盤點層（`scripts/mutate.py` + `mutations.yaml` + 獨立工作流），並補掉它第一輪抓到的五個洞 | 238 | **已併** |
+| `fix/heat-claims-a-measurement` | P2 | `heat` 沒量到就寫 null 不編數字；新 blocker `unmeasured_heat`；`references/readiness-gate.md`（SKILL.md 引用了 v1 就存在、但這個檔一直沒有）；51 則遷移 + 回滾 | 247 | **已併 #7** |
+| `test/monitor-exit-codes` | 舊 P6 (a/c/d) | 死人開關的 exit code 走真子行程釘住；`FM_FROM_CONFIG` 白名單邊界改由行為守；`ingested_at` 黏性改成真的跑第二輪 | 241 | **衝突，用下一列** |
+| `fix/monitor-exit-codes-vs-main` | 同上 | 上一列 + 把 `main` 併回去解掉衝突 + 那四條過期的存活記錄 | **303** | 待併 |
 
-**這一條的重點不是「還有六件事沒做」，是「六件事做完了，而系統的行為一點都沒變」。**
-`main` 上跑的還是舊碼：Sources 頁還在印「已觀測 0 筆」、`--json` 還會寫髒 state、
-coverage 還在拿外面的時鐘量自己的鏈、`return rc` 改成 `return 0` 在 `main` 上仍然
-**224/224 全過**。
+### 為什麼只有這一條併不進去
 
-而且這個狀態自己不會變紅：CI 只跑 `main`，六條分支綠得再漂亮也沒有任何一格會亮。
-上一版清單把 P1–P4 從表上劃掉的那一刻，如果沒有這一條，就等於宣稱它們生效了——
-那是紅線 8 的違規，只是主詞換成這份文件。
+它是 `8a6c1e8` 長出來的，之後 `main` 進了 #2–#7。`scripts/selftest.py` 兩邊
+各自在「來源頁白名單」那條之後新增了一段：這邊加 `render()` 的行為邊界（紅線 6），
+`main` 那邊加 `items_observed` 量不到 ≠ 量到 0（紅線 8）。**兩段互不相干，
+只是恰好貼在同一行後面**，git 沒有辦法自己知道這件事，所以判衝突。
 
-**要人動手的原因**：這個環境的 proxy 擋掉 GitHub API（403），我開不了 PR；
-分支都已經推上去了，合併要在網頁上按。見 P10。
+解法就是兩邊都留。**一個斷言都沒有改**——這條分支的 13 個 exit code 釘子本來就是
+寫給 `fix/coverage-uses-own-clock` 之後的 `pulse-monitor.py` 的（註解裡明寫
+「新舊兩種護欄（history_days / observed_days）下都該判 silent」），併上來原封不動全過。
+
+### 併進來之後量到的第一件事
+
+那四條在 `mutations.yaml` 上掛了兩輪 `survives: true` 的變異，**全部倒了**。
+而且是 `mutate.py` 自己判紅告訴我的，不是我記得去看：
+
+```
+25 條：21 被殺、0 存活（清單有記）、4 要人管
+  [stale-record] M01 monitor 的 main() 直接回 0 …  ← 已經有測試守住了，清單該更新
+```
+
+它們的 `why` 從 merge 那一刻起就是假的（寫著「還沒併進 main」）。`survives: true`
+卻被殺掉會判紅，這是 `mutations.yaml` 開頭那段「兩個方向都會被比對」第一次真的
+付現。**一份不會抱怨自己過期的盤點清單，跟沒有清單的差別只是心裡比較踏實。**
+
+「修好了但沒併進 `main` 的，算沒修」這句話這次也被量了一次：這四條在
+`test/monitor-exit-codes` 上被殺是中午的事，在 `main` 上被殺是同一天傍晚。
+中間那幾個小時，`main` 的 CI 對 `return rc → return 0` 一無所知——分支上的測試
+寫得再好，都不會有任何一班跑到它。
+
+**還要人動手的原因**：這個環境的 proxy 擋掉 GitHub API（403），我開不了 PR；
+`git push origin main` 也被 classifier 擋下（跟 repo 的分支保護無關，是這個
+session 自己的護欄）。分支已經推上去而且**現在沒有衝突了**，網頁上按一下即可。
 
 ---
 
