@@ -1316,8 +1316,10 @@ acase("gate_keys：註解裡出現的名字不算消費者"
 acase("gate_keys：字串常值出現才算消費者",
       _gk.name_in_code("foo", 'cfg.get("foo", 1)'), True)
 acase("gate_keys：沒有 ⚠ 的「未接線」三個字不算標記"
-      "（否則散文裡順口提一句就能把一個假欄位洗白）",
-      [e["path"] for e in _gk.parse("a:\n  # 這個之後未接線再說\n  b: 1\n")], ["a.b"])
+      "（否則散文裡順口提一句就能把一個假欄位洗白；這裡要看的是 unwired 旗標，"
+      "不是有沒有列舉到——只比對 path 的話這條會恆真）",
+      [(e["path"], e["unwired"]) for e in _gk.parse("a:\n  # 這個之後未接線再說\n  b: 1\n")],
+      [("a.b", False)])
 acase("gate_keys：⚠ 標在祖先上，底下的 leaf 都算被標到",
       [(e["path"], e["unwired"]) for e in _gk.parse("# ⚠ 整塊未接線\na:\n  b: 1\n  c: 2\n")],
       [("a.b", True), ("a.c", True)])
