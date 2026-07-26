@@ -90,13 +90,20 @@ evidence:                    # 發布證據門檻
     window_hours: 48
     excluded_from: [independent_sources, heat]
 
+# 來源層健康分。消費者：scripts/pulse-source-health.py（2026-07-26 接上，
+# 在此之前這整塊沒有任何一行碼讀它）。完整規格見 references/source-lifecycle.md。
+#
+# 「什麼算失敗」那張表在規格書裡，這裡只講一句最重要的：401/403/429/robots_*
+# 一律**不記分**。量不到不等於壞掉，而自動關掉一條好來源是沒有自癒路徑的
+# ——那正是 2026-07-24 漏抓 Claude Opus 5 的死法。
 source_health:
   success_gain: 8
   not_modified_gain: 3
   failure_penalty: 15
   severe_failure_penalty: 25
   degrade_after_consecutive: 2
-  quarantine_after_consecutive: 5
+  quarantine_after_consecutive: 5   # 只列入報告的隔離候選，不自動寫 dormant
+  recover_after_consecutive: 3      # 連續成功幾次 → 撤銷機器自己做的降級
 
 monitor:
   stale_after_days: 2        # health.md 超過此天數沒成功抓取 → 紅燈 / workflow fail

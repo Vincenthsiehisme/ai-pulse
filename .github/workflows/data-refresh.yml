@@ -78,6 +78,20 @@ jobs:
           # Actions 的 cron 是「最早不早於」，實測誤點過 96 分鐘，用時鐘判會在誤點
           # 那天整天不更新基線，而且一樣沒人會發現。20 小時＝一天一次但容得下誤點。
           python scripts/pulse-github.py --snapshot-if-older-than 20
+      # 來源層健康分。放在 pipeline 之後，因為它吃的是 pulse-probe 這一班剛
+      # append 進 _probe/source-runs.jsonl 的觀測。
+      #
+      # 敢直接掛 --apply 的理由：這支能自動寫的只有 probing/active → degraded，
+      # 而 degraded **仍然每班被抓**（RUN_LIFECYCLES 有它），連續成功三班它會自己
+      # 回來。dormant 永遠只有人能寫，達到隔離門檻的來源只進報告的候選清單。
+      # 也就是說這一步做不出「無聲關掉一條好來源」那種沒有自癒路徑的傷害——
+      # 2026-07-24 漏抓 Claude Opus 5 正是那種傷害。
+      # continue-on-error：來源健康是觀測，觀測失敗不該讓整條資料鏈紅燈。
+      - name: Source health (0 LLM)
+        continue-on-error: true
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: python scripts/pulse-source-health.py --apply
       # concurrency: nightly 只擋 Actions 撞 Actions。半夜潤稿那條 Cowork 鏈是另一
       # 個 push 來源，兩邊都寫 Events/*.md。一天 12 班時「checkout 完到 push 之間
       # 對面剛好也推了一版」不再是理論值，所以這裡重試而不是直接紅燈。

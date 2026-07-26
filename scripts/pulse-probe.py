@@ -675,6 +675,33 @@ def run_source(src: dict, table, state: dict, seen: dict) -> tuple[list[dict], d
     return out, stat
 
 
+def write_run_stats(vault: Path, day: str, stats: list[dict]) -> Path:
+    """把每班的來源觀測寫成機器可讀的一行，append 到 _probe/source-runs.jsonl。
+
+    在此之前，main() 算出來的 stats **只餵給 markdown 報告**。人看得到、機器讀
+    不到，於是 gate.yaml 的 source_health 那六個門檻躺了整整一個月沒有任何消費
+    者——不是沒實作評分邏輯，是評分根本沒有輸入。這支函式就是那條缺掉的管線。
+
+    格式：一班一個 JSON 物件（不是一條來源一行）。一天 12 班 × 33 條來源，若攤
+    平成每條一行，一年會長到十萬行以上；一班一行則是一年四千行，健康分要的
+    「連續第幾次」本來就是以班為單位，攤平反而要再 group 一次。
+
+    只寫 allowlist 欄位：id / status / items / error。error 是 HTTP 狀態碼或例外
+    型別名，不含 payload——紅線 6，原始內容只進 _evidence_raw/。
+    """
+    path = vault / "_probe" / "source-runs.jsonl"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    rec = {
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "day": day,
+        "sources": [{"id": s["id"], "status": s["status"],
+                     "items": s["items"], "error": s["error"]} for s in stats],
+    }
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    return path
+
+
 def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
                  simp_trad: bool) -> Path:
     by_track: dict[str, list[dict]] = defaultdict(list)
@@ -984,6 +1011,8 @@ def main() -> int:
     state_path.parent.mkdir(parents=True, exist_ok=True)
     state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), "utf-8")
     seen_path.write_text(json.dumps(seen, ensure_ascii=False, indent=2), "utf-8")
+
+    write_run_stats(vault, day, stats)
 
     report = write_report(vault, day, rows, stats, simp_trad)
     git_commit(vault, f"probe {day}: {len(rows)} items / {len(stats)} sources")

@@ -607,6 +607,148 @@ acase("apply：中國用語走 voice_clean 後洗（跟 enrich 同一支後洗�
 acase("apply：後洗改了什麼要帶回來（不能只有機器自己知道）",
       [c[1] for c in _v_cn[2]], ["短視頻"])
 
+# ------------------------------------------- 來源層健康分（2026-07-26 接上）
+# 規格：references/source-lifecycle.md。這一組測試的重心不在「會不會降級」，
+# 而在**不會亂降級**。自動降級是這個 vault 最危險的一種自動化：漏抓一條壞掉的
+# 來源只是晚幾天發現，自動關掉一條好來源則沒有自癒路徑——07-24 漏抓
+# Claude Opus 5 就是後者。所以下面「不記分 / 不降級」那幾條是紅線，
+# 「會降級」那幾條反而只是功能確認。
+_hs = importlib.util.spec_from_file_location(
+    "pulse_source_health", os.path.join(_HERE, "pulse-source-health.py"))
+_sh = importlib.util.module_from_spec(_hs)
+_hs.loader.exec_module(_sh)
+
+_TH = _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+                          encoding="utf-8"))["source_health"]
+
+acase("健康分：gate.yaml 的 source_health 現在真的有消費者（門檻全讀得到）",
+      sorted(k for k in ("success_gain", "not_modified_gain", "failure_penalty",
+                         "severe_failure_penalty", "degrade_after_consecutive",
+                         "quarantine_after_consecutive", "recover_after_consecutive")
+             if k not in _TH), [])
+
+acase("健康分：200 → success", _sh.classify(200), "success")
+acase("健康分：304 → not_modified", _sh.classify(304), "not_modified")
+acase("健康分：503 → failure", _sh.classify(503), "failure")
+acase("健康分：抓取例外 → failure", _sh.classify("error"), "failure")
+acase("健康分：404 → severe_failure（端點不在了，唯一明確是來源那邊變了的訊號）",
+      _sh.classify(404), "severe_failure")
+# 下面五條是紅線。任何一條變成 failure，這支腳本就會開始把量測失敗當成來源壞掉。
+acase("健康分：403 不記分（WAF 擋容器 IP／路徑錯／真要登入，這端分不出來）",
+      _sh.classify(403), "neutral")
+acase("健康分：401 不記分", _sh.classify(401), "neutral")
+acase("健康分：429 不記分（那是站方說我們太快，該調的是 quota_per_run）",
+      _sh.classify(429), "neutral")
+acase("健康分：robots_disallow / robots_unknown 不記分"
+      "（robots 是合規政策不是健康度，混在一起會讓一次 robots 假陰性同時觸發降級）",
+      [_sh.classify("robots_disallow"), _sh.classify("robots_unknown")],
+      ["neutral", "neutral"])
+acase("健康分：沒見過的狀態不記分（誤差方向要是「沒罰到」而不是「錯殺」）",
+      _sh.classify("something_new_in_2027"), "neutral")
+acase("健康分：沒見過的 4xx 也走 catch-all 不記分（不准出現「未知 4xx 一律算失敗」）",
+      _sh.classify(418), "neutral")
+# NEUTRAL_STATUSES 目前刪掉行為不會變（catch-all 也回 neutral），所以它需要一條
+# 測試才不是裝飾品：這條釘住成員名單。哪天有人把 catch-all 改成「未知 4xx 算失敗」，
+# 401/403 靠的就是留在這個集合裡，而不是靠沒人動到 catch-all。
+acase("健康分：NEUTRAL_STATUSES 的成員逐一釘住"
+      "（這個集合是「已知且刻意不記分」，跟 catch-all 的「不知道就不判」意思不同）",
+      sorted(_sh.NEUTRAL_STATUSES, key=lambda x: (isinstance(x, str), str(x))),
+      [401, 403, 429, "robots_disallow", "robots_unknown",
+       "skipped_lifecycle", "unsupported_adapter"])
+
+_SRC1 = {"s1": {"id": "s1", "lifecycle": "probing"}}
+
+
+def _runs(*statuses):
+    return [{"at": f"t{i}", "day": "2026-07-26",
+             "sources": [{"id": "s1", "status": s, "items": 0, "error": None}]}
+            for i, s in enumerate(statuses)]
+
+
+acase("健康分：200 但 0 筆仍是成功（安靜的 feed 是健康的 feed，"
+      "src-mistral-news 連兩天 200／0 筆——罰它等於逼系統偏好吵的來源）",
+      _sh.tally(_runs(200, 200, 200), _TH, _SRC1)["s1"]["consecutive_failures"], 0)
+acase("健康分：滿分不會超過 100（連續成功不得讓分數無限膨脹）",
+      _sh.tally(_runs(*([200] * 30)), _TH, _SRC1)["s1"]["score"], 100)
+acase("健康分：分數下限 0（連續失敗不得掉成負數）",
+      _sh.tally(_runs(*([404] * 30)), _TH, _SRC1)["s1"]["score"], 0)
+acase("健康分：中性不歸零連續失敗數"
+      "（否則一條每班在 404 與 403 之間輪流的來源永遠湊不滿門檻，會一直假裝健康）",
+      _sh.tally(_runs(404, 403, 404), _TH, _SRC1)["s1"]["consecutive_failures"], 2)
+acase("健康分：成功會歸零連續失敗數（自癒要算得出來）",
+      _sh.tally(_runs(404, 404, 200), _TH, _SRC1)["s1"]["consecutive_failures"], 0)
+acase("健康分：設定檔裡已經不存在的來源不進健康表（移除過的來源留在歷史就好）",
+      list(_sh.tally(_runs(200), _TH, {})), [])
+
+_D_PROBING = {"s1": {"id": "s1", "lifecycle": "probing"}}
+_D_DEGRADED = {"s1": {"id": "s1", "lifecycle": "degraded"}}
+_D_DORMANT = {"s1": {"id": "s1", "lifecycle": "dormant"}}
+
+
+def _decide(statuses, srcs, prior=None):
+    h = _sh.tally(_runs(*statuses), _TH, srcs)
+    return _sh.decide(h, srcs, prior or {}, _TH)
+
+
+acase("降級：連續 2 班失敗 → probing 降 degraded（degraded 仍然會被抓，能自癒）",
+      [(c[1], c[2]) for c in _decide([503, 503], _D_PROBING)[0]],
+      [("probing", "degraded")])
+acase("降級：只失敗 1 班不動（門檻是連續 2）",
+      _decide([503], _D_PROBING)[0], [])
+# 這條是整組測試裡最重要的一條。
+acase("降級：連續失敗 10 班也**不會**自動寫 dormant，只列隔離候選"
+      "（不抓的來源沒有自癒路徑，自動關掉就是把 07-24 的死法做成常設機制）",
+      (_decide([503] * 10, _D_DEGRADED)[0],
+       [q[0] for q in _decide([503] * 10, _D_DEGRADED)[1]]),
+      ([], ["s1"]))
+acase("降級：403 連續 10 班不降級（量不到不等於壞掉）",
+      _decide([403] * 10, _D_PROBING)[0], [])
+acase("降級：robots_disallow 連續 10 班不降級（那是 robots 重驗的職責範圍）",
+      _decide(["robots_disallow"] * 10, _D_PROBING)[0], [])
+acase("降級：dormant 不在自動降級範圍（根本沒有觀測）",
+      _decide([503] * 10, _D_DORMANT)[0], [])
+
+_PRIOR_MACHINE = {"s1": {"degraded_by": "health", "degraded_from": "probing"}}
+acase("回復：機器自己降的級，連續 3 班成功後自己撤銷，且回到原本那個狀態"
+      "（不是升到 active——機器不發信任）",
+      [(c[1], c[2], c[3]) for c in _decide([200, 200, 200], _D_DEGRADED, _PRIOR_MACHINE)[0]],
+      [("degraded", "probing", "health-recovered")])
+acase("回復：連續 2 班成功還不夠（門檻是 3）",
+      _decide([200, 200], _D_DEGRADED, _PRIOR_MACHINE)[0], [])
+acase("回復：**人手**設的 degraded 機器不碰"
+      "（沒有 degraded_by: health 記號＝那是判斷不是量測，不該被三班 200 推翻）",
+      _decide([200] * 10, _D_DEGRADED, {})[0], [])
+
+# 管線那一端：健康分的輸入本來不存在。stats 只餵給 markdown 報告，
+# 所以 gate.yaml 的 source_health 躺了一整個月沒有消費者——不是評分邏輯沒寫，
+# 是評分沒有輸入。下面四條釘住那條管線與它的欄位白名單。
+import tempfile as _tf2  # noqa: E402
+with _tf2.TemporaryDirectory() as _td:
+    _v2 = Path(_td)
+    _st2 = [{"id": "s1", "track": "official", "tier": 1, "status": 200,
+             "items": 3, "error": None, "robots": True, "backfill": False, "new": 3}]
+    _pp.write_run_stats(_v2, "2026-07-26", _st2)
+    _pp.write_run_stats(_v2, "2026-07-26", _st2)
+    _lines2 = (_v2 / "_probe" / "source-runs.jsonl").read_text("utf-8").strip().split("\n")
+    acase("管線：每班 append 一行，不是覆寫（覆寫的話「連續第幾次」永遠算不出來）",
+          len(_lines2), 2)
+    acase("管線：一班一個物件（不是一條來源一行——一天 12 班攤平成每條一行，"
+          "一年會長到十萬行以上）",
+          sorted(_json.loads(_lines2[0])), ["at", "day", "sources"])
+    acase("管線：只寫 allowlist 欄位，原始內容不進 vault（紅線 6）",
+          sorted(_json.loads(_lines2[0])["sources"][0]),
+          ["error", "id", "items", "status"])
+    acase("管線：健康分吃得到 probe 剛寫下去的東西（兩端的欄位名對得上）",
+          _sh.tally(_sh.load_runs(_v2), _TH, _SRC1)["s1"]["consecutive_successes"], 2)
+
+# 這整個 PR 修的就是「寫好了但沒有人叫它」。如果健康分自己也沒被排進 workflow，
+# 那只是把同一個病從 gate.yaml 搬到 scripts/ 而已。
+_wf = open(os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml"),
+           encoding="utf-8").read()
+acase("排程：data-refresh.yml 真的會跑 pulse-source-health.py"
+      "（沒排進去的話這支腳本就是下一塊沒有消費者的東西）",
+      "pulse-source-health.py" in _wf, True)
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:
