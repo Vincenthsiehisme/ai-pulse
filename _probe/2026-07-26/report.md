@@ -2,7 +2,7 @@
 
 M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是。
 
-> ⚠ 本輪含 80 筆 backfill（首次抓取的既有存量）。
+> ⚠ 本輪含 78 筆 backfill（首次抓取的既有存量）。
 > backfill 不代表當期訊號，lead_days 與熱度統計應排除。
 
 ## 兩個決定性比率
@@ -11,7 +11,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 |---|---|---|---|---|
 | aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 1/30 = 3% |
 | kol | 90 | 70/90 = 78% | 60/90 = 67% | 34/90 = 38% |
-| media | 87 | 87/87 = 100% | 79/87 = 91% | 40/87 = 46% |
+| media | 87 | 87/87 = 100% | 79/87 = 91% | 41/87 = 47% |
 | official | 218 | 48/218 = 22% | 18/218 = 8% | 159/218 = 73% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
@@ -60,8 +60,8 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 ## 命中的實體型別分佈
 
-- company: 132
-- product_line: 94
+- company: 133
+- product_line: 95
 - product: 31
 - technology: 27
 - framework: 18
@@ -74,7 +74,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | 候選 | 次數 | 來源數 |
 |---|---|---|
 | LLMs | 11 | 4 |
-| LLM | 7 | 5 |
+| LLM | 8 | 6 |
 | U.S | 6 | 3 |
 | Learn | 5 | 2 |
 | San Francisco | 5 | 4 |
@@ -82,27 +82,29 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Fable | 5 | 3 |
 | AI-native | 4 | 2 |
 | Pro | 4 | 3 |
+| Building | 4 | 4 |
 | Gemma | 4 | 3 |
-| Python | 4 | 2 |
 | Understanding | 4 | 2 |
 | Here | 4 | 4 |
 | There | 4 | 3 |
+| Some | 4 | 4 |
 | January | 4 | 3 |
+| China | 4 | 3 |
 | American | 3 | 3 |
 | Frontier | 3 | 2 |
 | AI-powered | 3 | 3 |
-| Building | 3 | 3 |
 | Users | 3 | 2 |
+| Python | 3 | 2 |
 | Flash | 3 | 2 |
+| Making | 3 | 3 |
 | Plus | 3 | 3 |
 | Power | 3 | 3 |
 | Opus | 3 | 3 |
 | NASA | 3 | 2 |
 | With | 3 | 3 |
-| Some | 3 | 3 |
 | July | 3 | 3 |
-| China | 3 | 2 |
 | Trump | 3 | 2 |
+| June | 3 | 3 |
 
 ### 單來源高頻（觀察用，不列入晉升）
 
@@ -115,7 +117,6 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Co-Scientist | 5 | src-deepmind-blog |
 | Release Notes | 4 | src-gh-vllm-releases |
 | The Download | 4 | src-media-mit-techreview |
-| Show HN | 4 | src-hn-frontpage |
 | Fix | 3 | src-gh-vllm-releases |
 | Open | 3 | src-kol-interconnects |
 | LLM Research Papers | 3 | src-kol-raschka |
@@ -143,20 +144,20 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
 | src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
 | src-media-venturebeat | media | 200 | 7 | 0 |  | True |  |
-| src-media-techcrunch | media | 200 | 20 | 0 |  | True |  |
+| src-media-techcrunch | media | 200 | 20 | 1 |  | True |  |
 | src-media-ieee-spectrum | media | 200 | 20 | 0 |  | True |  |
 | src-media-mit-techreview | media | 200 | 10 | 0 |  | True |  |
 | src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
 | src-media-arstechnica | media | 200 | 20 | 0 |  | True |  |
 | src-media-theverge | media | 200 | 10 | 1 |  | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
-| src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-simonwillison | kol | 200 | 20 | 1 |  | True |  |
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-thezvi | kol | robots_unknown | 0 | 0 |  | False | robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕） |
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 9 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 5 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
