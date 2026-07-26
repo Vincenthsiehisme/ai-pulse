@@ -52,12 +52,46 @@ draft ──(人)──► probing ──(人)──► active
 ### 兩條刻意不對稱的規則
 
 **升到 `active` 只有人能做。** 這是「被信任」的那條線，機器不發信任。
-機器最多把來源放回 `probing`（會抓，但不宣稱可信）。
+
+這句話以前後面還接著「機器最多把來源放回 `probing`」，跟上面那張狀態圖的
+`probing/active` 直接打架，於是碼要照哪一句寫是沒有答案的。2026-07-26 拆開來看，
+兩句講的其實是兩件不同的事，寫清楚就不衝突了：
+
+> **機器不得把一條來源的信任層級抬高到超過人設過的那一級，但機器必須把自己做過的
+> 降級原樣還回去——不多，也不少。**
+
+所以 `degraded → active` 這條路，只有在**這次降級是機器自己做的、而且降級前那一刻
+就是 `active`** 時才會走。那不是機器在發信任，是機器在收回自己借走的東西。
+
+反過來寫成「一律還到 `probing`」才是有害的：`probing → active` 需要人跑 checklist，
+而那個 checklist 從上線到今天一次都沒有人跑過（見本檔最後一節的實況）。也就是說
+「一律還到 `probing`」＝機器可以靜靜地把人給過的信任收掉，而且**收掉之後沒有自癒
+路徑**。那正是這一層存在要防的那種傷害，只是換了一個方向。
+
+還原的目標值來自 `_probe/source-health.json` 的 `degraded_from`，而那是機器自己寫的
+檔案，所以碼裡另外釘死一條：**還原目標只允許 `probing` 或 `active`**，其他值（包含
+`dormant`、`draft`、空值、以及檔案被手改成的任何東西）一律退回 `probing`。這條護欄
+不信任那個檔案的內容，只信任它的形狀。
 
 **降到 `dormant` 只有人能做。** `dormant` 等於停止抓取，而**停止抓取的來源沒有
 任何自癒路徑**——不抓就永遠量不到它好了沒有。這正是 `src-openai-blog` 的死法。
 所以自動降級最多降到 `degraded`：仍然每班抓，連續成功就自己回來。
 達到隔離門檻的來源只會出現在報告的 `quarantine_candidate` 清單裡等人看。
+
+### 隔離候選清單是機器交棒給人的唯一介面
+
+`dormant` 只有人能寫，所以「哪幾條該停用」這件事，機器**只能用說的**。那份清單就是
+整條線唯一的交棒點；它斷掉的話，達到隔離門檻的來源不會出現在任何人看得到的地方，
+而且**不會有任何東西變紅**——機器以為自己講了，人這邊沒收到。
+
+2026-07-26 的 review 撈到它一直是斷的：`quarantine_candidates` 只放進 `--json` 的
+**stdout 字典**，寫到磁碟的 `_probe/source-health.json` 沒有這個 key，於是
+`pulse-monitor.py` 那邊 `hjson.get("quarantine_candidates") or []` 永遠拿到空清單，
+`health.md` 的「隔離候選」永遠印不出東西。所以規格在這裡明寫：
+
+> `quarantine_candidates` 是 `_probe/source-health.json` 的**頂層欄位**，
+> 內容是本班達到 `quarantine_after_consecutive` 的來源 id 清單（升冪）。
+> stdout 印什麼是方便，寫進檔案才算數——因為讀它的是別支程式，不是人的眼睛。
 
 機器可以撤銷的只有機器自己做過的降級。降級時會在 `_probe/source-health.json`
 記下 `degraded_by: health`；沒有這個記號的 `degraded`（人手設的）機器不碰。
@@ -199,6 +233,18 @@ VAULT_DIR=... python scripts/pulse-source-health.py --apply    # 寫回 lifecycl
 VAULT_DIR=... python scripts/pulse-source-health.py --json
 ```
 
+**沒有 `--apply` 就一個檔案都不寫，包含 `_probe/source-health.json`。** 以前不是這樣：
+那個 `atomic_write_text` 排在 `--apply` 的守衛**之前**，所以任何人為了 debug 跑一次
+`--json`，就會把這一班算出來的 `degraded_by: "health"` / `degraded_from` 寫進
+`source-health.json`，而 `sources.yaml` 一個字沒動。兩個檔案從此互相矛盾，下一班讀到
+那個 state 會以為降級真的發生過，而且沒有任何紀錄說得出是哪一次跑的造成的。
+一個宣稱「只看」的旗標留下改動，咬到的是未來的自己。
+
+當初把它排在守衛之前的理由是「健康分是觀測結果不是判斷，應該一律寫」。那個理由不成立：
+`tally()` 每次都從 `source-runs.jsonl` **完整重算**，分數不是累積存下來的，dry run 少寫
+一次什麼都沒少。這個檔案裡唯一真正持久、重算不回來的東西是 `degraded_by` /
+`degraded_from`——而那兩個欄位恰恰是判斷，不是觀測。
+
 每班由 `.github/workflows/data-refresh.yml` 的 `Source health (0 LLM)` 這一步
 掛 `--apply` 跑，位置在確定性 pipeline 之後（它吃的是 `pulse-probe` 這一班剛
 append 進去的觀測）。敢一上線就掛 `--apply`，是因為這支能自動寫的只有
@@ -225,9 +271,39 @@ append 進去的觀測）。敢一上線就掛 `--apply`，是因為這支能自
 
 1. `_config/sources.yaml` 的 `lifecycle` 欄位 —— 把 `--apply` 拿掉就完全不寫；
    已經寫下去的可以照 `_probe/source-history.jsonl` 一筆一筆回推。
-2. `_probe/source-health.json` —— 刪掉即可，下一班會從 100 分重新起算。
+2. `_probe/source-health.json` —— 刪掉即可。
 
 `_probe/source-runs.jsonl` 只增不改，刪掉會失去歷史但不影響鏈的運作。
+
+### 第 2 條以前寫錯了，而它錯的方向是「看起來沒事」
+
+舊版寫的是「刪掉即可，下一班會從 100 分重新起算」。兩句都不對：
+
+- 分數本來就每班從 `source-runs.jsonl` 完整重算，刪不刪都一樣，沒有「重新起算」
+  這回事。
+- 真正會掉的是 `degraded_by` / `degraded_from`。它們掉了以後，機器自己降下去的那些
+  來源看起來就跟**人手設的 `degraded`** 一模一樣，而人手設的機器不碰——於是那幾條
+  來源**永遠停在 degraded**，再也不會自己回來。
+
+這是一個吸收態：進去之後的樣子，跟「一切正常、只是還沒累積」長得完全一樣。沒有任何
+一格會變紅，因為系統沒有任何欄位記得「我曾經知道更多」。這個 repo 修過的每一個
+「警報自己把自己關掉」都是這個形狀。
+
+修法不是加一個警告，是**讓它不再是吸收態**：`degraded_by` / `degraded_from` 本來就
+能從 `_probe/source-history.jsonl` 重建——那是 append-only 的檔案，每一筆機器做的
+lifecycle 異動都在裡面（`reason: health-degraded` / `health-recovered`）。所以
+`source-health.json` 不見或解不開時，這支腳本改成回頭讀那份歷史把記號重建回來，
+並在 snapshot 裡記下 `prior_source`：
+
+| `prior_source` | 意思 |
+|---|---|
+| `snapshot` | 正常路徑，讀到上一班的 `source-health.json` |
+| `history` | 快照不見／解不開，記號是從 `source-history.jsonl` 重建的 |
+| `empty` | 快照與歷史都沒有，這是真的第一班 |
+
+這樣一來刪掉 `source-health.json` 就真的只是清一份快取，而不是靜靜地把一批來源
+釘死在 degraded。`prior_source` 留著是為了讓「重建過」這件事在檔案裡看得見——
+重建靠的是 `--apply` 有寫進歷史，那個假設哪天不成立時，這一欄是唯一的線索。
 
 兩個檔案都走 `lib/atomicwrite`（tmp + `os.replace()`）。理由不是「怕檔案壞」，
 是**半份 `sources.yaml` 是合法的 YAML**：四個 `*_sources:` 分節整段消失，

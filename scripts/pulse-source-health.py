@@ -40,8 +40,9 @@ dormant，整條 OpenAI 線靜靜關掉。所以這支的判分表刻意往「�
   VAULT_DIR=... python scripts/pulse-source-health.py --runs 20             # 只看最近 20 班
 
 輸入：_probe/source-runs.jsonl（pulse-probe.write_run_stats 每班 append 一行）
-輸出：_probe/source-health.json（分數與連續計數）
-      _config/sources.yaml 的 lifecycle（僅 --apply）
+輸出（**三個都只在 --apply 才寫**，沒有 --apply 就一個檔案都不動）：
+      _probe/source-health.json（分數、連續計數、降級記號、隔離候選）
+      _config/sources.yaml 的 lifecycle
       _probe/source-history.jsonl（每一次異動，與 robots 重驗共用同一個檔）
 
 依賴：ruamel.yaml（只有 --apply 需要，round-trip 才不會把 sources.yaml 的註解洗掉）。
@@ -171,13 +172,85 @@ def tally(runs, thresholds, sources_by_id):
     return h
 
 
+# 機器把降級還回去時，允許的目標狀態。
+#
+# 不變式不是「機器只能寫 degraded」——那句話跟 source-lifecycle.md 的狀態圖打架，
+# 而且照它寫會有害。真正的不變式是：
+#
+#     機器不得把信任層級抬高到超過人設過的那一級，
+#     但機器必須把自己做過的降級**原樣**還回去，不多也不少。
+#
+# 所以 degraded_from 是 active 就還 active——那不是發信任，是還東西。反過來
+# 「一律還到 probing」才危險：probing → active 需要人跑 checklist，而那個 checklist
+# 至今一次都沒有人跑過，等於機器可以靜靜收掉人給的信任而且沒有自癒路徑。
+#
+# 但 degraded_from 讀自 source-health.json，那是機器自己寫的檔。所以這裡不信任
+# 它的**內容**，只信任它的**形狀**：不在這個集合裡的一律退回 probing。
+RESTORABLE = {"probing", "active"}
+
+
+def rebuild_prior_from_history(vault: Path):
+    """`source-health.json` 不見／解不開時，從 append-only 的歷史重建降級記號。
+
+    重建的只有 `degraded_by` / `degraded_from`——那是這個檔案裡唯一重算不回來的
+    東西（分數每班都從 source-runs.jsonl 完整重算）。
+
+    為什麼要有這支：少了那兩個記號，機器降下去的來源跟**人手設的** degraded 長得
+    一模一樣，而人手設的機器不碰，於是那幾條永遠停在 degraded。那是一個吸收態，
+    而且進去之後的樣子跟「一切正常、只是還沒累積」完全一樣——沒有任何一格會變紅。
+    （見 references/source-lifecycle.md 的回滾一節）
+    """
+    hist = vault / "_probe" / "source-history.jsonl"
+    if not hist.exists():
+        return {}
+    out = {}
+    for line in hist.read_text("utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if row.get("field") != "lifecycle":
+            continue
+        sid = row.get("id")
+        if not sid:
+            continue
+        if row.get("reason") == "health-degraded":
+            out[sid] = {"degraded_by": "health", "degraded_from": row.get("from")}
+        else:
+            # 任何其他讓它離開 degraded 的路徑（health-recovered、robots-revive、
+            # 人手回填）都代表那次降級已經結束，記號跟著失效。時序照檔案順序，
+            # 因為這個檔是 append-only 的。
+            out.pop(sid, None)
+    return out
+
+
+def load_prior(vault: Path, hpath: Path):
+    """讀上一班的降級記號。回傳 (prior, prior_source)。
+
+    prior_source ∈ {snapshot, history, empty}，會被寫進 snapshot 讓「重建過」
+    這件事在檔案裡看得見——重建靠的是 --apply 有寫進歷史，那個假設哪天不成立時，
+    這一欄是唯一的線索。
+    """
+    if hpath.exists():
+        try:
+            return (json.loads(hpath.read_text("utf-8")).get("sources") or {},
+                    "snapshot")
+        except json.JSONDecodeError:
+            pass
+    rebuilt = rebuild_prior_from_history(vault)
+    return (rebuilt, "history" if rebuilt else "empty")
+
+
 def decide(health, sources_by_id, prior, thresholds):
     """依健康分決定 lifecycle 異動。回傳 [(sid, from, to, reason)]。
 
     三條路徑，其中兩條刻意不對稱：
       降級 probing/active → degraded   機器做，因為 degraded 仍然會被抓，能自癒
       隔離 → dormant                   **機器不做**，只列 quarantine_candidate 等人
-      回復 degraded → 原狀態           機器只撤銷自己做過的降級（看 degraded_by）
+      回復 degraded → 降級前那一個      機器只撤銷自己做過的降級（看 degraded_by）
     """
     changes, quarantine = [], []
     for sid, rec in sorted(health.items()):
@@ -196,7 +269,9 @@ def decide(health, sources_by_id, prior, thresholds):
             # 機器不該因為連續三班 200 就把人的決定推翻掉。
             if (prev.get("degraded_by") == "health"
                     and rec["consecutive_successes"] >= thresholds["recover_after_consecutive"]):
-                back = prev.get("degraded_from") or "probing"
+                back = prev.get("degraded_from")
+                if back not in RESTORABLE:
+                    back = "probing"
                 changes.append((sid, "degraded", back, "health-recovered"))
             continue
 
@@ -244,25 +319,24 @@ def main():
             sources_by_id[s["id"]] = s
 
     runs = load_runs(vault, limit=args.runs)
-    prior = {}
-    if hpath.exists():
-        try:
-            prior = json.loads(hpath.read_text("utf-8")).get("sources") or {}
-        except json.JSONDecodeError:
-            prior = {}
+    prior, prior_source = load_prior(vault, hpath)
 
     health = tally(runs, thresholds, sources_by_id)
     changes, quarantine = decide(health, sources_by_id, prior, thresholds)
 
     if args.json:
         print(json.dumps({"runs": len(runs), "sources": health,
+                          "prior_source": prior_source,
                           "changes": [{"id": c[0], "from": c[1], "to": c[2],
                                        "reason": c[3]} for c in changes],
-                          "quarantine_candidates": [q[0] for q in quarantine]},
+                          "quarantine_candidates": sorted(q[0] for q in quarantine)},
                          ensure_ascii=False, indent=2))
     else:
         stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
         print(f"pulse-source-health  {stamp}  （{len(runs)} 班）")
+        if prior_source == "history":
+            print("  ⓘ _probe/source-health.json 讀不到，降級記號已從 "
+                  "_probe/source-history.jsonl 重建。")
         if not runs:
             print("  _probe/source-runs.jsonl 還沒有任何一班的紀錄。")
             print("  這個檔由 pulse-probe 每班 append；剛接上管線的話要等下一班才有輸入。")
@@ -281,9 +355,42 @@ def main():
         for sid, a, b, why in changes:
             print(f"  ── {sid}: {a} → {b}（{why}）")
 
-    # 健康分本身一律寫（它是觀測結果，不是判斷）；lifecycle 才需要 --apply。
+    if not args.apply:
+        # `--json` 時不印：那一行以前無條件印在 JSON 後面，把宣稱機器可讀的 stdout
+        # 變成 `json.loads` 解不開的東西。
+        if changes and not args.json:
+            print("  （加 --apply 才會寫回 sources.yaml）")
+        # 沒有 --apply 就一個檔案都不寫，_probe/source-health.json 也不寫。
+        #
+        # 以前這個寫入排在這個守衛之前，理由是「健康分是觀測不是判斷，應該一律寫」。
+        # 那個理由不成立：tally() 每次都從 source-runs.jsonl 完整重算，分數不是累積
+        # 存下來的，dry run 少寫一次什麼都沒少。這檔案裡唯一重算不回來的是
+        # degraded_by / degraded_from——而那兩個恰恰是**判斷**。
+        #
+        # 後果很具體：任何人為了 debug 跑一次 --json，就把這一班算出來的
+        # degraded_by: "health" 寫進去，而 sources.yaml 一個字沒動。兩個檔案從此
+        # 互相矛盾，下一班讀到那個 state 會以為降級真的發生過。一個宣稱「只看」的
+        # 旗標留下改動，咬到的是未來的自己。
+        return 0
+
+    # 以下只在 --apply 才會發生。
     snapshot = {"at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                "runs_considered": len(runs), "sources": {}}
+                "runs_considered": len(runs),
+                # 這一班的降級記號是從哪裡來的：snapshot / history / empty。
+                # 留著是為了讓「重建過」在檔案裡看得見。
+                "prior_source": prior_source,
+                # 達到隔離門檻、等人決定要不要停用的來源。
+                #
+                # 這個 key 以前只存在於 --json 的 stdout 字典裡，寫到磁碟的 snapshot
+                # 沒有它，於是 pulse-monitor.py 的
+                # `hjson.get("quarantine_candidates") or []` 永遠拿到空清單，
+                # health.md 的「隔離候選」永遠是空的。
+                #
+                # dormant 只有人能寫，所以這份清單是**機器交棒給人的唯一介面**。
+                # 它斷掉的時候不會有任何東西變紅：機器以為自己講了，人這邊沒收到。
+                # stdout 印什麼是方便，寫進檔案才算數——讀它的是別支程式，不是眼睛。
+                "quarantine_candidates": sorted(q[0] for q in quarantine),
+                "sources": {}}
     for sid, rec in health.items():
         keep = dict(rec)
         prev = prior.get(sid) or {}
@@ -301,11 +408,6 @@ def main():
     # 而 degraded_by 掉了就等於機器再也不會撤銷自己做過的降級——降下去回不來。
     # 見 references/atomic-writes.md。
     atomic_write_text(hpath, json.dumps(snapshot, ensure_ascii=False, indent=2))
-
-    if not args.apply:
-        if changes:
-            print("  （加 --apply 才會寫回 sources.yaml）")
-        return 0
 
     stamp = snapshot["at"]
     recorded = []
