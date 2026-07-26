@@ -59,14 +59,14 @@ events_published: 36
 
 | 必盯實體 | 來源 | 看見 | 事件 | 上線 | 最後看見 |
 |---|---|---|---|---|---|
-| OpenAI | 1 | 84 | 10 | 10 | 0d 前 |
+| OpenAI | 1 | 85 | 10 | 10 | 0d 前 |
 | Anthropic | 1 | 19 | 7 | 6 | 0d 前 |
 | Google DeepMind | 1 | 18 | 3 | 2 | 0d 前 |
-| Google | 1 | 41 | 5 | 3 | 0d 前 |
+| Google | 1 | 40 | 5 | 3 | 0d 前 |
 | Meta | 1 | 15 | 0 | 0 | 0d 前 |
 | Microsoft | 1 | 14 | 0 | 0 | 0d 前 |
-| NVIDIA | 1 | 43 | 15 | 12 | 0d 前 |
-| Hugging Face | 1 | 35 | 1 | 1 | 0d 前 |
+| NVIDIA | 1 | 42 | 15 | 12 | 0d 前 |
+| Hugging Face | 1 | 36 | 1 | 1 | 0d 前 |
 | xAI | 1 | 3 | 2 | 2 | 0d 前 |
 | Mistral AI | 1 | 1 | 0 | 0 | 0d 前 |
 | Alibaba | 1 | 0 | 0 | 0 | **從未**（觀察期 2/30d，還沒到門檻，所以不判沉默） |
