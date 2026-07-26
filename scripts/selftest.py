@@ -675,24 +675,49 @@ _ENT = {"companies": [
 ]}
 
 
-def _vault(days):
-    """days: {'2026-07-25': [corpus row, ...]} → 一個臨時 vault 路徑。"""
+def _vault(days, first_fetch=None, runs=None):
+    """days: {'2026-07-25': [corpus row, ...]} → 一個臨時 vault 路徑。
+
+    first_fetch: {sid: 'YYYY-MM-DD...'} → 寫成 `_probe/state.json`
+    runs:        [{'day': ..., 'sources': [{'id':..., 'status':...}]}]
+                 → 寫成 `_probe/source-runs.jsonl`
+    兩個都是 watch entry 觀察期的起算點來源，預設都不寫（＝這條線還沒被觀察過）。
+    """
     root = Path(tempfile.mkdtemp())
     for d, rows in days.items():
         p = root / "_corpus" / d
         p.mkdir(parents=True)
         (p / "src-x.jsonl").write_text(
             "\n".join(_json.dumps(r, ensure_ascii=False) for r in rows), encoding="utf-8")
+    if first_fetch or runs:
+        (root / "_probe").mkdir(parents=True, exist_ok=True)
+    if first_fetch:
+        (root / "_probe" / "state.json").write_text(
+            _json.dumps({k: {"first_fetch_at": v} for k, v in first_fetch.items()}),
+            encoding="utf-8")
+    if runs:
+        (root / "_probe" / "source-runs.jsonl").write_text(
+            "".join(_json.dumps(r, ensure_ascii=False) + "\n" for r in runs),
+            encoding="utf-8")
     return root
 
 
 _SRC_OK = {"official_sources": [{"id": "s-oa", "owner": "OpenAI", "lifecycle": "active"}]}
 
 
-def _cov(watch, sources, days):
+def _cov(watch, sources, days, first_fetch=None, runs=None):
     cfg = dict(sources)
     cfg["coverage_watch"] = watch
-    return _mm.coverage(_vault(days), _TODAY, cfg, _ENT)
+    return _mm.coverage(_vault(days, first_fetch, runs), _TODAY, cfg, _ENT)
+
+
+def _watch_oa(**kw):
+    return {"window_days": 30, "max_silent_days": 14,
+            "must_watch": [dict({"entity_id": "openai", "label": "OpenAI"}, **kw)]}
+
+
+# 語料本身跟這幾條無關（誰都沒提到 OpenAI），變的只有觀察期的起算點。
+_NO_HIT = {"2026-07-25": [{"title": "unrelated", "summary": ""}]}
 
 
 _c1 = _cov({"window_days": 30, "max_silent_days": 14,
@@ -710,18 +735,98 @@ acase("覆蓋率：pending 仍列出破洞，但不觸警（天天紅的燈等�
       (_c2["must_watch"][0]["reason"], _c2["must_watch"][0]["alerting"]),
       ("no_source", False))
 
-_c3 = _cov({"window_days": 30, "max_silent_days": 14,
-            "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
-           _SRC_OK, {"2026-07-25": [{"title": "unrelated", "summary": ""}]})
-acase("覆蓋率：有來源但語料只有 1 天 → 不判 silent（新 vault 不該一開機就滿螢幕紅字）",
-      (_c3["history_days"], _c3["must_watch"][0]["reason"]), (1, None))
+_c3 = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+           first_fetch={"s-oa": "2026-07-25T01:00:00+00:00"})
+acase("覆蓋率：來源今天才第一次被觀察到 → 不判 silent"
+      "（新 vault 不該一開機就滿螢幕紅字）",
+      (_c3["must_watch"][0]["observed_days"], _c3["must_watch"][0]["reason"]),
+      (1, None))
 
-_c4 = _cov({"window_days": 60, "max_silent_days": 14,
-            "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
-           _SRC_OK, {"2026-06-01": [{"title": "old", "summary": ""}],
-                     "2026-07-25": [{"title": "unrelated", "summary": ""}]})
-acase("覆蓋率：語料期間夠長且該實體從未出現 → silent",
-      _c4["must_watch"][0]["reason"], "silent")
+acase("觀察期：沉默過久但時鐘還沒到門檻的，報表要標記出來"
+      "（一個沒有紅字的「從未」，人分不出是「還沒到時候」還是「判斷漏了」）",
+      _c3["must_watch"][0]["silent_pending_clock"], True)
+
+_c3b = _cov(_watch_oa(), _SRC_OK,
+            {"2026-07-25": [{"title": "OpenAI ships thing", "summary": ""}]},
+            first_fetch={"s-oa": "2026-07-25T01:00:00+00:00"})
+acase("觀察期：今天才看見過的根本不算沉默，就不該掛「只差時鐘」的記號"
+      "（這個記號說的是「只差時鐘」，不是「時鐘還年輕」——名字要跟判準一樣窄）",
+      (_c3b["must_watch"][0]["corpus_hits"],
+       _c3b["must_watch"][0]["silent_pending_clock"]), (1, False))
+
+_c4 = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+           first_fetch={"s-oa": "2026-06-01T01:00:00+00:00"})
+acase("覆蓋率：來源被觀察夠久且該實體從未出現 → silent",
+      (_c4["must_watch"][0]["observed_days"], _c4["must_watch"][0]["reason"]),
+      (55, "silent"))
+
+# ---- 觀察期要拿「這條線自己的時鐘」量，不是拿整個語料庫的長度（BACKLOG P4）----
+# 舊護欄是 `history_days >= max_silent_days`：history_days 是**整個語料庫**的歷史
+# 長度，max_silent_days 是**單一觀察對象**允許沉默的天數。兩個不同層級的數字放進
+# 同一個不等式，同一個護欄在兩個方向上都會錯，而且錯法相反。下面兩條就是那兩個
+# 方向，各自釘一個。只修其中一邊、或把門檻調高調低，都只會換一格錯。
+acase("觀察期：語料庫才 1 天，但這條來源已經被觀察 55 天 → 該叫"
+      "（舊護欄拿 history_days 量，這格會安靜——「該叫的不叫」）",
+      (_c4["history_days"], _c4["must_watch"][0]["reason"]), (1, "silent"))
+
+_c4b = _cov({"window_days": 400, "max_silent_days": 14,
+             "must_watch": [{"entity_id": "openai", "label": "OpenAI"}]},
+            _SRC_OK,
+            {"2025-07-01": [{"title": "old", "summary": ""}],
+             "2026-07-25": [{"title": "unrelated", "summary": ""}]},
+            first_fetch={"s-oa": "2026-07-24T01:00:00+00:00"})
+acase("觀察期：語料庫已經 390 天，但這條來源昨天才開始被觀察 → 不該叫"
+      "（舊護欄拿 history_days 量，這格會誤叫——「不該叫的叫」）",
+      (_c4b["history_days"], _c4b["must_watch"][0]["observed_days"],
+       _c4b["must_watch"][0]["reason"]), (390, 2, None))
+
+_c4c = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+            first_fetch={"s-oa": "2026-07-24T01:00:00+00:00"},
+            runs=[{"day": "2026-06-01",
+                   "sources": [{"id": "s-oa", "status": 500}]}])
+acase("觀察期：兩個檔案都問、取最早（state.json 說 07-24，班表說 06-01 就在試了）"
+      "——「有沒有在看」問的是嘗試不是成功，試了很久才第一次成功，"
+      "中間那段沉默是真的沉默",
+      (_c4c["must_watch"][0]["observed_days"], _c4c["must_watch"][0]["reason"]),
+      (55, "silent"))
+
+_c4d = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+            runs=[{"day": "2026-06-01",
+                   "sources": [{"id": "s-oa", "status": 500}]}])
+acase("觀察期：從沒成功抓過的來源也要有起算點（只信 first_fetch_at 的話，"
+      "一條壞掉的來源會把它自己造成的沉默一起靜音掉——警報自己把自己關掉）",
+      (_c4d["must_watch"][0]["observed_days"], _c4d["must_watch"][0]["reason"]),
+      (55, "silent"))
+
+_c4e = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+            runs=[{"day": "2026-06-01",
+                   "sources": [{"id": "s-oa", "status": "robots_disallow"}]},
+                  {"day": "2026-06-02",
+                   "sources": [{"id": "s-oa", "status": "robots_unknown"}]},
+                  {"day": "2026-06-03",
+                   "sources": [{"id": "s-oa", "status": "skipped_lifecycle"}]}])
+acase("觀察期：三種 skip 不算嘗試（被 robots 擋住、或還在 dormant 的那些日子，"
+      "我們並沒有在看那條線，不能拿來灌觀察期）",
+      (_c4e["must_watch"][0]["observed_days"], _c4e["must_watch"][0]["reason"]),
+      (0, None))
+
+_c4f = _cov(_watch_oa(), _SRC_OK, _NO_HIT,
+            first_fetch={"s-oa": "2026-08-30T01:00:00+00:00"})
+acase("觀察期：未來日期的起算點不採計（時鐘壞了不代表我們從未來開始觀察）"
+      "——這種狀況由 --alert-stale 的 clock_skew 判紅，訊息才會指向「日期壞了」",
+      (_c4f["must_watch"][0]["observed_days"], _c4f["must_watch"][0]["reason"]),
+      (0, None))
+
+_c4g = _cov(_watch_oa(),
+            {"official_sources": [
+                {"id": "s-oa", "owner": "OpenAI", "lifecycle": "active"},
+                {"id": "s-oa2", "owner": "OpenAI Newsroom", "lifecycle": "active"}]},
+            _NO_HIT,
+            first_fetch={"s-oa": "2026-07-24T01:00:00+00:00",
+                         "s-oa2": "2026-06-01T01:00:00+00:00"})
+acase("觀察期：多條來源取最早的那一條（有一條在看，這家就算被看著了）",
+      (len(_c4g["must_watch"][0]["sources"]),
+       _c4g["must_watch"][0]["observed_days"]), (2, 55))
 
 # entity_hits 是 probe 用 entities.yaml 判的，跟聚類同一把尺；監看自己的 regex 只是退路。
 _c5 = _cov({"window_days": 30, "max_silent_days": 14,

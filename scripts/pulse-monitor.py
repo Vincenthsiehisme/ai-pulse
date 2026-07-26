@@ -104,6 +104,69 @@ def _alias_pattern(terms):
     return re.compile("|".join(parts)) if parts else None
 
 
+# 這三個 status 不是「抓了但失敗」，是**根本沒抓**：被 robots 擋住、robots 量不到
+# 所以保守跳過、或 lifecycle 就不該跑。那些日子我們並沒有在看那條線，所以不算
+# 進「這條來源被觀察了多久」。見 references/health-alarms.md。
+NOT_AN_ATTEMPT = {"robots_disallow", "robots_unknown", "skipped_lifecycle"}
+
+
+def source_clocks(vault: Path, today):
+    """每條來源「開始被觀察」的那一天 → `{sid: date}`。
+
+    兩個檔案都問，取**最早**的那一個：
+
+      _probe/state.json        first_fetch_at ＝第一次真的抓到東西
+      _probe/source-runs.jsonl 第一個真的嘗試過的班次日期（三種 skip 不算嘗試）
+
+    兩個都要問的理由（完整版見 references/health-alarms.md）：只信 first_fetch_at
+    的話，**從沒成功抓過的來源永遠沒有起算點**，觀察期永遠是 0，靠它在看的實體
+    就永遠不會被判沉默——一條壞掉的來源把它自己造成的沉默一起靜音掉。只信
+    source-runs.jsonl 的話會把歷史砍掉：那個檔 2026-07-26 才開始寫。
+
+    取最早是因為「有沒有在看」問的是嘗試不是成功：一條試了 9 天才第一次抓到
+    東西的來源，那 9 天的沉默是真的沉默，不該從時鐘上扣掉。
+
+    未來日期一律不採計——那是寫它的機器時鐘壞了，不是我們從未來開始觀察。
+    時鐘壞掉由 `--alert-stale` 的 clock_skew 判紅（health-alarms.md 第 3 條），
+    在這一層再判一次只會多一個指錯方向的警報。
+    """
+    out = {}
+
+    def note(sid, d):
+        if sid and d and d <= today and (sid not in out or d < out[sid]):
+            out[sid] = d
+
+    sp = vault / "_probe" / "state.json"
+    if sp.exists():
+        try:
+            st = json.loads(sp.read_text("utf-8"))
+        except ValueError:
+            st = None
+        # state.json 被寫壞成非 dict 是發生過的事（見 references/vault-pages.md
+        # 那段兩支腳本共用一個 run: 的事故）。死人開關不准因此丟例外。
+        if isinstance(st, dict):
+            for sid, row in st.items():
+                if isinstance(row, dict):
+                    note(sid, _as_date(row.get("first_fetch_at")))
+
+    rp = vault / "_probe" / "source-runs.jsonl"
+    if rp.exists():
+        for line in rp.read_text("utf-8").splitlines():
+            if not line.strip():
+                continue
+            try:
+                rec = json.loads(line)
+            except ValueError:
+                continue
+            d = _as_date((rec or {}).get("day")) if isinstance(rec, dict) else None
+            if not d:
+                continue
+            for s in rec.get("sources") or []:
+                if isinstance(s, dict) and s.get("status") not in NOT_AN_ATTEMPT:
+                    note(s.get("id"), d)
+    return out
+
+
 def coverage(vault, today, sources_cfg, entities_cfg):
     """→ 覆蓋範圍快照。純計數，不判斷、不寫檔。"""
     watch_cfg = sources_cfg.get("coverage_watch") or {}
@@ -184,8 +247,8 @@ def coverage(vault, today, sources_cfg, entities_cfg):
                 if fm.get("status") == "published":
                     w["published"] += 1
 
-    # 語料期間比沉默門檻還短的時候，「從沒見過」是理所當然的，不是異常。
-    # 新 vault 第一天就對著 30 條必盯清單狂叫，只會教人把警報關掉。
+    # 語料庫整體有多長。**這個數字不再拿來當沉默判準的護欄**（見下面 observed_days
+    # 那一段），只印給人看「這份報表背後有幾天的資料」。
     history_days = (today - min(in_window)).days + 1 if in_window else 0
 
     runnable = [s for sec in SECTIONS
@@ -199,6 +262,19 @@ def coverage(vault, today, sources_cfg, entities_cfg):
         w["sources"] = [s["id"] for s in runnable
                         if w["_re"] and w["_re"].search(_norm(s.get("owner")))]
 
+    # 每條 watch entry 自己的時鐘：底下那些來源之中，最早開始被觀察的那一天起算。
+    # 只要有一條在看，這家就算被看著了，所以取 min 不取 max。
+    #
+    # 這裡以前用的是 history_days（整個語料庫的長度）。兩個不同層級的數字放進同一個
+    # 不等式，結果是同一個護欄在兩個方向上都錯、而且錯法相反：語料庫才 3 天的時候，
+    # 一條被看了半年、來源上個月死掉的線不會叫；語料庫長到 300 天之後，一條昨天才
+    # 加來源的線會立刻被拿 14 天的尺去量。調門檻補不了，只會換一格錯。
+    # 完整推導見 references/health-alarms.md。
+    clocks = source_clocks(vault, today)
+    for w in watched:
+        starts = [clocks[s] for s in w["sources"] if s in clocks]
+        w["observed_days"] = (today - min(starts)).days + 1 if starts else 0
+
     for w in watched:
         w.pop("_re")
         w["silent_days"] = (today - w["last_seen"]).days if w["last_seen"] else None
@@ -206,13 +282,20 @@ def coverage(vault, today, sources_cfg, entities_cfg):
         # 兩種警報，成因完全不同，不可混為一談：
         #   no_source  結構破洞——沒人在看這家。跟語料多寡無關，第一天就該叫。
         #   silent     有來源卻長期沒東西——來源死了、改版了、或門檻設得太緊。
-        #              語料期間短於門檻時不判，否則新 vault 一開機就滿螢幕紅字。
+        #              **這條線自己**被觀察的天數還沒到門檻時不判，否則新 vault
+        #              一開機、或剛補上來源的那幾天，就會滿螢幕紅字。
         w["reason"] = None
+        over = (w["silent_days"] is None or w["silent_days"] >= w["max_silent_days"])
         if not w["sources"]:
             w["reason"] = "no_source"
-        elif ((w["silent_days"] is None or w["silent_days"] >= w["max_silent_days"])
-                and history_days >= w["max_silent_days"]):
+        elif over and w["observed_days"] >= w["max_silent_days"]:
             w["reason"] = "silent"
+        # 「有來源、也真的沉默過久了，唯一沒判 silent 的理由是它自己的觀察期還沒到
+        # 門檻」。這一格不印出來的話，報表上看到的只是一個沒有紅字的「從未」，
+        # 分不出是「還沒到時候」還是「判斷漏了」——而後者正是這一層要防的病。
+        # 判準只寫在這裡一處：兩個 renderer 各自重推一次，遲早會推歪成不同的東西。
+        w["silent_pending_clock"] = bool(
+            w["sources"] and over and w["observed_days"] < w["max_silent_days"])
         # pending＝設定檔裡白紙黑字承認「這家我們還沒補來源」。照樣印在表上，
         # 但不觸 exit code。理由不是它不重要，是**天天紅的燈等於沒有燈**：
         # 待辦事項每晚讓 CI 失敗一次，人只會學會忽略 CI，連帶忽略真正的回歸。
@@ -472,11 +555,18 @@ def render_health(r, h):
         out += [""]
 
     out += ["## 覆蓋範圍", "",
-            f"近 {c['window_days']} 天（實有語料 {c['history_days']} 天）。", "",
+            f"近 {c['window_days']} 天（實有語料 {c['history_days']} 天）。"
+            "「沉默過久」是拿**每條實體自己的觀察期**判的（底下來源最早開始被觀察"
+            "那天起算），不是拿語料庫長度——見 `references/health-alarms.md`。", "",
             "| 必盯實體 | 來源 | 看見 | 事件 | 上線 | 最後看見 |",
             "|---|---|---|---|---|---|"]
     for w in c["must_watch"]:
         silent = "**從未**" if w["silent_days"] is None else f"{w['silent_days']}d 前"
+        # 「從未」而沒有紅字，光看表格會像是判斷漏了。把觀察期印出來，
+        # 讓「還沒到門檻所以不叫」跟「到了門檻卻沒叫」在紙面上分得開。
+        if w["silent_pending_clock"]:
+            silent += (f"（觀察期 {w['observed_days']}/{w['max_silent_days']}d，"
+                       "還沒到門檻，所以不判沉默）")
         mark = {"no_source": " ⚠ 沒有來源在看",
                 "silent": " ⚠ 沉默過久"}.get(w["reason"], "")
         if w["pending"] and w["reason"] == "no_source":
@@ -579,9 +669,11 @@ def main():
 
         c = r["coverage"]
         print(f"  ── 覆蓋範圍（近 {c['window_days']} 天，實有語料 {c['history_days']} 天）──")
-        if c["history_days"] < c["window_days"]:
-            print(f"     （語料期間不足 {c['window_days']} 天，沉默天數僅供參考，"
-                  "未達各自門檻前不觸警）")
+        young = [w for w in c["must_watch"] if w["silent_pending_clock"]]
+        if young:
+            print("     （下列實體已經沉默過久，但自己的觀察期還沒到門檻，暫不觸警："
+                  + "、".join(f"{w['label']} {w['observed_days']}/"
+                              f"{w['max_silent_days']}d" for w in young) + "）")
         print(f"     {'必盯實體':<18} {'來源':>4} {'看見':>4} {'事件':>4} {'上線':>4}  最後看見")
         for w in c["must_watch"]:
             flag = {"no_source": "  ⚠ 沒有任何來源在看這家",
@@ -589,6 +681,8 @@ def main():
             if w["pending"] and w["reason"] == "no_source":
                 flag = "  ○ 已知未覆蓋（設定檔標 pending，不觸警）"
             silent = "從未" if w["silent_days"] is None else f"{w['silent_days']}d 前"
+            if w["silent_pending_clock"]:
+                silent += f"（觀察期 {w['observed_days']}/{w['max_silent_days']}d）"
             print(f"     {w['label']:<18} {len(w['sources']):>4} {w['corpus_hits']:>4} "
                   f"{w['events']:>4} {w['published']:>4}  {silent}{flag}")
         dead = [s for s in c["sources"] if s["items"] == 0]
