@@ -1,433 +1,55 @@
 [
   {
-    "id": "evt-2026-07-17-57c01e",
-    "path": "evt-2026-07-17-57c01e.md",
-    "title": "A scorecard for the AI age",
+    "id": "evt-2026-07-22-a8e6a5",
+    "path": "evt-2026-07-22-a8e6a5.md",
+    "title": "AMD and Anthropic Announce Strategic Partnership to Deploy Up to 2 Gigawatts of AMD Instinct MI450 Series GPUs",
     "fingerprint": null,
-    "facet": "benchmark",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/a-scorecard-for-the-ai-age",
-        "title": "A scorecard for the AI age",
-        "summary": "Sarah Friar, CFO of OpenAI, introduces a practical AI scorecard to measure ROI through useful work, cost per successful task, dependability, and return on compute."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-20-3b61fa",
-    "path": "evt-2026-07-20-3b61fa.md",
-    "title": "Safety and alignment in an era of long-horizon models",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/safety-alignment-long-horizon-models",
-        "title": "Safety and alignment in an era of long-horizon models",
-        "summary": "OpenAI shares lessons from deploying long-running AI models, highlighting new safety risks, observed failures, and improved safeguards through iterative deployment."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-21-740913",
-    "path": "evt-2026-07-21-740913.md",
-    "title": "Introducing Outlook Addin",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/introducing-outlook-addin",
-        "title": "Introducing Outlook Addin",
-        "summary": ""
-      },
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/introducing-excel-addin",
-        "title": "Introducing Excel Addin",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-21-78cd95",
-    "path": "evt-2026-07-21-78cd95.md",
-    "title": "OpenAI and Hugging Face partner to address security incident during model evaluation",
-    "fingerprint": null,
-    "facet": "incident",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/hugging-face-model-evaluation-security-incident",
-        "title": "OpenAI and Hugging Face partner to address security incident during model evaluation",
-        "summary": "OpenAI and Hugging Face share early findings from a security incident during AI model evaluation, highlighting advanced cyber capabilities and lessons for defenders."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-21-ee9214",
-    "path": "evt-2026-07-21-ee9214.md",
-    "title": "Introducing the ChatGPT for small business program",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/introducing-chatgpt-small-business-program",
-        "title": "Introducing the ChatGPT for small business program",
-        "summary": "OpenAI launches the ChatGPT for Small Businesses program, helping entrepreneurs build AI skills, automate work, and grow with ChatGPT Work."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-21-f36bc2",
-    "path": "evt-2026-07-21-f36bc2.md",
-    "title": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/david-velez-robin-vince-join-openai-boards",
-        "title": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC",
-        "summary": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC, bringing global leadership in finance, technology, and governance."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-22-09b47d",
-    "path": "evt-2026-07-22-09b47d.md",
-    "title": "Claude Sonnet 5",
-    "fingerprint": "anthropic:claude:sonnet:5",
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-sonnet-5",
-        "title": "Claude Sonnet 5",
-        "summary": ""
-      },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
-        "title": "Claude Sonnet 4 5",
-        "summary": ""
-      },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
-        "title": "Claude Sonnet 4 6",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-22-2c7cdc",
-    "path": "evt-2026-07-22-2c7cdc.md",
-    "title": "NTT DATA Group cuts incident analysis to 30 minutes with Codex",
-    "fingerprint": null,
-    "facet": "incident",
-    "company_guess": "Scale AI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/ntt-data",
-        "title": "NTT DATA Group cuts incident analysis to 30 minutes with Codex",
-        "summary": "NTT DATA Group uses ChatGPT Enterprise and Codex to help 9,000 employees automate work, cut incident analysis to 30 minutes, and scale secure AI adoption."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-22-4c0123",
-    "path": "evt-2026-07-22-4c0123.md",
-    "title": "Claude Haiku 4 5",
-    "fingerprint": "anthropic:claude:haiku:4",
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-haiku-4-5",
-        "title": "Claude Haiku 4 5",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-22-75389f",
-    "path": "evt-2026-07-22-75389f.md",
-    "title": "How news organizations are using AI to advance their vital missions",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/how-news-organizations-are-using-ai",
-        "title": "How news organizations are using AI to advance their vital missions",
-        "summary": "News organizations are using AI to strengthen reporting, grow audiences, and improve business operations, with OpenAI tools supporting journalists and publishers worldwide."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-22-7a1a69",
-    "path": "evt-2026-07-22-7a1a69.md",
-    "title": "Building AI infrastructure with the Effingham County community",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/building-ai-infrastructure-with-the-effingham-county-community",
-        "title": "Building AI infrastructure with the Effingham County community",
-        "summary": "OpenAI announces Project Camellia in Effingham County, Georgia, with commitments to responsible energy, community investment, jobs, and access to Codex."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-22-8a7a1d",
-    "path": "evt-2026-07-22-8a7a1d.md",
-    "title": "Introducing OpenAI Presence",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/introducing-openai-presence",
-        "title": "Introducing OpenAI Presence",
-        "summary": "Introducing OpenAI Presence, a proven enterprise AI agent platform that helps organizations deploy trusted voice and chat agents for customer and internal workflows."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-22-af7762",
-    "path": "evt-2026-07-22-af7762.md",
-    "title": "Advancing the next era of national science",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/advancing-the-next-era-of-national-science",
-        "title": "Advancing the next era of national science",
-        "summary": "OpenAI outlines its commitment to advancing American science working with the U.S. Department of Energy and national labs to use frontier AI to accelerate discovery."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-22-bd324b",
-    "path": "evt-2026-07-22-bd324b.md",
-    "title": "Anthropic Economic Index Connector",
-    "fingerprint": null,
-    "facet": "update",
+    "facet": "capital",
     "company_guess": "Anthropic",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/anthropic-economic-index-connector",
-        "title": "Anthropic Economic Index Connector",
+        "source_id": "src-amd-ir",
+        "url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+        "title": "AMD and Anthropic Announce Strategic Partnership to Deploy Up to 2 Gigawatts of AMD Instinct MI450 Series GPUs",
         "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-07-23-4f7d28",
-    "path": "evt-2026-07-23-4f7d28.md",
-    "title": "Claude For Creative Work Dev",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-for-creative-work-dev",
-        "title": "Claude For Creative Work Dev",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-23-b82259",
-    "path": "evt-2026-07-23-b82259.md",
-    "title": "Launching Health in ChatGPT",
+    "id": "evt-2026-07-23-83a9d2",
+    "path": "evt-2026-07-23-83a9d2.md",
+    "title": "AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High Throughput AI Inference Solution",
     "fingerprint": null,
     "facet": "release",
-    "company_guess": "industry",
+    "company_guess": "Cerebras",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/health-in-chatgpt",
-        "title": "Launching Health in ChatGPT",
-        "summary": "Health in ChatGPT now lets eligible U.S. users securely connect medical records and Apple Health to get more personalized insights and better understand their health."
+        "source_id": "src-amd-ir",
+        "url": "https://ir.amd.com/news-events/press-releases/detail/1293/amd-and-cerebras-announce-industry-leading-ultra-low-latency-and-high-throughput-ai-inference-solution",
+        "title": "AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High Throughput AI Inference Solution",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-07-24-4f2f9f",
-    "path": "evt-2026-07-24-4f2f9f.md",
-    "title": "Economic Futures Research Fund Agenda",
+    "id": "evt-2026-07-23-f4cdc4",
+    "path": "evt-2026-07-23-f4cdc4.md",
+    "title": "AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "industry",
+    "company_guess": "AMD",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/economic-futures-research-fund-agenda",
-        "title": "Economic Futures Research Fund Agenda",
+        "source_id": "src-amd-ir",
+        "url": "https://ir.amd.com/news-events/press-releases/detail/1294/aai-2026-amd-delivers-full-stack-compute-for-the-agentic-ai-era",
+        "title": "AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era",
         "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-24-a58179",
-    "path": "evt-2026-07-24-a58179.md",
-    "title": "Introducing Google Workspace Addon",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "Google",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/introducing-google-workspace-addon",
-        "title": "Introducing Google Workspace Addon",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-24-dd57bd",
-    "path": "evt-2026-07-24-dd57bd.md",
-    "title": "At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/ai-summit-korea-partners-and-nvidia/",
-        "title": "At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners",
-        "summary": "At this week’s AI Summit in San Francisco, South Korean President Jae Myung Lee and some of the country’s top business leaders and researchers are meeting with NVIDIA and ecosystem partners to chart Korea’s AI progress. Building on NVIDIA founder and CEO Jensen Huang’s visit to Korea last month, thi"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-25-0fa594",
-    "path": "evt-2026-07-25-0fa594.md",
-    "title": "Claude Opus 5",
-    "fingerprint": "anthropic:claude:opus:5",
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 3,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-opus-5",
-        "title": "Claude Opus 5",
-        "summary": ""
-      },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-opus-4-7",
-        "title": "Claude Opus 4 7",
-        "summary": ""
-      },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-opus-4-5",
-        "title": "Claude Opus 4 5",
-        "summary": ""
-      },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-opus-4-8",
-        "title": "Claude Opus 4 8",
-        "summary": ""
-      },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-opus-4-6",
-        "title": "Claude Opus 4 6",
-        "summary": ""
-      },
-      {
-        "source_id": "src-kol-simonwillison",
-        "url": "https://simonwillison.net/2026/Jul/24/introducing-claude-opus-5/#atom-everything",
-        "title": "Introducing Claude Opus 5",
-        "summary": "   Introducing Claude Opus 5   \nI've been offline  kayaking with sea otters  for much of today so I haven't had a chance to put Anthropic's new model Claude Opus 5 through its paces yet. The buzz is positive, and Anthropic's description of it as a \"thoughtful and proactive model that comes close to "
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://www.anthropic.com/news/claude-opus-5",
-        "title": "Claude Opus 5",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-25-74ed64",
-    "path": "evt-2026-07-25-74ed64.md",
-    "title": "v0.26.0",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-gh-vllm-releases",
-        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
-        "title": "v0.26.0",
-        "summary": "# vLLM v0.26.0 Release Notes\r\n\r\n## Highlights\r\n\r\nThis release features 411 commits from 212 contributors (61 new)!\r\n\r\n* **New Inkling model family** with a full support stack: base modeling (#48799), piecewise CUDA graph support (#48822), Hopper FA4 relative attention (#48858), MTP=1 speculative dec"
       }
     ]
   }
