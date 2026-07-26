@@ -1,7 +1,10 @@
-# 被門禁擋下（11）
+# 被門禁擋下（14）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-07-23-83a9d2|AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High ]]** — Cerebras — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-07-23-f4cdc4|AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era]]** — AMD — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-07-22-a8e6a5|AMD and Anthropic Announce Strategic Partnership to Deploy Up to 2 Gig]]** — Anthropic — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-15-5f31db|NVIDIA and Japan Bring Full-Stack AI and Robotics to Every Industry]]** — NVIDIA — blockers: stale_backfill
 - **[[Events/evt-2026-07-15-5f589f|NVIDIA Introduces New Jetson Thor Computers to Advance Mainstream Robo]]** — NVIDIA — blockers: stale_backfill
 - **[[Events/evt-2026-07-13-cdd3fe|Empowering India’s next generation of innovators with ATL Saathi]]** — Google — blockers: stale_backfill
