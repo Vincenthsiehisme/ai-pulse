@@ -2,7 +2,7 @@
 # 這一層是「敘述」，人為維護、可過 speak-human-tw，刻意獨立於 0-LLM 抓取管線；
 # 夜間鏈只在某主線有新事件時重寫該條 now / next（thesis、lenses 不動）。
 version: 1
-updated: '2026-07-25'
+updated: '2026-07-26'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -15,7 +15,7 @@ tracks:
       watch: 獨立部署者的實測成本，而非發布稿數字。
     - role: 投資人
       question: 這是硬體週期，還是敘事擴張？
-      answer: NVIDIA 把 CPU、機器人、實體模擬全講成 agent 基礎設施，是在放大 TAM 敘事；四則皆單源、heat 偏低（8–14），還沒跨來源共振。
+      answer: NVIDIA 把 CPU、機器人、實體模擬全講成 agent 基礎設施，是在放大 TAM 敘事；這條線目前每一則事件都只掛得住單一來源，還沒有第二個獨立聲音跟上。傳播熱度這一項現在量不到（社群訊號沒接線，所有事件的 heat 都是未量測），所以「這批訊號很冷」講不出口——講得出口的只有「沒有人轉述」。
       watch: 對手（AMD、雲自研晶片）是否跟進同樣的定價語言。
     - role: 技術主管
       question: 要不要現在押 Jetson Thor 或 Nemotron？
@@ -45,7 +45,7 @@ tracks:
       watch: 採用數據與第三方評測。
     - role: 投資人
       question: 發布稿，還是真需求？
-      answer: 目前只有官方發布、無採用數字，heat 8–10 偏低；當市場驗證訊號看，別當商業拐點。
+      answer: 目前只有官方發布、無採用數字，而且每一則都是單一來源；傳播熱度量不到（社群訊號沒接線），所以只能說「沒有第二個聲音」，不能說「熱度低」。當市場驗證訊號看，別當商業拐點。
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。

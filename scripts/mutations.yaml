@@ -244,3 +244,63 @@ mutations:
     replace: "            \"heat\": fm.get(\"heat\") or 0,"
     survives: false
     why: ""
+
+  # ── 敘述層的量化熱度宣稱：堵一個出口不等於堵住（references/narrative-layer.md）──
+
+  - id: M26
+    title: "判準永遠豁免（find_heat_claims 從此回空 list，擋線變成裝飾）"
+    file: lib/narrative_guard.py
+    find: "        if any(neg in window for neg in _NEGATIONS):"
+    replace: "        if True:"
+    survives: false
+    why: ""
+
+  - id: M27
+    title: "命中了照樣寫進去（stderr 有抱怨，磁碟上還是那句謊）"
+    file: pulse-narrative-apply.py
+    find: "                    continue\n            tracks[slug][k] = cleaned"
+    replace: "                    pass\n            tracks[slug][k] = cleaned"
+    survives: false
+    why: ""
+
+  - id: M28
+    title: "拒收了但那一班回 0（沒寫進去，也沒有人會知道）"
+    file: pulse-narrative-apply.py
+    find: "        print(f\"[fail] 另有 {rejected} 段因量化熱度宣稱被拒收，未寫入。\", file=sys.stderr)\n        return 1"
+    replace: "        print(f\"[fail] 另有 {rejected} 段因量化熱度宣稱被拒收，未寫入。\", file=sys.stderr)\n        return 0"
+    survives: false
+    why: ""
+
+  # ── gate.yaml 標記涵蓋：這條檢查有三種安靜死法（references/gate-config-status.md）──
+
+  - id: M29
+    title: "列舉回空 list（沒有 leaf 就沒有東西違規，三條檢查同時變成永遠綠）"
+    file: lib/gate_keys.py
+    find: "        e[\"leaf\"] = not (nxt and nxt[\"indent\"] > e[\"indent\"])"
+    replace: "        e[\"leaf\"] = False"
+    survives: false
+    why: ""
+
+  - id: M30
+    title: "⚠ 不再是必要的（散文裡順口提一句「未接線」就能把假欄位洗白）"
+    file: lib/gate_keys.py
+    find: "_UNWIRED_MARK = re.compile(r\"⚠[^\\n]*未接線\")"
+    replace: "_UNWIRED_MARK = re.compile(r\"未接線\")"
+    survives: false
+    why: ""
+
+  - id: M31
+    title: "消費者驗證退回純子字串（一句提到名字的註解就算有人在讀它）"
+    file: lib/gate_keys.py
+    find: "    return re.search(r\"[\\\"']\" + re.escape(name) + r\"[\\\"']\", blob) is not None"
+    replace: "    return name in blob"
+    survives: false
+    why: ""
+
+  - id: M32
+    title: "指名的消費者檔案不存在就當通過（檔案刪了，標記留在原地繼續說謊）"
+    file: lib/gate_keys.py
+    find: "            if text is not None and name_in_code(e[\"marked_at\"], text):"
+    replace: "            if text is None or name_in_code(e[\"marked_at\"], text):"
+    survives: false
+    why: ""

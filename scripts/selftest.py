@@ -1266,54 +1266,76 @@ with _tf2.TemporaryDirectory() as _td7:
           _sh.rebuild_prior_from_history(_sh_vault(_td7, [200], history_lines=_hist7)),
           {})
 
-# ------------------------------------------- gate.yaml 未接線標記（2026-07-26）
-# gate.yaml 原本有 13 個 key 沒有任何程式碼讀它。未接線不是 bug（好幾個是預留
-# 規格），沒標出來才是：一個寫著正常數字的假欄位，會讓下一個人把它改掉、重跑、
-# 看到行為沒變，然後去懷疑資料壞了。對照表在 references/gate-config-status.md。
+# ------------------------------------------- gate.yaml 標記涵蓋（2026-07-26 傍晚）
+# 未接線不是 bug（好幾個是預留規格），沒標出來才是：一個寫著正常數字的假欄位，
+# 會讓下一個人把它改掉、重跑、看到行為沒變，然後去懷疑資料壞了。
 #
-# 2026-07-26：`stale_after_days` 從這張清單畢業（pulse-monitor 的 --write-health
-# / --alert-stale 接上了）。**當初寫這條測試就是為了逼出這一刻**——接線的那個
-# commit 會看到這裡變紅，被迫回頭把 gate.yaml 的標記跟 references/ 一起改掉。
-_UNWIRED = [
-    "freshness_full_hours", "freshness_zero_days",
-    "minhash_jaccard", "ngram", "event_window_hours",
-    "key_eligibility", "version_derivation", "unknown_entity", "cross_language",
-    "need_tier1_primary", "need_independent_tier2", "translation_chain",
-]
+# 這一段本來是一份**手寫的** 12 個名字的清單，它只釘得住一個方向：「標了未接線、
+# 後來卻接上了」。反方向——有人新增一個沒接線的 key 而忘了標——上一版誠實寫了
+# 「測不到」，然後就沒有再管它。誠實地記下一個洞不會把洞補起來：機械列舉 55 個
+# leaf 之後，當場掉出兩個從來沒進過那張清單的（quality.weights 整塊、
+# readiness.require_primary_evidence）。
+#
+# 現在的規矩：**列舉是機械的，標記是人寫的，測試比對兩者。**
+# 規格與這條檢查「不保證什麼」，見 references/gate-config-status.md。
+from lib import gate_keys as _gk  # noqa: E402
+
+_gate_txt = open(os.path.join(_HERE, "..", "_config", "gate.yaml"), encoding="utf-8").read()
+_leaves = _gk.parse(_gate_txt)
 _scripts_blob = "\n".join(
     open(p, encoding="utf-8").read()
     for p in sorted(_glob.glob(os.path.join(_HERE, "**", "*.py"), recursive=True))
     if os.path.basename(p) != "selftest.py")
+
+
+def _read_repo_file(rel):
+    p = os.path.join(_HERE, "..", rel)
+    return open(p, encoding="utf-8").read() if os.path.isfile(p) else None
+
+
+# 機械列舉自己要先是活的：leaf 數掉到個位數（例如 regex 被改壞、只認得第一層）
+# 時，下面三條會全部「通過」，因為沒有東西可以違規。
+acase("gate.yaml：機械列舉真的掃到整個檔"
+      "（列舉壞掉的時候底下每一條檢查都會變成空集合＝永遠綠）",
+      len(_leaves) > 40, True)
+acase("gate.yaml：每一個 leaf key 都要被標記涵蓋——"
+      "「⚠ …未接線」或「消費者：<路徑>」，標在自己那一行或任何一層祖先上"
+      "（這是舊版手寫清單量不到的那個方向：新增一個沒接線的 key 而忘了標）",
+      _gk.unmarked(_leaves), [])
 acase("gate.yaml：標成「未接線」的 key 必須真的沒有消費者"
       "（哪天有人去接線了，這條會紅，提醒他回來把標記跟 references/ 一起改掉）",
-      [k for k in _UNWIRED if k in _scripts_blob], [])
+      _gk.wired_but_marked_unwired(_leaves, _scripts_blob), [])
+acase("gate.yaml：標了「消費者：X」就要真的在 X 裡搜得到這個名字"
+      "（消費者被刪掉或改名之後，標記會留在原地繼續說一件不成立的事）",
+      _gk.consumer_missing(_leaves, _read_repo_file), [])
 
-_gate_txt = open(os.path.join(_HERE, "..", "_config", "gate.yaml"), encoding="utf-8").read()
-_gate_lines = _gate_txt.splitlines()
+# 判準本身的單元測試。這幾條是在釘「檢查會不會誤放」，不是在釘 gate.yaml。
+acase("gate_keys：註解裡出現的名字不算消費者"
+      "（純子字串比對會把 lib/sources.py 那句註解讀成 require_primary_evidence 有人在用）",
+      _gk.name_in_code("foo", "# foo 只是註解裡提到\nbar = 1"), False)
+acase("gate_keys：字串常值出現才算消費者",
+      _gk.name_in_code("foo", 'cfg.get("foo", 1)'), True)
+acase("gate_keys：沒有 ⚠ 的「未接線」三個字不算標記"
+      "（否則散文裡順口提一句就能把一個假欄位洗白；這裡要看的是 unwired 旗標，"
+      "不是有沒有列舉到——只比對 path 的話這條會恆真）",
+      [(e["path"], e["unwired"]) for e in _gk.parse("a:\n  # 這個之後未接線再說\n  b: 1\n")],
+      [("a.b", False)])
+acase("gate_keys：⚠ 標在祖先上，底下的 leaf 都算被標到",
+      [(e["path"], e["unwired"]) for e in _gk.parse("# ⚠ 整塊未接線\na:\n  b: 1\n  c: 2\n")],
+      [("a.b", True), ("a.c", True)])
+acase("gate_keys：有子 key 的中間節點不算 leaf（只算最底下那一層）",
+      [e["path"] for e in _gk.parse("a:  # 消費者：scripts/x.py\n  b:\n    c: 1\n")],
+      ["a.b.c"])
+_ck = _gk.parse("zzz_key:  # 消費者：scripts/x.py\n  b: 1\n")
+acase("gate_keys：指名的消費者檔案不存在時要報出來，不是靜靜跳過"
+      "（檔案被刪掉之後，標記會留在原地繼續說一件不成立的事）",
+      _gk.consumer_missing(_ck, lambda p: None), ["zzz_key → scripts/x.py"])
+acase("gate_keys：指名的檔案裡真的讀得到就放行（反方向，確認上一條不是恆紅）",
+      _gk.consumer_missing(_ck, lambda p: 'cfg["zzz_key"]'), [])
 
-
-def _marked(key):
-    """key 那一行本身、或它上面連續的註解區塊裡，要看得到「⚠ …未接線」。
-
-    接受「⚠ 未接線」與「⚠ 整塊未接線」兩種寫法：整塊標一次比每個 key 重複標
-    好讀，但兩者都必須帶著那個 ⚠，不能只在散文裡順口提到未接線。
-    """
-    for i, ln in enumerate(_gate_lines):
-        if not ln.lstrip().startswith(key):
-            continue
-        if "⚠" in ln and "未接線" in ln:
-            return True
-        j = i - 1
-        while j >= 0 and _gate_lines[j].lstrip().startswith("#"):
-            if "⚠" in _gate_lines[j] and "未接線" in _gate_lines[j]:
-                return True
-            j -= 1
-    return False
-
-
-acase("gate.yaml：每個未接線的 key 旁邊都要留著「⚠ …未接線」標記"
-      "（標記被刪掉＝那個假欄位又變回看起來很正常的樣子）",
-      [k for k in _UNWIRED if not _marked(k)], [])
+acase("references/gate-config-status.md 存在（gate.yaml 的標記指向它）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "gate-config-status.md")),
+      True)
 acase("gate.yaml：heat 那三個標的是「接線了但走不到」而不是「未接線」"
       "（它們確實被 pulse-gate.py 讀到，病因不同，修法也不同——"
       "把 70 調小是紅線 4 禁止的那種修法）",
@@ -1321,9 +1343,6 @@ acase("gate.yaml：heat 那三個標的是「接線了但走不到」而不是�
 acase("gate.yaml：heat 那段要寫著門檻刻意不動、以及 heat 現在會是 null"
       "（這段註解被改回「上限 48」那種描述＝又退回「有數字但數字是假的」的世界）",
       "unmeasured_heat" in _gate_txt and "null" in _gate_txt, True)
-acase("references/gate-config-status.md 存在（gate.yaml 的標記指向它）",
-      os.path.isfile(os.path.join(_HERE, "..", "references", "gate-config-status.md")),
-      True)
 # 反方向：畢業的 key 不准悄悄退回未接線。把 --write-health 那段刪掉、
 # 或把讀 gate.yaml 那兩行拿掉，都會在這裡紅。
 _mon_txt = open(os.path.join(_HERE, "pulse-monitor.py"), encoding="utf-8").read()
@@ -1332,7 +1351,16 @@ acase("gate.yaml：monitor.stale_after_days 真的被 pulse-monitor.py 讀進去
       "stale_after_days" in _mon_txt and 'gate.get("monitor")' in _mon_txt, True)
 acase("gate.yaml：monitor.stale_after_days 旁邊不該再留「未接線」標記"
       "（標記留著＝文件說謊的另一個方向）",
-      _marked("stale_after_days"), False)
+      [e["path"] for e in _leaves if e["key"] == "stale_after_days" and e["unwired"]], [])
+# require_primary_evidence 是「刻意不接」：它標著未接線，而那個標記必須留著。
+# 有人把那一行接上去（讓 gate.yaml 可以關掉紅線 2 唯一的執法點），
+# wired_but_marked_unwired 會紅；有人只是把標記拿掉，這一條會紅。
+acase("gate.yaml：require_primary_evidence 必須維持「刻意不接」的標記"
+      "（把它做成真開關＝紅線 2 多了一個設定檔層級的關閉鍵，而 selftest 全綠，"
+      "因為每一條測試都是拿預設值跑的）",
+      [(e["unwired"], "刻意" in _gate_txt.split("require_primary_evidence")[0][-900:])
+       for e in _leaves if e["key"] == "require_primary_evidence"],
+      [(True, True)])
 
 # ------------------------------------------- 機器產生的 vault 頁（2026-07-26）
 # Sources/*.md 被每一則 Event 連著，卻沒有任何腳本產生它 —— 全部是紅色斷鏈。
@@ -2188,10 +2216,115 @@ acase("pulse-render.heat_text：None → 「未量測」，不是 0"
       ["未量測", 0, 42])
 # 這條是文字釘（該邏輯寫在 pulse-narrative-prep.py 的 dict 字面值裡，抽不出函式）。
 # 守的是紅線 2 與 8：送 0 給敘述層，LLM 就會寫出「熱度低、還沒共振」這種
-# 拿沒量過的東西當論據的句子——_config/narratives.yaml 裡已經有這樣的句子。
+# 拿沒量過的東西當論據的句子——_config/narratives.yaml 裡曾經有兩句這樣寫成的
+# 句子（2026-07-26 已改掉，見 references/narrative-layer.md）。
 _np_txt = open(os.path.join(_HERE, "pulse-narrative-prep.py"), encoding="utf-8").read()
 acase("pulse-narrative-prep：heat 沒量到時送「未量測」給敘述層，不送 0",
       '"未量測" if fm.get("heat") is None' in _np_txt, True)
+
+# ── 敘述層的量化熱度宣稱（references/narrative-layer.md）─────────────────
+# 上面那條守的是**入口**：以後不要再寫出這種句子。它擋不住已經寫出來的那兩句，
+# 而那兩句待的是 lenses——夜間鏈永遠不會重寫的那一格。堵住上游只擋得住新的謊。
+from lib import narrative_guard as _ng  # noqa: E402
+
+acase("narrative_guard：把沒量到的熱度講成數字 → 命中",
+      [bool(_ng.find_heat_claims("四則皆單源、heat 偏低（8–14），還沒跨來源共振。")),
+       bool(_ng.find_heat_claims("目前只有官方發布、無採用數字，heat 8–10 偏低。")),
+       bool(_ng.find_heat_claims("熱度 70 以上才算共振。"))],
+      [True, True, True])
+# 反方向。一條會誤傷誠實句子的檢查會被改寫繞過去，繞過去之後它就是一顆永遠綠的燈。
+acase("narrative_guard：講「量不到」而且旁邊剛好有數字 → 不命中（否定詞豁免）",
+      [_ng.find_heat_claims("傳播熱度量不到（社群訊號沒接線），12 則全部單源。"),
+       _ng.find_heat_claims("所有事件的 heat 都是未量測，12 則單源。"),
+       _ng.find_heat_claims("12 則單源，還沒有第二個獨立聲音。"),
+       _ng.find_heat_claims("這批訊號沒有人轉述。")],
+      [[], [], [], []])
+
+# 檔案本身要乾淨——包含 thesis 與 lenses。apply 只看得到當班寫入的東西。
+_narr_doc = _yaml.safe_load(
+    open(os.path.join(_HERE, "..", "_config", "narratives.yaml"), encoding="utf-8"))
+
+
+def _narr_heat_hits(node, path=""):
+    if isinstance(node, dict):
+        return [h for k, v in node.items() for h in _narr_heat_hits(v, f"{path}.{k}")]
+    if isinstance(node, list):
+        return [h for i, v in enumerate(node) for h in _narr_heat_hits(v, f"{path}[{i}]")]
+    if isinstance(node, str):
+        return [f"{path}: {x}" for x in _ng.find_heat_claims(node)]
+    return []
+
+
+_VAULT_ROOT = Path(os.path.join(_HERE, ".."))
+acase("vault 目前沒有任何量到的 heat（這條垮了代表社群線接上了，下一條要跟著改）",
+      _ng.vault_has_measured_heat(_VAULT_ROOT), False)
+acase("narratives.yaml 全檔（含 thesis / lenses）沒有量化熱度宣稱",
+      _narr_heat_hits(_narr_doc), [])
+
+# 反方向：vault 真的量到 heat 之後，這種句子是引用而不是編造，不該再擋。
+with _tf2.TemporaryDirectory() as _tdh:
+    _hvault = Path(_tdh)
+    (_hvault / "Events").mkdir()
+    (_hvault / "Events" / "a.md").write_text(
+        "---\nid: e1\nheat: null\n---\n本文\n", "utf-8")
+    acase("vault_has_measured_heat：heat 全是 null → False",
+          _ng.vault_has_measured_heat(_hvault), False)
+    (_hvault / "Events" / "b.md").write_text(
+        "---\nid: e2\nheat: 74\n---\n本文\n", "utf-8")
+    acase("vault_has_measured_heat：有一則量到就 True（反方向，確認上一條不是恆假）",
+          _ng.vault_has_measured_heat(_hvault), True)
+
+
+# 走真的子行程：這條要測的是「那一班紅不紅、磁碟上寫了什麼」，
+# 在同一個行程裡呼叫 main() 測到的就不是真正會發生的那條路徑。
+def _run_narr_apply(vault, result):
+    (vault / "result.json").write_text(_json.dumps(result, ensure_ascii=False), "utf-8")
+    p = _subprocess.run(
+        [sys.executable, os.path.join(_HERE, "pulse-narrative-apply.py"),
+         "--in", str(vault / "result.json")],
+        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(vault)))
+    doc = _yaml.safe_load((vault / "_config" / "narratives.yaml").read_text("utf-8"))
+    return p.returncode, doc["tracks"]
+
+
+def _narr_vault(td, heat="null"):
+    v = Path(td)
+    (v / "_config").mkdir(parents=True, exist_ok=True)
+    (v / "_probe").mkdir(parents=True, exist_ok=True)
+    (v / "Events").mkdir(parents=True, exist_ok=True)
+    (v / "Events" / "a.md").write_text(f"---\nid: e1\nheat: {heat}\n---\n本文\n", "utf-8")
+    (v / "_config" / "narratives.yaml").write_text(
+        "version: 1\nupdated: '2026-07-26'\ntracks:\n"
+        "  infra-cost:\n    thesis: 原本的\n    now: 原本的 now\n    next: 原本的 next\n",
+        "utf-8")
+    return v
+
+
+with _tf2.TemporaryDirectory() as _td_n1:
+    _nv = _narr_vault(_td_n1)
+    _rc_n, _tr_n = _run_narr_apply(_nv, {"infra-cost": {
+        "now": "這輪 heat 8–10 偏低，還沒共振。",
+        "next": "看第二個獨立來源會不會出現。"}})
+    acase("narrative-apply：LLM 寫回量化熱度宣稱 → 拒收該欄位、原文不動、"
+          "乾淨的那欄照寫、整班回非零",
+          [_rc_n, _tr_n["infra-cost"]["now"], _tr_n["infra-cost"]["next"]],
+          [1, "原本的 now", "看第二個獨立來源會不會出現。"])
+
+with _tf2.TemporaryDirectory() as _td_n2:
+    _nv2 = _narr_vault(_td_n2)
+    _rc_n2, _tr_n2 = _run_narr_apply(_nv2, {"infra-cost": {
+        "now": "傳播熱度量不到，12 則全部單源。"}})
+    acase("narrative-apply：誠實句子照寫、exit 0（反方向，確認上一條不是恆擋）",
+          [_rc_n2, _tr_n2["infra-cost"]["now"]],
+          [0, "傳播熱度量不到，12 則全部單源。"])
+
+with _tf2.TemporaryDirectory() as _td_n3:
+    _nv3 = _narr_vault(_td_n3, heat="74")
+    _rc_n3, _tr_n3 = _run_narr_apply(_nv3, {"infra-cost": {
+        "now": "這輪 heat 8–10 偏低，還沒共振。"}})
+    acase("narrative-apply：vault 真的量到 heat 時不擋（那時它是引用，不是編造）",
+          [_rc_n3, _tr_n3["infra-cost"]["now"]],
+          [0, "這輪 heat 8–10 偏低，還沒共振。"])
 
 # M09：從來沒抓到過（item_lag is None）必須判紅。改成 `is not None and ...` 的話，
 # 一個**完全空的 vault** 會顯示綠燈——死人開關在最該叫的那一天最安靜。
