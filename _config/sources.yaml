@@ -29,7 +29,7 @@
 # ---------------------------------------------------------------------------
 
 meta:
-  version: "2.5.0"
+  version: "2.6.0"
   updated: "2026-07-26"
   note: >
     v2 引入 track 雙軌與 person_id 關聯。KOL 線的 author 必須能解析到
@@ -63,6 +63,14 @@ meta:
     must_watch（19 家 pending: true），並新增 src-amd-ir（硬體側第一條 NVIDIA 以外的
     官方線，robots 與 feed 都在本機實測過）。selftest 加一條反向一致性檢查，
     讓「字典有、清單沒有」這件事以後會直接讓測試紅掉，不再靠人去數。
+    v2.6 人物層落地：新增 _config/people.yaml（8 人，全部來自 KOL 線，
+    收錄條件是「已經有來源」而非「產業重要」），並把 8 條 KOL 的 person_id
+    從 null 填實。person_id 自此**真的被 runtime 消費**——
+    lib/cluster.independent_voices() 把獨立來源數改成連通分量，
+    同 person_id 或同 media_group 就合併，同一個人換平台不再被算成兩個獨立聲音。
+    在此之前 people.yaml 不存在、person_id 全空、pulse-cluster.py 也不讀它，
+    設定檔上看起來人物層已建好、實際一行都沒有（紅線 8）。
+    刻意不含 affiliation：任職會過期且無合規自動來源可驗，永不得驅動 gate。
 
 # ---------------------------------------------------------------------------
 # coverage_watch —— v2.4 新增。給 pulse-monitor 的覆蓋率看門狗吃。
