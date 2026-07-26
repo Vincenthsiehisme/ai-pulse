@@ -591,9 +591,23 @@ def run_source(src: dict, table, state: dict, seen: dict) -> tuple[list[dict], d
     self_fetch = src.get("adapter") in SELF_FETCH
 
     if not self_fetch:
-        stat["robots"] = robots_allows(url)
+        # 決策仍用 robots_verdict()[0]（＝ robots_allows 的回傳值，抓取行為一個字
+        # 沒變），但**標籤改用 reason code**。2026-07-26 實測踩到的洞：
+        #   src-kol-thezvi 的 robots.txt 回 401/403，robots_verdict 正確回
+        #   (False, "unavailable_403")，重驗端也正確判成 unknown_keep 不寫回設定檔
+        #   ——但這裡只取布林值，於是報告印成 `robots_disallow`，
+        #   也就是**把量測失敗印成站方政策**。
+        # 那正是 07-24 事故的同一個形態，只是這次出現在報告欄位而不是設定檔。
+        # 後果不抽象：人看報告會以為對方拒絕，再拿「連三天零產出」去降級一條
+        # 其實只是被 WAF 擋住的來源。抓取端保守跳過沒問題，說法不可以說錯。
+        stat["robots"], robots_reason = robots_verdict(url)
+        stat["robots_reason"] = robots_reason
+        if stat["robots"] is False and robots_reason == "unavailable_403":
+            stat["status"] = "robots_unknown"
+            stat["error"] = "robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕）"
+            return [], stat
         if stat["robots"] is False:
-            stat["status"] = "robots_disallow"
+            stat["status"] = "robots_disallow"   # 200 且明文 Disallow，這才是政策
             return [], stat
         if stat["robots"] is None:
             # robots.txt 取不到 = 未知。保守預設往「不允許」倒，與 robots_allows
@@ -802,7 +816,10 @@ def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
                      f"{s['robots']} | {s['error'] or ''} |")
     lines += ["",
               "`skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。",
-              "`robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕。", ""]
+              "`robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕"
+              "（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。",
+              "`robots_disallow` = robots.txt 取得成功且明文 Disallow —— "
+              "只有這個才是站方政策，也只有這個可以拿來降級。", ""]
 
     lines += ["", "## 本輪已知缺口（勿當成已實現）", "",
               f"- 簡繁正規化：{'已啟用 opencc' if simp_trad else '**未啟用**'}"
