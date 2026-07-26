@@ -29,8 +29,8 @@
 # ---------------------------------------------------------------------------
 
 meta:
-  version: "2.3.0"
-  updated: "2026-07-25"
+  version: "2.5.0"
+  updated: "2026-07-26"
   note: >
     v2 引入 track 雙軌與 person_id 關聯。KOL 線的 author 必須能解析到
     people.yaml 的條目，否則獨立性求值退回 media_group 層級（見
@@ -57,6 +57,12 @@ meta:
     只有 null + revive_when_allowed 的 dormant 來源，會被 pulse-robots-recheck --revive
     在確認放行後自動升為 probing。看 null 就復活是不行的——null 也可能只是漏填，
     靠推論復活等於把漏填當成授權。
+    （version 欄先前停在 2.3.0 沒跟著 v2.4 一起動，2026-07-26 一併補正為 2.5.0。）
+    v2.5 覆蓋率對稱化：entities.yaml 有 32 家 active 公司，coverage_watch 只列 12 家，
+    其餘 20 家沒有來源也沒有被承認缺來源——那是盲點不是取捨。20 家一次補進
+    must_watch（19 家 pending: true），並新增 src-amd-ir（硬體側第一條 NVIDIA 以外的
+    官方線，robots 與 feed 都在本機實測過）。selftest 加一條反向一致性檢查，
+    讓「字典有、清單沒有」這件事以後會直接讓測試紅掉，不再靠人去數。
 
 # ---------------------------------------------------------------------------
 # coverage_watch —— v2.4 新增。給 pulse-monitor 的覆蓋率看門狗吃。
@@ -102,6 +108,48 @@ coverage_watch:
     # slug 是不透明日期碼，接了也是零實體命中。詳細退件理由寫在 official_sources
     # 末尾那段。這一格應該紅著，直到有帶標題的官方 feed。
   - {entity_id: deepseek, label: DeepSeek, max_silent_days: 30, pending: true}
+    # ── 2026-07-26：把字典有、清單沒有的 20 家一次補齊 ──
+    # 起因是一個問句：「為什麼只追 NVIDIA？」查下去發現這不是取捨，是漏填。
+    # 實測 entities.yaml 有 32 家 status: active 的公司，這份清單只列了 12 家。
+    # 剩下 20 家的狀態是**沒有來源、而且沒有承認自己沒有來源**——覆蓋率報表上
+    # 連一格都不會出現，所以永遠不會紅。這比 pending 紅著糟：pending 是缺口，
+    # 沒列是盲點，而這套系統整個 coverage_watch 就是為了 07-24 那種盲點才存在的。
+    # （我上一輪口頭講的是 19 家，重數是 20——漏了 safe-superintelligence。
+    #   以這裡的 python 重數為準，口頭那次是錯的。）
+    #
+    # 補進來之後這 20 格會一起紅（reason: no_source），但因為掛 pending 所以不觸
+    # exit code——理由跟上面那段一樣：天天紅的燈等於沒有燈。要把待辦逼到零時跑
+    # pulse-monitor --alert-no-source。AMD 是唯一不掛 pending 的，因為它這次真的
+    # 接上了來源（src-amd-ir）。
+    #
+    # 門檻按「安靜多久才算異常」抓，不按重要性：二線與硬體廠本來就發得稀，
+    # 一律 30；只有幾家真的高頻的抓 21。
+    #
+    # 已知假陽性風險（先寫下來，不在這個 PR 修）：scale-ai 的別名有 "Scale"，
+    # `\bscale\b` 會命中 "at scale" 這種一般用字。目前不影響警報（沒有來源時
+    # reason 恆為 no_source，corpus_hits 不參與判定），但等 Scale AI 真的補上
+    # 來源那天，這個別名會讓它看起來永遠不沉默。修法是把別名收緊成 "Scale AI"，
+    # 那要動 entities.yaml，是另一個 PR（會改到既有語料的實體命中結果）。
+  - {entity_id: safe-superintelligence, label: Safe Superintelligence, max_silent_days: 30, pending: true}
+  - {entity_id: thinking-machines, label: Thinking Machines Lab, max_silent_days: 30, pending: true}
+  - {entity_id: cohere, label: Cohere, max_silent_days: 30, pending: true}
+  - {entity_id: perplexity, label: Perplexity, max_silent_days: 21, pending: true}
+  - {entity_id: anysphere, label: Anysphere (Cursor), max_silent_days: 21, pending: true}
+  - {entity_id: cognition, label: Cognition, max_silent_days: 30, pending: true}
+  - {entity_id: scale-ai, label: Scale AI, max_silent_days: 30, pending: true}
+  - {entity_id: zhipu, label: Z.ai, max_silent_days: 30, pending: true}
+  - {entity_id: moonshot, label: Moonshot AI, max_silent_days: 30, pending: true}
+  - {entity_id: minimax, label: MiniMax, max_silent_days: 30, pending: true}
+  - {entity_id: bytedance, label: ByteDance, max_silent_days: 21, pending: true}
+  - {entity_id: baidu, label: Baidu, max_silent_days: 30, pending: true}
+  - {entity_id: tencent, label: Tencent, max_silent_days: 30, pending: true}
+  - {entity_id: amd, label: AMD, max_silent_days: 30}
+  - {entity_id: tsmc, label: TSMC, max_silent_days: 30, pending: true}
+  - {entity_id: broadcom, label: Broadcom, max_silent_days: 30, pending: true}
+  - {entity_id: groq, label: Groq, max_silent_days: 30, pending: true}
+  - {entity_id: cerebras, label: Cerebras, max_silent_days: 30, pending: true}
+  - {entity_id: coreweave, label: CoreWeave, max_silent_days: 30, pending: true}
+  - {entity_id: aws, label: AWS, max_silent_days: 21, pending: true}
 
 # ---------------------------------------------------------------------------
 # corpus_type —— v2.1 新增欄位
@@ -550,6 +598,53 @@ official_sources:
     # `https://qwenlm.github.io/sitemap.xml`（但那會退化成無摘要，見上面 b 點）。
     # 這條也是目前唯一一條 region: CN 的來源。
 
+  # ── 2026-07-26 新增：晶片側的第一條官方線 ──
+  # 為什麼是 AMD 而不是別家：entities.yaml 有 32 家公司，硬體側只有 nvidia 有來源，
+  # amd / tsmc / broadcom / groq / cerebras / coreweave 六家連一條都沒有，而且連
+  # coverage_watch 都沒列——**沒有來源、也沒有承認自己沒有來源**，那一格永遠不會紅。
+  # 這次一起補進 coverage_watch（見檔頭 must_watch），AMD 這格因為真的接上了來源，
+  # 所以不掛 pending。
+  #
+  # 這條的實際驗證程度（紅線 8，逐項寫清楚）：
+  #   robots.txt   實測讀到全文。`ir.amd.com/robots.txt` 是 `User-agent: * /
+  #                Disallow: /form-submit`，另有 `Sitemap: https://ir.amd.com/sitemap.xml`。
+  #                /rss/ 與 /news-releases 都沒有被 Disallow。注意這裡量的是
+  #                **ir.amd.com**，不是 www.amd.com——feed 在 IR 子網域上，兩者
+  #                robots 是分開的，拿 www 的結果當授權會是錯的。
+  #   endpoint     實測解得開。channel 標題 "Advanced Micro Devices, Inc. (AMD)
+  #                Press Releases"，10 筆 item，最新一筆是 "AAI 2026: AMD Delivers
+  #                Full-Stack Compute for the Agentic AI Era"（Thu, 23 Jul 26 14:30 -0400）。
+  #                這是本輪唯一一條 feed 本體在本機真的被解析過的候選。
+  #   量測工具     robots 與 feed 都是用會話端的抓取工具量的，**不是**這條鏈自己的
+  #                `robots_allows()`。後者在本容器對所有主機（含已知可用的
+  #                openai.com、hn.algolia.com）一律回 None，是 proxy 全面阻擋，
+  #                不是站方政策。所以照 src-anthropic-news 的前例掛 probing，
+  #                讓 Actions 端自證；pulse-robots-recheck.py 會覆寫 robots_ok。
+  #
+  # 代價要先講（紅線 8）：這是 IR 的新聞稿 feed，不是技術部落格。裡面會有財報、
+  # 董事會、股票回購這種跟 AI 無關的東西。實體字典會濾掉大部分，但**不要期待
+  # 這條的產出密度像 vendor blog**——它撐得起「AMD 在 X 日宣布 Y」，撐不起技術細節。
+- id: src-amd-ir
+  track: official
+  owner: AMD
+  media_group: AMD
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: vendor
+  corpus_type: company_release
+  adapter: rss
+  endpoint: "https://ir.amd.com/rss/news-releases.xml"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  robots_checked_at: "2026-07-26T04:12:00+00:00"
+  license_note: "titles + links only"
+  frequency: daily
+  quota_per_run: 30
+
   # ── 退件候選：DeepSeek（2026-07-25 評估，不接）──
   # 候選端點 `https://api-docs.deepseek.com/sitemap.xml` 讀得到、解得開，裡面有
   # 15 條 /news/ 路徑，robots 也允許。看起來完全可以接。不接的理由有兩個，都是
@@ -564,6 +659,31 @@ official_sources:
   # 一條都沒有。那比沒有這條來源更糟，因為它會讓人以為這一塊已經蓋到了。
   # 重議條件：DeepSeek 開出帶標題的 RSS/Atom，或找到有 lastmod 且 slug 是人話的
   # 官方入口。在那之前，DeepSeek 在覆蓋率報表上就是應該紅著。
+  # 2026-07-26 補記：又試了 `https://api-docs.deepseek.com/robots.txt`，這次是 404。
+  # 站台結構顯然動過，上面那份 sitemap 的評估也可能已經過期。維持不接、維持 pending。
+
+  # ── 退件候選：2026-07-26 這一輪查過但沒接的（記錄失敗，免得下次重查一遍）──
+  # 全部用會話端抓取工具實測，量到什麼寫什麼；沒量到的一律不寫成「站方拒絕」。
+  #   Cerebras   robots 寬鬆（`Allow: /`，只擋 /studio），但 `/blog/rss.xml` 404，
+  #              而且 blog 頁的 HTML head 裡沒有任何 `<link rel="alternate">`，
+  #              也就是站方根本沒宣告 feed。沒有機器可讀入口 → 不接。
+  #   Cohere     robots 允許 /blog，但 `/blog/rss.xml` 回的是 HTML（Next.js 頁面），
+  #              不是 feed。同上，沒有宣告過的入口就不猜路徑（紅線 7）。
+  #   Groq       robots 只有一行 Sitemap，沒有 Disallow；但 `/feed/` 回 HTML。
+  #   TSMC       `pr.tsmc.com/rss/news.xml` 404。台積電這條值得再找，因為它是
+  #              供應鏈側唯一可能有中文一手稿的來源，但這次沒找到入口。
+  #   Google AI  `blog.google/robots.txt` 只擋搜尋路徑，理論上可接；但三個 feed
+  #     blog     路徑（`/rss/`、`/technology/ai/rss/`、`/technology/google-deepmind/rss/`）
+  #              在本機一律回 [binary data]，跟 KOL 線那批一樣解不開。
+  #              **這是「本機量不到」不是「不能用」**，跟上面四條的性質不同——
+  #              它是候選，不是退件。要接的話得在 Actions 端先驗，或由人在自己的
+  #              機器上驗過再寫進來。現在寫進去等於拿沒驗過的東西充數。
+  #
+  # 這一輪的誠實結論：原本點名要補的五家（AMD / Google AI blog / DeepSeek /
+  # Moonshot / Zhipu），只有 AMD 過得了驗證。Moonshot 與 Zhipu 這次沒有找到任何
+  # 官方機器可讀入口（連候選路徑都沒有），所以連退件理由都寫不出來，只能先列進
+  # coverage_watch 掛 pending，讓那一格紅著。清單縮水要寫下來，不然下次會以為
+  # 「上次補過了」。
 
   # ── 語料型態盤點（人工核對用，非設定；2026-07-25 更新）──
   #   corpus_type       來源數  獨立 media_group
