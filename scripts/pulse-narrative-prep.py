@@ -61,7 +61,10 @@ def main():
             "slug": fm.get("slug") or fm.get("id"), "date": str(fm.get("date") or ""),
             "company": fm.get("company", ""), "title": fm.get("title", ""),
             "summary": fm.get("summary", ""), "confidence": fm.get("confidence", 0),
-            "heat": fm.get("heat", 0),
+            # 給敘述層看的。heat 沒量到時送 "未量測"，不送 0——送 0 的話 LLM 會
+            # 寫出「熱度低、還沒共振」這種結論，那是拿沒量過的東西當論據
+            # （紅線 2 與 8）。_config/narratives.yaml 裡已經有這樣寫成的句子。
+            "heat": "未量測" if fm.get("heat") is None else fm.get("heat"),
         })
 
     narr_file = vault / "_config" / "narratives.yaml"

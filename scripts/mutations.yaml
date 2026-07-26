@@ -202,3 +202,53 @@ mutations:
     replace: "                ev.keywords = list(cluster.title_tokens(title))[:8]"
     survives: false
     why: ""
+
+  # ── 量不到就寫量不到（紅線 8）：heat 那條線的五個回頭路 ──────────────
+  #
+  # 這五條守的是同一件事：`heat` 這個欄位在沒有任何傳播證據的時候不准長出一個
+  # 數字。2026-07-26 之前它會——四項傳播輸入恆為 0（pulse-cluster.py 呼叫時寫死
+  # metrics=[]），heat 照樣印 8–32，敘述層還拿那個數字當論據寫句子。
+  # 規格：references/readiness-gate.md。
+  #
+  # 分成五條而不是一條，是因為「走回去」有五個不同的入口：源頭重新計算、
+  # 門禁不擋、value 悄悄改權重、前台印 0、送 0 給敘述層。堵一個不等於堵住。
+
+  - id: M21
+    title: "heat 又變回無條件計算（沒量到也編一個低分出來）"
+    file: lib/scoring.py
+    find: "    ) if propagation_signals else None"
+    replace: "    )"
+    survives: false
+    why: ""
+
+  - id: M22
+    title: "沒有傳播證據撐著的 heat 數字不再被擋下來"
+    file: pulse-gate.py
+    find: "        blockers.append(\"unmeasured_heat\")"
+    replace: "        pass"
+    survives: false
+    why: ""
+
+  - id: M23
+    title: "heat 缺席時直接丟掉那 0.25（value 上限悄悄變成 75，新舊資料不可比）"
+    file: lib/scoring.py
+    find: "        confidence * 0.40 + impact * 0.40 + freshness * 0.20"
+    replace: "        confidence * 0.30 + impact * 0.30 + freshness * 0.15"
+    survives: false
+    why: ""
+
+  - id: M24
+    title: "前台把「未量測」印成 0（後端誠實，畫面上還是那句謊）"
+    file: pulse-render.py
+    find: "    return HEAT_UNMEASURED if v is None else v"
+    replace: "    return 0 if v is None else v"
+    survives: false
+    why: ""
+
+  - id: M25
+    title: "敘述層又收到 heat: 0（LLM 會據此寫出「熱度低、還沒共振」）"
+    file: pulse-narrative-prep.py
+    find: "            \"heat\": \"未量測\" if fm.get(\"heat\") is None else fm.get(\"heat\"),"
+    replace: "            \"heat\": fm.get(\"heat\") or 0,"
+    survives: false
+    why: ""

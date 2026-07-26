@@ -92,17 +92,26 @@ clustering:
 readiness:                   # 事件發布硬門禁
   thin_fact_min_chars: 20
   min_confidence: 60
-  # 下面三個是另一種病：**接線了，但條件走不到**。
-  # pulse-gate.py 確實讀它們組成 unsupported_heat，可是那個 if 的第一關是
-  # heat >= 70，而 heat 目前的理論上限是 **48**——pulse-cluster.py 呼叫
-  # score_event() 時 metrics=[]，平台廣度與地域恆為 0，那 13 分永遠拿不到。
-  # 所以 unsupported_heat 的正確描述是「已寫好，尚未生效」。
+  # 下面三個是另一種病：**接線了但走不到**（2026-07-26 更新，規格：
+  # references/readiness-gate.md）。
   #
-  # 正確的修法是去真的收集社群指標，**不是**把 70 調到 45。後者會讓這條
-  # blocker 開始有反應，但那個反應是假的——紅線 4：禁止把手工分數包裝成
-  # 已測量熱度。把門檻降到手工分數搆得到的高度是同一件事換個方向做。
-  # selftest 有一條測試釘住 48 這個上限。
-  heat_threshold: 70         # 接線了但走不到（heat 上限 48）
+  # 舊的說法是「heat 理論上限 48，所以 70 這道門跨不過去」。那個描述沒有錯，
+  # 但它接受了一個更大的錯誤：heat 當時**永遠算得出一個數字**，而那個數字量的
+  # 不是傳播熱度。公式六項裡有四項要社群訊號（作者/推文/平台/地域，合計 63 分），
+  # 那四項恆為 0——因為 pulse-cluster.py 呼叫時直接寫死 metrics=[]，不是資料
+  # 還沒到。剩下會動的只有獨立來源數與新鮮度。敘述層已經拿那個數字寫過
+  # 「heat 偏低、還沒跨來源共振」這種句子（_config/narratives.yaml）。
+  #
+  # 現在：一項傳播訊號都沒量到時 scoring.py 回 **null**，不編一個低分（紅線 8）。
+  # score_factors.propagationSignals 記下四項裡有幾項非零；有 heat 數字卻是 0 的
+  # Event 會被新的 unmeasured_heat 擋下來。
+  #
+  # 下面三個門檻**刻意不動**：
+  #   降 70 → 讓一條跟傳播無關的數字去觸發熱度防線，那個反應是假的（紅線 4）。
+  #   重算權重把值域填滿 → 0–100 的假數字比 8–32 的假數字更難被發現。
+  # selftest 釘住兩件事：metrics=[] 時 heat 是 None，以及四項餵滿時 heat 跨得過
+  # 70——第二條紅了才表示這個門檻該重談。
+  heat_threshold: 70         # 接線了但走不到（要等社群線 M3；不是廢設定）
   heat_min_independent_sources: 2   # 同上
   heat_min_platform_breadth: 2      # 同上
   require_primary_evidence: true

@@ -565,23 +565,54 @@ acase("lib/sources.py: SECTIONS 四節齊全且官方線排第一"
       list(_SECTIONS),
       ["official_sources", "media_sources", "kol_sources", "aggregator_sources"])
 
-# 開媒體線**不會**讓熱度活過來，這條測試就是要讓那個誤會沒有生存空間。
-# pulse-cluster.rescore() 呼叫 score_event 時 metrics=[]，於是 platforms=regions=0，
-# heat 的可達上限＝min(獨立,5)*8 + freshness*0.08 ≦ 40 + 8 = 48。
-# gate.yaml 的 heat_threshold: 70 因此結構上跨不過去，unsupported_heat 永遠不會觸發。
-# 正確的做法是記錄這個上限並釘住它，不是把公式改大讓數字好看——那就是紅線 4
-# 「禁止把手工分數包裝成已測量熱度」。
+# heat 這一段釘的是 2026-07-26 的決定（規格：references/readiness-gate.md）。
+#
+# 舊狀態：pulse-cluster.rescore() 呼叫 score_event 時 metrics=[]，四項傳播輸入
+# （作者/推文/平台/地區，合計 63 分權重）恆為 0，但 heat 照樣算得出 8–48 的數字。
+# 那個數字名字叫「傳播熱度」，量到的卻是「獨立來源數＋新鮮度」——用一個比事實
+# 寬鬆的代理指標去代表事實。敘述層已經拿它當論據寫過句子（_config/narratives.yaml）。
+#
+# 修法不是降門檻（會讓 unsupported_heat 開始有反應，但那個反應是假的，紅線 4），
+# 也不是重算權重把值域填滿（0–100 的假數字比 8–32 的假數字更難被發現）。
+# 修法是紅線 8：量不到就寫量不到——scoring.py 在源頭回 None。
 from lib import scoring as _sc  # noqa: E402
-_heat_ceiling = max(_sc.score_event([90], 2, ind, metrics=[], age_hours=0)["heat"]
-                    for ind in range(0, 9))
-acase("heat 上限：metrics=[] 時 heat 到頂 48，遠低於 gate 的 70"
-      "（媒體線只修 independent_sources 與 confidence，修不了熱度；"
-      "要讓這條測試變綠必須先真的收集社群指標，不是調公式）",
-      _heat_ceiling, 48)
-acase("gate.yaml: heat_threshold 仍高於可達上限 → 這三個門檻目前是死設定，"
-      "得標註為未消費而不是假裝生效",
-      _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
-                           encoding="utf-8"))["readiness"]["heat_threshold"] > _heat_ceiling,
+_heat_none = [_sc.score_event([90], 2, ind, metrics=[], age_hours=0)["heat"]
+              for ind in range(0, 9)]
+acase("heat：metrics=[] 時不論獨立來源數多少都是 None，不是一個低分"
+      "（「沒有任何傳播證據」算不出熱度，不是算出一個冷的熱度——"
+      "這條要是變回數字，敘述層就又有東西可以拿來瞎推論了）",
+      sorted(set(str(h) for h in _heat_none)), ["None"])
+acase("heat：metrics=[] 時 propagationSignals 記 0"
+      "（把「什麼都沒量到」寫成事實欄位，不要人從 heat 缺席去推論）",
+      _sc.score_event([90], 2, 3, metrics=[], age_hours=0)["factors"]["propagationSignals"],
+      0)
+# 反方向：真的量到東西時 heat 必須是數字。只釘 None 那一邊的話，
+# 「永遠 None」跟「量到才有值」在測試裡長得一模一樣。
+_heat_live = _sc.score_event([90], 2, 3, metrics=[{"platforms": ["x", "y"]}], age_hours=0)
+acase("heat：有一項傳播訊號就回數字，propagationSignals 跟著記 1"
+      "（反方向；沒有這條，把 heat 寫死成 None 也會全綠）",
+      [isinstance(_heat_live["heat"], int), _heat_live["factors"]["propagationSignals"]],
+      [True, 1])
+# value 的重新配權。heat 缺席時把它那 0.25 按比例分回還在的三項，而不是丟掉——
+# 丟掉會讓 value 上限變成 75，跟遷移前的資料不可比。
+_v = _sc.score_event([90], 2, 3, metrics=[], age_hours=0)
+acase("value：heat 缺席時用 conf·0.40 + impact·0.40 + freshness·0.20"
+      "（權重和仍是 1.0；值域不縮水，新舊資料才可比）",
+      _v["value"],
+      max(0, min(100, round(_v["confidence"] * 0.40 + _v["impact"] * 0.40
+                            + _v["factors"]["freshness"] * 0.20))))
+# 門檻**不動**的前提就是這一條：社群線接上以後 heat 真的到得了 70。
+# 到不了的話「留著 unsupported_heat」就只是把死碼講成休眠碼（紅線 8）。
+_heat_full = _sc.score_event(
+    [90], 2, 5,
+    metrics=[{"authors": 80, "tweets": 300,
+              "platforms": ["x", "hn", "reddit", "yt"],
+              "regions": ["us", "eu", "cn"]}], age_hours=0)["heat"]
+acase("heat：四項傳播輸入都餵滿時跨得過 gate 的 70 → unsupported_heat 是休眠不是報廢"
+      "（不動門檻的前提。這條紅了就表示門檻該重談，而不是繼續留著假裝有守）",
+      _heat_full >= _yaml.safe_load(
+          open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+               encoding="utf-8"))["readiness"]["heat_threshold"],
       True)
 
 # ---------------------------------------------- 人物層：獨立性 + 參照完整性
@@ -1286,7 +1317,10 @@ acase("gate.yaml：每個未接線的 key 旁邊都要留著「⚠ …未接線�
 acase("gate.yaml：heat 那三個標的是「接線了但走不到」而不是「未接線」"
       "（它們確實被 pulse-gate.py 讀到，病因不同，修法也不同——"
       "把 70 調小是紅線 4 禁止的那種修法）",
-      "接線了但走不到" in _gate_txt and "heat 上限 48" in _gate_txt, True)
+      "接線了但走不到" in _gate_txt and "M3" in _gate_txt, True)
+acase("gate.yaml：heat 那段要寫著門檻刻意不動、以及 heat 現在會是 null"
+      "（這段註解被改回「上限 48」那種描述＝又退回「有數字但數字是假的」的世界）",
+      "unmeasured_heat" in _gate_txt and "null" in _gate_txt, True)
 acase("references/gate-config-status.md 存在（gate.yaml 的標記指向它）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "gate-config-status.md")),
       True)
@@ -1862,30 +1896,67 @@ _GBODY = ("## 事實\nOpenAI 在官方部落格宣布了一項新的模型定價
 
 
 def _gfm(**kw):
+    # 基準線的 heat 是 None：2026-07-26 起這才是「沒量到傳播訊號」的正常長相。
+    # 不要為了方便把它改回一個數字——那會讓下面 unmeasured_heat 的基準線失效。
     d = {"summary": "OpenAI 宣布新的模型定價方案，下月一日生效。", "category": "product",
          "company": "OpenAI", "keywords": ["openai"], "track": "模型能力",
          "evidence": [{"source_id": "src-openai-blog"}], "primary_evidence": 1,
-         "confidence": 70, "heat": 10, "score_factors": {}, "independent_sources": 2}
+         "confidence": 70, "heat": None,
+         "score_factors": {"propagationSignals": 0}, "independent_sources": 2}
     d.update(kw)
     return d
 
 
 acase("pulse-gate：一則各項都合格的 Event 沒有任何 blocker"
-      "（基準線；沒有這條，下面兩條可能是被別的 blocker 擋住而不是被守住）",
+      "（基準線；沒有這條，下面幾條可能是被別的 blocker 擋住而不是被守住）",
       _gm.evaluate(_gfm(), _GBODY, _GATE_T)[0], [])
 acase("pulse-gate：沒有一手證據 → missing_primary_evidence（紅線 2 的執法點）",
       _gm.evaluate(_gfm(primary_evidence=0), _GBODY, _GATE_T)[0],
       ["missing_primary_evidence"])
+# unmeasured_heat：有 heat 數字但一項傳播訊號都沒量到 → 擋。這是 scoring.py 回 None
+# 的執法點，守的是「手改 frontmatter / 遷移腳本寫壞 / 有人把無條件計算加回去」這三種
+# 走回頭路的方式。規格見 references/readiness-gate.md。
+acase("pulse-gate：heat 有數字但 propagationSignals=0 → unmeasured_heat"
+      "（紅線 8：量不到就寫量不到，不是編一個低分出來）",
+      _gm.evaluate(_gfm(heat=12), _GBODY, _GATE_T)[0], ["unmeasured_heat"])
+acase("pulse-gate：heat 是 None 時不擋（反方向；缺席是合法狀態，不是錯誤狀態）",
+      _gm.evaluate(_gfm(heat=None), _GBODY, _GATE_T)[0], [])
+acase("pulse-gate：heat 有數字且真的量到傳播訊號 → 不擋 unmeasured_heat"
+      "（第二個反方向：擋的是「沒證據卻有數字」，不是「有數字」）",
+      _gm.evaluate(_gfm(heat=30, score_factors={"propagationSignals": 2,
+                                                "independentSources": 2,
+                                                "platformBreadth": 2}),
+                   _GBODY, _GATE_T)[0], [])
 acase("pulse-gate：heat 過門檻但獨立來源/平台廣度撐不住 → unsupported_heat"
-      "（紅線 4：禁止把手工分數包裝成已測量熱度）",
-      _gm.evaluate(_gfm(heat=75, score_factors={"independentSources": 1,
+      "（紅線 4：禁止把手工分數包裝成已測量熱度。這條現在要靠社群線接上才走得到，"
+      "但語意正確且正反兩面都釘住，那天它會是活的碼）",
+      _gm.evaluate(_gfm(heat=75, score_factors={"propagationSignals": 1,
+                                                "independentSources": 1,
                                                 "platformBreadth": 1}),
                    _GBODY, _GATE_T)[0], ["unsupported_heat"])
 acase("pulse-gate：heat 高但證據撐得住就不擋（反方向；只釘一邊的話"
       "「永遠擋」跟「永遠不擋」一樣沒有資訊）",
-      _gm.evaluate(_gfm(heat=75, score_factors={"independentSources": 2,
+      _gm.evaluate(_gfm(heat=75, score_factors={"propagationSignals": 3,
+                                                "independentSources": 2,
                                                 "platformBreadth": 2}),
                    _GBODY, _GATE_T)[0], [])
+
+# 缺席要一路走到前台。heat=None 在後端誠實、在畫面上印成 0 的話，讀的人看到的
+# 還是「量過了，很冷」——那是這次要修掉的那個謊，只是換一層出現。
+_rs = importlib.util.spec_from_file_location(
+    "pulse_render", os.path.join(_HERE, "pulse-render.py"))
+_rmod = importlib.util.module_from_spec(_rs)
+_rs.loader.exec_module(_rmod)
+acase("pulse-render.heat_text：None → 「未量測」，不是 0"
+      "（0 會被讀成「量過了，很冷」，比不印更糟）",
+      [_rmod.heat_text(None), _rmod.heat_text(0), _rmod.heat_text(42)],
+      ["未量測", 0, 42])
+# 這條是文字釘（該邏輯寫在 pulse-narrative-prep.py 的 dict 字面值裡，抽不出函式）。
+# 守的是紅線 2 與 8：送 0 給敘述層，LLM 就會寫出「熱度低、還沒共振」這種
+# 拿沒量過的東西當論據的句子——_config/narratives.yaml 裡已經有這樣的句子。
+_np_txt = open(os.path.join(_HERE, "pulse-narrative-prep.py"), encoding="utf-8").read()
+acase("pulse-narrative-prep：heat 沒量到時送「未量測」給敘述層，不送 0",
+      '"未量測" if fm.get("heat") is None' in _np_txt, True)
 
 # M09：從來沒抓到過（item_lag is None）必須判紅。改成 `is not None and ...` 的話，
 # 一個**完全空的 vault** 會顯示綠燈——死人開關在最該叫的那一天最安靜。

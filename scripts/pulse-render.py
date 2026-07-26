@@ -70,7 +70,17 @@ FACTOR_META = [
     ("independentSources", "獨立來源", 5), ("uniqueAuthors", "獨立作者", 8),
     ("platformBreadth", "平台廣度", 5), ("regionBreadth", "地域廣度", 4),
     ("velocity", "傳播速度", 100), ("freshness", "新鮮度", 100),
+    ("propagationSignals", "傳播訊號", 4),
 ]
+
+# heat 可以是 None：一項傳播訊號都沒量到時 scoring.py 不編一個數字出來
+# （紅線 8，規格見 references/readiness-gate.md）。前台印「未量測」不印 0——
+# 0 會被讀成「量過了，很冷」，那比不印更糟。
+HEAT_UNMEASURED = "未量測"
+
+
+def heat_text(v):
+    return HEAT_UNMEASURED if v is None else v
 
 BRAND = '<span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>'
 ARROW = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
@@ -531,7 +541,7 @@ def event_card(ev, prefix, full=True):
 <p class="lead">{esc(ev['summary'])}</p>
 {('<div class="layers">' + layers + '</div>') if layers else ''}
 {ev_block}
-<div class="score"><span>confidence <b>{esc(ev['confidence'])}</b></span><span>heat <b>{esc(ev['heat'])}</b></span>{track_span}<a class="detail-link" href="{href}">看完整事件 {ARROW}</a></div>
+<div class="score"><span>confidence <b>{esc(ev['confidence'])}</b></span><span>heat <b>{esc(heat_text(ev['heat']))}</b></span>{track_span}<a class="detail-link" href="{href}">看完整事件 {ARROW}</a></div>
 </article>"""
 
 
@@ -583,7 +593,7 @@ def journey_html(ev, corpus_idx, sources):
 
 def score_grid_html(ev):
     sf = ev.get("score_factors") or {}
-    heroes = [("confidence", ev["confidence"]), ("heat", ev["heat"]),
+    heroes = [("confidence", ev["confidence"]), ("heat", heat_text(ev["heat"])),
               ("impact", ev.get("impact", 0)), ("value", ev.get("value", 0))]
     hero_html = "".join(f'<div class="sh"><span>{esc(k)}</span><b>{esc(v)}</b></div>' for k, v in heroes)
     facs = []
@@ -832,7 +842,8 @@ def load_events(vault):
             "happened": str(fm.get("happened_at") or ""),
             "company": fm.get("company", ""), "category": fm.get("category") or "",
             "track": fm.get("track") or "", "summary": fm.get("summary") or "",
-            "confidence": fm.get("confidence", 0), "heat": fm.get("heat", 0),
+            # heat 不給預設 0：缺席與「量到 0」是兩件事，見 heat_text()。
+            "confidence": fm.get("confidence", 0), "heat": fm.get("heat"),
             "impact": fm.get("impact", 0), "value": fm.get("value", 0),
             "independent": fm.get("independent_sources", 0),
             "score_factors": fm.get("score_factors") or {},
