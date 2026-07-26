@@ -106,6 +106,17 @@ VAULT_DIR=... python scripts/pulse-monitor.py --alert-stale   # 過期 → exit 
 
 ## 排在哪裡
 
-兩支都在 `Deterministic pipeline (0 LLM)` 裡、`pulse-render.py` 之後、
+兩支都排在 `Source health (0 LLM)` 之後（才讀得到這一班的分數）、
 `Commit & push data changes` 之前——它們產生的是要進版控的 vault 檔案，
 排在 commit 之後就等於整天不會被推上去。selftest 有一條測試釘住這件事。
+
+**而且兩支必須各佔一個 step，不得共用同一個 `run:`。** GitHub Actions 的 `run:`
+是 `bash -e`：前面那行非零，後面那行根本不會執行。兩支曾經同處一個 `run:`，
+後果是這樣串起來的——`_probe/state.json` 被寫壞成非 dict（`pulse-source-notes.py`
+在那裡沒有防呆）→ 筆記產生器丟例外 → `--write-health` 不會跑 → `health.md` 的
+`generated_day` 停在昨天 → 死人開關報「排程整個死掉」。
+
+鏈其實是好的，死的是一支觀測腳本。一個指向錯誤位置的假警報比沒有警報更花時間，
+而這兩件事本來就該分開判（見本檔開頭：「幾天沒抓到東西」與「排程死了」是兩個問題）。
+selftest 解析 workflow 的 YAML 結構去釘這件事，不比對字串位置——比對字串位置的
+測試會在改個 step 名字時紅，卻看不見兩個指令被塞回同一個 `run:`。
