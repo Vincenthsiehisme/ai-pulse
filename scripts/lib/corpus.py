@@ -19,6 +19,7 @@ pulse-monitor 的模組說明講過「靜默死掉」與「靜默瞎掉」是兩
 所以這裡兩件事都做：日期名嚴格驗（`2026-13-99` 不是日期），
 內容也驗（`corpus_days()` 要有非空白的 jsonl 行，`run_days()` 要有 report.md）。
 """
+import json
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -65,17 +66,47 @@ def _has_jsonl_rows(day_dir: Path) -> bool:
 
 
 def observed(vault: Path):
-    """數 _corpus/：每條來源累計產出過幾筆、最後一天是哪天。
+    """數 _corpus/：每條來源累計看過幾個**相異項目**、最後一天是哪天。
 
-    回傳 (Counter{source_id: 筆數}, {source_id: 'YYYY-MM-DD'})。
+    回傳 (Counter{source_id: 相異項目數}, {source_id: 'YYYY-MM-DD'})。
+
+    數相異不是數行，因為 `_corpus/<日>/<來源>.jsonl` 是**當天看到的清單**不是
+    當天新增的清單：一則還掛在 feed 上的新聞，每天都會再被寫進去一次。累計行數
+    數的是「項目 × 天」——2026-07-26 實測 956 行對 461 個相異項目。
+
+    虛胖還不是最糟的。最糟的是它跟 Sources 頁旁邊那一格**不同單位**：「有效產出」
+    是刻意去重過的事件數。兩個不同單位的數字並排比較，得到的印象一定是錯的。
+    （見 references/vault-pages.md）
+
+    去重的鍵是 `url_canonical`——probe 寫每一列時就算好了，這裡不重算、不做任何
+    新的正規化。沒有這個欄位的舊列退回用 `url`；兩個都沒有的列**照舊各算一個**，
+    因為那種列我們分不出它們是不是同一則，寧可高估也不要靜靜地把資料吃掉。
     """
-    counts, last_day = Counter(), {}
+    seen, last_day = {}, {}
+    counts = Counter()
     corpus = vault / "_corpus"
     for day in _day_dirs(corpus):
         for fp in sorted((corpus / day).glob("*.jsonl")):
-            n = sum(1 for ln in fp.read_text("utf-8").splitlines() if ln.strip())
-            if n:
-                counts[fp.stem] += n
+            hit = False
+            for ln in fp.read_text("utf-8").splitlines():
+                if not ln.strip():
+                    continue
+                hit = True
+                try:
+                    row = json.loads(ln)
+                except ValueError:
+                    # 壞掉的一行不該讓整條來源的數字歸零；當成一個不可辨識的項目。
+                    counts[fp.stem] += 1
+                    continue
+                key = row.get("url_canonical") or row.get("url")
+                if not key:
+                    counts[fp.stem] += 1
+                    continue
+                bucket = seen.setdefault(fp.stem, set())
+                if key not in bucket:
+                    bucket.add(key)
+                    counts[fp.stem] += 1
+            if hit:
                 last_day[fp.stem] = day
     return counts, last_day
 

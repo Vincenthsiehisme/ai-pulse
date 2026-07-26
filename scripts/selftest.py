@@ -1215,6 +1215,76 @@ acase("來源頁：frontmatter 白名單裡沒有非公開欄位（紅線 6）",
        if any(bad in k for bad in ("token", "key", "secret", "header",
                                    "auth", "path", "cookie"))], [])
 
+# ── 量不到 ≠ 量到 0（紅線 8），而且這個違規印在給人看的頁面上 ──────────────
+# `items_observed: 0` 有兩個完全不同的意思：這條來源成功抓過、只是那陣子站上
+# 沒東西（量到 0），跟它從來沒有成功抓過一次（量不到，我們一無所知）。
+# 2026-07-26 首班之後有 3 條在 Sources/*.md 上印「已觀測 0 筆」，其中 2 條
+# 從沒抓過——這正是「用空值代表兩種不同的事」，跟目錄名代表「那天有語料」同形態。
+# 判準是 first_fetch_at 有沒有值，不是 state.json 裡有沒有這個條目：
+# 失敗也會留下 etag / last_run，只有成功抓過一次才 setdefault 那個欄位。
+_SRC_N = {"id": "s-never", "lifecycle": "probing", "endpoint": "https://e.test/f"}
+_never = _sn.render(_SRC_N, 0, None, 0, 0, {"etag": "x", "last_run": "2026-07-26"}, None)
+_measured = _sn.render(_SRC_N, 0, None, 0, 0, {"first_fetch_at": "2026-07-26"}, None)
+acase("來源頁：從沒抓過的來源印「尚未抓取過」，不印「0 筆」（紅線 8）",
+      ["尚未抓取過" in _never, "0 筆" in _never], [True, False])
+acase("來源頁：從沒抓過時 items_observed 留空，不寫 0"
+      "（0 是量到 0，空是量不到——寫 0 就是把量測失敗當成事實）",
+      _re.search(r"^items_observed:\s*$", _never, _re.M) is not None, True)
+acase("來源頁：抓過但相異數是 0 的來源照舊印「0 筆」（那是真的量到 0）",
+      ["0 筆" in _measured, "尚未抓取過" in _measured], [True, False])
+acase("來源頁：光有 state.json 條目不算抓過（失敗也會留下 etag / last_run）",
+      "尚未抓取過" in _never, True)
+
+# ── 「收錄」那格印事實，不印設定意圖 ────────────────────────────────────
+# lifecycle 是設定意圖，last_status 是上一班的事實，兩者會分岔：一條
+# lifecycle: probing 的來源如果每班都被 robots 擋掉，設定說「會被抓」，
+# 事實是一次都沒抓。只印 lifecycle 就是拿比事實寬鬆的代理指標代表事實——
+# 這一頁本來就是為了不讓那種事發生才存在的。
+# 2026-07-26 實測：src-media-theregister 是 robots_disallow（站方政策），
+# src-kol-thezvi 與 src-amd-ir 是 robots_unknown（robots.txt 取不到，保守跳過）。
+# 三種都不是故障，但頁面不能說「會被抓」。
+for _st, _want in (("robots_disallow", "Disallow"),
+                   ("robots_unknown", "取不到"),
+                   ("skipped_lifecycle", "不會被抓")):
+    _pg = _sn.render(_SRC_N, 0, None, 0, 0, {}, {"last_status": _st})
+    acase(f"來源頁：last_status = {_st} 時，「收錄」那格印被跳過的理由而不是「會被抓」",
+          [_want in _pg, "| 會被抓 |" in _pg], [True, False])
+_pg_ok = _sn.render(_SRC_N, 1, "2026-07-26", 0, 0,
+                    {"first_fetch_at": "2026-07-26"}, {"last_status": 200})
+acase("來源頁：真的抓得到的來源，「收錄」那格照舊印「會被抓」"
+      "（判準對齊事實不是放寬規則，正常的路徑不能跟著變模糊）",
+      "會被抓" in _pg_ok, True)
+
+# 「已觀測」數的是相異項目，不是行數。`_corpus/<日>/` 是**當天看到的清單**不是
+# 當天新增的清單：還掛在 feed 上的新聞每天都會再被寫一次。累計行數數的是
+# 「項目 × 天」——2026-07-26 實測 956 行對 553 個相異項目，虛胖近一倍。
+# 虛胖還不是最糟的，最糟的是它跟旁邊那格「有效產出」（刻意去重過的事件數）
+# **不同單位**：兩個不同單位的數字並排比較，得到的印象一定是錯的。
+#
+# 這幾條刻意自己開一個 vault，不借用下面那個：下面那個的日曆是「07-03 有跑班、
+# 語料只到 07-02」，是專門用來釘死人開關的形狀。往它的 _corpus/2026-07-03/ 塞
+# 語料，會把那個形狀弄平，而且弄平的方式是讓紅燈測試變綠——測試 fixture 之間
+# 互相把對方的警報關掉，也是「警報自己把自己關掉」。
+with tempfile.TemporaryDirectory() as _dc:
+    _vc = Path(_dc)
+    for _day in ("2026-07-01", "2026-07-02", "2026-07-03"):
+        (_vc / "_corpus" / _day).mkdir(parents=True)
+        (_vc / "_corpus" / _day / "s2.jsonl").write_text(
+            '{"url_canonical":"https://e.test/a"}\n'
+            '{"url_canonical":"https://e.test/b"}\n', encoding="utf-8")
+    (_vc / "_corpus" / "2026-07-03" / "s3.jsonl").write_text(
+        '{"url":"https://e.test/x"}\n'
+        '{"url":"https://e.test/x"}\n'
+        '{"title":"沒有任何 url 的一列"}\n'
+        '這一行不是 JSON\n', encoding="utf-8")
+    _cntc, _lastc = _corpuslib.observed(_vc)
+    acase("來源頁：已觀測數相異項目、不數行數"
+          "（同兩則新聞連續掛三天＝6 行，但只有 2 個項目）",
+          [_cntc["s2"], _lastc["s2"]], [2, "2026-07-03"])
+    acase("來源頁：沒有 url_canonical 的舊列退回用 url；連 url 都沒有、或整行解不出來的"
+          "各算一個（分不出是不是同一則就寧可高估，不要靜靜把資料吃掉）",
+          _cntc["s3"], 3)
+
 with tempfile.TemporaryDirectory() as _d3:
     _v3 = Path(_d3)
     (_v3 / "Events").mkdir(parents=True)
@@ -1226,18 +1296,27 @@ with tempfile.TemporaryDirectory() as _d3:
     (_v3 / "Events" / "e2.md").write_text(
         "---\nid: e2\nstatus: review\nevidence:\n  - source_id: s1\n---\n\n內文\n",
         encoding="utf-8")
+    # 被丟掉的事件不是「有效產出」。算進來的話，「抓到了但聚類沒綁上」跟
+    # 「綁上了但被丟掉」在頁面上長得一模一樣。
+    (_v3 / "Events" / "e3.md").write_text(
+        "---\nid: e3\nstatus: dropped\nevidence:\n  - source_id: s1\n---\n\n內文\n",
+        encoding="utf-8")
     _ev, _pub = _sn.bound(_v3)
     acase("來源頁：有效產出數的是**事件數**不是證據筆數"
           "（一則事件引同一條來源三次仍然只算一則）", [_ev["s1"], _pub["s1"]], [2, 1])
+    acase("來源頁：有效產出不含 status: dropped 的事件"
+          "（被丟掉的不是產出，算進來會讓「沒綁上」跟「綁上了但被丟」看起來一樣）",
+          _ev["s1"], 2)
 
     # _corpus/ 的盤點單一真相源：兩天各一條，累計 3 筆，最後一天取較晚的那天。
     for _day, _n in (("2026-07-01", 1), ("2026-07-02", 2)):
         (_v3 / "_corpus" / _day).mkdir(parents=True)
         (_v3 / "_corpus" / _day / "s1.jsonl").write_text(
-            "".join('{"a":1}\n' for _ in range(_n)), encoding="utf-8")
+            "".join('{"url_canonical":"https://e.test/%d"}\n' % i
+                    for i in range(_n)), encoding="utf-8")
     _cnt, _last = _corpuslib.observed(_v3)
     acase("來源頁：已觀測是跨日累計，最後一天取最晚的那天",
-          [_cnt["s1"], _last["s1"]], [3, "2026-07-02"])
+          [_cnt["s1"], _last["s1"]], [2, "2026-07-02"])
 
     # 兩條時間軸：跑了班但沒抓到東西的那天，只會出現在 _probe/ 不會出現在 _corpus/。
     # report.md 是「這班真的跑完了」的判準（見 references/health-alarms.md）——
