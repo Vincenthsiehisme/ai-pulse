@@ -60,14 +60,56 @@ RUN_LIFECYCLES = {"active", "degraded", "probing"}
 # M1 實測：120/120 有 author，但 arXiv 是具名論文作者、GitHub release 是發版者
 # login（常為 bot）。「欄位有沒有值」與「值能不能用」是兩件事，必須分開量。
 # 下面全是字面規則，沒有推論。分類會抽樣寫進報告供人工校準。
+#
+# 2026-07-26 校準（拿 3 天 859 筆真語料回頭量的結果，不是想像出來的案例）：
+#   假陽性 27/134——被判成 person 的裡面，「NVIDIA Writers」18 筆與
+#   「GeForce NOW Community」9 筆是**組織**。ORG_PAT 收了 team/labs/staff，
+#   卻沒收 writers / community，兩個字都以大寫開頭，於是直接落進 person。
+#   兩成的「自然人」是假的，而 person 是唯一會計入 5b 的乾淨桶。
+#   假陰性其一：「Sebastian Raschka, PhD」因為逗號被判 multi_person。它是一個人，
+#   後面那截是學位。落在 PERSON_KINDS 裡所以 5b 沒少算，但桶子放錯，
+#   之後要靠 author 綁 person_id 時會綁不上。
+#   假陰性其二：「karpathy (hidden)」被判 unknown。它是 Substack 的帳號顯示格式，
+#   括號內是平台加的註記不是姓名的一部分；剝掉之後就是單詞 login，該進 handle。
+#
+# 修法的方向仍照本檔原本的保守預設：**寧可低估人物層，不可高估獨立性。**
+# 所以 ORG_PAT 只往「明確是組織」的字擴，不去猜；剝除只剝白名單內的雜訊，
+# 不做任何自然語言推論。
 BOT_PAT = re.compile(
     r"(?:^|[\s\-_\[\.])(?:bot|ci|actions?|automation|dependabot|renovate|"
     r"release[-_]?bot|github[-_]?actions|noreply)(?:$|[\s\-_\]\.@+])", re.I)
 ORG_PAT = re.compile(
     r"\b(?:inc|llc|ltd|corp|team|labs?|research|foundation|project|group|"
-    r"institute|university|committee|commission|council|editors?|staff)\b\.?\s*$",
+    r"institute|university|committee|commission|council|editors?|staff|"
+    # ↓ 2026-07-26 增補。每個字都是實測撞到、或同一形態的近親。
+    #   community / writers 是 NVIDIA blog 的實際署名；其餘是同類的編制名詞。
+    r"writers?|community|newsroom|editorial|desk|press\s*office|"
+    r"communications|department|division|society|association|"
+    r"contributors?|crew)\b\.?\s*$",
     re.I)
 MULTI_PAT = re.compile(r",|\band\b|\bet al\b|&", re.I)
+
+# 尾綴白名單：只剝這些，不剝任何其他逗號後內容——「Son Ho, Cédric Fournet」
+# 那種共同作者串必須維持 multi_person。學位與世代後綴不是第二個人。
+SUFFIX_PAT = re.compile(
+    r"[,\s]+(?:ph\.?\s*d|m\.?\s*d|d\.?\s*phil|sc\.?\s*d|"
+    r"m\.?\s*b\.?\s*a|m\.?\s*sc|b\.?\s*sc|"
+    r"jr|sr|ii|iii|iv)\.?\s*$", re.I)
+# 平台加的括號註記（Substack 的 "(hidden)"、部分站台的 "(guest)"）不是姓名的一部分。
+PAREN_PAT = re.compile(r"\s*[（(][^）)]*[）)]\s*$")
+BYLINE_PAT = re.compile(r"^\s*by[:\s]+", re.I)
+
+
+def normalize_author(author: str) -> str:
+    """剝掉平台雜訊，只剝白名單內的東西，不做語意推論。"""
+    a = str(author).strip()
+    a = BYLINE_PAT.sub("", a)
+    for pat in (PAREN_PAT, SUFFIX_PAT):
+        prev = None
+        while prev != a:                 # 允許 "Name, PhD, Jr." 這種疊加
+            prev = a
+            a = pat.sub("", a).strip()
+    return a.strip(" ,;")
 
 
 def classify_author(author: str | None) -> str:
@@ -78,7 +120,9 @@ def classify_author(author: str | None) -> str:
     """
     if not author or not str(author).strip():
         return "none"
-    a = str(author).strip()
+    a = normalize_author(author)
+    if not a:
+        return "none"                    # 剝完只剩空字串（例如 author 就是 "(hidden)"）
     if BOT_PAT.search(a):
         return "machine"
     if ORG_PAT.search(a):
@@ -86,7 +130,9 @@ def classify_author(author: str | None) -> str:
     if MULTI_PAT.search(a):
         return "multi_person"
     if not re.search(r"\s", a):
-        return "handle"          # 無空白單詞 → 帳號 login，不是姓名
+        # 無空白單詞 → 帳號 login，不是姓名。全大寫（NVIDIA、IBM）例外：
+        # 那是機構縮寫，不會是自然人的完整署名。
+        return "org" if (len(a) >= 3 and a.isupper() and a.isalpha()) else "handle"
     toks = [t for t in re.split(r"\s+", a) if t]
     if len(toks) >= 2 and sum(1 for t in toks if t[:1].isupper()) >= 2:
         return "person"

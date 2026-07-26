@@ -157,6 +157,47 @@ acase("json-api: unix epoch 正規化成 ISO 日期",
 acase("json-api: 回應不是陣列 → 回空清單，不得爆炸",
       _pp.adapt_json_api({}, '{"error":"nope"}'), [])
 
+# ------------------------------------------- author 分類（5b 人物層的唯一原料）
+# 這批 case 不是想像出來的，每一條都是 2026-07-26 拿 3 天 859 筆真語料回頭量到的
+# 實例。分類器的錯有方向性：判成 person 的假陽性會讓「有多少自然人在講」虛胖，
+# 而 person 是 5b 唯一乾淨的桶；判成 org / handle 的假陰性只是低估。所以下面
+# 假陽性那幾條是紅線，假陰性那幾條是修正。
+_acases = [
+    # 假陽性（修正前是 person，實際是組織）。ORG_PAT 原本收 team/labs/staff，
+    # 沒收 writers/community，兩個字都大寫開頭就直接落進 person。
+    ("NVIDIA Writers", "org"),
+    ("GeForce NOW Community", "org"),
+    # 全大寫縮寫是機構，不是 login。修正前落在 handle，方向不算錯但桶子錯。
+    ("NVIDIA", "org"),
+    # 假陰性一：學位不是第二個人。修正前因為逗號被判 multi_person。
+    ("Sebastian Raschka, PhD", "person"),
+    ("Jane Doe, Ph.D.", "person"),
+    ("John Smith Jr.", "person"),
+    # 假陰性二：Substack 的 "(hidden)" 是平台註記不是姓名，剝掉就是單詞 login。
+    ("karpathy (hidden)", "handle"),
+    # 剝除必須守得住的邊界：真的共同作者串一個都不能被吃掉。
+    ("Son Ho, Cédric Fournet, Antoine Delignat-Lavaud", "multi_person"),
+    ("Jeremiah (Miah) Wander, Cas Simons", "multi_person"),   # 括號在中間，不剝
+    ("Alice Chen and Bob Lee", "multi_person"),
+    # 既有行為的回歸樁：這些在修正前後都必須一致。
+    ("Ethan Mollick", "person"),
+    ("khluu", "handle"),
+    ("dependabot[bot]", "machine"),
+    ("Microsoft Research Team", "org"),
+    ("", "none"),
+    (None, "none"),
+    # 剝完只剩空字串（author 本身就是平台註記）→ none，不得變成 handle。
+    ("(hidden)", "none"),
+]
+for _a, _want in _acases:
+    acase(f"author 分類：{_a!r} → {_want}", _pp.classify_author(_a), _want)
+
+# PERSON_KINDS 是 checklist 5b 的分母定義，這次刻意沒動。
+# 寫成測試是因為它很容易被「順手」改掉：把 org 或 handle 加進去，5b 的分母
+# 會一夜變大而報告上看不出任何異狀。
+acase("PERSON_KINDS 維持 {person, multi_person}（本次修分類器，不動 5b 定義）",
+      sorted(_pp.PERSON_KINDS), ["multi_person", "person"])
+
 # ------------------------------------------------- robots：抓不到 vs 不准抓
 # 這是 07-24 事故最深的一層。舊版把兩者壓成同一個 False，一次 403 就被存進
 # sources.yaml 變成永久判決，整條 OpenAI 線靜靜關掉。抓取端保守跳過沒問題，
