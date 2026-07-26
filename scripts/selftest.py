@@ -268,6 +268,61 @@ acase("sources.yaml: robots_ok 為 null 者必須明示 revive_when_allowed（�
       [s["id"] for s in _cfg["kol_sources"]
        if s.get("robots_ok") is None and not s.get("revive_when_allowed")], [])
 
+# ---------------------------------------------- 人物層：獨立性 + 參照完整性
+# 獨立性語意（框架規則第 5 條：source + author + media group）。
+# 2026-07-26 之前只做了 media group 那一半，同一個人在兩個站台發表會被算成
+# 兩個獨立來源——「heat ≥70 需 ≥2 獨立來源」這道門會被自己的設定檔開掉。
+import sys as _sys  # noqa: E402
+_sys.path.insert(0, _HERE)
+from lib.cluster import independent_voices as _iv  # noqa: E402
+
+acase("獨立性：person_id 全空時，結果與舊版 distinct media_group 完全相同"
+      "（這條性質是本次改動可以安全上線的依據，不准回歸）",
+      _iv([("a", {"media_group": "X"}), ("b", {"media_group": "Y"}),
+           ("c", {"media_group": "X"})]), 2)
+acase("獨立性：同一個人在兩個站台發表 → 1（一個人不會因為換平台變成兩個聲音）",
+      _iv([("a", {"media_group": "Blog", "person_id": "p1"}),
+           ("b", {"media_group": "YouTube", "person_id": "p1"})]), 1)
+acase("獨立性：同一刊物的兩位作者 → 1（同一個編輯台不是兩個獨立聲音；"
+      "這條擋的是「把 key 從 media_group 換成 person_id」那種錯誤修法）",
+      _iv([("a", {"media_group": "Interconnects", "person_id": "p1"}),
+           ("b", {"media_group": "Interconnects", "person_id": "p2"})]), 1)
+acase("獨立性：不同人不同刊物 → 2（合併只在該合併時發生，不能一路塌到 1）",
+      _iv([("a", {"media_group": "M1", "person_id": "p1"}),
+           ("b", {"media_group": "M2", "person_id": "p2"})]), 2)
+acase("獨立性：遞移刻意成立且只往保守倒——A 在 X/Y 發表、B 也在 Y 發表 → 1",
+      _iv([("a", {"media_group": "X", "person_id": "pA"}),
+           ("b", {"media_group": "Y", "person_id": "pA"}),
+           ("c", {"media_group": "Y", "person_id": "pB"})]), 1)
+acase("獨立性：兩個欄位都空 → 退回 source_id，維持舊行為",
+      _iv([("s1", {}), ("s2", {})]), 2)
+acase("獨立性：來源查不到（cfg 為 None）不得爆炸",
+      _iv([("s1", None), ("s1", None)]), 1)
+
+# 參照完整性。person_id 這個欄位在 2026-07-26 之前是純裝飾——範本寫著「必填，
+# 對應 people.yaml」，而 people.yaml 根本不存在。這兩條測試的用意是讓那種狀態
+# 不可能再次悄悄發生：id 指向空氣會紅，人物沒有來源支撐也會紅。
+_ppl = _yaml.safe_load(
+    open(os.path.join(_HERE, "..", "_config", "people.yaml"), encoding="utf-8"))
+_people_ids = {p["id"] for p in (_ppl.get("people") or [])}
+_used = {s["person_id"] for k in ("official_sources", "kol_sources", "aggregator_sources")
+         for s in (_cfg.get(k) or []) if s.get("person_id")}
+acase("people.yaml: sources.yaml 用到的 person_id 都查得到（不准指向空氣）",
+      sorted(_used - _people_ids), [])
+acase("people.yaml: 每個人都至少對到一條來源"
+      "（這個檔是「已經有來源的人」的登錄表，不是 AI 名人清單）",
+      sorted(_people_ids - _used), [])
+acase("people.yaml: sources 反向索引與 sources.yaml 一致",
+      sorted(pid for p in (_ppl.get("people") or []) for pid in [p["id"]]
+             if {s["id"] for k in ("official_sources", "kol_sources", "aggregator_sources")
+                 for s in (_cfg.get(k) or []) if s.get("person_id") == p["id"]}
+             != set(p.get("sources") or [])), [])
+acase("people.yaml: KOL 線每一條都填了 person_id（漏填會高估獨立性，方向是危險的那邊）",
+      [s["id"] for s in _cfg["kol_sources"] if not s.get("person_id")], [])
+acase("people.yaml: 沒有 affiliation 欄位（任職會過期又無合規自動來源，"
+      "一旦存在就會有人拿它參與判斷；要加得先有驗證程序）",
+      [p["id"] for p in (_ppl.get("people") or []) if "affiliation" in p], [])
+
 # ------------------------------------------------ 重驗：明示 opt-in 才會被復活
 _rr._probe.safe_fetch = lambda u: (200, PERMISSIVE, {})
 _D2 = {"kol_sources": [

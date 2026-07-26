@@ -240,3 +240,67 @@ def belongs_to_event(cand_title, cand_published, event_title, event_happened, th
         ef = event_facet_bucket(event_facet(event_title))
         return cf == ef and hours <= (7 if cf == "incident" else 21) * 24
     return hours <= 96 and title_similarity(cand_title, event_title) >= threshold
+
+
+# ---------------------------------------------------------------- 獨立性計算
+# 框架規則第 5 條：獨立性按 source + author + media group 判斷。
+# 2026-07-26 之前這裡只做了 media group 那一半——pulse-cluster.py 的
+# `independent = len({media_group})`。那個算法有一個**還沒發生但一定會發生**的漏洞：
+#
+#   同一個人在兩個地方發表（Karpathy 的 blog + Karpathy 的 YouTube），
+#   media_group 是兩個不同的字串，於是一個人被算成兩個獨立來源，
+#   而「heat ≥70 需 ≥2 獨立來源」這道門就被我們自己的設定檔開了。
+#
+# 今天還沒破，是因為 8 條 KOL 剛好一人一站。這種「靠巧合成立的正確」
+# 會在下一次加來源時無聲失效，而且沒有任何測試會紅。
+#
+# 修法不是把 key 從 media_group 換成 person_id——那會反過來放寬：
+# 同一刊物的兩位作者（Interconnects 的 Nathan Lambert 與客座 Florian Brand，
+# 實測語料裡真的有）person_id 不同，會從 1 變成 2。
+#
+# 正確語意是**兩個條件任一成立就該合併**，也就是連通分量：
+#   同一個人 → 合併（一個人不會因為換平台變成兩個獨立聲音）
+#   同一個媒體集團 → 合併（同一個編輯台不是兩個獨立聲音）
+# 遞移是刻意的，且只往保守方向倒：A 在 X、Y 發表，B 也在 Y 發表，
+# 三者合併成 1。寧可低估獨立性，不可高估——高估就是把門檻做假。
+def independent_voices(items):
+    """items: iterable of (source_id, source_cfg)。回傳獨立聲音數（連通分量數）。
+
+    person_id 全空時，結果與舊版 `len({media_group})` 完全相同——
+    這條性質有測試釘住，是本次改動可以安全上線的依據。
+    """
+    parent = {}
+
+    def find(x):
+        parent.setdefault(x, x)
+        root = x
+        while parent[root] != root:
+            root = parent[root]
+        while parent[x] != root:      # 路徑壓縮
+            parent[x], x = root, parent[x]
+        return root
+
+    def union(a, b):
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[ra] = rb
+
+    nodes = []
+    for idx, (sid, cfg) in enumerate(items):
+        cfg = cfg or {}
+        node = ("item", idx)
+        find(node)
+        nodes.append(node)
+        anchors = []
+        mg = str(cfg.get("media_group") or "").strip()
+        pid = str(cfg.get("person_id") or "").strip()
+        if mg:
+            anchors.append(("media_group", mg))
+        if pid:
+            anchors.append(("person", pid))
+        if not anchors:
+            # 兩個欄位都空 → 退回 source_id，維持舊行為（每條來源自成一組）。
+            anchors.append(("source", str(sid or f"#{idx}")))
+        for a in anchors:
+            union(node, a)
+    return len({find(n) for n in nodes})
