@@ -223,6 +223,26 @@ _pp.safe_fetch = lambda u: (403, None, {})
 acase("robots_allows 只是薄包裝：403 仍回 False，抓取端行為一個字沒變",
       _pp.robots_allows("https://example.org/feed.xml"), False)
 
+# 抓取端的**標籤**也要分岔，不是只有重驗端。2026-07-26 實測：src-kol-thezvi 的
+# robots.txt 回 401/403，重驗端正確判成 unknown_keep、沒寫回設定檔，但 run_source
+# 只取布林值，報告印出 `robots_disallow`——量測失敗被印成站方政策。
+# 危害不抽象：人看報告會以為對方拒絕，再拿「連三天零產出」去降級一條其實只是
+# 被 WAF 擋住的來源。抓不抓的行為不變，但說法不可以說錯。
+_ROBOTS_SRC = {"id": "s-r", "adapter": "rss", "endpoint": "https://e.test/feed",
+               "track": "kol", "tier": 2}
+_pp.safe_fetch = lambda u: (403, None, {})
+_st403 = _pp.run_source(dict(_ROBOTS_SRC), None, {}, {})[1]
+acase("run_source：robots 403 → status 是 robots_unknown，不是 robots_disallow",
+      _st403["status"], "robots_unknown")
+acase("run_source：403 的抓取決策不變（robots 欄仍是 False ＝ 今晚不抓）",
+      _st403["robots"], False)
+acase("run_source：reason code 有帶進 stat，報告才有辦法說對",
+      _st403["robots_reason"], "unavailable_403")
+_pp.safe_fetch = lambda u: (200, "User-agent: *\nDisallow: /\n", {})
+_stdis = _pp.run_source(dict(_ROBOTS_SRC), None, {}, {})[1]
+acase("run_source：200 + 明文 Disallow → 這個才可以叫 robots_disallow",
+      (_stdis["status"], _stdis["robots_reason"]), ("robots_disallow", "disallow"))
+
 # 重驗端的分岔：同樣是 False，403 不得寫回設定檔，明文 Disallow 才可以。
 _rc = importlib.util.spec_from_file_location(
     "recheck", os.path.join(_HERE, "pulse-robots-recheck.py"))
