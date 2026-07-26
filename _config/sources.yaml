@@ -1,4 +1,4 @@
-# _config/sources.yaml — 來源清單（三軌：官方線 / KOL 線 / 聚合線）
+# _config/sources.yaml — 來源清單（四軌：官方線 / 媒體線 / KOL 線 / 聚合線）
 # ---------------------------------------------------------------------------
 # 分軌不是分類整齊，是因為兩條線在 gate 裡權利不同，且互為對照組：
 #   官方線 = 事情何時被「承認」
@@ -8,8 +8,15 @@
 #
 # track 欄位是硬約束，不是標籤：
 #   official   → 可滿足 require_primary_evidence
+#   media      → 永遠不可滿足 require_primary_evidence，補獨立佐證與廣度
 #   kol        → 永遠不可滿足 require_primary_evidence，只貢獻 heat 與領先訊號
 #   aggregator → 只當候選來源，不作任何事實依據
+#
+# 分節清單（official_sources / media_sources / kol_sources / aggregator_sources）
+# 的單一真相源在 scripts/lib/sources.py 的 SECTIONS。這個 tuple 曾經被硬寫在
+# 六個腳本裡，漏改任何一個都是靜默失效——漏改 probe 是整條線不抓、漏改 score
+# 是抓到不評分、漏改 cluster 是 tier 退回 3 把獨立性算錯。selftest 有一條測試
+# 禁止任何腳本再硬寫這串字面值。
 #
 # 新源一律 lifecycle: probing，通過 probe checklist（見檔末）才人為升 active。
 # ---------------------------------------------------------------------------
@@ -29,7 +36,7 @@
 # ---------------------------------------------------------------------------
 
 meta:
-  version: "2.6.0"
+  version: "2.7.0"
   updated: "2026-07-26"
   note: >
     v2 引入 track 雙軌與 person_id 關聯。KOL 線的 author 必須能解析到
@@ -71,6 +78,19 @@ meta:
     在此之前 people.yaml 不存在、person_id 全空、pulse-cluster.py 也不讀它，
     設定檔上看起來人物層已建好、實際一行都沒有（紅線 8）。
     刻意不含 affiliation：任職會過期且無合規自動來源可驗，永不得驅動 gate。
+    v2.7 開媒體線：新增第四個分節 media_sources（7 條，media_group 互不相同，
+    tier 一律 2、can_satisfy_primary 一律 false）。起因是 48 個 Event 有 47 個
+    independent_sources: 1——不是聚類壞掉，是清單裡 0 條媒體，而獨立性算的是
+    連通分量，官方線一家公司只有一個 media_group，同一件事再抓幾次也只有一個
+    聲音。`evidence.need_independent_tier2: 2` 因此從上線到現在沒有一次有機會
+    成立：不是門檻嚴，是沒有輸入。
+    同時把分節清單收斂到 scripts/lib/sources.py 的 SECTIONS（原本硬寫在六個
+    腳本裡，漏改任一個都是靜默失效），並在 lib/quality.effective_role() 補
+    media 分岔——沒那一行，media 會被評成 primary，等於用評分把轉述包裝成第一手。
+    明確不修的兩件事（紅線 8）：媒體線**不會**讓 heat 越過 70（heat 公式吃的
+    metrics 在 pulse-cluster 恆為空，可達上限約 48，是結構性不可達，不是設定
+    問題）；中文媒體暫緩，因為 evidence.translation_chain 還沒有消費者，
+    現在接等於讓「英文原文 + 中文編譯」被算成兩個獨立聲音。
 
 # ---------------------------------------------------------------------------
 # coverage_watch —— v2.4 新增。給 pulse-monitor 的覆蓋率看門狗吃。
@@ -166,6 +186,7 @@ coverage_watch:
 #   arXiv 是 research + research_paper，vLLM 是 framework + oss_release，
 #   兩者 source_category 不同但語料型態同樣單一 —— 這是 M1 沒看出來的原因。
 #   值域：company_release | research_paper | oss_release | policy | person_signal
+#        | media_report（2026-07-26 開媒體線新增）| aggregated
 #
 #   若決定不採用此欄位，全域刪除 corpus_type 行即可，其餘不受影響。
 # ---------------------------------------------------------------------------
@@ -769,6 +790,213 @@ official_sources:
 # 加了 person_id 之後這條規則**沒有被取代**：兩個欄位管的是相反方向的錯。
 #   media_group 填錯（都填 Substack）→ 低估獨立性，門檻變難過。
 #   person_id 沒填  → 高估獨立性，門檻被做假。後者才是危險的那一種。
+# ===========================================================================
+# 媒體線 — 第三方報導：科技媒體、產業刊物
+# ===========================================================================
+# 為什麼現在才開（起因是一個很難看的數字）
+#   2026-07-26 實測：48 個 Event 裡有 47 個 independent_sources: 1，45 個只有
+#   一則證據。原因不是聚類壞掉，是清單結構——25 條來源 = 16 條官方 + 8 條 KOL
+#   + 1 條聚合，**媒體是 0**。獨立性靠連通分量算（同 media_group / 同 person_id
+#   合併），而官方線一家公司只有一個 media_group，同一件事再怎麼抓也只有一個
+#   聲音。要出現第二個獨立聲音，結構上就得有第三方在講同一件事。
+#
+#   於是 `evidence.need_independent_tier2: 2`（兩個獨立 Tier-2 可代替 Tier-1
+#   primary）這條規則從上線到現在**沒有一次有機會成立**——不是門檻嚴，是沒有
+#   輸入。這一節補的就是那個輸入。
+#
+# 媒體線不是拿來當證據升級用的（紅線 2 / 3 的界線要講清楚）
+#   media 的 tier 一律 2、role 一律 media、can_satisfy_primary 一律 false。
+#   一手事實仍然要官方線或 ≥2 個互相獨立的 Tier-2 才成立；媒體線只補**佐證**
+#   與**廣度**，不補**權威**。lib/quality.effective_role() 為此補了 media 分岔：
+#   少了那一行，media 會掉進 official 分支被評成 "primary"，等於用評分把轉述
+#   包裝成第一手。
+#
+# 講清楚它**不會**修好什麼（紅線 8）
+#   開媒體線不會讓 heat 動起來。heat 的公式吃 metrics（uniqueAuthors / tweets /
+#   platforms / regions），而 pulse-cluster 呼叫 score_event 時 metrics 恆為 []，
+#   所以 heat 的可達上限是 min(independent,5)*8 + freshness*0.08 ≈ 48，
+#   `readiness.heat_threshold: 70` 在現行程式下**結構性不可達**。
+#   媒體線能改善的是 independent_sources 與 confidence（每個獨立聲音 +7，上限
+#   +28），以及那句 single-source 警語。heat 門檻是另一個問題，記在 gate.yaml。
+#
+# 為什麼這一批全是英文站，中文媒體暫緩
+#   `evidence.translation_chain`（轉載鏈防護：跨語言同實體高重疊 → 標
+#   suspected_repost、不計獨立性）目前**沒有任何消費者**。在那個防護實作之前
+#   接中文媒體，等於讓「英文原文 + 中文編譯」被算成兩個獨立聲音，
+#   把門檻 4 從內部做假。寧可少一條線，不可讓獨立性虛增。
+#
+# 本機驗證狀態（照實記，紅線 8）
+#   容器直連多半吃 WAF 403 或拿到無法解碼的 payload，因此**沒有一條在本機
+#   跑通過 feed 解析**。逐條記在該源底下：verified 表示真的解到內容，
+#   fetched 表示拿到非空 payload 但工具解不開，blocked 表示連取都被擋。
+#   全部掛 probing 讓 Actions 首跑自證；跑不起來會照常出現在來源狀態表。
+media_sources:
+
+  # ── verified：唯一一條在本機真的解析成功的 ──
+  # 實測回 RSS 2.0，feed title「AI | VentureBeat」。
+  # 但同時量到一件該記下來的事：lastBuildDate 是 2026-07-10，最新一篇文章卻是
+  # 2026-05-19——中間差兩個月。這條分類 feed 疑似已停更，或只剩自動 rebuild。
+  # 不因此判死：那是來源健康層該給的判斷，不是我看一眼給的。先掛 probing，
+  # 若連續多天 0 產出，由健康分依規則降級，順便當第一個真實案例。
+- id: src-media-venturebeat
+  track: media
+  owner: VentureBeat
+  media_group: VentureBeat
+  author:
+  person_id:
+  tier: 2
+  role: media
+  source_category: media
+  corpus_type: media_report
+  adapter: rss
+  endpoint: "https://venturebeat.com/category/ai/feed/"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok:
+  license_note: "titles + excerpt + link"
+  frequency: daily
+  quota_per_run: 25
+  can_satisfy_primary: false
+
+  # ── fetched：拿到非空 payload，但本機工具解不開（顯示為 binary） ──
+  # 沒有 404，也沒有錯誤頁，所以端點存在；能不能解析由 Actions 首跑認定。
+- id: src-media-techcrunch
+  track: media
+  owner: TechCrunch
+  media_group: Yahoo Inc.        # TechCrunch 現屬 Yahoo；獨立性要按集團算，不按刊名
+  author:
+  person_id:
+  tier: 2
+  role: media
+  source_category: media
+  corpus_type: media_report
+  adapter: rss
+  endpoint: "https://techcrunch.com/category/artificial-intelligence/feed/"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok:
+  license_note: "titles + excerpt + link"
+  frequency: daily
+  quota_per_run: 25
+  can_satisfy_primary: false
+
+  # fetched（同上）。IEEE 是學會不是商業媒體，稿源與矽谷科技媒體重疊度低，
+  # 對「同一件事有沒有第二個獨立聲音」的貢獻比再多一家矽谷站大。
+- id: src-media-ieee-spectrum
+  track: media
+  owner: IEEE Spectrum
+  media_group: IEEE
+  author:
+  person_id:
+  tier: 2
+  role: media
+  source_category: media
+  corpus_type: media_report
+  adapter: rss
+  endpoint: "https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok:
+  license_note: "titles + excerpt + link"
+  frequency: weekly
+  quota_per_run: 20
+  can_satisfy_primary: false
+
+  # fetched（同上）。付費牆只擋內文，feed 的標題與摘要是站方主動公開的部分；
+  # license_note 照舊只存標題與節錄，不落全文，也不繞牆（紅線 7）。
+- id: src-media-mit-techreview
+  track: media
+  owner: MIT Technology Review
+  media_group: MIT
+  author:
+  person_id:
+  tier: 2
+  role: media
+  source_category: media
+  corpus_type: media_report
+  adapter: rss
+  endpoint: "https://www.technologyreview.com/feed/"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok:
+  license_note: "titles + excerpt + link"
+  frequency: daily
+  quota_per_run: 20
+  can_satisfy_primary: false
+
+  # ── blocked：本機連取都被擋（403），端點是否存在未知 ──
+  # 這三條的 403 有兩種可能：WAF 擋容器 IP，或路徑真的錯。**兩者在本機分不出來**，
+  # 所以不寫 robots_ok: false——那會把量測失敗偽裝成站方政策（本檔開頭那條禁令）。
+  # Actions 端跑一次就知道：真的 404 會出現在狀態表，是 WAF 就會正常抓到。
+- id: src-media-theregister
+  track: media
+  owner: The Register
+  media_group: Situation Publishing
+  author:
+  person_id:
+  tier: 2
+  role: media
+  source_category: media
+  corpus_type: media_report
+  adapter: atom
+  endpoint: "https://www.theregister.com/software/ai_ml/headlines.atom"
+  region: UK                     # 非美國編輯台，region 廣度唯一不同的一條
+  language: en
+  lifecycle: probing
+  robots_ok:
+  license_note: "titles + excerpt + link"
+  frequency: daily
+  quota_per_run: 25
+  can_satisfy_primary: false
+
+- id: src-media-arstechnica
+  track: media
+  owner: Ars Technica
+  media_group: Condé Nast        # 之後若加 Wired，兩者同集團，獨立性只算 1
+  author:
+  person_id:
+  tier: 2
+  role: media
+  source_category: media
+  corpus_type: media_report
+  adapter: rss
+  endpoint: "https://arstechnica.com/ai/feed/"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok:
+  license_note: "titles + excerpt + link"
+  frequency: daily
+  quota_per_run: 25
+  can_satisfy_primary: false
+
+- id: src-media-theverge
+  track: media
+  owner: The Verge
+  media_group: Vox Media
+  author:
+  person_id:
+  tier: 2
+  role: media
+  source_category: media
+  corpus_type: media_report
+  adapter: atom
+  endpoint: "https://www.theverge.com/rss/index.xml"
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok:
+  license_note: "titles + excerpt + link"
+  frequency: daily
+  quota_per_run: 25
+  can_satisfy_primary: false
+    # 全站 feed 不是 AI 專版，雜訊比會是這一節最高的。留著是因為 The Verge 的
+    # AI 專版 feed 路徑在本機驗不到；若首跑後實體命中率過低，換成專版或直接降級。
+
 kol_sources:
 - id: src-kol-karpathy
   track: kol

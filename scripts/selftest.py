@@ -7,7 +7,11 @@ import urllib.error
 import urllib.request
 
 import os
+import sys
 _HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, _HERE)
+from lib.sources import SECTIONS as _SECTIONS  # noqa: E402  分節清單單一真相源
+
 spec = importlib.util.spec_from_file_location(
     "v", os.path.join(_HERE, "verify-policy-sources.py"))
 v = importlib.util.module_from_spec(spec)
@@ -243,7 +247,7 @@ acase("重驗：200 + Disallow → closed（真政策才寫得回去）",
 # 未註冊的來源看起來像覆蓋範圍，其實永遠是零——src-hn-frontpage 當過這個地雷。
 _cfg = _yaml.safe_load(
     open(os.path.join(_HERE, "..", "_config", "sources.yaml"), encoding="utf-8"))
-_ghosts = [s["id"] for k in ("official_sources", "kol_sources", "aggregator_sources")
+_ghosts = [s["id"] for k in _SECTIONS
            for s in (_cfg.get(k) or []) if s.get("adapter") not in _pp.ADAPTERS]
 acase("sources.yaml: 沒有 adapter 未註冊的幽靈來源", _ghosts, [])
 acase("sources.yaml: 官方線含 Anthropic（07-24 漏抓 Opus 5 的根因）",
@@ -267,6 +271,90 @@ acase("sources.yaml: 沒有任何 KOL 條目寫著未經證實的 robots_ok: fal
 acase("sources.yaml: robots_ok 為 null 者必須明示 revive_when_allowed（否則永遠不會被重驗）",
       [s["id"] for s in _cfg["kol_sources"]
        if s.get("robots_ok") is None and not s.get("revive_when_allowed")], [])
+
+# ------------------------------------------------------------ 媒體線（2026-07-26 開）
+# 開線的理由是量出來的：48 個 Event，其中 47 個 independent_sources: 1。
+# 因為 25 條來源裡 0 條媒體，而官方線在結構上不可能產生第二個獨立聲音——
+# 一家公司只有一個 media_group，independent_voices 會把它們併成同一個元件。
+# `evidence.need_independent_tier2: 2` 從上線到今天沒有一次有機會被滿足。
+#
+# 這一組測試釘的是「媒體補的是佐證，不是權威」。媒體線一旦被寫成 tier 1 或
+# can_satisfy_primary: true，等於用設定檔宣告轉述是一手發布，紅線 2 就從內部被打開了。
+acase("sources.yaml: 媒體線不是空的（空的話 need_independent_tier2 永遠沒有輸入）",
+      len(_cfg.get("media_sources") or []) > 0, True)
+acase("sources.yaml: 媒體各條 media_group 互不相同"
+      "（Ars 與 Wired 同屬 Condé Nast，兩條都收就會塌成 1 個獨立聲音）",
+      len({s["media_group"] for s in _cfg["media_sources"]}),
+      len(_cfg["media_sources"]))
+acase("sources.yaml: 媒體線一律 track media（掉回 official 會在評分層被當一手發布）",
+      sorted({s["track"] for s in _cfg["media_sources"]}), ["media"])
+acase("sources.yaml: 媒體線一律 tier 2（報導不是一手，tier 1 是唯一能滿足 primary 的門）",
+      sorted({s["tier"] for s in _cfg["media_sources"]}), [2])
+acase("sources.yaml: 媒體線一律 can_satisfy_primary: false",
+      sorted({bool(s["can_satisfy_primary"]) for s in _cfg["media_sources"]}), [False])
+acase("sources.yaml: 沒有任何媒體條目寫著未經證實的 robots_ok: false"
+      "（本機 403 分不出 WAF 擋包與站方政策，寫 false 就是把量測失敗當判決）",
+      [s["id"] for s in _cfg["media_sources"] if s.get("robots_ok") is False], [])
+
+# can_satisfy_primary 在碼裡沒有任何消費者（grep scripts/*.py 是空的）——
+# 真正把關的是 pulse-cluster.rescore() 裡的 `tier == 1 and role != "aggregator"`。
+# 所以這個欄位目前只是宣告。這條測試把宣告與實際把關的那把尺綁在一起：
+# 只要有人寫 can_satisfy_primary: false 卻給 tier 1，兩者就矛盾，紅。
+acase("sources.yaml: 任何 can_satisfy_primary: false 的來源都不得是 tier 1"
+      "（tier 1 才是 rescore() 實際認的 primary 資格，欄位不能跟它說反話）",
+      sorted(s["id"] for k in _SECTIONS for s in (_cfg.get(k) or [])
+             if s.get("can_satisfy_primary") is False and s.get("tier") == 1), [])
+
+# 評分層的分岔。effective_role 少了 media 那一支，media 會一路掉到最下面的
+# official 分支拿到 "primary"：_authority 多 3 分、_originality 直接給滿 15
+# ——與官方公告同分。那是用評分把轉述包裝成第一手。
+from lib.quality import _authority as _qa  # noqa: E402
+from lib.quality import _originality as _qo  # noqa: E402
+from lib.quality import effective_role as _er  # noqa: E402
+acase("evaluate: track media → effective_role 'media'"
+      "（回 'primary' 的話，報導的 originality 會跟官方公告同分）",
+      _er("media", "media", "media"), "media")
+acase("evaluate: 官方線不受影響，仍回 primary（這條擋的是「把 media 分岔寫在太前面」）",
+      _er("official", "company", "announcement"), "primary")
+acase("evaluate: media 的 originality 低於一手發布（7 vs 15，差距要留著）",
+      (_qo("media", None), _qo("primary", None)), (7, 15))
+acase("evaluate: media 拿不到 _authority 的一手加成（同 authority 分數下少 3）",
+      _qa("primary", 90) - _qa("media", 90), 3)
+
+# 分節清單單一真相源。這串 tuple 曾經被硬寫在六個腳本裡，加第四節要改九個地方，
+# 漏掉任何一個都是靜默失效：漏 probe＝整條線不抓、漏 score＝抓到不評分、
+# 漏 cluster＝tier 退回 3 把獨立性算錯、漏 robots-recheck＝403 假陰性永久化。
+# 四種都不會讓任何東西變紅，跟 07-24 漏抓 Claude Opus 5 是同一個形態。
+import glob as _glob  # noqa: E402
+_hard = sorted(os.path.basename(p) for p in _glob.glob(os.path.join(_HERE, "**", "*.py"),
+                                                       recursive=True)
+               if os.path.basename(p) not in ("sources.py", "selftest.py")
+               and "aggregator_sources" in open(p, encoding="utf-8").read())
+acase("scripts/: 分節清單只准有一份（除 lib/sources.py 外不得再硬寫 'aggregator_sources'）",
+      _hard, [])
+acase("lib/sources.py: SECTIONS 四節齊全且官方線排第一"
+      "（probe 照順序抓，一手先佔住 first_fetch_at，lead_days 才量得到正號差值）",
+      list(_SECTIONS),
+      ["official_sources", "media_sources", "kol_sources", "aggregator_sources"])
+
+# 開媒體線**不會**讓熱度活過來，這條測試就是要讓那個誤會沒有生存空間。
+# pulse-cluster.rescore() 呼叫 score_event 時 metrics=[]，於是 platforms=regions=0，
+# heat 的可達上限＝min(獨立,5)*8 + freshness*0.08 ≦ 40 + 8 = 48。
+# gate.yaml 的 heat_threshold: 70 因此結構上跨不過去，unsupported_heat 永遠不會觸發。
+# 正確的做法是記錄這個上限並釘住它，不是把公式改大讓數字好看——那就是紅線 4
+# 「禁止把手工分數包裝成已測量熱度」。
+from lib import scoring as _sc  # noqa: E402
+_heat_ceiling = max(_sc.score_event([90], 2, ind, metrics=[], age_hours=0)["heat"]
+                    for ind in range(0, 9))
+acase("heat 上限：metrics=[] 時 heat 到頂 48，遠低於 gate 的 70"
+      "（媒體線只修 independent_sources 與 confidence，修不了熱度；"
+      "要讓這條測試變綠必須先真的收集社群指標，不是調公式）",
+      _heat_ceiling, 48)
+acase("gate.yaml: heat_threshold 仍高於可達上限 → 這三個門檻目前是死設定，"
+      "得標註為未消費而不是假裝生效",
+      _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+                           encoding="utf-8"))["readiness"]["heat_threshold"] > _heat_ceiling,
+      True)
 
 # ---------------------------------------------- 人物層：獨立性 + 參照完整性
 # 獨立性語意（框架規則第 5 條：source + author + media group）。
@@ -305,7 +393,7 @@ acase("獨立性：來源查不到（cfg 為 None）不得爆炸",
 _ppl = _yaml.safe_load(
     open(os.path.join(_HERE, "..", "_config", "people.yaml"), encoding="utf-8"))
 _people_ids = {p["id"] for p in (_ppl.get("people") or [])}
-_used = {s["person_id"] for k in ("official_sources", "kol_sources", "aggregator_sources")
+_used = {s["person_id"] for k in _SECTIONS
          for s in (_cfg.get(k) or []) if s.get("person_id")}
 acase("people.yaml: sources.yaml 用到的 person_id 都查得到（不准指向空氣）",
       sorted(_used - _people_ids), [])
@@ -314,7 +402,7 @@ acase("people.yaml: 每個人都至少對到一條來源"
       sorted(_people_ids - _used), [])
 acase("people.yaml: sources 反向索引與 sources.yaml 一致",
       sorted(pid for p in (_ppl.get("people") or []) for pid in [p["id"]]
-             if {s["id"] for k in ("official_sources", "kol_sources", "aggregator_sources")
+             if {s["id"] for k in _SECTIONS
                  for s in (_cfg.get(k) or []) if s.get("person_id") == p["id"]}
              != set(p.get("sources") or [])), [])
 acase("people.yaml: KOL 線每一條都填了 person_id（漏填會高估獨立性，方向是危險的那邊）",

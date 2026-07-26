@@ -25,10 +25,16 @@ def effective_role(track, source_category, role):
     """把本 vault 的 track/source_category/role 對映到評分需要的角色語彙。
 
     agent-pulse 的 role = primary/research/expert/media/heat/aggregator；
-    本 vault 用 track(official/kol/aggregator) + source_category + role。
+    本 vault 用 track(official/media/kol/aggregator) + source_category + role。
     """
     if track == "aggregator":
         return "aggregator"
+    if track == "media":
+        # 2026-07-26 開媒體線時補的分岔。**沒有這一行，media 會掉進最下面的
+        # official 分支拿到 "primary"** —— 報導會被當成一手發布：authority 多
+        # 拿 3 分、originality 直接給滿 15（與官方公告同分）。那是用評分把轉述
+        # 包裝成第一手，媒體線的價值在補獨立佐證，不在冒充來源。
+        return "media"
     if track == "kol":
         return "social" if role == "social" else "expert"
     # track == official（一手發布）

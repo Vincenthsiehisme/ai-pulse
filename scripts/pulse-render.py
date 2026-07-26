@@ -30,6 +30,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.notes import parse_note  # noqa: E402
+from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.quality import parse_dt  # noqa: E402
 
 import yaml  # noqa: E402
@@ -895,7 +896,7 @@ def load_corpus_index(vault):
 def load_sources(vault):
     raw = yaml.safe_load((vault / "_config" / "sources.yaml").read_text("utf-8"))
     out = {}
-    for key in ("official_sources", "kol_sources", "aggregator_sources"):
+    for key in SECTIONS:
         for s in (raw.get(key) or []):
             if isinstance(s, dict) and s.get("id"):
                 out[s["id"]] = s

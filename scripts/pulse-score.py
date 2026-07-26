@@ -23,6 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import cluster, quality  # noqa: E402
+from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 
 import yaml  # noqa: E402
 
@@ -30,7 +31,7 @@ import yaml  # noqa: E402
 def load_sources(cfg):
     raw = yaml.safe_load((cfg / "sources.yaml").read_text("utf-8"))
     out = {}
-    for key in ("official_sources", "kol_sources", "aggregator_sources"):
+    for key in SECTIONS:
         for s in (raw.get(key) or []):
             if isinstance(s, dict) and s.get("id"):
                 out[s["id"]] = s

@@ -48,6 +48,9 @@ from urllib.robotparser import RobotFileParser
 
 import yaml
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
+
 UA = "ai-pulse-probe/1.0 (+deterministic; contact via repo)"
 MAX_BODY = 5 * 1024 * 1024
 MAX_REDIRECTS = 5
@@ -154,7 +157,7 @@ def load_config(vault: Path) -> tuple[dict, list[dict]]:
     raw = yaml.safe_load((cfg / "sources.yaml").read_text("utf-8"))
 
     sources: list[dict] = []
-    for key in ("official_sources", "kol_sources", "aggregator_sources"):
+    for key in SECTIONS:
         for s in raw.get(key) or []:
             if str(s.get("id", "")).endswith("<slug>"):
                 continue  # 樣板佔位條目，跳過

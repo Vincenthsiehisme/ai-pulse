@@ -53,7 +53,8 @@ _spec = importlib.util.spec_from_file_location(
 _probe = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_probe)
 
-SECTIONS = ("official_sources", "kol_sources", "aggregator_sources")
+sys.path.insert(0, _HERE)
+from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
 
 
 def _now():

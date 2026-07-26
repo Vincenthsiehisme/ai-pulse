@@ -42,6 +42,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
+from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 
 # 這些 blocker 是「設計上就該永遠擋著」的（歷史存檔倒貨被新鮮度閘擋下），
 # 不是漏跑、也修不好——算警報會天天狼來了，所以只計數、不觸警。
@@ -174,7 +175,7 @@ def coverage(vault, today, sources_cfg, entities_cfg):
     # 新 vault 第一天就對著 30 條必盯清單狂叫，只會教人把警報關掉。
     history_days = (today - min(in_window)).days + 1 if in_window else 0
 
-    runnable = [s for sec in ("official_sources", "kol_sources", "aggregator_sources")
+    runnable = [s for sec in SECTIONS
                 for s in (sources_cfg.get(sec) or [])
                 if s.get("lifecycle") in RUN_LIFECYCLES]
 
