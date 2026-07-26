@@ -1,0 +1,44 @@
+---
+id: "src-xai-news"
+type: "source"
+owner: "xAI"
+media_group: "xAI"
+track: "official"
+tier: 1
+role: "official"
+source_category: "vendor"
+corpus_type: "company_release"
+region: "US"
+language: "en"
+lifecycle: "probing"
+robots_ok: true
+license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, search=yes, ai-input=no"
+endpoint: "https://x.ai/sitemap.xml"
+robots_checked_day: "2026-07-26"
+first_fetch_at: "2026-07-25"
+last_observed_day: "2026-07-26"
+items_observed: 80
+events_bound: 2
+events_published: 2
+---
+
+# xAI（src-xai-news）
+
+> 由 `pulse-source-notes.py` 自動產生（零 LLM）。設定欄位抄自 `_config/sources.yaml`，數字數自 `_corpus/` 與 `Events/`。**手動編輯會在下一班被覆蓋。**
+
+## 四態
+
+| 層 | 數字 | 這一格是 0 代表什麼 |
+|---|---|---|
+| 收錄 | `probing` | 會被抓 |
+| 已觀測 | 80 筆 | 抓不到，或站方那陣子沒發東西 |
+| 有效產出 | 2 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已發布 | 2 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+
+> 媒體集團：**xAI**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
+
+## 端點
+
+- `https://x.ai/sitemap.xml`
+- adapter：`sitemap`
+- 授權註記：titles + links only；站方另掛 Content-Signal: ai-train=no, search=yes, ai-input=no

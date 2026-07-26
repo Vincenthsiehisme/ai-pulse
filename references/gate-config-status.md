@@ -6,9 +6,9 @@
 ## 為什麼要有這份文件
 
 紅線 8 是「對自己誠實：不把預留欄位、未被消費的配置講成已實現能力」。
-`gate.yaml` 現在有 13 個 key **沒有任何一行程式碼讀它**。它們不是空的、
-不是註解掉的，每一個都寫著看起來很正常的數字，旁邊還有一段解釋它為什麼是
-那個數字的中文。
+`gate.yaml` 現在有 12 個 key **沒有任何一行程式碼讀它**（原本 13 個，
+`monitor.stale_after_days` 已於 2026-07-26 接上）。它們不是空的、不是註解掉的，
+每一個都寫著看起來很正常的數字，旁邊還有一段解釋它為什麼是那個數字的中文。
 
 這比空著危險。空欄位沒有人會去調；一個寫著 `event_window_hours: 72` 的欄位，
 會讓下一個人（很可能是三個月後的我們自己）把它改成 48，重跑一次，
@@ -28,7 +28,7 @@
 **B. 接線了但條件走不到**——碼確實讀了，但那個 `if` 永遠不會成立。
 改門檻依然沒有效果，可是原因完全不同，而且**調小門檻是錯的修法**。
 
-## A. 未接線的 13 個 key
+## A. 未接線的 12 個 key
 
 | key | 寫的是什麼 | 實際由什麼決定 |
 |---|---|---|
@@ -44,7 +44,15 @@
 | `evidence.need_tier1_primary: 1` | 發布需 1 個 Tier-1 primary | 真正在擋的是 `pulse-gate.py` 的 `missing_primary_evidence`（`primary_evidence` 欄位為 0 就擋），而那個欄位由 `pulse-cluster.rescore()` 用 `tier == 1 and role != "aggregator"` 算出來。數字 1 是巧合地一致，不是被讀進去的。 |
 | `evidence.need_independent_tier2: 2` | 或 2 個獨立 Tier-2 | 沒有消費者。目前**沒有**「兩個獨立 Tier-2 也可以」這條路：primary 缺席就是擋，補幾個獨立來源都沒用。 |
 | `evidence.translation_chain` 整塊 | 翻譯轉載不計入獨立性與 heat | 沒有消費者。這是媒體線的已知風險缺口——所以 `feat/media-line` 只收英文媒體。 |
-| `monitor.stale_after_days: 2` | 超過此天數沒成功抓取 → 紅燈 | 沒有消費者。`pulse-monitor.py` 的新鮮度判斷沒讀它，`_dashboards/health.md` 這個檔案本身也還不存在。 |
+
+### 已經從這張表畢業的
+
+| key | 何時接上 | 消費者 |
+|---|---|---|
+| `monitor.stale_after_days` | 2026-07-26 | `pulse-monitor.py --write-health / --alert-stale`（規格見 `references/vault-pages.md`）。接線之前它連要寫的那個 `_dashboards/health.md` 都不存在。 |
+
+留著這一列不是為了記功，是因為「本來未接線、後來接上了」是這份文件唯一
+會發生的變化，把它記在原地才看得出這張表在縮短。
 
 ## B. 接線了但走不到：heat 那三個
 

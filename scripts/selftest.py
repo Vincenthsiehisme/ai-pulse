@@ -750,15 +750,18 @@ acase("排程：data-refresh.yml 真的會跑 pulse-source-health.py"
       "pulse-source-health.py" in _wf, True)
 
 # ------------------------------------------- gate.yaml 未接線標記（2026-07-26）
-# gate.yaml 有 13 個 key 沒有任何程式碼讀它。未接線不是 bug（好幾個是預留規格），
-# 沒標出來才是：一個寫著正常數字的假欄位，會讓下一個人把它改掉、重跑、
+# gate.yaml 原本有 13 個 key 沒有任何程式碼讀它。未接線不是 bug（好幾個是預留
+# 規格），沒標出來才是：一個寫著正常數字的假欄位，會讓下一個人把它改掉、重跑、
 # 看到行為沒變，然後去懷疑資料壞了。對照表在 references/gate-config-status.md。
+#
+# 2026-07-26：`stale_after_days` 從這張清單畢業（pulse-monitor 的 --write-health
+# / --alert-stale 接上了）。**當初寫這條測試就是為了逼出這一刻**——接線的那個
+# commit 會看到這裡變紅，被迫回頭把 gate.yaml 的標記跟 references/ 一起改掉。
 _UNWIRED = [
     "freshness_full_hours", "freshness_zero_days",
     "minhash_jaccard", "ngram", "event_window_hours",
     "key_eligibility", "version_derivation", "unknown_entity", "cross_language",
     "need_tier1_primary", "need_independent_tier2", "translation_chain",
-    "stale_after_days",
 ]
 _scripts_blob = "\n".join(
     open(p, encoding="utf-8").read()
@@ -801,6 +804,102 @@ acase("gate.yaml：heat 那三個標的是「接線了但走不到」而不是�
 acase("references/gate-config-status.md 存在（gate.yaml 的標記指向它）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "gate-config-status.md")),
       True)
+# 反方向：畢業的 key 不准悄悄退回未接線。把 --write-health 那段刪掉、
+# 或把讀 gate.yaml 那兩行拿掉，都會在這裡紅。
+_mon_txt = open(os.path.join(_HERE, "pulse-monitor.py"), encoding="utf-8").read()
+acase("gate.yaml：monitor.stale_after_days 真的被 pulse-monitor.py 讀進去"
+      "（畢業的 key 不准悄悄退回未接線）",
+      "stale_after_days" in _mon_txt and 'gate.get("monitor")' in _mon_txt, True)
+acase("gate.yaml：monitor.stale_after_days 旁邊不該再留「未接線」標記"
+      "（標記留著＝文件說謊的另一個方向）",
+      _marked("stale_after_days"), False)
+
+# ------------------------------------------- 機器產生的 vault 頁（2026-07-26）
+# Sources/*.md 被每一則 Event 連著，卻沒有任何腳本產生它 —— 全部是紅色斷鏈。
+# _dashboards/health.md 被部署規格講了一整個月，檔案從來沒存在過。
+# 規格：references/vault-pages.md。
+import re as _re  # noqa: E402
+
+from lib import corpus as _corpuslib  # noqa: E402
+
+_sns = importlib.util.spec_from_file_location(
+    "pulse_source_notes", os.path.join(_HERE, "pulse-source-notes.py"))
+_sn = importlib.util.module_from_spec(_sns)
+_sns.loader.exec_module(_sn)
+
+# 紅線 6：vault 只放 allowlist frontmatter。這條把「哪天有人為了 debug 方便，
+# 把整個 sources.yaml 條目倒進 frontmatter」擋在門外。
+acase("來源頁：frontmatter 白名單裡沒有非公開欄位（紅線 6）",
+      [k for k in _sn.FM_FROM_CONFIG
+       if any(bad in k for bad in ("token", "key", "secret", "header",
+                                   "auth", "path", "cookie"))], [])
+
+with tempfile.TemporaryDirectory() as _d3:
+    _v3 = Path(_d3)
+    (_v3 / "Events").mkdir(parents=True)
+    # 同一則事件引同一條來源三次 —— 對「這條來源有沒有促成一則事件」來說是一次。
+    (_v3 / "Events" / "e1.md").write_text(
+        "---\nid: e1\nstatus: published\nevidence:\n"
+        "  - source_id: s1\n  - source_id: s1\n  - source_id: s1\n---\n\n內文\n",
+        encoding="utf-8")
+    (_v3 / "Events" / "e2.md").write_text(
+        "---\nid: e2\nstatus: review\nevidence:\n  - source_id: s1\n---\n\n內文\n",
+        encoding="utf-8")
+    _ev, _pub = _sn.bound(_v3)
+    acase("來源頁：有效產出數的是**事件數**不是證據筆數"
+          "（一則事件引同一條來源三次仍然只算一則）", [_ev["s1"], _pub["s1"]], [2, 1])
+
+    # _corpus/ 的盤點單一真相源：兩天各一條，累計 3 筆，最後一天取較晚的那天。
+    for _day, _n in (("2026-07-01", 1), ("2026-07-02", 2)):
+        (_v3 / "_corpus" / _day).mkdir(parents=True)
+        (_v3 / "_corpus" / _day / "s1.jsonl").write_text(
+            "".join('{"a":1}\n' for _ in range(_n)), encoding="utf-8")
+    _cnt, _last = _corpuslib.observed(_v3)
+    acase("來源頁：已觀測是跨日累計，最後一天取最晚的那天",
+          [_cnt["s1"], _last["s1"]], [3, "2026-07-02"])
+
+    # 兩條時間軸：跑了班但沒抓到東西的那天，只會出現在 _probe/ 不會出現在 _corpus/。
+    for _day in ("2026-07-01", "2026-07-02", "2026-07-03"):
+        (_v3 / "_probe" / _day).mkdir(parents=True)
+    acase("健康頁：跑班日曆與語料日曆分開數"
+          "（07-03 有跑班但零產出——只看 _corpus/ 會把它誤判成鏈死了）",
+          [_corpuslib.run_days(_v3)[-1], _corpuslib.corpus_days(_v3)[-1]],
+          ["2026-07-03", "2026-07-02"])
+
+    _r3 = {"date": "2026-07-03", "coverage": {"runnable_sources": 1, "sources": [],
+                                              "must_watch": [], "window_days": 30,
+                                              "history_days": 2},
+           "review_total": 1, "published_total": 1, "dropped_total": 0,
+           "review_actionable": 1, "review_terminal": 0, "review_unenriched": 0,
+           "oldest_unenriched_days": 0, "oldest_stuck_days": 0, "blocker_hist": {}}
+    _today3 = _date(2026, 7, 3)
+    _h_green = _mm.health(_v3, _today3, _r3, 2)
+    _h_red = _mm.health(_v3, _today3, _r3, 1)
+    acase("健康頁：紅燈綁在「幾天沒抓到東西」，不是「幾天沒跑班」"
+          "（07-03 有跑班、語料停在 07-02：門檻 2 天還是綠，門檻 1 天就紅）",
+          [_h_green["status"], _h_red["status"], _h_green["run_lag_days"]],
+          ["green", "red", 0])
+    acase("健康頁：last_success 就是部署規格裡講的那個欄位（_corpus/ 的最後一天）",
+          _h_green["last_success"], "2026-07-02")
+
+    _md = _mm.render_health(_r3, _h_green)
+    acase("健康頁：頁面自己不寫比「日」更細的時間"
+          "（一天 12 班，帶時分秒＝每兩小時一次沒有資訊量的假 diff）",
+          bool(_re.search(r"\d{2}:\d{2}", _md)), False)
+    acase("健康頁：門檻值印在頁面上，讀的人不必回去翻 gate.yaml",
+          "stale_after_days: 2" in _md, True)
+
+# 兩支都必須真的被排進 workflow，否則只是把「寫好了但沒人叫它」搬個地方。
+acase("排程：data-refresh.yml 真的會跑 pulse-source-notes.py 與 --write-health",
+      ["pulse-source-notes.py" in _wf, "--write-health" in _wf], [True, True])
+# 順序有兩個硬條件：在 Source health 之後（才讀得到這一班的分數）、
+# 在 commit 之前（不然寫出來的檔案下一次 checkout 就被洗掉）。
+acase("排程：vault 頁排在 Source health 之後、Commit 之前"
+      "（排在 commit 之後＝每班寫完就被洗掉，等於整天沒產出）",
+      _wf.index("Source health (0 LLM)") < _wf.index("Vault pages (0 LLM)")
+      < _wf.index("Commit & push data changes"), True)
+acase("references/vault-pages.md 存在（這兩頁的規格書，紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "vault-pages.md")), True)
 
 print("offline self-test\n" + "-" * 70)
 fails = 0

@@ -1,0 +1,101 @@
+---
+type: "health"
+generated_day: "2026-07-26"
+status: "green"
+last_success: "2026-07-26"
+probe_lag_days: 0
+last_run_day: "2026-07-26"
+run_lag_days: 0
+stale_after_days: 2
+sources_runnable: 27
+items_observed: 869
+events_total: 51
+events_published: 36
+---
+
+# 健康監看
+
+> 由 `pulse-monitor.py --write-health` 每班自動產生（零 LLM）。**手動編輯會在下一班被覆蓋。**
+
+> 這頁自己就是死人開關：鏈沒跑就沒人重寫它，`generated_day` 會停在 2026-07-26 不動。所以先看那個日期是不是今天，再看下面的燈。
+
+> [!success] 綠燈：資料新鮮度在門檻內。
+
+## 四態（全系統）
+
+| 層 | 數字 | 這一格不對勁代表什麼 |
+|---|---|---|
+| 收錄 | 27 條可跑來源 | 設定檔有幾條會被抓 |
+| 已觀測 | 869 筆（19 條來源有產出） | 跟收錄數差很多＝有來源在空轉 |
+| 有效產出 | 51 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
+| 已發布 | 36 則 | 卡在門禁是設計，不是故障 |
+
+## 鏈的兩條時間軸
+
+| | 最後一次 | 距今 | 這條停了代表什麼 |
+|---|---|---|---|
+| 有跑班（`_probe/`） | 2026-07-26 | 0 天 | 排程死了 |
+| 有抓到東西（`_corpus/`） | 2026-07-26 | 0 天 | 鏈在跑但瞎了（來源全壞、或全站沒更新） |
+
+「靜默死掉」與「靜默瞎掉」是兩種病，所以兩條軸分開印。2026-07-24 漏抓 Claude Opus 5 的那晚，上面那條是綠的。
+
+## 佇列
+
+- 已上線 **36**／review **14**（待處理 3、設計上擋著 11）／人工判定不追 **1**
+- 未 enrich **3** 則，最久放了 **4** 天
+- 待處理卡最久 **4** 天
+
+| blocker | 則數 |
+|---|---|
+| `stale_backfill` | 11 |
+| `placeholder_content` | 3 |
+| `thin_fact` | 3 |
+| `missing_category` | 3 |
+| `missing_track` | 3 |
+
+## 覆蓋範圍
+
+近 30 天（實有語料 3 天）。
+
+| 必盯實體 | 來源 | 看見 | 事件 | 上線 | 最後看見 |
+|---|---|---|---|---|---|
+| OpenAI | 1 | 76 | 10 | 10 | 0d 前 |
+| Anthropic | 1 | 11 | 7 | 6 | 0d 前 |
+| Google DeepMind | 1 | 18 | 3 | 2 | 0d 前 |
+| Google | 1 | 27 | 5 | 3 | 0d 前 |
+| Meta | 1 | 14 | 0 | 0 | 0d 前 |
+| Microsoft | 1 | 12 | 0 | 0 | 0d 前 |
+| NVIDIA | 1 | 39 | 15 | 12 | 0d 前 |
+| Hugging Face | 1 | 34 | 1 | 1 | 0d 前 |
+| xAI | 1 | 2 | 2 | 2 | 0d 前 |
+| Mistral AI | 1 | 0 | 0 | 0 | **從未** |
+| Alibaba | 1 | 0 | 0 | 0 | **從未** |
+| DeepSeek | 0 | 22 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Safe Superintelligence | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Thinking Machines Lab | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Cohere | 0 | 2 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Perplexity | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Anysphere (Cursor) | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Cognition | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Scale AI | 0 | 22 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Z.ai | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Moonshot AI | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| MiniMax | 0 | 6 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| ByteDance | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Baidu | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Tencent | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| AMD | 1 | 14 | 1 | 0 | 0d 前 |
+| TSMC | 0 | 1 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Broadcom | 0 | 2 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Groq | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+| Cerebras | 0 | 2 | 1 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| CoreWeave | 0 | 3 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| AWS | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
+
+- 可跑來源 27 條，本窗口零產出 9 條：`src-kol-thezvi`、`src-media-arstechnica`、`src-media-ieee-spectrum`、`src-media-mit-techreview`、`src-media-techcrunch`、`src-media-theregister`、`src-media-theverge`、`src-media-venturebeat`、`src-mistral-news`
+
+## 來源層
+
+- 沒有來源被機器自動降級
+
+逐條來源的四態見 `Sources/`。

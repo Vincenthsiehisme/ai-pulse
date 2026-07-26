@@ -144,6 +144,11 @@ source_health:
   recover_after_consecutive: 3      # 連續成功幾次 → 撤銷機器自己做的降級
 
 monitor:
-  # ⚠ 未接線。pulse-monitor.py 的新鮮度判斷沒讀它，
-  # 而且註解裡那個 _dashboards/health.md **本身也還不存在**。
-  stale_after_days: 2        # ⚠ 未接線，且 health.md 尚未產生
+  # 消費者：scripts/pulse-monitor.py 的 --write-health / --alert-stale
+  # （2026-07-26 接上。在此之前這個 key 沒有任何消費者，連註解裡講的
+  # _dashboards/health.md 本身都不存在）。規格見 references/vault-pages.md。
+  #
+  # 判的是「幾天沒**抓到東西**」（_corpus/ 的最後一天），不是「幾天沒跑班」。
+  # 排程死掉的時候這支腳本自己也不會被叫到，health.md 的 generated_day 會停住
+  # ——那才是排程的死人開關，兩件事不要混在同一個門檻裡。
+  stale_after_days: 2
