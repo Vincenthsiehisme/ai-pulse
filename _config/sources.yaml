@@ -277,6 +277,9 @@ official_sources:
   language: en
   lifecycle: dormant
   robots_ok: false
+  robots_evidence: "200+disallow"   # 這一欄是 robots_ok: false 的入場券：唯一誠實的
+                                    # false 來自 200 且明文 Disallow。403 / 逾時 / WAF
+                                    # 挑戰頁一律寫 null（見 references/source-lifecycle.md）。
   license_note: "abstract + link"
   frequency: daily
   quota_per_run: 30
@@ -475,9 +478,15 @@ official_sources:
   region: EU
   language: en
   lifecycle: dormant
-  robots_ok: false                # 2026-07-23 實測 with probe UA：robots.txt 回 403（control probe OK，
-                                  # 非代理問題），依保守分支視為拒絕。同域備選端點(THMTTE/THMCOM)共用同一
-                                  # robots，無用。不改 UA 繞行（紅線）。
+  robots_ok:                      # 2026-07-23 實測 with probe UA：robots.txt 回 403（control probe OK，
+                                  # 非代理問題）。同域備選端點(THMTTE/THMCOM)共用同一 robots，無用。
+                                  # 不改 UA 繞行（紅線 7）。
+                                  # 2026-07-26 改為 null：403 是**量測失敗**，不是站方政策，
+                                  # 寫成 false 就是把 WAF 擋包偽裝成人家的意志——正是 07-24 殺掉
+                                  # 整條 OpenAI 線的那一刀。抓取行為一個字沒變（robots_allows 對
+                                  # 403 仍回 False，dormant 也本來就不跑），改的只是「我們宣稱知道
+                                  # 什麼」。配 revive_when_allowed，哪天真的驗到放行才升回 probing。
+  revive_when_allowed: true
   license_note: "titles + links only"
   frequency: weekly
   quota_per_run: 30
