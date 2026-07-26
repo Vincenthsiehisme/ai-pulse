@@ -335,6 +335,29 @@ acase("設定一致性：coverage_watch 每個 entity_id 都在 entities.yaml �
       [w["entity_id"] for w in _cfg["coverage_watch"]["must_watch"]
        if w["entity_id"] not in _ent_ids], [])
 
+# 反向的那一半（2026-07-26 新增）。上面那條擋的是「清單列了字典沒有的」，
+# 擋不到真正發生過的那種漏：**字典有、清單沒有**。2026-07-26 實測時
+# entities.yaml 有 32 家 status: active 的公司，coverage_watch 只列 12 家，
+# 其餘 20 家在覆蓋率報表上連一格都不會出現——沒有來源，也沒有承認沒有來源，
+# 所以那一格永遠不會紅。這正是 07-24 漏抓 Claude Opus 5 的同一種形狀：
+# 不是燈亮紅色沒人看，是根本沒有那盞燈。
+#
+# 只查 companies，且只查 status: active：
+#   product_lines / infrastructure 是「東西」不是「發布主體」，沒有官方線可對應；
+#   status 不是 active 的（已併購 / 已停運）本來就不該逼人補來源。
+# 要豁免某一家時，做法是去 must_watch 加一行並掛 pending: true——也就是**白紙黑字
+# 寫下「這家我們還沒在看」**，而不是讓它繼續從清單上消失。這條測試的用意就是
+# 把「不看」從預設值變成一個要動手寫下來的決定。
+_active_companies = {
+    c["id"] for c in (_yaml.safe_load(
+        open(os.path.join(_HERE, "..", "_config", "entities.yaml"),
+             encoding="utf-8")).get("companies") or [])
+    if c.get("status", "active") == "active"}
+_watched_ids = {w["entity_id"] for w in _cfg["coverage_watch"]["must_watch"]}
+acase("設定一致性：entities.yaml 每家 active 公司都要在 coverage_watch 出現"
+      "（沒列＝沒有來源也沒承認沒來源，那一格永遠不會紅）",
+      sorted(_active_companies - _watched_ids), [])
+
 # ------------------------------------------------- 星速榜中文描述（ghdesc）
 # 這一層唯一會出事的地方是「譯文跟原文脫鉤」：上游改了 description，榜上還掛著
 # 一句在講舊版本的漂亮中文。所以測的重點不是翻得好不好（那是潤稿端的事），
