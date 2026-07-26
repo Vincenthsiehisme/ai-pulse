@@ -2,7 +2,7 @@
 
 M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是。
 
-> ⚠ 本輪含 63 筆 backfill（首次抓取的既有存量）。
+> ⚠ 本輪含 81 筆 backfill（首次抓取的既有存量）。
 > backfill 不代表當期訊號，lead_days 與熱度統計應排除。
 
 ## 兩個決定性比率
@@ -11,7 +11,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 |---|---|---|---|---|
 | aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 4/30 = 13% |
 | kol | 90 | 70/90 = 78% | 60/90 = 67% | 34/90 = 38% |
-| media | 67 | 67/67 = 100% | 59/67 = 88% | 28/67 = 42% |
+| media | 87 | 87/87 = 100% | 79/87 = 91% | 40/87 = 46% |
 | official | 218 | 48/218 = 22% | 18/218 = 8% | 159/218 = 73% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
@@ -23,9 +23,9 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | kind | 筆數 | 計入 5b |
 |---|---|---|
 | none | 190 |  |
-| person | 124 | ✓ |
+| person | 142 | ✓ |
 | handle | 67 |  |
-| multi_person | 13 | ✓ |
+| multi_person | 15 | ✓ |
 | org | 11 |  |
 
 分類全為字面規則，無推論。判不出來一律 unknown 且不計入 5b（保守預設）。
@@ -42,13 +42,15 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Son Ho, Cédric Fournet, Antoine Delignat-Lavaud, Samuel Lee, | multi_person | src-msr-blog |
 | Jianfeng Gao | person | src-msr-blog |
 | michael.nunez@venturebeat.com (Michael Nuñez) | handle | src-media-venturebeat |
+| Anthony Ha | person | src-media-techcrunch |
+| Rebecca Bellan, Connie Loizos | multi_person | src-media-techcrunch |
 | Alex Music | person | src-media-ieee-spectrum |
 | Jessica Hamzelou | person | src-media-mit-techreview |
 | Christine McGuiness and Devang Khariwala | multi_person | src-media-mit-techreview |
 | Kyle Orland | person | src-media-arstechnica |
 | Molly Taft, wired.com | multi_person | src-media-arstechnica |
 | WIRED | org | src-media-arstechnica |
-| Cameron Faulkner | person | src-media-theverge |
+| Terrence O’Brien | person | src-media-theverge |
 | karpathy (hidden) | handle | src-kol-karpathy |
 | Nathan Lambert | person | src-kol-interconnects |
 | Ethan Mollick | person | src-kol-oneusefulthing |
@@ -57,10 +59,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 ## 命中的實體型別分佈
 
-- company: 122
-- product_line: 93
-- product: 28
-- technology: 26
+- company: 134
+- product_line: 95
+- product: 31
+- technology: 27
 - framework: 18
 - infrastructure: 10
 
@@ -71,21 +73,24 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | 候選 | 次數 | 來源數 |
 |---|---|---|
 | LLMs | 11 | 4 |
-| LLM | 8 | 6 |
-| U.S | 5 | 2 |
+| LLM | 7 | 5 |
+| U.S | 6 | 3 |
 | Learn | 5 | 2 |
 | San Francisco | 5 | 4 |
+| One | 5 | 4 |
+| Fable | 5 | 3 |
 | AI-native | 4 | 2 |
 | Pro | 4 | 3 |
 | Gemma | 4 | 3 |
 | Python | 4 | 2 |
 | Understanding | 4 | 2 |
+| Here | 4 | 4 |
+| Opus | 4 | 4 |
 | There | 4 | 3 |
-| Fable | 4 | 2 |
-| One | 4 | 3 |
 | Frontier | 3 | 2 |
 | AI-powered | 3 | 3 |
 | Building | 3 | 3 |
+| Users | 3 | 2 |
 | Flash | 3 | 2 |
 | Plus | 3 | 3 |
 | Power | 3 | 3 |
@@ -96,11 +101,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | July | 3 | 3 |
 | China | 3 | 2 |
 | Trump | 3 | 2 |
-| Opus | 3 | 3 |
 
 ### 單來源高頻（觀察用，不列入晉升）
 
-目前活躍來源 19 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
+目前活躍來源 20 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
 上表為空不代表收割機制壞掉。此區僅供觀察，不得直接寫進字典。
 
 | 候選 | 次數 | 唯一來源 |
@@ -113,6 +117,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Open | 3 | src-kol-interconnects |
 | LLM Research Papers | 3 | src-kol-raschka |
 | List | 3 | src-kol-raschka |
+| Show HN | 3 | src-hn-frontpage |
 
 ## 來源狀態
 
@@ -136,12 +141,12 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
 | src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
 | src-media-venturebeat | media | 200 | 7 | 0 |  | True |  |
-| src-media-techcrunch | media | 304 | 0 | 0 |  | True |  |
+| src-media-techcrunch | media | 200 | 20 | 1 |  | True |  |
 | src-media-ieee-spectrum | media | 200 | 20 | 0 |  | True |  |
 | src-media-mit-techreview | media | 200 | 10 | 0 |  | True |  |
 | src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
 | src-media-arstechnica | media | 200 | 20 | 0 |  | True |  |
-| src-media-theverge | media | 200 | 10 | 2 |  | True |  |
+| src-media-theverge | media | 200 | 10 | 1 |  | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
 | src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
@@ -149,7 +154,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 3 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 10 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
