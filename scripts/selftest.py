@@ -1919,6 +1919,70 @@ acase("BACKLOG.md：〈現況〉那一段不再有手寫的量測表"
       "（留一張就夠了——會過期的正是那一張，不是旁邊的散文）",
       "| 量到什麼 | 值 |" in _backlog_status_head, False)
 
+# ── 待譯清單由 Actions 準備（scripts/enrich-runbook.md 的 C2 段）──
+_dp_spec = importlib.util.spec_from_file_location(
+    "pulse_github_desc_prep", os.path.join(_HERE, "pulse-github-desc-prep.py"))
+_dp = importlib.util.module_from_spec(_dp_spec)
+_dp_spec.loader.exec_module(_dp)
+
+acase("排程：待譯清單由抓取鏈準備，且不跟別的頁共用同一個 run:"
+      "（潤稿端沒有 GITHUB_TOKEN——它自己重建榜單那一步是整個 C2 唯一的外部依賴）",
+      [bool(_step_with("pulse-github-desc-prep.py")),
+       _step_with("pulse-github-desc-prep.py") == _step_with("pulse-entity-notes.py")],
+      [True, False])
+acase("排程：待譯清單要排在 pulse-github.py 之後（榜單先生出來才有得挑）、Commit 之前",
+      (max(_step_with("pulse-github.py"))
+       < min(_step_with("pulse-github-desc-prep.py"))
+       < min(_step_with("git push"))), True)
+acase("runbook：C2 已經不叫潤稿端自己重建榜單",
+      "python scripts/pulse-github.py" in
+      open(os.path.join(_HERE, "enrich-runbook.md"), encoding="utf-8").read()
+      .split("**C2.")[1].split("**D.")[0], False)
+
+
+def _dp_run(vault):
+    _a, _e = sys.argv[:], os.environ.get("VAULT_DIR")
+    sys.argv = ["pulse-github-desc-prep.py", "--limit", "25"]
+    os.environ["VAULT_DIR"] = str(vault)
+    try:
+        return _dp.main()
+    finally:
+        sys.argv = _a
+        if _e is not None:
+            os.environ["VAULT_DIR"] = _e
+
+
+with tempfile.TemporaryDirectory() as _dptd:
+    _dpv = Path(_dptd)
+    (_dpv / "_probe").mkdir()
+    _dpwl = _dpv / "_probe" / "github-desc-worklist.json"
+    _dpwl.write_text('[{"full_name": "a/b"}]', encoding="utf-8")   # 上一班留下的清單
+
+    _rc_missing = _dp_run(_dpv)                                     # board 不在
+    _kept_missing = _dpwl.read_text("utf-8")
+
+    (_dpv / "dist" / "data").mkdir(parents=True)
+    (_dpv / "dist" / "data" / "github.json").write_text(
+        _json.dumps({"generated": "x", "count": 0, "repos": [], "measured": False}),
+        encoding="utf-8")
+    _rc_unmeasured = _dp_run(_dpv)                                  # 抓取全失敗的佔位檔
+    _kept_unmeasured = _dpwl.read_text("utf-8")
+
+    (_dpv / "dist" / "data" / "github.json").write_text(
+        _json.dumps({"generated": "x", "count": 0, "repos": [], "measured": True}),
+        encoding="utf-8")
+    _rc_ok = _dp_run(_dpv)                                          # 真的沒有東西要翻
+    _wrote_empty = _json.loads(_dpwl.read_text("utf-8"))
+
+acase("待譯清單：量不到就不覆寫，而且回離開碼 2"
+      "（舊版在這裡寫一份空陣列，於是「榜單沒生出來」跟「今晚沒東西要翻」"
+      "在磁碟上長得一模一樣，下游照著跳過、沒有人知道為什麼）",
+      [_rc_missing, _kept_missing, _rc_unmeasured, _kept_unmeasured],
+      [2, '[{"full_name": "a/b"}]', 2, '[{"full_name": "a/b"}]'])
+acase("待譯清單：真的量到而且沒有東西要翻 → 才寫空陣列、回 0"
+      "（反方向；只釘「不覆寫」的話，一支永遠不寫檔的腳本也會通過）",
+      [_rc_ok, _wrote_empty], [0, []])
+
 # ── 榜單中文描述：C2 段跳過不留痕跡（references/vault-pages.md）──
 from lib import ghdesc as _gd2  # noqa: E402
 
@@ -1978,6 +2042,12 @@ with tempfile.TemporaryDirectory() as _ghtd:
         if _gh_envv is not None:
             os.environ["VAULT_DIR"] = _gh_envv
     _ghcov = _json.loads((_ghv / "_github" / "desc-coverage.json").read_text("utf-8"))
+    _ghboard = _json.loads(
+        (_ghv / "dist" / "data" / "github.json").read_text("utf-8"))
+acase("榜單佔位檔要標成沒量到（`measured: false`）"
+      "（不標的話，這份 0 條的榜單跟「今天真的沒有 repo 上榜」在下游眼裡一樣，"
+      "待譯清單會照著回報 0 條，翻譯就在沒人知道的情況下停擺）",
+      [_ghboard.get("measured"), _ghboard.get("count")], [False, 0])
 acase("榜單中文描述：抓取全失敗那一班照樣留下紀錄，而且兩格是 null 不是 0"
       "（寫 0 會讓「今天問不到 GitHub」看起來跟「榜上一條中文都沒有」一樣）",
       [_ghcov.get("ranked"), _ghcov.get("with_zh"), _ghcov.get("store_entries"),

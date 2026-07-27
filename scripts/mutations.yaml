@@ -586,3 +586,21 @@ mutations:
     replace: "                  \"index_sample\": []})"
     survives: false
     why: ""
+
+  # ── 待譯清單由 Actions 準備（scripts/enrich-runbook.md 的 C2 段）──
+
+  - id: M66
+    title: "量不到照樣寫空清單（「榜單沒生出來」與「今晚沒東西要翻」磁碟上長一樣）"
+    file: pulse-github-desc-prep.py
+    find: "    if doc is None or doc.get(\"measured\") is False:"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M67
+    title: "抓取全失敗的佔位榜單不標記（下游把它讀成「今天沒有 repo 上榜」）"
+    file: pulse-github.py
+    find: "                            \"measured\": False}, ensure_ascii=False, indent=2),"
+    replace: "                            \"measured\": True}, ensure_ascii=False, indent=2),"
+    survives: false
+    why: ""
