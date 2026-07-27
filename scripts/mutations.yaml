@@ -1179,3 +1179,19 @@ mutations:
     replace: "    return min((VERDICT_EXIT.get(r.get(\"verdict\"), 4) for r in results), default=0)"
     survives: false
     why: ""
+
+  - id: M134
+    title: "C-4 判決不再寫進 run summary（判決只活在會過期、git 讀不到的 artifact 裡——而它是整個時間線層的閘）"
+    file: ../.github/workflows/verify-article-metadata.yml
+    find: "        run: python scripts/c4-summary.py c4-report.json \"${{ inputs.preset }}\" \"${C4_EXIT:-?}\" >> \"$GITHUB_STEP_SUMMARY\""
+    replace: "        run: 'true'"
+    survives: false
+    why: ""
+
+  - id: M135
+    title: "未登記的退出碼在摘要上被當成通過（一個忘了寫進表裡的新狀態，讀起來像沒事）"
+    file: c4-summary.py
+    find: "    out.append(f\"退出碼 **{code}** — {EXIT_MEANING.get(code, UNREGISTERED)}\")"
+    replace: "    out.append(f\"退出碼 **{code}** — {EXIT_MEANING.get(code, '')}\")"
+    survives: false
+    why: ""
