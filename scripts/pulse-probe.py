@@ -545,10 +545,20 @@ def zero_yield_reason(diag: dict | None) -> tuple[str, str]:
       hints_matched_nothing   我們這邊：index 有子 sitemap，但沒有一張對得上 hints
       sub_sitemap_unreachable 中間那一跳：子 sitemap 選到了，抓不下來
       prefix_filtered_all     我們這邊：URL 拿到了，url_prefix 一條都不放行
+      upstream_empty_body     自己抓的 adapter：回 200 但 body 是空的
       no_diagnosis            這個 adapter 還沒有零產出診斷（誠實掛著，紅線 8）
     """
     if not diag or not diag.get("adapter"):
         return "no_diagnosis", "這個 adapter 還沒有零產出診斷，分不出是哪一種 0"
+
+    if diag.get("adapter") == "github-releases":
+        # 這一支自己抓，所以「0 筆」的成因跟 sitemap 那一組不同。
+        # status 非 200 的班次根本不會走到這裡（那一格由 error 欄回答）。
+        if diag.get("self_fetch_empty_body"):
+            return ("upstream_empty_body",
+                    "API 回 200 但 body 是空的——這不是「沒有 release」，"
+                    "是回應本身不對")
+        return ("source_empty", "GitHub API 回 200，這個 repo 目前沒有 release（站方那邊）")
 
     kind = diag.get("kind")
     before = diag.get("urls_before_filter", 0)
@@ -641,9 +651,20 @@ def adapt_json_api(source: dict, body: str, diag: dict | None = None) -> list[di
 
 def adapt_github_releases(source: dict, _body: str,
                           diag: dict | None = None) -> list[dict]:
+    """GitHub Releases API → 項目清單。**這一支自己抓，所以自己回報抓到什麼。**
+
+    `diag["self_fetch_status"]` 是給 `run_source()` 的：它自己沒有送出請求，
+    只知道 adapter 有沒有丟例外。少了這個回報，API 回 403（額度用完）跟站上
+    真的沒有新 release，在報告上都印成 `200 / 0 筆`——而 GitHub API 的額度
+    是會用完的，那不是稀有情況。
+    """
+    d = diag if diag is not None else {}
+    d["adapter"] = "github-releases"
     repo = source["endpoint"]
     status, body, _ = safe_fetch(f"https://api.github.com/repos/{repo}/releases")
+    d["self_fetch_status"] = status
     if status != 200 or not body:
+        d["self_fetch_empty_body"] = (status == 200 and not body)
         return []
     items = []
     for rel in json.loads(body)[: int(source.get("quota_per_run", 20))]:
@@ -712,9 +733,15 @@ def run_source(src: dict, table, state: dict, seen: dict) -> tuple[list[dict], d
 
     try:
         if self_fetch:
-            # endpoint 非 URL，交給 adapter 自己組並抓
+            # endpoint 非 URL，交給 adapter 自己組並抓。
+            # status 取 adapter 回報的那一個，**不寫死 200**：這裡沒有送出任何
+            # 請求，寫死 200 等於用「adapter 沒有丟例外」代理「這一班真的成功」。
+            # 兩者在順利的日子裡重合，正好在 API 額度用完的那天分岔——而那天
+            # 報告會說「200 / 0 筆」，看起來跟「站上沒有新 release」一模一樣。
             items = adapter(src, "", stat["diag"])
-            stat["status"] = 200
+            stat["status"] = stat["diag"].get("self_fetch_status", 200)
+            if stat["status"] != 200:
+                stat["error"] = f"http {stat['status']}（adapter 自己抓的）"
             headers = {}
         else:
             status, body, headers = safe_fetch(url, st.get("etag"))
@@ -835,6 +862,7 @@ def zero_yield_section(stats: list[dict]) -> list[str]:
     for s in zero:
         code, why = zero_yield_reason(s.get("diag"))
         side = {"source_empty": "站方",
+                "upstream_empty_body": "還不知道",
                 "no_diagnosis": "還不知道"}.get(code, "我們")
         out.append(f"| {s['id']} | `{code}` | {side} | {why} |")
 

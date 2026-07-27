@@ -180,6 +180,64 @@ acase("零產出診斷：入口通、裡面沒有 URL → source_empty（這一�
 
 acase("零產出診斷：沒有 diag 的 adapter 誠實回 no_diagnosis，不假裝判得出來（紅線 8）",
       _pp.zero_yield_reason({})[0], "no_diagnosis")
+
+# 自己抓的 adapter：run_source 沒有送出請求，status 只能由 adapter 回報。
+# 寫死 200 等於用「adapter 沒丟例外」代理「這一班真的成功」——GitHub API
+# 額度用完的那天，報告會說 200 / 0 筆，跟「沒有新 release」印起來一樣。
+_gh_diag: dict = {}
+_gh_src = {"endpoint": "o/r", "adapter": "github-releases"}
+_gh_saved = _pp.safe_fetch
+try:
+    _pp.safe_fetch = lambda *a, **k: (403, None, {})
+    _pp.adapt_github_releases(_gh_src, "", _gh_diag)
+finally:
+    _pp.safe_fetch = _gh_saved
+acase("自己抓的 adapter：把真實 status 回報給 run_source（不是讓它寫死 200）",
+      _gh_diag.get("self_fetch_status"), 403)
+
+# 上面那條只釘到 adapter 回報了；真正會騙人的是 run_source 讀不讀它。
+# 走真的 run_source：SELF_FETCH 那條路不做 robots 檢查，所以只要換掉 safe_fetch。
+_gh_saved2 = _pp.safe_fetch
+try:
+    _pp.safe_fetch = lambda *a, **k: (403, None, {})
+    _gh_items, _gh_stat = _pp.run_source(
+        {"id": "s-gh", "adapter": "github-releases", "endpoint": "o/r"},
+        [], {}, {})
+finally:
+    _pp.safe_fetch = _gh_saved2
+acase("自己抓的 adapter：run_source 的 status 跟著 adapter 走，不寫死 200"
+      "（寫死 200 ＝ 用「adapter 沒丟例外」代理「這一班真的成功」，"
+      "而那一班的報告會說 200 / 0 筆，跟「站上沒有新 release」印起來一樣）",
+      [_gh_stat["status"], _gh_stat["items"], bool(_gh_stat["error"])],
+      [403, 0, True])
+_gh_saved3 = _pp.safe_fetch
+try:
+    _pp.safe_fetch = lambda *a, **k: (200, "[]", {})
+    _pp.run_source({"id": "s-gh", "adapter": "github-releases",
+                    "endpoint": "o/r"}, [], {}, {})
+    _gh_ok = _pp.run_source({"id": "s-gh2", "adapter": "github-releases",
+                             "endpoint": "o/r"}, [], {}, {})[1]
+finally:
+    _pp.safe_fetch = _gh_saved3
+acase("自己抓的 adapter：真的成功那一班照樣是 200（反方向，確認上一條不是恆非 200）",
+      [_gh_ok["status"], _gh_ok["error"]], [200, None])
+acase("零產出診斷：github-releases 回 200 且有 body 但沒有 release → 站方那邊",
+      _pp.zero_yield_reason({"adapter": "github-releases",
+                             "self_fetch_status": 200,
+                             "self_fetch_empty_body": False})[0], "source_empty")
+acase("零產出診斷：github-releases 回 200 但 body 是空的 → 不是「沒有 release」",
+      _pp.zero_yield_reason({"adapter": "github-releases",
+                             "self_fetch_status": 200,
+                             "self_fetch_empty_body": True})[0],
+      "upstream_empty_body")
+acase("零產出診斷：`upstream_empty_body` 不可以被歸到「我們」那一邊"
+      "（回應本身不對，這端分不出是誰的問題——分不出就不要猜）",
+      [l.split("|")[3].strip() for l in
+       "\n".join(_pp.zero_yield_section(
+           [{"id": "s-gh", "track": "official", "status": 200, "items": 0,
+             "diag": {"adapter": "github-releases", "self_fetch_status": 200,
+                      "self_fetch_empty_body": True}}])).split("\n")
+       if l.startswith("| s-")], ["還不知道"])
 acase("零產出診斷：diag 是 None 也走同一條路，不得爆炸",
       _pp.zero_yield_reason(None)[0], "no_diagnosis")
 

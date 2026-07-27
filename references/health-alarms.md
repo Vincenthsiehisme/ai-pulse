@@ -235,7 +235,30 @@ index 有幾張子 sitemap、hints 命中幾張、展開幾張、抓成功幾張
 | `hints_matched_nothing` | 我們 | index 有子 sitemap，但沒有一張對得上 `sitemap_hints` |
 | `sub_sitemap_unreachable` | 中間那一跳 | 子 sitemap 選到了，抓不下來 |
 | `prefix_filtered_all` | 我們 | URL 拿到了，`url_prefix` 一條都不放行 |
+| `upstream_empty_body` | 還不知道 | 自己抓的 adapter：回 200 但 body 是空的 |
 | `no_diagnosis` | 還不知道 | 這個 adapter 還沒有零產出診斷 |
+
+### 自己抓的 adapter 要自己回報 status
+
+`SELF_FETCH` 那一組（目前只有 `github-releases`）的 `endpoint` 不是 URL，
+由 adapter 自己組 URL 並抓。`run_source()` 因此**沒有送出任何請求**——它以前
+是這樣寫的：
+
+```python
+items = adapter(src, "", stat["diag"])
+stat["status"] = 200          # ← 舊版
+```
+
+**用「adapter 沒有丟例外」代理「這一班真的成功」。** 兩者在順利的日子裡重合，
+正好在 GitHub API 額度用完的那天分岔——而那天報告會說 `200 / 0 筆`，看起來
+跟「這個 repo 這陣子沒有發新 release」一模一樣。API 額度會用完不是稀有情況，
+同一支 workflow 裡的 `pulse-github.py` 甚至已經有一句
+「本次未取得任何 repo（API 失敗或額度）」的 warn。
+
+規則：**自己抓的 adapter 要把真實 status 寫進 `diag["self_fetch_status"]`，
+`run_source()` 讀它，不寫死 200。** 非 200 的班次於是根本不會進〈零產出診斷〉
+——它是一次抓取失敗，由 `error` 欄回答，而 401/403/429 在健康分那邊本來就
+不記分（量不到不等於壞掉）。
 
 只印散文不行的理由：報告上的字是給人看的，但「這條該不該去修」是要拿來做決定的。
 散文要下一個人自己重讀一遍再判一次，而重判會因人而異——那就又是一個代理。
