@@ -219,27 +219,135 @@ title_kind       real | derived_from_slug | none
 
 ### 階段 C：把三條 sitemap 來源的採集方式重新評估
 
-sitemap 先天沒有標題也沒有發布時間，這不是實作缺陷。誠實的選項有三個，
-各有代價，要拍板：
+**2026-07-27 已查證，選項從三個變兩個，而且問題比原本估計的嚴重。**
 
-1. **接受 null**：那三條 tier-1 官方源失去時間定位與標題，事件頁印「未留存」。
-2. **抓內文取 `<title>` 與發布日**：超出目前 `license_note` 的
-   「titles + links only」，要重新確認合規（紅線 7）。
-3. **換 adapter**：確認這三家有沒有 RSS/Atom。**這是成本最低的一條，應該先查。**
+#### C-0：三家都沒有官方 feed（已查證）
+
+| | 標準路徑 | 首頁 autodiscovery |
+|---|---|---|
+| Anthropic | `/rss.xml`、`/news/rss.xml`、`/news/feed` 全 404 | 無 `<link rel="alternate">`，頁面未提 RSS |
+| Mistral | `/news/rss.xml`、`/feed.xml`、`/news/feed.xml` 全 404 | 無，未提 RSS |
+| xAI | `/news/rss.xml` 404、`/rss.xml` **403** | 無，未提 RSS |
+
+旁證：搜尋 Anthropic 的 RSS，跳出來的全是**第三方在替它做**
+（`taobojlen/anthropic-rss-feed` 在抓網頁生 feed，RSSHub 有兩張 feed 請求 issue）。
+官方有 feed 的話不會有人去做這些。
+
+**但書（紅線 7 的規矩）**：`x.ai/rss.xml` 回的是 **403 不是 404**。照本 repo 自己
+在 2026-07-24 事故後立的界線——**「我們讀不到」不等於「站方沒有」**——xAI 那條
+嚴格說只能判「autodiscovery 沒有、標準路徑讀不到」，不能寫成「確定沒有」。
+
+**所以「換 adapter」這條出路不成立。**
+
+#### C-1：問題比原本估計的嚴重——標題不是「少了小數點」，是換了一個字串
+
+原本以為 `_slug_to_title` 的損害是標點（`4-6` → `4 6`）。實測五組對照：
+
+| URL slug 推導出來的（我們現在存的、印在對外站上的） | 網站上真正的標題 |
+|---|---|
+| Claude Opus 5 | Introducing Claude Opus 5 |
+| **Introducing Google Workspace Addon** | **Grok in Google Workspace** |
+| Robostral Navigate | Introducing Robostral Navigate |
+| **Manage Prompts And Skills In Studio** | **Your Prompts and Skills need a system of record.** |
+| Leanstral 1 5 | Leanstral 1.5: Proof Abundance for All |
+
+**五組裡有兩組是完全不同的字串。** 也就是說，這三條來源產生的 Event，標題有一類
+**根本不是那篇文章的標題**——不是不精確，是不同的東西。而 Event 標題會進 id 的
+hash、進聚類的相似度比對、進對外站的每一張卡片。
+
+#### C-2：標題可以完全解決，日期只能部分解決（已查證）
+
+實測 Anthropic 與 xAI 的文章頁：
+
+- **`og:title` 有，而且是真值。** `"Introducing Claude Opus 5"`、
+  `"Grok in Google Workspace"`。單一 meta tag，確定性可取，不需要解析內文。
+- **機器可讀的發布時間全部 ABSENT。** 沒有 `article:published_time`、
+  沒有 `<time datetime>`、沒有 JSON-LD `datePublished`。兩家都是。
+- **只有人看的日期**：Anthropic 印「Jul 24, 2026」、Mistral 印「July 8, 2026」，
+  在標題下方的自由文字裡，**沒有標籤詞**、格式各家不同、**沒有時區**。
+
+順帶一個對照：那篇 Anthropic 文章頁上寫的是 **Jul 24**，而我們從 lastmod 取的是
+**07-25T02:03:36Z**。差一天——lastmod 不是發布時間，這是第三個獨立證據。
+
+#### C-3：因此正確的做法，與它逼出來的一個新欄位
+
+**標題**：抓文章頁讀 `og:title`（缺則退 `<title>` 去掉站名後綴）。真值、確定性、
+單一 tag。這一條把整類「編造的產品名」消滅掉。
+
+**合規要重新理解，不是重新爭取**：目前 `license_note` 寫「titles + links only」，
+而 `_slug_to_title` 的 docstring 說「抓內文超出這個範圍，所以選還原」。這個推論把
+**抓取**跟**留存**混為一談了。抓一頁只讀它的 `og:title`、只留存標題＋連結＋日期，
+留下來的東西**正好就是 titles + links**——而且是真的那個。反過來說，現在的做法
+留存的是一個**編造的**標題，那離「titles only」更遠，不是更近。這一點要拍板，
+但它是澄清不是放寬。
+
+**日期**：沒有結構化來源，只有人看的日期。所以誠實的做法會逼出一個新欄位：
+
+```
+published            真值；沒有就是 null
+published_kind       real | lastmod | submitted | updated | page_visible | none
+published_precision  second | day | none          ← 這一格是這次查證逼出來的
+```
+
+從「Jul 24, 2026」解析出來的東西**只有日到位、而且沒有時區**。把它存成
+`2026-07-24T00:00:00Z` 就是**編造精度**——跟這份文件從頭到尾在講的是同一隻病，
+只是換一個維度。所以精度必須跟值一起存，而下游（聚類的 96 小時窗、lead_days）
+必須知道自己拿到的是日還是秒。
+
+#### C-4：動工前必須先驗的一件事
+
+上面所有結論來自 WebFetch，而**它可能執行了 JavaScript**。這個 repo 的
+`safe_fetch` 是單純的 HTTP GET——如果那三家的文章頁或列表頁是前端渲染的，
+plain GET 拿到的會是空殼，整個設計就不成立。
+
+**這一題有現成的工具，而且應該用它而不是我在這裡猜**：
+
+```bash
+VAULT_DIR=. python3 scripts/verify-policy-sources.py <url>
+```
+
+它用 probe 的 UA 做真實抓取、同時驗 robots，正是為這件事寫的。要驗三件事：
+plain GET 的 HTML 裡有沒有 `og:title`、有沒有那個人看的日期、以及文章路徑的
+robots 允不允許（現在的 `robots_ok: true` 是對 sitemap 而言）。
+
+**驗到之前，C-3 是提案不是結論。**
+
+#### C-5：順帶發現的一條更省的路（同樣待驗）
+
+Mistral 的 `/news` 列表頁本身就同時列出**真標題與日期**
+（實測拿到三篇的標題與「July 8, 2026」這種日期）。若 plain GET 也看得到，
+那麼**一次抓列表頁**就同時解決標題與日期，比「抓 sitemap 再逐篇抓文章頁」
+少一個數量級的請求，對站方也更客氣（紅線 7 的 rate-limit 那一半）。
+
+這條要跟 C-4 一起驗。**不要因為它比較省就先選它**——省是附帶好處，
+選它的理由必須是「plain GET 拿得到真值」。
 
 ---
 
 ## 6. 明確的取捨
 
-改完之後：
+**2026-07-27 查證後，取捨的形狀變了：標題不再是取捨，日期才是。**
 
-- 那三條 tier-1 官方源的事件會**失去可靠的時間軸位置**，聚類少一個維度。
-- `lead_days` 對它們**算不出來**，而它們正是「官方承認」那一側——
-  也就是這個指標的覆蓋率會明顯下降。
-- 事件頁與時間軸上會出現更多「未留存」。
+**標題沒有取捨**——`og:title` 是真值，抓得到就該用，現在存的是編造的。
+唯一的成本是每篇多一次請求（或改抓列表頁，見 C-5），以及要拍板
+「titles + links only」的正確讀法（見 C-3，那是澄清不是放寬）。
 
-這些都是真的變難看。但現在的狀態是**看起來知道、其實不知道**，而且
-「不知道」這件事在鏈上任何一層都不會被發現。**難看是誠實的代價，不是退步。**
+**日期才是真的取捨**，而且只剩兩個選項：
+
+1. **接受 `published: null`**：那三條 tier-1 官方源失去時間定位，
+   `lead_days` 對它們算不出來，時間軸上它們沒有可靠位置。
+2. **取人看的日期，並誠實標成 `precision: day`**：拿得到日，拿不到時分秒，
+   也沒有時區。聚類的 96 小時窗要改成能吃「日」這種精度，
+   `lead_days` 的解析度會退到「天」。
+
+兩條都會讓畫面與指標變難看，而且第二條還多一份解析脆弱性（版面一改就壞，
+所以必須是「解析不到就回 null」而不是猜）。
+
+但現在的狀態是**看起來知道、其實不知道**，而且「不知道」這件事在鏈上任何
+一層都不會被發現。**難看是誠實的代價，不是退步。**
+
+要強調的是：不管選哪一條，**標題都該修**，而且它是這三個症狀裡唯一能
+100% 修對的一個。
 
 ---
 
