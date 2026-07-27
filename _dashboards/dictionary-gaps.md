@@ -5,7 +5,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**4 天**（2026-07-24 … 2026-07-27），去重後 **587** 列。
+語料範圍：**4 天**（2026-07-24 … 2026-07-27），去重後 **619** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -24,58 +24,59 @@ generator: scripts/pulse-dictionary-gaps.py
 | LLM | 10 | 7 |
 | June | 9 | 4 |
 | Energy | 9 | 2 |
+| Building | 9 | 7 |
 | Here | 9 | 6 |
 | July | 8 | 5 |
-| Building | 7 | 6 |
 | U.S | 7 | 4 |
 | Security | 6 | 3 |
+| Monday | 6 | 4 |
+| One | 6 | 5 |
 | Source | 5 | 2 |
 | Gemma | 5 | 4 |
 | Learn | 5 | 2 |
 | Understanding | 5 | 3 |
 | San Francisco | 5 | 4 |
-| One | 5 | 4 |
+| Power | 5 | 5 |
 | Learning | 5 | 3 |
 | January | 5 | 4 |
 | Fable | 5 | 3 |
-| Chinese | 5 | 4 |
 | These | 5 | 3 |
 | There | 5 | 4 |
 | Flash | 4 | 2 |
+| Making | 4 | 4 |
 | Thursday | 4 | 2 |
 | Tuesday | 4 | 2 |
 | Python | 4 | 2 |
 | Updated | 4 | 2 |
 | Built | 4 | 2 |
-| Power | 4 | 4 |
+| American | 4 | 4 |
 | China | 4 | 3 |
 | When | 4 | 2 |
+| Chinese | 4 | 3 |
 | Pro | 4 | 3 |
 | AI-native | 4 | 2 |
+| Trump | 4 | 3 |
 | AI-powered | 3 | 3 |
-| Measuring | 3 | 3 |
-| Making | 3 | 3 |
-| Monday | 3 | 2 |
+| Finding | 3 | 3 |
 | Users | 3 | 2 |
 | Part | 3 | 3 |
 | Extending | 3 | 2 |
 | They | 3 | 3 |
+| AI-driven | 3 | 3 |
 | GPUs | 3 | 2 |
-| American | 3 | 3 |
 | Plus | 3 | 3 |
+| Amazon | 3 | 2 |
 | Frontier | 3 | 2 |
 | Some | 3 | 3 |
 | However | 3 | 2 |
 | Large | 3 | 2 |
 | Models | 3 | 2 |
+| Let | 3 | 3 |
 | With | 3 | 3 |
 | From | 3 | 3 |
 | Opus | 3 | 3 |
-| First | 3 | 3 |
+| Rust | 3 | 2 |
 | World | 3 | 2 |
-| Trump | 3 | 2 |
-| NASA | 3 | 2 |
-| How AI | 3 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -98,12 +99,12 @@ generator: scripts/pulse-dictionary-gaps.py
 | Qwen | 8 | src-qwen-blog |
 | Minutes | 7 | src-ep-itre |
 | Co-Scientist | 5 | src-deepmind-blog |
+| The Download | 5 | src-media-mit-techreview |
 | Wednesday | 4 | src-ep-itre |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
 | Release Notes | 4 | src-gh-vllm-releases |
-| The Download | 4 | src-media-mit-techreview |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Video | 3 | src-ep-itre |

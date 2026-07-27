@@ -1,8 +1,9 @@
-# 被門禁擋下（18）
+# 被門禁擋下（19）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
 - **[[Events/evt-2026-07-27-1b4ef0|How AI is expanding what people do at work]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-07-27-32add4|Cognizant Anthropic]]** — Anthropic — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-27-ccaf21|NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Su]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-27-fdbc38|NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs a]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-23-83a9d2|AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High ]]** — Cerebras — blockers: thin_fact

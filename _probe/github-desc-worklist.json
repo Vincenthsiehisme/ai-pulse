@@ -4,7 +4,7 @@
     "desc": "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI",
     "language": "TypeScript",
     "topics": [],
-    "stars": 78716,
+    "stars": 78882,
     "url": "https://github.com/earendil-works/pi",
     "stale_zh": null
   },
@@ -20,24 +20,8 @@
       "code-analysis",
       "code-search"
     ],
-    "stars": 96800,
+    "stars": 96994,
     "url": "https://github.com/Graphify-Labs/graphify",
-    "stale_zh": null
-  },
-  {
-    "full_name": "koala73/worldmonitor",
-    "desc": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "ai",
-      "dashboard",
-      "geopolitics",
-      "mcp",
-      "mcp-server"
-    ],
-    "stars": 75106,
-    "url": "https://github.com/koala73/worldmonitor",
     "stale_zh": null
   },
   {
@@ -52,24 +36,24 @@
       "ai-search",
       "crawler"
     ],
-    "stars": 156755,
+    "stars": 156917,
     "url": "https://github.com/firecrawl/firecrawl",
     "stale_zh": null
   },
   {
-    "full_name": "DietrichGebert/ponytail",
-    "desc": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
-    "language": "JavaScript",
+    "full_name": "koala73/worldmonitor",
+    "desc": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
+    "language": "TypeScript",
     "topics": [
-      "agent-skills",
-      "ai-agents",
-      "claude",
-      "claude-code",
-      "claude-code-plugin",
-      "cursor-rules"
+      "agent",
+      "ai",
+      "dashboard",
+      "geopolitics",
+      "mcp",
+      "mcp-server"
     ],
-    "stars": 90127,
-    "url": "https://github.com/DietrichGebert/ponytail",
+    "stars": 75243,
+    "url": "https://github.com/koala73/worldmonitor",
     "stale_zh": null
   },
   {
@@ -84,8 +68,24 @@
       "sdlc",
       "skills"
     ],
-    "stars": 261865,
+    "stars": 262017,
     "url": "https://github.com/obra/superpowers",
+    "stale_zh": null
+  },
+  {
+    "full_name": "DietrichGebert/ponytail",
+    "desc": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+    "language": "JavaScript",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "claude",
+      "claude-code",
+      "claude-code-plugin",
+      "cursor-rules"
+    ],
+    "stars": 90264,
+    "url": "https://github.com/DietrichGebert/ponytail",
     "stale_zh": null
   },
   {
@@ -100,7 +100,7 @@
       "chatgpt",
       "claude"
     ],
-    "stars": 221196,
+    "stars": 221313,
     "url": "https://github.com/NousResearch/hermes-agent",
     "stale_zh": null
   },
@@ -116,40 +116,8 @@
       "deepresearch",
       "interactive-learning"
     ],
-    "stars": 30337,
+    "stars": 30468,
     "url": "https://github.com/HKUDS/DeepTutor",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Leonxlnx/taste-skill",
-    "desc": "Taste-Skill - gives your AI good taste. stops the AI from generating boring, generic slop",
-    "language": "JavaScript",
-    "topics": [
-      "agent",
-      "ai",
-      "claude",
-      "claude-code",
-      "codex",
-      "coding"
-    ],
-    "stars": 68106,
-    "url": "https://github.com/Leonxlnx/taste-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "DeusData/codebase-memory-mcp",
-    "desc": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies.",
-    "language": "C",
-    "topics": [
-      "aider",
-      "ast",
-      "claude-code",
-      "code-analysis",
-      "code-intelligence",
-      "codex"
-    ],
-    "stars": 35779,
-    "url": "https://github.com/DeusData/codebase-memory-mcp",
     "stale_zh": null
   },
   {
@@ -164,8 +132,24 @@
       "developer-tools",
       "llm"
     ],
-    "stars": 233841,
+    "stars": 234001,
     "url": "https://github.com/affaan-m/ECC",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Leonxlnx/taste-skill",
+    "desc": "Taste-Skill - gives your AI good taste. stops the AI from generating boring, generic slop",
+    "language": "JavaScript",
+    "topics": [
+      "agent",
+      "ai",
+      "claude",
+      "claude-code",
+      "codex",
+      "coding"
+    ],
+    "stars": 68211,
+    "url": "https://github.com/Leonxlnx/taste-skill",
     "stale_zh": null
   },
   {
@@ -180,54 +164,8 @@
       "claude-code",
       "llm"
     ],
-    "stars": 93373,
+    "stars": 93478,
     "url": "https://github.com/JuliusBrussee/caveman",
-    "stale_zh": null
-  },
-  {
-    "full_name": "datawhalechina/hello-agents",
-    "desc": "📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "llm",
-      "rag",
-      "tutorial"
-    ],
-    "stars": 68899,
-    "url": "https://github.com/datawhalechina/hello-agents",
-    "stale_zh": null
-  },
-  {
-    "full_name": "xbtlin/ai-berkshire",
-    "desc": "AI 时代的伯克希尔：基于 Claude Code / Codex 的价值投资研究框架。巴菲特·芒格·段永平·李录四大师方法论 + 多Agent并行研究。| AI-era Berkshire: a value investing research framework built for Claude Code / Codex. 4 masters' methodologies + multi-agent adversarial analysis.",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "ai-agent",
-      "anthropic",
-      "berkshire-hathaway",
-      "charlie-munger",
-      "china-stock"
-    ],
-    "stars": 14373,
-    "url": "https://github.com/xbtlin/ai-berkshire",
-    "stale_zh": null
-  },
-  {
-    "full_name": "asgeirtj/system_prompts_leaks",
-    "desc": "Extracted system prompts from Anthropic - Claude Fable 5, Opus 5, Claude Design, Claude Code. OpenAI - ChatGPT GPT-5.6-Sol, Codex. Google - Gemini 3.5 Flash, 3.1 Pro, Antigravity. xAI - Grok, Cursor, Copilot, VS Code, Perplexity, and more. Updated regularly.",
-    "language": "JavaScript",
-    "topics": [
-      "ai",
-      "ai-agents",
-      "ai-prompts",
-      "anthropic",
-      "chatbot",
-      "chatgpt"
-    ],
-    "stars": 60853,
-    "url": "https://github.com/asgeirtj/system_prompts_leaks",
     "stale_zh": null
   },
   {
@@ -242,24 +180,24 @@
       "claude-code",
       "clawhub"
     ],
-    "stars": 53934,
+    "stars": 54049,
     "url": "https://github.com/mvanhorn/last30days-skill",
     "stale_zh": null
   },
   {
-    "full_name": "ZhuLinsen/daily_stock_analysis",
-    "desc": "LLM 驱动的多市场股票智能分析系统：多源行情、实时新闻、决策看板与自动推送，支持零成本定时运行。  LLM-powered multi-market stock analysis system with multi-source market data, real-time news, decision dashboard, automated notifications, and cost-free scheduled runs.",
-    "language": "Python",
+    "full_name": "DeusData/codebase-memory-mcp",
+    "desc": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies.",
+    "language": "C",
     "topics": [
-      "a-stock",
-      "ai-agent",
-      "aigc",
-      "llm",
-      "quant",
-      "quantitative-finance"
+      "aider",
+      "ast",
+      "claude-code",
+      "code-analysis",
+      "code-intelligence",
+      "codex"
     ],
-    "stars": 59186,
-    "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
+    "stars": 35852,
+    "url": "https://github.com/DeusData/codebase-memory-mcp",
     "stale_zh": null
   },
   {
@@ -273,17 +211,54 @@
       "context-database",
       "self-evolving"
     ],
-    "stars": 27384,
+    "stars": 27470,
     "url": "https://github.com/volcengine/OpenViking",
     "stale_zh": null
   },
   {
-    "full_name": "msitarzewski/agency-agents",
-    "desc": "A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.",
-    "language": "Shell",
-    "topics": [],
-    "stars": 137015,
-    "url": "https://github.com/msitarzewski/agency-agents",
+    "full_name": "datawhalechina/hello-agents",
+    "desc": "📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "llm",
+      "rag",
+      "tutorial"
+    ],
+    "stars": 68949,
+    "url": "https://github.com/datawhalechina/hello-agents",
+    "stale_zh": null
+  },
+  {
+    "full_name": "asgeirtj/system_prompts_leaks",
+    "desc": "Extracted system prompts from Anthropic - Claude Fable 5, Opus 5, Claude Design, Claude Code. OpenAI - ChatGPT GPT-5.6-Sol, Codex. Google - Gemini 3.5 Flash, 3.1 Pro, Antigravity. xAI - Grok, Cursor, Copilot, VS Code, Perplexity, and more. Updated regularly.",
+    "language": "JavaScript",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-prompts",
+      "anthropic",
+      "chatbot",
+      "chatgpt"
+    ],
+    "stars": 60909,
+    "url": "https://github.com/asgeirtj/system_prompts_leaks",
+    "stale_zh": null
+  },
+  {
+    "full_name": "xbtlin/ai-berkshire",
+    "desc": "AI 时代的伯克希尔：基于 Claude Code / Codex 的价值投资研究框架。巴菲特·芒格·段永平·李录四大师方法论 + 多Agent并行研究。| AI-era Berkshire: a value investing research framework built for Claude Code / Codex. 4 masters' methodologies + multi-agent adversarial analysis.",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "ai-agent",
+      "anthropic",
+      "berkshire-hathaway",
+      "charlie-munger",
+      "china-stock"
+    ],
+    "stars": 14420,
+    "url": "https://github.com/xbtlin/ai-berkshire",
     "stale_zh": null
   },
   {
@@ -298,24 +273,8 @@
       "bilibili",
       "claude-code"
     ],
-    "stars": 61151,
+    "stars": 61227,
     "url": "https://github.com/Panniantong/Agent-Reach",
-    "stale_zh": null
-  },
-  {
-    "full_name": "t8y2/dbx",
-    "desc": "20 MB lightweight cross-platform database client for 70+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 70+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP Server。",
-    "language": "Rust",
-    "topics": [
-      "ai",
-      "cli",
-      "clickhouse",
-      "database",
-      "database-client",
-      "database-management"
-    ],
-    "stars": 11868,
-    "url": "https://github.com/t8y2/dbx",
     "stale_zh": null
   },
   {
@@ -330,40 +289,49 @@
       "gsap",
       "html"
     ],
-    "stars": 37948,
+    "stars": 38030,
     "url": "https://github.com/heygen-com/hyperframes",
     "stale_zh": null
   },
   {
-    "full_name": "headroomlabs-ai/headroom",
-    "desc": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server.",
-    "language": "Python",
+    "full_name": "t8y2/dbx",
+    "desc": "20 MB lightweight cross-platform database client for 70+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 70+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP Server。",
+    "language": "Rust",
     "topics": [
-      "agent",
       "ai",
-      "anthropic",
-      "claude-code",
-      "compression",
-      "context-engineering"
+      "cli",
+      "clickhouse",
+      "database",
+      "database-client",
+      "database-management"
     ],
-    "stars": 62700,
-    "url": "https://github.com/headroomlabs-ai/headroom",
+    "stars": 11944,
+    "url": "https://github.com/t8y2/dbx",
     "stale_zh": null
   },
   {
-    "full_name": "harry0703/MoneyPrinterTurbo",
-    "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workflow.",
+    "full_name": "ZhuLinsen/daily_stock_analysis",
+    "desc": "LLM 驱动的多市场股票智能分析系统：多源行情、实时新闻、决策看板与自动推送，支持零成本定时运行。  LLM-powered multi-market stock analysis system with multi-source market data, real-time news, decision dashboard, automated notifications, and cost-free scheduled runs.",
     "language": "Python",
     "topics": [
-      "ai-video-generator",
-      "content-creation",
-      "ffmpeg",
-      "instagram-reels",
+      "a-stock",
+      "ai-agent",
+      "aigc",
       "llm",
-      "python"
+      "quant",
+      "quantitative-finance"
     ],
-    "stars": 99500,
-    "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+    "stars": 59234,
+    "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
+    "stale_zh": null
+  },
+  {
+    "full_name": "msitarzewski/agency-agents",
+    "desc": "A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.",
+    "language": "Shell",
+    "topics": [],
+    "stars": 137064,
+    "url": "https://github.com/msitarzewski/agency-agents",
     "stale_zh": null
   },
   {
@@ -378,8 +346,33 @@
       "cli",
       "command-line-tool"
     ],
-    "stars": 73433,
+    "stars": 73498,
     "url": "https://github.com/rtk-ai/rtk",
+    "stale_zh": null
+  },
+  {
+    "full_name": "headroomlabs-ai/headroom",
+    "desc": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "ai",
+      "anthropic",
+      "claude-code",
+      "compression",
+      "context-engineering"
+    ],
+    "stars": 62757,
+    "url": "https://github.com/headroomlabs-ai/headroom",
+    "stale_zh": null
+  },
+  {
+    "full_name": "unclecode/crawl4ai",
+    "desc": "🚀🤖 Crawl4AI: Open-source LLM Friendly Web Crawler & Scraper. Don't be shy, join here: https://discord.gg/jP8KfhDhyN",
+    "language": "Python",
+    "topics": [],
+    "stars": 75261,
+    "url": "https://github.com/unclecode/crawl4ai",
     "stale_zh": null
   }
 ]
