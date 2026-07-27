@@ -1553,6 +1553,36 @@ acase("deadrefs：第一段不是 repo 頂層的東西就不管它"
 acase("deadrefs：路徑也試著相對於「寫它的那個檔案」解析一次"
       "（scripts/*.py 裡寫 lib/sources.py 是對的，不是斷鏈）",
       _dr.resolves(_REPO, "scripts/pulse-probe.py", "lib/sources.py"), True)
+
+# 判準 5：還沒動工的提案。加這條之前，提案得把它要造的檔案寫成不是路徑的樣子才能
+# 讓 CI 綠——2026-07-27 一份提案 11 處這樣寫，讓 selftest 常紅、mutate.py 拒跑、
+# **每個動到 scripts/ 的 PR 都合不進去**，整個變異安全網停擺一天。
+# 假路徑一樣要用拼的（理由見下面那條的註解——寫成字面值，掃描器會在 selftest.py
+# 自己身上抓到它，「repo 裡沒有死引用」那條就永遠紅）。第一版就踩了，當場紅一條。
+_dr_open = ("---\ntitle: T\nstatus: proposal\n---\n\n見 _config"
+            + "/no-such-proposal-file.yaml。\n")
+acase("deadrefs：docs/design/ 下還開著的提案，指到不存在的檔案不算斷鏈"
+      "（那是它要造的東西，不是它引用的）",
+      _dr.is_open_proposal("docs/design/x.md", _dr_open), True)
+acase("deadrefs：豁免綁在 status 上所以**會過期**——提案落地後改掉 status，"
+      "檢查就回來（永不過期的豁免等於把整個目錄從檢查裡拿掉，而白名單腐爛"
+      "正是這個模組開頭在避免的事）",
+      _dr.is_open_proposal("docs/design/x.md",
+                           _dr_open.replace("status: proposal", "status: accepted")),
+      False)
+acase("deadrefs：同樣的內容放在 docs/design/ 以外不豁免（反方向，確認上面兩條"
+      "不是恆真）",
+      [_dr.is_open_proposal("references/x.md", _dr_open),
+       _dr.is_open_proposal("scripts/x.py", _dr_open)], [False, False])
+acase("deadrefs：docs/design/ 下沒有 status 欄的檔案不豁免"
+      "（沒宣告自己是提案的東西，不能默默拿到提案的待遇）",
+      _dr.is_open_proposal("docs/design/x.md",
+                           "# 沒有 frontmatter\n見 _config" + "/no-such.yaml。"),
+      False)
+acase("deadrefs：豁免真的接在 dead() 上，不是只有那個判斷函式存在"
+      "（判準對了但沒接線，等於沒判）",
+      [(f, p) for f, p in _dr.dead(_REPO)
+       if f.startswith("docs/design/")], [])
 # 這個假路徑刻意用拼的，不寫成一整個字面值：寫成字面值，掃描器會在 selftest.py
 # 自己身上抓到它，上面那條「repo 裡沒有死引用」就永遠是紅的。把 selftest.py 排除
 # 掉也能解決，但那等於在檢查上開一個沒有底的洞——測試檔裡的真斷鏈也一起看不到了。

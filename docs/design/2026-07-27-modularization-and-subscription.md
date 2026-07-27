@@ -13,14 +13,6 @@ red_lines_touched: [runtime 0 LLM (#1), 隱私邊界 (#6), docs-first (#9)]
 > 本文件是**設計提案**，尚未動任何程式碼。依 repo 紅線 #9（docs-first），
 > 這份文件就是「先改對應 docs、再改碼」的那份 docs。拍板後應拆進 `references/`
 > 與各 `_config/*.yaml` 的檔頭規格，再進實作。
->
-> **寫提案時的格式約定**（2026-07-27 補）：**還不存在的檔案不要寫成完整路徑。**
-> 寫「在 `_config/` 下新增 tracks.yaml」，不要寫成一整條路徑。`lib/deadrefs.py`
-> 認的是**路徑長相**，不是「有沒有在講一個檔案」——一個提案要造的檔案寫成路徑，
-> 就會被判成斷鏈；而 selftest 一紅，`mutate.py` 整支拒跑（它要求乾淨的基線），
-> 連帶**每個動到 `scripts/` 的 PR 都合不進去**。本文件原本有 11 處這樣寫，
-> 整個變異安全網因此停擺了一天。這是「治標」的修法：判準沒有改，所以下一份提案
-> 還是會撞到同一面牆——真正的解法（給 `docs/design/` 一條結構性判準）留給那一天。
 
 ---
 
@@ -70,12 +62,12 @@ red_lines_touched: [runtime 0 LLM (#1), 隱私邊界 (#6), docs-first (#9)]
 現況加一個公司／產品＝在 `entities.yaml` 加一條，`probe` 的 `build_matcher()` 自動吃。
 要補的只有三件低成本護欄：
 
-1. **schema 驗證**：在 `scripts/lib/` 下加 config_schema.py，在 probe/render 啟動時驗
+1. **schema 驗證**：加 `scripts/lib/config_schema.py`，在 probe/render 啟動時驗
    `entities.yaml` 必填欄位（identifier / term / status）。目的是把「打錯字→靜默不命中」
    變成「啟動即報錯」。呼應你 sources.yaml 檔頭已經在擔心的「靜默丟棄是最危險的失敗模式」。
 2. **分檔**：實體超過某量級後，`entities.yaml` → `entities/` 目錄按 track 或類型分檔，
    loader 合併。現在還不急（26KB 還讀得動），但 loader 先寫成「掃目錄合併」就不必回頭改。
-3. **「怎麼加一個對象」寫成 `references/` 下的 adding-an-entity.md**：一頁 checklist，
+3. **「怎麼加一個對象」寫成 `references/adding-an-entity.md`**：一頁 checklist，
    讓未來的你（或協作者）不必重讀程式碼。
 
 > 判斷：軸 A 現在只做 (1) schema 驗證即可，(2)(3) 等實體破百再說。
@@ -91,7 +83,7 @@ red_lines_touched: [runtime 0 LLM (#1), 隱私邊界 (#6), docs-first (#9)]
 - `ADAPTERS` 保持在碼裡（adapter 是邏輯，本來就該是碼），但**讓 `sources.yaml` 的
   `type:` 欄位是唯一決定用哪個 adapter 的地方**（現在已接近如此，確認 registry 查找
   完全由 `type` 驅動、沒有 if-else 硬判）。
-- 新增 adapter 的流程寫成 `references/` 下的 adding-a-source-adapter.md：
+- 新增 adapter 的流程寫成 `references/adding-a-source-adapter.md`：
   「寫一個 `adapt_xxx(source, body) -> list[dict]` → 在 `ADAPTERS` 註冊 → sources.yaml 用 `type: xxx`」。
 
 > 判斷：B1 幾乎免動，補一份 adapter 契約說明即可。
@@ -100,10 +92,10 @@ red_lines_touched: [runtime 0 LLM (#1), 隱私邊界 (#6), docs-first (#9)]
 
 `TRACKS` 寫死兩份（render 帶顏色、narrative-prep 帶 slug/name），加一條主線要改兩個檔、
 還要記得顏色。建議：
-- 在 `_config/` 下新增 **tracks.yaml** 作為主線的單一真相源：
+- 新增 **`_config/tracks.yaml`** 作為主線的單一真相源：
 
   ```yaml
-  # tracks.yaml（_config 下）— 主線（track）單一真相源。加/改/刪主線只動這裡。
+  # _config/tracks.yaml — 主線（track）單一真相源。加/改/刪主線只動這裡。
   version: 1
   tracks:
     - slug: model-research
@@ -156,10 +148,10 @@ OUTPUTS = [
 （「0 LLM 判斷 · 去 AI 口吻」）都寫死在 render。要讓同一套引擎去追「半導體」「生技」「某產業」，
 需要把**領域身份**抽出來：
 
-- 在 `_config/` 下新增 **profile.yaml**（領域檔頭）：
+- 新增 **`_config/profile.yaml`**（領域檔頭）：
 
   ```yaml
-  # profile.yaml（_config 下）— 這個 vault 追的是哪個領域。換領域＝換這個檔 + tracks/entities/sources。
+  # _config/profile.yaml — 這個 vault 追的是哪個領域。換領域＝換這個檔 + tracks/entities/sources。
   domain:
     id: ai
     brand: "AI Pulse"
@@ -185,10 +177,10 @@ OUTPUTS = [
 
 要補的是**把每個 stage 的 artifact 契約寫下來**，這樣換掉／插入 stage 才安全：
 
-- 在 `_config/` 下新增 **pipeline.yaml**（stage manifest，也是給 workflow 讀的單一清單）：
+- 新增 **`_config/pipeline.yaml`**（stage manifest，也是給 workflow 讀的單一清單）：
 
   ```yaml
-  # pipeline.yaml（_config 下）— 夜間鏈的步驟與契約。加/換 stage 動這裡 + workflow 讀這裡。
+  # _config/pipeline.yaml — 夜間鏈的步驟與契約。加/換 stage 動這裡 + workflow 讀這裡。
   version: 1
   stages:
     - id: probe     ; cmd: scripts/pulse-probe.py     ; reads: [_config/sources.yaml]        ; writes: [_probe/<day>/]
@@ -338,8 +330,8 @@ serverless + 名單合規 + 寄信信譽（SPF/DKIM/DMARC）的維運債，違�
 | Phase | 內容 | 動作 | 驗證 | 回滾 |
 |---|---|---|---|---|
 | **0. docs-first** | 本文件轉正 | 把 §2/§3 決議拆進 `references/` 與各 yaml 檔頭 | 人為 review 本文件 | 刪 docs |
-| **1. tracks.yaml（軸 B2）** | 消滅 `TRACKS` 雙寫 | 在 `_config/` 下建 tracks.yaml；render/narrative-prep 改讀；「六大」動態化 | render 產出與現況 diff 為 0（純重構）；跑 `selftest.py` | 還原兩份 `TRACKS` |
-| **2. profile.yaml（軸 C）** | 抽領域字串 | 在 `_config/` 下建 profile.yaml；render 領域字串改讀 | 產出 diff 僅品牌字串來源改變、內容不變 | 還原字面字串 |
+| **1. tracks.yaml（軸 B2）** | 消滅 `TRACKS` 雙寫 | 建 `_config/tracks.yaml`；render/narrative-prep 改讀；「六大」動態化 | render 產出與現況 diff 為 0（純重構）；跑 `selftest.py` | 還原兩份 `TRACKS` |
+| **2. profile.yaml（軸 C）** | 抽領域字串 | 建 `_config/profile.yaml`；render 領域字串改讀 | 產出 diff 僅品牌字串來源改變、內容不變 | 還原字面字串 |
 | **3. OUTPUTS registry（軸 B3）** | render 輸出可註冊 | main() 改 `OUTPUTS` 清單 | 既有頁面位元組不變（reference 比對） | 還原 main() |
 | **4. feed.xml（Phase A）** | 確定性 Atom feed | `build_atom_feed()` + 每 track feed；頁面加訂閱區 | feed 過 W3C Feed Validator；連結可解析 | 移除 Output 一行 |
 | **5. schema 驗證（軸 A）** | config 啟動即驗 | `lib/config_schema.py`；probe/render 啟動呼叫 | 故意打錯 entities.yaml → 應啟動即報錯 | 停用驗證呼叫 |

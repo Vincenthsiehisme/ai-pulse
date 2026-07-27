@@ -861,3 +861,21 @@ mutations:
     replace: "    items.sort(key=lambda x: (0,"
     survives: false
     why: ""
+
+  # ── deadrefs 判準 5：還沒動工的提案 ──
+
+  - id: M97
+    title: "提案豁免不再綁 status（永不過期的豁免＝把整個 docs/design/ 從檢查裡拿掉，而白名單腐爛正是這個模組在避免的事）"
+    file: lib/deadrefs.py
+    find: "    return bool(m) and m.group(1).strip().lower() in PROPOSAL_STATUSES"
+    replace: "    return True"
+    survives: false
+    why: ""
+
+  - id: M98
+    title: "提案豁免不看目錄（任何檔案只要有 status: proposal 就能關掉自己的斷鏈檢查）"
+    file: lib/deadrefs.py
+    find: "    if not referrer.startswith(PROPOSAL_DIRS):"
+    replace: "    if False:"
+    survives: false
+    why: ""

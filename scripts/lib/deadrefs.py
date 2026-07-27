@@ -16,7 +16,7 @@ references/ 底下，而那個檔案一直都在 scripts/。沒有人會踩到�
 而不是一份逐條的白名單。白名單會腐爛——它一開始擋掉七個誤報，半年後擋掉的是三個真
 的斷鏈加四個已經不存在的誤報，而沒有人會發現。
 
-判準（四條，全部是結構性的）
+判準（五條，全部是結構性的）
 --------------------------
 1. **第一段必須是 repo 頂層真的有的東西**，否則那個字串根本不是在指本 repo：
    `openai.com/robots.txt` 是網址、`assets/app.css` 是 `dist/` 底下的相對連結、
@@ -26,6 +26,11 @@ references/ 底下，而那個檔案一直都在 scripts/。沒有人會踩到�
 3. **產物目錄不算**：`_probe/`、`Events/`、`dist/` 底下的檔案存不存在取決於「跑過
    沒有」，乾淨的 clone 裡本來就沒有。
 4. **單字母檔名是佔位示例**：`scripts/x.py`、`Actors/a.md` 這種是在講格式長怎樣。
+5. **還沒動工的提案不算引用**：`docs/design/` 下 `status` 還是 proposal / review /
+   draft 的文件，指的是它**要造的東西**。豁免綁在 status 上所以**會過期**——
+   提案落地後改掉 status，檢查就回來了。（2026-07-27 加。加之前那些提案得把路徑
+   寫成不是路徑的樣子才能讓 CI 綠，而一份提案 11 處這樣寫就讓整個變異安全網
+   停擺了一天。）
 
 不保證什麼
 ----------
@@ -34,6 +39,8 @@ references/ 底下，而那個檔案一直都在 scripts/。沒有人會踩到�
 - 判準 1 的代價：**整個頂層目錄被刪掉的時候，指向它的引用會安靜地不被檢查**。
   換句話說這條檢查抓得到「檔案搬走了」，抓不到「整個目錄沒了」。
 - 只查存不存在，不查內容對不對。指向一個存在但講別件事的檔案，這裡是綠的。
+- 判準 5 的代價：**提案還開著的期間，它裡面指向既有檔案的路徑打錯也不會被抓到。**
+  這是為了「提案不必為了過 CI 而扭曲寫法」換來的，不是忘了。
 """
 from __future__ import annotations
 
@@ -49,6 +56,16 @@ _PATH_RE = re.compile(
 # 判準 3：產物目錄。
 ARTIFACT_DIRS = ("_probe/", "_github/", "_corpus/", "_evidence_raw/", "dist/",
                  "Events/", "Sources/", "Tracks/", "Actors/", "_dashboards/")
+
+# 判準 5：還沒動工的提案。放在這個目錄、而且 frontmatter 的 `status` 還在下面那個
+# 集合裡的文件，指向不存在的檔案不算斷鏈——那是它**要造的東西**，不是它引用的。
+PROPOSAL_DIRS = ("docs/design/",)
+#: 豁免只在這幾個狀態下成立。**這是刻意讓豁免會過期的機制**：提案落地之後把
+#: status 改掉，檢查立刻回來，那時候還指不到的路徑就是真的斷鏈。一個永不過期的
+#: 豁免等於把整個目錄從檢查裡拿掉，而「白名單會腐爛」正是本檔開頭在避免的事。
+PROPOSAL_STATUSES = frozenset({"proposal", "review", "draft"})
+
+_STATUS_RE = re.compile(r"^status:\s*([A-Za-z_-]+)\s*$", re.M)
 
 SCAN_EXT = (".md", ".py", ".yaml", ".yml")
 
@@ -77,6 +94,24 @@ def is_artifact(path):
 def is_placeholder(path):
     """判準 4：單字母檔名（`scripts/x.py`）是在示範格式，不是引用。"""
     return len(os.path.splitext(os.path.basename(path))[0]) <= 1
+
+
+def is_open_proposal(referrer, text):
+    """判準 5：這個檔案是**還沒動工的提案**嗎。
+
+    設計提案照定義就會寫滿它要造的檔案。把那些判成斷鏈，會逼提案作者為了讓
+    CI 綠而把路徑寫成不是路徑的樣子——2026-07-27 就發生過：一份提案的 11 處
+    寫法讓 selftest 常紅，而 `mutate.py` 要求乾淨基線才肯跑，結果**每個動到
+    `scripts/` 的 PR 都合不進去**，整個變異安全網停擺一天，沒有任何東西指出成因。
+
+    豁免綁在 `status` 上而不是只綁目錄，是為了讓它**會過期**：提案落地後把
+    status 改掉，檢查立刻回來。代價寫清楚——**提案還開著的期間，它裡面指向
+    既有檔案的路徑打錯也不會被抓到**。這是換來的，不是忘了。
+    """
+    if not referrer.startswith(PROPOSAL_DIRS):
+        return False
+    m = _STATUS_RE.search(text)
+    return bool(m) and m.group(1).strip().lower() in PROPOSAL_STATUSES
 
 
 def resolves(root, referrer, path):
@@ -119,6 +154,8 @@ def dead(root, files=None):
         try:
             text = open(os.path.join(root, rel), encoding="utf-8").read()
         except (OSError, UnicodeDecodeError):
+            continue
+        if is_open_proposal(rel, text):
             continue
         for p in extract(text):
             if is_artifact(p) or is_placeholder(p):
