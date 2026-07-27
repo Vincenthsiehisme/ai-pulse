@@ -358,10 +358,10 @@ mutations:
   # ── 證據記錄：判斷用的欄位活不活得過 round-trip（references/evidence-tiers.md）──
 
   - id: M39
-    title: "白名單掉回舊三欄（title / published 寫不進 frontmatter，重讀就沒了）"
+    title: "白名單掉一欄（suspected_repost 寫不進 frontmatter，人看不到被扣過）"
     file: pulse-cluster.py
-    find: "_EVIDENCE_FIELDS = (\"source_id\", \"url\", \"title\", \"relevance\", \"published\")"
-    replace: "_EVIDENCE_FIELDS = (\"source_id\", \"url\", \"relevance\")"
+    find: "                    \"suspected_repost\")"
+    replace: "                    )"
     survives: false
     why: ""
 
@@ -386,5 +386,47 @@ mutations:
     file: pulse-cluster.py
     find: "        ev.add_evidence(sig[\"source_id\"], sig.get(\"url\", \"\"), title, rel, published)"
     replace: "        ev.add_evidence(sig[\"source_id\"], sig.get(\"url\", \"\"), title, rel)"
+    survives: false
+    why: ""
+
+  # ── 轉載鏈：一篇改寫不是第二個聲音（references/evidence-tiers.md）──
+
+  - id: M43
+    title: "enabled 不讀（設定檔關掉了，規則照跑）"
+    file: lib/cluster.py
+    find: "    if not cfg.get(\"enabled\"):"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M44
+    title: "語言那一關拿掉（兩家英文媒體各自報導被判成互相轉載，獨立性反向做假）"
+    file: lib/cluster.py
+    find: "            if not la or not lb or la == lb:"
+    replace: "            if False:"
+    survives: false
+    why: ""
+
+  - id: M45
+    title: "時間窗不比（window_hours 變裝飾，隔一個月的改寫照樣算轉載）"
+    file: lib/cluster.py
+    find: "            if abs((pa - pb).total_seconds()) / 3600.0 > window:"
+    replace: "            if False:"
+    survives: false
+    why: ""
+
+  - id: M46
+    title: "重疊門檻不比（entity_overlap_min 變裝飾，命中一個共同實體就算同一篇）"
+    file: lib/cluster.py
+    find: "            if not union or len(ea & eb) / union < min_overlap:"
+    replace: "            if not union:"
+    survives: false
+    why: ""
+
+  - id: M47
+    title: "excluded_from 不讀（清單改了沒效果——這正是這條規則要修的那種假旋鈕）"
+    file: pulse-cluster.py
+    find: "        if not (idx in reposts and \"independent_sources\" in excluded):"
+    replace: "        if idx not in reposts:"
     survives: false
     why: ""

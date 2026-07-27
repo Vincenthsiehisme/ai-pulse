@@ -51,6 +51,8 @@ import yaml
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
+from lib.entities import (ENTITY_SECTIONS, build_matcher,  # noqa: E402,F401
+                          match_entities, normalize_text)   # 見 lib/entities.py
 
 UA = "ai-pulse-probe/1.0 (+deterministic; contact via repo)"
 MAX_BODY = 5 * 1024 * 1024
@@ -360,54 +362,10 @@ def robots_allows(url: str) -> bool | None:
 
 
 # ------------------------------------------------------------------- entities
-
-def normalize_text(s: str) -> str:
-    """大小寫、全半形、空白。簡繁**不在**這裡處理，見 report 的已知缺口。"""
-    s = unicodedata.normalize("NFKC", s)
-    s = re.sub(r"[\u200b-\u200f\ufeff]", "", s)
-    return re.sub(r"\s+", " ", s).strip().lower()
-
-
-ENTITY_SECTIONS = ("companies", "product_lines", "infrastructure",
-                   "frameworks", "technologies", "policies")
-
-
-def build_matcher(entities: dict) -> list[tuple[str, str, str]]:
-    """→ [(比對用字串, entity_id, term_type)]，長字串優先避免子字串誤配。"""
-    table: list[tuple[str, str, str]] = []
-    for sec in ENTITY_SECTIONS:
-        for item in entities.get(sec) or []:
-            terms = [item["canonical"], *(item.get("aliases") or [])]
-            for t in terms:
-                n = normalize_text(str(t))
-                if n:
-                    table.append((n, item["id"], item["term_type"]))
-    table.sort(key=lambda x: len(x[0]), reverse=True)
-    return table
-
-
-def match_entities(text: str, table) -> tuple[list[tuple[str, str]], set[str]]:
-    """→ (命中的 [(entity_id, term_type)], 實際命中的表面字串集合)"""
-    n = normalize_text(text)
-    hits, spans, surfaces = [], [], set()
-    for term, eid, ttype in table:
-        start = n.find(term)
-        if start < 0:
-            continue
-        end = start + len(term)
-        if any(s < end and start < e for s, e in spans):
-            continue  # 已被更長的詞覆蓋
-        # 純 ASCII 詞要求邊界，避免 "ray" 命中 "array"
-        if term.isascii():
-            before = n[start - 1] if start else " "
-            after = n[end] if end < len(n) else " "
-            if before.isalnum() or after.isalnum():
-                continue
-        spans.append((start, end))
-        surfaces.add(term)
-        hits.append((eid, ttype))
-    return hits, surfaces
-
+# 比對層搬到 lib/entities.py：2026-07-27 起 pulse-cluster.py 也要問「這個標題
+# 命中哪些實體」（轉載鏈判定）。抄一份過去會得到兩份對「什麼算命中」看法可能
+# 不同的碼，而且分岔的那天不會有任何東西變紅。理由寫在該檔開頭。
+# 名字保留在本模組命名空間，呼叫端與測試不必改。
 
 # ------------------------------------------------- candidate harvest (更新機制)
 
