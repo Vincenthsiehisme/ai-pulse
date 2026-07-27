@@ -3,7 +3,7 @@ title: 關聯拓撲與收錄範圍擴張計畫 v1.0 — 審查與待決清單
 status: review
 author: 設計協作（Cowork）
 date: 2026-07-27
-review_cycle: 一次性審查，拍板後轉為 references/topology.md 的 Sprint 0 輸入
+review_cycle: 一次性審查，拍板後轉為 references/ 下 topology 規格檔的 Sprint 0 輸入
 supersedes: —
 reviews: 〈AI-Pulse 關聯拓撲與收錄範圍擴張計畫 v1.0〉（外部文件，未進 repo）
 red_lines_touched: [hot loop 0 LLM (#1), 合規抓取 (#7), 對自己誠實 (#8), docs-first (#9)]
@@ -12,7 +12,7 @@ red_lines_touched: [hot loop 0 LLM (#1), 合規抓取 (#7), 對自己誠實 (#8)
 # 關聯拓撲與收錄範圍擴張計畫 v1.0 — 審查與待決清單
 
 > 這份是**審查產物**，不是規格。計畫本身的架構原則沒有異議；以下八條是
-> **照 v1.0 原樣做下去會壞**的地方，建議在 PR1 寫 `references/topology.md`
+> **照 v1.0 原樣做下去會壞**的地方，建議在 PR1 寫 topology 規格檔（`references/` 下，尚未建立）
 > 之前拍板。最後一節是查過、不成立的懷疑（含審查過程中自己講錯的話），
 > 留著是為了讓下一個人不必重查。
 >
@@ -63,7 +63,7 @@ red_lines_touched: [hot loop 0 LLM (#1), 合規抓取 (#7), 對自己誠實 (#8)
 失效形態寫死了：抄一份的失敗形態這個 repo 已經量過三次，兩邊在門檻沒動過的日子裡
 給一樣的答案，正好在有人調了其中一邊的那天分岔，**而不會有任何東西變紅**。
 
-**拍板內容**：在 `references/topology.md` 加一節「判準歸屬表」，逐個 Gap type 寫明
+**拍板內容**：在那份 topology 規格檔裡加一節「判準歸屬表」，逐個 Gap type 寫明
 擁有者。建議 `dict_gap` 留在 `dictgaps.py`、`no_source` / `silent` 留在 `monitor`，
 topology 只**讀輸出**組成 Gap Graph、不重推。這一條會砍掉計畫大約三分之一的實作量，
 而且符合 §3.4 的精神——只是把「設定檔單一真相源」延伸成**判準單一實作源**。

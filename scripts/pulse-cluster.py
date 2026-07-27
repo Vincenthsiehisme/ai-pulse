@@ -25,12 +25,36 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import cluster, entities as entities_lib, scoring  # noqa: E402
+from lib import coverage as coverage_lib  # noqa: E402  observed/backfilled 判準單一真相源
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.notes import PLACEHOLDER  # noqa: E402  單一來源，見 lib/notes.py
 from lib.quality import authority_score_from_tier, parse_dt  # noqa: E402
 from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 
 import yaml  # noqa: E402
+
+
+def load_first_fetch(probe):
+    """`_probe/state.json` → `{source_id: first_fetch_at}`。缺檔或壞檔回空 dict。
+
+    這是**既有真相源**：`pulse-probe` 寫、`pulse-monitor` 的
+    `silent_pending_clock` 讀（`fix/coverage-uses-own-clock` 就是把沉默判準改成
+    吃這一格）。這裡是第三個消費者，讀同一份，不另存一份。
+
+    讀不到就回空 dict，而空 dict 會讓每一則判成 `unknown`——不是 `observed`。
+    設定檔壞掉的時候規則要變嚴，不是變鬆（跟 `lib/dictgaps.thresholds()` 同一條）。
+    """
+    p = probe / "state.json"
+    if not p.exists():
+        return {}
+    try:
+        st = json.loads(p.read_text("utf-8"))
+    except (json.JSONDecodeError, OSError, UnicodeDecodeError):
+        return {}
+    if not isinstance(st, dict):
+        return {}
+    return {k: (v or {}).get("first_fetch_at")
+            for k, v in st.items() if isinstance(v, dict)}
 
 
 def load_sources(cfg):
@@ -140,6 +164,11 @@ class Event:
         # fix/backfill-flag-erased-by-second-run 修的坑，這裡是第三個踩到它的欄位。
         self.title_zh = None
         self.title_zh_src = None
+        # 事情發生時我們看不看得到（observed / backfilled / unknown）。
+        # 跟上面那批 sticky 欄位**相反**：這一格每班從 _probe/state.json 重算，
+        # reload 時刻意不從 frontmatter 讀回來——寫死之後，來源的 first_fetch_at
+        # 修正了它也不會跟著改。判準見 lib/coverage.py。
+        self.coverage = coverage_lib.UNKNOWN
 
     def add_evidence(self, source_id, url, title, relevance, published=None):
         """新增一條證據。`title` 與 `published` 是**判斷用的欄位，不是展示用的**。
@@ -229,7 +258,31 @@ def mark_reposts(ev, sources, tc_cfg, ent_table):
     return flagged
 
 
-def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None):
+def apply_coverage(ev, first_fetch):
+    """算這則的 `coverage` 並在**跟檔案上寫的不一樣時標髒**。→ 有沒有變。
+
+    兩件事綁在一起是刻意的。`coverage` 每班重算（不是 sticky），但重算完沒有人
+    重寫檔案的話，這一格只會長在「這一班剛好有新證據進來」的那些 Event 上。
+    第一次實作就踩了這個坑：跑完一班，52 則 Event 一則都沒拿到這一格，而輸出
+    寫著「events changed=0」看起來完全正常——**規格說有、實作沒有**，正是這個
+    repo 一直在抓的形態。
+
+    讀 frontmatter 的舊值只為了**比對**，不是拿它當值用。反過來（沒變也標髒）
+    的代價同樣具體：每班重寫全部 Event，git 每天長一次無意義的 diff，
+    而真正的改動會被埋在裡面。
+    """
+    ev.coverage = coverage_lib.coverage_of(ev.happened_at, ev.evidence, first_fetch)
+    # 回傳的是「**跟磁碟上不一樣**」，不是「跟記憶體裡的預設值不一樣」。
+    # 後者聽起來一樣、但每一則都會回 True——reload 不從 frontmatter 讀這一格，
+    # 所以記憶體裡永遠是 UNKNOWN 起跳。第一版就是這樣，摘要行印「52 有變」
+    # 而實際寫檔 0 筆：一個跟現實不符的計數比沒有計數更糟。
+    if (ev.fm or {}).get("coverage") != ev.coverage:
+        ev.dirty = True
+        return True
+    return False
+
+
+def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None, first_fetch=None):
     reposts = mark_reposts(ev, sources, tc_cfg, ent_table)
     # gate.yaml 的 excluded_from 真的被讀：把它寫成一個「改了也沒效果」的清單，
     # 就是這個 repo 一直在抓的假旋鈕。清單裡的 heat 今天是**由 independent_sources
@@ -268,6 +321,10 @@ def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None):
     # 印出來給人看：0 也要印。一個只在有東西時才出現的數字，看不見的時候
     # 有兩種意思（沒有轉載／這條規則沒跑）——那是這個 repo 一直在抓的形態。
     ev.scores["suspected_reposts"] = len(reposts)
+    # 事情發生時我們看不看得到。每班重算，不是 sticky。
+    # first_fetch 沒傳進來時判準回 unknown，不是 observed——預設值倒向誠實
+    # 那一邊（紅線 8）。規格見 references/event-timestamps.md〈第三個現場〉。
+    apply_coverage(ev, first_fetch)
 
 
 def event_markdown(ev):
@@ -292,6 +349,10 @@ def event_markdown(ev):
         # 監控佇列年紀只能看這個。拿 happened_at 去量「我們放了多久」，
         # 等於新增一條會補歷史的來源就讓 CI 立刻紅——2026-07-26 就是這樣紅的。
         "ingested_at": ev.ingested_at,
+        # 事情發生時我們看不看得到：observed / backfilled / unknown。
+        # 上面兩格是「什麼時候」，這一格是「當時我們在不在場」——少了它，
+        # 一則 backfilled 的舊事件在時間軸上跟真的追到的長得一模一樣。
+        "coverage": ev.coverage,
         "status": "review",
         "category": None,          # enrich 填
         "company": ev.company,
@@ -366,6 +427,8 @@ def main():
 
     sources = load_sources(cfg)
     entities = load_entities(cfg)
+    # 每條來源自己的觀測起點。讀不到 → 每則判 unknown（見 load_first_fetch）。
+    first_fetch = load_first_fetch(probe)
     # 轉載鏈判定要的兩樣東西：gate.yaml 的門檻，與命名實體字典的比對表。
     # 字典讀原始 yaml 不讀 load_entities()——後者是給 infer_company 用的縮減版，
     # 沒有 aliases，而 aliases 正是這條規則能跨語言的原因。
@@ -444,16 +507,24 @@ def main():
         rel = int(round(cluster.title_similarity(title, ev.title) * 100))
         ev.add_evidence(sig["source_id"], sig.get("url", ""), title, rel, published)
 
+    # coverage 是每班重算的推導欄位，所以要在挑「哪些要重寫」**之前**算完。
+    # 只算 dirty 的那些，這一格永遠長不到「這一班沒有新證據」的 Event 上——
+    # 而那是絕大多數。見 apply_coverage() 的 docstring。
+    cov_touched = sum(1 for ev in events if apply_coverage(ev, first_fetch))
+
     # rescore 所有動到的 Event
     changed = [e for e in events if e.dirty]
     for ev in changed:
-        rescore(ev, sources, ref_now, tc_cfg, ent_table)
+        rescore(ev, sources, ref_now, tc_cfg, ent_table, first_fetch)
 
     # 摘要
     conf = [e.scores["confidence"] for e in changed if e.scores]
     print(f"pulse-cluster  day={day}  signals={len(signals)}")
     print(f"  created={created}  attached={attached}  deferred(eventability<70)={deferred}")
     print(f"  events changed={len(changed)}  (total in vault={len(events)})")
+    # 印出來給人看：0 也要印。一個只在有東西時才出現的數字，看不見的時候有兩種
+    # 意思（沒有變／這段沒跑），而這一格上線那天正好就是「沒跑」。
+    print(f"  coverage 跟磁碟上不一樣（要寫回）的: {cov_touched}")
     if conf:
         import statistics
         print(f"  confidence: min={min(conf)} median={int(statistics.median(conf))} max={max(conf)}")
@@ -488,6 +559,11 @@ def rescored_enriched_markdown(ev):
     fm["value"] = s["value"]
     fm["score_factors"] = s["factors"]
     fm["evidence"] = evidence_frontmatter(ev.evidence)
+    # coverage 每班重算，所以已潤稿的那條路也要更新——這裡漏掉的話，
+    # 這一格只會出現在**沒潤過稿**的 Event 上，而且 apply_coverage 每班都會
+    # 判定「跟檔案上不一樣」→ 每班重寫全部 Event、每班寫的還是舊值。
+    # 實測就是這樣：52 則全被重寫，只有 1 則真的拿到這一格。
+    fm["coverage"] = ev.coverage
     front = yaml.safe_dump(fm, allow_unicode=True, sort_keys=False, default_flow_style=False).rstrip()
     body = ev.orig_body if ev.orig_body.startswith("\n") else "\n" + ev.orig_body
     return f"---\n{front}\n---{body}"
