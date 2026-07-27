@@ -1905,6 +1905,105 @@ acase("BACKLOG.md：〈現況〉那一段不再有手寫的量測表"
       "（留一張就夠了——會過期的正是那一張，不是旁邊的散文）",
       "| 量到什麼 | 值 |" in _backlog_status_head, False)
 
+# ── Tracks/ 與 Actors/：關聯圖的另外兩維（references/obsidian-schema.md）──
+from lib import tracks as _tk  # noqa: E402
+
+_en_spec = importlib.util.spec_from_file_location(
+    "pulse_entity_notes", os.path.join(_HERE, "pulse-entity-notes.py"))
+_en = importlib.util.module_from_spec(_en_spec)
+_en_spec.loader.exec_module(_en)
+
+acase("references/obsidian-schema.md 存在（這兩層的規格書，紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "obsidian-schema.md")),
+      True)
+acase("排程：entity notes 真的被排進 workflow，且不跟別頁共用同一個 run:",
+      [bool(_step_with("pulse-entity-notes.py")),
+       _step_with("pulse-entity-notes.py") == _step_with("pulse-dictionary-gaps.py")],
+      [True, False])
+acase("排程：entity notes 也排在 Source health 之後、Commit 之前",
+      (max(_step_with("pulse-source-health.py"))
+       < min(_step_with("pulse-entity-notes.py"))
+       < min(_step_with("git push"))), True)
+acase("Tracks/ 與 Actors/ 要在資料 commit 白名單裡"
+      "（不在的話，鏈每班寫出來、每班被 git add -A 之外的規矩擋掉，"
+      "或更糟：寫了但沒人知道該不該推）",
+      [d in _read_repo_file("AGENTS.md") and d in _read_repo_file("CONTRIBUTING.md")
+       for d in ("Tracks/", "Actors/")], [True, True])
+
+# 主線對照表只有一份：抄第二份的失敗形態這個 repo 量過四次。
+acase("主線對照表：六條線，slug / 顯示名 / 顏色都在 lib/tracks.py",
+      [len(_tk.TRACKS), len({s for s, _, _ in _tk.TRACKS}),
+       len({n for _, n, _ in _tk.TRACKS})], [6, 6, 6])
+acase("主線對照表：少一個空白的那種寫法要認得（庫裡真的有「Agent與軟體重構」）",
+      [_tk.canonical_name("Agent與軟體重構"), _tk.slug_of("Agent與軟體重構")],
+      ["Agent 與軟體重構", "agent-refactor"])
+acase("主線對照表：認不出來回 None，**不猜**"
+      "（猜一個最接近的，會把將來的新線靜靜併進舊線）",
+      [_tk.canonical_name("不存在的線"), _tk.slug_of(""), _tk.slug_of(None)],
+      [None, None, None])
+acase("主線對照表：renderer 與 narrative-prep 都改讀 lib/tracks.py，不各留一份"
+      "（兩份會在有人加一條線的那天分岔，而且不會有任何東西變紅）",
+      sorted(n for n in ("pulse-render.py", "pulse-narrative-prep.py")
+             if "tracks_lib" in open(os.path.join(_HERE, n), encoding="utf-8").read()),
+      ["pulse-narrative-prep.py", "pulse-render.py"])
+
+with tempfile.TemporaryDirectory() as _entd:
+    _env2 = Path(_entd)
+    (_env2 / "Events").mkdir()
+    (_env2 / "_config").mkdir()
+    (_env2 / "_config" / "entities.yaml").write_text(
+        "companies:\n  - id: openai\n    canonical: OpenAI\n    term_type: company\n"
+        "    aliases: [Open AI]\n  - id: meta\n    canonical: Meta\n"
+        "    term_type: company\n", encoding="utf-8")
+    (_env2 / "_config" / "narratives.yaml").write_text(
+        "tracks:\n  infra-cost:\n    thesis: 這條線的主軸\n"
+        "    now: 這段每夜重寫\n    next: 這段也是\n", encoding="utf-8")
+
+    def _mkev(i, company, track, status="published", date="2026-07-2%d"):
+        (_env2 / "Events" / f"evt-{i}.md").write_text(
+            f"---\nid: evt-{i}\ntitle: T{i}\ndate: '2026-07-2{i}'\n"
+            f"status: {status}\ncompany: {company}\ntrack: {track}\n---\n本文\n",
+            encoding="utf-8")
+
+    _mkev(1, "OpenAI", "基礎設施與成本")
+    _mkev(2, "vLLM", "Agent與軟體重構")          # 字典沒有這家 + 少空白的別名
+    _mkev(3, "industry", "不存在的線", "review")  # 泛稱兜底 + 認不出的主線
+    _pages = _en.plan(_env2, "2026-07-27")
+
+    acase("entity notes：六條主線各一頁，加一頁未歸類",
+          sorted(p for p in _pages if p.startswith("Tracks/")),
+          sorted([f"Tracks/{_en.safe_name(n)}.md" for n in _tk.NAMES]
+                 + ["Tracks/_未歸類.md"]))
+    acase("entity notes：Actor 名單是「字典 ∪ Event 出現過」的聯集"
+          "（只取字典＝字典缺口永遠看不見；只取 Event＝字典收了卻沒新聞的看不見）",
+          sorted(p for p in _pages if p.startswith("Actors/")),
+          ["Actors/Meta.md", "Actors/OpenAI.md", "Actors/vLLM.md"])
+    acase("entity notes：`industry` 不產 Actor 頁"
+          "（那是 infer_company 認不出實體時的泛稱兜底，不是一家公司）",
+          "Actors/industry.md" in _pages, False)
+    acase("entity notes：字典裡沒有的公司要在頁面上講出來，不是安靜地產一頁",
+          ["字典裡沒有這家公司" in _pages.get("Actors/vLLM.md", ""),
+           "字典裡沒有這家公司" in _pages.get("Actors/OpenAI.md", "")], [True, False])
+    acase("entity notes：字典收了卻一則事件都沒有 → 講清楚那不等於沒新聞",
+          "一則事件都沒有" in _pages.get("Actors/Meta.md", ""), True)
+    acase("entity notes：邊是「維度頁 → Event」，Event 檔一個字都沒動",
+          ["[[Events/evt-1" in _pages.get("Tracks/基礎設施與成本.md", ""),
+           (_env2 / "Events" / "evt-1.md").read_text("utf-8").count("[["), ],
+          [True, 0])
+    _left = _pages.get("Tracks/_未歸類.md", "")
+    acase("entity notes：認不出主線、沒有歸屬到公司的事件要列出來，不得靜靜丟掉"
+          "（少掉的那些如果沒地方列，「六條線加起來少於 Events 總數」沒人會發現）",
+          ["evt-3" in _left, "不存在的線" in _left, "industry" in _left],
+          [True, True, True])
+    acase("entity notes：thesis 抄進來、`now` / `next` 刻意不抄"
+          "（那兩段每夜重寫 → 六個檔每天一個沒有新資訊的 diff，"
+          "還會出現兩份可能不一致的同一段話。比對的是**值**不是欄位名——"
+          "比對欄位名的話，頁面上那句解釋自己就會讓測試通不過或恆通過）",
+          ["這條線的主軸" in _pages.get("Tracks/基礎設施與成本.md", ""),
+           "這段每夜重寫" in _pages.get("Tracks/基礎設施與成本.md", ""),
+           "這段也是" in _pages.get("Tracks/基礎設施與成本.md", "")],
+          [True, False, False])
+
 # ── 字典補漏：report_to 指的那個檔案以前不存在（references/vault-pages.md）──
 from lib import dictgaps as _dg  # noqa: E402
 

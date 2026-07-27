@@ -20,6 +20,7 @@
 
 ```
 _corpus/**  _probe/**  Events/**  Sources/**  _dashboards/**  dist/**
+Tracks/**   Actors/**    ← 2026-07-27 新增，pulse-entity-notes.py 的維度節點頁
 _config/sources.yaml     ← 只有兩個機器欄位，見下一段
 _config/narratives.yaml  ← 每夜 enrich 的主線敘事（now / next），見下一段
 ```

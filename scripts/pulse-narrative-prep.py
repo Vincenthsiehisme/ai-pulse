@@ -25,17 +25,17 @@ from lib.notes import parse_note  # noqa: E402
 
 import yaml  # noqa: E402
 
-TRACKS = [("model-research", "模型能力與研究"), ("agent-refactor", "Agent 與軟體重構"),
-          ("product-market", "產品與商業驗證"), ("infra-cost", "基礎設施與成本"),
-          ("capital-evolution", "資本與公司演化"), ("global-map", "全球創新版圖")]
-NAME2SLUG = {name: slug for slug, name in TRACKS}
-ALIAS = {"模型能力與研究": "模型能力與研究", "基礎設施與成本": "基礎設施與成本",
-         "產品與商業驗證": "產品與商業驗證", "資本與公司演化": "資本與公司演化",
-         "Agent與軟體重構": "Agent 與軟體重構", "全球創新版圖": "全球創新版圖"}
+from lib import tracks as tracks_lib  # noqa: E402  主線對照表單一真相源
+
+# 對照表搬到 lib/tracks.py（單一真相源）：這份表原本在本檔與 pulse-render.py
+# 各寫了一次，連那個少一個空白的別名修補都各寫一次。理由見該檔開頭。
+TRACKS = [(slug, name) for slug, name, _ in tracks_lib.TRACKS]
+NAME2SLUG = dict(tracks_lib.NAME2SLUG)
+ALIAS = dict(tracks_lib.ALIAS)
 
 
 def slug_of_track(track):
-    return NAME2SLUG.get(ALIAS.get((track or "").strip(), ""))
+    return tracks_lib.slug_of(track)
 
 
 def signature(slugs):
