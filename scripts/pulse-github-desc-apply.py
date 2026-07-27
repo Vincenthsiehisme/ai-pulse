@@ -32,40 +32,21 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib import ghdesc, voice_clean  # noqa: E402
+from lib import ghdesc, zhtext  # noqa: E402
 
 MAX_LEN = 60
 
-# 零容忍的 AI 腔套話。留短、留死——需要語境判斷的留給潤稿端，這裡只擋一看就知道
-# 是模型填充物的那幾句。擋詞表長了會開始誤傷真句子，那比漏擋糟。
-BANNED = [
-    "值得關注", "值得期待", "無限可能", "廣泛應用", "強大的功能", "一站式",
-    "賦能", "助力", "打造", "旨在", "隨著", "在當今", "備受矚目", "引領",
-]
-
-CJK = re.compile(r"[一-鿿]")
+# 判準（黑名單、CJK 檢查、後洗）搬到 lib/zhtext.py：2026-07-27 起 Event 標題也走
+# 同一套。抄第二份會在有人往黑名單加一個字的那天分岔，而且不會有任何東西變紅。
+# 上限留在這裡，因為它是**版面**決定的不是語言決定的——榜是一行字。
 
 
 def validate(full_name, raw, src_desc):
-    """→ (清理後的中文, 退件原因, 後洗紀錄)。過關時原因為 None。
-
-    voice_clean.clean 回的是 (文字, 改動清單)——改動清單要一路帶回去印出來，
-    後洗改了什麼不能只有機器自己知道。
-    """
-    zh, changes = voice_clean.clean(str(raw or "").strip())
-    zh = re.sub(r"\s+", " ", zh).strip().rstrip("。")
-    if not zh:
-        return "", "空白", changes
-    if not CJK.search(zh):
-        return zh, "沒有任何中文字（英文原樣貼回來不算翻譯）", changes
-    if len(zh) > MAX_LEN:
-        return zh, f"超過 {MAX_LEN} 字（榜是一行字的版面）", changes
-    hit = [w for w in BANNED if w in zh]
-    if hit:
-        return zh, f"含 AI 腔套話：{'、'.join(hit)}", changes
-    if src_desc is None:
-        return zh, "不在目前榜單上（榜換過了，下次 prep 會再排進來）", changes
-    return zh, None, changes
+    """→ (清理後的中文, 退件原因, 後洗紀錄)。過關時原因為 None。"""
+    return zhtext.validate(
+        raw, MAX_LEN, src_present=src_desc is not None,
+        len_note="（榜是一行字的版面）",
+        missing_note="不在目前榜單上（榜換過了，下次 prep 會再排進來）")
 
 
 def main():

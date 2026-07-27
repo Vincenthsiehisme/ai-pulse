@@ -1919,6 +1919,105 @@ acase("BACKLOG.md：〈現況〉那一段不再有手寫的量測表"
       "（留一張就夠了——會過期的正是那一張，不是旁邊的散文）",
       "| 量到什麼 | 值 |" in _backlog_status_head, False)
 
+# ── Event 標題中文化（references/obsidian-schema.md〈Event 的標題有兩個〉）──
+from lib import zhtext as _zt  # noqa: E402
+
+_tp_spec = importlib.util.spec_from_file_location(
+    "pulse_title_prep", os.path.join(_HERE, "pulse-title-prep.py"))
+_tp = importlib.util.module_from_spec(_tp_spec)
+_tp_spec.loader.exec_module(_tp)
+_ta_spec = importlib.util.spec_from_file_location(
+    "pulse_title_apply", os.path.join(_HERE, "pulse-title-apply.py"))
+_ta = importlib.util.module_from_spec(_ta_spec)
+_ta_spec.loader.exec_module(_ta)
+
+acase("references/obsidian-schema.md 有〈Event 的標題有兩個〉那一節（紅線 9）",
+      "Event 的標題有兩個" in _read_repo_file("references/obsidian-schema.md"), True)
+acase("排程：Event 標題待譯清單真的被排進 workflow，且自己一個 run:",
+      [bool(_step_with("pulse-title-prep.py")),
+       _step_with("pulse-title-prep.py") == _step_with("pulse-github-desc-prep.py")],
+      [True, False])
+
+# 驗章：判準只有一份，榜單描述與 Event 標題共用。
+acase("譯文驗章：原文變了譯文就失效（前台退回原文，不掛一句在講舊標題的中文）",
+      [_zt.valid_for({"zh": "中文", "src_hash": _zt.src_hash("A")}, "A"),
+       _zt.valid_for({"zh": "中文", "src_hash": _zt.src_hash("A")}, "B"),
+       _zt.valid_for({"zh": "", "src_hash": _zt.src_hash("A")}, "A"),
+       _zt.valid_for(None, "A")],
+      ["中文", None, None, None])
+from lib import ghdesc as _gd3  # noqa: E402
+acase("譯文驗章：ghdesc 的 src_hash 就是 zhtext 的那一支（不留第二份實作）",
+      _gd3.src_hash("abc") == _zt.src_hash("abc"), True)
+acase("譯文驗章：英文原樣貼回來不算翻譯、AI 腔套話退件、正常的放行",
+      [_zt.validate("This is english", 40)[1] is not None,
+       _zt.validate("這個專案賦能開發者", 40)[1] is not None,
+       _zt.validate("NVIDIA 發表新一代 GPU", 40)[1]],
+      [True, True, None])
+acase("譯文驗章：退件訊息可以由呼叫端補自己那一層的理由"
+      "（判準共用、解釋不共用——一句解釋不到位的退件訊息會讓人以為規則寫錯了）",
+      "標題要跟原文並排" in _zt.validate("中" * 50, 40, len_note="（標題要跟原文並排）")[1],
+      True)
+
+# prep：誰要翻是規則的事。
+_tp_rows = [
+    {"id": "e1", "title": "A"},                                        # 沒翻過
+    {"id": "e2", "title": "B", "title_zh": "乙", "title_zh_src": _zt.src_hash("B")},
+    {"id": "e3", "title": "C", "title_zh": "丙", "title_zh_src": _zt.src_hash("舊")},
+    {"id": "e4", "title": ""},                                         # 沒有標題
+]
+acase("標題待譯：沒翻過的、以及原文變了失效的要進清單；已經對得上的不進",
+      [t["id"] for t in _tp.pending(_tp_rows)], ["e1", "e3"])
+acase("標題待譯：原文變了那一條要標 stale_zh（那是重譯不是新增）",
+      [t["stale_zh"] for t in _tp.pending(_tp_rows)], [None, "丙"])
+
+with tempfile.TemporaryDirectory() as _ttd:
+    _tv = Path(_ttd)
+    _tw = _tv / "_probe"
+    _tw.mkdir()
+    (_tw / "title-zh-worklist.json").write_text('[{"id": "keep"}]', encoding="utf-8")
+    _t_argv, _t_env = sys.argv[:], os.environ.get("VAULT_DIR")
+    sys.argv = ["pulse-title-prep.py"]
+    os.environ["VAULT_DIR"] = str(_tv)
+    try:
+        _t_rc = _tp.main()                      # Events/ 不存在
+    finally:
+        sys.argv = _t_argv
+        if _t_env is not None:
+            os.environ["VAULT_DIR"] = _t_env
+    _t_kept = (_tw / "title-zh-worklist.json").read_text("utf-8")
+acase("標題待譯：Events/ 不在 → 回 2 且**不覆寫**既有清單"
+      "（跟 github-desc-prep 同一個坑：量不到寫成空清單，下游照著跳過）",
+      [_t_rc, _t_kept], [2, '[{"id": "keep"}]'])
+
+# apply：寫回 frontmatter，body 一個字不動、欄位順序不洗掉。
+_ta_note = ("---\nid: e1\ntitle: Some English Title\nstatus: published\n"
+            "keywords:\n- a\n---\n\n## 事實\n本文不該被動到。\n")
+_ta_new = _ta.rewrite(_ta_note, "中文標題", "Some English Title")
+_ta_fm = _yaml.safe_load(_ta_new.split("---")[1])
+acase("標題寫回：title_zh 與 title_zh_src 都寫進去，且綁的是當下那句原文",
+      [_ta_fm["title_zh"], _ta_fm["title_zh_src"] == _zt.src_hash("Some English Title"),
+       _ta_fm["title"]],
+      ["中文標題", True, "Some English Title"])
+acase("標題寫回：body 一個字不動（潤好的 prose 不能被翻譯這一步吃掉）",
+      "## 事實\n本文不該被動到。" in _ta_new, True)
+acase("標題寫回：既有欄位順序不變"
+      "（順序一洗，每則 Event 的 diff 都像被整份改寫過，真正的變化就埋掉了）",
+      list(_ta_fm)[:4], ["id", "title", "status", "keywords"])
+
+# 顯示層：中文在上、原文在下；沒有中文就只有原文。
+_rs2 = importlib.util.spec_from_file_location(
+    "pulse_render_t", os.path.join(_HERE, "pulse-render.py"))
+_pr = importlib.util.module_from_spec(_rs2)
+_rs2.loader.exec_module(_pr)
+acase("標題顯示：有中文就中文在上、原文在下（譯文是二手的，讀者要看得到一手那句）",
+      [_pr.title_html({"title": "English", "title_zh": "中文"}).count("<div"),
+       "中文" in _pr.title_html({"title": "English", "title_zh": "中文"}),
+       "English" in _pr.title_html({"title": "English", "title_zh": "中文"})],
+      [2, True, True])
+acase("標題顯示：沒有中文就只印原文一行（反方向，確認上一條不是恆為兩行）",
+      [_pr.title_html({"title": "English", "title_zh": None}).count("<div"),
+       "English" in _pr.title_html({"title": "English"})], [1, True])
+
 # ── 待譯清單由 Actions 準備（scripts/enrich-runbook.md 的 C2 段）──
 _dp_spec = importlib.util.spec_from_file_location(
     "pulse_github_desc_prep", os.path.join(_HERE, "pulse-github-desc-prep.py"))
@@ -2501,7 +2600,8 @@ acase("pulse-cluster：ingested_at 沒帶值時寫成空，不會偷偷填成今
       "ingested_at: null" in _cm.event_markdown(
           type("E", (), {**{k: getattr(_e, k) for k in
                            ("id", "slug", "title", "happened_at", "fingerprint",
-                            "facet", "company", "keywords", "evidence", "scores")},
+                            "facet", "company", "keywords", "evidence", "scores",
+                            "title_zh", "title_zh_src")},
                          "ingested_at": None})()), True)
 
 # M6：只釘寫檔那一端不夠。**建立時忘了塞值**是最惡劣的失敗——每則新 Event 都會
@@ -2543,6 +2643,14 @@ acase("pulse-cluster 跑完一輪：新建的 Event 真的帶著 probe 第一次
 # 第二輪的訊號**必須是新的 url**：同一筆訊號再跑一次會被 add_evidence 去重、
 # Event 不 dirty、檔案根本不會被重寫，那樣這條就是在斷言一個恆真的條件
 # ——一顆永遠綠的燈。所以下面連「真的被重寫了」也一起釘。
+# 中文標題也是 sticky 欄位：event_markdown() 整份重寫 frontmatter，沒帶過去就沒了。
+# 這是第三、第四個踩到這個坑的欄位（前兩個是 ingested_at 與 backfill 旗標）。
+# 在第二輪之前先把譯文寫進去，第二輪之後它要還在。
+_t_before = _made[0].read_text("utf-8")
+_made[0].write_text(
+    _t_before.replace("\nstatus:", "\ntitle_zh: 一句中文標題\ntitle_zh_src: deadbeef1234\nstatus:", 1),
+    "utf-8")
+
 (_cvault / "_probe" / "2026-07-26" / "signals-scored.jsonl").write_text(
     "".join(_json.dumps({
         "source_id": "src-openai-blog", "effective_role": "primary",
@@ -2566,6 +2674,11 @@ acase("pulse-cluster 跑第二輪：整份重寫 frontmatter 之後 ingested_at 
       "（沒讀回物件的話會被寫成 null，佇列年紀從此量不到）",
       ["ingested_at: '2026-07-26T06:41:46+00:00'" in _txt2,
        "ingested_at: null" in _txt2], [True, False])
+acase("pulse-cluster 跑第二輪：中文標題也活下來"
+      "（title_zh 沒帶過去的話，潤稿端翻好的標題會在下一班被抹掉，"
+      "而且它會安靜地重新排進待譯清單——每晚翻一次、每晚被洗掉一次）",
+      ["title_zh: 一句中文標題" in _txt2, "title_zh_src: deadbeef1234" in _txt2],
+      [True, True])
 
 # ── 證據記錄要留下判斷用的欄位（references/evidence-tiers.md）──
 # 第二輪走的正是「從磁碟讀回來、再重寫一次」那條路，所以這幾條釘的是真的

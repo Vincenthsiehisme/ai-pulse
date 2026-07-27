@@ -170,18 +170,51 @@ repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀
     apply 會「就地補進 `dist/data/github.json`」，而 `dist/` 沒進版控——那一份是給你
     自己 dry-run 看的，真正生效是下一班 Actions 從 `desc-zh.json` 掛回去。
 
+**C3. Event 標題的中文（敘述；同樣過 speak-human-tw）**
+
+`Events/*.md` 的 `title` 是**來源的原始英文標題**。六層 prose 是中文、站台框架是
+中文、只有標題不是——實測 2026-07-27，51 則 Event **全部** 51/51 英文標題。
+而標題是讀者在首頁、時間軸、卡片上唯一會看到的那一行。
+
+跟 C2 同一個形狀：清單由 Actions 那班準備好，你只負責翻。
+
+12. 讀清單：`_probe/title-zh-worklist.json`（**已經在你 clone 下來的 repo 裡**）。
+    - **檔案不存在 → C3 跳過**，收尾摘要寫「Actions 那班沒有準備清單」。
+    - **是空陣列 `[]` → C3 跳過**，那是「今晚沒有新 Event 要翻」。
+    - 兩者一定要分開寫進摘要。
+13. 逐條翻寫，組成 `title-zh-result.json`：`{"<event_id>": "中文標題", ...}`。規則：
+    - **只翻那句標題，不加料。** worklist 給你 `title` / `company` / `track` /
+      `summary`（前 200 字）——`summary` 是**幫你讀懂那句在講什麼**的，不是要你
+      把摘要塞進標題。原文沒有的資訊一個字都不要加。
+    - **≤40 字**，比榜單描述短，因為它旁邊要並排原文，**兩行都得看得完**。
+    - 專有名詞（NVIDIA、GPT-5.2、Kubernetes、MCP…）保留原文不要硬翻。
+      版本號、產品名一個字都不要動——那是聚類的主鍵。
+    - 去 AI 腔：不要「值得關注」「賦能」「打造」「旨在」「隨著…」。
+      apply 會擋掉這些字，退件不是靜靜丟掉，是印出來下次重排。
+    - `stale_zh` 有值 ＝ **原文標題變了、舊譯文失效要重譯**，不是新的一則。
+14. apply：先 `--dry-run` 自檢，再正式寫入：
+    ```
+    python scripts/pulse-title-apply.py --in title-zh-result.json --dry-run
+    python scripts/pulse-title-apply.py --in title-zh-result.json
+    ```
+    譯文寫進 `Events/<id>.md` 的 `title_zh` 與 `title_zh_src`（**進版控**）。
+    `title_zh_src` 是當下那句原文的雜湊：原文變了就自動失效、前台退回原文、
+    並重新排進待譯清單。**原文永遠留在 `title` 欄且前台一併顯示**——譯文是
+    二手的，讀者要能看到一手的那句。
+    apply 有退件時回離開碼 1（不是失敗，是要你在摘要裡寫出退了幾條、為什麼）。
+
 **D. 產站 + 推回**
-12. render：`python scripts/pulse-render.py`
-13. 推回：
+15. render：`python scripts/pulse-render.py`
+16. 推回：
     `git add -A`
     `git diff --cached --quiet && echo "無變更" || (git commit -m "nightly: enrich + narrative $(date -u +%F)" && git push)`
-14. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`
+17. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`
     把它的輸出原樣放進收尾摘要。重點看三個數字：`probe_lag_days`（資料幾天沒更新）、
     `待處理`（扣掉 stale_backfill 這種設計上就該擋著的，真正卡住的有幾則）、`未 enrich`，
     外加最後那張覆蓋範圍表——「來源」那欄是 0 的必盯公司代表沒有任何來源在看它。
-15. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、翻了幾條 repo 描述
-    （退件幾條、為什麼）、push 的 commit hash
-    （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 14 步的監看輸出。
+18. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、翻了幾條 repo 描述與幾則 Event 標題
+    （各退件幾條、為什麼）、push 的 commit hash
+    （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 17 步的監看輸出。
     **C2 那一段要分開寫**：是「Actions 沒準備清單」（抓取鏈出事）還是「清單是空的」
     （今晚沒東西要翻）——兩件事要人做的動作完全不同。
     **「今晚沒事做」跟「今晚沒跑到」長得一樣**——所以摘要一定要帶監看數字，讓人一眼分得出來是哪一種。

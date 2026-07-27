@@ -18,15 +18,20 @@
 """
 from __future__ import annotations
 
-import hashlib
 import json
+
+from . import zhtext
 
 STORE_REL = ("_github", "desc-zh.json")
 
 
 def src_hash(desc: str) -> str:
-    """英文原文 → 短雜湊。空描述也給得出穩定值。"""
-    return hashlib.sha1((desc or "").strip().encode("utf-8")).hexdigest()[:12]
+    """英文原文 → 短雜湊。空描述也給得出穩定值。
+
+    判準搬到 `lib/zhtext.py`（2026-07-27，Event 標題也要翻的時候）——這裡保留
+    名字是為了不動既有呼叫端，**但只有一份實作**。
+    """
+    return zhtext.src_hash(desc)
 
 
 def store_path(vault):
