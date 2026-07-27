@@ -2,20 +2,7 @@
 # 全程 0 LLM（判斷走規則）。潤稿（enrich）不在這條鏈上，由排程 Cowork 任務另跑。
 # 也可在 Actions 頁手動 Run。
 #
-# ── 2026-07-25 ~ 07-27：暫時加密到每兩小時一班（收班任務已排在 07-27）──
-# 為什麼加密：`_corpus/` 當時只有一天資料，而 21 條來源裡有 14 條從沒成功抓過。
-# pulse-probe 的 `is_backfill = not st.get("first_fetch_at")` 表示**每條來源的第一次
-# 抓取整批都算存量、不算當期訊號**（14 則 review 事件裡有 12 則的 blocker 就是
-# stale_backfill）。所以每條來源要跑到第二次才開始產出，一天一班等於一天只暖一條。
-# 加密同時把 first_observed_at 的解析度從「天」拉到「兩小時」，而 lead_days
-# （事情被官方承認 vs 被個人談論的時間差）是這套系統唯一做得出來的產物。
-#
-# 為什麼這樣加密不算失禮：safe_fetch 走 etag 條件式請求，沒更新的來源回 304
-# 就結束（連 body 都不傳），probe 每條來源之間還 sleep 1 秒。
-#
-# 收班：2026-07-27 12:00Z 有一個排程任務會把 cron 改回 '0 16 * * *'、robots
-# --stale-days 改回 7。**若你看到現在已經過了 07-27 而這裡還是 */2，代表那個
-# 收班任務沒跑到——請手動改回去，別讓它長期這樣打人家的站。**
+# 2026-07-25~27 曾暫時加密到每兩小時一班（暖 backfill 用），07-27 已收回每天一班。
 #
 # 而「那個任務沒跑到」這件事，本身沒有任何東西會讓它變紅——一個只靠單次觸發的
 # 收班安排，就是這個 repo 一直在修的那種「警報自己把自己關掉」。所以另外排了一個
@@ -38,7 +25,7 @@ on:
     # 中間那段正好是**台北的一整天**，而 `_corpus/<UTC 日>/` 的目錄名也正好等於
     # 那個台北日。改成 20:00Z 看起來無害，但目錄名會跟它裝的內容錯開一天。
     # 這條 selftest 也會擋。規格：references/timezones.md〈排程〉。
-    - cron: '0 */2 * * *'   # 每兩小時；台北同樣是偶數點（+8 是整數，間隔不變）
+    - cron: '0 16 * * *'   # 台北隔日 00:00
   workflow_dispatch:
 
 permissions:
@@ -67,17 +54,14 @@ jobs:
           git config user.name  "ai-pulse-bot"
           git config user.email "ai-pulse-bot@users.noreply.github.com"
       # robots_ok 是快取不是判決。放在 probe 之前，讓這一班就吃到最新的判定。
-      # --stale-days：每條來源最多這麼久重驗一次，不是每班都打人家 robots.txt。
-      #   平常是 7；07-25~07-27 這兩天暫時改 1，因為 src-kol-importai /
-      #   src-kol-raschka 兩條掛著 dormant + revive_when_allowed，7 天節流表示
-      #   它們這一整週都不會被重驗，兩天空檔等於白等。收班任務會改回 7。
+      # --stale-days：每條來源最多這麼久重驗一次，不是每班都打人家 robots.txt。平常 7。
       # --revive：只把「當初因 robots 被判死、現在放行」的 dormant 升回 probing，
       # 人為停用的來源不碰。每筆異動都寫進 _probe/source-history.jsonl 並進 commit diff。
       - name: Robots recheck (0 LLM)
         continue-on-error: true
         env:
           VAULT_DIR: ${{ github.workspace }}
-        run: python scripts/pulse-robots-recheck.py --stale-days 1 --apply --revive
+        run: python scripts/pulse-robots-recheck.py --stale-days 7 --apply --revive
       - name: Deterministic pipeline (0 LLM)
         env:
           VAULT_DIR: ${{ github.workspace }}
@@ -263,10 +247,10 @@ jobs:
             # --stale-days 要跟上面那個 --apply 步驟同值。不給的話預設是 0，而
             # check() 裡的判斷是 `if stale_days and ...`——0 是 falsy，等於「一條都不跳」，
             # 於是這個純顯示用的步驟會把每條來源的 robots.txt 再抓一次。
-            # 加上 apply 步驟一次、probe 抓每條來源時一次，同一份 robots.txt 一班三抓；
-            # 一天 12 班 × 28 條來源 = 672 次。我們自己沒有那個量的需求，
-            # 而且這是最容易招來 429 的那種行為——429 是唯一一種「錯在我們自己」的狀態碼。
-            python scripts/pulse-robots-recheck.py --stale-days 1 || true
+            # 加上 apply 步驟一次、probe 抓每條來源時一次，同一份 robots.txt 一班三抓。
+            # 我們自己沒有那個量的需求，而且這是最容易招來 429 的那種行為——
+            # 429 是唯一一種「錯在我們自己」的狀態碼。
+            python scripts/pulse-robots-recheck.py --stale-days 7 || true
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
           # --alert-coverage：鏈在跑、但看不見某家必盯公司時要叫。前面那些指標
