@@ -7,9 +7,9 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
 | aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 0/30 = 0% |
-| kol | 90 | 70/90 = 78% | 60/90 = 67% | 34/90 = 38% |
+| kol | 110 | 70/110 = 64% | 60/110 = 55% | 39/110 = 35% |
 | media | 77 | 77/77 = 100% | 69/77 = 90% | 36/77 = 47% |
-| official | 218 | 48/218 = 22% | 18/218 = 8% | 159/218 = 73% |
+| official | 198 | 28/198 = 14% | 18/198 = 9% | 139/198 = 70% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
 - **5b（可解析自然人）才決定人物層與獨立性升級有沒有用。**官方線若過低，people.yaml 只在 KOL 線生效。
@@ -19,9 +19,9 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | kind | 筆數 | 計入 5b |
 |---|---|---|
-| none | 190 |  |
+| none | 210 |  |
 | person | 132 | ✓ |
-| handle | 66 |  |
+| handle | 46 |  |
 | multi_person | 15 | ✓ |
 | org | 12 |  |
 
@@ -33,7 +33,6 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | author 原值 | 判定 | 來源 |
 |---|---|---|
-| khluu | handle | src-gh-vllm-releases |
 | Ivan Goldwasser | person | src-nvidia-blog |
 | NVIDIA Writers | org | src-nvidia-blog |
 | Son Ho, Cédric Fournet, Antoine Delignat-Lavaud, Samuel Lee, | multi_person | src-msr-blog |
@@ -56,12 +55,12 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 ## 命中的實體型別分佈
 
-- company: 127
-- product_line: 95
-- product: 30
-- technology: 26
-- framework: 17
-- infrastructure: 10
+- company: 122
+- product_line: 92
+- product: 31
+- technology: 24
+- infrastructure: 5
+- framework: 1
 
 ## 字典補漏候選（未命中且跨來源出現）
 
@@ -71,35 +70,38 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| LLMs | 11 | 4 |
-| LLM | 8 | 6 |
+| LLMs | 13 | 5 |
+| LLM | 10 | 7 |
 | U.S | 6 | 3 |
 | Learn | 5 | 2 |
 | San Francisco | 5 | 4 |
 | One | 5 | 4 |
+| Here | 5 | 4 |
 | Fable | 5 | 3 |
 | AI-native | 4 | 2 |
 | Pro | 4 | 3 |
-| Gemma | 4 | 3 |
 | Understanding | 4 | 2 |
-| Here | 4 | 4 |
 | There | 4 | 3 |
+| Some | 4 | 4 |
+| When | 4 | 2 |
 | China | 4 | 3 |
+| Learning | 4 | 2 |
 | Frontier | 3 | 2 |
 | AI-powered | 3 | 3 |
-| Building | 3 | 3 |
-| Python | 3 | 2 |
 | Flash | 3 | 2 |
 | Making | 3 | 3 |
 | GPUs | 3 | 2 |
+| Building | 3 | 3 |
 | Plus | 3 | 3 |
 | Power | 3 | 3 |
+| They | 3 | 3 |
 | Opus | 3 | 3 |
 | NASA | 3 | 2 |
-| Some | 3 | 3 |
+| Large | 3 | 2 |
 | January | 3 | 2 |
 | July | 3 | 3 |
 | Trump | 3 | 2 |
+| Models | 3 | 2 |
 
 ### 單來源高頻（觀察用，不列入晉升）
 
@@ -108,15 +110,14 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Highlights | 14 | src-gh-vllm-releases |
 | Co-Scientist | 5 | src-deepmind-blog |
-| Release Notes | 4 | src-gh-vllm-releases |
 | The Download | 4 | src-media-mit-techreview |
-| Fix | 3 | src-gh-vllm-releases |
+| Show HN | 4 | src-hn-frontpage |
 | Open | 3 | src-kol-interconnects |
+| Updated | 3 | src-kol-lilianweng |
+| Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
 | List | 3 | src-kol-raschka |
-| Show HN | 3 | src-hn-frontpage |
 
 ## 來源狀態
 
@@ -129,10 +130,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-importai | kol | skipped_lifecycle | 0 | 0 |  | None | dormant |
 | src-openai-blog | official | 200 | 50 | 0 |  | True |  |
 | src-anthropic-news | official | 200 | 40 | 0 |  | True |  |
-| src-gh-vllm-releases | official | 200 | 20 | 0 |  | None |  |
+| src-gh-vllm-releases | official | 403 | 0 | 0 |  | None | http 403（adapter 自己抓的） |
 | src-deepmind-blog | official | 200 | 30 | 0 |  | True |  |
 | src-hf-blog | official | 304 | 0 | 0 |  | True |  |
-| src-nvidia-blog | official | 200 | 18 | 1 |  | True |  |
+| src-nvidia-blog | official | 200 | 18 | 0 |  | True |  |
 | src-msr-blog | official | 200 | 10 | 0 |  | True |  |
 | src-meta-research | official | 200 | 10 | 0 |  | True |  |
 | src-xai-news | official | 200 | 40 | 0 |  | True |  |
@@ -140,7 +141,7 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
 | src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
 | src-media-venturebeat | media | 200 | 7 | 0 |  | True |  |
-| src-media-techcrunch | media | 200 | 20 | 1 |  | True |  |
+| src-media-techcrunch | media | 200 | 20 | 0 |  | True |  |
 | src-media-ieee-spectrum | media | 200 | 20 | 0 |  | True |  |
 | src-media-mit-techreview | media | 200 | 10 | 0 |  | True |  |
 | src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
@@ -151,9 +152,9 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-thezvi | kol | robots_unknown | 0 | 0 |  | False | robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕） |
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
-| src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
+| src-kol-lilianweng | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 8 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 1 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
@@ -168,11 +169,11 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | source | 判定 | 是誰那邊 | 說明 |
 |---|---|---|---|
-| src-mistral-news | `hints_matched_nothing` | 我們 | index 有 1 張子 sitemap，hints ['news', 'blog'] 一張都沒命中——**是我們的設定對不上，不是站上沒東西** |
+| src-mistral-news | `hints_matched_nothing` | 我們 | index 有 1 張子 sitemap，hints ['news', 'blog'] 一張都沒命中——**是我們的設定對不上，不是站上沒東西**；候選：https://mistral.ai/sitemap-0.xml |
 
 ### 中途數字（過濾前後各剩幾條）
 
-- `src-mistral-news`：kind=sitemapindex；index 1 張、hints ['news', 'blog'] 命中 0 張（上限 3）、展開 0 張、抓成功 0 張；過濾前 0 條 URL、url_prefix `/news/`、過濾後 0 條
+- `src-mistral-news`：kind=sitemapindex；index 1 張、hints ['news', 'blog'] 命中 0 張（上限 3）、展開 0 張、抓成功 0 張；index 候選 https://mistral.ai/sitemap-0.xml；過濾前 0 條 URL、url_prefix `/news/`、過濾後 0 條
 
 樣本只印過濾**前**的前三條 URL——過濾後的樣本回答不了「為什麼被濾掉」。
 只有連結，不抓內文（紅線 7 的合規邊界沒有變）。
