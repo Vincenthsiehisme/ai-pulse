@@ -48,12 +48,18 @@ C-4 原本被回報成「已驗證，而且是否定的」：`safe_fetch` 對
     # 落 JSON 供後續設計引用
     python3 scripts/verify-article-metadata.py --preset sitemap-sources --json /tmp/c4.json
 
-退出碼
+退出碼（**是三種不同的壞消息，不是嚴重度的三格**；一次跑取最大值）
 ------
-    0  全部拿到判決，且每一條都成功讀到 HTML
-    2  有站方明文 Disallow 或 4xx/5xx（這是**站方的**答案，可以寫進設計）
-    3  有讀到 HTML 但缺 og:title（C-3 的前提在該站不成立）
-    4  沒有判決：control probe 失敗，或有 host 被 egress 攔截
+    0  全部拿到判決，且每一條都通過該 preset 的條件
+    2  站方回答了，而答案是「不行」：robots 明文 Disallow，或 4xx/5xx
+    3  站方回答了、我們也讀到了，但內容不合這一組 preset 要的東西
+       （article 模式缺 og:title；page 模式是 JS 空殼或看不到日期）
+    4  **沒有判決**——關於我們自己，不是關於站方：control probe 失敗、
+       host 被 egress 攔截、robots 取不到、或任何傳輸層例外
+       （SSL / DNS / timeout 都算這一格：那些不是站方的答案）
+
+    取最大值意味著 3 會蓋過 2。所以**退出碼只說「最該擋人的是哪一格」，
+    要知道每一條各是什麼，看 `--summary` 那一段或 `--json`。**
 
 輸出一律 ASCII，理由同 verify-policy-sources.py（cp950 主控台）。
 """
@@ -120,21 +126,38 @@ def _is_proxy_error(exc: Exception) -> bool:
 # 一個在雙引號屬性裡完全合法的撇號，把真值截成一個更短、看起來仍然像標題的字串，
 # 然後那個字串會被寫進 c4-report.json，也就是設計文件說「可以引用的證據」。
 # 這是本 PR 從頭到尾在講的那隻病，長在為了驗證它而寫的驗證器裡。
+_VAL = r"""(?:"(?P<vd>[^"]*)"|'(?P<vs>[^']*)')"""
+
 FIELD_PATTERNS = [
-    # `[^>]*?` 而不是 `.*?`：非貪婪仍然會跨過 `>` 去找下一個引號。
-    # 實測——`<meta property="article:published_time" content="…">` 後面接
-    # `<meta content="X" property="og:title">` 時，rev 那條會從第一個 meta 的
-    # content 一路吃到第二個 meta 的 property，抽出一大串含標籤的垃圾當標題。
-    # 屬性值裡的 `>` 在合法 HTML 裡是 `&gt;`，所以把比對關在單一標籤內是安全的。
+    # 值的比對用**引號分界的二選一**，不是字元類。這一格已經錯過兩次：
+    #
+    #   第一版 `content=["\']([^"\']+)` —— 在屬性值裡的撇號截斷：
+    #       content="Anthropic's Opus 5"  →  `Anthropic`
+    #   第二版 `(?P<v>[^>]*?)` 配反向參照 —— 修掉撇號，但把 `>` 一起擋掉，
+    #       而註解寫著「屬性值裡的 `>` 在合法 HTML 裡是 `&gt;`」。**那句話是錯的。**
+    #       HTML5 在帶引號的屬性值裡只禁止同款引號與有歧義的 `&`，`>` 完全合法
+    #       （stdlib HTMLParser 對 `content="Claude 3 -> Claude 5"` 解得出來）。
+    #       後果是 `verdict=no_og_title` → exit 3 → 寫進 c4-report.json 的意思是
+    #       「這一站沒有 og:title」——**又一次把「我們讀不到」寫成「站方沒有」**，
+    #       而這支腳本的存在理由就是不要犯這個。
+    #
+    # 引號分界同時解掉兩個：值裡可以有另一種引號，也可以有 `>`，而比對不會
+    # 跨出這個屬性。兩個具名群組是因為 Python 不允許重複的群組名。
     ("og:title",
-     r"""<meta[^>]+property=(["'])og:title\1[^>]*content=(["'])(?P<v>[^>]*?)\2"""),
+     r"""<meta[^>]+property=(["'])og:title\1[^>]*content=""" + _VAL),
     ("og:title(rev)",
-     r"""<meta[^>]+content=(["'])(?P<v>[^>]*?)\1[^>]*property=(["'])og:title\3"""),
-    ("<title>", r"<title[^>]*>(?P<v>[^<]{1,300})</title>"),
+     r"""<meta[^>]+content=""" + _VAL + r"""[^>]*property=(["'])og:title\3"""),
+    ("<title>", r"<title[^>]*>(?P<vd>[^<]{1,300})</title>"),
     ("article:published_time",
-     r"""article:published_time(["'])[^>]*content=(["'])(?P<v>[^>]*?)\2"""),
-    ("time@datetime", r"""<time[^>]+datetime=(["'])(?P<v>[^>]*?)\1"""),
-    ("jsonld:datePublished", r'"datePublished"\s*:\s*"(?P<v>[^"]*)"'),
+     r"""article:published_time(["'])[^>]*content=""" + _VAL),
+    # rev 版：`<meta content="…" property="article:published_time">`。
+    # og:title 有 rev companion，日期沒有——而「三個機器可讀日期全部 ABSENT」
+    # 是已經寫進設計文件、關於世界的宣稱。少一個順序就可能是量測失真。
+    ("article:published_time(rev)",
+     r"""<meta[^>]+content=""" + _VAL
+     + r"""[^>]*property=(["'])article:published_time\3"""),
+    ("time@datetime", r"""<time[^>]+datetime=""" + _VAL),
+    ("jsonld:datePublished", r'"datePublished"\s*:\s*"(?P<vd>[^"]*)"'),
 ]
 
 # 人看的日期。C-2 實測：Anthropic 印 "Jul 24, 2026"、Mistral 印 "July 8, 2026"，
@@ -153,16 +176,17 @@ def visible_text(html: str) -> str:
     return _ANYTAG_RE.sub(" ", _TAG_RE.sub(" ", html or ""))
 
 
-def _content_group(m) -> str:
-    """→ 具名群組 `v` 的內容。
+def _content_group(m):
+    """→ 值的內容（雙引號那組或單引號那組），沒有比對到回 None。
 
-    引號改用反向參照之後，編號群組裡混進了引號字元本身。第一版寫「取最後一個
-    非 None 的群組」——對 og:title 正確，對 `og:title(rev)`（content 在前、
-    property 在後）回的是那個 `"`。**一個永遠非空、於是永遠判 ok 的值**，
-    正是這支腳本存在的理由的反面。
+    第一版寫「取最後一個非 None 的編號群組」——對 og:title 正確，對
+    `og:title(rev)`（content 在前、property 在後）回的是那個 `"`。
+    **一個永遠非空、於是永遠判 ok 的值**，正是這支腳本存在理由的反面。
     改成具名群組：哪一組是內容變成寫在 pattern 裡的事實，不是位置的巧合。
     """
-    return m.group("v") or ""
+    d = m.groupdict()
+    v = d.get("vd")
+    return v if v is not None else d.get("vs")
 
 
 def extract(html: str) -> dict:
@@ -172,7 +196,11 @@ def extract(html: str) -> dict:
         # 解 entity：`Claude&#x27;s new tool` 存成原樣，就是把來源的編碼
         # 當成標題的一部分。lib/modelline.py 在同一個 PR 裡為了同一件事修過
         # （M113），這支在兩百行外犯一樣的。
-        out[label] = _html.unescape(_content_group(m)).strip() if m else None
+        raw = _content_group(m) if m else None
+        # `content=""` 與「根本沒有這個 tag」是兩件事，但兩件都不是「有值」。
+        # 空字串留在 JSON 裡，主控台印 ABSENT、檔案裡是 ""——同一份報告
+        # 兩種說法。統一成 None，兩邊一致。
+        out[label] = (_html.unescape(raw).strip() or None) if raw is not None else None
     text = visible_text(html)
     out["_visible_text_chars"] = len(" ".join(text.split()))
     hits = VISIBLE_DATE_RE.findall(text)
@@ -349,6 +377,21 @@ VERDICT_EXIT = {"no_verdict": 4,
                 "ok": 0}
 
 
+def exit_code(results) -> int:
+    """一次跑的退出碼＝最該擋人的那一格。
+
+    **拉成獨立函式是因為它躲在 `main()` 裡就測不到。** 第一輪審查指出
+    `max` 改成 `min` 全綠；補的那條測試寫成
+    `VERDICT_EXIT.get("some_future_verdict", 4) == 4`——那是在測
+    `dict.get` 的預設值行為，**不管碼怎麼寫都會過**。同一條分支上第四次
+    「測試的名字說它在守某件事、內容沒有」。
+
+    預設 4 不是 2：2 的意思是「站方的答案」，一個忘了寫進表裡的新 verdict
+    被當成站方回覆過，正是這支在拆的那個混淆。沒登記的只能是「沒有判決」。
+    """
+    return max((VERDICT_EXIT.get(r.get("verdict"), 4) for r in results), default=0)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(
         description="Answer C-4 with the production fetcher: og:title, dates, robots.")
@@ -424,7 +467,7 @@ def main() -> int:
 
     # 最壞的那一條決定退出碼。no_verdict 排最前面：沒有判決比壞判決更該讓 CI 紅，
     # 因為壞判決至少是關於站方的，沒有判決是關於我們自己的。
-    return max((VERDICT_EXIT.get(r["verdict"], 2) for r in results), default=0)
+    return exit_code(results)
 
 
 if __name__ == "__main__":

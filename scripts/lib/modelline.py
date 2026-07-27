@@ -94,15 +94,19 @@ MONTHS = {m: i + 1 for i, m in enumerate(
 # 「July 9th, 2024」。少了它，那些條目會落到 _D_MD、沒有 year_hint、回 None，
 # 而 derived_year_rate 會從 0 跳到 0.49——**指標先叫，才發現解析器有洞。**
 _ORD = r"(?:st|nd|rd|th)?"
+# 月份只認**真的月份名**，不是「三個字母開頭再任意接」。
+# 第一版寫 `(jan|feb|…)[a-z]*`，於是 `Marketing 2026`（mar + keting）、
+# `Nova 2`（nov + a）、`Decoder 2`、`Augment 3` 全部被判成日期。
+# 在 `is_date_only()` 那個消費者上，這代表**真的條目被當成目錄項丟掉**。
+# 實測那頁剛好沒踩到（`_D_YM` / `_D_MD` 各多丟 0 條），所以它是潛伏的，
+# 而潛伏正是這份 repo 最在意的那種。
+_MON = (r"(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+        r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|"
+        r"nov(?:ember)?|dec(?:ember)?)")
 _D_YMD = re.compile(
-    r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+"
-    r"(\d{1,2})" + _ORD + r"\s*,?\s+(20\d{2})\b", re.I)
-_D_YM = re.compile(
-    r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(20\d{2})\b",
-    re.I)
-_D_MD = re.compile(
-    r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+"
-    r"(\d{1,2})" + _ORD + r"\b", re.I)
+    r"\b" + _MON + r"\.?\s+(\d{1,2})" + _ORD + r"\s*,?\s+(20\d{2})\b", re.I)
+_D_YM = re.compile(r"\b" + _MON + r"\.?\s+(20\d{2})\b", re.I)
+_D_MD = re.compile(r"\b" + _MON + r"\.?\s+(\d{1,2})" + _ORD + r"\b", re.I)
 
 # 封閉集，跟 coverage 三態同一個做法。
 PRECISION_DAY, PRECISION_MONTH, PRECISION_NONE = "day", "month", "none"
@@ -289,10 +293,14 @@ def derive_versions(text: str, product_lines, slug_rules=(
         for term in [t for t in terms if t]:
             # `(?:…)` 包住設定裡的 pattern：現有的都沒有頂層 `|`，但只要有人
             # 加一個，`AB|C` 會變成「A 接 B，或者只要出現 C」——term 不再是必要條件。
-            # `\b` 在前：沒有它，`claude-3-7-sonnet-20250219` 這串**廠商自己的
-            # model id** 會被當成「Claude」後面接版本，衍生出 `claude@3`——
-            # 一個不同世代的假實體，而 entities.yaml 說衍生實體是聚類主鍵。
-            rx = re.compile(r"\b" + re.escape(str(term)) + r"(?:" + pat + r")", re.I)
+            #
+            # 前面用 `(?<![A-Za-z0-9])` 而**不是** `\b`。第一版寫 `\b`，理由寫著
+            # 它能擋掉 `claude-3-7-sonnet-20250219` 那串 model id——**那個理由是假的**：
+            # `deprecating claude-3-…` 的 `claude` 前面本來就有詞界，加不加一樣match。
+            # 它沒修到任何東西，卻打死了字典裡全部 8 個中文 alias：
+            # 「發布通義千問 3」的「布」是 word char，`\b` 在兩個 CJK 字之間不成立。
+            rx = re.compile(r"(?<![A-Za-z0-9])" + re.escape(str(term))
+                            + r"(?:" + pat + r")", re.I)
             for m in rx.finditer(text or ""):
                 version = " ".join(g for g in m.groups() if g).strip()
                 if not version:
@@ -301,16 +309,24 @@ def derive_versions(text: str, product_lines, slug_rules=(
                 # `command@a`（pattern 字面允許單一字母）這種東西。
                 if not any(c.isdigit() for c in version):
                     continue
+                # **真正擋掉 model id 碎片的是這一條**：比對停在整串 id 的中間。
+                # `claude-3-7-sonnet-20250219` 只吃到 `claude-3`，後面緊接 `-7`；
+                # 而散文裡的「Claude 3.5」「Claude Opus 4.8」會把版本吃完，
+                # 後面是空白或標點。所以判準是「下一個字元是 - 或 . 且再下一個是數字」。
+                #
+                # 第一版不是這樣做的：它改成「同一條文字裡只要有非裸數字的實體，
+                # 就把所有裸數字實體全部丟掉」。那條規則的註解寫著「被別的衍生實體
+                # **字首包含**」，但碼裡**根本沒有任何包含判斷**——實測它把
+                # 「We've retired the Claude 2.0, Claude 2.1, and Claude Sonnet 3 models」
+                # 的 claude@2.0 與 claude@2.1 直接刪掉，那是兩則真的下線宣告。
+                # 跨產品線更慘：`GPT-4 and Claude Opus 5` 只剩 claude@opus-5。
+                tail = (text or "")[m.end():m.end() + 2]
+                if len(tail) == 2 and tail[0] in "-." and tail[1].isdigit():
+                    continue
                 eid = f"{line['id']}@{_slugify(version, slug_rules)}"
                 if eid not in seen:
                     seen.add(eid)
                     out.append(eid)
-    # `claude@3` 與 `claude@opus-3.7` 同時出現時，前者是從後者所在的那串
-    # model id 裡切出來的碎片。**同一條文字裡，被別的衍生實體字首包含的裸數字
-    # 版本一律丟掉**——它從來不是一個獨立的宣稱。
-    bare = {e for e in out if re.fullmatch(r"[^@]+@\d+(?:\.\d+)?", e)}
-    if bare and len(out) > len(bare):
-        out = [e for e in out if e not in bare]
     return out
 
 
@@ -335,8 +351,14 @@ _ANCHOR = re.compile(
     r'id="((?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*'
     r'-\d{1,2}(?:st|nd|rd|th)?-20\d{2})"', re.I)
 _LI = re.compile(r"<li\b[^>]*>(.*?)</li>", re.S | re.I)
+# 導覽／頁尾整塊拿掉。它們在最後一個錨點的區間裡（那一段吃到檔尾），
+# 而且長得跟條目一樣——`is_date_only` 只擋得住純日期的那些。
+_CHROME = re.compile(r"<(nav|footer|aside)\b.*?</\1>", re.S | re.I)
+# 非 `<li>` 的殘文要夠長才算一條。太短的多半是標題殘留、按鈕字、圖說。
+_MIN_ITEM_CHARS = 40
 _STRIP = re.compile(r"<(script|style)\b.*?</\1>", re.S | re.I)
 _TAGS = re.compile(r"<[^>]+>")
+_PUA = re.compile(r"[\ue000-\uf8ff]")
 
 
 def strip_tags(html: str) -> str:
@@ -347,7 +369,18 @@ def strip_tags(html: str) -> str:
     **而且 unknown_lifecycle_rate 會忠實地把它印出來**，所以它撐不過一次實測。
     這正是那三個比率存在的理由。
     """
-    t = _TAGS.sub(" ", _STRIP.sub(" ", html or ""))
+    src = html or ""
+    # 區間的尾端切在下一個錨點的 `id="` 上，也就是**標籤中間**。那截沒有收尾的
+    # `<div class="group relative pt-6 pb-2"` 沒有 `>`，`_TAGS` 抓不到，
+    # 於是原樣變成條目文字。實測 124 條殘文全部長這樣。
+    tail_lt = src.rfind("<")
+    if tail_lt >= 0 and ">" not in src[tail_lt:]:
+        src = src[:tail_lt]
+    t = _TAGS.sub(" ", _STRIP.sub(" ", src))
+    # 私用區碼位是 icon font 的字形（Anthropicons）。它們**永遠不是內容**，
+    # 但會讓 `is_date_only` 對「\ue09a July 24, 2026」判 False——
+    # 一個看不見的字元讓整頁的日期標題全部變成條目。
+    t = _PUA.sub(" ", t)
     return " ".join(_html.unescape(t).split())
 
 
@@ -436,13 +469,24 @@ def rows_from_anchor_page(html: str, source_url: str, product_lines=()) -> list[
     marks = [(m.group(1).lower(), m.start()) for m in _ANCHOR.finditer(html or "")]
     for i, (anchor, pos) in enumerate(marks):
         end = marks[i + 1][1] if i + 1 < len(marks) else len(html)
-        chunk = html[pos:end]
+        # 切點在 `id="…"` 的比對位置，也就是**標籤中間**。不往後推到那個標籤
+        # 收尾，`strip_tags` 會留下一截 `id="july-24-2026">` 當成條目文字。
+        gt = html.find(">", pos)
+        chunk = html[(gt + 1 if 0 <= gt < end else pos):end]
         iso, precision, year_source = parse_entry_date(anchor.replace("-", " "))
-        # `or [strip_tags(chunk)]` 這個退路會把 `is_date_only` 剛擋掉的東西
-        # 整段接回來（外加一截從標籤中間切開的 `id="…">` 碎片）。
-        # 有 `<li>` 卻全被過濾＝那一段本來就沒有條目，正確答案是零列。
-        has_li = bool(_LI.search(chunk))
-        items = entry_items(chunk) if has_li else [strip_tags(chunk)]
+        # 導覽與頁尾先拿掉，否則最後一個錨點（區間吃到檔尾）會把
+        # 「Home」「Docs」「Was this page helpful?」全部變成那一天的條目。
+        chunk_clean = _CHROME.sub(" ", chunk)
+        # **不是 `<li>` 或非 `<li>` 二選一。** 第一版寫成
+        # `entry_items(chunk) if has_li else [strip_tags(chunk)]`，
+        # 前提是「條目一定住在 `<li>` 裡」——那個前提只在**已經看過的那一頁**
+        # 成立。實測反例：條目在 `<p>`、同一段裡另有一個導覽 `<ul>`，
+        # 結果是真條目零列、導覽兩列。另外三家的標記形狀還沒有人看過，
+        # 所以這裡不押那個前提：兩邊都收，各自過濾。
+        items = entry_items(chunk_clean)
+        rest = strip_tags(_LI.sub(" ", chunk_clean))
+        if rest and not is_date_only(rest) and len(rest) >= _MIN_ITEM_CHARS:
+            items.append(rest)
         is_tail = (i == len(marks) - 1)
         for text in items:
             if not text:

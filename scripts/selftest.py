@@ -3878,6 +3878,38 @@ acase("C-4 抽取：屬性值裡的撇號不得截斷標題，HTML entity 要解
       [_vamod.extract('<meta property="og:title" content="Anthropic\'s Opus 5">')["og:title"],
        _vamod.extract('<meta property="og:title" content="Claude&#x27;s tool">')["og:title"]],
       ["Anthropic's Opus 5", "Claude's tool"])
+# 修撇號的第二版改用 `[^>]*?`，註解寫著「屬性值裡的 `>` 在合法 HTML 裡是
+# `&gt;`」——**那句話是錯的**。HTML5 只禁止同款引號與有歧義的 `&`。
+# 後果是 verdict=no_og_title → 「這一站沒有 og:title」，又一次把
+# 「我們讀不到」寫成「站方沒有」。
+acase("C-4 抽取：屬性值裡的 `>` 是合法 HTML，不得因此判成「沒有 og:title」",
+      [_vamod.extract(
+          '<meta property="og:title" content="Claude 3 -> Claude 5">')["og:title"],
+       _vamod.verdict_for(_vamod.MODE_ARTICLE, _vamod.extract(
+           '<meta property="og:title" content="Claude 3 -> Claude 5">'))],
+      ["Claude 3 -> Claude 5", "ok"])
+acase("C-4 抽取：值裡可以有另一種引號；`og:title:alt` 不算 og:title",
+      [_vamod.extract("<meta property='og:title' content='He said \"hi\"'>")["og:title"],
+       _vamod.extract('<meta property="og:title:alt" content="ALT">')["og:title"],
+       _vamod.extract('<meta property="og:title" content="">')["og:title"]],
+      ['He said "hi"', None, None])
+# og:title 有 rev companion，日期沒有——而「三個機器可讀日期全部 ABSENT」
+# 是已經寫進設計文件、關於世界的宣稱。
+acase("C-4 抽取：日期也要有反序版本（content 在前、property 在後）"
+      "（少一個順序，「全部 ABSENT」就可能是量測失真而不是事實）",
+      _vamod.extract(
+          '<meta content="2026-07-24" property="article:published_time">'
+      )["article:published_time(rev)"], "2026-07-24")
+# 這一條第一版寫成 `VERDICT_EXIT.get("x", 4) == 4`——那是在測 `dict.get`
+# 的預設值行為，**不管碼怎麼寫都會過**（M132 因此活了下來）。
+# 真正要測的判斷躲在 main() 裡，所以把它拉成 exit_code() 再測。
+acase("C-4 退出碼：沒登記的 verdict 預設成 4（沒有判決），不是 2（站方的答案）"
+      "（預設 2＝一個忘了寫進表裡的新狀態會被當成站方回覆過）",
+      [_vamod.exit_code([{"verdict": "some_future_verdict"}]),
+       _vamod.exit_code([{"verdict": "ok"}, {"verdict": "no_verdict"}]),
+       _vamod.exit_code([{"verdict": "ok"}]),
+       _vamod.exit_code([])],
+      [4, 4, 0, 0])
 acase("C-4 判準：verdict_for 兩種 mode 各自的通過條件"
       "（第一版整支從沒被呼叫過——改成無條件回 ok 也全綠）",
       [_vamod.verdict_for(_vamod.MODE_ARTICLE, {"og:title": "X"}),
@@ -4151,23 +4183,76 @@ acase("lifecycle：裸字 beta / preview 不算宣稱，要片語"
        _ml.lifecycle_of("We've retired the 1M token context window beta"),
        _ml.lifecycle_of("now in beta on Claude Fable 5")],
       [_ml.UNKNOWN, _ml.SHUTDOWN, _ml.PREVIEW])
+_ML_CLAUDE = [{"id": "claude", "canonical": "Claude",
+               "version_pattern":
+                   r"(?:\s)?(opus|sonnet|haiku)?(?:\s|-)?([0-9]+(?:\.[0-9]+)?)"}]
+# 擋 model id 碎片的是**尾端邊界**（比對停在 `claude-3`，後面緊接 `-7`），
+# 不是前面的 `\b`。第一版寫 `\b` 並宣稱它擋得住——實測加不加結果一模一樣，
+# 因為 `deprecating claude-3-…` 的 claude 前面本來就有詞界。
 acase("版本衍生：不得從廠商自己的 model id 裡切出裸數字版本"
       "（`claude-3-7-sonnet-20250219` → `claude@3` 是另一個世代的假實體，"
-      "而 entities.yaml 說衍生實體是聚類主鍵），且年份不是版本",
-      [_ml.derive_versions(
-          "retired the Claude Sonnet 3.7 model ( claude-3-7-sonnet-20250219 )",
-          [{"id": "claude", "canonical": "Claude",
-            "version_pattern": r"(?:\s)?(opus|sonnet|haiku)?(?:\s|-)?([0-9]+(?:\.[0-9]+)?)"}]),
-       _ml.derive_versions("Run the command a second time",
-                           [{"id": "command", "canonical": "command",
-                             "version_pattern": r"(?:\s)?([a-z0-9]+)"}])],
-      [["claude@sonnet-3.7"], []])
+      "而 entities.yaml 說衍生實體是聚類主鍵）",
+      [_ml.derive_versions("We are deprecating claude-3-7-sonnet-20250219.",
+                           _ML_CLAUDE),
+       _ml.derive_versions("Claude 3.5 and Claude Opus 4.8", _ML_CLAUDE)],
+      [[], ["claude@3.5", "claude@opus-4.8"]])
+acase("版本衍生：年份不是版本，單一字母不是版本",
+      _ml.derive_versions("Run the command a second time",
+                          [{"id": "command", "canonical": "command",
+                            "version_pattern": r"(?:\s)?([a-z0-9]+)"}]), [])
+# 第一版用「同一條裡只要有非裸數字的實體，就把所有裸數字實體全丟掉」擋碎片。
+# 註解寫著「被別的衍生實體**字首包含**」，碼裡卻沒有任何包含判斷——實測它把
+# 兩則真的下線宣告刪掉了，跨產品線更慘。
+acase("版本衍生：裸數字版本是**合法的**，不得因為同一條裡有層級版本就被清掉"
+      "（「retired the Claude 2.0, Claude 2.1, and Claude Sonnet 3 models」"
+      "少掉的那兩個是真的下線宣告）",
+      _ml.derive_versions(
+          "We've retired the Claude 2.0, Claude 2.1, and Claude Sonnet 3 models.",
+          _ML_CLAUDE),
+      ["claude@2.0", "claude@2.1", "claude@sonnet-3"])
+acase("版本衍生：跨產品線不得互相清除",
+      _ml.derive_versions("GPT-4 and Claude Opus 5", [
+          {"id": "gpt", "canonical": "GPT",
+           "version_pattern": r"(?:-|\s)?([0-9]+(?:\.[0-9]+)?)"}] + _ML_CLAUDE),
+      ["gpt@4", "claude@opus-5"])
+# `\b` 在兩個 CJK 字之間不成立，於是字典裡 8 個中文 alias 全部失效。
+acase("版本衍生：中文 alias 在中文散文裡要命中"
+      "（`\\b` 前綴會讓「發布通義千問 3」的「布」把詞界吃掉——"
+      "一個為了修 A 而加的東西，A 沒修到、B 全死）",
+      _ml.derive_versions("阿里巴巴發布通義千問 3", [
+          {"id": "qwen", "canonical": "Qwen", "aliases": ["通義千問"],
+           "version_pattern": r"(?:-|\s)?([0-9]+(?:\.[0-9]+)?)"}]),
+      ["qwen@3"])
 acase("is_date_only：三種日期形狀都要認"
       "（規格已指名 docs.x.ai 印的是沒有年份的「July 23」——只認一種形狀，"
       "那一家的側欄索引一條都擋不掉）",
       [_ml.is_date_only("July 24, 2026"), _ml.is_date_only("June 2026"),
        _ml.is_date_only("July 23"), _ml.is_date_only("July 30, 2026 起停用")],
       [True, True, True, False])
+# 月份 regex 原本是 `(jan|feb|…)[a-z]*`，於是 Marketing = mar + keting。
+# 在 is_date_only 這個消費者上，那代表**真的條目被當成目錄項丟掉**。
+acase("日期：月份只認真的月份名，不是「三個字母開頭再任意接」"
+      "（Marketing 2026 / Nova 2 / Decoder 2 都不是日期）",
+      [_ml.is_date_only("Marketing 2026"), _ml.is_date_only("Nova 2"),
+       _ml.is_date_only("Decoder 2"), _ml.is_date_only("Sept 3, 2026")],
+      [False, False, False, True])
+# 私用區碼位是 icon font 的字形，永遠不是內容；不剝掉的話它會讓
+# is_date_only 對「\ue09a July 24, 2026」判 False——一個看不見的字元
+# 讓整頁的日期標題全部變成條目（實測 124 條）。
+acase("去標籤：icon font 的私用區字元要剝掉，尾端沒收尾的標籤碎片也要"
+      "（`<div class=\"x\"` 沒有 `>`，去標籤的 regex 抓不到它）",
+      [_ml.strip_tags("\ue09a July 24, 2026"),
+       _ml.strip_tags("real text <div class=\"group relative")],
+      ["July 24, 2026", "real text"])
+# 條目不一定住在 <li> 裡，而另外三家的標記形狀還沒有人看過。
+acase("整頁：條目在 <p>、同段另有導覽 <ul> 時，真條目要在、導覽不要在"
+      "（第一版是二選一：有 <li> 就只看 <li>，於是真條目零列、導覽兩列）",
+      [(r["lifecycle"], "Home" in r["text"], "Claude Opus 5" in r["text"])
+       for r in _ml.rows_from_anchor_page(
+           '<div id="july-24-2026">July 24, 2026</div>'
+           '<p>We have launched Claude Opus 5, our most capable model.</p>'
+           '<nav><ul><li>Home</li><li>Docs</li></ul></nav>', "u")],
+      [(_ml.GA, False, True)])
 
 acase("references/model-timeline.md 存在（這一層的規格書，紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references",

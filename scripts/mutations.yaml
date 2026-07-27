@@ -1058,18 +1058,18 @@ mutations:
   # 這八格全部是「守著某件事的東西自己壞掉，而畫面完全正常」。
 
   - id: M119
-    title: "og:title 的引號回到字元類（屬性值裡的撇號把標題截成一個更短、看起來仍然像標題的字串）"
+    title: "值的比對重新排除 `>`（`content=\"Claude 3 -> Claude 5\"` 抽不到 → 判成「這一站沒有 og:title」，又一次把「我們讀不到」寫成「站方沒有」）"
     file: verify-article-metadata.py
-    find: "     r\"\"\"<meta[^>]+property=([\"'])og:title\\1[^>]*content=([\"'])(?P<v>[^>]*?)\\2\"\"\"),"
-    replace: "     r\"\"\"<meta[^>]+property=[\"']og:title[\"'][^>]*content=[\"'](?P<v>[^\"']+)\"\"\"),"
+    find: '_VAL = r"""(?:"(?P<vd>[^"]*)"|''(?P<vs>[^'']*)'')"""'
+    replace: '_VAL = r"""(?:"(?P<vd>[^">]*)"|''(?P<vs>[^''>]*)'')"""'
     survives: false
     why: ""
 
   - id: M120
     title: "抽出來的值不解 HTML entity（`Claude&#x27;s tool` 原樣存成標題）"
     file: verify-article-metadata.py
-    find: "        out[label] = _html.unescape(_content_group(m)).strip() if m else None"
-    replace: "        out[label] = _content_group(m).strip() if m else None"
+    find: "        out[label] = (_html.unescape(raw).strip() or None) if raw is not None else None"
+    replace: "        out[label] = raw if raw is not None else None"
     survives: false
     why: ""
 
@@ -1114,9 +1114,68 @@ mutations:
     why: ""
 
   - id: M126
-    title: "衍生實體不再丟掉裸數字碎片（`claude-3-7-sonnet-…` 生出 `claude@3`——另一個世代的假實體，而它是聚類主鍵）"
+    title: "衍生實體不再擋 model id 碎片（`claude-3-7-sonnet-…` 生出 `claude@3`——另一個世代的假實體，而它是聚類主鍵）"
     file: lib/modelline.py
-    find: "    if bare and len(out) > len(bare):\n        out = [e for e in out if e not in bare]"
-    replace: "    if False:\n        out = [e for e in out if e not in bare]"
+    find: "                if len(tail) == 2 and tail[0] in \"-.\" and tail[1].isdigit():"
+    replace: "                if False:"
+    survives: false
+    why: ""
+
+  # ── 第二輪對抗性審查（2026-07-27）：三個洞都在「上一輪的修正」裡 ──
+  # 兩個是「基於一個關於世界的假前提去修」，第三個是過度修正。
+
+  - id: M127
+    title: "衍生實體回到「同一條裡有層級版本就清掉所有裸數字版本」（真的下線宣告 claude@2.0 / claude@2.1 被刪，跨產品線 GPT-4 也被 Claude 清掉）"
+    file: lib/modelline.py
+    find: "                if not any(c.isdigit() for c in version):\n                    continue"
+    replace: "                if not any(c.isdigit() for c in version) or version[0].isdigit():\n                    continue"
+    survives: false
+    why: ""
+
+  - id: M128
+    title: "詞首邊界回到 `\\b`（宣稱擋得住 model id 碎片——實測加不加一樣；而它讓字典裡 8 個中文 alias 在中文散文裡全部失效）"
+    file: lib/modelline.py
+    find: "            rx = re.compile(r\"(?<![A-Za-z0-9])\" + re.escape(str(term))"
+    replace: "            rx = re.compile(r\"\\b\" + re.escape(str(term))"
+    survives: false
+    why: ""
+
+  - id: M129
+    title: "月份回到「三個字母開頭再任意接」（Marketing 2026 = mar + keting → 真條目被 is_date_only 當成目錄項丟掉）"
+    file: lib/modelline.py
+    find: "_MON = (r\"(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|\""
+    replace: "_MON = (r\"(jan|feb|mar|apr|may|jun|\""
+    survives: false
+    why: ""
+
+  - id: M130
+    title: "去標籤不剝私用區字元（icon font 的字形讓 `\\ue09a July 24, 2026` 判不出是純日期——實測 124 條標題全部變成條目）"
+    file: lib/modelline.py
+    find: "    t = _PUA.sub(\" \", t)"
+    replace: "    t = t"
+    survives: false
+    why: ""
+
+  - id: M131
+    title: "條目切分回到「有 <li> 就只看 <li>」（條目住在 <p>、同段另有導覽時，真條目零列、導覽兩列）"
+    file: lib/modelline.py
+    find: "        if rest and not is_date_only(rest) and len(rest) >= _MIN_ITEM_CHARS:\n            items.append(rest)"
+    replace: "        if False:\n            items.append(rest)"
+    survives: false
+    why: ""
+
+  - id: M132
+    title: "未登記的 verdict 預設成 2＝站方的答案（一個忘了寫進表裡的新狀態會被當成站方回覆過）"
+    file: verify-article-metadata.py
+    find: "    return max((VERDICT_EXIT.get(r.get(\"verdict\"), 4) for r in results), default=0)"
+    replace: "    return max((VERDICT_EXIT.get(r.get(\"verdict\"), 2) for r in results), default=0)"
+    survives: false
+    why: ""
+
+  - id: M133
+    title: "一次跑的退出碼取最小值（有一條 ok 就綠，no_verdict 那條被吞掉——M110 防的是常數表，這條防的是聚合）"
+    file: verify-article-metadata.py
+    find: "    return max((VERDICT_EXIT.get(r.get(\"verdict\"), 4) for r in results), default=0)"
+    replace: "    return min((VERDICT_EXIT.get(r.get(\"verdict\"), 4) for r in results), default=0)"
     survives: false
     why: ""
