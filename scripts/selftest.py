@@ -2888,19 +2888,36 @@ _cv_old = _cm.Event("evt-cv3", "cv3", "T", "2026-07-14T00:00:00+00:00")
 _cv_old.add_evidence("src-a", "u1", "t", 100)
 _cv_old.fm = {"coverage": None}        # 模擬還沒有這一格的既有 note
 _cv_old.dirty = False                  # reload 之後的狀態
-_cm.rescore(_cv_old, {"src-a": {"tier": 1}}, None, None, None, _CV_FF)
-acase("pulse-cluster：既有 Event 的 coverage 跟算出來的不一樣 → 標髒，這一班就補上"
+acase("pulse-cluster：既有 Event 的 coverage 跟磁碟上不一樣 → apply_coverage 回 True"
       "（沒有這條，欄位只會長在有新證據的那些 Event 上，而規格會說得像每則都有）",
-      [_cv_old.coverage, _cv_old.dirty], ["backfilled", True])
+      [_cm.apply_coverage(_cv_old, _CV_FF), _cv_old.coverage], [True, "backfilled"])
+acase("pulse-cluster：apply_coverage **只算不標髒**——標髒等於整份重寫，而整份重寫會把"
+      "還沒潤稿的 dropped 事件復活成 review、還會拿今天的時鐘重算全部分數",
+      _cv_old.dirty, False)
 
 _cv_same = _cm.Event("evt-cv4", "cv4", "T", "2026-07-14T00:00:00+00:00")
 _cv_same.add_evidence("src-a", "u1", "t", 100)
 _cv_same.fm = {"coverage": "backfilled"}
-_cv_same.dirty = False
-_cm.rescore(_cv_same, {"src-a": {"tier": 1}}, None, None, None, _CV_FF)
-acase("pulse-cluster：coverage 沒變就不標髒（否則每班重寫全部 Event，git 每天長一次"
+acase("pulse-cluster：coverage 沒變就回 False（否則每班重寫全部 Event，git 每天長一次"
       "無意義的 diff，真正的改動會被埋在裡面）",
-      _cv_same.dirty, False)
+      _cm.apply_coverage(_cv_same, _CV_FF), False)
+
+# 外科式補一格：這條釘的是「補欄位不得有副作用」。第一版把 coverage 走整份重寫，
+# 實測會讓 52 則的 value / freshness 全部位移，而未潤稿的 dropped 事件會被復活成
+# review 並丟掉 dropped_at / drop_reason——人工判定被一個「加欄位」的改動洗掉。
+_pc_dir = _pathlib.Path(_tempfile.mkdtemp())
+_pc_note = _pc_dir / "evt-x.md"
+_pc_note.write_text(
+    "---\nid: evt-x\nstatus: dropped\nenriched: false\n"
+    "dropped_at: '2026-07-20T00:00:00+00:00'\ndrop_reason: 人工判定不追\n"
+    "value: 71\n---\n\n## 事實\n潤好的字\n", encoding="utf-8")
+_cm.patch_coverage(_pc_note, "backfilled")
+_pc_fm = _yaml.safe_load(_pc_note.read_text("utf-8").split("---")[1])
+acase("patch_coverage：只改 coverage 一格，status / dropped_at / drop_reason / value"
+      "與 body 全部原樣（人工判定不能被一個「加欄位」的改動洗掉）",
+      [_pc_fm.get("coverage"), _pc_fm.get("status"), _pc_fm.get("drop_reason"),
+       _pc_fm.get("value"), "潤好的字" in _pc_note.read_text("utf-8")],
+      ["backfilled", "dropped", "人工判定不追", 71, True])
 
 _cv_tmp = _pathlib.Path(_tempfile.mkdtemp())
 acase("load_first_fetch：沒有 state.json 回空 dict，而空 dict 讓每則判 unknown"
@@ -3580,6 +3597,61 @@ acase("journey_html：backfilled 的事件頁真的印出回填說明，且標�
       "（判準對了但沒印出來，等於沒判）",
       [_jn_bf_head, _rmod.COVERAGE_NOTE["backfilled"] in _jn_bf_html,
        "起點" in _jn_bf_html], ["證據", True, False])
+
+# 自我審查補的一條：拿掉日期退路之後才走得到的路徑。原本「解不出日期就當 1970」
+# 讓一筆**我們承認不知道日期**的證據保證排第一，然後拿到「起點」——印出來的那行是
+# 「起點／日期未留存／標題未留存」，正是這個修正要消滅的東西，由修正本身引進。
+_jn_mix = {"evidence": [("src-a", "https://known"), ("src-b", "https://unknown")],
+           "date": "2026-07-14", "coverage": "observed"}
+_jn_mix_head, _jn_mix_html = _rmod.journey_html(
+    _jn_mix, {"https://known": {"title": "真的最早那一篇", "date": "2026-07-10"}}, {})
+_jn_rows = [(_re.search(r'jn-type">([^<]*)', li).group(1),
+             _re.search(r'<b>([^<]*)', li).group(1))
+            for li in _jn_mix_html.split("<li ")[1:]]
+acase("journey_html：沒有日期的證據排**最後**、且不得拿到「起點」"
+      "（缺值不能贏過已知值；連它什麼時候發生都不知道，就沒有資格說"
+      "「這件事從這裡開始」）",
+      [_jn_rows[0][1], _jn_rows[0][0], _jn_rows[-1][1]],
+      ["真的最早那一篇", "起點", _rmod.TITLE_UNKEPT])
+acase("journey_html：連第一筆的日期都不知道時，整則都不發「起點」",
+      "起點" in _rmod.journey_html(
+          dict(_jn_mix, evidence=[("src-a", "u1"), ("src-b", "u2")]), {}, {})[1],
+      False)
+
+# ── 接線：判準算對了，但有沒有真的接到輸出上 ────────────────────────
+# 這三條是自我審查補的。M93–M95 一開始「看起來被殺掉」，但實測是**假殺**——
+# 只有「find 必須剛好出現一次」那條 meta 測試變紅，沒有任何行為測試在守。
+# 一個只被 meta 殺掉的變異，等於沒有被守住。
+
+_en_ev = _cm.Event("evt-en", "en", "T", "2026-07-14T00:00:00+00:00")
+_en_ev.add_evidence("src-a", "u1", "t", 100)
+_en_ev.fm = {"id": "evt-en", "status": "published", "coverage": None}
+_en_ev.orig_body = "\n## 事實\n潤好的字\n"
+_cm.rescore(_en_ev, {"src-a": {"tier": 1}}, None, None, None, _CV_FF)
+acase("pulse-cluster：**已潤稿**那條寫檔路徑也要寫 coverage"
+      "（漏掉的話這格只會長在沒潤過稿的 Event 上——實測 52 則只有 1 則拿到，"
+      "而且每班都判「跟磁碟上不一樣」、每班重寫、每班寫的還是舊值）",
+      "coverage: backfilled" in _cm.rescored_enriched_markdown(_en_ev), True)
+
+_lv = _pathlib.Path(_tempfile.mkdtemp())
+(_lv / "Events").mkdir()
+(_lv / "Events" / "evt-lv.md").write_text(
+    "---\nid: evt-lv\nslug: lv\ntitle: T\ndate: '2026-07-14'\nstatus: published\n"
+    "coverage: backfilled\ncompany: C\nevidence: []\n---\n\n## 事實\nx\n",
+    encoding="utf-8")
+acase("pulse-render.load_events：coverage 從檔案讀，不得寫死"
+      "（寫死成 observed 會讓每一則都宣稱我們當時在看——往編造的方向倒）",
+      _rmod.load_events(_lv)[0].get("coverage"), "backfilled")
+
+_pg_ev = dict(_rmod.load_events(_lv)[0],
+              layers={}, summary="", confidence=0, heat=None, impact=0, value=0,
+              independent=0, score_factors={}, date_display="2026-07-14",
+              category="", track="", evidence=[("src-a", "u1"), ("src-b", "u2")])
+_pg_html = _rmod.build_event_page(_pg_ev, [_pg_ev], {}, {}, "now")
+acase("pulse-render.build_event_page：頁面標題用 journey_html 回傳的那個"
+      "（回傳值被測了、頁面有沒有用它沒被測——寫死回「發展歷程」的話，"
+      "backfilled 的事件頁會掛著一個它不配的標題）",
+      ["<h2>證據</h2>" in _pg_html, "<h2>發展歷程</h2>" in _pg_html], [True, False])
 
 print("offline self-test\n" + "-" * 70)
 fails = 0

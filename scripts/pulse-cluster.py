@@ -28,6 +28,7 @@ from lib import cluster, entities as entities_lib, scoring  # noqa: E402
 from lib import coverage as coverage_lib  # noqa: E402  observed/backfilled 判準單一真相源
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.notes import PLACEHOLDER  # noqa: E402  單一來源，見 lib/notes.py
+from lib import notes  # noqa: E402  外科式改單一 frontmatter 欄位（patch_coverage）
 from lib.quality import authority_score_from_tier, parse_dt  # noqa: E402
 from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 
@@ -259,27 +260,42 @@ def mark_reposts(ev, sources, tc_cfg, ent_table):
 
 
 def apply_coverage(ev, first_fetch):
-    """算這則的 `coverage` 並在**跟檔案上寫的不一樣時標髒**。→ 有沒有變。
+    """算這則的 `coverage`。→ 跟磁碟上寫的**不一樣**嗎。
 
-    兩件事綁在一起是刻意的。`coverage` 每班重算（不是 sticky），但重算完沒有人
-    重寫檔案的話，這一格只會長在「這一班剛好有新證據進來」的那些 Event 上。
-    第一次實作就踩了這個坑：跑完一班，52 則 Event 一則都沒拿到這一格，而輸出
-    寫著「events changed=0」看起來完全正常——**規格說有、實作沒有**，正是這個
-    repo 一直在抓的形態。
+    **只算，不標髒。** 標不標髒由 `main()` 決定，因為 `ev.dirty` 在這支腳本裡
+    的意思是「整份重寫這個檔」，而整份重寫的代價遠不只多一個欄位：
 
-    讀 frontmatter 的舊值只為了**比對**，不是拿它當值用。反過來（沒變也標髒）
-    的代價同樣具體：每班重寫全部 Event，git 每天長一次無意義的 diff，
-    而真正的改動會被埋在裡面。
+    - `event_markdown()` 會把 `status` 寫死回 `review`，且不帶 `published_at` /
+      `dropped_at` / `drop_reason` / `enriched` / `summary`——一則**還沒潤稿的
+      `dropped` 事件**會就這樣被復活成 review，人工判定的「不追」消失。
+    - 兩條寫檔路徑都會拿**今天的** `ref_now` 重算所有分數。實測一次遷移會讓
+      52 則的 `value` / `freshness` 全部位移，而那不是「加一個欄位」該做的事。
+
+    所以只有 coverage 變了的那些走 `patch_coverage()`（外科式改一格），
+    真的有新證據的才整份重寫。
+
+    回傳「跟磁碟上不一樣」，不是「跟記憶體裡的預設值不一樣」。後者聽起來一樣、
+    但每一則都會回 True——reload 不從 frontmatter 讀這一格，記憶體裡永遠是
+    UNKNOWN 起跳。第一版就是這樣，摘要行印「52 有變」而實際寫檔 0 筆。
     """
     ev.coverage = coverage_lib.coverage_of(ev.happened_at, ev.evidence, first_fetch)
-    # 回傳的是「**跟磁碟上不一樣**」，不是「跟記憶體裡的預設值不一樣」。
-    # 後者聽起來一樣、但每一則都會回 True——reload 不從 frontmatter 讀這一格，
-    # 所以記憶體裡永遠是 UNKNOWN 起跳。第一版就是這樣，摘要行印「52 有變」
-    # 而實際寫檔 0 筆：一個跟現實不符的計數比沒有計數更糟。
-    if (ev.fm or {}).get("coverage") != ev.coverage:
-        ev.dirty = True
-        return True
-    return False
+    return (ev.fm or {}).get("coverage") != ev.coverage
+
+
+def patch_coverage(path, coverage):
+    """只改 frontmatter 的 `coverage` 一格，其餘（含 body）原樣保留。
+
+    走 `parse_note` → 改 dict → `dump_frontmatter`，跟 `pulse-gate.py` 與
+    `pulse-enrich-apply.py` 同一條路——那條路會保留所有它不認識的欄位。
+    `event_markdown()` 那條是**從頭重建**，這一格不值得付那個代價。
+    """
+    fm, body = notes.parse_note(path.read_text("utf-8"))
+    if fm is None:
+        return False
+    fm["coverage"] = coverage
+    body = body if body.startswith("\n") else "\n" + body
+    path.write_text(f"---\n{notes.dump_frontmatter(fm)}\n---{body}", encoding="utf-8")
+    return True
 
 
 def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None, first_fetch=None):
@@ -510,7 +526,14 @@ def main():
     # coverage 是每班重算的推導欄位，所以要在挑「哪些要重寫」**之前**算完。
     # 只算 dirty 的那些，這一格永遠長不到「這一班沒有新證據」的 Event 上——
     # 而那是絕大多數。見 apply_coverage() 的 docstring。
-    cov_touched = sum(1 for ev in events if apply_coverage(ev, first_fetch))
+    #
+    # 分兩桶：本來就要整份重寫的（有新證據）讓 event_markdown 順手帶出去；
+    # **只有 coverage 變了**的那些走外科式 patch，不整份重寫、不重算分數、
+    # 不動 status——後者會把還沒潤稿的 dropped 事件復活成 review。
+    cov_only = []
+    for ev in events:
+        if apply_coverage(ev, first_fetch) and not ev.dirty and ev.path is not None:
+            cov_only.append(ev)
 
     # rescore 所有動到的 Event
     changed = [e for e in events if e.dirty]
@@ -524,7 +547,10 @@ def main():
     print(f"  events changed={len(changed)}  (total in vault={len(events)})")
     # 印出來給人看：0 也要印。一個只在有東西時才出現的數字，看不見的時候有兩種
     # 意思（沒有變／這段沒跑），而這一格上線那天正好就是「沒跑」。
-    print(f"  coverage 跟磁碟上不一樣（要寫回）的: {cov_touched}")
+    # 印出來給人看：0 也要印。這個數字只算「本來不用重寫、單純為了 coverage
+    # 而改一格」的那些，不含本來就要整份重寫的——兩者混在一起會讓遷移那天的
+    # 數字看起來像「52 則被改動」，而實際上絕大多數只是多了一個欄位。
+    print(f"  只補 coverage（不重寫、不重算分數）的: {len(cov_only)}")
     if conf:
         import statistics
         print(f"  confidence: min={min(conf)} median={int(statistics.median(conf))} max={max(conf)}")
@@ -541,7 +567,8 @@ def main():
             out.write_text(rescored_enriched_markdown(ev), encoding="utf-8")  # 保 prose，只更新分數
         else:
             out.write_text(event_markdown(ev), encoding="utf-8")
-    print(f"  → 寫入 {len(changed)} 個 Events/*.md")
+    patched = sum(1 for ev in cov_only if patch_coverage(ev.path, ev.coverage))
+    print(f"  → 寫入 {len(changed)} 個 Events/*.md，另外 {patched} 個只補了 coverage 一格")
     return 0
 
 

@@ -637,8 +637,16 @@ def journey_html(ev, corpus_idx, sources):
         items.append({"sid": sid, "url": url,
                       "title": rec.get("title") or TITLE_UNKEPT,
                       "date": rec.get("date") or None})
-    items.sort(key=lambda x: (parse_dt(x["date"]) or datetime(1970, 1, 1, tzinfo=timezone.utc)))
+    # 沒有日期的排**最後**，不是排最前。原本是「解不出日期就當 1970」，而 1970
+    # 早於任何真實日期——所以一筆我們承認不知道日期的證據會保證排第一，然後拿到
+    # 「起點」。日期退路拿掉（不再退回事件日）之後這條路才真的走得到，而它印出來
+    # 的那一行是「起點／日期未留存／標題未留存」：一個關於世界的宣稱，貼在一筆
+    # 我們承認什麼都不知道的證據上。複合鍵讓缺值永遠贏不過已知值。
+    items.sort(key=lambda x: (0 if parse_dt(x["date"]) else 1,
+                              parse_dt(x["date"]) or datetime(1970, 1, 1, tzinfo=timezone.utc)))
     heading, note, show_origin = journey_shape(ev.get("coverage"), len(items))
+    # 連第一筆的日期都不知道就沒有資格說「起點」——排序位置在這裡不構成主張。
+    show_origin = show_origin and bool(items and items[0]["date"])
     if not items:
         return heading, '<p class="line-empty">尚無可展開的證據鏈。</p>'
     lis = []
