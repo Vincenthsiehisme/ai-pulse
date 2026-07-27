@@ -576,3 +576,13 @@ mutations:
     replace: "        return (f\"榜單中文描述：量不到（{cov.get('day')} 那班沒抓到榜單）\"\n                f\"，儲存層有 {cov.get('store_entries')} 條\"), True"
     survives: false
     why: ""
+
+  # ── 說得出「你設錯了」也要說得出「那是什麼」（references/health-alarms.md）──
+
+  - id: M65
+    title: "候選網址不記（診斷說得出你設錯了，說不出那張長什麼樣）"
+    file: pulse-probe.py
+    find: "                  \"index_sample\": [loc for loc, _ in entries[:5]]})"
+    replace: "                  \"index_sample\": []})"
+    survives: false
+    why: ""

@@ -215,6 +215,21 @@ Claude Opus 5 那次同形態（容器／CI 的 IP 被 WAF 擋，不是站方拒
 `hints_matched_nothing` / `prefix_filtered_all`（我們這邊）、
 `sub_sitemap_unreachable`（中間那一跳），並印出中途數字與過濾前的樣本 URL。
 
+**2026-07-27 02:38Z 首班的判決出來了**：
+
+```
+| src-mistral-news | hints_matched_nothing | 我們 |
+  index 有 1 張子 sitemap，hints ['news','blog'] 一張都沒命中
+```
+
+**是我們的設定對不上，不是站上沒東西。** 那份 sitemap-index 只有一張子 sitemap，
+而它的網址不含 `news` 也不含 `blog`。剩下的動作只有一個：**下一班會把那張的網址
+印出來**（`fix/hints-miss-without-showing-candidates` 補的——首班判對了卻沒印候選，
+下一步還是查不下去），拿到網址就把 `sitemap_hints` 或 `url_prefix` 改對。
+**不要用猜的改設定**：猜對了也沒有證據，猜錯了下一個人要重查一次。
+
+以下是首班之前寫的：
+
 **所以這條剩下的不是動手，是等一班。** 那條分支併進 `main` 之後跑過一班，去讀
 `_probe/<日>/report.md` 的〈零產出診斷〉，`src-mistral-news` 屬於哪一種當場就有
 答案。**併之前先跑，等於什麼都不會發生**——這個 repo 已經量過兩次了。

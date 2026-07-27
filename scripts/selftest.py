@@ -155,7 +155,21 @@ acase("零產出診斷：hints 一張都沒命中 → 是我們的設定對不�
       _pp.zero_yield_reason(_d_hint)[0], "hints_matched_nothing")
 acase("零產出診斷：hints 沒命中時要記下 index 有幾張可選"
       "（沒有這個數字，人分不出「站上沒子 sitemap」跟「我們挑錯」）",
-      (_d_hint["index_entries"], _d_hint["hint_matched"]), (1, 0))
+      (_d_hint.get("index_entries"), _d_hint.get("hint_matched")), (1, 0))
+acase("零產出診斷：hints 沒命中時要印出候選的網址"
+      "（2026-07-27 首班實測：判定對了、下一步還是查不下去，因為那張的網址沒印。"
+      "說得出「你設錯了」卻說不出「那是什麼」的診斷，只把人從「不知道哪裡錯」"
+      "推到「知道哪裡錯但不知道要改成什麼」）",
+      [_d_hint.get("index_sample"),
+       "https://x.test/sitemap-pages.xml" in _pp.zero_yield_reason(_d_hint)[1]],
+      [["https://x.test/sitemap-pages.xml"], True])
+acase("零產出診斷：候選清單有上限，不把整份 index 倒進報告",
+      len(_pp.adapt_sitemap(
+          {"url_prefix": "/news/"},
+          '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+          + "".join(f"<sitemap><loc>https://x.test/s{i}.xml</loc></sitemap>"
+                    for i in range(9))
+          + "</sitemapindex>", _d_many := {})[0:0] or _d_many["index_sample"]), 5)
 
 _SM_NO_NEWS = ('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
                '<url><loc>https://x.test/careers/a</loc></url>'

@@ -499,7 +499,13 @@ def adapt_sitemap(source: dict, body: str, diag: dict | None = None) -> list[dic
         picked = matched[:cap]
         d.update({"index_entries": len(entries), "hints": list(hints),
                   "hint_matched": len(matched), "max_sitemaps": cap,
-                  "expanded": len(picked), "sub_ok": 0, "sub_failed": []})
+                  "expanded": len(picked), "sub_ok": 0, "sub_failed": [],
+                  # 命中 0 張的時候，唯一能回答「那該設什麼」的東西就是**候選長什麼樣**。
+                  # 2026-07-27 首班實測：src-mistral-news 印出「index 1 張、命中 0 張」
+                  # ——判定完全正確，但下一步還是查不下去，因為那 1 張的網址沒印。
+                  # 一個說得出「你設錯了」卻說不出「那是什麼」的診斷，只把人從
+                  # 「不知道哪裡錯」推到「知道哪裡錯但還是不知道要改成什麼」。
+                  "index_sample": [loc for loc, _ in entries[:5]]})
         entries = []
         for sub in picked:
             status, sub_body, _ = safe_fetch(sub)
@@ -572,9 +578,12 @@ def zero_yield_reason(diag: dict | None) -> tuple[str, str]:
         if idx_n == 0:
             return "source_empty", "sitemap index 裡一張子 sitemap 都沒有（站方那邊）"
         if matched == 0:
+            cands = diag.get("index_sample") or []
+            shown = ("；候選：" + "、".join(cands)) if cands else \
+                    "；候選一張都沒印出來（index_sample 是空的，這本身是個 bug）"
             return ("hints_matched_nothing",
                     f"index 有 {idx_n} 張子 sitemap，hints {hints} 一張都沒命中"
-                    f"——**是我們的設定對不上，不是站上沒東西**")
+                    f"——**是我們的設定對不上，不是站上沒東西**{shown}")
         if diag.get("expanded", 0) and not diag.get("sub_ok", 0):
             fails = ", ".join(f"{u}→{s}" for u, s in diag.get("sub_failed") or [])
             return ("sub_sitemap_unreachable",
@@ -879,6 +888,8 @@ def zero_yield_section(stats: list[dict]) -> list[str]:
                         f"hints {d.get('hints')} 命中 {d.get('hint_matched')} 張"
                         f"（上限 {d.get('max_sitemaps')}）、"
                         f"展開 {d.get('expanded')} 張、抓成功 {d.get('sub_ok')} 張")
+            for loc in d.get("index_sample") or []:
+                bits.append(f"index 候選 {loc}")
             for url, st in d.get("sub_failed") or []:
                 bits.append(f"子 sitemap 失敗 {url} → {st}")
         bits.append(f"過濾前 {d.get('urls_before_filter')} 條 URL、"
