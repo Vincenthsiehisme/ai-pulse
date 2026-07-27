@@ -1,0 +1,162 @@
+[
+  {
+    "id": "evt-2026-05-17-c9a5ce",
+    "title": "Introducing Google Antigravity 2.0",
+    "company": "Google",
+    "track": "Agent與軟體重構",
+    "summary": "Google 在 DeepMind 部落格發布 Antigravity 2.0，標題之外未附內容。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-05-17-feeb57",
+    "title": "Introducing Gemini Omni",
+    "company": "Google",
+    "track": "模型能力與研究",
+    "summary": "Google 發布 Gemini Omni，屬 Gemini 系列新成員，內容待補。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-05-21-814d64",
+    "title": "We’re launching the Google DeepMind Accelerator program in Asia Pacific to tackle environmental risks",
+    "company": "Google DeepMind",
+    "track": "全球創新版圖",
+    "summary": "Google DeepMind 在亞太推 Accelerator 計畫，鎖定環境風險。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-06-09-51af74",
+    "title": "Introducing Gemma 4 12B: a unified, encoder-free multimodal model",
+    "company": "Google",
+    "track": "模型能力與研究",
+    "summary": "Google 發布 Gemma 4 12B，主打統一、無編碼器的多模態模型。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-06-09-decef1",
+    "title": "Fluid, natural voice translation with Gemini 3.5 Live Translate",
+    "company": "Google DeepMind",
+    "track": "產品與商業驗證",
+    "summary": "Google 把近即時的自然語音翻譯接進 Meet、翻譯與 AI Studio 三個產品。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-06-24-484ed7",
+    "title": "Introducing computer use in Gemini 3.5 Flash",
+    "company": "Google",
+    "track": "Agent與軟體重構",
+    "summary": "Google 為 Gemini 3.5 Flash 加入操作電腦（computer use）能力。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-03-209541",
+    "title": "Google DeepMind and A24 announce first-of-its-kind research partnership",
+    "company": "Google DeepMind",
+    "track": "資本與公司演化",
+    "summary": "Google DeepMind 與電影公司 A24 宣布一項研究合作。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-07-81e525",
+    "title": "AI Innovators Adopt NVIDIA Vera — Why Max Single-Threaded CPU at Scale Matters",
+    "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 拋出 Vera，把 CPU 重新講成 agentic AI 的關鍵瓶頸。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-08-e44e40",
+    "title": "NVIDIA Nemotron Achieves Benchmark-Leading Performance With LangChain Deep Agents Harness",
+    "company": "NVIDIA",
+    "track": "模型能力與研究",
+    "summary": "NVIDIA Nemotron 3 Ultra 綁 LangChain 測 agent，主打接近閉源、成本更低。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-13-cdd3fe",
+    "title": "Empowering India’s next generation of innovators with ATL Saathi",
+    "company": "Google",
+    "track": "全球創新版圖",
+    "summary": "Google 與 AIM 推出 Gemini 驅動的 ATL Saathi，給印度機器人實驗室的老師用。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-15-3154bf",
+    "title": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+    "company": "industry",
+    "track": "模型能力與研究",
+    "summary": "一套叫 Real World VoiceEQ 的評測登場，量測語音 AI 的「人味」。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-15-5f31db",
+    "title": "NVIDIA and Japan Bring Full-Stack AI and Robotics to Every Industry",
+    "company": "NVIDIA",
+    "track": "全球創新版圖",
+    "summary": "NVIDIA 與日本夥伴一起把全端 AI 和機器人推進各產業。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-15-5f589f",
+    "title": "NVIDIA Introduces New Jetson Thor Computers to Advance Mainstream Robotics and Edge AI",
+    "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 更新 Jetson Thor 邊緣運算模組，卡位機器人量產階段。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-17-484ed7",
+    "title": "Introducing Gemini 3.5 Flash Cyber",
+    "company": "Google DeepMind",
+    "track": "產品與商業驗證",
+    "summary": "Google 推專用資安模型 Gemini 3.5 Flash Cyber，主打找漏洞、修漏洞。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-17-57c01e",
+    "title": "A scorecard for the AI age",
+    "company": "OpenAI",
+    "track": "產品與商業驗證",
+    "summary": "OpenAI 財務長提出一套 AI 投資報酬計分卡，把焦點從模型分數拉到「每次成功任務的成本」。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-17-593335",
+    "title": "NVIDIA Vera Rubin Maximizes Intelligence per Dollar for Post-Training Workloads — a Key Metric for Agentic AI",
+    "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA Vera Rubin 主打每 token 成本最低，鎖定 agent 時代的後訓練。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-20-2da7a6",
+    "title": "At SIGGRAPH, NVIDIA Advances Graphics and Simulation With Agentic and Physical AI",
+    "company": "NVIDIA",
+    "track": "產品與商業驗證",
+    "summary": "NVIDIA 在 SIGGRAPH 秀 agentic 與實體 AI，推進繪圖與模擬。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-20-3b61fa",
+    "title": "Safety and alignment in an era of long-horizon models",
+    "company": "OpenAI",
+    "track": "模型能力與研究",
+    "summary": "OpenAI 公布長時程模型的部署教訓，坦承看到新的失效模式，靠迭代部署補強防護。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-20-a01040",
+    "title": "Bristol Myers Squibb Building Life Science Industry’s Most Advanced AI Factory on NVIDIA Vera Rubin",
+    "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "必治妥施貴寶（BMS）要在 NVIDIA Vera Rubin 上蓋新一代 AI 工廠。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-21-11f6a7",
+    "title": "NVIDIA and Partners Build in America, for America",
+    "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 和夥伴宣示在美國本土投資製造、供應鏈、電網與人力。",
+    "stale_zh": null
+  }
+]

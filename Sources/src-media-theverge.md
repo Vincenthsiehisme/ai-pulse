@@ -17,13 +17,13 @@ can_satisfy_primary: false
 endpoint: "https://www.theverge.com/rss/index.xml"
 robots_checked_day: "2026-07-26"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-07-26"
+last_observed_day: "2026-07-27"
 items_observed: 10
 events_bound: 0
 events_published: 0
 health_score: 100
 consecutive_failures: 0
-last_status: 304
+last_status: 200
 ---
 
 # The Verge（src-media-theverge）
