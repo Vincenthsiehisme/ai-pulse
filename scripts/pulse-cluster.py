@@ -25,12 +25,36 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import cluster, entities as entities_lib, scoring  # noqa: E402
+from lib import coverage as coverage_lib  # noqa: E402  observed/backfilled 判準單一真相源
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.notes import PLACEHOLDER  # noqa: E402  單一來源，見 lib/notes.py
 from lib.quality import authority_score_from_tier, parse_dt  # noqa: E402
 from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 
 import yaml  # noqa: E402
+
+
+def load_first_fetch(probe):
+    """`_probe/state.json` → `{source_id: first_fetch_at}`。缺檔或壞檔回空 dict。
+
+    這是**既有真相源**：`pulse-probe` 寫、`pulse-monitor` 的
+    `silent_pending_clock` 讀（`fix/coverage-uses-own-clock` 就是把沉默判準改成
+    吃這一格）。這裡是第三個消費者，讀同一份，不另存一份。
+
+    讀不到就回空 dict，而空 dict 會讓每一則判成 `unknown`——不是 `observed`。
+    設定檔壞掉的時候規則要變嚴，不是變鬆（跟 `lib/dictgaps.thresholds()` 同一條）。
+    """
+    p = probe / "state.json"
+    if not p.exists():
+        return {}
+    try:
+        st = json.loads(p.read_text("utf-8"))
+    except (json.JSONDecodeError, OSError, UnicodeDecodeError):
+        return {}
+    if not isinstance(st, dict):
+        return {}
+    return {k: (v or {}).get("first_fetch_at")
+            for k, v in st.items() if isinstance(v, dict)}
 
 
 def load_sources(cfg):
@@ -140,6 +164,11 @@ class Event:
         # fix/backfill-flag-erased-by-second-run 修的坑，這裡是第三個踩到它的欄位。
         self.title_zh = None
         self.title_zh_src = None
+        # 事情發生時我們看不看得到（observed / backfilled / unknown）。
+        # 跟上面那批 sticky 欄位**相反**：這一格每班從 _probe/state.json 重算，
+        # reload 時刻意不從 frontmatter 讀回來——寫死之後，來源的 first_fetch_at
+        # 修正了它也不會跟著改。判準見 lib/coverage.py。
+        self.coverage = coverage_lib.UNKNOWN
 
     def add_evidence(self, source_id, url, title, relevance, published=None):
         """新增一條證據。`title` 與 `published` 是**判斷用的欄位，不是展示用的**。
@@ -229,7 +258,7 @@ def mark_reposts(ev, sources, tc_cfg, ent_table):
     return flagged
 
 
-def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None):
+def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None, first_fetch=None):
     reposts = mark_reposts(ev, sources, tc_cfg, ent_table)
     # gate.yaml 的 excluded_from 真的被讀：把它寫成一個「改了也沒效果」的清單，
     # 就是這個 repo 一直在抓的假旋鈕。清單裡的 heat 今天是**由 independent_sources
@@ -268,6 +297,10 @@ def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None):
     # 印出來給人看：0 也要印。一個只在有東西時才出現的數字，看不見的時候
     # 有兩種意思（沒有轉載／這條規則沒跑）——那是這個 repo 一直在抓的形態。
     ev.scores["suspected_reposts"] = len(reposts)
+    # 事情發生時我們看不看得到。每班重算，不是 sticky。
+    # first_fetch 沒傳進來時判準回 unknown，不是 observed——預設值倒向誠實
+    # 那一邊（紅線 8）。規格見 references/event-timestamps.md〈第三個現場〉。
+    ev.coverage = coverage_lib.coverage_of(ev.happened_at, ev.evidence, first_fetch)
 
 
 def event_markdown(ev):
@@ -292,6 +325,10 @@ def event_markdown(ev):
         # 監控佇列年紀只能看這個。拿 happened_at 去量「我們放了多久」，
         # 等於新增一條會補歷史的來源就讓 CI 立刻紅——2026-07-26 就是這樣紅的。
         "ingested_at": ev.ingested_at,
+        # 事情發生時我們看不看得到：observed / backfilled / unknown。
+        # 上面兩格是「什麼時候」，這一格是「當時我們在不在場」——少了它，
+        # 一則 backfilled 的舊事件在時間軸上跟真的追到的長得一模一樣。
+        "coverage": ev.coverage,
         "status": "review",
         "category": None,          # enrich 填
         "company": ev.company,
@@ -366,6 +403,8 @@ def main():
 
     sources = load_sources(cfg)
     entities = load_entities(cfg)
+    # 每條來源自己的觀測起點。讀不到 → 每則判 unknown（見 load_first_fetch）。
+    first_fetch = load_first_fetch(probe)
     # 轉載鏈判定要的兩樣東西：gate.yaml 的門檻，與命名實體字典的比對表。
     # 字典讀原始 yaml 不讀 load_entities()——後者是給 infer_company 用的縮減版，
     # 沒有 aliases，而 aliases 正是這條規則能跨語言的原因。
@@ -447,7 +486,7 @@ def main():
     # rescore 所有動到的 Event
     changed = [e for e in events if e.dirty]
     for ev in changed:
-        rescore(ev, sources, ref_now, tc_cfg, ent_table)
+        rescore(ev, sources, ref_now, tc_cfg, ent_table, first_fetch)
 
     # 摘要
     conf = [e.scores["confidence"] for e in changed if e.scores]

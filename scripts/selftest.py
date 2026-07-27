@@ -2806,8 +2806,95 @@ acase("pulse-cluster：ingested_at 沒帶值時寫成空，不會偷偷填成今
           type("E", (), {**{k: getattr(_e, k) for k in
                            ("id", "slug", "title", "happened_at", "fingerprint",
                             "facet", "company", "keywords", "evidence", "scores",
-                            "title_zh", "title_zh_src")},
+                            "title_zh", "title_zh_src", "coverage")},
                          "ingested_at": None})()), True)
+
+# ── coverage：事情發生的時候，我們看得到嗎 ───────────────────────────
+# 規格：references/event-timestamps.md〈第三個現場：呈現層〉。判準：lib/coverage.py。
+#
+# 為什麼這批值得釘：時間軸上一則 backfilled 的舊事件，跟真的追到的長得**一模一樣**。
+# 這一格是唯一分得開兩者的東西，而它的失效是靜默的——欄位還在、值是 observed、
+# 頁面照印，只是那句話是假的。2026-07-27 實測 36 則已發布事件裡有 30 則的日期
+# 早於其所有證據來源的首抓日，也就是事情發生時我們一條相關來源都沒有。
+from lib import coverage as _covlib  # noqa: E402
+
+_CV_FF = {"src-a": "2026-07-23T23:52:35+00:00",
+          "src-b": "2026-07-26T10:00:00+00:00"}
+_CV_EV_A = [{"source_id": "src-a", "url": "u1"}]
+
+acase("coverage：封閉集維持三態（新增狀態要同時改規格、判準、selftest 與 mutation）",
+      sorted(_covlib.COVERAGE_STATES), ["backfilled", "observed", "unknown"])
+acase("coverage：事情發生在該來源首抓之前 → backfilled（首抓撈回的存量，不是追到的）",
+      _covlib.coverage_of("2026-07-14T00:00:00+00:00", _CV_EV_A, _CV_FF), "backfilled")
+acase("coverage：事情發生在首抓之後 → observed",
+      _covlib.coverage_of("2026-07-25T00:00:00+00:00", _CV_EV_A, _CV_FF), "observed")
+acase("coverage：正好等於首抓時刻算 observed"
+      "（跟訊號層 is_backfill「每條來源第一次抓取整批算存量」是同一條線）",
+      _covlib.coverage_of("2026-07-23T23:52:35+00:00", _CV_EV_A, _CV_FF), "observed")
+acase("coverage：多來源取**最早**的首抓日（只要有一條當時在看，就算看得到）",
+      _covlib.coverage_of("2026-07-25T00:00:00+00:00",
+                          [{"source_id": "src-a"}, {"source_id": "src-b"}],
+                          _CV_FF), "observed")
+
+# 下面這條釘的是「讓數字變好看、又不會讓任何測試變紅」的那個改法。
+acase("coverage：observable_from 只取**該事件證據來源**的首抓日，不取全體最小值"
+      "（改成全體最小值幾乎所有事件都會變 observed，而畫面上沒有任何數字看起來不對）",
+      _covlib.coverage_of("2026-07-25T00:00:00+00:00",
+                          [{"source_id": "src-b"}], _CV_FF), "backfilled")
+
+# unknown 這一族：全部**不得**倒向 observed。紅線 8——量不到就說量不到。
+acase("coverage：任一證據來源沒有 first_fetch_at → unknown"
+      "（跳過那一條去算其餘的最小值，等於把「有一條不知道何時開始看」稀釋成"
+      "「別條看得到就算看得到」）",
+      _covlib.coverage_of("2026-07-25T00:00:00+00:00",
+                          [{"source_id": "src-a"}, {"source_id": "src-none"}],
+                          _CV_FF), "unknown")
+acase("coverage：first_fetch 整個沒傳進來 → unknown，不是 observed"
+      "（預設值必須倒向誠實那一邊：併進 observed 的話，state.json 的任何缺格"
+      "都會靜靜變成「我們當時在看」）",
+      _covlib.coverage_of("2026-07-25T00:00:00+00:00", _CV_EV_A, None), "unknown")
+acase("coverage：沒有證據 → unknown",
+      _covlib.coverage_of("2026-07-25T00:00:00+00:00", [], _CV_FF), "unknown")
+acase("coverage：沒有 happened_at → unknown",
+      _covlib.coverage_of(None, _CV_EV_A, _CV_FF), "unknown")
+
+# 寫檔那一端：算對了但沒寫出去，等於沒算。
+_cv_e = _cm.Event("evt-cv", "cv", "T", "2026-07-14T00:00:00+00:00")
+_cv_e.scores = dict(_e.scores)
+acase("pulse-cluster：Event 預設 coverage 是 unknown"
+      "（建立時忘了算的那一則，不得預設成「我們當時在看」）",
+      _cv_e.coverage, "unknown")
+acase("pulse-cluster：coverage 真的寫進 frontmatter",
+      "coverage: unknown" in _cm.event_markdown(_cv_e), True)
+
+_cv_e2 = _cm.Event("evt-cv2", "cv2", "T", "2026-07-14T00:00:00+00:00")
+_cv_e2.add_evidence("src-a", "u1", "t", 100)
+_cm.rescore(_cv_e2, {"src-a": {"tier": 1}}, None, None, None, _CV_FF)
+acase("pulse-cluster：rescore 會算 coverage"
+      "（07-14 發生的事 vs src-a 07-23 才首抓 → backfilled）",
+      [_cv_e2.coverage, "coverage: backfilled" in _cm.event_markdown(_cv_e2)],
+      ["backfilled", True])
+
+_cm.rescore(_cv_e2, {"src-a": {"tier": 1}}, None, None, None,
+            {"src-a": "2026-07-01T00:00:00+00:00"})
+acase("pulse-cluster：coverage 是推導欄位不是 sticky 欄位——first_fetch_at 修正之後"
+      "值要跟著改（寫死成 sticky 的話，來源首抓日修正了它會永遠停在舊答案）",
+      _cv_e2.coverage, "observed")
+
+_cv_tmp = _pathlib.Path(_tempfile.mkdtemp())
+acase("load_first_fetch：沒有 state.json 回空 dict，而空 dict 讓每則判 unknown"
+      "——設定讀不到的時候規則要變嚴不是變鬆（跟 lib/dictgaps.thresholds() 同一條）",
+      [_cm.load_first_fetch(_cv_tmp),
+       _covlib.coverage_of("2026-07-25T00:00:00+00:00", _CV_EV_A,
+                           _cm.load_first_fetch(_cv_tmp))], [{}, "unknown"])
+(_cv_tmp / "state.json").write_text("{ not json", encoding="utf-8")
+acase("load_first_fetch：state.json 壞掉回空 dict，不得爆炸",
+      _cm.load_first_fetch(_cv_tmp), {})
+(_cv_tmp / "state.json").write_text(
+    '{"src-a": {"first_fetch_at": "2026-07-23T23:52:35+00:00"}, "src-x": null}',
+    encoding="utf-8")
+acase("load_first_fetch：state.json 裡的 null 條目不得害整份掛掉",
+      _cm.load_first_fetch(_cv_tmp), {"src-a": "2026-07-23T23:52:35+00:00"})
 
 # M6：只釘寫檔那一端不夠。**建立時忘了塞值**是最惡劣的失敗——每則新 Event 都會
 # 生成 ingested_at: null，警報從此永遠閉嘴，而且看起來一切正常（一個被靜靜關掉的

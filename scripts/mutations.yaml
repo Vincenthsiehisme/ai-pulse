@@ -751,3 +751,32 @@ mutations:
     replace: "    if False:\n        return None"
     survives: false
     why: ""
+
+  # ── coverage：事情發生時我們看不看得到 ──
+  # 規格 references/event-timestamps.md〈第三個現場：呈現層〉，判準 lib/coverage.py。
+  # 這三格全部往同一個方向壞：把「量不到」或「看不到」變成「我們當時在看」。
+  # 失效是靜默的——欄位還在、值看起來很正常、頁面照印，只是那句話是假的。
+
+  - id: M85
+    title: "coverage 的 unknown 併進 observed（state.json 的任何缺格都靜靜變成「我們當時在看」）"
+    file: lib/coverage.py
+    find: "        return UNKNOWN"
+    replace: "        return OBSERVED"
+    survives: false
+    why: ""
+
+  - id: M86
+    title: "某條來源沒有 first_fetch_at 就跳過它、拿其餘的最小值（把「有一條不知道何時開始看」稀釋成「別條看得到就算看得到」）"
+    file: lib/coverage.py
+    find: "            return None"
+    replace: "            continue"
+    survives: false
+    why: ""
+
+  - id: M87
+    title: "observable_from 改取全體來源的最小值（幾乎所有事件變 observed，而畫面上沒有任何數字看起來不對）"
+    file: lib/coverage.py
+    find: "    sids = [(e or {}).get(\"source_id\") for e in (evidence or [])]"
+    replace: "    sids = list((first_fetch or {}).keys())"
+    survives: false
+    why: ""
