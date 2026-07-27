@@ -325,6 +325,7 @@ article.event h2 a:hover{color:var(--accent)}
 @media(max-width:820px){.detail-grid{grid-template-columns:1fr}}
 .detail-main h2,.detail-aside h3{font-size:.8rem;font:700 12px var(--mono);letter-spacing:.12em;color:var(--muted);margin:0 0 16px;text-transform:uppercase}
 .detail-block{margin-bottom:34px}
+.jn-note{color:var(--muted);font-size:.88rem;line-height:1.6;margin:0 0 14px;padding:9px 12px;border-left:2px solid var(--border-soft);background:color-mix(in srgb,var(--quiet) 6%,transparent)}
 .journey{list-style:none;margin:0;padding:0 0 0 6px}
 .journey li{position:relative;padding:0 0 20px 24px;border-left:2px solid var(--border-soft)}
 .journey li:last-child{border-left-color:transparent;padding-bottom:0}
@@ -583,6 +584,35 @@ def recent_row(ev, prefix):
 
 
 # ─────────────────────── journey + score grid ───────────────────────
+#: 證據區塊的標題與說明，由 coverage 與證據筆數決定。
+#: 規格見 references/event-timestamps.md〈第三個現場：呈現層〉。
+JOURNEY_HEADING = "發展歷程"
+EVIDENCE_HEADING = "證據"
+COVERAGE_NOTE = {
+    "backfilled": "這些證據是首抓時撈回的存量——事情發生時，我們還沒有在看。",
+    # 「確定是回填」跟「不知道」是兩件事，所以不共用同一句。共用的話，
+    # 讀者會把「我們沒紀錄」讀成「我們確定沒在看」，那是把不知道講成知道。
+    "unknown": "這則的來源何時開始被抓取，我們沒有紀錄。",
+}
+#: 語料裡查不到時印這個，**不得**退回來源名或事件日。跟 HEAT_UNMEASURED 同一條規矩：
+#: 印一個看起來合理的值，會被讀成「這就是那筆證據的標題／日期」。
+TITLE_UNKEPT = "標題未留存"
+DATE_UNKEPT = "日期未留存"
+
+
+def journey_shape(coverage, n_items):
+    """→ (區塊標題, 說明句 or None, 第一項要不要標「起點」)。
+
+    「起點」是一個關於**世界**的宣稱（這件事從這裡開始），所以只在我們真的能主張
+    它的時候才印。修正前的判準是 `if is_first`——那是關於**我們資料排序位置**的
+    事實，而 2026-07-27 實測 36 則已發布事件裡有 32 則只有一筆證據：那個「第一」
+    同時也是「唯一」，卻被標成起點。
+    """
+    if n_items <= 1 or coverage != "observed":
+        return EVIDENCE_HEADING, COVERAGE_NOTE.get(coverage), False
+    return JOURNEY_HEADING, None, True
+
+
 def classify_dev(sid, sources, is_first):
     if is_first:
         return "origin"
@@ -597,26 +627,33 @@ def classify_dev(sid, sources, is_first):
 
 
 def journey_html(ev, corpus_idx, sources):
+    """→ (區塊標題, HTML)。標題不是固定字串——見 journey_shape()。"""
     items = []
     for sid, url in ev["evidence"]:
         rec = corpus_idx.get(url) or {}
-        title = rec.get("title") or prettify_source(sid)
-        date = rec.get("date") or ev.get("happened") or ev["date"]
-        items.append({"sid": sid, "url": url, "title": title, "date": date})
+        # 查不到就說查不到。退回來源名／事件日的話，畫面上會出現一筆「標題是
+        # 來源名」的證據，或一整串「全部同一天」的證據——後者尤其傷，因為那正是
+        # 讀者用來判斷這件事怎麼發展的唯一線索。
+        items.append({"sid": sid, "url": url,
+                      "title": rec.get("title") or TITLE_UNKEPT,
+                      "date": rec.get("date") or None})
     items.sort(key=lambda x: (parse_dt(x["date"]) or datetime(1970, 1, 1, tzinfo=timezone.utc)))
+    heading, note, show_origin = journey_shape(ev.get("coverage"), len(items))
     if not items:
-        return '<p class="line-empty">尚無可展開的證據鏈。</p>'
+        return heading, '<p class="line-empty">尚無可展開的證據鏈。</p>'
     lis = []
     for i, it in enumerate(items):
-        dt = classify_dev(it["sid"], sources, i == 0)
+        dt = classify_dev(it["sid"], sources, show_origin and i == 0)
         zh, cls = DEV_LABEL[dt]
         color = {"fact": "var(--fact)", "accent": "var(--accent)",
                  "forecast": "var(--forecast)", "impact": "var(--impact)"}[cls]
         link = (f'<a class="jn-open" href="{esc(it["url"])}" target="_blank" rel="noopener">{esc(prettify_source(it["sid"]))} {EXT}</a>'
                 if it["url"] else esc(prettify_source(it["sid"])))
-        lis.append(f"""<li style="--dc:{color}"><div class="jn-head"><span class="jn-type">{esc(zh)}</span><time>{esc(fmt_date(it["date"]))}</time></div>
+        when = fmt_date(it["date"]) if it["date"] else DATE_UNKEPT
+        lis.append(f"""<li style="--dc:{color}"><div class="jn-head"><span class="jn-type">{esc(zh)}</span><time>{esc(when)}</time></div>
 <b>{esc(it["title"])}</b><small>{link}</small></li>""")
-    return f'<ol class="journey">{"".join(lis)}</ol>'
+    note_html = f'<p class="jn-note">{esc(note)}</p>' if note else ""
+    return heading, f'{note_html}<ol class="journey">{"".join(lis)}</ol>'
 
 
 def score_grid_html(ev):
@@ -828,7 +865,7 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
     pfx = "../../"
     tr = track_of(ev)
     layers = "".join(layer_html(h, ev["layers"][h]) for h in LAYERS if ev["layers"].get(h))
-    journey = journey_html(ev, corpus_idx, sources)
+    journey_heading, journey = journey_html(ev, corpus_idx, sources)
     scores = score_grid_html(ev)
     ev_links = "".join(f'<a href="{esc(u)}" rel="noopener" target="_blank">{esc(sid)} {EXT}</a>'
                        for sid, u in ev["evidence"] if u)
@@ -850,7 +887,7 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
 </div></section>
 <section class="section shell"><div class="detail-grid">
 <div class="detail-main">
-<div class="detail-block"><h2>發展歷程</h2>{journey}</div>
+<div class="detail-block"><h2>{esc(journey_heading)}</h2>{journey}</div>
 <div class="detail-block"><h2>六層分析</h2><div class="layers">{layers}</div></div>
 </div>
 <aside class="detail-aside">{scores}{ev_block}</aside>
@@ -890,6 +927,10 @@ def load_events(vault):
             "score_factors": fm.get("score_factors") or {},
             "layers": {h: section(body, h) for h in LAYERS},
             "evidence": [(e.get("source_id"), e.get("url")) for e in (fm.get("evidence") or [])],
+            # 事情發生時我們看不看得到。缺這一格（舊 note 還沒被重寫過）時是 None，
+            # 而 journey_shape() 只有在它**正好等於** "observed" 時才印「起點」——
+            # 所以缺格會倒向保守那一邊，不會因為欄位還沒長出來就開始亂宣稱。
+            "coverage": fm.get("coverage"),
         })
     events.sort(key=lambda x: x["date"], reverse=True)
     return events

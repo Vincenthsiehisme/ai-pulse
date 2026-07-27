@@ -3530,6 +3530,57 @@ acase("pulse-cluster 跑完一輪：keywords 照標題原順序、濾過虛詞"
       _cm.parse_frontmatter(_txt)[0].get("keywords"),
       ["openai", "thing", "exist"])
 
+# ── 發展歷程／證據區塊：只在能主張的時候才說「起點」 ────────────────
+# 規格：references/event-timestamps.md〈第三個現場：呈現層〉。
+# 修正前的判準是 `if is_first: return "origin"`——那是關於**我們資料排序位置**的
+# 事實，被印成一個關於**世界**的宣稱。2026-07-27 實測 36 則已發布事件裡 32 則
+# 只有一筆證據：那個「第一」同時是「唯一」，卻標著「起點」。
+
+acase("journey_shape：單筆證據不叫發展歷程、不發起點"
+      "（一個只有一項的清單不是歷程，它唯一的那一項也不是起點）",
+      _rmod.journey_shape("observed", 1), ("證據", None, False))
+acase("journey_shape：backfilled 不發起點，而且要印出回填說明"
+      "（沒有那句話，一則首抓撈回的舊事件在畫面上跟真的追到的一模一樣）",
+      _rmod.journey_shape("backfilled", 3),
+      ("證據", _rmod.COVERAGE_NOTE["backfilled"], False))
+acase("journey_shape：unknown 用**另一句**說明，不跟 backfilled 共用"
+      "（共用的話讀者會把「我們沒紀錄」讀成「我們確定沒在看」＝把不知道講成知道）",
+      [_rmod.journey_shape("unknown", 3)[1] != _rmod.journey_shape("backfilled", 3)[1],
+       _rmod.journey_shape("unknown", 3)[2]], [True, False])
+acase("journey_shape：coverage 欄位還沒長出來（None）時倒向保守，不發起點"
+      "（舊 note 還沒被重寫過就是這一格，不能因為欄位缺席就開始亂宣稱）",
+      _rmod.journey_shape(None, 3)[2], False)
+acase("journey_shape：observed 且 ≥2 筆證據才叫發展歷程、才發起點",
+      _rmod.journey_shape("observed", 2), ("發展歷程", None, True))
+
+# 語料查不到時不得編造。這條釘的是**兩個**退路，因為它們的傷害不同：
+# 標題退回來源名 → 畫面上出現一筆標題是「NVIDIA Blog」的證據；
+# 日期退回事件日 → 一整串證據看起來同一天出現，而那是讀者判斷「怎麼發展」的唯一線索。
+_jn_ev = {"evidence": [("src-x", "https://no.such/url")],
+          "date": "2026-07-14", "coverage": "observed"}
+_jn_head, _jn_html = _rmod.journey_html(_jn_ev, {}, {})
+# 比對的是**標題元素本身**，不是整段 HTML：來源名本來就會出現在下面那個連結標籤裡，
+# 那是對的。第一版斷言整段不含來源名，紅的是斷言不是碼。
+_jn_title = _jn_html.split("<b>")[1].split("</b>")[0]
+acase("journey_html：語料查不到 → 標題元素印「標題未留存」，不得退回來源名"
+      "（跟 HEAT_UNMEASURED 同一條規矩：印一個看起來合理的值，"
+      "會被讀成「這就是那筆證據的標題」）",
+      [_jn_title, _jn_title == _rmod.prettify_source("src-x")],
+      [_rmod.TITLE_UNKEPT, False])
+acase("journey_html：語料查不到 → 印「日期未留存」，不得退回事件日"
+      "（退回事件日會讓一則事件的所有證據看起來同一天出現）",
+      [_rmod.DATE_UNKEPT in _jn_html, "2026-07-14" in _jn_html], [True, False])
+acase("journey_html：回傳的是 (區塊標題, HTML)——標題不再是寫死的字串",
+      _jn_head, "證據")
+
+_jn_bf = dict(_jn_ev, coverage="backfilled",
+              evidence=[("src-x", "u1"), ("src-y", "u2")])
+_jn_bf_head, _jn_bf_html = _rmod.journey_html(_jn_bf, {}, {})
+acase("journey_html：backfilled 的事件頁真的印出回填說明，且標題不是「發展歷程」"
+      "（判準對了但沒印出來，等於沒判）",
+      [_jn_bf_head, _rmod.COVERAGE_NOTE["backfilled"] in _jn_bf_html,
+       "起點" in _jn_bf_html], ["證據", True, False])
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:
