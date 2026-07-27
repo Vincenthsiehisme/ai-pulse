@@ -1677,6 +1677,39 @@ acase("clock.utc_today 不隨執行機器的時區跑掉"
       _under_tz(_TZ_EAST, lambda: _clk.utc_today().isoformat())
       == _under_tz(_TZ_WEST, lambda: _clk.utc_today().isoformat()),
       True)
+# ── 排程：cron 是 UTC，連 day-of-week 也是 ──
+# 起因：一個叫「每週一」的排程任務寫 `0 16 * * 1`，那是 UTC 週一 16:00＝**台北週二**。
+# 換算了「時」卻忘了換算「星期」——同一個錯的第二半，而且不會有任何東西紅。
+_wf_dir = os.path.join(_REPO, ".github", "workflows")
+_crons = {os.path.basename(_p): open(_p, encoding="utf-8").read()
+       for _p in sorted(_glob.glob(os.path.join(_wf_dir, "*.yml")))}
+acase("cron 掃描真的讀到 workflow（檔案不見了，下面兩條會變成恆綠）",
+      sorted(_crons) and all(_clk.cron_entries(_t) for _n, _t in _crons.items()
+                          if "schedule:" in _t), True)
+acase("每一行 cron 都在同一行註解裡寫出台北時間"
+      "（cron 欄位沒有時區，一個沒被換算過的 cron 會被下一個人照台北讀）",
+      {_n: _clk.cron_unannotated(_t) for _n, _t in _crons.items()
+       if _clk.cron_unannotated(_t)}, {})
+acase("每天固定一班的 cron 必須跑在 16:00Z"
+      "（＝台北隔日 00:00，於是一班收到的東西正好是台北的一整天，"
+      "而 _corpus/<UTC 日>/ 的目錄名也正好等於那個台北日。"
+      "改成 20:00Z 看起來無害，但目錄名會跟內容錯開一天而不會有東西紅）",
+      {_n: _clk.misanchored_daily(_t) for _n, _t in _crons.items()
+       if _clk.misanchored_daily(_t)}, {})
+# 判準本身的單元測試。
+acase("clock.daily_utc_hour：每天一班才回小時；週班與 */N 都回 None"
+      "（把週班也拉進來管，`0 3 * * 1` 會被逼成 16:00Z，而那條規則對它沒有意義）",
+      [_clk.daily_utc_hour("0 16 * * *"), _clk.daily_utc_hour("0 3 * * 1"),
+       _clk.daily_utc_hour("0 */2 * * *"), _clk.daily_utc_hour("garbage")],
+      [16, None, None, None])
+acase("clock.misanchored_daily：20:00Z 的每日班要被抓出來",
+      _clk.misanchored_daily("    - cron: '0 20 * * *'   # 台北 04:00\n"),
+      ["0 20 * * *"])
+acase("clock.misanchored_daily：16:00Z 放行（反方向，確認上一條不是恆紅）",
+      _clk.misanchored_daily("    - cron: '0 16 * * *'   # 台北 00:00\n"), [])
+acase("clock.cron_unannotated：沒有註解的 cron 要被抓出來",
+      _clk.cron_unannotated("    - cron: '0 16 * * *'\n"), ["0 16 * * *"])
+
 acase("對照：date.today() 在那兩個時區下必然不同日"
       "（沒有這一條，上面那條可能只是「這台機器剛好是 UTC」）",
       _under_tz(_TZ_EAST, lambda: _dt_m.date.today().isoformat())

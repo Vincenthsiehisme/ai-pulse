@@ -19,6 +19,7 @@
 from __future__ import annotations
 
 import ast
+import re
 from datetime import date, datetime, timedelta, timezone
 
 # 顯示用時區。台灣沒有日光節約時間，所以固定偏移是對的；哪天要支援會 DST 的地區，
@@ -136,3 +137,63 @@ def banned_date_calls(source: str) -> list[str]:
             continue
         bad.append(f"{node.lineno}:{attr}()")
     return bad
+
+
+# ─── 排程：cron 是 UTC，但這個站的日是台北日 ────────────────────────────
+# 規格 references/timezones.md〈排程〉。
+#
+# Actions 的 cron 沒有時區設定，永遠是 UTC——**連 day-of-week 也是**。
+# 這一格踩過一次：一個叫「每週一」的排程寫 `0 16 * * 1`，那是 UTC 週一 16:00，
+# 已經是**台北週二 00:00**。名字跟事實差一天，而不會有任何東西紅。
+#
+# 所以規矩是：**每一行 cron 都要在同一行的註解裡寫出它的台北時間。**
+# 列舉是機械的（下面這條 regex），換算是人寫的（註解），測試比對兩者存在與否。
+# 這條檢查不驗算得對不對——它擋的是「一個沒有人換算過的 cron 悄悄長出來」。
+_CRON_RE = re.compile(r"^\s*-\s*cron:\s*['\"]([^'\"]+)['\"]\s*(#.*)?$", re.M)
+
+# 這個站的「一天」是台北日。要讓「一班收到的新項目」剛好等於「台北那一整天」，
+# 每日班必須跑在 UTC 16:00 —— 那是台北隔日 00:00，上一班是台北當日 00:00，
+# 中間那段正好是台北的一整天。而 `_corpus/<UTC 日>/` 的目錄名也正好等於那個台北日。
+#
+# 這個對應**只有 16 成立**。改成 `0 20 * * *`（台北 04:00）看起來完全無害，
+# 但目錄名會跟它裝的內容錯開一天，而不會有任何東西紅。所以釘住它。
+DAILY_UTC_HOUR = 16
+
+
+def cron_entries(text: str):
+    """→ [{'expr', 'comment', 'line'}]，YAML 文字裡每一行 cron。"""
+    out = []
+    for m in _CRON_RE.finditer(text):
+        out.append({"expr": m.group(1).strip(),
+                    "comment": (m.group(2) or "").strip(),
+                    "line": text[: m.start()].count("\n") + 1})
+    return out
+
+
+def cron_unannotated(text: str) -> list[str]:
+    """→ 沒有在同一行註解裡寫出台北時間的 cron。"""
+    return [e["expr"] for e in cron_entries(text)
+            if DISPLAY_TZ_LABEL[:2] not in e["comment"]]
+
+
+def daily_utc_hour(expr: str):
+    """→ 這條 cron 每天固定跑一班的 UTC 小時；不是「每天一班」就回 None。
+
+    `0 16 * * *` → 16。`0 */2 * * *`（一天 12 班）、`0 16 * * 1`（每週）都回 None
+    ——前者是暫時加密期，後者是週班，兩種都不該被這條規則管。
+    """
+    parts = expr.split()
+    if len(parts) != 5:
+        return None
+    minute, hour, dom, mon, dow = parts
+    if (dom, mon, dow) != ("*", "*", "*"):
+        return None
+    if not (minute.isdigit() and hour.isdigit()):
+        return None
+    return int(hour)
+
+
+def misanchored_daily(text: str) -> list[str]:
+    """→ 每天一班、但沒跑在 UTC 16:00 的 cron（＝收班窗口跟台北日對不上）。"""
+    return [e["expr"] for e in cron_entries(text)
+            if (h := daily_utc_hour(e["expr"])) is not None and h != DAILY_UTC_HOUR]

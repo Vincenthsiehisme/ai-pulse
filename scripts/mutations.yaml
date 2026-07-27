@@ -725,3 +725,29 @@ mutations:
     replace: "        d = e[\"date\"] or \"0000-00\""
     survives: false
     why: ""
+
+  # ── 排程對齊台北（references/timezones.md〈排程〉）──
+
+  - id: M82
+    title: "沒註解的 cron 照樣放行（一個沒被換算過的 cron 悄悄長出來，沒人會發現）"
+    file: lib/clock.py
+    find: "            if DISPLAY_TZ_LABEL[:2] not in e[\"comment\"]]"
+    replace: "            if False]"
+    survives: false
+    why: ""
+
+  - id: M83
+    title: "每日班的 16:00Z 錨點不再檢查（目錄名跟它裝的台北日靜靜錯開一天）"
+    file: lib/clock.py
+    find: "            if (h := daily_utc_hour(e[\"expr\"])) is not None and h != DAILY_UTC_HOUR]"
+    replace: "            if False]"
+    survives: false
+    why: ""
+
+  - id: M84
+    title: "週班也被當成每日班（`0 3 * * 1` 會被逼成 16:00Z，而那條規則對它沒有意義）"
+    file: lib/clock.py
+    find: "    if (dom, mon, dow) != (\"*\", \"*\", \"*\"):\n        return None"
+    replace: "    if False:\n        return None"
+    survives: false
+    why: ""
