@@ -948,3 +948,47 @@ mutations:
     replace: "            found = next(iter(by_url.values()), None)"
     survives: false
     why: ""
+
+  # ── C-4 驗證器：「我們讀不到」與「站方拒絕」之間那道牆 ──
+  # 這四格全部讓誤讀重新變成可能，而且每一格都不會有任何畫面異狀——
+  # 只會讓一份錯的報告看起來可以引用。2026-07-27 已經照這個形狀犯過一次。
+
+  - id: M107
+    title: "egress 攔截不再認 x-deny-reason 標頭（proxy 的 403 重新長得像站方拒絕）"
+    file: verify-article-metadata.py
+    find: "    if EGRESS_HEADER in hdr:\n        return f\"{EGRESS_HEADER}: {hdr[EGRESS_HEADER]}\""
+    replace: "    if False:\n        return \"\""
+    survives: false
+    why: ""
+
+  - id: M108
+    title: "egress 攔截不再認 body 簽名（沒有標頭的 proxy 就整條漏掉）"
+    file: verify-article-metadata.py
+    find: "        for m in EGRESS_BODY_MARKERS:\n            if m in low:\n                return body.strip()[:160]"
+    replace: "        for m in EGRESS_BODY_MARKERS:\n            if m in low:\n                pass"
+    survives: false
+    why: ""
+
+  - id: M109
+    title: "攔截判斷不看狀態碼（反方向的病：站方真正的拒絕被洗成「沒有判決」，確定的壞消息就此消失）"
+    file: verify-article-metadata.py
+    find: "    if status == 403 and body:"
+    replace: "    if body:"
+    survives: false
+    why: ""
+
+  - id: M110
+    title: "no_verdict 的退出碼改成 0（CI 綠著放行一份不能引用的報告——這正是要防的那件事）"
+    file: verify-article-metadata.py
+    find: "VERDICT_EXIT = {\"no_verdict\": 4, \"site_error\": 2, \"fetch_error\": 2,"
+    replace: "VERDICT_EXIT = {\"no_verdict\": 0, \"site_error\": 2, \"fetch_error\": 2,"
+    survives: false
+    why: ""
+
+  - id: M111
+    title: "control probe 要求 200 才算連得出去（GitHub 未認證就回 403——驗證會永遠中止在第一關，然後看起來像「網路壞了」）"
+    file: verify-article-metadata.py
+    find: "    return True, f\"HTTP {status}\""
+    replace: "    return status == 200, f\"HTTP {status}\""
+    survives: false
+    why: ""

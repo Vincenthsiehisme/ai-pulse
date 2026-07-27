@@ -3807,6 +3807,112 @@ acase("build_timeline：頁首印出回填則數（看不見的時候有兩種�
       "或這段沒跑，而「整條看起來像持續觀測」正是這一層要修掉的誤會）",
       "其中回填" in _tl_html, True)
 
+# ─────────────────────────── verify-article-metadata.py（C-4 的驗證器）─────
+# 這一段守的是紅線 7 的下半句：**「我們讀不到」不等於「站方拒絕」**。
+# 2026-07-27 把 egress allowlist 的 403 讀成 Anthropic 的 WAF，差一點寫進設計。
+# 下面每一條都是那次誤讀的具體反面。
+_vam = importlib.util.spec_from_file_location(
+    "verify_article_metadata", os.path.join(_HERE, "verify-article-metadata.py"))
+_vamod = importlib.util.module_from_spec(_vam)
+_vam.loader.exec_module(_vamod)
+
+acase("egress 攔截：認 x-deny-reason 標頭（大小寫不敏感——標頭本來就不分大小寫，"
+      "而分大小寫的判斷會在別的 proxy 上安靜地失效）",
+      [bool(_vamod.is_egress_intercept(403, "", {"X-Deny-Reason": "host_not_allowed"})),
+       bool(_vamod.is_egress_intercept(403, "", {"x-deny-reason": "host_not_allowed"}))],
+      [True, True])
+acase("egress 攔截：沒有標頭時認 body 簽名"
+      "（實測就是這 104 bytes：Host not in allowlist: www.anthropic.com.）",
+      bool(_vamod.is_egress_intercept(
+          403, "Host not in allowlist: www.anthropic.com. Add this host to your "
+               "network egress settings to allow access.", {})), True)
+# 反方向同樣重要，而且更容易被寫壞：把站方真正的拒絕洗成「沒有判決」，
+# 等於讓一個確定的壞消息消失。站方的 403 沒有那兩個簽名，就必須留在 site_error。
+acase("egress 攔截：站方自己的 403 不得被洗成「沒有判決」"
+      "（Cloudflare 那種擋人頁沒有 allowlist 簽名；判成 no_verdict 等於"
+      "把一個確定的答案變成不確定，然後永遠等不到它變確定）",
+      _vamod.is_egress_intercept(403, "<html><title>Access denied</title></html>", {}),
+      None)
+acase("egress 攔截：200 一律不是攔截（攔截只發生在 403；"
+      "把 200 也拿去比對簽名，會讓內文剛好提到 allowlist 的文章變成無判決）",
+      _vamod.is_egress_intercept(
+          200, "an article about how to configure an allowlist", {}), None)
+
+_VAM_PAGE = ('<html><head>'
+             '<meta property="og:title" content="Introducing Claude Opus 5">'
+             '<title>Introducing Claude Opus 5 \\ Anthropic</title>'
+             '</head><body><h1>Introducing Claude Opus 5</h1>'
+             '<p>Jul 24, 2026</p><p>body text here</p></body></html>')
+_vam_f = _vamod.extract(_VAM_PAGE)
+acase("C-4 抽取：og:title 取到真值，而三個機器可讀日期全部 ABSENT"
+      "（這正是 C-2 在真頁面上量到的形狀：標題可以完全修好，日期不行）",
+      [_vam_f["og:title"], _vam_f["article:published_time"],
+       _vam_f["time@datetime"], _vam_f["jsonld:datePublished"]],
+      ["Introducing Claude Opus 5", None, None, None])
+acase("C-4 抽取：人看的日期抓得到，但只到日、沒有時區"
+      "（抓得到不等於能用——存成 T00:00:00Z 就是編造精度，"
+      "所以 published_precision 必須跟值一起存）",
+      _vam_f["visible_date"], "Jul 24, 2026")
+
+# JS 空殼：og:title 是伺服器端算好的 meta，空殼照樣有；人看的日期不是。
+# 若不量「去掉標籤後剩幾個字」，空殼與完整頁在這支的輸出上長得一模一樣。
+_vam_shell = _vamod.extract(
+    '<html><head><meta property="og:title" content="X"></head>'
+    '<body><div id="__next"></div><script>var a=1;var d="Jul 24, 2026";</script>'
+    '</body></html>')
+acase("C-4 抽取：JS 空殼要看得出來——script 裡的日期不算數，"
+      "可見文字接近零（不量這個，空殼與完整頁的輸出無法區分）",
+      [_vam_shell["visible_date"], _vam_shell["_visible_text_chars"] < 10], [None, True])
+
+# 退出碼：no_verdict 必須排在最前面。壞判決至少是關於站方的，
+# 沒有判決是關於我們自己的——而後者更該讓 CI 紅。
+acase("C-4 退出碼：no_verdict(4) > no_og_title(3) > site_error(2) > ok(0)",
+      sorted(_vamod.VERDICT_EXIT, key=lambda k: -_vamod.VERDICT_EXIT[k]),
+      ["no_verdict", "no_og_title", "site_error", "fetch_error", "ok"])
+acase("C-4 退出碼：只有 ok 對應 0（任何其他狀態對應 0，都會讓 CI 綠著放行"
+      "一份不能引用的報告）",
+      [k for k, v in _vamod.VERDICT_EXIT.items() if v == 0], ["ok"])
+
+# control probe：這一關不通過就整份不出判決。三條分別釘住它的三種輸入。
+class _FakePP:
+    def __init__(self, ret=None, exc=None):
+        self._ret, self._exc = ret, exc
+
+    def safe_fetch(self, url, etag=None):
+        if self._exc:
+            raise self._exc
+        return self._ret
+
+
+acase("C-4 control probe：對方回 403 但**有走到伺服器** → 算連得出去"
+      "（GitHub 對未認證請求就回 403。要求 200 會讓 control probe 自己變成"
+      "偽陽性來源，然後每一次驗證都中止在第一關）",
+      _vamod.control_probe(_FakePP(ret=(403, "rate limit", {})), "u")[0], True)
+acase("C-4 control probe：被 egress 攔截 → 連不出去（整份中止）",
+      _vamod.control_probe(
+          _FakePP(ret=(403, "Host not in allowlist: x.", {})), "u")[0], False)
+acase("C-4 control probe：連不上（ProxyError 之類）→ 連不出去，"
+      "而且不得讓例外炸穿（炸穿＝沒有報告，看起來像沒跑）",
+      _vamod.control_probe(_FakePP(exc=OSError("Tunnel connection failed")), "u")[0],
+      False)
+
+_vam_wf_path = os.path.join(_HERE, "..", ".github", "workflows",
+                            "verify-article-metadata.yml")
+acase("C-4 必須在 CI 跑：workflow 存在且真的呼叫這支腳本"
+      "（在有 egress allowlist 的開發機上量到的數字，回答的是別的問題）",
+      [os.path.isfile(_vam_wf_path),
+       "verify-article-metadata.py" in open(_vam_wf_path, encoding="utf-8").read()],
+      [True, True])
+_vam_wf = _yaml.safe_load(open(_vam_wf_path, encoding="utf-8"))
+_vam_steps = _vam_wf["jobs"]["verify"]["steps"]
+acase("C-4：control probe 不得在 CI 被跳過"
+      "（--skip-control 一開，整支就退回成「手寫臨時腳本」——"
+      "那正是 2026-07-27 誤讀的成因）",
+      [s for s in _vam_steps if "--skip-control" in str(s.get("run") or "")], [])
+acase("C-4：驗證那一步不得 continue-on-error"
+      "（吞掉退出碼＝把這次驗證退化成一份沒有人看的 log）",
+      [s for s in _vam_steps if s.get("continue-on-error")], [])
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:

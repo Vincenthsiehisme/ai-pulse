@@ -243,6 +243,68 @@ CI 一樣是綠的。不順手接上去是刻意的——接之前得先想清�
 
 ---
 
+## `來源已死但每班照樣有貨`
+
+`零產出來源` 的鏡像，而且更難看見：**那三條至少是 0 筆，會出現在儀表上。
+這一類每班穩定出貨，只是貨全是舊的。**
+
+2026-07-27 逐條量 `_corpus/` 裡每個 source 的**最新一筆 `published`**：
+
+| source | 每班筆數 | 最新一筆 | 落後 | 儀表上的樣子 |
+|---|---|---|---|---|
+| `src-meta-research` | 40 | **2023-05-17** | **3 年 2 個月** | 正常 |
+| `src-qwen-blog` | 30 | 2025-09-23 | 10 個月 | 正常 |
+| `src-media-venturebeat` | 14 | 2026-05-19 | 2 個月 | 正常 |
+
+病灶在 `pulse-monitor.py:322`：`silent_sources` 的判準是 `r["items"] == 0`。
+**「這班抓回幾筆」被拿來代表「這條來源還在出東西嗎」**——正是這份清單開頭那句
+「用一個比事實寬鬆的代理指標去代表事實」。兩者在平常的日子裡一致，正好在來源
+死掉那天分岔，而不會有任何東西變紅。
+
+要補的判準是現成的、而且只需要已經有的資料：**每條來源的
+`max(published)` 與今天差幾天**，門檻沿用該來源的 `frequency`
+（daily / weekly 各自一個容忍值），逾期進 `stale_source`。
+
+`stale_source` 跟 `silent`（有來源、0 筆）必須是兩個名字。合成一個
+「這條來源怪怪的」，下一個人得再查一次才知道要修抓取端還是換端點。
+
+**另一半：`pulse-probe.py` 沒有 control probe，而它的一次性小弟有。**
+`verify-policy-sources.py:237` 的 `control_probe()` 先證明機器連得出去，
+連不出去就整份中止、不下任何判決。生產的 probe 沒有這一關：整條網路斷掉時
+它會寫出 27 條各自獨立的 `robots_unknown`，讀起來像 27 個來源同時出事。
+單條的處理是保守的、沒寫錯，缺的是**「問題在我們這邊」這個彙總訊號**。
+2026-07-27 的 C-4 誤讀就是這個缺口在人身上的版本
+（見 `docs/design/2026-07-27-published-is-a-proxy.md` 的 C-4′）。
+
+---
+
+## `Meta-沒有來源`
+
+上一條的第一個受害者，單獨列是因為它已經在**對外站上造成沉默**，不只是監控缺口。
+
+`_config/sources.yaml` 裡 Meta 唯一的來源是 `src-meta-research`，端點
+`https://research.facebook.com/feed/`——一條**研究部落格**，而且最新一筆停在
+2023-05-17。也就是說：**Meta 這家公司在本系統裡等於不存在**，而儀表全綠。
+
+證據鏈是閉合的：`_config/entities.yaml` 把 `muse-spark` 標成
+`status: unverified`，註解寫「僅見於單一次級來源，需 Tier-1 證據確認產品線名稱
+與歸屬」。而 Tier-1 就在 `ai.meta.com/blog/`：2026-07-07「Introducing Muse
+Image and Muse Video」、2026-07-09「Introducing Muse Spark 1.1」、
+2026-07-21 還在更新。**不是拿不到，是沒在看。**
+
+動手前要先查的（**在 CI 查，不要在開發容器查**——那裡有 egress allowlist，
+量到的是別的問題）：
+
+1. `ai.meta.com/blog/` 有沒有 feed。WebFetch 顯示頁面**沒有宣告**
+   `<link rel="alternate">`，`/blog/rss/` 回 404。所以很可能又是一條
+   sitemap 來源——那就跟 Claude / Grok 綁在同一個 C-3 上。
+2. robots 對 `/blog/` 路徑的判決，用 probe 的 UA。
+3. 換掉還是並存：`src-meta-research` 若確定廢棄，`lifecycle` 改
+   `dormant` 並在 `note` 寫明「端點停更於 2023-05」，**不要直接刪**——
+   刪掉等於把「我們曾經以為這裡有東西」也一起刪了。
+
+---
+
 ## `跨語言重複-event`
 
 **這是 `translation_chain` 接上之後才看得清楚的那一半。**
