@@ -164,6 +164,22 @@ jobs:
         env:
           VAULT_DIR: ${{ github.workspace }}
         run: python scripts/pulse-entity-notes.py --quiet
+      # 星速榜的待譯清單。**由這一班準備，不由潤稿端自己重建榜單。**
+      # 潤稿端是 Cowork 容器、沒有 GITHUB_TOKEN，未認證額度很緊——它自己跑
+      # pulse-github.py 那一步是整個 C2 段唯一需要外部服務的地方，而 runbook
+      # 的規定是「這步失敗就整段跳過」。實測結果：_github/desc-zh.json 在整個
+      # git 歷史裡從來沒有出現過，榜上 225 條全是英文。
+      #
+      # 這一班有 token、每班都跑得到榜單，順手把清單寫進版控就好。潤稿端 clone
+      # 下來就有，C2 少一個會失敗的外部依賴。規格見 scripts/enrich-runbook.md。
+      #
+      # --limit 25：單晚成本封頂。prep 量不到時回 2 且**不覆寫既有清單**，
+      # 這一步 continue-on-error 所以不會擋鏈。
+      - name: GitHub 榜單待譯清單（0 LLM）
+        continue-on-error: true
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: python scripts/pulse-github-desc-prep.py --limit 25
       # concurrency: nightly 只擋 Actions 撞 Actions。半夜潤稿那條 Cowork 鏈是另一
       # 個 push 來源，兩邊都寫 Events/*.md。一天 12 班時「checkout 完到 push 之間
       # 對面剛好也推了一版」不再是理論值，所以這裡重試而不是直接紅燈。

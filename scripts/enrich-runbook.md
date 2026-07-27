@@ -136,22 +136,22 @@ fi
 repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀者看的，所以描述要翻。
 翻譯是**敘述**不是判斷——排名、星速、上不上榜全部還是規則算的，你一個數字都不碰。
 
-9. 重建榜單（**不要加 `--snapshot`**：星速基線只由 Actions 那班更新，你多打一次會把 Δ/天洗掉）：
-   ```
-   python scripts/pulse-github.py
-   ```
-   `dist/` 沒進版控，所以每次 clone 都要重建。環境有 `GITHUB_TOKEN` 會自動帶上；沒有也跑得動
-   （未認證額度較緊）。這步失敗就整個 C2 段跳過，不影響其他段——榜會維持上一晚的英文原文。
+**2026-07-27 起，待譯清單由 Actions 那班準備好，你不必自己重建榜單。**
+在此之前這裡有一步「先跑 `pulse-github.py` 重建榜單」，而你這個容器**沒有
+`GITHUB_TOKEN`**，未認證額度很緊——那一步是整個 C2 唯一需要外部服務的地方，
+而規定是「這步失敗就整段跳過」。實測結果：`_github/desc-zh.json` 在整個 git
+歷史裡從來沒有出現過，榜上 225 條全是英文，而**沒有任何一天有人發現**。
+（那一半已經修掉：`_dashboards/health.md` 現在每班印一行，分得出「量不到 /
+從來沒翻過 / 有過然後停了」。）
 
-   **跳過現在會留下痕跡（2026-07-27）**：Actions 每班把「榜上有幾條中文」寫進
-   `_github/desc-coverage.json`，`_dashboards/health.md` 印成一行，而且分得出
-   「量不到 / 從來沒翻過 / 有過然後停了」三種。在此之前 C2 連續跳過幾十班都不會有
-   任何地方看得出來——`desc-zh.json` 在整個 git 歷史裡從來沒有出現過。
-   規格見 `references/vault-pages.md`。**所以這一步失敗時，收尾摘要要寫出來是為什麼
-   失敗（多半是沒有 GITHUB_TOKEN、未認證額度用完），不要只寫「C2 跳過」。**
-10. prep：`python scripts/pulse-github-desc-prep.py --limit 25` → 讀 `_probe/github-desc-worklist.json`。
-    **若為空陣列 → C2 跳過**（穩定之後多數夜晚如此：只有新上榜、或上游改了 description 的才會排進來）。
-11. 逐條翻寫，組成 `github-desc-result.json`：`{"<owner/repo>": "中文描述", ...}`。規則：
+9. 讀清單：`_probe/github-desc-worklist.json`（**已經在你 clone 下來的 repo 裡**）。
+   - **檔案不存在 → C2 跳過**，並在收尾摘要寫「Actions 那班沒有準備清單」——
+     那代表抓取鏈那邊出事了，不是今晚沒東西要翻。
+   - **是空陣列 `[]` → C2 跳過**，這才是「今晚沒有東西要翻」（穩定之後多數夜晚
+     如此：只有新上榜、或上游改了 description 的才會排進來）。
+   - 兩者一定要分開寫進摘要。它們在磁碟上長得不一樣是刻意的：prep 量不到的時候
+     **不覆寫**既有清單並回離開碼 2，不寫一份空陣列。
+10. 逐條翻寫，組成 `github-desc-result.json`：`{"<owner/repo>": "中文描述", ...}`。規則：
     - **只翻 `desc` 那句，不加料。** 不知道這個 repo 在做什麼就照字面翻，不要靠印象補背景、
       不要寫「業界廣泛採用」這種原文沒有的話。worklist 只給你原文、語言、topics、星數。
     - **一行字，≤60 字**，寫成人看得懂的白話，不是詞典式硬翻。專有名詞（LLM、RAG、MCP、
@@ -159,7 +159,7 @@ repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀
     - 去 AI 腔：不要「值得關注」「無限可能」「賦能」「助力」「打造」「旨在」「隨著…」。
       apply 會擋掉這些字，退件不是靜靜丟掉，是印出來下次重排。
     - `stale_zh` 有值 ＝ 上游改了描述、舊譯文失效要重譯，不是新 repo。對照著改，別整句重寫。
-12. apply：先 `--dry-run` 自檢，再正式寫入：
+11. apply：先 `--dry-run` 自檢，再正式寫入：
     ```
     python scripts/pulse-github-desc-apply.py --in github-desc-result.json --dry-run
     python scripts/pulse-github-desc-apply.py --in github-desc-result.json
@@ -167,19 +167,23 @@ repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀
     譯文存進 `_github/desc-zh.json`（**這個檔進版控**，所以翻過的不會白翻，明晚 Actions
     重建榜單時會自動掛回去）。原文永遠留在 `desc` 欄且前台一併顯示——譯文是二手的，
     讀者要能看到一手的那句。
+    apply 會「就地補進 `dist/data/github.json`」，而 `dist/` 沒進版控——那一份是給你
+    自己 dry-run 看的，真正生效是下一班 Actions 從 `desc-zh.json` 掛回去。
 
 **D. 產站 + 推回**
-13. render：`python scripts/pulse-render.py`
-14. 推回：
+12. render：`python scripts/pulse-render.py`
+13. 推回：
     `git add -A`
     `git diff --cached --quiet && echo "無變更" || (git commit -m "nightly: enrich + narrative $(date -u +%F)" && git push)`
-15. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`
+14. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`
     把它的輸出原樣放進收尾摘要。重點看三個數字：`probe_lag_days`（資料幾天沒更新）、
     `待處理`（扣掉 stale_backfill 這種設計上就該擋著的，真正卡住的有幾則）、`未 enrich`，
     外加最後那張覆蓋範圍表——「來源」那欄是 0 的必盯公司代表沒有任何來源在看它。
-16. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、翻了幾條 repo 描述
+15. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、翻了幾條 repo 描述
     （退件幾條、為什麼）、push 的 commit hash
-    （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 15 步的監看輸出。
+    （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 14 步的監看輸出。
+    **C2 那一段要分開寫**：是「Actions 沒準備清單」（抓取鏈出事）還是「清單是空的」
+    （今晚沒東西要翻）——兩件事要人做的動作完全不同。
     **「今晚沒事做」跟「今晚沒跑到」長得一樣**——所以摘要一定要帶監看數字，讓人一眼分得出來是哪一種。
 
 失敗處理：任一步非預期失敗就停、印出錯誤、**不要 push 半成品**。enrich 與敘事刷新都冪等，明晚會再挑同一批。

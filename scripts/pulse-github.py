@@ -223,8 +223,13 @@ def main():
         # 抓取全失敗：沿用上次 github.json，不覆寫成空、不炸鏈
         print("[warn] 本次未取得任何 repo（API 失敗或額度）——保留上次榜單", file=sys.stderr)
         if not (out / "data" / "github.json").exists():
+            # 佔位檔要標成「沒量到」。少了 measured 這一格，這份 0 條的榜單
+            # 跟「今天真的沒有 repo 上榜」在下游眼裡一模一樣——
+            # pulse-github-desc-prep 會照著回報「0 條待譯」，然後翻譯這件事
+            # 就在沒有人知道的情況下停擺（紅線 8）。
             (out / "data" / "github.json").write_text(
-                json.dumps({"generated": generated, "count": 0, "repos": []}, ensure_ascii=False, indent=2),
+                json.dumps({"generated": generated, "count": 0, "repos": [],
+                            "measured": False}, ensure_ascii=False, indent=2),
                 encoding="utf-8")
         (out / "github" / "index.html").write_text(GH_VIEW, encoding="utf-8")
         # 這一班量不到榜單，但**中文有幾條照樣量得到**（那只是數檔案）。
@@ -238,7 +243,8 @@ def main():
     # 榜照樣出得來。中文晚一步到（潤稿任務比 Actions 晚三小時）是設計，不是缺陷。
     ghdesc.attach(ranked, ghdesc.load(vault))
     (out / "data" / "github.json").write_text(
-        json.dumps({"generated": generated, "count": len(ranked), "repos": ranked},
+        json.dumps({"generated": generated, "count": len(ranked), "repos": ranked,
+                    "measured": True},
                    ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "github" / "index.html").write_text(GH_VIEW, encoding="utf-8")
 
