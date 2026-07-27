@@ -53,9 +53,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-07-27T02:38:22+00:00 |
+| 時間 | 2026-07-27T03:37:49+00:00 |
 | 條目 / 來源 | 415 items / 32 sources |
-| status 分佈 | 200 20、304 4、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
+| status 分佈 | 200 20、304 3、403 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |
 
 零產出那一格屬於哪一種 0，看那一天的 `_probe/<日>/report.md`

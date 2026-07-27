@@ -1,0 +1,385 @@
+[
+  {
+    "full_name": "earendil-works/pi",
+    "desc": "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI",
+    "language": "TypeScript",
+    "topics": [],
+    "stars": 78248,
+    "url": "https://github.com/earendil-works/pi",
+    "stale_zh": null
+  },
+  {
+    "full_name": "koala73/worldmonitor",
+    "desc": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "ai",
+      "dashboard",
+      "geopolitics",
+      "mcp",
+      "mcp-server"
+    ],
+    "stars": 74882,
+    "url": "https://github.com/koala73/worldmonitor",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Graphify-Labs/graphify",
+    "desc": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
+    "language": "Python",
+    "topics": [
+      "ai-agents",
+      "antigravity",
+      "ast",
+      "claude-code",
+      "code-analysis",
+      "code-search"
+    ],
+    "stars": 96553,
+    "url": "https://github.com/Graphify-Labs/graphify",
+    "stale_zh": null
+  },
+  {
+    "full_name": "obra/superpowers",
+    "desc": "An agentic skills framework & software development methodology that works.",
+    "language": "Shell",
+    "topics": [
+      "ai",
+      "brainstorming",
+      "coding",
+      "obra",
+      "sdlc",
+      "skills"
+    ],
+    "stars": 261656,
+    "url": "https://github.com/obra/superpowers",
+    "stale_zh": null
+  },
+  {
+    "full_name": "NousResearch/hermes-agent",
+    "desc": "The agent that grows with you",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "ai-agent",
+      "ai-agents",
+      "anthropic",
+      "chatgpt",
+      "claude"
+    ],
+    "stars": 221003,
+    "url": "https://github.com/NousResearch/hermes-agent",
+    "stale_zh": null
+  },
+  {
+    "full_name": "DietrichGebert/ponytail",
+    "desc": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+    "language": "JavaScript",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "claude",
+      "claude-code",
+      "claude-code-plugin",
+      "cursor-rules"
+    ],
+    "stars": 89901,
+    "url": "https://github.com/DietrichGebert/ponytail",
+    "stale_zh": null
+  },
+  {
+    "full_name": "HKUDS/DeepTutor",
+    "desc": "DeepTutor: Lifelong Personalized Tutoring. https://deeptutor.info/.",
+    "language": "Python",
+    "topics": [
+      "ai-agents",
+      "ai-tutor",
+      "clawdbot",
+      "cli-tool",
+      "deepresearch",
+      "interactive-learning"
+    ],
+    "stars": 30165,
+    "url": "https://github.com/HKUDS/DeepTutor",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ZhuLinsen/daily_stock_analysis",
+    "desc": "LLM 驱动的多市场股票智能分析系统：多源行情、实时新闻、决策看板与自动推送，支持零成本定时运行。  LLM-powered multi-market stock analysis system with multi-source market data, real-time news, decision dashboard, automated notifications, and cost-free scheduled runs.",
+    "language": "Python",
+    "topics": [
+      "a-stock",
+      "ai-agent",
+      "aigc",
+      "llm",
+      "quant",
+      "quantitative-finance"
+    ],
+    "stars": 59098,
+    "url": "https://github.com/ZhuLinsen/daily_stock_analysis",
+    "stale_zh": null
+  },
+  {
+    "full_name": "firecrawl/firecrawl",
+    "desc": "The API to search, scrape, and interact with the web at scale. 🔥",
+    "language": "TypeScript",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-crawler",
+      "ai-scraping",
+      "ai-search",
+      "crawler"
+    ],
+    "stars": 156525,
+    "url": "https://github.com/firecrawl/firecrawl",
+    "stale_zh": null
+  },
+  {
+    "full_name": "datawhalechina/hello-agents",
+    "desc": "📚 《从零开始构建智能体》——从零开始的智能体原理与实践教程",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "llm",
+      "rag",
+      "tutorial"
+    ],
+    "stars": 68783,
+    "url": "https://github.com/datawhalechina/hello-agents",
+    "stale_zh": null
+  },
+  {
+    "full_name": "asgeirtj/system_prompts_leaks",
+    "desc": "Extracted system prompts from Anthropic - Claude Fable 5, Opus 5, Claude Design, Claude Code. OpenAI - ChatGPT GPT-5.6-Sol, Codex. Google - Gemini 3.5 Flash, 3.1 Pro, Antigravity. xAI - Grok, Cursor, Copilot, VS Code, Perplexity, and more. Updated regularly.",
+    "language": "JavaScript",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-prompts",
+      "anthropic",
+      "chatbot",
+      "chatgpt"
+    ],
+    "stars": 60746,
+    "url": "https://github.com/asgeirtj/system_prompts_leaks",
+    "stale_zh": null
+  },
+  {
+    "full_name": "msitarzewski/agency-agents",
+    "desc": "A complete AI agency at your fingertips - From frontend wizards to Reddit community ninjas, from whimsy injectors to reality checkers. Each agent is a specialized expert with personality, processes, and proven deliverables.",
+    "language": "Shell",
+    "topics": [],
+    "stars": 136922,
+    "url": "https://github.com/msitarzewski/agency-agents",
+    "stale_zh": null
+  },
+  {
+    "full_name": "affaan-m/ECC",
+    "desc": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+    "language": "JavaScript",
+    "topics": [
+      "ai-agents",
+      "anthropic",
+      "claude",
+      "claude-code",
+      "developer-tools",
+      "llm"
+    ],
+    "stars": 233712,
+    "url": "https://github.com/affaan-m/ECC",
+    "stale_zh": null
+  },
+  {
+    "full_name": "addyosmani/agent-skills",
+    "desc": "Production-grade engineering skills for AI coding agents.",
+    "language": "JavaScript",
+    "topics": [
+      "agent-skills",
+      "antigravity",
+      "claude-code",
+      "codex",
+      "cursor",
+      "skills"
+    ],
+    "stars": 80528,
+    "url": "https://github.com/addyosmani/agent-skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "xbtlin/ai-berkshire",
+    "desc": "AI 时代的伯克希尔：基于 Claude Code / Codex 的价值投资研究框架。巴菲特·芒格·段永平·李录四大师方法论 + 多Agent并行研究。| AI-era Berkshire: a value investing research framework built for Claude Code / Codex. 4 masters' methodologies + multi-agent adversarial analysis.",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "ai-agent",
+      "anthropic",
+      "berkshire-hathaway",
+      "charlie-munger",
+      "china-stock"
+    ],
+    "stars": 14253,
+    "url": "https://github.com/xbtlin/ai-berkshire",
+    "stale_zh": null
+  },
+  {
+    "full_name": "JuliusBrussee/caveman",
+    "desc": "🪨 why use many token when few token do trick — Claude Code skill that cuts 65% of tokens by talking like caveman",
+    "language": "JavaScript",
+    "topics": [
+      "ai",
+      "anthropic",
+      "caveman",
+      "claude",
+      "claude-code",
+      "llm"
+    ],
+    "stars": 93246,
+    "url": "https://github.com/JuliusBrussee/caveman",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Leonxlnx/taste-skill",
+    "desc": "Taste-Skill - gives your AI good taste. stops the AI from generating boring, generic slop",
+    "language": "JavaScript",
+    "topics": [
+      "agent",
+      "ai",
+      "claude",
+      "claude-code",
+      "codex",
+      "coding"
+    ],
+    "stars": 67974,
+    "url": "https://github.com/Leonxlnx/taste-skill",
+    "stale_zh": null
+  },
+  {
+    "full_name": "DeusData/codebase-memory-mcp",
+    "desc": "High-performance code intelligence MCP server. Indexes codebases into a persistent knowledge graph — average repo in milliseconds. 158 languages, sub-ms queries, 99% fewer tokens. Single static binary, zero dependencies.",
+    "language": "C",
+    "topics": [
+      "aider",
+      "ast",
+      "claude-code",
+      "code-analysis",
+      "code-intelligence",
+      "codex"
+    ],
+    "stars": 35646,
+    "url": "https://github.com/DeusData/codebase-memory-mcp",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mvanhorn/last30days-skill",
+    "desc": "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary",
+    "language": "Python",
+    "topics": [
+      "ai-prompts",
+      "ai-skill",
+      "bluesky",
+      "claude",
+      "claude-code",
+      "clawhub"
+    ],
+    "stars": 53829,
+    "url": "https://github.com/mvanhorn/last30days-skill",
+    "stale_zh": null
+  },
+  {
+    "full_name": "open-webui/open-webui",
+    "desc": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...)",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "llm",
+      "llm-ui",
+      "llm-webui",
+      "llms",
+      "mcp"
+    ],
+    "stars": 146851,
+    "url": "https://github.com/open-webui/open-webui",
+    "stale_zh": null
+  },
+  {
+    "full_name": "TauricResearch/TradingAgents",
+    "desc": "TradingAgents: Multi-Agents LLM Financial Trading Framework",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "finance",
+      "llm",
+      "multiagent",
+      "trading"
+    ],
+    "stars": 94660,
+    "url": "https://github.com/TauricResearch/TradingAgents",
+    "stale_zh": null
+  },
+  {
+    "full_name": "headroomlabs-ai/headroom",
+    "desc": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "ai",
+      "anthropic",
+      "claude-code",
+      "compression",
+      "context-engineering"
+    ],
+    "stars": 62628,
+    "url": "https://github.com/headroomlabs-ai/headroom",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Panniantong/Agent-Reach",
+    "desc": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
+    "language": "Python",
+    "topics": [
+      "agent-infrastructure",
+      "ai-agent",
+      "ai-search",
+      "automation",
+      "bilibili",
+      "claude-code"
+    ],
+    "stars": 61056,
+    "url": "https://github.com/Panniantong/Agent-Reach",
+    "stale_zh": null
+  },
+  {
+    "full_name": "heygen-com/hyperframes",
+    "desc": "Write HTML. Render video. Built for agents.",
+    "language": "TypeScript",
+    "topics": [
+      "ai",
+      "animation",
+      "ffmpeg",
+      "framework",
+      "gsap",
+      "html"
+    ],
+    "stars": 37872,
+    "url": "https://github.com/heygen-com/hyperframes",
+    "stale_zh": null
+  },
+  {
+    "full_name": "vllm-project/vllm",
+    "desc": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+    "language": "Python",
+    "topics": [
+      "amd",
+      "blackwell",
+      "cuda",
+      "deepseek",
+      "deepseek-v3",
+      "gpt"
+    ],
+    "stars": 87258,
+    "url": "https://github.com/vllm-project/vllm",
+    "stale_zh": null
+  }
+]

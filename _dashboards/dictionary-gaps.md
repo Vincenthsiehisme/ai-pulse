@@ -5,7 +5,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**4 天**（2026-07-24 … 2026-07-27），去重後 **572** 列。
+語料範圍：**4 天**（2026-07-24 … 2026-07-27），去重後 **573** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -46,6 +46,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Updated | 4 | 2 |
 | Built | 4 | 2 |
 | Power | 4 | 4 |
+| Some | 4 | 4 |
 | China | 4 | 3 |
 | When | 4 | 2 |
 | Chinese | 4 | 3 |
@@ -63,7 +64,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | American | 3 | 3 |
 | Plus | 3 | 3 |
 | Frontier | 3 | 2 |
-| Some | 3 | 3 |
 | However | 3 | 2 |
 | Large | 3 | 2 |
 | Models | 3 | 2 |
@@ -87,11 +87,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | Highlights | 14 | src-gh-vllm-releases |
 | European Union | 12 | src-ep-itre |
 | Draft | 10 | src-ep-itre |
+| Show HN | 10 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
-| Show HN | 9 | src-hn-frontpage |
 | Qwen | 8 | src-qwen-blog |
 | Minutes | 7 | src-ep-itre |
 | Co-Scientist | 5 | src-deepmind-blog |

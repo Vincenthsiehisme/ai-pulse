@@ -22,7 +22,7 @@ events_bound: 1
 events_published: 1
 health_score: 100
 consecutive_failures: 0
-last_status: 200
+last_status: 403
 ---
 
 # vllm-project（src-gh-vllm-releases）
