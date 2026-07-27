@@ -82,6 +82,8 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`候選詞被普通英文洗版`](#候選詞被普通英文洗版) | 字典補漏清單大半是 June / Here / One 這種詞 | 不會 | 否（沒宣稱過它們是實體） |
 | [`pending-覆蓋`](#pending-覆蓋) | 20 家覆蓋盲點標著 pending | 刻意不會 | 否（誠實掛著） |
 | [`people-第三步`](#people-第三步) | 語料的 `author` 還沒綁到 `person_id` | 不會 | — |
+| [`字典掃描範圍分岔`](#字典掃描範圍分岔) | 同一本字典，兩個消費者掃的欄位不一樣，沒有一行字說明為什麼 | 不會 | 否（沒宣稱過覆蓋率） |
+| [`實體命中用過即丟`](#實體命中用過即丟) | 兩處都算出實體命中、兩處都沒留下，而且補不回來 | 不會 | 否 |
 | [`corpus-累積`](#corpus-累積) | `_corpus/` 要不要改成累積視窗 | — | — |
 | [`value-沒人用`](#value-沒人用) | 每則都算 `value`，全站沒有一處讀它 | 不會 | 否（沒宣稱過什麼） |
 | [`stale-backfill-無出口`](#stale-backfill-無出口) | 12 則被擋著的 Event 沒有終態 | 不會 | 否 |
@@ -347,6 +349,12 @@ CoreWeave、AWS、Cohere。
 排這麼後面不是因為不重要，是因為它**沒有在騙人**：清單上寫著「沒有」，實際也沒有。
 這是純粹的擴充工作，隨時可以做，做多少算多少。
 
+**2026-07-27 補**：這 20 條就是「哪些必盯目標沒有來源」的答案，已經盤點過、已經
+誠實掛著，判準在 `pulse-monitor.py`（含 `silent_pending_clock` 那個觀察期守衛）。
+任何新東西要回答同一個問題，**讀這裡，不要重算一份**——重算的那份會在門檻沒人動的
+日子裡跟這裡一致，正好在有人只調了其中一邊的那天分岔，而不會有任何東西變紅。
+理由的完整版寫在 `lib/dictgaps.py` 的 docstring 裡。
+
 ---
 
 ## `people-第三步`
@@ -360,6 +368,59 @@ CoreWeave、AWS、Cohere。
 
 ---
 
+## `字典掃描範圍分岔`
+
+`_config/entities.yaml` 有兩個消費者，掃的文字範圍不一樣：
+
+- `pulse-cluster.py:223` → `entity_ids(title, ...)`，**只掃標題**
+- `pulse-probe.py:782` → `match_entities(f"{title} {summary}", ...)`，**掃標題＋摘要**
+
+差多少：拿現有語料量，命中 ≥2 個實體的比率，**標題＋摘要是標題 only 的三倍**。
+（絕對百分比會跟著語料長，重量指令在最後一節；**結論是那個倍數，不是那兩個數字**。）
+也就是說，聚類看到的實體世界跟字典補漏看到的實體世界，不是同一個。
+
+`cluster.py` 第 221–222 行有註解說明「為什麼走字典不走 token 交集」——中英文標題的
+token 交集趨近於零，而字典的 aliases 兩種語言都收。但**沒有一行字說明為什麼只掃
+標題**。所以現在分不出兩件事：標題 only 是「刻意的高精確度選擇」（摘要雜訊多，
+聚類寧可漏不可錯），還是「當初就這樣寫了」。
+
+排在這裡不是因為它在騙人——它沒有對外宣稱過任何覆蓋率。是因為它**會誤導下一個人**：
+任何要靠實體命中長出來的東西，第一件事就是撞上「我該用哪一個」，而 repo 裡兩個答案
+都在跑、都沒有理由。這是 `gate-未接線` 那個家族的變體，只是分岔的不是門檻，是**輸入
+範圍**——比門檻更難發現，因為兩邊的碼看起來都對。
+
+修法二選一，**兩個都比現在好**：把選擇寫成 `gate.yaml` 的一個 key（然後真的接線，
+別變成 `gate-未接線` 的新成員），或在 `lib/entities.py` 寫一句話說明為什麼兩個消費者
+本來就該不同。**不能接受的是繼續兩個都對。**
+
+---
+
+## `實體命中用過即丟`
+
+上面那兩處都算出了「這一列語料命中哪些實體」，然後：
+
+- cluster 拿去算聚類重疊（`entity_overlap_min`），算完丟掉。
+- probe 拿去找字典補漏候選，算完丟掉。
+
+**沒有任何地方留下「哪些實體在什麼時候、在誰的語料裡一起出現過」。**
+`Events/` 的 frontmatter 只有一個 `company:` 欄，存的還是 canonical 標籤（`NVIDIA`）
+不是 id（`nvidia`）；整個 `Events/` 找不到任何一則存了多實體命中。
+
+這跟 `value-沒人用` 是同一個家族的**反面**：`value` 是算了一個沒人要的東西，這個是
+算了一個有人要、卻沒留下來的東西。兩個都是「這段碼看起來在做事」。
+
+比 `value-沒人用` 急的地方在於**它有時鐘**：這件事**補不回來**。`_corpus/` 只有幾天
+（見 `corpus-累積`），Event 又只存單一 company 欄，所以「過去 N 天誰跟誰一起出現過」
+今天沒有任何辦法回答，而且**每過一班，將來能重建的歷史就少一班**。
+
+排在 `字典掃描範圍分岔` 後面，是因為修法依賴那一條的答案：先決定掃什麼，才知道要留
+什麼。但兩條之間不該隔太久——前一條是一個下午的設計決定，這一條是每天在流失的東西。
+
+**這不是「要先做拓撲」。** 只寫不判——每班把已經算出來的命中 append 下來、不加任何
+判斷邏輯——就足以停止流失，而且完全不碰 hot loop 的判斷（紅線 1）。
+
+---
+
 ## `corpus-累積`
 
 現在是每天一個目錄、只放當天新看到的列，磁碟上有 **3 天**（07-24…07-26）。
@@ -369,6 +430,12 @@ CoreWeave、AWS、Cohere。
 要不要改成累積視窗，我沒有動，因為那會改變所有「近 30 天」統計的意義。
 `fix/coverage-uses-own-clock` 併進去之後（已併），coverage 的守衛已經不再依賴語料庫
 總長度，所以這題的急迫性降了一階——**但語料本身還是只有 3 天，決定權在你。**
+
+**2026-07-27 補一個反方向的理由**：急迫性對 coverage 守衛確實降了，對**證據歷史**
+沒有降。語料保留幾天，就等於「誰跟誰一起出現過」最多只能回溯幾天，而這是**單向
+流失**——不像門檻可以改回來，過去的語料丟了就是丟了。所以這條的「決定權在你」
+後面有一個時鐘在跑。相鄰的一條是 `實體命中用過即丟`：那一條講的是就算語料還在，
+命中結果也沒被留下。兩條要一起看才是完整的問題。
 
 ---
 
@@ -509,6 +576,29 @@ import json;from collections import Counter
 runs=[json.loads(l) for l in open('_probe/source-runs.jsonl')]
 for sid in ('src-mistral-news','src-media-theregister','src-kol-thezvi'):
     print(sid, Counter(s['status'] for r in runs for s in r['sources'] if s['id']==sid))"
+```
+
+`字典掃描範圍分岔` 的那個倍數（兩個消費者各自看得到多少多實體語料）：
+
+```bash
+python3 - <<'PY'
+import sys, glob, json, yaml; sys.path.insert(0, 'scripts')
+from lib.entities import build_matcher, entity_ids
+t = build_matcher(yaml.safe_load(open('_config/entities.yaml')))
+for mode in ('title', 'title+summary'):
+    n = m = 0
+    for f in glob.glob('_corpus/**/*.jsonl', recursive=True):
+        for line in open(f):
+            if not line.strip():
+                continue
+            it = json.loads(line); n += 1
+            s = it.get('title') or ''
+            if mode != 'title':
+                s += ' ' + (it.get('summary') or '')
+            if len(entity_ids(s, t)) >= 2:
+                m += 1
+    print(f"{mode:14s} {m}/{n}")
+PY
 ```
 
 要在本機看那一頁現在會長什麼樣（不寫檔）：
