@@ -2069,6 +2069,44 @@ acase("pulse-cluster 跑第二輪：整份重寫 frontmatter 之後 ingested_at 
       ["ingested_at: '2026-07-26T06:41:46+00:00'" in _txt2,
        "ingested_at: null" in _txt2], [True, False])
 
+# ── 證據記錄要留下判斷用的欄位（references/evidence-tiers.md）──
+# 第二輪走的正是「從磁碟讀回來、再重寫一次」那條路，所以這幾條釘的是真的
+# round-trip，不是 event_markdown() 單獨產出的字串。
+_fm2 = _yaml.safe_load(_txt2.split("---")[1])
+_evs2 = _fm2.get("evidence") or []
+acase("證據記錄：欄位白名單與順序固定"
+      "（順序每跑一次換一次的話，git diff 上每則 Event 都像被改過）",
+      [list(e) for e in _evs2],
+      [["source_id", "url", "title", "relevance", "published"]] * len(_evs2))
+acase("證據記錄：跨日讀回來之後 title 還是標題，不是網址"
+      "（舊版 reload 填的是 e.get(\"url\")：拿它去比實體重疊，比出來的相似度是假的）",
+      sorted({e.get("title") for e in _evs2}),
+      ["OpenAI announces a thing that does not exist"])
+acase("證據記錄：published 也要活過 round-trip（轉載鏈要問「差幾小時」）",
+      sorted({e.get("published") for e in _evs2}), ["2026-07-22T00:00:00+00:00"])
+acase("證據記錄：body 的證據清單不把網址印成標題",
+      "（標題未留存）" in _txt2, False)
+
+# 舊格式（2026-07-27 之前寫下的 Event）沒有這兩個欄位。缺就是缺——
+# 補一個看起來像值的東西，比空著更難發現。
+_old_fmt = _cm.evidence_from_frontmatter(
+    [{"source_id": "s1", "url": "https://x.test/a", "relevance": 88}])
+acase("證據記錄：舊格式缺 title → 填 None，不拿 url 頂替（紅線 8）",
+      [_old_fmt[0]["title"], _old_fmt[0]["published"], _old_fmt[0]["relevance"]],
+      [None, None, 88])
+acase("證據記錄：title 缺席那一行印「標題未留存」，不把網址印成標題",
+      _cm.evidence_line(_old_fmt[0]),
+      "- [[Sources/s1|s1]] — （標題未留存）https://x.test/a")
+acase("證據記錄：title 剛好等於 url 也算沒有標題"
+      "（舊檔重寫過一輪之後，磁碟上真的會有 title == url 的紀錄）",
+      _cm.evidence_line({"source_id": "s1", "url": "https://x.test/a",
+                         "title": "https://x.test/a"}),
+      "- [[Sources/s1|s1]] — （標題未留存）https://x.test/a")
+acase("證據記錄：有標題就正常印（反方向，確認上兩條不是恆真）",
+      _cm.evidence_line({"source_id": "s1", "url": "https://x.test/a",
+                         "title": "真的標題"}),
+      "- [[Sources/s1|s1]] — 真的標題（https://x.test/a）")
+
 acase("pulse-cluster 跑第二輪：這一輪真的重寫了那個檔"
       "（沒重寫的話上一條在斷言一個恆真的條件——測試自己變成一顆永遠綠的燈）",
       [_txt2 != _txt, "example.invalid/b" in _txt, "example.invalid/b" in _txt2],
