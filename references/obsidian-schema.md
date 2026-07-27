@@ -143,6 +143,26 @@ frontmatter：`id`（`actor-<entity_id>` 或 `actor-<slug>`）、`kind: company`
 - **不保證每一則都有中文。** 待譯清單有單晚上限（預設 20），而且潤稿鏈可能整段
   跳過。沒有中文就是印原文，不是空白。
 
+## `coverage`：這則事件發生時，我們看得到嗎
+
+> 完整規格與呈現規則見 `references/event-timestamps.md`〈第三個現場：呈現層〉。
+
+封閉集 `observed` / `backfilled` / `unknown`，由 `_probe/state.json` 的
+`first_fetch_at` 與 Event 自己的 `happened_at` 推導：
+
+```
+observable_from = min(first_fetch_at[s] for s in 該事件證據的來源)
+```
+
+存在的理由：`Events/` 的日期只有**外面世界**那個時鐘，所以一則 07-07 的事件，
+畫面上看不出我們是 07-07 就在追、還是 07-26 首抓時才撈回來的。2026-07-27 實測
+36 則已發布事件裡有 30 則屬於後者。
+
+**這一格是推導欄位，不是 sticky 欄位。** 上面 `title_zh` 那批要在 reload 時讀回、
+寫檔時原樣寫出，因為它們的值只有那一次算得出來；`coverage` 相反——每班從
+`state.json` 重算，`event_markdown()` 整份重寫不會傷到它。**不要**把它加進
+sticky 清單：寫死之後，來源的 `first_fetch_at` 修正了它也不會跟著改。
+
 ## `_dashboards/` 是靜態表，不是 Dataview
 
 skill 的規格寫的是 Dataview 查詢頁。實作不是，而且**刻意不是**：
