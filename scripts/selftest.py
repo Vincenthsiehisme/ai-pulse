@@ -3833,10 +3833,14 @@ acase("egress 攔截：站方自己的 403 不得被洗成「沒有判決」"
       "把一個確定的答案變成不確定，然後永遠等不到它變確定）",
       _vamod.is_egress_intercept(403, "<html><title>Access denied</title></html>", {}),
       None)
+# body 刻意**含有**簽名字樣。不含的話這一條在拿掉狀態碼判斷之後照樣會過，
+# 等於什麼都沒守——M109 第一次跑就是這樣活下來的。
 acase("egress 攔截：200 一律不是攔截（攔截只發生在 403；"
-      "把 200 也拿去比對簽名，會讓內文剛好提到 allowlist 的文章變成無判決）",
+      "把 200 也拿去比對簽名，會讓一篇正好在講 allowlist 的文章變成無判決，"
+      "而那是我們讀得到的頁）",
       _vamod.is_egress_intercept(
-          200, "an article about how to configure an allowlist", {}), None)
+          200, "Why your host is not in allowlist by default: a 2026 explainer",
+          {}), None)
 
 _VAM_PAGE = ('<html><head>'
              '<meta property="og:title" content="Introducing Claude Opus 5">'
