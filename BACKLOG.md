@@ -78,6 +78,7 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`gate-未接線`](#gate-未接線) | 一批 `gate.yaml` 的 key 沒有任何碼讀它 | 不會（已標記，漏標會紅） | 部分 |
 | [`零產出來源`](#零產出來源) | 三條「可跑但零產出」，三種不同的病 | 不會 | — |
 | [`跨語言重複-event`](#跨語言重複-event) | 沒有版本號的同一件事，中英文會變成兩則 Event | 不會 | — |
+| [`候選詞被普通英文洗版`](#候選詞被普通英文洗版) | 字典補漏清單大半是 June / Here / One 這種詞 | 不會 | 否（沒宣稱過它們是實體） |
 | [`pending-覆蓋`](#pending-覆蓋) | 20 家覆蓋盲點標著 pending | 刻意不會 | 否（誠實掛著） |
 | [`people-第三步`](#people-第三步) | 語料的 `author` 還沒綁到 `person_id` | 不會 | — |
 | [`corpus-累積`](#corpus-累積) | `_corpus/` 要不要改成累積視窗 | — | — |
@@ -156,8 +157,11 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
   加上 96h / 7d / 21d 三段窗口。把 `event_window_hours` 從 72 改成 48 重跑，聚類
   結果不會有任何變化——下一個人會去懷疑資料，而不是懷疑這個欄位。
 - **`clustering.version_derivation`**：`claude@opus-4.8` 這種衍生實體不會產生。
-- **`clustering.unknown_entity`**，而且它的 `report_to: _dashboards/dictionary-gaps.md`
-  指向的檔案**不存在**。字典缺口目前沒有任何地方在收集，只能靠人翻語料發現。
+- ~~**`clustering.unknown_entity`**~~ **2026-07-27 接上**
+  （`fix/dictionary-gaps-report-to-nowhere`）：`report_to` 指的那一頁現在真的會
+  被產生，兩個晉升門檻也搬進 `gate.yaml` 給兩個消費者共用。
+  剩下 `action` 與 `key_from_title_hash` 標成 **C 類（刻意不接）**，理由寫在
+  設定檔那兩行旁邊。
 - **`evidence.need_independent_tier2: 2`** 描述的「兩個獨立 Tier-2 也可以放行」這條
   替代路徑**不存在**；實際只有 `missing_primary_evidence` 一條規則在擋。
 - ~~**`evidence.translation_chain`**~~ **2026-07-27 接上**
@@ -245,6 +249,32 @@ CI 一樣是綠的。不順手接上去是刻意的——接之前得先想清�
 靠它跨語言的。但那會動到聚類門檻本身，屬於紅線 9 要先改文件的那一類，
 而且改壞的方向很惡劣：門檻放太鬆會把不相干的事件併成一則，**併錯了不會有
 任何東西變紅**，只會有一則標題與內容對不上的 Event 靜靜躺在庫裡。
+
+---
+
+## `候選詞被普通英文洗版`
+
+`_dashboards/dictionary-gaps.md` 第一次跑出來，達標清單長這樣：
+
+```
+Industry 16 / Research 16 / LLMs 16 / Union 10 / LLM 10 / June 9 / Here 9
+/ Energy 9 / July 8 / Building 7 / … / Gemma 5 / San Francisco 5 / …
+```
+
+`Gemma` 是真的該收的產品線，`LLM` / `LLMs` 是真的該收的技術詞。其餘大半是
+**一般英文大寫詞**：`June`、`July`、`Here`、`One`、`Learn`、`Building`、
+`Understanding`。
+
+病灶在收割層不在這一頁：`pulse-probe.CAND_LATIN` 抓的是「大寫開頭的拉丁詞」，
+而 `CAND_STOP` 只有二十來個字。英文標題的字首大寫、月份、地名、動名詞全都通得過。
+
+**這條之所以現在才出現在清單上，正是那一頁的價值**：在此之前這些詞每班各自算
+各自的，沒有任何地方把它們加起來，所以「雜訊佔了大半」這件事量不到。
+
+修法方向（還沒動手）：`CAND_STOP` 要從「手寫二十個字」變成有判準的東西——
+月份與星期是封閉集合可以整批排除；常見英文詞需要一份停用詞表，而那份表一旦手寫
+就會是下一個「手寫清單」（第 6 個實例）。**先想清楚判準再動手**，否則只是把雜訊
+換一批。
 
 ---
 
@@ -367,6 +397,7 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 | `fix/sitemap-zero-yield-is-not-silence` | 「200 / 0 筆」拆成四個 code：站方那邊沒東西 vs 我們這邊接不上。規格 `references/health-alarms.md`〈零產出不是沉默〉 |
 | `fix/evidence-forgets-what-it-saw` | 證據記錄留下 `title` 與 `published`；reload 不再拿 url 頂替 title（頂替之後，拿標題比相似度會**照樣算得出一個數字**，只是算的是網址）。新增 `references/evidence-tiers.md`——那個檔名被指了兩次而一直不存在 |
 | `fix/translation-chain-counts-a-rewrite` | `evidence.translation_chain` 四個 leaf 全部接上：跨語言 + 實體集合 Jaccard ≥ 0.80 + 48h 窗 → 標 `suspected_repost`、不計入獨立性。實體比對層抽到 `lib/entities.py`（單一真相源）。M43–M47 各守一個設定值真的被讀 |
+| `fix/dictionary-gaps-report-to-nowhere` | `clustering.unknown_entity.report_to` 指的那一頁以前不存在，現在每班產生；晉升門檻搬進 `gate.yaml`，`_probe` 當班區塊與累積頁讀同一份 |
 | `fix/backlog-status-is-hand-written` | 現況表從手寫改成每班重生成（`_dashboards/backlog-status.md`）。**這是第 9 條實例的第二次修法**——第一次（把量測時間寫進標題、請下一個人複量）三小時就失效了 |
 
 共同主題是**警報自己把自己關掉**：用一個比事實寬鬆的代理指標去代表事實。代理在

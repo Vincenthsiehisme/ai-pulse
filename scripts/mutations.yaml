@@ -456,3 +456,37 @@ mutations:
     replace: "            \"zero_yield\": sorted(str(s.get(\"status\")) for s in srcs"
     survives: false
     why: ""
+
+  # ── 字典補漏：report_to 指的那頁與它的門檻（references/vault-pages.md）──
+
+  - id: M51
+    title: "門檻讀不到就退回 0（設定檔壞掉的時候規則反而變鬆，每個雜訊都晉升）"
+    file: lib/dictgaps.py
+    find: "        return v if v > 0 else default"
+    replace: "        return v"
+    survives: false
+    why: ""
+
+  - id: M52
+    title: "晉升只看次數不看來源數（一個來源刷十次就進字典）"
+    file: lib/dictgaps.py
+    find: "            if n >= min_hits and len(srcs[c]) >= min_sources]"
+    replace: "            if n >= min_hits]"
+    survives: false
+    why: ""
+
+  - id: M53
+    title: "跨天累積不去重（同一則掛在 feed 上幾天就算幾次，項目×天）"
+    file: pulse-dictionary-gaps.py
+    find: "                if key in seen:\n                    continue"
+    replace: "                if False:\n                    continue"
+    survives: false
+    why: ""
+
+  - id: M54
+    title: "report_to 指到 vault 外面照寫（設定檔多一個能寫出 vault 的欄位）"
+    file: pulse-dictionary-gaps.py
+    find: "    except ValueError:\n        return (vault / DEFAULT_REPORT_TO).resolve()"
+    replace: "    except ValueError:\n        pass"
+    survives: false
+    why: ""

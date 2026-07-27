@@ -1847,6 +1847,83 @@ acase("BACKLOG.md：〈現況〉那一段不再有手寫的量測表"
       "（留一張就夠了——會過期的正是那一張，不是旁邊的散文）",
       "| 量到什麼 | 值 |" in _backlog_status_head, False)
 
+# ── 字典補漏：report_to 指的那個檔案以前不存在（references/vault-pages.md）──
+from lib import dictgaps as _dg  # noqa: E402
+
+_dg_spec = importlib.util.spec_from_file_location(
+    "pulse_dictionary_gaps", os.path.join(_HERE, "pulse-dictionary-gaps.py"))
+_dgm = importlib.util.module_from_spec(_dg_spec)
+_dg_spec.loader.exec_module(_dgm)
+
+acase("排程：dictionary-gaps 真的被排進 workflow，且不跟別頁共用同一個 run:",
+      [bool(_step_with("pulse-dictionary-gaps.py")),
+       _step_with("pulse-dictionary-gaps.py") == _step_with("pulse-backlog-status.py")],
+      [True, False])
+acase("排程：dictionary-gaps 也排在 Source health 之後、Commit 之前",
+      (max(_step_with("pulse-source-health.py"))
+       < min(_step_with("pulse-dictionary-gaps.py"))
+       < min(_step_with("git push"))), True)
+
+acase("字典補漏：門檻讀 gate.yaml，不是硬寫在腳本裡",
+      _dg.thresholds({"clustering": {"unknown_entity":
+                                     {"promote_min_hits": 9,
+                                      "promote_min_sources": 4}}}), (9, 4))
+acase("字典補漏：門檻讀不到就退回預設 3 / 2，**不是 0**"
+      "（0 會讓每個一次性雜訊都晉升——設定檔壞掉不可以讓門檻自己打開）",
+      [_dg.thresholds({}), _dg.thresholds({"clustering": {"unknown_entity":
+                                                          {"promote_min_hits": 0}}})],
+      [(3, 2), (3, 2)])
+acase("字典補漏：真實 gate.yaml 現在真的有這兩個門檻（不是只靠預設值活著）",
+      _dg.thresholds(_yaml.safe_load(
+          open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+               encoding="utf-8").read())), (3, 2))
+
+_dg_rows = [{"source_id": "a", "candidates": ["Gemma", "June"]},
+            {"source_id": "b", "candidates": ["Gemma"]},
+            {"source_id": "a", "candidates": ["Gemma", "June"]},
+            {"source_id": "a", "candidates": ["June"]}]
+_dg_cnt, _dg_srcs = _dg.tally(_dg_rows)
+acase("字典補漏：達標＝次數夠**而且**跨來源夠（兩個條件都要，少一個就變成雜訊清單）",
+      _dg.promoted(_dg_cnt, _dg_srcs, 3, 2), [("Gemma", 3, 2)])
+acase("字典補漏：次數夠但只有一個來源 → 進觀察區，不進晉升區",
+      _dg.single_source(_dg_cnt, _dg_srcs, 3), [("June", 3, "a")])
+
+with tempfile.TemporaryDirectory() as _dgtd:
+    _dgv = Path(_dgtd)
+    for _d in ("2026-07-24", "2026-07-25"):
+        (_dgv / "_corpus" / _d).mkdir(parents=True)
+        # **同一則新聞兩天都在 feed 上**——這正是「項目 × 天」那個坑。
+        (_dgv / "_corpus" / _d / "s1.jsonl").write_text(_json.dumps({
+            "source_id": "s1", "url_canonical": "https://x.test/a",
+            "candidates": ["Gemma"]}) + "\n", encoding="utf-8")
+    acase("字典補漏：跨天累積時同一則只算一次"
+          "（直接加行數數到的是「項目 × 天」，items_observed 踩過同一個坑，虛胖一倍）",
+          len(_dgm.corpus_rows(_dgv)), 1)
+    acase("字典補漏：report_to 讀設定檔（這一行就是那個 key 的消費者）",
+          _dgm.report_path(_dgv, {"clustering": {"unknown_entity":
+                                                 {"report_to": "_dashboards/x.md"}}}),
+          (_dgv / "_dashboards" / "x.md").resolve())
+    acase("字典補漏：report_to 指到 vault 外面就退回預設，不是靜靜寫出去",
+          _dgm.report_path(_dgv, {"clustering": {"unknown_entity":
+                                                 {"report_to": "../../etc/x.md"}}}),
+          (_dgv / "_dashboards" / "dictionary-gaps.md").resolve())
+
+# 兩個消費者讀同一份門檻：改 gate.yaml 的值，probe 的當班區塊要跟著動。
+# 只測 dictgaps 那一支的話，probe 裡再硬寫一次 `>= 3` 也不會被抓到。
+with tempfile.TemporaryDirectory() as _dgtd2:
+    _dgv2 = Path(_dgtd2)
+    (_dgv2 / "_probe" / "2026-07-27").mkdir(parents=True)
+    _dg_report = _pp.write_report(
+        _dgv2, "2026-07-27",
+        [{"source_id": "s1", "track": "official", "author": None,
+          "author_kind": "none", "entity_hits": [], "entity_types": [],
+          "candidates": ["Gemma"], "backfill": False}],
+        [], False, {"clustering": {"unknown_entity": {"promote_min_hits": 9,
+                                                      "promote_min_sources": 4}}})
+    acase("字典補漏：probe 的當班區塊也讀 gate.yaml 的門檻"
+          "（只測判準那一支的話，probe 裡再硬寫一次 3 / 2 不會被抓到）",
+          "跨 ≥4 來源、≥9 次" in _dg_report.read_text("utf-8"), True)
+
 # ─────────── 佇列年紀只能看 ingested_at（2026-07-26 誤報事故的回歸測試）───────────
 # 那天 CI 每兩小時紅一次，訊息是「有事件未 enrich 已放 4 天」。三則事件全是當天
 # 早上 06:41 才進 vault 的——夜間潤稿鏈前一晚根本碰不到它們。原因是年紀算的是
