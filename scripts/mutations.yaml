@@ -350,7 +350,7 @@ mutations:
   - id: M38
     title: "「是誰那邊」一律印我們（分了類卻印同一句，等於沒分）"
     file: pulse-probe.py
-    find: "        side = {\"source_empty\": \"站方\",\n                \"no_diagnosis\": \"還不知道\"}.get(code, \"我們\")"
+    find: "        side = {\"source_empty\": \"站方\",\n                \"upstream_empty_body\": \"還不知道\",\n                \"no_diagnosis\": \"還不知道\"}.get(code, \"我們\")"
     replace: "        side = \"我們\""
     survives: false
     why: ""
@@ -488,5 +488,23 @@ mutations:
     file: pulse-dictionary-gaps.py
     find: "    except ValueError:\n        return (vault / DEFAULT_REPORT_TO).resolve()"
     replace: "    except ValueError:\n        pass"
+    survives: false
+    why: ""
+
+  # ── 自己抓的 adapter 要自己回報 status（references/health-alarms.md）──
+
+  - id: M55
+    title: "自己抓的 adapter 寫死 200（API 額度用完的那班，報告說「200 / 0 筆」）"
+    file: pulse-probe.py
+    find: "            stat[\"status\"] = stat[\"diag\"].get(\"self_fetch_status\", 200)"
+    replace: "            stat[\"status\"] = 200"
+    survives: false
+    why: ""
+
+  - id: M56
+    title: "adapter 不回報自己抓到什麼（run_source 只好繼續猜）"
+    file: pulse-probe.py
+    find: "    d[\"self_fetch_status\"] = status"
+    replace: "    d[\"self_fetch_status\"] = 200"
     survives: false
     why: ""
