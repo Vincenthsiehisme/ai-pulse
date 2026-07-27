@@ -23,13 +23,14 @@ on:
   workflow_dispatch:
     inputs:
       preset:
-        description: '要驗哪一組（sitemap-sources = 三篇文章頁；list-pages = 三個列表頁，C-5）'
+        description: '要驗哪一組（sitemap-sources = 三篇文章頁；list-pages = 列表頁，C-5；release-notes = 四家 changelog，模型時間線的甲類來源）'
         required: true
         default: sitemap-sources
         type: choice
         options:
           - sitemap-sources
           - list-pages
+          - release-notes
 
 permissions:
   contents: read
@@ -51,17 +52,24 @@ jobs:
       # 不加 continue-on-error。這支的每一種紅都代表「設計還不能往下走」，
       # 而綠代表「C-3 的前提成立，可以動工」。把它變成永遠綠的東西，
       # 就等於把這次驗證退化成一份沒有人看的 log。
+      # --save-html 不是除錯輸出，是**下一步的輸入**。
+      # release-notes 那一組的解析器只對「已經有人看過的標記形狀」動手
+      # （references/model-timeline.md 第 5 節步 3）——2026-07-27 只有
+      # platform.claude.com 在開發容器裡抓得到，另外三家要靠這一步帶回真 bytes。
       - name: C-4
         env:
           VAULT_DIR: ${{ github.workspace }}
         run: |
           python scripts/verify-article-metadata.py \
             --preset "${{ inputs.preset }}" \
+            --save-html raw-html \
             --json c4-report.json
-      # always()：即使判決是紅的，那份 JSON 也正是要拿來寫進設計文件的東西。
+      # always()：即使判決是紅的，那份 JSON 與那些 HTML 正是要拿來寫進設計的東西。
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: c4-report-${{ inputs.preset }}
-          path: c4-report.json
+          path: |
+            c4-report.json
+            raw-html/
           if-no-files-found: warn

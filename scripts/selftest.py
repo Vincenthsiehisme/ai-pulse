@@ -3870,9 +3870,14 @@ acase("C-4 抽取：JS 空殼要看得出來——script 裡的日期不算數�
 
 # 退出碼：no_verdict 必須排在最前面。壞判決至少是關於站方的，
 # 沒有判決是關於我們自己的——而後者更該讓 CI 紅。
-acase("C-4 退出碼：no_verdict(4) > no_og_title(3) > site_error(2) > ok(0)",
-      sorted(_vamod.VERDICT_EXIT, key=lambda k: -_vamod.VERDICT_EXIT[k]),
-      ["no_verdict", "no_og_title", "site_error", "fetch_error", "ok"])
+acase("C-4 退出碼：no_verdict(4) 高於所有「站方回答了但答案不合用」的狀態(3/2)，"
+      "而那些又高於 ok(0)",
+      [_vamod.VERDICT_EXIT["no_verdict"],
+       sorted({_vamod.VERDICT_EXIT[k] for k in
+               ("no_og_title", "js_shell", "no_dates")}),
+       sorted({_vamod.VERDICT_EXIT[k] for k in ("site_error", "fetch_error")}),
+       _vamod.VERDICT_EXIT["ok"]],
+      [4, [3], [2], 0])
 acase("C-4 退出碼：只有 ok 對應 0（任何其他狀態對應 0，都會讓 CI 綠著放行"
       "一份不能引用的報告）",
       [k for k, v in _vamod.VERDICT_EXIT.items() if v == 0], ["ok"])
@@ -3916,6 +3921,126 @@ acase("C-4：control probe 不得在 CI 被跳過"
 acase("C-4：驗證那一步不得 continue-on-error"
       "（吞掉退出碼＝把這次驗證退化成一份沒有人看的 log）",
       [s for s in _vam_steps if s.get("continue-on-error")], [])
+
+# ────────────────────────────────── lib/modelline.py（模型演變時間線純函式層）
+# 規格 references/model-timeline.md。**這一段的每一條都對應一個實測撞出來的洞**，
+# 不是想像的案例——fixture 的標記結構抄自 2026-07-27 在 CI 之外唯一抓得到的那頁
+# （platform.claude.com 的 release notes，1,436,122 bytes）。
+from lib import modelline as _ml  # noqa: E402
+
+_ML_LINES = [
+    {"id": "claude", "canonical": "Claude",
+     "version_pattern": r"(?:\s)?(opus|sonnet|haiku|fable|mythos)?(?:\s|-)?([0-9]+(?:\.[0-9]+)?)"},
+    {"id": "chatgpt", "canonical": "ChatGPT"},   # 沒有 version_pattern，不該衍生
+]
+
+acase("lifecycle：封閉集，且 ambiguous 與 unknown 是兩個不同的答案"
+      "（unknown 要補動詞表，ambiguous 要更細的切分——要人做的事不一樣）",
+      [_ml.UNKNOWN in _ml.LIFECYCLES, _ml.AMBIGUOUS in _ml.LIFECYCLES,
+       _ml.UNKNOWN != _ml.AMBIGUOUS], [True, True, True])
+acase("lifecycle：單一動詞逐字判",
+      [_ml.lifecycle_of("We've retired the Claude Sonnet 4 model"),
+       _ml.lifecycle_of("We've deprecated fast mode"),
+       _ml.lifecycle_of("released as GA versions"),
+       _ml.lifecycle_of("now in research preview"),
+       _ml.lifecycle_of("Pricing page updated")],
+      [_ml.SHUTDOWN, _ml.DEPRECATED, _ml.GA, _ml.PREVIEW, _ml.UNKNOWN])
+# 第一版用優先序解重疊：一條同時寫 launched 與 deprecated 的條目會被判成
+# 其中一個，表看起來完整而那一格是編的。改成誠實地說「兩種宣稱都在」。
+acase("lifecycle：兩種以上宣稱 → ambiguous，不用優先序挑一個"
+      "（挑一個＝拿排序去代替一個我們沒有的答案）",
+      _ml.lifecycle_of("We've launched Claude Sonnet 5 ... deprecated pricing"),
+      _ml.AMBIGUOUS)
+
+acase("日期：三種形狀各自的精度與年份出處",
+      [_ml.parse_entry_date("July 24, 2026"),
+       _ml.parse_entry_date("June 2026"),
+       _ml.parse_entry_date("July 23")],
+      [("2026-07-24", _ml.PRECISION_DAY, _ml.YEAR_EXPLICIT),
+       ("2026-06", _ml.PRECISION_MONTH, _ml.YEAR_EXPLICIT),
+       (None, _ml.PRECISION_NONE, _ml.YEAR_NONE)])
+# docs.x.ai 的條目只印「July 23」。拿今年去補，2024 與 2025 的條目會全部堆到
+# 今年，而每個日期都是合法日期——只有它們跟事實的關係是錯的。
+acase("日期：缺年份時**不拿今年補**，除非呼叫端明示 year_hint；"
+      "而補進去的年份要在 date_year_source 上留痕（section≠explicit）",
+      [_ml.parse_entry_date("July 23")[0],
+       _ml.parse_entry_date("July 23", 2024)],
+      [None, ("2024-07-23", _ml.PRECISION_DAY, _ml.YEAR_SECTION)])
+acase("日期：序數後綴（Anthropic 2024 年那批寫的是「July 9th, 2024」）"
+      "——少了它那些條目會全部落回無年份",
+      _ml.parse_entry_date("July 9th, 2024")[0], "2024-07-09")
+acase("日期：2 月 30 日這種東西回 None 不丟例外"
+      "（一條壞日期不該讓整頁解析中止）",
+      _ml.parse_entry_date("February 30, 2026")[0], None)
+
+acase("model id：網域不是模型（claude.com / claude.ai 第一版真的被撈進來了）"
+      "，且沒有版本號的字串不算",
+      [_ml.model_ids_in("see claude.com and claude.ai"),
+       _ml.model_ids_in("We've launched Claude Opus 5 ( claude-opus-5 )")],
+      [[], ["claude-opus-5"]])
+acase("版本衍生：照 entities.yaml 寫下的規則產生 <line_id>@<slug>；"
+      "沒有 version_pattern 的產品線不衍生（硬套會生出假實體）",
+      [_ml.derive_versions("On Claude Opus 5, disabling thinking", _ML_LINES),
+       _ml.derive_versions("ChatGPT went down", _ML_LINES)],
+      [["claude@opus-5"], []])
+
+# ── 整頁解析：fixture 的標記結構抄自真頁面 ──
+_ML_HTML = (
+    '<h3><div class="group relative pt-6 pb-2" id="july-24-2026">'
+    '<div>July 24, 2026</div></div></h3>'
+    '<ul><li>We&#x27;ve launched Claude Opus 5 ( claude-opus-5 ), see claude.com</li>'
+    '<li>Mid-conversation tool changes are now in beta on Claude Fable 5</li></ul>'
+    '<h3><div class="group relative pt-6 pb-2" id="may-30th-2024">'
+    '<div>May 30th, 2024</div></div></h3>'
+    '<ul><li>Tool use is now generally available</li></ul>'
+    '<nav><ul><li>July 24, 2026</li><li>May 30th, 2024</li></ul></nav>')
+_ml_rows = _ml.rows_from_anchor_page(_ML_HTML, "https://example.test/x", _ML_LINES)
+
+acase("整頁：錨點的序數形式也要配到"
+      "（第一版漏配 `-9th-`，後果不是少了那些條目——是它們全部被吞進上一個"
+      "配到的錨點，2024-05 到 2025-04 每一條都被蓋上同一天）",
+      sorted({r["happened_on"] for r in _ml_rows}), ["2024-05-30", "2026-07-24"])
+acase("整頁：HTML entity 要解開，否則 `We&#x27;ve launched` 對不上動詞表"
+      "（一個撇號讓整類發布條目判成 unknown）",
+      _ml_rows[0]["lifecycle"], _ml.GA)
+acase("整頁：lifecycle 逐 <li> 判，不是逐日判"
+      "（同一天的一條 beta 會把整天染成 preview——每個值都對，歸屬錯了）",
+      [_ml_rows[0]["lifecycle"], _ml_rows[1]["lifecycle"]], [_ml.GA, _ml.PREVIEW])
+# 這一條擋掉的量在真頁面上是 124 列（全部落在最後一個錨點、全部同一天）。
+acase("整頁：整條就是一個日期的 <li> 是目錄不是條目，要丟掉"
+      "（不丟的話真頁面上三分之一的列是同一天的假列，而每一列的日期都合法）",
+      [len(_ml_rows), _ml.is_date_only("July 24, 2026"),
+       _ml.is_date_only("July 30, 2026 起 X 將停用")], [3, True, False])
+acase("整頁：錨點數與可見日期數都回報，讓漏配不必靠人眼發現"
+      "（漏配是安靜的：列數、解析率、日期格式全都正常）",
+      _ml.anchor_gap(_ML_HTML)[0], 2)
+
+acase("rates：沒有列的時候回 None 不回 0"
+      "（0 的意思是「量過了，沒問題」——lib/scoring.py 那句話換個位置）",
+      [_ml.rates([])["unknown_lifecycle_rate"],
+       _ml.rates([])["unmatched_model_rate"]], [None, None])
+# 第一版的分母是「全部條目」，於是 unmatched 是 0.79——量到的其實是
+# 「有多少條不在講模型」，又一個比事實寬鬆的代理指標，我自己寫進去的。
+acase("rates：unmatched 的分母是「看起來在講版本」的條目，不是全部條目"
+      "（用全部當分母，量到的是「有多少條不在講模型」）",
+      [_ml.rates(_ml_rows)["versionish_rows"],
+       _ml.rates(_ml_rows)["unmatched_model_rate"]], [2, 0.0])
+acase("references/model-timeline.md 存在（這一層的規格書，紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references",
+                                  "model-timeline.md")), True)
+# 紅線 1。這一層是使用者建議裡「用單一 LLM 做正規化」那一步被換掉的地方，
+# 換掉的理由必須留在碼裡看得到，而不是只留在文件裡。
+# 第一版這一條是「原始碼裡不得出現 openai / llm 這些字」——而它立刻紅了，
+# 因為註解裡就在解釋為什麼**不**用 LLM。用字串出現與否代表「有沒有呼叫模型」，
+# 是這份 repo 一路在抓的那隻病，我在守它的測試裡又寫了一次。
+# 改成釘**進口**：這一層是純函式，連網路都不該 import，遑論模型。
+_ml_src = open(os.path.join(_HERE, "lib", "modelline.py"), encoding="utf-8").read()
+acase("紅線 1：modelline 是純函式層，不得 import 網路或任何客戶端"
+      "（使用者建議的「用單一 LLM 做正規化」那一步被字面動詞表取代——"
+      "「需要 LLM」與「我還沒去讀那些字」是兩件事）",
+      [m for m in _re.findall(r"^\s*(?:import|from)\s+([a-z_][\w.]*)",
+                             _ml_src, _re.M)
+       if m.split(".")[0] not in ("html", "re", "datetime", "__future__")], [])
 
 print("offline self-test\n" + "-" * 70)
 fails = 0

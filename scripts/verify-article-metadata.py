@@ -153,9 +153,47 @@ def extract(html: str) -> dict:
 
 
 # ------------------------------------------------------------------ 單條驗證
-def probe_one(pp, url: str) -> dict:
+def save_html(directory: str, url: str, body: str) -> str:
+    """把整頁原始 bytes 落到磁碟，供 CI 當 artifact 帶回來。
+
+    這不是除錯輸出，是**下一步的輸入**：release-notes 那一組的解析器
+    刻意還沒寫，因為對著想像的標記寫解析器會通過自己編的測試、
+    然後在真頁面上失敗（references/model-timeline.md 第 5 節）。
+    """
+    os.makedirs(directory, exist_ok=True)
+    slug = re.sub(r"[^a-z0-9]+", "-", url.lower()).strip("-")[:120]
+    path = os.path.join(directory, slug + ".html")
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(body or "")
+    return path
+
+
+# 兩種通過條件，因為兩組 preset 問的是兩個不同的問題。
+# 用同一個判準去問兩個問題，正是這個 repo 一直在拆的那件事：
+#   article  文章頁——要的是 og:title（C-3 的前提）
+#   page     整頁——要的是「不是 JS 空殼、而且看得到日期」（時間線步 3 的輸入）
+MODE_ARTICLE, MODE_PAGE = "article", "page"
+PRESET_MODE = {"sitemap-sources": MODE_ARTICLE, "list-pages": MODE_ARTICLE,
+               "release-notes": MODE_PAGE}
+# 空殼門檻。真的 changelog 頁有數萬字；React 空殼是幾百字的 nav。
+# 這個數字是門檻不是真理，所以它印在輸出裡，讓人看得到自己在跟什麼比。
+SHELL_TEXT_CHARS = 2000
+
+
+def verdict_for(mode: str, fields: dict) -> str:
+    if mode == MODE_ARTICLE:
+        return "ok" if (fields.get("og:title") or fields.get("og:title(rev)")) \
+            else "no_og_title"
+    if fields.get("_visible_text_chars", 0) < SHELL_TEXT_CHARS:
+        return "js_shell"
+    return "ok" if fields.get("visible_date_count") else "no_dates"
+
+
+def probe_one(pp, url: str, html_dir: str | None = None,
+              mode: str = MODE_ARTICLE) -> dict:
     r = {"url": url, "verdict": None, "robots": None, "robots_reason": None,
-         "status": None, "bytes": None, "fields": None, "note": None}
+         "status": None, "bytes": None, "fields": None, "note": None,
+         "html_path": None}
 
     allowed, reason = None, "not checked"
     try:
@@ -187,9 +225,10 @@ def probe_one(pp, url: str) -> dict:
         r["verdict"] = "site_error"
         return r
 
+    if html_dir:
+        r["html_path"] = save_html(html_dir, url, body or "")
     r["fields"] = extract(body or "")
-    r["verdict"] = "ok" if r["fields"].get("og:title") or r["fields"].get("og:title(rev)") \
-        else "no_og_title"
+    r["verdict"] = verdict_for(mode, r["fields"])
     return r
 
 
@@ -228,10 +267,19 @@ PRESETS = {
         "https://x.ai/news",
         "https://mistral.ai/news",
     ],
+    # 模型演變時間線的甲類來源（references/model-timeline.md 第 1 節）。
+    # 這一組要的不是 og:title——是**整頁的原始 bytes**，因為 HTML → 條目的
+    # 切分刻意還沒寫（規格第 5 節，步 3）。所以跑這一組時務必加 --save-html。
+    "release-notes": [
+        "https://platform.claude.com/docs/en/release-notes/api",
+        "https://developers.openai.com/api/docs/changelog",
+        "https://ai.google.dev/gemini-api/docs/changelog",
+        "https://docs.x.ai/developers/release-notes",
+    ],
 }
 
 VERDICT_EXIT = {"no_verdict": 4, "site_error": 2, "fetch_error": 2,
-                "no_og_title": 3, "ok": 0}
+                "no_og_title": 3, "js_shell": 3, "no_dates": 3, "ok": 0}
 
 
 def main() -> int:
@@ -240,6 +288,9 @@ def main() -> int:
     ap.add_argument("--url", action="append", default=[])
     ap.add_argument("--preset", choices=sorted(PRESETS))
     ap.add_argument("--json")
+    ap.add_argument("--save-html", metavar="DIR",
+                    help="把整頁原始 bytes 落到這個目錄（release-notes 那組必加："
+                         "解析器要等真 bytes 才寫）")
     ap.add_argument("--control-url", default=CONTROL_URL)
     ap.add_argument("--skip-control", action="store_true",
                     help="ONLY for testing this script itself. Never in CI.")
@@ -268,12 +319,14 @@ def main() -> int:
     for url in urls:
         print("")
         print("=== " + url)
-        r = probe_one(pp, url)
+        r = probe_one(pp, url, args.save_html, PRESET_MODE.get(args.preset, MODE_ARTICLE))
         results.append(r)
         print(f"    robots  : {r['robots']}  ({r['robots_reason']})")
         print(f"    fetch   : status={r['status']} bytes={r['bytes']}")
         if r["note"]:
             print(f"    note    : {r['note']}")
+        if r["html_path"]:
+            print(f"    saved   : {r['html_path']}")
         f = r["fields"] or {}
         if f:
             print(f"    visible : {f['_visible_text_chars']} chars of text "

@@ -992,3 +992,64 @@ mutations:
     replace: "    return status == 200, f\"HTTP {status}\""
     survives: false
     why: ""
+
+  # ── 模型演變時間線的純函式層 ──
+  # 這七格全部是 2026-07-27 拿真頁面（platform.claude.com 的 release notes，
+  # 1,436,122 bytes）跑出來的實際錯誤，不是想像的案例。共同形狀：
+  # **列數、日期格式、解析率全都正常，只有列跟事實的關係是錯的。**
+
+  - id: M112
+    title: "錨點不認序數（`july-9th-2024` 漏配——漏掉的區間會被吞進上一個錨點，2024-05 到 2025-04 每一條都蓋上同一天）"
+    file: lib/modelline.py
+    find: "    r'-\\d{1,2}(?:st|nd|rd|th)?-20\\d{2})\"', re.I)"
+    replace: "    r'-\\d{1,2}-20\\d{2})\"', re.I)"
+    survives: false
+    why: ""
+
+  - id: M113
+    title: "去標籤不解 HTML entity（`We&#x27;ve launched` 對不上動詞表，一個撇號讓整類發布條目判成 unknown）"
+    file: lib/modelline.py
+    find: "    return \" \".join(_html.unescape(t).split())"
+    replace: "    return \" \".join(t.split())"
+    survives: false
+    why: ""
+
+  - id: M114
+    title: "重疊的宣稱改用優先序挑一個（表看起來完整，而那一格是編的）"
+    file: lib/modelline.py
+    find: "    return hit[0] if len(hit) == 1 else AMBIGUOUS"
+    replace: "    return hit[0]"
+    survives: false
+    why: ""
+
+  - id: M115
+    title: "目錄項不再被丟掉（真頁面上 124 列全部落在最後一個錨點、全部同一天，而每一列的日期都合法）"
+    file: lib/modelline.py
+    find: "    return bool(_D_YMD.fullmatch((text or \"\").strip()))"
+    replace: "    return False"
+    survives: false
+    why: ""
+
+  - id: M116
+    title: "網域重新被當成 model id（`claude.com` / `claude.ai` 進時間線）"
+    file: lib/modelline.py
+    find: "        if re.split(r\"[-.]\", low)[-1] in _TLDS:\n            continue"
+    replace: "        if False:\n            continue"
+    survives: false
+    why: ""
+
+  - id: M117
+    title: "缺年份時拿呼叫端沒給的年份硬補（2024/2025 的條目全部堆到同一年，而每個日期都是合法日期）"
+    file: lib/modelline.py
+    find: "            return None, PRECISION_NONE, YEAR_NONE\n        mo, day = MONTHS[m.group(1)[:3].lower()], int(m.group(2))"
+    replace: "            year_hint = 2026\n        mo, day = MONTHS[m.group(1)[:3].lower()], int(m.group(2))"
+    survives: false
+    why: ""
+
+  - id: M118
+    title: "unmatched 的分母改回「全部條目」（量到的變成「有多少條不在講模型」——比事實寬鬆的代理指標）"
+    file: lib/modelline.py
+    find: "            \"unmatched_model_rate\": round(unm / len(vrows), 4) if vrows else None}"
+    replace: "            \"unmatched_model_rate\": round(unm / n, 4)}"
+    survives: false
+    why: ""
