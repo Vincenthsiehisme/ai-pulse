@@ -19,3 +19,15 @@ _git_lock_trash/
 # 半份 .sources.yaml.tmp.4711 commit 上去，等於換個方式犯了原本要防的錯。
 # 見 references/atomic-writes.md。
 .*.tmp.*
+
+# 潤稿往返的中繼檔：Cowork 每跑一次 enrich／verify 就在 repo 根長出一份，
+# 沒有任何腳本讀它們（讀的是 _probe/ 底下的 worklist）。2026-07-27 清根目錄時
+# 刪掉三份，但**只刪不擋，下次跑完又會回來**——所以擋在這裡。
+#
+# 三條都用 `/` 開頭釘死在根目錄。少了那個斜線，gitignore 會**每一層都比對**，
+# 於是 `enrich-*.json` 連 `_probe/enrich-worklist.json` 一起蓋掉——那份是真的要
+# 入庫的。已追蹤的檔案不受 gitignore 影響，所以今天不會壞，但哪天它被刪掉重建
+# 就會安靜地不見。這種「今天沒事、將來某一天才發作」正是這個 repo 在防的病。
+/enrich-*.json
+/*-result.json
+/verify-report.json

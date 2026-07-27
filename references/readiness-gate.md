@@ -43,7 +43,7 @@ frontmatter 與同樣的 `gate.yaml` 一定得到同樣的結果，不讀時鐘�
 
 ### 量到的事實
 
-`2026-07-26-heat-dead-terms.md` 量的（48 個 Event，之後複測 51 個結論不變）：
+`references/incidents/2026-07-26-heat-dead-terms.md` 量的（48 個 Event，之後複測 51 個結論不變）：
 heat 公式六項裡有四項——`uniqueAuthors`(30 分)、`velocity`(20 分)、
 `platformBreadth`(7 分)、`regionBreadth`(6 分)——**在全部 Event 上都是 0**。
 實測 heat 最大值 32，理論上限 48，`heat_threshold` 是 70。
