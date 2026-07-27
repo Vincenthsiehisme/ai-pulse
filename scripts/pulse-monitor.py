@@ -45,6 +45,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import corpus as _corpus  # noqa: E402  _corpus/、_probe/ 盤點的單一真相源
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
+from lib import ghdesc  # noqa: E402  榜單中文描述的覆蓋率，見 lib/ghdesc.py
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 
@@ -474,7 +475,7 @@ def health(vault: Path, today, r, stale_after_days: int):
     }
 
 
-def render_health(r, h):
+def render_health(r, h, desc_cov=None):
     """健康頁的 markdown。**不寫任何比「日」更細的時間**——見 pulse-source-notes
     的同款理由：一天 12 班，帶時分秒的欄位會讓這頁每兩小時產生一次假 diff。"""
     c = r["coverage"]
@@ -589,7 +590,41 @@ def render_health(r, h):
         out += ["- **隔離候選（等人看，機器不會自動停用）**："
                 + "、".join(f"`{s}`" for s in h["quarantine_candidates"])]
     out += ["", "逐條來源的四態見 `Sources/`。", ""]
+
+    # 榜單的中文描述由潤稿端 C2 段寫，而 C2 依 runbook 是「失敗就整段跳過」。
+    # 跳過不留痕跡的話，「跳過了」跟「沒有東西要翻」在這裡印起來一樣。
+    _line, _bad = desc_zh_line(desc_cov, r["date"])
+    out += ["## GitHub 動能榜的中文描述", "",
+            ("- " + _line) if not _bad else ("- ⚠ " + _line),
+            "", "這一格不判紅燈：第一天本來就是 0 條，一個天天紅的看板跟一個",
+            "永遠綠的一樣沒有資訊。**要判紅的是「有過然後停了」**，那個天數就在上面。", ""]
     return "\n".join(out)
+
+
+def desc_zh_line(cov, today):
+    """榜單中文描述的一行摘要。回 (文字, 是不是異常)。
+
+    分三種，因為它們要人做的事完全不同（規格見 lib/ghdesc.py〈覆蓋率〉）：
+
+      量不到       那一班沒抓到榜單，這一格沒有資訊——不是 0
+      從來沒有過   缺工：C2 段從來沒有成功跑完過一次
+      有過然後停了 故障：翻譯鏈斷了，而且斷了幾天算得出來
+    """
+    cov = cov or {}
+    if not cov:
+        return "榜單中文描述：量不到（`_github/desc-coverage.json` 還沒產生）", False
+    ranked, zh = cov.get("ranked"), cov.get("with_zh")
+    if ranked is None or zh is None:
+        return (f"榜單中文描述：量不到（{cov.get('day')} 那班沒抓到榜單）"
+                f"，儲存層有 {cov.get('store_entries')} 條"), False
+    n = ghdesc.days_without_zh(cov, today)
+    if zh:
+        return f"榜單中文描述：{zh}/{ranked} 條", False
+    if n is None:
+        return (f"榜單中文描述：0/{ranked} 條，**從來沒有成功翻過一次**"
+                f"（潤稿端 C2 段；缺工，不是故障）"), True
+    return (f"榜單中文描述：0/{ranked} 條，最後一次有中文是 "
+            f"{cov.get('last_with_zh_day')}（**{n} 天前**——翻譯鏈斷了）"), True
 
 
 def main():
@@ -627,7 +662,7 @@ def main():
     r["health"] = h = health(vault, today, r, stale_after)
 
     if args.write_health:
-        body = render_health(r, h)
+        body = render_health(r, h, ghdesc.load_coverage(vault))
         p = vault / "_dashboards" / "health.md"
         # 一天 12 班：同一天內內容不變就不重寫，真正的變化才不會被淹掉。
         if not (p.exists() and p.read_text("utf-8") == body):

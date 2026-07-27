@@ -29,6 +29,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import yaml  # noqa: E402
 
 from lib import ghdesc  # noqa: E402
+from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 
 
 def search_repos(keyword, cfg, token, cutoff_date):
@@ -165,6 +166,22 @@ fetch("../data/github.json").then(r=>r.json()).then(draw)
 </script></body></html>"""
 
 
+def write_desc_coverage(vault, now, ranked_n, with_zh_n):
+    """把「榜上有幾條中文」寫成機器讀得到的一行。規格見 lib/ghdesc.py。
+
+    走原子寫：下一班會讀回來算 `last_with_zh_day`，半份檔案會讓那個黏性欄位
+    無聲歸零（references/atomic-writes.md 的分界線就是「壞掉之後會不會被當成
+    事實讀回去」）。
+    """
+    day = now.date().isoformat()
+    cov = ghdesc.next_coverage(ghdesc.load_coverage(vault), day, ranked_n,
+                               with_zh_n, len(ghdesc.load(vault)))
+    path = ghdesc.coverage_path(vault)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    atomic_write_text(path, json.dumps(cov, ensure_ascii=False, indent=2) + "\n")
+    return cov
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="dist")
@@ -210,6 +227,10 @@ def main():
                 json.dumps({"generated": generated, "count": 0, "repos": []}, ensure_ascii=False, indent=2),
                 encoding="utf-8")
         (out / "github" / "index.html").write_text(GH_VIEW, encoding="utf-8")
+        # 這一班量不到榜單，但**中文有幾條照樣量得到**（那只是數檔案）。
+        # 量不到的兩格寫 null，不寫 0（紅線 8）——寫 0 會讓「今天問不到 GitHub」
+        # 看起來跟「今天榜上一條中文都沒有」一樣。
+        write_desc_coverage(vault, now, None, None)
         return 0
 
     ranked = rank(current, state, now, cfg.get("top_n", 25))
@@ -229,6 +250,10 @@ def main():
 
     n_new = sum(1 for r in ranked if r["is_new"])
     n_zh = sum(1 for r in ranked if r.get("desc_zh"))
+    # 這個數字以前只印在 CI 的 log 裡：人看得到、機器讀不到，於是「這個榜已經
+    # 連續幾天沒有中文」沒有任何地方存著。潤稿端的 C2 段失敗時**寫不進 repo**，
+    # 所以觀測要住在會跑的這一邊。見 lib/ghdesc.py 的〈覆蓋率〉。
+    write_desc_coverage(vault, now, len(ranked), n_zh)
     if do_snapshot:
         snap = " [snapshot 已更新]"
     elif age_h is not None:

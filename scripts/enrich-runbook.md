@@ -142,6 +142,13 @@ repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀
    ```
    `dist/` 沒進版控，所以每次 clone 都要重建。環境有 `GITHUB_TOKEN` 會自動帶上；沒有也跑得動
    （未認證額度較緊）。這步失敗就整個 C2 段跳過，不影響其他段——榜會維持上一晚的英文原文。
+
+   **跳過現在會留下痕跡（2026-07-27）**：Actions 每班把「榜上有幾條中文」寫進
+   `_github/desc-coverage.json`，`_dashboards/health.md` 印成一行，而且分得出
+   「量不到 / 從來沒翻過 / 有過然後停了」三種。在此之前 C2 連續跳過幾十班都不會有
+   任何地方看得出來——`desc-zh.json` 在整個 git 歷史裡從來沒有出現過。
+   規格見 `references/vault-pages.md`。**所以這一步失敗時，收尾摘要要寫出來是為什麼
+   失敗（多半是沒有 GITHUB_TOKEN、未認證額度用完），不要只寫「C2 跳過」。**
 10. prep：`python scripts/pulse-github-desc-prep.py --limit 25` → 讀 `_probe/github-desc-worklist.json`。
     **若為空陣列 → C2 跳過**（穩定之後多數夜晚如此：只有新上榜、或上游改了 description 的才會排進來）。
 11. 逐條翻寫，組成 `github-desc-result.json`：`{"<owner/repo>": "中文描述", ...}`。規則：

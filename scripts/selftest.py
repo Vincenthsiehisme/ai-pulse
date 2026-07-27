@@ -1905,6 +1905,78 @@ acase("BACKLOG.md：〈現況〉那一段不再有手寫的量測表"
       "（留一張就夠了——會過期的正是那一張，不是旁邊的散文）",
       "| 量到什麼 | 值 |" in _backlog_status_head, False)
 
+# ── 榜單中文描述：C2 段跳過不留痕跡（references/vault-pages.md）──
+from lib import ghdesc as _gd2  # noqa: E402
+
+_mon_spec = importlib.util.spec_from_file_location(
+    "pulse_monitor_mod", os.path.join(_HERE, "pulse-monitor.py"))
+_mon = importlib.util.module_from_spec(_mon_spec)
+_mon_spec.loader.exec_module(_mon)
+
+acase("榜單中文描述：量到中文那天才更新 last_with_zh_day（黏性）",
+      [_gd2.next_coverage({}, "2026-07-27", 25, 0, 0)["last_with_zh_day"],
+       _gd2.next_coverage({}, "2026-07-27", 25, 3, 3)["last_with_zh_day"],
+       _gd2.next_coverage({"last_with_zh_day": "2026-07-20"}, "2026-07-27",
+                          25, 0, 3)["last_with_zh_day"]],
+      [None, "2026-07-27", "2026-07-20"])
+acase("榜單中文描述：從來沒有過 → 回 None，不是 0 也不是一個很大的數"
+      "（「從來沒有」跟「昨天還有」用同一個數字表示，第一種就會被讀成第二種）",
+      [_gd2.days_without_zh({"last_with_zh_day": None}, "2026-07-27"),
+       _gd2.days_without_zh({"last_with_zh_day": "2026-07-20"}, "2026-07-27")],
+      [None, 7])
+acase("榜單中文描述：那一班沒抓到榜單 → 寫 null 不寫 0（紅線 8）",
+      [_gd2.next_coverage({}, "2026-07-27", None, None, 3)[k]
+       for k in ("ranked", "with_zh", "store_entries")], [None, None, 3])
+
+_dz = lambda cov: _mon.desc_zh_line(cov, "2026-07-27")
+acase("榜單中文描述：四種狀態印出四句不同的話"
+      "（量不到 / 從來沒翻過 / 有過然後停了 / 正常。擠成同一句就等於沒有這一格）",
+      ["量不到" in _dz({})[0],
+       "量不到" in _dz({"ranked": None, "with_zh": None, "store_entries": 0,
+                     "day": "2026-07-27"})[0],
+       "從來沒有" in _dz({"ranked": 25, "with_zh": 0, "store_entries": 0,
+                       "last_with_zh_day": None, "day": "2026-07-27"})[0],
+       "7 天前" in _dz({"ranked": 25, "with_zh": 0, "store_entries": 3,
+                      "last_with_zh_day": "2026-07-20", "day": "2026-07-27"})[0],
+       _dz({"ranked": 25, "with_zh": 7, "store_entries": 7,
+            "last_with_zh_day": "2026-07-27", "day": "2026-07-27"})[1]],
+      [True, True, True, True, False])
+# 上面幾條釘的是判準。真正會騙人的是**呼叫端有沒有照著寫**——所以這條走真的
+# main()，把 collect() 換成「API 全失敗」，看它寫出來的是 null 還是 0。
+_gh_spec = importlib.util.spec_from_file_location(
+    "pulse_github_mod", os.path.join(_HERE, "pulse-github.py"))
+_ghm = importlib.util.module_from_spec(_gh_spec)
+_gh_spec.loader.exec_module(_ghm)
+with tempfile.TemporaryDirectory() as _ghtd:
+    _ghv = Path(_ghtd)
+    (_ghv / "_config").mkdir()
+    (_ghv / "_config" / "github.yaml").write_text("top_n: 5\nsearches: []\n",
+                                                  encoding="utf-8")
+    _gh_collect, _gh_argv, _gh_envv = _ghm.collect, sys.argv[:], os.environ.get("VAULT_DIR")
+    try:
+        _ghm.collect = lambda *a, **k: {}
+        sys.argv = ["pulse-github.py"]
+        os.environ["VAULT_DIR"] = str(_ghv)
+        _ghm.main()
+    finally:
+        _ghm.collect = _gh_collect
+        sys.argv = _gh_argv
+        if _gh_envv is not None:
+            os.environ["VAULT_DIR"] = _gh_envv
+    _ghcov = _json.loads((_ghv / "_github" / "desc-coverage.json").read_text("utf-8"))
+acase("榜單中文描述：抓取全失敗那一班照樣留下紀錄，而且兩格是 null 不是 0"
+      "（寫 0 會讓「今天問不到 GitHub」看起來跟「榜上一條中文都沒有」一樣）",
+      [_ghcov.get("ranked"), _ghcov.get("with_zh"), _ghcov.get("store_entries"),
+       "day" in _ghcov], [None, None, 0, True])
+
+acase("榜單中文描述：只有「有過然後停了」與「從來沒翻過」標成異常，"
+      "量不到與正常都不標（量不到標成異常＝把 API 額度問題算成翻譯鏈壞了）",
+      [_dz({})[1],
+       _dz({"ranked": None, "with_zh": None, "store_entries": 0})[1],
+       _dz({"ranked": 25, "with_zh": 0, "last_with_zh_day": None})[1],
+       _dz({"ranked": 25, "with_zh": 0, "last_with_zh_day": "2026-07-20"})[1]],
+      [False, False, True, True])
+
 # ── Tracks/ 與 Actors/：關聯圖的另外兩維（references/obsidian-schema.md）──
 from lib import tracks as _tk  # noqa: E402
 
