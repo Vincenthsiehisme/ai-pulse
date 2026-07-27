@@ -804,16 +804,16 @@ mutations:
   - id: M90
     title: "證據標題查不到時退回來源名（畫面上出現一筆標題是「NVIDIA Blog」的證據）"
     file: pulse-render.py
-    find: "                      \"title\": rec.get(\"title\") or TITLE_UNKEPT,"
-    replace: "                      \"title\": rec.get(\"title\") or prettify_source(sid),"
+    find: "                      \"title\": e.get(\"title\") or rec.get(\"title\") or TITLE_UNKEPT,"
+    replace: "                      \"title\": e.get(\"title\") or rec.get(\"title\") or prettify_source(sid),"
     survives: false
     why: ""
 
   - id: M91
     title: "證據日期查不到時退回事件日（一則事件的所有證據看起來同一天出現，而那是讀者判斷「怎麼發展」的唯一線索）"
     file: pulse-render.py
-    find: "                      \"date\": rec.get(\"date\") or None})"
-    replace: "                      \"date\": rec.get(\"date\") or ev[\"date\"]})"
+    find: "                      \"date\": e.get(\"published\") or rec.get(\"date\") or None})"
+    replace: "                      \"date\": e.get(\"published\") or rec.get(\"date\") or ev[\"date\"]})"
     survives: false
     why: ""
 
@@ -877,5 +877,32 @@ mutations:
     file: lib/deadrefs.py
     find: "    if not referrer.startswith(PROPOSAL_DIRS):"
     replace: "    if False:"
+    survives: false
+    why: ""
+
+  # ── 發展歷程不再依賴語料保留期 ──
+  # 規格說「做完之後 corpus-累積 才是一個可以自由決定的問題」。這三格守的就是那句話。
+
+  - id: M99
+    title: "load_events 只讀 (source_id, url)，把證據自己的 title/published 丟掉（發展歷程又退回只查語料，而語料保留期是個還沒拍板的決定）"
+    file: pulse-render.py
+    find: "                          \"title\": e.get(\"title\"), \"published\": e.get(\"published\")}"
+    replace: "                          \"title\": None, \"published\": None}"
+    survives: false
+    why: ""
+
+  - id: M100
+    title: "語料優先於 Event 自己存的標題（語料是補充不是真相源；反過來之後，語料裡的舊標題會蓋掉 Event 上正確的那一個）"
+    file: pulse-render.py
+    find: "                      \"title\": e.get(\"title\") or rec.get(\"title\") or TITLE_UNKEPT,"
+    replace: "                      \"title\": rec.get(\"title\") or e.get(\"title\") or TITLE_UNKEPT,"
+    survives: false
+    why: ""
+
+  - id: M101
+    title: "遷移把 body 的「（標題未留存）」當成標題補進去（補了假值之後 render 會以為自己有標題，比空著更糟）"
+    file: migrate-2026-07-27-evidence-titles.py
+    find: "        if rest.startswith(_NO_TITLE):"
+    replace: "        if False:"
     survives: false
     why: ""
