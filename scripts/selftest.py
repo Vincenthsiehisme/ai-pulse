@@ -1564,6 +1564,125 @@ acase("deadrefs：extract 只認含目錄的路徑，裸檔名不收"
       _dr.extract("見 BACKLOG.md 與 references/vault-pages.md"),
       ["references/vault-pages.md"])
 
+# ------------------------------------------- 時區：儲存 UTC、顯示台北（2026-07-27）
+# 規格 references/timezones.md。這一段釘的是**兩件不同的事**：
+#   1. 判準本身對不對（clock.utc_date / display_date 的單元測試）
+#   2. 有沒有人繞過它（機械掃全 repo）
+# 只有第 1 條的話，這條規則會第三次犯——前兩次就是「規則寫下來、修好了」，
+# 然後另一個消費端安靜地繼續用舊寫法，而且不會有任何東西紅。
+from lib import clock as _clk  # noqa: E402
+import datetime as _dt_m  # noqa: E402
+
+_TZ_QWEN = "2026-07-28T02:00:00+08:00"
+acase("clock.utc_date：+08:00 的 02:00 是**前一天**的 UTC"
+      "（這個字串會進 evt-<日期>-<hash> 的 id，而 id 寫進 Events/ 之後不能改）",
+      [_clk.utc_date(_dt_m.datetime.fromisoformat(_TZ_QWEN)).isoformat(),
+       _clk.display_date(_dt_m.datetime.fromisoformat(_TZ_QWEN)).isoformat()],
+      ["2026-07-27", "2026-07-28"])
+acase("clock：UTC 16:00 之後的事，對台北讀者是隔天"
+      "（實測 52 則 Event 有 12 則落在這條帶上）",
+      [_clk.utc_date(_dt_m.datetime.fromisoformat("2026-07-23T20:11:00+00:00")).isoformat(),
+       _clk.display_date_str(_dt_m.datetime.fromisoformat("2026-07-23T20:11:00+00:00"))],
+      ["2026-07-23", "2026-07-24"])
+acase("clock：UTC 16:00 之前的事兩邊同一天（反方向，確認上一條不是恆位移）",
+      [_clk.utc_date(_dt_m.datetime.fromisoformat("2026-07-23T09:00:00+00:00")).isoformat(),
+       _clk.display_date_str(_dt_m.datetime.fromisoformat("2026-07-23T09:00:00+00:00"))],
+      ["2026-07-23", "2026-07-23"])
+acase("clock：沒有時區標示的值視為 UTC，不是視為台北"
+      "（實測語料 1391 筆裡有 429 筆沒標時區；當成台北會讓歷史資料整批位移，"
+      "而我們沒有任何證據說那些站是用台北時間發的——紅線 8）",
+      _clk.utc_date(_dt_m.datetime(2026, 7, 23, 20, 11)).isoformat(), "2026-07-23")
+acase("clock.display_stamp 帶得出時區四個字"
+      "（沒有標示的日期，讀者會預設是自己的時區，而 23% 的情況那是錯的）",
+      _clk.DISPLAY_TZ_LABEL in _clk.display_stamp(
+          _dt_m.datetime(2026, 7, 27, 4, 28, tzinfo=_dt_m.timezone.utc)), True)
+acase("clock.display_stamp：台北 = UTC + 8",
+      _clk.display_stamp(_dt_m.datetime(2026, 7, 27, 4, 28, tzinfo=_dt_m.timezone.utc)),
+      "2026-07-27 12:28（台北時間）")
+acase("clock.utc_stamp：給機器讀的那一版留 Z、不換算",
+      _clk.utc_stamp(_dt_m.datetime(2026, 7, 27, 4, 28, tzinfo=_dt_m.timezone.utc)),
+      "2026-07-27 04:28Z")
+acase("clock：None 進 None 出，不要炸也不要變成今天",
+      [_clk.utc_date(None), _clk.display_date(None), _clk.display_date_str(None)],
+      [None, None, None])
+
+# 掃描器自己要先是活的：偵測邏輯壞掉時，下面那條「沒有人繞過」會自動變綠。
+acase("clock.banned_date_calls：抓得到裸 .date()",
+      _clk.banned_date_calls("d.date()\n"), ["1:date()"])
+acase("clock.banned_date_calls：抓得到 date.today()",
+      _clk.banned_date_calls("import datetime\nx = date.today()\n"), ["2:today()"])
+acase("clock.banned_date_calls：自己格式化日期字串也算"
+      "（`strftime(\"%Y-%m-%d\")` 一樣繞過時鐘，只是換個寫法）",
+      _clk.banned_date_calls('d.strftime("%Y-%m-%d")\n'), ["1:strftime()"])
+acase("clock.banned_date_calls：純時間格式不算（%H:%M 沒有日期欄位，不會位移）",
+      _clk.banned_date_calls('d.strftime("%H:%M")\n'), [])
+acase("clock.banned_date_calls：註解與 docstring 裡的寫法不算違規"
+      "（走 ast 不走 regex——這個 repo 的說明文字裡到處都是 `.date()`，"
+      "用 regex 會把解釋讀成違規，然後大家就把這條檢查關掉）",
+      _clk.banned_date_calls('"""別用 d.date()。"""\n# 也別用 date.today()\nx = 1\n'), [])
+acase("clock.banned_date_calls：別人的 .today() 不算（只認 date.today()）",
+      _clk.banned_date_calls("cal.today()\n"), [])
+
+# 真正的那一條：全 repo 掃，除了 clock.py 自己。
+_clk_files = sorted(_glob.glob(os.path.join(_HERE, "*.py"))
+                    + _glob.glob(os.path.join(_HERE, "lib", "*.py")))
+acase("clock：掃描真的走到全部腳本（檔案數掉下來＝下一條變恆綠）",
+      len(_clk_files) > 20, True)
+acase("除了 lib/clock.py，沒有任何腳本自己取日期"
+      "（規則 2026-07-26 就寫下來過、也修好過——但只修在發現它的那個消費端，"
+      "產生 id 的 pulse-cluster 安靜地用了三個月的裸 .date()。"
+      "收成一個模組擋不住第三次，擋得住的是這條）",
+      [f"{os.path.relpath(_p, _REPO)}:{_v}" for _p in _clk_files
+       if os.path.basename(_p) not in ("clock.py", "selftest.py")
+       for _v in _clk.banned_date_calls(open(_p, encoding="utf-8").read())],
+      [])
+# 顯示層的時區只准出現在 render：儲存層碰到它，UTC 那條線就破了。
+acase("DISPLAY_TZ 只有 pulse-render.py 與 pulse-github.py 會用到"
+      "（榜單頁把 generated 直接印給讀者，所以它也是顯示層；"
+      "其他任何檔案出現＝儲存層開始寫台北日期了）",
+      sorted(os.path.basename(_p) for _p in _clk_files
+             if os.path.basename(_p) not in ("clock.py", "selftest.py")
+             and ("DISPLAY_TZ" in open(_p, encoding="utf-8").read()
+                  or "display_stamp" in open(_p, encoding="utf-8").read()
+                  or "display_date" in open(_p, encoding="utf-8").read())),
+      ["pulse-github.py", "pulse-render.py"])
+
+# `utc_today()` 在這個容器裡跟 `date.today()` 是同一個答案（runner 是 UTC），
+# 所以拿值去比對釘不住任何東西——M78 第一輪就是這樣活下來的。
+# 改成**同一個瞬間、兩個相差 26 小時的本機時區**各問一次：UTC 的答案必須一樣，
+# 本機時區的答案必須不一樣。兩邊都釘，才分得出「它讀 UTC」與「它剛好等於 UTC」。
+import time as _time_m  # noqa: E402
+
+_tz_saved = os.environ.get("TZ")
+
+
+def _under_tz(tz, fn):
+    os.environ["TZ"] = tz
+    _time_m.tzset()
+    try:
+        return fn()
+    finally:
+        if _tz_saved is None:
+            os.environ.pop("TZ", None)
+        else:
+            os.environ["TZ"] = _tz_saved
+        _time_m.tzset()
+
+
+_TZ_EAST, _TZ_WEST = "Etc/GMT-14", "Etc/GMT+12"   # UTC+14 / UTC−12，差 26 小時
+acase("clock.utc_today 不隨執行機器的時區跑掉"
+      "（UTC+14 與 UTC−12 相差 26 小時，本機日期必然不同日；"
+      "utc_today 兩邊必須一樣，否則同一份語料在台北跟在 Actions 上會開出"
+      "兩個不同的 _corpus/<日>/ 目錄）",
+      _under_tz(_TZ_EAST, lambda: _clk.utc_today().isoformat())
+      == _under_tz(_TZ_WEST, lambda: _clk.utc_today().isoformat()),
+      True)
+acase("對照：date.today() 在那兩個時區下必然不同日"
+      "（沒有這一條，上面那條可能只是「這台機器剛好是 UTC」）",
+      _under_tz(_TZ_EAST, lambda: _dt_m.date.today().isoformat())
+      != _under_tz(_TZ_WEST, lambda: _dt_m.date.today().isoformat()),
+      True)
+
 # ------------------------------------------- 機器產生的 vault 頁（2026-07-26）
 # Sources/*.md 被每一則 Event 連著，卻沒有任何腳本產生它 —— 全部是紅色斷鏈。
 # _dashboards/health.md 被部署規格講了一整個月，檔案從來沒存在過。
@@ -3102,6 +3221,22 @@ _rs = importlib.util.spec_from_file_location(
     "pulse_render", os.path.join(_HERE, "pulse-render.py"))
 _rmod = importlib.util.module_from_spec(_rs)
 _rs.loader.exec_module(_rmod)
+# 時間軸的年月分組要跟卡片上印的日期同一個時鐘。M78 第一輪活下來的理由是「值一樣」，
+# M81 活下來的理由不同：**我釘了 fmt_date 換算對不對，沒釘拿它去分組的那一端。**
+# 第九次同一個形態（釘判準沒釘消費端）。一則 UTC 07-31、台北 08-01 的事件，
+# 分組走儲存日的話，卡片上會寫著 2026-08-01、卻躺在「7 月」底下。
+_tl_ev = {"id": "evt-2026-07-31-aaaaaa", "slug": "x-aaaa", "title": "T",
+          "date": "2026-07-31", "date_display": "2026-08-01", "company": "C",
+          "category": "", "track": "models", "summary": "S",
+          "confidence": 80, "heat": None, "title_zh": None}
+_tl_html = _rmod.build_timeline([_tl_ev], "now")
+acase("pulse-render.build_timeline：分組跟著**顯示日**走"
+      "（UTC 07-31 / 台北 08-01 的事件要進「8 月」，"
+      "不是印著 08-01 卻掛在 7 月底下）",
+      ["2026 · 8 月" in _tl_html, "2026 · 7 月" in _tl_html,
+       "<time>2026-08-01</time>" in _tl_html],
+      [True, False, True])
+
 acase("pulse-render.heat_text：None → 「未量測」，不是 0"
       "（0 會被讀成「量過了，很冷」，比不印更糟）",
       [_rmod.heat_text(None), _rmod.heat_text(0), _rmod.heat_text(42)],

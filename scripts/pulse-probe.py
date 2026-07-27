@@ -41,7 +41,7 @@ import sys
 import time
 import unicodedata
 from collections import Counter, defaultdict
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse, urlsplit, urlunsplit, parse_qsl, urlencode
 from urllib.robotparser import RobotFileParser
@@ -52,6 +52,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
 from lib import dictgaps  # noqa: E402  晉升判準單一真相源，見 lib/dictgaps.py
+from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 from lib.entities import (ENTITY_SECTIONS, build_matcher,  # noqa: E402,F401
                           match_entities, normalize_text)   # 見 lib/entities.py
 
@@ -1171,7 +1172,10 @@ def main() -> int:
             print(f"  - {src['id']}: {src.get('lifecycle')}", file=sys.stderr)
         return 3
 
-    day = date.today().isoformat()
+    # 不用 date.today()：它讀本機時區。在台北 00:00–08:00 之間跑，這裡會開一個
+    # 「明天」的 _corpus/ 目錄，而 monitor 算出來的 lag 是負數——那個洞不會自癒，
+    # 時間往前走只會讓它更綠。見 references/timezones.md。
+    day = clock.utc_today().isoformat()
     rows: list[dict] = []
     stats: list[dict] = []
     for src in skipped:

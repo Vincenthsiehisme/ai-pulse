@@ -26,7 +26,10 @@ name: AI Pulse nightly refresh
 
 on:
   schedule:
-    - cron: '0 */2 * * *'
+    # cron 欄位一律是 **UTC**（Actions 沒有時區設定）。註解裡要附台北時間，
+    # 否則下一個人會照台北去讀它——收班後的 '0 16 * * *' 是**台北隔日 00:00**，
+    # 不是下午四點。規格：references/timezones.md。
+    - cron: '0 */2 * * *'   # 每兩小時（UTC＝台北，間隔一樣）
   workflow_dispatch:
 
 permissions:

@@ -28,6 +28,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import yaml  # noqa: E402
 
+from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 from lib import ghdesc  # noqa: E402
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 
@@ -54,7 +55,7 @@ def search_repos(keyword, cfg, token, cutoff_date):
 
 def collect(cfg, token, now):
     from datetime import timedelta
-    cutoff = (now - timedelta(days=cfg["active_days"])).strftime("%Y-%m-%d")
+    cutoff = clock.utc_date_str(now - timedelta(days=cfg["active_days"]))
     excl = [x.lower() for x in (cfg.get("exclude") or [])]
     seen = {}
     for kw in cfg["keywords"]:
@@ -173,7 +174,7 @@ def write_desc_coverage(vault, now, ranked_n, with_zh_n):
     無聲歸零（references/atomic-writes.md 的分界線就是「壞掉之後會不會被當成
     事實讀回去」）。
     """
-    day = now.date().isoformat()
+    day = clock.utc_date(now).isoformat()
     cov = ghdesc.next_coverage(ghdesc.load_coverage(vault), day, ranked_n,
                                with_zh_n, len(ghdesc.load(vault)))
     path = ghdesc.coverage_path(vault)
@@ -213,7 +214,9 @@ def main():
         do_snapshot = age_h >= args.snapshot_if_older_than
 
     current = collect(cfg, token, now)
-    generated = now.strftime("%Y-%m-%d %H:%MZ")
+    # 榜單頁把這個字串直接印給讀者看（上面那段 JS 的 `d.generated`），
+    # 所以它走顯示層的時鐘、帶「台北時間」四個字。見 references/timezones.md。
+    generated = clock.display_stamp(now)
 
     out = vault / args.out
     (out / "data").mkdir(parents=True, exist_ok=True)

@@ -28,6 +28,7 @@ from lib import cluster, entities as entities_lib, scoring  # noqa: E402
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.notes import PLACEHOLDER  # noqa: E402  單一來源，見 lib/notes.py
 from lib.quality import authority_score_from_tier, parse_dt  # noqa: E402
+from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 
 import yaml  # noqa: E402
 
@@ -272,7 +273,11 @@ def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None):
 def event_markdown(ev):
     s = ev.scores
     hd = parse_dt(ev.happened_at)
-    date_str = hd.date().isoformat() if hd else (ev.happened_at[:10] if ev.happened_at else None)
+    # 裸 `.date()` 會拿到「發布者當地」的日期。`2026-07-28T02:00+08:00` 的 .date()
+    # 是 07-28，UTC 卻還是 07-27——而這個字串會進 `evt-<日期>-<hash>` 的 id，
+    # id 寫進 Events/ 之後不能改。見 references/timezones.md。
+    date_str = (clock.utc_date(hd).isoformat() if hd
+                else (ev.happened_at[:10] if ev.happened_at else None))
     fm = {
         "id": ev.id,
         "slug": ev.slug,
@@ -418,7 +423,7 @@ def main():
             hkey = f"{fp or title}|{sig.get('facet')}"
             h = hashlib.sha1(hkey.encode("utf-8")).hexdigest()[:6]
             hd = parse_dt(published)
-            hdate = hd.date().isoformat() if hd else day
+            hdate = clock.utc_date(hd).isoformat() if hd else day
             eid = f"evt-{hdate}-{h}"
             if eid in existing_by_id:  # 同鍵同日 → 視為既有
                 ev = existing_by_id[eid]

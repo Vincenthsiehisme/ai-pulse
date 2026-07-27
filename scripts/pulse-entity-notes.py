@@ -26,6 +26,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 from lib.atomicwrite import atomic_write_text  # noqa: E402
 from lib import tracks as tracks_lib  # noqa: E402
 
@@ -273,7 +274,7 @@ def main():
     args = ap.parse_args()
 
     vault = Path(os.environ["VAULT_DIR"])
-    day = datetime.now(timezone.utc).date().isoformat()
+    day = clock.utc_today().isoformat()
     pages = plan(vault, day)
 
     if args.dry_run:

@@ -70,11 +70,14 @@ mutations:
     survives: false
     why: ""
 
+  # M07 原本釘在 pulse-monitor._as_date()。2026-07-27 那段邏輯搬進 lib/clock.py
+  # 成為全鏈唯一的入口（`_as_date` 現在只是轉呼叫），所以 M07 跟著搬——
+  # 釘的是同一件事，位置換了。
   - id: M07
-    title: "_as_date 不先歸零到 UTC（跨時區的日期會差一天）"
-    file: pulse-monitor.py
-    find: "        return dt.astimezone(timezone.utc).date() if dt.tzinfo else dt.date()"
-    replace: "        return dt.date()"
+    title: "取 UTC 日期不先歸零（跨時區的日期會差一天，而它會進 Event 的 id）"
+    file: lib/clock.py
+    find: "    return dt.astimezone(timezone.utc).date() if dt.tzinfo else dt.date()"
+    replace: "    return dt.date()"
     survives: false
     why: ""
 
@@ -670,5 +673,55 @@ mutations:
     file: lib/deadrefs.py
     find: "    if not (os.path.exists(os.path.join(root, head))\n            or os.path.exists(os.path.join(here, head))):\n        return True"
     replace: "    if False:\n        return True"
+    survives: false
+    why: ""
+
+  # ── 時區：儲存 UTC、顯示台北（references/timezones.md）──
+
+  - id: M76
+    title: "顯示層不換算（讀者在台北，卻看到 UTC 日期，23% 的事件差一天）"
+    file: lib/clock.py
+    find: "    return aware.astimezone(DISPLAY_TZ).date()"
+    replace: "    return aware.date()"
+    survives: false
+    why: ""
+
+  - id: M77
+    title: "顯示戳記不標時區（讀者會預設是自己的時區，而 23% 那是錯的）"
+    file: lib/clock.py
+    find: "    return (f\"{aware.astimezone(DISPLAY_TZ).strftime('%Y-%m-%d %H:%M')}\"\n            f\"（{DISPLAY_TZ_LABEL}）\")"
+    replace: "    return aware.astimezone(DISPLAY_TZ).strftime('%Y-%m-%d %H:%M')"
+    survives: false
+    why: ""
+
+  - id: M78
+    title: "utc_today 退回 date.today()（在台北跑會開一個「明天」的語料目錄）"
+    file: lib/clock.py
+    find: "    return datetime.now(timezone.utc).date()"
+    replace: "    return date.today()"
+    survives: false
+    why: ""
+
+  - id: M79
+    title: "繞過時鐘的機械檢查抓不到裸 .date()（規則第三次犯而沒有人會知道）"
+    file: lib/clock.py
+    find: "        if attr not in _BANNED:\n            continue"
+    replace: "        if attr not in ():\n            continue"
+    survives: false
+    why: ""
+
+  - id: M80
+    title: "Event 的 id 又拿發布者當地日期（+08:00 的凌晨會編到隔天那一格）"
+    file: pulse-cluster.py
+    find: "            hdate = clock.utc_date(hd).isoformat() if hd else day"
+    replace: "            hdate = hd.date().isoformat() if hd else day"
+    survives: false
+    why: ""
+
+  - id: M81
+    title: "時間軸改用儲存日分年月（卡片印台北日、卻按 UTC 日歸月，8/01 躺在 7 月）"
+    file: pulse-render.py
+    find: "        d = e[\"date_display\"] or e[\"date\"] or \"0000-00\""
+    replace: "        d = e[\"date\"] or \"0000-00\""
     survives: false
     why: ""
