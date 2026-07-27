@@ -1991,6 +1991,7 @@ _cs.loader.exec_module(_cm)
 _e = _cm.Event("evt-x", "x", "T", "2026-07-22T00:00:00+00:00")
 _e.ingested_at = "2026-07-26T06:41:46+00:00"
 _e.scores = {"tier_evidence": 1, "independent_sources": 1, "primary_evidence": 1,
+             "suspected_reposts": 0,
              "confidence": 70, "heat": 10, "impact": 50, "value": 40, "factors": {}}
 _out = _cm.event_markdown(_e)
 acase("pulse-cluster：新 Event 的 frontmatter 有 ingested_at，且與 happened_at 不同值",
@@ -2077,7 +2078,8 @@ _evs2 = _fm2.get("evidence") or []
 acase("證據記錄：欄位白名單與順序固定"
       "（順序每跑一次換一次的話，git diff 上每則 Event 都像被改過）",
       [list(e) for e in _evs2],
-      [["source_id", "url", "title", "relevance", "published"]] * len(_evs2))
+      [["source_id", "url", "title", "relevance", "published",
+        "suspected_repost"]] * len(_evs2))
 acase("證據記錄：跨日讀回來之後 title 還是標題，不是網址"
       "（舊版 reload 填的是 e.get(\"url\")：拿它去比實體重疊，比出來的相似度是假的）",
       sorted({e.get("title") for e in _evs2}),
@@ -2106,6 +2108,118 @@ acase("證據記錄：有標題就正常印（反方向，確認上兩條不是�
       _cm.evidence_line({"source_id": "s1", "url": "https://x.test/a",
                          "title": "真的標題"}),
       "- [[Sources/s1|s1]] — 真的標題（https://x.test/a）")
+
+# ── 轉載鏈：一篇改寫不是第二個聲音（references/evidence-tiers.md）──
+# 這條規則今天不會被任何真語料走到（沒有中文來源），所以它只能靠測試證明自己
+# 是對的。兩個方向都釘：該判的判、不該判的不判。
+from lib import cluster as _cl, entities as _ent  # noqa: E402
+from datetime import timezone as _tz  # noqa: E402
+_ENT_TABLE = _ent.build_matcher(_yaml.safe_load(
+    open(os.path.join(_HERE, "..", "_config", "entities.yaml"), encoding="utf-8")))
+_TC = {"enabled": True, "entity_overlap_min": 0.80, "window_hours": 48,
+       "excluded_from": ["independent_sources", "heat"]}
+
+
+def _tcrow(lang, title, hour, tier=2, day=27):
+    from datetime import datetime as _dt
+    return {"lang": lang, "tier": tier,
+            "published": _dt(2026, 7, day, hour, tzinfo=_tz.utc),
+            "entities": _ent.entity_ids(title, _ENT_TABLE),
+            "fingerprint": _cl.event_fingerprint(title)}
+
+
+_tc_en = _tcrow("en", "OpenAI launches GPT-5.2 for everyone", 0, tier=1)
+_tc_zh = _tcrow("zh", "OpenAI 发布 GPT-5.2，向所有人开放", 3)
+
+acase("轉載鏈：跨語言、同版本、48 小時內、實體集合一樣 → 後發的那條判成轉載"
+      "（用 token 交集做不到這件事：中英文標題的 token 交集趨近於零，"
+      "這裡走的是命名實體字典）",
+      _cl.suspected_reposts([_tc_en, _tc_zh], _TC), {1})
+acase("轉載鏈：一原文兩改寫 → 兩條都標，只留一條原文",
+      _cl.suspected_reposts(
+          [_tc_en, _tc_zh, _tcrow("zh", "OpenAI 发布 GPT-5.2 的完整解读", 5)], _TC),
+      {1, 2})
+acase("轉載鏈：同語言不判（兩家英文媒體各自報導是兩個真的聲音，"
+      "判成轉載等於把獨立性做假到反方向）",
+      _cl.suspected_reposts(
+          [_tc_en, _tcrow("en", "OpenAI ships GPT-5.2 today", 3)], _TC), set())
+acase("轉載鏈：超出 window_hours 不判（門檻真的被讀，不是裝飾）",
+      _cl.suspected_reposts(
+          [_tc_en, _tcrow("zh", "OpenAI 发布 GPT-5.2，向所有人开放", 0, day=31)],
+          _TC), set())
+acase("轉載鏈：fingerprint 不同直接否決（GPT-5.1 不可能是 GPT-5.2 的翻譯）",
+      _cl.suspected_reposts([_tc_en, _tcrow("zh", "OpenAI 发布 GPT-5.1", 3)], _TC),
+      set())
+acase("轉載鏈：實體集合不重疊不判",
+      _cl.suspected_reposts([_tc_en, _tcrow("zh", "英伟达发布新一代 GPU", 3)], _TC),
+      set())
+acase("轉載鏈：entity_overlap_min 真的被讀（門檻拉到 1.01 就沒有任何一對過得了）",
+      _cl.suspected_reposts([_tc_en, _tc_zh], {**_TC, "entity_overlap_min": 1.01}),
+      set())
+acase("轉載鏈：enabled: false 是真的關掉（完全不判、不標記）",
+      _cl.suspected_reposts([_tc_en, _tc_zh], {**_TC, "enabled": False}), set())
+acase("轉載鏈：設定讀不到時不判——設定檔壞掉不可以讓一條規則反而更積極扣分",
+      [_cl.suspected_reposts([_tc_en, _tc_zh], {}),
+       _cl.suspected_reposts([_tc_en, _tc_zh], None)], [set(), set()])
+acase("轉載鏈：缺 published 不判（證明不了在窗內，就不能宣稱在窗內）",
+      _cl.suspected_reposts([_tc_en, {**_tc_zh, "published": None}], _TC), set())
+acase("轉載鏈：缺 language 不判（舊來源沒填 language 時，維持原本的獨立性算法）",
+      _cl.suspected_reposts([_tc_en, {**_tc_zh, "lang": None}], _TC), set())
+acase("轉載鏈：標題實體集合是空的不判"
+      "（字典沒收到的公司，不可以因為「兩邊都是空集合」就算高度重疊）",
+      _cl.suspected_reposts(
+          [{**_tc_en, "entities": frozenset()}, {**_tc_zh, "entities": frozenset()}],
+          _TC), set())
+acase("轉載鏈：同時間發布時留 tier 小的那條（挑原文三段都確定性，沒有任意 tie-break）",
+      _cl.suspected_reposts(
+          [_tcrow("zh", "OpenAI 发布 GPT-5.2，向所有人开放", 0, tier=2),
+           _tcrow("en", "OpenAI launches GPT-5.2 for everyone", 0, tier=1)], _TC),
+      {0})
+
+# 走 rescore 那一端：判得出來還要真的扣得到分。
+_TCSRC = {
+    "src-en": {"tier": 1, "language": "en", "media_group": "openai",
+               "role": "primary"},
+    "src-zh": {"tier": 2, "language": "zh", "media_group": "zh-media"},
+}
+
+
+def _tc_event():
+    e = _cm.Event("evt-tc", "tc", "OpenAI launches GPT-5.2 for everyone",
+                  "2026-07-27T00:00:00+00:00")
+    e.add_evidence("src-en", "https://a.test/en",
+                   "OpenAI launches GPT-5.2 for everyone", 100,
+                   "2026-07-27T00:00:00+00:00")
+    e.add_evidence("src-zh", "https://b.test/zh",
+                   "OpenAI 发布 GPT-5.2，向所有人开放", 40,
+                   "2026-07-27T03:00:00+00:00")
+    return e
+
+
+_tc_ev = _tc_event()
+_cm.rescore(_tc_ev, _TCSRC, None, _TC, _ENT_TABLE)
+acase("轉載鏈：走 rescore 之後，改寫那條不計入 independent_sources"
+      "（判得出來還要真的扣得到分——中間漏接一段，規則就只是一個註解）",
+      [_tc_ev.scores["independent_sources"], _tc_ev.scores["suspected_reposts"],
+       [e["suspected_repost"] for e in _tc_ev.evidence]],
+      [1, 0 + 1, [False, True]])
+acase("轉載鏈：authority 與 primary_evidence 照算"
+      "（excluded_from 沒有列它們；翻譯的權威性由它自己的 tier 表達）",
+      _tc_ev.scores["primary_evidence"], 1)
+
+_tc_ev2 = _tc_event()
+_cm.rescore(_tc_ev2, _TCSRC, None, {**_TC, "enabled": False}, _ENT_TABLE)
+acase("轉載鏈：關掉之後獨立性回到 2 （反方向，確認上面那條不是恆為 1）",
+      [_tc_ev2.scores["independent_sources"], _tc_ev2.scores["suspected_reposts"]],
+      [2, 0])
+
+_tc_ev3 = _tc_event()
+_cm.rescore(_tc_ev3, _TCSRC, None, {**_TC, "excluded_from": ["heat"]}, _ENT_TABLE)
+acase("轉載鏈：excluded_from 真的被讀——沒列 independent_sources 就照樣算 2，"
+      "但標記仍在（一個改了沒效果的清單就是假旋鈕）",
+      [_tc_ev3.scores["independent_sources"],
+       [e["suspected_repost"] for e in _tc_ev3.evidence]],
+      [2, [False, True]])
 
 acase("pulse-cluster 跑第二輪：這一輪真的重寫了那個檔"
       "（沒重寫的話上一條在斷言一個恆真的條件——測試自己變成一顆永遠綠的燈）",

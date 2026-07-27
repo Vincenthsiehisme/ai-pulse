@@ -24,7 +24,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib import cluster, scoring  # noqa: E402
+from lib import cluster, entities as entities_lib, scoring  # noqa: E402
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.notes import PLACEHOLDER  # noqa: E402  單一來源，見 lib/notes.py
 from lib.quality import authority_score_from_tier, parse_dt  # noqa: E402
@@ -54,6 +54,28 @@ def load_entities(cfg):
             if isinstance(e, dict) and e.get("id"):
                 out[e["id"]] = (e.get("canonical") or e["id"], e.get("term_type"), e.get("parent"))
     return out
+
+
+def load_translation_chain_cfg(cfg):
+    """gate.yaml 的 evidence.translation_chain。缺檔／缺區塊 → 回空 dict。
+
+    回空 dict 等於 `enabled` 不成立，也就是這條規則不判——跟設定檔明寫
+    `enabled: false` 走同一條路。**設定檔讀不到不可以退回「照判」**：
+    一條在設定檔壞掉時反而更積極扣分的規則，會在最沒人注意的那天改變結果。
+    """
+    p = cfg / "gate.yaml"
+    if not p.exists():
+        return {}
+    raw = yaml.safe_load(p.read_text("utf-8")) or {}
+    return ((raw.get("evidence") or {}).get("translation_chain") or {})
+
+
+def load_entity_table(cfg):
+    """命名實體字典 → 比對表（lib/entities.build_matcher）。缺檔回空 list。"""
+    p = cfg / "entities.yaml"
+    if not p.exists():
+        return []
+    return entities_lib.build_matcher(yaml.safe_load(p.read_text("utf-8")) or {})
 
 
 _SLUG_STRIP = re.compile(r"[^a-z0-9]+")
@@ -127,7 +149,8 @@ class Event:
         self.dirty = True
 
 
-_EVIDENCE_FIELDS = ("source_id", "url", "title", "relevance", "published")
+_EVIDENCE_FIELDS = ("source_id", "url", "title", "relevance", "published",
+                    "suspected_repost")
 
 
 def evidence_frontmatter(evidence):
@@ -173,9 +196,41 @@ def evidence_line(e):
     return f"{head}{title}（{e.get('url') or ''}）"
 
 
-def rescore(ev, sources, ref_now):
-    authority_scores, tiers, voices, primary = [], [], [], 0
+def mark_reposts(ev, sources, tc_cfg, ent_table):
+    """在證據上標 `suspected_repost`。回傳被標記的 index 集合。
+
+    規格見 references/evidence-tiers.md〈evidence.translation_chain〉。
+    每一輪都重算並重寫這個欄位——它是判斷的產物，不是人填的事實，
+    留著上一輪的結論會在字典或門檻改動之後變成一句沒人維護的舊話。
+    """
+    rows = []
     for e in ev.evidence:
+        src = sources.get(e["source_id"], {}) or {}
+        title = e.get("title") or ""
+        rows.append({
+            "lang": src.get("language"),
+            "tier": src.get("tier"),
+            "published": parse_dt(e.get("published")),
+            # 實體集合走命名實體字典，不走 token 交集——中英文標題的 token
+            # 交集趨近於零，而字典的 aliases 兩種語言都收。
+            "entities": entities_lib.entity_ids(title, ent_table) if (title and ent_table) else frozenset(),
+            "fingerprint": cluster.event_fingerprint(title) if title else None,
+        })
+    flagged = cluster.suspected_reposts(rows, tc_cfg)
+    for idx, e in enumerate(ev.evidence):
+        e["suspected_repost"] = idx in flagged
+    return flagged
+
+
+def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None):
+    reposts = mark_reposts(ev, sources, tc_cfg, ent_table)
+    # gate.yaml 的 excluded_from 真的被讀：把它寫成一個「改了也沒效果」的清單，
+    # 就是這個 repo 一直在抓的假旋鈕。清單裡的 heat 今天是**由 independent_sources
+    # 承擔的**（heat 的證據面輸入只有獨立來源數，metrics 還是 []），社群線接上那天
+    # 要回來把它單獨接一次——那件事寫在 references/evidence-tiers.md。
+    excluded = set((tc_cfg or {}).get("excluded_from") or [])
+    authority_scores, tiers, voices, primary = [], [], [], 0
+    for idx, e in enumerate(ev.evidence):
         src = sources.get(e["source_id"], {})
         tier = src.get("tier")
         try:
@@ -184,7 +239,11 @@ def rescore(ev, sources, ref_now):
             tier = 3
         authority_scores.append(authority_score_from_tier(tier))
         tiers.append(tier)
-        voices.append((e["source_id"], src))
+        # 轉載鏈：被判成別人的翻譯的那一條，不進獨立性計算
+        # （gate.yaml 的 excluded_from 第一項）。authority 與 primary 照算——
+        # 那兩項不在排除清單裡，翻譯的權威性由它自己的 tier 表達。
+        if not (idx in reposts and "independent_sources" in excluded):
+            voices.append((e["source_id"], src))
         role = src.get("role")
         scat = src.get("source_category")
         if tier == 1 and role != "aggregator" and scat != "aggregator":
@@ -199,6 +258,9 @@ def rescore(ev, sources, ref_now):
     ev.scores["tier_evidence"] = min(tiers) if tiers else None
     ev.scores["independent_sources"] = independent
     ev.scores["primary_evidence"] = primary
+    # 印出來給人看：0 也要印。一個只在有東西時才出現的數字，看不見的時候
+    # 有兩種意思（沒有轉載／這條規則沒跑）——那是這個 repo 一直在抓的形態。
+    ev.scores["suspected_reposts"] = len(reposts)
 
 
 def event_markdown(ev):
@@ -222,6 +284,7 @@ def event_markdown(ev):
         "facet": ev.facet,
         "tier_evidence": s["tier_evidence"],
         "independent_sources": s["independent_sources"],
+        "suspected_reposts": s["suspected_reposts"],
         "primary_evidence": s["primary_evidence"],
         "confidence": s["confidence"],
         "heat": s["heat"],
@@ -287,6 +350,11 @@ def main():
 
     sources = load_sources(cfg)
     entities = load_entities(cfg)
+    # 轉載鏈判定要的兩樣東西：gate.yaml 的門檻，與命名實體字典的比對表。
+    # 字典讀原始 yaml 不讀 load_entities()——後者是給 infer_company 用的縮減版，
+    # 沒有 aliases，而 aliases 正是這條規則能跨語言的原因。
+    tc_cfg = load_translation_chain_cfg(cfg)
+    ent_table = load_entity_table(cfg)
 
     signals = [json.loads(x) for x in scored_path.read_text("utf-8").splitlines() if x.strip()]
     ref_now = max([parse_dt(s.get("first_observed_at")) for s in signals if parse_dt(s.get("first_observed_at"))],
@@ -361,7 +429,7 @@ def main():
     # rescore 所有動到的 Event
     changed = [e for e in events if e.dirty]
     for ev in changed:
-        rescore(ev, sources, ref_now)
+        rescore(ev, sources, ref_now, tc_cfg, ent_table)
 
     # 摘要
     conf = [e.scores["confidence"] for e in changed if e.scores]
@@ -394,6 +462,7 @@ def rescored_enriched_markdown(ev):
     fm = dict(ev.fm)
     fm["tier_evidence"] = s["tier_evidence"]
     fm["independent_sources"] = s["independent_sources"]
+    fm["suspected_reposts"] = s["suspected_reposts"]
     fm["primary_evidence"] = s["primary_evidence"]
     fm["confidence"] = s["confidence"]
     fm["heat"] = s["heat"]

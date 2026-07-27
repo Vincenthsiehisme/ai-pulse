@@ -63,13 +63,13 @@
 | `clustering.cross_language` 整塊 | 跨語言限制聲明 | 沒有消費者。這塊本來就是聲明而非開關，但仍需標記，否則讀者會以為 `supported: false` 是某處讀到後關掉了什麼。 |
 | `evidence.need_tier1_primary: 1` | 發布需 1 個 Tier-1 primary | 真正在擋的是 `pulse-gate.py` 的 `missing_primary_evidence`（`primary_evidence` 欄位為 0 就擋），而那個欄位由 `pulse-cluster.rescore()` 用 `tier == 1 and role != "aggregator"` 算出來。數字 1 是巧合地一致，不是被讀進去的。 |
 | `evidence.need_independent_tier2: 2` | 或 2 個獨立 Tier-2 | 沒有消費者。目前**沒有**「兩個獨立 Tier-2 也可以」這條路：primary 缺席就是擋，補幾個獨立來源都沒用。 |
-| `evidence.translation_chain` 整塊 | 翻譯轉載不計入獨立性與 heat | 沒有消費者。這是媒體線的已知風險缺口——所以 `feat/media-line` 只收英文媒體。 |
 
 ### 已經從這張表畢業的
 
 | key | 何時接上 | 消費者 |
 |---|---|---|
 | `monitor.stale_after_days` | 2026-07-26 | `pulse-monitor.py --write-health / --alert-stale`（規格見 `references/vault-pages.md`）。接線之前它連要寫的那個 `_dashboards/health.md` 都不存在。 |
+| `evidence.translation_chain` 整塊（四個 leaf 全部） | 2026-07-27 | `pulse-cluster.py`（讀設定、標記、扣獨立性）+ `lib/cluster.py:suspected_reposts()`。規格 `references/evidence-tiers.md`。四個值各有一條變異證明它真的被讀（M43–M47）——接線之後仍然「改了沒效果」的話，等於把假旋鈕搬了個家。 |
 
 留著這一列不是為了記功，是因為「本來未接線、後來接上了」是這份文件唯一
 會發生的變化，把它記在原地才看得出這張表在縮短。

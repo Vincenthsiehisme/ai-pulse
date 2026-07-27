@@ -161,16 +161,34 @@ evidence:                    # 發布證據門檻
   need_tier1_primary: 1      # ⚠ 未接線（數字碰巧一致，不是被讀進去的）
   need_independent_tier2: 2  # ⚠ 未接線（這條替代路徑不存在）
 
-  # 轉載鏈防護：跨語言聚類做不到，導致翻譯轉載會被誤判為獨立來源，
-  # 同時虛增 independent_sources 與 heat，繞過 unsupported_heat 防線。
-  # ⚠ 整塊未接線。這是媒體線的已知風險缺口：英文原文＋中文改寫目前會被算成
-  # 兩個獨立來源。feat/media-line 因此只收英文媒體。
+  # 轉載鏈防護：一篇英文原文＋一篇中文改寫會被算成兩個獨立來源，虛增
+  # independent_sources 與 heat，把「heat ≥70 需 ≥2 獨立來源」那道門打開。
+  # 2026-07-27 接上。消費者：scripts/pulse-cluster.py（讀設定、標記、扣獨立性）；
+  # 判準本身的消費者：scripts/lib/cluster.py（suspected_reposts）。
+  # 兩個都要各自寫一次「消費者：」——同一行用「與」串第二個路徑的話，
+  # gate_keys 的正則只認得前面那一個，第二個等於沒寫。
+  # 完整判準與它管不到的那一格見 references/evidence-tiers.md。
+  #
+  # 判準：語言不同 + 發布時間差 ≤ window_hours + 標題實體集合 Jaccard ≥
+  # entity_overlap_min，三個同時成立；兩邊都有 fingerprint 且不相等則否決。
+  # 缺任何一項資料就不判——往「維持原本算法」倒，不往「猜它是轉載」倒。
   translation_chain:
-    enabled: true            # ⚠ 未接線（這個 true 沒有開啟任何東西）
-    # 命中相同實體主鍵、時間窗內、語言不同，且標題實體集合高度重疊
-    # → 標記 suspected_repost，不計入獨立性、不計入 heat
+    # 真開關。關掉＝完全不判、不標記，獨立性回到 2026-07-27 之前的算法。
+    # 這跟 readiness.require_primary_evidence 那種假開關不同：它關掉的是一個
+    # 額外的保守判定，不是紅線的執法點。消費者：scripts/lib/cluster.py
+    enabled: true
+    # 標題實體集合的 Jaccard 門檻。實體走命名實體字典（lib/entities.py），
+    # 不走 token 交集——中英文標題的 token 交集趨近於零，字典的 aliases 兩種
+    # 語言都收，所以「OpenAI 发布 GPT-5.2」與 "OpenAI launches GPT-5.2" 都命中
+    # {openai, gpt}。消費者：scripts/lib/cluster.py
     entity_overlap_min: 0.80
+    # 兩條證據發布時間差的上限（小時）。消費者：scripts/lib/cluster.py
     window_hours: 48
+    # 判成轉載之後，那一條被排除在哪些計算之外。真的被讀：
+    # 消費者：scripts/pulse-cluster.py
+    # 注意 heat 這一項今天是**由 independent_sources 承擔的**——heat 的證據面
+    # 輸入只有獨立來源數（metrics 仍是 []），所以排除獨立性就等於排除 heat。
+    # 社群線（M3）接上、heat 開始吃真的傳播訊號那天，要回來把它單獨接一次。
     excluded_from: [independent_sources, heat]
 
 # 來源層健康分。消費者：scripts/pulse-source-health.py（2026-07-26 接上，

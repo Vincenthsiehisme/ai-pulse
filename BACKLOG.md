@@ -80,6 +80,7 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`cron-收班`](#cron-收班) | 07-27 12:00Z 要把抓取頻率調回一天一班 | 不會 | — |
 | [`gate-未接線`](#gate-未接線) | 一批 `gate.yaml` 的 key 沒有任何碼讀它 | 不會（已標記，漏標會紅） | 部分 |
 | [`零產出來源`](#零產出來源) | 三條「可跑但零產出」，三種不同的病 | 不會 | — |
+| [`跨語言重複-event`](#跨語言重複-event) | 沒有版本號的同一件事，中英文會變成兩則 Event | 不會 | — |
 | [`pending-覆蓋`](#pending-覆蓋) | 20 家覆蓋盲點標著 pending | 刻意不會 | 否（誠實掛著） |
 | [`people-第三步`](#people-第三步) | 語料的 `author` 還沒綁到 `person_id` | 不會 | — |
 | [`corpus-累積`](#corpus-累積) | `_corpus/` 要不要改成累積視窗 | — | — |
@@ -162,22 +163,9 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
   指向的檔案**不存在**。字典缺口目前沒有任何地方在收集，只能靠人翻語料發現。
 - **`evidence.need_independent_tier2: 2`** 描述的「兩個獨立 Tier-2 也可以放行」這條
   替代路徑**不存在**；實際只有 `missing_primary_evidence` 一條規則在擋。
-- **`evidence.translation_chain`**，後果很具體：一篇英文原文加上一篇中文改寫，現在
-  算成**兩個獨立來源**。七條媒體線之所以全部只收英文就是在閃這個坑
-  （`sources.yaml` 第 92 行）。**中文媒體要進來之前，這個必須先接上**——這是這一區
-  裡唯一有前置關係的一條。
-
-  **前置條件已經解除**（`fix/evidence-forgets-what-it-saw`）：判斷要的兩個欄位
-  （證據的 `title` 與 `published`）以前只活在建立那一班的記憶體裡，重新讀檔就
-  變成網址與 `None`，所以這條規則**過去根本沒有輸入可用**。規格補在新的
-  `references/evidence-tiers.md`（`gate-config-status.md` 與 `readiness-gate.md`
-  兩處早就指著這個檔名，而它一直不存在）。剩下的是接線本身，那一版必須自帶正反
-  兩面的測試——今天沒有任何中文來源，接上之後不會有真語料走到它。
-
-  接線之前先讀規格裡量出來的這一段：跨語言的兩篇會不會落進同一則 Event，取決於
-  標題認不認得出模型版本。認得出（`event_fingerprint` 帶 CJK 對照）就會聚在一起，
-  那正是這條規則要防的格子；**認不出就會變成兩則各自獨立的 Event**，那是另一種
-  病，`translation_chain` 管不到。
+- ~~**`evidence.translation_chain`**~~ **2026-07-27 接上**
+  （`fix/translation-chain-counts-a-rewrite`），詳見〈已經修掉的〉。四個 leaf
+  全部有消費者，各自有一條變異證明它真的被讀。**中文媒體的那道前置門開了。**
 - `quality.freshness_full_hours` / `freshness_zero_days`（實際是
   `lib/quality.py:_freshness()` 的硬寫階梯）。
 - **`quality.weights` 整塊**（見上）。要真的能調，得把 `lib/quality.py` 的五支函式
@@ -233,6 +221,33 @@ Claude Opus 5 那次同形態（容器／CI 的 IP 被 WAF 擋，不是站方拒
 `_probe/source-runs.jsonl`，也沒有任何警報吃它**。`prefix_filtered_all` 連續三十班
 CI 一樣是綠的。不順手接上去是刻意的——接之前得先想清楚門檻與消費者，否則就是再
 造一個 [`value-沒人用`](#value-沒人用)。
+
+---
+
+## `跨語言重複-event`
+
+**這是 `translation_chain` 接上之後才看得清楚的那一半。**
+
+轉載鏈防的是「同一則 Event 裡有一篇翻譯被算成第二個聲音」。但那件事要先發生，
+兩篇得**落進同一則 Event**——而 `belongs_to_event()` 只有兩條路：
+
+| 路 | 跨語言行不行 |
+|---|---|
+| 同 `fingerprint` + 同 `facet` + 時間窗 | **行**。`event_fingerprint()` 帶 CJK 對照（通义→qwen…），`event_facet()` 的正則也收中文（发布 / 融资 / 事故…） |
+| 標題相似度 ≥ 門檻（96 小時窗） | **不行**。中英文標題的 token 交集趨近於零 |
+
+也就是說：**認得出具名模型版本的新聞，轉載鏈罩得住；認不出的（融資、事故、
+人事、政策——大部分新聞）會直接變成兩則各自獨立的 Event。**
+
+排在這裡而不是更前面，是因為它今天**不會發生**：沒有任何中文來源。
+它是「中文媒體進來的那一天會立刻出現」的東西，所以要在加來源之前決定怎麼辦，
+不是加完之後才發現庫裡每件事都有兩則。
+
+修法的方向（還沒動手，也還沒寫規格）：讓 `belongs_to_event()` 在標題相似度
+之外也看**實體集合**——`lib/entities.entity_ids()` 已經是現成的，轉載鏈就是
+靠它跨語言的。但那會動到聚類門檻本身，屬於紅線 9 要先改文件的那一類，
+而且改壞的方向很惡劣：門檻放太鬆會把不相干的事件併成一則，**併錯了不會有
+任何東西變紅**，只會有一則標題與內容對不上的 Event 靜靜躺在庫裡。
 
 ---
 
@@ -352,6 +367,9 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 | `fix/narrative-drops-the-fake-heat`（隨 PR #9 併入） | `narratives.yaml` 那兩句拿假 heat 當論據的話重寫；加上掃全檔（含 `thesis` / `lenses`，夜間鏈永遠不會重寫的兩段）的測試與拒收執法；M26–M28 三條說謊路徑 |
 | `fix/gate-keys-unmarked`（PR #9） | 未接線清單從手寫改成掃 `gate.yaml` 全部 55 個 leaf key 機械列舉（`scripts/lib/gate_keys.py`）；掉出 `quality.weights` 與 `readiness.require_primary_evidence` 兩個從沒被列過的 key；A／B／C 三類分開；M29–M32 |
 | `docs/backlog-tidy`（PR #10） | 這份清單的編號 P0–P10 改成不會變的名字；修掉 `selftest.py:794` 與 `references/readiness-gate.md:112` 兩處指著編號的死引用；補一條「原測試只比對 `path`，恆真」的空測試（`52752bd`） |
+| `fix/sitemap-zero-yield-is-not-silence` | 「200 / 0 筆」拆成四個 code：站方那邊沒東西 vs 我們這邊接不上。規格 `references/health-alarms.md`〈零產出不是沉默〉 |
+| `fix/evidence-forgets-what-it-saw` | 證據記錄留下 `title` 與 `published`；reload 不再拿 url 頂替 title（頂替之後，拿標題比相似度會**照樣算得出一個數字**，只是算的是網址）。新增 `references/evidence-tiers.md`——那個檔名被指了兩次而一直不存在 |
+| `fix/translation-chain-counts-a-rewrite` | `evidence.translation_chain` 四個 leaf 全部接上：跨語言 + 實體集合 Jaccard ≥ 0.80 + 48h 窗 → 標 `suspected_repost`、不計入獨立性。實體比對層抽到 `lib/entities.py`（單一真相源）。M43–M47 各守一個設定值真的被讀 |
 
 共同主題是**警報自己把自己關掉**：用一個比事實寬鬆的代理指標去代表事實。代理在
 順利的日子跟事實重合，所以平常測不出來；它只在你最需要它準的那一天分岔。規格寫在

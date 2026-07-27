@@ -263,6 +263,108 @@ def belongs_to_event(cand_title, cand_published, event_title, event_happened, th
 #   同一個媒體集團 → 合併（同一個編輯台不是兩個獨立聲音）
 # 遞移是刻意的，且只往保守方向倒：A 在 X、Y 發表，B 也在 Y 發表，
 # 三者合併成 1。寧可低估獨立性，不可高估——高估就是把門檻做假。
+# ------------------------------------------------------------ 轉載鏈（跨語言）
+# 規格見 references/evidence-tiers.md〈evidence.translation_chain〉。
+# 這一支不讀設定檔、不碰磁碟、不算實體——實體集合由呼叫端算好傳進來
+# （lib/entities.entity_ids），所以它在沒有字典、沒有外網的環境也測得動。
+def suspected_reposts(items, cfg=None):
+    """判斷同一則 Event 裡哪幾條證據是別人的翻譯轉載。
+
+    items: list of dict，每項要有
+        lang        來源語言（`sources.yaml` 的 language），缺就是缺
+        title       證據標題（只用來給呼叫端算 entities，本函式不看）
+        entities    標題命中的 entity_id 集合（frozenset）
+        published   發布時間（datetime，aware 或 None）
+        tier        來源 tier（挑原文用）
+        fingerprint 標題的模型版本鍵，或 None
+    cfg: gate.yaml 的 evidence.translation_chain 那一塊。
+
+    回傳被判成轉載的 index 集合（每一組保留一條原文）。
+
+    三個條件同時成立才判：語言不同、時間差在窗內、實體集合 Jaccard ≥ 門檻。
+    外加一個否決：兩邊都有 fingerprint 且不相等 → 不可能互為翻譯。
+
+    **缺資料一律不判**，也就是往「維持原本算法」倒。這跟獨立性計算「寧可低估」
+    的方向相反，是刻意的：捏造一個「它們是同一篇」的結論，比漏抓一次更難發現
+    ——漏抓的那則停在 review 等人看，誤判的那則安靜地少一個聲音，而且沒有任何
+    欄位會顯示它被扣過。
+    """
+    cfg = cfg or {}
+    if not cfg.get("enabled"):
+        return set()
+    try:
+        min_overlap = float(cfg.get("entity_overlap_min", 0.8))
+        window = float(cfg.get("window_hours", 48))
+    except (TypeError, ValueError):
+        return set()
+
+    n = len(items)
+    parent = list(range(n))
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    linked = False
+    for i in range(n):
+        for j in range(i + 1, n):
+            a, b = items[i], items[j]
+            la = (a.get("lang") or "").strip().lower()
+            lb = (b.get("lang") or "").strip().lower()
+            if not la or not lb or la == lb:
+                continue
+            pa, pb = a.get("published"), b.get("published")
+            if pa is None or pb is None:
+                continue
+            if abs((pa - pb).total_seconds()) / 3600.0 > window:
+                continue
+            fa, fb = a.get("fingerprint"), b.get("fingerprint")
+            if fa and fb and fa != fb:
+                continue          # 不同版本，不可能互為翻譯
+            ea = a.get("entities") or frozenset()
+            eb = b.get("entities") or frozenset()
+            if not ea or not eb:
+                continue
+            union = len(ea | eb)
+            if not union or len(ea & eb) / union < min_overlap:
+                continue
+            ra, rb = find(i), find(j)
+            if ra != rb:
+                parent[ra] = rb
+            linked = True
+
+    if not linked:
+        return set()
+
+    groups = {}
+    for i in range(n):
+        groups.setdefault(find(i), []).append(i)
+
+    reposts = set()
+    for members in groups.values():
+        if len(members) < 2:
+            continue
+        # 原文＝發布最早的；同時間取 tier 小的；再同就取證據順序在前的。
+        # 三段都是確定性的，沒有任意 tie-break——否則同一份輸入會給不同答案。
+        def rank(idx):
+            it = items[idx]
+            pub = it.get("published")
+            return (pub.timestamp() if pub else float("inf"),
+                    _as_int(it.get("tier"), 99), idx)
+        keep = min(members, key=rank)
+        reposts.update(m for m in members if m != keep)
+    return reposts
+
+
+def _as_int(v, default):
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return default
+
+
 def independent_voices(items):
     """items: iterable of (source_id, source_cfg)。回傳獨立聲音數（連通分量數）。
 
