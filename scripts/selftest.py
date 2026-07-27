@@ -1740,6 +1740,113 @@ acase("排程：vault 頁排在 Source health 之後、Commit 之前"
 acase("references/vault-pages.md 存在（這兩頁的規格書，紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "vault-pages.md")), True)
 
+# ── 現況表改成每班重生成（references/vault-pages.md〈backlog-status.md〉）──
+# BACKLOG.md 以前有一張手寫的現況表，寫下之後 3 小時就過期。第一次的修法是
+# 「把量測時間寫進標題、請下一個人複量」——一個靠人記得的機制，而那份清單存在
+# 的理由就是不要有那種機制。這幾條釘的是「數字真的搬出去了、而且搬到會動的地方」。
+acase("排程：backlog-status 真的被排進 workflow"
+      "（沒排進去就只是把「寫好了但沒人叫它」搬個地方）",
+      bool(_step_with("pulse-backlog-status.py")), True)
+acase("排程：backlog-status 不得跟另外兩頁共用同一個 run:"
+      "（bash -e：它一炸就吃掉後面那支，而後面那支可能正是 health.md）",
+      [_step_with("pulse-backlog-status.py") == _step_with("pulse-source-notes.py"),
+       _step_with("pulse-backlog-status.py") == _step_with("--write-health")],
+       [False, False])
+acase("排程：backlog-status 也要排在 Source health 之後、Commit 之前",
+      (max(_step_with("pulse-source-health.py"))
+       < min(_step_with("pulse-backlog-status.py"))
+       < min(_step_with("git push"))), True)
+
+_bs_spec = importlib.util.spec_from_file_location(
+    "pulse_backlog_status", os.path.join(_HERE, "pulse-backlog-status.py"))
+_bs = importlib.util.module_from_spec(_bs_spec)
+_bs_spec.loader.exec_module(_bs)
+
+_bs_vault = Path(os.path.join(_HERE, ".."))
+_bs_facts = _bs.collect(_bs_vault)
+_bs_text = _bs.render(_bs_facts, "2026-07-27")
+
+acase("backlog-status：真的量到這個 vault 的東西，不是一頁樣板"
+      "（每一格都空的話，下面幾條都會「通過」，因為沒有東西可以錯）",
+      [_bs_facts["events"]["total"] > 0, _bs_facts["corpus"]["days"] > 0,
+       _bs_facts["sources"]["total"] > 0, _bs_facts["gate"]["leaves"] > 40], [True] * 4)
+import ast as _ast  # noqa: E402
+
+
+def _imported_modules(path):
+    """這支腳本 import 了哪些頂層模組。走 AST 不走字串比對——"subprocess"
+    這幾個字出現在 docstring 裡不算 import，而字串比對分不出來。"""
+    tree = _ast.parse(open(path, encoding="utf-8").read())
+    mods = set()
+    for node in _ast.walk(tree):
+        if isinstance(node, _ast.Import):
+            mods |= {a.name.split(".")[0] for a in node.names}
+        elif isinstance(node, _ast.ImportFrom) and node.module:
+            mods.add(node.module.split(".")[0])
+    return mods
+
+
+acase("backlog-status：不碰網路、不跑子行程"
+      "（加任何一項，這一頁在沒網路的環境就會長得不一樣，不能拿來對帳）",
+      sorted(_imported_modules(os.path.join(_HERE, "pulse-backlog-status.py"))
+             & {"subprocess", "requests", "urllib", "socket", "http", "feedparser"}),
+      [])
+acase("backlog-status：缺席的欄位印「量不到」，不印 0（紅線 8）",
+      [_bs._n(None), _bs._n(0)], ["量不到", "0"])
+acase("backlog-status：空 vault 也產得出頁面，而且每一格都說「量不到」"
+      "（產不出來就等於這一頁在最需要它的那天不存在）",
+      _bs.render({"events": {}, "corpus": {}, "sources": {}, "gate": {},
+                  "last_run": {}}, "2026-07-27").count("量不到") >= 6, True)
+acase("backlog-status：刻意不放 selftest 條數與變異結果"
+      "（不是每班量得到的事實，放上來就是一個「上次不知道什麼時候量的」數字）",
+      ["/360" in _bs_text, "47 條" in _bs_text], [False, False])
+acase("backlog-status：零產出那一格只列 id，不重算屬於哪一種 0"
+      "（重算就會有兩份判準，而兩份判準遲早會給出不同的答案）",
+      [c in _bs_text for c in ("prefix_filtered_all", "source_empty",
+                               "hints_matched_nothing")], [False] * 3)
+acase("backlog-status：零產出那一格印的真的是 source id"
+      "（只釘「不含判定字串」的話，把它改成印 status 也會通過——那條測試沒在測任何東西）",
+      _bs.last_run_facts(_bs_vault)["zero_yield"],
+      sorted(s["id"] for s in _json.loads(
+          [l for l in open(os.path.join(_HERE, "..", "_probe", "source-runs.jsonl"),
+                           encoding="utf-8").read().splitlines() if l.strip()][-1]
+      )["sources"] if s.get("status") == 200 and not s.get("items")))
+
+# 「內容沒變就不重寫」是共同規則（一天 12 班，12 個沒有資訊量的 diff 會把真正的
+# 變化埋掉）。這條走真的 main()：只跑 render() 測不到寫檔那條路徑。
+with tempfile.TemporaryDirectory() as _bstd:
+    _bsv = Path(_bstd)
+    (_bsv / "_config").mkdir()
+    (_bsv / "_config" / "sources.yaml").write_text(
+        "official_sources:\n  - id: s1\n    lifecycle: probing\n    language: en\n",
+        encoding="utf-8")
+    _bs_argv, _bs_env = sys.argv[:], os.environ.get("VAULT_DIR")
+    sys.argv = ["pulse-backlog-status.py", "--quiet"]
+    os.environ["VAULT_DIR"] = str(_bsv)
+    try:
+        _bs.main()
+        _bs_page = _bsv / "_dashboards" / "backlog-status.md"
+        _bs_existed = _bs_page.is_file()
+        os.utime(_bs_page, (0, 0))          # 把 mtime 壓成 0，第二輪有沒有寫得出來
+        _bs.main()
+        _bs_untouched = _bs_page.stat().st_mtime == 0
+    finally:
+        sys.argv = _bs_argv
+        if _bs_env is not None:
+            os.environ["VAULT_DIR"] = _bs_env
+acase("backlog-status：第一輪真的寫得出檔案，第二輪內容沒變就不重寫"
+      "（只釘「沒重寫」的話，一支根本不寫檔的腳本也會通過）",
+      [_bs_existed, _bs_untouched], [True, True])
+
+# 真正的重點：BACKLOG.md 裡不可以再有手寫的現況表。
+_backlog_txt = open(os.path.join(_HERE, "..", "BACKLOG.md"), encoding="utf-8").read()
+_backlog_status_head = _backlog_txt.split("## 為什麼這裡沒有編號")[0]
+acase("BACKLOG.md：〈現況〉那一段指向 _dashboards/backlog-status.md",
+      "_dashboards/backlog-status.md" in _backlog_status_head, True)
+acase("BACKLOG.md：〈現況〉那一段不再有手寫的量測表"
+      "（留一張就夠了——會過期的正是那一張，不是旁邊的散文）",
+      "| 量到什麼 | 值 |" in _backlog_status_head, False)
+
 # ─────────── 佇列年紀只能看 ingested_at（2026-07-26 誤報事故的回歸測試）───────────
 # 那天 CI 每兩小時紅一次，訊息是「有事件未 enrich 已放 4 天」。三則事件全是當天
 # 早上 06:41 才進 vault 的——夜間潤稿鏈前一晚根本碰不到它們。原因是年紀算的是

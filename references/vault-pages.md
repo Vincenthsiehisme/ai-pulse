@@ -162,13 +162,81 @@ VAULT_DIR=... python scripts/pulse-monitor.py --alert-stale   # 過期 → exit 
 `--alert-stale` 掛在 workflow 最後那個 `if: always()` 的死人開關步驟裡，
 跟 `--alert-coverage` 同一行。那一步在部署之後，紅燈不擋上線，只寄通知。
 
+## `_dashboards/backlog-status.md`
+
+> 實作：`scripts/pulse-backlog-status.py`。
+
+### 為什麼要有這一頁
+
+`BACKLOG.md` 以前有一張手寫的〈現況〉表：`main` 的 commit、selftest 條數、
+變異數、可刪分支數、Events 數、語料天數。2026-07-27 那一版**寫下之後 3 小時
+就過期了**——四條分支被合併，六格同時作廢。
+
+那是這個 repo 那個老毛病的第 9 個實例：**用一張量過的表代理現況**。
+但真正值得寫進規格的是**第一次修法為什麼失敗**：當時的做法是「把量測時間寫進
+標題、在最後一節請下一個人複量」。那是一個**靠人記得**的機制——而那份清單存在
+的理由，就是不要有那種機制。三小時就證明它不夠。
+
+所以照本 repo 一貫的分法：**量測是機械的，判斷是人寫的**（跟 `gate.yaml`
+標記涵蓋檢查同一句話）。數字每班重生成，`BACKLOG.md` 只留判斷，
+**手寫檔案裡一個會過期的數字都不留**。
+
+### 放什麼
+
+只放**每班量得到、且只讀 vault 就量得到**的東西：
+
+| 區塊 | 來源 |
+|---|---|
+| Events 總數與 `published` / `review` / `dropped` / `stale_backfill` | `Events/*.md` |
+| `_corpus/` 天數與起訖 | `_corpus/` |
+| 來源總數、`lifecycle` 與 `language` 分佈、`coverage_watch` 的 pending 數 | `_config/sources.yaml` |
+| `gate.yaml` 的 leaf 總數 / 標未接線 / 有消費者 | `lib/gate_keys.parse()` |
+| 最後一班 probe 的時間、條目數、status 分佈、零產出來源清單 | `_probe/source-runs.jsonl` |
+
+這一支**不碰網路、不呼叫 git、不跑子行程**。加上任何一項，這一頁就會在
+沒有網路的環境（例如本機重現）長得不一樣，而一頁在不同環境長不一樣的儀表板
+不能拿來對帳。
+
+### 刻意不放的三格
+
+- **selftest 條數**與**變異結果**。它們不是每班量得到的事實：跑一次要幾十秒到
+  幾分鐘，而且各自已經有自己的 workflow 在紅綠。放上來只會得到一個「上次不知道
+  什麼時候量的」數字——**而這一頁存在的理由就是不要有那種數字**。
+  它們留在 `BACKLOG.md`〈附：怎麼重新盤點這份清單〉的指令裡，由人在需要時跑。
+- **`main` 的 commit**。這一頁自己住在 repo 裡，它是哪一版產生的，`git log`
+  比任何自我宣稱都準。頁面自報 commit 是一個可以跟事實分岔的欄位。
+
+### 零產出那一格只列 id，不重算判定
+
+最後一班「200 但 0 筆」的來源只列 `id`。**屬於哪一種 0 不在這裡重算**——
+那個判定住在 `pulse-probe.zero_yield_reason()`，結果寫在
+`_probe/<日>/report.md`〈零產出診斷〉（規格 `references/health-alarms.md`）。
+在這裡重算一次就會有兩份判準，而兩份判準遲早會給出不同的答案。
+
+### 這一頁自己會不會過期
+
+會，而且它不自己叫。它的新鮮度靠的是**跟 `health.md` 同一班寫出來**：
+排程死了，`health.md` 的 `generated_day` 就會停住，死人開關會叫（本檔開頭那一節）。
+也就是說這一頁的守護者是隔壁那一頁，不是它自己。
+
+代價要講清楚：**如果只有這一支炸掉**（它有 `continue-on-error: true`，跟另外兩支
+一樣），`health.md` 照常更新、CI 全綠，而這一頁停在昨天——沒有任何東西會紅。
+這是已知的洞，不是設計的完整性。**它比手寫表好的地方只有一個：手寫表要等人想起來
+才更新，這一頁要 CI 壞掉才停。** 補法（還沒做）是讓 monitor 把
+`backlog-status.md` 的 `generated_day` 跟 `health.md` 的比對，差一天以上就叫。
+
+### 共同規則照舊
+
+`generated_day` 只到日、內容沒變就不重寫、原子寫、allowlist 欄位、零 LLM。
+缺席的欄位印「量不到」不印 0（紅線 8）。
+
 ## 排在哪裡
 
-兩支都排在 `Source health (0 LLM)` 之後（才讀得到這一班的分數）、
+三支都排在 `Source health (0 LLM)` 之後（才讀得到這一班的分數）、
 `Commit & push data changes` 之前——它們產生的是要進版控的 vault 檔案，
 排在 commit 之後就等於整天不會被推上去。selftest 有一條測試釘住這件事。
 
-**而且兩支必須各佔一個 step，不得共用同一個 `run:`。** GitHub Actions 的 `run:`
+**而且三支必須各佔一個 step，不得共用同一個 `run:`。** GitHub Actions 的 `run:`
 是 `bash -e`：前面那行非零，後面那行根本不會執行。兩支曾經同處一個 `run:`，
 後果是這樣串起來的——`_probe/state.json` 被寫壞成非 dict（`pulse-source-notes.py`
 在那裡沒有防呆）→ 筆記產生器丟例外 → `--write-health` 不會跑 → `health.md` 的

@@ -142,6 +142,14 @@ jobs:
         env:
           VAULT_DIR: ${{ github.workspace }}
         run: python scripts/pulse-monitor.py --write-health > /dev/null
+      # 跟上面兩支同樣的理由各佔一個 step：這一頁炸掉不該讓 health.md 停在昨天。
+      # 這一頁取代 BACKLOG.md 以前那張手寫的〈現況〉表——手寫那版在寫下之後
+      # 3 小時就過期了（實例清單第 9 條）。規格 references/vault-pages.md。
+      - name: Vault pages — backlog status (0 LLM)
+        continue-on-error: true
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: python scripts/pulse-backlog-status.py --quiet
       # concurrency: nightly 只擋 Actions 撞 Actions。半夜潤稿那條 Cowork 鏈是另一
       # 個 push 來源，兩邊都寫 Events/*.md。一天 12 班時「checkout 完到 push 之間
       # 對面剛好也推了一版」不再是理論值，所以這裡重試而不是直接紅燈。
