@@ -3734,11 +3734,33 @@ _mg = importlib.util.spec_from_file_location(
     "mig_ev", os.path.join(_HERE, "migrate-2026-07-27-evidence-titles.py"))
 _mgm = importlib.util.module_from_spec(_mg)
 _mg.loader.exec_module(_mgm)
-acase("migrate evidence-titles：body 的「（標題未留存）」不得被當成標題補進去",
+acase("migrate evidence-titles：body 的「（標題未留存）」不得被當成標題補進去"
+      "（補假值之後 render 會以為自己有標題，比空著更糟）",
       _mgm.titles_from_body(
           "## 證據\n- [[Sources/src-a|src-a]] — （標題未留存）https://a\n"
           "- [[Sources/src-b|src-b]] — 真的標題（https://b）\n"),
-      {"src-b": ["真的標題"]})
+      {"https://b": "真的標題"})
+
+# 這條釘的是第一版真正的缺陷：**依位置**配對。同一條來源兩筆證據、body 兩行，
+# 而 frontmatter 的順序跟 body 相反——位置配對會把 A 的標題貼到 B 的網址上。
+# 實測 main 上沒有真的錯配（資料剛好沒踩到），所以只能靠測試釘，不能靠觀察。
+_mg_body2 = ("## 證據\n"
+             "- [[Sources/src-a|src-a]] — 第一篇的標題（https://one）\n"
+             "- [[Sources/src-a|src-a]] — 第二篇的標題（https://two）\n")
+_mg_fm2 = {"evidence": [{"source_id": "src-a", "url": "https://two"},
+                        {"source_id": "src-a", "url": "https://one"}]}
+_mgm.backfill(_mg_fm2, _mg_body2)
+acase("migrate evidence-titles：同一來源多筆時**用 URL 配對不用位置**"
+      "（frontmatter 與 body 順序相反時，位置配對會把 A 的標題貼到 B 的網址上）",
+      [_mg_fm2["evidence"][0]["title"], _mg_fm2["evidence"][1]["title"]],
+      ["第二篇的標題", "第一篇的標題"])
+
+# 反方向：body 裡根本沒有這個 URL 的行 → 維持空著，不得從別行借一個看起來合理的。
+_mg_fm3 = {"evidence": [{"source_id": "src-a", "url": "https://nowhere"}]}
+_mgm.backfill(_mg_fm3, _mg_body2)
+acase("migrate evidence-titles：body 沒有這個 URL 的行 → 留空，不從別行借"
+      "（借來的標題會是另一篇文章的，而畫面上看不出來）",
+      _mg_fm3["evidence"][0].get("title"), None)
 _mg_fm = {"evidence": [{"source_id": "src-a", "url": "https://a", "title": "原本就有"}]}
 _mgm.backfill(_mg_fm, "## 證據\n- [[Sources/src-a|src-a]] — 新的（https://a）\n")
 acase("migrate evidence-titles：只補空的，不覆蓋既有值",

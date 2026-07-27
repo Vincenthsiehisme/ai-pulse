@@ -899,13 +899,12 @@ mutations:
     survives: false
     why: ""
 
-  - id: M101
-    title: "遷移把 body 的「（標題未留存）」當成標題補進去（補了假值之後 render 會以為自己有標題，比空著更糟）"
-    file: migrate-2026-07-27-evidence-titles.py
-    find: "        if rest.startswith(_NO_TITLE):"
-    replace: "        if False:"
-    survives: false
-    why: ""
+  # M101 已移除（2026-07-27）。它原本釘「不得把 body 的『（標題未留存）』當成標題」，
+  # 而回填從位置配對改成 URL 配對之後，那條 guard 被格式檢查涵蓋了：佔位行長成
+  # `（標題未留存）<url>`，不以「）」結尾，格式檢查先擋掉。所以拿掉 guard **不會改變
+  # 任何行為**——它是一個殺不掉的變異，也就是 stale-record。留著會讓清單看起來多守
+  # 一格、實際沒有。guard 本身保留（成本是零，而且它寫明了意圖），只是不再宣稱有測試
+  # 在守它。這條規則現在由 M106（URL 配對）與 selftest 的格式測試共同守著。
 
   # ── 時間軸：觀測起點線與回填標記 ──
   # 這四格全部讓時間軸重新看起來像「持續觀測了三週」，而版面上不會有任何異狀。
@@ -939,5 +938,13 @@ mutations:
     file: pulse-render.py
     find: "    return None if last == len(events) - 1 else last + 1"
     replace: "    return None if last == len(events) - 1 else last"
+    survives: false
+    why: ""
+
+  - id: M106
+    title: "回填改成不看 URL、隨便拿 body 裡的一個標題（第一版的位置配對就是這個形狀：A 的標題貼到 B 的網址上，而畫面上看不出來）"
+    file: migrate-2026-07-27-evidence-titles.py
+    find: "            found = by_url.get(e.get(\"url\"))"
+    replace: "            found = next(iter(by_url.values()), None)"
     survives: false
     why: ""

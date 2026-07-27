@@ -44,7 +44,16 @@ _NO_TITLE = "（標題未留存）"
 
 
 def titles_from_body(body):
-    """→ `{source_id: [標題, ...]}`（同一條來源可能有多筆證據，保留順序）。"""
+    """→ `{url: 標題}`。**用 URL 配對，不用位置。**
+
+    第一版是 `{source_id: [標題, ...]}` 再依序取用——同一條來源的第 i 條 body 行
+    配第 i 個空欄位。那個作法在兩種情況下會把 A 的標題貼到 B 的網址上：
+    某一筆已經有標題（游標不前進，下一筆就拿到前一筆的行），或某一行印的是
+    「（標題未留存）」（該行被丟掉，後面全部錯位）。兩種都在單元層重現過。
+
+    2026-07-27 實測 main 上沒有真的錯配（URL 逐筆比對 64 筆全對），但那是資料
+    剛好沒踩到，不是機制守得住。body 行本來就帶著 URL，用它當鍵，整類問題消失。
+    """
     m = re.search(r"^## 證據\s*$(.*?)(?=^## |\Z)", body, re.S | re.M)
     out = {}
     if not m:
@@ -53,12 +62,15 @@ def titles_from_body(body):
         hit = _EV_LINE.match(line.strip())
         if not hit:
             continue
-        sid, rest = hit.group(1).strip(), hit.group(2).strip()
-        if rest.startswith(_NO_TITLE):
+        rest = hit.group(2).strip()
+        # 「（標題未留存）」是佔位不是標題。補進去比空著更糟：空著時 render 知道
+        # 要印「標題未留存」，補了假值之後它會以為自己有標題。
+        if rest.startswith(_NO_TITLE) or not rest.endswith("）"):
             continue
-        title = rest.rsplit("（", 1)[0].strip() if rest.endswith("）") else rest
-        if title:
-            out.setdefault(sid, []).append(title)
+        title, _, url = rest.rpartition("（")
+        title, url = title.strip(), url.rstrip("）").strip()
+        if title and url:
+            out[url] = title
     return out
 
 
@@ -92,17 +104,13 @@ def corpus_dates(vault):
 def backfill(fm, body, dates=None):
     """→ (補了幾個標題, 補了幾個日期)。只補**空的**格，不覆蓋既有值。"""
     ev = fm.get("evidence") or []
-    by_sid = titles_from_body(body)
-    used = {}
+    by_url = titles_from_body(body)
     nt = nd = 0
     for e in ev:
         if not e.get("title"):
-            sid = e.get("source_id")
-            pool = by_sid.get(sid) or []
-            i = used.get(sid, 0)
-            if i < len(pool):
-                e["title"] = pool[i]
-                used[sid] = i + 1
+            found = by_url.get(e.get("url"))
+            if found:
+                e["title"] = found
                 nt += 1
         if not e.get("published"):
             pub = (dates or {}).get(e.get("url"))
