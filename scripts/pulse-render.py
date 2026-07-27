@@ -31,6 +31,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.notes import parse_note  # noqa: E402
 from lib import tracks as tracks_lib  # noqa: E402  主線對照表單一真相源
+from lib import zhtext  # noqa: E402  譯文驗章單一真相源，見 lib/zhtext.py
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.quality import parse_dt  # noqa: E402
 
@@ -219,6 +220,9 @@ article.event h2 a:hover{color:var(--accent)}
 .row:hover{background:var(--surface-soft)}
 .row time{color:var(--quiet);font:11px var(--mono)}
 .row .rt{font-size:1rem;font-weight:560;line-height:1.4}
+/* 原文永遠印在中文下面一行：譯文是二手的，讀者要能看到一手的那句。 */
+.row .rt-src{font-size:.82rem;font-weight:400;line-height:1.35;opacity:.62;margin-top:.15rem}
+.title-src{font-size:.9rem;opacity:.6;margin:.25rem 0 0;font-weight:400}
 .row .rm{color:var(--muted);font:10px var(--mono);letter-spacing:.05em;white-space:nowrap}
 
 .line-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
@@ -530,7 +534,8 @@ def event_card(ev, prefix, full=True):
     track_span = f'<span>{esc(tr[1])}</span>' if tr else ""
     return f"""<article class="event">
 <div class="chips">{event_chips(ev)}</div>
-<h2><a href="{href}">{esc(ev['title'])}</a></h2>
+<h2><a href="{href}">{esc(ev.get('title_zh') or ev['title'])}</a></h2>
+{f'<p class="title-src">{esc(ev["title"])}</p>' if ev.get('title_zh') else ''}
 <p class="lead">{esc(ev['summary'])}</p>
 {('<div class="layers">' + layers + '</div>') if layers else ''}
 {ev_block}
@@ -538,13 +543,28 @@ def event_card(ev, prefix, full=True):
 </article>"""
 
 
+def title_html(ev, cls_zh="rt", cls_src="rt-src"):
+    """事件標題的 HTML：**中文在上、原文在下**，沒有中文就只有原文。
+
+    原文永遠留著，跟榜單描述同一條規矩：譯文是二手的，讀者要能看到一手的那句
+    （紅線 2 的延伸）。這不是版面潔癖——標題是最容易被翻歪的一句，而讀者無法
+    從一句中文回推它翻自什麼。
+    """
+    zh = (ev.get("title_zh") or "").strip()
+    src = esc(ev.get("title") or "")
+    if not zh:
+        return f'<div class="{cls_zh}">{src}</div>'
+    return (f'<div class="{cls_zh}">{esc(zh)}</div>'
+            f'<div class="{cls_src}">{src}</div>')
+
+
 def recent_row(ev, prefix):
     tr = track_of(ev)
     meta = tr[1] if tr else (ev["company"] or "")
     href = ev_href(prefix, ev["slug"])
     return (f'<a class="row" href="{href}"><time>{esc(ev["date"])}</time>'
-            f'<div class="rt">{esc(ev["title"])}</div>'
-            f'<div class="rm">{esc(ev["company"])} · {esc(meta)}</div></a>')
+            + title_html(ev)
+            + f'<div class="rm">{esc(ev["company"])} · {esc(meta)}</div></a>')
 
 
 # ─────────────────────── journey + score grid ───────────────────────
@@ -806,7 +826,8 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
     body = f"""<section class="hero compact shell"><div>
 <a class="crumb" href="{pfx}timeline/">{BACK} 事件時間軸</a>
 <div class="chips">{event_chips(ev)}</div>
-<h1 style="font-size:clamp(1.6rem,3.4vw,2.3rem)">{esc(ev['title'])}</h1>
+<h1 style="font-size:clamp(1.6rem,3.4vw,2.3rem)">{esc(ev.get('title_zh') or ev['title'])}</h1>
+{f'<p class="title-src">{esc(ev["title"])}</p>' if ev.get('title_zh') else ''}
 <p class="lead" style="font-size:1.06rem;margin-top:.6rem">{esc(ev['summary'])}</p>
 <div class="statline"><span>{esc(ev['date'])}</span>{f'<span>{esc(tr[1])}</span>' if tr else ''}<span>{esc(ev['company'])}</span></div>
 </div></section>
@@ -818,7 +839,7 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
 <aside class="detail-aside">{scores}{ev_block}</aside>
 </div></section>
 {rel_html}"""
-    return page_layout("timeline", f"{ev['title']} — AI Pulse",
+    return page_layout("timeline", f"{ev.get('title_zh') or ev['title']} — AI Pulse",
                        ev["summary"] or ev["title"], body, 2, generated)
 
 
@@ -832,6 +853,11 @@ def load_events(vault):
         events.append({
             "id": fm.get("id"), "slug": fm.get("slug") or fm.get("id"),
             "title": fm.get("title", ""), "date": str(fm.get("date") or ""),
+            # 中文標題只有**綁得上當下這句原文**時才算數；對不上就是 None，
+            # 前台退回原文。掛一句在講舊標題的中文，比沒有中文糟得多。
+            "title_zh": zhtext.valid_for(
+                {"zh": fm.get("title_zh"), "src_hash": fm.get("title_zh_src")},
+                fm.get("title", "")),
             "happened": str(fm.get("happened_at") or ""),
             "company": fm.get("company", ""), "category": fm.get("category") or "",
             "track": fm.get("track") or "", "summary": fm.get("summary") or "",

@@ -452,6 +452,7 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 | `fix/sitemap-zero-yield-is-not-silence` | 「200 / 0 筆」拆成四個 code：站方那邊沒東西 vs 我們這邊接不上。規格 `references/health-alarms.md`〈零產出不是沉默〉 |
 | `fix/evidence-forgets-what-it-saw` | 證據記錄留下 `title` 與 `published`；reload 不再拿 url 頂替 title（頂替之後，拿標題比相似度會**照樣算得出一個數字**，只是算的是網址）。新增 `references/evidence-tiers.md`——那個檔名被指了兩次而一直不存在 |
 | `fix/translation-chain-counts-a-rewrite` | `evidence.translation_chain` 四個 leaf 全部接上：跨語言 + 實體集合 Jaccard ≥ 0.80 + 48h 窗 → 標 `suspected_repost`、不計入獨立性。實體比對層抽到 `lib/entities.py`（單一真相源）。M43–M47 各守一個設定值真的被讀 |
+| `feat/event-titles-in-chinese` | Event 標題 51/51 全是英文原文——六層 prose 是中文、站台框架是中文，只有讀者唯一會看到的那一行不是。`title_zh` + `title_zh_src` 進版控，原文變了譯文自動失效退回原文；驗章跟榜單描述共用 `lib/zhtext.py` |
 | `fix/c2-skips-in-silence` | 潤稿端 C2 段（榜單描述中文化）失敗時整段跳過，**而跳過跟「沒東西要翻」印起來一樣**——`desc-zh.json` 從沒進過版控也沒人發現。觀測改由一定會跑的 Actions 那班量，分得出「量不到 / 從來沒翻過 / 有過然後停了」 |
 | `fix/dictionary-gaps-report-to-nowhere` | `clustering.unknown_entity.report_to` 指的那一頁以前不存在，現在每班產生；晉升門檻搬進 `gate.yaml`，`_probe` 當班區塊與累積頁讀同一份 |
 | `fix/backlog-status-is-hand-written` | 現況表從手寫改成每班重生成（`_dashboards/backlog-status.md`）。**這是第 9 條實例的第二次修法**——第一次（把量測時間寫進標題、請下一個人複量）三小時就失效了 |

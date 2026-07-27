@@ -604,3 +604,45 @@ mutations:
     replace: "                            \"measured\": True}, ensure_ascii=False, indent=2),"
     survives: false
     why: ""
+
+  # ── Event 標題中文化（references/obsidian-schema.md〈Event 的標題有兩個〉）──
+
+  - id: M68
+    title: "譯文不綁原文雜湊（原文改了，畫面上掛著一句在講舊標題的中文）"
+    file: lib/zhtext.py
+    find: "    return zh if entry.get(\"src_hash\") == src_hash(src) else None"
+    replace: "    return zh"
+    survives: false
+    why: ""
+
+  - id: M69
+    title: "原文變了不算待譯（失效的譯文永遠不會被重譯）"
+    file: pulse-title-prep.py
+    find: "        if zhtext.valid_for(entry, title):\n            continue"
+    replace: "        if entry.get(\"zh\"):\n            continue"
+    survives: false
+    why: ""
+
+  - id: M70
+    title: "Events/ 不在照樣覆寫清單（量不到寫成「今晚沒東西要翻」）"
+    file: pulse-title-prep.py
+    find: "    if not events_dir.is_dir():"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M71
+    title: "標題只印中文不印原文（讀者無法從一句中文回推它翻自什麼）"
+    file: pulse-render.py
+    find: "    return (f'<div class=\"{cls_zh}\">{esc(zh)}</div>'\n            f'<div class=\"{cls_src}\">{src}</div>')"
+    replace: "    return f'<div class=\"{cls_zh}\">{esc(zh)}</div>'"
+    survives: false
+    why: ""
+
+  - id: M72
+    title: "title_zh 不 sticky（下一班重寫 frontmatter 就把譯文抹掉）"
+    file: pulse-cluster.py
+    find: "        \"title_zh\": ev.title_zh,"
+    replace: "        \"title_zh\": None,"
+    survives: false
+    why: ""

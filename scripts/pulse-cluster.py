@@ -133,6 +133,12 @@ class Event:
         # 這則 Event **進到我們庫裡**的時刻，跟 happened_at（外面世界發生的時刻）
         # 是兩件事。寫一次就不再動；規格見 references/event-timestamps.md。
         self.ingested_at = None
+        # 標題的中文譯文與它綁的原文雜湊，由潤稿端寫（pulse-title-apply.py）。
+        # 跟 ingested_at 同樣是 sticky 欄位：event_markdown() 會整份重寫
+        # frontmatter，沒被明確帶過去的欄位會被抹掉——那正是
+        # fix/backfill-flag-erased-by-second-run 修的坑，這裡是第三個踩到它的欄位。
+        self.title_zh = None
+        self.title_zh_src = None
 
     def add_evidence(self, source_id, url, title, relevance, published=None):
         """新增一條證據。`title` 與 `published` 是**判斷用的欄位，不是展示用的**。
@@ -271,6 +277,11 @@ def event_markdown(ev):
         "id": ev.id,
         "slug": ev.slug,
         "title": ev.title,
+        # 中文標題跟原文並排，原文永遠留著（跟榜單描述同一條規矩：譯文是二手的，
+        # 讀者要能看到一手的那句）。沒有譯文時兩格都是 None，不是空字串——
+        # 空字串會讓 prep 分不出「沒翻過」跟「翻出來是空的」。
+        "title_zh": ev.title_zh,
+        "title_zh_src": ev.title_zh_src,
         "date": date_str,
         "happened_at": hd.isoformat() if hd else ev.happened_at,
         # 監控佇列年紀只能看這個。拿 happened_at 去量「我們放了多久」，
@@ -377,6 +388,8 @@ def main():
             # sticky：event_markdown() 會整份重寫 frontmatter，沒帶過去的欄位
             # 會被抹掉（fix/backfill-flag-erased-by-second-run 修的就是這個坑）。
             ev.ingested_at = fm.get("ingested_at")
+            ev.title_zh = fm.get("title_zh")
+            ev.title_zh_src = fm.get("title_zh_src")
             ev.orig_body = body
             ev.fm = fm
             ev.evidence.extend(evidence_from_frontmatter(fm.get("evidence")))

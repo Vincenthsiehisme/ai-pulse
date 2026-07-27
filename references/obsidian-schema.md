@@ -101,6 +101,48 @@ Actor  --[[Events/…]]-->   Event      （2026-07-27 新增）
 frontmatter：`id`（`actor-<entity_id>` 或 `actor-<slug>`）、`kind: company`、
 `in_dictionary: true|false`、`aliases`（抄自字典）、`tags: [actor, company]`。
 
+## Event 的標題有兩個
+
+> 實作：`scripts/pulse-title-prep.py`（誰要翻）、`scripts/pulse-title-apply.py`
+> （寫回）、`scripts/lib/zhtext.py`（驗章，跟榜單描述共用）、
+> `scripts/pulse-render.py` 的 `title_html()`（顯示）。
+
+`Events/*.md` 的 `title` 是**來源的原始英文標題**。六層 prose 是中文、站台框架是
+中文、只有標題不是——2026-07-27 實測 51 則 Event **全部** 51/51 英文標題，而標題
+正是讀者在首頁、時間軸、卡片上唯一會看到的那一行。
+
+| 欄位 | 是什麼 |
+|---|---|
+| `title` | 一手：來源怎麼寫就怎麼存，**永遠不改** |
+| `title_zh` | 二手：潤稿端翻的中文，可能不存在 |
+| `title_zh_src` | `title` 在翻譯當下的雜湊 |
+
+### 為什麼要有 `title_zh_src`
+
+譯文綁在**當下那句原文**上。原文變了、雜湊對不上 → 前台**退回原文**，並重新排進
+待譯清單。少了這一格，標題哪天被改掉，畫面上會掛著一句看起來很合理、其實在講舊
+標題的中文——**那比沒有中文糟得多**。跟榜單描述的 `desc-zh.json` 是同一條規矩、
+同一支驗章（`lib/zhtext.py`）。
+
+### 兩個都印，中文在上原文在下
+
+原文永遠一併顯示。這不是版面潔癖：**標題是最容易被翻歪的一句，而讀者無法從一句
+中文回推它翻自什麼。** 紅線 2 的延伸——譯文是二手的，讀者要能看到一手的那句。
+
+### `title_zh` 是 sticky 欄位
+
+`event_markdown()` 會**整份重寫** frontmatter，沒被明確帶過去的欄位會被抹掉。
+`title_zh` / `title_zh_src` 是第三、第四個踩到這個坑的欄位（前兩個是 `ingested_at`
+與 backfill 旗標，見 `fix/backlog-flag-erased-by-second-run`）。所以
+`Event` 物件帶這兩格、reload 時讀回來、`event_markdown()` 明確寫出去。
+
+### 這一層不保證什麼
+
+- **不保證翻得對。** 驗章是機械的：有沒有中文、長度、AI 腔黑名單、綁不綁得上原文。
+  「翻得準不準」沒有任何機械判準，只有原文並排在旁邊讓讀者自己看。
+- **不保證每一則都有中文。** 待譯清單有單晚上限（預設 20），而且潤稿鏈可能整段
+  跳過。沒有中文就是印原文，不是空白。
+
 ## `_dashboards/` 是靜態表，不是 Dataview
 
 skill 的規格寫的是 Dataview 查詢頁。實作不是，而且**刻意不是**：
