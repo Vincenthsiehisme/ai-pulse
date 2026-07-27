@@ -1,7 +1,8 @@
-# 被門禁擋下（14）
+# 被門禁擋下（15）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-07-27-fdbc38|NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs a]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-23-83a9d2|AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High ]]** — Cerebras — blockers: thin_fact
 - **[[Events/evt-2026-07-23-f4cdc4|AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era]]** — AMD — blockers: thin_fact
 - **[[Events/evt-2026-07-22-a8e6a5|AMD and Anthropic Announce Strategic Partnership to Deploy Up to 2 Gig]]** — Anthropic — blockers: thin_fact

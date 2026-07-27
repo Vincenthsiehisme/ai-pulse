@@ -10,10 +10,11 @@ tags: [actor, company]
 
 # NVIDIA
 
-事件 **15** 則：`published` 12、`review` 3
+事件 **16** 則：`published` 12、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-07-27 | [[Events/evt-2026-07-27-fdbc38\|NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs and GPUs]] | review |
 | 2026-07-24 | [[Events/evt-2026-07-24-dd57bd\|At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners]] | published |
 | 2026-07-23 | [[Events/evt-2026-07-23-821bb6\|NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School]] | published |
 | 2026-07-23 | [[Events/evt-2026-07-23-4fb946\|GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud]] | published |
