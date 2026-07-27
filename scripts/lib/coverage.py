@@ -49,7 +49,11 @@ def observable_from(evidence, first_fetch):
         if dt is None:
             return None
         stamps.append(dt)
-    return min(stamps)
+    # `if stamps else None` 在**沒有變異的碼上永遠走不到**——上面任何一條缺格都已經
+    # 提早 return 了。留著是為了讓「缺格時改成跳過那一條」那個變異（M86）以**答錯**
+    # 收場，而不是以 ValueError 收場：mutations.yaml 的規矩是變異要被測試殺死，
+    # 用 crash 代替失敗會讓人分不出「測試守住了」跟「碰巧炸了」。
+    return min(stamps) if stamps else None
 
 
 def coverage_of(happened_at, evidence, first_fetch):

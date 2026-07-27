@@ -2881,6 +2881,27 @@ acase("pulse-cluster：coverage 是推導欄位不是 sticky 欄位——first_f
       "值要跟著改（寫死成 sticky 的話，來源首抓日修正了它會永遠停在舊答案）",
       _cv_e2.coverage, "observed")
 
+# 遷移那條路：既有 Event reload 之後 dirty=False，沒有人會重寫它們。少了
+# 「算出來跟檔案上不一樣就標髒」，這一格只會長在有新證據進來的那些 Event 上——
+# 實測（上線前那一跑）52 則一則都沒拿到，而畫面上沒有任何異狀。
+_cv_old = _cm.Event("evt-cv3", "cv3", "T", "2026-07-14T00:00:00+00:00")
+_cv_old.add_evidence("src-a", "u1", "t", 100)
+_cv_old.fm = {"coverage": None}        # 模擬還沒有這一格的既有 note
+_cv_old.dirty = False                  # reload 之後的狀態
+_cm.rescore(_cv_old, {"src-a": {"tier": 1}}, None, None, None, _CV_FF)
+acase("pulse-cluster：既有 Event 的 coverage 跟算出來的不一樣 → 標髒，這一班就補上"
+      "（沒有這條，欄位只會長在有新證據的那些 Event 上，而規格會說得像每則都有）",
+      [_cv_old.coverage, _cv_old.dirty], ["backfilled", True])
+
+_cv_same = _cm.Event("evt-cv4", "cv4", "T", "2026-07-14T00:00:00+00:00")
+_cv_same.add_evidence("src-a", "u1", "t", 100)
+_cv_same.fm = {"coverage": "backfilled"}
+_cv_same.dirty = False
+_cm.rescore(_cv_same, {"src-a": {"tier": 1}}, None, None, None, _CV_FF)
+acase("pulse-cluster：coverage 沒變就不標髒（否則每班重寫全部 Event，git 每天長一次"
+      "無意義的 diff，真正的改動會被埋在裡面）",
+      _cv_same.dirty, False)
+
 _cv_tmp = _pathlib.Path(_tempfile.mkdtemp())
 acase("load_first_fetch：沒有 state.json 回空 dict，而空 dict 讓每則判 unknown"
       "——設定讀不到的時候規則要變嚴不是變鬆（跟 lib/dictgaps.thresholds() 同一條）",

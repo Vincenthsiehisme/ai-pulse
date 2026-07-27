@@ -258,6 +258,30 @@ def mark_reposts(ev, sources, tc_cfg, ent_table):
     return flagged
 
 
+def apply_coverage(ev, first_fetch):
+    """算這則的 `coverage` 並在**跟檔案上寫的不一樣時標髒**。→ 有沒有變。
+
+    兩件事綁在一起是刻意的。`coverage` 每班重算（不是 sticky），但重算完沒有人
+    重寫檔案的話，這一格只會長在「這一班剛好有新證據進來」的那些 Event 上。
+    第一次實作就踩了這個坑：跑完一班，52 則 Event 一則都沒拿到這一格，而輸出
+    寫著「events changed=0」看起來完全正常——**規格說有、實作沒有**，正是這個
+    repo 一直在抓的形態。
+
+    讀 frontmatter 的舊值只為了**比對**，不是拿它當值用。反過來（沒變也標髒）
+    的代價同樣具體：每班重寫全部 Event，git 每天長一次無意義的 diff，
+    而真正的改動會被埋在裡面。
+    """
+    ev.coverage = coverage_lib.coverage_of(ev.happened_at, ev.evidence, first_fetch)
+    # 回傳的是「**跟磁碟上不一樣**」，不是「跟記憶體裡的預設值不一樣」。
+    # 後者聽起來一樣、但每一則都會回 True——reload 不從 frontmatter 讀這一格，
+    # 所以記憶體裡永遠是 UNKNOWN 起跳。第一版就是這樣，摘要行印「52 有變」
+    # 而實際寫檔 0 筆：一個跟現實不符的計數比沒有計數更糟。
+    if (ev.fm or {}).get("coverage") != ev.coverage:
+        ev.dirty = True
+        return True
+    return False
+
+
 def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None, first_fetch=None):
     reposts = mark_reposts(ev, sources, tc_cfg, ent_table)
     # gate.yaml 的 excluded_from 真的被讀：把它寫成一個「改了也沒效果」的清單，
@@ -300,7 +324,7 @@ def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None, first_fetch=None)
     # 事情發生時我們看不看得到。每班重算，不是 sticky。
     # first_fetch 沒傳進來時判準回 unknown，不是 observed——預設值倒向誠實
     # 那一邊（紅線 8）。規格見 references/event-timestamps.md〈第三個現場〉。
-    ev.coverage = coverage_lib.coverage_of(ev.happened_at, ev.evidence, first_fetch)
+    apply_coverage(ev, first_fetch)
 
 
 def event_markdown(ev):
@@ -483,6 +507,11 @@ def main():
         rel = int(round(cluster.title_similarity(title, ev.title) * 100))
         ev.add_evidence(sig["source_id"], sig.get("url", ""), title, rel, published)
 
+    # coverage 是每班重算的推導欄位，所以要在挑「哪些要重寫」**之前**算完。
+    # 只算 dirty 的那些，這一格永遠長不到「這一班沒有新證據」的 Event 上——
+    # 而那是絕大多數。見 apply_coverage() 的 docstring。
+    cov_touched = sum(1 for ev in events if apply_coverage(ev, first_fetch))
+
     # rescore 所有動到的 Event
     changed = [e for e in events if e.dirty]
     for ev in changed:
@@ -493,6 +522,9 @@ def main():
     print(f"pulse-cluster  day={day}  signals={len(signals)}")
     print(f"  created={created}  attached={attached}  deferred(eventability<70)={deferred}")
     print(f"  events changed={len(changed)}  (total in vault={len(events)})")
+    # 印出來給人看：0 也要印。一個只在有東西時才出現的數字，看不見的時候有兩種
+    # 意思（沒有變／這段沒跑），而這一格上線那天正好就是「沒跑」。
+    print(f"  coverage 跟磁碟上不一樣（要寫回）的: {cov_touched}")
     if conf:
         import statistics
         print(f"  confidence: min={min(conf)} median={int(statistics.median(conf))} max={max(conf)}")
@@ -527,6 +559,11 @@ def rescored_enriched_markdown(ev):
     fm["value"] = s["value"]
     fm["score_factors"] = s["factors"]
     fm["evidence"] = evidence_frontmatter(ev.evidence)
+    # coverage 每班重算，所以已潤稿的那條路也要更新——這裡漏掉的話，
+    # 這一格只會出現在**沒潤過稿**的 Event 上，而且 apply_coverage 每班都會
+    # 判定「跟檔案上不一樣」→ 每班重寫全部 Event、每班寫的還是舊值。
+    # 實測就是這樣：52 則全被重寫，只有 1 則真的拿到這一格。
+    fm["coverage"] = ev.coverage
     front = yaml.safe_dump(fm, allow_unicode=True, sort_keys=False, default_flow_style=False).rstrip()
     body = ev.orig_body if ev.orig_body.startswith("\n") else "\n" + ev.orig_body
     return f"---\n{front}\n---{body}"
