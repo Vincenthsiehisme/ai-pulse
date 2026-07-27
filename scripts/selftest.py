@@ -3973,11 +3973,15 @@ acase("日期：2 月 30 日這種東西回 None 不丟例外"
       "（一條壞日期不該讓整頁解析中止）",
       _ml.parse_entry_date("February 30, 2026")[0], None)
 
-acase("model id：網域不是模型（claude.com / claude.ai 第一版真的被撈進來了）"
-      "，且沒有版本號的字串不算",
+# 兩道關卡要**分開**釘。第一版只給 `claude.com`（沒有數字），於是「必須有版本號」
+# 那一關單獨就擋住了它，拿掉 TLD 名單照樣綠——M116 第一次跑就是這樣活下來的。
+# `gpt-5.app` 有數字，只有 TLD 名單擋得住它。
+acase("model id：網域不是模型，且兩道關卡各自都要有效"
+      "（claude.com 靠「必須有版本號」擋；gpt-5.app 只有 TLD 名單擋得住）",
       [_ml.model_ids_in("see claude.com and claude.ai"),
+       _ml.model_ids_in("hosted at gpt-5.app"),
        _ml.model_ids_in("We've launched Claude Opus 5 ( claude-opus-5 )")],
-      [[], ["claude-opus-5"]])
+      [[], [], ["claude-opus-5"]])
 acase("版本衍生：照 entities.yaml 寫下的規則產生 <line_id>@<slug>；"
       "沒有 version_pattern 的產品線不衍生（硬套會生出假實體）",
       [_ml.derive_versions("On Claude Opus 5, disabling thinking", _ML_LINES),
@@ -4021,10 +4025,16 @@ acase("rates：沒有列的時候回 None 不回 0"
        _ml.rates([])["unmatched_model_rate"]], [None, None])
 # 第一版的分母是「全部條目」，於是 unmatched 是 0.79——量到的其實是
 # 「有多少條不在講模型」，又一個比事實寬鬆的代理指標，我自己寫進去的。
+# 這一條要用**兩個分母會給出不同答案**的資料才測得到。第一版拿 _ml_rows
+# （0 條 unmatched）去測，兩個分母都是 0.0，改了照樣綠——M118 第一次跑活下來。
+_ml_mixed = [{"versionish": True, "model_ids": [], "derived_entities": []},
+             {"versionish": False, "model_ids": [], "derived_entities": []},
+             {"versionish": False, "model_ids": [], "derived_entities": []}]
 acase("rates：unmatched 的分母是「看起來在講版本」的條目，不是全部條目"
-      "（用全部當分母，量到的是「有多少條不在講模型」）",
+      "（用全部當分母，量到的是「有多少條不在講模型」——1.0 會被稀釋成 0.33，"
+      "一個真正的字典缺口看起來像小問題）",
       [_ml.rates(_ml_rows)["versionish_rows"],
-       _ml.rates(_ml_rows)["unmatched_model_rate"]], [2, 0.0])
+       _ml.rates(_ml_mixed)["unmatched_model_rate"]], [2, 1.0])
 acase("references/model-timeline.md 存在（這一層的規格書，紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references",
                                   "model-timeline.md")), True)
