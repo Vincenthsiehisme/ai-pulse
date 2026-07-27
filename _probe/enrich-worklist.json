@@ -1,55 +1,91 @@
 [
   {
-    "id": "evt-2026-07-22-a8e6a5",
-    "path": "evt-2026-07-22-a8e6a5.md",
-    "title": "AMD and Anthropic Announce Strategic Partnership to Deploy Up to 2 Gigawatts of AMD Instinct MI450 Series GPUs",
+    "id": "evt-2026-07-27-1b4ef0",
+    "path": "evt-2026-07-27-1b4ef0.md",
+    "title": "How AI is expanding what people do at work",
     "fingerprint": null,
-    "facet": "capital",
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/how-ai-is-expanding-what-people-do-at-work",
+        "title": "How AI is expanding what people do at work",
+        "summary": "New OpenAI research shows how AI is expanding what workers do, with ChatGPT users taking on tasks across roles and reshaping job boundaries."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-27-22a744",
+    "path": "evt-2026-07-27-22a744.md",
+    "title": "Industry Leaders Unite in Open Secure AI Alliance for AI Safety and Security",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/open-secure-ai-alliance/",
+        "title": "Industry Leaders Unite in Open Secure AI Alliance for AI Safety and Security",
+        "summary": "Open source software is a critical pillar of the global economy. It underpins cloud computing, financial services, manufacturing, telecommunications, government and internet services by making technology accessible and observable to communities of experts.  Cybersecurity is among the top three benef"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-27-32add4",
+    "path": "evt-2026-07-27-32add4.md",
+    "title": "Cognizant Anthropic",
+    "fingerprint": null,
+    "facet": "update",
     "company_guess": "Anthropic",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-amd-ir",
-        "url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
-        "title": "AMD and Anthropic Announce Strategic Partnership to Deploy Up to 2 Gigawatts of AMD Instinct MI450 Series GPUs",
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/cognizant-anthropic",
+        "title": "Cognizant Anthropic",
         "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-07-23-83a9d2",
-    "path": "evt-2026-07-23-83a9d2.md",
-    "title": "AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High Throughput AI Inference Solution",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "Cerebras",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-amd-ir",
-        "url": "https://ir.amd.com/news-events/press-releases/detail/1293/amd-and-cerebras-announce-industry-leading-ultra-low-latency-and-high-throughput-ai-inference-solution",
-        "title": "AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High Throughput AI Inference Solution",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-23-f4cdc4",
-    "path": "evt-2026-07-23-f4cdc4.md",
-    "title": "AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era",
+    "id": "evt-2026-07-27-ccaf21",
+    "path": "evt-2026-07-27-ccaf21.md",
+    "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "AMD",
+    "company_guess": "NVIDIA",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-amd-ir",
-        "url": "https://ir.amd.com/news-events/press-releases/detail/1294/aai-2026-amd-delivers-full-stack-compute-for-the-agentic-ai-era",
-        "title": "AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era",
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nvidia/cosmos-h-dreams",
+        "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
         "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-27-fdbc38",
+    "path": "evt-2026-07-27-fdbc38.md",
+    "title": "NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs and GPUs",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/vera-cpu-eda/",
+        "title": "NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs and GPUs",
+        "summary": "The complexity of modern chip design continues to grow as engineering teams work to develop increasingly sophisticated CPUs, GPUs and AI systems. To help meet that challenge, NVIDIA is collaborating with industry leaders Cadence and Synopsys to optimize critical electronic design automation (EDA) ap"
       }
     ]
   }

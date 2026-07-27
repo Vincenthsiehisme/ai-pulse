@@ -1,6 +1,18 @@
-# 已發布事件（36）
+# 已發布事件（41）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-07-27
+- **[[Events/evt-2026-07-27-1b4ef0|How AI is expanding what people do at work]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 研究：ChatGPT 使用者正跨出原本職務邊界，接下更多樣的工作。
+- **[[Events/evt-2026-07-27-22a744|Industry Leaders Unite in Open Secure AI Alliance for AI Safety and Security]]** — Open Secure AI Alliance · policy · conf 73 · heat 未量測
+  產業多方組成 Open Secure AI Alliance，把開源 AI 的資安當共同治理題。
+- **[[Events/evt-2026-07-27-32add4|Cognizant Anthropic]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 官網出現一則與 IT 服務商 Cognizant 相關的合作公告，內文細節未載。
+- **[[Events/evt-2026-07-27-ccaf21|NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  NVIDIA 推出 Cosmos-H-Dreams，把即時生成式模擬帶進手術機器人。
+- **[[Events/evt-2026-07-27-fdbc38|NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs and GPUs]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 用 Vera CPU 加速 EDA 流程，攜手 Cadence、Synopsys 設計下一代 CPU 與 GPU。
 
 ## 2026-07-25
 - **[[Events/evt-2026-07-25-0fa594|Claude Opus 5]]** — Anthropic · model-capability · conf 97 · heat 未量測

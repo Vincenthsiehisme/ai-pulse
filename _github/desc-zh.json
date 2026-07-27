@@ -1,0 +1,127 @@
+{
+  "DeusData/codebase-memory-mcp": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "e804f93bd902",
+    "zh": "高效能程式碼情報 MCP server：把程式庫索引成持久知識圖，支援 158 種語言、毫秒級查詢"
+  },
+  "DietrichGebert/ponytail": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "0a977cb7f34a",
+    "zh": "讓 AI agent 像全場最懶的資深工程師那樣想：最好的程式是你沒寫的那段"
+  },
+  "Graphify-Labs/graphify": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "8e48530c1c58",
+    "zh": "把程式庫連同文件、SQL schema、設定與 PDF 變成可查詢的知識圖；本地 AST 解析、不用向量庫"
+  },
+  "HKUDS/DeepTutor": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "7bf25fcf4ee9",
+    "zh": "DeepTutor：終身個人化的家教"
+  },
+  "JuliusBrussee/caveman": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "a1ba0a8f169a",
+    "zh": "何必用很多 token，少少就夠：用穴居人口吻說話，幫 Claude Code 省 65% token"
+  },
+  "Leonxlnx/taste-skill": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "685042ad8a5f",
+    "zh": "Taste-Skill：給 AI 一點品味，別再生出無聊平庸的內容"
+  },
+  "NousResearch/hermes-agent": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "6eb4d1ab3a37",
+    "zh": "會跟著你一起成長的 agent"
+  },
+  "Panniantong/Agent-Reach": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "b227ae1105fa",
+    "zh": "給 AI agent 看遍網路的眼睛：讀取搜尋 Twitter、Reddit、YouTube 等，零 API 費用"
+  },
+  "ZhuLinsen/daily_stock_analysis": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "8f35b4a2144f",
+    "zh": "LLM 驅動的多市場股票分析系統：多源行情、即時新聞、決策看板與自動推送，可零成本定時執行"
+  },
+  "affaan-m/ECC": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "ac439f9c8bf6",
+    "zh": "agent harness 效能優化系統：技能、記憶與安全，支援 Claude Code、Codex、Cursor 等"
+  },
+  "asgeirtj/system_prompts_leaks": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "9686abc957db",
+    "zh": "蒐集各家外流的 system prompt：Anthropic、OpenAI、Google、xAI 等，定期更新"
+  },
+  "datawhalechina/hello-agents": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "0f1350efa57d",
+    "zh": "從零開始建構 agent：agent 原理與實作教程"
+  },
+  "earendil-works/pi": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "c054e48f4763",
+    "zh": "AI agent 工具包：統一 LLM API、agent loop、TUI 與寫程式用的 agent CLI"
+  },
+  "firecrawl/firecrawl": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "3caa4131698c",
+    "zh": "大規模搜尋、抓取並操作網頁的 API"
+  },
+  "headroomlabs-ai/headroom": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "2b0a1bd8518e",
+    "zh": "在送進 LLM 前壓縮工具輸出、log、檔案與 RAG 片段：JSON 省 60–95% token、答案不變"
+  },
+  "heygen-com/hyperframes": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "b239f2c17c0e",
+    "zh": "寫 HTML、算繪成影片，為 agent 而生"
+  },
+  "koala73/worldmonitor": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "4fd40cb6ef54",
+    "zh": "即時全球情報儀表板：AI 新聞彙整、地緣政治與基礎設施監看"
+  },
+  "msitarzewski/agency-agents": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "f6970773b060",
+    "zh": "一整間 AI 代理商在你手上：從前端高手到 Reddit 社群專家，每個 agent 都是有個性的專才"
+  },
+  "mvanhorn/last30days-skill": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "43525ace4b73",
+    "zh": "跨 Reddit、X、YouTube、HN 等查任何主題，再整理成有依據摘要的 agent skill"
+  },
+  "obra/superpowers": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "406416e89aff",
+    "zh": "一套真的能用的 agentic skills 框架與軟體開發方法論"
+  },
+  "rtk-ai/rtk": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "608dd39676e2",
+    "zh": "CLI proxy，在常見開發指令上省下 60–90% 的 LLM token，單一 Rust binary、零相依"
+  },
+  "t8y2/dbx": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "373781648fa2",
+    "zh": "20 MB 輕量跨平台資料庫客戶端，支援 70+ 種資料庫，內建 AI、MCP Server 與 CLI"
+  },
+  "unclecode/crawl4ai": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "62c9f2d759db",
+    "zh": "Crawl4AI：對 LLM 友善的開源網頁爬蟲與抓取工具"
+  },
+  "volcengine/OpenViking": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "0973420ed49d",
+    "zh": "給 AI agent 的自我演化情境資料庫，整合 agent 記憶、RAG 知識與技能"
+  },
+  "xbtlin/ai-berkshire": {
+    "at": "2026-07-27T19:23:58+00:00",
+    "src_hash": "f236345e9932",
+    "zh": "AI 時代的波克夏：基於 Claude Code／Codex 的價值投資研究框架，集四大師方法論與多 agent 研究"
+  }
+}

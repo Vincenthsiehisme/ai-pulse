@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-07-26'
+updated: '2026-07-27'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: NVIDIA 還是主角，但這輪多了軟體端。硬體側 Vera Rubin 用每 token 成本、每瓦效能、每塊錢智慧輪流打，往外鋪到網通（Spectrum-6）、在地製造（緯創德州廠、Build in America）、實體與醫療（開源醫療物理模擬、海軍研究院的 DGX GB300、BMS 製藥 AI 工廠）。新進來的是推論軟體這條：vLLM v0.26.0（411 個 commit、新增 Inkling 家族、推測解碼），以及 Hugging Face 把 Nunchaku 4-bit 擴散推論接進 Diffusers，都是實打實壓低推論成本的工程。OpenAI 這邊則是 Project Camellia 在喬治亞州綁能源與社區承諾，屬於搶地搶電那端。方向一致：供給端在替 agent 工作負載重新定價，戰線鋪到實體 AI 與產地，現在連開源推論棧也一起降成本。
-    next: 硬體那批仍要第二個獨立來源（雲廠、對手晶片、實際部署者）印證「每 token 成本最低」的說法。可追的硬事：緯創福和市廠的產能爬坡、BMS 的算力跑出什麼研發成果、開源醫療模擬有沒有外部團隊採用。軟體這條可查實測：vLLM 新優化的 throughput 數字、Nunchaku 4-bit 的品質與速度取捨。NVIDIA 那批仍多為單一來源、標待證實。
+    now: NVIDIA 還是主角，這輪多了兩條支線。硬體側 Vera Rubin 用每 token 成本、每瓦效能、每塊錢智慧輪流打，往外鋪到網通（Spectrum-6）、在地製造（緯創德州廠、Build in America）、實體與醫療（開源醫療物理模擬、海軍研究院的 DGX GB300、BMS 製藥 AI 工廠）。這輪新加一則：NVIDIA 用自家 Vera CPU 加速 EDA、攜手 Cadence 與 Synopsys 設計下一代晶片，把算力往設計上游推，用自家算力造自家下一代算力。軟體端則是推論棧在降成本：vLLM v0.26.0（411 個 commit、新增 Inkling 家族與推測解碼），以及 Hugging Face 把 Nunchaku 4-bit 擴散推論接進 Diffusers。OpenAI 這邊 Project Camellia 在喬治亞州綁能源與社區承諾，屬搶地搶電那端。方向一致：供給端在替 agent 工作負載重新定價，戰線鋪到實體、產地與設計上游，連開源推論棧也一起壓成本。
+    next: 硬體那批仍要第二個獨立來源（雲廠、對手晶片、實際部署者）印證「每 token 成本最低」。可追的硬事：緯創福和市廠的產能爬坡、BMS 的算力跑出什麼研發成果、開源醫療模擬有沒有外部團隊採用、Vera CPU 加速 EDA 有沒有公布具體加速倍數。軟體這條可查實測：vLLM 新優化的 throughput 數字、Nunchaku 4-bit 的品質與速度取捨。NVIDIA 那批仍多為單一來源、標待證實。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這輪主軸換人了。Anthropic 一次端出旗艦 Opus 5、中階 Sonnet 5、輕量 Haiku 4.5，整條產品線改版，其中 Opus 5 拿到多個獨立來源、熱度明顯高過同批其他發布。Google 這端的 Gemini Flash 變體，延續上一輪的輕量分化。另外兩條旁支：Anthropic 用 Economic Index Connector 與研究基金議程，把「AI 對經濟影響」做成研究資產；OpenAI 則在安全面出招，公布長時程模型的失效教訓，並和 Hugging Face 揭露模型評測期間的資安事件。方向從「比誰最強」轉成「整線佈局加安全治理」。
-    next: 等 Opus 5、Sonnet 5 的第三方 benchmark 與定價，看主版號跳升是真跳代，還是命名策略。安全那條看 OpenAI 有沒有把 safeguard 寫進 model card、資安事件有沒有完整的 post-mortem。Anthropic 的經濟研究資產，看有沒有外部真的接取或撥款。多數事件仍是單一來源、標待證實。
+    now: 這輪主軸是 Anthropic 一次翻新整條產品線：旗艦 Opus 5、中階 Sonnet 5、輕量 Haiku 4.5，其中 Opus 5 拿到多個獨立來源、熱度高過同批其他發布。Google 這端延續 Gemini Flash 的輕量分化。研究與安全兩條旁支續在：Anthropic 用 Economic Index Connector 與研究基金議程，把「AI 對經濟的影響」做成研究資產；OpenAI 一面公布長時程模型的失效教訓，一面和 Hugging Face 揭露評測期間模型展現進階攻擊能力的資安事件。這輪新加一則 NVIDIA Cosmos-H-Dreams，把生成式模擬推進手術機器人，模型能力開始往垂直的實體場景長，不再只比通用榜。方向仍是整線佈局加安全治理，而非追單一最強。
+    next: 等 Opus 5、Sonnet 5 的第三方 benchmark 與定價，看主版號跳升是真跳代還是命名策略。安全那條看 OpenAI 有沒有把 safeguard 寫進 model card、資安事件有沒有完整的 post-mortem。Anthropic 的經濟研究資產，看有沒有外部真的接取或撥款。新的 Cosmos-H-Dreams 看模型卡有沒有延遲與擬真度的量化數字，或第三方機器人團隊的實測。多數事件仍是單一來源、標待證實。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這輪產品訊號的主線是「把模型塞進既有入口」。xAI 最積極，Outlook、Excel、Google Workspace 三個外掛連發，寄生微軟和 Google 的辦公生態搶使用場景。OpenAI 走垂直落地：ChatGPT 健康功能（串接病歷與 Apple Health）、小企業計畫、NTT DATA 把事故分析壓到 30 分鐘的導入案例，外加財務長那套 ROI 計分卡。Google 的 Flash Cyber 把能力包成資安產品。雜訊有兩則 NVIDIA（SIGGRAPH 展示、GeForce NOW 遊戲上架，與 AI 主線關聯低），以及 Anthropic 一則疑似未上線的創意工作頁。整體是能力落地成功能與通路，不是發新模型。
-    next: 看這些外掛與功能有沒有離開發布稿的實際採用數字，尤其 xAI add-in 的企業部署、OpenAI 健康功能的監管與隱私爭議、NTT DATA 那個 30 分鐘能不能由客戶自己證實。Anthropic 的創意工作頁等正式公告再認列。NVIDIA 的遊戲營運訊號可以先放一邊。
+    now: 這輪產品訊號的主線仍是「把模型塞進既有入口、把能力落成功能」。xAI 最積極，Outlook、Excel、Google Workspace 外掛連發，寄生微軟和 Google 的辦公生態搶使用場景。OpenAI 走垂直落地：ChatGPT 健康功能（串病歷與 Apple Health）、小企業計畫、NTT DATA 把事故分析壓到 30 分鐘的導入案例、財務長那套 ROI 計分卡，這輪再加一份「AI 如何擴張工作內容」的使用研究，繼續用自家數據講落地故事。Google 的 Flash Cyber 把能力包成資安產品。新進來還有一則 Anthropic 與 Cognizant 的合作公告，但只有標題、內文未載，先記錄、暫不認列內容。雜訊照舊兩則 NVIDIA（SIGGRAPH、GeForce NOW）與 Anthropic 疑似未上線的創意工作頁。整體是能力落地成功能與通路，不是發新模型。
+    next: 看這些外掛與功能有沒有離開發布稿的實際採用數字，尤其 xAI add-in 的企業部署、OpenAI 健康功能的監管與隱私爭議、NTT DATA 那個 30 分鐘能不能由客戶自己證實。Cognizant 那則等內文或第二來源補齊，再談合作形式。Anthropic 的創意工作頁等正式公告再認列。NVIDIA 的遊戲營運訊號可以先放一邊。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -64,6 +64,6 @@ tracks:
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這條線目前兩則都是「國家隊乘上 AI 巨頭」。南韓總統李在明率企業界在 AI Summit 與 NVIDIA 及夥伴會談，挾三星、SK 海力士的 HBM 供應鏈籌碼談算力綁定；OpenAI 則宣布與美國能源部及國家實驗室合作，用前沿模型加速科學。共同點是 AI 算力與科研變成國家級的外交與戰略議題，企業和政府互相綁定。
-    next: 兩則都停在宣示層，要看有沒有具體數字落地：南韓的 GPU 採購、資料中心或半導體合作，OpenAI 與能源部的具體專案、經費與成果。事件數還少，這條線的判斷先當暫定。
+    now: 這條線現在三則，兩種樣貌。國家隊那組：南韓總統李在明率企業界在 AI Summit 與 NVIDIA 及夥伴會談，挾三星、SK 海力士的 HBM 供應鏈籌碼談算力綁定；OpenAI 則宣布與美國能源部及國家實驗室合作，用前沿模型加速科學。新加的一則換個切面：產業多方組成 Open Secure AI Alliance，把開源 AI 的資安拉成跨廠共同治理題。三則指向同一件事，AI 的算力、科研與安全正變成國家級與產業級的戰略議題，政府、企業、聯盟互相綁定。
+    next: 三則都停在宣示層，要看有沒有具體數字落地：南韓的 GPU 採購、資料中心或半導體合作，OpenAI 與能源部的專案、經費與成果，Open Secure AI Alliance 有沒有交出可稽核的規範與非發起方成員。事件數仍少，這條線的判斷先當暫定。
     lenses: []
