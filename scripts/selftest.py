@@ -3744,6 +3744,47 @@ _mgm.backfill(_mg_fm, "## 證據\n- [[Sources/src-a|src-a]] — 新的（https:/
 acase("migrate evidence-titles：只補空的，不覆蓋既有值",
       _mg_fm["evidence"][0]["title"], "原本就有")
 
+# ── 時間軸：觀測起點線與回填標記 ────────────────────────────────
+# 規格〈第三個現場〉的〈事件時間軸〉。修正前，一則首抓撈回的舊事件在時間軸上跟
+# 真的追到的長得**一模一樣**，讀者只能得出「這個系統從 07-07 就在追」的結論。
+def _tlev(i, cov, d="2026-07-20"):
+    return {"id": f"evt-{i}", "slug": f"s{i}", "title": f"T{i}", "date": d,
+            "date_display": d, "company": "C", "category": "", "track": "models",
+            "summary": "S", "confidence": 80, "heat": None, "title_zh": None,
+            "coverage": cov}
+
+
+acase("observed_cut：線畫在**最後一則 observed 之後**"
+      "（只宣稱守得住的那一半：線以下沒有任何一則是我們當場看到的。反過來畫一條"
+      "「以上都是觀測到的」是假的——coverage 逐則逐來源算，新來源會讓晚期事件"
+      "照樣是 backfilled）",
+      _rmod.observed_cut([_tlev(1, "observed"), _tlev(2, "observed"),
+                          _tlev(3, "backfilled"), _tlev(4, "backfilled")]), 2)
+acase("observed_cut：一則 observed 都沒有 → 線畫在最前面，整條都在線下"
+      "（不是不畫線——不畫等於讓整條時間軸看起來都是我們追到的）",
+      _rmod.observed_cut([_tlev(1, "backfilled"), _tlev(2, "unknown")]), 0)
+acase("observed_cut：最後一則就是 observed → 沒有回填區，不畫線",
+      _rmod.observed_cut([_tlev(1, "observed"), _tlev(2, "observed")]), None)
+
+acase("時間軸標記：backfilled 與 unknown **不共用字樣**"
+      "（「確定是首抓撈回的」跟「不知道當時看不看得到」是兩件事，共用會把後者"
+      "講成前者），且 observed 不掛標籤（滿版的標記等於沒有標記）",
+      [_rmod.COVERAGE_CHIP["backfilled"] != _rmod.COVERAGE_CHIP["unknown"],
+       _rmod.COVERAGE_CHIP.get("observed")], [True, None])
+
+# 接線：判準對了但沒印出來等於沒判（M95 那一課）。
+_tl_html = _rmod.build_timeline(
+    [_tlev(1, "observed", "2026-07-25"), _tlev(2, "backfilled", "2026-07-20"),
+     _tlev(3, "unknown", "2026-07-10")], "now")
+acase("build_timeline：回填標記與觀測起點線真的印在頁面上",
+      [_tl_html.count(f'>{_rmod.COVERAGE_CHIP["backfilled"]}<'),
+       _tl_html.count(f'>{_rmod.COVERAGE_CHIP["unknown"]}<'),
+       "tl-cut" in _tl_html, _rmod.OBSERVED_CUT_NOTE in _tl_html],
+      [1, 1, True, True])
+acase("build_timeline：頁首印出回填則數（看不見的時候有兩種意思——沒有回填，"
+      "或這段沒跑，而「整條看起來像持續觀測」正是這一層要修掉的誤會）",
+      "其中回填" in _tl_html, True)
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:
