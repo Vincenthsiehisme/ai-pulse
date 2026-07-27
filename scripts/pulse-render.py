@@ -326,6 +326,8 @@ article.event h2 a:hover{color:var(--accent)}
 .detail-main h2,.detail-aside h3{font-size:.8rem;font:700 12px var(--mono);letter-spacing:.12em;color:var(--muted);margin:0 0 16px;text-transform:uppercase}
 .detail-block{margin-bottom:34px}
 .jn-note{color:var(--muted);font-size:.88rem;line-height:1.6;margin:0 0 14px;padding:9px 12px;border-left:2px solid var(--border-soft);background:color-mix(in srgb,var(--quiet) 6%,transparent)}
+.tl-chip{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:9px;border:1px solid var(--border-soft);color:var(--quiet);font:10px var(--mono);vertical-align:1px}
+.tl-cut{grid-column:1/-1;margin:6px 0 14px;padding:8px 12px;border-top:1px dashed var(--border-soft);color:var(--quiet);font-size:.85rem;line-height:1.6}
 .journey{list-style:none;margin:0;padding:0 0 0 6px}
 .journey li{position:relative;padding:0 0 20px 24px;border-left:2px solid var(--border-soft)}
 .journey li:last-child{border-left-color:transparent;padding-bottom:0}
@@ -584,6 +586,38 @@ def recent_row(ev, prefix):
 
 
 # ─────────────────────── journey + score grid ───────────────────────
+#: 時間軸卡片上的覆蓋標記。`backfilled` 與 `unknown` **刻意不共用字樣**——
+#: 「確定是首抓撈回的」跟「不知道當時看不看得到」是兩件事，共用會把後者講成前者。
+#: `observed` 不標：那是預設狀態，滿版的標記等於沒有標記。
+COVERAGE_CHIP = {"backfilled": "回填", "unknown": "覆蓋未知"}
+#: 觀測起點線的說明。線以下沒有任何一則是我們當場看到的。
+OBSERVED_CUT_NOTE = "以下全部是回填——首抓時撈回的存量，事情發生時我們還沒有在看。"
+
+
+def observed_cut(events):
+    """→ 觀測起點線該插在第幾張卡片**之前**（events 已按日期新到舊）。不畫回 None。
+
+    判準只用 Event 自己的 `coverage`，不另外去讀 `_probe/state.json`——那會讓
+    `first_fetch_at` 多一個消費者，而判準單一實作源優先（跟第二層拿掉
+    〈首抓快照〉那一列同一個理由）。
+
+    線的位置＝**最後一則 `observed` 之後**。這樣這條線的宣稱才是可證的：
+    線以下沒有任何一則是我們當場看到的。反過來畫一條「以上都是觀測到的」是假的
+    ——`coverage` 是逐則、逐來源算的，新加的來源會讓晚期的事件照樣是 backfilled。
+    **只宣稱守得住的那一半。**
+
+    一則 observed 都沒有 → 回 0（線畫在最前面，整條時間軸都在線下）。
+    最後一則就是 observed → 回 None（沒有回填區，不畫線）。
+    """
+    last = None
+    for i, e in enumerate(events):
+        if e.get("coverage") == "observed":
+            last = i
+    if last is None:
+        return 0
+    return None if last == len(events) - 1 else last + 1
+
+
 #: 證據區塊的標題與說明，由 coverage 與證據筆數決定。
 #: 規格見 references/event-timestamps.md〈第三個現場：呈現層〉。
 JOURNEY_HEADING = "發展歷程"
@@ -785,6 +819,10 @@ def build_lines(events, narratives, generated):
 
 
 def build_timeline(events, generated):
+    # 觀測起點線：線以下沒有任何一則是我們當場看到的。位置由 coverage 算，
+    # 算完換成「這一則的卡片要不要在它前面插線」，因為卡片是按年月分組畫的。
+    cut = observed_cut(events)
+    cut_id = events[cut]["id"] if cut is not None and cut < len(events) else None
     by_ym = defaultdict(lambda: defaultdict(list))
     for e in events:
         # 用**顯示日**分年月，不是儲存日：卡片上印台北日期、卻按 UTC 日期歸月，
@@ -806,15 +844,24 @@ def build_timeline(events, generated):
                 tslug = tr[0] if tr else ""
                 tname = tr[1] if tr else ""
                 href = ev_href("../", e["slug"])
+                if cut_id and e["id"] == cut_id:
+                    cards.append(f'<div class="tl-cut"><span>{esc(OBSERVED_CUT_NOTE)}</span></div>')
+                # 沒標記的那些就是 observed——預設狀態不掛標籤，滿版的標記等於沒有標記。
+                chip = COVERAGE_CHIP.get(e.get("coverage"))
+                chip_html = f'<span class="tl-chip">{esc(chip)}</span>' if chip else ""
                 cards.append(f"""<div class="tl-card" data-track="{esc(tslug)}" style="--tc:{tc}">
-<time>{esc(e['date_display'])}</time><h3><a href="{href}">{esc(e['title'])}</a></h3><p>{esc(e['summary'])}</p>
+<time>{esc(e['date_display'])}</time>{chip_html}<h3><a href="{href}">{esc(e['title'])}</a></h3><p>{esc(e['summary'])}</p>
 <div class="tl-meta"><span>{esc(e['company'])}</span>{f'<span>{esc(tname)}</span>' if tname else ''}<span>confidence {esc(e['confidence'])}</span></div></div>""")
             months.append(f'<div class="tl-month"><time>{esc(y)} · {MONTH_TW.get(m, m)}</time>{"".join(cards)}</div>')
         years_html.append(f'<section class="tl-year"><h2>{esc(y)}</h2>{"".join(months)}</section>')
     companies = len({e["company"] for e in events if e["company"]})
     latest = events[0]["date_display"] if events else "—"
-    tl_stat = page_status([("事件", len(events)), ("主體", companies), ("最新", latest)])
-    body = f"""{hero("EVENT TIMELINE", "事件時間軸", "已發布事件依時間排列，最新在前。點主線標籤可篩選、點標題看完整事件。", extra=tl_stat, cls="compact")}
+    # 印出來給人看：0 也要印。回填數看不見的時候有兩種意思（沒有回填／這段沒跑），
+    # 而「整條時間軸看起來像持續觀測」正是這一層要修掉的誤會。
+    n_back = sum(1 for e in events if e.get("coverage") != "observed")
+    tl_stat = page_status([("事件", len(events)), ("其中回填", n_back),
+                           ("主體", companies), ("最新", latest)])
+    body = f"""{hero("EVENT TIMELINE", "事件時間軸", "已發布事件依時間排列，最新在前。標著「回填」的是首抓時撈回的存量——事情發生時我們還沒有在看。點主線標籤可篩選、點標題看完整事件。", extra=tl_stat, cls="compact")}
 <section class="section shell">
 <div class="tl-controls" data-filter-row>
 <div class="chip-row"><button type="button" class="active" data-filter="all">全部</button>{filters}</div>

@@ -906,3 +906,38 @@ mutations:
     replace: "        if False:"
     survives: false
     why: ""
+
+  # ── 時間軸：觀測起點線與回填標記 ──
+  # 這四格全部讓時間軸重新看起來像「持續觀測了三週」，而版面上不會有任何異狀。
+
+  - id: M102
+    title: "unknown 跟 backfilled 在時間軸上共用同一個標記（把「不知道當時看不看得到」印成「確定是首抓撈回的」）"
+    file: pulse-render.py
+    find: "COVERAGE_CHIP = {\"backfilled\": \"回填\", \"unknown\": \"覆蓋未知\"}"
+    replace: "COVERAGE_CHIP = {\"backfilled\": \"回填\", \"unknown\": \"回填\"}"
+    survives: false
+    why: ""
+
+  - id: M103
+    title: "一則 observed 都沒有時不畫線（整條時間軸看起來都是我們追到的——正是這一層要修掉的誤會）"
+    file: pulse-render.py
+    find: "        return 0\n    return None if last == len(events) - 1 else last + 1"
+    replace: "        return None\n    return None if last == len(events) - 1 else last + 1"
+    survives: false
+    why: ""
+
+  - id: M104
+    title: "時間軸卡片不掛回填標記（判準對了但沒印出來，等於沒判）"
+    file: pulse-render.py
+    find: "                chip = COVERAGE_CHIP.get(e.get(\"coverage\"))"
+    replace: "                chip = None"
+    survives: false
+    why: ""
+
+  - id: M105
+    title: "線改畫在最後一則 observed **之前**（線以下就混進了我們當場看到的那些，宣稱從可證變成假的）"
+    file: pulse-render.py
+    find: "    return None if last == len(events) - 1 else last + 1"
+    replace: "    return None if last == len(events) - 1 else last"
+    survives: false
+    why: ""
