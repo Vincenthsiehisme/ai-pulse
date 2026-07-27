@@ -780,3 +780,84 @@ mutations:
     replace: "    sids = list((first_fetch or {}).keys())"
     survives: false
     why: ""
+
+  # ── 發展歷程／證據區塊：只在能主張的時候才說「起點」 ──
+  # 規格 references/event-timestamps.md〈第三個現場：呈現層〉。
+  # 這五格全部往同一個方向壞：讓版面宣稱資料不支持的東西，而畫面看起來完全正常。
+
+  - id: M88
+    title: "backfilled 事件照樣發「起點」（首抓撈回的舊事件，在畫面上跟真的追到的一模一樣）"
+    file: pulse-render.py
+    find: "    if n_items <= 1 or coverage != \"observed\":"
+    replace: "    if n_items <= 1:"
+    survives: false
+    why: ""
+
+  - id: M89
+    title: "單筆證據照樣叫「發展歷程」並發起點（實測 36 則已發布事件有 32 則走這條路）"
+    file: pulse-render.py
+    find: "    if n_items <= 1 or coverage != \"observed\":"
+    replace: "    if coverage != \"observed\":"
+    survives: false
+    why: ""
+
+  - id: M90
+    title: "證據標題查不到時退回來源名（畫面上出現一筆標題是「NVIDIA Blog」的證據）"
+    file: pulse-render.py
+    find: "                      \"title\": rec.get(\"title\") or TITLE_UNKEPT,"
+    replace: "                      \"title\": rec.get(\"title\") or prettify_source(sid),"
+    survives: false
+    why: ""
+
+  - id: M91
+    title: "證據日期查不到時退回事件日（一則事件的所有證據看起來同一天出現，而那是讀者判斷「怎麼發展」的唯一線索）"
+    file: pulse-render.py
+    find: "                      \"date\": rec.get(\"date\") or None})"
+    replace: "                      \"date\": rec.get(\"date\") or ev[\"date\"]})"
+    survives: false
+    why: ""
+
+  - id: M92
+    title: "unknown 跟 backfilled 共用同一句說明（把「我們沒紀錄」講成「我們確定沒在看」）"
+    file: pulse-render.py
+    find: "    \"unknown\": \"這則的來源何時開始被抓取，我們沒有紀錄。\","
+    replace: "    \"unknown\": \"這些證據是首抓時撈回的存量——事情發生時，我們還沒有在看。\","
+    survives: false
+    why: ""
+
+  # ── 接線層：判準算對了，但沒有真的接到輸出上 ──
+  # 這一族全部是自我審查補的（2026-07-27）。前兩格正是 a6d5eb9 → 60dafaf 修掉的
+  # 那兩個洞：欄位只長在 1/52 的 Event 上、摘要行印著看起來正常的數字。
+  # 失效全部是靜默的——頁面照印、檔案還在、沒有任何東西變紅。
+
+  - id: M93
+    title: "已潤稿那條寫檔路徑不寫 coverage（這格只會長在沒潤過稿的 Event 上）"
+    file: pulse-cluster.py
+    find: "    fm[\"coverage\"] = ev.coverage"
+    replace: "    pass"
+    survives: false
+    why: ""
+
+  - id: M94
+    title: "load_events 把 coverage 寫死成 observed（往編造的方向倒：每一則都宣稱我們當時在看）"
+    file: pulse-render.py
+    find: "            \"coverage\": fm.get(\"coverage\"),"
+    replace: "            \"coverage\": \"observed\","
+    survives: false
+    why: ""
+
+  - id: M95
+    title: "事件頁把區塊標題寫死回「發展歷程」（journey_html 的回傳值被測了，沒有人測頁面有沒有用它）"
+    file: pulse-render.py
+    find: "<div class=\"detail-block\"><h2>{esc(journey_heading)}</h2>{journey}</div>"
+    replace: "<div class=\"detail-block\"><h2>發展歷程</h2>{journey}</div>"
+    survives: false
+    why: ""
+
+  - id: M96
+    title: "缺日期的證據排回最前面（「起點／日期未留存」——貼在一筆我們承認什麼都不知道的證據上）"
+    file: pulse-render.py
+    find: "    items.sort(key=lambda x: (0 if parse_dt(x[\"date\"]) else 1,"
+    replace: "    items.sort(key=lambda x: (0,"
+    survives: false
+    why: ""
