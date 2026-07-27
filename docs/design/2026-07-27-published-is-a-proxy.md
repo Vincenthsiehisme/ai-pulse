@@ -178,6 +178,33 @@ render 即時算的。實測：`evt-2026-07-21-1bdb1a` 已發布、`independent_
 （URL 逐筆比對 64 筆；唯一有風險那則的 diff 顯示只填了 body 有對應行的那一筆），
 但機制不對。body 行本來就帶著 URL，改成用 URL 配對整類消失。
 
+**（庚）三條來源已經死了幾個月到三年，而監控結構上看不見。**
+2026-07-27 逐條量 `_corpus/` 裡每個 source 的**最新一筆 `published`**：
+
+| source | 語料筆數 | 最新一筆 | 落後 |
+|---|---|---|---|
+| `src-meta-research` | 40 | **2023-05-17** | **3 年 2 個月** |
+| `src-qwen-blog` | 30 | 2025-09-23 | 10 個月 |
+| `src-media-venturebeat` | 14 | 2026-05-19 | 2 個月 |
+
+`pulse-monitor.py:322` 的 `silent_sources` 判準是 `r["items"] == 0`——
+**「這班抓回幾筆」被拿來代表「這條來源還在出東西嗎」**。`src-meta-research`
+每班穩定回 40 筆，所以永遠不會進沉默名單；那 40 筆全部來自 2023 年。
+兩個指標在平常的日子裡一致，正好在來源死掉那天分岔，而沒有任何東西變紅。
+
+這一條的代價是具體的：**Meta 這家公司在本系統裡等於不存在。**
+`_config/entities.yaml` 把 `muse-spark` 標成 `status: unverified`，
+註解寫「僅見於單一次級來源，需 Tier-1 證據確認」——而 Tier-1 證據就在
+`ai.meta.com/blog/`（2026-07-21 還在更新，且 7 月就有兩則 Muse 發布）。
+我們配的是 `research.facebook.com/feed/`，一條研究部落格，而且死了三年。
+**不是拿不到，是沒在看。**
+
+**（辛）`pulse-probe.py` 沒有 control probe，而它的一次性小弟有。**
+`verify-policy-sources.py:237` 的 `control_probe()` 先證明機器連得出去，
+連不出去就整份中止、不下任何判決。生產的 probe 沒有這一關：整條網路斷掉時，
+它會寫出 27 條各自獨立的 `robots_unknown`，讀起來像 27 個來源同時出事。
+（現行行為在單條上是保守的、沒有寫錯——缺的是「問題在我們這邊」這個彙總訊號。）
+
 ---
 
 ## 5. 提議的修法
@@ -219,27 +246,325 @@ title_kind       real | derived_from_slug | none
 
 ### 階段 C：把三條 sitemap 來源的採集方式重新評估
 
-sitemap 先天沒有標題也沒有發布時間，這不是實作缺陷。誠實的選項有三個，
-各有代價，要拍板：
+**2026-07-27 已查證，選項從三個變兩個，而且問題比原本估計的嚴重。**
 
-1. **接受 null**：那三條 tier-1 官方源失去時間定位與標題，事件頁印「未留存」。
-2. **抓內文取 `<title>` 與發布日**：超出目前 `license_note` 的
-   「titles + links only」，要重新確認合規（紅線 7）。
-3. **換 adapter**：確認這三家有沒有 RSS/Atom。**這是成本最低的一條，應該先查。**
+#### C-0：三家都沒有官方 feed（已查證）
+
+| | 標準路徑 | 首頁 autodiscovery |
+|---|---|---|
+| Anthropic | `/rss.xml`、`/news/rss.xml`、`/news/feed` 全 404 | 無 `<link rel="alternate">`，頁面未提 RSS |
+| Mistral | `/news/rss.xml`、`/feed.xml`、`/news/feed.xml` 全 404 | 無，未提 RSS |
+| xAI | `/news/rss.xml` 404、`/rss.xml` **403** | 無，未提 RSS |
+
+旁證：搜尋 Anthropic 的 RSS，跳出來的全是**第三方在替它做**
+（`taobojlen/anthropic-rss-feed` 在抓網頁生 feed，RSSHub 有兩張 feed 請求 issue）。
+官方有 feed 的話不會有人去做這些。
+
+**但書（紅線 7 的規矩）**：`x.ai/rss.xml` 回的是 **403 不是 404**。照本 repo 自己
+在 2026-07-24 事故後立的界線——**「我們讀不到」不等於「站方沒有」**——xAI 那條
+嚴格說只能判「autodiscovery 沒有、標準路徑讀不到」，不能寫成「確定沒有」。
+
+**所以「換 adapter」這條出路不成立。**
+
+#### C-1：問題比原本估計的嚴重——標題不是「少了小數點」，是換了一個字串
+
+原本以為 `_slug_to_title` 的損害是標點（`4-6` → `4 6`）。實測五組對照：
+
+| URL slug 推導出來的（我們現在存的、印在對外站上的） | 網站上真正的標題 |
+|---|---|
+| Claude Opus 5 | Introducing Claude Opus 5 |
+| **Introducing Google Workspace Addon** | **Grok in Google Workspace** |
+| Robostral Navigate | Introducing Robostral Navigate |
+| **Manage Prompts And Skills In Studio** | **Your Prompts and Skills need a system of record.** |
+| Leanstral 1 5 | Leanstral 1.5: Proof Abundance for All |
+
+**五組裡有兩組是完全不同的字串。** 也就是說，這三條來源產生的 Event，標題有一類
+**根本不是那篇文章的標題**——不是不精確，是不同的東西。而 Event 標題會進 id 的
+hash、進聚類的相似度比對、進對外站的每一張卡片。
+
+#### C-2：標題可以完全解決，日期只能部分解決（已查證）
+
+實測 Anthropic 與 xAI 的文章頁：
+
+- **`og:title` 有，而且是真值。** `"Introducing Claude Opus 5"`、
+  `"Grok in Google Workspace"`。單一 meta tag，確定性可取，不需要解析內文。
+- **機器可讀的發布時間全部 ABSENT。** 沒有 `article:published_time`、
+  沒有 `<time datetime>`、沒有 JSON-LD `datePublished`。兩家都是。
+- **只有人看的日期**：Anthropic 印「Jul 24, 2026」、Mistral 印「July 8, 2026」，
+  在標題下方的自由文字裡，**沒有標籤詞**、格式各家不同、**沒有時區**。
+
+順帶一個對照：那篇 Anthropic 文章頁上寫的是 **Jul 24**，而我們從 lastmod 取的是
+**07-25T02:03:36Z**。差一天——lastmod 不是發布時間，這是第三個獨立證據。
+
+#### C-3：因此正確的做法，與它逼出來的一個新欄位
+
+**標題**：抓文章頁讀 `og:title`（缺則退 `<title>` 去掉站名後綴）。真值、確定性、
+單一 tag。這一條把整類「編造的產品名」消滅掉。
+
+**合規要重新理解，不是重新爭取**：目前 `license_note` 寫「titles + links only」，
+而 `_slug_to_title` 的 docstring 說「抓內文超出這個範圍，所以選還原」。這個推論把
+**抓取**跟**留存**混為一談了。抓一頁只讀它的 `og:title`、只留存標題＋連結＋日期，
+留下來的東西**正好就是 titles + links**——而且是真的那個。反過來說，現在的做法
+留存的是一個**編造的**標題，那離「titles only」更遠，不是更近。這一點要拍板，
+但它是澄清不是放寬。
+
+**日期**：沒有結構化來源，只有人看的日期。所以誠實的做法會逼出一個新欄位：
+
+```
+published            真值；沒有就是 null
+published_kind       real | lastmod | submitted | updated | page_visible | none
+published_precision  second | day | none          ← 這一格是這次查證逼出來的
+```
+
+從「Jul 24, 2026」解析出來的東西**只有日到位、而且沒有時區**。把它存成
+`2026-07-24T00:00:00Z` 就是**編造精度**——跟這份文件從頭到尾在講的是同一隻病，
+只是換一個維度。所以精度必須跟值一起存，而下游（聚類的 96 小時窗、lead_days）
+必須知道自己拿到的是日還是秒。
+
+#### C-4：動工前必須先驗的一件事
+
+上面所有結論來自 WebFetch，而**它可能執行了 JavaScript**。這個 repo 的
+`safe_fetch` 是單純的 HTTP GET——如果那三家的文章頁或列表頁是前端渲染的，
+plain GET 拿到的會是空殼，整個設計就不成立。
+
+**這一題有現成的工具，而且應該用它而不是我在這裡猜**：
+
+```bash
+VAULT_DIR=. python3 scripts/verify-policy-sources.py <url>
+```
+
+它用 probe 的 UA 做真實抓取、同時驗 robots，正是為這件事寫的。要驗三件事：
+plain GET 的 HTML 裡有沒有 `og:title`、有沒有那個人看的日期、以及文章路徑的
+robots 允不允許（現在的 `robots_ok: true` 是對 sitemap 而言）。
+
+**驗到之前，C-3 是提案不是結論。**
+
+#### C-4′：第一次驗證的結論是錯的，錯法正好是這份文件在講的那一隻病
+
+**2026-07-27，這份文件的作者把 C-4 回報成「已驗證，而且是否定的」。那是錯的。**
+
+當時手寫了一支只呼叫 `safe_fetch` 的臨時腳本，對
+`https://www.anthropic.com/news/claude-opus-5` 拿到 `403 / 104 bytes`，
+於是結論寫成「Anthropic 的 WAF 擋掉生產抓取器，C-3 不成立」。
+
+那 104 bytes 的內容是：
+
+```
+Host not in allowlist: www.anthropic.com. Add this host to your network
+egress settings to allow access.
+```
+
+標頭是 `x-deny-reason: host_not_allowed`。**擋人的是執行環境的 egress
+allowlist，不是站方。** 同一個容器對 `openai.com`、`deepmind.google`
+也回一模一樣的東西——而那兩條來源在 CI 裡每天正常出貨。
+
+也就是說：**用一個比事實寬鬆的代理指標（「這台機器讀不到」）去代表事實
+（「站方拒絕」）**。兩者在平常的日子裡一致，正好在有事的那天分岔。
+這份文件從第一行開始講的就是這個形態，而作者在驗證它的過程中犯了它。
+
+**更難看的一點**：`verify-policy-sources.py` 的 `control_probe()` docstring
+一字不差地寫著這個陷阱——「沒有它，公司代理或 egress allowlist 對每個 host
+回 403，看起來會跟『每個站都拒絕我們』一模一樣」。C-4 自己也已經指名要用那支。
+工具在、警告在、指示在，繞過去的是人。用對工具之後它立刻給出正確判決：
+
+```
+robots: UNKNOWN  (intercepted by local egress proxy (x-deny-reason:
+        host_not_allowed) -- undetermined; this is NOT a refusal by the site)
+```
+
+**所以 C-4 的正確狀態是「未驗」，不是「已否決」。C-3 仍然是提案。**
+
+#### C-4″：把那道防線做成結構性的——`scripts/verify-article-metadata.py`
+
+靠人記得用對工具，是這個 repo 一直在拆掉的那種機制。所以這次不留在教訓層：
+
+新增 `scripts/verify-article-metadata.py`，直接 import `pulse-probe.py` 的
+`safe_fetch` 與 `robots_verdict`（**生產路徑本人**，不自己寫一套 HTTP），
+並且把三件事變成結構：
+
+1. **control probe 不通過就不出判決**（exit 4）。它刻意不看狀態碼是不是 200——
+   要區分的是「有沒有走到對方的伺服器」，不是「對方喜不喜歡我們」。
+2. **認得 egress 攔截的簽名**（`x-deny-reason` 標頭 / body 的 allowlist 字樣），
+   判 `no_verdict` 而不是 `site_refused`。反方向同樣守著：站方自己的 403
+   **沒有**那些簽名，必須留在 `site_error`——把確定的壞消息洗成不確定，
+   是同一隻病的鏡像。
+3. **退出碼 `no_verdict(4) > no_og_title(3) > site_error(2) > ok(0)`。**
+   沒有判決排最前面：壞判決至少是關於站方的，沒有判決是關於我們自己的。
+
+`.github/workflows/verify-article-metadata.yml`（`workflow_dispatch`）
+讓它跑在 **CI**，因為那才是 `safe_fetch` 真正跑的網路。selftest 釘住
+`--skip-control` 不得出現在 workflow、驗證那一步不得 `continue-on-error`。
+
+**下一步是人按一次那個按鈕**：Actions → Verify article metadata (C-4) →
+Run workflow → preset `sitemap-sources`。跑完會留下 `c4-report.json` 這個
+artifact，那份 JSON 才是可以寫進本文件的證據。
+
+| 退出碼 | 意思 | 對 C-3 的影響 |
+|---|---|---|
+| 0 | 三頁都讀到 HTML 且都有 `og:title` | C-3 前提成立，可以動工 |
+| 3 | 讀到 HTML 但缺 `og:title` | 前提不成立，要換做法（回頭看 C-5 的列表頁） |
+| 2 | 站方 4xx/5xx 或明文 Disallow | 這是**站方的**答案，可以寫進設計 |
+| 4 | 沒有判決 | 什麼都不要寫。連 CI 都被擋，代表問題在我們這邊 |
+
+#### C-5：順帶發現的一條更省的路（同樣待驗）
+
+Mistral 的 `/news` 列表頁本身就同時列出**真標題與日期**
+（實測拿到三篇的標題與「July 8, 2026」這種日期）。若 plain GET 也看得到，
+那麼**一次抓列表頁**就同時解決標題與日期，比「抓 sitemap 再逐篇抓文章頁」
+少一個數量級的請求，對站方也更客氣（紅線 7 的 rate-limit 那一半）。
+
+這條要跟 C-4 一起驗。**不要因為它比較省就先選它**——省是附帶好處，
+選它的理由必須是「plain GET 拿得到真值」。
+
+---
+
+### 階段 D：模型演變時間線——它跟「得修」是同一件工程，不是兩件
+
+**需求原話**：「open ai, claude, gemini, grok, meta 等主流模型這幾個要將模型
+演變時間線補上；針對時間線，不需要補『以下全部是回填——首抓時撈回的存量，
+事情發生時我們還沒有在看』。」
+
+那句但書是對的，而且理由比「看起來囉唆」更硬：**回填語意根本不適用。**
+`coverage` 三態問的是「事情發生時，我們的抓取器在不在線上」。模型演變時間線
+問的是「這個模型什麼時候發布的」。前者是關於**我們**的陳述，後者是關於
+**世界**的陳述。把 backfilled 的字樣貼到一份參考資料上，等於宣稱它是我們
+觀測的產出——那是反方向的同一隻病。
+
+#### D-1：先量能不能從語料長出來。答案是不能，而且差了一個數量級
+
+| 家族 | source | adapter | 標題 | 日期 | 語料涵蓋 |
+|---|---|---|---|---|---|
+| OpenAI | `src-openai-blog` | rss | 真值 | 真值 `pubDate` | 2026-06-18 → 07-27 |
+| Gemini | `src-deepmind-blog` | rss | 真值 | 真值 `pubDate` | 2026-05-16 → 07-22 |
+| Claude | `src-anthropic-news` | sitemap | **推導** | **代理** `lastmod` | 2026-07-01 → 07-25 |
+| Grok | `src-xai-news` | sitemap | **推導** | **代理** `lastmod` | 2026-01-28 → 07-24 |
+| Meta | `src-meta-research` | rss | 真值 | 真值 | **2023-03-24 → 2023-05-17** |
+
+最左邊那一欄能覆蓋的最早日期是 **2026-01-28**。一份 GPT / Claude / Gemini 的
+**演變**時間線要回到 2018–2023，我們手上最長的一條是**六個月**，而其中兩條
+的標題本來就不是真的。**這份時間線不可能是語料的產物。** 硬做出來的東西會是
+一條「從 2026 年才開始有模型」的時間線——比沒有更誤導。
+
+Meta 那一列不是「涵蓋比較短」，是**沒有來源**（見第 4 節（庚））。
+
+#### D-1′：D-2 的結論後來被推翻了——規格移到 `references/model-timeline.md`
+
+**底下 D-2 到 D-4 的內容保留原樣，因為它們是錯的，而錯法本身是紀錄。**
+
+D-2 說「Tier-1 沒有現成的發布日期表」。那是查了廠商的**模型總覽頁**、
+**feed**、**文章頁 metadata** 之後下的結論——三個表面都查了，但**還有第四個**：
+release notes / changelog。四家都有、都有逐條日期、最早回到 2023-10。
+
+「我沒找到」與「不存在」是兩個不同的宣稱。這個 repo 已經為了同一件事在
+`robots_unknown` 上立過界線（紅線 7），而本文件的作者在同一天內於**兩個維度**
+上各犯一次（C-4′ 是第一次）。
+
+**這一層的規格因此移出本文件**，改由 `references/model-timeline.md` 承載
+（紅線 9：先文件後碼）。那份文件裡有三類來源的分工、封閉集欄位、
+為什麼不採用「單一 LLM 正規化」那一步（紅線 1），以及拿真頁面跑出來的
+七個洞與六個數字。
+
+`lib/modelline.py` 已實作純函式層，Anthropic 那家的實測是
+**248 列 / 2024-05-10 → 2026-07-24 / 日期解析失敗 0**。
+另外三家被開發容器的 egress 擋住，維持未驗——等 CI 的
+`--preset release-notes --save-html` 帶回真 bytes。
+
+---
+
+#### D-2：再量 Tier-1 有沒有現成的發布日期表。答案也是沒有
+
+2026-07-27 逐個查：
+
+- **廠商文件頁沒有發布日期欄。** `platform.claude.com/docs/.../models/overview`
+  的模型表有 API id、知識截止、訓練截止，**沒有 release date**。
+  唯一的日期是 Fable 5「beginning June 9, 2026」這種上架敘述句。
+- **Anthropic / xAI 沒有 feed**（C-0 已查證）。
+- **文章頁沒有機器可讀日期**（C-2 已查證：`article:published_time`、
+  `<time datetime>`、JSON-LD `datePublished` 三個全部 ABSENT）。
+- **第三方時間軸站有一堆，而且互相矛盾、也跟我們的 Tier-1 矛盾。**
+  搜尋當天的前排結果裡，一篇標題是「Claude Opus 5 Still Unreleased — July 23
+  Miss」，另一篇說「Claude Sonnet 5 Launched June 30, 2026」——而我們的 sitemap
+  在 `/news/claude-opus-5` 上有一筆 lastmod `2026-07-25`。這正是
+  `references/evidence-tiers.md` 存在的理由：**拿 Tier-3 的猜測去填一份看起來
+  像事實的表，是這份文件從頭到尾在反對的那件事，只是換一個入口。**
+
+#### D-3：所以結論——時間線的每一格，都只能來自 C-3 要修的那個地方
+
+把 D-1 與 D-2 併起來，唯一存在的 Tier-1 事實是：**廠商發布頁上，人看得到的
+那個標題與那個日期。** 也就是說：
+
+> **模型演變時間線的資料來源，與「得修」要修的是同一個東西。
+> C-3 修好，時間線就有料；C-3 不修，時間線就只能靠編。**
+
+這件事的順序因此是被決定的，不是被選擇的：
+
+```
+C-4 在 CI 按一次      →  og:title 與人看的日期，plain GET 拿不拿得到
+  ↓ 綠
+C-3 動工              →  title_kind / published_kind / published_precision
+  ↓
+Claude 與 Grok 的標題與日期變成真值
+  ↓
+階段 D 才有東西可畫
+```
+
+#### D-4：而在那之前，時間線可以先有一個誠實的形狀
+
+不是「先做三家、缺兩家」——那正是「這是重要的環節，不該選便宜的做法」擋掉的
+做法，而且缺的兩家（Claude / Grok）正好是使用者點名要的。改成先把**規格**
+定下來，讓 C-3 一落地就能接上：
+
+```yaml
+# 每一列的欄位，以及它只能從哪裡來
+product_line:   claude | gpt | gemini | grok | llama|muse-spark   # entities.yaml 的 id
+version:        # 版本字串，來自 og:title 的真值，不是 slug
+released_on:    # 廠商發布頁上人看的日期
+date_precision: day        # 封閉集：second | day | month | none
+date_kind:      page_visible   # 封閉集：real | page_visible | lastmod | none
+source_url:     # Tier-1 廠商頁，逐列一條，沒有就這一列不存在
+source_tier:    1          # 只收 1。Tier-3 的時間軸站一律不進
+```
+
+三個硬規矩，每一個都對應這份文件裡已經犯過的一個錯：
+
+1. **`source_url` 缺就整列不存在。** 不留「待補」的空列——空列在畫面上
+   跟已知的列長得一樣。
+2. **`date_precision` 跟值一起存。** 「Jul 24, 2026」是日精度、沒有時區，
+   存成 `2026-07-24T00:00:00Z` 就是編造精度（C-3 已經因為同一個理由
+   逼出這個欄位）。
+3. **這份表要自己說它不是觀測。** 頁面上寫「廠商發布頁的整理，不是本系統
+   觀測到的事件」——與 `coverage` 三態分屬兩層，互不冒充。這正是使用者說
+   「不需要補那句回填」的正確實作：不是把話拿掉，是換成對的那一句。
+
+**明確不做**：在 C-4 綠燈之前，不建立這份 YAML、不畫這個時間軸。
+現在建立等於先寫一份靠記憶填的表，然後永遠沒有人回來換掉它。
 
 ---
 
 ## 6. 明確的取捨
 
-改完之後：
+**2026-07-27 查證後，取捨的形狀變了：標題不再是取捨，日期才是。**
 
-- 那三條 tier-1 官方源的事件會**失去可靠的時間軸位置**，聚類少一個維度。
-- `lead_days` 對它們**算不出來**，而它們正是「官方承認」那一側——
-  也就是這個指標的覆蓋率會明顯下降。
-- 事件頁與時間軸上會出現更多「未留存」。
+**標題沒有取捨**——`og:title` 是真值，抓得到就該用，現在存的是編造的。
+唯一的成本是每篇多一次請求（或改抓列表頁，見 C-5），以及要拍板
+「titles + links only」的正確讀法（見 C-3，那是澄清不是放寬）。
 
-這些都是真的變難看。但現在的狀態是**看起來知道、其實不知道**，而且
-「不知道」這件事在鏈上任何一層都不會被發現。**難看是誠實的代價，不是退步。**
+**日期才是真的取捨**，而且只剩兩個選項：
+
+1. **接受 `published: null`**：那三條 tier-1 官方源失去時間定位，
+   `lead_days` 對它們算不出來，時間軸上它們沒有可靠位置。
+2. **取人看的日期，並誠實標成 `precision: day`**：拿得到日，拿不到時分秒，
+   也沒有時區。聚類的 96 小時窗要改成能吃「日」這種精度，
+   `lead_days` 的解析度會退到「天」。
+
+兩條都會讓畫面與指標變難看，而且第二條還多一份解析脆弱性（版面一改就壞，
+所以必須是「解析不到就回 null」而不是猜）。
+
+但現在的狀態是**看起來知道、其實不知道**，而且「不知道」這件事在鏈上任何
+一層都不會被發現。**難看是誠實的代價，不是退步。**
+
+要強調的是：不管選哪一條，**標題都該修**，而且它是這三個症狀裡唯一能
+100% 修對的一個。
 
 ---
 

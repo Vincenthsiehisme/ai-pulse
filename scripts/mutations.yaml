@@ -948,3 +948,234 @@ mutations:
     replace: "            found = next(iter(by_url.values()), None)"
     survives: false
     why: ""
+
+  # ── C-4 驗證器：「我們讀不到」與「站方拒絕」之間那道牆 ──
+  # 這四格全部讓誤讀重新變成可能，而且每一格都不會有任何畫面異狀——
+  # 只會讓一份錯的報告看起來可以引用。2026-07-27 已經照這個形狀犯過一次。
+
+  - id: M107
+    title: "egress 攔截不再認 x-deny-reason 標頭（proxy 的 403 重新長得像站方拒絕）"
+    file: verify-article-metadata.py
+    find: "    if EGRESS_HEADER in hdr:\n        return f\"{EGRESS_HEADER}: {hdr[EGRESS_HEADER]}\""
+    replace: "    if False:\n        return \"\""
+    survives: false
+    why: ""
+
+  - id: M108
+    title: "egress 攔截不再認 body 簽名（沒有標頭的 proxy 就整條漏掉）"
+    file: verify-article-metadata.py
+    find: "        for m in EGRESS_BODY_MARKERS:\n            if m in low:\n                return body.strip()[:160]"
+    replace: "        for m in EGRESS_BODY_MARKERS:\n            if m in low:\n                pass"
+    survives: false
+    why: ""
+
+  - id: M109
+    title: "攔截判斷不看狀態碼（反方向的病：站方真正的拒絕被洗成「沒有判決」，確定的壞消息就此消失）"
+    file: verify-article-metadata.py
+    find: "    if status == 403 and body:"
+    replace: "    if body:"
+    survives: false
+    why: ""
+
+  - id: M110
+    title: "no_verdict 的退出碼改成 0（CI 綠著放行一份不能引用的報告——這正是要防的那件事）"
+    file: verify-article-metadata.py
+    find: "VERDICT_EXIT = {\"no_verdict\": 4,"
+    replace: "VERDICT_EXIT = {\"no_verdict\": 0,"
+    survives: false
+    why: ""
+
+  - id: M111
+    title: "control probe 要求 200 才算連得出去（GitHub 未認證就回 403——驗證會永遠中止在第一關，然後看起來像「網路壞了」）"
+    file: verify-article-metadata.py
+    find: "    return True, f\"HTTP {status}\""
+    replace: "    return status == 200, f\"HTTP {status}\""
+    survives: false
+    why: ""
+
+  # ── 模型演變時間線的純函式層 ──
+  # 這七格全部是 2026-07-27 拿真頁面（platform.claude.com 的 release notes，
+  # 1,436,122 bytes）跑出來的實際錯誤，不是想像的案例。共同形狀：
+  # **列數、日期格式、解析率全都正常，只有列跟事實的關係是錯的。**
+
+  - id: M112
+    title: "錨點不認序數（`july-9th-2024` 漏配——漏掉的區間會被吞進上一個錨點，2024-05 到 2025-04 每一條都蓋上同一天）"
+    file: lib/modelline.py
+    find: "    r'-\\d{1,2}(?:st|nd|rd|th)?-20\\d{2})\"', re.I)"
+    replace: "    r'-\\d{1,2}-20\\d{2})\"', re.I)"
+    survives: false
+    why: ""
+
+  - id: M113
+    title: "去標籤不解 HTML entity（`We&#x27;ve launched` 對不上動詞表，一個撇號讓整類發布條目判成 unknown）"
+    file: lib/modelline.py
+    find: "    return \" \".join(_html.unescape(t).split())"
+    replace: "    return \" \".join(t.split())"
+    survives: false
+    why: ""
+
+  - id: M114
+    title: "重疊的宣稱改用優先序挑一個（表看起來完整，而那一格是編的）"
+    file: lib/modelline.py
+    find: "    return hit[0] if len(hit) == 1 else AMBIGUOUS"
+    replace: "    return hit[0]"
+    survives: false
+    why: ""
+
+  - id: M115
+    title: "目錄項不再被丟掉（真頁面上 124 列全部落在最後一個錨點、全部同一天，而每一列的日期都合法）"
+    file: lib/modelline.py
+    find: "    return bool(_D_YMD.fullmatch(t) or _D_YM.fullmatch(t) or _D_MD.fullmatch(t))"
+    replace: "    return False"
+    survives: false
+    why: ""
+
+  - id: M116
+    title: "網域重新被當成 model id（`claude.com` / `claude.ai` 進時間線）"
+    file: lib/modelline.py
+    find: "        if re.split(r\"[-.]\", low)[-1] in _TLDS:\n            continue"
+    replace: "        if False:\n            continue"
+    survives: false
+    why: ""
+
+  - id: M117
+    title: "缺年份時拿呼叫端沒給的年份硬補（2024/2025 的條目全部堆到同一年，而每個日期都是合法日期）"
+    file: lib/modelline.py
+    find: "            return None, PRECISION_NONE, YEAR_NONE\n        mo, day = MONTHS[m.group(1)[:3].lower()], int(m.group(2))"
+    replace: "            year_hint = 2026\n        mo, day = MONTHS[m.group(1)[:3].lower()], int(m.group(2))"
+    survives: false
+    why: ""
+
+  - id: M118
+    title: "unmatched 的分母改回「全部條目」（量到的變成「有多少條不在講模型」——比事實寬鬆的代理指標）"
+    file: lib/modelline.py
+    find: "                if not (r.get(\"model_ids\") or r.get(\"derived_entities\"))), vrows),"
+    replace: "                if not (r.get(\"model_ids\") or r.get(\"derived_entities\"))), rows),"
+    survives: false
+    why: ""
+
+  # ── code review 找出來的洞（2026-07-27，同一條分支）──
+  # 這八格全部是「守著某件事的東西自己壞掉，而畫面完全正常」。
+
+  - id: M119
+    title: "值的比對重新排除 `>`（`content=\"Claude 3 -> Claude 5\"` 抽不到 → 判成「這一站沒有 og:title」，又一次把「我們讀不到」寫成「站方沒有」）"
+    file: verify-article-metadata.py
+    find: '_VAL = r"""(?:"(?P<vd>[^"]*)"|''(?P<vs>[^'']*)'')"""'
+    replace: '_VAL = r"""(?:"(?P<vd>[^">]*)"|''(?P<vs>[^''>]*)'')"""'
+    survives: false
+    why: ""
+
+  - id: M120
+    title: "抽出來的值不解 HTML entity（`Claude&#x27;s tool` 原樣存成標題）"
+    file: verify-article-metadata.py
+    find: "        out[label] = (_html.unescape(raw).strip() or None) if raw is not None else None"
+    replace: "        out[label] = raw if raw is not None else None"
+    survives: false
+    why: ""
+
+  - id: M121
+    title: "robots 算了、印了，然後無條件往下抓（紅線 7 在這裡變成一個沒有消費者的欄位）"
+    file: verify-article-metadata.py
+    find: "    if allowed is False and reason == \"disallow\":"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M122
+    title: "401/403 取不到 robots 被讀成站方拒絕（只看布林值——這整個 PR 在修的就是這句話）"
+    file: verify-article-metadata.py
+    find: "    if allowed is False and reason == \"disallow\":\n        r[\"verdict\"] = \"robots_disallow\""
+    replace: "    if allowed is False:\n        r[\"verdict\"] = \"robots_disallow\""
+    survives: false
+    why: ""
+
+  - id: M123
+    title: "verdict_for 無條件回 ok（第一版整支從沒被呼叫過，改成這樣全綠）"
+    file: verify-article-metadata.py
+    find: "    if fields.get(\"_visible_text_chars\", 0) < SHELL_TEXT_CHARS:\n        return \"js_shell\""
+    replace: "    if False:\n        return \"js_shell\""
+    survives: false
+    why: ""
+
+  - id: M124
+    title: "lifecycle 的母體回到全部條目（一次全面崩壞在頁首被稀釋成小幅上升）"
+    file: lib/modelline.py
+    find: "            sum(1 for r in mrows if r.get(\"lifecycle\") == UNKNOWN), mrows),"
+    replace: "            sum(1 for r in rows if r.get(\"lifecycle\") == UNKNOWN), rows),"
+    survives: false
+    why: ""
+
+  - id: M125
+    title: "裸字 beta 回到 PREVIEW 針腳（「No beta header is required」被判成宣稱，人工佇列比它命名的事實大六倍）"
+    file: lib/modelline.py
+    find: "               \"in beta\", \"public beta\", \"private beta\", \"open beta\","
+    replace: "               \"beta\", \"public beta\", \"private beta\", \"open beta\","
+    survives: false
+    why: ""
+
+  - id: M126
+    title: "衍生實體不再擋 model id 碎片（`claude-3-7-sonnet-…` 生出 `claude@3`——另一個世代的假實體，而它是聚類主鍵）"
+    file: lib/modelline.py
+    find: "                if len(tail) == 2 and tail[0] in \"-.\" and tail[1].isdigit():"
+    replace: "                if False:"
+    survives: false
+    why: ""
+
+  # ── 第二輪對抗性審查（2026-07-27）：三個洞都在「上一輪的修正」裡 ──
+  # 兩個是「基於一個關於世界的假前提去修」，第三個是過度修正。
+
+  - id: M127
+    title: "衍生實體回到「同一條裡有層級版本就清掉所有裸數字版本」（真的下線宣告 claude@2.0 / claude@2.1 被刪，跨產品線 GPT-4 也被 Claude 清掉）"
+    file: lib/modelline.py
+    find: "                if not any(c.isdigit() for c in version):\n                    continue"
+    replace: "                if not any(c.isdigit() for c in version) or version[0].isdigit():\n                    continue"
+    survives: false
+    why: ""
+
+  - id: M128
+    title: "詞首邊界回到 `\\b`（宣稱擋得住 model id 碎片——實測加不加一樣；而它讓字典裡 8 個中文 alias 在中文散文裡全部失效）"
+    file: lib/modelline.py
+    find: "            rx = re.compile(r\"(?<![A-Za-z0-9])\" + re.escape(str(term))"
+    replace: "            rx = re.compile(r\"\\b\" + re.escape(str(term))"
+    survives: false
+    why: ""
+
+  - id: M129
+    title: "月份回到「三個字母開頭再任意接」（Marketing 2026 = mar + keting → 真條目被 is_date_only 當成目錄項丟掉）"
+    file: lib/modelline.py
+    find: "_MON = (r\"(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|\""
+    replace: "_MON = (r\"(jan|feb|mar|apr|may|jun|\""
+    survives: false
+    why: ""
+
+  - id: M130
+    title: "去標籤不剝私用區字元（icon font 的字形讓 `\\ue09a July 24, 2026` 判不出是純日期——實測 124 條標題全部變成條目）"
+    file: lib/modelline.py
+    find: "    t = _PUA.sub(\" \", t)"
+    replace: "    t = t"
+    survives: false
+    why: ""
+
+  - id: M131
+    title: "條目切分回到「有 <li> 就只看 <li>」（條目住在 <p>、同段另有導覽時，真條目零列、導覽兩列）"
+    file: lib/modelline.py
+    find: "        if rest and not is_date_only(rest) and len(rest) >= _MIN_ITEM_CHARS:\n            items.append(rest)"
+    replace: "        if False:\n            items.append(rest)"
+    survives: false
+    why: ""
+
+  - id: M132
+    title: "未登記的 verdict 預設成 2＝站方的答案（一個忘了寫進表裡的新狀態會被當成站方回覆過）"
+    file: verify-article-metadata.py
+    find: "    return max((VERDICT_EXIT.get(r.get(\"verdict\"), 4) for r in results), default=0)"
+    replace: "    return max((VERDICT_EXIT.get(r.get(\"verdict\"), 2) for r in results), default=0)"
+    survives: false
+    why: ""
+
+  - id: M133
+    title: "一次跑的退出碼取最小值（有一條 ok 就綠，no_verdict 那條被吞掉——M110 防的是常數表，這條防的是聚合）"
+    file: verify-article-metadata.py
+    find: "    return max((VERDICT_EXIT.get(r.get(\"verdict\"), 4) for r in results), default=0)"
+    replace: "    return min((VERDICT_EXIT.get(r.get(\"verdict\"), 4) for r in results), default=0)"
+    survives: false
+    why: ""

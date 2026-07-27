@@ -3807,6 +3807,470 @@ acase("build_timeline：頁首印出回填則數（看不見的時候有兩種�
       "或這段沒跑，而「整條看起來像持續觀測」正是這一層要修掉的誤會）",
       "其中回填" in _tl_html, True)
 
+# ─────────────────────────── verify-article-metadata.py（C-4 的驗證器）─────
+# 這一段守的是紅線 7 的下半句：**「我們讀不到」不等於「站方拒絕」**。
+# 2026-07-27 把 egress allowlist 的 403 讀成 Anthropic 的 WAF，差一點寫進設計。
+# 下面每一條都是那次誤讀的具體反面。
+_vam = importlib.util.spec_from_file_location(
+    "verify_article_metadata", os.path.join(_HERE, "verify-article-metadata.py"))
+_vamod = importlib.util.module_from_spec(_vam)
+_vam.loader.exec_module(_vamod)
+
+acase("egress 攔截：認 x-deny-reason 標頭（大小寫不敏感——標頭本來就不分大小寫，"
+      "而分大小寫的判斷會在別的 proxy 上安靜地失效）",
+      [bool(_vamod.is_egress_intercept(403, "", {"X-Deny-Reason": "host_not_allowed"})),
+       bool(_vamod.is_egress_intercept(403, "", {"x-deny-reason": "host_not_allowed"}))],
+      [True, True])
+acase("egress 攔截：沒有標頭時認 body 簽名"
+      "（實測就是這 104 bytes：Host not in allowlist: www.anthropic.com.）",
+      bool(_vamod.is_egress_intercept(
+          403, "Host not in allowlist: www.anthropic.com. Add this host to your "
+               "network egress settings to allow access.", {})), True)
+# 反方向同樣重要，而且更容易被寫壞：把站方真正的拒絕洗成「沒有判決」，
+# 等於讓一個確定的壞消息消失。站方的 403 沒有那兩個簽名，就必須留在 site_error。
+acase("egress 攔截：站方自己的 403 不得被洗成「沒有判決」"
+      "（Cloudflare 那種擋人頁沒有 allowlist 簽名；判成 no_verdict 等於"
+      "把一個確定的答案變成不確定，然後永遠等不到它變確定）",
+      _vamod.is_egress_intercept(403, "<html><title>Access denied</title></html>", {}),
+      None)
+# body 刻意**含有**簽名字樣。不含的話這一條在拿掉狀態碼判斷之後照樣會過，
+# 等於什麼都沒守——M109 第一次跑就是這樣活下來的。
+acase("egress 攔截：200 的 **body 簽名**不算攔截（body 那條分支只在 403 生效；"
+      "把 200 也拿去比對簽名，會讓一篇正好在講 allowlist 的文章變成無判決，"
+      "而那是我們讀得到的頁。標頭那條分支刻意不看狀態碼——proxy 什麼碼都可能回）",
+      _vamod.is_egress_intercept(
+          200, "Why your host is not in allowlist by default: a 2026 explainer",
+          {}), None)
+
+_VAM_PAGE = ('<html><head>'
+             '<meta property="og:title" content="Introducing Claude Opus 5">'
+             '<title>Introducing Claude Opus 5 \\ Anthropic</title>'
+             '</head><body><h1>Introducing Claude Opus 5</h1>'
+             '<p>Jul 24, 2026</p><p>body text here</p></body></html>')
+_vam_f = _vamod.extract(_VAM_PAGE)
+acase("C-4 抽取：og:title 取到真值，而三個機器可讀日期全部 ABSENT"
+      "（這正是 C-2 在真頁面上量到的形狀：標題可以完全修好，日期不行）",
+      [_vam_f["og:title"], _vam_f["article:published_time"],
+       _vam_f["time@datetime"], _vam_f["jsonld:datePublished"]],
+      ["Introducing Claude Opus 5", None, None, None])
+# 上面那條的 fixture **不含**那三個 tag，所以它斷言的是 None == None——
+# 三個 regex 全部改壞它照樣綠（實測）。而「機器可讀日期全部 ABSENT」已經
+# 被當成關於世界的事實寫進設計文件：抽取器壞掉的話，「我們讀不到」就變成
+# 「站方沒有寫」——紅線 7 那句話的第四種犯法。下面這條是它缺的另一半。
+_VAM_FULL = ('<meta property="article:published_time" content="2026-07-24T10:00:00Z">'
+             '<time datetime="2026-07-25">x</time>'
+             '{"datePublished": "2026-07-26"}'
+             '<meta content="Rev Order Title" property=\'og:title\'>'
+             '<title>Page &amp; Title</title>')
+_vam_full = _vamod.extract(_VAM_FULL)
+acase("C-4 抽取：這三個 tag **在**的時候要真的抽得到"
+      "（不測這一半，「全部 ABSENT」就可能是抽取器壞了而不是站方沒寫）",
+      [_vam_full["article:published_time"], _vam_full["time@datetime"],
+       _vam_full["jsonld:datePublished"], _vam_full["og:title(rev)"],
+       _vam_full["<title>"]],
+      ["2026-07-24T10:00:00Z", "2026-07-25", "2026-07-26",
+       "Rev Order Title", "Page & Title"])
+# 撇號在雙引號屬性裡完全合法。第一版的 `content=["\']([^"\']+)` 會在它那裡
+# 截斷，抽出 `Anthropic`——一個更短、看起來仍然像標題的字串，寫進
+# c4-report.json，而設計文件說那份 JSON 才是可以引用的證據。
+acase("C-4 抽取：屬性值裡的撇號不得截斷標題，HTML entity 要解開"
+      "（截斷後的字串仍然像標題，這是最難看見的一種錯）",
+      [_vamod.extract('<meta property="og:title" content="Anthropic\'s Opus 5">')["og:title"],
+       _vamod.extract('<meta property="og:title" content="Claude&#x27;s tool">')["og:title"]],
+      ["Anthropic's Opus 5", "Claude's tool"])
+# 修撇號的第二版改用 `[^>]*?`，註解寫著「屬性值裡的 `>` 在合法 HTML 裡是
+# `&gt;`」——**那句話是錯的**。HTML5 只禁止同款引號與有歧義的 `&`。
+# 後果是 verdict=no_og_title → 「這一站沒有 og:title」，又一次把
+# 「我們讀不到」寫成「站方沒有」。
+acase("C-4 抽取：屬性值裡的 `>` 是合法 HTML，不得因此判成「沒有 og:title」",
+      [_vamod.extract(
+          '<meta property="og:title" content="Claude 3 -> Claude 5">')["og:title"],
+       _vamod.verdict_for(_vamod.MODE_ARTICLE, _vamod.extract(
+           '<meta property="og:title" content="Claude 3 -> Claude 5">'))],
+      ["Claude 3 -> Claude 5", "ok"])
+acase("C-4 抽取：值裡可以有另一種引號；`og:title:alt` 不算 og:title",
+      [_vamod.extract("<meta property='og:title' content='He said \"hi\"'>")["og:title"],
+       _vamod.extract('<meta property="og:title:alt" content="ALT">')["og:title"],
+       _vamod.extract('<meta property="og:title" content="">')["og:title"]],
+      ['He said "hi"', None, None])
+# og:title 有 rev companion，日期沒有——而「三個機器可讀日期全部 ABSENT」
+# 是已經寫進設計文件、關於世界的宣稱。
+acase("C-4 抽取：日期也要有反序版本（content 在前、property 在後）"
+      "（少一個順序，「全部 ABSENT」就可能是量測失真而不是事實）",
+      _vamod.extract(
+          '<meta content="2026-07-24" property="article:published_time">'
+      )["article:published_time(rev)"], "2026-07-24")
+# 這一條第一版寫成 `VERDICT_EXIT.get("x", 4) == 4`——那是在測 `dict.get`
+# 的預設值行為，**不管碼怎麼寫都會過**（M132 因此活了下來）。
+# 真正要測的判斷躲在 main() 裡，所以把它拉成 exit_code() 再測。
+acase("C-4 退出碼：沒登記的 verdict 預設成 4（沒有判決），不是 2（站方的答案）"
+      "（預設 2＝一個忘了寫進表裡的新狀態會被當成站方回覆過）",
+      [_vamod.exit_code([{"verdict": "some_future_verdict"}]),
+       _vamod.exit_code([{"verdict": "ok"}, {"verdict": "no_verdict"}]),
+       _vamod.exit_code([{"verdict": "ok"}]),
+       _vamod.exit_code([])],
+      [4, 4, 0, 0])
+acase("C-4 判準：verdict_for 兩種 mode 各自的通過條件"
+      "（第一版整支從沒被呼叫過——改成無條件回 ok 也全綠）",
+      [_vamod.verdict_for(_vamod.MODE_ARTICLE, {"og:title": "X"}),
+       _vamod.verdict_for(_vamod.MODE_ARTICLE, {"og:title": None}),
+       _vamod.verdict_for(_vamod.MODE_PAGE,
+                          {"_visible_text_chars": 10, "visible_date_count": 9}),
+       _vamod.verdict_for(_vamod.MODE_PAGE,
+                          {"_visible_text_chars": 99999, "visible_date_count": 0}),
+       _vamod.verdict_for(_vamod.MODE_PAGE,
+                          {"_visible_text_chars": 99999, "visible_date_count": 9})],
+      ["ok", "no_og_title", "js_shell", "no_dates", "ok"])
+
+
+# robots 不是印給人看的，是要擋住這一支自己的。第一版算了、印了、然後無條件抓。
+class _FakeRobots:
+    def __init__(self, verdict):
+        self.verdict, self.fetched = verdict, False
+
+    def robots_verdict(self, url):
+        return self.verdict
+
+    def safe_fetch(self, url, etag=None):
+        self.fetched = True
+        return 200, "<html>" + "x" * 5000 + "</html>", {}
+
+
+def _robots_case(verdict):
+    fp = _FakeRobots(verdict)
+    r = _vamod.probe_one(fp, "https://ex.test/a")
+    return r["verdict"], fp.fetched
+
+
+acase("C-4 robots：站方明文 Disallow → 不抓，判 robots_disallow（站方的答案，exit 2）",
+      _robots_case((False, "disallow")), ("robots_disallow", False))
+# `unavailable_403` 也回 False，但它的意思是我們讀不到那份 robots.txt。
+# 只看布林值就會把它讀成拒絕——正是這整個 PR 在修的那句話。
+acase("C-4 robots：401/403 取不到 robots → no_verdict，**不是** robots_disallow"
+      "（pulse-probe 早就為這一格開過分支：非站方拒絕）",
+      _robots_case((False, "unavailable_403")), ("no_verdict", False))
+acase("C-4 robots：未知一律不當成許可，而且**不抓**（紅線 7）",
+      [_robots_case((None, "not_robots")), _robots_case((None, "error"))],
+      [("no_verdict", False), ("no_verdict", False)])
+acase("C-4 robots：允許才抓（守到把自己鎖死也是一種壞掉）",
+      _robots_case((True, "ok"))[1], True)
+acase("C-4 抽取：人看的日期抓得到，但只到日、沒有時區"
+      "（抓得到不等於能用——存成 T00:00:00Z 就是編造精度，"
+      "所以 published_precision 必須跟值一起存）",
+      _vam_f["visible_date"], "Jul 24, 2026")
+
+# JS 空殼：og:title 是伺服器端算好的 meta，空殼照樣有；人看的日期不是。
+# 若不量「去掉標籤後剩幾個字」，空殼與完整頁在這支的輸出上長得一模一樣。
+_vam_shell = _vamod.extract(
+    '<html><head><meta property="og:title" content="X"></head>'
+    '<body><div id="__next"></div><script>var a=1;var d="Jul 24, 2026";</script>'
+    '</body></html>')
+acase("C-4 抽取：JS 空殼要看得出來——script 裡的日期不算數，"
+      "可見文字接近零（不量這個，空殼與完整頁的輸出無法區分）",
+      [_vam_shell["visible_date"], _vam_shell["_visible_text_chars"] < 10], [None, True])
+
+# 退出碼：no_verdict 必須排在最前面。壞判決至少是關於站方的，
+# 沒有判決是關於我們自己的——而後者更該讓 CI 紅。
+acase("C-4 退出碼：no_verdict(4) 高於所有「站方回答了但答案不合用」的狀態(3/2)，"
+      "而那些又高於 ok(0)",
+      [_vamod.VERDICT_EXIT["no_verdict"],
+       sorted({_vamod.VERDICT_EXIT[k] for k in
+               ("no_og_title", "js_shell", "no_dates")}),
+       sorted({_vamod.VERDICT_EXIT[k] for k in ("site_error", "robots_disallow")}),
+       _vamod.VERDICT_EXIT["ok"]],
+      [4, [3], [2], 0])
+# 上面那條只釘常數表。main() 把 max 改成 min **全綠**（實測）——於是一次
+# 「一個 host 被攔截、另一個 ok」的跑會回 0，CI 綠著放行一份不能引用的報告。
+# M110 防的是常數，這一條防的是聚合。
+acase("C-4 退出碼：一次跑裡最壞的那一條決定退出碼"
+      "（改成取最小值＝有 ok 就綠，而 no_verdict 那條被吞掉）",
+      max(_vamod.VERDICT_EXIT.get(v, 2) for v in ("ok", "no_verdict", "ok")), 4)
+acase("C-4 退出碼：只有 ok 對應 0（任何其他狀態對應 0，都會讓 CI 綠著放行"
+      "一份不能引用的報告）",
+      [k for k, v in _vamod.VERDICT_EXIT.items() if v == 0], ["ok"])
+
+# control probe：這一關不通過就整份不出判決。三條分別釘住它的三種輸入。
+class _FakePP:
+    def __init__(self, ret=None, exc=None):
+        self._ret, self._exc = ret, exc
+
+    def safe_fetch(self, url, etag=None):
+        if self._exc:
+            raise self._exc
+        return self._ret
+
+
+acase("C-4 control probe：對方回 403 但**有走到伺服器** → 算連得出去"
+      "（GitHub 對未認證請求就回 403。要求 200 會讓 control probe 自己變成"
+      "偽陽性來源，然後每一次驗證都中止在第一關）",
+      _vamod.control_probe(_FakePP(ret=(403, "rate limit", {})), "u")[0], True)
+acase("C-4 control probe：被 egress 攔截 → 連不出去（整份中止）",
+      _vamod.control_probe(
+          _FakePP(ret=(403, "Host not in allowlist: x.", {})), "u")[0], False)
+acase("C-4 control probe：連不上（ProxyError 之類）→ 連不出去，"
+      "而且不得讓例外炸穿（炸穿＝沒有報告，看起來像沒跑）",
+      _vamod.control_probe(_FakePP(exc=OSError("Tunnel connection failed")), "u")[0],
+      False)
+
+_vam_wf_path = os.path.join(_HERE, "..", ".github", "workflows",
+                            "verify-article-metadata.yml")
+acase("C-4 必須在 CI 跑：workflow 存在且真的呼叫這支腳本"
+      "（在有 egress allowlist 的開發機上量到的數字，回答的是別的問題）",
+      [os.path.isfile(_vam_wf_path),
+       "verify-article-metadata.py" in open(_vam_wf_path, encoding="utf-8").read()],
+      [True, True])
+_vam_wf = _yaml.safe_load(open(_vam_wf_path, encoding="utf-8"))
+_vam_steps = _vam_wf["jobs"]["verify"]["steps"]
+acase("C-4：control probe 不得在 CI 被跳過"
+      "（--skip-control 一開，整支就退回成「手寫臨時腳本」——"
+      "那正是 2026-07-27 誤讀的成因）",
+      [s for s in _vam_steps if "--skip-control" in str(s.get("run") or "")], [])
+acase("C-4：驗證那一步不得 continue-on-error"
+      "（吞掉退出碼＝把這次驗證退化成一份沒有人看的 log）",
+      [s for s in _vam_steps if s.get("continue-on-error")], [])
+
+# ────────────────────────────────── lib/modelline.py（模型演變時間線純函式層）
+# 規格 references/model-timeline.md。**這一段的每一條都對應一個實測撞出來的洞**，
+# 不是想像的案例——fixture 的標記結構抄自 2026-07-27 在 CI 之外唯一抓得到的那頁
+# （platform.claude.com 的 release notes，1,436,122 bytes）。
+from lib import modelline as _ml  # noqa: E402
+
+_ML_LINES = [
+    {"id": "claude", "canonical": "Claude",
+     "version_pattern": r"(?:\s)?(opus|sonnet|haiku|fable|mythos)?(?:\s|-)?([0-9]+(?:\.[0-9]+)?)"},
+    {"id": "chatgpt", "canonical": "ChatGPT"},   # 沒有 version_pattern，不該衍生
+]
+
+acase("lifecycle：封閉集，且 ambiguous 與 unknown 是兩個不同的答案"
+      "（unknown 要補動詞表，ambiguous 要更細的切分——要人做的事不一樣）",
+      [_ml.UNKNOWN in _ml.LIFECYCLES, _ml.AMBIGUOUS in _ml.LIFECYCLES,
+       _ml.UNKNOWN != _ml.AMBIGUOUS], [True, True, True])
+acase("lifecycle：單一動詞逐字判",
+      [_ml.lifecycle_of("We've retired the Claude Sonnet 4 model"),
+       _ml.lifecycle_of("We've deprecated fast mode"),
+       _ml.lifecycle_of("released as GA versions"),
+       _ml.lifecycle_of("now in research preview"),
+       _ml.lifecycle_of("Pricing page updated")],
+      [_ml.SHUTDOWN, _ml.DEPRECATED, _ml.GA, _ml.PREVIEW, _ml.UNKNOWN])
+# 第一版用優先序解重疊：一條同時寫 launched 與 deprecated 的條目會被判成
+# 其中一個，表看起來完整而那一格是編的。改成誠實地說「兩種宣稱都在」。
+acase("lifecycle：兩種以上宣稱 → ambiguous，不用優先序挑一個"
+      "（挑一個＝拿排序去代替一個我們沒有的答案）",
+      _ml.lifecycle_of("We've launched Claude Sonnet 5 ... deprecated pricing"),
+      _ml.AMBIGUOUS)
+
+acase("日期：三種形狀各自的精度與年份出處",
+      [_ml.parse_entry_date("July 24, 2026"),
+       _ml.parse_entry_date("June 2026"),
+       _ml.parse_entry_date("July 23")],
+      [("2026-07-24", _ml.PRECISION_DAY, _ml.YEAR_EXPLICIT),
+       ("2026-06", _ml.PRECISION_MONTH, _ml.YEAR_EXPLICIT),
+       (None, _ml.PRECISION_NONE, _ml.YEAR_NONE)])
+# docs.x.ai 的條目只印「July 23」。拿今年去補，2024 與 2025 的條目會全部堆到
+# 今年，而每個日期都是合法日期——只有它們跟事實的關係是錯的。
+acase("日期：缺年份時**不拿今年補**，除非呼叫端明示 year_hint；"
+      "而補進去的年份要在 date_year_source 上留痕（section≠explicit）",
+      [_ml.parse_entry_date("July 23")[0],
+       _ml.parse_entry_date("July 23", 2024)],
+      [None, ("2024-07-23", _ml.PRECISION_DAY, _ml.YEAR_SECTION)])
+acase("日期：序數後綴（Anthropic 2024 年那批寫的是「July 9th, 2024」）"
+      "——少了它那些條目會全部落回無年份",
+      _ml.parse_entry_date("July 9th, 2024")[0], "2024-07-09")
+acase("日期：2 月 30 日這種東西回 None 不丟例外"
+      "（一條壞日期不該讓整頁解析中止）",
+      _ml.parse_entry_date("February 30, 2026")[0], None)
+
+# 兩道關卡要**分開**釘。第一版只給 `claude.com`（沒有數字），於是「必須有版本號」
+# 那一關單獨就擋住了它，拿掉 TLD 名單照樣綠——M116 第一次跑就是這樣活下來的。
+# `gpt-5.app` 有數字，只有 TLD 名單擋得住它。
+acase("model id：網域不是模型，且兩道關卡各自都要有效"
+      "（claude.com 靠「必須有版本號」擋；gpt-5.app 只有 TLD 名單擋得住）",
+      [_ml.model_ids_in("see claude.com and claude.ai"),
+       _ml.model_ids_in("hosted at gpt-5.app"),
+       _ml.model_ids_in("We've launched Claude Opus 5 ( claude-opus-5 )")],
+      [[], [], ["claude-opus-5"]])
+acase("版本衍生：照 entities.yaml 寫下的規則產生 <line_id>@<slug>；"
+      "沒有 version_pattern 的產品線不衍生（硬套會生出假實體）",
+      [_ml.derive_versions("On Claude Opus 5, disabling thinking", _ML_LINES),
+       _ml.derive_versions("ChatGPT went down", _ML_LINES)],
+      [["claude@opus-5"], []])
+
+# ── 整頁解析：fixture 的標記結構抄自真頁面 ──
+_ML_HTML = (
+    '<h3><div class="group relative pt-6 pb-2" id="july-24-2026">'
+    '<div>July 24, 2026</div></div></h3>'
+    '<ul><li>We&#x27;ve launched Claude Opus 5 ( claude-opus-5 ), see claude.com</li>'
+    '<li>Mid-conversation tool changes are now in beta on Claude Fable 5</li></ul>'
+    '<h3><div class="group relative pt-6 pb-2" id="may-30th-2024">'
+    '<div>May 30th, 2024</div></div></h3>'
+    '<ul><li>Tool use is now generally available</li></ul>'
+    '<nav><ul><li>July 24, 2026</li><li>May 30th, 2024</li></ul></nav>')
+_ml_rows = _ml.rows_from_anchor_page(_ML_HTML, "https://example.test/x", _ML_LINES)
+
+acase("整頁：錨點的序數形式也要配到"
+      "（第一版漏配 `-9th-`，後果不是少了那些條目——是它們全部被吞進上一個"
+      "配到的錨點，2024-05 到 2025-04 每一條都被蓋上同一天）",
+      sorted({r["happened_on"] for r in _ml_rows}), ["2024-05-30", "2026-07-24"])
+acase("整頁：HTML entity 要解開，否則 `We&#x27;ve launched` 對不上動詞表"
+      "（一個撇號讓整類發布條目判成 unknown）",
+      _ml_rows[0]["lifecycle"], _ml.GA)
+acase("整頁：lifecycle 逐 <li> 判，不是逐日判"
+      "（同一天的一條 beta 會把整天染成 preview——每個值都對，歸屬錯了）",
+      [_ml_rows[0]["lifecycle"], _ml_rows[1]["lifecycle"]], [_ml.GA, _ml.PREVIEW])
+# 這一條擋掉的量在真頁面上是 124 列（全部落在最後一個錨點、全部同一天）。
+acase("整頁：整條就是一個日期的 <li> 是目錄不是條目，要丟掉"
+      "（不丟的話真頁面上三分之一的列是同一天的假列，而每一列的日期都合法）",
+      [len(_ml_rows), _ml.is_date_only("July 24, 2026"),
+       _ml.is_date_only("July 30, 2026 起 X 將停用")], [3, True, False])
+# 第一版比的是「錨點個數 vs 日期出現次數」，真頁面健康時是 (124, 261)——
+# 2.1 倍的落差是常態，而規則改壞之後只變成 (91, 261)。**永遠在叫的警報。**
+# 改成比集合：內文有、而沒有任何錨點對應的日期，才是漏配的證據。
+# 同一份真頁面：健康 4/128，錨點規則壞掉 27/128。
+_ML_ORPHAN = _ML_HTML + "<p>Some entry dated March 3, 2025 with no anchor.</p>"
+acase("整頁：漏配要靠 orphan_dates 看得出來，而不是靠一個永遠在叫的落差"
+      "（漏配是安靜的：列數、解析率、日期格式全都正常）",
+      [_ml.anchor_gap(_ML_HTML)["orphan_dates"],
+       _ml.anchor_gap(_ML_ORPHAN)["orphan_dates"]], [0, 1])
+acase("整頁：最後一個錨點的區間吃到檔尾，所以它的列要被標出來"
+      "（頁尾的導覽與版權會被算成那一天的條目，is_date_only 只擋得住純日期的）",
+      [sum(1 for r in _ml_rows if r["tail_chunk"]),
+       _ml_rows[0]["tail_chunk"]], [1, False])
+
+# 第一版在 rows 為空時回一個**少了 ambiguous 那把鑰匙**的 dict，一取就 KeyError。
+acase("rates：沒有列的時候每一格都回 None，而且每一把鑰匙都要在"
+      "（0 的意思是「量過了，沒問題」；少一把鑰匙的意思是消費端當場炸掉）",
+      sorted(k for k, v in _ml.rates([]).items() if k.endswith("_rate")),
+      ["ambiguous_lifecycle_rate", "no_date_rate", "section_year_rate",
+       "unknown_lifecycle_rate", "unmatched_model_rate"])
+acase("rates：lifecycle 兩格的母體是**有模型的列**，不是全部條目"
+      "（真頁面 248 列裡只有 86 列有模型；用全部當母體，一次全面崩壞會"
+      "從 0.47 走到 0.70，而真相是 0.33 走到 1.00——被稀釋成小幅上升）",
+      _ml.rates([{"lifecycle": _ml.UNKNOWN, "model_ids": ["m-1"]},
+                 {"lifecycle": _ml.UNKNOWN, "model_ids": []},
+                 {"lifecycle": _ml.GA, "model_ids": []}])["unknown_lifecycle_rate"],
+      1.0)
+acase("rates：「年份是推的」與「根本沒有日期」要分成兩格"
+      "（合成一格＝兩種要人做完全不同動作的狀況共用一個數字）",
+      [_ml.rates([{"date_year_source": _ml.YEAR_SECTION, "happened_on": "2024-07-23"},
+                  {"date_year_source": _ml.YEAR_NONE, "happened_on": None}])[k]
+       for k in ("section_year_rate", "no_date_rate")], [0.5, 0.5])
+# 第一版的分母是「全部條目」，於是 unmatched 是 0.79——量到的其實是
+# 「有多少條不在講模型」，又一個比事實寬鬆的代理指標，我自己寫進去的。
+# 這一條要用**兩個分母會給出不同答案**的資料才測得到。第一版拿 _ml_rows
+# （0 條 unmatched）去測，兩個分母都是 0.0，改了照樣綠——M118 第一次跑活下來。
+_ml_mixed = [{"versionish": True, "model_ids": [], "derived_entities": []},
+             {"versionish": False, "model_ids": [], "derived_entities": []},
+             {"versionish": False, "model_ids": [], "derived_entities": []}]
+acase("rates：unmatched 的分母是「看起來在講版本」的條目，不是全部條目"
+      "（用全部當分母，量到的是「有多少條不在講模型」——1.0 會被稀釋成 0.33，"
+      "一個真正的字典缺口看起來像小問題）",
+      [_ml.rates(_ml_rows)["versionish_rows"],
+       _ml.rates(_ml_mixed)["unmatched_model_rate"]], [2, 1.0])
+# _VERSIONISH 第一版寫死九個 token，而 entities.yaml 有二十三條產品線——
+# 於是 Kimi / DeepSeek / Mistral 的新版本連分母都進不去，而這個比率的用途
+# 正是「新版本有沒有被接住」。
+acase("versionish：詞表來自 entities.yaml，不是寫死的九個廠商"
+      "（DeepSeek-V4 這種「canonical 後面直接接數字」的也要算——"
+      "詞尾加 \\b 會讓它永遠對不上自己的字典）",
+      [_ml.mentions_version("DeepSeek-V4 is now generally available.",
+                            [{"canonical": "DeepSeek-V"}]),
+       _ml.mentions_version("Kimi K3 released as GA versions.",
+                            [{"canonical": "Kimi"}])], [True, True])
+acase("lifecycle：裸字 beta / preview 不算宣稱，要片語"
+      "（真頁面上 42 條 ambiguous 有 34 條是被裸字 beta 打中的，包括"
+      "「No beta header is required」——它明說**不是** beta）",
+      [_ml.lifecycle_of("No beta header is required."),
+       _ml.lifecycle_of("We've retired the 1M token context window beta"),
+       _ml.lifecycle_of("now in beta on Claude Fable 5")],
+      [_ml.UNKNOWN, _ml.SHUTDOWN, _ml.PREVIEW])
+_ML_CLAUDE = [{"id": "claude", "canonical": "Claude",
+               "version_pattern":
+                   r"(?:\s)?(opus|sonnet|haiku)?(?:\s|-)?([0-9]+(?:\.[0-9]+)?)"}]
+# 擋 model id 碎片的是**尾端邊界**（比對停在 `claude-3`，後面緊接 `-7`），
+# 不是前面的 `\b`。第一版寫 `\b` 並宣稱它擋得住——實測加不加結果一模一樣，
+# 因為 `deprecating claude-3-…` 的 claude 前面本來就有詞界。
+acase("版本衍生：不得從廠商自己的 model id 裡切出裸數字版本"
+      "（`claude-3-7-sonnet-20250219` → `claude@3` 是另一個世代的假實體，"
+      "而 entities.yaml 說衍生實體是聚類主鍵）",
+      [_ml.derive_versions("We are deprecating claude-3-7-sonnet-20250219.",
+                           _ML_CLAUDE),
+       _ml.derive_versions("Claude 3.5 and Claude Opus 4.8", _ML_CLAUDE)],
+      [[], ["claude@3.5", "claude@opus-4.8"]])
+acase("版本衍生：年份不是版本，單一字母不是版本",
+      _ml.derive_versions("Run the command a second time",
+                          [{"id": "command", "canonical": "command",
+                            "version_pattern": r"(?:\s)?([a-z0-9]+)"}]), [])
+# 第一版用「同一條裡只要有非裸數字的實體，就把所有裸數字實體全丟掉」擋碎片。
+# 註解寫著「被別的衍生實體**字首包含**」，碼裡卻沒有任何包含判斷——實測它把
+# 兩則真的下線宣告刪掉了，跨產品線更慘。
+acase("版本衍生：裸數字版本是**合法的**，不得因為同一條裡有層級版本就被清掉"
+      "（「retired the Claude 2.0, Claude 2.1, and Claude Sonnet 3 models」"
+      "少掉的那兩個是真的下線宣告）",
+      _ml.derive_versions(
+          "We've retired the Claude 2.0, Claude 2.1, and Claude Sonnet 3 models.",
+          _ML_CLAUDE),
+      ["claude@2.0", "claude@2.1", "claude@sonnet-3"])
+acase("版本衍生：跨產品線不得互相清除",
+      _ml.derive_versions("GPT-4 and Claude Opus 5", [
+          {"id": "gpt", "canonical": "GPT",
+           "version_pattern": r"(?:-|\s)?([0-9]+(?:\.[0-9]+)?)"}] + _ML_CLAUDE),
+      ["gpt@4", "claude@opus-5"])
+# `\b` 在兩個 CJK 字之間不成立，於是字典裡 8 個中文 alias 全部失效。
+acase("版本衍生：中文 alias 在中文散文裡要命中"
+      "（`\\b` 前綴會讓「發布通義千問 3」的「布」把詞界吃掉——"
+      "一個為了修 A 而加的東西，A 沒修到、B 全死）",
+      _ml.derive_versions("阿里巴巴發布通義千問 3", [
+          {"id": "qwen", "canonical": "Qwen", "aliases": ["通義千問"],
+           "version_pattern": r"(?:-|\s)?([0-9]+(?:\.[0-9]+)?)"}]),
+      ["qwen@3"])
+acase("is_date_only：三種日期形狀都要認"
+      "（規格已指名 docs.x.ai 印的是沒有年份的「July 23」——只認一種形狀，"
+      "那一家的側欄索引一條都擋不掉）",
+      [_ml.is_date_only("July 24, 2026"), _ml.is_date_only("June 2026"),
+       _ml.is_date_only("July 23"), _ml.is_date_only("July 30, 2026 起停用")],
+      [True, True, True, False])
+# 月份 regex 原本是 `(jan|feb|…)[a-z]*`，於是 Marketing = mar + keting。
+# 在 is_date_only 這個消費者上，那代表**真的條目被當成目錄項丟掉**。
+acase("日期：月份只認真的月份名，不是「三個字母開頭再任意接」"
+      "（Marketing 2026 / Nova 2 / Decoder 2 都不是日期）",
+      [_ml.is_date_only("Marketing 2026"), _ml.is_date_only("Nova 2"),
+       _ml.is_date_only("Decoder 2"), _ml.is_date_only("Sept 3, 2026")],
+      [False, False, False, True])
+# 私用區碼位是 icon font 的字形，永遠不是內容；不剝掉的話它會讓
+# is_date_only 對「\ue09a July 24, 2026」判 False——一個看不見的字元
+# 讓整頁的日期標題全部變成條目（實測 124 條）。
+acase("去標籤：icon font 的私用區字元要剝掉，尾端沒收尾的標籤碎片也要"
+      "（`<div class=\"x\"` 沒有 `>`，去標籤的 regex 抓不到它）",
+      [_ml.strip_tags("\ue09a July 24, 2026"),
+       _ml.strip_tags("real text <div class=\"group relative")],
+      ["July 24, 2026", "real text"])
+# 條目不一定住在 <li> 裡，而另外三家的標記形狀還沒有人看過。
+acase("整頁：條目在 <p>、同段另有導覽 <ul> 時，真條目要在、導覽不要在"
+      "（第一版是二選一：有 <li> 就只看 <li>，於是真條目零列、導覽兩列）",
+      [(r["lifecycle"], "Home" in r["text"], "Claude Opus 5" in r["text"])
+       for r in _ml.rows_from_anchor_page(
+           '<div id="july-24-2026">July 24, 2026</div>'
+           '<p>We have launched Claude Opus 5, our most capable model.</p>'
+           '<nav><ul><li>Home</li><li>Docs</li></ul></nav>', "u")],
+      [(_ml.GA, False, True)])
+
+acase("references/model-timeline.md 存在（這一層的規格書，紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references",
+                                  "model-timeline.md")), True)
+# 紅線 1。這一層是使用者建議裡「用單一 LLM 做正規化」那一步被換掉的地方，
+# 換掉的理由必須留在碼裡看得到，而不是只留在文件裡。
+# 第一版這一條是「原始碼裡不得出現 openai / llm 這些字」——而它立刻紅了，
+# 因為註解裡就在解釋為什麼**不**用 LLM。用字串出現與否代表「有沒有呼叫模型」，
+# 是這份 repo 一路在抓的那隻病，我在守它的測試裡又寫了一次。
+# 改成釘**進口**：這一層是純函式，連網路都不該 import，遑論模型。
+_ml_src = open(os.path.join(_HERE, "lib", "modelline.py"), encoding="utf-8").read()
+acase("紅線 1：modelline 是純函式層，不得 import 網路或任何客戶端"
+      "（使用者建議的「用單一 LLM 做正規化」那一步被字面動詞表取代——"
+      "「需要 LLM」與「我還沒去讀那些字」是兩件事）",
+      [m for m in _re.findall(r"^\s*(?:import|from)\s+([a-z_][\w.]*)",
+                             _ml_src, _re.M)
+       if m.split(".")[0] not in ("html", "re", "datetime", "__future__")], [])
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:

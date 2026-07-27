@@ -1,0 +1,75 @@
+# C-4 的驗證：三條 sitemap 來源的文章頁，plain GET 到底看不看得到 og:title 與日期。
+# 規格：docs/design/2026-07-27-published-is-a-proxy.md〈階段 C〉。
+#
+# 為什麼這件事非得在 CI 跑不可，不能在開發機上跑：
+#   因為要驗的是**生產抓取器在生產網路上**看到什麼。開發環境（含 Claude 的容器）
+#   有 egress allowlist，對 anthropic.com / x.ai / mistral.ai 一律回 403 或
+#   ProxyError。2026-07-27 就是這樣把「容器的 allowlist 擋住」誤讀成
+#   「Anthropic 的 WAF 擋掉生產抓取器」，並且差一點把那個結論寫進設計。
+#   在別的網路上量到的數字，回答的是別的問題。
+#
+# 為什麼只有 workflow_dispatch，沒有排程：
+#   這是一次性的設計判準，不是穩態監控。驗完、C-3 拍板之後，守護那件事的
+#   應該是 adapter 自己的測試與 source-health，不是這支。
+#   （若之後要定期回頭確認頁面結構沒變，那是另一個需求，另外開。）
+#
+# 紅了要怎麼讀（退出碼在腳本 docstring 裡）：
+#   4  沒有判決——連 CI 都連不出去，或 host 被攔截。這時**什麼都不要寫進設計**。
+#   3  讀到 HTML 但沒有 og:title——C-3 的前提在該站不成立，要換做法。
+#   2  站方回 4xx/5xx 或明文 Disallow——這是站方的答案，可以寫進設計。
+name: Verify article metadata (C-4)
+
+on:
+  workflow_dispatch:
+    inputs:
+      preset:
+        description: '要驗哪一組（sitemap-sources = 三篇文章頁；list-pages = 列表頁，C-5；release-notes = 四家 changelog，模型時間線的甲類來源）'
+        required: true
+        default: sitemap-sources
+        type: choice
+        options:
+          - sitemap-sources
+          - list-pages
+          - release-notes
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-article-metadata
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests pyyaml
+      # 不加 continue-on-error。這支的每一種紅都代表「設計還不能往下走」，
+      # 而綠代表「C-3 的前提成立，可以動工」。把它變成永遠綠的東西，
+      # 就等於把這次驗證退化成一份沒有人看的 log。
+      # --save-html 不是除錯輸出，是**下一步的輸入**。
+      # release-notes 那一組的解析器只對「已經有人看過的標記形狀」動手
+      # （references/model-timeline.md 第 5 節步 3）——2026-07-27 只有
+      # platform.claude.com 在開發容器裡抓得到，另外三家要靠這一步帶回真 bytes。
+      - name: C-4
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: |
+          python scripts/verify-article-metadata.py \
+            --preset "${{ inputs.preset }}" \
+            --save-html raw-html \
+            --json c4-report.json
+      # always()：即使判決是紅的，那份 JSON 與那些 HTML 正是要拿來寫進設計的東西。
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: c4-report-${{ inputs.preset }}
+          path: |
+            c4-report.json
+            raw-html/
+          if-no-files-found: warn
