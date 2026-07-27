@@ -40,8 +40,18 @@ LIFECYCLE_MARKERS: tuple[tuple[str, tuple[str, ...]], ...] = (
     # 它不是發布動詞，是狀態描述——太鬆的針腳會把真答案洗成「不確定」。
     (GA, ("released as ga", "generally available", "general availability",
           "as ga versions", "ga version", "we've launched", "we have launched")),
+    # 裸字 `beta` / `preview` / `experimental` 曾經在這裡。真頁面實測：
+    # 42 條 ambiguous 裡 **34 條是被裸字 `beta` 打中的**，包括
+    #   「… No beta header is required.」          ← 明說**不是** beta
+    #   「We've retired the 1M token context window beta ( … )」 ← 只有一個宣稱
+    # 而 `ambiguous` 的定義是「這條有兩種以上的宣稱」、規格說它是「要人看的那一格」。
+    # 人工佇列比它命名的事實大六倍，桶子就是這樣變成靜音的。
+    # 拿掉「is available」是因為它太鬆，然後在隔壁留了三個更鬆的——同一個錯，
+    # 同一個 tuple，兩行之隔。改成片語錨定：beta/preview 要真的在講狀態。
     (PREVIEW, ("research preview", "public preview", "private preview",
-               "preview", "beta", "experimental")),
+               "in preview", "as a preview", "preview release",
+               "in beta", "public beta", "private beta", "open beta",
+               "as a beta", "beta release", "experimental release")),
 )
 
 
@@ -189,13 +199,53 @@ def model_ids_in(text: str) -> list[str]:
 # 不在講模型（實測 Anthropic 那頁 79% 是功能更新）。那樣算出來的
 # 「對不上字典的比率」高得嚇人，但它量的是「有多少條不是在講模型」——
 # 又一個比事實寬鬆的代理指標，而且是我自己在第一版寫進去的。
-_VERSIONISH = re.compile(
-    r"\b(?:claude|gpt|gemini|grok|llama|gemma|sora|veo|muse)\b[^.;]{0,40}?"
-    r"\d", re.I)
+# **不寫死廠商名單。** 第一版寫死九個 token，而 `_config/entities.yaml` 有
+# 二十三條產品線——於是 `Titan 3 … in public preview`、`DeepSeek-V4 is now
+# generally available`、`Kimi K3 released as GA` 全都不算「在講版本」，
+# 不會進分母。而這個比率存在的理由，規格寫得很清楚：
+# 「高＝新產品線出現了而字典沒補」。
+# **一條全新的產品線——正是它要偵測的那件事——永遠不會讓它動。**
+# 平常的日子裡兩者一致，正好在有事的那天分岔。這隻病的教科書形狀。
+_FALLBACK_TOKENS = ("claude", "gpt", "gemini", "grok", "llama", "gemma")
 
 
-def mentions_version(text: str) -> bool:
-    return bool(_VERSIONISH.search(text or ""))
+def versionish_re(product_lines=()) -> "re.Pattern":
+    """→ 用 entities.yaml 的 canonical/alias 現場組出來的 pattern。
+
+    給空清單時退回一個**只涵蓋六家**的名單，而且退回這件事是刻意可見的：
+    呼叫端沒給字典，這個比率就只在那六家上有意義。
+    """
+    terms = []
+    for line in product_lines or []:
+        for t in [line.get("canonical"), *(line.get("aliases") or [])]:
+            if t:
+                terms.append(re.escape(str(t)))
+    if not terms:
+        terms = [re.escape(t) for t in _FALLBACK_TOKENS]
+    terms.sort(key=len, reverse=True)
+    # 詞尾**不加** `\b`：entities.yaml 的 canonical 有 `DeepSeek-V`，
+    # 而原文寫的是 `DeepSeek-V4`——加了 `\b` 就永遠對不上自己的字典。
+    # 少了詞尾邊界的代價很小，因為後面本來就要求 40 字內出現數字。
+    return re.compile(r"\b(?:" + "|".join(terms) + r")[^.;]{0,40}?\d", re.I)
+
+
+_VERSIONISH_FALLBACK = versionish_re()
+
+
+def mentions_version(text: str, product_lines=()) -> bool:
+    """這條看起來在講某個**我們字典裡有的**產品線的版本。
+
+    **這個限制不可以被忘記，所以寫在這裡而不是註解裡**：分母是字典綁定的。
+    一條全新的產品線（`Introducing Titan 3, in public preview`）字典裡沒有，
+    於是連分母都進不去，`unmatched_model_rate` 一動也不動。
+
+    也就是說這個比率能回答的是**「已知產品線的新版本有沒有被接住」**，
+    不是「有沒有全新的產品線出現」。後者是 `lib/dictgaps.py` 與
+    `unknown_entity` 那一層的工作，兩者不可互相冒充。
+    規格第 4 節的敘述已依此修正。
+    """
+    rx = versionish_re(product_lines) if product_lines else _VERSIONISH_FALLBACK
+    return bool(rx.search(text or ""))
 
 
 # ─────────────────────────────────────────── 版本衍生（_config 已寫、沒人實作）
@@ -237,15 +287,30 @@ def derive_versions(text: str, product_lines, slug_rules=(
             continue
         terms = [line.get("canonical"), *(line.get("aliases") or [])]
         for term in [t for t in terms if t]:
-            rx = re.compile(re.escape(str(term)) + pat, re.I)
+            # `(?:…)` 包住設定裡的 pattern：現有的都沒有頂層 `|`，但只要有人
+            # 加一個，`AB|C` 會變成「A 接 B，或者只要出現 C」——term 不再是必要條件。
+            # `\b` 在前：沒有它，`claude-3-7-sonnet-20250219` 這串**廠商自己的
+            # model id** 會被當成「Claude」後面接版本，衍生出 `claude@3`——
+            # 一個不同世代的假實體，而 entities.yaml 說衍生實體是聚類主鍵。
+            rx = re.compile(r"\b" + re.escape(str(term)) + r"(?:" + pat + r")", re.I)
             for m in rx.finditer(text or ""):
                 version = " ".join(g for g in m.groups() if g).strip()
                 if not version:
+                    continue
+                # 版本必須含數字。少了這一條，真設定跑出來的有
+                # `command@a`（pattern 字面允許單一字母）這種東西。
+                if not any(c.isdigit() for c in version):
                     continue
                 eid = f"{line['id']}@{_slugify(version, slug_rules)}"
                 if eid not in seen:
                     seen.add(eid)
                     out.append(eid)
+    # `claude@3` 與 `claude@opus-3.7` 同時出現時，前者是從後者所在的那串
+    # model id 裡切出來的碎片。**同一條文字裡，被別的衍生實體字首包含的裸數字
+    # 版本一律丟掉**——它從來不是一個獨立的宣稱。
+    bare = {e for e in out if re.fullmatch(r"[^@]+@\d+(?:\.\d+)?", e)}
+    if bare and len(out) > len(bare):
+        out = [e for e in out if e not in bare]
     return out
 
 
@@ -301,20 +366,36 @@ def split_entries_by_anchor(html: str) -> list[tuple[str, str]]:
     return out
 
 
-def anchor_gap(html: str) -> tuple[int, int]:
-    """→ (配到的錨點數, 頁面可見文字裡的日期字串數)。
+def anchor_gap(html: str) -> dict:
+    """→ 錨點日期集合 vs 內文日期集合的差集大小。
 
     錨點漏配的失敗方式是**安靜的**：漏掉的區間會被併進上一個配到的錨點，
     於是那些條目全部蓋上一個錯的日期，而列數、解析率、日期格式全都正常。
     2026-07-27 實測就撞到——`july-9th-2024` 因為 `th` 沒被配到，
     2024-05 至 2025-04 的每一條都被蓋成 `2025-05-01`。
 
-    兩個數字差很多＝錨點規則跟不上這一頁。**這支不下判決、只給兩個數字**，
-    因為門檻該由呼叫端連同它自己的頁面形狀一起決定。
+    **第一版比的是「錨點個數 vs 日期出現次數」，那個比法沒有用。**
+    真頁面健康時是 (124, 261)——因為同一個日期在標題、索引、內文各出現一次，
+    2.1 倍的「落差」是常態。而把錨點規則改壞（M112）之後是 (91, 261)：
+    **健康時看起來很糟，壞掉時看起來只是稍微更糟。** 一個永遠在叫的警報，
+    跟沒有警報是同一件事——這個 repo 已經為了 heat 印 0 記過這一課。
+
+    改成比**集合**：內文裡出現、而沒有任何錨點對應的日期，才是漏配的證據。
+    同一份真頁面上：健康 4 / 128，錨點規則壞掉 37 / 128。九倍的分離度。
+
+    仍然不下判決、只給數字——門檻該由呼叫端連同它自己的頁面形狀一起決定。
     """
-    n_anchor = len(_ANCHOR.findall(html or ""))
-    n_dates = len(_D_YMD.findall(strip_tags(html or "")))
-    return n_anchor, n_dates
+    anchors = {a.lower() for a in _ANCHOR.findall(html or "")}
+    anchor_dates = {d for d in (parse_entry_date(a.replace("-", " "))[0]
+                                for a in anchors) if d}
+    text_dates = set()
+    for mo, day, yr in _D_YMD.findall(strip_tags(html or "")):
+        iso = parse_entry_date(f"{mo} {day}, {yr}")[0]
+        if iso:
+            text_dates.add(iso)
+    return {"anchor_dates": len(anchor_dates),
+            "text_dates": len(text_dates),
+            "orphan_dates": len(text_dates - anchor_dates)}
 
 
 def is_date_only(text: str) -> bool:
@@ -328,7 +409,13 @@ def is_date_only(text: str) -> bool:
     判準刻意只認「整條**就是**日期」，不認「開頭是日期」——後者會誤殺
     「July 30, 2026 起 X 將停用」這種真條目。
     """
-    return bool(_D_YMD.fullmatch((text or "").strip()))
+    t = (text or "").strip()
+    # 三種形狀都要認。第一版只認 `_D_YMD`（July 24, 2026），而規格第 1 節
+    # 已經指名 `docs.x.ai` 印的是 **沒有年份的「July 23」**——那一家的側欄
+    # 索引一條都不會被擋掉，於是最後一個錨點之後的每一項都變成一列，
+    # 全部蓋上同一天。**這個函式就是為了防那件事寫的，而它防不到規格已經
+    # 寫明會出現的那個形狀。**
+    return bool(_D_YMD.fullmatch(t) or _D_YM.fullmatch(t) or _D_MD.fullmatch(t))
 
 
 def entry_items(chunk_html: str) -> list[str]:
@@ -351,8 +438,15 @@ def rows_from_anchor_page(html: str, source_url: str, product_lines=()) -> list[
         end = marks[i + 1][1] if i + 1 < len(marks) else len(html)
         chunk = html[pos:end]
         iso, precision, year_source = parse_entry_date(anchor.replace("-", " "))
-        items = entry_items(chunk) or [strip_tags(chunk)]
+        # `or [strip_tags(chunk)]` 這個退路會把 `is_date_only` 剛擋掉的東西
+        # 整段接回來（外加一截從標籤中間切開的 `id="…">` 碎片）。
+        # 有 `<li>` 卻全被過濾＝那一段本來就沒有條目，正確答案是零列。
+        has_li = bool(_LI.search(chunk))
+        items = entry_items(chunk) if has_li else [strip_tags(chunk)]
+        is_tail = (i == len(marks) - 1)
         for text in items:
+            if not text:
+                continue
             ids = model_ids_in(text)
             derived = derive_versions(text, product_lines)
             rows.append({
@@ -362,7 +456,12 @@ def rows_from_anchor_page(html: str, source_url: str, product_lines=()) -> list[
                 "lifecycle": lifecycle_of(text),
                 "model_ids": ids,
                 "derived_entities": derived,
-                "versionish": mentions_version(text),
+                "versionish": mentions_version(text, product_lines),
+                # 最後一個錨點的區間一路吃到檔尾，所以頁尾的導覽、版權、
+                # 「這頁有幫助嗎」全部會被算成它那一天的條目。`is_date_only`
+                # 只擋得住純日期的那些。擋不住的就**標記出來**——
+                # 消費端可以決定要不要信，但不能假裝不知道。
+                "tail_chunk": is_tail,
                 "text": text,
                 "source_url": source_url,
                 "source_tier": 1,
@@ -377,22 +476,41 @@ def rates(rows: list[dict]) -> dict:
     印成 0 就是 `lib/scoring.py` 註解裡那句「0 看起來像量過了，很冷」，
     在這一層換個位置重演。
     """
-    n = len(rows or [])
-    if not n:
-        return {"rows": 0, "unknown_lifecycle_rate": None,
-                "derived_year_rate": None, "unmatched_model_rate": None,
-                "versionish_rows": 0}
-    unk = sum(1 for r in rows if r.get("lifecycle") == UNKNOWN)
-    amb = sum(1 for r in rows if r.get("lifecycle") == AMBIGUOUS)
-    der = sum(1 for r in rows if r.get("date_year_source") != YEAR_EXPLICIT)
+    rows = rows or []
+    # 「時間線真的會留下的列」＝有模型的列（規格第 5′ 節）。lifecycle 那兩個
+    # 比率**必須以它為母體**，因為它們是關於時間線的宣稱。
+    #
+    # 第一版用全部條目當母體，而 unmatched 那一格已經因為同一個理由修過一次
+    # （M118，0.79→0.044）——同一個函式裡的另外幾格原封不動留著。
+    # 實測代價：真頁面 248 列裡只有 86 列有模型；若動詞表對每一列模型都失效，
+    # 印出來的 unknown 從 0.4677 走到 0.7016（+0.23），而真相是 0.33 → 1.00。
+    # **一次全面崩壞，在頁首被稀釋成看起來像小幅上升。**
+    mrows = [r for r in rows if r.get("model_ids") or r.get("derived_entities")]
     # 分母是「看起來在講某個版本」的條目，不是全部條目。理由見 mentions_version()。
     vrows = [r for r in rows if r.get("versionish")]
-    unm = sum(1 for r in vrows
-              if not (r.get("model_ids") or r.get("derived_entities")))
-    return {"rows": n,
-            "versionish_rows": len(vrows),
-            "unknown_lifecycle_rate": round(unk / n, 4),
-            "ambiguous_lifecycle_rate": round(amb / n, 4),
-            "derived_year_rate": round(der / n, 4),
-            # 沒有任何條目在講版本時回 None 不回 0——0 的意思是「量過了，沒問題」。
-            "unmatched_model_rate": round(unm / len(vrows), 4) if vrows else None}
+
+    def _rate(hits, pop):
+        # 母體是 0 時回 None 不回 0——0 的意思是「量過了，沒問題」。
+        # 第一版在 rows 為空時直接回一個**少了 ambiguous 那把鑰匙**的 dict，
+        # 消費端一取就 KeyError。誠實的空值要每一格都在。
+        return round(hits / len(pop), 4) if pop else None
+
+    return {
+        "rows": len(rows),
+        "model_rows": len(mrows),
+        "versionish_rows": len(vrows),
+        # 名字裡說得出分母是誰，不然下一個人只會看到一個小數。
+        "unknown_lifecycle_rate": _rate(
+            sum(1 for r in mrows if r.get("lifecycle") == UNKNOWN), mrows),
+        "ambiguous_lifecycle_rate": _rate(
+            sum(1 for r in mrows if r.get("lifecycle") == AMBIGUOUS), mrows),
+        # `!= explicit` 把「年份是推的」跟「根本沒有日期」算成同一件事，
+        # 而那兩件事要人做的動作完全不同。拆成兩格。
+        "section_year_rate": _rate(
+            sum(1 for r in rows if r.get("date_year_source") == YEAR_SECTION), rows),
+        "no_date_rate": _rate(
+            sum(1 for r in rows if not r.get("happened_on")), rows),
+        "unmatched_model_rate": _rate(
+            sum(1 for r in vrows
+                if not (r.get("model_ids") or r.get("derived_entities"))), vrows),
+    }

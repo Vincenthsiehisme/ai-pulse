@@ -61,6 +61,8 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import hashlib
+import html as _html
 import json
 import os
 import re
@@ -111,16 +113,28 @@ def _is_proxy_error(exc: Exception) -> bool:
 # ------------------------------------------------------------------ 欄位抽取
 # 全部是字面 regex。抽不到就是 ABSENT，不退而求其次、不從別處推導——
 # 這支的整個重點就是把「有」跟「我們造得出來」分開。
+# 引號用**反向參照**，不是 `[^"\']`。
+# 第一版寫成 `content=["\']([^"\']+)`，於是
+#   <meta property="og:title" content="Anthropic's Claude Opus 5">
+# 抽出來的是 `Anthropic` ——而 C-3 的整個前提是「og:title 有，而且是真值」。
+# 一個在雙引號屬性裡完全合法的撇號，把真值截成一個更短、看起來仍然像標題的字串，
+# 然後那個字串會被寫進 c4-report.json，也就是設計文件說「可以引用的證據」。
+# 這是本 PR 從頭到尾在講的那隻病，長在為了驗證它而寫的驗證器裡。
 FIELD_PATTERNS = [
+    # `[^>]*?` 而不是 `.*?`：非貪婪仍然會跨過 `>` 去找下一個引號。
+    # 實測——`<meta property="article:published_time" content="…">` 後面接
+    # `<meta content="X" property="og:title">` 時，rev 那條會從第一個 meta 的
+    # content 一路吃到第二個 meta 的 property，抽出一大串含標籤的垃圾當標題。
+    # 屬性值裡的 `>` 在合法 HTML 裡是 `&gt;`，所以把比對關在單一標籤內是安全的。
     ("og:title",
-     r"""<meta[^>]+property=["']og:title["'][^>]*content=["']([^"']+)"""),
+     r"""<meta[^>]+property=(["'])og:title\1[^>]*content=(["'])(?P<v>[^>]*?)\2"""),
     ("og:title(rev)",
-     r"""<meta[^>]+content=["']([^"']+)["'][^>]*property=["']og:title["']"""),
-    ("<title>", r"<title[^>]*>([^<]{1,300})</title>"),
+     r"""<meta[^>]+content=(["'])(?P<v>[^>]*?)\1[^>]*property=(["'])og:title\3"""),
+    ("<title>", r"<title[^>]*>(?P<v>[^<]{1,300})</title>"),
     ("article:published_time",
-     r"""article:published_time["'][^>]*content=["']([^"']+)"""),
-    ("time@datetime", r"""<time[^>]+datetime=["']([^"']+)"""),
-    ("jsonld:datePublished", r'"datePublished"\s*:\s*"([^"]+)"'),
+     r"""article:published_time(["'])[^>]*content=(["'])(?P<v>[^>]*?)\2"""),
+    ("time@datetime", r"""<time[^>]+datetime=(["'])(?P<v>[^>]*?)\1"""),
+    ("jsonld:datePublished", r'"datePublished"\s*:\s*"(?P<v>[^"]*)"'),
 ]
 
 # 人看的日期。C-2 實測：Anthropic 印 "Jul 24, 2026"、Mistral 印 "July 8, 2026"，
@@ -139,11 +153,26 @@ def visible_text(html: str) -> str:
     return _ANYTAG_RE.sub(" ", _TAG_RE.sub(" ", html or ""))
 
 
+def _content_group(m) -> str:
+    """→ 具名群組 `v` 的內容。
+
+    引號改用反向參照之後，編號群組裡混進了引號字元本身。第一版寫「取最後一個
+    非 None 的群組」——對 og:title 正確，對 `og:title(rev)`（content 在前、
+    property 在後）回的是那個 `"`。**一個永遠非空、於是永遠判 ok 的值**，
+    正是這支腳本存在的理由的反面。
+    改成具名群組：哪一組是內容變成寫在 pattern 裡的事實，不是位置的巧合。
+    """
+    return m.group("v") or ""
+
+
 def extract(html: str) -> dict:
     out = {}
     for label, pat in FIELD_PATTERNS:
         m = re.search(pat, html or "", re.I)
-        out[label] = m.group(1).strip() if m else None
+        # 解 entity：`Claude&#x27;s new tool` 存成原樣，就是把來源的編碼
+        # 當成標題的一部分。lib/modelline.py 在同一個 PR 裡為了同一件事修過
+        # （M113），這支在兩百行外犯一樣的。
+        out[label] = _html.unescape(_content_group(m)).strip() if m else None
     text = visible_text(html)
     out["_visible_text_chars"] = len(" ".join(text.split()))
     hits = VISIBLE_DATE_RE.findall(text)
@@ -161,8 +190,13 @@ def save_html(directory: str, url: str, body: str) -> str:
     然後在真頁面上失敗（references/model-timeline.md 第 5 節）。
     """
     os.makedirs(directory, exist_ok=True)
-    slug = re.sub(r"[^a-z0-9]+", "-", url.lower()).strip("-")[:120]
-    path = os.path.join(directory, slug + ".html")
+    # 截斷 + 把所有非英數壓成連字號，會讓 `x.ai/news` 與 `x.ai/news/` 塌成
+    # 同一個檔名，後寫的蓋掉先寫的——而 r["html_path"] 仍然指著它，
+    # 於是一份報告會說「這是 A 的 bytes」而檔案裡是 B 的。
+    # 加完整 URL 的 sha1 前 10 碼：檔名仍然看得懂，碰撞不再靜音。
+    digest = hashlib.sha1(url.encode("utf-8")).hexdigest()[:10]
+    slug = re.sub(r"[^a-z0-9]+", "-", url.lower()).strip("-")[:100]
+    path = os.path.join(directory, f"{slug}-{digest}.html")
     with open(path, "w", encoding="utf-8") as fh:
         fh.write(body or "")
     return path
@@ -206,11 +240,38 @@ def probe_one(pp, url: str, html_dir: str | None = None,
             return r
     r["robots"], r["robots_reason"] = allowed, reason
 
+    # robots **不是印出來給人看的，是要擋住這一支自己的**。
+    # 第一版算了、存了、印了，然後無條件往下抓——紅線 7 的整條規矩在這裡是
+    # 一個沒有消費者的欄位，而這支腳本的 docstring 第 3 個問題就是它。
+    # 姊妹支 verify-policy-sources.py:216 一直是對的：
+    #   `if allowed is not True: 「feed: not fetched」`
+    # 三種非 True 分成兩種判決，因為它們要人做的事不一樣：
+    #   False  站方明文 Disallow ＝ **站方的答案**，可以寫進設計（exit 2）
+    #   None   我們讀不到 robots ＝ **我們的問題**，什麼都不要寫（exit 4）
+    # 只有 `disallow`（200 + 認得出是 robots.txt + 明文擋這條路徑）才是站方的答案。
+    # `unavailable_403` 也回 False，但它的意思是**我們讀不到那份 robots.txt**——
+    # pulse-probe.py 的 run_source 早就為了這一格特別開了分支，寫著
+    # 「robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕）」。
+    # 只看布林值就會把它讀成拒絕，而那正是這一整個 PR 在修的那句話。
+    if allowed is False and reason == "disallow":
+        r["verdict"] = "robots_disallow"
+        r["note"] = "站方 robots.txt 明文 Disallow 這條路徑，不抓"
+        return r
+    if allowed is not True:
+        r["verdict"] = "no_verdict"
+        r["note"] = f"robots 未確立（{reason}），未知一律不當成許可（紅線 7）"
+        return r
+
     try:
         status, body, headers = pp.safe_fetch(url)
     except Exception as exc:  # noqa: BLE001
+        # 第一版把非 proxy 的例外歸成 fetch_error → exit 2，而設計文件把 2
+        # 解釋成「站方 4xx/5xx…這是站方的答案，可以寫進設計」。
+        # 但 SSLError / DNS 黑洞 / ReadTimeout **都不是站方的答案**，
+        # 它們是「我們讀不到」。歸成 2 就是把我們自己的問題寫成站方的回覆——
+        # 紅線 7 那句話的第三種犯法。全部歸 no_verdict。
         r["note"] = f"{type(exc).__name__}: {str(exc)[:200]}"
-        r["verdict"] = "no_verdict" if _is_proxy_error(exc) else "fetch_error"
+        r["verdict"] = "no_verdict"
         return r
 
     intercepted = is_egress_intercept(status, body, headers)
@@ -278,8 +339,14 @@ PRESETS = {
     ],
 }
 
-VERDICT_EXIT = {"no_verdict": 4, "site_error": 2, "fetch_error": 2,
-                "no_og_title": 3, "js_shell": 3, "no_dates": 3, "ok": 0}
+# 3 與 2 是**兩種不同的壞消息**，不是嚴重度的兩格：
+#   2  站方回答了，而答案是「不行」（Disallow / 4xx / 5xx）
+#   3  站方回答了、我們也讀到了，但內容不合這一組 preset 要的東西
+#   4  沒有答案。這是關於我們自己的，所以排最前面。
+VERDICT_EXIT = {"no_verdict": 4,
+                "site_error": 2, "robots_disallow": 2,
+                "no_og_title": 3, "js_shell": 3, "no_dates": 3,
+                "ok": 0}
 
 
 def main() -> int:
@@ -346,7 +413,13 @@ def main() -> int:
 
     if args.json:
         with open(args.json, "w", encoding="utf-8") as fh:
-            json.dump({"ua": pp.UA, "results": results}, fh, ensure_ascii=False, indent=2)
+            # `control_probe` 這個欄位不是紀錄用的裝飾。少了它，
+            # 一份 --skip-control 跑出來的報告與一份驗過的報告在位元組上
+            # 完全一樣——而設計文件說「那份 JSON 才是可以引用的證據」。
+            json.dump({"ua": pp.UA,
+                       "control_probe": None if args.skip_control else args.control_url,
+                       "preset": args.preset,
+                       "results": results}, fh, ensure_ascii=False, indent=2)
         print(f"\nreport written to {args.json}")
 
     # 最壞的那一條決定退出碼。no_verdict 排最前面：沒有判決比壞判決更該讓 CI 紅，

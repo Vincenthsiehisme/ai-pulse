@@ -82,12 +82,19 @@ supersedes: docs/design/2026-07-27-published-is-a-proxy.md 的〈階段 D〉初�
 changelog 用的是同一組動詞，逐字可判：
 
 ```
-released as GA / generally available   → ga
-public preview / preview / beta        → preview
-shut down / shutdown / retired         → shutdown
-deprecated / deprecation               → deprecated
-（都不是）                              → unknown
+released as GA / generally available / we've launched  → ga
+research preview / public preview / in beta            → preview
+shut down / shutdown / retired / turned down           → shutdown
+deprecated / deprecation                               → deprecated
+（同時打中兩種以上）                                     → ambiguous
+（都不是）                                              → unknown
 ```
+
+**針腳一律是片語，不是裸字。** 第一版收了裸字 `beta` / `preview`，
+實測真頁面上 42 條 `ambiguous` 裡有 34 條是被它打中的——包括
+「No beta header is required.」（明說**不是** beta）。
+太鬆的針腳會把真答案洗成「不確定」，而「不確定」那一桶是要人看的，
+灌水就等於把它靜音。
 
 **「需要 LLM」與「我還沒去讀那些字」是兩件事。** 把後者說成前者，
 就是用一個比事實寬鬆的說法去代表事實——這份 repo 的老病。
@@ -109,7 +116,7 @@ display_name:      Claude Opus 5   # 來自 changelog 原文；沒有就留 null
 happened_on:       2026-07-24      # changelog 的條目日期
 date_precision:    day             # 封閉集：day | month | none
 date_year_source:  explicit        # 封閉集：explicit | section | none
-lifecycle:         ga              # 封閉集：ga | preview | shutdown | deprecated | unknown
+lifecycle:         ga              # 封閉集：ga | preview | shutdown | deprecated | ambiguous | unknown
 source_url:        https://...     # Tier-1，逐列一條
 source_tier:       1               # 只收 1
 first_fetch_at:    2026-07-28T...  # 我們第一次讀到這一頁的時間
@@ -152,17 +159,22 @@ gate、不算 `value`／`heat`／`lead_days`。理由有兩個，第二個比較
 
 ---
 
-## 4. 必須被量測、而且印出來的三個比率
+## 4. 必須被量測、而且印出來的五個比率
 
-沒有這三個數字，這一層會安靜地退化成一份看起來很完整的表。
+沒有這些數字，這一層會安靜地退化成一份看起來很完整的表。
+**每一格的分母寫在定義裡**——比率的名字要說得出它拿什麼跟什麼比，
+不然下一個人只會看到一個小數（M78/M81 那一課）。
 
 | 比率 | 定義 | 為什麼非印不可 |
 |---|---|---|
-| `unknown_lifecycle_rate` | `lifecycle == unknown` 的列 ÷ 全部 | 高＝動詞表沒跟上，而表看起來一樣完整 |
-| `derived_year_rate` | `date_year_source != explicit` ÷ 全部 | xAI 那類；高＝時間線的年份有一半是我們推的 |
-| `unmatched_model_rate` | 條目提到版本號但對不上 `entities.yaml` ÷ 條目數 | 高＝新產品線出現了而字典沒補（`dictgaps` 的同類） |
+| `unknown_lifecycle_rate` | `lifecycle == unknown` ÷ **有模型的列** | 高＝動詞表沒跟上，而表看起來一樣完整。母體不可以用全部條目——大半條目本來就不在講模型，會把崩壞稀釋掉 |
+| `section_year_rate` | `date_year_source == section` ÷ 全部 | xAI 那類；高＝時間線的年份有一半是我們推的 |
+| `no_date_rate` | `happened_on` 是 null ÷ 全部 | 跟上一格**分開**：「年份是推的」與「根本沒有日期」要人做的動作完全不同 |
+| `ambiguous_lifecycle_rate` | `lifecycle == ambiguous` ÷ 有模型的列 | 這一格要人看，不是要被靜音的 |
+| `unmatched_model_rate` | 提到**已知產品線**的版本但對不上 ÷ 提到已知產品線版本的條目數 | 高＝已知產品線的新版本沒被接住。**分母字典綁定，所以它看不見全新的產品線**——那是 `dictgaps` 的工作，兩者不可互相冒充 |
 
-三個都印在時間線頁的頁首，跟 `heat` 印「未量測」同一個做法。
+五個都印在時間線頁的頁首，跟 `heat` 印「未量測」同一個做法。
+母體是 0 的時候印 `None` 不印 `0`——0 的意思是「量過了，沒問題」。
 
 ---
 
@@ -194,12 +206,17 @@ egress allowlist，量到的是別的問題（`published-is-a-proxy` 的 C-4′�
 
 ```
 rows                     248        （2024-05-10 → 2026-07-24，26 個月）
-日期解析失敗              0
-derived_year_rate      0.0000       （每一列的年份都是原文寫的）
+model_rows                86        （時間線真的會留下的列）
+日期解析失敗                0
+section_year_rate      0.0000       （沒有一列的年份是我們推的）
+no_date_rate           0.0000
 unmatched_model_rate   0.0444       （90 條在講版本的裡面，4 條對不上字典）
-unknown_lifecycle_rate 0.4677
-ambiguous_lifecycle_rate 0.1694
+unknown_lifecycle_rate 0.4419       （母體：有模型的 86 列）
+ambiguous_lifecycle_rate 0.1279     （同上）
 ```
+
+`anchor_gap`（錨點日期集合 vs 內文日期集合的差集）：**健康 4 / 128；
+把錨點規則改壞之後 27 / 128。** 九倍的分離度，這個守衛才有用。
 
 **這一節真正的內容不是那六個數字，是拿到它們之前踩到的七個洞。**
 每一個都是「列數、日期格式、解析率全都正常，只有列跟事實的關係是錯的」：
@@ -224,6 +241,44 @@ ambiguous_lifecycle_rate 0.1694
 
 **下一步**：在 CI 跑 `--preset release-notes`，把另外三家的真 bytes 帶回來。
 在那之前，OpenAI / Google / xAI 三家的切分器不寫（第 5 節步 3）。
+
+---
+
+## 5″. 對抗性審查又找出八個，而且全部是同一種
+
+第 5′ 節那七個洞是拿真頁面撞出來的。**這一輪是一個獨立的審查者對著 diff 找的，
+又找出八個，每一個都是「守著某件事的東西自己壞掉，而畫面完全正常」：**
+
+| # | 洞 | 為什麼看不見 |
+|---|---|---|
+| 1 | `og:title` 的正規表達式在屬性值的**撇號**處截斷 | `Anthropic's Opus 5` → `Anthropic`，仍然像一個標題 |
+| 2 | 三個機器可讀日期的抽取器**從來沒被測過** | 測試的 fixture 裡根本沒有那三個 tag，斷言的是 `None == None` |
+| 3 | robots 算了、印了、然後**無條件往下抓** | 紅線 7 在這裡是一個沒有消費者的欄位 |
+| 4 | `unavailable_403` 被讀成站方拒絕 | 只看布林值——**這整個 PR 在修的就是這句話** |
+| 5 | 傳輸層例外（SSL / DNS / timeout）歸成 exit 2 | 而文件把 2 解釋成「站方的答案，可以寫進設計」 |
+| 6 | `unknown` / `ambiguous` 兩個比率的母體是全部條目 | 一次全面崩壞從 0.47 走到 0.70，真相是 0.33 走到 1.00 |
+| 7 | `_VERSIONISH` 寫死九個廠商，字典有二十三條 | **全新產品線永遠進不了分母**，而那正是它要偵測的 |
+| 8 | `anchor_gap` 健康時 (124, 261)、壞掉時 (91, 261) | 永遠在叫的警報＝沒有警報 |
+
+第 6 項尤其該記：`unmatched_model_rate` 才因為**同一個理由**修過一次
+（M118，0.79→0.044），而同一個函式裡的另外幾格原封不動留著。
+**修掉一個實例不等於修掉那個形態**——這份 repo 的第一條規矩，
+在寫這份 repo 的規矩的人身上再證明一次。
+
+第 7 項逼出一個必須寫進規格的限制：`unmatched_model_rate` 的分母是
+**字典綁定**的，所以它能回答的是「已知產品線的新版本有沒有被接住」，
+**不是**「有沒有全新的產品線出現」。後者是 `lib/dictgaps.py` 與
+`unknown_entity` 那一層的工作。第 4 節的敘述已依此修正。
+
+另外兩個結構性限制，修不掉，所以標記出來：
+
+- **尾段污染**：最後一個錨點的區間一路吃到檔尾，頁尾的導覽與版權會被算成
+  那一天的條目。`is_date_only` 擋得住純日期的那些（真頁面上 124 條），
+  擋不住的用 `tail_chunk: true` 標記——消費端可以決定要不要信，
+  但不能假裝不知道。
+- **`ambiguous` 的成因**：片語錨定之後真頁面的 ambiguous 從 16 降到 11
+  （母體 86），但它仍然是「兩種宣稱同時出現」而不是「哪一種是主要的」。
+  那一格要人看，不該被靜音。
 
 ---
 

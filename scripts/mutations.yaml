@@ -980,8 +980,8 @@ mutations:
   - id: M110
     title: "no_verdict 的退出碼改成 0（CI 綠著放行一份不能引用的報告——這正是要防的那件事）"
     file: verify-article-metadata.py
-    find: "VERDICT_EXIT = {\"no_verdict\": 4, \"site_error\": 2, \"fetch_error\": 2,"
-    replace: "VERDICT_EXIT = {\"no_verdict\": 0, \"site_error\": 2, \"fetch_error\": 2,"
+    find: "VERDICT_EXIT = {\"no_verdict\": 4,"
+    replace: "VERDICT_EXIT = {\"no_verdict\": 0,"
     survives: false
     why: ""
 
@@ -1025,7 +1025,7 @@ mutations:
   - id: M115
     title: "目錄項不再被丟掉（真頁面上 124 列全部落在最後一個錨點、全部同一天，而每一列的日期都合法）"
     file: lib/modelline.py
-    find: "    return bool(_D_YMD.fullmatch((text or \"\").strip()))"
+    find: "    return bool(_D_YMD.fullmatch(t) or _D_YM.fullmatch(t) or _D_MD.fullmatch(t))"
     replace: "    return False"
     survives: false
     why: ""
@@ -1049,7 +1049,74 @@ mutations:
   - id: M118
     title: "unmatched 的分母改回「全部條目」（量到的變成「有多少條不在講模型」——比事實寬鬆的代理指標）"
     file: lib/modelline.py
-    find: "            \"unmatched_model_rate\": round(unm / len(vrows), 4) if vrows else None}"
-    replace: "            \"unmatched_model_rate\": round(unm / n, 4)}"
+    find: "                if not (r.get(\"model_ids\") or r.get(\"derived_entities\"))), vrows),"
+    replace: "                if not (r.get(\"model_ids\") or r.get(\"derived_entities\"))), rows),"
+    survives: false
+    why: ""
+
+  # ── code review 找出來的洞（2026-07-27，同一條分支）──
+  # 這八格全部是「守著某件事的東西自己壞掉，而畫面完全正常」。
+
+  - id: M119
+    title: "og:title 的引號回到字元類（屬性值裡的撇號把標題截成一個更短、看起來仍然像標題的字串）"
+    file: verify-article-metadata.py
+    find: "     r\"\"\"<meta[^>]+property=([\"'])og:title\\1[^>]*content=([\"'])(?P<v>[^>]*?)\\2\"\"\"),"
+    replace: "     r\"\"\"<meta[^>]+property=[\"']og:title[\"'][^>]*content=[\"'](?P<v>[^\"']+)\"\"\"),"
+    survives: false
+    why: ""
+
+  - id: M120
+    title: "抽出來的值不解 HTML entity（`Claude&#x27;s tool` 原樣存成標題）"
+    file: verify-article-metadata.py
+    find: "        out[label] = _html.unescape(_content_group(m)).strip() if m else None"
+    replace: "        out[label] = _content_group(m).strip() if m else None"
+    survives: false
+    why: ""
+
+  - id: M121
+    title: "robots 算了、印了，然後無條件往下抓（紅線 7 在這裡變成一個沒有消費者的欄位）"
+    file: verify-article-metadata.py
+    find: "    if allowed is False and reason == \"disallow\":"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M122
+    title: "401/403 取不到 robots 被讀成站方拒絕（只看布林值——這整個 PR 在修的就是這句話）"
+    file: verify-article-metadata.py
+    find: "    if allowed is False and reason == \"disallow\":\n        r[\"verdict\"] = \"robots_disallow\""
+    replace: "    if allowed is False:\n        r[\"verdict\"] = \"robots_disallow\""
+    survives: false
+    why: ""
+
+  - id: M123
+    title: "verdict_for 無條件回 ok（第一版整支從沒被呼叫過，改成這樣全綠）"
+    file: verify-article-metadata.py
+    find: "    if fields.get(\"_visible_text_chars\", 0) < SHELL_TEXT_CHARS:\n        return \"js_shell\""
+    replace: "    if False:\n        return \"js_shell\""
+    survives: false
+    why: ""
+
+  - id: M124
+    title: "lifecycle 的母體回到全部條目（一次全面崩壞在頁首被稀釋成小幅上升）"
+    file: lib/modelline.py
+    find: "            sum(1 for r in mrows if r.get(\"lifecycle\") == UNKNOWN), mrows),"
+    replace: "            sum(1 for r in rows if r.get(\"lifecycle\") == UNKNOWN), rows),"
+    survives: false
+    why: ""
+
+  - id: M125
+    title: "裸字 beta 回到 PREVIEW 針腳（「No beta header is required」被判成宣稱，人工佇列比它命名的事實大六倍）"
+    file: lib/modelline.py
+    find: "               \"in beta\", \"public beta\", \"private beta\", \"open beta\","
+    replace: "               \"beta\", \"public beta\", \"private beta\", \"open beta\","
+    survives: false
+    why: ""
+
+  - id: M126
+    title: "衍生實體不再丟掉裸數字碎片（`claude-3-7-sonnet-…` 生出 `claude@3`——另一個世代的假實體，而它是聚類主鍵）"
+    file: lib/modelline.py
+    find: "    if bare and len(out) > len(bare):\n        out = [e for e in out if e not in bare]"
+    replace: "    if False:\n        out = [e for e in out if e not in bare]"
     survives: false
     why: ""
