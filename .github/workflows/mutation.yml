@@ -27,7 +27,9 @@ on:
       - 'scripts/**'
       - 'references/mutation-inventory.md'
   schedule:
-    - cron: '0 3 * * 1'
+    # cron 一律 UTC，**連 day-of-week 也是**。同一行註解要寫出台北時間，
+    # selftest 會擋。規格：references/timezones.md〈排程〉。
+    - cron: '0 3 * * 1'   # 台北週一 11:00（UTC 週一 03:00，同一天）
   workflow_dispatch:
 
 permissions:
