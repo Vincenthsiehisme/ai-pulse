@@ -82,16 +82,21 @@ def is_placeholder(path):
 def resolves(root, referrer, path):
     """判準 1＋2：這個候選指得到東西嗎？
 
-    先看第一段是不是 repo 頂層真的有的名字（判準 1）——不是的話回 True（＝不管它，
-    那不是一個 repo 路徑）。是的話，從 repo 根、以及**寫它的那個檔案旁邊**各試一次。
+    先問「這個字串到底有沒有在指本 repo」（判準 1）：第一段要嘛是 repo 頂層真的有
+    的名字，要嘛在**寫它的那個檔案旁邊**真的有。兩邊都沒有 → 回 True，不管它。
+    有的話，同樣兩個起點各試一次完整路徑（判準 2）。
+
+    判準 1 那個「旁邊」不能漏：`scripts/pulse-probe.py` 裡寫 `lib/sources.py`，
+    頂層沒有 `lib/`——只看頂層的話，這種引用會在第一關就被當成「不是 repo 路徑」
+    放掉，判準 2 永遠走不到，而 repo 裡三分之二的路徑引用都長這樣。
     """
-    head = path.split("/", 1)[0]
-    if not os.path.exists(os.path.join(root, head)):
-        return True
-    if os.path.exists(os.path.join(root, path)):
-        return True
     here = os.path.dirname(os.path.join(root, referrer))
-    return os.path.exists(os.path.join(here, path))
+    head = path.split("/", 1)[0]
+    if not (os.path.exists(os.path.join(root, head))
+            or os.path.exists(os.path.join(here, head))):
+        return True
+    return (os.path.exists(os.path.join(root, path))
+            or os.path.exists(os.path.join(here, path)))
 
 
 def scan_files(root):
