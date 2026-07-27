@@ -5,7 +5,9 @@
 可測、可重現的機械清理，抓殘留的中國用語與半形標點。**只做零容忍、無歧義的替換**；
 需要語境判斷的（優化 / 支持 / 落地 / 文檔…）留給 Cowork 在寫的時候處理，這裡不碰。
 
-規則來源：speak-human-tw references/taiwan-localization.md（中國用語替換表 + 全形標點硬規則）。
+規則來源：speak-human-tw 技能自己的 taiwan-localization 規則表（中國用語替換表 + 全形
+標點硬規則）。那份表在技能裡、不在本 repo——寫成 `references/…` 會讀起來像本 repo 有
+一個同名檔案，實際上沒有。
 """
 from __future__ import annotations
 

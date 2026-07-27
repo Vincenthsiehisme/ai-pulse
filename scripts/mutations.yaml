@@ -646,3 +646,29 @@ mutations:
     replace: "        \"title_zh\": None,"
     survives: false
     why: ""
+
+  # ── 死引用檢查（2026-07-27 清根目錄；判準見 lib/deadrefs.py）──
+
+  - id: M73
+    title: "斷鏈只看 repo 根、不看寫它的檔案旁邊（scripts/*.py 的 lib/ 引用全變假紅）"
+    file: lib/deadrefs.py
+    find: "    here = os.path.dirname(os.path.join(root, referrer))\n    return os.path.exists(os.path.join(here, path))"
+    replace: "    return False"
+    survives: false
+    why: ""
+
+  - id: M74
+    title: "候選路徑抽不出來（掃描器空轉，「沒有死引用」變成恆綠）"
+    file: lib/deadrefs.py
+    find: "        p = m.group(1)"
+    replace: "        p = \"\"; continue"
+    survives: false
+    why: ""
+
+  - id: M75
+    title: "第一段不是頂層也照查（網址與 dist/ 相對連結全被讀成 repo 路徑）"
+    file: lib/deadrefs.py
+    find: "    if not os.path.exists(os.path.join(root, head)):\n        return True"
+    replace: "    if False:\n        return True"
+    survives: false
+    why: ""

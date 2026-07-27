@@ -6,7 +6,7 @@
 佔位詞比對走 lib.notes.PLACEHOLDER_RE，不用字串 in：既有事件寫的是簡體舊寫法，
 只認新寫法的話它們會永遠排不進潤稿佇列，而且不會有任何錯誤訊息。
 把每個 Event 綁定的證據，從 _corpus 解析出真正的標題 + 摘要文字，湊成一份乾淨的 worklist，
-交給 Cowork（或排程 Cowork 任務）依 references/enrich-runbook.md 逐個寫 prose。
+交給 Cowork（或排程 Cowork 任務）依 scripts/enrich-runbook.md 逐個寫 prose。
 
 輸出：_probe/enrich-worklist.json
 用法：VAULT_DIR=/path/to/AI-Pulse python scripts/pulse-enrich-prep.py

@@ -290,7 +290,7 @@ official_sources:
     # 與主站 robots 及 arXiv 自身「harvest 請改用 export 站」說明頁矛盾，
     # 但矛盾不構成放行理由——照字面遵守。
     # M1 那 100 筆係在 robots_allows 缺陷下抓取，已自 _corpus 移除。
-    # 事件紀錄見 2026-07-24-arxiv-robots.md。
+    # 事件紀錄見 references/incidents/2026-07-24-arxiv-robots.md。
     # 連帶：arXiv 是唯一具名作者來源，出局後 checklist 5b 分子近零，人物層 M1 不做。
     # author / PERSON_KINDS / people.yaml / corpus_type: person_signal 保留但不出報表，待 M3 復用。
 

@@ -1511,6 +1511,59 @@ acase("gate.yaml：require_primary_evidence 必須維持「刻意不接」的標
        for e in _leaves if e["key"] == "require_primary_evidence"],
       [(True, True)])
 
+# ------------------------------------------- 文件裡的死引用（2026-07-27 清根目錄）
+# 起因：把兩個事件紀錄搬進 incidents/ 的時候，順手發現有兩處 docstring 指著不存在
+# 的檔案，其中一處已經錯了很久。docstring 不會被執行，所以永遠不會有人「踩到」——
+# 只會有下一個人照著它去找，找不到，然後以為東西被刪了。
+#
+# 形狀跟 gate_keys 一樣：**列舉是機械的，判準是人寫的，測試比對兩者。**
+# 判準與它「不保證什麼」寫在 lib/deadrefs.py 的 docstring 裡。
+from lib import deadrefs as _dr  # noqa: E402
+
+_REPO = os.path.normpath(os.path.join(_HERE, ".."))
+_dr_files = _dr.scan_files(_REPO)
+
+# 掃描器自己要先是活的：regex 被改壞、或走目錄的地方被剪掉時，下面那條
+# 「沒有死引用」會自動變成綠的，因為沒有東西可以違規。
+acase("deadrefs：真的走到整個 repo（檔案數掉到個位數＝下一條變成恆綠）",
+      len(_dr_files) > 30, True)
+acase("deadrefs：候選路徑真的抽得出來（regex 壞掉時這裡先紅）",
+      len({p for f in _dr_files[:400]
+           for p in _dr.extract(open(os.path.join(_REPO, f), encoding="utf-8").read())})
+      > 30, True)
+acase("repo 裡沒有指向不存在檔案的路徑引用"
+      "（檔案搬家、改名、或從一開始就寫錯——三種都在這裡紅）",
+      _dr.dead(_REPO, _dr_files), [])
+
+# 判準本身的單元測試：釘的是「會不會誤放、會不會誤抓」，不是 repo 現況。
+acase("deadrefs：產物目錄不算斷鏈（乾淨的 clone 裡本來就沒有 _probe/ 的東西）",
+      _dr.is_artifact("_probe/title-zh-worklist.json"), True)
+acase("deadrefs：references/ 不是產物目錄（反方向，確認上一條不是恆真）",
+      _dr.is_artifact("references/vault-pages.md"), False)
+acase("deadrefs：單字母檔名是格式示例，不是引用"
+      "（`消費者：scripts/x.py` 那種）",
+      [_dr.is_placeholder("scripts/x.py"), _dr.is_placeholder("scripts/mutate.py")],
+      [True, False])
+acase("deadrefs：第一段不是 repo 頂層的東西就不管它"
+      "（`openai.com/robots.txt` 是網址、`assets/app.css` 是 dist/ 底下的相對連結，"
+      "都不是在指本 repo）",
+      [_dr.resolves(_REPO, "AGENTS.md", "openai.com/robots.txt"),
+       _dr.resolves(_REPO, "AGENTS.md", "assets/app.css")],
+      [True, True])
+acase("deadrefs：路徑也試著相對於「寫它的那個檔案」解析一次"
+      "（scripts/*.py 裡寫 lib/sources.py 是對的，不是斷鏈）",
+      _dr.resolves(_REPO, "scripts/pulse-probe.py", "lib/sources.py"), True)
+# 這個假路徑刻意用拼的，不寫成一整個字面值：寫成字面值，掃描器會在 selftest.py
+# 自己身上抓到它，上面那條「repo 裡沒有死引用」就永遠是紅的。把 selftest.py 排除
+# 掉也能解決，但那等於在檢查上開一個沒有底的洞——測試檔裡的真斷鏈也一起看不到了。
+_dr_missing = "references" + "/no-such-file-here.md"
+acase("deadrefs：頂層目錄存在、檔案不存在＝真的斷鏈（這條是整份檢查的唯一出口）",
+      _dr.resolves(_REPO, "AGENTS.md", _dr_missing), False)
+acase("deadrefs：extract 只認含目錄的路徑，裸檔名不收"
+      "（收了，散文裡每一句「見 xxx.md」都變成候選，誤報會淹掉真報）",
+      _dr.extract("見 BACKLOG.md 與 references/vault-pages.md"),
+      ["references/vault-pages.md"])
+
 # ------------------------------------------- 機器產生的 vault 頁（2026-07-26）
 # Sources/*.md 被每一則 Event 連著，卻沒有任何腳本產生它 —— 全部是紅色斷鏈。
 # _dashboards/health.md 被部署規格講了一整個月，檔案從來沒存在過。
