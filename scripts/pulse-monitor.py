@@ -43,6 +43,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 from lib import corpus as _corpus  # noqa: E402  _corpus/、_probe/ 盤點的單一真相源
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 from lib import ghdesc  # noqa: E402  榜單中文描述的覆蓋率，見 lib/ghdesc.py
@@ -68,11 +69,11 @@ def _as_date(v):
     s = str(v).replace("Z", "+00:00")
     try:
         dt = datetime.fromisoformat(s)
-        return dt.astimezone(timezone.utc).date() if dt.tzinfo else dt.date()
+        return clock.utc_date(dt)
     except ValueError:
         pass
     try:
-        return datetime.strptime(s[:10], "%Y-%m-%d").date()
+        return clock.utc_date(datetime.strptime(s[:10], "%Y-%m-%d"))
     except ValueError:
         return None
 
@@ -646,7 +647,7 @@ def main():
     args = ap.parse_args()
 
     vault = Path(os.environ["VAULT_DIR"])
-    today = datetime.now(timezone.utc).date()
+    today = clock.utc_today()
     r = scan(vault, today)
 
     import yaml

@@ -42,6 +42,9 @@ import urllib.robotparser
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
+
 DEFAULT_UA = os.environ.get("PULSE_UA", "ai-pulse-tracker/0.1 (+probe; contact: set PULSE_UA)")
 TIMEOUT = 30
 
@@ -273,7 +276,7 @@ def main() -> int:
 
     results = [verify(c, args.ua) for c in cands]
 
-    today = datetime.now(timezone.utc).date()
+    today = clock.utc_today()
     print("\n--- paste into _config/sources.yaml ---")
     for r in results:
         print(f"  # {r['id']}")

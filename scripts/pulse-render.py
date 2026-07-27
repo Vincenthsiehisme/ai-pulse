@@ -34,6 +34,7 @@ from lib import tracks as tracks_lib  # noqa: E402  主線對照表單一真相�
 from lib import zhtext  # noqa: E402  譯文驗章單一真相源，見 lib/zhtext.py
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.quality import parse_dt  # noqa: E402
+from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 
 import yaml  # noqa: E402
 
@@ -85,6 +86,11 @@ SUN = ('<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" c
        '<path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>')
 
 
+# 站上每一個日期都是台北日（fmt_date / date_display）。這行字要跟著它們一起出現：
+# 一個沒有時區標示的日期，讀者會預設是自己的——而 52 則裡有 12 則那個預設是錯的。
+TZ_LABEL = clock.DISPLAY_TZ_LABEL
+
+
 def esc(s):
     return html.escape(str(s or ""))
 
@@ -95,8 +101,17 @@ def section(body, heading):
 
 
 def fmt_date(s):
+    """→ **台北**日期字串。這是給人看的那一層。
+
+    儲存層一律 UTC（`evt-<日期>-` 的 id、`date` 欄位都是），但讀者在台北：
+    UTC 16:00–24:00 發生的事對他來說已經是隔天。2026-07-27 實測 52 則 Event
+    有 12 則（23%）差這一天。規格見 references/timezones.md。
+
+    解不開的時候退回原字串前十碼——那是儲存層的 UTC 日期，會差一天，但
+    「顯示一個可能差一天的日期」比「顯示 —」有用。
+    """
     d = parse_dt(s) if s else None
-    return d.strftime("%Y-%m-%d") if d else (str(s)[:10] if s else "—")
+    return clock.display_date_str(d) if d else (str(s)[:10] if s else "—")
 
 
 def prettify_source(sid):
@@ -427,7 +442,7 @@ def page_layout(active, title, desc, body, depth, generated):
 <div class="footer-brand"><strong>AI PULSE</strong><p>去 AI 口吻的 AI 產業情報。判斷這一層零 LLM、走規則；敘述由 Cowork 依 speak-human-tw 潤稿。全程可審計、可重現、零 API 成本。</p></div>
 <div class="footer-links"><nav><span>探索</span>{foot_links}</nav></div>
 </div><div class="shell footer-meta">
-<span>判斷走規則 · 敘述去 AI 口吻 · 同 vault → 同輸出</span><span>更新於 {esc(generated)}</span>
+<span>判斷走規則 · 敘述去 AI 口吻 · 同 vault → 同輸出</span><span>全站日期為{esc(TZ_LABEL)} · 更新於 {esc(generated)}</span>
 </div></footer>
 <nav class="mobile-nav" aria-label="主導覽">{nav}</nav>
 </body></html>"""
@@ -562,7 +577,7 @@ def recent_row(ev, prefix):
     tr = track_of(ev)
     meta = tr[1] if tr else (ev["company"] or "")
     href = ev_href(prefix, ev["slug"])
-    return (f'<a class="row" href="{href}"><time>{esc(ev["date"])}</time>'
+    return (f'<a class="row" href="{href}"><time>{esc(ev["date_display"])}</time>'
             + title_html(ev)
             + f'<div class="rm">{esc(ev["company"])} · {esc(meta)}</div></a>')
 
@@ -663,7 +678,7 @@ def build_home(events, narratives, generated):
         if th:
             inner = f'<p class="line-thesis">{esc(th)}</p>'
         elif evs:
-            inner = "".join(f'<li><time>{esc(e["date"])}</time><span><b>{esc(e["company"])}</b> {esc(e["title"])}</span></li>'
+            inner = "".join(f'<li><time>{esc(e["date_display"])}</time><span><b>{esc(e["company"])}</b> {esc(e["title"])}</span></li>'
                             for e in evs[:2])
             inner = f"<ul>{inner}</ul>"
         else:
@@ -691,7 +706,7 @@ def build_lines(events, narratives, generated):
         if tr:
             by_track[tr[0]].append(e)
     active_tracks = sum(1 for slug, _, _ in TRACKS if by_track.get(slug))
-    latest = events[0]["date"] if events else "—"
+    latest = events[0]["date_display"] if events else "—"
     stat = page_status([("主線", f"{active_tracks} / 6"), ("已收事件", len(events)), ("最新", latest)])
     h = hero("六大主線", "領域趨勢", "把事件收斂進六條主線——每條看得到相關事件、最新進展與獨立來源數。",
              extra=stat, cls="compact")
@@ -722,7 +737,9 @@ def build_lines(events, narratives, generated):
 def build_timeline(events, generated):
     by_ym = defaultdict(lambda: defaultdict(list))
     for e in events:
-        d = e["date"] or "0000-00"
+        # 用**顯示日**分年月，不是儲存日：卡片上印台北日期、卻按 UTC 日期歸月，
+        # 會出現一張寫著 8/01 的卡片躺在「7 月」底下。
+        d = e["date_display"] or e["date"] or "0000-00"
         by_ym[d[:4]][d[5:7]].append(e)
     present_tracks = {track_of(e)[0] for e in events if track_of(e)}
     filters = "".join(f'<button type="button" data-filter="{slug}">{esc(name)}</button>'
@@ -740,12 +757,12 @@ def build_timeline(events, generated):
                 tname = tr[1] if tr else ""
                 href = ev_href("../", e["slug"])
                 cards.append(f"""<div class="tl-card" data-track="{esc(tslug)}" style="--tc:{tc}">
-<time>{esc(e['date'])}</time><h3><a href="{href}">{esc(e['title'])}</a></h3><p>{esc(e['summary'])}</p>
+<time>{esc(e['date_display'])}</time><h3><a href="{href}">{esc(e['title'])}</a></h3><p>{esc(e['summary'])}</p>
 <div class="tl-meta"><span>{esc(e['company'])}</span>{f'<span>{esc(tname)}</span>' if tname else ''}<span>confidence {esc(e['confidence'])}</span></div></div>""")
             months.append(f'<div class="tl-month"><time>{esc(y)} · {MONTH_TW.get(m, m)}</time>{"".join(cards)}</div>')
         years_html.append(f'<section class="tl-year"><h2>{esc(y)}</h2>{"".join(months)}</section>')
     companies = len({e["company"] for e in events if e["company"]})
-    latest = events[0]["date"] if events else "—"
+    latest = events[0]["date_display"] if events else "—"
     tl_stat = page_status([("事件", len(events)), ("主體", companies), ("最新", latest)])
     body = f"""{hero("EVENT TIMELINE", "事件時間軸", "已發布事件依時間排列，最新在前。點主線標籤可篩選、點標題看完整事件。", extra=tl_stat, cls="compact")}
 <section class="section shell">
@@ -829,7 +846,7 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
 <h1 style="font-size:clamp(1.6rem,3.4vw,2.3rem)">{esc(ev.get('title_zh') or ev['title'])}</h1>
 {f'<p class="title-src">{esc(ev["title"])}</p>' if ev.get('title_zh') else ''}
 <p class="lead" style="font-size:1.06rem;margin-top:.6rem">{esc(ev['summary'])}</p>
-<div class="statline"><span>{esc(ev['date'])}</span>{f'<span>{esc(tr[1])}</span>' if tr else ''}<span>{esc(ev['company'])}</span></div>
+<div class="statline"><span>{esc(ev['date_display'])}</span>{f'<span>{esc(tr[1])}</span>' if tr else ''}<span>{esc(ev['company'])}</span></div>
 </div></section>
 <section class="section shell"><div class="detail-grid">
 <div class="detail-main">
@@ -859,6 +876,11 @@ def load_events(vault):
                 {"zh": fm.get("title_zh"), "src_hash": fm.get("title_zh_src")},
                 fm.get("title", "")),
             "happened": str(fm.get("happened_at") or ""),
+            # 儲存的 `date` 是 UTC 日（它進 id，不能動）；`date_display` 是同一個
+            # 瞬間的台北日，畫面上只印這個。兩個都留著，才回答得出
+            # 「為什麼站上是 7/24、Events/ 檔名卻是 7/23」。
+            "date_display": (clock.display_date_str(parse_dt(fm.get("happened_at")))
+                             or str(fm.get("date") or "")),
             "company": fm.get("company", ""), "category": fm.get("category") or "",
             "track": fm.get("track") or "", "summary": fm.get("summary") or "",
             # heat 不給預設 0：缺席與「量到 0」是兩件事，見 heat_text()。
@@ -956,7 +978,9 @@ def main():
     corpus_idx = load_corpus_index(vault)
     sources = load_sources(vault)
     narratives = load_narratives(vault)
-    generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%MZ")
+    # 頁尾「更新於」是給讀者看的 → 台北並標時區。data/timeline.json 的
+    # `generated` 是給機器讀的 → 另外用 utc_stamp()，兩者刻意不同。
+    generated = clock.display_stamp()
 
     (out / "assets" / "app.css").write_text(CSS, encoding="utf-8")
     (out / "assets" / "app.js").write_text(JS, encoding="utf-8")
@@ -970,7 +994,7 @@ def main():
         d.joinpath("index.html").write_text(
             build_event_page(ev, events, corpus_idx, sources, generated), encoding="utf-8")
     (out / "data" / "timeline.json").write_text(
-        json.dumps({"generated": generated, "count": len(events),
+        json.dumps({"generated": clock.utc_stamp(), "count": len(events),
                     "events": [{k: e[k] for k in ("id", "slug", "title", "date", "company", "category",
                                                   "summary", "confidence", "heat")} for e in events]},
                    ensure_ascii=False, indent=2), encoding="utf-8")

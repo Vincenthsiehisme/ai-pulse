@@ -19,11 +19,10 @@ import argparse
 import json
 import os
 import sys
-from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lib import narrative_guard, voice_clean  # noqa: E402
+from lib import clock, narrative_guard, voice_clean  # noqa: E402
 
 import yaml  # noqa: E402
 
@@ -81,7 +80,9 @@ def main():
             changed += 1
             print(f"  ● {slug}：更新 {', '.join(touched)}")
 
-    doc["updated"] = date.today().isoformat()
+    # 不用 date.today()：它讀本機時區，同一次執行在台北跟在 Actions 上會蓋出
+    # 不同的日期。見 references/timezones.md。
+    doc["updated"] = clock.utc_today().isoformat()
 
     if args.dry_run:
         print(f"\n[dry-run] 會更新 {changed} 條主線、{total_clean} 處後洗、"
