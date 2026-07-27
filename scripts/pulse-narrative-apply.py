@@ -27,8 +27,9 @@ from lib import clock, narrative_guard, voice_clean  # noqa: E402
 import yaml  # noqa: E402
 
 HEADER = ("# narratives.yaml —— 每條主線的編輯性敘事層（thesis / now / next + 決策鏡）。\n"
-          "# 這一層是「敘述」，人為維護、可過 speak-human-tw，刻意獨立於 0-LLM 抓取管線；\n"
-          "# 夜間鏈只在某主線有新事件時重寫該條 now / next（thesis、lenses 不動）。\n")
+          "# 這一層是「敘述/口吻」，是全系統唯一准 LLM 動手處：由排程 Cowork 任務（非 0-LLM 自動抓取鏈）\n"
+          "# 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），\n"
+          "# apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。\n")
 FIELDS = ("now", "next", "thesis")
 
 
