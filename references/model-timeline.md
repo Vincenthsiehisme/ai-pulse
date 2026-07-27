@@ -183,6 +183,50 @@ egress allowlist，量到的是別的問題（`published-is-a-proxy` 的 C-4′�
 
 ---
 
+## 5′. 實測：步 1 與步 3（Anthropic 那一家）已經做完，數字在這裡
+
+2026-07-27。`verify-article-metadata.py --preset release-notes --save-html`
+在開發容器裡對四家跑，**只有 `platform.claude.com` 通得過**
+（1,436,122 bytes，`ok`），另外三家被 egress allowlist 擋住、判 `no_verdict`
+——所以底下的數字只涵蓋 Anthropic，另外三家仍然是**未驗**。
+
+`lib/modelline.py` 對那份真 HTML 的結果：
+
+```
+rows                     248        （2024-05-10 → 2026-07-24，26 個月）
+日期解析失敗              0
+derived_year_rate      0.0000       （每一列的年份都是原文寫的）
+unmatched_model_rate   0.0444       （90 條在講版本的裡面，4 條對不上字典）
+unknown_lifecycle_rate 0.4677
+ambiguous_lifecycle_rate 0.1694
+```
+
+**這一節真正的內容不是那六個數字，是拿到它們之前踩到的七個洞。**
+每一個都是「列數、日期格式、解析率全都正常，只有列跟事實的關係是錯的」：
+
+| # | 洞 | 後果 | 現在守它的 |
+|---|---|---|---|
+| 1 | 錨點不認序數 `july-9th-2024` | 2024-05 至 2025-04 每一條蓋上同一天 | M112、`anchor_gap()` |
+| 2 | 沒解 HTML entity | `We&#x27;ve launched` 對不上動詞表 | M113 |
+| 3 | lifecycle 逐**日**判 | 一條 beta 把整天染成 preview | M114 的鄰居、逐 `<li>` 測試 |
+| 4 | 目錄項當條目 | **124 列**（全頁三分之一）落在同一天 | M115 |
+| 5 | `claude.com` / `claude.ai` 當 model id | 網域進時間線 | M116 |
+| 6 | 缺年份時拿今年補 | 兩年的條目堆到同一年 | M117 |
+| 7 | unmatched 的分母用全部條目 | 0.79，量到的是「有多少條不在講模型」 | M118 |
+
+**第 3 與第 7 是我自己在第一版寫進去的代理指標**——在一份專門講「不要用代理
+指標代表事實」的規格底下，第一版的實作犯了兩次。第 7 修好之後 0.79 → 0.044。
+
+`unknown_lifecycle_rate` 0.47 不是缺陷，是**這一頁大半條目本來就不在講模型
+生命週期**（SDK 更新、定價、文件）。時間線只收有模型且 lifecycle 明確的列；
+其餘留在原始資料裡，不進表。`ambiguous` 0.17 是要人看的那一格，
+不是要被靜音的那一格。
+
+**下一步**：在 CI 跑 `--preset release-notes`，把另外三家的真 bytes 帶回來。
+在那之前，OpenAI / Google / xAI 三家的切分器不寫（第 5 節步 3）。
+
+---
+
 ## 6. 明確不做
 
 - **不建 YAML 資料檔**（在步 2 綠燈之前）。現在建＝先寫一份靠記憶填的表，
