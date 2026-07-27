@@ -354,3 +354,37 @@ mutations:
     replace: "        side = \"我們\""
     survives: false
     why: ""
+
+  # ── 證據記錄：判斷用的欄位活不活得過 round-trip（references/evidence-tiers.md）──
+
+  - id: M39
+    title: "白名單掉回舊三欄（title / published 寫不進 frontmatter，重讀就沒了）"
+    file: pulse-cluster.py
+    find: "_EVIDENCE_FIELDS = (\"source_id\", \"url\", \"title\", \"relevance\", \"published\")"
+    replace: "_EVIDENCE_FIELDS = (\"source_id\", \"url\", \"relevance\")"
+    survives: false
+    why: ""
+
+  - id: M40
+    title: "reload 拿 url 頂替 title（相似度照樣算得出來，只是算的是網址）"
+    file: pulse-cluster.py
+    find: "        out.append({\"source_id\": e.get(\"source_id\"), \"url\": e.get(\"url\"),\n                    \"title\": e.get(\"title\"), \"relevance\": e.get(\"relevance\", 0),"
+    replace: "        out.append({\"source_id\": e.get(\"source_id\"), \"url\": e.get(\"url\"),\n                    \"title\": e.get(\"url\"), \"relevance\": e.get(\"relevance\", 0),"
+    survives: false
+    why: ""
+
+  - id: M41
+    title: "標題缺席照樣印成標題（網址印兩次，看起來像文章就叫這個名字）"
+    file: pulse-cluster.py
+    find: "    if not title or title == (e.get(\"url\") or \"\").strip():"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M42
+    title: "attach 不帶 published（時間窗那一半永遠是 None）"
+    file: pulse-cluster.py
+    find: "        ev.add_evidence(sig[\"source_id\"], sig.get(\"url\", \"\"), title, rel, published)"
+    replace: "        ev.add_evidence(sig[\"source_id\"], sig.get(\"url\", \"\"), title, rel)"
+    survives: false
+    why: ""

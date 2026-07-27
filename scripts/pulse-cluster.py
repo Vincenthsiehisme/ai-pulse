@@ -112,11 +112,65 @@ class Event:
         # 是兩件事。寫一次就不再動；規格見 references/event-timestamps.md。
         self.ingested_at = None
 
-    def add_evidence(self, source_id, url, title, relevance):
+    def add_evidence(self, source_id, url, title, relevance, published=None):
+        """新增一條證據。`title` 與 `published` 是**判斷用的欄位，不是展示用的**。
+
+        規格見 references/evidence-tiers.md〈證據記錄要留下什麼〉。簡短版：
+        跨語言轉載鏈判定要問「這兩條的標題實體重不重疊、發布時間差幾小時」，
+        兩個問題都只有在證據記錄自己帶著 title 與 published 時才回答得出來。
+        在此之前這兩個值只活在建立那一班的記憶體裡，重新讀檔就沒了。
+        """
         if any(e["source_id"] == source_id and e["url"] == url for e in self.evidence):
             return
-        self.evidence.append({"source_id": source_id, "url": url, "title": title, "relevance": relevance})
+        self.evidence.append({"source_id": source_id, "url": url, "title": title,
+                              "relevance": relevance, "published": published})
         self.dirty = True
+
+
+_EVIDENCE_FIELDS = ("source_id", "url", "title", "relevance", "published")
+
+
+def evidence_frontmatter(evidence):
+    """證據記錄 → frontmatter 的 list。欄位白名單，順序固定。
+
+    規格見 references/evidence-tiers.md。白名單是刻意的：證據記錄不是語料的
+    副本，只留下**判斷會用到的**那幾個欄位（紅線 6，原始內容只進 _evidence_raw/）。
+    順序固定是為了 diff——欄位順序每跑一次換一次的話，`git diff` 上每則 Event
+    都會看起來像被改過。
+    """
+    return [{k: e.get(k) for k in _EVIDENCE_FIELDS} for e in evidence]
+
+
+def evidence_from_frontmatter(items):
+    """frontmatter 的 `evidence[]` → 記憶體裡的證據記錄。跨日 attach 會走這條路。
+
+    `title` 缺席時填 `None`，**不填 url**。舊版填的是 `e.get("url")`，於是重新
+    讀檔之後每一條證據的「標題」都是它自己的網址：body 的證據清單會把同一個
+    網址印兩次，而任何拿 `title` 做判斷的規則（轉載鏈的實體重疊）會拿到一串
+    網址去比對，比出來的相似度是假的、而且看起來很正常。
+
+    缺就是缺——量不到不可以寫成一個看起來像值的東西（紅線 8）。
+    規格見 references/evidence-tiers.md〈證據記錄要留下什麼〉。
+    """
+    out = []
+    for e in (items or []):
+        out.append({"source_id": e.get("source_id"), "url": e.get("url"),
+                    "title": e.get("title"), "relevance": e.get("relevance", 0),
+                    "published": e.get("published")})
+    return out
+
+
+def evidence_line(e):
+    """body 的〈證據〉那一行。標題缺席時只印網址，不把網址印成標題。
+
+    舊版是 `— {title}（{url}）`，而重新讀檔之後 title 就是 url，於是同一個網址
+    被印兩次、中間夾一個破折號，看起來像「這篇文章的標題就叫 https://…」。
+    """
+    title = (e.get("title") or "").strip()
+    head = f"- [[Sources/{e['source_id']}|{e['source_id']}]] — "
+    if not title or title == (e.get("url") or "").strip():
+        return f"{head}（標題未留存）{e.get('url') or ''}"
+    return f"{head}{title}（{e.get('url') or ''}）"
 
 
 def rescore(ev, sources, ref_now):
@@ -178,14 +232,11 @@ def event_markdown(ev):
         "warnings": [],
         "keywords": ev.keywords,
         "next_signal": "",
-        "evidence": [{"source_id": e["source_id"], "url": e["url"], "relevance": e["relevance"]} for e in ev.evidence],
+        "evidence": evidence_frontmatter(ev.evidence),
         "tags": ["event", "review"],
     }
     front = yaml.safe_dump(fm, allow_unicode=True, sort_keys=False, default_flow_style=False).rstrip()
-    ev_lines = "\n".join(
-        f"- [[Sources/{e['source_id']}|{e['source_id']}]] — {e['title']}（{e['url']}）"
-        for e in ev.evidence
-    )
+    ev_lines = "\n".join(evidence_line(e) for e in ev.evidence)
     body = f"""
 ## 事實
 {PLACEHOLDER}：一句話講清楚發生了什麼（enrich 依證據填、過 speak-human-tw）。
@@ -260,9 +311,7 @@ def main():
             ev.ingested_at = fm.get("ingested_at")
             ev.orig_body = body
             ev.fm = fm
-            for e in (fm.get("evidence") or []):
-                ev.evidence.append({"source_id": e.get("source_id"), "url": e.get("url"),
-                                    "title": e.get("url"), "relevance": e.get("relevance", 0)})
+            ev.evidence.extend(evidence_from_frontmatter(fm.get("evidence")))
             ev.dirty = False
             ev.path = p
             events.append(ev)
@@ -307,7 +356,7 @@ def main():
         else:
             attached += 1
         rel = int(round(cluster.title_similarity(title, ev.title) * 100))
-        ev.add_evidence(sig["source_id"], sig.get("url", ""), title, rel)
+        ev.add_evidence(sig["source_id"], sig.get("url", ""), title, rel, published)
 
     # rescore 所有動到的 Event
     changed = [e for e in events if e.dirty]
@@ -351,7 +400,7 @@ def rescored_enriched_markdown(ev):
     fm["impact"] = s["impact"]
     fm["value"] = s["value"]
     fm["score_factors"] = s["factors"]
-    fm["evidence"] = [{"source_id": e["source_id"], "url": e["url"], "relevance": e["relevance"]} for e in ev.evidence]
+    fm["evidence"] = evidence_frontmatter(ev.evidence)
     front = yaml.safe_dump(fm, allow_unicode=True, sort_keys=False, default_flow_style=False).rstrip()
     body = ev.orig_body if ev.orig_body.startswith("\n") else "\n" + ev.orig_body
     return f"---\n{front}\n---{body}"

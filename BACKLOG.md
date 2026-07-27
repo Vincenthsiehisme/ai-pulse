@@ -166,6 +166,18 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
   算成**兩個獨立來源**。七條媒體線之所以全部只收英文就是在閃這個坑
   （`sources.yaml` 第 92 行）。**中文媒體要進來之前，這個必須先接上**——這是這一區
   裡唯一有前置關係的一條。
+
+  **前置條件已經解除**（`fix/evidence-forgets-what-it-saw`）：判斷要的兩個欄位
+  （證據的 `title` 與 `published`）以前只活在建立那一班的記憶體裡，重新讀檔就
+  變成網址與 `None`，所以這條規則**過去根本沒有輸入可用**。規格補在新的
+  `references/evidence-tiers.md`（`gate-config-status.md` 與 `readiness-gate.md`
+  兩處早就指著這個檔名，而它一直不存在）。剩下的是接線本身，那一版必須自帶正反
+  兩面的測試——今天沒有任何中文來源，接上之後不會有真語料走到它。
+
+  接線之前先讀規格裡量出來的這一段：跨語言的兩篇會不會落進同一則 Event，取決於
+  標題認不認得出模型版本。認得出（`event_fingerprint` 帶 CJK 對照）就會聚在一起，
+  那正是這條規則要防的格子；**認不出就會變成兩則各自獨立的 Event**，那是另一種
+  病，`translation_chain` 管不到。
 - `quality.freshness_full_hours` / `freshness_zero_days`（實際是
   `lib/quality.py:_freshness()` 的硬寫階梯）。
 - **`quality.weights` 整塊**（見上）。要真的能調，得把 `lib/quality.py` 的五支函式
