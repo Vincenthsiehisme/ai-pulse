@@ -93,13 +93,26 @@ clustering:
     # 同一產品線的不同版本視為不同實體，不互相聚類
     versions_are_distinct: true
 
-  # 未知實體：命中不到任何字典條目的訊號怎麼辦
-  # ⚠ 整塊未接線。特別注意 report_to 指的檔案**不存在**，
-  # 也沒有任何一行碼會去產生它——字典補漏清單目前是不存在的東西。
+  # 未知實體：命中不到任何字典條目的訊號怎麼辦。
+  # 2026-07-27：report_to 與兩個晉升門檻接上了。規格 references/vault-pages.md。
   unknown_entity:
-    action: retain_as_observed   # ⚠ 未接線
-    key_from_title_hash: true    # ⚠ 未接線
-    report_to: _dashboards/dictionary-gaps.md   # ⚠ 未接線，且此檔不存在
+    # ⚠ 未接線（**刻意**，C 類）。它描述的是既有行為：候選詞照收、不丟。
+    # 接成開關只會生出一個「把未知實體丟掉」的設定，而那個能力我們不想要——
+    # 字典補漏的唯一輸入就是這些沒命中的詞，關掉它等於關掉字典的成長路徑，
+    # 然後 selftest 全綠，因為每一條測試都是拿預設值跑的。
+    action: retain_as_observed
+    # ⚠ 未接線（**刻意**，C 類）。同樣是既有行為的描述：辨識不出 fingerprint 時
+    # Event id 走標題雜湊（pulse-cluster.py 的 hkey）。接成開關會讓人有辦法讓
+    # 那些訊號不產生穩定 id，而 id 不穩定 = 跨日 attach 整條壞掉。
+    key_from_title_hash: true
+    # 累積版字典補漏清單寫到哪。消費者：scripts/pulse-dictionary-gaps.py
+    # （2026-07-27 之前這個路徑指著一個不存在的檔案，也沒有任何碼會產生它）
+    report_to: _dashboards/dictionary-gaps.md
+    # 晉升門檻。兩個消費者讀同一份：scripts/lib/dictgaps.py 是判準，
+    # _probe/<日>/report.md 的當班區塊與上面那一頁的累積版都走它。
+    # 讀不到就退回預設 3 / 2——設定檔壞掉不可以讓門檻自己打開。
+    promote_min_hits: 3      # 消費者：scripts/lib/dictgaps.py
+    promote_min_sources: 2   # 消費者：scripts/lib/dictgaps.py
 
   # 已知的跨語言限制（去AI化下無法解，記錄在案）
   # ⚠ 未接線。這塊本來就是「聲明」不是開關，但仍要標——

@@ -230,13 +230,70 @@ VAULT_DIR=... python scripts/pulse-monitor.py --alert-stale   # 過期 → exit 
 `generated_day` 只到日、內容沒變就不重寫、原子寫、allowlist 欄位、零 LLM。
 缺席的欄位印「量不到」不印 0（紅線 8）。
 
+## `_dashboards/dictionary-gaps.md`
+
+> 實作：`scripts/pulse-dictionary-gaps.py`，判準 `scripts/lib/dictgaps.py`，
+> 門檻 `_config/gate.yaml` 的 `clustering.unknown_entity`。
+
+### 為什麼要有這一頁
+
+`gate.yaml` 從上線那天就寫著 `report_to: _dashboards/dictionary-gaps.md`。
+**那個檔案不存在，也沒有任何一行碼會去產生它。**
+
+字典缺口在此之前只出現在 `_probe/<日>/report.md` 的當班區塊——一天 12 班，
+每一班各自算各自的，沒有任何地方把它們加起來。要發現「這個詞這週被講了 11 次」
+只能靠人翻語料。寫進設定檔的那個路徑，於是變成一句「這件事有人在管」的宣稱。
+
+跟 `references/evidence-tiers.md` 那次是同一個形態：**用「設定檔裡有一個路徑」
+代理「那件事有產出」**。寫的人當天是誠實的，只是沒有任何一條測試會因為被指到的
+檔案不存在而變紅。
+
+### 次數是「相異項目」，不是「出現行數」
+
+`_corpus/<日>/` 是**當天看到的清單**，不是當天新增的清單：一則還掛在 feed 上的
+新聞每天都會再被寫進當天的檔案一次。跨天直接累加行數，數到的是**項目 × 天**。
+
+這個坑 `Sources/*.md` 的 `items_observed` 踩過（實測 956 行對 461 個相異項目，
+虛胖一倍），本檔前面那一節寫得很清楚。所以這一頁先把 `(source_id,
+url_canonical)` 去重再計數——**去重之後它才跟當班區塊同單位**，兩張表的數字才
+能一起讀。
+
+### 門檻只有一份
+
+晉升門檻（跨 ≥N 來源、≥M 次）住 `gate.yaml`，判準住 `lib/dictgaps.py`，
+`_probe` 的當班區塊與這一頁**讀同一份**。在新腳本裡把門檻再寫一次是最省事的
+作法，也是這個 repo 已經量過三次的失敗形態（`lib/sources.py`、`lib/entities.py`、
+那份手寫的未接線清單）：兩邊在門檻沒動過的日子裡給一樣的答案，正好在有人調了
+其中一邊的那天分岔，而不會有任何東西變紅。
+
+門檻讀不到時退回預設 3 / 2，**不是退回 0**：0 會讓每一個一次性雜訊都晉升，
+也就是設定檔壞掉的時候規則反而變鬆。
+
+### `report_to` 不准指到 vault 外面
+
+那個值是設定檔給的相對路徑，解析後必須仍在 vault 裡；越界就退回預設路徑。
+設定檔走 PR，但一個能把檔案寫到 vault 外面的欄位不該存在。
+
+### 這一頁不保證什麼
+
+- **不保證候選是實體。** 收割只做拉丁字與括號內字串的字面規則
+  （`pulse-probe.harvest_candidates`），沒有任何語意判斷。第一次跑出來的達標
+  清單裡有 `Gemma`（真的該收），也有 `June` / `Here` / `One` / `Industry`
+  ——`CAND_STOP` 太短，一般英文大寫詞會洗版。**這是收割層的問題，不是這一頁
+  算錯**；這一頁的價值正是讓它第一次看得見。記在 `BACKLOG.md`。
+- **中文的無括號新詞抽不出來。** 中文沒有詞邊界，這是已知缺口。中文來源進來
+  之後這一頁會系統性低估。
+- **簡繁不互通。** 正規化那一層刻意不做簡繁轉換，同一個詞的兩種寫法分別計數，
+  兩邊都可能因此構不到門檻。
+- **它不會自己改字典。** 收不收是人的決定。
+
 ## 排在哪裡
 
-三支都排在 `Source health (0 LLM)` 之後（才讀得到這一班的分數）、
+四支都排在 `Source health (0 LLM)` 之後（才讀得到這一班的分數）、
 `Commit & push data changes` 之前——它們產生的是要進版控的 vault 檔案，
 排在 commit 之後就等於整天不會被推上去。selftest 有一條測試釘住這件事。
 
-**而且三支必須各佔一個 step，不得共用同一個 `run:`。** GitHub Actions 的 `run:`
+**而且四支必須各佔一個 step，不得共用同一個 `run:`。** GitHub Actions 的 `run:`
 是 `bash -e`：前面那行非零，後面那行根本不會執行。兩支曾經同處一個 `run:`，
 後果是這樣串起來的——`_probe/state.json` 被寫壞成非 dict（`pulse-source-notes.py`
 在那裡沒有防呆）→ 筆記產生器丟例外 → `--write-health` 不會跑 → `health.md` 的

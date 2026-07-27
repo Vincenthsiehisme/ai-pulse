@@ -59,7 +59,8 @@
 | `dedup.event_window_hours: 72` | 同實體 ±此窗口併為一 Event | `lib/cluster.py:233-242` 硬寫三個窗口：一般 **96h**、`incident` 類 **7 天**、其餘同 facet **21 天**。沒有一個是 72。 |
 | `clustering.key_eligibility` 整塊 | 哪些 term_type 能單獨當聚類主鍵 | 沒有消費者。`technology` 的 `co_occurrence_only` 限制目前不存在，技術詞可以單獨當主鍵。 |
 | `clustering.version_derivation` 整塊 | 版本實體自動衍生 | 沒有消費者。`claude@opus-4.8` 這種衍生實體不會產生。 |
-| `clustering.unknown_entity` 整塊 | 未知實體保留與補漏清單 | 沒有消費者。`report_to` 指的 `_dashboards/dictionary-gaps.md` **不存在**，也沒有任何碼會產生它。 |
+| `clustering.unknown_entity.action` | 未知實體照收不丟 | **C 類（刻意不接）**。它描述的是既有行為；接成開關只會生出一個「把未知實體丟掉」的設定，而那是字典成長的唯一輸入。 |
+| `clustering.unknown_entity.key_from_title_hash` | 沒有 fingerprint 時 id 走標題雜湊 | **C 類（刻意不接）**。同樣是既有行為的描述。接成開關 = 有辦法讓那些訊號不產生穩定 id，而 id 不穩定 = 跨日 attach 整條壞掉。 |
 | `clustering.cross_language` 整塊 | 跨語言限制聲明 | 沒有消費者。這塊本來就是聲明而非開關，但仍需標記，否則讀者會以為 `supported: false` 是某處讀到後關掉了什麼。 |
 | `evidence.need_tier1_primary: 1` | 發布需 1 個 Tier-1 primary | 真正在擋的是 `pulse-gate.py` 的 `missing_primary_evidence`（`primary_evidence` 欄位為 0 就擋），而那個欄位由 `pulse-cluster.rescore()` 用 `tier == 1 and role != "aggregator"` 算出來。數字 1 是巧合地一致，不是被讀進去的。 |
 | `evidence.need_independent_tier2: 2` | 或 2 個獨立 Tier-2 | 沒有消費者。目前**沒有**「兩個獨立 Tier-2 也可以」這條路：primary 缺席就是擋，補幾個獨立來源都沒用。 |
@@ -69,6 +70,7 @@
 | key | 何時接上 | 消費者 |
 |---|---|---|
 | `monitor.stale_after_days` | 2026-07-26 | `pulse-monitor.py --write-health / --alert-stale`（規格見 `references/vault-pages.md`）。接線之前它連要寫的那個 `_dashboards/health.md` 都不存在。 |
+| `clustering.unknown_entity.report_to` 與兩個晉升門檻 | 2026-07-27 | `pulse-dictionary-gaps.py`（產出那一頁）+ `lib/dictgaps.py`（判準，`_probe` 的當班區塊讀同一份）。規格 `references/vault-pages.md`。接線之前那個路徑指著一個不存在的檔案。 |
 | `evidence.translation_chain` 整塊（四個 leaf 全部） | 2026-07-27 | `pulse-cluster.py`（讀設定、標記、扣獨立性）+ `lib/cluster.py:suspected_reposts()`。規格 `references/evidence-tiers.md`。四個值各有一條變異證明它真的被讀（M43–M47）——接線之後仍然「改了沒效果」的話，等於把假旋鈕搬了個家。 |
 
 留著這一列不是為了記功，是因為「本來未接線、後來接上了」是這份文件唯一

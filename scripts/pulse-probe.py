@@ -51,6 +51,7 @@ import yaml
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
+from lib import dictgaps  # noqa: E402  晉升判準單一真相源，見 lib/dictgaps.py
 from lib.entities import (ENTITY_SECTIONS, build_matcher,  # noqa: E402,F401
                           match_entities, normalize_text)   # 見 lib/entities.py
 
@@ -865,7 +866,7 @@ def zero_yield_section(stats: list[dict]) -> list[str]:
 
 
 def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
-                 simp_trad: bool) -> Path:
+                 simp_trad: bool, gate: dict | None = None) -> Path:
     by_track: dict[str, list[dict]] = defaultdict(list)
     for r in rows:
         by_track[r["track"] or "unknown"].append(r)
@@ -926,17 +927,19 @@ def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
     lines += [f"- {t}: {c}" for t, c in tc.most_common()] or ["- （無）"]
     lines.append("")
 
+    # 門檻與判準都不在這裡：住 gate.yaml 的 clustering.unknown_entity 與
+    # lib/dictgaps.py。累積版的 _dashboards/dictionary-gaps.md 讀同一份——
+    # 抄一份過去，兩邊會在有人調門檻的那天分岔，而不會有任何東西變紅。
+    min_hits, min_srcs = dictgaps.thresholds(gate)
+    cnt, srcs = dictgaps.tally(rows)
     lines += ["## 字典補漏候選（未命中且跨來源出現）", "",
-              "晉升門檻：跨 ≥2 來源、≥3 次。只列達標者，避免一次性雜訊灌進字典。", "",
+              f"晉升門檻：跨 ≥{min_srcs} 來源、≥{min_hits} 次"
+              "（`gate.yaml` 的 `clustering.unknown_entity`）。"
+              "只列達標者，避免一次性雜訊灌進字典。", "",
+              "**這一區只算本輪。** 跨天累積的那份在 "
+              "`_dashboards/dictionary-gaps.md`。", "",
               "| 候選 | 次數 | 來源數 |", "|---|---|---|"]
-    cnt: Counter = Counter()
-    srcs: dict[str, set] = defaultdict(set)
-    for r in rows:
-        for c in r["candidates"]:
-            cnt[c] += 1
-            srcs[c].add(r["source_id"])
-    promoted = [(c, n, len(srcs[c])) for c, n in cnt.most_common()
-                if n >= 3 and len(srcs[c]) >= 2]
+    promoted = dictgaps.promoted(cnt, srcs, min_hits, min_srcs)
     lines += [f"| {c} | {n} | {s} |" for c, n, s in promoted[:40]] or \
              ["| （本輪無達標候選） | | |"]
     lines.append("")
@@ -944,8 +947,7 @@ def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
     # 冷啟階段來源少且詞彙不重疊時，「跨 ≥2 來源」結構上不可能成立，
     # 上面那張表會永遠是空的 —— 看起來機制在跑，實際永遠不輸出。
     # 這一區讓收割機制在冷啟階段也看得見，但明確不參與晉升。
-    single = [(c, n, next(iter(srcs[c]))) for c, n in cnt.most_common()
-              if n >= 3 and len(srcs[c]) == 1]
+    single = dictgaps.single_source(cnt, srcs, min_hits)
     lines += ["### 單來源高頻（觀察用，不列入晉升）", "",
               f"目前活躍來源 {len({r['source_id'] for r in rows})} 條。"
               "來源數少時「跨 ≥2 來源」門檻結構上難以成立，",
@@ -1186,7 +1188,9 @@ def main() -> int:
 
     write_run_stats(vault, day, stats)
 
-    report = write_report(vault, day, rows, stats, simp_trad)
+    gate_path = vault / "_config" / "gate.yaml"
+    gate = yaml.safe_load(gate_path.read_text("utf-8")) if gate_path.is_file() else {}
+    report = write_report(vault, day, rows, stats, simp_trad, gate)
     git_commit(vault, f"probe {day}: {len(rows)} items / {len(stats)} sources")
     ok = sum(1 for s in stats if s["status"] in (200, 304))
     heartbeat("ok", vault, f"{len(rows)} items / {ok}/{len(stats)} sources ok")
