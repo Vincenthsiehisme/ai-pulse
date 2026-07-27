@@ -30,6 +30,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.notes import parse_note  # noqa: E402
+from lib import tracks as tracks_lib  # noqa: E402  主線對照表單一真相源
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.quality import parse_dt  # noqa: E402
 
@@ -45,18 +46,10 @@ LAYER_META = {
 }
 CAT_LABEL = {"model-capability": "模型能力", "product": "產品", "research": "研究",
              "infra": "基礎設施", "capital": "資本", "policy": "政策"}
-TRACKS = [
-    ("model-research",    "模型能力與研究", "#9b8cff"),
-    ("agent-refactor",    "Agent 與軟體重構", "#4ee4ba"),
-    ("product-market",    "產品與商業驗證", "#ff8b6b"),
-    ("infra-cost",        "基礎設施與成本", "#f2bf62"),
-    ("capital-evolution", "資本與公司演化", "#ad91ff"),
-    ("global-map",        "全球創新版圖", "#6fb1ff"),
-]
-TRACK_BY_NAME = {name: (slug, name, color) for slug, name, color in TRACKS}
-TRACK_ALIASES = {"模型能力與研究": "模型能力與研究", "基礎設施與成本": "基礎設施與成本",
-                 "產品與商業驗證": "產品與商業驗證", "資本與公司演化": "資本與公司演化",
-                 "Agent與軟體重構": "Agent 與軟體重構", "全球創新版圖": "全球創新版圖"}
+# 對照表搬到 lib/tracks.py（單一真相源），理由見該檔開頭。
+TRACKS = list(tracks_lib.TRACKS)
+TRACK_BY_NAME = dict(tracks_lib.BY_NAME)
+TRACK_ALIASES = dict(tracks_lib.ALIAS)
 NAV = [("home", "關鍵變化", ""), ("lines", "領域趨勢", "lines/"),
        ("timeline", "事件時間軸", "timeline/"), ("signals", "來源更新", "signals/"),
        ("github", "GitHub 動能", "github/")]

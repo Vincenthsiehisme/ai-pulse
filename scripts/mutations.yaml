@@ -508,3 +508,37 @@ mutations:
     replace: "    d[\"self_fetch_status\"] = 200"
     survives: false
     why: ""
+
+  # ── Tracks/ 與 Actors/：關聯圖的另外兩維（references/obsidian-schema.md）──
+
+  - id: M57
+    title: "Actor 名單只取字典（字典缺口永遠看不見——而那正是這一層要顯示的東西）"
+    file: pulse-entity-notes.py
+    find: "    for name in sorted(set(companies) | set(by_actor)):"
+    replace: "    for name in sorted(set(companies)):"
+    survives: false
+    why: ""
+
+  - id: M58
+    title: "認不出主線的事件靜靜丟掉（六條線加起來少於總數，沒有地方看得出來）"
+    file: pulse-entity-notes.py
+    find: "        else:\n            unknown_track.append(e)"
+    replace: "        else:\n            pass"
+    survives: false
+    why: ""
+
+  - id: M59
+    title: "主線別名表認不出來就猜第一條（新線被靜靜併進舊線）"
+    file: lib/tracks.py
+    find: "    return ALIAS.get((track or \"\").strip())"
+    replace: "    return ALIAS.get((track or \"\").strip(), NAMES[0])"
+    survives: false
+    why: ""
+
+  - id: M60
+    title: "把每夜重寫的 now 也抄進 Track 頁（兩份可能不一致的同一段話）"
+    file: pulse-entity-notes.py
+    find: "    return {k: (v or {}).get(\"thesis\") for k, v in (raw.get(\"tracks\") or {}).items()}"
+    replace: "    return {k: ((v or {}).get(\"thesis\") or \"\") + str((v or {}).get(\"now\") or \"\") for k, v in (raw.get(\"tracks\") or {}).items()}"
+    survives: false
+    why: ""

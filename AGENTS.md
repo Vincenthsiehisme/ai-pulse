@@ -10,7 +10,7 @@
 先看一眼，別重複盤點同一個洞；修掉一條就順手從清單刪掉，清單留著過期條目比沒有清單更糟。
 
 **2. 只有資料 commit 可以直推 `main`。** `chore: nightly refresh` 那一類，動的是
-`_corpus/ _probe/ Events/ Sources/ _dashboards/ dist/`，外加 `_config/sources.yaml`
+`_corpus/ _probe/ Events/ Sources/ _dashboards/ Tracks/ Actors/ dist/`，外加 `_config/sources.yaml`
 的 `lifecycle` 與 `robots_ok` 兩欄（robots 重驗的實測結果，機器自己寫），以及
 `_config/narratives.yaml` 的 `now` / `next` 兩段（每夜 enrich 的主線敘事，
 `pulse-narrative-apply.py` 寫回）。這些是 `data-refresh.yml` 每兩小時一班、外加每夜
