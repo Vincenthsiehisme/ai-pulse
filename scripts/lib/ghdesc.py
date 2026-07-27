@@ -83,3 +83,79 @@ def pending(repos, store):
             "stale_zh": zh if zh else None,
         })
     return out
+
+
+# ------------------------------------------------------- 覆蓋率（機器讀得到的）
+# 為什麼要有這一段：`pulse-github.py` 從第一天就會印
+# 「中文描述=0/25」——**印在 CI 的 log 裡**。人看得到，機器讀不到，於是
+# 「這個榜已經連續幾天沒有中文」沒有任何地方存著。
+#
+# 而潤稿端的 C2 段（翻描述）依 runbook 的規定是**失敗就整段跳過**：
+# 「這步失敗就整個 C2 段跳過，不影響其他段——榜會維持上一晚的英文原文。」
+# 跳過不留痕跡的後果很具體：**「跳過了」跟「沒有東西要翻」在 repo 這端印起來
+# 一模一樣**——兩種情況下 `_github/desc-zh.json` 都不存在。
+# 實測 2026-07-27：那個檔在整個 git 歷史裡從來沒有出現過，而沒有任何一天有人發現。
+#
+# 修法不是叫潤稿端更努力回報——**它失敗的時候本來就寫不進 repo**。
+# 修法是讓**一定會跑的那條鏈**（Actions）每班量一次結果，寫進版控。
+# 這跟「健康分沒有輸入」那次是同一句話：觀測要住在會跑的那一邊。
+COVERAGE_REL = ("_github", "desc-coverage.json")
+
+
+def coverage_path(vault):
+    return vault.joinpath(*COVERAGE_REL)
+
+
+def load_coverage(vault) -> dict:
+    p = coverage_path(vault)
+    if not p.exists():
+        return {}
+    try:
+        return json.loads(p.read_text("utf-8")) or {}
+    except (ValueError, OSError):
+        return {}
+
+
+def next_coverage(prev: dict, day: str, ranked_n, with_zh_n, store_n: int) -> dict:
+    """算出這一班的覆蓋率紀錄。純函式，不碰磁碟、不讀時鐘（day 由呼叫端給）。
+
+    `last_with_zh_day` 是**黏的**：只有真的量到中文才更新。所以兩種情況分得出來——
+
+      last_with_zh_day 是 null    → **從來沒有過**。這是缺工，不是故障。
+      有值、而且離今天很遠        → **有過然後停了**。這才是故障。
+
+    分不出來的話，這個數字只會逼出一個天天紅的警報（第一天就 0 條中文），
+    而一個天天紅的 CI 跟一個永遠綠的一樣沒有資訊。
+
+    `ranked_n` / `with_zh_n` 允許 None——榜單抓取失敗那一班量不到，
+    **量不到就寫 null，不寫 0**（紅線 8）。`store_n` 一律量得到，它只是數檔案。
+    """
+    prev = prev or {}
+    last = prev.get("last_with_zh_day")
+    if with_zh_n:
+        last = day
+    return {
+        "day": day,
+        "ranked": ranked_n,
+        "with_zh": with_zh_n,
+        "store_entries": store_n,
+        "last_with_zh_day": last,
+    }
+
+
+def days_without_zh(cov: dict, today: str):
+    """→ 幾天沒有中文描述；從來沒有過回 None（**不是 0，也不是很大的數**）。
+
+    回 None 是刻意的：「從來沒有」跟「昨天還有」是兩件事，用同一個數字表示，
+    第一種就會被讀成第二種。
+    """
+    import datetime
+    last = (cov or {}).get("last_with_zh_day")
+    if not last:
+        return None
+    try:
+        a = datetime.date.fromisoformat(str(last))
+        b = datetime.date.fromisoformat(str(today))
+    except ValueError:
+        return None
+    return (b - a).days

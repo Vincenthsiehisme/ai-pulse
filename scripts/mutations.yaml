@@ -542,3 +542,37 @@ mutations:
     replace: "    return {k: ((v or {}).get(\"thesis\") or \"\") + str((v or {}).get(\"now\") or \"\") for k, v in (raw.get(\"tracks\") or {}).items()}"
     survives: false
     why: ""
+
+  # ── 榜單中文描述：C2 跳過不留痕跡（references/vault-pages.md）──
+
+  - id: M61
+    title: "last_with_zh_day 不黏（每班覆蓋，「有過然後停了」永遠算不出來）"
+    file: lib/ghdesc.py
+    find: "    if with_zh_n:\n        last = day"
+    replace: "    last = day"
+    survives: false
+    why: ""
+
+  - id: M62
+    title: "從來沒翻過回 0 天（缺工被印成「今天剛斷」，方向完全相反）"
+    file: lib/ghdesc.py
+    find: "    if not last:\n        return None"
+    replace: "    if not last:\n        return 0"
+    survives: false
+    why: ""
+
+  - id: M63
+    title: "那一班沒抓到榜單就寫 0（API 額度問題被印成「榜上一條中文都沒有」）"
+    file: pulse-github.py
+    find: "        write_desc_coverage(vault, now, None, None)"
+    replace: "        write_desc_coverage(vault, now, 0, 0)"
+    survives: false
+    why: ""
+
+  - id: M64
+    title: "量不到也標成異常（把問不到 GitHub 算成翻譯鏈壞了）"
+    file: pulse-monitor.py
+    find: "        return (f\"榜單中文描述：量不到（{cov.get('day')} 那班沒抓到榜單）\"\n                f\"，儲存層有 {cov.get('store_entries')} 條\"), False"
+    replace: "        return (f\"榜單中文描述：量不到（{cov.get('day')} 那班沒抓到榜單）\"\n                f\"，儲存層有 {cov.get('store_entries')} 條\"), True"
+    survives: false
+    why: ""

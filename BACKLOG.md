@@ -78,6 +78,7 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`gate-未接線`](#gate-未接線) | 一批 `gate.yaml` 的 key 沒有任何碼讀它 | 不會（已標記，漏標會紅） | 部分 |
 | [`零產出來源`](#零產出來源) | 三條「可跑但零產出」，三種不同的病 | 不會 | — |
 | [`跨語言重複-event`](#跨語言重複-event) | 沒有版本號的同一件事，中英文會變成兩則 Event | 不會 | — |
+| [`榜單描述沒有中文`](#榜單描述沒有中文) | GitHub 動能榜 225 條全是英文原文，中文從沒翻過一次 | 不會（已印在 health.md） | 否 |
 | [`候選詞被普通英文洗版`](#候選詞被普通英文洗版) | 字典補漏清單大半是 June / Here / One 這種詞 | 不會 | 否（沒宣稱過它們是實體） |
 | [`pending-覆蓋`](#pending-覆蓋) | 20 家覆蓋盲點標著 pending | 刻意不會 | 否（誠實掛著） |
 | [`people-第三步`](#people-第三步) | 語料的 `author` 還沒綁到 `person_id` | 不會 | — |
@@ -278,6 +279,33 @@ Industry 16 / Research 16 / LLMs 16 / Union 10 / LLM 10 / June 9 / Here 9
 
 ---
 
+## `榜單描述沒有中文`
+
+`_github/desc-zh.json` **在整個 git 歷史裡從來沒有出現過**
+（`git log --all -- _github/desc-zh.json` 是空的）。GitHub 動能榜上 225 條 repo
+的描述**全部是英文原文**，而那個榜是給中文讀者看的。
+
+病灶在潤稿端的 C2 段第 9 步：它要先跑 `pulse-github.py` 重建榜單，而潤稿端是
+Cowork 容器、**沒有 `GITHUB_TOKEN`**，未認證額度很緊。runbook 對這一步的規定是
+「這步失敗就整個 C2 段跳過」——跳過是對的，翻譯不該擋住抓取鏈。
+
+**2026-07-27 已經修掉的是「跳過不留痕跡」那一半**
+（`fix/c2-skips-in-silence`）：現在 `_dashboards/health.md` 每班印一行，而且
+分得出「量不到 / 從來沒翻過 / 有過然後停了」。在此之前，**「跳過了」跟「沒有東西
+要翻」印起來一模一樣**。
+
+**還沒修的是翻譯本身。** 兩條路，還沒選：
+
+1. **把 `GITHUB_TOKEN` 傳進潤稿排程** —— 如果那個排程環境給得出 token，C2 直接
+   就活了，一行碼都不用改。要先確認。
+2. **讓 Actions 那班準備好 worklist** —— Actions 有 token、每班都跑得到榜單。
+   由它跑 `pulse-github-desc-prep.py` 把待譯清單寫進版控，潤稿端就不必自己重建
+   榜單，第 9 步整個可以拿掉。這條比較穩，但要改 runbook 與 workflow。
+
+先確認第 1 條再說——它可能是零成本的。
+
+---
+
 ## `pending-覆蓋`
 
 `_config/sources.yaml` 的 `coverage_watch.must_watch` 共 32 條，其中 **20 條 `pending`**：
@@ -397,6 +425,7 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 | `fix/sitemap-zero-yield-is-not-silence` | 「200 / 0 筆」拆成四個 code：站方那邊沒東西 vs 我們這邊接不上。規格 `references/health-alarms.md`〈零產出不是沉默〉 |
 | `fix/evidence-forgets-what-it-saw` | 證據記錄留下 `title` 與 `published`；reload 不再拿 url 頂替 title（頂替之後，拿標題比相似度會**照樣算得出一個數字**，只是算的是網址）。新增 `references/evidence-tiers.md`——那個檔名被指了兩次而一直不存在 |
 | `fix/translation-chain-counts-a-rewrite` | `evidence.translation_chain` 四個 leaf 全部接上：跨語言 + 實體集合 Jaccard ≥ 0.80 + 48h 窗 → 標 `suspected_repost`、不計入獨立性。實體比對層抽到 `lib/entities.py`（單一真相源）。M43–M47 各守一個設定值真的被讀 |
+| `fix/c2-skips-in-silence` | 潤稿端 C2 段（榜單描述中文化）失敗時整段跳過，**而跳過跟「沒東西要翻」印起來一樣**——`desc-zh.json` 從沒進過版控也沒人發現。觀測改由一定會跑的 Actions 那班量，分得出「量不到 / 從來沒翻過 / 有過然後停了」 |
 | `fix/dictionary-gaps-report-to-nowhere` | `clustering.unknown_entity.report_to` 指的那一頁以前不存在，現在每班產生；晉升門檻搬進 `gate.yaml`，`_probe` 當班區塊與累積頁讀同一份 |
 | `fix/backlog-status-is-hand-written` | 現況表從手寫改成每班重生成（`_dashboards/backlog-status.md`）。**這是第 9 條實例的第二次修法**——第一次（把量測時間寫進標題、請下一個人複量）三小時就失效了 |
 

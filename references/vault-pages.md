@@ -162,6 +162,47 @@ VAULT_DIR=... python scripts/pulse-monitor.py --alert-stale   # 過期 → exit 
 `--alert-stale` 掛在 workflow 最後那個 `if: always()` 的死人開關步驟裡，
 跟 `--alert-coverage` 同一行。那一步在部署之後，紅燈不擋上線，只寄通知。
 
+### 榜單的中文描述：一格「跳過不留痕跡」的補丁
+
+`_dashboards/health.md` 多一區〈GitHub 動能榜的中文描述〉。實作：
+`lib/ghdesc.py` 的 `next_coverage()` / `days_without_zh()`（判準）、
+`pulse-github.py` 的 `write_desc_coverage()`（每班寫 `_github/desc-coverage.json`）、
+`pulse-monitor.py` 的 `desc_zh_line()`（渲染）。
+
+**為什麼要有這一格。** 榜上的英文描述由潤稿端的 C2 段翻成中文，而
+`scripts/enrich-runbook.md` 對 C2 的規定是：
+
+> 這步失敗就整個 C2 段跳過，不影響其他段——榜會維持上一晚的英文原文。
+
+跳過是對的（翻譯是加分項，不該擋住抓取鏈）。**沒有留下痕跡不對**：
+「跳過了」跟「沒有東西要翻」在 repo 這端印起來一模一樣——兩種情況下
+`_github/desc-zh.json` 都不存在。2026-07-27 實測：那個檔在**整個 git 歷史裡
+從來沒有出現過**，而沒有任何一天有人發現。
+
+**修法不是叫潤稿端更努力回報。** 它失敗的時候本來就寫不進 repo。
+觀測要住在**一定會跑的那一邊**——Actions 每班跑 `pulse-github.py`，讓它量一次
+結果、寫進版控。這跟「健康分沒有輸入」那次是同一句話。
+
+### 三種狀態要分得出來
+
+| `desc-coverage.json` | 印什麼 | 這是什麼 |
+|---|---|---|
+| 檔案不存在 / `ranked` 是 `null` | 量不到 | 那一班沒抓到榜單，這一格沒有資訊——**不是 0** |
+| `with_zh: 0`、`last_with_zh_day: null` | 從來沒有成功翻過一次 | **缺工**，不是故障 |
+| `with_zh: 0`、`last_with_zh_day` 有值 | 最後一次有中文是 X（N 天前） | **故障**：翻譯鏈斷了 |
+| `with_zh > 0` | N/M 條 | 正常 |
+
+`last_with_zh_day` 是**黏的**——只有真的量到中文才更新。分不出「從來沒有」與
+「昨天還有」的話，第一種會被讀成第二種。
+
+### 這一格刻意不判紅燈
+
+第一天本來就是 0 條中文。把它接成警報，CI 從上線第一天就天天紅——而
+**一個天天紅的 CI 跟一個永遠綠的一樣沒有資訊**（這句話在本 repo 已經寫過三次）。
+要判紅的是「**有過然後停了**」，而那個天數已經印在這一格上，接警報的時候直接讀
+`days_without_zh()` 就好。**現在不接**，因為門檻要幾天沒有人知道——等它真的斷過
+一次，那個數字才有依據。
+
 ## `_dashboards/backlog-status.md`
 
 > 實作：`scripts/pulse-backlog-status.py`。
