@@ -344,10 +344,16 @@ article.event h2 a:hover{color:var(--accent)}
 .score-hero .sh span{display:block;color:var(--quiet);font:9px var(--mono);letter-spacing:.08em}
 .score-hero .sh b{font-size:1.5rem;font-weight:660;font-variant-numeric:tabular-nums}
 .factors{display:flex;flex-direction:column;gap:9px}
-.factor{display:grid;grid-template-columns:74px 1fr 30px;gap:9px;align-items:center;font:10px var(--mono);color:var(--muted)}
+.factor{display:grid;grid-template-columns:74px 1fr minmax(30px,auto);gap:9px;align-items:center;font:10px var(--mono);color:var(--muted)}
 .factor .bar{height:5px;border-radius:3px;background:var(--border-soft);overflow:hidden}
 .factor .bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
 .factor b{color:var(--text);text-align:right;font-variant-numeric:tabular-nums}
+/* 沒量過的那幾格：**不能長得像一條空的比例條**。
+   `.bar` 本身就是一條灰色軌道，量到 0 的時候也是這個樣子——兩者在畫面上
+   一模一樣，而那正是這一格要修掉的誤會（同一張卡片上 heat 寫著「未量測」，
+   旁邊四個因子理直氣壯地印 0）。所以軌道換成虛線、不填色，值印字不印數。 */
+.factor .bar-unmeasured{height:0;border-top:1px dashed var(--border-soft);background:none;border-radius:0}
+.factor b.unmeasured{color:var(--muted);font-size:9px;letter-spacing:.02em;font-variant-numeric:normal}
 .warnbox{margin-top:14px;padding:11px 13px;border-radius:var(--radius-sm);border:1px solid color-mix(in srgb,var(--forecast) 40%,var(--border));background:color-mix(in srgb,var(--forecast) 7%,transparent);color:var(--forecast);font:10px var(--mono);line-height:1.6}
 
 .site-footer{border-top:1px solid var(--border-soft);background:var(--surface-soft);margin-top:20px}
@@ -523,9 +529,33 @@ def track_of(ev):
 
 
 # ─────────────────────── components ───────────────────────
-def layer_html(heading, text):
+# 判斷層的 rule-tag。**它是即時算的，不是 note 裡存的那一份。**
+#
+# `pulse-enrich-apply.py` 曾經依當下的 `independent_sources` 把這句話寫進 prose，
+# 之後不再重算；而同一頁的警示框是 render 即時算的。第二個獨立來源進來之後，
+# 警示框消失了，那句話留著——`evt-2026-07-21-1bdb1a` 在對外站上長期寫著
+# 「單一獨立來源」，而它自己的 frontmatter 是 `independent_sources: 2`。
+# **同一頁兩個相反的宣稱，而且它是這批裡唯一正在對讀者說假話的。**
+#
+# 凍結的快照被當成現況——跟 `_slug_to_title`、`lastmod` 當 `published` 同一隻病。
+# 修法不是去改那些 note，是**把第二個時鐘拆掉**：判斷層只能有一個真相源。
+JUDGMENT_TAG = {False: "（單一獨立來源，暫標待證實）", True: "（多來源佐證）"}
+# 舊 note 的 prose 裡烙著其中一句。render 剝掉再貼上即時的那句，
+# 所以既有的 51 份不必遷移就會自己說對話；enrich 端也不再寫入。
+_FROZEN_TAG = re.compile(r"\s*（(?:單一獨立來源，暫標待證實|多來源佐證)）\s*$")
+
+
+def strip_frozen_tag(text):
+    return _FROZEN_TAG.sub("", (text or "").rstrip())
+
+
+def layer_html(heading, text, independent=None):
     cls, label, block = LAYER_META[heading]
     b = " block" if block else ""
+    if heading == "判斷":
+        text = strip_frozen_tag(text)
+        if independent is not None:
+            text = (text + " " + JUDGMENT_TAG[(independent or 0) >= 2]).strip()
     return (f'<div class="layer {cls}{b}"><span class="lbl">{esc(label)} · {esc(heading)}</span>'
             f'<p>{esc(text)}</p></div>')
 
@@ -544,7 +574,8 @@ def event_chips(ev):
 
 def event_card(ev, prefix, full=True):
     href = ev_href(prefix, ev["slug"])
-    layers = "".join(layer_html(h, ev["layers"][h]) for h in LAYERS if ev["layers"].get(h)) if full else ""
+    layers = "".join(layer_html(h, ev["layers"][h], ev.get("independent"))
+                     for h in LAYERS if ev["layers"].get(h)) if full else ""
     ev_links = "".join(f'<a href="{esc(e["url"])}" rel="noopener" target="_blank">{esc(e["sid"])} {EXT}</a>'
                        for e in ev["evidence"] if e.get("url"))
     ev_block = f'<ul class="ev"><span class="lbl">證據</span>{ev_links}</ul>' if (ev_links and full) else ""
@@ -710,7 +741,15 @@ def score_grid_html(ev):
     hero_html = "".join(f'<div class="sh"><span>{esc(k)}</span><b>{esc(v)}</b></div>' for k, v in heroes)
     facs = []
     for key, label, cap in FACTOR_META:
-        raw = sf.get(key, 0) or 0
+        raw = sf.get(key)
+        # None ＝ 從來沒量過（scoring.py 對空 metrics 回 None）。印「未量測」、
+        # **而且不畫比例條**——一條長度 0 的條子跟「量到 0」在畫面上一模一樣，
+        # 那正是要修掉的那個誤會。跟 heat 同一條規矩（HEAT_UNMEASURED）。
+        if raw is None:
+            facs.append(f'<div class="factor"><span>{esc(label)}</span>'
+                        f'<div class="bar bar-unmeasured"></div>'
+                        f'<b class="unmeasured">{esc(HEAT_UNMEASURED)}</b></div>')
+            continue
         try:
             pct = max(0, min(100, round(float(raw) / cap * 100)))
         except (TypeError, ValueError):
@@ -924,7 +963,8 @@ def build_signals(signals, sources, generated):
 def build_event_page(ev, all_events, corpus_idx, sources, generated):
     pfx = "../../"
     tr = track_of(ev)
-    layers = "".join(layer_html(h, ev["layers"][h]) for h in LAYERS if ev["layers"].get(h))
+    layers = "".join(layer_html(h, ev["layers"][h], ev.get("independent"))
+                     for h in LAYERS if ev["layers"].get(h))
     journey_heading, journey = journey_html(ev, corpus_idx, sources)
     scores = score_grid_html(ev)
     ev_links = "".join(f'<a href="{esc(e["url"])}" rel="noopener" target="_blank">{esc(e["sid"])} {EXT}</a>'

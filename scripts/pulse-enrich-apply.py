@@ -74,10 +74,15 @@ def main():
         summary_txt, sc = voice_clean.clean(data.get("summary", ""))
         ev_changes.extend(sc)
 
-        # 判斷層 rule-tag（確定性，依獨立來源數）
-        ind = fm.get("independent_sources", 0) or 0
-        tag = "（單一獨立來源，暫標待證實）" if ind < 2 else "（多來源佐證）"
-        cleaned["judgment"] = (cleaned.get("judgment", "").rstrip() + " " + tag).strip()
+        # 判斷層 rule-tag **不再寫進 prose**。
+        #
+        # 這裡原本依當下的 `independent_sources` 把那句話烙進去，之後不再重算——
+        # 而同一頁的警示框是 render 即時算的。第二個獨立來源進來之後兩者就分岔，
+        # 實測 `evt-2026-07-21-1bdb1a` 在對外站上寫著「單一獨立來源」而
+        # frontmatter 是 2。**判斷層不能有兩個時鐘。**
+        # 現在由 `pulse-render.layer_html()` 即時產生，與警示框同一個真相源；
+        # 舊 note 裡烙著的那一份由 render 的 `strip_frozen_tag()` 剝掉，不必遷移。
+        cleaned["judgment"] = cleaned.get("judgment", "").rstrip()
 
         # frontmatter 更新
         for f in ("company", "category", "track"):

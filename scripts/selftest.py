@@ -116,6 +116,9 @@ _pp = importlib.util.module_from_spec(_ps)
 _ps.loader.exec_module(_pp)
 
 
+from lib import scoring as _scoring  # noqa: E402
+
+
 def acase(name, got, want):
     results.append((got == want, name, f"got={got!r}", f"want={want!r}"))
 
@@ -4300,6 +4303,101 @@ acase("紅線 1：modelline 是純函式層，不得 import 網路或任何客�
       [m for m in _re.findall(r"^\s*(?:import|from)\s+([a-z_][\w.]*)",
                              _ml_src, _re.M)
        if m.split(".")[0] not in ("html", "re", "datetime", "__future__")], [])
+
+# ─────────────────── 對外站上那兩句假話（BACKLOG 總表最前面兩條）─────────
+# 兩條都是「凍結／編造的值被當成事實」，兩條都不會讓任何東西變紅。
+
+# 一、四個從未量測的傳播因子。實測 41 / 41 則已發布頁把它們印成粗體 0，
+#     就在同一張卡片上寫著「未量測」的 heat 旁邊。
+_sc_none = _scoring.score_event([80], 1, 2, [], 10)["factors"]
+_sc_meas = _scoring.score_event(
+    [80], 1, 2, [{"authors": 3, "tweets": 50, "platforms": ["x"], "regions": ["us"]}], 10)["factors"]
+acase("傳播因子：沒有 metrics 時回 None 不回 0"
+      "（0 是「量過了，一個都沒有」，None 是「從來沒量過」——"
+      "lib/scoring.py 自己的話：0 看起來像量過了很冷，那是更難察覺的一種謊）",
+      [_sc_none[k] for k in ("uniqueAuthors", "platformBreadth", "regionBreadth",
+                             "velocity", "crossRegion")],
+      [None, None, None, None, None])
+acase("傳播因子：有 metrics 時照樣回數字（守到把自己關掉也是一種壞掉）",
+      [_sc_meas["uniqueAuthors"], _sc_meas["platformBreadth"],
+       _sc_meas["crossRegion"]], [3, 1, False])
+# 2026-07-27 有一次「順手重算」把 55 則事件的 value 全部改掉。這一條釘住
+# 這次的改動只動「怎麼回報量不到」，不動任何一個分數。
+# 兩條都寫成**寫死的期望值**。第一版把兩邊都寫成 `score_event(...)` 的呼叫，
+# 那是拿同一個東西跟自己比，不管碼怎麼寫都會過；第二版的
+# `... if hasattr(_rmod, "x") else True` 更糟，函式不存在時直接回 True。
+# 這是同一條分支上第六次寫出空斷言，而規則前一天才剛寫進 mutation-inventory：
+# **斷言的右邊不准由待測的碼算出來。**
+acase("傳播因子：改回報方式**不得**動到 confidence / heat / impact / value"
+      "（2026-07-27 有一次「順手重算」把 55 則事件的 value 全部改掉）",
+      [_scoring.score_event([80], 1, 2, [], 10)[k]
+       for k in ("confidence", "heat", "impact", "value")],
+      [74, None, 55, 70])
+_fac_html = _rmod.score_grid_html({
+    "confidence": 74, "heat": None, "impact": 55, "value": 70, "independent": 2,
+    # 十格全給，只有那四格是 None——不然缺鍵的也會印「未量測」，
+    # 數字對不上就分不出是「修好了」還是「fixture 漏了」。
+    "score_factors": {"authority": 80, "corroboration": 40, "primaryEvidence": 50,
+                      "independentSources": 2, "freshness": 90,
+                      "propagationSignals": 0,
+                      "uniqueAuthors": None, "platformBreadth": None,
+                      "regionBreadth": None, "velocity": None},
+})
+acase("傳播因子：None 在**印出來的 HTML 裡**是「未量測」，而且不畫比例條"
+      "（長度 0 的條子跟「量到 0」在畫面上一模一樣，那正是要修掉的誤會）",
+      [_fac_html.count("bar-unmeasured"),
+       # 5 不是 4：heat 的 hero 本來就印「未量測」（既有行為），
+       # 加上這四格。寫 4 會過不了，而寫「>=4」就等於沒在測。
+       _fac_html.count(">" + _rmod.HEAT_UNMEASURED + "</b>")],
+      [4, 5])
+# 缺鍵也算沒量到。舊 note 的 score_factors 若少一格，印 0 是編造。
+acase("傳播因子：`score_factors` 缺鍵一律當成沒量到，不補 0",
+      _rmod.score_grid_html({"confidence": 1, "heat": None, "impact": 1, "value": 1,
+                             "independent": 1, "score_factors": {}}
+                            ).count("bar-unmeasured"), 10)
+
+# 二、判斷層的 rule-tag 曾經被烙進 prose、之後不再重算，而同一頁的警示框是
+#     即時算的。實測 evt-2026-07-21-1bdb1a：內文「單一獨立來源」，
+#     frontmatter `independent_sources: 2`。同一頁兩個相反的宣稱。
+_jt = "這是一則重要發布。（單一獨立來源，暫標待證實）"
+acase("判斷層：rule-tag 即時算，舊 note 裡凍結的那一份要被剝掉"
+      "（判斷層不能有兩個時鐘）",
+      ["（多來源佐證）" in _rmod.layer_html("判斷", _jt, 2),
+       "單一獨立來源" in _rmod.layer_html("判斷", _jt, 2),
+       "單一獨立來源" in _rmod.layer_html("判斷", _jt, 1)],
+      [True, False, True])
+# 這一條要用**帶括號、且不在結尾**的字串才測得到。第一版給的是沒有括號的
+# 「本則只有單一獨立來源，因此保守處理。」——兩種寫法都不會動它，
+# 所以拿掉結尾錨點照樣綠（M139 活下來）。
+acase("判斷層：只剝**結尾**那一份，句中出現同樣字眼的不動"
+      "（誤剝比不剝更難發現——它會刪掉作者真的寫的字）",
+      [_rmod.strip_frozen_tag("（多來源佐證）這四個字是作者引用的，不是 tag。"),
+       _rmod.strip_frozen_tag("本則只有單一獨立來源，因此保守處理。"),
+       _rmod.strip_frozen_tag("結論。（多來源佐證）")],
+      ["（多來源佐證）這四個字是作者引用的，不是 tag。",
+       "本則只有單一獨立來源，因此保守處理。", "結論。"])
+# 沒有這兩條 CSS，`bar-unmeasured` 會沿用 `.bar` 的灰色軌道——
+# 跟「量到 0」在畫面上一模一樣，整個修正等於沒做。
+acase("傳播因子：未量測那一格的 CSS 真的存在，且不是一條空的比例條"
+      "（沿用 .bar 的灰軌道就跟「量到 0」長得一樣，修了等於沒修）",
+      # 不寫 `if hasattr(...) else True` —— 那個 fallback 在函式不存在時直接
+      # 讓斷言成立，是這條分支上重複第七次的空斷言形狀。CSS 常數就在那裡，
+      # 不存在就該當場 AttributeError 而不是靜靜變綠。
+      # 釘**宣告**不釘選擇器。第一版只查 `.factor .bar-unmeasured{` 這串字，
+      # 而把規則整個掏空成 `{}` 之後那串字還在——M137 因此活下來。
+      ["border-top:1px dashed" in _rmod.CSS.split(".factor .bar-unmeasured{")[1]
+       .split("}")[0],
+       "background:none" in _rmod.CSS.split(".factor .bar-unmeasured{")[1]
+       .split("}")[0],
+       # 而且要真的被寫出去：CSS 不在 index.html 裡，在 assets/app.css。
+       "CSS, encoding" in open(os.path.join(_HERE, "pulse-render.py"),
+                               encoding="utf-8").read()],
+      [True, True, True])
+acase("判斷層：enrich 端不再把 rule-tag 寫進 prose"
+      "（寫進去就是再造一個凍結快照，剝與寫會互相追著跑）",
+      "（單一獨立來源，暫標待證實）" in open(
+          os.path.join(_HERE, "pulse-enrich-apply.py"), encoding="utf-8").read(),
+      False)
 
 print("offline self-test\n" + "-" * 70)
 fails = 0
