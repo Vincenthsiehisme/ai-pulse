@@ -56,14 +56,36 @@ jobs:
       # release-notes 那一組的解析器只對「已經有人看過的標記形狀」動手
       # （references/model-timeline.md 第 5 節步 3）——2026-07-27 只有
       # platform.claude.com 在開發容器裡抓得到，另外三家要靠這一步帶回真 bytes。
+      # 退出碼要留下來給下一步印。GitHub 只給 success / failure，
+      # 而這支的 2 / 3 / 4 是三種**意思完全不同**的壞消息——壓成一個 failure
+      # 就是把「沒有判決」跟「站方說不行」寫成同一件事，正是這支在拆的混淆。
       - name: C-4
+        id: c4
         env:
           VAULT_DIR: ${{ github.workspace }}
         run: |
+          set +e
           python scripts/verify-article-metadata.py \
             --preset "${{ inputs.preset }}" \
             --save-html raw-html \
             --json c4-report.json
+          code=$?
+          echo "C4_EXIT=$code" >> "$GITHUB_ENV"
+          exit $code
+      # 判決要活得比 artifact 久。
+      #
+      # 2026-07-28 撞到的問題：這支跑完之後，**判決只存在於一個 artifact 裡**——
+      # 要下載才看得到，預設 90 天後過期，而且 repo 裡沒有任何一個字記得它。
+      # 而 C-4 正是整個模型時間線層的閘：C-3 動不動工、另外三家的切分器寫不寫，
+      # 全部取決於它。**把一個 gate 的答案放在一個會過期、又讀不到的地方**，
+      # 跟這條分支一路在修的「量到了但沒人接得到」是同一個形態。
+      #
+      # step summary 不需要 write 權限，跑完就印在 run 頁上，artifact 過期它還在。
+      # 刻意**不**改成 commit 回 repo：那要把 permissions 提成 contents: write，
+      # 為一支一次性的設計驗證去開 main 的寫入權，代價不對。
+      - name: 判決寫進 run summary（artifact 會過期，這個不會）
+        if: always()
+        run: python scripts/c4-summary.py c4-report.json "${{ inputs.preset }}" "${C4_EXIT:-?}" >> "$GITHUB_STEP_SUMMARY"
       # always()：即使判決是紅的，那份 JSON 與那些 HTML 正是要拿來寫進設計的東西。
       - uses: actions/upload-artifact@v4
         if: always()

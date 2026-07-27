@@ -4025,6 +4025,36 @@ acase("C-4：control probe 不得在 CI 被跳過"
       "（--skip-control 一開，整支就退回成「手寫臨時腳本」——"
       "那正是 2026-07-27 誤讀的成因）",
       [s for s in _vam_steps if "--skip-control" in str(s.get("run") or "")], [])
+# 判決原本只活在一個 artifact 裡：要下載才看得到、90 天過期、git 讀不到。
+# 而 C-4 是整個時間線層的閘。這幾條釘住那份判決有沒有真的被留下來。
+_c4s = importlib.util.spec_from_file_location(
+    "c4_summary", os.path.join(_HERE, "c4-summary.py"))
+_c4mod = importlib.util.module_from_spec(_c4s)
+_c4s.loader.exec_module(_c4mod)
+
+acase("C-4 摘要：四個退出碼各有各的意思，不得共用一句話"
+      "（壓成一個 failure 就是把「沒有判決」跟「站方說不行」寫成同一件事）",
+      [sorted(_c4mod.EXIT_MEANING), len(set(_c4mod.EXIT_MEANING.values()))],
+      [["0", "2", "3", "4"], 4])
+# 第一版寫成 `EXIT_MEANING.get("99", "未登記…")`——那是在讀**測試自己寫的
+# 預設值**，不管碼怎麼寫都會過（M135 活下來）。這條分支上第五次犯同一個錯。
+# 規則：**斷言裡不准出現 `X.get(k, 預設)`**。改成讀真的輸出。
+_c4_unreg = _c4mod.render("/tmp/__no_such_c4__.json", "release-notes", "99")
+_c4_known = _c4mod.render("/tmp/__no_such_c4__.json", "release-notes", "4")
+acase("C-4 摘要：未登記的退出碼要在**印出來的字**裡當成沒有判決，不是留白"
+      "（留白讀起來像沒事，而它的意思是我們不知道發生什麼）",
+      ["未登記" in _c4_unreg, "退出碼 **99** — \n" in _c4_unreg + "\n",
+       "沒有判決" in _c4_known], [True, False, True])
+_c4_step = [s for s in _vam_steps if "c4-summary.py" in str(s.get("run") or "")]
+acase("C-4 摘要：workflow 真的會叫它，而且 always()"
+      "（判決最紅的時候正是最需要被留下來的時候）",
+      [len(_c4_step), _c4_step[0].get("if") if _c4_step else None],
+      [1, "always()"])
+# GitHub 只給 success / failure。不自己把退出碼撈出來，2 / 3 / 4 三種
+# 意思完全不同的壞消息會在摘要上長得一模一樣。
+acase("C-4 摘要：退出碼有被撈出來傳給摘要，不是靠 GitHub 的 success/failure",
+      [s for s in _vam_steps if "C4_EXIT=" in str(s.get("run") or "")] != [], True)
+
 acase("C-4：驗證那一步不得 continue-on-error"
       "（吞掉退出碼＝把這次驗證退化成一份沒有人看的 log）",
       [s for s in _vam_steps if s.get("continue-on-error")], [])
