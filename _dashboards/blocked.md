@@ -1,7 +1,9 @@
-# 被門禁擋下（15）
+# 被門禁擋下（18）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-07-27-1b4ef0|How AI is expanding what people do at work]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-07-27-ccaf21|NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Su]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-27-fdbc38|NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs a]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-23-83a9d2|AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High ]]** — Cerebras — blockers: thin_fact
 - **[[Events/evt-2026-07-23-f4cdc4|AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era]]** — AMD — blockers: thin_fact
@@ -17,3 +19,4 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-07-27-22a744|Industry Leaders Unite in Open Secure AI Alliance for AI Safety and Se]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track

@@ -5,7 +5,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**4 天**（2026-07-24 … 2026-07-27），去重後 **575** 列。
+語料範圍：**4 天**（2026-07-24 … 2026-07-27），去重後 **587** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -38,8 +38,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | Learning | 5 | 3 |
 | January | 5 | 4 |
 | Fable | 5 | 3 |
+| Chinese | 5 | 4 |
 | These | 5 | 3 |
 | There | 5 | 4 |
+| Flash | 4 | 2 |
 | Thursday | 4 | 2 |
 | Tuesday | 4 | 2 |
 | Python | 4 | 2 |
@@ -48,11 +50,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | Power | 4 | 4 |
 | China | 4 | 3 |
 | When | 4 | 2 |
-| Chinese | 4 | 3 |
 | Pro | 4 | 3 |
 | AI-native | 4 | 2 |
-| Flash | 3 | 2 |
 | AI-powered | 3 | 3 |
+| Measuring | 3 | 3 |
 | Making | 3 | 3 |
 | Monday | 3 | 2 |
 | Users | 3 | 2 |
@@ -70,9 +71,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | With | 3 | 3 |
 | From | 3 | 3 |
 | Opus | 3 | 3 |
+| First | 3 | 3 |
 | World | 3 | 2 |
 | Trump | 3 | 2 |
 | NASA | 3 | 2 |
+| How AI | 3 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,11 +90,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | Highlights | 14 | src-gh-vllm-releases |
 | European Union | 12 | src-ep-itre |
 | Draft | 10 | src-ep-itre |
+| Show HN | 10 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
-| Show HN | 9 | src-hn-frontpage |
 | Qwen | 8 | src-qwen-blog |
 | Minutes | 7 | src-ep-itre |
 | Co-Scientist | 5 | src-deepmind-blog |
@@ -101,6 +104,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Consumer Protection | 4 | src-ep-itre |
 | Release Notes | 4 | src-gh-vllm-releases |
 | The Download | 4 | src-media-mit-techreview |
+| Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Video | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |

@@ -53,7 +53,7 @@
 ## 2026-07-21
 - **[[Events/evt-2026-07-21-11f6a7|NVIDIA and Partners Build in America, for America]]** — NVIDIA · policy · conf 73 · heat 未量測
   NVIDIA 和夥伴宣示在美國本土投資製造、供應鏈、電網與人力。
-- **[[Events/evt-2026-07-21-1bdb1a|Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber]]** — Google DeepMind · model-capability · conf 80 · heat 未量測
+- **[[Events/evt-2026-07-21-1bdb1a|Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber]]** — Google DeepMind · model-capability · conf 90 · heat 未量測
   Google 一次上多個 Gemini Flash 變體，把輕量線切得更細。
 - **[[Events/evt-2026-07-21-2d1482|Built for Vera Rubin, NVIDIA Spectrum-6 Arrives in Gigascale AI Factories]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 推 Spectrum-6 網通，搭 Vera Rubin 進入 gigascale AI 工廠。

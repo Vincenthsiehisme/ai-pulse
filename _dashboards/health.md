@@ -8,8 +8,8 @@ last_run_day: "2026-07-27"
 run_lag_days: 0
 stale_after_days: 2
 sources_runnable: 27
-items_observed: 575
-events_total: 52
+items_observed: 587
+events_total: 55
 events_published: 36
 ---
 
@@ -26,8 +26,8 @@ events_published: 36
 | 層 | 數字 | 這一格不對勁代表什麼 |
 |---|---|---|
 | 收錄 | 27 條可跑來源 | 設定檔現在有幾條會被抓 |
-| 已觀測 | 累計 575 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
-| 有效產出 | 52 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
+| 已觀測 | 累計 587 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
+| 有效產出 | 55 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
 | 已發布 | 36 則 | 卡在門禁是設計，不是故障 |
 
 ## 鏈的兩條時間軸
@@ -41,17 +41,18 @@ events_published: 36
 
 ## 佇列
 
-- 已上線 **36**／review **15**（待處理 4、設計上擋著 11）／人工判定不追 **1**
-- 未 enrich **1** 則，最久放了 **0** 天
+- 已上線 **36**／review **18**（待處理 7、設計上擋著 11）／人工判定不追 **1**
+- 未 enrich **4** 則，最久放了 **0** 天
 - 待處理卡最久 **1** 天（天數＝**進庫**多久，不是新聞發布多久）
 
 | blocker | 則數 |
 |---|---|
 | `stale_backfill` | 11 |
-| `thin_fact` | 4 |
-| `placeholder_content` | 1 |
-| `missing_category` | 1 |
-| `missing_track` | 1 |
+| `thin_fact` | 7 |
+| `placeholder_content` | 4 |
+| `missing_category` | 4 |
+| `missing_track` | 4 |
+| `generic_entity` | 1 |
 
 ## 覆蓋範圍
 
@@ -59,14 +60,14 @@ events_published: 36
 
 | 必盯實體 | 來源 | 看見 | 事件 | 上線 | 最後看見 |
 |---|---|---|---|---|---|
-| OpenAI | 1 | 132 | 10 | 10 | 0d 前 |
+| OpenAI | 1 | 132 | 11 | 10 | 0d 前 |
 | Anthropic | 1 | 32 | 7 | 6 | 0d 前 |
-| Google DeepMind | 1 | 24 | 3 | 2 | 0d 前 |
-| Google | 1 | 60 | 5 | 3 | 0d 前 |
+| Google DeepMind | 1 | 25 | 3 | 2 | 0d 前 |
+| Google | 1 | 59 | 5 | 3 | 0d 前 |
 | Meta | 1 | 21 | 0 | 0 | 0d 前 |
 | Microsoft | 1 | 20 | 0 | 0 | 0d 前 |
-| NVIDIA | 1 | 58 | 16 | 12 | 0d 前 |
-| Hugging Face | 1 | 42 | 1 | 1 | 0d 前 |
+| NVIDIA | 1 | 59 | 17 | 12 | 0d 前 |
+| Hugging Face | 1 | 46 | 1 | 1 | 0d 前 |
 | xAI | 1 | 5 | 2 | 2 | 0d 前 |
 | Mistral AI | 1 | 2 | 0 | 0 | 0d 前 |
 | Alibaba | 1 | 0 | 0 | 0 | **從未**（觀察期 3/30d，還沒到門檻，所以不判沉默） |
@@ -88,7 +89,7 @@ events_published: 36
 | TSMC | 0 | 1 | 0 | 0 | 1d 前 ○ 已知未覆蓋（不觸警） |
 | Broadcom | 0 | 3 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | Groq | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
-| Cerebras | 0 | 2 | 1 | 0 | 1d 前 ○ 已知未覆蓋（不觸警） |
+| Cerebras | 0 | 3 | 1 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | CoreWeave | 0 | 4 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | AWS | 0 | 2 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 

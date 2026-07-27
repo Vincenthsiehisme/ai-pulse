@@ -10,10 +10,11 @@ tags: [actor, company]
 
 # OpenAI
 
-事件 **10** 則：`published` 10
+事件 **11** 則：`published` 10、`review` 1
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-07-27 | [[Events/evt-2026-07-27-1b4ef0\|How AI is expanding what people do at work]] | review |
 | 2026-07-23 | [[Events/evt-2026-07-23-b82259\|Launching Health in ChatGPT]] | published |
 | 2026-07-22 | [[Events/evt-2026-07-22-af7762\|Advancing the next era of national science]] | published |
 | 2026-07-22 | [[Events/evt-2026-07-22-8a7a1d\|Introducing OpenAI Presence]] | published |
