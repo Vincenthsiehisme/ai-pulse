@@ -1195,3 +1195,38 @@ mutations:
     replace: "    out.append(f\"退出碼 **{code}** — {EXIT_MEANING.get(code, '')}\")"
     survives: false
     why: ""
+
+  # ── 對外站上那兩句假話 ──
+  # 兩條都是「凍結／編造的值被當成事實」，兩條都不會讓任何東西變紅。
+
+  - id: M136
+    title: "沒量過的傳播因子回到 0（41/41 則已發布頁把「從來沒量過」印成粗體 0，就在寫著「未量測」的 heat 旁邊）"
+    file: lib/scoring.py
+    find: "            \"uniqueAuthors\": authors if measured else None,"
+    replace: "            \"uniqueAuthors\": authors,"
+    survives: false
+    why: ""
+
+  - id: M137
+    title: "未量測的因子改回畫比例條（長度 0 的灰軌道跟「量到 0」在畫面上一模一樣，修了等於沒修）"
+    file: pulse-render.py
+    find: ".factor .bar-unmeasured{height:0;border-top:1px dashed var(--border-soft);background:none;border-radius:0}"
+    replace: ".factor .bar-unmeasured{}"
+    survives: false
+    why: ""
+
+  - id: M138
+    title: "判斷層的 rule-tag 改回讀 note 裡凍結的那一份（frontmatter 說 2 個獨立來源，內文說單一——同一頁兩個相反的宣稱）"
+    file: pulse-render.py
+    find: "        text = strip_frozen_tag(text)"
+    replace: "        return (f'<div class=\"layer {cls}{b}\"><span class=\"lbl\">{esc(label)} · {esc(heading)}</span>'\n                f'<p>{esc(text)}</p></div>')"
+    survives: false
+    why: ""
+
+  - id: M139
+    title: "剝凍結 tag 改成整串比對（會刪掉作者真的寫在內文裡的同樣字眼——誤剝比不剝更難發現）"
+    file: pulse-render.py
+    find: "_FROZEN_TAG = re.compile(r\"\\s*（(?:單一獨立來源，暫標待證實|多來源佐證)）\\s*$\")"
+    replace: "_FROZEN_TAG = re.compile(r\"（(?:單一獨立來源，暫標待證實|多來源佐證)）\")"
+    survives: false
+    why: ""

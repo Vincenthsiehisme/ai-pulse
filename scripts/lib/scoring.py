@@ -61,6 +61,9 @@ def score_event(authority_scores, primary_count, independent_count, metrics, age
     # 四項傳播輸入裡有幾項真的量到東西。全 0 ＝ 沒有任何傳播證據，
     # 那 heat 就沒有東西可算——不是算出一個低分，是算不出來。
     propagation_signals = sum(1 for v in (authors, tweets, platforms, regions) if v > 0)
+    # 「有沒有量過」與「量到的值是多少」是兩件事。metrics 空＝這一則從來沒有
+    # 傳播資料進來過，那四個因子不是 0，是不知道。
+    measured = bool(metrics)
     heat = _clamp(
         _logscale(authors, 80) * 30
         + _logscale(tweets, 300) * 20
@@ -87,13 +90,31 @@ def score_event(authority_scores, primary_count, independent_count, metrics, age
             "authority": authority,
             "corroboration": min(independent_count * 20, 100),
             "primaryEvidence": min(primary_count * 50, 100),
-            "uniqueAuthors": authors,
+            # 這五格跟 heat 走同一條規矩：**一項傳播訊號都沒量到時不編數字。**
+            #
+            # 上面第 22 行的 docstring 早就寫著「讓『什麼都沒量到』成為寫在資料裡
+            # 的事實」，而 heat 也照做了（`if propagation_signals else None`）。
+            # 但這四個因子本身仍然回 0——`max([0] + [...])` 對空 metrics 就是 0，
+            # `len(set())` 也是 0。實測後果：**41 / 41 則已發布頁把它們印成粗體 0**，
+            # 就在同一張卡片上寫著「未量測」的 heat 旁邊。
+            #
+            # 0 跟 None 在這裡是兩件完全不同的事：0 是「量過了，一個作者都沒有」，
+            # None 是「我們從來沒量過」。`lib/scoring.py` 自己的話是
+            # 「0 看起來像『量過了，很冷』，那是更難察覺的一種謊」。
+            #
+            # `crossRegion` 一起改：`regions >= 2` 在沒量測時回 False，
+            # 而 False 讀起來是「確定不跨區」——同一隻病，換成布林。
+            #
+            # **刻意不動 confidence / heat / impact / value 的算法。** 那四個數字
+            # 一動，全站分數就會重排——2026-07-27 已經有一次「順手重算」把 55 則
+            # 事件的 value 全部改掉的事故。這裡改的只有「怎麼回報量不到」。
+            "uniqueAuthors": authors if measured else None,
             "independentSources": independent_count,
-            "platformBreadth": platforms,
-            "regionBreadth": regions,
-            "velocity": _clamp(_logscale(tweets, 300) * 100),
+            "platformBreadth": platforms if measured else None,
+            "regionBreadth": regions if measured else None,
+            "velocity": _clamp(_logscale(tweets, 300) * 100) if measured else None,
             "freshness": freshness,
-            "crossRegion": cross_region,
+            "crossRegion": cross_region if measured else None,
             "propagationSignals": propagation_signals,
         },
     }
