@@ -219,6 +219,16 @@ coverage(event) = "observed"    if happened_at >= observable_from
 所以上面「標題／日期優先讀 `evidence[]`」不只是排序偏好，它是**讓這一區不再依賴
 語料保留期**的手段。做完之後 `corpus-累積` 才是一個可以自由決定的問題。
 
+**2026-07-27 狀態更新：做完了。** `load_events()` 帶著 `evidence[].title` /
+`.published` 一起讀，`journey_html()` 的優先序是 Event 自己存的 → 語料 → 「未留存」，
+既有 note 由 `scripts/migrate-2026-07-27-evidence-titles.py` 一次性補回
+（標題從 body 解析、不需要網路也不需要語料；日期從現存語料補，補不到的留空）。
+selftest 有一條直接把語料索引清空、驗發展歷程照樣印得出真標題與真日期——那條就是
+這句話的全部意思。**`corpus-累積` 現在真的可以自由決定了。**
+
+補完後仍缺的：標題 1 筆、日期 1 筆（body 裡本來就印著「（標題未留存）」的那一筆）。
+它們維持誠實空著，由前台印「未留存」，不塞一個看起來合理的值。
+
 ## 遷移
 
 新欄位 `coverage` 寫進 Event frontmatter。既有 52 則的補法：

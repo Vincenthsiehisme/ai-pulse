@@ -3603,7 +3603,7 @@ acase("journey_shape：observed 且 ≥2 筆證據才叫發展歷程、才發起
 # 語料查不到時不得編造。這條釘的是**兩個**退路，因為它們的傷害不同：
 # 標題退回來源名 → 畫面上出現一筆標題是「NVIDIA Blog」的證據；
 # 日期退回事件日 → 一整串證據看起來同一天出現，而那是讀者判斷「怎麼發展」的唯一線索。
-_jn_ev = {"evidence": [("src-x", "https://no.such/url")],
+_jn_ev = {"evidence": [{"sid": "src-x", "url": "https://no.such/url"}],
           "date": "2026-07-14", "coverage": "observed"}
 _jn_head, _jn_html = _rmod.journey_html(_jn_ev, {}, {})
 # 比對的是**標題元素本身**，不是整段 HTML：來源名本來就會出現在下面那個連結標籤裡，
@@ -3621,7 +3621,8 @@ acase("journey_html：回傳的是 (區塊標題, HTML)——標題不再是寫�
       _jn_head, "證據")
 
 _jn_bf = dict(_jn_ev, coverage="backfilled",
-              evidence=[("src-x", "u1"), ("src-y", "u2")])
+              evidence=[{"sid": "src-x", "url": "u1"},
+                        {"sid": "src-y", "url": "u2"}])
 _jn_bf_head, _jn_bf_html = _rmod.journey_html(_jn_bf, {}, {})
 acase("journey_html：backfilled 的事件頁真的印出回填說明，且標題不是「發展歷程」"
       "（判準對了但沒印出來，等於沒判）",
@@ -3631,7 +3632,8 @@ acase("journey_html：backfilled 的事件頁真的印出回填說明，且標�
 # 自我審查補的一條：拿掉日期退路之後才走得到的路徑。原本「解不出日期就當 1970」
 # 讓一筆**我們承認不知道日期**的證據保證排第一，然後拿到「起點」——印出來的那行是
 # 「起點／日期未留存／標題未留存」，正是這個修正要消滅的東西，由修正本身引進。
-_jn_mix = {"evidence": [("src-a", "https://known"), ("src-b", "https://unknown")],
+_jn_mix = {"evidence": [{"sid": "src-a", "url": "https://known"},
+                        {"sid": "src-b", "url": "https://unknown"}],
            "date": "2026-07-14", "coverage": "observed"}
 _jn_mix_head, _jn_mix_html = _rmod.journey_html(
     _jn_mix, {"https://known": {"title": "真的最早那一篇", "date": "2026-07-10"}}, {})
@@ -3645,7 +3647,8 @@ acase("journey_html：沒有日期的證據排**最後**、且不得拿到「起
       ["真的最早那一篇", "起點", _rmod.TITLE_UNKEPT])
 acase("journey_html：連第一筆的日期都不知道時，整則都不發「起點」",
       "起點" in _rmod.journey_html(
-          dict(_jn_mix, evidence=[("src-a", "u1"), ("src-b", "u2")]), {}, {})[1],
+          dict(_jn_mix, evidence=[{"sid": "src-a", "url": "u1"},
+                                  {"sid": "src-b", "url": "u2"}]), {}, {})[1],
       False)
 
 # ── 接線：判準算對了，但有沒有真的接到輸出上 ────────────────────────
@@ -3667,7 +3670,9 @@ _lv = _pathlib.Path(_tempfile.mkdtemp())
 (_lv / "Events").mkdir()
 (_lv / "Events" / "evt-lv.md").write_text(
     "---\nid: evt-lv\nslug: lv\ntitle: T\ndate: '2026-07-14'\nstatus: published\n"
-    "coverage: backfilled\ncompany: C\nevidence: []\n---\n\n## 事實\nx\n",
+    "coverage: backfilled\ncompany: C\n"
+    "evidence:\n- source_id: src-a\n  url: https://a\n  title: T1\n"
+    "  published: '2026-07-10'\n---\n\n## 事實\nx\n",
     encoding="utf-8")
 acase("pulse-render.load_events：coverage 從檔案讀，不得寫死"
       "（寫死成 observed 會讓每一則都宣稱我們當時在看——往編造的方向倒）",
@@ -3676,12 +3681,68 @@ acase("pulse-render.load_events：coverage 從檔案讀，不得寫死"
 _pg_ev = dict(_rmod.load_events(_lv)[0],
               layers={}, summary="", confidence=0, heat=None, impact=0, value=0,
               independent=0, score_factors={}, date_display="2026-07-14",
-              category="", track="", evidence=[("src-a", "u1"), ("src-b", "u2")])
+              category="", track="",
+              evidence=[{"sid": "src-a", "url": "u1"},
+                        {"sid": "src-b", "url": "u2"}])
 _pg_html = _rmod.build_event_page(_pg_ev, [_pg_ev], {}, {}, "now")
 acase("pulse-render.build_event_page：頁面標題用 journey_html 回傳的那個"
       "（回傳值被測了、頁面有沒有用它沒被測——寫死回「發展歷程」的話，"
       "backfilled 的事件頁會掛著一個它不配的標題）",
       ["<h2>證據</h2>" in _pg_html, "<h2>發展歷程</h2>" in _pg_html], [True, False])
+
+# ── 發展歷程不再依賴語料保留期 ──────────────────────────────────
+# 規格〈第三個現場〉的〈一條沒被記下來的依賴〉：這一區原本只查 _corpus/，而語料的
+# 保留期由 `corpus-累積` 那個**還沒拍板的決定**控制。欄位一直都在 frontmatter 裡，
+# 只是 render 讀進來的時候把它丟掉了——規格說已經解開、實作沒有，那是紅線 8。
+_ee = [{"sid": "src-a", "url": "https://a", "title": "Event 自己存的標題",
+        "published": "2026-07-10"},
+       {"sid": "src-b", "url": "https://b", "title": "第二筆", "published": "2026-07-11"}]
+_ee_ev = {"evidence": _ee, "date": "2026-07-14", "coverage": "observed"}
+
+_, _ee_html = _rmod.journey_html(_ee_ev, {}, {})
+acase("journey_html：**語料全空**時照樣印得出真標題與真日期"
+      "（這條就是「不再依賴語料保留期」那句話的全部意思；掉了它，corpus-累積 改成"
+      "滾動視窗的那天，所有舊事件的證據會靜靜變成「未留存」）",
+      ["Event 自己存的標題" in _ee_html, "2026-07-10" in _ee_html,
+       _rmod.TITLE_UNKEPT in _ee_html, _rmod.DATE_UNKEPT in _ee_html],
+      [True, True, False, False])
+
+_, _ee_html2 = _rmod.journey_html(
+    _ee_ev, {"https://a": {"title": "語料裡的舊標題", "date": "2026-01-01"}}, {})
+acase("journey_html：Event 自己存的優先於語料（語料是補充，不是真相源）",
+      ["Event 自己存的標題" in _ee_html2, "語料裡的舊標題" in _ee_html2],
+      [True, False])
+
+_, _ee_html3 = _rmod.journey_html(
+    {"evidence": [{"sid": "src-a", "url": "https://a"}], "date": "2026-07-14",
+     "coverage": "observed"},
+    {"https://a": {"title": "只有語料有", "date": "2026-07-10"}}, {})
+acase("journey_html：Event 沒存時才退到語料（反方向，確認上一條不是把語料整條關掉）",
+      ["只有語料有" in _ee_html3, "2026-07-10" in _ee_html3], [True, True])
+
+# 驗**值**不只驗 key：第一版只比對 keys，而把值換成 None 的變異照樣活著——
+# 一個「欄位在、內容是空的」的 load_events，下游看起來跟沒接一模一樣。
+_lv_e = _rmod.load_events(_lv)[0]["evidence"][0]
+acase("pulse-render.load_events：證據帶著 title / published 的**值**一起讀進來"
+      "（只讀 (source_id, url)、或讀了但填 None，上面那些優先序全部走不到）",
+      [_lv_e.get("sid"), _lv_e.get("url"), _lv_e.get("title"), str(_lv_e.get("published"))],
+      ["src-a", "https://a", "T1", "2026-07-10"])
+
+# 遷移那支：body 裡的「（標題未留存）」是**佔位不是標題**，補進去比空著更糟——
+# 空著時 render 知道要印「標題未留存」，補了假值之後它會以為自己有標題。
+_mg = importlib.util.spec_from_file_location(
+    "mig_ev", os.path.join(_HERE, "migrate-2026-07-27-evidence-titles.py"))
+_mgm = importlib.util.module_from_spec(_mg)
+_mg.loader.exec_module(_mgm)
+acase("migrate evidence-titles：body 的「（標題未留存）」不得被當成標題補進去",
+      _mgm.titles_from_body(
+          "## 證據\n- [[Sources/src-a|src-a]] — （標題未留存）https://a\n"
+          "- [[Sources/src-b|src-b]] — 真的標題（https://b）\n"),
+      {"src-b": ["真的標題"]})
+_mg_fm = {"evidence": [{"source_id": "src-a", "url": "https://a", "title": "原本就有"}]}
+_mgm.backfill(_mg_fm, "## 證據\n- [[Sources/src-a|src-a]] — 新的（https://a）\n")
+acase("migrate evidence-titles：只補空的，不覆蓋既有值",
+      _mg_fm["evidence"][0]["title"], "原本就有")
 
 print("offline self-test\n" + "-" * 70)
 fails = 0

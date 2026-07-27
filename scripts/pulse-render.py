@@ -543,8 +543,8 @@ def event_chips(ev):
 def event_card(ev, prefix, full=True):
     href = ev_href(prefix, ev["slug"])
     layers = "".join(layer_html(h, ev["layers"][h]) for h in LAYERS if ev["layers"].get(h)) if full else ""
-    ev_links = "".join(f'<a href="{esc(u)}" rel="noopener" target="_blank">{esc(sid)} {EXT}</a>'
-                       for sid, u in ev["evidence"] if u)
+    ev_links = "".join(f'<a href="{esc(e["url"])}" rel="noopener" target="_blank">{esc(e["sid"])} {EXT}</a>'
+                       for e in ev["evidence"] if e.get("url"))
     ev_block = f'<ul class="ev"><span class="lbl">證據</span>{ev_links}</ul>' if (ev_links and full) else ""
     tr = track_of(ev)
     track_span = f'<span>{esc(tr[1])}</span>' if tr else ""
@@ -629,14 +629,19 @@ def classify_dev(sid, sources, is_first):
 def journey_html(ev, corpus_idx, sources):
     """→ (區塊標題, HTML)。標題不是固定字串——見 journey_shape()。"""
     items = []
-    for sid, url in ev["evidence"]:
+    for e in ev["evidence"]:
+        sid, url = e.get("sid"), e.get("url")
         rec = corpus_idx.get(url) or {}
-        # 查不到就說查不到。退回來源名／事件日的話，畫面上會出現一筆「標題是
-        # 來源名」的證據，或一整串「全部同一天」的證據——後者尤其傷，因為那正是
-        # 讀者用來判斷這件事怎麼發展的唯一線索。
+        # 優先序：**Event 自己存的** → 語料 → 說不知道。
+        # 先問 Event 自己，這一區才不再依賴 `_corpus/` 的保留期（規格〈第三個現場〉
+        # 的〈一條沒被記下來的依賴〉）。語料退居補充：它只在舊 note 還沒補上
+        # evidence[].title 的期間有用。
+        # 兩個都沒有就說不知道——退回來源名／事件日的話，畫面上會出現一筆「標題是
+        # 來源名」的證據，或一整串「全部同一天」的證據，而後者正是讀者用來判斷
+        # 這件事怎麼發展的唯一線索。
         items.append({"sid": sid, "url": url,
-                      "title": rec.get("title") or TITLE_UNKEPT,
-                      "date": rec.get("date") or None})
+                      "title": e.get("title") or rec.get("title") or TITLE_UNKEPT,
+                      "date": e.get("published") or rec.get("date") or None})
     # 沒有日期的排**最後**，不是排最前。原本是「解不出日期就當 1970」，而 1970
     # 早於任何真實日期——所以一筆我們承認不知道日期的證據會保證排第一，然後拿到
     # 「起點」。日期退路拿掉（不再退回事件日）之後這條路才真的走得到，而它印出來
@@ -875,8 +880,8 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
     layers = "".join(layer_html(h, ev["layers"][h]) for h in LAYERS if ev["layers"].get(h))
     journey_heading, journey = journey_html(ev, corpus_idx, sources)
     scores = score_grid_html(ev)
-    ev_links = "".join(f'<a href="{esc(u)}" rel="noopener" target="_blank">{esc(sid)} {EXT}</a>'
-                       for sid, u in ev["evidence"] if u)
+    ev_links = "".join(f'<a href="{esc(e["url"])}" rel="noopener" target="_blank">{esc(e["sid"])} {EXT}</a>'
+                       for e in ev["evidence"] if e.get("url"))
     ev_block = f'<div class="aside-box" style="margin-top:16px"><h3>證據</h3><ul class="ev">{ev_links}</ul></div>' if ev_links else ""
     # 相關事件：同主線或同公司，排除自己
     rel = [e for e in all_events if e["slug"] != ev["slug"]
@@ -934,7 +939,15 @@ def load_events(vault):
             "independent": fm.get("independent_sources", 0),
             "score_factors": fm.get("score_factors") or {},
             "layers": {h: section(body, h) for h in LAYERS},
-            "evidence": [(e.get("source_id"), e.get("url")) for e in (fm.get("evidence") or [])],
+            # 證據帶著自己的 title / published，不只 (source_id, url)。只帶兩元組的話，
+            # 發展歷程只能回頭查 `_corpus/`，而語料的保留期由 `corpus-累積` 那個
+            # **還沒拍板的決定**控制——改成滾動視窗的那天，所有舊事件的證據標題會
+            # 靜靜變成「未留存」。規格〈第三個現場〉把「不再依賴語料保留期」列為
+            # 這一區的重點，而在此之前那句話是假的：欄位就在 frontmatter 裡，
+            # 只是 render 讀進來的時候把它丟掉了。
+            "evidence": [{"sid": e.get("source_id"), "url": e.get("url"),
+                          "title": e.get("title"), "published": e.get("published")}
+                         for e in (fm.get("evidence") or [])],
             # 事情發生時我們看不看得到。缺這一格（舊 note 還沒被重寫過）時是 None，
             # 而 journey_shape() 只有在它**正好等於** "observed" 時才印「起點」——
             # 所以缺格會倒向保守那一邊，不會因為欄位還沒長出來就開始亂宣稱。
