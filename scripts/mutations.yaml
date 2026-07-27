@@ -430,3 +430,29 @@ mutations:
     replace: "        if idx not in reposts:"
     survives: false
     why: ""
+
+  # ── 現況頁：數字搬出手寫檔案之後，這一頁自己不能變成假的（references/vault-pages.md）──
+
+  - id: M48
+    title: "缺席的欄位印成 0（量不到跟量到 0 印起來一樣，這一頁就開始說謊）"
+    file: pulse-backlog-status.py
+    find: "    return UNMEASURED if v is None else str(v)"
+    replace: "    return str(v or 0)"
+    survives: false
+    why: ""
+
+  - id: M49
+    title: "內容沒變照樣重寫（一天 12 班 12 個沒有資訊量的 diff，真正的變化被埋掉）"
+    file: pulse-backlog-status.py
+    find: "    if _read(path) == text:"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M50
+    title: "零產出那一格改成重算判定（兩份判準，遲早給出不同答案）"
+    file: pulse-backlog-status.py
+    find: "            \"zero_yield\": sorted(s[\"id\"] for s in srcs"
+    replace: "            \"zero_yield\": sorted(str(s.get(\"status\")) for s in srcs"
+    survives: false
+    why: ""

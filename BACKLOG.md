@@ -1,40 +1,37 @@
 # AI-Pulse：應做而未做
 
 這份清單只寫「**已知有問題、但還沒動手**」的事。修掉的移到最後的〈附：已經修掉的〉；
-**修好了但還沒併進 `main` 的，算沒修**——這一版量的時候遠端零條未併，所以那一區是空的，
-但規矩不變：分支上的數字不能寫進〈現況〉。
+**修好了但還沒併進 `main` 的，算沒修**——這條規矩不變，只是現在不必靠人記得：
+現況數字由每班的鏈自己量（見下一節），而那條鏈跑在 `main` 上。
 
 每一條有一個**不會變的名字**（`cron-收班`、`gate-未接線`…），沒有編號。
 理由寫在下面〈為什麼這裡沒有編號〉——不是排版偏好，是量到的一個 bug。
 
-## 現況（2026-07-26 23:30Z 量的 ／ 台北 07-27 早上）
+## 現況
 
-| 量到什麼 | 值 | 怎麼量的 |
-|---|---|---|
-| `main` | `124a58c Merge pull request #10 …/docs/backlog-tidy` | `git fetch && git log --oneline -1 origin/main` |
-| `main` 的 selftest | **322/322** | 在 `origin/main` 的 worktree 上 `python3 scripts/selftest.py` |
-| `main` 的變異 | **32 條：32 被殺、0 存活** | 同上，`python3 scripts/mutate.py` |
-| 遠端分支 | **34 條** = `main` + **0 條未併** + **33 條已併可刪** | `git ls-remote --heads`、`git branch -r --no-merged/--merged origin/main` |
-| 夜間鏈 | 每 2 小時一班，最近一班 07-26 23:03Z：425 items / 32 sources | `data-refresh.yml` + `_probe/source-runs.jsonl` |
-| Events | 51 則：`published` 36 / `review` 14 / `dropped` 1 | `grep -l '^status: …' Events/*.md` |
-| `_corpus/` | **3 天**（07-24…07-26） | `ls _corpus/` |
+**現況數字不在這份檔案裡，在 [`_dashboards/backlog-status.md`](_dashboards/backlog-status.md)，
+每班重新生成。**
 
-複量指令在最後一節。上面每一格都是跑出來的，沒有一格是估的。
+這裡以前有一張手寫的表：`main` 的 commit、selftest 條數、變異數、可刪分支數、
+Events 數、語料天數。它在 2026-07-27 那一版**寫下之後 3 小時就過期了**——
+四條分支被合併，六格同時作廢。
 
-### 上一版這張表在合併的那一刻就過期了
+那是同一種病的第 9 個實例（見〈已經修掉的〉底下的清單）：**用一張量過的表代理現況**。
+更值得記的是**上一版的修法失敗了**：當時的做法是把量測時間寫進標題、在最後一節
+請下一個人複量。那是一個**靠人記得**的機制，而這份清單存在的理由就是不要有
+那種機制。三小時就證明它不夠。
 
-上一版量的是 `4f3b23f` / 303 / 25 / 2 條未併，而且特別註明「分支上的 322 與 32
-描述的是分支，不是 `main`」——那句話當天是對的。三條分支在台北 07-27 06:58–07:04
-全部併進 `main` 之後，分支上的數字**變成了** `main` 的數字，表上卻還寫著 303 / 25。
+所以照這個 repo 一貫的分法辦——**量測是機械的，判斷是人寫的**（跟
+`gate.yaml` 的標記涵蓋檢查同一句話）：
 
-**這是這份清單自己在講的病，第二次發生在它自己身上。**〈為什麼這裡沒有編號〉那節
-講的是「用編號代理清單上的某一件事」；這一節是**用一張量過的表代理現況**。形態一樣：
-沒有進展的日子裡兩者重合，正好在有進展的那天分岔，而有進展正是最多人來讀它的時候。
-方向還特別不利——數字是往**變好**的方向跑掉的（303→322、2 條未併→0），沒有人會
-因為看到一個偏低的測試數而起疑。
+- **數字**歸 `scripts/pulse-backlog-status.py`，每班跟著夜間鏈重生成，
+  規格在 `references/vault-pages.md`。
+- **判斷**留在這裡：哪一條重要、壞了會不會變紅、現在有沒有在騙人。
+  **這份檔案不再有任何一個會過期的數字。**
 
-所以這一版把量的時間寫進標題，並且在最後一節重申：**不要相信上面的數字，直接複量。**
-這條進了〈已經修掉的〉底下的實例清單，第 9 個。
+兩格刻意不搬過去也不留在這裡：**selftest 條數**與**變異結果**。它們不是每班
+量得到的事實，放進那一頁只會變成一個「上次不知道什麼時候量的」數字。要它們就
+自己跑，指令在〈附：怎麼重新盤點這份清單〉。
 
 ## 為什麼這裡沒有編號
 
@@ -370,6 +367,7 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
 | `fix/sitemap-zero-yield-is-not-silence` | 「200 / 0 筆」拆成四個 code：站方那邊沒東西 vs 我們這邊接不上。規格 `references/health-alarms.md`〈零產出不是沉默〉 |
 | `fix/evidence-forgets-what-it-saw` | 證據記錄留下 `title` 與 `published`；reload 不再拿 url 頂替 title（頂替之後，拿標題比相似度會**照樣算得出一個數字**，只是算的是網址）。新增 `references/evidence-tiers.md`——那個檔名被指了兩次而一直不存在 |
 | `fix/translation-chain-counts-a-rewrite` | `evidence.translation_chain` 四個 leaf 全部接上：跨語言 + 實體集合 Jaccard ≥ 0.80 + 48h 窗 → 標 `suspected_repost`、不計入獨立性。實體比對層抽到 `lib/entities.py`（單一真相源）。M43–M47 各守一個設定值真的被讀 |
+| `fix/backlog-status-is-hand-written` | 現況表從手寫改成每班重生成（`_dashboards/backlog-status.md`）。**這是第 9 條實例的第二次修法**——第一次（把量測時間寫進標題、請下一個人複量）三小時就失效了 |
 
 共同主題是**警報自己把自己關掉**：用一個比事實寬鬆的代理指標去代表事實。代理在
 順利的日子跟事實重合，所以平常測不出來；它只在你最需要它準的那一天分岔。規格寫在
@@ -385,33 +383,41 @@ GitHub 網頁的 branches 頁面有一鍵刪除已合併分支。
    假 heat 的源頭修掉了，但已經寫成散文的兩句結論在 `lenses` 裡，而 `lenses` 是夜間鏈
    永遠不會重寫的欄位——堵住上游只擋得住新的謊）
 8. 用「編號」代理「清單上的某一件事」（就是上面〈為什麼這裡沒有編號〉那一節）
-9. 用「一張量過的現況表」代理「現況」（就是上面〈上一版這張表在合併的那一刻就過期了〉。
-   最刁的一點：它是往**變好**的方向失準的，303→322 沒有人會覺得不對勁）
+9. 用「一張量過的現況表」代理「現況」。最刁的一點：它是往**變好**的方向失準的
+   （303→322），沒有人會覺得不對勁。**這一條的第一次修法也失敗了**——把量測
+   時間寫進標題、請下一個人複量，是一個靠人記得的機制，三小時就過期了。
+   真正的修法是把數字整個搬出手寫檔案（`_dashboards/backlog-status.md`，每班
+   重生成），**手寫檔案裡一個數字都不留**。
 
 ## 附：怎麼重新盤點這份清單
 
-清單過期不會讓任何東西變紅，所以下次盤點請直接跑這些，**不要相信上面的數字**：
+**大部分的數字已經不用你自己跑了**：`_dashboards/backlog-status.md` 每班重生成，
+Events、語料、來源、`coverage_watch`、`gate.yaml` 接線數、最後一班 probe 都在那裡。
+下面剩下的是**那一頁刻意不放的**——它們不是每班量得到的事實：
 
 ```bash
+python3 scripts/selftest.py | tail -1                 # 有幾條測試
+python3 scripts/mutate.py                             # 有幾格守不住（幾分鐘）
 git fetch origin --prune                              # 先 fetch，不然下面全是舊的
-git log --oneline -1 origin/main                      # 現況表的 commit
+git log --oneline -1 origin/main
 git branch -r --no-merged origin/main | grep -v HEAD  # 未併分支
 git branch -r --merged origin/main | grep -v 'HEAD\|origin/main' | wc -l   # 可刪幾條
 git merge-tree --write-tree origin/main <branch>      # 那條能不能乾淨併
-python3 scripts/selftest.py | tail -1                 # 有幾條測試
-python3 scripts/mutate.py                             # 有幾格守不住（幾分鐘）
-python3 -c "import yaml;w=yaml.safe_load(open('_config/sources.yaml'))['coverage_watch']['must_watch'];print(len(w),sum(1 for x in w if x.get('pending')))"
-for s in published review dropped; do printf "$s "; grep -l "^status: $s" Events/*.md | wc -l; done
-grep -l stale_backfill Events/*.md | wc -l            # stale-backfill 幾則
 grep -n 'heat' _config/narratives.yaml                # 站上還在說謊嗎
-ls _corpus/                                           # 語料累積幾天
 grep -n "cron:\|stale-days" .github/workflows/data-refresh.yml   # cron-收班 收了沒
 # 零產出來源：每條來源每一班的 status，不是只看最後一班
+#（那一頁只印最後一班的；要看趨勢還是得自己跑）
 python3 -c "
 import json;from collections import Counter
 runs=[json.loads(l) for l in open('_probe/source-runs.jsonl')]
 for sid in ('src-mistral-news','src-media-theregister','src-kol-thezvi'):
     print(sid, Counter(s['status'] for r in runs for s in r['sources'] if s['id']==sid))"
+```
+
+要在本機看那一頁現在會長什麼樣（不寫檔）：
+
+```bash
+VAULT_DIR=$PWD python3 scripts/pulse-backlog-status.py --dry-run
 ```
 
 `mutate.py` 那一行才是「測試守不守得住」的答案。`selftest | tail -1` 給的是**有幾條
