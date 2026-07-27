@@ -721,8 +721,8 @@ mutations:
   - id: M81
     title: "時間軸改用儲存日分年月（卡片印台北日、卻按 UTC 日歸月，8/01 躺在 7 月）"
     file: pulse-render.py
-    find: "        d = e[\"date_display\"] or e[\"date\"] or \"0000-00\""
-    replace: "        d = e[\"date\"] or \"0000-00\""
+    find: "        return (e[\"date_display\"] or e[\"date\"] or \"0000-00-00\")[:10]"
+    replace: "        return (e[\"date\"] or \"0000-00-00\")[:10]"
     survives: false
     why: ""
 
@@ -820,8 +820,8 @@ mutations:
   - id: M92
     title: "unknown 跟 backfilled 共用同一句說明（把「我們沒紀錄」講成「我們確定沒在看」）"
     file: pulse-render.py
-    find: "    \"unknown\": \"這則的來源何時開始被抓取，我們沒有紀錄。\","
-    replace: "    \"unknown\": \"這些證據是首抓時撈回的存量——事情發生時，我們還沒有在看。\","
+    find: '    "unknown": "這則的來源是什麼時候開始被追的，我們沒有留下紀錄，所以說不準當時在不在場。",'
+    replace: '    "unknown": "這幾筆是我們開始追這個來源時，一次撈回來的舊資料。事情發生的當下，我們不在場。",'
     survives: false
     why: ""
 
@@ -1228,5 +1228,29 @@ mutations:
     file: pulse-render.py
     find: "_FROZEN_TAG = re.compile(r\"\\s*（(?:單一獨立來源，暫標待證實|多來源佐證)）\\s*$\")"
     replace: "_FROZEN_TAG = re.compile(r\"（(?:單一獨立來源，暫標待證實|多來源佐證)）\")"
+    survives: false
+    why: ""
+
+  - id: M140
+    title: "泳道刻度改回「出現過幾個月份」判跨度（相隔半年的兩則只有 2 個月份 → 判成跨度短 → 畫 204 個日欄位）"
+    file: pulse-render.py
+    find: "    by_day = span_days <= 60"
+    replace: "    by_day = len({d[:7] for d in days}) <= 2"
+    survives: false
+    why: ""
+
+  - id: M141
+    title: "日刻度只印有事件的日子（中間的空格子本身是資訊——那幾天這家公司沒動靜；拿掉之後每一家看起來都一樣忙）"
+    file: pulse-render.py
+    find: "        while cur >= end:\n            cols.append(cur.isoformat())\n            cur -= step"
+    replace: "        cols = days"
+    survives: false
+    why: ""
+
+  - id: M142
+    title: "泳道縱軸缺公司的事件被丟掉（通過檢查的已發布事件從畫面上消失）"
+    file: pulse-render.py
+    find: "    return e.get(\"company\") or \"其他\""
+    replace: "    return e.get(\"company\")"
     survives: false
     why: ""

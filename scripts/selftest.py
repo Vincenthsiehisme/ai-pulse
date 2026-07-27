@@ -3801,11 +3801,13 @@ acase("時間軸標記：backfilled 與 unknown **不共用字樣**"
 _tl_html = _rmod.build_timeline(
     [_tlev(1, "observed", "2026-07-25"), _tlev(2, "backfilled", "2026-07-20"),
      _tlev(3, "unknown", "2026-07-10")], "now")
-acase("build_timeline：回填標記與觀測起點線真的印在頁面上",
+# 2 不是 1：同一則事件現在畫兩次（泳道一個點、編年一張卡），
+# 而**兩邊都要掛回填標記**——只掛一邊，另一邊就在說這則是我們當場看到的。
+acase("build_timeline：回填標記在泳道與編年兩處都要出現，觀測起點線印在編年區",
       [_tl_html.count(f'>{_rmod.COVERAGE_CHIP["backfilled"]}<'),
        _tl_html.count(f'>{_rmod.COVERAGE_CHIP["unknown"]}<'),
        "tl-cut" in _tl_html, _rmod.OBSERVED_CUT_NOTE in _tl_html],
-      [1, 1, True, True])
+      [2, 2, True, True])
 acase("build_timeline：頁首印出回填則數（看不見的時候有兩種意思——沒有回填，"
       "或這段沒跑，而「整條看起來像持續觀測」正是這一層要修掉的誤會）",
       "其中回填" in _tl_html, True)
@@ -4398,6 +4400,68 @@ acase("判斷層：enrich 端不再把 rule-tag 寫進 prose"
       "（單一獨立來源，暫標待證實）" in open(
           os.path.join(_HERE, "pulse-enrich-apply.py"), encoding="utf-8").read(),
       False)
+
+# ────────────────────────── 站台可讀性（字級級距、泳道、文案）──────────
+_R_CSS = _rmod.CSS
+acase("字級：CSS 裡不得再有硬寫的字級"
+      "（改版前 24 個字級，11 個擠在 0.8–1.15rem——1.01 跟 1.02 沒人看得出差別，"
+      "但每次改版都要猜該用哪一個）",
+      sorted(set(_re.findall(r"\bfont(?:-size)?:\s*([0-9.]+(?:px|rem))", _R_CSS))), [])
+acase("字級：級距九級，最小級不小於 11px"
+      "（9px 的中文與等寬字是用猜的不是用讀的，而改版前有 27 處在用 9/10px）",
+      [len(_re.findall(r"--fs-[a-z0-9]+:", _R_CSS.split("color-scheme:dark")[0])),
+       "--fs-micro:.6875rem" in _R_CSS], [9, True])
+
+# 泳道的縱軸選公司不選產品線，是量出來的：41 則裡 36 則 fingerprint 是 null。
+acase("泳道：縱軸是公司，缺公司的歸「其他」而不是丟掉"
+      "（丟掉就是讓那幾則從畫面上消失，而它們是通過檢查的已發布事件）",
+      [_rmod.lane_key({"company": "NVIDIA"}), _rmod.lane_key({"company": ""}),
+       _rmod.lane_key({})], ["NVIDIA", "其他", "其他"])
+
+def _tl_ev(i, day, company, track_slug="model-research"):
+    return {"id": f"e{i}", "slug": f"s{i}", "title": f"T{i}", "summary": "S",
+            "date": day, "date_display": day, "company": company,
+            "confidence": 80, "coverage": "observed", "category": "", "track": ""}
+
+# 刻度寫死用月，實測整條軸塌成一欄（41 則全在 2026-07）。
+# 一張只有一欄的泳道圖比不畫更糟——它看起來像有資訊。
+_tl_1m = _rmod.build_timeline(
+    [_tl_ev(1, "2026-07-27", "NVIDIA"), _tl_ev(2, "2026-07-07", "OpenAI")], "now")
+_tl_1y = _rmod.build_timeline(
+    [_tl_ev(1, "2026-07-27", "NVIDIA"), _tl_ev(2, "2026-01-05", "OpenAI")], "now")
+acase("泳道：刻度跟著資料跨度走——跨度在兩個月內用「天」，更長用「月」"
+      "（寫死用月，單月資料會塌成一欄）",
+      [int(_re.search(r"--cols:(\d+)", _tl_1m).group(1)) > 5,
+       int(_re.search(r"--cols:(\d+)", _tl_1y).group(1)) <= 12], [True, True])
+# 中間的空格子本身是資訊：那幾天這家公司沒有動靜。
+acase("泳道：日刻度用**連續**日期，中間沒事件的日子照樣留格"
+      "（只印有事件的日子，每一家看起來都一樣忙）",
+      int(_re.search(r"--cols:(\d+)", _tl_1m).group(1)), 21)
+acase("泳道：每一則事件都畫得出一個點，一則都不能少",
+      _tl_1m.count('class="lane-dot'), 2)
+
+# 文案：站上不得再出現比事實寬鬆的宣稱。敘述那一層是有潤稿的。
+# 用 ast 把註解與 docstring 拿掉，剩下的字串常數才是「讀者可能看得到的」。
+# 第一版用 `split('"""', 3)[-1]` 這種切法猜位置，結果把模組 docstring 也算進去——
+# 那句「純規則模板，零 LLM」講的是 renderer 自己，而且是對的。
+# **判斷「這句話讀者看不看得到」不能靠字串位置的巧合。**
+import ast as _ast  # noqa: E402
+_R_SRC = open(os.path.join(_HERE, "pulse-render.py"), encoding="utf-8").read()
+_R_TREE = _ast.parse(_R_SRC)
+_R_DOCS = set()
+for _n in _ast.walk(_R_TREE):
+    if isinstance(_n, (_ast.Module, _ast.FunctionDef, _ast.AsyncFunctionDef, _ast.ClassDef)):
+        _doc = _ast.get_docstring(_n, clean=False)
+        if _doc:
+            _R_DOCS.add(_doc)
+_R_COPY = "\n".join(_n.value for _n in _ast.walk(_R_TREE)
+                    if isinstance(_n, _ast.Constant) and isinstance(_n.value, str)
+                    and _n.value not in _R_DOCS)
+acase("文案：讀者看得到的地方不得寫「零 LLM」「不靠 LLM」這種整站級的宣稱"
+      "（判斷那一層沒有模型，敘述那一層有——寫成整站就是把一半說成全部）",
+      [w for w in ("0 LLM", "零 LLM", "不靠 LLM") if w in _R_COPY], [])
+acase("文案：內部術語不外洩到讀者面前（門禁 / vault）",
+      [w for w in ("門禁", "vault →") if w in _R_COPY], [])
 
 print("offline self-test\n" + "-" * 70)
 fails = 0
