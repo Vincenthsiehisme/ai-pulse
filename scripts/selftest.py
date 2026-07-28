@@ -4464,14 +4464,24 @@ acase("泳道：點數 + 方塊上的數字 = 事件總數（少一則就是有�
 
 # hover 被裁掉的根因：tip 住在 overflow-x:auto 的捲動容器裡。
 # CSS 規範：一軸不是 visible，另一軸的 visible 會算成 auto——z-index 救不了。
-acase("泳道浮層：只有一個，而且掛在捲動容器**外面**"
-      "（住在 .lane-wrap 裡一定被裁掉，那是 overflow-x:auto）",
-      [_tl_1m.count('id="lane-tip"'), 'class="lane-tip"' in _tl_1m,
-       _tl_1m.find('id="lane-tip"') > _tl_1m.find('class="lane-grid"')],
+# 浮層拿掉了。逃出捲動容器只解決「被裁掉」，沒解決「蓋住東西」——
+# 而它蓋住的正好是日期欄頭，也就是讀者當下最需要的座標。
+# 浮層在密集格線上永遠會遮到某個東西，那不是位置算得夠不夠好的問題。
+acase("泳道：詳情用固定在格線下方的判讀列，不用浮層"
+      "（浮層往上彈就壓在日期欄頭上，而那是「這個點是哪一天」的唯一線索）",
+      [_tl_1m.count('id="lane-readout"'), "lane-tip" in _tl_1m,
+       _tl_1m.find('id="lane-readout"') > _tl_1m.find('class="lane-grid"')],
       [1, False, True])
-acase("泳道浮層：帶得到回填標記（泳道是拿來掃視的，點進去才知道就太晚了）",
+acase("泳道：判讀列一開始就有話說，不是一塊空白"
+      "（空的框讀者不知道要做什麼，而它佔著版面）",
+      "滑過或用鍵盤選一個點" in _tl_1m, True)
+# 說明句原本寫死「一格一個月」，而刻度是動態的——截圖那張其實是一天一格。
+# 一句寫死的說明配一個會變的實作，就是在對讀者說一件當下不成立的事。
+acase("泳道：說明句的刻度要跟實際畫出來的一致（寫死就會在另一種資料下說謊）",
+      ["一格一天" in _tl_1m, "一格一個月" in _tl_1y], [True, True])
+acase("泳道判讀列：帶得到回填標記（泳道是拿來掃視的，點進去才知道就太晚了）",
       'data-tip-c="回填"' in _tl_html, True)
-acase("泳道浮層：沒有 JS 時仍看得到內容（每個點都留 title）",
+acase("泳道：沒有 JS 時仍看得到內容（每個點都留 title）",
       _tl_1m.count("<a class=\"lane-dot") == _tl_1m.count(' title="'), True)
 
 # 兩個 h2 在首頁上下緊鄰，改版前一個 27.2px 一個 24px。

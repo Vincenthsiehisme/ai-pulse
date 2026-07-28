@@ -409,19 +409,21 @@ article.event h2 a:hover{color:var(--accent)}
   color:var(--text);font:var(--fs-micro) var(--mono);cursor:default}
 .lane-many[data-lvl="1"]{--a:22}.lane-many[data-lvl="2"]{--a:42}
 .lane-many[data-lvl="3"]{--a:62}.lane-many[data-lvl="4"]{--a:84}
-/* tip 不能住在 .lane-wrap 裡面：那是 overflow-x:auto 的捲動容器，
-   而 CSS 規範說一軸不是 visible 時，另一軸的 visible 會算成 auto——
-   所以往上彈的 tip 一定被裁掉，z-index 也救不了（它逃不出 scroll container）。
-   改成整頁只有一個 tip，掛在 .lane-wrap **外面**、用 position:fixed 由 JS 定位。
-   沒有 JS 時退回 <a title="…">，那個永遠不會被裁到。 */
-#lane-tip{position:fixed;z-index:90;display:none;width:min(260px,72vw);
-  padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);
-  box-shadow:0 10px 28px rgb(0 0 0/.28);text-align:left;pointer-events:none}
-#lane-tip.on{display:block}
-#lane-tip time{display:block;color:var(--quiet);font:var(--fs-micro) var(--mono)}
-#lane-tip em{display:inline-block;margin:3px 0;padding:1px 6px;border-radius:99px;background:var(--surface-soft);
-  color:var(--muted);font:var(--fs-micro) var(--mono);font-style:normal}
-#lane-tip b{display:block;margin-top:2px;font-size:var(--fs-tiny);font-weight:600;line-height:1.5}
+/* 這裡本來是一個浮在格子上方的 tip。它有兩個問題，第二個才是真的：
+     一、住在 .lane-wrap 裡會被裁掉——那是 overflow-x:auto 的捲動容器，
+         而 CSS 規範說一軸不是 visible 時另一軸的 visible 會算成 auto。
+     二、**就算逃出容器，它還是蓋住東西**。第一列離欄頭很近，往上彈就正好
+         壓在日期欄頭上——而那是讀者當下最需要的座標：這個點是哪一天的。
+   浮層在密集格線上永遠會遮到某個東西，這不是位置算得夠不夠好的問題。
+   改成固定在格線下方的一條判讀列：不蓋任何東西、位置永遠一樣、
+   觸控裝置沒有 hover 也照樣用得到（點一下就更新）。 */
+.lane-readout{display:flex;align-items:baseline;gap:10px;min-height:34px;margin-top:10px;padding:7px 11px;
+  border:1px solid var(--border-soft);border-radius:var(--radius-sm);background:var(--surface-soft)}
+.lane-readout time{color:var(--quiet);font:var(--fs-micro) var(--mono);white-space:nowrap}
+.lane-readout em{padding:1px 6px;border-radius:99px;background:var(--surface-2);color:var(--muted);
+  font:var(--fs-micro) var(--mono);font-style:normal;white-space:nowrap}
+.lane-readout b{font-size:var(--fs-tiny);font-weight:600;line-height:1.5}
+.lane-readout .ph{color:var(--quiet);font-size:var(--fs-tiny);font-weight:400}
 @media(max-width:720px){
   .lane-row{grid-template-columns:104px 1fr}
   }
@@ -453,29 +455,20 @@ JS = """
     var next=cur==='light'?'dark':(cur==='dark'?'light':(matchMedia('(prefers-color-scheme: light)').matches?'dark':'light'));
     root.setAttribute('data-theme',next);
   });}
-  // 泳道浮層：整頁只有一個，掛在捲動容器外，用 fixed 定位所以裁不到。
-  // 沒有 JS 時就是 <a title>，一樣看得到，只是樣子樸素——這一段是加分不是必需。
-  var tip=document.getElementById('lane-tip');
-  if(tip){
+  // 泳道判讀列：固定在格線下方，不蓋任何東西。
+  // 沒有 JS 時每個點還有 <a title>，一樣讀得到，只是要等瀏覽器的原生提示。
+  var ro=document.getElementById('lane-readout');
+  if(ro){
     var show=function(a){
       var c=a.getAttribute('data-tip-c');
-      tip.innerHTML='<time>'+a.getAttribute('data-tip-d')+'</time>'
+      ro.innerHTML='<time>'+a.getAttribute('data-tip-d')+'</time>'
         +(c?'<em>'+c+'</em>':'')+'<b>'+a.getAttribute('data-tip-t')+'</b>';
-      tip.classList.add('on');
-      var r=a.getBoundingClientRect(),t=tip.getBoundingClientRect();
-      // 夾在視窗內：貼著邊的那幾格原本會被切掉一半。
-      var x=Math.min(Math.max(8,r.left+r.width/2-t.width/2),innerWidth-t.width-8);
-      // 上面放不下就翻到下面，不要硬擠在頂端。
-      var y=r.top-t.height-10; if(y<8) y=r.bottom+10;
-      tip.style.left=x+'px'; tip.style.top=y+'px';
     };
-    var hide=function(){tip.classList.remove('on')};
+    // 滑開之後**不清空**：清掉會閃，而且讀者常常是滑過去再回頭看那一行。
     document.addEventListener('mouseover',function(e){
-      var a=e.target.closest&&e.target.closest('.lane-dot[data-tip-t]');
-      if(a){a.removeAttribute('title');show(a);}else if(!e.target.closest('#lane-tip'))hide();});
+      var a=e.target.closest&&e.target.closest('.lane-dot[data-tip-t]');if(a)show(a);});
     document.addEventListener('focusin',function(e){
-      var a=e.target.closest&&e.target.closest('.lane-dot[data-tip-t]');if(a)show(a);else hide();});
-    addEventListener('scroll',hide,true);addEventListener('resize',hide);
+      var a=e.target.closest&&e.target.closest('.lane-dot[data-tip-t]');if(a)show(a);});
   }
   var row=document.querySelector('[data-filter-row]');
   if(row){var cards=[].slice.call(document.querySelectorAll('[data-track]'));
@@ -1121,11 +1114,11 @@ def build_timeline(events, generated):
 <div class="tl-controls" data-filter-row>
 <div class="chip-row"><button type="button" class="active" data-filter="all">全部</button>{filters}</div>
 <span class="tl-count" data-count>{len(events)} 則事件</span></div>
-<div class="lane-intro"><h2>誰在動</h2><p>一列一家公司。點進去看那一則，滑過去先看標題。</p><div class="lane-legend"><span><i></i>當場看到</span><span><i class="b"></i>回填</span><span><i class="u"></i>覆蓋未知</span><span>數字＝那一格有幾則</span></div></div>
+<div class="lane-intro"><h2>誰在動</h2><p>一列一家公司，一格{'一天' if by_day else '一個月'}。點進去看那一則，滑過去先看標題。</p><div class="lane-legend"><span><i></i>當場看到</span><span><i class="b"></i>回填</span><span><i class="u"></i>覆蓋未知</span><span>數字＝那一格有幾則</span></div></div>
 <div class="lane-wrap" data-lane-wrap><div class="lane-grid" style="--cols:{len(months)};--colw:{44 if by_day else 76}px">
 <div class="lane-row lane-head"><div class="lane-name"></div><div class="lane-track">{head_cells}</div></div>
 {"".join(rows)}</div></div>
-<div id="lane-tip" role="status" aria-live="polite"></div>
+<div class="lane-readout" id="lane-readout" role="status" aria-live="polite"><span class="ph">滑過或用鍵盤選一個點，這裡會顯示那一則。</span></div>
 <div class="lane-intro lane-intro-2"><h2>接下來發生了什麼</h2><p>同一批事件依時間排開，讀得到每一則在講什麼。</p></div>
 <div class="tl-chrono">{"".join(chrono)}</div></section>"""
     return page_layout("timeline", "事件時間軸 — AI Pulse",

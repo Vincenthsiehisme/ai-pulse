@@ -1272,10 +1272,10 @@ mutations:
     why: ""
 
   - id: M145
-    title: "浮層搬回捲動容器裡（overflow-x:auto 會把往上彈的 tip 裁掉，z-index 救不了）"
+    title: "判讀列拿掉（詳情沒有地方顯示；而浮層版本會蓋住日期欄頭，那是這個點屬於哪一天的唯一線索）"
     file: pulse-render.py
-    find: '<div id="lane-tip" role="status" aria-live="polite"></div>'
-    replace: '<div id="lane-tip-moved" role="status" aria-live="polite"></div>'
+    find: "<div class=\"lane-readout\" id=\"lane-readout\" role=\"status\" aria-live=\"polite\"><span class=\"ph\">滑過或用鍵盤選一個點，這裡會顯示那一則。</span></div>"
+    replace: ""
     survives: false
     why: ""
 
@@ -1292,5 +1292,13 @@ mutations:
     file: pulse-render.py
     find: "                tslug = tr[0] if tr else \"\"\n                chip = COVERAGE_CHIP.get(e.get(\"coverage\"))"
     replace: "                tslug = tr[0] if tr else \"\"\n                chip = None"
+    survives: false
+    why: ""
+
+  - id: M148
+    title: "說明句的刻度寫死（實作是動態選日/月，寫死就會在另一種資料下對讀者說一件當下不成立的事）"
+    file: pulse-render.py
+    find: "一格{'一天' if by_day else '一個月'}"
+    replace: "一格一個月"
     survives: false
     why: ""
