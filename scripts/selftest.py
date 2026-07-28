@@ -3803,11 +3803,17 @@ _tl_html = _rmod.build_timeline(
      _tlev(3, "unknown", "2026-07-10")], "now")
 # 2 不是 1：同一則事件現在畫兩次（泳道一個點、編年一張卡），
 # 而**兩邊都要掛回填標記**——只掛一邊，另一邊就在說這則是我們當場看到的。
-acase("build_timeline：回填標記在泳道與編年兩處都要出現，觀測起點線印在編年區",
-      [_tl_html.count(f'>{_rmod.COVERAGE_CHIP["backfilled"]}<'),
-       _tl_html.count(f'>{_rmod.COVERAGE_CHIP["unknown"]}<'),
-       "tl-cut" in _tl_html, _rmod.OBSERVED_CUT_NOTE in _tl_html],
-      [2, 2, True, True])
+# 泳道與編年是同一批事件的兩種畫法，**兩邊都要看得出哪些是回填**。
+# 編年掛「回填」兩個字；泳道的點沒有文字空間，所以改成實心／空心／虛線空心，
+# 並在圖例上說明。只做一邊，另一邊就在說那些是我們當場看到的。
+acase("build_timeline：編年掛文字標記、泳道用點的樣式區分，觀測起點線印在編年區",
+      # 只數 tl-chip，不數整頁的字：圖例上也寫著「回填」兩個字。
+      [_tl_html.count(f'<span class="tl-chip">{_rmod.COVERAGE_CHIP["backfilled"]}<'),
+       _tl_html.count(f'<span class="tl-chip">{_rmod.COVERAGE_CHIP["unknown"]}<'),
+       _tl_html.count('data-cov="backfilled"'), _tl_html.count('data-cov="unknown"'),
+       "tl-cut" in _tl_html, _rmod.OBSERVED_CUT_NOTE in _tl_html,
+       "lane-legend" in _tl_html],
+      [1, 1, 1, 1, True, True, True])
 acase("build_timeline：頁首印出回填則數（看不見的時候有兩種意思——沒有回填，"
       "或這段沒跑，而「整條看起來像持續觀測」正是這一層要修掉的誤會）",
       "其中回填" in _tl_html, True)
@@ -4408,9 +4414,9 @@ acase("字級：CSS 裡不得再有硬寫的字級"
       "但每次改版都要猜該用哪一個）",
       sorted(set(_re.findall(r"\bfont(?:-size)?:\s*([0-9.]+(?:px|rem))", _R_CSS))), [])
 acase("字級：級距九級，最小級不小於 11px"
-      "（9px 的中文與等寬字是用猜的不是用讀的，而改版前有 27 處在用 9/10px）",
+      "（9px 的中文與等寬字是用猜的不是用讀的，而改版前有 27 處在用 9/10px；十二個 token＝九個內文級距 + 三個大標級距）",
       [len(_re.findall(r"--fs-[a-z0-9]+:", _R_CSS.split("color-scheme:dark")[0])),
-       "--fs-micro:.6875rem" in _R_CSS], [9, True])
+       "--fs-micro:.6875rem" in _R_CSS], [12, True])
 
 # 泳道的縱軸選公司不選產品線，是量出來的：41 則裡 36 則 fingerprint 是 null。
 acase("泳道：縱軸是公司，缺公司的歸「其他」而不是丟掉"
@@ -4439,6 +4445,43 @@ acase("泳道：日刻度用**連續**日期，中間沒事件的日子照樣留
       int(_re.search(r"--cols:(\d+)", _tl_1m).group(1)), 21)
 acase("泳道：每一則事件都畫得出一個點，一則都不能少",
       _tl_1m.count('class="lane-dot'), 2)
+
+# ── 一格塞太多點就退成「幾則」的方塊。這是為了長期累積：今天一格最多 4 點，
+#    半年後改用月刻度，一家公司一個月二十幾則會把格子撐爆——一堆擠在一起的點
+#    既讀不出數量也點不到。
+_tl_dense = _rmod.build_timeline(
+    [_tl_ev(i, "2026-07-27", "NVIDIA") for i in range(7)]
+    + [_tl_ev(90, "2026-07-20", "OpenAI")], "now")
+acase("泳道：一格超過門檻就退成計數方塊，而且**數字要對**"
+      "（擠成一團的點讀不出數量也點不到；印錯數字比不印更糟）",
+      [_tl_dense.count('class="lane-dot'), ">7<" in _tl_dense,
+       _rmod.LANE_DOT_MAX], [1, True, 3])
+# 事件守恆：畫出來的點 + 方塊上的數字，要等於事件總數。
+_dots = _tl_dense.count('class="lane-dot')
+_many = sum(int(x) for x in _re.findall(r'lane-many[^>]*>(\d+)<', _tl_dense))
+acase("泳道：點數 + 方塊上的數字 = 事件總數（少一則就是有事件從畫面上消失了）",
+      _dots + _many, 8)
+
+# hover 被裁掉的根因：tip 住在 overflow-x:auto 的捲動容器裡。
+# CSS 規範：一軸不是 visible，另一軸的 visible 會算成 auto——z-index 救不了。
+acase("泳道浮層：只有一個，而且掛在捲動容器**外面**"
+      "（住在 .lane-wrap 裡一定被裁掉，那是 overflow-x:auto）",
+      [_tl_1m.count('id="lane-tip"'), 'class="lane-tip"' in _tl_1m,
+       _tl_1m.find('id="lane-tip"') > _tl_1m.find('class="lane-grid"')],
+      [1, False, True])
+acase("泳道浮層：帶得到回填標記（泳道是拿來掃視的，點進去才知道就太晚了）",
+      'data-tip-c="回填"' in _tl_html, True)
+acase("泳道浮層：沒有 JS 時仍看得到內容（每個點都留 title）",
+      _tl_1m.count("<a class=\"lane-dot") == _tl_1m.count(' title="'), True)
+
+# 兩個 h2 在首頁上下緊鄰，改版前一個 27.2px 一個 24px。
+_css_clamps = _re.findall(r"font-size:\s*clamp\([^)]*\)", _R_CSS)
+acase("字級：大標也在級距上——font-size 的 clamp() 只准出現在 :root 的 token 定義裡"
+      "（散在各處的 clamp 就是繞過級距，兩個緊鄰的標題因此差 3px 而沒有理由）",
+      _css_clamps, [])
+acase("字級：區塊標題與事件標題共用同一個 token（它們在首頁上下緊鄰）",
+      [".section-head h2{font-size:var(--fs-h2)" in _R_CSS,
+       "article.event h2{font-size:var(--fs-h2)" in _R_CSS], [True, True])
 
 # 文案：站上不得再出現比事實寬鬆的宣稱。敘述那一層是有潤稿的。
 # 用 ast 把註解與 docstring 拿掉，剩下的字串常數才是「讀者可能看得到的」。

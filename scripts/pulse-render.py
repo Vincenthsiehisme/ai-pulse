@@ -149,6 +149,15 @@ CSS = """
      9px 的中文與等寬字在一般螢幕上是用猜的不是用讀的，而站上有 27 處在用它。 */
   --fs-micro:.6875rem;--fs-mini:.75rem;--fs-tiny:.8125rem;--fs-sm:.875rem;
   --fs-base:.9375rem;--fs-md:1rem;--fs-lg:1.125rem;--fs-xl:1.375rem;--fs-2xl:1.625rem;
+  /* 大標三級也進級距。改版前這四個是散在 CSS 裡的 clamp()：
+       .section-head h2  clamp(1.3rem,2.6vw,1.7rem)
+       article.event h2  clamp(1.2rem,2.4vw,1.5rem)
+     兩者在首頁**上下緊鄰**（區塊標題「這幾則最值得看」＋底下那張卡的標題），
+     1200px 視窗下一個 27.2px、一個 24px——看得出來不一樣大，而沒有任何理由
+     要不一樣。收成 --fs-h2 一個 token，兩處共用。 */
+  --fs-h2:clamp(1.35rem,2.6vw,1.7rem);
+  --fs-h1:clamp(2rem,5vw,3rem);
+  --fs-display:clamp(2.3rem,6.5vw,4.6rem);
   color-scheme:dark;
 }
 @media(prefers-color-scheme:light){:root:not([data-theme]){
@@ -189,7 +198,7 @@ a{color:inherit;text-decoration:none}
 
 .hero{padding:clamp(46px,6vw,78px) 0 clamp(28px,4vw,40px);border-bottom:1px solid var(--border-soft)}
 .hero.compact{padding:clamp(38px,5vw,58px) 0 clamp(22px,3vw,32px)}
-.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 .5rem;font-weight:680}
+.hero h1{font-size:var(--fs-h1);line-height:1.05;letter-spacing:-.02em;margin:0 0 .5rem;font-weight:680}
 .hero p{color:var(--muted);font-size:var(--fs-md);max-width:60ch;margin:.2rem 0 0}
 .statline{display:flex;flex-wrap:wrap;gap:22px;margin-top:24px;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.05em}
 .statline b{color:var(--text);font-weight:600}
@@ -197,7 +206,7 @@ a{color:inherit;text-decoration:none}
 .masthead{padding:clamp(56px,9vw,116px) 0 clamp(30px,5vw,52px);border-bottom:1px solid var(--border-soft)}
 .mh-rule{border:0;height:1px;background:var(--border-soft);margin:0}
 .mh-eyebrow{display:block;color:var(--fact);font:var(--fs-micro) var(--mono);letter-spacing:.3em;margin:clamp(30px,4vw,48px) 0 clamp(18px,2.5vw,28px)}
-.mh-title{font-size:clamp(2.3rem,6.5vw,4.6rem);line-height:1.02;letter-spacing:-.03em;font-weight:720;margin:0;max-width:20ch;text-wrap:balance}
+.mh-title{font-size:var(--fs-display);line-height:1.02;letter-spacing:-.03em;font-weight:720;margin:0;max-width:20ch;text-wrap:balance}
 .mh-sub{color:var(--muted);font:var(--fs-tiny)/1.7 var(--mono);letter-spacing:.05em;margin:clamp(22px,3vw,34px) 0 clamp(30px,4vw,48px);max-width:64ch}
 .mh-meta{color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.06em;margin:clamp(20px,3vw,30px) 0 0}
 .mh-meta b{color:var(--text);font-weight:600}
@@ -208,7 +217,7 @@ a{color:inherit;text-decoration:none}
 .section-tint{background:var(--surface-soft);border-block:1px solid var(--border-soft)}
 .section-head{margin:0 0 22px}
 .section-head .kicker{color:var(--muted)}
-.section-head h2{font-size:clamp(1.3rem,2.6vw,1.7rem);letter-spacing:-.01em;margin:.1rem 0 .3rem;font-weight:640}
+.section-head h2{font-size:var(--fs-h2);letter-spacing:-.01em;margin:.1rem 0 .3rem;font-weight:640}
 .section-head p{color:var(--muted);margin:.2rem 0 0;max-width:64ch}
 .text-link{display:inline-flex;align-items:center;gap:6px;margin-top:20px;color:var(--accent);font:var(--fs-mini) var(--mono);letter-spacing:.05em}
 .text-link:hover{text-decoration:underline}
@@ -220,7 +229,7 @@ article.event:hover{border-color:var(--border);transform:translateY(-1px)}
 .chip.co{color:var(--text);border-color:var(--border);font-weight:600}
 .chip.warn{color:var(--forecast);border-color:color-mix(in srgb,var(--forecast) 45%,var(--border));background:color-mix(in srgb,var(--forecast) 8%,transparent)}
 .chip.track{color:var(--tc,var(--muted));border-color:color-mix(in srgb,var(--tc,var(--border)) 40%,var(--border))}
-article.event h2{font-size:clamp(1.2rem,2.4vw,1.5rem);line-height:1.34;letter-spacing:-.01em;margin:.1rem 0 .5rem;font-weight:640}
+article.event h2{font-size:var(--fs-h2);line-height:1.34;letter-spacing:-.01em;margin:.1rem 0 .5rem;font-weight:640}
 article.event h2 a:hover{color:var(--accent)}
 .lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .layers{margin-top:18px;display:flex;flex-direction:column;gap:14px}
@@ -383,19 +392,39 @@ article.event h2 a:hover{color:var(--accent)}
 .lane-dot{position:relative;width:11px;height:11px;border-radius:50%;background:var(--tc);opacity:.85}
 .lane-dot:hover,.lane-dot:focus-visible{opacity:1;outline:2px solid var(--tc);outline-offset:2px}
 /* 觀測起點那一則：空心，代表「這是我們開始追的地方」 */
-.lane-dot.is-cut{background:none;border:2px solid var(--tc)}
-.lane-tip{position:absolute;left:50%;bottom:calc(100% + 8px);z-index:20;display:none;width:230px;transform:translateX(-50%);
+/* 覆蓋狀態要在**點上**看得出來，不能只藏在浮層裡。
+   只放浮層的話，泳道整片看起來都是我們當場看到的——那正是 coverage 這一層
+   要修掉的誤會（同一個理由，編年那邊掛的是「回填」兩個字）。
+   實心＝當場看到；空心＝回填；虛線空心＝連當時在不在場都沒紀錄。 */
+.lane-dot[data-cov=backfilled]{background:none;border:2px solid var(--tc);opacity:.75}
+.lane-dot[data-cov=unknown]{background:none;border:2px dashed var(--tc);opacity:.6}
+.lane-dot.is-cut{background:none;border:2px solid var(--tc);box-shadow:0 0 0 3px color-mix(in srgb,var(--tc) 28%,transparent)}
+.lane-legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 2px;color:var(--muted);font:var(--fs-micro) var(--mono)}
+.lane-legend span{display:inline-flex;align-items:center;gap:6px}
+.lane-legend i{width:11px;height:11px;border-radius:50%;background:var(--muted)}
+.lane-legend i.b{background:none;border:2px solid var(--muted)}
+.lane-legend i.u{background:none;border:2px dashed var(--muted)}
+.lane-many{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:16px;padding:0 5px;
+  border-radius:4px;background:color-mix(in srgb,var(--accent) calc(var(--a) * 1%),transparent);
+  color:var(--text);font:var(--fs-micro) var(--mono);cursor:default}
+.lane-many[data-lvl="1"]{--a:22}.lane-many[data-lvl="2"]{--a:42}
+.lane-many[data-lvl="3"]{--a:62}.lane-many[data-lvl="4"]{--a:84}
+/* tip 不能住在 .lane-wrap 裡面：那是 overflow-x:auto 的捲動容器，
+   而 CSS 規範說一軸不是 visible 時，另一軸的 visible 會算成 auto——
+   所以往上彈的 tip 一定被裁掉，z-index 也救不了（它逃不出 scroll container）。
+   改成整頁只有一個 tip，掛在 .lane-wrap **外面**、用 position:fixed 由 JS 定位。
+   沒有 JS 時退回 <a title="…">，那個永遠不會被裁到。 */
+#lane-tip{position:fixed;z-index:90;display:none;width:min(260px,72vw);
   padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);
-  box-shadow:0 10px 28px rgb(0 0 0/.28);text-align:left}
-.lane-dot:hover .lane-tip,.lane-dot:focus-visible .lane-tip{display:block}
-.lane-tip time{display:block;color:var(--quiet);font:var(--fs-micro) var(--mono)}
-.lane-tip em{display:inline-block;margin:3px 0;padding:1px 6px;border-radius:99px;background:var(--surface-soft);
+  box-shadow:0 10px 28px rgb(0 0 0/.28);text-align:left;pointer-events:none}
+#lane-tip.on{display:block}
+#lane-tip time{display:block;color:var(--quiet);font:var(--fs-micro) var(--mono)}
+#lane-tip em{display:inline-block;margin:3px 0;padding:1px 6px;border-radius:99px;background:var(--surface-soft);
   color:var(--muted);font:var(--fs-micro) var(--mono);font-style:normal}
-.lane-tip b{display:block;margin-top:2px;font-size:var(--fs-tiny);font-weight:600;line-height:1.5}
+#lane-tip b{display:block;margin-top:2px;font-size:var(--fs-tiny);font-weight:600;line-height:1.5}
 @media(max-width:720px){
   .lane-row{grid-template-columns:104px 1fr}
-  .lane-tip{width:180px}
-}
+  }
 .factor .bar-unmeasured{height:0;border-top:1px dashed var(--border-soft);background:none;border-radius:0}
 .factor b.unmeasured{color:var(--muted);font-size:var(--fs-micro);letter-spacing:.02em;font-variant-numeric:normal}
 .warnbox{margin-top:14px;padding:11px 13px;border-radius:var(--radius-sm);border:1px solid color-mix(in srgb,var(--forecast) 40%,var(--border));background:color-mix(in srgb,var(--forecast) 7%,transparent);color:var(--forecast);font:var(--fs-micro) var(--mono);line-height:1.6}
@@ -424,6 +453,30 @@ JS = """
     var next=cur==='light'?'dark':(cur==='dark'?'light':(matchMedia('(prefers-color-scheme: light)').matches?'dark':'light'));
     root.setAttribute('data-theme',next);
   });}
+  // 泳道浮層：整頁只有一個，掛在捲動容器外，用 fixed 定位所以裁不到。
+  // 沒有 JS 時就是 <a title>，一樣看得到，只是樣子樸素——這一段是加分不是必需。
+  var tip=document.getElementById('lane-tip');
+  if(tip){
+    var show=function(a){
+      var c=a.getAttribute('data-tip-c');
+      tip.innerHTML='<time>'+a.getAttribute('data-tip-d')+'</time>'
+        +(c?'<em>'+c+'</em>':'')+'<b>'+a.getAttribute('data-tip-t')+'</b>';
+      tip.classList.add('on');
+      var r=a.getBoundingClientRect(),t=tip.getBoundingClientRect();
+      // 夾在視窗內：貼著邊的那幾格原本會被切掉一半。
+      var x=Math.min(Math.max(8,r.left+r.width/2-t.width/2),innerWidth-t.width-8);
+      // 上面放不下就翻到下面，不要硬擠在頂端。
+      var y=r.top-t.height-10; if(y<8) y=r.bottom+10;
+      tip.style.left=x+'px'; tip.style.top=y+'px';
+    };
+    var hide=function(){tip.classList.remove('on')};
+    document.addEventListener('mouseover',function(e){
+      var a=e.target.closest&&e.target.closest('.lane-dot[data-tip-t]');
+      if(a){a.removeAttribute('title');show(a);}else if(!e.target.closest('#lane-tip'))hide();});
+    document.addEventListener('focusin',function(e){
+      var a=e.target.closest&&e.target.closest('.lane-dot[data-tip-t]');if(a)show(a);else hide();});
+    addEventListener('scroll',hide,true);addEventListener('resize',hide);
+  }
   var row=document.querySelector('[data-filter-row]');
   if(row){var cards=[].slice.call(document.querySelectorAll('[data-track]'));
     row.addEventListener('click',function(e){
@@ -909,6 +962,9 @@ def build_lines(events, narratives, generated):
                        "六條可以一路追下去的故事：模型能力、Agent、產品、基礎設施、資本、全球版圖。", body, 1, generated)
 
 
+LANE_DOT_MAX = 3
+
+
 def lane_key(e):
     """泳道的縱軸＝**公司**。
 
@@ -1000,21 +1056,35 @@ def build_timeline(events, generated):
         tds = []
         for i, bucket in enumerate(cells):
             dots = []
+            # 一格塞太多點就退成一個「幾則」的方塊。**這是為了長期累積**：
+            # 今天是 21 天 × 10 條、一格最多 4 點，半年後改用月刻度，
+            # NVIDIA 一個月二十幾則會把格子撐爆，而一堆擠在一起的點
+            # 既讀不出數量也點不到——那時它已經不是圖，是一團。
+            # 門檻 3 是版面量出來的（44px 欄寬放得下三個 11px 的點加間距）。
+            if len(bucket) > LANE_DOT_MAX:
+                # 濃度用 alpha 表示，級距刻意粗（4 級）——細分只會讓人去比較
+                # 兩個看不出差別的灰階，而這一格要回答的是「多還是少」。
+                lvl = min(4, 1 + (len(bucket) - 1) // 4)
+                tds.append(f'<div class="lane-cell"><span class="lane-many" data-lvl="{lvl}"'
+                           f' title="{esc(name)}　{esc(month_label(months[i]))}　'
+                           f'{len(bucket)} 則">{len(bucket)}</span></div>')
+                continue
             for e in bucket:
                 tr = track_of(e)
                 tc = tr[2] if tr else "var(--accent)"
                 tslug = tr[0] if tr else ""
                 chip = COVERAGE_CHIP.get(e.get("coverage"))
                 cut_cls = " is-cut" if cut_id and e["id"] == cut_id else ""
-                # `title` 讓滑過去就看得到，不必先點進去——泳道的重點是掃視，
-                # 掃到有興趣的才點。
+                # `title` 是沒有 JS 時的那一份，永遠不會被捲動容器裁掉。
+                # data-tip-* 給 JS 拿去畫那個唯一的浮層。
                 dots.append(
                     f'<a class="lane-dot{cut_cls}" href="{ev_href("../", e["slug"])}"'
-                    f' data-track="{esc(tslug)}" style="--tc:{tc}"'
-                    f' title="{esc(e["date_display"])}　{esc(e["title"])}">'
-                    f'<span class="lane-tip"><time>{esc(e["date_display"])}</time>'
-                    f'{f"<em>{esc(chip)}</em>" if chip else ""}'
-                    f'<b>{esc(e["title"])}</b></span></a>')
+                    f' data-track="{esc(tslug)}" data-cov="{esc(e.get("coverage") or "")}"'
+                    f' style="--tc:{tc}"'
+                    f' data-tip-d="{esc(e["date_display"])}"'
+                    f' data-tip-c="{esc(chip or "")}"'
+                    f' data-tip-t="{esc(e["title"])}"'
+                    f' title="{esc(e["date_display"])}　{esc(e["title"])}"></a>')
             tds.append(f'<div class="lane-cell">{"".join(dots)}</div>')
         rows.append(f'<div class="lane-row" data-lane="{esc(name)}">'
                     f'<div class="lane-name"><b>{esc(name)}</b>'
@@ -1051,10 +1121,11 @@ def build_timeline(events, generated):
 <div class="tl-controls" data-filter-row>
 <div class="chip-row"><button type="button" class="active" data-filter="all">全部</button>{filters}</div>
 <span class="tl-count" data-count>{len(events)} 則事件</span></div>
-<div class="lane-intro"><h2>誰在動</h2><p>一列一家公司，一格一個月。點子看那一則，滑過去先看標題。</p></div>
-<div class="lane-wrap"><div class="lane-grid" style="--cols:{len(months)};--colw:{44 if by_day else 76}px">
+<div class="lane-intro"><h2>誰在動</h2><p>一列一家公司。點進去看那一則，滑過去先看標題。</p><div class="lane-legend"><span><i></i>當場看到</span><span><i class="b"></i>回填</span><span><i class="u"></i>覆蓋未知</span><span>數字＝那一格有幾則</span></div></div>
+<div class="lane-wrap" data-lane-wrap><div class="lane-grid" style="--cols:{len(months)};--colw:{44 if by_day else 76}px">
 <div class="lane-row lane-head"><div class="lane-name"></div><div class="lane-track">{head_cells}</div></div>
 {"".join(rows)}</div></div>
+<div id="lane-tip" role="status" aria-live="polite"></div>
 <div class="lane-intro lane-intro-2"><h2>接下來發生了什麼</h2><p>同一批事件依時間排開，讀得到每一則在講什麼。</p></div>
 <div class="tl-chrono">{"".join(chrono)}</div></section>"""
     return page_layout("timeline", "事件時間軸 — AI Pulse",

@@ -926,10 +926,10 @@ mutations:
     why: ""
 
   - id: M104
-    title: "時間軸卡片不掛回填標記（判準對了但沒印出來，等於沒判）"
+    title: "編年卡片不掛回填標記（判準對了但沒印出來，等於沒判）"
     file: pulse-render.py
-    find: "                chip = COVERAGE_CHIP.get(e.get(\"coverage\"))"
-    replace: "                chip = None"
+    find: "                cards.append(f'<div class=\"tl-cut\"><span>{esc(OBSERVED_CUT_NOTE)}</span></div>')\n            chip = COVERAGE_CHIP.get(e.get(\"coverage\"))"
+    replace: "                cards.append(f'<div class=\"tl-cut\"><span>{esc(OBSERVED_CUT_NOTE)}</span></div>')\n            chip = None"
     survives: false
     why: ""
 
@@ -1252,5 +1252,45 @@ mutations:
     file: pulse-render.py
     find: "    return e.get(\"company\") or \"其他\""
     replace: "    return e.get(\"company\")"
+    survives: false
+    why: ""
+
+  - id: M143
+    title: "泳道的點不再依覆蓋狀態分樣式（整片泳道看起來都是我們當場看到的——coverage 這一層要修的就是這個誤會）"
+    file: pulse-render.py
+    find: "                    f' data-track=\"{esc(tslug)}\" data-cov=\"{esc(e.get(\"coverage\") or \"\")}\"'"
+    replace: "                    f' data-track=\"{esc(tslug)}\"'"
+    survives: false
+    why: ""
+
+  - id: M144
+    title: "一格擠太多點也不退成計數方塊（半年後一格二十幾點，讀不出數量也點不到）"
+    file: pulse-render.py
+    find: "            if len(bucket) > LANE_DOT_MAX:"
+    replace: "            if False:"
+    survives: false
+    why: ""
+
+  - id: M145
+    title: "浮層搬回捲動容器裡（overflow-x:auto 會把往上彈的 tip 裁掉，z-index 救不了）"
+    file: pulse-render.py
+    find: '<div id="lane-tip" role="status" aria-live="polite"></div>'
+    replace: '<div id="lane-tip-moved" role="status" aria-live="polite"></div>'
+    survives: false
+    why: ""
+
+  - id: M146
+    title: "區塊標題與事件標題各用各的字級（首頁上下緊鄰，一個 27.2px 一個 24px，看得出來不一樣大而沒有理由）"
+    file: pulse-render.py
+    find: "article.event h2{font-size:var(--fs-h2);"
+    replace: "article.event h2{font-size:clamp(1.2rem,2.4vw,1.5rem);"
+    survives: false
+    why: ""
+
+  - id: M147
+    title: "泳道浮層不再帶回填標記（點進去之前看不到這則是不是回填，而泳道就是拿來掃視的）"
+    file: pulse-render.py
+    find: "                tslug = tr[0] if tr else \"\"\n                chip = COVERAGE_CHIP.get(e.get(\"coverage\"))"
+    replace: "                tslug = tr[0] if tr else \"\"\n                chip = None"
     survives: false
     why: ""
