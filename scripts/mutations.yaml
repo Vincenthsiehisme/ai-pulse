@@ -849,8 +849,8 @@ mutations:
   - id: M95
     title: "事件頁把區塊標題寫死回「發展歷程」（journey_html 的回傳值被測了，沒有人測頁面有沒有用它）"
     file: pulse-render.py
-    find: "<div class=\"detail-block\"><h2>{esc(journey_heading)}</h2>{journey}</div>"
-    replace: "<div class=\"detail-block\"><h2>發展歷程</h2>{journey}</div>"
+    find: "<div class=\"lf-note\"><h3>{esc(journey_heading)}</h3>{journey}</div>"
+    replace: "<div class=\"lf-note\"><h3>發展歷程</h3>{journey}</div>"
     survives: false
     why: ""
 
@@ -1312,10 +1312,10 @@ mutations:
     why: ""
 
   - id: M150
-    title: "kicker 混用中英（中文在 .18em 字距下會被拆開，而且跟旁邊的 h1 同語言、資訊重複）"
+    title: "頁首把版面鑑別線那一句再印一次（四頁各印兩份同樣的話，改一邊另一邊就分岔）"
     file: pulse-render.py
-    find: "    h = hero(\"TOPIC LINES\", \"領域趨勢\","
-    replace: "    h = hero(\"六大主線\", \"領域趨勢\","
+    find: "    h = hero(\"\", \"領域趨勢\", \"\","
+    replace: "    h = hero(\"\", \"領域趨勢\", RUBRIC[\"lines\"],"
     survives: false
     why: ""
 
@@ -1330,8 +1330,8 @@ mutations:
   - id: M152
     title: "版面鑑別線不寫導覽那四個字（點了「關鍵變化」，落地那一頁沒有任何地方寫著關鍵變化——導覽的反白捲一下就看不到了）"
     file: pulse-render.py
-    find: "<b>{esc(NAV[0][1])}</b>"
-    replace: "<b>今日</b>"
+    find: "<div class=\"shell\"><div class=\"page-rubric\"><b>{esc(dict(\n  (k, l) for k, l, _r in NAV).get(active, \"\"))}</b>"
+    replace: "<div class=\"shell\"><div class=\"page-rubric\"><b>今日</b>"
     survives: false
     why: ""
 
@@ -1437,5 +1437,23 @@ mutations:
     file: pulse-render.py
     find: "<div class=\"front\">\n{lead_html}\n<div class=\"idx\">"
     replace: "<div class=\"front\">\n<div class=\"idx\">"
+    survives: false
+    why: ""
+
+  # ── 事件頁長文版（2026-07-28，PR2）──
+
+  - id: M165
+    title: "事件頁的原標題不印（譯文是二手的，讀者無法從一句中文回推它翻自什麼——紅線 2 的延伸）"
+    file: pulse-render.py
+    find: "{f'<p class=\"lf-orig\">原標題：{esc(ev[\"title\"])}</p>' if ev.get('title_zh') else ''}"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M166
+    title: "證據層級沒標時印問號（問號讀起來像壞掉了，未標讀起來才是實話）"
+    file: pulse-render.py
+    find: "{(\"Tier \" + str(ev[\"tier\"])) if ev.get(\"tier\") else \"未標\"}"
+    replace: "Tier {ev.get('tier') or '?'}"
     survives: false
     why: ""

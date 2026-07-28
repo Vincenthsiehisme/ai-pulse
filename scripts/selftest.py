@@ -3786,7 +3786,10 @@ _pg_html = _rmod.build_event_page(_pg_ev, [_pg_ev], {}, {}, "now")
 acase("pulse-render.build_event_page：頁面標題用 journey_html 回傳的那個"
       "（回傳值被測了、頁面有沒有用它沒被測——寫死回「發展歷程」的話，"
       "backfilled 的事件頁會掛著一個它不配的標題）",
-      ["<h2>證據</h2>" in _pg_html, "<h2>發展歷程</h2>" in _pg_html], [True, False])
+      # 標題現在住在側註的 h3（長文版把驗證用的東西全部移到側邊），
+      # 查的還是同一件事：頁面用的是 journey_html 回傳的那個字，不是寫死的。
+      [f"<h3>{_rmod.journey_html(_pg_ev, {}, {})[0]}</h3>" in _pg_html,
+       "<h3>發展歷程</h3>" in _pg_html], [True, False])
 
 # ── 發展歷程不再依賴語料保留期 ──────────────────────────────────
 # 規格〈第三個現場〉的〈一條沒被記下來的依賴〉：這一區原本只查 _corpus/，而語料的
@@ -4706,6 +4709,32 @@ _home_pick = _rmod.build_home([_EV_NEW, _EV_HI], {}, "now")   # events 進來是
 _pick = _re.search(r'class="lead-story"[\s\S]*?<h1[^>]*>[\s\S]*?>([^<]+)</a>', _home_pick)
 acase("頭版：頭條由規則挑（信心最高），不是「最新那一則」",
       _pick.group(1) if _pick else "（產出裡找不到頭條）", "分數最高那則")
+
+# ── 事件頁：長文版的兩條紅線延伸 ──────────────────────────────
+_ev_pg = _rmod.build_event_page(
+    dict(_EV1, title="English Title", title_zh="中文標題", tier=2,
+         layers={"事實": "f", "判斷": "j"},
+         evidence=[{"sid": "src-a", "url": "u1", "title": "T"}]),
+    [], {}, {}, "now")
+acase("事件頁：譯文旁邊永遠印得到原標題（讀者無法從一句中文回推它翻自什麼）",
+      ["原標題：English Title" in _ev_pg, "中文標題" in _ev_pg], [True, True])
+_ev_no_tier = _rmod.build_event_page(
+    dict(_EV1, tier=None, layers={"事實": "f"}, evidence=[]), [], {}, {}, "now")
+acase("事件頁：證據層級沒標時印「未標」不印問號"
+      "（問號讀起來像壞掉了，未標讀起來才是實話）",
+      ["未標" in _ev_no_tier, "Tier ?" in _ev_no_tier], [True, False])
+
+# ── 鑑別線與頁首不得講同一句話 ────────────────────────────────
+# 版面鑑別線接手了「這一版收什麼」之後，hero 的副標就是同一句話的第二份。
+# 四頁各印兩份，改一邊另一邊分岔——這個 repo 抓過很多次的形狀，換到文案上。
+def _deck_dupes(page):
+    r = _re.search(r'class="page-rubric">[\s\S]*?<span>(.*?)</span>', page)
+    h = _re.search(r'<section class="hero[\s\S]*?</section>', page)
+    return bool(r and h and r.group(1).strip() and r.group(1) in h.group(0))
+
+
+acase("版型：版面鑑別線那一句不得在頁首再印一次",
+      [_deck_dupes(_p) for _p in _PAGES], [False, False, False, False])
 
 # ── 朗讀順序＝頭條優先 ────────────────────────────────────────
 # DOM 順序就是螢幕報讀器與「關掉 CSS」時的閱讀順序。索引排在頭條前面的話，
