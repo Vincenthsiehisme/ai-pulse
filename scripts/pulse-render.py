@@ -134,13 +134,22 @@ def ev_href(prefix, slug):
 
 # ─────────────────────────── CSS ───────────────────────────
 CSS = """
+/* 2026-07-28 改成報紙版型。色票從「深色介面」換成「紙與墨」：淺色是紙（暖米），
+   深色不是回到藍黑介面，是**負片的報紙**（暖黑紙、米白墨）——同一個東西的兩種
+   印法，不是兩套設計。token 的名字全部沒動，所以其他四頁不必跟著改。 */
 :root{
-  --canvas:#080a0f;--surface:#10141d;--surface-2:#151b26;--surface-soft:#0c1017;
-  --text:#f2f1ec;--muted:#9aa3b2;--quiet:#697383;--border:#29313e;--border-soft:#1b222d;
-  --accent:#ad91ff;--accent-strong:#8f6dff;
-  --fact:#4ee4ba;--analysis:#9b8cff;--forecast:#f2bf62;--impact:#ff8b6b;--danger:#ff766c;--blue:#6fb1ff;
-  --radius-sm:9px;--radius-md:15px;--radius-lg:23px;--shell:1120px;
+  --canvas:#14130f;--surface:#1c1a16;--surface-2:#232019;--surface-soft:#191713;
+  --text:#f0ece2;--muted:#a8a094;--quiet:#7f7a6f;--border:#3b3730;--border-soft:#2a2722;
+  --accent:#e08a6d;--accent-strong:#f0a184;
+  --fact:#7fd6b4;--analysis:#b3a4e8;--forecast:#e7c07a;--impact:#e79178;--danger:#e08078;--blue:#8ab4e8;
+  /* 圓角整組退場：報紙沒有圓角，它靠規則線與留白分區。留著 token 是因為
+     其他四頁還在引用，值改成 0 就等於一次關掉，不必逐處刪。 */
+  --radius-sm:0px;--radius-md:0px;--radius-lg:0px;--shell:1120px;
   --font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+  /* 標題襯線走系統字，**不載 webfont**。中文襯線在 macOS 拿得到宋體，
+     Windows 不保證——那是已知的不一致，不是沒想到。要一致得在 build 時
+     subset 一份，那一題還沒拍板，所以先用零依賴的做法。 */
+  --serif:Charter,"Iowan Old Style","Source Serif Pro",Georgia,"Songti TC","Noto Serif TC","SimSun",serif;
   --mono:ui-monospace,"SFMono-Regular","Cascadia Code","Roboto Mono",Menlo,Consolas,monospace;
   /* 字級級距。改版前站上有 24 個字級，其中 11 個擠在 0.8–1.15rem
      之間（.9/.92/.93/.95/.98…）——那不是級距，是噪音：1.01rem 跟 1.02rem
@@ -156,20 +165,21 @@ CSS = """
      1200px 視窗下一個 27.2px、一個 24px——看得出來不一樣大，而沒有任何理由
      要不一樣。收成 --fs-h2 一個 token，兩處共用。 */
   --fs-h2:clamp(1.35rem,2.6vw,1.7rem);
+  --fs-nameplate:clamp(1.7rem,5.4vw,3.4rem);
   --fs-h1:clamp(2rem,5vw,3rem);
   --fs-display:clamp(2.3rem,6.5vw,4.6rem);
   color-scheme:dark;
 }
 @media(prefers-color-scheme:light){:root:not([data-theme]){
-  --canvas:#eeece5;--surface:#fbfaf6;--surface-2:#fff;--surface-soft:#e7e3da;
-  --text:#15171c;--muted:#5e6875;--quiet:#858b90;--border:#c9c4ba;--border-soft:#ddd8cf;
-  --accent:#6550b7;--accent-strong:#51399f;--fact:#087e70;--analysis:#6550b7;--forecast:#94610d;--impact:#bd4b34;--danger:#b53f39;--blue:#2f6bbf;
+  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-2:#fff;--surface-soft:#eae5d8;
+  --text:#14161a;--muted:#4a5058;--quiet:#7b818a;--border:#c6c0b2;--border-soft:#ded8ca;
+  --accent:#8c2b1f;--accent-strong:#6f2118;--fact:#1f6b57;--analysis:#4a3f8c;--forecast:#8a6212;--impact:#a8442c;--danger:#9c332c;--blue:#1f4e79;
   color-scheme:light;
 }}
 :root[data-theme=light]{
-  --canvas:#eeece5;--surface:#fbfaf6;--surface-2:#fff;--surface-soft:#e7e3da;
-  --text:#15171c;--muted:#5e6875;--quiet:#858b90;--border:#c9c4ba;--border-soft:#ddd8cf;
-  --accent:#6550b7;--accent-strong:#51399f;--fact:#087e70;--analysis:#6550b7;--forecast:#94610d;--impact:#bd4b34;--danger:#b53f39;--blue:#2f6bbf;
+  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-2:#fff;--surface-soft:#eae5d8;
+  --text:#14161a;--muted:#4a5058;--quiet:#7b818a;--border:#c6c0b2;--border-soft:#ded8ca;
+  --accent:#8c2b1f;--accent-strong:#6f2118;--fact:#1f6b57;--analysis:#4a3f8c;--forecast:#8a6212;--impact:#a8442c;--danger:#9c332c;--blue:#1f4e79;
   color-scheme:light;
 }
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -177,29 +187,38 @@ body{margin:0;background:var(--canvas);color:var(--text);font-family:var(--font)
 a{color:inherit;text-decoration:none}
 .ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.12em}
 .shell{width:min(var(--shell),calc(100% - 44px));margin-inline:auto}
-.kicker{display:inline-block;color:var(--fact);font:var(--fs-micro) var(--mono);letter-spacing:.18em;margin:0 0 12px}
+.kicker{display:inline-block;color:var(--accent);font:var(--fs-micro) var(--mono);letter-spacing:.18em;margin:0 0 12px}
 
-.topbar{position:sticky;z-index:70;top:0;display:flex;align-items:center;gap:20px;height:64px;padding-inline:22px;border-bottom:1px solid var(--border-soft);background:color-mix(in srgb,var(--canvas) 85%,transparent);backdrop-filter:blur(22px) saturate(1.3)}
-.brand{display:flex;align-items:center;gap:11px}
-.brand-mark{display:flex;align-items:center;justify-content:center;gap:2px;width:34px;height:34px;border:1px solid var(--border);border-radius:50%;background:var(--surface-soft)}
-.brand-mark i{width:3px;border-radius:3px;background:var(--accent)}
-.brand-mark i:nth-child(1){height:8px}.brand-mark i:nth-child(2){height:17px}.brand-mark i:nth-child(3){height:11px}
-.brand strong{display:block;font-size:var(--fs-mini);letter-spacing:.16em}
-.brand small{display:block;color:var(--muted);font:var(--fs-micro)/1.4 var(--mono);letter-spacing:.03em}
-.desktop-nav{display:flex;gap:24px;margin-left:14px}
-.desktop-nav a{position:relative;display:flex;align-items:center;min-height:44px;color:var(--muted);font-size:var(--fs-tiny);transition:color .15s}
-.desktop-nav a:hover,.desktop-nav a[aria-current=page]{color:var(--text)}
-.desktop-nav a[aria-current=page]::after{position:absolute;right:0;bottom:14px;left:0;height:2px;background:var(--accent);content:""}
-.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
-.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;font-size:var(--fs-md);border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--muted);cursor:pointer}
-.icon-btn:hover{color:var(--text);border-color:var(--accent)}
-.gh{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--muted);font:var(--fs-micro) var(--mono);letter-spacing:.05em}
-.gh:hover{color:var(--text);border-color:var(--accent)}
+/* 報頭（nameplate）。五頁共用**唯一一份**實作——改版前首頁自己抄過一份標頭，
+   那次的教訓是「同一種東西不准有兩份」，這一條規矩沒有變，只是換了長相。
+   不再 sticky：報紙的報頭不會跟著讀者走，捲下去就該讓位給內容。 */
+.nameplate{border-top:5px solid var(--text);padding-top:13px}
+.np-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:18px;padding-bottom:11px}
+.np-row .np-l,.np-row .np-r{color:var(--muted);font:var(--fs-mini)/1.55 var(--mono);letter-spacing:.04em}
+.np-row .np-r{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
+.np-mark{font-family:var(--serif);font-weight:700;font-size:var(--fs-nameplate);
+  line-height:1;letter-spacing:.02em;white-space:nowrap;color:var(--text)}
+.np-mark small{display:block;margin-top:5px;color:var(--muted);font:var(--fs-micro) var(--mono);
+  letter-spacing:.14em;font-weight:400;text-align:center}
+.np-rule{border-bottom:3px double var(--text)}
+.np-act{display:inline-flex;align-items:center;gap:6px;min-height:24px;color:var(--muted);
+  font:var(--fs-micro) var(--mono);letter-spacing:.05em;background:none;border:0;padding:0;cursor:pointer}
+.np-act:hover{color:var(--accent)}
+.desktop-nav{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--text);margin-bottom:0}
+.desktop-nav a{position:relative;display:flex;align-items:center;min-height:44px;
+  padding:0 17px 0 0;margin-right:17px;border-right:1px solid var(--border-soft);
+  color:var(--muted);font-size:var(--fs-tiny);font-weight:600;letter-spacing:.05em}
+.desktop-nav a:last-child{border-right:0;margin-right:0;padding-right:0}
+.desktop-nav a:hover{color:var(--text)}
+.desktop-nav a[aria-current=page]{color:var(--text)}
+.desktop-nav a[aria-current=page]::after{position:absolute;right:17px;bottom:0;left:0;height:3px;background:var(--accent);content:""}
+.desktop-nav a[aria-current=page]:last-child::after{right:0}
 
-.hero{padding:clamp(46px,6vw,78px) 0 clamp(28px,4vw,40px);border-bottom:1px solid var(--border-soft)}
-.hero.compact{padding:clamp(38px,5vw,58px) 0 clamp(22px,3vw,32px)}
-.hero h1{font-size:var(--fs-h1);line-height:1.05;letter-spacing:-.02em;margin:0 0 .5rem;font-weight:680}
-.hero p{color:var(--muted);font-size:var(--fs-md);max-width:60ch;margin:.2rem 0 0}
+.hero{padding:clamp(26px,3.4vw,40px) 0 clamp(18px,2.4vw,26px);border-bottom:1px solid var(--border)}
+.hero.compact{padding:clamp(22px,3vw,32px) 0 clamp(15px,2vw,22px)}
+.hero h1{font-family:var(--serif);font-size:var(--fs-h1);line-height:1.14;letter-spacing:-.02em;
+  margin:0 0 .5rem;font-weight:700;text-wrap:balance;line-break:strict}
+.hero p{color:var(--muted);font-size:var(--fs-md);max-width:56ch;margin:.2rem 0 0}
 .statline{display:flex;flex-wrap:wrap;gap:22px;margin-top:24px;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.05em}
 .statline b{color:var(--text);font-weight:600}
 /* 首頁只跟其他頁差在「大一級」，其餘完全共用 hero。
@@ -208,7 +227,7 @@ a{color:inherit;text-decoration:none}
 .hero.lead{padding:clamp(56px,7vw,96px) 0 clamp(34px,4.5vw,50px)}
 .hero.lead h1{font-size:var(--fs-display);line-height:1.02;letter-spacing:-.03em;max-width:20ch;text-wrap:balance}
 .empty-lines{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.empty-line{font:var(--fs-micro) var(--mono);letter-spacing:.05em;color:var(--quiet);border:1px solid var(--border-soft);border-left:3px solid var(--tc,var(--border));border-radius:7px;padding:6px 12px}
+.empty-line{font:var(--fs-micro) var(--mono);letter-spacing:.05em;color:var(--quiet);border:1px solid var(--border-soft);border-left:3px solid var(--tc,var(--border));border-radius:0;padding:6px 12px}
 
 .section{padding:clamp(34px,5vw,56px) 0}
 .section-tint{background:var(--surface-soft);border-block:1px solid var(--border-soft)}
@@ -222,7 +241,7 @@ a{color:inherit;text-decoration:none}
 article.event{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:clamp(20px,3vw,28px);margin-bottom:16px;transition:border-color .16s,transform .16s}
 article.event:hover{border-color:var(--border);transform:translateY(-1px)}
 .chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:11px}
-.chip{font:var(--fs-micro) var(--mono);letter-spacing:.06em;padding:4px 9px;border-radius:999px;border:1px solid var(--border-soft);background:var(--surface-soft);color:var(--muted)}
+.chip{font:var(--fs-micro) var(--mono);letter-spacing:.06em;padding:4px 9px;border-radius:0;border:1px solid var(--border-soft);background:var(--surface-soft);color:var(--muted)}
 .chip.co{color:var(--text);border-color:var(--border);font-weight:600}
 .chip.warn{color:var(--forecast);border-color:color-mix(in srgb,var(--forecast) 45%,var(--border));background:color-mix(in srgb,var(--forecast) 8%,transparent)}
 .chip.track{color:var(--tc,var(--muted));border-color:color-mix(in srgb,var(--tc,var(--border)) 40%,var(--border))}
@@ -243,7 +262,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .layer.block.fact{border-left:3px solid var(--fact)}.layer.block.accent{border-left:3px solid var(--accent)}
 .ev{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:20px 0 0;padding:0;list-style:none;color:var(--quiet);font:var(--fs-micro) var(--mono)}
 .ev .lbl{color:var(--muted)}
-.ev a{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:7px;border:1px solid color-mix(in srgb,var(--fact) 34%,var(--border));color:var(--fact);background:color-mix(in srgb,var(--fact) 6%,var(--surface-soft));word-break:break-all}
+.ev a{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:0;border:1px solid color-mix(in srgb,var(--fact) 34%,var(--border));color:var(--fact);background:color-mix(in srgb,var(--fact) 6%,var(--surface-soft));word-break:break-all}
 .ev a:hover{border-color:var(--fact)}
 .score{margin:14px 0 0;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.05em;font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
 .score b{color:var(--text)}
@@ -269,7 +288,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .line-block li b{color:var(--text);font-weight:520}
 .line-empty{color:var(--quiet);font-size:var(--fs-base);margin-top:12px}
 .line-section h2{display:flex;align-items:center;gap:10px;font-size:var(--fs-xl);margin:0 0 4px}
-.line-section h2::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--tc,var(--accent))}
+.line-section h2::before{content:"";width:12px;height:12px;border-radius:0;background:var(--tc,var(--accent))}
 .line-meta{color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.05em;margin:0 0 18px}
 .line-thesis{color:var(--muted);font-size:var(--fs-base);line-height:1.6;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 .narrative{background:var(--surface);border:1px solid var(--border-soft);border-left:3px solid var(--tc,var(--accent));border-radius:var(--radius-md);padding:20px 24px;margin:0 0 18px}
@@ -280,7 +299,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .narrative .nn p{margin:0;font-size:var(--fs-base);color:var(--muted);line-height:1.65}
 .lens-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:0 0 22px}
 .lens{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:18px 20px}
-.lens-role{display:inline-block;font:var(--fs-micro) var(--mono);letter-spacing:.1em;color:var(--tc,var(--accent));border:1px solid color-mix(in srgb,var(--tc,var(--accent)) 40%,var(--border));border-radius:999px;padding:3px 9px;margin-bottom:11px}
+.lens-role{display:inline-block;font:var(--fs-micro) var(--mono);letter-spacing:.1em;color:var(--tc,var(--accent));border:1px solid color-mix(in srgb,var(--tc,var(--accent)) 40%,var(--border));border-radius:0;padding:3px 9px;margin-bottom:11px}
 .lens-q{font-size:var(--fs-base);font-weight:580;line-height:1.45;margin:0 0 8px}
 .lens-a{font-size:var(--fs-base);color:var(--muted);line-height:1.6;margin:0 0 10px}
 .lens-w{font:var(--fs-micro) var(--mono);color:var(--quiet);line-height:1.55;margin:0;display:flex;gap:6px}
@@ -289,7 +308,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 
 .tl-controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 26px}
 .chip-row{display:flex;flex-wrap:wrap;gap:7px}
-.chip-row button{font:var(--fs-micro) var(--mono);letter-spacing:.04em;padding:6px 12px;border-radius:999px;border:1px solid var(--border-soft);background:var(--surface);color:var(--muted);cursor:pointer}
+.chip-row button{font:var(--fs-micro) var(--mono);letter-spacing:.04em;padding:6px 12px;border-radius:0;border:1px solid var(--border-soft);background:var(--surface);color:var(--muted);cursor:pointer}
 .chip-row button:hover{color:var(--text)}
 .chip-row button.active{color:var(--canvas);background:var(--accent);border-color:var(--accent)}
 .tl-count{margin-left:auto;color:var(--quiet);font:var(--fs-micro) var(--mono)}
@@ -313,7 +332,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .sig-card.high{border-left:3px solid var(--fact)}
 .sig-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
 .sig-tags{display:flex;flex-wrap:wrap;gap:6px}
-.sig-tag{font:var(--fs-micro) var(--mono);letter-spacing:.05em;padding:3px 7px;border-radius:6px;background:var(--surface-soft);color:var(--muted);border:1px solid var(--border-soft)}
+.sig-tag{font:var(--fs-micro) var(--mono);letter-spacing:.05em;padding:3px 7px;border-radius:0;background:var(--surface-soft);color:var(--muted);border:1px solid var(--border-soft)}
 .sig-card time{color:var(--quiet);font:var(--fs-micro) var(--mono);white-space:nowrap}
 .sig-card h2{font-size:var(--fs-md);line-height:1.4;margin:2px 0 6px;font-weight:560}
 .sig-card p{color:var(--muted);font-size:var(--fs-base);margin:0 0 12px;flex:1}
@@ -321,19 +340,19 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .sig-foot .go{color:var(--fact);display:inline-flex;align-items:center;gap:4px}
 
 /* page-status strip + signal toolbar */
-.page-status{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:26px;border:1px solid var(--border-soft);border-radius:var(--radius-md);overflow:hidden;background:var(--border-soft)}
+.page-status{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;margin-top:26px;border:1px solid var(--border-soft);border-radius:var(--radius-md);overflow:hidden;background:var(--border-soft)}
 .page-status div{background:var(--canvas);padding:14px 16px}
 .page-status span{display:block;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.1em;margin-bottom:4px}
 .page-status b{font-size:var(--fs-lg);font-weight:620;font-variant-numeric:tabular-nums}
 @media(max-width:560px){.page-status{grid-template-columns:1fr}}
 .sig-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 22px}
-.sig-search{display:flex;align-items:center;gap:8px;flex:1;min-width:220px;padding:0 14px;height:40px;border:1px solid var(--border-soft);border-radius:999px;background:var(--surface);color:var(--quiet)}
+.sig-search{display:flex;align-items:center;gap:8px;flex:1;min-width:220px;padding:0 14px;height:40px;border:1px solid var(--border-soft);border-radius:0;background:var(--surface);color:var(--quiet)}
 .sig-search input{flex:1;border:0;background:transparent;color:var(--text);font-size:var(--fs-tiny);outline:none}
 .sig-select{position:relative}
-.sig-select select{appearance:none;-webkit-appearance:none;height:40px;padding:0 32px 0 14px;border:1px solid var(--border-soft);border-radius:999px;background:var(--surface);color:var(--muted);font:var(--fs-mini) var(--mono);cursor:pointer}
+.sig-select select{appearance:none;-webkit-appearance:none;height:40px;padding:0 32px 0 14px;border:1px solid var(--border-soft);border-radius:0;background:var(--surface);color:var(--muted);font:var(--fs-mini) var(--mono);cursor:pointer}
 .sig-select::after{content:"▾";position:absolute;right:13px;top:11px;color:var(--quiet);pointer-events:none}
 .sig-count{margin-left:auto;color:var(--quiet);font:var(--fs-micro) var(--mono)}
-.sig-more{margin:24px auto 0;display:block;padding:9px 22px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--muted);font:var(--fs-mini) var(--mono);cursor:pointer}
+.sig-more{margin:24px auto 0;display:block;padding:9px 22px;border:1px solid var(--border);border-radius:0;background:var(--surface);color:var(--muted);font:var(--fs-mini) var(--mono);cursor:pointer}
 .sig-more:hover{color:var(--text);border-color:var(--accent)}
 .sig-none{display:none;color:var(--quiet);font:var(--fs-mini) var(--mono);text-align:center;padding:36px}
 
@@ -345,14 +364,14 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .detail-main h2,.detail-aside h3{font-size:var(--fs-sm);font:700 12px var(--mono);letter-spacing:.12em;color:var(--muted);margin:0 0 16px;text-transform:uppercase}
 .detail-block{margin-bottom:34px}
 .jn-note{color:var(--muted);font-size:var(--fs-sm);line-height:1.6;margin:0 0 14px;padding:9px 12px;border-left:2px solid var(--border-soft);background:color-mix(in srgb,var(--quiet) 6%,transparent)}
-.tl-chip{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:9px;border:1px solid var(--border-soft);color:var(--quiet);font:var(--fs-micro) var(--mono);vertical-align:1px}
+.tl-chip{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:0;border:1px solid var(--border-soft);color:var(--quiet);font:var(--fs-micro) var(--mono);vertical-align:1px}
 .tl-cut{grid-column:1/-1;margin:6px 0 14px;padding:8px 12px;border-top:1px dashed var(--border-soft);color:var(--quiet);font-size:var(--fs-sm);line-height:1.6}
 .journey{list-style:none;margin:0;padding:0 0 0 6px}
 .journey li{position:relative;padding:0 0 20px 24px;border-left:2px solid var(--border-soft)}
 .journey li:last-child{border-left-color:transparent;padding-bottom:0}
 .journey li::before{content:"";position:absolute;left:-7px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--dc,var(--accent));box-shadow:0 0 0 4px color-mix(in srgb,var(--dc,var(--accent)) 16%,transparent)}
 .jn-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.jn-type{font:var(--fs-micro) var(--mono);letter-spacing:.08em;padding:2px 7px;border-radius:5px;color:var(--dc,var(--accent));border:1px solid color-mix(in srgb,var(--dc,var(--accent)) 40%,var(--border))}
+.jn-type{font:var(--fs-micro) var(--mono);letter-spacing:.08em;padding:2px 7px;border-radius:0;color:var(--dc,var(--accent));border:1px solid color-mix(in srgb,var(--dc,var(--accent)) 40%,var(--border))}
 .jn-head time{color:var(--quiet);font:var(--fs-micro) var(--mono)}
 .journey b{display:block;font-size:var(--fs-base);font-weight:540;line-height:1.45;margin:6px 0 2px}
 .journey small{color:var(--muted);font:var(--fs-micro) var(--mono);letter-spacing:.04em}
@@ -364,8 +383,8 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .score-hero .sh b{font-size:var(--fs-2xl);font-weight:660;font-variant-numeric:tabular-nums}
 .factors{display:flex;flex-direction:column;gap:9px}
 .factor{display:grid;grid-template-columns:74px 1fr minmax(30px,auto);gap:9px;align-items:center;font:var(--fs-micro) var(--mono);color:var(--muted)}
-.factor .bar{height:5px;border-radius:3px;background:var(--border-soft);overflow:hidden}
-.factor .bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.factor .bar{height:5px;border-radius:0;background:var(--border-soft);overflow:hidden}
+.factor .bar i{display:block;height:100%;background:var(--accent);border-radius:0}
 .factor b{color:var(--text);text-align:right;font-variant-numeric:tabular-nums}
 /* 沒量過的那幾格：**不能長得像一條空的比例條**。
    `.bar` 本身就是一條灰色軌道，量到 0 的時候也是這個樣子——兩者在畫面上
@@ -385,7 +404,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 /* 原文一律留著。譯文是二手的，讀者要能一眼看到一手的那句。 */
 .gh-main .d-src{color:var(--quiet);font:var(--fs-micro)/1.5 var(--mono);margin:2px 0 0}
 .gh-main .t{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
-.gh-tag{font:var(--fs-micro) var(--mono);letter-spacing:.04em;padding:2px 7px;border-radius:5px;background:var(--surface-soft);color:var(--muted);border:1px solid var(--border-soft)}
+.gh-tag{font:var(--fs-micro) var(--mono);letter-spacing:.04em;padding:2px 7px;border-radius:0;background:var(--surface-soft);color:var(--muted);border:1px solid var(--border-soft)}
 .gh-new{color:var(--fact);border-color:color-mix(in srgb,var(--fact) 40%,var(--border))}
 .gh-metric{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .gh-metric .v{font:700 var(--fs-md) var(--mono);color:var(--fact)}
@@ -429,7 +448,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .lane-legend i.b{background:none;border:2px solid var(--muted)}
 .lane-legend i.u{background:none;border:2px dashed var(--muted)}
 .lane-many{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:16px;padding:0 5px;
-  border-radius:4px;background:color-mix(in srgb,var(--accent) calc(var(--a) * 1%),transparent);
+  border-radius:0;background:color-mix(in srgb,var(--accent) calc(var(--a) * 1%),transparent);
   color:var(--text);font:var(--fs-micro) var(--mono);cursor:default}
 .lane-many[data-lvl="1"]{--a:22}.lane-many[data-lvl="2"]{--a:42}
 .lane-many[data-lvl="3"]{--a:62}.lane-many[data-lvl="4"]{--a:84}
@@ -444,7 +463,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .lane-readout{display:flex;align-items:baseline;gap:10px;min-height:34px;margin-top:10px;padding:7px 11px;
   border:1px solid var(--border-soft);border-radius:var(--radius-sm);background:var(--surface-soft)}
 .lane-readout time{color:var(--quiet);font:var(--fs-micro) var(--mono);white-space:nowrap}
-.lane-readout em{padding:1px 6px;border-radius:99px;background:var(--surface-2);color:var(--muted);
+.lane-readout em{padding:1px 6px;border-radius:0;background:var(--surface-2);color:var(--muted);
   font:var(--fs-micro) var(--mono);font-style:normal;white-space:nowrap}
 .lane-readout b{font-size:var(--fs-tiny);font-weight:600;line-height:1.5}
 .lane-readout .ph{color:var(--quiet);font-size:var(--fs-tiny);font-weight:400}
@@ -455,9 +474,94 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .factor b.unmeasured{color:var(--muted);font-size:var(--fs-micro);letter-spacing:.02em;font-variant-numeric:normal}
 .warnbox{margin-top:14px;padding:11px 13px;border-radius:var(--radius-sm);border:1px solid color-mix(in srgb,var(--forecast) 40%,var(--border));background:color-mix(in srgb,var(--forecast) 7%,transparent);color:var(--forecast);font:var(--fs-micro) var(--mono);line-height:1.6}
 
-.site-footer{border-top:1px solid var(--border-soft);background:var(--surface-soft);margin-top:20px}
+/* ── 頭版網格 ─────────────────────────────────────────────
+   三欄：今日索引／頭條＋次條／計數與主線。欄與欄之間用規則線不用留白——
+   報紙的分區靠線，網頁的分區習慣靠間距，兩者混用會兩邊都不像。
+   `.front` 刻意**不掛 .shell**：容器歸容器、網格歸網格，同一個元素上兩件事
+   會在某天互相蓋掉（2026-07-28 的 .lead 就是那樣把首頁推到左邊界的）。 */
+.front{display:grid;grid-template-columns:2.1fr 5.4fr 2.9fr;padding-top:22px}
+.front > *{padding:0 26px;min-width:0}
+/* 列也要釘。只指定 grid-column 的話，DOM 第一個（頭條）先佔掉第 1 列第 2 欄，
+   自動排版就不會再往回填第 1 列第 1 欄——索引與側欄整組掉到第 2 列去。
+   實測（1440px）確認過：頭條旁邊空一大片，索引跑到頭條下面。 */
+.front > .idx{grid-column:1;grid-row:1;padding-left:0;border-right:1px solid var(--border-soft)}
+.front > .lead-story{grid-column:2;grid-row:1}
+.front > .tally-col{grid-column:3;grid-row:1;padding-right:0;border-left:1px solid var(--border-soft)}
+.page-rubric{display:flex;align-items:baseline;gap:10px;padding:14px 0 0;
+  color:var(--quiet);font:var(--fs-tiny) var(--mono);letter-spacing:.14em}
+.page-rubric b{color:var(--accent);font-weight:600}
+.col-head{padding-bottom:8px;margin-bottom:12px;border-bottom:2px solid var(--text);
+  color:var(--quiet);font:var(--fs-tiny) var(--mono);letter-spacing:.14em;font-weight:500}
+.idx ol{margin:0;padding:0;list-style:none}
+.idx li{padding:9px 0;border-bottom:1px solid var(--border-soft)}
+.idx .co{display:block;margin-bottom:2px;color:var(--blue);font:600 var(--fs-micro) var(--mono);letter-spacing:.08em}
+.idx .t{font-family:var(--serif);font-size:var(--fs-base);line-height:1.5}
+.idx a:hover{color:var(--accent)}
+.lead-story h1{font-family:var(--serif);font-size:var(--fs-display);line-height:1.12;
+  letter-spacing:-.025em;margin:0 0 14px;font-weight:700;text-wrap:balance;line-break:strict}
+.lead-story .deck{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.62;
+  color:var(--muted);margin:0 0 16px;max-width:34ch}
+.lead-story .byline{display:flex;flex-wrap:wrap;gap:18px;padding:9px 0;margin-bottom:18px;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.04em}
+.lead-story .byline b{color:var(--text);font-weight:600}
+.lead-cols{columns:2;column-gap:30px;column-rule:1px solid var(--border-soft)}
+.lead-cols p{margin:0 0 1em;font-size:var(--fs-base);line-height:1.85}
+.deuce{display:grid;grid-template-columns:1fr 1fr;margin-top:24px;padding-top:18px;
+  border-top:3px double var(--text)}
+.deuce article{padding-right:24px;min-width:0}
+.deuce article + article{padding:0 0 0 24px;border-left:1px solid var(--border-soft)}
+.deuce h3{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.28;margin:6px 0 8px;font-weight:700}
+.deuce p{margin:0;color:var(--muted);font-size:var(--fs-base)}
+.tally{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;
+  border-bottom:1px solid var(--border-soft)}
+.tally span{color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.04em}
+.tally b{font-family:var(--serif);font-size:var(--fs-xl);font-weight:700;font-variant-numeric:tabular-nums}
+.tally b.unmeasured{font-family:var(--mono);font-size:var(--fs-tiny);font-weight:400;color:var(--muted)}
+.trk{padding:10px 0;border-bottom:1px solid var(--border-soft)}
+.trk .n{margin-right:9px;color:var(--accent);font:600 var(--fs-sm) var(--mono);font-variant-numeric:tabular-nums}
+.trk .nm{font-family:var(--serif);font-size:var(--fs-base);font-weight:600}
+.trk .th{display:block;margin-top:3px;color:var(--quiet);font-size:var(--fs-tiny);line-height:1.55}
+.by-track{margin-top:40px;padding-top:20px;border-top:5px solid var(--text)}
+.tcols{display:grid;grid-template-columns:repeat(3,1fr)}
+.tcols section{padding:0 22px;border-right:1px solid var(--border-soft);min-width:0}
+.tcols section:nth-child(3n){border-right:0;padding-right:0}
+.tcols section:nth-child(3n+1){padding-left:0}
+.tcols section:nth-child(n+4){margin-top:26px;padding-top:20px;border-top:1px solid var(--border)}
+.tcols h3{font-family:var(--serif);font-size:var(--fs-lg);font-weight:700;margin:0 0 10px;
+  padding-bottom:7px;border-bottom:2px solid var(--text)}
+.tcols h3 em{float:right;margin-top:6px;color:var(--quiet);font:500 var(--fs-micro) var(--mono);font-style:normal}
+.tcols ul{margin:0;padding:0;list-style:none}
+.tcols li{padding:7px 0;border-bottom:1px solid var(--border-soft);
+  font-family:var(--serif);font-size:var(--fs-base);line-height:1.55}
+.tcols li:last-child{border-bottom:0}
+.tcols .co{margin-right:6px;color:var(--blue);font:600 var(--fs-micro) var(--mono);letter-spacing:.08em}
+.tcols a:hover{color:var(--accent)}
+@media(max-width:720px){
+  .np-row{grid-template-columns:1fr;justify-items:center;gap:10px;text-align:center}
+  .np-row .np-l{order:2}
+  .np-row .np-r{order:3;flex-direction:row;align-items:center;gap:16px;text-align:center}
+  .np-row .np-r span{display:none}
+}
+@media(max-width:940px){
+  .front,.tcols{grid-template-columns:1fr}
+  /* 單欄時把欄位指定解掉，順序就回到 DOM 順序＝頭條優先。
+     要逐個類別寫：`.front > *` 的權重比 `.front > .idx` 低，用萬用選擇器解不掉
+     ——實測（414px）索引與側欄會一起被塞進同一格，兩塊疊在同一個 y 上。 */
+  .front > *{padding:0;border:0 !important;margin-top:0}
+  .front > .idx,.front > .lead-story,.front > .tally-col{grid-column:auto;grid-row:auto}
+  .front > .idx,.front > .tally-col{margin-top:26px;padding-top:20px;
+    border-top:1px solid var(--border) !important}
+  .lead-cols{columns:1}
+  .deuce{grid-template-columns:1fr}
+  .deuce article{padding-right:0}
+  .deuce article + article{margin-top:16px;padding:16px 0 0;border-left:0;border-top:1px solid var(--border-soft)}
+  .tcols section{padding:0 !important;border-right:0}
+  .tcols section + section{margin-top:24px;padding-top:18px !important;border-top:1px solid var(--border)}
+}
+.site-footer{border-top:5px solid var(--text);background:none;margin-top:44px}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;padding:40px 0 26px}
-.footer-brand strong{display:block;font-size:var(--fs-mini);letter-spacing:.16em;margin-bottom:8px}
+.footer-brand strong{display:block;font-family:var(--serif);font-size:var(--fs-lg);font-weight:700;letter-spacing:.04em;margin-bottom:8px}
 .footer-brand p{color:var(--muted);font-size:var(--fs-base);margin:0;max-width:44ch}
 .footer-links{display:flex;gap:44px;justify-content:flex-end}
 .footer-links nav{display:flex;flex-direction:column;gap:9px}
@@ -545,6 +649,9 @@ JS = """
 def page_layout(active, title, desc, body, depth, generated):
     prefix = "" if depth == 0 else "../" * depth
     CUR = ' aria-current="page"'
+    # 報頭的日期取自 `generated`，**不另外讀一次時鐘**。多讀一次就是多一個
+    # 時間來源，而這個站的規矩是同一份資料重跑要得到同一個網站。
+    today = (generated or "").split(" ")[0]
 
     def _nav():
         return "".join('<a href="' + prefix + r + '"' + (CUR if k == active else "") + '>' + esc(lbl) + '</a>'
@@ -555,17 +662,22 @@ def page_layout(active, title, desc, body, depth, generated):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<meta name="color-scheme" content="dark light"><meta name="theme-color" content="#080a0f">
+<meta name="color-scheme" content="dark light"><meta name="theme-color" content="#14130f">
 <link rel="stylesheet" href="{prefix}assets/app.css">
 <script defer src="{prefix}assets/app.js"></script>
 </head><body data-page="{active}">
-<header class="topbar">
-<a class="brand" href="{prefix}" aria-label="AI Pulse 首頁">{BRAND}<span><strong>AI PULSE</strong><small>哪則進得來，規則說了算</small></span></a>
+<header class="nameplate shell">
+<div class="np-row">
+<div class="np-l">{esc(today)}<br>{esc(TZ_LABEL)}</div>
+<a class="np-mark" href="{prefix}" aria-label="AI Pulse 首頁">AI PULSE<small>哪則進得來，規則說了算</small></a>
+<div class="np-r">
+<span>更新 {esc(generated)}</span>
+<button class="np-act" data-theme-toggle type="button" aria-label="切換淺／深色">{SUN} 換色</button>
+<a class="np-act" href="https://github.com/Vincenthsiehisme/ai-pulse" target="_blank" rel="noopener">原始碼</a>
+</div></div>
+<div class="np-rule"></div>
 <nav class="desktop-nav" aria-label="主導覽">{nav}</nav>
-<div class="top-actions">
-<button class="icon-btn" data-theme-toggle type="button" aria-label="切換淺／深色">{SUN}</button>
-<a class="gh" href="https://github.com/Vincenthsiehisme/ai-pulse" target="_blank" rel="noopener">GitHub</a>
-</div></header>
+</header>
 <main id="main">{body}</main>
 <footer class="site-footer"><div class="shell footer-grid">
 <div class="footer-brand"><strong>AI PULSE</strong><p>哪則消息進得來由規則決定，沒有模型參與；敘述那一層才有潤稿。同一份資料重跑，會得到同一個網站。</p></div>
@@ -890,53 +1002,89 @@ def score_grid_html(ev):
 def build_home(events, narratives, generated):
     n = len(events)
     companies = len({e["company"] for e in events if e["company"]})
-    # 首頁跟其他三頁用**同一個** hero()。
-    #
-    # 改版前首頁自成一套 `mh-*`：eyebrow 的字距 .3em vs kicker 的 .18em、
-    # 標題 weight 720 vs 680、字距 -.03em vs -.02em、副標用等寬 vs 用內文字體、
-    # 統計數字是一行文字 vs 其他頁的三格 page-status——**每一個 token 都不一樣**，
-    # 而它們是同一種東西：一頁的標頭。
-    # 首頁本來就該比較大，那用一個 `lead` 修飾詞表達就好，不必整套重寫。
-    hero_html = hero("WHAT CHANGED",
-                     "AI 產業的關鍵變化，每則查得到出處",
-                     "每則標明誰先說的、有幾個獨立來源、我們什麼時候才看到它。",
-                     extra=page_status([("已發布", n), ("主體", companies),
-                                        ("更新", generated)]),
-                     cls="lead")
-    latest = events[0] if events else None
-    latest_html = (f'<section class="section shell">{section_head("LATEST MATERIAL SHIFT", "這幾則最值得看")}'
-                   f'{event_card(latest, "", full=True)}</section>') if latest else ""
-    recent = events[1:9]
-    recent_html = ""
-    if recent:
-        rows = "".join(recent_row(e, "") for e in recent)
-        recent_html = f"""<section class="section section-tint"><div class="shell">
-{section_head("ALSO WORTH KNOWING", "其餘通過檢查的事件", "一樣驗過來源、一樣附證據，只是重要性排在後面。")}
-<div class="rows">{rows}</div>
-<a class="text-link" href="timeline/">看完整事件時間軸 {ARROW}</a></div></section>"""
-    by_track = defaultdict(list)
-    for e in events:
-        tr = track_of(e)
-        if tr:
-            by_track[tr[0]].append(e)
-    blocks = []
-    for slug, name, color in sorted(TRACKS, key=lambda t: -len(by_track.get(t[0], []))):
-        evs = by_track.get(slug, [])
-        th = (narratives.get(slug) or {}).get("thesis")
-        if th:
-            inner = f'<p class="line-thesis">{esc(th)}</p>'
-        elif evs:
-            inner = "".join(f'<li><time>{esc(e["date_display"])}</time><span><b>{esc(e["company"])}</b> {esc(e["title"])}</span></li>'
-                            for e in evs[:2])
-            inner = f"<ul>{inner}</ul>"
-        else:
-            inner = '<p class="line-empty">暫無已發布事件</p>'
-        blocks.append(f'<div class="line-block" style="--tc:{color}"><span class="lc">{len(evs)} 則事件</span><h3>{esc(name)}</h3>{inner}</div>')
-    lines_html = f"""<section class="section shell">
-{section_head("SIX INDUSTRY TRENDS", "六大領域趨勢", "散落的事件收成六條可以一路追下去的故事。")}
-<div class="line-grid">{''.join(blocks)}</div>
-<a class="text-link" href="lines/">進入領域趨勢 {ARROW}</a></section>"""
-    manifesto = ('<section class="section section-tint"><div class="shell">'
+    # ── 頭版 ───────────────────────────────────────────────
+    # 頭條由**規則挑**，不由人挑：信心最高的那一則。改版前這裡放的是最新那一則，
+    # 標題卻寫著「這幾則最值得看」——那個標題宣稱了一個排序，底下排的卻是時間。
+    # 兩者在平常的日子重合，正好在有大事的那天分岔。
+    lead = max(events, key=lambda e: (e.get("confidence") or 0)) if events else None
+    others = [e for e in events if not lead or e["id"] != lead["id"]]
+
+    idx_html = "".join(
+        f'<li><span class="co">{esc(e["company"])}</span>'
+        f'<a class="t" href="{ev_href("", e["slug"])}">'
+        f'{esc(e.get("title_zh") or e["title"])}</a></li>'
+        for e in others[:9])
+
+    deuce = "".join(
+        f'<article><span class="kicker">{esc(e.get("track") or "未分線")}</span>'
+        f'<h3><a href="{ev_href("", e["slug"])}">'
+        f'{esc(e.get("title_zh") or e["title"])}</a></h3>'
+        f'<p>{esc(e.get("summary"))}</p></article>' for e in others[:2])
+
+    if lead:
+        cols = "".join(
+            f"<p>{esc(strip_frozen_tag(lead['layers'].get(k) or '').strip())}</p>"
+            for k in ("事實", "脈絡") if (lead["layers"].get(k) or "").strip())
+        lead_html = f"""<div class="lead-story">
+<span class="kicker">{esc(lead.get("track") or "未分線")}</span>
+<h1><a href="{ev_href("", lead["slug"])}">{esc(lead.get("title_zh") or lead["title"])}</a></h1>
+<p class="deck">{esc(lead.get("summary"))}</p>
+<div class="byline"><span>信心 <b>{lead.get("confidence")}</b></span>\
+<span>影響 <b>{lead.get("impact")}</b></span>\
+<span>獨立來源 <b>{lead.get("independent")}</b></span>\
+<span>{esc(lead.get("date_display"))}</span></div>
+<div class="lead-cols">{cols}</div>
+<div class="deuce">{deuce}</div></div>"""
+    else:
+        # 沒有事件也要有 h1。一頁沒有 h1 是結構壞掉，不是「今天比較安靜」。
+        lead_html = ('<div class="lead-story"><h1>今天沒有通過檢查的事件</h1>'
+                     '<p class="deck">抓取鏈跑完了，但沒有一則湊得齊證據。'
+                     '這一頁寧可空著，也不會把不夠格的補上來。</p></div>')
+
+    # 熱度那一格印「未量測」不印 0：四個傳播因子從來沒有量測管道，
+    # 印 0 會被讀成「量過，結果是零」。
+    tallies = [("已發布 Event", n), ("涉及主體", companies), ("主線", len(TRACKS))]
+    tally_html = "".join(f'<div class="tally"><span>{esc(k)}</span><b>{v}</b></div>'
+                         for k, v in tallies)
+    tally_html += ('<div class="tally"><span>熱度</span>'
+                   '<b class="unmeasured">未量測</b></div>')
+
+    counts = {slug: len([e for e in events if (track_of(e) or ("",))[0] == slug])
+              for slug, _n, _c in TRACKS}
+    trk_html = ""
+    for slug, name, _color in sorted(TRACKS, key=lambda t: -counts[t[0]]):
+        th = (narratives.get(slug) or {}).get("thesis") or ""
+        th_html = f'<span class="th">{esc(th[:44])}…</span>' if th else ""
+        trk_html += (f'<div class="trk"><span class="n">{counts[slug]:02d}</span>'
+                     f'<span class="nm">{esc(name)}</span>{th_html}</div>')
+
+    hero_html = f"""<div class="shell"><div class="page-rubric"><b>{esc(NAV[0][1])}</b><span>今日頭版 · 誰先說的、有幾個獨立來源、我們什麼時候才看到</span></div>
+<div class="front">
+{lead_html}
+<div class="idx"><div class="col-head">今日索引</div><ol>{idx_html}</ol></div>
+<div class="tally-col"><div class="col-head">本日計數</div>{tally_html}
+<div class="col-head" style="margin-top:26px">主線</div>{trk_html}</div>
+</div></div>"""
+    latest_html = ""
+    tcols = ""
+    for slug, name, _color in sorted(TRACKS, key=lambda t: -counts[t[0]]):
+        evs = [e for e in events if (track_of(e) or ("",))[0] == slug][:5]
+        lis = "".join(f'<li><span class="co">{esc(e["company"])}</span>'
+                      f'<a href="{ev_href("", e["slug"])}">'
+                      f'{esc(e.get("title_zh") or e["title"])}</a></li>' for e in evs) \
+            or '<li style="color:var(--quiet)">暫無已發布事件</li>'
+        tcols += (f'<section><h3>{esc(name)}<em>{counts[slug]} 則</em></h3>'
+                  f'<ul>{lis}</ul></section>')
+    recent_html = (f'<div class="shell"><div class="by-track">'
+                   f'<div class="col-head">依主線 · 各線最新</div>'
+                   f'<div class="tcols">{tcols}</div></div></div>')
+    # 「六大領域趨勢」那一區整組退場：它跟上面的「依主線 · 各線最新」是同一件事
+    # 的兩種畫法，同一頁放兩份，改一邊另一邊就分岔——那是這個 repo 抓過很多次的
+    # 形狀。留一條指去領域趨勢頁的線就夠了。
+    lines_html = ('<div class="shell"><p style="margin:18px 0 0">'
+                  f'<a class="text-link" href="lines/">六條主線各自在講什麼，進領域趨勢頁 {ARROW}</a>'
+                  '</p></div>')
+    manifesto = ('<section class="section"><div class="shell">'
                  + section_head("這裡的取捨怎麼來的", "每一則為什麼在這裡，都查得到",
                                 "一則消息夠不夠格發、熱度可不可信，由寫死的規則決定，沒有模型參與；"
                                 "同一份資料重跑一次，會得到同一個網站。"
