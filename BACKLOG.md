@@ -673,6 +673,17 @@ runbook 自己記著「實測誤點過 96 分鐘」。也就是說**昨晚的餘
 那一步：`mutation.yml` 那條 workflow 裝一份 Playwright + Chromium，對五頁各量
 一次幾何斷言（`.shell` 置中、hero 不被覆蓋、行動版有導覽），失敗就紅。
 
+這一輪（報紙版型，2026-07-28）又靠同一支瀏覽器抓到三個，**沒有一個會被
+`selftest` 抓到**：
+
+- `.front` 只釘了 `grid-column` 沒釘 `grid-row`——DOM 第一個（頭條）先佔掉第一列
+  第二欄，自動排版就不往回填，索引與側欄整組掉到第二列去。
+- 手機的媒體查詢用 `.front > *{grid-column:auto}` 解不掉欄位指定：`.front > .idx`
+  的權重比它高，索引與側欄被塞進同一格、疊在同一個 y 上。
+- 首頁 hero 的 `.lead` 碰撞（見〈已經修掉的〉）。
+
+三個都是「規則寫對了，畫面錯了」。三個都是量 `getBoundingClientRect()` 當場看到的。
+
 `scripts/mutations.yaml` 的 **M160 是刻意標 `survives: true` 的**——它把
 `.shell` 的 `margin-inline:auto` 整條刪掉，五頁全部貼齊左邊界，而現在沒有任何
 東西會變紅。那一條的 `why` 就是這一節。**它會一直活著，直到 CI 裡有瀏覽器為止**，

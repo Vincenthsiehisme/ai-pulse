@@ -4508,10 +4508,11 @@ acase("字級：CSS 裡不得再有硬寫的字級"
       "（改版前 24 個字級，11 個擠在 0.8–1.15rem——1.01 跟 1.02 沒人看得出差別，"
       "但每次改版都要猜該用哪一個）",
       sorted(set(_re.findall(r"\bfont(?:-size)?:\s*([0-9.]+(?:px|rem))", _R_CSS))), [])
-acase("字級：級距九級，最小級不小於 11px"
-      "（9px 的中文與等寬字是用猜的不是用讀的，而改版前有 27 處在用 9/10px；十二個 token＝九個內文級距 + 三個大標級距）",
+acase("字級：級距十三級，最小級不小於 11px"
+      "（9px 的中文與等寬字是用猜的不是用讀的，而改版前有 27 處在用 9/10px；"
+      "九個內文級距 + 三個大標 + 報頭那一級）",
       [len(_re.findall(r"--fs-[a-z0-9]+:", _R_CSS.split("color-scheme:dark")[0])),
-       "--fs-micro:.6875rem" in _R_CSS], [12, True])
+       "--fs-micro:.6875rem" in _R_CSS], [13, True])
 
 # 泳道的縱軸選公司不選產品線，是量出來的：41 則裡 36 則 fingerprint 是 null。
 acase("泳道：縱軸是公司，缺公司的歸「其他」而不是丟掉"
@@ -4592,9 +4593,13 @@ acase("標頭：四頁共用同一個 hero 元件，首頁只差一個 lead 修�
       "（.mh-* 那一套整組退場，CSS 與 HTML 都不得再有）",
       [_c for _c in ("mh-title", "mh-eyebrow", "mh-sub", "mh-meta", "masthead")
        if _c in _R_CSS or _c in _HEAD_SRC.split('"""')[-1]], [])
-acase("標頭：首頁的大只由 .hero.lead 表達，不是另一套規則",
-      [".hero.lead h1{font-size:var(--fs-display)" in _R_CSS,
-       _R_CSS.count(".hero h1{font-size:var(--fs-h1)")], [True, 1])
+# 2026-07-28 改成報紙版型：首頁不再是「放大版的其他頁」，它是頭版——h1 是
+# 頭條標題，其他四頁的 h1 是頁首標題。兩者本來就該不一樣大，但**各走一個
+# token**，不准在某一頁另開一組規則（那正是 .mh-* 那次的病）。
+acase("字級：首頁頭條與其他四頁的頁首各走一個 token，兩個都在級距上",
+      [".lead-story h1{font-family:var(--serif);font-size:var(--fs-display)" in _R_CSS,
+       _R_CSS.count(".hero h1{font-family:var(--serif);font-size:var(--fs-h1)")],
+      [True, 1])
 
 
 # --- .shell 的置中不得被同框的規則蓋掉 ------------------------------------
@@ -4659,14 +4664,20 @@ acase("版型：.shell 的置中不得被同框的規則蓋掉"
       "（`lead` 一個名字兩個用途，裸的 .lead{margin:0} 把首頁 hero 推到左邊界）",
       _shell_conflicts(_R_CSS, _PAGES), [])
 # 反向：這個檢查真的抓得到那個形狀，不是永遠回空清單。
-acase("版型：上面那個檢查會紅——把 p.lead 改回裸的 .lead 就抓得到",
-      len(_shell_conflicts(_R_CSS.replace("p.lead{", ".lead{"), _PAGES)), 1)
-# 修飾詞要真的出現在產出裡。查 CSS 有沒有 `.hero.lead h1{...}` 是查不到這件事的
-# ——規則在、class 沒掛上去，首頁的 h1 就靜靜縮回 --fs-h1，而 CSS 那條測試照樣綠。
-acase("版型：首頁產出的 hero 真的帶著 lead 修飾詞（只有首頁帶）",
-      [_re.search(r'<section class="([^"]*)"', _p).group(1) for _p in _PAGES],
-      ["hero lead shell", "hero compact shell", "hero compact shell",
-       "hero compact shell"])
+# 站上現在已經沒有「裸類別跟 .shell 同框」的例子了（p.lead 綁了 tag），所以
+# 反向測試改餵一個合成的：檢查器本身要會紅，不能因為現況乾淨就永遠回空。
+_FAKE_PAGE = '<section class="lede shell"><h1>x</h1></section>'
+acase("版型：那個檢查真的會紅——餵一個同框又設 margin 的合成例子",
+      len(_shell_conflicts(_R_CSS + "\n.lede{margin:0}", [_FAKE_PAGE])), 1)
+acase("版型：而乾淨的現況不會誤報", _shell_conflicts(_R_CSS, [_FAKE_PAGE]), [])
+# 五頁各恰好一個 h1，而且首頁那一個是頭條、不是頁首。
+# 「一頁沒有 h1」是結構壞掉，不是內容比較少——空狀態也要有。
+acase("版型：五頁各恰好一個 h1；首頁的 h1 在頭條裡，其他四頁在頁首裡",
+      [[_p.count("<h1") for _p in _PAGES],
+       bool(_re.search(r'class="lead-story"[\s\S]{0,600}?<h1', _PAGES[0])),
+       _PAGES[0].count('class="hero'),
+       _rmod.build_home([], {}, "now").count("<h1")],
+      [[1, 1, 1, 1], True, 0, 1])
 # kicker 是等寬、字距 .18em 的小標。中文在那個字距下會被拆開，
 # 而且它跟旁邊的 h1 同語言、資訊重複。
 # 點了導覽上的「關鍵變化」，落地那一頁的 h1 完全不含那四個字——讀者沒有辦法
@@ -4674,10 +4685,50 @@ acase("版型：首頁產出的 hero 真的帶著 lead 修飾詞（只有首頁�
 # 這一條第一版把 (導覽字, h1) 的對照**寫死在測試裡**——那是拿測試自己寫的字
 # 去比對，碼怎麼改都會過（M152 因此活下來）。第八次同一個形狀。
 # 改成真的產一次首頁、把 h1 抓出來，跟 NAV 裡的字比。
-_home_h1 = _re.search(r"<h1[^>]*>([^<]*)", _rmod.build_home([], {}, "now")).group(1)
-acase("導覽：導覽上的「關鍵變化」要在首頁的 h1 裡找得到"
-      "（點下去落地的那一頁如果沒有那四個字，讀者無從確認自己到了哪）",
-      [_rmod.NAV[0][1] in _home_h1, _rmod.NAV[0][1]], [True, "關鍵變化"])
+# 報紙版型下首頁的 h1 是頭條標題，不會含導覽那四個字——但原本的顧慮沒有變：
+# 導覽反白只存在於導覽上，讀者往下捲之後只剩版面本身。所以那句話搬到版面
+# 鑑別線（報紙的分區名），測試跟著搬，不是刪掉了事。
+_home_rubric = _re.search(r'class="page-rubric">(.*?)</div>', _PAGES[0]).group(1)
+acase("導覽：點了「關鍵變化」，落地那一頁自己要說得出它是哪一版"
+      "（導覽的反白捲一下就看不到了）",
+      [_rmod.NAV[0][1] in _home_rubric, _rmod.NAV[0][1]], [True, "關鍵變化"])
+
+# ── 頭版：頭條由規則挑 ────────────────────────────────────────
+# 改版前那一區叫「這幾則最值得看」，底下排的卻是時間——標題宣稱了一個排序，
+# 實作用的是另一個。兩者在平常的日子重合，正好在有大事的那天分岔。
+_EV_HI = dict(_EV1, id="hi", slug="hi", title="HI", title_zh="分數最高那則",
+              confidence=95, date="2026-07-01", date_display="2026-07-01")
+_EV_NEW = dict(_EV1, id="new", slug="new", title="NEW", title_zh="最新那則",
+               confidence=60, date="2026-07-20", date_display="2026-07-20")
+_home_pick = _rmod.build_home([_EV_NEW, _EV_HI], {}, "now")   # events 進來是新到舊
+# 抓不到就回一句話，不要讓 re 丟 AttributeError 把整份 selftest 打斷：
+# 崩潰只說「這裡爆了」，一個錯的答案才說「哪個判斷錯了」。
+_pick = _re.search(r'class="lead-story"[\s\S]*?<h1[^>]*>[\s\S]*?>([^<]+)</a>', _home_pick)
+acase("頭版：頭條由規則挑（信心最高），不是「最新那一則」",
+      _pick.group(1) if _pick else "（產出裡找不到頭條）", "分數最高那則")
+
+# ── 朗讀順序＝頭條優先 ────────────────────────────────────────
+# DOM 順序就是螢幕報讀器與「關掉 CSS」時的閱讀順序。索引排在頭條前面的話，
+# 那些讀者拿到的第一段永遠是目錄，不是今天發生什麼。桌機的三欄位置改由
+# grid-column 指定，視覺與朗讀因此可以不一樣——但**朗讀那一邊要是對的那一邊**。
+# 用 find 不用 index：頭條整塊被拿掉的時候 index 會丟 ValueError，
+# selftest 當場中斷——**一個崩潰會蓋掉一個判斷錯誤**，而崩潰只告訴你「這裡爆了」。
+# 這是 2026-07-28 c2 那一輪學到的同一句話，第二次用上。
+_front_pos = [_PAGES[0].find('class="%s"' % c)
+              for c in ("lead-story", "idx", "tally-col")]
+acase("頭版：DOM 裡頭條排在索引與側欄前面（報讀器與無 CSS 時的閱讀順序）",
+      [all(x >= 0 for x in _front_pos), _front_pos == sorted(_front_pos)],
+      [True, True])
+
+# ── 報頭只有一份實作 ──────────────────────────────────────────
+acase("報頭：五頁共用同一份實作，舊的那一套整組退場"
+      "（同一種東西留兩份，改一邊另一邊就悄悄分岔——.mh-* 那次就是這樣）",
+      [[('class="nameplate' in _p) for _p in _PAGES],
+       _R_CSS.count(".nameplate{"),
+       [_c for _c in ("mh-title", "mh-eyebrow", "mh-sub", "mh-meta",
+                      "topbar", "brand-mark", "icon-btn")
+        if _c in _R_CSS or _c in _HEAD_SRC.split('"""')[-1]]],
+      [[True, True, True, True], 1, []])
 
 # GitHub 動能那一頁原本是一整份手抄的 HTML：自己的 topbar、自己的 <style>、
 # 自己的 hero。抄出來的東西會漂，而且已經漂了——手機上它完全沒有導覽。

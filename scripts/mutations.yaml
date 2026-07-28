@@ -1328,10 +1328,10 @@ mutations:
     why: ""
 
   - id: M152
-    title: "導覽標籤與落地頁的 h1 對不上（點了「關鍵變化」，那一頁沒有任何地方寫著關鍵變化）"
+    title: "版面鑑別線不寫導覽那四個字（點了「關鍵變化」，落地那一頁沒有任何地方寫著關鍵變化——導覽的反白捲一下就看不到了）"
     file: pulse-render.py
-    find: "                     \"AI 產業的關鍵變化，每則查得到出處\","
-    replace: "                     \"AI 產業在發生什麼，每則查得到出處\","
+    find: "<b>{esc(NAV[0][1])}</b>"
+    replace: "<b>今日</b>"
     survives: false
     why: ""
 
@@ -1387,13 +1387,12 @@ mutations:
 
   # ── 版型：.shell 的置中被同框規則蓋掉（2026-07-28 首頁 hero 貼齊左邊界）──
 
-  - id: M159
-    title: "事件摘要那條樣式改回裸的 .lead（`lead` 一個名字兩個用途：它的 margin:0 蓋掉 .shell 的 margin-inline:auto，首頁整個 hero 被推到左邊界、h1 連 color 都吃到 --muted）"
-    file: pulse-render.py
-    find: "p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}"
-    replace: ".lead{color:var(--muted);font-size:var(--fs-md);margin:0}"
-    survives: false
-    why: ""
+  # M159 已退場（2026-07-28 報紙版型）。它守的是「`lead` 這個名字被 hero 修飾詞
+  # 與段落樣式共用」——報紙版型把首頁的 hero 整個換掉，站上再也沒有任何元素同時
+  # 帶著 `lead` 與 `shell`，那個碰撞在現在的標記裡做不出來。**不是問題消失了，是
+  # 那一種形狀消失了**：一般化的不變式（.shell 擁有 width 與 margin）仍然由
+  # selftest 的 `_shell_conflicts` 守著，而且配了一個餵合成例子的反向測試，
+  # 確保它不是永遠回空清單。留這段字是為了讓下一個人搜得到它去了哪裡。
 
   - id: M160
     title: "拿掉 .shell 的置中（五頁全部貼齊左邊界，而站上不會有任何東西變紅）"
@@ -1408,9 +1407,35 @@ mutations:
       但那是在本機手動跑的，CI 裡沒有。記在 BACKLOG〈版面沒有人量過真的幾何〉。"
 
   - id: M161
-    title: "首頁 hero 不掛 lead 修飾詞（h1 靜靜縮回 --fs-h1，而 CSS 裡那條 .hero.lead 規則還在，查 CSS 的測試照樣綠）"
+    title: "頭條改回「最新那一則」（版面照樣完整，只是頭版從此由時間決定而不是由規則決定——正是改版前那個「這幾則最值得看」底下排時間的形狀）"
     file: pulse-render.py
-    find: "                     cls=\"lead\")"
-    replace: "                     cls=\"compact\")"
+    find: "    lead = max(events, key=lambda e: (e.get(\"confidence\") or 0)) if events else None"
+    replace: "    lead = events[0] if events else None"
+    survives: false
+    why: ""
+
+  # ── 報紙版型（2026-07-28）──
+
+  - id: M162
+    title: "報頭不掛在共用的 header 上（五頁的 chrome 從此各長各的，而改一邊另一邊不會紅——.mh-* 那次就是這樣開始的）"
+    file: pulse-render.py
+    find: "<header class=\"nameplate shell\">"
+    replace: "<header class=\"shell\">"
+    survives: false
+    why: ""
+
+  - id: M163
+    title: "沒有事件的那一天首頁不給 h1（一頁沒有 h1 是結構壞掉，不是「今天比較安靜」）"
+    file: pulse-render.py
+    find: "        lead_html = ('<div class=\"lead-story\"><h1>今天沒有通過檢查的事件</h1>'"
+    replace: "        lead_html = ('<div class=\"lead-story\"><p>今天沒有通過檢查的事件</p>'"
+    survives: false
+    why: ""
+
+  - id: M164
+    title: "首頁 DOM 順序改回索引優先（畫面看起來一模一樣，只有螢幕報讀器與關掉 CSS 的讀者會先聽到目錄再聽到頭條）"
+    file: pulse-render.py
+    find: "<div class=\"front\">\n{lead_html}\n<div class=\"idx\">"
+    replace: "<div class=\"front\">\n<div class=\"idx\">"
     survives: false
     why: ""
