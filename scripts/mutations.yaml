@@ -1384,3 +1384,33 @@ mutations:
     replace: "    if True:\n        board = dict(board or {}, repos=repos)"
     survives: false
     why: ""
+
+  # ── 版型：.shell 的置中被同框規則蓋掉（2026-07-28 首頁 hero 貼齊左邊界）──
+
+  - id: M159
+    title: "事件摘要那條樣式改回裸的 .lead（`lead` 一個名字兩個用途：它的 margin:0 蓋掉 .shell 的 margin-inline:auto，首頁整個 hero 被推到左邊界、h1 連 color 都吃到 --muted）"
+    file: pulse-render.py
+    find: "p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}"
+    replace: ".lead{color:var(--muted);font-size:var(--fs-md);margin:0}"
+    survives: false
+    why: ""
+
+  - id: M160
+    title: "拿掉 .shell 的置中（五頁全部貼齊左邊界，而站上不會有任何東西變紅）"
+    file: pulse-render.py
+    find: ".shell{width:min(var(--shell),calc(100% - 44px));margin-inline:auto}"
+    replace: ".shell{width:min(var(--shell),calc(100% - 44px))}"
+    survives: true
+    why: "存活是實話：這一版沒有任何測試量得到「元素在畫面上的位置」。上面 M159
+      那條抓得到的是**規則互相打架**，抓不到「規則本身被刪掉」。要抓這一種只有
+      一條路——在 CI 裡跑一次真的瀏覽器，量 boundingClientRect。2026-07-28 這個
+      bug 就是這樣查出來的（headless Chromium 量到首頁 hero x=0、其他四頁 x=323），
+      但那是在本機手動跑的，CI 裡沒有。記在 BACKLOG〈版面沒有人量過真的幾何〉。"
+
+  - id: M161
+    title: "首頁 hero 不掛 lead 修飾詞（h1 靜靜縮回 --fs-h1，而 CSS 裡那條 .hero.lead 規則還在，查 CSS 的測試照樣綠）"
+    file: pulse-render.py
+    find: "                     cls=\"lead\")"
+    replace: "                     cls=\"compact\")"
+    survives: false
+    why: ""
