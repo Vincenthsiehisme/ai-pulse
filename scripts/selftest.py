@@ -4489,6 +4489,22 @@ _css_clamps = _re.findall(r"font-size:\s*clamp\([^)]*\)", _R_CSS)
 acase("字級：大標也在級距上——font-size 的 clamp() 只准出現在 :root 的 token 定義裡"
       "（散在各處的 clamp 就是繞過級距，兩個緊鄰的標題因此差 3px 而沒有理由）",
       _css_clamps, [])
+# 首頁改版前自成一套 .mh-*：eyebrow 字距 .3em vs kicker .18em、標題 weight
+# 720 vs 680、字距 -.03em vs -.02em、副標等寬 vs 內文字體、統計一行文字 vs
+# 三格 page-status——同一種東西（一頁的標頭）長成兩套，改一邊另一邊就分岔。
+_HEAD_SRC = open(os.path.join(_HERE, "pulse-render.py"), encoding="utf-8").read()
+acase("標頭：四頁共用同一個 hero 元件，首頁只差一個 lead 修飾詞"
+      "（.mh-* 那一套整組退場，CSS 與 HTML 都不得再有）",
+      [_c for _c in ("mh-title", "mh-eyebrow", "mh-sub", "mh-meta", "masthead")
+       if _c in _R_CSS or _c in _HEAD_SRC.split('"""')[-1]], [])
+acase("標頭：首頁的大只由 .hero.lead 表達，不是另一套規則",
+      [".hero.lead h1{font-size:var(--fs-display)" in _R_CSS,
+       _R_CSS.count(".hero h1{font-size:var(--fs-h1)")], [True, 1])
+# kicker 是等寬、字距 .18em 的小標。中文在那個字距下會被拆開，
+# 而且它跟旁邊的 h1 同語言、資訊重複。
+acase("標頭：四個 kicker 語言一致（全英文小標）",
+      [_k for _k in _re.findall(r'hero\(\s*"([^"]+)"', _HEAD_SRC)
+       if _re.search(r"[一-鿿]", _k)], [])
 acase("字級：區塊標題與事件標題共用同一個 token（它們在首頁上下緊鄰）",
       [".section-head h2{font-size:var(--fs-h2)" in _R_CSS,
        "article.event h2{font-size:var(--fs-h2)" in _R_CSS], [True, True])

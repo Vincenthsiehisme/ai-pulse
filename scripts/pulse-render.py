@@ -202,14 +202,11 @@ a{color:inherit;text-decoration:none}
 .hero p{color:var(--muted);font-size:var(--fs-md);max-width:60ch;margin:.2rem 0 0}
 .statline{display:flex;flex-wrap:wrap;gap:22px;margin-top:24px;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.05em}
 .statline b{color:var(--text);font-weight:600}
-/* masthead — 極簡刊頭（靠左，與內文共用同一條左軸）*/
-.masthead{padding:clamp(56px,9vw,116px) 0 clamp(30px,5vw,52px);border-bottom:1px solid var(--border-soft)}
-.mh-rule{border:0;height:1px;background:var(--border-soft);margin:0}
-.mh-eyebrow{display:block;color:var(--fact);font:var(--fs-micro) var(--mono);letter-spacing:.3em;margin:clamp(30px,4vw,48px) 0 clamp(18px,2.5vw,28px)}
-.mh-title{font-size:var(--fs-display);line-height:1.02;letter-spacing:-.03em;font-weight:720;margin:0;max-width:20ch;text-wrap:balance}
-.mh-sub{color:var(--muted);font:var(--fs-tiny)/1.7 var(--mono);letter-spacing:.05em;margin:clamp(22px,3vw,34px) 0 clamp(30px,4vw,48px);max-width:64ch}
-.mh-meta{color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.06em;margin:clamp(20px,3vw,30px) 0 0}
-.mh-meta b{color:var(--text);font-weight:600}
+/* 首頁只跟其他頁差在「大一級」，其餘完全共用 hero。
+   改版前首頁自成一套 .mh-*，六條規則裡沒有一條的 token 跟 hero 對得上——
+   同一種東西（一頁的標頭）長成兩套，改一邊另一邊就悄悄分岔。 */
+.hero.lead{padding:clamp(56px,7vw,96px) 0 clamp(34px,4.5vw,50px)}
+.hero.lead h1{font-size:var(--fs-display);line-height:1.02;letter-spacing:-.03em;max-width:20ch;text-wrap:balance}
 .empty-lines{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .empty-line{font:var(--fs-micro) var(--mono);letter-spacing:.05em;color:var(--quiet);border:1px solid var(--border-soft);border-left:3px solid var(--tc,var(--border));border-radius:7px;padding:6px 12px}
 
@@ -866,14 +863,19 @@ def score_grid_html(ev):
 def build_home(events, narratives, generated):
     n = len(events)
     companies = len({e["company"] for e in events if e["company"]})
-    hero_html = f"""<section class="masthead"><div class="shell">
-<hr class="mh-rule">
-<span class="mh-eyebrow">DETERMINISTIC AI INTELLIGENCE</span>
-<h1 class="mh-title">看清 AI 產業的關鍵變化</h1>
-<p class="mh-sub">每則標明誰先說的、幾個獨立來源、我們什麼時候看到的</p>
-<hr class="mh-rule">
-<p class="mh-meta"><b>{n}</b> 則已發布　·　<b>{companies}</b> 家主體　·　更新 {esc(generated)}</p>
-</div></section>"""
+    # 首頁跟其他三頁用**同一個** hero()。
+    #
+    # 改版前首頁自成一套 `mh-*`：eyebrow 的字距 .3em vs kicker 的 .18em、
+    # 標題 weight 720 vs 680、字距 -.03em vs -.02em、副標用等寬 vs 用內文字體、
+    # 統計數字是一行文字 vs 其他頁的三格 page-status——**每一個 token 都不一樣**，
+    # 而它們是同一種東西：一頁的標頭。
+    # 首頁本來就該比較大，那用一個 `lead` 修飾詞表達就好，不必整套重寫。
+    hero_html = hero("WHAT CHANGED",
+                     "AI 產業在發生什麼，每則查得到出處",
+                     "每則標明誰先說的、有幾個獨立來源、我們什麼時候才看到它。",
+                     extra=page_status([("已發布", n), ("主體", companies),
+                                        ("更新", generated)]),
+                     cls="lead")
     latest = events[0] if events else None
     latest_html = (f'<section class="section shell">{section_head("LATEST MATERIAL SHIFT", "這幾則最值得看")}'
                    f'{event_card(latest, "", full=True)}</section>') if latest else ""
@@ -929,7 +931,7 @@ def build_lines(events, narratives, generated):
     active_tracks = sum(1 for slug, _, _ in TRACKS if by_track.get(slug))
     latest = events[0]["date_display"] if events else "—"
     stat = page_status([("主線", f"{active_tracks} / 6"), ("已收事件", len(events)), ("最新", latest)])
-    h = hero("六大主線", "領域趨勢", "每條主線底下是同一件事的連續進展：有哪些事件、最近一次是什麼時候、有幾個彼此獨立的來源說過。",
+    h = hero("TOPIC LINES", "領域趨勢", "每條主線底下是同一件事的連續進展：有哪些事件、最近一次是什麼時候、有幾個彼此獨立的來源說過。",
              extra=stat, cls="compact")
     secs = []
     empties = []

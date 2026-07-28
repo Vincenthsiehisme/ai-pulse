@@ -1302,3 +1302,19 @@ mutations:
     replace: "一格一個月"
     survives: false
     why: ""
+
+  - id: M149
+    title: "首頁標頭改回自成一套（.mh-* 六條規則沒有一條的 token 跟 hero 對得上——同一種東西長成兩套，改一邊另一邊悄悄分岔）"
+    file: pulse-render.py
+    find: ".hero.lead h1{font-size:var(--fs-display);line-height:1.02;letter-spacing:-.03em;max-width:20ch;text-wrap:balance}"
+    replace: ".mh-title{font-size:var(--fs-display);line-height:1.02;letter-spacing:-.03em;max-width:20ch;text-wrap:balance}"
+    survives: false
+    why: ""
+
+  - id: M150
+    title: "kicker 混用中英（中文在 .18em 字距下會被拆開，而且跟旁邊的 h1 同語言、資訊重複）"
+    file: pulse-render.py
+    find: "    h = hero(\"TOPIC LINES\", \"領域趨勢\","
+    replace: "    h = hero(\"六大主線\", \"領域趨勢\","
+    survives: false
+    why: ""
