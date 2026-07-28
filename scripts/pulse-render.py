@@ -53,6 +53,15 @@ CAT_LABEL = {"model-capability": "模型能力", "product": "產品", "research"
 TRACKS = list(tracks_lib.TRACKS)
 TRACK_BY_NAME = dict(tracks_lib.BY_NAME)
 TRACK_ALIASES = dict(tracks_lib.ALIAS)
+# 每一版的分區說明。報紙的版名底下那一行，講的是「這一版收什麼」。
+RUBRIC = {
+    "home": "今日頭版 · 誰先說的、有幾個獨立來源、我們什麼時候才看到",
+    "lines": "每條主線底下是同一件事的連續進展：有哪些事件、最近一次是什麼時候、有幾個獨立來源說過",
+    "timeline": "最新在前 · 標著「回填」的是我們開始追之前就已經發生的事",
+    "signals": "剛抓到、還沒驗過的線索 · 附原文連結是要你自己去看，驗過的才會進事件時間軸",
+    "github": "AI 主題 repo 的星速 · 注意力的領先指標，不等於採用",
+}
+
 NAV = [("home", "關鍵變化", ""), ("lines", "領域趨勢", "lines/"),
        ("timeline", "事件時間軸", "timeline/"), ("signals", "來源更新", "signals/"),
        ("github", "GitHub 動能", "github/")]
@@ -134,14 +143,15 @@ def ev_href(prefix, slug):
 
 # ─────────────────────────── CSS ───────────────────────────
 CSS = """
-/* 2026-07-28 改成報紙版型。色票從「深色介面」換成「紙與墨」：淺色是紙（暖米），
-   深色不是回到藍黑介面，是**負片的報紙**（暖黑紙、米白墨）——同一個東西的兩種
-   印法，不是兩套設計。token 的名字全部沒動，所以其他四頁不必跟著改。 */
+/* 2026-07-28 改成報紙版型。**只有紙的兩種白**：預設米色（newsprint），
+   可切到純白（好列印、也給偏好高對比的人）。深色整組退場——一份報紙不會有
+   負片版，而維護兩套色票的代價是每次改都要記得改兩邊。
+   token 的名字全部沒動，所以其他四頁不必跟著改。 */
 :root{
-  --canvas:#14130f;--surface:#1c1a16;--surface-2:#232019;--surface-soft:#191713;
-  --text:#f0ece2;--muted:#a8a094;--quiet:#7f7a6f;--border:#3b3730;--border-soft:#2a2722;
-  --accent:#e08a6d;--accent-strong:#f0a184;
-  --fact:#7fd6b4;--analysis:#b3a4e8;--forecast:#e7c07a;--impact:#e79178;--danger:#e08078;--blue:#8ab4e8;
+  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-2:#fff;--surface-soft:#eae5d8;
+  --text:#14161a;--muted:#4a5058;--quiet:#7b818a;--border:#c6c0b2;--border-soft:#ded8ca;
+  --accent:#8c2b1f;--accent-strong:#6f2118;
+  --fact:#1f6b57;--analysis:#4a3f8c;--forecast:#8a6212;--impact:#a8442c;--danger:#9c332c;--blue:#1f4e79;
   /* 圓角整組退場：報紙沒有圓角，它靠規則線與留白分區。留著 token 是因為
      其他四頁還在引用，值改成 0 就等於一次關掉，不必逐處刪。 */
   --radius-sm:0px;--radius-md:0px;--radius-lg:0px;--shell:1120px;
@@ -165,22 +175,16 @@ CSS = """
      1200px 視窗下一個 27.2px、一個 24px——看得出來不一樣大，而沒有任何理由
      要不一樣。收成 --fs-h2 一個 token，兩處共用。 */
   --fs-h2:clamp(1.35rem,2.6vw,1.7rem);
+  --measure:34em;
   --fs-nameplate:clamp(1.7rem,5.4vw,3.4rem);
   --fs-h1:clamp(2rem,5vw,3rem);
   --fs-display:clamp(2.3rem,6.5vw,4.6rem);
-  color-scheme:dark;
+  color-scheme:light;
 }
-@media(prefers-color-scheme:light){:root:not([data-theme]){
-  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-2:#fff;--surface-soft:#eae5d8;
-  --text:#14161a;--muted:#4a5058;--quiet:#7b818a;--border:#c6c0b2;--border-soft:#ded8ca;
-  --accent:#8c2b1f;--accent-strong:#6f2118;--fact:#1f6b57;--analysis:#4a3f8c;--forecast:#8a6212;--impact:#a8442c;--danger:#9c332c;--blue:#1f4e79;
-  color-scheme:light;
-}}
-:root[data-theme=light]{
-  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-2:#fff;--surface-soft:#eae5d8;
-  --text:#14161a;--muted:#4a5058;--quiet:#7b818a;--border:#c6c0b2;--border-soft:#ded8ca;
-  --accent:#8c2b1f;--accent-strong:#6f2118;--fact:#1f6b57;--analysis:#4a3f8c;--forecast:#8a6212;--impact:#a8442c;--danger:#9c332c;--blue:#1f4e79;
-  color-scheme:light;
+/* 白底：只動紙與規則線這幾格，墨色不動——換的是紙不是印刷。 */
+:root[data-theme=paper-white]{
+  --canvas:#fff;--surface:#fafafa;--surface-2:#fff;--surface-soft:#f2f2f0;
+  --border:#d6d3cc;--border-soft:#e8e6e1;
 }
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--canvas);color:var(--text);font-family:var(--font);line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -194,12 +198,10 @@ a{color:inherit;text-decoration:none}
    不再 sticky：報紙的報頭不會跟著讀者走，捲下去就該讓位給內容。 */
 .nameplate{border-top:5px solid var(--text);padding-top:13px}
 .np-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:18px;padding-bottom:11px}
-.np-row .np-l,.np-row .np-r{color:var(--muted);font:var(--fs-mini)/1.55 var(--mono);letter-spacing:.04em}
+.np-row .np-l,.np-row .np-r{color:var(--muted);font:var(--fs-mini)/1.55 var(--mono);letter-spacing:.04em;padding-bottom:6px}
 .np-row .np-r{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
 .np-mark{font-family:var(--serif);font-weight:700;font-size:var(--fs-nameplate);
   line-height:1;letter-spacing:.02em;white-space:nowrap;color:var(--text)}
-.np-mark small{display:block;margin-top:5px;color:var(--muted);font:var(--fs-micro) var(--mono);
-  letter-spacing:.14em;font-weight:400;text-align:center}
 .np-rule{border-bottom:3px double var(--text)}
 .np-act{display:inline-flex;align-items:center;gap:6px;min-height:24px;color:var(--muted);
   font:var(--fs-micro) var(--mono);letter-spacing:.05em;background:none;border:0;padding:0;cursor:pointer}
@@ -230,7 +232,7 @@ a{color:inherit;text-decoration:none}
 .empty-line{font:var(--fs-micro) var(--mono);letter-spacing:.05em;color:var(--quiet);border:1px solid var(--border-soft);border-left:3px solid var(--tc,var(--border));border-radius:0;padding:6px 12px}
 
 .section{padding:clamp(34px,5vw,56px) 0}
-.section-tint{background:var(--surface-soft);border-block:1px solid var(--border-soft)}
+.section-tint{background:none;border-block:1px solid var(--border-soft)}
 .section-head{margin:0 0 22px}
 .section-head .kicker{color:var(--muted)}
 .section-head h2{font-size:var(--fs-h2);letter-spacing:-.01em;margin:.1rem 0 .3rem;font-weight:640}
@@ -238,7 +240,7 @@ a{color:inherit;text-decoration:none}
 .text-link{display:inline-flex;align-items:center;gap:6px;margin-top:20px;color:var(--accent);font:var(--fs-mini) var(--mono);letter-spacing:.05em}
 .text-link:hover{text-decoration:underline}
 
-article.event{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:clamp(20px,3vw,28px);margin-bottom:16px;transition:border-color .16s,transform .16s}
+article.event{background:none;border:0;border-top:1px solid var(--border);padding:20px 0 4px;margin-bottom:0}
 article.event:hover{border-color:var(--border);transform:translateY(-1px)}
 .chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:11px}
 .chip{font:var(--fs-micro) var(--mono);letter-spacing:.06em;padding:4px 9px;border-radius:0;border:1px solid var(--border-soft);background:var(--surface-soft);color:var(--muted)}
@@ -258,7 +260,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .layer p{margin:6px 0 0;font-size:var(--fs-base)}
 .layer.fact .lbl{color:var(--fact)}.layer.analysis .lbl{color:var(--analysis)}.layer.impact .lbl{color:var(--impact)}
 .layer.accent .lbl{color:var(--accent)}.layer.forecast .lbl{color:var(--forecast)}
-.layer.block{padding:14px 17px;border-radius:var(--radius-sm);background:var(--surface-soft)}
+.layer.block{padding:0 0 0 17px;background:none}
 .layer.block.fact{border-left:3px solid var(--fact)}.layer.block.accent{border-left:3px solid var(--accent)}
 .ev{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:20px 0 0;padding:0;list-style:none;color:var(--quiet);font:var(--fs-micro) var(--mono)}
 .ev .lbl{color:var(--muted)}
@@ -279,7 +281,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .row .rm{color:var(--muted);font:var(--fs-micro) var(--mono);letter-spacing:.05em;white-space:nowrap}
 
 .line-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-.line-block{background:var(--surface);border:1px solid var(--border-soft);border-top:3px solid var(--tc,var(--accent));border-radius:var(--radius-md);padding:20px 22px}
+.line-block{background:none;border:0;border-top:3px solid var(--tc,var(--accent));padding:14px 0 0}
 .line-block h3{font-size:var(--fs-lg);margin:.1rem 0 .3rem;letter-spacing:-.01em}
 .line-block .lc{color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.06em}
 .line-block ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
@@ -291,14 +293,14 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .line-section h2::before{content:"";width:12px;height:12px;border-radius:0;background:var(--tc,var(--accent))}
 .line-meta{color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.05em;margin:0 0 18px}
 .line-thesis{color:var(--muted);font-size:var(--fs-base);line-height:1.6;margin:10px 0 0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.narrative{background:var(--surface);border:1px solid var(--border-soft);border-left:3px solid var(--tc,var(--accent));border-radius:var(--radius-md);padding:20px 24px;margin:0 0 18px}
+.narrative{background:none;border:0;border-left:3px solid var(--tc,var(--accent));padding:2px 0 2px 20px;margin:0 0 22px}
 .narrative .thesis{font-size:var(--fs-md);line-height:1.7;margin:0;color:var(--text)}
 .narrative .nn{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
 @media(max-width:640px){.narrative .nn{grid-template-columns:1fr}}
 .narrative .nn .lbl{display:block;font:var(--fs-micro) var(--mono);letter-spacing:.12em;color:var(--tc,var(--accent));margin-bottom:5px}
 .narrative .nn p{margin:0;font-size:var(--fs-base);color:var(--muted);line-height:1.65}
 .lens-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:0 0 22px}
-.lens{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:18px 20px}
+.lens{background:none;border:0;border-top:1px solid var(--border-soft);padding:14px 0 0}
 .lens-role{display:inline-block;font:var(--fs-micro) var(--mono);letter-spacing:.1em;color:var(--tc,var(--accent));border:1px solid color-mix(in srgb,var(--tc,var(--accent)) 40%,var(--border));border-radius:0;padding:3px 9px;margin-bottom:11px}
 .lens-q{font-size:var(--fs-base);font-weight:580;line-height:1.45;margin:0 0 8px}
 .lens-a{font-size:var(--fs-base);color:var(--muted);line-height:1.6;margin:0 0 10px}
@@ -316,7 +318,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .tl-year>h2{font:var(--fs-mini) var(--mono);letter-spacing:.14em;color:var(--muted);margin:0 0 6px}
 .tl-month{margin:0 0 20px;padding-left:20px;border-left:1px solid var(--border-soft)}
 .tl-month>time{display:block;font:var(--fs-micro) var(--mono);letter-spacing:.08em;color:var(--forecast);margin:0 0 12px}
-.tl-card{position:relative;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:15px 18px;margin-bottom:10px}
+.tl-card{position:relative;background:none;border:0;border-top:1px solid var(--border-soft);padding:14px 0 4px;margin-bottom:0}
 .tl-card::before{content:"";position:absolute;left:-25px;top:20px;width:9px;height:9px;border-radius:50%;background:var(--tc,var(--accent));box-shadow:0 0 0 4px color-mix(in srgb,var(--tc,var(--accent)) 14%,transparent)}
 .tl-card time{color:var(--quiet);font:var(--fs-micro) var(--mono)}
 .tl-card h3{font-size:var(--fs-md);line-height:1.4;margin:5px 0 5px;font-weight:560}
@@ -326,7 +328,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .tl-hide{display:none!important}
 
 .sig-stream{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.sig-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:18px 20px;transition:border-color .16s,transform .16s}
+.sig-card{display:flex;flex-direction:column;background:none;border:0;border-top:1px solid var(--border-soft);padding:14px 0 4px}
 .sig-card:hover{border-color:var(--border);transform:translateY(-1px)}
 .sig-card.research{border-left:3px solid var(--analysis)}
 .sig-card.high{border-left:3px solid var(--fact)}
@@ -376,9 +378,9 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .journey b{display:block;font-size:var(--fs-base);font-weight:540;line-height:1.45;margin:6px 0 2px}
 .journey small{color:var(--muted);font:var(--fs-micro) var(--mono);letter-spacing:.04em}
 .journey a.jn-open{color:var(--fact)}
-.aside-box{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:20px}
+.aside-box{background:none;border:0;padding:0}
 .score-hero{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
-.score-hero .sh{background:var(--surface-soft);border-radius:var(--radius-sm);padding:12px 14px}
+.score-hero .sh{background:none;padding:0 0 10px;border-bottom:1px solid var(--border-soft)}
 .score-hero .sh span{display:block;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.08em}
 .score-hero .sh b{font-size:var(--fs-2xl);font-weight:660;font-variant-numeric:tabular-nums}
 .factors{display:flex;flex-direction:column;gap:9px}
@@ -472,8 +474,38 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
   }
 .factor .bar-unmeasured{height:0;border-top:1px dashed var(--border-soft);background:none;border-radius:0}
 .factor b.unmeasured{color:var(--muted);font-size:var(--fs-micro);letter-spacing:.02em;font-variant-numeric:normal}
-.warnbox{margin-top:14px;padding:11px 13px;border-radius:var(--radius-sm);border:1px solid color-mix(in srgb,var(--forecast) 40%,var(--border));background:color-mix(in srgb,var(--forecast) 7%,transparent);color:var(--forecast);font:var(--fs-micro) var(--mono);line-height:1.6}
+.warnbox{margin-top:14px;padding:0 0 0 13px;border-left:3px solid color-mix(in srgb,var(--forecast) 55%,var(--border));color:var(--forecast);font:var(--fs-micro) var(--mono);line-height:1.6}
 
+/* ── 事件頁：單欄長文 + 側註 ─────────────────────────────
+   六層 prose 是一篇文章，不是六張卡片。側註放的是**驗證用的東西**（分數、
+   證據、旅程）——它們是讀者要拿來查的，不是要拿來讀的，所以走側邊不走正文。
+   `--measure` 是一行的字數上限：中文一行超過 40 字左右，眼睛回行就會找錯行。 */
+.longform{max-width:1020px;margin-inline:auto}
+.lf-head{max-width:calc(var(--measure) + 8em);margin-bottom:30px}
+.lf-head h1{font-family:var(--serif);font-size:var(--fs-h1);line-height:1.16;
+  letter-spacing:-.025em;font-weight:700;margin:0 0 12px;text-wrap:balance;line-break:strict}
+.lf-orig{margin:0 0 16px;padding-left:13px;border-left:3px solid var(--border);
+  color:var(--quiet);font:var(--fs-base)/1.6 var(--mono)}
+.lf-deck{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.7;
+  color:var(--muted);margin:0 0 18px}
+.lf-dateline{display:flex;flex-wrap:wrap;gap:20px;padding:10px 0;
+  border-top:1px solid var(--text);border-bottom:1px solid var(--border);
+  color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.04em}
+.lf-dateline b{color:var(--text);font-weight:600}
+.lf-grid{display:grid;grid-template-columns:var(--measure) 1fr;gap:44px;align-items:start}
+.lf-body .layer{margin-bottom:28px}
+.lf-body .layer .lbl{display:block;padding-bottom:6px;margin-bottom:11px;
+  border-bottom:1px solid var(--border);letter-spacing:.18em;text-transform:uppercase}
+.lf-body .layer p{margin:0;font-size:var(--fs-lg);line-height:1.9}
+.lf-note{margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--border-soft)}
+.lf-note:last-child{border-bottom:0}
+.lf-note h3{margin:0 0 11px;color:var(--quiet);font:500 var(--fs-micro) var(--mono);
+  letter-spacing:.14em;text-transform:uppercase}
+.lf-note p{margin:10px 0 0;color:var(--quiet);font:var(--fs-tiny)/1.65 var(--sans-note,inherit)}
+@media(max-width:940px){
+  .lf-grid{grid-template-columns:1fr;gap:0}
+  .lf-notes{margin-top:30px;padding-top:22px;border-top:3px double var(--text)}
+}
 /* ── 頭版網格 ─────────────────────────────────────────────
    三欄：今日索引／頭條＋次條／計數與主線。欄與欄之間用規則線不用留白——
    報紙的分區靠線，網頁的分區習慣靠間距，兩者混用會兩邊都不像。
@@ -577,11 +609,11 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 JS = """
 (function(){
   var root=document.documentElement;
+  // 底色只有兩種紙：預設米色，切一下變白色。沒有深色版。
   var btn=document.querySelector('[data-theme-toggle]');
   if(btn){btn.addEventListener('click',function(){
-    var cur=root.getAttribute('data-theme');
-    var next=cur==='light'?'dark':(cur==='dark'?'light':(matchMedia('(prefers-color-scheme: light)').matches?'dark':'light'));
-    root.setAttribute('data-theme',next);
+    root.setAttribute('data-theme',
+      root.getAttribute('data-theme')==='paper-white'?'newsprint':'paper-white');
   });}
   // 泳道判讀列：固定在格線下方，不蓋任何東西。
   // 沒有 JS 時每個點還有 <a title>，一樣讀得到，只是要等瀏覽器的原生提示。
@@ -649,9 +681,6 @@ JS = """
 def page_layout(active, title, desc, body, depth, generated):
     prefix = "" if depth == 0 else "../" * depth
     CUR = ' aria-current="page"'
-    # 報頭的日期取自 `generated`，**不另外讀一次時鐘**。多讀一次就是多一個
-    # 時間來源，而這個站的規矩是同一份資料重跑要得到同一個網站。
-    today = (generated or "").split(" ")[0]
 
     def _nav():
         return "".join('<a href="' + prefix + r + '"' + (CUR if k == active else "") + '>' + esc(lbl) + '</a>'
@@ -662,22 +691,22 @@ def page_layout(active, title, desc, body, depth, generated):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<meta name="color-scheme" content="dark light"><meta name="theme-color" content="#14130f">
+<meta name="color-scheme" content="light"><meta name="theme-color" content="#f4f1e8">
 <link rel="stylesheet" href="{prefix}assets/app.css">
 <script defer src="{prefix}assets/app.js"></script>
 </head><body data-page="{active}">
 <header class="nameplate shell">
 <div class="np-row">
-<div class="np-l">{esc(today)}<br>{esc(TZ_LABEL)}</div>
-<a class="np-mark" href="{prefix}" aria-label="AI Pulse 首頁">AI PULSE<small>哪則進得來，規則說了算</small></a>
+<div class="np-l"><span>更新 {esc(generated)}</span></div>
+<a class="np-mark" href="{prefix}" aria-label="AI Pulse 首頁">AI PULSE</a>
 <div class="np-r">
-<span>更新 {esc(generated)}</span>
-<button class="np-act" data-theme-toggle type="button" aria-label="切換淺／深色">{SUN} 換色</button>
-<a class="np-act" href="https://github.com/Vincenthsiehisme/ai-pulse" target="_blank" rel="noopener">原始碼</a>
+<button class="np-act" data-theme-toggle type="button" aria-label="切換米色／白色底">{SUN} 換底色</button>
 </div></div>
 <div class="np-rule"></div>
 <nav class="desktop-nav" aria-label="主導覽">{nav}</nav>
 </header>
+<div class="shell"><div class="page-rubric"><b>{esc(dict(
+  (k, l) for k, l, _r in NAV).get(active, ""))}</b><span>{esc(RUBRIC.get(active, ""))}</span></div></div>
 <main id="main">{body}</main>
 <footer class="site-footer"><div class="shell footer-grid">
 <div class="footer-brand"><strong>AI PULSE</strong><p>哪則消息進得來由規則決定，沒有模型參與；敘述那一層才有潤稿。同一份資料重跑，會得到同一個網站。</p></div>
@@ -690,8 +719,15 @@ def page_layout(active, title, desc, body, depth, generated):
 
 
 def hero(kicker, h1, p, extra="", cls=""):
-    return (f'<section class="hero {cls} shell"><div><span class="kicker">{esc(kicker)}</span>'
-            f'<h1>{h1}</h1><p>{esc(p)}</p>{extra}</div></section>')
+    """頁首。kicker 與副標**可以是空的**——版面鑑別線已經講過這一版收什麼了。
+
+    留著參數是為了不動四個呼叫端的形狀；給空字串就不印，而不是印一個空的
+    `<span></span>`：空標籤在朗讀器上是一次無意義的停頓。
+    """
+    k = f'<span class="kicker">{esc(kicker)}</span>' if kicker else ""
+    sub = f"<p>{esc(p)}</p>" if p else ""
+    return (f'<section class="hero {cls} shell"><div>{k}'
+            f'<h1>{h1}</h1>{sub}{extra}</div></section>')
 
 
 def section_head(kicker, title, desc=""):
@@ -1058,7 +1094,7 @@ def build_home(events, narratives, generated):
         trk_html += (f'<div class="trk"><span class="n">{counts[slug]:02d}</span>'
                      f'<span class="nm">{esc(name)}</span>{th_html}</div>')
 
-    hero_html = f"""<div class="shell"><div class="page-rubric"><b>{esc(NAV[0][1])}</b><span>今日頭版 · 誰先說的、有幾個獨立來源、我們什麼時候才看到</span></div>
+    hero_html = f"""<div class="shell">
 <div class="front">
 {lead_html}
 <div class="idx"><div class="col-head">今日索引</div><ol>{idx_html}</ol></div>
@@ -1106,7 +1142,7 @@ def build_lines(events, narratives, generated):
     active_tracks = sum(1 for slug, _, _ in TRACKS if by_track.get(slug))
     latest = events[0]["date_display"] if events else "—"
     stat = page_status([("主線", f"{active_tracks} / 6"), ("已收事件", len(events)), ("最新", latest)])
-    h = hero("TOPIC LINES", "領域趨勢", "每條主線底下是同一件事的連續進展：有哪些事件、最近一次是什麼時候、有幾個彼此獨立的來源說過。",
+    h = hero("", "領域趨勢", "",
              extra=stat, cls="compact")
     secs = []
     empties = []
@@ -1286,7 +1322,7 @@ def build_timeline(events, generated):
     n_back = sum(1 for e in events if e.get("coverage") != "observed")
     tl_stat = page_status([("事件", len(events)), ("其中回填", n_back),
                            ("主體", companies), ("最新", latest)])
-    body = f"""{hero("EVENT TIMELINE", "事件時間軸", "最新在前。標著「回填」的是我們開始追之前就已經發生的事。", extra=tl_stat, cls="compact")}
+    body = f"""{hero("", "事件時間軸", "", extra=tl_stat, cls="compact")}
 <section class="section shell">
 <div class="tl-controls" data-filter-row>
 <div class="chip-row"><button type="button" class="active" data-filter="all">全部</button>{filters}</div>
@@ -1340,7 +1376,7 @@ def build_signals(signals, sources, generated):
 <div class="sig-select"><select data-sig-kind aria-label="依來源類型篩選">{kind_opts}</select></div>
 <div class="sig-select"><select data-sig-region aria-label="依地域篩選">{region_opts}</select></div>
 <span class="sig-count" data-sig-count>{len(cards)} / {len(cards)}</span></div>"""
-    body = f"""{hero("SOURCE UPDATES", "來源更新", "剛抓到、還沒驗過的線索。附原文連結是要你自己去看——驗過的才會進事件時間軸。", extra=stat, cls="compact")}
+    body = f"""{hero("", "來源更新", "", extra=stat, cls="compact")}
 <section class="section section-tint"><div class="shell" data-sig>
 {toolbar}
 <div class="sig-stream">{''.join(cards)}</div>
@@ -1361,29 +1397,43 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
     scores = score_grid_html(ev)
     ev_links = "".join(f'<a href="{esc(e["url"])}" rel="noopener" target="_blank">{esc(e["sid"])} {EXT}</a>'
                        for e in ev["evidence"] if e.get("url"))
-    ev_block = f'<div class="aside-box" style="margin-top:16px"><h3>證據</h3><ul class="ev">{ev_links}</ul></div>' if ev_links else ""
+    n_ev = len([e for e in ev["evidence"] if e.get("url")])
+    ev_block = (f'<div class="lf-note"><h3>證據 · {n_ev} 筆</h3><ul class="ev">{ev_links}</ul>'
+                f'<p>譯文是二手的，原文那一句永遠留著——每一筆都點得進去。</p></div>') if ev_links else ""
     # 相關事件：同主線或同公司，排除自己
     rel = [e for e in all_events if e["slug"] != ev["slug"]
            and (track_of(e) == tr and tr is not None or e["company"] == ev["company"])][:4]
     rel_html = ""
     if rel:
         rows = "".join(recent_row(e, pfx) for e in rel)
-        rel_html = f'<section class="section shell"><div class="section-head"><span class="kicker">RELATED</span><h2 style="font:640 1.3rem var(--font);letter-spacing:-.01em;color:var(--text);text-transform:none">相關事件</h2></div><div class="rows">{rows}</div></section>'
-    body = f"""<section class="hero compact shell"><div>
-<a class="crumb" href="{pfx}timeline/">{BACK} 事件時間軸</a>
-<div class="chips">{event_chips(ev)}</div>
-<h1 style="font-size:clamp(1.6rem,3.4vw,2.3rem)">{esc(ev.get('title_zh') or ev['title'])}</h1>
-{f'<p class="title-src">{esc(ev["title"])}</p>' if ev.get('title_zh') else ''}
-<p class="lead" style="font-size:1.06rem;margin-top:.6rem">{esc(ev['summary'])}</p>
-<div class="statline"><span>{esc(ev['date_display'])}</span>{f'<span>{esc(tr[1])}</span>' if tr else ''}<span>{esc(ev['company'])}</span></div>
-</div></section>
-<section class="section shell"><div class="detail-grid">
-<div class="detail-main">
-<div class="detail-block"><h2>{esc(journey_heading)}</h2>{journey}</div>
-<div class="detail-block"><h2>六層分析</h2><div class="layers">{layers}</div></div>
+        rel_html = (f'<div class="shell"><div class="by-track">'
+                    f'<div class="col-head">同一條線 · 同一個主體</div>'
+                    f'<div class="rows">{rows}</div></div></div>')
+    tag = JUDGMENT_TAG[(ev.get("independent") or 0) >= 2]
+    body = f"""<div class="shell">
+<article class="longform">
+<div class="lf-head">
+<h1>{esc(ev.get('title_zh') or ev['title'])}</h1>
+{f'<p class="lf-orig">原標題：{esc(ev["title"])}</p>' if ev.get('title_zh') else ''}
+<p class="lf-deck">{esc(ev['summary'])}</p>
+<div class="lf-dateline"><span>{esc(ev['date_display'])}</span>\
+<span>主體 <b>{esc(ev['company'])}</b></span>\
+<span>獨立來源 <b>{ev.get('independent')}</b></span>\
+<span>證據層級 <b>{("Tier " + str(ev["tier"])) if ev.get("tier") else "未標"}</b></span>\
+<span>{esc(tr[1]) if tr else "未分線"}</span>\
+<span><a href="{pfx}timeline/">回事件時間軸</a></span></div>
 </div>
-<aside class="detail-aside">{scores}{ev_block}</aside>
-</div></section>
+<div class="lf-grid">
+<div class="lf-body">{layers}</div>
+<aside class="lf-notes">
+<div class="lf-note"><h3>分數</h3>{scores}</div>
+<div class="lf-note"><h3>判斷的依據</h3><span class="chip">{esc(tag.strip("（）"))}</span>
+<p>這一格由規則即時算出來，不是人寫的評語，也不是寫進 note 時凍結的那一份。</p></div>
+<div class="lf-note"><h3>{esc(journey_heading)}</h3>{journey}</div>
+{ev_block}
+</aside>
+</div>
+</article></div>
 {rel_html}"""
     return page_layout("timeline", f"{ev.get('title_zh') or ev['title']} — AI Pulse",
                        ev["summary"] or ev["title"], body, 2, generated)
@@ -1416,6 +1466,9 @@ def load_events(vault):
             "confidence": fm.get("confidence", 0), "heat": fm.get("heat"),
             "impact": fm.get("impact", 0), "value": fm.get("value", 0),
             "independent": fm.get("independent_sources", 0),
+            # 證據層級是紅線 2 的判準之一，事件頁要看得到——**沒有就印「未標」，
+            # 不要印一個問號**：問號讀起來像「壞掉了」，未標讀起來才是實話。
+            "tier": fm.get("tier_evidence"),
             "score_factors": fm.get("score_factors") or {},
             "layers": {h: section(body, h) for h in LAYERS},
             # 證據帶著自己的 title / published，不只 (source_id, url)。只帶兩元組的話，
