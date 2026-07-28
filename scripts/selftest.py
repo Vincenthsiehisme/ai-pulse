@@ -4595,6 +4595,78 @@ acase("標頭：四頁共用同一個 hero 元件，首頁只差一個 lead 修�
 acase("標頭：首頁的大只由 .hero.lead 表達，不是另一套規則",
       [".hero.lead h1{font-size:var(--fs-display)" in _R_CSS,
        _R_CSS.count(".hero h1{font-size:var(--fs-h1)")], [True, 1])
+
+
+# --- .shell 的置中不得被同框的規則蓋掉 ------------------------------------
+# 上面那一條是綠的，而 2026-07-28 的首頁是壞的：整個 hero 貼齊左邊界（實測
+# x=0，其他四頁 x=323），h1 的 color 還一起吃到 --muted。原因是 `lead` 這個
+# 名字被兩個東西共用——事件摘要段落 `.lead` 與 hero 的尺寸修飾詞 `.hero.lead`
+# ——而裸的 `.lead{margin:0}` 排在 `.shell{margin-inline:auto}` 之後、同權重。
+#
+# 上面那一條為什麼抓不到：它在 CSS 字串裡 grep `.hero.lead h1{...}`，那串字
+# 一直都在。**在原始碼裡找字，不是在產出裡量**——這是這條分支上第九次同一個
+# 形狀。所以這一條改成把規則跟產出**兜起來**算：
+#
+#   `.shell` 擁有 width 與 margin-inline。任何跟它出現在同一個元素上、
+#   又會命中那個元素的「無組合子」規則，都不得再設 width 或 margin。
+#
+# 誠實的邊界：只看得懂「tag 與 class 組成、沒有組合子」的選擇器（`.a`、
+# `p.a`、`.a.b`）。帶空白或 `>` 的後代選擇器一律跳過——那需要一個真的 CSS
+# 引擎，這裡不假裝有。所以它擋得住這一次的形狀，擋不住所有形狀。
+_SHELL_OWNS = _re.compile(r"(^|;)\s*(margin(?:-inline|-left|-right)?|width)\s*:")
+_SIMPLE_SEL = _re.compile(r"^([a-z]+)?((?:\.[A-Za-z0-9_-]+)+)$")
+
+
+def _shell_conflicts(css, pages):
+    # 先拆註解再拆 @media 外殼。少了拆註解這一步，註解會被當成選擇器的一部分黏在
+    # 後面那條規則前面，於是那條規則永遠比對不到——**檢查看起來全綠，其實根本沒
+    # 看到它**。這一版第一次跑就是這樣過的，是下面那條反向測試把它揪出來的。
+    flat = _re.sub(r"/\*.*?\*/", "", css, flags=_re.S)
+    flat = _re.sub(r"@[a-z-]+[^{]*\{", "", flat)
+    rules = []
+    for sel, body in _re.findall(r"([^{}]+)\{([^}]*)\}", flat):
+        if not _SHELL_OWNS.search(body):
+            continue
+        for one in (s.strip() for s in sel.split(",")):
+            m = _SIMPLE_SEL.match(one)
+            if not m or one == ".shell":
+                continue
+            rules.append((one, m.group(1) or "", set(m.group(2).split(".")[1:]), body))
+    bad = set()
+    for html in pages:
+        for tag, attr in _re.findall(r'<([a-z]+)[^>]*\sclass="([^"]*)"', html):
+            classes = set(attr.split())
+            if "shell" not in classes:
+                continue
+            for sel, rtag, rcls, body in rules:
+                if (not rtag or rtag == tag) and rcls <= classes:
+                    bad.add(f'<{tag} class="{attr}"> 撞上 {sel}{{{body}}}')
+    return sorted(bad)
+
+
+# 四頁都要產一次：`shell` 的同框組合各頁不同（首頁 `hero lead shell`、
+# 另外三頁 `compact hero shell`、領域趨勢多一個 `line-section section shell`）。
+# 只產首頁的話，正好漏掉最多的那幾種。
+_EV1 = {"id": "e1", "date": "2026-07-20", "date_display": "2026-07-20",
+        "company": "OpenAI", "title": "T", "title_zh": "", "summary": "s",
+        "track": "模型能力與研究", "confidence": 80, "heat": None, "impact": 50,
+        "value": 60, "slug": "t", "coverage": "single", "independent_sources": 1,
+        "independent": 1, "evidence": [], "status": "published",
+        "category": "research", "keywords": [], "layers": {}}
+_PAGES = [_rmod.build_home([_EV1], {}, "now"), _rmod.build_lines([_EV1], {}, "now"),
+          _rmod.build_timeline([_EV1], "now"), _rmod.build_signals([], {}, "now")]
+acase("版型：.shell 的置中不得被同框的規則蓋掉"
+      "（`lead` 一個名字兩個用途，裸的 .lead{margin:0} 把首頁 hero 推到左邊界）",
+      _shell_conflicts(_R_CSS, _PAGES), [])
+# 反向：這個檢查真的抓得到那個形狀，不是永遠回空清單。
+acase("版型：上面那個檢查會紅——把 p.lead 改回裸的 .lead 就抓得到",
+      len(_shell_conflicts(_R_CSS.replace("p.lead{", ".lead{"), _PAGES)), 1)
+# 修飾詞要真的出現在產出裡。查 CSS 有沒有 `.hero.lead h1{...}` 是查不到這件事的
+# ——規則在、class 沒掛上去，首頁的 h1 就靜靜縮回 --fs-h1，而 CSS 那條測試照樣綠。
+acase("版型：首頁產出的 hero 真的帶著 lead 修飾詞（只有首頁帶）",
+      [_re.search(r'<section class="([^"]*)"', _p).group(1) for _p in _PAGES],
+      ["hero lead shell", "hero compact shell", "hero compact shell",
+       "hero compact shell"])
 # kicker 是等寬、字距 .18em 的小標。中文在那個字距下會被拆開，
 # 而且它跟旁邊的 h1 同語言、資訊重複。
 # 點了導覽上的「關鍵變化」，落地那一頁的 h1 完全不含那四個字——讀者沒有辦法

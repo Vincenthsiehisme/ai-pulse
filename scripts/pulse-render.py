@@ -228,7 +228,12 @@ article.event:hover{border-color:var(--border);transform:translateY(-1px)}
 .chip.track{color:var(--tc,var(--muted));border-color:color-mix(in srgb,var(--tc,var(--border)) 40%,var(--border))}
 article.event h2{font-size:var(--fs-h2);line-height:1.34;letter-spacing:-.01em;margin:.1rem 0 .5rem;font-weight:640}
 article.event h2 a:hover{color:var(--accent)}
-.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
+/* 綁 p 不是裸的 .lead：`lead` 這個名字被兩個東西共用——事件摘要段落（這一條）與
+   首頁 hero 的尺寸修飾詞（.hero.lead）。裸的 .lead 排在 .shell 之後、同權重，它的
+   margin:0 於是蓋掉 .shell 的 margin-inline:auto。2026-07-28 實測：首頁整個 hero
+   貼齊左邊界（x=0，其他四頁 x=323），h1 連 color 也一起吃到 --muted。
+   綁上 p 之後它永遠命中不到 <section>。同框衝突由 selftest 機械檢查。 */
+p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .layers{margin-top:18px;display:flex;flex-direction:column;gap:14px}
 .layer .lbl{font:var(--fs-micro) var(--mono);letter-spacing:.1em}
 .layer p{margin:6px 0 0;font-size:var(--fs-base)}
