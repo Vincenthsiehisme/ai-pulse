@@ -1099,30 +1099,125 @@ acase("ghdesc：重譯的條目附上舊譯文，潤稿端才知道這不是全�
 acase("ghdesc：從沒譯過的 repo，stale_zh 是 None（跟「重譯」區分得開）",
       _gd.pending(_repos(_EN), {})[0]["stale_zh"], None)
 
+_NOTE_B = _dam.MISSING_NOTE["board"]
+
 acase("apply：乾淨的一行過關，並吃掉句尾句號（榜是一行字不是句子）",
-      _dam.validate("acme/kit", "拿來組 agent 的工具包。", _EN)[:2], (_ZH, None))
+      _dam.validate("拿來組 agent 的工具包。", _EN, _NOTE_B)[:2], (_ZH, None))
 acase("apply：英文原樣貼回來不算翻譯 → 退件",
-      _dam.validate("acme/kit", _EN, _EN)[1],
+      _dam.validate(_EN, _EN, _NOTE_B)[1],
       "沒有任何中文字（英文原樣貼回來不算翻譯）")
 acase("apply：空白 → 退件",
-      _dam.validate("acme/kit", "   ", _EN)[1], "空白")
+      _dam.validate("   ", _EN, _NOTE_B)[1], "空白")
 acase(f"apply：超過 {_dam.MAX_LEN} 字 → 退件（版面是一行）",
-      _dam.validate("acme/kit", "工" * (_dam.MAX_LEN + 1), _EN)[1],
+      _dam.validate("工" * (_dam.MAX_LEN + 1), _EN, _NOTE_B)[1],
       f"超過 {_dam.MAX_LEN} 字（榜是一行字的版面）")
 acase("apply：AI 腔套話 → 退件",
-      _dam.validate("acme/kit", "值得關注的 agent 工具包", _EN)[1],
+      _dam.validate("值得關注的 agent 工具包", _EN, _NOTE_B)[1],
       "含 AI 腔套話：值得關注")
 acase("apply：不在當下榜單上的 repo → 退件（榜換過了，別亂寫進去）",
-      _dam.validate("ghost/repo", _ZH, None)[1],
+      _dam.validate(_ZH, None, _NOTE_B)[1],
       "不在目前榜單上（榜換過了，下次 prep 會再排進來）")
 # voice_clean.clean 回的是 tuple。這條同時測「中國用語有換掉」與「apply 有把
 # tuple 拆開」——沒拆的話 zh 會變成一整串 tuple 的字串，長度爆表、CJK 也還在，
 # 前四關全部放行，最後是榜上掛一句 "('...', [...])"。這種錯只有測得到才看得到。
-_v_cn = _dam.validate("acme/kit", "短視頻的推薦引擎工具包", _EN)
+_v_cn = _dam.validate("短視頻的推薦引擎工具包", _EN, _NOTE_B)
 acase("apply：中國用語走 voice_clean 後洗（跟 enrich 同一支後洗）",
       _v_cn[0], "短影音的推薦引擎工具包")
 acase("apply：後洗改了什麼要帶回來（不能只有機器自己知道）",
       [c[1] for c in _v_cn[2]], ["短視頻"])
+
+# --- 英文原文從哪來：這一組要打在 main() 上，不能只打 validate() -----------
+# 2026-07-28 實測（乾淨 clone origin/main、沒有 dist/，因為 .gitignore 第 12 行）：
+# 3 條完全合格的譯文 3/3 退件、離開碼 0、理由印「不在目前榜單上（榜換過了）」，
+# 而榜一次都沒換——是 main() 讀不到榜、用 `else {"repos": []}` 把「我讀不到」
+# 代理成「榜上沒有這條」。
+#
+# 舊測試只打 validate("ghost/repo", _ZH, None)，而 validate() 只拿得到一個 bool，
+# 本來就分不出「榜上沒有」跟「讀不到榜」——那條測試永遠不會為了這個 bug 變紅。
+# 這是空測試的第三種形狀：**斷言只碰到被改壞那段程式的外圍**。
+import contextlib as _c2  # noqa: E402
+import json as _js2  # noqa: E402
+import tempfile as _tf8  # noqa: E402
+from pathlib import Path as _P2  # noqa: E402
+
+_BOARD = {"repos": [{"full_name": "acme/kit", "desc": _EN}]}
+_WORK = [{"full_name": "acme/kit", "desc": _EN, "stale_zh": None}]
+
+acase("apply：榜讀得到 → 原文用榜的",
+      _dam.english_source(_BOARD, None), ({"acme/kit": _EN}, "board"))
+acase("apply：榜讀不到（潤稿端的常態）→ 退回 worklist 的原文，不是把榜當成空的",
+      _dam.english_source(None, _WORK), ({"acme/kit": _EN}, "worklist"))
+acase("apply：那一班沒抓到榜（measured: false）不算「榜讀得到」——"
+      "跟 prep 同一個判準",
+      _dam.english_source({"repos": [], "measured": False}, _WORK)[1], "worklist")
+acase("apply：兩邊都讀不到 → 回 None，讓呼叫端非零離開（量不到 ≠ 沒東西要翻）",
+      _dam.english_source(None, None), (None, "none"))
+acase("apply：榜是空的但真的量到了（0 條上榜）仍算榜讀得到",
+      _dam.english_source({"repos": []}, _WORK)[1], "board")
+acase("apply：全數退件的離開碼跟「今晚沒東西要翻」分得開",
+      [_dam.exit_code(3, 0), _dam.exit_code(3, 1), _dam.exit_code(0, 0)], [3, 0, 0])
+
+
+def _run_apply(vault, result, board=None, worklist=None):
+    """在一個真的 vault 上跑一次 main()。→ (離開碼, stdout+stderr)"""
+    v = _P2(vault)
+    (v / "_probe").mkdir(parents=True, exist_ok=True)
+    if board is not None:
+        (v / "dist" / "data").mkdir(parents=True, exist_ok=True)
+        (v / "dist" / "data" / "github.json").write_text(
+            _js2.dumps(board), encoding="utf-8")
+    if worklist is not None:
+        (v / "_probe" / "github-desc-worklist.json").write_text(
+            _js2.dumps(worklist), encoding="utf-8")
+    rp = v / "result.json"
+    rp.write_text(_js2.dumps(result, ensure_ascii=False), encoding="utf-8")
+    buf = io.StringIO()
+    old_argv, old_vault = sys.argv, os.environ.get("VAULT_DIR")
+    sys.argv, os.environ["VAULT_DIR"] = ["apply", "--in", str(rp)], str(v)
+    try:
+        with _c2.redirect_stdout(buf), _c2.redirect_stderr(buf):
+            code = _dam.main()
+    finally:
+        sys.argv = old_argv
+        if old_vault is None:
+            os.environ.pop("VAULT_DIR", None)
+        else:
+            os.environ["VAULT_DIR"] = old_vault
+    return code, buf.getvalue()
+
+
+with _tf8.TemporaryDirectory() as _av:
+    _code, _out = _run_apply(_av, {"acme/kit": _ZH}, board=None, worklist=_WORK)
+    acase("apply（實跑）：沒有 dist/ 的乾淨 clone 上，合格譯文要過關——"
+          "這正是 2026-07-28 3/3 退件的那一種 vault",
+          (_code, "[退件]" in _out), (0, False))
+    acase("apply（實跑）：譯文真的寫進 _github/desc-zh.json",
+          _gd.load(_P2(_av)).get("acme/kit", {}).get("zh"), _ZH)
+    acase("apply（實跑）：雜湊綁的是 worklist 那句英文，所以下一班 attach() 掛得回去",
+          _gd.attach([{"full_name": "acme/kit", "desc": _EN}],
+                     _gd.load(_P2(_av)))[0]["desc_zh"], _ZH)
+    acase("apply（實跑）：榜讀不到就**不生一份假的**——"
+          "落一個 {repos: []} 下去，prep 下次會印「今晚沒有東西要翻」",
+          (_P2(_av) / "dist" / "data" / "github.json").exists(), False)
+
+with _tf8.TemporaryDirectory() as _av2:
+    _code2, _out2 = _run_apply(_av2, {"ghost/repo": _ZH}, board=_BOARD, worklist=_WORK)
+    acase("apply（實跑）：榜讀得到而 repo 不在榜上 → 這時候「榜換過了」才是實話",
+          (_code2, _dam.MISSING_NOTE["board"] in _out2), (3, True))
+
+with _tf8.TemporaryDirectory() as _av4:
+    # 兩句退件訊息不能講同一件事。講同一句的話，讀訊息的人會去查 GitHub 榜單，
+    # 而榜單完全沒有問題——2026-07-28 那次就是這樣被指向錯的地方。
+    _code4, _out4 = _run_apply(_av4, {"ghost/repo": _ZH}, board=None, worklist=_WORK)
+    acase("apply（實跑）：榜讀不到而 repo 也不在 worklist 上 → 退件理由要說榜讀不到，"
+          "不能說「榜換過了」（榜沒換，是沒讀到）",
+          (_code4, _dam.MISSING_NOTE["worklist"] in _out4,
+           _dam.MISSING_NOTE["board"] in _out4), (3, True, False))
+
+with _tf8.TemporaryDirectory() as _av3:
+    _code3, _out3 = _run_apply(_av3, {"acme/kit": _ZH}, board=None, worklist=None)
+    acase("apply（實跑）：榜與 worklist 都讀不到 → 離開碼 2，不是把每一條靜靜退掉",
+          (_code3, "[退件]" in _out3), (2, False))
 
 # ------------------------------------------- 來源層健康分（2026-07-26 接上）
 # 規格：references/source-lifecycle.md。這一組測試的重心不在「會不會降級」，
