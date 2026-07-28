@@ -1,6 +1,20 @@
-# 已發布事件（41）
+# 已發布事件（47）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-07-28
+- **[[Events/evt-2026-07-28-0162e2|LFM2.5-Encoders for Fast Long-Context Inference on CPU]]** — LiquidAI · model-capability · conf 73 · heat 未量測
+  LiquidAI 發表可在 CPU 跑長脈絡的 encoder 模型 LFM2.5-Encoders
+- **[[Events/evt-2026-07-28-1cc93a|Position Open Weights Models]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發表對 open-weights 模型的官方立場文
+- **[[Events/evt-2026-07-28-5b94da|Grok Build Mode]]** — xAI · product · conf 73 · heat 未量測
+  xAI 為 Grok 推出 Build Mode
+- **[[Events/evt-2026-07-28-8ecafa|Powerful Compute So Compact, It’s Clutch — Build AI Anywhere With NVIDIA Jetson]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 用 Jetson 主打邊緣端「隨處建 AI」的行銷貼文
+- **[[Events/evt-2026-07-28-a1c41f|Scientific computing in the age of agentic AI]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI field report：科學家用 AI coding agent 改造科學計算
+- **[[Events/evt-2026-07-28-cd0a00|The OlmoEarth Platform: Geospatial inference at planetary scale]]** — AllenAI · product · conf 73 · heat 未量測
+  Ai2 發表 OlmoEarth，做行星尺度地理空間推論
 
 ## 2026-07-27
 - **[[Events/evt-2026-07-27-1b4ef0|How AI is expanding what people do at work]]** — OpenAI · research · conf 73 · heat 未量測
