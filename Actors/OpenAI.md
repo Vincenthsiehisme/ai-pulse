@@ -3,18 +3,18 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-07-27'
+generated_day: '2026-07-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **11** 則：`published` 10、`review` 1
+事件 **11** 則：`published` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-07-27 | [[Events/evt-2026-07-27-1b4ef0\|How AI is expanding what people do at work]] | review |
+| 2026-07-27 | [[Events/evt-2026-07-27-1b4ef0\|How AI is expanding what people do at work]] | published |
 | 2026-07-23 | [[Events/evt-2026-07-23-b82259\|Launching Health in ChatGPT]] | published |
 | 2026-07-22 | [[Events/evt-2026-07-22-af7762\|Advancing the next era of national science]] | published |
 | 2026-07-22 | [[Events/evt-2026-07-22-8a7a1d\|Introducing OpenAI Presence]] | published |

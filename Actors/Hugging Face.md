@@ -3,7 +3,7 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-07-27'
+generated_day: '2026-07-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

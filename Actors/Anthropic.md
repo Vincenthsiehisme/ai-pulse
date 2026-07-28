@@ -3,18 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-07-27'
+generated_day: '2026-07-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **8** 則：`published` 6、`review` 2
+事件 **8** 則：`published` 7、`review` 1
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-07-27 | [[Events/evt-2026-07-27-32add4\|Cognizant Anthropic]] | review |
+| 2026-07-27 | [[Events/evt-2026-07-27-32add4\|Cognizant Anthropic]] | published |
 | 2026-07-25 | [[Events/evt-2026-07-25-0fa594\|Claude Opus 5]] | published |
 | 2026-07-24 | [[Events/evt-2026-07-24-4f2f9f\|Economic Futures Research Fund Agenda]] | published |
 | 2026-07-23 | [[Events/evt-2026-07-23-4f7d28\|Claude For Creative Work Dev]] | published |
