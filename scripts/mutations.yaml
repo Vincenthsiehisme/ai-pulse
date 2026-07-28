@@ -1302,3 +1302,35 @@ mutations:
     replace: "一格一個月"
     survives: false
     why: ""
+
+  - id: M149
+    title: "首頁標頭改回自成一套（.mh-* 六條規則沒有一條的 token 跟 hero 對得上——同一種東西長成兩套，改一邊另一邊悄悄分岔）"
+    file: pulse-render.py
+    find: ".hero.lead h1{font-size:var(--fs-display);line-height:1.02;letter-spacing:-.03em;max-width:20ch;text-wrap:balance}"
+    replace: ".mh-title{font-size:var(--fs-display);line-height:1.02;letter-spacing:-.03em;max-width:20ch;text-wrap:balance}"
+    survives: false
+    why: ""
+
+  - id: M150
+    title: "kicker 混用中英（中文在 .18em 字距下會被拆開，而且跟旁邊的 h1 同語言、資訊重複）"
+    file: pulse-render.py
+    find: "    h = hero(\"TOPIC LINES\", \"領域趨勢\","
+    replace: "    h = hero(\"六大主線\", \"領域趨勢\","
+    survives: false
+    why: ""
+
+  - id: M151
+    title: "GitHub 動能那一頁改回自己抄一份 chrome（手抄那份沒有 mobile-nav，手機讀者進去之後除了上一頁沒有出路）"
+    file: pulse-github.py
+    find: "    return r.page_layout(\"github\", \"GitHub 動能 — AI Pulse\",\n                         \"AI 主題 repo 星速榜：開發者最近在關注什麼的領先指標。\"\n                         \"星數＝注意力，不必然等於採用。\",\n                         body, 1, generated)"
+    replace: "    return body"
+    survives: false
+    why: ""
+
+  - id: M152
+    title: "導覽標籤與落地頁的 h1 對不上（點了「關鍵變化」，那一頁沒有任何地方寫著關鍵變化）"
+    file: pulse-render.py
+    find: "                     \"AI 產業的關鍵變化，每則查得到出處\","
+    replace: "                     \"AI 產業在發生什麼，每則查得到出處\","
+    survives: false
+    why: ""
