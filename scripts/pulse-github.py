@@ -102,42 +102,52 @@ def rank(current, state, now, top_n):
     return ranked[:top_n]
 
 
-GH_VIEW = """<!doctype html><html lang="zh-Hant"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GitHub 動能 — AI Pulse</title>
-<meta name="description" content="AI 主題 repo 星速榜：開發者最近在關注什麼的領先指標。星數＝注意力（不必然等於採用）。純規則、零 LLM。">
-<meta name="color-scheme" content="dark light"><link rel="stylesheet" href="../assets/app.css">
-<style>
-.gh-wrap{padding:clamp(30px,5vw,52px) 0 clamp(60px,9vw,110px)}
-.gh-note{color:var(--quiet);font:11px var(--mono);margin:0 0 18px}
-.gh-row{display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:baseline;padding:15px 4px;border-bottom:1px solid var(--border-soft)}
-.gh-row:hover{background:var(--surface-soft)}
-.gh-rank{font:600 15px var(--mono);color:var(--quiet);text-align:right}
-.gh-main .n{font-size:1.05rem;font-weight:600;line-height:1.35}
-.gh-main .n a{color:var(--text)}.gh-main .n a:hover{color:var(--accent)}
-.gh-main .d{color:var(--muted);font-size:.9rem;margin:3px 0 0}
-/* 原文一律留著。譯文是二手的，讀者要能一眼看到一手的那句。 */
-.gh-main .d-src{color:var(--quiet);font:11px/1.5 var(--mono);margin:2px 0 0}
-.gh-main .t{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
-.gh-tag{font:9px var(--mono);letter-spacing:.04em;padding:2px 7px;border-radius:5px;background:var(--surface-soft);color:var(--muted);border:1px solid var(--border-soft)}
-.gh-new{color:var(--fact);border-color:color-mix(in srgb,var(--fact) 40%,var(--border))}
-.gh-metric{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.gh-metric .v{font:700 16px var(--mono);color:var(--fact)}
-.gh-metric .v.down{color:var(--muted)}
-.gh-metric .s{display:block;color:var(--quiet);font:10px var(--mono);margin-top:2px}
-.gh-none{color:var(--quiet);font:12px var(--mono);text-align:center;padding:40px}
-</style></head><body data-page="github">
-<header class="topbar">
-<a class="brand" href="../" aria-label="AI Pulse 首頁"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span><strong>AI PULSE</strong><small>0 LLM 判斷 · 去 AI 口吻</small></span></a>
-<nav class="desktop-nav" aria-label="主導覽"><a href="../">關鍵變化</a><a href="../lines/">領域趨勢</a><a href="../timeline/">事件時間軸</a><a href="../signals/">來源更新</a><a href="../github/" aria-current="page">GitHub 動能</a></nav>
-</header>
-<main id="main"><section class="hero compact shell"><div><span class="kicker">DEVELOPER MOMENTUM · 星數＝注意力訊號 · 零 LLM</span><h1>GitHub 竄起什麼</h1><p>AI 主題 repo 的星速榜——開發者最近在關注什麼的領先指標，常比新聞早。注意：星數是<strong>注意力</strong>，不必然等於採用或重要性；星速＝跨執行的星數增量，純規則、可累積。</p></div></section>
-<section class="gh-wrap shell">
+def _render():
+    """import pulse-render.py，借它的 page_layout。檔名有連字號，只能走 importlib。
+
+    **為什麼不自己寫一份 HTML**：這一頁原本是一整份手抄的複本——自己的 topbar、
+    自己的 `<style>`、自己的 hero。抄出來的東西會漂，而且已經漂了：
+
+      - **手機上完全沒有導覽。** 共用版有 `.mobile-nav`，`@media(max-width:720px)`
+        會把 `.desktop-nav` 藏起來；這一頁只抄了 desktop 那半。也就是說手機讀者
+        進到這一頁之後，除了按上一頁沒有任何出路。
+      - 沒有 footer、沒有深淺色切換、沒有跳至內容的 skip link。
+      - 站頭還寫著「0 LLM 判斷 · 去 AI 口吻」、kicker 還寫著「零 LLM」——
+        那兩句在別的四頁已經因為不精確被換掉了（敘述那一層是有潤稿的），
+        只有這一頁沒跟上，因為它不經過 pulse-render。
+      - 六個硬寫字級、零個級距 token。
+
+    五頁裡有一頁是手抄的，就是「同一種東西長成兩套」在頁面層級的版本。
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "pulse_render", os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                     "pulse-render.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def gh_page(generated: str) -> str:
+    r = _render()
+    body = (r.hero("DEVELOPER MOMENTUM", "GitHub 竄起什麼",
+                   "AI 主題 repo 的星速榜——開發者最近在關注什麼，常比新聞早。"
+                   "星數是**注意力**，不必然等於採用或重要性。", cls="compact")
+            .replace("**注意力**", "<strong>注意力</strong>")
+            + GH_BODY)
+    return r.page_layout("github", "GitHub 動能 — AI Pulse",
+                         "AI 主題 repo 星速榜：開發者最近在關注什麼的領先指標。"
+                         "星數＝注意力，不必然等於採用。",
+                         body, 1, generated)
+
+
+GH_BODY = """<section class="gh-wrap shell">
 <p class="gh-note" id="meta"></p>
 <div id="list"></div>
 <p class="gh-none" id="none" style="display:none">尚無資料（等第一次抓取後累積）。</p>
-</section></main>
+</section>
 <script>
+
 function esc(s){return (s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
 function fmt(n){return n>=1000?(n/1000).toFixed(1)+"k":(""+n);}
 function row(r,i){
@@ -164,7 +174,8 @@ function draw(d){
 }
 fetch("../data/github.json").then(r=>r.json()).then(draw)
   .catch(()=>{document.getElementById("meta").textContent="github.json 載入失敗";});
-</script></body></html>"""
+</script>"""
+
 
 
 def write_desc_coverage(vault, now, ranked_n, with_zh_n):
@@ -234,7 +245,7 @@ def main():
                 json.dumps({"generated": generated, "count": 0, "repos": [],
                             "measured": False}, ensure_ascii=False, indent=2),
                 encoding="utf-8")
-        (out / "github" / "index.html").write_text(GH_VIEW, encoding="utf-8")
+        (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
         # 這一班量不到榜單，但**中文有幾條照樣量得到**（那只是數檔案）。
         # 量不到的兩格寫 null，不寫 0（紅線 8）——寫 0 會讓「今天問不到 GitHub」
         # 看起來跟「今天榜上一條中文都沒有」一樣。
@@ -249,7 +260,7 @@ def main():
         json.dumps({"generated": generated, "count": len(ranked), "repos": ranked,
                     "measured": True},
                    ensure_ascii=False, indent=2), encoding="utf-8")
-    (out / "github" / "index.html").write_text(GH_VIEW, encoding="utf-8")
+    (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
 
     # 更新快照（一天一次，維持乾淨的 Δ/天基線）；進版控
     if do_snapshot:

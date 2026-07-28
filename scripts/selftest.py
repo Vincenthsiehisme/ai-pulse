@@ -4502,6 +4502,43 @@ acase("標頭：首頁的大只由 .hero.lead 表達，不是另一套規則",
        _R_CSS.count(".hero h1{font-size:var(--fs-h1)")], [True, 1])
 # kicker 是等寬、字距 .18em 的小標。中文在那個字距下會被拆開，
 # 而且它跟旁邊的 h1 同語言、資訊重複。
+# 點了導覽上的「關鍵變化」，落地那一頁的 h1 完全不含那四個字——讀者沒有辦法
+# 確認自己到了。其他三頁的導覽字都出現在 h1 裡。
+# 這一條第一版把 (導覽字, h1) 的對照**寫死在測試裡**——那是拿測試自己寫的字
+# 去比對，碼怎麼改都會過（M152 因此活下來）。第八次同一個形狀。
+# 改成真的產一次首頁、把 h1 抓出來，跟 NAV 裡的字比。
+_home_h1 = _re.search(r"<h1[^>]*>([^<]*)", _rmod.build_home([], {}, "now")).group(1)
+acase("導覽：導覽上的「關鍵變化」要在首頁的 h1 裡找得到"
+      "（點下去落地的那一頁如果沒有那四個字，讀者無從確認自己到了哪）",
+      [_rmod.NAV[0][1] in _home_h1, _rmod.NAV[0][1]], [True, "關鍵變化"])
+
+# GitHub 動能那一頁原本是一整份手抄的 HTML：自己的 topbar、自己的 <style>、
+# 自己的 hero。抄出來的東西會漂，而且已經漂了——手機上它完全沒有導覽。
+_GH_SRC = open(os.path.join(_HERE, "pulse-github.py"), encoding="utf-8").read()
+acase("GitHub 動能：那一頁走共用的 page_layout，不再自己抄一份 chrome"
+      "（抄出來的那份沒有 mobile-nav：@media(max-width:720px) 會把 desktop-nav "
+      "藏起來，手機讀者進去之後除了上一頁沒有出路）",
+      ["page_layout(" in _GH_SRC, "<header class=\"topbar\">" in _GH_SRC,
+       "GH_VIEW" in _GH_SRC], [True, False, False])
+# 這一條第一版用 grep 原始碼查 `<style>`，結果打中的是**我自己寫在 docstring
+# 裡解釋這件事的那句話**。同一個形狀這條分支上已經第七次：
+# 判斷「產出裡有沒有這個東西」不能靠在原始碼裡找字。改成產一次頁面再看。
+_gh_spec = importlib.util.spec_from_file_location(
+    "pulse_github", os.path.join(_HERE, "pulse-github.py"))
+_ghmod = importlib.util.module_from_spec(_gh_spec)
+_gh_spec.loader.exec_module(_ghmod)
+_GH_PAGE = _ghmod.gh_page("2026-07-28 08:00 台北時間")
+acase("GitHub 動能：產出的頁面裡沒有自己的 <style>，樣式全走共用樣式表"
+      "（六個硬寫字級、零個級距 token，而收字級那一輪它整份被跳過）",
+      "<style>" in _GH_PAGE, False)
+acase("GitHub 動能：產出的頁面帶得到手機導覽、頁尾、深淺色切換"
+      "（手抄那份三個都沒有——手機讀者進去之後除了上一頁沒有出路）",
+      [c for c in ("mobile-nav", "footer", "data-theme-toggle")
+       if c not in _GH_PAGE], [])
+acase("GitHub 動能：產出的頁面不再帶那兩句已經被換掉的宣稱"
+      "（它不經過 pulse-render，所以四頁都改完了它還留著）",
+      [w for w in ("0 LLM", "零 LLM") if w in _GH_PAGE], [])
+
 acase("標頭：四個 kicker 語言一致（全英文小標）",
       [_k for _k in _re.findall(r'hero\(\s*"([^"]+)"', _HEAD_SRC)
        if _re.search(r"[一-鿿]", _k)], [])
