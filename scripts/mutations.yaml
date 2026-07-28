@@ -1334,3 +1334,53 @@ mutations:
     replace: "                     \"AI 產業在發生什麼，每則查得到出處\","
     survives: false
     why: ""
+
+  # ── 榜讀不到 ≠ 榜上沒有這條（2026-07-28 實測 3/3 退件、離開碼 0）──
+
+  - id: M153
+    title: "榜讀不到時把榜當成空的（潤稿端 clone 沒有 dist/，於是每一條合格譯文都被退件，理由印「榜換過了」——而榜一次都沒換）"
+    file: pulse-github-desc-apply.py
+    find: "    if isinstance(worklist, list):\n        return {w.get(\"full_name\"): (w.get(\"desc\") or \"\") for w in worklist}, \"worklist\""
+    replace: "    if isinstance(worklist, list):\n        return {}, \"board\""
+    survives: false
+    why: ""
+
+  - id: M154
+    title: "兩邊都讀不到時回一份空榜（量不到被寫成「這些 repo 都不在榜上」，每一條靜靜退掉且離開碼 0）"
+    file: pulse-github-desc-apply.py
+    find: "    return None, \"none\""
+    replace: "    return {}, \"board\""
+    survives: false
+    why: ""
+
+  - id: M155
+    title: "全數退件照樣回 0（「一條都沒過」跟「今晚沒有東西要翻」在離開碼上長得一樣，而收尾摘要照離開碼寫）"
+    file: pulse-github-desc-apply.py
+    find: "    return 3 if n_received and not n_ok else 0"
+    replace: "    return 0"
+    survives: false
+    why: ""
+
+  - id: M156
+    title: "那一班沒抓到榜（measured: false）也算榜讀得到（拿一份空的佔位榜去比對，全部退件）"
+    file: pulse-github-desc-apply.py
+    find: "    if isinstance(repos, list) and board.get(\"measured\") is not False:"
+    replace: "    if isinstance(repos, list):"
+    survives: false
+    why: ""
+
+  - id: M157
+    title: "兩種退件講同一句話（讀訊息的人會去查 GitHub 榜單，而榜單完全沒有問題）"
+    file: pulse-github-desc-apply.py
+    find: "    \"worklist\": \"不在這一班的待譯清單上（榜讀不到，只能拿 worklist 比對）\","
+    replace: "    \"worklist\": \"不在目前榜單上（榜換過了，下次 prep 會再排進來）\","
+    survives: false
+    why: ""
+
+  - id: M158
+    title: "榜讀不到還是生一份出來（落一個 {repos: []} 的假榜單，prep 下次讀到它會印「今晚沒有東西要翻」——同一個病往下再傳染一層）"
+    file: pulse-github-desc-apply.py
+    find: "    if origin == \"board\":\n        board = dict(board or {}, repos=repos)"
+    replace: "    if True:\n        board = dict(board or {}, repos=repos)"
+    survives: false
+    why: ""
