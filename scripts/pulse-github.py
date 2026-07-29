@@ -126,7 +126,10 @@ def rank(current, state, now, top_n):
     by_velocity = sorted(rows, key=lambda x: (x["velocity"] is not None,
                                               x["velocity"] or 0, x["stars"]), reverse=True)
     by_surge = [x for x in rows if x["surge"] is not None]
-    by_surge.sort(key=lambda x: (x["surge"], x["stars"]), reverse=True)
+    # 同分用名字破，不用星數：相對增量打平的時候，拿星數破等於把絕對軸的
+    # 偏袒偷渡回相對軸——而這個榜存在的理由就是不要那個偏袒。名字是任意的，
+    # 但至少不偏袒任何一種 repo，而且重跑會得到同一個順序。
+    by_surge.sort(key=lambda x: (-x["surge"], x["full_name"]))
 
     top = by_velocity[:top_n]
     surge_top = by_surge[:top_n]

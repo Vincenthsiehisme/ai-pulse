@@ -1463,8 +1463,8 @@ mutations:
   - id: M167
     title: "竄升榜改用絕對星速排（兩個榜從此是同一個榜，而『誰在竄』被大 repo 的先天累計優勢蓋掉）"
     file: pulse-github.py
-    find: "    by_surge.sort(key=lambda x: (x[\"surge\"], x[\"stars\"]), reverse=True)"
-    replace: "    by_surge.sort(key=lambda x: (x[\"velocity\"] or 0, x[\"stars\"]), reverse=True)"
+    find: "    by_surge.sort(key=lambda x: (-x[\"surge\"], x[\"full_name\"]))"
+    replace: "    by_surge.sort(key=lambda x: (-(x[\"velocity\"] or 0), x[\"full_name\"]))"
     survives: false
     why: ""
 
