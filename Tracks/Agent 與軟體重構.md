@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-07-28'
+generated_day: '2026-07-29'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,12 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **3** 則：`published` 1、`review` 2
+事件 **5** 則：`published` 3、`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-07-28 | [[Events/evt-2026-07-28-a1c41f\|Scientific computing in the age of agentic AI]] | published |
+| 2026-07-28 | [[Events/evt-2026-07-28-5b94da\|Grok Build Mode]] | published |
 | 2026-07-22 | [[Events/evt-2026-07-22-8a7a1d\|Introducing OpenAI Presence]] | published |
 | 2026-06-24 | [[Events/evt-2026-06-24-484ed7\|Introducing computer use in Gemini 3.5 Flash]] | review |
 | 2026-05-17 | [[Events/evt-2026-05-17-c9a5ce\|Introducing Google Antigravity 2.0]] | review |

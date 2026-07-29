@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-07-28'
+generated_day: '2026-07-29'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**5 天**（2026-07-24 … 2026-07-28），去重後 **681** 列。
+語料範圍：**6 天**（2026-07-24 … 2026-07-29），去重後 **742** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -20,20 +20,23 @@ generator: scripts/pulse-dictionary-gaps.py
 | Industry | 16 | 2 |
 | Research | 16 | 2 |
 | LLMs | 16 | 6 |
+| July | 12 | 6 |
 | LLM | 11 | 8 |
 | Union | 10 | 2 |
+| Here | 10 | 6 |
 | June | 9 | 4 |
 | Energy | 9 | 2 |
-| July | 9 | 5 |
 | Building | 9 | 7 |
-| Here | 9 | 6 |
 | U.S | 7 | 4 |
 | One | 7 | 5 |
 | Security | 6 | 3 |
 | Monday | 6 | 4 |
+| Gemma | 6 | 5 |
 | Learn | 6 | 3 |
+| Pro | 6 | 4 |
+| Thursday | 5 | 3 |
+| Tuesday | 5 | 3 |
 | Source | 5 | 2 |
-| Gemma | 5 | 4 |
 | Understanding | 5 | 3 |
 | San Francisco | 5 | 4 |
 | Power | 5 | 5 |
@@ -41,42 +44,39 @@ generator: scripts/pulse-dictionary-gaps.py
 | Learning | 5 | 3 |
 | January | 5 | 4 |
 | Fable | 5 | 3 |
-| Pro | 5 | 3 |
 | AI-native | 5 | 3 |
 | These | 5 | 3 |
 | There | 5 | 4 |
+| Apple | 5 | 2 |
 | Flash | 4 | 2 |
 | Making | 4 | 4 |
-| Thursday | 4 | 2 |
-| Tuesday | 4 | 2 |
 | Python | 4 | 2 |
 | Updated | 4 | 2 |
+| Part | 4 | 3 |
 | They | 4 | 3 |
+| Anatomy | 4 | 4 |
 | Built | 4 | 2 |
 | American | 4 | 4 |
 | Amazon | 4 | 2 |
+| Some | 4 | 4 |
 | Models | 4 | 3 |
 | When | 4 | 2 |
 | Opus | 4 | 3 |
+| Mac | 4 | 3 |
 | Chinese | 4 | 3 |
 | Trump | 4 | 3 |
-| Apple | 4 | 2 |
+| Samsung | 4 | 2 |
 | AI-powered | 3 | 3 |
 | Finding | 3 | 3 |
 | Users | 3 | 2 |
-| Part | 3 | 3 |
 | Extending | 3 | 2 |
 | AI-driven | 3 | 3 |
 | Data | 3 | 3 |
 | GPUs | 3 | 2 |
 | Plus | 3 | 3 |
 | Frontier | 3 | 2 |
-| Some | 3 | 3 |
 | However | 3 | 2 |
 | Large | 3 | 2 |
-| Let | 3 | 3 |
-| With | 3 | 3 |
-| From | 3 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,9 +87,9 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
+| Show HN | 16 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
 | Highlights | 14 | src-gh-vllm-releases |
-| Show HN | 13 | src-hn-frontpage |
 | European Union | 12 | src-ep-itre |
 | Draft | 10 | src-ep-itre |
 | AMENDMENTS | 9 | src-ep-itre |
@@ -98,7 +98,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | European Biotech Act | 9 | src-ep-itre |
 | Qwen | 8 | src-qwen-blog |
 | Minutes | 7 | src-ep-itre |
-| The Download | 6 | src-media-mit-techreview |
+| The Download | 7 | src-media-mit-techreview |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Wednesday | 4 | src-ep-itre |
 | Energy Source | 4 | src-ep-itre |

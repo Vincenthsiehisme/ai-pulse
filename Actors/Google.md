@@ -3,17 +3,18 @@ id: actor-google
 kind: company
 in_dictionary: true
 aliases: ["谷歌", "Alphabet"]
-generated_day: '2026-07-28'
+generated_day: '2026-07-29'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google
 
-事件 **6** 則：`published` 1、`review` 5
+事件 **7** 則：`published` 1、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-07-29 | [[Events/evt-2026-07-29-08f1e5\|We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control]] | review |
 | 2026-07-22 | [[Events/evt-2026-07-22-5d5ed0\|Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission]] | published |
 | 2026-07-13 | [[Events/evt-2026-07-13-cdd3fe\|Empowering India’s next generation of innovators with ATL Saathi]] | review |
 | 2026-06-24 | [[Events/evt-2026-06-24-484ed7\|Introducing computer use in Gemini 3.5 Flash]] | review |

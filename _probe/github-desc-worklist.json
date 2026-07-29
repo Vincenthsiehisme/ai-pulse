@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "full_name": "bojieli/ai-agent-book",
+    "desc": "《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "agent-memory",
+      "ai-agent",
+      "book",
+      "coding-agent",
+      "context-engineering"
+    ],
+    "stars": 26081,
+    "url": "https://github.com/bojieli/ai-agent-book",
+    "stale_zh": null
+  },
+  {
+    "full_name": "harry0703/MoneyPrinterTurbo",
+    "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workflow.",
+    "language": "Python",
+    "topics": [
+      "ai-video-generator",
+      "content-creation",
+      "ffmpeg",
+      "instagram-reels",
+      "llm",
+      "python"
+    ],
+    "stars": 100255,
+    "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+    "stale_zh": null
+  },
+  {
+    "full_name": "opendatalab/MinerU",
+    "desc": "Transforms complex documents like PDFs and Office docs into LLM-ready markdown/JSON for your Agentic workflows.",
+    "language": "Python",
+    "topics": [
+      "ai4science",
+      "document-analysis",
+      "docx",
+      "extract-data",
+      "layout-analysis",
+      "ocr"
+    ],
+    "stars": 76169,
+    "url": "https://github.com/opendatalab/MinerU",
+    "stale_zh": null
+  },
+  {
+    "full_name": "open-webui/open-webui",
+    "desc": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...)",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "llm",
+      "llm-ui",
+      "llm-webui",
+      "llms",
+      "mcp"
+    ],
+    "stars": 147218,
+    "url": "https://github.com/open-webui/open-webui",
+    "stale_zh": null
+  }
+]

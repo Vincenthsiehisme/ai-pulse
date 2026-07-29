@@ -3,18 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-07-28'
+generated_day: '2026-07-29'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **18** 則：`published` 14、`review` 4
+事件 **18** 則：`published` 15、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-07-28 | [[Events/evt-2026-07-28-8ecafa\|Powerful Compute So Compact, It’s Clutch — Build AI Anywhere With NVIDIA Jetson]] | review |
+| 2026-07-28 | [[Events/evt-2026-07-28-8ecafa\|Powerful Compute So Compact, It’s Clutch — Build AI Anywhere With NVIDIA Jetson]] | published |
 | 2026-07-27 | [[Events/evt-2026-07-27-fdbc38\|NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs and GPUs]] | published |
 | 2026-07-27 | [[Events/evt-2026-07-27-ccaf21\|NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics]] | published |
 | 2026-07-24 | [[Events/evt-2026-07-24-dd57bd\|At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners]] | published |

@@ -18,7 +18,7 @@ can_satisfy_primary: false
 endpoint: "https://lilianweng.github.io/index.xml"
 robots_checked_day: "2026-07-27"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-07-28"
+last_observed_day: "2026-07-29"
 items_observed: 20
 events_bound: 0
 events_published: 0

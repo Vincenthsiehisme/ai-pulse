@@ -3,7 +3,7 @@ id: actor-baidu
 kind: company
 in_dictionary: true
 aliases: ["百度"]
-generated_day: '2026-07-28'
+generated_day: '2026-07-29'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
