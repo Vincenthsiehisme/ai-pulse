@@ -78,28 +78,64 @@ def collect(cfg, token, now):
     return seen
 
 
+# 竄升榜的最低基數。相對成長率在低基數上會爆掉：10 顆星變 20 顆就是 +100%，
+# 沒有門檻的話那個榜會被剛開的空 repo 洗版，而「+100%/天」讀起來比任何真的
+# 竄升都猛。門檻印在頁面上——一個沒有寫出來的門檻，跟沒有門檻一樣會誤導。
+SURGE_FLOOR = 200
+
+
 def rank(current, state, now, top_n):
-    """純函式：用 state 的上次快照算星速，排名。可離線單測。"""
-    ranked = []
+    """純函式：用 state 的上次快照算兩軸，各排一次。可離線單測。
+
+    **為什麼是兩軸。** 只有絕對星速（Δ★/天）的時候，榜永遠是大 repo 的榜——
+    同樣一天，10 萬星的專案漲 200 顆很平常，2 千星的漲 200 顆是暴動，而排序看
+    不出差別。那正是這個 repo 一直在抓的形狀：**用一個對大者有系統性優勢的
+    指標，去代表「誰在竄」**。兩者在平常的日子重合，正好在有黑馬的那天分岔。
+
+    所以拆成兩個**各自誠實**的軸，不合成一個分數：
+
+      velocity  Δ★/天       誰吸走最多注意力（偏袒大 repo，這是它的定義不是缺陷）
+      surge     Δ%/天       誰漲得最快（偏袒小 repo，所以設 SURGE_FLOOR）
+
+    合成一個「動能分」等於再造一個代理指標，而權重要多少沒有人答得出來。
+    兩個榜並排，讀者自己看得到同一個 repo 在兩邊的位置。
+
+    **首次觀測不再給代理值。** 舊版拿「星數 ÷ 自建立以來的天數」當動能，那是
+    **歷史平均**不是現在的速度：三年前開的 5000 星專案會拿到 4.5★/天 排進前段，
+    而它這一週可能一顆都沒漲。兩點才有斜率，一點沒有——所以 velocity 留 None、
+    排在最後，頁面標「首次觀測」。量不到就說量不到。
+    """
+    rows = []
     now_ts = now.timestamp()
     for full, r in current.items():
         prev = state.get(full)
-        delta = velocity = None
+        delta = velocity = surge = None
         is_new = prev is None
+        prev_stars = None
         if prev and prev.get("ts"):
             days = max((now_ts - prev["ts"]) / 86400.0, 0.5)
-            delta = r["stars"] - prev.get("stars", r["stars"])
+            prev_stars = prev.get("stars", r["stars"])
+            delta = r["stars"] - prev_stars
             velocity = round(delta / days, 1)
-        r = dict(r, delta=delta, velocity=velocity, is_new=is_new)
-        # 動能分：有歷史用星速；首次觀測用「星數/自建立天數」當代理，並打首觀標記
-        if velocity is not None:
-            r["momentum"] = velocity
-        else:
-            age = max((now - datetime.fromisoformat((r["created"] or "2020-01-01") + "T00:00:00+00:00")).days, 1)
-            r["momentum"] = round(r["stars"] / age, 1)
-        ranked.append(r)
-    ranked.sort(key=lambda x: (x["momentum"] or 0, x["stars"]), reverse=True)
-    return ranked[:top_n]
+            if prev_stars >= SURGE_FLOOR:
+                surge = round(100.0 * delta / days / prev_stars, 2)
+        rows.append(dict(r, delta=delta, velocity=velocity, surge=surge,
+                         prev_stars=prev_stars, is_new=is_new))
+
+    # 沒有速度的排最後（None 不參與比較），同分再看星數。
+    by_velocity = sorted(rows, key=lambda x: (x["velocity"] is not None,
+                                              x["velocity"] or 0, x["stars"]), reverse=True)
+    by_surge = [x for x in rows if x["surge"] is not None]
+    by_surge.sort(key=lambda x: (x["surge"], x["stars"]), reverse=True)
+
+    top = by_velocity[:top_n]
+    surge_top = by_surge[:top_n]
+    # 兩榜的名次寫進同一批 dict，前台不必再算一次，也不會兩邊算出不同的名次。
+    for i, x in enumerate(top):
+        x["rank_velocity"] = i + 1
+    for i, x in enumerate(surge_top):
+        x["rank_surge"] = i + 1
+    return top, surge_top
 
 
 def _render():
@@ -130,11 +166,7 @@ def _render():
 
 def gh_page(generated: str) -> str:
     r = _render()
-    body = (r.hero("DEVELOPER MOMENTUM", "GitHub 竄起什麼",
-                   "AI 主題 repo 的星速榜——開發者最近在關注什麼，常比新聞早。"
-                   "星數是**注意力**，不必然等於採用或重要性。", cls="compact")
-            .replace("**注意力**", "<strong>注意力</strong>")
-            + GH_BODY)
+    body = r.hero("", "GitHub 竄起什麼", "", cls="compact") + GH_BODY
     return r.page_layout("github", "GitHub 動能 — AI Pulse",
                          "AI 主題 repo 星速榜：開發者最近在關注什麼的領先指標。"
                          "星數＝注意力，不必然等於採用。",
@@ -143,34 +175,56 @@ def gh_page(generated: str) -> str:
 
 GH_BODY = """<section class="gh-wrap shell">
 <p class="gh-note" id="meta"></p>
-<div id="list"></div>
+<div class="gh-two">
+  <div>
+    <div class="col-head">星速榜 · 誰吸走最多注意力</div>
+    <p class="gh-axis">絕對增量（★/天）。<b>這個軸偏袒大 repo</b>——同樣漲 200 顆，
+    在 10 萬星的專案是日常，在 2 千星的是暴動。那是它的定義，不是缺陷。</p>
+    <div id="list"></div>
+  </div>
+  <div>
+    <div class="col-head">竄升榜 · 誰漲得最快</div>
+    <p class="gh-axis">相對增量（%/天），<b id="floor"></b> 顆星以下不列——
+    低基數的百分比會爆掉（10 顆變 20 顆就是 +100%），而那讀起來比任何真的竄升都猛。</p>
+    <div id="surge"></div>
+    <p class="gh-none" id="surge-none" style="display:none">還沒有第二次觀測，算不出相對增量。</p>
+  </div>
+</div>
 <p class="gh-none" id="none" style="display:none">尚無資料（等第一次抓取後累積）。</p>
 </section>
 <script>
 
 function esc(s){return (s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
 function fmt(n){return n>=1000?(n/1000).toFixed(1)+"k":(""+n);}
-function row(r,i){
-  var mv = r.velocity!=null ? (r.velocity>=0?"+":"")+r.velocity+"★/天"
-        : "~"+r.momentum+"★/天";
-  var cls = (r.velocity!=null && r.velocity<0)?" down":"";
+function row(r,i,axis){
+  // 首次觀測沒有兩點就沒有斜率——印「首次觀測」不印一個算出來的數字。
+  var mv, cls="";
+  if(axis==="surge"){ mv = (r.surge>=0?"+":"")+r.surge+"%/天"; if(r.surge<0)cls=" down"; }
+  else if(r.velocity!=null){ mv = (r.velocity>=0?"+":"")+r.velocity+"★/天"; if(r.velocity<0)cls=" down"; }
+  else { mv = "首次觀測"; cls=" muted"; }
   var tags=[r.language?('<span class="gh-tag">'+esc(r.language)+'</span>'):""]
       .concat((r.topics||[]).slice(0,3).map(t=>'<span class="gh-tag">'+esc(t)+'</span>'))
       .concat(r.is_new?'<span class="gh-tag gh-new">首次觀測</span>':"").join("");
+  // 另一個榜的名次：同一個 repo 兩邊都上，本身就是資訊。
+  var other = axis==="surge" ? r.rank_velocity : r.rank_surge;
+  var xref = other ? '<span class="gh-xref">'+(axis==="surge"?"星速":"竄升")+' #'+other+'</span>' : "";
   return '<div class="gh-row"><div class="gh-rank">'+(i+1)+'</div>'
-    +'<div class="gh-main"><div class="n"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.full_name)+'</a></div>'
+    +'<div class="gh-main"><div class="n"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.full_name)+'</a>'+xref+'</div>'
     +(r.desc_zh?'<div class="d">'+esc(r.desc_zh)+'</div>':"")
     +(r.desc?'<div class="'+(r.desc_zh?"d-src":"d")+'">'+esc(r.desc)+'</div>':"")
     +'<div class="t">'+tags+'</div></div>'
     +'<div class="gh-metric"><span class="v'+cls+'">'+esc(mv)+'</span><span class="s">'+fmt(r.stars)+' ★</span></div></div>';
 }
 function draw(d){
-  var repos=d.repos||[];
+  var repos=d.repos||[], surging=d.surging||[];
   var zh=repos.filter(r=>r.desc_zh).length;
   document.getElementById("meta").textContent=(d.count||repos.length)+" 個 repo · 更新 "+(d.generated||"")
-    +" · 中文描述 "+zh+"/"+repos.length+"（排名純規則；描述由潤稿端翻寫，英文原文一併保留）";
+    +" · 中文描述 "+zh+"/"+repos.length+"（兩個榜都是純規則算的；描述由潤稿端翻寫，英文原文一併保留）";
+  document.getElementById("floor").textContent = d.surge_floor!=null ? d.surge_floor : "—";
   document.getElementById("none").style.display=repos.length?"none":"block";
-  document.getElementById("list").innerHTML=repos.map(row).join("");
+  document.getElementById("surge-none").style.display=surging.length?"none":"block";
+  document.getElementById("list").innerHTML=repos.map((r,i)=>row(r,i,"velocity")).join("");
+  document.getElementById("surge").innerHTML=surging.map((r,i)=>row(r,i,"surge")).join("");
 }
 fetch("../data/github.json").then(r=>r.json()).then(draw)
   .catch(()=>{document.getElementById("meta").textContent="github.json 載入失敗";});
@@ -252,12 +306,15 @@ def main():
         write_desc_coverage(vault, now, None, None)
         return 0
 
-    ranked = rank(current, state, now, cfg.get("top_n", 25))
+    ranked, surging = rank(current, state, now, cfg.get("top_n", 25))
     # 掛上潤稿端翻好的中文描述。抓取鏈不等它、也不產生它——沒有就是英文原文，
     # 榜照樣出得來。中文晚一步到（潤稿任務比 Actions 晚三小時）是設計，不是缺陷。
+    # 兩個榜都掛：同一個 repo 可能同時在兩邊，翻過的譯文要兩邊都看得到。
     ghdesc.attach(ranked, ghdesc.load(vault))
+    ghdesc.attach(surging, ghdesc.load(vault))
     (out / "data" / "github.json").write_text(
         json.dumps({"generated": generated, "count": len(ranked), "repos": ranked,
+                    "surging": surging, "surge_floor": SURGE_FLOOR,
                     "measured": True},
                    ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")

@@ -1457,3 +1457,37 @@ mutations:
     replace: "Tier {ev.get('tier') or '?'}"
     survives: false
     why: ""
+
+  # ── GitHub 竄升要兩個軸（2026-07-29）──
+
+  - id: M167
+    title: "竄升榜改用絕對星速排（兩個榜從此是同一個榜，而『誰在竄』被大 repo 的先天累計優勢蓋掉）"
+    file: pulse-github.py
+    find: "    by_surge.sort(key=lambda x: (x[\"surge\"], x[\"stars\"]), reverse=True)"
+    replace: "    by_surge.sort(key=lambda x: (x[\"velocity\"] or 0, x[\"stars\"]), reverse=True)"
+    survives: false
+    why: ""
+
+  - id: M168
+    title: "首次觀測用「星數÷建立至今天數」當速度（三年前開的 5000 星專案拿到 4.5★/天 排進前段，而它這週可能一顆都沒漲——歷史平均代理現在的速度）"
+    file: pulse-github.py
+    find: "    by_velocity = sorted(rows, key=lambda x: (x[\"velocity\"] is not None,\n                                              x[\"velocity\"] or 0, x[\"stars\"]), reverse=True)"
+    replace: "    for _x in rows:\n        if _x[\"velocity\"] is None:\n            _age = max((now - datetime.fromisoformat((_x[\"created\"] or \"2020-01-01\") + \"T00:00:00+00:00\")).days, 1)\n            _x[\"velocity\"] = round(_x[\"stars\"] / _age, 1)\n    by_velocity = sorted(rows, key=lambda x: (x[\"velocity\"] or 0, x[\"stars\"]), reverse=True)"
+    survives: false
+    why: ""
+
+  - id: M169
+    title: "竄升榜的最低基數拿掉（低基數的百分比會爆掉，榜被剛開的空 repo 洗版）"
+    file: pulse-github.py
+    find: "            if prev_stars >= SURGE_FLOOR:"
+    replace: "            if prev_stars >= 0:"
+    survives: false
+    why: ""
+
+  - id: M170
+    title: "頁面不寫「這個軸偏袒大 repo」（讀者看到一個榜，不知道它先天對誰有利）"
+    file: pulse-github.py
+    find: "<b>這個軸偏袒大 repo</b>"
+    replace: "這個軸"
+    survives: false
+    why: ""
