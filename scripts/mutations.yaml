@@ -1491,3 +1491,37 @@ mutations:
     replace: "這個軸"
     survives: false
     why: ""
+
+  # ── 預設底色只准有一個地方說了算（2026-07-29）──
+
+  - id: M171
+    title: "預設底色改回米色（使用者要的是白底；而且這是「站上長什麼樣」的第一印象，沒有任何測試看著它的話，下一次改版順手改掉不會有東西變紅）"
+    file: pulse-render.py
+    find: "  --canvas:#fff;--surface:#fafafa;--surface-2:#fff;--surface-soft:#f2f2f0;"
+    replace: "  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-2:#fff;--surface-soft:#eae5d8;"
+    survives: false
+    why: ""
+
+  - id: M172
+    title: "白色多開一份定義（[data-theme=paper-white] 把白色再寫一次——兩份說法平常一致，改一邊的那天分岔，而分岔的樣子是「切回去之後跟原本不一樣」）"
+    file: pulse-render.py
+    find: ":root[data-theme=newsprint]{"
+    replace: ":root[data-theme=paper-white]{--canvas:#fff;--surface-soft:#f2f2f0}\n:root[data-theme=newsprint]{"
+    survives: false
+    why: ""
+
+  - id: M173
+    title: "手機工具列的顏色留在米色（頁面是白的、工具列是米的，差一個色階；頁面本身完全正常，所以沒有人會從畫面上發現）"
+    file: pulse-render.py
+    find: "<meta name=\"theme-color\" content=\"#ffffff\">"
+    replace: "<meta name=\"theme-color\" content=\"#f4f1e8\">"
+    survives: false
+    why: ""
+
+  - id: M174
+    title: "切回白色改成設一個名字而不是移除屬性（等於承認白色有第二個名字，而那個名字底下什麼都沒定義——這一版剛好還原地正確，但它把「預設」跟「某個具名主題」混成一件事）"
+    file: pulse-render.py
+    find: "    if(root.getAttribute('data-theme')==='newsprint'){root.removeAttribute('data-theme');}\n    else{root.setAttribute('data-theme','newsprint');}"
+    replace: "    root.setAttribute('data-theme',\n      root.getAttribute('data-theme')==='newsprint'?'paper-white':'newsprint');"
+    survives: false
+    why: ""

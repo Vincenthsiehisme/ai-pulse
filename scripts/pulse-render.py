@@ -143,13 +143,17 @@ def ev_href(prefix, slug):
 
 # ─────────────────────────── CSS ───────────────────────────
 CSS = """
-/* 2026-07-28 改成報紙版型。**只有紙的兩種白**：預設米色（newsprint），
-   可切到純白（好列印、也給偏好高對比的人）。深色整組退場——一份報紙不會有
-   負片版，而維護兩套色票的代價是每次改都要記得改兩邊。
-   token 的名字全部沒動，所以其他四頁不必跟著改。 */
+/* 2026-07-28 改成報紙版型。**只有紙的兩種白**：預設純白，可切到米色
+   （newsprint）。深色整組退場——一份報紙不會有負片版，而維護兩套色票的代價是
+   每次改都要記得改兩邊。token 的名字全部沒動，所以其他四頁不必跟著改。
+
+   2026-07-29 把預設從米色換成白色。換的方式是**把白色搬進 :root、米色留在
+   [data-theme=newsprint]**，不是加一個 `[data-theme=paper-white]` 蓋回去——
+   後者會讓「預設長什麼樣」同時寫在兩個地方，而那兩個地方遲早會分岔。
+   預設＝沒有屬性時的樣子，所以預設只能寫在 :root。 */
 :root{
-  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-2:#fff;--surface-soft:#eae5d8;
-  --text:#14161a;--muted:#4a5058;--quiet:#7b818a;--border:#c6c0b2;--border-soft:#ded8ca;
+  --canvas:#fff;--surface:#fafafa;--surface-2:#fff;--surface-soft:#f2f2f0;
+  --text:#14161a;--muted:#4a5058;--quiet:#7b818a;--border:#d6d3cc;--border-soft:#e8e6e1;
   --accent:#8c2b1f;--accent-strong:#6f2118;
   --fact:#1f6b57;--analysis:#4a3f8c;--forecast:#8a6212;--impact:#a8442c;--danger:#9c332c;--blue:#1f4e79;
   /* 圓角整組退場：報紙沒有圓角，它靠規則線與留白分區。留著 token 是因為
@@ -181,10 +185,10 @@ CSS = """
   --fs-display:clamp(2.3rem,6.5vw,4.6rem);
   color-scheme:light;
 }
-/* 白底：只動紙與規則線這幾格，墨色不動——換的是紙不是印刷。 */
-:root[data-theme=paper-white]{
-  --canvas:#fff;--surface:#fafafa;--surface-2:#fff;--surface-soft:#f2f2f0;
-  --border:#d6d3cc;--border-soft:#e8e6e1;
+/* 米色（新聞紙）：只動紙與規則線這幾格，墨色不動——換的是紙不是印刷。 */
+:root[data-theme=newsprint]{
+  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-soft:#eae5d8;
+  --border:#c6c0b2;--border-soft:#ded8ca;
 }
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--canvas);color:var(--text);font-family:var(--font);line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
@@ -638,11 +642,13 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 JS = """
 (function(){
   var root=document.documentElement;
-  // 底色只有兩種紙：預設米色，切一下變白色。沒有深色版。
+  // 底色只有兩種紙：預設白色，切一下變米色。沒有深色版。
+  // 切回白色是**移除屬性**不是設一個 'paper-white'：白色的定義只有 :root 一份，
+  // 多一個名字就多一個「白色長什麼樣」的說法，而兩份說法遲早會不一樣。
   var btn=document.querySelector('[data-theme-toggle]');
   if(btn){btn.addEventListener('click',function(){
-    root.setAttribute('data-theme',
-      root.getAttribute('data-theme')==='paper-white'?'newsprint':'paper-white');
+    if(root.getAttribute('data-theme')==='newsprint'){root.removeAttribute('data-theme');}
+    else{root.setAttribute('data-theme','newsprint');}
   });}
   // 泳道判讀列：固定在格線下方，不蓋任何東西。
   // 沒有 JS 時每個點還有 <a title>，一樣讀得到，只是要等瀏覽器的原生提示。
@@ -720,7 +726,7 @@ def page_layout(active, title, desc, body, depth, generated):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<meta name="color-scheme" content="light"><meta name="theme-color" content="#f4f1e8">
+<meta name="color-scheme" content="light"><meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="{prefix}assets/app.css">
 <script defer src="{prefix}assets/app.js"></script>
 </head><body data-page="{active}">
@@ -729,7 +735,7 @@ def page_layout(active, title, desc, body, depth, generated):
 <div class="np-l"><span>更新 {esc(generated)}</span></div>
 <a class="np-mark" href="{prefix}" aria-label="AI Pulse 首頁">AI PULSE</a>
 <div class="np-r">
-<button class="np-act" data-theme-toggle type="button" aria-label="切換米色／白色底">{SUN} 換底色</button>
+<button class="np-act" data-theme-toggle type="button" aria-label="切換白底／米色底">{SUN} 換底色</button>
 </div></div>
 <div class="np-rule"></div>
 <nav class="desktop-nav" aria-label="主導覽">{nav}</nav>

@@ -4514,8 +4514,55 @@ acase("字級：CSS 裡不得再有硬寫的字級"
 acase("字級：級距十三級，最小級不小於 11px"
       "（9px 的中文與等寬字是用猜的不是用讀的，而改版前有 27 處在用 9/10px；"
       "九個內文級距 + 三個大標 + 報頭那一級）",
-      [len(_re.findall(r"--fs-[a-z0-9]+:", _R_CSS.split("color-scheme:dark")[0])),
+      # 這裡原本寫 `_R_CSS.split("color-scheme:dark")[0]`——深色版整組退場之後
+      # 那個 split 是空操作，切點早就不存在了。留著會讓下一個人以為 CSS 裡還有
+      # 一塊深色，而且它「看起來有在限縮範圍」其實沒有。拿掉。
+      [len(_re.findall(r"--fs-[a-z0-9]+:", _R_CSS)),
        "--fs-micro:.6875rem" in _R_CSS], [13, True])
+
+# ── 底色：預設是哪一張紙，只准有一個地方說了算 ──────────────────────
+# 2026-07-29 預設從米色換成白色。換法有兩種：把白色搬進 :root，或者米色留在
+# :root 再加一個 [data-theme=…] 的白色版蓋回去。後者會讓「預設長什麼樣」同時
+# 寫在兩個地方，而這個 repo 已經數過很多次那個形狀：一個事實兩份說法，平常
+# 兩份一致，改的那天分岔，然後沒有東西變紅。
+# 所以這裡測的不是「預設是白的」而已，還有「白的只有一份定義」。
+_CSS_NC = _re.sub(r"/\*.*?\*/", "", _R_CSS, flags=_re.S)   # 先拆註解：註解裡提到
+# 的選擇器不是選擇器。少了這一步，上面那段說明文字自己會被當成 CSS 讀進來——
+# 同一個坑 `_shell_conflicts` 已經踩過一次。
+
+
+def _canvas_of(sel):
+    m = _re.search(_re.escape(sel) + r"\{([^}]*)\}", _CSS_NC)
+    v = _re.search(r"--canvas:\s*([^;}]+)", m.group(1)) if m else None
+    return v.group(1).strip() if v else None
+
+
+def _hex6(c):
+    c = (c or "").strip().lstrip("#").lower()
+    return "".join(ch * 2 for ch in c) if len(c) == 3 else c
+
+
+acase("底色：預設（沒有 data-theme 的時候）是白紙，米色是切過去的那一張；"
+      "而且白色只有 :root 這一份定義——多一個 [data-theme] 的白色版就是多一份說法",
+      [_canvas_of(":root"),
+       sorted(set(_re.findall(r":root\[data-theme=([A-Za-z-]+)\]", _CSS_NC))),
+       _canvas_of(":root[data-theme=newsprint]")],
+      ["#fff", ["newsprint"], "#f4f1e8"])
+# theme-color 是**第二份**「預設底色是什麼」的說法：手機瀏覽器拿它去染工具列。
+# 改了 CSS 忘了改它，工具列就跟頁面差一個色階，而頁面本身完全正常。
+# 兩邊都改錯的情況由上面那一條擋（那一條把 #fff 寫死在測試裡）。
+_meta_tc = _re.search(r'name="theme-color" content="(#[0-9a-fA-F]{3,8})"',
+                      _rmod.build_home([], {}, "now"))
+acase("底色：手機工具列的 theme-color 跟預設畫布是同一個顏色",
+      _hex6(_meta_tc.group(1) if _meta_tc else "（頁面裡沒有 theme-color）"),
+      _hex6(_canvas_of(":root")))
+# 切換鈕只寫得出一個名字。切回白色是**把屬性拿掉**，不是設一個白色的名字——
+# 設名字等於在 CSS 裡再開一個白色區塊，回到上面那條在擋的事情。
+_JS_FLAT = _re.sub(r"\s+", "", _rmod.JS)
+acase("底色：切換鈕只寫得出 newsprint 一個名字，切回白色靠移除屬性",
+      [sorted(set(_re.findall(r"setAttribute\('data-theme','([a-z-]+)'\)", _JS_FLAT))),
+       "removeAttribute('data-theme')" in _JS_FLAT],
+      [["newsprint"], True])
 
 # 泳道的縱軸選公司不選產品線，是量出來的：41 則裡 36 則 fingerprint 是 null。
 acase("泳道：縱軸是公司，缺公司的歸「其他」而不是丟掉"
