@@ -1,6 +1,10 @@
-# 已發布事件（47）
+# 已發布事件（48）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-07-29
+- **[[Events/evt-2026-07-29-08f1e5|We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control]]** — Google DeepMind · product · conf 73 · heat 未量測
+  Google DeepMind 推出音樂生成模型 Lyria 3.5，掛進 Flow Music，主打音樂性、歌詞、人聲、創作控制四項升級。
 
 ## 2026-07-28
 - **[[Events/evt-2026-07-28-0162e2|LFM2.5-Encoders for Fast Long-Context Inference on CPU]]** — LiquidAI · model-capability · conf 73 · heat 未量測

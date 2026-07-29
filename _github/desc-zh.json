@@ -54,6 +54,11 @@
     "src_hash": "9686abc957db",
     "zh": "蒐集各家外流的 system prompt：Anthropic、OpenAI、Google、xAI 等，定期更新"
   },
+  "bojieli/ai-agent-book": {
+    "at": "2026-07-29T19:13:52+00:00",
+    "src_hash": "5e2cb29a04e7",
+    "zh": "《深入理解 AI Agent：設計原理與工程實踐》（李博杰 著）開源主倉庫：全書正文、PDF 與各章配套程式碼"
+  },
   "datawhalechina/hello-agents": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "0f1350efa57d",
@@ -68,6 +73,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "3caa4131698c",
     "zh": "大規模搜尋、抓取並操作網頁的 API"
+  },
+  "harry0703/MoneyPrinterTurbo": {
+    "at": "2026-07-29T19:13:52+00:00",
+    "src_hash": "1a156a1c8dec",
+    "zh": "用 AI 大模型和自動化流程，依主題或關鍵字一鍵生成高畫質短影片"
   },
   "headroomlabs-ai/headroom": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -98,6 +108,16 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "406416e89aff",
     "zh": "一套真的能用的 agentic skills 框架與軟體開發方法論"
+  },
+  "open-webui/open-webui": {
+    "at": "2026-07-29T19:13:52+00:00",
+    "src_hash": "de16d13e0c60",
+    "zh": "好上手的 AI 介面，支援 Ollama、OpenAI API 等"
+  },
+  "opendatalab/MinerU": {
+    "at": "2026-07-29T19:13:52+00:00",
+    "src_hash": "e7595528b2f9",
+    "zh": "把 PDF、Office 等複雜文件轉成 LLM 可讀的 markdown 或 JSON，供 agentic 工作流使用"
   },
   "rtk-ai/rtk": {
     "at": "2026-07-27T19:23:58+00:00",
