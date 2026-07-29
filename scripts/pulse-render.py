@@ -327,19 +327,35 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .tl-card .tl-meta{margin-top:9px;display:flex;flex-wrap:wrap;gap:10px;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.04em}
 .tl-hide{display:none!important}
 
-.sig-stream{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
-.sig-card{display:flex;flex-direction:column;background:none;border:0;border-top:1px solid var(--border-soft);padding:14px 0 4px}
-.sig-card:hover{border-color:var(--border);transform:translateY(-1px)}
-.sig-card.research{border-left:3px solid var(--analysis)}
-.sig-card.high{border-left:3px solid var(--fact)}
-.sig-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
-.sig-tags{display:flex;flex-wrap:wrap;gap:6px}
-.sig-tag{font:var(--fs-micro) var(--mono);letter-spacing:.05em;padding:3px 7px;border-radius:0;background:var(--surface-soft);color:var(--muted);border:1px solid var(--border-soft)}
-.sig-card time{color:var(--quiet);font:var(--fs-micro) var(--mono);white-space:nowrap}
-.sig-card h2{font-size:var(--fs-md);line-height:1.4;margin:2px 0 6px;font-weight:560}
-.sig-card p{color:var(--muted);font-size:var(--fs-base);margin:0 0 12px;flex:1}
-.sig-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.04em;border-top:1px solid var(--border-soft);padding-top:10px}
-.sig-foot .go{color:var(--fact);display:inline-flex;align-items:center;gap:4px}
+.sig-stream{border-top:2px solid var(--text)}
+.sig-row{display:grid;grid-template-columns:96px 1fr 190px 78px;gap:16px;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid var(--border-soft)}
+.sig-row:hover{background:color-mix(in srgb,var(--accent) 4%,transparent)}
+.sig-row > time{color:var(--quiet);font:var(--fs-micro) var(--mono);white-space:nowrap}
+.sig-row .st{min-width:0}
+.sig-row .st b{display:block;font-family:var(--serif);font-size:var(--fs-base);
+  font-weight:600;line-height:1.5}
+.sig-row .st span{display:block;margin-top:3px;color:var(--muted);font-size:var(--fs-tiny);
+  line-height:1.6}
+.sig-row .sm{color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.03em;
+  line-height:1.7;word-break:break-word}
+.sig-row .sg{color:var(--accent);font:var(--fs-micro) var(--mono);letter-spacing:.04em;
+  white-space:nowrap;text-align:right}
+.sig-row:hover .sg{text-decoration:underline}
+/* 分級用一條左邊的細線標，不做色塊：色塊在一張表上會變成十幾個互相搶眼的方塊。 */
+.sig-row.research{box-shadow:inset 3px 0 0 var(--analysis)}
+.sig-row.high{box-shadow:inset 3px 0 0 var(--fact)}
+.sig-row.research,.sig-row.high{padding-left:11px}
+.sig-tag{font:var(--fs-micro) var(--mono);letter-spacing:.05em;color:var(--quiet);
+  white-space:nowrap}
+.sig-tag + .sig-tag::before{content:"·";margin:0 5px;color:var(--border)}
+@media(max-width:820px){
+  .sig-row{grid-template-columns:1fr auto;gap:4px 12px}
+  .sig-row > time{grid-column:2;grid-row:1;text-align:right}
+  .sig-row .st{grid-column:1;grid-row:1}
+  .sig-row .sm{grid-column:1;grid-row:2}
+  .sig-row .sg{grid-column:2;grid-row:2}
+}
 
 /* page-status strip + signal toolbar */
 .page-status{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;margin-top:26px;border:1px solid var(--border-soft);border-radius:var(--radius-md);overflow:hidden;background:var(--border-soft)}
@@ -506,6 +522,19 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
   .lf-grid{grid-template-columns:1fr;gap:0}
   .lf-notes{margin-top:30px;padding-top:22px;border-top:3px double var(--text)}
 }
+.gh-two{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:20px}
+.gh-two > div{padding:0 26px;min-width:0}
+.gh-two > :first-child{padding-left:0;border-right:1px solid var(--border-soft)}
+.gh-two > :last-child{padding-right:0}
+.gh-axis{margin:10px 0 14px;color:var(--quiet);font-size:var(--fs-tiny);line-height:1.7}
+.gh-axis b{color:var(--muted);font-weight:600}
+.gh-xref{margin-left:9px;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.04em}
+.gh-metric .v.muted{color:var(--quiet)}
+@media(max-width:940px){
+  .gh-two{grid-template-columns:1fr}
+  .gh-two > div{padding:0;border:0 !important}
+  .gh-two > div + div{margin-top:28px;padding-top:22px;border-top:1px solid var(--border) !important}
+}
 /* ── 頭版網格 ─────────────────────────────────────────────
    三欄：今日索引／頭條＋次條／計數與主線。欄與欄之間用規則線不用留白——
    報紙的分區靠線，網頁的分區習慣靠間距，兩者混用會兩邊都不像。
@@ -650,7 +679,7 @@ JS = """
   // signals 搜尋 / 來源類型 / 地域篩選 + 分頁（漸進增強：無 JS 時前 36 條照顯示）
   var sb=document.querySelector('[data-sig]');
   if(sb){
-    var scards=[].slice.call(sb.querySelectorAll('.sig-card'));
+    var scards=[].slice.call(sb.querySelectorAll('.sig-row'));
     var q=sb.querySelector('[data-sig-q]'),kind=sb.querySelector('[data-sig-kind]'),region=sb.querySelector('[data-sig-region]');
     var moreBtn=sb.querySelector('[data-sig-more]'),countEl=sb.querySelector('[data-sig-count]'),noneEl=sb.querySelector('[data-sig-none]');
     var CAP=36,expanded=false;
@@ -1361,10 +1390,14 @@ def build_signals(signals, sources, generated):
             summ = summ[:158].rstrip() + "…"
         srcname = prettify_source(s.get("source_id"))
         search = " ".join([s.get("title") or "", srcname, facet, region, kind]).lower()
-        cards.append(f"""<a class="sig-card {tone}" href="{esc(url)}" target="_blank" rel="noopener" data-kind="{esc(kind)}" data-region="{esc(region)}" data-s="{esc(search)}">
-<div class="sig-meta"><span class="sig-tags"><span class="sig-tag">{esc(facet)}</span><span class="sig-tag">{esc(region)}</span>{f'<span class="sig-tag">{esc(grade)} 級</span>' if grade else ''}</span><time>{esc(date)}</time></div>
-<h2>{esc(s.get('title'))}</h2>{f'<p>{esc(summ)}</p>' if summ else ''}
-<div class="sig-foot"><span>{esc(srcname)} · {esc(tier_label(tier))}</span><span class="go">看原文 {EXT}</span></div></a>""")
+        tags = "".join(f'<span class="sig-tag">{esc(t)}</span>'
+                       for t in (facet, region, f"{grade} 級" if grade else "") if t)
+        cards.append(f"""<a class="sig-row {tone}" href="{esc(url)}" target="_blank" rel="noopener" \
+data-kind="{esc(kind)}" data-region="{esc(region)}" data-s="{esc(search)}">\
+<time>{esc(date)}</time>\
+<span class="st"><b>{esc(s.get('title'))}</b>{f'<span>{esc(summ)}</span>' if summ else ''}</span>\
+<span class="sm">{esc(srcname)} · {esc(tier_label(tier))}<br>{tags}</span>\
+<span class="sg">看原文 {EXT}</span></a>""")
     present_kinds = {signal_kind(s, sources) for s in signals}
     kind_opts = "".join(f'<option value="{esc(k)}">{esc(lbl)}</option>'
                         for k, lbl in SIG_KINDS if k == "all" or k in present_kinds)
@@ -1377,7 +1410,7 @@ def build_signals(signals, sources, generated):
 <div class="sig-select"><select data-sig-region aria-label="依地域篩選">{region_opts}</select></div>
 <span class="sig-count" data-sig-count>{len(cards)} / {len(cards)}</span></div>"""
     body = f"""{hero("", "來源更新", "", extra=stat, cls="compact")}
-<section class="section section-tint"><div class="shell" data-sig>
+<section class="section"><div class="shell" data-sig>
 {toolbar}
 <div class="sig-stream">{''.join(cards)}</div>
 <p class="sig-none" data-sig-none>沒有符合條件的更新。</p>

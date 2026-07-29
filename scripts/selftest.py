@@ -4786,6 +4786,54 @@ acase("GitHub 動能：產出的頁面不再帶那兩句已經被換掉的宣稱
       "（它不經過 pulse-render，所以四頁都改完了它還留著）",
       [w for w in ("0 LLM", "零 LLM") if w in _GH_PAGE], [])
 
+# ── GitHub：竄升要兩個軸 ──────────────────────────────────────
+# 只有絕對星速（Δ★/天）的時候，榜永遠是大 repo 的榜：同樣漲 200 顆，10 萬星的
+# 專案是日常、2 千星的是暴動，而排序看不出差別。**用一個對大者有系統性優勢的
+# 指標代表「誰在竄」**——這個 repo 一直在抓的形狀，這次長在排名上。
+import datetime as _gdt  # noqa: E402
+
+_g_now = _gdt.datetime(2026, 7, 29, tzinfo=_gdt.timezone.utc)
+_g_prev_ts = (_g_now - _gdt.timedelta(days=1)).timestamp()
+
+
+def _grepo(name, stars, created="2023-01-01"):
+    return {"full_name": name, "name": name, "url": "u", "desc": "", "stars": stars,
+            "language": "", "topics": [], "created": created, "pushed": "2026-07-28"}
+
+
+# 大的漲 300（+0.3%/天），小的漲 200（+20%/天）——絕對輸、相對大贏。
+_g_cur = {"big/repo": _grepo("big/repo", 100300),
+          "small/repo": _grepo("small/repo", 1200),
+          "tiny/repo": _grepo("tiny/repo", 150),
+          "fresh/repo": _grepo("fresh/repo", 9000)}
+_g_state = {"big/repo": {"stars": 100000, "ts": _g_prev_ts},
+            "small/repo": {"stars": 1000, "ts": _g_prev_ts},
+            "tiny/repo": {"stars": 100, "ts": _g_prev_ts}}
+_g_top, _g_surge = _ghmod.rank(_g_cur, _g_state, _g_now, 10)
+
+acase("GitHub：兩個榜的第一名不是同一個（絕對看量、相對看竄升——"
+      "合成一個分數就等於再造一個代理指標，而權重沒有人答得出來）",
+      [_g_top[0]["full_name"], _g_surge[0]["full_name"]],
+      ["big/repo", "small/repo"])
+acase("GitHub：首次觀測不給代理值——兩點才有斜率，一點沒有"
+      "（舊版拿「星數÷建立至今天數」當動能，那是歷史平均不是現在的速度）",
+      [_g_top[-1]["full_name"], _g_top[-1]["velocity"],
+       "fresh/repo" in [x["full_name"] for x in _g_surge]],
+      ["fresh/repo", None, False])
+# tiny/repo 上一次是 100 顆（低於門檻）→ 不進榜；big/repo 雖然相對只有
+# +0.3%/天，但它**有資格上這個榜**，只是排在後面——門檻擋的是低基數，不是大 repo。
+acase(f"GitHub：低於 {_ghmod.SURGE_FLOOR} 顆星不進竄升榜，其餘照相對增量排"
+      "（10 顆變 20 顆就是 +100%，那讀起來比任何真的竄升都猛）",
+      [x["full_name"] for x in _g_surge], ["small/repo", "big/repo"])
+acase("GitHub：兩榜互相標名次（同一個 repo 兩邊都上，本身就是資訊）",
+      [_g_top[0].get("rank_velocity"), _g_surge[0].get("rank_surge"),
+       _g_surge[0].get("rank_velocity")],
+      [1, 1, 2])
+acase("GitHub：頁面把兩個軸各自偏袒誰寫出來，門檻也印得到"
+      "（一個沒有寫出來的門檻，跟沒有門檻一樣會誤導）",
+      [w for w in ("偏袒大 repo", "id=\"floor\"", "竄升榜", "星速榜")
+       if w not in _GH_PAGE], [])
+
 acase("標頭：四個 kicker 語言一致（全英文小標）",
       [_k for _k in _re.findall(r'hero\(\s*"([^"]+)"', _HEAD_SRC)
        if _re.search(r"[一-鿿]", _k)], [])
