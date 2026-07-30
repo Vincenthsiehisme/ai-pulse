@@ -1380,8 +1380,8 @@ mutations:
   - id: M158
     title: "榜讀不到還是生一份出來（落一個 {repos: []} 的假榜單，prep 下次讀到它會印「今晚沒有東西要翻」——同一個病往下再傳染一層）"
     file: pulse-github-desc-apply.py
-    find: "    if origin == \"board\":\n        board = dict(board or {}, repos=repos)"
-    replace: "    if True:\n        board = dict(board or {}, repos=repos)"
+    find: "    if origin == \"board\":\n        board = dict(board or {}, repos=repos, surging=surging)"
+    replace: "    if True:\n        board = dict(board or {}, repos=repos, surging=surging)"
     survives: false
     why: ""
 
@@ -1489,5 +1489,81 @@ mutations:
     file: pulse-github.py
     find: "<b>這個軸偏袒大 repo</b>"
     replace: "這個軸"
+    survives: false
+    why: ""
+
+  # ── 預設底色只准有一個地方說了算（2026-07-29）──
+
+  - id: M171
+    title: "預設底色改回米色（使用者要的是白底；而且這是「站上長什麼樣」的第一印象，沒有任何測試看著它的話，下一次改版順手改掉不會有東西變紅）"
+    file: pulse-render.py
+    find: "  --canvas:#fff;--surface:#fafafa;--surface-2:#fff;--surface-soft:#f2f2f0;"
+    replace: "  --canvas:#f4f1e8;--surface:#fbf9f3;--surface-2:#fff;--surface-soft:#eae5d8;"
+    survives: false
+    why: ""
+
+  - id: M172
+    title: "白色多開一份定義（[data-theme=paper-white] 把白色再寫一次——兩份說法平常一致，改一邊的那天分岔，而分岔的樣子是「切回去之後跟原本不一樣」）"
+    file: pulse-render.py
+    find: ":root[data-theme=newsprint]{"
+    replace: ":root[data-theme=paper-white]{--canvas:#fff;--surface-soft:#f2f2f0}\n:root[data-theme=newsprint]{"
+    survives: false
+    why: ""
+
+  - id: M173
+    title: "手機工具列的顏色留在米色（頁面是白的、工具列是米的，差一個色階；頁面本身完全正常，所以沒有人會從畫面上發現）"
+    file: pulse-render.py
+    find: "<meta name=\"theme-color\" content=\"#ffffff\">"
+    replace: "<meta name=\"theme-color\" content=\"#f4f1e8\">"
+    survives: false
+    why: ""
+
+  - id: M174
+    title: "切回白色改成設一個名字而不是移除屬性（等於承認白色有第二個名字，而那個名字底下什麼都沒定義——這一版剛好還原地正確，但它把「預設」跟「某個具名主題」混成一件事）"
+    file: pulse-render.py
+    find: "    if(root.getAttribute('data-theme')==='newsprint'){root.removeAttribute('data-theme');}\n    else{root.setAttribute('data-theme','newsprint');}"
+    replace: "    root.setAttribute('data-theme',\n      root.getAttribute('data-theme')==='newsprint'?'paper-white':'newsprint');"
+    survives: false
+    why: ""
+
+  # ── 翻譯鏈只認一個榜（2026-07-29）──
+
+  - id: M175
+    title: "待譯清單只掃星速榜（竄升榜獨有的 repo 永遠排不進來，那一整半永遠是英文；而每一班照樣印「待譯 N 條」，讀起來像清單是滿的）"
+    file: pulse-github-desc-prep.py
+    find: "    repos = ghdesc.board_union((doc or {}).get(\"repos\") or [],\n                               (doc or {}).get(\"surging\") or [])"
+    replace: "    repos = (doc or {}).get(\"repos\") or []"
+    survives: false
+    why: ""
+
+  - id: M176
+    title: "兩個榜接起來而不是輪流取（--limit 的額度整段落在星速榜上，竄升榜排在配額後面——星速榜偏袒大 repo 那條偏袒，就從排序爬回了翻譯順序）"
+    file: lib/ghdesc.py
+    find: "    rows, seen = [], set()\n    for i in range(max((len(b) for b in boards), default=0)):\n        for b in boards:\n            if i >= len(b):\n                continue\n            name = b[i].get(\"full_name\")"
+    replace: "    rows, seen = [], set()\n    for b in boards:\n        for i in range(len(b)):\n            name = b[i].get(\"full_name\")"
+    survives: false
+    why: ""
+
+  - id: M177
+    title: "寫回端只認星速榜（prep 排進清單、潤稿端翻好的竄升榜 repo，回來會被退件、理由是「不在目前榜單上」——而它就在榜上，只是在另一個榜）"
+    file: pulse-github-desc-apply.py
+    find: "        rows = ghdesc.board_union(repos, board.get(\"surging\") or [])"
+    replace: "        rows = repos"
+    survives: false
+    why: ""
+
+  - id: M178
+    title: "中文覆蓋率的分母只算星速榜（分母比畫面窄，而它掛著「中文描述」這個名字——榜上一半是英文的時候照樣印得出 8/8）"
+    file: pulse-github.py
+    find: "    listed = ghdesc.board_union(ranked, surging)"
+    replace: "    listed = ranked"
+    survives: false
+    why: ""
+
+  - id: M179
+    title: "頁上那行覆蓋率只數星速榜（同一個分母的第二份說法自己分岔：機器讀的那一格數兩個榜，讀者看到的那一行數一個）"
+    file: pulse-github.py
+    find: "  repos.concat(surging).forEach"
+    replace: "  repos.forEach"
     survives: false
     why: ""
