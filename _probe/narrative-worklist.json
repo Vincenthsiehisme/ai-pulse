@@ -1,11 +1,173 @@
 [
   {
+    "slug": "model-research",
+    "name": "模型能力與研究",
+    "current_thesis": "訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。",
+    "current_now": "這輪主軸是 Anthropic 一次翻新整條產品線：旗艦 Opus 5、中階 Sonnet 5、輕量 Haiku 4.5，其中 Opus 5 拿到多個獨立來源、熱度高過同批其他發布。Google 這端延續 Gemini Flash 的輕量分化。這兩天新進兩則，都落在「小而專、開放」那格：LiquidAI 的 LFM2.5-Encoders 主打在 CPU 上跑長脈絡的 encoder，把理解類任務往不吃 GPU 的方向推；Ai2 的 OlmoEarth 把它一貫的開放路線延伸到行星尺度的地理空間推論。兩則都只有標題、單一來源，方向清楚而規格待補。研究與安全兩條旁支續在：Anthropic 用 Economic Index Connector 與研究基金議程，把「AI 對經濟的影響」做成研究資產；OpenAI 一面公布長時程模型的失效教訓，一面和 Hugging Face 揭露評測期間模型展現進階攻擊能力的資安事件。NVIDIA Cosmos-H-Dreams 則把生成式模擬推進手術機器人，模型能力開始往垂直的實體場景長。方向仍是整線佈局加安全治理，外加小型、專用、開放模型各自找縫，而非追單一最強。",
+    "current_next": "等 Opus 5、Sonnet 5 的第三方 benchmark 與定價，看主版號跳升是真跳代還是命名策略。小型那批可查實測：LFM2.5-Encoders 的 CPU 延遲、吞吐 vs 既有 encoder，OlmoEarth 是否開放權重與資料集、跟現有 geospatial 模型的 benchmark。安全那條看 OpenAI 有沒有把 safeguard 寫進 model card、資安事件有沒有完整的 post-mortem。Cosmos-H-Dreams 看模型卡有沒有延遲與擬真度的量化數字。多數事件仍是單一來源、標待證實。",
+    "events": [
+      {
+        "slug": "gemini-robotics-er-2-powering-robotics-with-video-understand-601e",
+        "date": "2026-07-30",
+        "company": "Google DeepMind",
+        "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
+        "summary": "Google DeepMind 發布 Gemini Robotics ER 2，聚焦推理、工具編排與多機器人協作。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-enabling-two-settings-tripled-our-scores-on-the-arc-agi--50ea",
+        "date": "2026-07-29",
+        "company": "OpenAI",
+        "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+        "summary": "OpenAI 稱靠兩個 API 設定讓 GPT-5.6 的 ARC-AGI-3 分數翻三倍。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-gpt-5-6-fuses-frontier-intelligence-with-frontier-effici-6fb8",
+        "date": "2026-07-29",
+        "company": "OpenAI",
+        "title": "How GPT-5.6 fuses frontier intelligence with frontier efficiency",
+        "summary": "OpenAI 發布 GPT-5.6，賣點從更強轉向更省，主打每一塊錢買到更多智慧。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "grok-voice-think-fast-2-ad1a",
+        "date": "2026-07-29",
+        "company": "xAI",
+        "title": "Grok Voice Think Fast 2",
+        "summary": "xAI 發布 Grok Voice Think Fast 2，證據只有標題，能力待補。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "lfm2-5-encoders-for-fast-long-context-inference-on-cpu-0162",
+        "date": "2026-07-28",
+        "company": "LiquidAI",
+        "title": "LFM2.5-Encoders for Fast Long-Context Inference on CPU",
+        "summary": "LiquidAI 發表可在 CPU 跑長脈絡的 encoder 模型 LFM2.5-Encoders",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "the-olmoearth-platform-geospatial-inference-at-planetary-sca-cd0a",
+        "date": "2026-07-28",
+        "company": "AllenAI",
+        "title": "The OlmoEarth Platform: Geospatial inference at planetary scale",
+        "summary": "Ai2 發表 OlmoEarth，做行星尺度地理空間推論",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-cosmos-h-dreams-bringing-real-time-generative-simulat-ccaf",
+        "date": "2026-07-27",
+        "company": "NVIDIA",
+        "title": "NVIDIA Cosmos-H-Dreams: Bringing Real-Time Generative Simulation to Surgical Robotics",
+        "summary": "NVIDIA 推出 Cosmos-H-Dreams，把即時生成式模擬帶進手術機器人。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-opus-5-0fa5",
+        "date": "2026-07-25",
+        "company": "Anthropic",
+        "title": "Claude Opus 5",
+        "summary": "Anthropic 發布旗艦模型 Claude Opus 5，官方稱其「深思且主動」，多個獨立來源同步報導。",
+        "confidence": 100,
+        "heat": "未量測"
+      },
+      {
+        "slug": "economic-futures-research-fund-agenda-4f2f",
+        "date": "2026-07-24",
+        "company": "Anthropic",
+        "title": "Economic Futures Research Fund Agenda",
+        "summary": "Anthropic 公布 Economic Futures 研究基金的議程，圈定要資助的 AI 經濟影響研究方向。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-sonnet-5-09b4",
+        "date": "2026-07-22",
+        "company": "Anthropic",
+        "title": "Claude Sonnet 5",
+        "summary": "Anthropic 發布 Claude Sonnet 5，中階模型線的新主版本。",
+        "confidence": 83,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-haiku-4-5-4c01",
+        "date": "2026-07-22",
+        "company": "Anthropic",
+        "title": "Claude Haiku 4 5",
+        "summary": "Anthropic 發布 Claude Haiku 4.5，家族裡最輕量、最快的一線。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "anthropic-economic-index-connector-bd32",
+        "date": "2026-07-22",
+        "company": "Anthropic",
+        "title": "Anthropic Economic Index Connector",
+        "summary": "Anthropic 為它的 Economic Index 推出 connector，讓外部能接取這份 AI 經濟影響數據。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-gemini-3-6-flash-3-5-flash-lite-and-3-5-flash-cy-1bdb",
+        "date": "2026-07-21",
+        "company": "Google DeepMind",
+        "title": "Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber",
+        "summary": "Google 一次上多個 Gemini Flash 變體，把輕量線切得更細。",
+        "confidence": 90,
+        "heat": "未量測"
+      },
+      {
+        "slug": "openai-and-hugging-face-partner-to-address-security-incident-78cd",
+        "date": "2026-07-21",
+        "company": "OpenAI",
+        "title": "OpenAI and Hugging Face partner to address security incident during model evaluation",
+        "summary": "OpenAI 與 Hugging Face 公布模型評測期間的一起資安事件，重點是模型展現的進階網路攻擊能力。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "safety-and-alignment-in-an-era-of-long-horizon-models-3b61",
+        "date": "2026-07-20",
+        "company": "OpenAI",
+        "title": "Safety and alignment in an era of long-horizon models",
+        "summary": "OpenAI 公布長時程模型的部署教訓，坦承看到新的失效模式，靠迭代部署補強防護。",
+        "confidence": 73,
+        "heat": "未量測"
+      }
+    ]
+  },
+  {
     "slug": "product-market",
     "name": "產品與商業驗證",
     "current_thesis": "本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。",
-    "current_now": "這輪產品訊號的主線仍是「把模型塞進既有入口、把能力落成功能」。xAI 最積極，Outlook、Excel、Google Workspace 外掛連發，寄生微軟和 Google 的辦公生態搶使用場景。OpenAI 走垂直落地：ChatGPT 健康功能（串病歷與 Apple Health）、小企業計畫、NTT DATA 把事故分析壓到 30 分鐘的導入案例、財務長那套 ROI 計分卡，這輪再加一份「AI 如何擴張工作內容」的使用研究，繼續用自家數據講落地故事。Google 的 Flash Cyber 把能力包成資安產品。新進來還有一則 Anthropic 與 Cognizant 的合作公告，但只有標題、內文未載，先記錄、暫不認列內容。雜訊照舊兩則 NVIDIA（SIGGRAPH、GeForce NOW）與 Anthropic 疑似未上線的創意工作頁。整體是能力落地成功能與通路，不是發新模型。",
-    "current_next": "看這些外掛與功能有沒有離開發布稿的實際採用數字，尤其 xAI add-in 的企業部署、OpenAI 健康功能的監管與隱私爭議、NTT DATA 那個 30 分鐘能不能由客戶自己證實。Cognizant 那則等內文或第二來源補齊，再談合作形式。Anthropic 的創意工作頁等正式公告再認列。NVIDIA 的遊戲營運訊號可以先放一邊。",
+    "current_now": "這條線這陣子的共同動作，是把 AI 能力塞進大家本來就在用的產品入口，而不是發表新模型。入口分三類：辦公套件（xAI 把 Grok 接進 Outlook、Excel、Google Workspace）、企業工作流（OpenAI 用 Codex 幫 NTT DATA 把事故分析壓到 30 分鐘、覆蓋 9,000 人，另推小企業 ChatGPT 計畫）、創作與垂直場景（Google DeepMind 的 Lyria 3.5 掛進 Flow Music、Gemini 3.5 Flash Cyber 專攻找修漏洞、ChatGPT 串接病歷做健康功能）。同一段時間，OpenAI 財務長還丟出一套計分卡，把衡量標準從模型跑分改成「每次成功任務的成本」，等於替這波能力落地給了一把商業尺。",
+    "current_next": "接下來看幾個可驗證的訊號。第一，這些外掛與整合有沒有走到採用數字，而不是停在發表，像 xAI 的 Office、Workspace 外掛，或 OpenAI 小企業計畫，真正有多少人用。第二，企業案例複製得起來嗎，NTT DATA 那條「30 分鐘、9,000 人」的數字，別家跟不跟得上。第三，OpenAI 那把「每次成功任務成本」的尺，會不會被其他公司拿去對外報數字，一旦大家開始這樣講 ROI，代表這波從「秀能力」轉向「算帳」。",
     "events": [
+      {
+        "slug": "best-in-class-stream-pc-games-and-study-on-the-same-laptop-w-637f",
+        "date": "2026-07-30",
+        "company": "NVIDIA",
+        "title": "Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW",
+        "summary": "NVIDIA GeForce NOW 返校季內容更新，屬消費級雲端遊戲，與 AI 訊號相關性低。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "accelerating-scientific-discovery-with-chatgpt-for-academic--001f",
+        "date": "2026-07-29",
+        "company": "OpenAI",
+        "title": "Accelerating scientific discovery with ChatGPT for Academic Researchers",
+        "summary": "OpenAI 開放 10 萬名學術研究者免費使用 ChatGPT 最先進模型。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "we-re-launching-lyria-3-5-in-google-flow-music-with-advances-08f1",
         "date": "2026-07-29",

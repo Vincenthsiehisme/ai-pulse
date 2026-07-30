@@ -1,18 +1,150 @@
 [
   {
-    "id": "evt-2026-07-29-08f1e5",
-    "path": "evt-2026-07-29-08f1e5.md",
-    "title": "We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control",
+    "id": "evt-2026-07-28-09f394",
+    "path": "evt-2026-07-28-09f394.md",
+    "title": "Gemini Robotics 2 brings whole body intelligence to robots",
     "fingerprint": null,
-    "facet": "release",
-    "company_guess": "Google",
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+        "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+        "summary": ""
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+        "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-29-001f1f",
+    "path": "evt-2026-07-29-001f1f.md",
+    "title": "Accelerating scientific discovery with ChatGPT for Academic Researchers",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/chatgpt-for-academic-researchers",
+        "title": "Accelerating scientific discovery with ChatGPT for Academic Researchers",
+        "summary": "OpenAI is giving 100,000 academic researchers free access to ChatGPT's most advanced AI models to accelerate scientific research, collaboration, and discovery."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-29-50ea44",
+    "path": "evt-2026-07-29-50ea44.md",
+    "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+    "fingerprint": null,
+    "facet": "benchmark",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores",
+        "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+        "summary": "How two API settings improved GPT-5.6 performance on ARC-AGI-3, boosting scores and efficiency by retaining reasoning and enabling compaction."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-29-6fb84b",
+    "path": "evt-2026-07-29-6fb84b.md",
+    "title": "How GPT-5.6 fuses frontier intelligence with frontier efficiency",
+    "fingerprint": "openai:gpt:5.6",
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency",
+        "title": "How GPT-5.6 fuses frontier intelligence with frontier efficiency",
+        "summary": "GPT-5.6 improves AI efficiency across models, inference, and agentic workflows, helping deliver more useful intelligence per dollar."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-29-ad1ae1",
+    "path": "evt-2026-07-29-ad1ae1.md",
+    "title": "Grok Voice Think Fast 2",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-xai-news",
+        "url": "https://x.ai/news/grok-voice-think-fast-2",
+        "title": "Grok Voice Think Fast 2",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-30-601e8d",
+    "path": "evt-2026-07-30-601e8d.md",
+    "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/",
-        "title": "We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control",
+        "url": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/",
+        "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
+        "summary": "Gemini Robotics ER 2 helps robots reason, collaborate, and solve real-world tasks. It represents a step change in video understanding, tool orchestration, and multi-robot collaboration for robotic applications."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-30-637f40",
+    "path": "evt-2026-07-30-637f40.md",
+    "title": "Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-back-to-school-2026/",
+        "title": "Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW",
+        "summary": "Back to school means balancing assignments, deadlines and downtime. GeForce NOW makes it easy to have it all. With cloud gaming, everyday laptops used for class can also become GeForce RTX-powered gaming setups.  When it’s time to switch from studying to gaming, members can jump into Halo: Campaign "
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-30-d4ddda",
+    "path": "evt-2026-07-30-d4ddda.md",
+    "title": "GPU Management: Why Idle GPUs Are the New Grounded Aircraft",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/Dharma-AI/gpu-management",
+        "title": "GPU Management: Why Idle GPUs Are the New Grounded Aircraft",
         "summary": ""
       }
     ]

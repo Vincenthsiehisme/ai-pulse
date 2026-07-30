@@ -1,10 +1,24 @@
-# 已發布事件（48）
+# 已發布事件（54）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-07-30
+- **[[Events/evt-2026-07-30-601e8d|Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration]]** — Google DeepMind · research · conf 73 · heat 未量測
+  Google DeepMind 發布 Gemini Robotics ER 2，聚焦推理、工具編排與多機器人協作。
+- **[[Events/evt-2026-07-30-637f40|Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA GeForce NOW 返校季內容更新，屬消費級雲端遊戲，與 AI 訊號相關性低。
+
 ## 2026-07-29
+- **[[Events/evt-2026-07-29-001f1f|Accelerating scientific discovery with ChatGPT for Academic Researchers]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 開放 10 萬名學術研究者免費使用 ChatGPT 最先進模型。
 - **[[Events/evt-2026-07-29-08f1e5|We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control]]** — Google DeepMind · product · conf 73 · heat 未量測
   Google DeepMind 推出音樂生成模型 Lyria 3.5，掛進 Flow Music，主打音樂性、歌詞、人聲、創作控制四項升級。
+- **[[Events/evt-2026-07-29-50ea44|How enabling two settings tripled our scores on the ARC-AGI-3 benchmark]]** — OpenAI · model-capability · conf 73 · heat 未量測
+  OpenAI 稱靠兩個 API 設定讓 GPT-5.6 的 ARC-AGI-3 分數翻三倍。
+- **[[Events/evt-2026-07-29-6fb84b|How GPT-5.6 fuses frontier intelligence with frontier efficiency]]** — OpenAI · model-capability · conf 73 · heat 未量測
+  OpenAI 發布 GPT-5.6，賣點從更強轉向更省，主打每一塊錢買到更多智慧。
+- **[[Events/evt-2026-07-29-ad1ae1|Grok Voice Think Fast 2]]** — xAI · model-capability · conf 73 · heat 未量測
+  xAI 發布 Grok Voice Think Fast 2，證據只有標題，能力待補。
 
 ## 2026-07-28
 - **[[Events/evt-2026-07-28-0162e2|LFM2.5-Encoders for Fast Long-Context Inference on CPU]]** — LiquidAI · model-capability · conf 73 · heat 未量測

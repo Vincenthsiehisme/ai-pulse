@@ -1,4 +1,9 @@
 {
+  "Andyyyy64/whichllm": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "47e983421d6e",
+    "zh": "幫你找出在自己硬體上跑得動、表現最好的本地 LLM，用實測 benchmark 排名而非參數量，一行指令就能跑"
+  },
   "DeusData/codebase-memory-mcp": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "e804f93bd902",
@@ -34,10 +39,25 @@
     "src_hash": "6eb4d1ab3a37",
     "zh": "會跟著你一起成長的 agent"
   },
+  "Osmantic/ODS": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "f012612c1d32",
+    "zh": "把 PC／Mac／Linux 變成 AI 伺服器：LLM 推論、聊天、語音、agent、工作流、RAG、生圖"
+  },
   "Panniantong/Agent-Reach": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "b227ae1105fa",
     "zh": "給 AI agent 看遍網路的眼睛：讀取搜尋 Twitter、Reddit、YouTube 等，零 API 費用"
+  },
+  "TencentCloud/TencentDB-Agent-Memory": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "1423652fa85e",
+    "zh": "給 AI Agent 的團隊級記憶中樞，把對話、文件、程式碼變成四種可重用的記憶資產，跨 agent 與框架共用"
+  },
+  "VexDB-THU/VexDB-Lite": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "01a1340495c2",
+    "zh": "跨平台的向量資料庫，能以外掛形式整合進現有資料庫"
   },
   "ZhuLinsen/daily_stock_analysis": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -59,10 +79,20 @@
     "src_hash": "5e2cb29a04e7",
     "zh": "《深入理解 AI Agent：設計原理與工程實踐》（李博杰 著）開源主倉庫：全書正文、PDF 與各章配套程式碼"
   },
+  "cheahjs/free-llm-api-resources": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "b39be18886ec",
+    "zh": "一份可透過 API 取用的免費 LLM 推論資源清單"
+  },
   "datawhalechina/hello-agents": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "0f1350efa57d",
     "zh": "從零開始建構 agent：agent 原理與實作教程"
+  },
+  "deanpeters/Product-Manager-Skills": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "e718a21e83eb",
+    "zh": "產品管理技能框架，集結實戰驗證過的方法，供 Claude Code、Cowork、Codex 與 AI agent 使用"
   },
   "earendil-works/pi": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -89,10 +119,20 @@
     "src_hash": "b239f2c17c0e",
     "zh": "寫 HTML、算繪成影片，為 agent 而生"
   },
+  "jaredrhod/ai-memory-vault": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "9611f41a21e8",
+    "zh": "開源系統加範本，把 Obsidian vault 變成 AI 的持久記憶，不用向量資料庫，只靠 markdown"
+  },
   "koala73/worldmonitor": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "4fd40cb6ef54",
     "zh": "即時全球情報儀表板：AI 新聞彙整、地緣政治與基礎設施監看"
+  },
+  "llm-d/llm-d": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "ded019d9b9e2",
+    "zh": "在 Kubernetes 上用現代加速器達到頂尖的推論效能"
   },
   "msitarzewski/agency-agents": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -109,6 +149,11 @@
     "src_hash": "406416e89aff",
     "zh": "一套真的能用的 agentic skills 框架與軟體開發方法論"
   },
+  "omnigent-ai/omnigent": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "a8a230ac5d63",
+    "zh": "開源 AI agent 框架，統一調度 Claude Code、Codex 等，換 harness 不重寫"
+  },
   "open-webui/open-webui": {
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "de16d13e0c60",
@@ -119,20 +164,40 @@
     "src_hash": "e7595528b2f9",
     "zh": "把 PDF、Office 等複雜文件轉成 LLM 可讀的 markdown 或 JSON，供 agentic 工作流使用"
   },
+  "rocketride-org/rocketride-server": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "137c15108c22",
+    "zh": "C++ 核心的高效能 AI pipeline 引擎，數十個 Python 擴充節點，IDE 內建構 LLM 工作流"
+  },
   "rtk-ai/rtk": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "608dd39676e2",
     "zh": "CLI proxy，在常見開發指令上省下 60–90% 的 LLM token，單一 Rust binary、零相依"
+  },
+  "sqliteai/sqlite-vector": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "f119f30849a5",
+    "zh": "跨平台、高效率的 SQLite 擴充，替嵌入式資料庫加上向量搜尋"
   },
   "t8y2/dbx": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "373781648fa2",
     "zh": "20 MB 輕量跨平台資料庫客戶端，支援 70+ 種資料庫，內建 AI、MCP Server 與 CLI"
   },
+  "tickernelz/opencode-mem": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "15b60b61c8f7",
+    "zh": "OpenCode 外掛，用本地向量資料庫給編碼 agent 持久記憶"
+  },
   "unclecode/crawl4ai": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "62c9f2d759db",
     "zh": "Crawl4AI：對 LLM 友善的開源網頁爬蟲與抓取工具"
+  },
+  "unslothai/unsloth": {
+    "at": "2026-07-30T19:18:19+00:00",
+    "src_hash": "e7bf9c2920b2",
+    "zh": "本地 UI，用來訓練與運行 Kimi K3、Gemma 4、Qwen3.6、DeepSeek、GLM 等模型"
   },
   "volcengine/OpenViking": {
     "at": "2026-07-27T19:23:58+00:00",
