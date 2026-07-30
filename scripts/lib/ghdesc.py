@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ghdesc.py — GitHub 動能榜的中文描述儲存層（確定性，零 LLM）。
 
-背景：星速榜的 repo 描述直接來自 GitHub API，是英文一行字。榜是給中文讀者看的，
+背景：兩個榜（星速 / 竄升）的 repo 描述直接來自 GitHub API，是英文一行字。榜是給中文讀者看的，
 描述卻要人自己翻——但**翻譯是敘述，不是判斷**，所以它走潤稿端（Cowork + speak-human-tw），
 不進每晚的確定性抓取鏈。抓取鏈永遠自己跑得完，中文晚一步到，這是設計不是缺陷。
 
@@ -67,6 +67,41 @@ def attach(repos, store):
         zh = (entry.get("zh") or "").strip()
         r["desc_zh"] = zh if zh and entry.get("src_hash") == src_hash(r.get("desc")) else ""
     return repos
+
+
+def board_union(*boards):
+    """把多份榜單輪流取一條併成一份；同一個 repo 只留第一次出現的那筆。
+
+    2026-07-29 補的。在這之前這條翻譯鏈只認 `repos`（星速榜）——而 07-29 起
+    GitHub 那一頁是**兩個榜**。兩個榜是同一批 repo 的兩種排序、各自截前 top_n，
+    所以 `surging \ repos` 非空是**結構上一定可能發生**的，不是巧合：落在那個
+    差集裡的 repo 永遠排不進待譯清單，因為清單根本沒有在看那一半。而頁上還印著
+    「中文描述 n/（星速榜條數）」，畫面上卻有更多列。
+    這就是這個 repo 一直在抓的那隻病：一個比事實窄的東西掛著事實的名字。
+
+    差集實際有多大**這個容器量不到**（api.github.com 在這裡是 403，見
+    BACKLOG）。拿模擬榜單跑過一次（8＋8、去重 15、差集 7），那是模擬不是量測，
+    不能當成生產環境的數字讀。
+
+    為什麼是輪流取而不是接起來：worklist 有單晚上限（`--limit`）。接起來的話
+    上限會整段落在第一份榜上，第二份永遠排在配額後面——**而兩個榜分開存在的
+    理由，正是不要讓其中一個的偏袒決定另一個看得到什麼**。星速榜偏袒大 repo，
+    接起來就等於「大 repo 先翻，小 repo 排隊等額度」，那條偏袒又從排序爬回了
+    翻譯順序。輪流取讓上限對兩邊一樣狠。
+
+    順序是確定的：同樣的輸入永遠得到同樣的輸出（沒有集合迭代、沒有時鐘）。
+    """
+    rows, seen = [], set()
+    for i in range(max((len(b) for b in boards), default=0)):
+        for b in boards:
+            if i >= len(b):
+                continue
+            name = b[i].get("full_name")
+            if name in seen:
+                continue
+            seen.add(name)
+            rows.append(b[i])
+    return rows
 
 
 def pending(repos, store):

@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""pulse-github-desc-prep.py — 星速榜中文描述的前置（確定性，零 LLM）。
+"""pulse-github-desc-prep.py — GitHub 動能兩個榜的中文描述前置（確定性，零 LLM）。
 
-掃 `dist/data/github.json` 現在的榜單，挑出「還沒有有效中文描述」的 repo，打包成
-worklist 交潤稿端翻寫。跟 enrich-prep 同一個形狀：判斷誰要翻是規則的事，翻成什麼字
-才是潤稿端的事。
+掃 `dist/data/github.json` 現在的**兩個榜**（星速 `repos` ＋ 竄升 `surging`），挑出
+「還沒有有效中文描述」的 repo，打包成 worklist 交潤稿端翻寫。跟 enrich-prep 同一個
+形狀：判斷誰要翻是規則的事，翻成什麼字才是潤稿端的事。
+
+兩個榜輪流取（`ghdesc.board_union`），不是接起來——`--limit` 的額度要對兩邊一樣狠，
+不然星速榜偏袒大 repo 那條偏袒會從排序爬回翻譯順序。
 
 有效＝存過、非空、且 src_hash 對得上當下的英文原文。上游改了 description，舊譯文自動
 失效並重新排進來——榜上掛著一句在講舊版本的漂亮中文，比整條空著糟得多。
@@ -54,7 +57,10 @@ def main():
         print(f"[warn] {args.board} {why}——先跑 pulse-github.py。"
               f"**不覆寫既有 worklist**（量不到 ≠ 沒有東西要翻）。", file=sys.stderr)
         return 2
-    repos = (doc or {}).get("repos") or []
+    # **兩個榜都要**。只讀 `repos` 的那一版漏掉竄升榜獨有的那些 repo，而每一班
+    # 照樣印「待譯 N 條」，讀起來像清單是滿的。見 lib/ghdesc.board_union。
+    repos = ghdesc.board_union((doc or {}).get("repos") or [],
+                               (doc or {}).get("surging") or [])
 
     todo = ghdesc.pending(repos, ghdesc.load(vault))
     n_all = len(todo)
@@ -66,7 +72,7 @@ def main():
 
     n_stale = sum(1 for t in todo if t["stale_zh"])
     capped = f"（榜上共 {n_all} 條待譯，本次取前 {len(todo)}）" if args.limit and n_all > len(todo) else ""
-    print(f"pulse-github-desc-prep  榜單 {len(repos)} 條，待譯 {len(todo)} 條"
+    print(f"pulse-github-desc-prep  兩個榜共 {len(repos)} 個 repo，待譯 {len(todo)} 條"
           f"（其中 {n_stale} 條是上游改了描述要重譯）{capped}"
           f"  → _probe/github-desc-worklist.json")
     return 0

@@ -220,9 +220,13 @@ function row(r,i,axis){
 }
 function draw(d){
   var repos=d.repos||[], surging=d.surging||[];
-  var zh=repos.filter(r=>r.desc_zh).length;
-  document.getElementById("meta").textContent=(d.count||repos.length)+" 個 repo · 更新 "+(d.generated||"")
-    +" · 中文描述 "+zh+"/"+repos.length+"（兩個榜都是純規則算的；描述由潤稿端翻寫，英文原文一併保留）";
+  // 中文覆蓋率算**這一頁上有幾個不同的 repo**，不是算星速榜。只算星速榜的那一版，
+  // 分母會小於畫面上的列數——分母比畫面窄，名字卻叫「中文描述」。
+  var names={}, listed=0;
+  repos.concat(surging).forEach(function(r){ if(!names[r.full_name]){names[r.full_name]=r; listed++;} });
+  var zh=0; for(var k in names){ if(names[k].desc_zh) zh++; }
+  document.getElementById("meta").textContent=listed+" 個 repo（兩個榜去重後）· 更新 "+(d.generated||"")
+    +" · 中文描述 "+zh+"/"+listed+"（兩個榜都是純規則算的；描述由潤稿端翻寫，英文原文一併保留）";
   document.getElementById("floor").textContent = d.surge_floor!=null ? d.surge_floor : "—";
   document.getElementById("none").style.display=repos.length?"none":"block";
   document.getElementById("surge-none").style.display=surging.length?"none":"block";
@@ -329,19 +333,23 @@ def main():
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
     n_new = sum(1 for r in ranked if r["is_new"])
-    n_zh = sum(1 for r in ranked if r.get("desc_zh"))
+    # 覆蓋率算**整頁**不算單一個榜。只算 ranked 的那一版，分母是星速榜的條數，
+    # 而畫面上的列數是兩個榜去重後的——一個比事實窄的東西掛著事實的名字。
+    listed = ghdesc.board_union(ranked, surging)
+    n_zh = sum(1 for r in listed if r.get("desc_zh"))
     # 這個數字以前只印在 CI 的 log 裡：人看得到、機器讀不到，於是「這個榜已經
     # 連續幾天沒有中文」沒有任何地方存著。潤稿端的 C2 段失敗時**寫不進 repo**，
     # 所以觀測要住在會跑的這一邊。見 lib/ghdesc.py 的〈覆蓋率〉。
-    write_desc_coverage(vault, now, len(ranked), n_zh)
+    write_desc_coverage(vault, now, len(listed), n_zh)
     if do_snapshot:
         snap = " [snapshot 已更新]"
     elif age_h is not None:
         snap = f" [snapshot 未更新：基線才 {age_h:.1f} 小時大，還沒到門檻]"
     else:
         snap = ""
-    print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}  首次觀測={n_new}  "
-          f"中文描述={n_zh}/{len(ranked)}{snap}  → data/github.json + github/")
+    print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}＋竄升={len(surging)}"
+          f"（去重 {len(listed)}）  首次觀測={n_new}  "
+          f"中文描述={n_zh}/{len(listed)}{snap}  → data/github.json + github/")
     return 0
 
 

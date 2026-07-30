@@ -2415,6 +2415,130 @@ acase("待譯清單：真的量到而且沒有東西要翻 → 才寫空陣列�
       "（反方向；只釘「不覆寫」的話，一支永遠不寫檔的腳本也會通過）",
       [_rc_ok, _wrote_empty], [0, []])
 
+# ── 待譯清單要涵蓋整頁，不是涵蓋其中一個榜（2026-07-29）─────────────
+# 2026-07-29 GitHub 那一頁變成兩個榜（星速 / 竄升），而這條翻譯鏈只認 `repos`。
+# 兩個榜是同一批 repo 的兩種排序、各自截前 top_n，所以 `surging \ repos` 非空是
+# **結構上一定可能發生**的：落在那個差集裡的 repo 永遠排不進待譯清單，而每一班
+# 照樣印「待譯 N 條」，讀起來像清單是滿的。
+# 同一隻病：一個比事實窄的東西掛著事實的名字。
+# （差集實際多大這個容器量不到——api.github.com 在這裡是 403。下面用的是自製的
+#  四條 fixture，它證明的是「程式碼會不會漏」，不是「生產環境漏了幾條」。）
+from lib import ghdesc as _gu  # noqa: E402
+
+_B1 = [{"full_name": "big/a"}, {"full_name": "big/b"}, {"full_name": "big/c"}]
+_B2 = [{"full_name": "sml/x"}, {"full_name": "big/b"}]     # big/b 兩邊都上
+acase("兩個榜併清單：輪流取、重複的只留一份、長度不同也不掉條"
+      "（接起來的話 --limit 的額度會整段落在第一個榜上，"
+      "而星速榜偏袒大 repo——那條偏袒就從排序爬回了翻譯順序）",
+      [[r["full_name"] for r in _gu.board_union(_B1, _B2)],
+       [r["full_name"] for r in _gu.board_union([], _B2)],
+       _gu.board_union()],
+      [["big/a", "sml/x", "big/b", "big/c"], ["sml/x", "big/b"], []])
+
+_BOARD2 = {"generated": "x", "count": 2, "measured": True,
+           "repos": [{"full_name": "big/a", "desc": "A"},
+                     {"full_name": "big/b", "desc": "B"}],
+           "surging": [{"full_name": "sml/x", "desc": "X"},
+                       {"full_name": "big/a", "desc": "A"}]}
+with tempfile.TemporaryDirectory() as _u2td:
+    _u2v = Path(_u2td)
+    (_u2v / "_probe").mkdir()
+    (_u2v / "dist" / "data").mkdir(parents=True)
+    (_u2v / "dist" / "data" / "github.json").write_text(
+        _json.dumps(_BOARD2), encoding="utf-8")
+    _dp_run(_u2v)
+    _u2_todo = [t["full_name"] for t in
+                _json.loads((_u2v / "_probe" / "github-desc-worklist.json")
+                            .read_text("utf-8"))]
+acase("待譯清單：竄升榜上的 repo 也要排得進來"
+      "（只掃星速榜的那一版，讓竄升榜整個榜永遠是英文，"
+      "而覆蓋率印的是星速榜的分母，所以看起來一直很滿）",
+      [sorted(_u2_todo), "sml/x" in _u2_todo], [["big/a", "big/b", "sml/x"], True])
+# 反向：那個測試不是因為「什麼都排得進來」才綠的——已經翻好的不會再排進來。
+with tempfile.TemporaryDirectory() as _u3td:
+    _u3v = Path(_u3td)
+    (_u3v / "_probe").mkdir()
+    (_u3v / "_github").mkdir()
+    (_u3v / "dist" / "data").mkdir(parents=True)
+    (_u3v / "dist" / "data" / "github.json").write_text(
+        _json.dumps(_BOARD2), encoding="utf-8")
+    (_u3v / "_github" / "desc-zh.json").write_text(_json.dumps(
+        {"sml/x": {"zh": "小專案", "src_hash": _gu.src_hash("X"), "at": "t"}}),
+        encoding="utf-8")
+    _dp_run(_u3v)
+    _u3_todo = [t["full_name"] for t in
+                _json.loads((_u3v / "_probe" / "github-desc-worklist.json")
+                            .read_text("utf-8"))]
+acase("待譯清單：竄升榜上已經有有效中文的不再排進來（反向）",
+      [sorted(_u3_todo), "sml/x" in _u3_todo], [["big/a", "big/b"], False])
+# 寫回端要認同一份榜。只認 `repos` 的話，prep 排進清單的竄升榜 repo 翻回來會被
+# 退件、理由是「不在目前榜單上」——而它就在榜上，只是在另一個榜。
+# 退件訊息把人指向沒有問題的地方，跟 2026-07-28 那次一模一樣。
+_u_src, _u_origin = _dam.english_source(_BOARD2, None)
+acase("寫回：英文原文兩個榜都認得（不然竄升榜的譯文會被退件，"
+      "理由是「不在目前榜單上」——而它就在榜上，只是在另一個榜）",
+      [_u_origin, sorted(_u_src), _u_src.get("sml/x")],
+      ["board", ["big/a", "big/b", "sml/x"], "X"])
+# 覆蓋率那一格的分母要等於畫面上有幾列。只算星速榜的那一版會印「8/8」，
+# 而畫面上有十五列、其中七列是英文——分母比畫面窄，名字卻叫「中文描述」。
+# 真的跑一次 main()，不 grep 原始碼：grep 只證明那串字還在。
+_gh2_spec = importlib.util.spec_from_file_location(
+    "pulse_github_mod2", os.path.join(_HERE, "pulse-github.py"))
+_ghm2 = importlib.util.module_from_spec(_gh2_spec)
+_gh2_spec.loader.exec_module(_ghm2)
+# 兩個榜必須真的排出不同的前二名，否則這條測試會在「union 等於任一個榜」的
+# 情況下自動變綠——那正是它要抓的錯。
+_U_REPOS = {
+    "big/a": {"full_name": "big/a", "desc": "A", "stars": 100000, "url": "u",
+              "language": "Go", "topics": [], "created": "2020-01-01"},
+    "big/b": {"full_name": "big/b", "desc": "B", "stars": 50000, "url": "u",
+              "language": "Go", "topics": [], "created": "2020-01-01"},
+    "sml/x": {"full_name": "sml/x", "desc": "X", "stars": 1000, "url": "u",
+              "language": "Go", "topics": [], "created": "2020-01-01"},
+    "sml/y": {"full_name": "sml/y", "desc": "Y", "stars": 400, "url": "u",
+              "language": "Go", "topics": [], "created": "2020-01-01"},
+}
+with tempfile.TemporaryDirectory() as _u4td:
+    _u4v = Path(_u4td)
+    (_u4v / "_config").mkdir()
+    (_u4v / "_github").mkdir()
+    (_u4v / "_config" / "github.yaml").write_text("top_n: 2\nsearches: []\n",
+                                                  encoding="utf-8")
+    _u4_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
+    (_u4v / "_github" / "state.json").write_text(_json.dumps({
+        "big/a": {"stars": 99000, "ts": _u4_ts}, "big/b": {"stars": 49500, "ts": _u4_ts},
+        "sml/x": {"stars": 500, "ts": _u4_ts}, "sml/y": {"stars": 210, "ts": _u4_ts}}),
+        encoding="utf-8")
+    # 一條中文，掛在**只在竄升榜上**的那個 repo 身上：只算星速榜的分子會是 0。
+    (_u4v / "_github" / "desc-zh.json").write_text(_json.dumps(
+        {"sml/x": {"zh": "小專案", "src_hash": _gu.src_hash("X"), "at": "t"}}),
+        encoding="utf-8")
+    _u4_collect, _u4_argv, _u4_env = _ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR")
+    try:
+        _ghm2.collect = lambda *a, **k: _U_REPOS
+        sys.argv = ["pulse-github.py"]
+        os.environ["VAULT_DIR"] = str(_u4v)
+        _ghm2.main()
+    finally:
+        _ghm2.collect = _u4_collect
+        sys.argv = _u4_argv
+        if _u4_env is not None:
+            os.environ["VAULT_DIR"] = _u4_env
+    _u4_board = _json.loads((_u4v / "dist" / "data" / "github.json").read_text("utf-8"))
+    _u4_cov = _json.loads((_u4v / "_github" / "desc-coverage.json").read_text("utf-8"))
+_u4_vel = [r["full_name"] for r in _u4_board["repos"]]
+_u4_sur = [r["full_name"] for r in _u4_board["surging"]]
+acase("GitHub 動能：中文覆蓋率算整頁去重後的 repo 數，不是算其中一個榜"
+      "（分母比畫面窄，而它掛著「中文描述」這個名字；"
+      "分子同理——中文掛在只上竄升榜的那個 repo 上，只算星速榜會印 0）",
+      [_u4_vel, _u4_sur, _u4_cov["ranked"], _u4_cov["with_zh"]],
+      [["big/a", "big/b"], ["sml/x", "sml/y"], 4, 1])
+# 頁上那一行是同一個分母的第二份說法（JS 自己算一次）。兩份要用同一個判準。
+_GH_JS = open(os.path.join(_HERE, "pulse-github.py"), encoding="utf-8").read()
+acase("GitHub 動能：頁上那行覆蓋率也數兩個榜（它是同一個分母的第二份說法）",
+      ["repos.concat(surging)" in _GH_JS, '/"+repos.length+"' in _GH_JS],
+      [True, False])
+
 # ── 榜單中文描述：C2 段跳過不留痕跡（references/vault-pages.md）──
 from lib import ghdesc as _gd2  # noqa: E402
 

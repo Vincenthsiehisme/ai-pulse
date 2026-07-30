@@ -183,6 +183,20 @@ VAULT_DIR=... python scripts/pulse-monitor.py --alert-stale   # 過期 → exit 
 觀測要住在**一定會跑的那一邊**——Actions 每班跑 `pulse-github.py`，讓它量一次
 結果、寫進版控。這跟「健康分沒有輸入」那次是同一句話。
 
+**分母是整頁，不是其中一個榜（2026-07-29 補）。** 那一頁從 07-29 起是兩個榜
+（星速 `repos` ／ 竄升 `surging`），它們是同一批 repo 的兩種排序、各自截前
+`top_n`，所以 `surging \ repos` 非空是結構上一定可能發生的。原本這條翻譯鏈
+從頭到尾只認 `repos`：待譯清單不掃竄升榜（那些 repo 永遠是英文）、寫回端不認
+竄升榜（翻回來會被退件、理由是「不在目前榜單上」，而它就在榜上）、覆蓋率的
+分母是星速榜的條數（榜上一半是英文的時候照樣印得出滿分）。
+
+四個地方現在共用 `ghdesc.board_union(repos, surging)`：`pulse-github-desc-prep`、
+`pulse-github-desc-apply`、`pulse-github.py` 的 `write_desc_coverage`、以及榜單頁
+那行 JS。**輪流取不是接起來**——`--limit` 的額度要對兩邊一樣狠，不然星速榜偏袒
+大 repo 那條偏袒會從排序爬回翻譯順序。
+
+差集實際多大這裡量不到（api.github.com 在 Cowork 容器是 403）。
+
 ### 三種狀態要分得出來
 
 | `desc-coverage.json` | 印什麼 | 這是什麼 |
