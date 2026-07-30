@@ -16,8 +16,8 @@ license_note: "abstract + link"
 endpoint: "https://www.microsoft.com/en-us/research/feed/"
 robots_checked_day: "2026-07-27"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-07-29"
-items_observed: 10
+last_observed_day: "2026-07-30"
+items_observed: 12
 events_bound: 0
 events_published: 0
 health_score: 100
@@ -34,7 +34,7 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 10 筆 | 抓到了，但站方那陣子沒發東西 |
+| 已觀測 | 12 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 0 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 0 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 

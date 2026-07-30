@@ -1,66 +1,188 @@
 [
   {
-    "full_name": "bojieli/ai-agent-book",
-    "desc": "《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "agent-memory",
-      "ai-agent",
-      "book",
-      "coding-agent",
-      "context-engineering"
-    ],
-    "stars": 26081,
-    "url": "https://github.com/bojieli/ai-agent-book",
-    "stale_zh": null
-  },
-  {
-    "full_name": "harry0703/MoneyPrinterTurbo",
-    "desc": "利用 AI 大模型和自动化工作流，根据主题或关键词一键生成高清短视频。Generate HD short videos from a topic or keyword with an automated AI workflow.",
-    "language": "Python",
-    "topics": [
-      "ai-video-generator",
-      "content-creation",
-      "ffmpeg",
-      "instagram-reels",
-      "llm",
-      "python"
-    ],
-    "stars": 100255,
-    "url": "https://github.com/harry0703/MoneyPrinterTurbo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "opendatalab/MinerU",
-    "desc": "Transforms complex documents like PDFs and Office docs into LLM-ready markdown/JSON for your Agentic workflows.",
-    "language": "Python",
-    "topics": [
-      "ai4science",
-      "document-analysis",
-      "docx",
-      "extract-data",
-      "layout-analysis",
-      "ocr"
-    ],
-    "stars": 76169,
-    "url": "https://github.com/opendatalab/MinerU",
-    "stale_zh": null
-  },
-  {
-    "full_name": "open-webui/open-webui",
-    "desc": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...)",
+    "full_name": "rocketride-org/rocketride-server",
+    "desc": "High-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. Build, debug, and scale LLM workflows with 13+ model providers, 8+ vector databases, and agent orchestration, all from your IDE. Includes VS Code extension, TypeScript/Python SDKs, and Docker deployment.",
     "language": "Python",
     "topics": [
       "ai",
-      "llm",
-      "llm-ui",
-      "llm-webui",
-      "llms",
+      "cpp",
+      "data-pipeline",
+      "data-processing",
+      "machine-learning",
       "mcp"
     ],
-    "stars": 147218,
-    "url": "https://github.com/open-webui/open-webui",
+    "stars": 5513,
+    "url": "https://github.com/rocketride-org/rocketride-server",
+    "stale_zh": null
+  },
+  {
+    "full_name": "VexDB-THU/VexDB-Lite",
+    "desc": "A cross-platform vector database, which can be integrated into existing databases as a plugin.",
+    "language": "C++",
+    "topics": [],
+    "stars": 1521,
+    "url": "https://github.com/VexDB-THU/VexDB-Lite",
+    "stale_zh": null
+  },
+  {
+    "full_name": "TencentCloud/TencentDB-Agent-Memory",
+    "desc": "TencentDB Agent Memory is a team-level memory hub for AI Agents — turning conversations, docs, and code into four reusable memory assets (Chat Memory, Skill, LLM-Wiki, Code-Graph) that are governed, shared, and equipped across agents and frameworks.",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "ai-agent",
+      "embedding",
+      "llm",
+      "local-first",
+      "long-term-memory"
+    ],
+    "stars": 9560,
+    "url": "https://github.com/TencentCloud/TencentDB-Agent-Memory",
+    "stale_zh": null
+  },
+  {
+    "full_name": "jaredrhod/ai-memory-vault",
+    "desc": "Give your AI a real, persistent memory. The open-source system plus templates that turn an Obsidian vault into your AI's working memory. No vector database, just markdown.",
+    "language": "",
+    "topics": [
+      "agent-memory",
+      "ai",
+      "ai-agents",
+      "ai-memory",
+      "anthropic",
+      "claude"
+    ],
+    "stars": 402,
+    "url": "https://github.com/jaredrhod/ai-memory-vault",
+    "stale_zh": null
+  },
+  {
+    "full_name": "tickernelz/opencode-mem",
+    "desc": "OpenCode plugin that gives coding agents persistent memory using local vector database",
+    "language": "TypeScript",
+    "topics": [],
+    "stars": 1235,
+    "url": "https://github.com/tickernelz/opencode-mem",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Osmantic/ODS",
+    "desc": "Turn your PC, Mac, or Linux box into an AI server.  LLM inference, chat UI, voice, agents, workflows, RAG, and image generation.",
+    "language": "Python",
+    "topics": [
+      "ai-agents",
+      "amd",
+      "comfyui",
+      "docker",
+      "llama-cpp",
+      "llm"
+    ],
+    "stars": 3824,
+    "url": "https://github.com/Osmantic/ODS",
+    "stale_zh": null
+  },
+  {
+    "full_name": "cheahjs/free-llm-api-resources",
+    "desc": "A list of free LLM inference resources accessible via API.",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "claude",
+      "gemini",
+      "llama",
+      "llm",
+      "openai"
+    ],
+    "stars": 28798,
+    "url": "https://github.com/cheahjs/free-llm-api-resources",
+    "stale_zh": null
+  },
+  {
+    "full_name": "deanpeters/Product-Manager-Skills",
+    "desc": "Product Management skills framework built on battle-tested methods for Claude Code, Cowork, Codex, and AI agents.",
+    "language": "Shell",
+    "topics": [
+      "ai-agents",
+      "ai-product-management",
+      "claude-skills",
+      "pm-frameworks",
+      "product-management"
+    ],
+    "stars": 6081,
+    "url": "https://github.com/deanpeters/Product-Manager-Skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "omnigent-ai/omnigent",
+    "desc": "Omnigent is an open-source AI agent framework and meta-harness: orchestrate Claude Code, Codex, Cursor, Pi, and custom agents — swap harnesses without rewriting, enforce policies and sandboxing, and collaborate in real time from any device.",
+    "language": "Python",
+    "topics": [
+      "agent-framework",
+      "agent-governance",
+      "agent-orchestration",
+      "agents",
+      "ai",
+      "ai-agent"
+    ],
+    "stars": 7919,
+    "url": "https://github.com/omnigent-ai/omnigent",
+    "stale_zh": null
+  },
+  {
+    "full_name": "llm-d/llm-d",
+    "desc": "Achieve state of the art inference performance with modern accelerators on Kubernetes",
+    "language": "Shell",
+    "topics": [
+      "ai",
+      "cncf",
+      "distributed-inference",
+      "gpu",
+      "inference",
+      "intelligent-routing"
+    ],
+    "stars": 3924,
+    "url": "https://github.com/llm-d/llm-d",
+    "stale_zh": null
+  },
+  {
+    "full_name": "sqliteai/sqlite-vector",
+    "desc": "SQLite-Vector is a cross-platform, ultra-efficient SQLite extension that brings vector search capabilities to your embedded database.",
+    "language": "C",
+    "topics": [],
+    "stars": 1052,
+    "url": "https://github.com/sqliteai/sqlite-vector",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Andyyyy64/whichllm",
+    "desc": "Find the local LLM that actually runs and performs best on your hardware. Ranked by real, recency-aware benchmarks, not parameter count. One command, run it instantly.",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "apple-silicon",
+      "benchmarks",
+      "cli",
+      "command-line-tool",
+      "gguf"
+    ],
+    "stars": 6066,
+    "url": "https://github.com/Andyyyy64/whichllm",
+    "stale_zh": null
+  },
+  {
+    "full_name": "unslothai/unsloth",
+    "desc": "Unsloth is a local UI for training and running Kimi K3, Gemma 4, Qwen3.6, DeepSeek, GLM and other models.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "deepseek",
+      "fine-tuning",
+      "gemma",
+      "gemma3",
+      "gpt-oss"
+    ],
+    "stars": 69205,
+    "url": "https://github.com/unslothai/unsloth",
     "stale_zh": null
   }
 ]

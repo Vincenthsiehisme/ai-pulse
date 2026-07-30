@@ -3,7 +3,7 @@ id: actor-aws
 kind: company
 in_dictionary: true
 aliases: ["Amazon Web Services", "亞馬遜雲"]
-generated_day: '2026-07-29'
+generated_day: '2026-07-30'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

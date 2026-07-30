@@ -3,7 +3,7 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-07-29'
+generated_day: '2026-07-30'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

@@ -33,7 +33,7 @@
   NVIDIA 用 Vera CPU 加速 EDA 流程，攜手 Cadence、Synopsys 設計下一代 CPU 與 GPU。
 
 ## 2026-07-25
-- **[[Events/evt-2026-07-25-0fa594|Claude Opus 5]]** — Anthropic · model-capability · conf 97 · heat 未量測
+- **[[Events/evt-2026-07-25-0fa594|Claude Opus 5]]** — Anthropic · model-capability · conf 100 · heat 未量測
   Anthropic 發布旗艦模型 Claude Opus 5，官方稱其「深思且主動」，多個獨立來源同步報導。
 - **[[Events/evt-2026-07-25-74ed64|v0.26.0]]** — vLLM · infra · conf 73 · heat 未量測
   vLLM 發布 v0.26.0，含 411 個 commit、新增 Inkling 模型家族支援與多項 GPU 推論優化。

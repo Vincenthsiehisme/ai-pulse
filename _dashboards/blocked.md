@@ -1,7 +1,8 @@
-# 被門禁擋下（14）
+# 被門禁擋下（22）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-07-29-001f1f|Accelerating scientific discovery with ChatGPT for Academic Researcher]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-23-83a9d2|AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High ]]** — Cerebras — blockers: thin_fact
 - **[[Events/evt-2026-07-23-f4cdc4|AAI 2026: AMD Delivers Full-Stack Compute for the Agentic AI Era]]** — AMD — blockers: thin_fact
 - **[[Events/evt-2026-07-22-a8e6a5|AMD and Anthropic Announce Strategic Partnership to Deploy Up to 2 Gig]]** — Anthropic — blockers: thin_fact
@@ -16,3 +17,10 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-07-30-601e8d|Gemini Robotics ER 2: powering robotics with video understanding, task]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-07-30-637f40|Best in Class: Stream PC Games and Study on the Same Laptop With GeFor]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-07-29-50ea44|How enabling two settings tripled our scores on the ARC-AGI-3 benchmar]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-07-29-6fb84b|How GPT-5.6 fuses frontier intelligence with frontier efficiency]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-07-29-ad1ae1|Grok Voice Think Fast 2]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-07-28-09f394|Gemini Robotics 2 brings whole body intelligence to robots]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
