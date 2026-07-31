@@ -3,18 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-07-30'
+generated_day: '2026-07-31'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **13** 則：`published` 12、`review` 1
+事件 **19** 則：`published` 15、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-07-29 | [[Events/evt-2026-07-29-001f1f\|Accelerating scientific discovery with ChatGPT for Academic Researchers]] | review |
+| 2026-08-04 | [[Events/evt-2026-08-04-07332d\|Disrupting a Criminal Scam Operation]] | review |
+| 2026-07-31 | [[Events/evt-2026-07-31-e0a505\|Advancing responsible AI across Europe]] | review |
+| 2026-07-30 | [[Events/evt-2026-07-30-d3af04\|How avatarin built a 24/7 retail agent with GPT-Realtime]] | review |
+| 2026-07-30 | [[Events/evt-2026-07-30-788d77\|Advancing the price-performance frontier with GPT-5.6]] | review |
+| 2026-07-29 | [[Events/evt-2026-07-29-6fb84b\|How GPT-5.6 fuses frontier intelligence with frontier efficiency]] | published |
+| 2026-07-29 | [[Events/evt-2026-07-29-50ea44\|How enabling two settings tripled our scores on the ARC-AGI-3 benchmark]] | published |
+| 2026-07-29 | [[Events/evt-2026-07-29-001f1f\|Accelerating scientific discovery with ChatGPT for Academic Researchers]] | published |
 | 2026-07-28 | [[Events/evt-2026-07-28-a1c41f\|Scientific computing in the age of agentic AI]] | published |
 | 2026-07-27 | [[Events/evt-2026-07-27-1b4ef0\|How AI is expanding what people do at work]] | published |
 | 2026-07-23 | [[Events/evt-2026-07-23-b82259\|Launching Health in ChatGPT]] | published |

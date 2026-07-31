@@ -3,7 +3,7 @@ id: actor-tencent
 kind: company
 in_dictionary: true
 aliases: ["騰訊"]
-generated_day: '2026-07-30'
+generated_day: '2026-07-31'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
