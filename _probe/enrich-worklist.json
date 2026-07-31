@@ -1,32 +1,50 @@
 [
   {
-    "id": "evt-2026-07-28-09f394",
-    "path": "evt-2026-07-28-09f394.md",
-    "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+    "id": "evt-2026-07-30-54f43a",
+    "path": "evt-2026-07-30-54f43a.md",
+    "title": "Investigating Incidents Cybersecurity Evals",
     "fingerprint": null,
-    "facet": "update",
+    "facet": "incident",
     "company_guess": "industry",
-    "independent_sources": 2,
+    "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
-        "title": "Gemini Robotics 2 brings whole body intelligence to robots",
-        "summary": ""
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
-        "title": "Gemini Robotics 2 brings whole body intelligence to robots",
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals",
+        "title": "Investigating Incidents Cybersecurity Evals",
         "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-07-29-001f1f",
-    "path": "evt-2026-07-29-001f1f.md",
-    "title": "Accelerating scientific discovery with ChatGPT for Academic Researchers",
+    "id": "evt-2026-07-30-788d77",
+    "path": "evt-2026-07-30-788d77.md",
+    "title": "Advancing the price-performance frontier with GPT-5.6",
+    "fingerprint": "openai:gpt:5.6",
+    "facet": "pricing",
+    "company_guess": "OpenAI",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6",
+        "title": "Advancing the price-performance frontier with GPT-5.6",
+        "summary": "Explore lower GPT‑5.6 pricing for Luna and Terra—and how OpenAI’s more efficient models help enterprises deploy AI workflows at scale."
+      },
+      {
+        "source_id": "src-kol-simonwillison",
+        "url": "https://simonwillison.net/2026/Jul/30/luna-price-drop/#atom-everything",
+        "title": "Advancing the price-performance frontier with GPT‑5.6",
+        "summary": "   Advancing the price-performance frontier with GPT‑5.6   \nHuge price drop from OpenAI today: GPT-5.6 Terra got a 20% reduction, and GPT-5.6 Luna got a massive 80% drop. \n OpenAI credit 5.6 Sol with enabling this: in  How GPT‑5.6 fuses frontier intelligence with frontier efficiency  they describe u"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-30-d3af04",
+    "path": "evt-2026-07-30-d3af04.md",
+    "title": "How avatarin built a 24/7 retail agent with GPT-Realtime",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -35,117 +53,81 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/chatgpt-for-academic-researchers",
-        "title": "Accelerating scientific discovery with ChatGPT for Academic Researchers",
-        "summary": "OpenAI is giving 100,000 academic researchers free access to ChatGPT's most advanced AI models to accelerate scientific research, collaboration, and discovery."
+        "url": "https://openai.com/index/avatarin",
+        "title": "How avatarin built a 24/7 retail agent with GPT-Realtime",
+        "summary": "avatarin uses OpenAI’s GPT-Realtime to give Yamada Denki shoppers 24/7 multilingual support. In two weeks, 30,000 people used the agent and 92% of survey responses were positive."
       }
     ]
   },
   {
-    "id": "evt-2026-07-29-50ea44",
-    "path": "evt-2026-07-29-50ea44.md",
-    "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+    "id": "evt-2026-07-31-ae50a2",
+    "path": "evt-2026-07-31-ae50a2.md",
+    "title": "Univé builds an AI-ready workforce",
     "fingerprint": null,
-    "facet": "benchmark",
+    "facet": "update",
+    "company_guess": "Scale AI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/unive",
+        "title": "Univé builds an AI-ready workforce",
+        "summary": "See how Univé built an AI-ready workforce with ChatGPT Enterprise by combining leadership, responsible governance, and employee-led innovation to transform work at scale."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-31-e0a505",
+    "path": "evt-2026-07-31-e0a505.md",
+    "title": "Advancing responsible AI across Europe",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/advancing-responsible-ai-across-europe",
+        "title": "Advancing responsible AI across Europe",
+        "summary": "OpenAI shares how its safety, security, transparency, and provenance practices support responsible AI governance in Europe. The work will continue as the EU AI Act advances."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-07-31-e5e5cc",
+    "path": "evt-2026-07-31-e5e5cc.md",
+    "title": "Building abundant intelligence",
+    "fingerprint": null,
+    "facet": "update",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores",
-        "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
-        "summary": "How two API settings improved GPT-5.6 performance on ARC-AGI-3, boosting scores and efficiency by retaining reasoning and enabling compaction."
+        "url": "https://openai.com/index/building-abundant-intelligence",
+        "title": "Building abundant intelligence",
+        "summary": "A full-stack approach to making advanced AI more capable, more affordable, and more widely useful."
       }
     ]
   },
   {
-    "id": "evt-2026-07-29-6fb84b",
-    "path": "evt-2026-07-29-6fb84b.md",
-    "title": "How GPT-5.6 fuses frontier intelligence with frontier efficiency",
-    "fingerprint": "openai:gpt:5.6",
+    "id": "evt-2026-08-04-07332d",
+    "path": "evt-2026-08-04-07332d.md",
+    "title": "Disrupting a Criminal Scam Operation",
+    "fingerprint": null,
     "facet": "update",
-    "company_guess": "industry",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency",
-        "title": "How GPT-5.6 fuses frontier intelligence with frontier efficiency",
-        "summary": "GPT-5.6 improves AI efficiency across models, inference, and agentic workflows, helping deliver more useful intelligence per dollar."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-29-ad1ae1",
-    "path": "evt-2026-07-29-ad1ae1.md",
-    "title": "Grok Voice Think Fast 2",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/grok-voice-think-fast-2",
-        "title": "Grok Voice Think Fast 2",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-30-601e8d",
-    "path": "evt-2026-07-30-601e8d.md",
-    "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/",
-        "title": "Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration",
-        "summary": "Gemini Robotics ER 2 helps robots reason, collaborate, and solve real-world tasks. It represents a step change in video understanding, tool orchestration, and multi-robot collaboration for robotic applications."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-30-637f40",
-    "path": "evt-2026-07-30-637f40.md",
-    "title": "Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-back-to-school-2026/",
-        "title": "Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW",
-        "summary": "Back to school means balancing assignments, deadlines and downtime. GeForce NOW makes it easy to have it all. With cloud gaming, everyday laptops used for class can also become GeForce RTX-powered gaming setups.  When it’s time to switch from studying to gaming, members can jump into Halo: Campaign "
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-07-30-d4ddda",
-    "path": "evt-2026-07-30-d4ddda.md",
-    "title": "GPU Management: Why Idle GPUs Are the New Grounded Aircraft",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/Dharma-AI/gpu-management",
-        "title": "GPU Management: Why Idle GPUs Are the New Grounded Aircraft",
-        "summary": ""
+        "url": "https://openai.com/index/disrupting-malicious-uses-of-ai-criminal-scam-operation",
+        "title": "Disrupting a Criminal Scam Operation",
+        "summary": "OpenAI disrupted a Cambodia-based scam operation using ChatGPT to support investment, romance, gambling, and impersonation schemes."
       }
     ]
   }

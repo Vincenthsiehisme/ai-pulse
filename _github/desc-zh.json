@@ -34,6 +34,11 @@
     "src_hash": "685042ad8a5f",
     "zh": "Taste-Skill：給 AI 一點品味，別再生出無聊平庸的內容"
   },
+  "NVIDIA/Model-Optimizer": {
+    "at": "2026-07-31T19:20:39+00:00",
+    "src_hash": "8320033a1389",
+    "zh": "整合量化、蒸餾、剪枝、推測解碼等技術的模型最佳化函式庫，壓縮模型以加速 TensorRT-LLM、vLLM 等框架推論"
+  },
   "NousResearch/hermes-agent": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "6eb4d1ab3a37",
@@ -78,6 +83,11 @@
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "5e2cb29a04e7",
     "zh": "《深入理解 AI Agent：設計原理與工程實踐》（李博杰 著）開源主倉庫：全書正文、PDF 與各章配套程式碼"
+  },
+  "bytedance/deer-flow": {
+    "at": "2026-07-31T19:20:39+00:00",
+    "src_hash": "43c34c4ce29f",
+    "zh": "開源長時程 SuperAgent 框架，能研究、寫程式與創作，靠沙箱、記憶、工具、子代理處理數分鐘到數小時的任務"
   },
   "cheahjs/free-llm-api-resources": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -164,6 +174,11 @@
     "src_hash": "e7595528b2f9",
     "zh": "把 PDF、Office 等複雜文件轉成 LLM 可讀的 markdown 或 JSON，供 agentic 工作流使用"
   },
+  "orneryd/NornicDB": {
+    "at": "2026-07-31T19:20:39+00:00",
+    "src_hash": "3bd04ccdeb4b",
+    "zh": "分散式低延遲 Graph+Vector 資料庫，亞毫秒 HNSW 搜尋與圖遍歷，相容 Neo4j／qdrant"
+  },
   "rocketride-org/rocketride-server": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "137c15108c22",
@@ -203,6 +218,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "0973420ed49d",
     "zh": "給 AI agent 的自我演化情境資料庫，整合 agent 記憶、RAG 知識與技能"
+  },
+  "wonderwhy-er/DesktopCommanderMCP": {
+    "at": "2026-07-31T19:20:39+00:00",
+    "src_hash": "656c25e4b990",
+    "zh": "給 Claude 的 MCP server，讓它能控制終端機、搜尋檔案系統並做 diff 檔案編輯"
   },
   "xbtlin/ai-berkshire": {
     "at": "2026-07-27T19:23:58+00:00",

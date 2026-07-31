@@ -1,12 +1,28 @@
-# 已發布事件（54）
+# 已發布事件（60）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-08-04
+- **[[Events/evt-2026-08-04-07332d|Disrupting a Criminal Scam Operation]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 查禁一個柬埔寨詐騙集團，對方用 ChatGPT 支援投資、假交友、賭博與冒名詐騙。
+
+## 2026-07-31
+- **[[Events/evt-2026-07-31-ae50a2|Univé builds an AI-ready workforce]]** — OpenAI · product · conf 73 · heat 未量測
+  保險業者 Univé 用 ChatGPT Enterprise 推全員 AI，靠治理與員工自發使用落地。
+- **[[Events/evt-2026-07-31-e0a505|Advancing responsible AI across Europe]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 說明其安全、透明與來源標記做法如何對接歐洲治理與 EU AI Act。
+- **[[Events/evt-2026-07-31-e5e5cc|Building abundant intelligence]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 發文談用全端方式讓先進 AI 更強、更便宜、更普及，但只有大方向沒有細節。
 
 ## 2026-07-30
 - **[[Events/evt-2026-07-30-601e8d|Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration]]** — Google DeepMind · research · conf 73 · heat 未量測
   Google DeepMind 發布 Gemini Robotics ER 2，聚焦推理、工具編排與多機器人協作。
 - **[[Events/evt-2026-07-30-637f40|Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
   NVIDIA GeForce NOW 返校季內容更新，屬消費級雲端遊戲，與 AI 訊號相關性低。
+- **[[Events/evt-2026-07-30-788d77|Advancing the price-performance frontier with GPT-5.6]]** — OpenAI · product · conf 80 · heat 未量測
+  OpenAI 大砍 GPT-5.6 價格，Luna 降 80%、Terra 降 20%。
+- **[[Events/evt-2026-07-30-d3af04|How avatarin built a 24/7 retail agent with GPT-Realtime]]** — OpenAI · product · conf 73 · heat 未量測
+  avatarin 用 GPT-Realtime 幫山田電機做 24 小時多語客服，兩週 3 萬人用、92% 滿意。
 
 ## 2026-07-29
 - **[[Events/evt-2026-07-29-001f1f|Accelerating scientific discovery with ChatGPT for Academic Researchers]]** — OpenAI · product · conf 73 · heat 未量測

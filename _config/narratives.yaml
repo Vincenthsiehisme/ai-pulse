@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-07-30'
+updated: '2026-07-31'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: NVIDIA 還是主角，這輪多了兩條支線。硬體側 Vera Rubin 用每 token 成本、每瓦效能、每塊錢智慧輪流打，往外鋪到網通（Spectrum-6）、在地製造（緯創德州廠、Build in America）、實體與醫療（開源醫療物理模擬、海軍研究院的 DGX GB300、BMS 製藥 AI 工廠）。Vera CPU 加速 EDA、攜手 Cadence 與 Synopsys 設計下一代晶片，把算力往設計上游推，用自家算力造自家下一代算力。軟體端則是推論棧在降成本：vLLM v0.26.0（411 個 commit、新增 Inkling 家族與推測解碼），以及 Hugging Face 把 Nunchaku 4-bit 擴散推論接進 Diffusers。OpenAI 這邊 Project Camellia 在喬治亞州綁能源與社區承諾，屬搶地搶電那端。這兩天新的一則份量輕：NVIDIA 用 Jetson 談邊緣端「隨處建 AI」，但那是找 VC 站台的行銷貼文，沒帶新型號或出貨數字，只替邊緣 AI 敘事加溫。方向一致：供給端在替 agent 工作負載重新定價，戰線鋪到實體、產地與設計上游，連開源推論棧也一起壓成本。
-    next: 硬體那批仍要第二個獨立來源（雲廠、對手晶片、實際部署者）印證「每 token 成本最低」。可追的硬事：緯創福和市廠的產能爬坡、BMS 的算力跑出什麼研發成果、開源醫療模擬有沒有外部團隊採用、Vera CPU 加速 EDA 有沒有公布具體加速倍數。邊緣那則看 Jetson 有沒有跟上新型號規格或出貨數字，否則就停在行銷。軟體這條可查實測：vLLM 新優化的 throughput 數字、Nunchaku 4-bit 的品質與速度取捨。NVIDIA 那批仍多為單一來源、標待證實。
+    now: NVIDIA 還是主角，這輪主要是既有戰線的延續，加一則份量很輕的新料。硬體側 Vera Rubin 用每 token 成本、每瓦效能、每塊錢智慧輪流打，往外鋪到網通（Spectrum-6）、在地製造（緯創德州福和市廠、Build in America）、實體與醫療（開源醫療物理模擬、海軍研究院的 DGX GB300、BMS 製藥 AI 工廠）；Vera CPU 加速 EDA、攜手 Cadence 與 Synopsys 設計下一代晶片，等於用自家算力造自家下一代算力。軟體端推論棧在降成本：vLLM v0.26.0 帶 411 個 commit 與多項 GPU 優化，Hugging Face 把 Nunchaku 4-bit 擴散推論接進 Diffusers。OpenAI 這邊 Project Camellia 在喬治亞州綁能源、就業與社區承諾，屬搶地搶電那端；這兩天新增的一則是 OpenAI 談用全端方式做充裕、便宜、普及的智慧，但只有方向沒有任何投資或數字，份量極輕，先當願景表態。前幾天那則 Jetson 邊緣行銷同樣沒帶新型號或出貨數字。方向一致：供給端在替 agent 工作負載重新定價，戰線鋪到實體、產地與設計上游，連開源推論棧也一起壓成本。
+    next: 硬體那批仍要第二個獨立來源（雲廠、對手晶片、實際部署者）印證每 token 成本最低。可追的硬事：緯創福和市廠的產能爬坡、BMS 的算力跑出什麼研發成果、開源醫療模擬有沒有外部團隊採用、Vera CPU 加速 EDA 有沒有公布具體加速倍數。軟體這條可查實測：vLLM 新優化的 throughput、Nunchaku 4-bit 的品質與速度取捨。OpenAI 的 abundant intelligence 看有沒有後續帶出具體算力或資本動作把它兌現，否則停在願景。邊緣那則看 Jetson 有沒有跟上型號規格或出貨數字。NVIDIA 那批仍多為單一來源、標待證實。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這兩天最新的訊號往兩個方向補：效率與實體場景。OpenAI 一邊發 GPT-5.6，賣點從「更強」移到「更省」，主打每一塊錢買到更多智慧；一邊發文說靠兩個 API 設定就讓 GPT-5.6 的 ARC-AGI-3 分數翻三倍，等於自己提醒這類跑分對設定多敏感，看數字要先問是哪組設定跑的。機器人這條長出第二則：繼 Gemini Robotics 2 之後，Google DeepMind 再發 Gemini Robotics ER 2，聚焦推理、工具編排與多機器人協作，跟前幾天 NVIDIA Cosmos-H-Dreams 把生成式模擬推進手術機器人是同一個方向，模型能力開始往垂直的實體場景長。xAI 則發 Grok Voice Think Fast 2，走語音，但只有標題、規格待補。往前看，整線佈局那格仍是 Anthropic 一次翻新 Opus 5、Sonnet 5、Haiku 4.5，其中 Opus 5 是這批唯一多來源、信心滿分的一則；Google 延續 Gemini Flash 的輕量分化。小而專、開放那格續在：LiquidAI 的 LFM2.5-Encoders 主打在 CPU 上跑長脈絡，Ai2 的 OlmoEarth 把開放路線延伸到行星尺度的地理空間推論。安全與研究兩條旁支也還在：Anthropic 用 Economic Index Connector 與研究基金議程把 AI 對經濟的影響做成研究資產，OpenAI 一面公布長時程模型的失效教訓，一面和 Hugging Face 揭露評測期間模型展現進階攻擊能力的資安事件。主軸仍是整線佈局加安全治理，加上小型、專用、開放各自找縫，外加這輪冒出的效率與實體場景兩個新切面。
-    next: GPT-5.6 看定價與 token 成本，對比前代與對手，才知道「per dollar」是行銷還是實質；ARC-AGI-3 那個三倍，看有沒有第三方用同組設定複現。機器人這條看 Gemini Robotics ER 2 與 Cosmos-H-Dreams 有沒有第三方或客戶實測，多機協作實際能同步幾台、擬真度有沒有量化數字。Opus 5、Sonnet 5 等第三方 benchmark 與定價，看主版號跳升是真跳代還是命名策略。小型那批可查實測：LFM2.5-Encoders 的 CPU 延遲與吞吐、OlmoEarth 是否開放權重與資料集。安全那條看 OpenAI 有沒有把 safeguard 寫進 model card、資安事件有沒有完整的 post-mortem。多數事件仍是單一來源、標待證實。
+    now: 這兩天的新訊號往安全治理那條旁支集中。OpenAI 一口氣加了兩則都不是模型本身：一則說明自家安全、透明與 provenance 做法怎麼對接歐洲與 EU AI Act，一則揭露查禁柬埔寨詐騙集團、對方拿 ChatGPT 做投資與假交友詐騙。加上先前 OpenAI 與 Hugging Face 公布評測期間模型展現進階攻擊能力、以及長時程模型的失效教訓，安全與濫用治理已經是這條線穩定的一半，而且清一色是各家自述、沒有第三方複核。另一半仍是模型迭代本身：效率端 OpenAI 發 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於提醒這種跑分對設定極敏感；實體端 Google DeepMind 再發 Gemini Robotics ER 2 主打推理、工具編排與多機協作，跟 NVIDIA Cosmos-H-Dreams 把生成式模擬推進手術機器人同向。整線佈局那格仍是 Anthropic 一次翻新 Opus 5、Sonnet 5、Haiku 4.5，其中 Opus 5 是這批唯一多來源、信心滿分的一則。小而專、開放那格續在：LiquidAI 的 LFM2.5-Encoders 在 CPU 上跑長脈絡，Ai2 的 OlmoEarth 把開放路線延到行星尺度。xAI 的 Grok Voice Think Fast 2 只有標題、規格待補。
+    next: GPT-5.6 的每 token 成本要對比前代與對手，才知道更省是行銷還是實質；ARC-AGI-3 那個三倍，看有沒有第三方用同一組設定複現。安全治理那批全是自述，看 OpenAI 對歐洲的 provenance 做法有沒有被監管明確接受、查禁詐騙有沒有完整威脅情報報告與執法端佐證、資安事件有沒有 post-mortem。機器人看 Gemini Robotics ER 2 與 Cosmos-H-Dreams 有沒有第三方或客戶實測，多機協作能同步幾台、擬真度有沒有量化。Opus 5、Sonnet 5 看第三方 benchmark 與定價，判斷主版號跳升是真跳代還是命名。小型那批看 LFM2.5-Encoders 的 CPU 延遲吞吐、OlmoEarth 是否開放權重。多數事件仍單一來源、標待證實。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這條線的共同動作，還是把 AI 能力塞進大家本來就在用的產品入口，而不是發表新模型。這批最新一則有份量的是渠道再擴：OpenAI 開放 10 萬名學術研究者免費用 ChatGPT 最先進模型，用的是既有模型，重點在把旗艦模型定向送進學術場景換使用量。入口分幾類：辦公套件（xAI 把 Grok 接進 Outlook、Excel、Google Workspace）、企業工作流（OpenAI 用 Codex 幫 NTT DATA 把事故分析壓到 30 分鐘、覆蓋 9,000 人，另推小企業 ChatGPT 計畫）、創作與垂直場景（Google DeepMind 的 Lyria 3.5 掛進 Flow Music、Gemini 3.5 Flash Cyber 專攻找修漏洞、ChatGPT 串接病歷做健康功能），以及跨出職務邊界的用法研究與 Cognizant 合作這類企業案例。同一段時間，OpenAI 財務長丟出一套計分卡，把衡量標準從模型跑分改成「每次成功任務的成本」，替這波能力落地給了一把商業尺。另外標一句雜訊：NVIDIA GeForce NOW 的返校季內容這幾天也被抓進來，但那是消費級雲端遊戲行銷，跟這條產品線的 AI 落地主軸沒關係。
-    next: 接下來看幾個可驗證的訊號。第一，這些外掛、整合與免費開放有沒有走到採用數字，而不是停在發表：xAI 的 Office、Workspace 外掛，OpenAI 的小企業計畫與 10 萬研究者免費方案，真正有多少人用、用的是哪個模型版本。第二，企業案例複製得起來嗎，NTT DATA 那條「30 分鐘、9,000 人」的數字，別家跟不跟得上。第三，OpenAI 那把「每次成功任務成本」的尺，會不會被別家拿去對外報數字，一旦大家開始這樣講 ROI，代表這波從秀能力轉向算帳。
+    now: 這條線的共同動作還是把 AI 塞進大家本來就在用的入口，而不是發新模型；這兩天多了兩種新料。一是定價當武器：OpenAI 大砍 GPT-5.6 價格，Luna 降 80%、Terra 降 20%，把成本直接當成擴張手段，呼應先前財務長那套把焦點從跑分改成每次成功任務成本的計分卡。二是實際部署案例變多也更具體：avatarin 用 GPT-Realtime 幫山田電機做 24 小時多語客服，兩週 3 萬人用、92% 正面；荷蘭保險業者 Univé 用 ChatGPT Enterprise 推全員 AI，走治理先行加員工自發。兩則都漂亮但數字全是平台方或客戶自述。入口分幾類延續著：辦公套件（xAI 把 Grok 接進 Outlook、Excel、Google Workspace）、企業工作流（NTT DATA 用 Codex 把事故分析壓到 30 分鐘、覆蓋 9,000 人，OpenAI 另推小企業計畫與 10 萬學術研究者免費方案）、創作與垂直（Lyria 3.5 掛進 Flow Music、Gemini 3.5 Flash Cyber 找修漏洞、ChatGPT 串病歷做健康功能），加上跨職務用法研究與 Cognizant 合作這類案例。要標一句雜訊：NVIDIA GeForce NOW 的返校季與新遊戲上架這幾天又被抓進來，那是消費級雲端遊戲行銷，跟這條 AI 落地主軸無關。
+    next: GPT-5.6 的降價看對手跟不跟、以及第三方實測的每 token 成本，判斷是一次性讓利還是市場價格重定。兩則部署案例看有沒有平台方以外的數字：avatarin 與山田電機的留存和客訴，Univé 的採用率與治理踩雷紀錄。辦公外掛看實際日活與留存，而非上架本身。企業工作流看 NTT DATA 那 30 分鐘有沒有可複核的前後對照。健康、學術、小企業幾條看實際開通規模與第三方回報。GeForce NOW 這類消費遊戲雜訊，下一班若仍被抓進來，該回頭看來源過濾。多數事件仍單一來源、標待證實。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
