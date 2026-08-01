@@ -5047,6 +5047,37 @@ acase("GitHub 名次變動：兩個榜各算各的，欄位不互相覆蓋"
        _g_by2["small/repo"].get("rank_move_velocity"), _g_by2["small/repo"].get("rank_places_velocity"),
        _g_by2["small/repo"].get("rank_move_surge"), _g_by2["small/repo"].get("rank_places_surge")],
       ["up", 1, "entered", "down", 1, "up", 2])
+# ── 名次位移不是「每天」的量，所以每一列要帶自己的基線年紀 ──────────
+# 星速除以實際天數（days），名次位移沒有除以任何東西。兩者在每晚都抓得到的
+# repo 上看起來一樣，正好在基線舊掉的那幾條上分岔——而那不是理論值：
+# _github/state.json 每晚有幾條沒被搜到（實測 2026-07-26～31 每班 1～6 條），
+# 它們的基線就這樣一天一天變老。一個 repo 掉出搜尋六天再回來，箭頭上的「3」
+# 是六天的位移，而頁面第一版的圖例寫著「榜單一天更新一次」。
+_g_state3 = {"big/repo": {"stars": 100000, "ts": (_g_now - _gdt.timedelta(days=6)).timestamp(),
+                          "rank_velocity": 1, "rank_surge": None},
+             "small/repo": {"stars": 1000, "ts": (_g_now - _gdt.timedelta(hours=2)).timestamp(),
+                            "rank_velocity": 2, "rank_surge": None},
+             "tiny/repo": {"stars": 100, "ts": _g_prev_ts, "rank_velocity": 3, "rank_surge": None}}
+_g_by3 = {r["full_name"]: r for r in _ghmod.rank(_g_cur, _g_state3, _g_now, 10)[0]}
+acase("GitHub 名次變動：每一列帶自己的基線年紀，六天前的基線不會被算成一天"
+      "（名次位移沒有除以天數，所以「隔了幾天」只能一列一列說；"
+      "寫死一個節奏就是把六天的位移講成昨天的）",
+      [_g_by3["big/repo"]["baseline_days"], _g_by3["tiny/repo"]["baseline_days"],
+       _g_by3["fresh/repo"]["baseline_days"]],
+      [6.0, 1.0, None])
+# days 有 max(..., 0.5) 的下限，那是**除法的護欄**——一天跑很多班時不讓 Δ 被除進
+# 一個假的大數字。拿它當「隔了幾天」印給讀者看，同一天的第二班就會說「跟半天前
+# 那一版比」，而基線其實是上一班（可能是昨天）的。護欄跟事實不是同一個數字。
+acase("GitHub 名次變動：印給讀者的年紀是原始值，不是 days 那個 0.5 下限"
+      "（護欄是為了讓除法不爆掉，不是為了描述事實——兩者只在同一天跑第二班時"
+      "分岔，而那正是它會說錯話的那一班）",
+      [_g_by3["small/repo"]["baseline_days"], _g_by3["small/repo"]["velocity"]],
+      [0.1, 400.0])
+acase("GitHub 名次變動：頁面把那一列的基線年紀印進說明"
+      "（圖例不再宣稱任何節奏，天數變成每一列自己的事——"
+      "沒有這一格，讀者只能假設是一天）",
+      [w for w in ("上一版是 ", "baseline_days", "不是同一把尺") if w not in _GH_PAGE], [])
+
 # 上面幾條釘的是判準。真正會騙人的是**呼叫端有沒有照著寫**——所以這條走真的
 # main()：第一班寫基線，第二班讀回來。top_n=1 是為了讓「有量到但沒上榜」真的發生。
 with tempfile.TemporaryDirectory() as _rmtd:
@@ -5099,13 +5130,36 @@ acase("GitHub 名次變動：第一班（舊基線）整榜是「量不到」，
       ["no_baseline", None, "flat", "entered"])
 acase("GitHub 名次變動：頁面把「跟哪一版比」與圖例印出來"
       "（沒寫出來的話，讀者會把 ▲3 讀成「跟昨天比」——而基線是上一次快照）",
-      [w for w in ('id="legend"', "名次底下那一格", "榜單一天更新一次",
+      [w for w in ('id="legend"', "名次底下那一格", "隔了幾天每一列不一樣",
                    "新進榜", "沒有上一版名次可比")
        if w not in _GH_PAGE], [])
 acase("GitHub 名次變動：圖示走站上共用的 .ic 線條圖標，不用 ▲▼ 這種字元"
       "（那幾個字在不同平台會被 emoji 字型接管，大小與基線都不受控，"
       "而它就住在名次數字底下——歪一格整欄看起來就沒對齊）",
       [c for c in ("▲", "▼", "▴", "▾", "⬆", "⬇") if c in _GH_PAGE], [])
+# 顏色是第二個管道，形狀是第一個。這幾條釘的不是「好不好看」，是**同一個顏色
+# 不准掛兩種確定度**：第一版的綠同時給了 up（方向＋幅度都量到）跟 entered
+#（方向確定、幅度量不到），而那正是這一整格存在的理由。灰那邊三種全是 --quiet，
+# 只差實線／虛線與一層 opacity，11px 下等於同一個東西。
+acase("GitHub 名次變動：四階顏色編碼的是「量到多少」，up 與 entered 不准同色"
+      "（一個是量到的完整位移，一個是「一定往上但幾名量不到」——"
+      "同色等於把這一格存在的理由抹掉）",
+      [".gh-move.up{color:var(--fact)}" in _R_CSS,
+       ".gh-move.entered{color:var(--forecast)}" in _R_CSS,
+       ".gh-move.down,.gh-move.flat{color:var(--muted)}" in _R_CSS,
+       ".gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet)}" in _R_CSS,
+       ".gh-move.up,.gh-move.entered" in _R_CSS],
+      [True, True, True, True, False])
+# 舊版把「量不到」那階再乘 0.7 透明度：等效色約 #a6aab1，對白底只有 2.4:1，
+# 低於 WCAG 1.4.11 對非文字 UI 元件的 3:1 門檻。分階要靠 token 不靠透明度——
+# 透明度會把「這一階比較淡」偷偷變成「這一階讀不到」。
+# 判準只掃 .gh-move 那幾條規則，不掃整份樣式表：第一版寫 `"opacity:.7" in _R_CSS`
+# 打中的是泳道那顆點的 `opacity:.75`——這條分支上第三次「判準抓到隔壁那一處」。
+_GH_MOVE_RULES = "".join(_re.findall(r"\.gh-move[^{}]*\{[^}]*\}", _R_CSS))
+acase("GitHub 名次變動：分階不用 opacity（--quiet 再乘 0.7 只剩 2.4:1，"
+      "低於非文字元件的 3:1；四個 token 直接用就都過）",
+      ["opacity" in _GH_MOVE_RULES, len(_GH_MOVE_RULES) > 0], [False, True])
+
 acase("GitHub 名次變動：樣式住在共用樣式表，不是那一頁自己的 <style>"
       "（這一頁上一次自己抄一份樣式的下場，就是收字級那一輪它整份被跳過）",
       [".gh-move{" in _R_CSS, ".gh-legend{" in _R_CSS, "<style>" in _GH_PAGE],
