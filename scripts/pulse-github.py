@@ -185,6 +185,22 @@ def rank(current, state, now, top_n):
     rank_velocity / rank_surge。不另外存一份「上一班的名次」：那會讓頁面上的
     ▲3 與 +180★/天 量的是不同區間，而讀者沒有任何方式看得出來。六種狀態與
     「量不到」為什麼要拆成三種，見 rank_move()。
+
+    **但同一個基線不等於同一把尺，而 baseline_days 就是為了說出這件事。**
+    星速除以實際天數（`days`），所以它是「每天」的量；名次位移**沒有除以任何
+    東西**，它是「這段區間」的量。兩者在每晚都抓得到的 repo 上看起來一樣，
+    正好在基線舊掉的那幾條上分岔——而那不是理論值：state.json 每晚有幾條
+    沒被搜到（實測 2026-07-26～31 每班 1～6 條），它們的基線就這樣一天一天
+    變老。實測 07-31 那一班之後的分佈是 224 條 0 天、其餘 1／2／5／6 天。
+
+    一個 repo 掉出關鍵字搜尋六天再回來，箭頭上的「3」是**六天**的位移。頁面
+    第一版的圖例寫著「榜單一天更新一次，跟 ★/天 同一把尺」——那句話對榜是對的
+    （榜確實每晚重畫），對這支箭頭是錯的。所以每一列都帶自己的 baseline_days，
+    圖例改口說「隔了幾天每一列不一樣」，tooltip 印出那一列真正的天數。
+
+    baseline_days 只是**顯示**用，不參與任何排序或門檻——名次位移刻意不做
+    「除以天數」的正規化：那會生出一個「每天位移 0.5 名」的東西，而名次是序數，
+    序數的每日平均沒有意義。量到幾天就說幾天，不換算。
     """
     rows = []
     now_ts = now.timestamp()
@@ -192,16 +208,22 @@ def rank(current, state, now, top_n):
         prev = state.get(full)
         delta = velocity = surge = None
         is_new = prev is None
-        prev_stars = None
+        prev_stars = baseline_days = None
         if prev and prev.get("ts"):
             days = max((now_ts - prev["ts"]) / 86400.0, 0.5)
+            # 給讀者看的是**沒有下限**的那個年紀。`days` 的 0.5 是除法的護欄
+            # （一天跑很多班時不讓 Δ 被除進一個假的大數字），拿它當「隔了幾天」
+            # 印出去，就會在同一天跑第二班時對讀者說「跟半天前那一版比」——
+            # 而基線其實是昨天的。護欄跟事實不是同一個數字。
+            baseline_days = round((now_ts - prev["ts"]) / 86400.0, 1)
             prev_stars = prev.get("stars", r["stars"])
             delta = r["stars"] - prev_stars
             velocity = round(delta / days, 1)
             if prev_stars >= SURGE_FLOOR:
                 surge = round(100.0 * delta / days / prev_stars, 2)
         rows.append(dict(r, delta=delta, velocity=velocity, surge=surge,
-                         prev_stars=prev_stars, is_new=is_new))
+                         prev_stars=prev_stars, is_new=is_new,
+                         baseline_days=baseline_days))
 
     # 沒有速度的排最後（None 不參與比較），同分再看星數。
     by_velocity = sorted(rows, key=lambda x: (x["velocity"] is not None,
@@ -307,16 +329,25 @@ var MOVE_ICON={
 function moveIcon(k){
   return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+MOVE_ICON[k]+'</svg>';
 }
+// 「上一版是幾天前」——**每一列不一樣**，所以只能一列一列印，不能寫在圖例上。
+// 每晚都有幾條 repo 沒被搜到，它們的基線就這樣一天一天變老；那些 repo 回來上榜
+// 時，箭頭上的數字是那幾天的位移，不是昨天的。
+function ageText(r){
+  var d=r.baseline_days;
+  if(d==null) return "";
+  var s=(d%1===0)?d:d.toFixed(1);
+  return "；上一版是 "+s+" 天前";
+}
 // 說明寫成完整句子，因為它同時是 aria-label：螢幕閱讀器聽到的只有這一句，
 // 旁邊那個「#4」它讀不到上下文。
 function moveText(r,axis){
   var mv=r["rank_move_"+axis], n=r["rank_places_"+axis],
-      prev=r["rank_prev_"+axis], now=r["rank_"+axis];
-  if(mv==="up")   return [""+n, "名次上升 "+n+" 名（上一版第 "+prev+" 名，這一版第 "+now+" 名）"];
-  if(mv==="down") return [""+n, "名次下降 "+n+" 名（上一版第 "+prev+" 名，這一版第 "+now+" 名）"];
-  if(mv==="flat") return ["",   "名次跟上一版一樣（第 "+now+" 名）"];
+      prev=r["rank_prev_"+axis], now=r["rank_"+axis], age=ageText(r);
+  if(mv==="up")   return [""+n, "名次上升 "+n+" 名（上一版第 "+prev+" 名，這一版第 "+now+" 名"+age+"）"];
+  if(mv==="down") return [""+n, "名次下降 "+n+" 名（上一版第 "+prev+" 名，這一版第 "+now+" 名"+age+"）"];
+  if(mv==="flat") return ["",   "名次跟上一版一樣（第 "+now+" 名"+age+"）"];
   if(mv==="entered")
-    return ["新", "新進榜：上一版榜單上沒有它，所以一定是往上——但上升幾名量不到（榜外可能是第 26 名，也可能是第 300 名）"];
+    return ["新", "新進榜：上一版榜單上沒有它，所以一定是往上——但上升幾名量不到（榜外可能是第 26 名，也可能是第 300 名"+age+"）"];
   if(mv==="first_seen")
     return ["", "沒有上一版名次可比：這個 repo 這一次才第一次被觀測到"];
   return ["", "沒有上一版名次可比：上一版榜單還沒有記名次，這一格從下一次更新開始才有值"];
@@ -365,8 +396,14 @@ function draw(d){
 // 圖例。**跟榜單共用同一份 MOVE_ICON**——圖例自己抄一套圖示，就是「同一種東西
 // 長成兩套」的縮小版，而且圖例那一套不會有任何東西提醒你它已經跟榜上不一樣了。
 // 一個沒有寫出來的判準跟沒有判準一樣會誤導，所以「跟哪一版比」也印在這裡。
+//
+// 這句話的第一版是「榜單一天更新一次，跟 ★/天 同一把尺」。前半對（榜確實每晚
+// 重畫），後半是假的：★/天 除以實際天數、名次位移沒有除以任何東西，而每晚都有
+// 幾條 repo 沒被搜到、基線就這樣變老。所以圖例不再宣稱任何節奏——天數是每一列
+// 自己的事，印在那一列的 tooltip 裡。
 document.getElementById("legend").innerHTML =
-  '名次底下那一格＝跟<b>上一版榜單</b>比（榜單一天更新一次，跟 ★/天 同一把尺）：'
+  '名次底下那一格＝跟這個 repo <b>上一次入榜的那一版</b>比。隔了幾天每一列不一樣'
+  + '（滑過去看），所以它不是「每天」的位移——跟 ★/天 不是同一把尺：'
   + [["up","3","上升 3 名"],["down","2","下降 2 名"],["flat","","持平"],
      ["entered","新","新進榜（上一版不在這個榜上；上升幾名量不到）"],
      ["first_seen","","沒有上一版名次可比"]]

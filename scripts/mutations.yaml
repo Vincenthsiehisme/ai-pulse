@@ -1605,9 +1605,29 @@ mutations:
     why: ""
 
   - id: M184
-    title: "頁面不寫名次變動是跟哪一版比（讀者會把「上升 3 名」讀成跟昨天比——而基線是上一次快照，中間可能隔了兩天）"
+    title: "頁面不寫名次變動是跟哪一版比（讀者只看得到一支箭頭，不知道它拿什麼當基準）"
     file: pulse-github.py
-    find: "'名次底下那一格＝跟<b>上一版榜單</b>比（榜單一天更新一次，跟 ★/天 同一把尺）：'"
-    replace: "'名次變動：'"
+    find: "  '名次底下那一格＝跟這個 repo <b>上一次入榜的那一版</b>比。隔了幾天每一列不一樣'"
+    replace: "  '名次變動：'"
+    survives: false
+    why: ""
+
+  # ── 名次位移不是「每天」的量，而頁面第一版說它是（2026-08-01，同一條分支）──
+  # 星速除以實際天數，名次位移沒有除以任何東西。兩者在每晚都抓得到的 repo 上
+  # 看起來一樣，正好在基線舊掉的那幾條上分岔——實測每晚有 1～6 條沒被搜到。
+
+  - id: M185
+    title: "基線年紀寫死成 1 天（每晚有幾條 repo 沒被搜到、基線一天天變老；寫死之後那幾條回來上榜時，六天的位移會被說成一天，而那句話印在讀者眼前）"
+    file: pulse-github.py
+    find: "            baseline_days = round((now_ts - prev[\"ts\"]) / 86400.0, 1)"
+    replace: "            baseline_days = 1"
+    survives: false
+    why: ""
+
+  - id: M186
+    title: "基線年紀拿 days 那個護欄值來印（0.5 是除法下限不是事實——同一天跑第二班時會對讀者說「跟半天前那一版比」，而基線其實是昨天的）"
+    file: pulse-github.py
+    find: "            baseline_days = round((now_ts - prev[\"ts\"]) / 86400.0, 1)"
+    replace: "            baseline_days = round(days, 1)"
     survives: false
     why: ""
