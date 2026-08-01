@@ -5080,7 +5080,8 @@ with tempfile.TemporaryDirectory() as _rmtd:
 acase("GitHub 名次變動：快照那一班把名次跟星數**一起**寫回 state.json"
       "（分兩次寫的話，頁面上的 ▲3 跟 +180★/天 量的是不同區間，"
       "而讀者沒有任何方式看得出來）",
-      [_rm_state["big/a"]["rank_velocity"], _rm_state["big/a"]["ts"] == _rm_ts],
+      [_rm_state["big/a"].get("rank_velocity", "MISSING"),
+       _rm_state["big/a"]["ts"] == _rm_ts],
       [1, False])
 acase("GitHub 名次變動：有量到但沒上榜的 repo 寫 null，不是不寫這個欄位"
       "（不寫的話下一班讀到的是「舊 schema、量不到」，"
@@ -5098,7 +5099,8 @@ acase("GitHub 名次變動：第一班（舊基線）整榜是「量不到」，
       ["no_baseline", None, "flat", "entered"])
 acase("GitHub 名次變動：頁面把「跟哪一版比」與圖例印出來"
       "（沒寫出來的話，讀者會把 ▲3 讀成「跟昨天比」——而基線是上一次快照）",
-      [w for w in ('id="legend"', "上一版榜單", "新進榜", "沒有上一版名次可比")
+      [w for w in ('id="legend"', "名次底下那一格", "榜單一天更新一次",
+                   "新進榜", "沒有上一版名次可比")
        if w not in _GH_PAGE], [])
 acase("GitHub 名次變動：圖示走站上共用的 .ic 線條圖標，不用 ▲▼ 這種字元"
       "（那幾個字在不同平台會被 emoji 字型接管，大小與基線都不受控，"
