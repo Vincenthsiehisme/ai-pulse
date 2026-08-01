@@ -3,21 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-07-31'
+generated_day: '2026-08-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **19** 則：`published` 15、`review` 4
+事件 **22** 則：`published` 21、`review` 1
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-04 | [[Events/evt-2026-08-04-07332d\|Disrupting a Criminal Scam Operation]] | review |
-| 2026-07-31 | [[Events/evt-2026-07-31-e0a505\|Advancing responsible AI across Europe]] | review |
-| 2026-07-30 | [[Events/evt-2026-07-30-d3af04\|How avatarin built a 24/7 retail agent with GPT-Realtime]] | review |
-| 2026-07-30 | [[Events/evt-2026-07-30-788d77\|Advancing the price-performance frontier with GPT-5.6]] | review |
+| 2026-08-04 | [[Events/evt-2026-08-04-07332d\|Disrupting a Criminal Scam Operation]] | published |
+| 2026-08-01 | [[Events/evt-2026-08-01-2a01f6\|Ten advances in mathematics and theoretical computer science]] | review |
+| 2026-07-31 | [[Events/evt-2026-07-31-e5e5cc\|Building abundant intelligence]] | published |
+| 2026-07-31 | [[Events/evt-2026-07-31-e0a505\|Advancing responsible AI across Europe]] | published |
+| 2026-07-31 | [[Events/evt-2026-07-31-ae50a2\|Univé builds an AI-ready workforce]] | published |
+| 2026-07-30 | [[Events/evt-2026-07-30-d3af04\|How avatarin built a 24/7 retail agent with GPT-Realtime]] | published |
+| 2026-07-30 | [[Events/evt-2026-07-30-788d77\|Advancing the price-performance frontier with GPT-5.6]] | published |
 | 2026-07-29 | [[Events/evt-2026-07-29-6fb84b\|How GPT-5.6 fuses frontier intelligence with frontier efficiency]] | published |
 | 2026-07-29 | [[Events/evt-2026-07-29-50ea44\|How enabling two settings tripled our scores on the ARC-AGI-3 benchmark]] | published |
 | 2026-07-29 | [[Events/evt-2026-07-29-001f1f\|Accelerating scientific discovery with ChatGPT for Academic Researchers]] | published |

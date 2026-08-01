@@ -1,7 +1,8 @@
-# 被門禁擋下（17）
+# 被門禁擋下（19）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-08-01-2a01f6|Ten advances in mathematics and theoretical computer science]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-07-30-54f43a|Investigating Incidents Cybersecurity Evals]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-07-28-09f394|Gemini Robotics 2 brings whole body intelligence to robots]]** — Google DeepMind — blockers: thin_research_analysis
 - **[[Events/evt-2026-07-23-83a9d2|AMD and Cerebras Announce Industry-Leading Ultra-Low-Latency and High ]]** — Cerebras — blockers: thin_fact
@@ -18,4 +19,5 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-07-31-15c85e|Grok Imagine Video 1 5 References]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity

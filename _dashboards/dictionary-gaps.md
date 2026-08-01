@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-07-31'
+generated_day: '2026-08-01'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**8 天**（2026-07-24 … 2026-07-31），去重後 **885** 列。
+語料範圍：**9 天**（2026-07-24 … 2026-08-01），去重後 **941** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -27,20 +27,21 @@ generator: scripts/pulse-dictionary-gaps.py
 | Here | 11 | 7 |
 | Union | 10 | 2 |
 | Energy | 9 | 2 |
-| U.S | 8 | 4 |
-| One | 8 | 5 |
-| Thursday | 7 | 3 |
+| U.S | 9 | 4 |
+| One | 9 | 6 |
+| Thursday | 8 | 3 |
+| Amazon | 8 | 3 |
+| Apple | 8 | 3 |
 | Wednesday | 6 | 2 |
 | Security | 6 | 3 |
+| Tuesday | 6 | 4 |
 | Monday | 6 | 4 |
 | Gemma | 6 | 5 |
 | Learn | 6 | 3 |
-| Amazon | 6 | 3 |
 | When | 6 | 4 |
 | Pro | 6 | 4 |
+| Trump | 6 | 4 |
 | There | 6 | 5 |
-| Apple | 6 | 3 |
-| Tuesday | 5 | 3 |
 | Source | 5 | 2 |
 | Python | 5 | 3 |
 | Understanding | 5 | 3 |
@@ -56,7 +57,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | Advancing | 5 | 3 |
 | AI-native | 5 | 3 |
 | These | 5 | 3 |
-| Trump | 5 | 4 |
+| SpaceX | 5 | 3 |
+| RAM | 5 | 2 |
 | Flash | 4 | 2 |
 | Making | 4 | 4 |
 | Updated | 4 | 2 |
@@ -66,6 +68,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Built | 4 | 2 |
 | American | 4 | 4 |
 | Plus | 4 | 4 |
+| Cybersecurity | 4 | 4 |
 | Mythos | 4 | 4 |
 | Some | 4 | 4 |
 | However | 4 | 3 |
@@ -74,9 +77,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Chinese | 4 | 3 |
 | Rust | 4 | 2 |
 | Word | 4 | 3 |
-| World | 4 | 3 |
-| API | 4 | 3 |
-| SpaceX | 4 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -105,6 +105,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Consumer Protection | 4 | src-ep-itre |
 | Release Notes | 4 | src-gh-vllm-releases |
 | Hi HN | 4 | src-hn-frontpage |
+| Tags | 4 | src-kol-simonwillison |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Video | 3 | src-ep-itre |
@@ -116,12 +117,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
 | List | 3 | src-kol-raschka |
-| Tags | 3 | src-kol-simonwillison |
 | Qwen3 | 3 | src-qwen-blog |
 | MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
+| AI-generated | 3 | src-media-techcrunch |
 | TechCrunch Disrupt | 3 | src-media-techcrunch |
+| Sam Altman | 3 | src-media-techcrunch |
+| The Verge | 3 | src-media-theverge |
 | Montana | 3 | src-media-mit-techreview |
 
 ## 這一頁不保證什麼

@@ -16,9 +16,9 @@ license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, s
 endpoint: "https://x.ai/sitemap.xml"
 robots_checked_day: "2026-07-27"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-07-31"
-items_observed: 43
-events_bound: 4
+last_observed_day: "2026-08-01"
+items_observed: 44
+events_bound: 5
 events_published: 4
 health_score: 100
 consecutive_failures: 0
@@ -34,8 +34,8 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 43 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 4 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已觀測 | 44 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 5 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 4 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**xAI**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。

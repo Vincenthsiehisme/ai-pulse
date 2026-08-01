@@ -16,7 +16,7 @@ license_note: "titles + links only"
 endpoint: "https://www.anthropic.com/sitemap.xml"
 robots_checked_day: "2026-07-26"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-07-31"
+last_observed_day: "2026-08-01"
 items_observed: 43
 events_bound: 9
 events_published: 8
