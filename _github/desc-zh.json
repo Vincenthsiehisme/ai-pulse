@@ -144,6 +144,11 @@
     "src_hash": "ded019d9b9e2",
     "zh": "在 Kubernetes 上用現代加速器達到頂尖的推論效能"
   },
+  "lyogavin/airllm": {
+    "at": "2026-08-01T19:12:28+00:00",
+    "src_hash": "d0d80379dd24",
+    "zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
+  },
   "msitarzewski/agency-agents": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "f6970773b060",
@@ -218,6 +223,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "0973420ed49d",
     "zh": "給 AI agent 的自我演化情境資料庫，整合 agent 記憶、RAG 知識與技能"
+  },
+  "withastro/flue": {
+    "at": "2026-08-01T19:12:28+00:00",
+    "src_hash": "1943dbbaa5a9",
+    "zh": "沙盒 agent 框架"
   },
   "wonderwhy-er/DesktopCommanderMCP": {
     "at": "2026-07-31T19:20:39+00:00",
