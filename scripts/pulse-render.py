@@ -417,9 +417,30 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
    而且這一輪把字級收成級距時它整份被跳過（它不經過 pulse-render）。 */
 .gh-wrap{padding:clamp(30px,5vw,52px) 0 clamp(60px,9vw,110px)}
 .gh-note{color:var(--quiet);font:var(--fs-micro) var(--mono);margin:0 0 18px}
-.gh-row{display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:baseline;padding:15px 4px;border-bottom:1px solid var(--border-soft)}
+/* 名次那一欄從 34px 加寬到 46px：底下多了一格名次變動，而「▲12」那種兩位數
+   位移在 34px 裡會換行——換行的那一列會把整排名次的基線推歪一格。 */
+.gh-row{display:grid;grid-template-columns:46px 1fr auto;gap:14px;align-items:baseline;padding:15px 4px;border-bottom:1px solid var(--border-soft)}
 .gh-row:hover{background:var(--surface-soft)}
 .gh-rank{font:600 var(--fs-tiny) var(--mono);color:var(--quiet);text-align:right}
+/* 名次變動。榜上掛在名次底下、圖例裡跟著字走，所以基底是 inline-flex，
+   進到名次欄再改成獨立一行——兩處共用同一個 class，圖例才不會跟榜上漂開。 */
+.gh-move{display:inline-flex;align-items:center;gap:2px;font:var(--fs-micro) var(--mono);color:var(--quiet);font-variant-numeric:tabular-nums}
+.gh-move .ic{width:.92em;height:.92em;stroke-width:2.4}
+.gh-move b{font-weight:700}
+.gh-rank .gh-move{display:flex;justify-content:flex-end;margin-top:3px}
+/* 上升用 --fact（站上「這是硬數字」的那個綠），下降用 --muted 而不是紅：
+   同一頁的 .gh-metric .v.down 早就是這個處理。名次掉下去不是壞消息，只是
+   別人漲得比較快——染成告警色的話，這個榜每天都會有半數的列在喊。 */
+.gh-move.up,.gh-move.entered{color:var(--fact)}
+.gh-move.down{color:var(--muted)}
+/* 量不到的那兩種：線是斷的，顏色再淡一階。它必須跟 flat（持平那條連續的線）
+   一眼分得出來——那正是這一格存在的理由。 */
+.gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet);opacity:.7}
+.gh-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:-6px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--border-soft);color:var(--quiet);font:var(--fs-micro) var(--mono);line-height:1.9}
+.gh-legend b{color:var(--muted);font-weight:600}
+.gh-leg{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+/* 窄螢幕上圖例會擠成一團、看不出哪個圖示配哪句話，所以那裡一行一個。 */
+@media(max-width:560px){.gh-legend{display:block}.gh-leg{display:flex;white-space:normal;margin-top:6px}}
 .gh-main .n{font-size:var(--fs-md);font-weight:600;line-height:1.35}
 .gh-main .n a{color:var(--text)}.gh-main .n a:hover{color:var(--accent)}
 .gh-main .d{color:var(--muted);font-size:var(--fs-base);margin:3px 0 0}

@@ -5,14 +5,34 @@
 答「GitHub 竄起什麼」：打 GitHub Search API 撈 AI 主題白名單的活躍 repo，
 跨執行累積星數快照、算星速（Δstars / 天），排名輸出。星數是硬數字，不推斷。
 
-  dist/data/github.json     竄起榜（repo / stars / 星速 / 語言 / 主題 / 連結 / 中文描述）
+  dist/data/github.json     竄起榜（repo / stars / 星速 / 名次變動 / 語言 / 主題 / 連結 / 中文描述）
   dist/github/index.html    自帶「動能」視圖（讀 ../data/github.json）
-  _github/state.json        star 快照歷史（跨次累積星速用；進版控）
+  _github/state.json        star ＋名次快照歷史（跨次累積星速與名次變動用；進版控）
   _github/desc-zh.json      中文描述儲存（潤稿端寫，本檔只讀；見 lib/ghdesc.py）
 
 中文描述：repo 的 description 來自 API，是英文。翻譯屬於**敘述**不是判斷，所以由潤稿端
 （pulse-github-desc-prep / -apply）寫，本檔只負責把驗過章的譯文掛回榜上。抓取鏈不等它——
 沒有譯文就顯示英文原文，榜照樣出得來。原文永遠保留在 desc 欄且前台一併顯示。
+
+_github/state.json 的 schema（2026-08-01 起，每筆四個欄位）：
+
+    "owner/repo": {"stars": 12345, "ts": 1785518099.1,
+                   "rank_velocity": 3, "rank_surge": null}
+
+前兩格是星速的基線，後兩格是名次變動的基線——**同一次快照寫的，所以兩個
+數字回答的是同一個問句**：「跟上一次那一版榜單比」。分開存兩個時間點會讓頁面
+上「▲3」與「+180★/天」量的是不同區間，而讀者沒有任何方式看得出來。
+
+`rank_*` 三種值意義不同，缺一不可（見 rank_move()）：
+
+    3      上一次快照時在這個榜的第 3 名
+    null   上一次快照時**有量到這個 repo，但它不在這個榜上**（榜外）
+    欄位不存在  上一次快照是舊 schema，根本沒記名次
+
+遷移：舊 state.json 沒有這兩個欄位，第一次跑到這版碼時全榜都會落在「欄位不
+存在」那一格，頁面印「沒有上一次名次可比」而不是假裝有變動。跑完第一次快照
+就自己補齊，不需要 migration script。回滾：把這兩個欄位留在檔案裡無害——舊版
+碼只讀 stars / ts，多的欄位會在下一次 state.update() 被整筆覆蓋掉。
 
 紅線：抓取＋度量全確定性；API 失敗不炸整條鏈（沿用上次 github.json）。
 用法：VAULT_DIR=/path/to/AI-Pulse GITHUB_TOKEN=... python scripts/pulse-github.py
@@ -84,6 +104,61 @@ def collect(cfg, token, now):
 SURGE_FLOOR = 200
 
 
+def rank_move(prev, key, now_rank):
+    """名次變動：回 (move, places, prev_rank)。純函式，可離線單測。
+
+    `prev` 是 state.json 裡這個 repo 的上一次快照（沒有就給 None），`key` 是
+    `rank_velocity` 或 `rank_surge`，`now_rank` 是這一班算出來的名次。
+
+    **六種狀態，沒有一種叫 0。** 這一格最容易壞的方式不是算錯，是把「量不到」
+    跟「持平」印成同一個東西——榜上二十五列裡有一半是首次觀測的那天，一整排
+    「─」看起來會像「今天大家都沒動」，而事實是今天根本沒有昨天可比。同一種
+    形狀在這個 repo 已經抓過好幾次（未量測的因子印 0、抓不到榜的那一班寫 0），
+    所以這裡把「不知道」拆成三種，各自有各自的圖示與說明：
+
+      up          prev > now      上升 places 名
+      down        prev < now      下降 places 名
+      flat        prev == now     持平（places = 0，這個 0 是真的量到的 0）
+      entered     prev 是 null    上次有量到這個 repo，但它不在這個榜上（榜外）
+                                  → 一定是上升，但**上升幾名量不到**：榜外可能是
+                                    第 26 名也可能是第 300 名。所以 places 給 None，
+                                    不給一個看起來很具體的假數字。
+      first_seen  prev 是 None    這個 repo 這一班第一次被觀測到，沒有上一次
+      no_baseline 沒有那個欄位    上一次快照是舊 schema，沒記名次
+
+    最後兩種在畫面上都是「沒有上一次名次可比」，但成因不同：first_seen 是這個
+    repo 新，no_baseline 是這份資料新。分開存是為了讓「部署完第一天整榜都沒有
+    箭頭」查得出原因——如果兩者共用一個值，那天看起來會像整批 repo 同時新出現。
+    """
+    if prev is None:
+        return "first_seen", None, None
+    if key not in prev:
+        return "no_baseline", None, None
+    prev_rank = prev[key]
+    if prev_rank is None:
+        return "entered", None, None
+    if prev_rank > now_rank:
+        return "up", prev_rank - now_rank, prev_rank
+    if prev_rank < now_rank:
+        return "down", now_rank - prev_rank, prev_rank
+    return "flat", 0, prev_rank
+
+
+def attach_rank_move(board, state, axis):
+    """把某個榜的名次變動寫進那一批 dict（前台不必自己算，也不會兩邊算出不同答案）。
+
+    兩個榜共用同一批 dict 物件（`rows` 只建一次），所以這裡的欄位一律帶軸名
+    後綴——不帶的話竄升榜會蓋掉星速榜剛寫好的那一格，而畫面上兩邊都會顯示
+    後寫的那一個。
+    """
+    key = f"rank_{axis}"
+    for r in board:
+        move, places, prev_rank = rank_move(state.get(r["full_name"]), key, r[key])
+        r[f"rank_move_{axis}"] = move
+        r[f"rank_places_{axis}"] = places
+        r[f"rank_prev_{axis}"] = prev_rank
+
+
 def rank(current, state, now, top_n):
     """純函式：用 state 的上次快照算兩軸，各排一次。可離線單測。
 
@@ -104,6 +179,12 @@ def rank(current, state, now, top_n):
     **歷史平均**不是現在的速度：三年前開的 5000 星專案會拿到 4.5★/天 排進前段，
     而它這一週可能一顆都沒漲。兩點才有斜率，一點沒有——所以 velocity 留 None、
     排在最後，頁面標「首次觀測」。量不到就說量不到。
+
+    **名次變動（rank_move_*）跟星速共用同一個基線。** 兩個榜各自算一次，比的是
+    「上一次快照那一版榜單」——也就是 state.json 裡跟 stars 同一次寫進去的
+    rank_velocity / rank_surge。不另外存一份「上一班的名次」：那會讓頁面上的
+    ▲3 與 +180★/天 量的是不同區間，而讀者沒有任何方式看得出來。六種狀態與
+    「量不到」為什麼要拆成三種，見 rank_move()。
     """
     rows = []
     now_ts = now.timestamp()
@@ -138,6 +219,9 @@ def rank(current, state, now, top_n):
         x["rank_velocity"] = i + 1
     for i, x in enumerate(surge_top):
         x["rank_surge"] = i + 1
+    # 名次變動要在兩個榜的名次都寫完之後才算——attach 讀的是 r["rank_<axis>"]。
+    attach_rank_move(top, state, "velocity")
+    attach_rank_move(surge_top, state, "surge")
     return top, surge_top
 
 
@@ -178,6 +262,7 @@ def gh_page(generated: str) -> str:
 
 GH_BODY = """<section class="gh-wrap shell">
 <p class="gh-note" id="meta"></p>
+<p class="gh-legend" id="legend"></p>
 <div class="gh-two">
   <div>
     <div class="col-head">星速榜 · 誰吸走最多注意力</div>
@@ -197,8 +282,52 @@ GH_BODY = """<section class="gh-wrap shell">
 </section>
 <script>
 
-function esc(s){return (s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+function esc(s){return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
 function fmt(n){return n>=1000?(n/1000).toFixed(1)+"k":(""+n);}
+
+// 名次變動的圖示。走站上共用的 .ic 線條圖標（1em、currentColor、stroke），
+// 不用實心三角形那類字元：它們在不同平台會被 emoji 字型接管，大小與基線都不受控，
+// 而這一格就住在名次數字底下——歪一點點就整欄看起來像沒對齊。
+// （這行註解會跟著 GH_BODY 一起送到頁面上，所以連舉例都不能把那幾個字打出來——
+//   selftest 那條檢查是掃產出的頁面，它分不出「用了」跟「只是提到」。）
+var MOVE_ICON={
+  up:'<path d="M12 19V6M6 12l6-6 6 6"/>',
+  down:'<path d="M12 5v13M6 12l6 6 6-6"/>',
+  flat:'<path d="M5 12h14"/>',
+  // 從榜外進來：一支往上的箭頭撞到一條線（榜的邊界）。
+  entered:'<path d="M12 20V10M7 15l5-5 5 5M4 5h16"/>',
+  // 量不到：同一條線改成**虛線**。站上「未量測」本來就是虛線（事件卡片那幾個
+  // 沒量過的因子，軌道是虛線不填色），沿用同一個約定。
+  // 第一版畫成「兩截短線」，在 11px 下跟 flat 那條實線只差一個缺口，
+  // 兩者總寬還幾乎一樣——實線 / 虛線的對比看得出來，長短的對比看不出來。
+  // 而「持平」跟「沒有可比的東西」長得像，就等於沒有這一格。
+  first_seen:'<path d="M5 12h14" stroke-dasharray="2.5 3"/>',
+  no_baseline:'<path d="M5 12h14" stroke-dasharray="2.5 3"/>'
+};
+function moveIcon(k){
+  return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+MOVE_ICON[k]+'</svg>';
+}
+// 說明寫成完整句子，因為它同時是 aria-label：螢幕閱讀器聽到的只有這一句，
+// 旁邊那個「#4」它讀不到上下文。
+function moveText(r,axis){
+  var mv=r["rank_move_"+axis], n=r["rank_places_"+axis],
+      prev=r["rank_prev_"+axis], now=r["rank_"+axis];
+  if(mv==="up")   return [""+n, "名次上升 "+n+" 名（上一版第 "+prev+" 名，這一版第 "+now+" 名）"];
+  if(mv==="down") return [""+n, "名次下降 "+n+" 名（上一版第 "+prev+" 名，這一版第 "+now+" 名）"];
+  if(mv==="flat") return ["",   "名次跟上一版一樣（第 "+now+" 名）"];
+  if(mv==="entered")
+    return ["新", "新進榜：上一版榜單上沒有它，所以一定是往上——但上升幾名量不到（榜外可能是第 26 名，也可能是第 300 名）"];
+  if(mv==="first_seen")
+    return ["", "沒有上一版名次可比：這個 repo 這一次才第一次被觀測到"];
+  return ["", "沒有上一版名次可比：上一版榜單還沒有記名次，這一格從下一次更新開始才有值"];
+}
+function moveCell(r,axis){
+  var mv=r["rank_move_"+axis];
+  if(!mv) return "";                       // 舊的 github.json（沒有這幾個欄位）照樣畫得出來
+  var t=moveText(r,axis);
+  return '<span class="gh-move '+mv+'" role="img" title="'+esc(t[1])+'" aria-label="'+esc(t[1])+'">'
+    +moveIcon(mv)+(t[0]?'<b>'+esc(t[0])+'</b>':"")+'</span>';
+}
 function row(r,i,axis){
   // 首次觀測沒有兩點就沒有斜率——印「首次觀測」不印一個算出來的數字。
   var mv, cls="";
@@ -211,7 +340,7 @@ function row(r,i,axis){
   // 另一個榜的名次：同一個 repo 兩邊都上，本身就是資訊。
   var other = axis==="surge" ? r.rank_velocity : r.rank_surge;
   var xref = other ? '<span class="gh-xref">'+(axis==="surge"?"星速":"竄升")+' #'+other+'</span>' : "";
-  return '<div class="gh-row"><div class="gh-rank">'+(i+1)+'</div>'
+  return '<div class="gh-row"><div class="gh-rank">'+(i+1)+moveCell(r,axis)+'</div>'
     +'<div class="gh-main"><div class="n"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.full_name)+'</a>'+xref+'</div>'
     +(r.desc_zh?'<div class="d">'+esc(r.desc_zh)+'</div>':"")
     +(r.desc?'<div class="'+(r.desc_zh?"d-src":"d")+'">'+esc(r.desc)+'</div>':"")
@@ -233,6 +362,18 @@ function draw(d){
   document.getElementById("list").innerHTML=repos.map((r,i)=>row(r,i,"velocity")).join("");
   document.getElementById("surge").innerHTML=surging.map((r,i)=>row(r,i,"surge")).join("");
 }
+// 圖例。**跟榜單共用同一份 MOVE_ICON**——圖例自己抄一套圖示，就是「同一種東西
+// 長成兩套」的縮小版，而且圖例那一套不會有任何東西提醒你它已經跟榜上不一樣了。
+// 一個沒有寫出來的判準跟沒有判準一樣會誤導，所以「跟哪一版比」也印在這裡。
+document.getElementById("legend").innerHTML =
+  '名次底下那一格＝跟<b>上一版榜單</b>比（榜單一天更新一次，跟 ★/天 同一把尺）：'
+  + [["up","3","上升 3 名"],["down","2","下降 2 名"],["flat","","持平"],
+     ["entered","新","新進榜（上一版不在這個榜上；上升幾名量不到）"],
+     ["first_seen","","沒有上一版名次可比"]]
+      .map(function(x){
+        return '<span class="gh-leg"><span class="gh-move '+x[0]+'" aria-hidden="true">'
+          +moveIcon(x[0])+(x[1]?'<b>'+x[1]+'</b>':"")+'</span>'+x[2]+'</span>';
+      }).join("");
 fetch("../data/github.json").then(r=>r.json()).then(draw)
   .catch(()=>{document.getElementById("meta").textContent="github.json 載入失敗";});
 </script>"""
@@ -327,8 +468,18 @@ def main():
     (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
 
     # 更新快照（一天一次，維持乾淨的 Δ/天基線）；進版控
+    #
+    # 名次跟星數同一次寫回，理由見模組 docstring 的 schema 段：兩個數字要回答
+    # 同一個問句。**沒上榜的 repo 寫 null，不是不寫**——不寫的話下一班讀到的是
+    # 「這個欄位不存在」，會被判成「舊 schema、量不到」，而事實是我們上次量過、
+    # 它就是不在榜上。兩者在畫面上是不同的說法（見 rank_move()）。
     if do_snapshot:
-        state.update({full: {"stars": r["stars"], "ts": now.timestamp()} for full, r in current.items()})
+        vel_rank = {r["full_name"]: r["rank_velocity"] for r in ranked}
+        sur_rank = {r["full_name"]: r["rank_surge"] for r in surging}
+        state.update({full: {"stars": r["stars"], "ts": now.timestamp(),
+                             "rank_velocity": vel_rank.get(full),
+                             "rank_surge": sur_rank.get(full)}
+                      for full, r in current.items()})
         state_path.parent.mkdir(parents=True, exist_ok=True)
         state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 

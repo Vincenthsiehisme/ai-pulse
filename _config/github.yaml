@@ -1,6 +1,6 @@
 # GitHub 動能榜設定（星數＝注意力訊號，零 LLM）
 # 用 GitHub Search API 掃關鍵字，取近期活躍且有一定規模的 repo，
-# 比對 _github/state.json 的歷史快照算 Δstars/day。
+# 比對 _github/state.json 的歷史快照算 Δstars/day 與名次變動。
 keywords:
   - ai agent
   - llm
@@ -11,7 +11,10 @@ keywords:
   - vector database
 min_stars: 300        # 低於此星數不進榜（濾掉一日新秀噪音）
 active_days: 45       # 最近推送需在這天數內
-top_n: 25             # 榜單長度
+# 榜單長度。同時是「新進榜」那個圖示的邊界：上一次快照排在 top_n 以外的 repo，
+# 這次進榜時只會標「新進榜」而不標上升幾名——榜外沒有名次，第 26 名跟第 300 名
+# 在 state.json 裡是同一格 null。調小這個數字會讓「新進榜」變多，不是變準。
+top_n: 25
 exclude:              # 標題含這些字樣直接排除（教材/清單類非產品動能）
   - awesome
   - roadmap

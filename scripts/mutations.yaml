@@ -1567,3 +1567,47 @@ mutations:
     replace: "  repos.forEach"
     survives: false
     why: ""
+
+  # ── 榜上的名次變動（2026-08-01）──
+  # 這一格的價值全在「量不到的時候有沒有承認」。五條裡有三條打的都是同一個
+  # 形狀：把「不知道」偽裝成一個看起來很具體的數字。
+
+  - id: M180
+    title: "舊 schema 的基線判成「新進榜」（這版上線第一天整個榜都會標新進榜——一個看起來很有內容、實際上只是資料還沒長出來的畫面，而且沒有任何東西會讓它變紅）"
+    file: pulse-github.py
+    find: "    if key not in prev:\n        return \"no_baseline\", None, None"
+    replace: "    if key not in prev:\n        return \"entered\", None, None"
+    survives: false
+    why: ""
+
+  - id: M181
+    title: "「上一版不在榜上」給一個具體的位移名次（榜外可能是第 26 名也可能是第 300 名——印出來的那個數字是憑空生的，而它跟真的量到的位移長得一模一樣）"
+    file: pulse-github.py
+    find: "    if prev_rank is None:\n        return \"entered\", None, None"
+    replace: "    if prev_rank is None:\n        return \"up\", now_rank, None"
+    survives: false
+    why: ""
+
+  - id: M182
+    title: "快照只寫星數不寫名次（下一班每一條都讀成「上一版沒記名次」，整欄的變動從此永遠空著——而畫面上那是一種合法狀態，不會有人發現它再也不會變）"
+    file: pulse-github.py
+    find: "        state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp(),\n                             \"rank_velocity\": vel_rank.get(full),\n                             \"rank_surge\": sur_rank.get(full)}\n                      for full, r in current.items()})"
+    replace: "        state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp()}\n                      for full, r in current.items()})"
+    survives: false
+    why: ""
+
+  - id: M183
+    title: "沒上榜的 repo 名次寫 0 不寫 null（0 是一個比第一名還前面的名次——榜外進榜會被標成「下降」，方向剛好相反，而且是個具體數字）"
+    file: pulse-github.py
+    find: "                             \"rank_velocity\": vel_rank.get(full),\n                             \"rank_surge\": sur_rank.get(full)}"
+    replace: "                             \"rank_velocity\": vel_rank.get(full, 0),\n                             \"rank_surge\": sur_rank.get(full, 0)}"
+    survives: false
+    why: ""
+
+  - id: M184
+    title: "頁面不寫名次變動是跟哪一版比（讀者會把「上升 3 名」讀成跟昨天比——而基線是上一次快照，中間可能隔了兩天）"
+    file: pulse-github.py
+    find: "'名次底下那一格＝跟<b>上一版榜單</b>比（榜單一天更新一次，跟 ★/天 同一把尺）：'"
+    replace: "'名次變動：'"
+    survives: false
+    why: ""
