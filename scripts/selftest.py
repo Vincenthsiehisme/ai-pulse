@@ -5137,6 +5137,29 @@ acase("GitHub 名次變動：圖示走站上共用的 .ic 線條圖標，不用 
       "（那幾個字在不同平台會被 emoji 字型接管，大小與基線都不受控，"
       "而它就住在名次數字底下——歪一格整欄看起來就沒對齊）",
       [c for c in ("▲", "▼", "▴", "▾", "⬆", "⬇") if c in _GH_PAGE], [])
+# 顏色是第二個管道，形狀是第一個。這幾條釘的不是「好不好看」，是**同一個顏色
+# 不准掛兩種確定度**：第一版的綠同時給了 up（方向＋幅度都量到）跟 entered
+#（方向確定、幅度量不到），而那正是這一整格存在的理由。灰那邊三種全是 --quiet，
+# 只差實線／虛線與一層 opacity，11px 下等於同一個東西。
+acase("GitHub 名次變動：四階顏色編碼的是「量到多少」，up 與 entered 不准同色"
+      "（一個是量到的完整位移，一個是「一定往上但幾名量不到」——"
+      "同色等於把這一格存在的理由抹掉）",
+      [".gh-move.up{color:var(--fact)}" in _R_CSS,
+       ".gh-move.entered{color:var(--forecast)}" in _R_CSS,
+       ".gh-move.down,.gh-move.flat{color:var(--muted)}" in _R_CSS,
+       ".gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet)}" in _R_CSS,
+       ".gh-move.up,.gh-move.entered" in _R_CSS],
+      [True, True, True, True, False])
+# 舊版把「量不到」那階再乘 0.7 透明度：等效色約 #a6aab1，對白底只有 2.4:1，
+# 低於 WCAG 1.4.11 對非文字 UI 元件的 3:1 門檻。分階要靠 token 不靠透明度——
+# 透明度會把「這一階比較淡」偷偷變成「這一階讀不到」。
+# 判準只掃 .gh-move 那幾條規則，不掃整份樣式表：第一版寫 `"opacity:.7" in _R_CSS`
+# 打中的是泳道那顆點的 `opacity:.75`——這條分支上第三次「判準抓到隔壁那一處」。
+_GH_MOVE_RULES = "".join(_re.findall(r"\.gh-move[^{}]*\{[^}]*\}", _R_CSS))
+acase("GitHub 名次變動：分階不用 opacity（--quiet 再乘 0.7 只剩 2.4:1，"
+      "低於非文字元件的 3:1；四個 token 直接用就都過）",
+      ["opacity" in _GH_MOVE_RULES, len(_GH_MOVE_RULES) > 0], [False, True])
+
 acase("GitHub 名次變動：樣式住在共用樣式表，不是那一頁自己的 <style>"
       "（這一頁上一次自己抄一份樣式的下場，就是收字級那一輪它整份被跳過）",
       [".gh-move{" in _R_CSS, ".gh-legend{" in _R_CSS, "<style>" in _GH_PAGE],

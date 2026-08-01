@@ -428,14 +428,40 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .gh-move .ic{width:.92em;height:.92em;stroke-width:2.4}
 .gh-move b{font-weight:700}
 .gh-rank .gh-move{display:flex;justify-content:flex-end;margin-top:3px}
-/* 上升用 --fact（站上「這是硬數字」的那個綠），下降用 --muted 而不是紅：
-   同一頁的 .gh-metric .v.down 早就是這個處理。名次掉下去不是壞消息，只是
-   別人漲得比較快——染成告警色的話，這個榜每天都會有半數的列在喊。 */
-.gh-move.up,.gh-move.entered{color:var(--fact)}
-.gh-move.down{color:var(--muted)}
-/* 量不到的那兩種：線是斷的，顏色再淡一階。它必須跟 flat（持平那條連續的線）
-   一眼分得出來——那正是這一格存在的理由。 */
-.gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet);opacity:.7}
+/* ── 名次變動的四階顏色：**色相編碼的是「量到多少」，不是方向** ──────────
+   第一版只有兩個顏色（綠／灰），而綠同時給了 up 跟 entered——一個是量到的
+   完整位移，一個是「方向確定、幅度量不到」。同一個顏色掛兩種確定度，等於
+   把這一整格存在的理由抹掉。灰那邊更糟：flat、first_seen、no_baseline 三種
+   全是 --quiet，只差實線／虛線與一層 opacity，11px 下等於同一個東西。
+
+   四階，由「量到」到「量不到」：
+
+     up         --fact      站上「這是硬數字」的綠。方向＋幅度都量到了。
+     down/flat  --muted     一樣是量到的（flat 那個 0 是真的量到的 0），但沒有
+                            往上那件事可報。down 維持 --muted 是刻意的：同一列
+                            右邊的 .gh-metric .v.down 早就是這個處理，兩欄用同一
+                            套語彙。名次掉下去不是壞消息，只是別人漲得比較快，
+                            染成告警色的話這個榜每天有半數的列在喊。
+                            down 與 flat 靠形狀分（箭頭 vs 橫線），不靠顏色。
+     entered    --forecast  站上這個琥珀本來就代表**還沒成為已量到的事實**
+                            （「下一個訊號」那一層、.chip.warn、.warnbox 都是它）。
+                            entered 正是這種東西：一定往上，但上升幾名量不到。
+                            沿用既有語彙，不發明第五個顏色的意思。
+     量不到     --quiet     虛線＋最淡。first_seen 與 no_baseline 對讀者是同一句話。
+
+   **沒有第五個色相。** 站上的調色盤編碼的是敘事層級（事實／脈絡／影響／判斷／
+   下一個訊號），沒有一格的意思是「下降」。要給 down 一個自己的色相就得借
+   --blue（那是公司名的顏色）或 --analysis（脈絡），而那就是把第二個意思掛到
+   一個已經有意思的顏色上——正是這一輪在修的那件事。方向留給箭頭。
+
+   **opacity 拿掉了。** 舊版 --quiet 再乘 0.7，等效色約 #a6aab1，對白底只有
+   2.4:1，低於 WCAG 1.4.11 對非文字 UI 元件的 3:1。現在四階都直接用 token：
+   實測對 #fff／#f4f1e8 兩個底分別是 fact 6.37／5.64、muted 8.14／7.21、
+   forecast 5.47／4.85、quiet 3.93／3.48，全數過關。分階靠 token 不靠透明度。 */
+.gh-move.up{color:var(--fact)}
+.gh-move.down,.gh-move.flat{color:var(--muted)}
+.gh-move.entered{color:var(--forecast)}
+.gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet)}
 .gh-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:-6px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--border-soft);color:var(--quiet);font:var(--fs-micro) var(--mono);line-height:1.9}
 .gh-legend b{color:var(--muted);font-weight:600}
 .gh-leg{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}

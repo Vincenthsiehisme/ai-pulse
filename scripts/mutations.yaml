@@ -1631,3 +1631,21 @@ mutations:
     replace: "            baseline_days = round(days, 1)"
     survives: false
     why: ""
+
+  # ── 名次變動的顏色：同一個顏色不准掛兩種確定度（2026-08-01，同一條分支）──
+
+  - id: M187
+    title: "up 跟 entered 用同一個顏色（一個是方向＋幅度都量到的位移，一個是「一定往上但幾名量不到」——同色等於把這一格存在的理由抹掉，而畫面上它們只差一條橫槓）"
+    file: pulse-render.py
+    find: ".gh-move.entered{color:var(--forecast)}"
+    replace: ".gh-move.entered{color:var(--fact)}"
+    survives: false
+    why: ""
+
+  - id: M188
+    title: "「量不到」那階靠 opacity 分（--quiet 再乘 0.7 等效 #a6aab1，對白底只剩 2.4:1，低於非文字 UI 元件的 3:1——「這階比較淡」偷偷變成「這階讀不到」）"
+    file: pulse-render.py
+    find: ".gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet)}"
+    replace: ".gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet);opacity:.7}"
+    survives: false
+    why: ""
