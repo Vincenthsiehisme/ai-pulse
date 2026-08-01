@@ -5005,6 +5005,110 @@ acase("GitHub：頁面把兩個軸各自偏袒誰寫出來，門檻也印得到"
       [w for w in ("偏袒大 repo", "id=\"floor\"", "竄升榜", "星速榜")
        if w not in _GH_PAGE], [])
 
+# ── GitHub：名次變動（榜上那個「排序變動」圖示的資料層）────────────
+# 這一格最容易壞的方式不是算錯名次，是把「量不到」跟「持平」印成同一個東西：
+# 榜上一半是首次觀測的那天，一整排「持平」看起來會像「今天大家都沒動」，
+# 而事實是今天根本沒有昨天可比。同一種形狀這個 repo 已經抓過好幾次
+#（未量測的因子印 0、抓不到榜的那一班寫 0），所以這裡拆成六種、各自可判。
+acase("GitHub 名次變動：六種狀態各回各的，而且沒有一種叫 0"
+      "（把「量不到」跟「持平」擠成同一個值，等於這一格不存在）",
+      [_ghmod.rank_move({"rank_velocity": 7}, "rank_velocity", 4),
+       _ghmod.rank_move({"rank_velocity": 2}, "rank_velocity", 5),
+       _ghmod.rank_move({"rank_velocity": 3}, "rank_velocity", 3),
+       _ghmod.rank_move({"rank_velocity": None}, "rank_velocity", 6),
+       _ghmod.rank_move(None, "rank_velocity", 6),
+       _ghmod.rank_move({"stars": 1, "ts": 2}, "rank_velocity", 6)],
+      [("up", 3, 7), ("down", 3, 2), ("flat", 0, 3), ("entered", None, None),
+       ("first_seen", None, None), ("no_baseline", None, None)])
+# 「榜外」跟「上一版根本沒記名次」長得很像，但差別在畫面上是致命的：判成
+# entered 的話，這版碼上線的第一天整個榜會標「新進榜」——一個看起來很有內容、
+# 實際上只是資料還沒長出來的畫面，而且沒有任何東西會讓它變紅。
+acase("GitHub 名次變動：舊 schema（沒有名次欄位）判成「量不到」，不是「新進榜」"
+      "（判成新進榜的話，這版上線第一天整榜都會標新進榜，而那是假的）",
+      [_ghmod.rank_move({"stars": 1, "ts": 2}, "rank_velocity", 1)[0],
+       _ghmod.rank_move({"stars": 1, "ts": 2, "rank_velocity": None},
+                        "rank_velocity", 1)[0]],
+      ["no_baseline", "entered"])
+# 兩個榜共用同一批 dict 物件（rows 只建一次，by_velocity / by_surge 都指向它）。
+# 欄位不帶軸名後綴的話，後算的那個榜會蓋掉前一個，而畫面上兩邊會顯示同一個變動。
+_g_state2 = {"big/repo": {"stars": 100000, "ts": _g_prev_ts,
+                          "rank_velocity": 2, "rank_surge": None},
+             "small/repo": {"stars": 1000, "ts": _g_prev_ts,
+                            "rank_velocity": 1, "rank_surge": 3},
+             "tiny/repo": {"stars": 100, "ts": _g_prev_ts,
+                           "rank_velocity": 3, "rank_surge": 1}}
+_g_top2, _g_surge2 = _ghmod.rank(_g_cur, _g_state2, _g_now, 10)
+_g_by2 = {r["full_name"]: r for r in _g_top2}
+acase("GitHub 名次變動：兩個榜各算各的，欄位不互相覆蓋"
+      "（同一個 repo 在星速榜上升、在竄升榜是新進榜——共用一組欄位的話"
+      "兩邊會顯示後算的那一個）",
+      [_g_by2["big/repo"].get("rank_move_velocity"), _g_by2["big/repo"].get("rank_places_velocity"),
+       _g_by2["big/repo"].get("rank_move_surge"),
+       _g_by2["small/repo"].get("rank_move_velocity"), _g_by2["small/repo"].get("rank_places_velocity"),
+       _g_by2["small/repo"].get("rank_move_surge"), _g_by2["small/repo"].get("rank_places_surge")],
+      ["up", 1, "entered", "down", 1, "up", 2])
+# 上面幾條釘的是判準。真正會騙人的是**呼叫端有沒有照著寫**——所以這條走真的
+# main()：第一班寫基線，第二班讀回來。top_n=1 是為了讓「有量到但沒上榜」真的發生。
+with tempfile.TemporaryDirectory() as _rmtd:
+    _rmv = Path(_rmtd)
+    (_rmv / "_config").mkdir()
+    (_rmv / "_github").mkdir()
+    (_rmv / "_config" / "github.yaml").write_text("top_n: 1\nsearches: []\n",
+                                                  encoding="utf-8")
+    _rm_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
+    # 舊 schema：只有 stars / ts，一個名次欄位都沒有。
+    (_rmv / "_github" / "state.json").write_text(_json.dumps({
+        "big/a": {"stars": 99000, "ts": _rm_ts}, "big/b": {"stars": 49500, "ts": _rm_ts},
+        "sml/x": {"stars": 500, "ts": _rm_ts}, "sml/y": {"stars": 210, "ts": _rm_ts}}),
+        encoding="utf-8")
+    _rm_collect, _rm_argv, _rm_env = _ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR")
+    try:
+        _ghm2.collect = lambda *a, **k: _U_REPOS
+        os.environ["VAULT_DIR"] = str(_rmv)
+        sys.argv = ["pulse-github.py", "--snapshot"]
+        _ghm2.main()
+        _rm_board1 = _json.loads((_rmv / "dist" / "data" / "github.json").read_text("utf-8"))
+        _rm_state = _json.loads((_rmv / "_github" / "state.json").read_text("utf-8"))
+        sys.argv = ["pulse-github.py"]      # 第二班：基線已經有名次了
+        _ghm2.main()
+        _rm_board2 = _json.loads((_rmv / "dist" / "data" / "github.json").read_text("utf-8"))
+    finally:
+        _ghm2.collect = _rm_collect
+        sys.argv = _rm_argv
+        if _rm_env is not None:
+            os.environ["VAULT_DIR"] = _rm_env
+acase("GitHub 名次變動：快照那一班把名次跟星數**一起**寫回 state.json"
+      "（分兩次寫的話，頁面上的 ▲3 跟 +180★/天 量的是不同區間，"
+      "而讀者沒有任何方式看得出來）",
+      [_rm_state["big/a"]["rank_velocity"], _rm_state["big/a"]["ts"] == _rm_ts],
+      [1, False])
+acase("GitHub 名次變動：有量到但沒上榜的 repo 寫 null，不是不寫這個欄位"
+      "（不寫的話下一班讀到的是「舊 schema、量不到」，"
+      "而事實是我們量過、它就是不在榜上——那兩句在畫面上是不同的說法）",
+      [_rm_state["big/b"].get("rank_velocity", "MISSING"),
+       "rank_velocity" in _rm_state["big/b"],
+       _rm_state["sml/x"].get("rank_surge"), _rm_state["sml/x"].get("rank_velocity")],
+      [None, True, 1, None])
+acase("GitHub 名次變動：第一班（舊基線）整榜是「量不到」，第二班才量得到"
+      "（走真的 main()，不 grep 原始碼：grep 只證明那段碼還在）",
+      [_rm_board1["repos"][0].get("rank_move_velocity"),
+       _rm_board1["repos"][0].get("rank_places_velocity"),
+       _rm_board2["repos"][0].get("rank_move_velocity"),
+       _rm_board2["surging"][0].get("rank_move_surge")],
+      ["no_baseline", None, "flat", "entered"])
+acase("GitHub 名次變動：頁面把「跟哪一版比」與圖例印出來"
+      "（沒寫出來的話，讀者會把 ▲3 讀成「跟昨天比」——而基線是上一次快照）",
+      [w for w in ('id="legend"', "上一版榜單", "新進榜", "沒有上一版名次可比")
+       if w not in _GH_PAGE], [])
+acase("GitHub 名次變動：圖示走站上共用的 .ic 線條圖標，不用 ▲▼ 這種字元"
+      "（那幾個字在不同平台會被 emoji 字型接管，大小與基線都不受控，"
+      "而它就住在名次數字底下——歪一格整欄看起來就沒對齊）",
+      [c for c in ("▲", "▼", "▴", "▾", "⬆", "⬇") if c in _GH_PAGE], [])
+acase("GitHub 名次變動：樣式住在共用樣式表，不是那一頁自己的 <style>"
+      "（這一頁上一次自己抄一份樣式的下場，就是收字級那一輪它整份被跳過）",
+      [".gh-move{" in _R_CSS, ".gh-legend{" in _R_CSS, "<style>" in _GH_PAGE],
+      [True, True, False])
+
 acase("標頭：四個 kicker 語言一致（全英文小標）",
       [_k for _k in _re.findall(r'hero\(\s*"([^"]+)"', _HEAD_SRC)
        if _re.search(r"[一-鿿]", _k)], [])
