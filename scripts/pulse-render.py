@@ -55,7 +55,7 @@ TRACK_BY_NAME = dict(tracks_lib.BY_NAME)
 TRACK_ALIASES = dict(tracks_lib.ALIAS)
 # 每一版的分區說明。報紙的版名底下那一行，講的是「這一版收什麼」。
 RUBRIC = {
-    "home": "今日頭版 · 誰先說的、有幾個獨立來源、我們什麼時候才看到",
+    "home": "頭版 · 誰先說的、有幾個獨立來源、我們什麼時候才看到",
     "lines": "每條主線底下是同一件事的連續進展：有哪些事件、最近一次是什麼時候、有幾個獨立來源說過",
     "timeline": "最新在前 · 標著「回填」的是我們開始追之前就已經發生的事",
     "signals": "剛抓到、還沒驗過的線索 · 附原文連結是要你自己去看，驗過的才會進事件時間軸",
@@ -587,7 +587,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
   .gh-two > div + div{margin-top:28px;padding-top:22px;border-top:1px solid var(--border) !important}
 }
 /* ── 頭版網格 ─────────────────────────────────────────────
-   三欄：今日索引／頭條＋次條／計數與主線。欄與欄之間用規則線不用留白——
+   三欄：最新索引／頭條＋次條／計數與主線。欄與欄之間用規則線不用留白——
    報紙的分區靠線，網頁的分區習慣靠間距，兩者混用會兩邊都不像。
    `.front` 刻意**不掛 .shell**：容器歸容器、網格歸網格，同一個元素上兩件事
    會在某天互相蓋掉（2026-07-28 的 .lead 就是那樣把首頁推到左邊界的）。 */
@@ -609,6 +609,9 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .idx .co{display:block;margin-bottom:2px;color:var(--blue);font:600 var(--fs-micro) var(--mono);letter-spacing:.08em}
 .idx .t{font-family:var(--serif);font-size:var(--fs-base);line-height:1.5}
 .idx a:hover{color:var(--accent)}
+/* 頭條退回窗口外那一則時才出現。用 --forecast（站上「還不是已量到的事實」那個
+   琥珀）＋左邊一條細線，不做色塊——跟 .warnbox 同一套語彙。 */
+.lead-stale{margin:8px 0 12px;padding:0 0 0 11px;border-left:3px solid color-mix(in srgb,var(--forecast) 55%,var(--border));color:var(--forecast);font:var(--fs-micro) var(--mono);line-height:1.7}
 .lead-story h1{font-family:var(--serif);font-size:var(--fs-display);line-height:1.12;
   letter-spacing:-.025em;margin:0 0 14px;font-weight:700;text-wrap:balance;line-break:strict}
 .lead-story .deck{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.62;
@@ -1117,14 +1120,63 @@ def score_grid_html(ev):
 
 
 # ─────────────────────── pages ───────────────────────
+LEAD_WINDOW_DAYS = 7
+
+
+def pick_lead(events, today):
+    """頭條：**先框時間窗口，再在窗口裡比信心**。回 (lead, stale)。純函式，可離線單測。
+
+    `events` 是已發布事件（任意順序都可以，見下），`today` 是台北日期。
+    `stale` 為 True 代表窗口裡一則都沒有、退回全體最新——頁面要把這件事說出來。
+
+    **為什麼要有窗口。** 舊版是 `max(events, key=confidence)`，一個沒有時間邊界的
+    全域極值。旁邊的註解寫著「兩者在平常的日子重合，正好在有大事的那天分岔」，
+    而實測**不重合、也不是偶爾分岔，是天天分岔**：
+
+        頭條 = 2026-07-25  c100  Anthropic 發布 Claude Opus 5   ← 8 天沒動過
+        最新 = 2026-08-04  c73
+        confidence 分佈（60 則）：100×1  90×1  83×2  80×2  73×54
+
+    confidence = clamp(authority·0.62 + min(獨立,4)·7 + min(一手,2)·10)，**上限就是
+    100**，而 60 則裡只有一則到頂。也就是說要換頭條，新事件得**也拿滿分**——
+    60 則裡發生過一次。而 54/60 擠在 73（authority 90 ＋ 1 獨立 ＋ 1 一手，
+    絕大多數事件的標準長相），這個數字在九成的事件上根本沒有鑑別力，
+    卻扛著全站最顯眼的 h1。**一個沒有鑑別力的指標決定最顯眼的那一格**。
+
+    加了窗口之後，那句註解才變成真的：大事在它那一週壓著頭版（實測 Opus 5 佔了
+    七天），第八天輪替。平常的日子窗口內同分，退回最新——也就是「重合」。
+
+    **同分明寫成 key 的一部分，不靠呼叫端的排序。** `max()` 取的是第一個極大值，
+    而 build_home 拿到的 events 剛好是 date 新到舊——所以舊版的同分行為「取最新」
+    是**呼叫端排序的副作用**，不是這裡的決定。窗口一加，同分會從罕見變成常態
+    （窗口內大半是 73），這時候誰在決定順序就不能是別人家的實作細節：line 1574
+    那個 `reverse=True` 改掉，頭條會無聲變成同分裡最舊的那一則。
+
+    **刻意不過濾未來日期。** 窗口只有上界沒有下界（`age <= N`），所以日期在今天
+    之後的事件仍然進得來——vault 裡現在就有一則（2026-08-04，status: published）。
+    那是獨立的一題：整條鏈沒有任何地方擋未來日期。在這裡順手加一個下界，等於
+    把「未來日期怎麼辦」偷偷塞進頭條選法裡決定掉，而且沒有任何地方寫著。
+    """
+    if not events:
+        return None, False
+    window = [e for e in events
+              if (today - _date.fromisoformat(e["date"][:10])).days <= LEAD_WINDOW_DAYS]
+    if not window:
+        # 退回的是**最新那一則**，不是「全體信心最高」——後者就是這次要修掉的東西，
+        # 而且頁面上那句退回說明寫的是「目前最新的一則」。第一版寫成
+        # `max(pool, key=(confidence, date))` 共用同一條 key，實跑一次才發現退回時
+        # 選到的是八天前那則 c100，跟旁邊那句話當場對不起來。
+        return max(events, key=lambda e: e["date"]), True
+    return max(window, key=lambda e: ((e.get("confidence") or 0), e["date"])), False
+
+
 def build_home(events, narratives, generated):
     n = len(events)
     companies = len({e["company"] for e in events if e["company"]})
     # ── 頭版 ───────────────────────────────────────────────
-    # 頭條由**規則挑**，不由人挑：信心最高的那一則。改版前這裡放的是最新那一則，
-    # 標題卻寫著「這幾則最值得看」——那個標題宣稱了一個排序，底下排的卻是時間。
-    # 兩者在平常的日子重合，正好在有大事的那天分岔。
-    lead = max(events, key=lambda e: (e.get("confidence") or 0)) if events else None
+    # 頭條由**規則挑**，不由人挑：最近 LEAD_WINDOW_DAYS 天裡信心最高的那一則，
+    # 同分取最新。為什麼要有窗口、以及舊版那個全域極值卡住八天的實測，見 pick_lead()。
+    lead, lead_stale = pick_lead(events, clock.display_date(clock.utc_now()))
     others = [e for e in events if not lead or e["id"] != lead["id"]]
 
     idx_html = "".join(
@@ -1143,8 +1195,14 @@ def build_home(events, narratives, generated):
         cols = "".join(
             f"<p>{esc(strip_frozen_tag(lead['layers'].get(k) or '').strip())}</p>"
             for k in ("事實", "脈絡") if (lead["layers"].get(k) or "").strip())
+        # 窗口內一則都沒有＝已經 LEAD_WINDOW_DAYS 天沒有新的已發布事件。頭條會退回
+        # 全體最新那一則，而那一則**看起來跟平常的頭條一模一樣**——一張停在上週的
+        # 頭版跟一張今天的頭版，讀者分不出來。所以退回時把它講出來，不靠讀者自己
+        # 去讀 byline 那個小小的日期。
+        stale_html = (f'<p class="lead-stale">最近 {LEAD_WINDOW_DAYS} 天沒有新的已發布事件，'
+                      f'這則頭條是目前最新的一則。</p>' if lead_stale else "")
         lead_html = f"""<div class="lead-story">
-<span class="kicker">{esc(lead.get("track") or "未分線")}</span>
+<span class="kicker">{esc(lead.get("track") or "未分線")}</span>{stale_html}
 <h1><a href="{ev_href("", lead["slug"])}">{esc(lead.get("title_zh") or lead["title"])}</a></h1>
 <p class="deck">{esc(lead.get("summary"))}</p>
 <div class="byline"><span>信心 <b>{lead.get("confidence")}</b></span>\
@@ -1179,8 +1237,8 @@ def build_home(events, narratives, generated):
     hero_html = f"""<div class="shell">
 <div class="front">
 {lead_html}
-<div class="idx"><div class="col-head">今日索引</div><ol>{idx_html}</ol></div>
-<div class="tally-col"><div class="col-head">本日計數</div>{tally_html}
+<div class="idx"><div class="col-head">最新索引</div><ol>{idx_html}</ol></div>
+<div class="tally-col"><div class="col-head">累計計數</div>{tally_html}
 <div class="col-head" style="margin-top:26px">主線</div>{trk_html}</div>
 </div></div>"""
     latest_html = ""
