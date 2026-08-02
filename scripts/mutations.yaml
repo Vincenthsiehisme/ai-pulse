@@ -1409,8 +1409,8 @@ mutations:
   - id: M161
     title: "頭條改回「最新那一則」（版面照樣完整，只是頭版從此由時間決定而不是由規則決定——正是改版前那個「這幾則最值得看」底下排時間的形狀）"
     file: pulse-render.py
-    find: "    lead = max(events, key=lambda e: (e.get(\"confidence\") or 0)) if events else None"
-    replace: "    lead = events[0] if events else None"
+    find: "    lead, lead_stale = pick_lead(events, clock.display_date(clock.utc_now()))"
+    replace: "    lead, lead_stale = (events[0] if events else None), False"
     survives: false
     why: ""
 
@@ -1647,5 +1647,41 @@ mutations:
     file: pulse-render.py
     find: ".gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet)}"
     replace: ".gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet);opacity:.7}"
+    survives: false
+    why: ""
+
+  # ── 首頁頭條：先框時間窗口，再在窗口裡比信心（2026-08-02）──
+  # 舊版是全域極值，實測讓一則 c100 停在 h1 八天不動，而 confidence 上限就是 100、
+  # 60 則裡只有一則到頂、54 則擠在 73。這四條釘的是新規則的每一個決定。
+
+  - id: M189
+    title: "拿掉時間窗口（回到全域極值——一則滿分事件會壓著頭版直到出現另一則滿分的，實測那是 60 則裡發生過一次的事）"
+    file: pulse-render.py
+    find: "              if (today - _date.fromisoformat(e[\"date\"][:10])).days <= LEAD_WINDOW_DAYS]"
+    replace: "              if (today - _date.fromisoformat(e[\"date\"][:10])).days <= 100000]"
+    survives: false
+    why: ""
+
+  - id: M190
+    title: "同分不帶日期破（加了窗口之後同分是常態，靠 max() 取第一個極大值等於把頭條的決定權交給呼叫端的 sort——那一行改掉頭條會無聲換成同分裡最舊的）"
+    file: pulse-render.py
+    find: "    return max(window, key=lambda e: ((e.get(\"confidence\") or 0), e[\"date\"])), False"
+    replace: "    return max(window, key=lambda e: (e.get(\"confidence\") or 0)), False"
+    survives: false
+    why: ""
+
+  - id: M191
+    title: "窗口空時退回「全體信心最高」而不是「最新那一則」（那正是要修掉的舊行為，而且跟頁面上那句「這則頭條是目前最新的一則」當場對不起來）"
+    file: pulse-render.py
+    find: "        return max(events, key=lambda e: e[\"date\"]), True"
+    replace: "        return max(events, key=lambda e: ((e.get(\"confidence\") or 0), e[\"date\"])), True"
+    survives: false
+    why: ""
+
+  - id: M192
+    title: "左欄改回叫「今日索引」（實測那九則跨六天、屬於今天的 0 則——一個比事實寬的東西掛著事實的名字）"
+    file: pulse-render.py
+    find: "<div class=\"idx\"><div class=\"col-head\">最新索引</div>"
+    replace: "<div class=\"idx\"><div class=\"col-head\">今日索引</div>"
     survives: false
     why: ""

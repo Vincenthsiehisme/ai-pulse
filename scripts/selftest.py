@@ -4629,6 +4629,63 @@ acase("判斷層：enrich 端不再把 rule-tag 寫進 prose"
           os.path.join(_HERE, "pulse-enrich-apply.py"), encoding="utf-8").read(),
       False)
 
+# ── 首頁頭條：先框時間窗口，再在窗口裡比信心 ────────────────────────
+# 舊版是 `max(events, key=confidence)`，一個沒有時間邊界的全域極值。旁邊的註解
+# 寫著「兩者在平常的日子重合，正好在有大事的那天分岔」——實測**不重合、也不是
+# 偶爾分岔，是天天分岔**：頭條停在 2026-07-25（c100）八天沒動，而最新是 08-04。
+# 原因是 confidence 上限就是 100、60 則裡只有一則到頂，而 54/60 擠在 73。
+# 一個在九成事件上沒有鑑別力的數字，扛著全站最顯眼的 h1。
+import datetime as _hdt  # noqa: E402
+
+
+def _hev(day, conf, eid=None):
+    return {"id": eid or f"{day}-{conf}", "date": day, "confidence": conf}
+
+
+_H_TODAY = _hdt.date(2026, 8, 2)
+# 窗口內：07-30 c80 勝過 07-27 c83 之外的；窗口外那則 c100 不該再壓著頭版。
+_H_EVENTS = [_hev("2026-07-30", 80, "new-80"), _hev("2026-07-29", 73, "new-73"),
+             _hev("2026-07-20", 100, "old-100")]
+acase("首頁頭條：窗口外的高分事件不再壓著頭版"
+      "（舊版是全域極值——實測讓一則 c100 停在 h1 八天，而 confidence 上限就是"
+      " 100、60 則裡只有一則到頂，所以那不是「偶爾」，是「幾乎永遠」）",
+      _rmod.pick_lead(_H_EVENTS, _H_TODAY)[0]["id"], "new-80")
+# 窗口一加，同分就從罕見變成常態（窗口內大半是 73）。舊版同分取最新是**呼叫端
+# 排序的副作用**（build_home 拿到的 events 剛好 date 新到舊），不是選法的決定——
+# line 1574 那個 reverse=True 改掉，頭條會無聲變成同分裡最舊的那一則。
+_H_TIE = [_hev("2026-07-28", 73, "older"), _hev("2026-08-01", 73, "newer")]
+acase("首頁頭條：窗口內同分取最新，而且不依賴呼叫端的排序"
+      "（同分在加了窗口之後是常態；靠 max() 取第一個極大值等於把決定權交給"
+      "別人家的 sort，那行改掉頭條會無聲換人）",
+      [_rmod.pick_lead(_H_TIE, _H_TODAY)[0]["id"],
+       _rmod.pick_lead(list(reversed(_H_TIE)), _H_TODAY)[0]["id"]],
+      ["newer", "newer"])
+# 窗口空＝已經七天沒有新的已發布事件。退回的必須是**最新那一則**，不是「全體
+# 信心最高」——後者正是這次要修掉的東西，而且頁面那句退回說明寫的是「目前最新
+# 的一則」。第一版兩條路共用同一條 key，實跑才發現退回時選到八天前那則 c100。
+acase("首頁頭條：窗口空 → 退回最新那一則並標記 stale，不是退回全體信心最高"
+      "（退回全體信心最高就是繞回舊行為，而且跟頁面那句「目前最新的一則」"
+      "當場對不起來）",
+      [_rmod.pick_lead(_H_EVENTS, _hdt.date(2027, 1, 1))[0]["id"],
+       _rmod.pick_lead(_H_EVENTS, _hdt.date(2027, 1, 1))[1],
+       _rmod.pick_lead(_H_EVENTS, _H_TODAY)[1],
+       _rmod.pick_lead([], _H_TODAY)],
+      ["new-80", True, False, (None, False)])
+# 版名底下那一行、左欄、右欄都宣稱了一個「日」。實測 2026-08-02 那天：屬於今天的
+# Event 是 0 則，而左欄九則跨 07-29~08-04（六天）、右欄印的是累計 60。
+# 只掃「讀者看得到的字串常數」——註解與 docstring 裡會提到舊標籤（為了解釋為什麼
+# 改掉），拿整份原始碼去 grep 會打中那些解釋。同一條分支上第四次踩這個形狀了。
+import ast as _ast_home  # noqa: E402
+_R_SRC_HOME = "\n".join(
+    _n.value for _n in _ast_home.walk(_ast_home.parse(open(
+        os.path.join(_HERE, "pulse-render.py"), encoding="utf-8").read()))
+    if isinstance(_n, _ast_home.Constant) and isinstance(_n.value, str))
+acase("首頁：三個標籤不得再宣稱「今日／本日」"
+      "（實測今天 0 則，而它們分別印著六天的清單與累計 60——"
+      "又一次「一個比事實寬的東西掛著事實的名字」）",
+      [w for w in ("今日索引", "本日計數", "今日頭版")
+       if w in _R_SRC_HOME], [])
+
 # ────────────────────────── 站台可讀性（字級級距、泳道、文案）──────────
 _R_CSS = _rmod.CSS
 acase("字級：CSS 裡不得再有硬寫的字級"
@@ -4869,17 +4926,30 @@ acase("導覽：點了「關鍵變化」，落地那一頁自己要說得出它�
 
 # ── 頭版：頭條由規則挑 ────────────────────────────────────────
 # 改版前那一區叫「這幾則最值得看」，底下排的卻是時間——標題宣稱了一個排序，
-# 實作用的是另一個。兩者在平常的日子重合，正好在有大事的那天分岔。
+# 實作用的是另一個。上面 pick_lead 那幾條釘的是判準本身；這幾條走**真的
+# build_home()**，釘的是「呼叫端有沒有照著接」——判準對而接錯，畫面一樣是錯的。
+#
+# 日期用「相對今天」算，不寫死。第一版寫死 2026-07-01／07-20，加了時間窗口之後
+# 那兩個日期落在窗口外，測試當場紅——但它紅的不是碼壞了，是**測試自己過期了**。
+# 一個會隨時鐘漂掉的 fixture，遲早會在某個沒有人改碼的早上變紅。
+_h_today = _clk.display_date(_clk.utc_now())
+_h_day = lambda n: (_h_today - _dt_m.timedelta(days=n)).isoformat()
 _EV_HI = dict(_EV1, id="hi", slug="hi", title="HI", title_zh="分數最高那則",
-              confidence=95, date="2026-07-01", date_display="2026-07-01")
+              confidence=95, date=_h_day(3), date_display=_h_day(3))
 _EV_NEW = dict(_EV1, id="new", slug="new", title="NEW", title_zh="最新那則",
-               confidence=60, date="2026-07-20", date_display="2026-07-20")
-_home_pick = _rmod.build_home([_EV_NEW, _EV_HI], {}, "now")   # events 進來是新到舊
+               confidence=60, date=_h_day(1), date_display=_h_day(1))
+# 窗口外的高分那則：舊版的全域極值會把它擺上 h1，而它可能是一個月前的事。
+_EV_OLD = dict(_EV1, id="old", slug="old", title="OLD", title_zh="窗口外那則",
+               confidence=100, date=_h_day(40), date_display=_h_day(40))
+_home_pick = _rmod.build_home([_EV_NEW, _EV_HI, _EV_OLD], {}, "now")  # 進來是新到舊
 # 抓不到就回一句話，不要讓 re 丟 AttributeError 把整份 selftest 打斷：
 # 崩潰只說「這裡爆了」，一個錯的答案才說「哪個判斷錯了」。
 _pick = _re.search(r'class="lead-story"[\s\S]*?<h1[^>]*>[\s\S]*?>([^<]+)</a>', _home_pick)
-acase("頭版：頭條由規則挑（信心最高），不是「最新那一則」",
-      _pick.group(1) if _pick else "（產出裡找不到頭條）", "分數最高那則")
+acase("頭版：頭條由規則挑（窗口內信心最高），不是「最新那一則」、"
+      "也不是「一個月前那則滿分的」（走真的 build_home，釘的是呼叫端有沒有照著接）",
+      [_pick.group(1) if _pick else "（產出裡找不到頭條）",
+       "lead-stale" in _home_pick],
+      ["分數最高那則", False])
 
 # ── 事件頁：長文版的兩條紅線延伸 ──────────────────────────────
 _ev_pg = _rmod.build_event_page(
