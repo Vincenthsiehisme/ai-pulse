@@ -104,6 +104,11 @@
     "src_hash": "e718a21e83eb",
     "zh": "產品管理技能框架，集結實戰驗證過的方法，供 Claude Code、Cowork、Codex 與 AI agent 使用"
   },
+  "drumih/turbo-fieldfare": {
+    "at": "2026-08-02T19:12:08+00:00",
+    "src_hash": "08aae20dce2c",
+    "zh": "讓 Gemma 4 26B-A4B 在任何 M 系列 MacBook 上，用約 2 GB 記憶體跑推論"
+  },
   "earendil-works/pi": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "c054e48f4763",
@@ -139,6 +144,11 @@
     "src_hash": "4fd40cb6ef54",
     "zh": "即時全球情報儀表板：AI 新聞彙整、地緣政治與基礎設施監看"
   },
+  "livekit/agents": {
+    "at": "2026-08-02T19:12:08+00:00",
+    "src_hash": "e499b8f91d00",
+    "zh": "拿來建即時語音 AI agent 的框架"
+  },
   "llm-d/llm-d": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "ded019d9b9e2",
@@ -148,6 +158,11 @@
     "at": "2026-08-01T19:12:28+00:00",
     "src_hash": "d0d80379dd24",
     "zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
+  },
+  "mobile-next/mobile-mcp": {
+    "at": "2026-08-02T19:12:08+00:00",
+    "src_hash": "cccdd0d6e025",
+    "zh": "做行動裝置自動化與抓取的 MCP server，支援 iOS、Android、模擬器與實機"
   },
   "msitarzewski/agency-agents": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -184,6 +199,11 @@
     "src_hash": "3bd04ccdeb4b",
     "zh": "分散式低延遲 Graph+Vector 資料庫，亞毫秒 HNSW 搜尋與圖遍歷，相容 Neo4j／qdrant"
   },
+  "pathwaycom/llm-app": {
+    "at": "2026-08-02T19:12:08+00:00",
+    "src_hash": "cd3a264f173e",
+    "zh": "可直接跑的雲端範本，用於 RAG、AI pipeline 與企業搜尋，可與 S3、Kafka 等即時同步"
+  },
   "rocketride-org/rocketride-server": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "137c15108c22",
@@ -193,6 +213,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "608dd39676e2",
     "zh": "CLI proxy，在常見開發指令上省下 60–90% 的 LLM token，單一 Rust binary、零相依"
+  },
+  "scrypster/muninndb": {
+    "at": "2026-08-02T19:12:08+00:00",
+    "src_hash": "02be7fc4362a",
+    "zh": "認知資料庫，非 vector／graph DB 或 RAG 包裝，記憶遺忘、自行演化。MCP 原生，單一 binary"
   },
   "sqliteai/sqlite-vector": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -233,6 +258,11 @@
     "at": "2026-07-31T19:20:39+00:00",
     "src_hash": "656c25e4b990",
     "zh": "給 Claude 的 MCP server，讓它能控制終端機、搜尋檔案系統並做 diff 檔案編輯"
+  },
+  "xberg-io/xberg": {
+    "at": "2026-08-02T19:12:08+00:00",
+    "src_hash": "125cefc47293",
+    "zh": "Rust 核心的多語文件解析框架，從 101 種格式抽取文字與結構化資料，涵蓋 371 種語言，附 CLI／MCP"
   },
   "xbtlin/ai-berkshire": {
     "at": "2026-07-27T19:23:58+00:00",
