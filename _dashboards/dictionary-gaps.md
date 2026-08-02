@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-01'
+generated_day: '2026-08-02'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**9 天**（2026-07-24 … 2026-08-01），去重後 **941** 列。
+語料範圍：**10 天**（2026-07-24 … 2026-08-02），去重後 **988** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,13 +17,13 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| LLMs | 20 | 9 |
+| LLMs | 21 | 9 |
 | Industry | 16 | 2 |
 | Research | 16 | 2 |
-| July | 14 | 7 |
+| July | 16 | 7 |
+| June | 13 | 6 |
 | LLM | 13 | 8 |
-| June | 12 | 6 |
-| Building | 11 | 8 |
+| Building | 12 | 8 |
 | Here | 11 | 7 |
 | Union | 10 | 2 |
 | Energy | 9 | 2 |
@@ -37,15 +37,18 @@ generator: scripts/pulse-dictionary-gaps.py
 | Tuesday | 6 | 4 |
 | Monday | 6 | 4 |
 | Gemma | 6 | 5 |
+| Python | 6 | 3 |
 | Learn | 6 | 3 |
 | When | 6 | 4 |
+| Fable | 6 | 3 |
 | Pro | 6 | 4 |
 | Trump | 6 | 4 |
 | There | 6 | 5 |
 | Source | 5 | 2 |
-| Python | 5 | 3 |
+| They | 5 | 4 |
 | Understanding | 5 | 3 |
 | San Francisco | 5 | 4 |
+| Built | 5 | 3 |
 | Power | 5 | 5 |
 | China | 5 | 4 |
 | Models | 5 | 4 |
@@ -53,30 +56,27 @@ generator: scripts/pulse-dictionary-gaps.py
 | With | 5 | 5 |
 | January | 5 | 4 |
 | Opus | 5 | 3 |
-| Fable | 5 | 3 |
+| Rust | 5 | 2 |
 | Advancing | 5 | 3 |
 | AI-native | 5 | 3 |
 | These | 5 | 3 |
 | SpaceX | 5 | 3 |
 | RAM | 5 | 2 |
+| Chrome | 5 | 4 |
 | Flash | 4 | 2 |
 | Making | 4 | 4 |
 | Updated | 4 | 2 |
 | Part | 4 | 3 |
-| They | 4 | 3 |
 | Anatomy | 4 | 4 |
-| Built | 4 | 2 |
 | American | 4 | 4 |
 | Plus | 4 | 4 |
 | Cybersecurity | 4 | 4 |
 | Mythos | 4 | 4 |
+| Minnesota | 4 | 4 |
 | Some | 4 | 4 |
 | However | 4 | 3 |
 | Let | 4 | 3 |
 | Mac | 4 | 3 |
-| Chinese | 4 | 3 |
-| Rust | 4 | 2 |
-| Word | 4 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 21 | src-hn-frontpage |
+| Show HN | 26 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
 | Highlights | 14 | src-gh-vllm-releases |
 | European Union | 12 | src-ep-itre |
@@ -99,13 +99,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | The Download | 9 | src-media-mit-techreview |
 | Qwen | 8 | src-qwen-blog |
 | Minutes | 7 | src-ep-itre |
+| Hi HN | 6 | src-hn-frontpage |
 | Co-Scientist | 5 | src-deepmind-blog |
+| Tags | 5 | src-kol-simonwillison |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
 | Release Notes | 4 | src-gh-vllm-releases |
-| Hi HN | 4 | src-hn-frontpage |
-| Tags | 4 | src-kol-simonwillison |
+| Sam Altman | 4 | src-media-techcrunch |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Video | 3 | src-ep-itre |
@@ -114,6 +115,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Fix | 3 | src-gh-vllm-releases |
 | GeForce NOW | 3 | src-nvidia-blog |
 | Open | 3 | src-kol-interconnects |
+| Latest | 3 | src-kol-interconnects |
 | Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
 | List | 3 | src-kol-raschka |
@@ -123,7 +125,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Qwen2.5 | 3 | src-qwen-blog |
 | AI-generated | 3 | src-media-techcrunch |
 | TechCrunch Disrupt | 3 | src-media-techcrunch |
-| Sam Altman | 3 | src-media-techcrunch |
 | The Verge | 3 | src-media-theverge |
 | Montana | 3 | src-media-mit-techreview |
 

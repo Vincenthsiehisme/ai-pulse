@@ -1,27 +1,91 @@
 [
   {
-    "full_name": "withastro/flue",
-    "desc": "The sandbox agent framework.",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 7585,
-    "url": "https://github.com/withastro/flue",
+    "full_name": "drumih/turbo-fieldfare",
+    "desc": "Gemma 4 26B-A4B inference in ~2 GB of RAM on any M-series MacBook",
+    "language": "Swift",
+    "topics": [
+      "apple-silicon",
+      "gemma",
+      "gemma4",
+      "gemma4-26b-a4b",
+      "gpgpu",
+      "llm"
+    ],
+    "stars": 4013,
+    "url": "https://github.com/drumih/turbo-fieldfare",
     "stale_zh": null
   },
   {
-    "full_name": "lyogavin/airllm",
-    "desc": "AirLLM 70B inference with single 4GB GPU",
+    "full_name": "livekit/agents",
+    "desc": "A framework for building realtime voice AI agents 🤖🎙️📹",
+    "language": "Python",
+    "topics": [
+      "agents",
+      "ai",
+      "openai",
+      "real-time",
+      "video",
+      "voice"
+    ],
+    "stars": 11692,
+    "url": "https://github.com/livekit/agents",
+    "stale_zh": null
+  },
+  {
+    "full_name": "scrypster/muninndb",
+    "desc": "The cognitive database. A new class of data storage. Not a vector store, not a graph DB, not a RAG wrapper. Ebbinghaus decay, Hebbian   learning, and Bayesian confidence are engine-native primitives. Memories evolve on their own. MCP-native. Single binary.",
+    "language": "Go",
+    "topics": [],
+    "stars": 322,
+    "url": "https://github.com/scrypster/muninndb",
+    "stale_zh": null
+  },
+  {
+    "full_name": "xberg-io/xberg",
+    "desc": "A polyglot document intelligence framework with a Rust core. Extract text, metadata, images, and structured data from 101 formats (115 file extensions) plus code intelligence for 371 code languages. 15 language bindings — Rust, Python, Ruby, Java, Go, PHP, Elixir, C#, TypeScript — plus CLI, REST API, and MCP server.",
+    "language": "Rust",
+    "topics": [
+      "bun",
+      "csharp",
+      "document-intelligence",
+      "elixir",
+      "ffi",
+      "golang"
+    ],
+    "stars": 8778,
+    "url": "https://github.com/xberg-io/xberg",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mobile-next/mobile-mcp",
+    "desc": "Model Context Protocol Server for Mobile Automation and Scraping (iOS, Android, Emulators, Simulators and Real Devices)",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "android",
+      "emulator",
+      "ios",
+      "mcp",
+      "mobile"
+    ],
+    "stars": 5758,
+    "url": "https://github.com/mobile-next/mobile-mcp",
+    "stale_zh": null
+  },
+  {
+    "full_name": "pathwaycom/llm-app",
+    "desc": "Ready-to-run cloud templates for RAG, AI pipelines, and enterprise search with live data. 🐳Docker-friendly.⚡Always in sync with Sharepoint, Google Drive, S3, Kafka, PostgreSQL, real-time data APIs, and more.",
     "language": "Jupyter Notebook",
     "topics": [
-      "chinese-llm",
-      "chinese-nlp",
-      "finetune",
-      "generative-ai",
-      "instruct-gpt",
-      "instruction-set"
+      "chatbot",
+      "hugging-face",
+      "llm",
+      "llm-local",
+      "llm-prompting",
+      "llm-security"
     ],
-    "stars": 24466,
-    "url": "https://github.com/lyogavin/airllm",
+    "stars": 59056,
+    "url": "https://github.com/pathwaycom/llm-app",
     "stale_zh": null
   }
 ]

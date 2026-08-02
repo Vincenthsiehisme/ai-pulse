@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-08-01'
+generated_day: '2026-08-02'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -26,8 +26,8 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 9 |
-| 起訖 | 2026-07-24 … 2026-08-01 |
+| `_corpus/` 天數 | 10 |
+| 起訖 | 2026-07-24 … 2026-08-02 |
 
 ## 來源
 
@@ -53,7 +53,7 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-08-01T16:43:39+00:00 |
+| 時間 | 2026-08-02T16:42:25+00:00 |
 | 條目 / 來源 | 425 items / 32 sources |
 | status 分佈 | 200 21、304 3、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |
