@@ -1,10 +1,16 @@
-# 已發布事件（60）
+# 已發布事件（62）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-08-04
 - **[[Events/evt-2026-08-04-07332d|Disrupting a Criminal Scam Operation]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 查禁一個柬埔寨詐騙集團，對方用 ChatGPT 支援投資、假交友、賭博與冒名詐騙。
+
+## 2026-08-03
+- **[[Events/evt-2026-08-03-591d58|Orchard: An open framework for scalable agentic AI]]** — Microsoft · infra · conf 73 · heat 未量測
+  微軟研究院開源 agent 框架 Orchard，用同一套基礎設施訓練與評測跨任務 AI agent。
+- **[[Events/evt-2026-08-03-ca9363|Claude For Nonprofits]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 推出 Claude for Nonprofits，把 Claude 帶進非營利組織。
 
 ## 2026-07-31
 - **[[Events/evt-2026-07-31-ae50a2|Univé builds an AI-ready workforce]]** — OpenAI · product · conf 73 · heat 未量測

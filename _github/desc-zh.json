@@ -54,6 +54,11 @@
     "src_hash": "b227ae1105fa",
     "zh": "給 AI agent 看遍網路的眼睛：讀取搜尋 Twitter、Reddit、YouTube 等，零 API 費用"
   },
+  "ScrapeGraphAI/Scrapegraph-ai": {
+    "at": "2026-08-03T19:17:58+00:00",
+    "src_hash": "3bb869c327f2",
+    "zh": "基於 AI 的 Python 爬蟲工具"
+  },
   "TencentCloud/TencentDB-Agent-Memory": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "1423652fa85e",
@@ -89,6 +94,11 @@
     "src_hash": "43c34c4ce29f",
     "zh": "開源長時程 SuperAgent 框架，能研究、寫程式與創作，靠沙箱、記憶、工具、子代理處理數分鐘到數小時的任務"
   },
+  "calesthio/OpenMontage": {
+    "at": "2026-08-03T19:17:58+00:00",
+    "src_hash": "e86b438611c0",
+    "zh": "全球首個開源 agentic 影片製作系統，把 AI coding 助手變成完整影片工作室"
+  },
   "cheahjs/free-llm-api-resources": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "b39be18886ec",
@@ -115,9 +125,9 @@
     "zh": "AI agent 工具包：統一 LLM API、agent loop、TUI 與寫程式用的 agent CLI"
   },
   "firecrawl/firecrawl": {
-    "at": "2026-07-27T19:23:58+00:00",
-    "src_hash": "3caa4131698c",
-    "zh": "大規模搜尋、抓取並操作網頁的 API"
+    "at": "2026-08-03T19:17:58+00:00",
+    "src_hash": "d66dd05437be",
+    "zh": "大規模搜尋、抓取並操作網頁的 context API"
   },
   "harry0703/MoneyPrinterTurbo": {
     "at": "2026-07-29T19:13:52+00:00",

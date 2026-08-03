@@ -1,1 +1,236 @@
-[]
+[
+  {
+    "slug": "agent-refactor",
+    "name": "Agent 與軟體重構",
+    "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
+    "current_now": "這條線從一則長到三則，開始撐得起一點形狀。OpenAI Presence 是企業級 agent 平台，主打可部署的語音與聊天客服 agent，是 OpenAI 從賣 API 往上做打包產品的動作。這兩天再進兩則：xAI 給 Grok 加了 Build Mode，名稱指向「用自然語言直接生出可運行的東西」，落在 Artifacts、canvas 那一格；OpenAI 另發一份 field report，講科學家用 coding agent 改造老舊的科學計算軟體、在基因體學等領域加速。三則指向同一件事：agent 從對話往「交付可運行成果」移動，戰場從客服延到程式建構與科研軟體。但三則都單一來源，Build Mode 與 field report 都只有標題或自家敘事，還撐不起強判斷。",
+    "current_next": "看 Presence 的定價與首批客戶，判斷它是真平台還是 API 的包裝。Grok Build Mode 看實際 demo 與可用範圍、是否綁 X 分發。OpenAI 的科研 field report 看有沒有具名團隊、可重現成果，或第三方採用數據。這條線要再多幾家把 agent 做成可交付產品的對應訊號，判斷才談得上收斂。",
+    "events": [
+      {
+        "slug": "orchard-an-open-framework-for-scalable-agentic-ai-591d",
+        "date": "2026-08-03",
+        "company": "Microsoft",
+        "title": "Orchard: An open framework for scalable agentic AI",
+        "summary": "微軟研究院開源 agent 框架 Orchard，用同一套基礎設施訓練與評測跨任務 AI agent。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "grok-build-mode-5b94",
+        "date": "2026-07-28",
+        "company": "xAI",
+        "title": "Grok Build Mode",
+        "summary": "xAI 為 Grok 推出 Build Mode",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "scientific-computing-in-the-age-of-agentic-ai-a1c4",
+        "date": "2026-07-28",
+        "company": "OpenAI",
+        "title": "Scientific computing in the age of agentic AI",
+        "summary": "OpenAI field report：科學家用 AI coding agent 改造科學計算",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-openai-presence-8a7a",
+        "date": "2026-07-22",
+        "company": "OpenAI",
+        "title": "Introducing OpenAI Presence",
+        "summary": "OpenAI 推出企業級 agent 平台 Presence，主打可部署的語音與聊天客服 agent。",
+        "confidence": 73,
+        "heat": "未量測"
+      }
+    ]
+  },
+  {
+    "slug": "product-market",
+    "name": "產品與商業驗證",
+    "current_thesis": "本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。",
+    "current_now": "這條線的共同動作還是把 AI 塞進大家本來就在用的入口，而不是發新模型；這兩天多了兩種新料。一是定價當武器：OpenAI 大砍 GPT-5.6 價格，Luna 降 80%、Terra 降 20%，把成本直接當成擴張手段，呼應先前財務長那套把焦點從跑分改成每次成功任務成本的計分卡。二是實際部署案例變多也更具體：avatarin 用 GPT-Realtime 幫山田電機做 24 小時多語客服，兩週 3 萬人用、92% 正面；荷蘭保險業者 Univé 用 ChatGPT Enterprise 推全員 AI，走治理先行加員工自發。兩則都漂亮但數字全是平台方或客戶自述。入口分幾類延續著：辦公套件（xAI 把 Grok 接進 Outlook、Excel、Google Workspace）、企業工作流（NTT DATA 用 Codex 把事故分析壓到 30 分鐘、覆蓋 9,000 人，OpenAI 另推小企業計畫與 10 萬學術研究者免費方案）、創作與垂直（Lyria 3.5 掛進 Flow Music、Gemini 3.5 Flash Cyber 找修漏洞、ChatGPT 串病歷做健康功能），加上跨職務用法研究與 Cognizant 合作這類案例。要標一句雜訊：NVIDIA GeForce NOW 的返校季與新遊戲上架這幾天又被抓進來，那是消費級雲端遊戲行銷，跟這條 AI 落地主軸無關。",
+    "current_next": "GPT-5.6 的降價看對手跟不跟、以及第三方實測的每 token 成本，判斷是一次性讓利還是市場價格重定。兩則部署案例看有沒有平台方以外的數字：avatarin 與山田電機的留存和客訴，Univé 的採用率與治理踩雷紀錄。辦公外掛看實際日活與留存，而非上架本身。企業工作流看 NTT DATA 那 30 分鐘有沒有可複核的前後對照。健康、學術、小企業幾條看實際開通規模與第三方回報。GeForce NOW 這類消費遊戲雜訊，下一班若仍被抓進來，該回頭看來源過濾。多數事件仍單一來源、標待證實。",
+    "events": [
+      {
+        "slug": "claude-for-nonprofits-ca93",
+        "date": "2026-08-03",
+        "company": "Anthropic",
+        "title": "Claude For Nonprofits",
+        "summary": "Anthropic 推出 Claude for Nonprofits，把 Claude 帶進非營利組織。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "univ-builds-an-ai-ready-workforce-ae50",
+        "date": "2026-07-31",
+        "company": "OpenAI",
+        "title": "Univé builds an AI-ready workforce",
+        "summary": "保險業者 Univé 用 ChatGPT Enterprise 推全員 AI，靠治理與員工自發使用落地。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "best-in-class-stream-pc-games-and-study-on-the-same-laptop-w-637f",
+        "date": "2026-07-30",
+        "company": "NVIDIA",
+        "title": "Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW",
+        "summary": "NVIDIA GeForce NOW 返校季內容更新，屬消費級雲端遊戲，與 AI 訊號相關性低。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "advancing-the-price-performance-frontier-with-gpt-5-6-788d",
+        "date": "2026-07-30",
+        "company": "OpenAI",
+        "title": "Advancing the price-performance frontier with GPT-5.6",
+        "summary": "OpenAI 大砍 GPT-5.6 價格，Luna 降 80%、Terra 降 20%。",
+        "confidence": 80,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-avatarin-built-a-24-7-retail-agent-with-gpt-realtime-d3af",
+        "date": "2026-07-30",
+        "company": "OpenAI",
+        "title": "How avatarin built a 24/7 retail agent with GPT-Realtime",
+        "summary": "avatarin 用 GPT-Realtime 幫山田電機做 24 小時多語客服，兩週 3 萬人用、92% 滿意。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "accelerating-scientific-discovery-with-chatgpt-for-academic--001f",
+        "date": "2026-07-29",
+        "company": "OpenAI",
+        "title": "Accelerating scientific discovery with ChatGPT for Academic Researchers",
+        "summary": "OpenAI 開放 10 萬名學術研究者免費使用 ChatGPT 最先進模型。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "we-re-launching-lyria-3-5-in-google-flow-music-with-advances-08f1",
+        "date": "2026-07-29",
+        "company": "Google DeepMind",
+        "title": "We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control",
+        "summary": "Google DeepMind 推出音樂生成模型 Lyria 3.5，掛進 Flow Music，主打音樂性、歌詞、人聲、創作控制四項升級。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-ai-is-expanding-what-people-do-at-work-1b4e",
+        "date": "2026-07-27",
+        "company": "OpenAI",
+        "title": "How AI is expanding what people do at work",
+        "summary": "OpenAI 研究：ChatGPT 使用者正跨出原本職務邊界，接下更多樣的工作。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "cognizant-anthropic-32ad",
+        "date": "2026-07-27",
+        "company": "Anthropic",
+        "title": "Cognizant Anthropic",
+        "summary": "Anthropic 官網出現一則與 IT 服務商 Cognizant 相關的合作公告，內文細節未載。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-google-workspace-addon-a581",
+        "date": "2026-07-24",
+        "company": "xAI",
+        "title": "Introducing Google Workspace Addon",
+        "summary": "xAI 推出 Google Workspace 外掛，把 Grok 接進 Google 的辦公生態。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-for-creative-work-dev-4f7d",
+        "date": "2026-07-23",
+        "company": "Anthropic",
+        "title": "Claude For Creative Work Dev",
+        "summary": "抓到 Anthropic 一則「Claude for Creative Work」相關頁面，指向把 Claude 用於創意工作，但很可能是未上線頁。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "geforce-now-sets-sail-with-path-of-exile-curse-of-the-allfla-4fb9",
+        "date": "2026-07-23",
+        "company": "NVIDIA",
+        "title": "GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud",
+        "summary": "GeForce NOW 本週上架《流亡黯道：Curse of the Allflame》等遊戲。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "launching-health-in-chatgpt-b822",
+        "date": "2026-07-23",
+        "company": "OpenAI",
+        "title": "Launching Health in ChatGPT",
+        "summary": "OpenAI 在 ChatGPT 推出健康功能，讓符合資格的美國用戶串接病歷與 Apple Health。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "ntt-data-group-cuts-incident-analysis-to-30-minutes-with-cod-2c7c",
+        "date": "2026-07-22",
+        "company": "NTT DATA",
+        "title": "NTT DATA Group cuts incident analysis to 30 minutes with Codex",
+        "summary": "NTT DATA 用 ChatGPT Enterprise 與 Codex，把事故分析時間壓到 30 分鐘，覆蓋 9,000 名員工。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-news-organizations-are-using-ai-to-advance-their-vital-m-7538",
+        "date": "2026-07-22",
+        "company": "OpenAI",
+        "title": "How news organizations are using AI to advance their vital missions",
+        "summary": "OpenAI 整理新聞機構如何用 AI 做報導、拉受眾與改善營運。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-outlook-addin-7409",
+        "date": "2026-07-21",
+        "company": "xAI",
+        "title": "Introducing Outlook Addin",
+        "summary": "xAI 推出 Outlook 與 Excel 的外掛，把 Grok 塞進微軟 Office 的兩個主力入口。",
+        "confidence": 83,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-the-chatgpt-for-small-business-program-ee92",
+        "date": "2026-07-21",
+        "company": "OpenAI",
+        "title": "Introducing the ChatGPT for small business program",
+        "summary": "OpenAI 推出針對小企業的 ChatGPT 計畫，主打技能培訓與工作自動化。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "at-siggraph-nvidia-advances-graphics-and-simulation-with-age-2da7",
+        "date": "2026-07-20",
+        "company": "NVIDIA",
+        "title": "At SIGGRAPH, NVIDIA Advances Graphics and Simulation With Agentic and Physical AI",
+        "summary": "NVIDIA 在 SIGGRAPH 秀 agentic 與實體 AI，推進繪圖與模擬。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-gemini-3-5-flash-cyber-484e",
+        "date": "2026-07-17",
+        "company": "Google DeepMind",
+        "title": "Introducing Gemini 3.5 Flash Cyber",
+        "summary": "Google 推專用資安模型 Gemini 3.5 Flash Cyber，主打找漏洞、修漏洞。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "a-scorecard-for-the-ai-age-57c0",
+        "date": "2026-07-17",
+        "company": "OpenAI",
+        "title": "A scorecard for the AI age",
+        "summary": "OpenAI 財務長提出一套 AI 投資報酬計分卡，把焦點從模型分數拉到「每次成功任務的成本」。",
+        "confidence": 73,
+        "heat": "未量測"
+      }
+    ]
+  }
+]

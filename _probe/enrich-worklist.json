@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "evt-2026-08-03-591d58",
+    "path": "evt-2026-08-03-591d58.md",
+    "title": "Orchard: An open framework for scalable agentic AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-msr-blog",
+        "url": "https://www.microsoft.com/en-us/research/blog/orchard-an-open-framework-for-scalable-agentic-ai/",
+        "title": "Orchard: An open framework for scalable agentic AI",
+        "summary": " Orchard is an open-source framework for the research community to train and evaluate AI agents across task types. It reduces complexity while supporting strong performance from smaller models by enabling researchers to reuse the same infrastructure. \n The post  Orchard: An open framework for scalab"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-03-ca9363",
+    "path": "evt-2026-08-03-ca9363.md",
+    "title": "Claude For Nonprofits",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-for-nonprofits",
+        "title": "Claude For Nonprofits",
+        "summary": ""
+      }
+    ]
+  }
+]
