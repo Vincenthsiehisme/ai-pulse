@@ -47,6 +47,7 @@ from lib import clock  # noqa: E402  取日期的唯一入口，見 references/t
 from lib import corpus as _corpus  # noqa: E402  _corpus/、_probe/ 盤點的單一真相源
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 from lib import ghdesc  # noqa: E402  榜單中文描述的覆蓋率，見 lib/ghdesc.py
+from lib import history  # noqa: E402  狀態帳本讀寫，見 lib/history.py
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 
@@ -476,7 +477,7 @@ def health(vault: Path, today, r, stale_after_days: int):
     }
 
 
-def render_health(r, h, desc_cov=None):
+def render_health(r, h, desc_cov=None, narr_hist=None):
     """健康頁的 markdown。**不寫任何比「日」更細的時間**——見 pulse-source-notes
     的同款理由：一天 12 班，帶時分秒的欄位會讓這頁每兩小時產生一次假 diff。"""
     c = r["coverage"]
@@ -599,7 +600,52 @@ def render_health(r, h, desc_cov=None):
             ("- " + _line) if not _bad else ("- ⚠ " + _line),
             "", "這一格不判紅燈：第一天本來就是 0 條，一個天天紅的看板跟一個",
             "永遠綠的一樣沒有資訊。**要判紅的是「有過然後停了」**，那個天數就在上面。", ""]
+    # 判斷層的帳本。來源層的狀態變更一直有 `_probe/source-history.jsonl` 在記，
+    # 判斷層在 2026-08 之前什麼都沒有——這個系統對「一條來源的 robots 狀態變了」
+    # 比對「我對一整條主線的判斷變了」還誠實。規格 references/narrative-layer.md。
+    _nline, _nbad = narrative_ledger_line(narr_hist or [], r["date"])
+    out += ["## 判斷層的記憶", "",
+            ("- " + _nline) if not _nbad else ("- ⚠ " + _nline),
+            "", "`now` / `next` 是整段覆寫的（實測有過相鄰兩版只剩 10% 相同）。",
+            "沒有這份帳本，「我上週對這條線怎麼說」這個問題答不出來。", ""]
     return "\n".join(out)
+
+
+def narrative_ledger_line(rows, today, window_days=7):
+    """判斷層帳本的一行摘要。回 (文字, 是不是異常)。純函式，可離線單測。
+
+    **為什麼帳本一定要有消費者。** 這個 repo 已經量過同一隻病：`scoring.py` 每則
+    Event 都算一個 `value`，寫進 frontmatter，然後沒有任何東西讀它
+    （`BACKLOG.md`〈value-沒人用〉）。一份沒有人讀的帳本會在某一天停掉，
+    而停掉之後的樣子跟「這陣子沒有主線改過主張」完全一樣——沒有任何一格會變紅。
+
+    所以這一行不是裝飾，它是那份帳本唯一的活體徵象。
+
+    **這一格刻意不觸警。** 「幾天沒有主線改過主張」在淡季是正常的，
+    現在也還沒有幾期資料能決定門檻該設多少。標成異常只有一種情況：
+    `narratives.yaml` 明明有內容、帳本卻一筆都沒有——那代表寫入路徑被繞過了，
+    或這一版的碼根本沒在記。
+    """
+    if not rows:
+        return ("判斷層帳本：**一筆都沒有**（`_probe/narrative-history.jsonl`）"
+                "——要嘛還沒跑過一班 enrich，要嘛寫入路徑被繞過了"), True
+    # today 進來可能是 date 也可能是字串（render_health 拿的是報告裡的 r["date"]，
+    # 那是字串）。統一先過 _as_date：直接丟給 _lag 會在字串那一路 TypeError，
+    # 而 render_health 沒有人接例外——一個觀測用的欄位不該炸掉整張看板。
+    tday = _as_date(today)
+    days = sorted({str(r["at"])[:10] for r in rows})
+    lags = {} if tday is None else {
+        id(r): _lag(tday, str(r["at"])[:10]) for r in rows}
+    recent = [r for r in rows
+              if lags.get(id(r)) is not None and lags[id(r)] <= window_days]
+    tracks = sorted({r["id"] for r in recent})
+    lag = None if tday is None else _lag(tday, days[-1])
+    body = (f"判斷層帳本：{len(rows)} 筆，最近一次 {days[-1]}"
+            + (f"（{lag} 天前）" if lag else "（今天）"))
+    if tracks:
+        return body + f"；最近 {window_days} 天有 {len(tracks)} 條主線改過主張"\
+                      f"（{'、'.join(tracks)}）", False
+    return body + f"；最近 {window_days} 天沒有主線改過主張", False
 
 
 def desc_zh_line(cov, today):
@@ -663,7 +709,8 @@ def main():
     r["health"] = h = health(vault, today, r, stale_after)
 
     if args.write_health:
-        body = render_health(r, h, ghdesc.load_coverage(vault))
+        body = render_health(r, h, ghdesc.load_coverage(vault),
+                             history.read(vault / "_probe" / "narrative-history.jsonl"))
         p = vault / "_dashboards" / "health.md"
         # 一天 12 班：同一天內內容不變就不重寫，真正的變化才不會被淹掉。
         if not (p.exists() and p.read_text("utf-8") == body):

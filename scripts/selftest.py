@@ -2023,6 +2023,16 @@ with tempfile.TemporaryDirectory() as _d3:
           bool(_re.search(r"\d{2}:\d{2}", _md)), False)
     acase("健康頁：門檻值印在頁面上，讀的人不必回去翻 gate.yaml",
           "stale_after_days: 2" in _md, True)
+    # 判斷層帳本那一行要真的印在看板上。只釘 narrative_ledger_line 這個純函式
+    # 不夠——判準對而呼叫端沒接，帳本一樣沒有消費者，而它哪天停掉就沒有東西會紅。
+    _md_led = _mm.render_health(_r3, _h_green, None, [
+        {"at": "2026-07-02T00:00:00+00:00", "id": "infra-cost", "field": "now",
+         "from": "a", "to": "b", "reason": "nightly-enrich"}])
+    acase("健康頁：判斷層帳本那一行真的印得出來（走真的 render_health——"
+          "純函式對而呼叫端沒接，帳本一樣沒有消費者）",
+          ["判斷層帳本" in _md_led, "infra-cost" in _md_led,
+           "判斷層帳本" in _mm.render_health(_r3, _h_green)],
+          [True, True, True])
 
 # ───────────── 警報自己把自己關掉（2026-07-26 code review）─────────────
 # 規格：references/health-alarms.md。這一組全部是「代理指標比事實寬鬆」的形態：
@@ -3762,6 +3772,114 @@ with _tf2.TemporaryDirectory() as _td_n3:
     acase("narrative-apply：vault 真的量到 heat 時不擋（那時它是引用，不是編造）",
           [_rc_n3, _tr_n3["infra-cost"]["now"]],
           [0, "這輪 heat 8–10 偏低，還沒共振。"])
+
+# ── 判斷層的帳本：覆寫之前先留痕（references/narrative-layer.md〈帳本〉）──
+# now / next 是整段覆寫的，實測相鄰兩版有過只剩 10% 相同的。在這一版之前，被改掉的
+# 那一段只活在 git history 裡，而沒有任何一支腳本或任何一頁在讀它——這個系統因此
+# 答不出「我上週對這條線怎麼說」。而同一個 repo 的來源層一直有帳本。
+from lib import history as _hist  # noqa: E402
+
+
+def _read_ledger(v):
+    return _hist.read(v / "_probe" / "narrative-history.jsonl")
+
+
+with _tf2.TemporaryDirectory() as _td_h1:
+    _hv1 = _narr_vault(_td_h1)
+    _run_narr_apply(_hv1, {"infra-cost": {"now": "換一版新的 now。", "next": "原本的 next"}})
+    _led1 = _read_ledger(_hv1)
+acase("判斷層帳本：覆寫之前把舊值留下來（走真的子行程；"
+      "沒有這一筆，「我上週怎麼說」就只剩 git history，而沒有任何東西在讀它）",
+      [len(_led1),
+       [(r.get("id"), r.get("field"), r.get("from"), r.get("to"), r.get("reason"))
+        for r in _led1]],
+      [1, [("infra-cost", "now", "原本的 now", "換一版新的 now。", "nightly-enrich")]])
+# next 這一欄送進去的值跟舊值一模一樣。記下去的話，帳本每晚多六筆「什麼都沒改」，
+# 而「這一期有幾條主線改過主張」會被稀釋成常數——這個 repo 已經量過的那種沒有
+# 鑑別力的指標（confidence 54/60 同一個數字、tier_evidence 59/59 都是 1）。
+acase("判斷層帳本：值沒變就不記（假異動會把「幾條主線改過」稀釋成常數）",
+      [r.get("field") for r in _led1], ["now"])
+
+with _tf2.TemporaryDirectory() as _td_h2:
+    _hv2 = _narr_vault(_td_h2)
+    _run_narr_apply(_hv2, {"infra-cost": {"now": "第一版。"}})
+    _run_narr_apply(_hv2, {"infra-cost": {"now": "第二版。"}})
+    _led2 = _read_ledger(_hv2)
+acase("判斷層帳本：同一個 (id, field) 前一筆的 to 等於後一筆的 from"
+      "（不相等就代表有人繞過寫入路徑動了 narratives.yaml——只存 from 的話"
+      "那件事會無聲通過）",
+      [len(_led2),
+       [r.get("from") for r in _led2], [r.get("to") for r in _led2]],
+      [2, ["原本的 now", "第一版。"], ["第一版。", "第二版。"]])
+
+# 拒收的那一欄不該留痕：它根本沒有被寫進 yaml，記一筆會讓帳本說一件沒發生的事。
+with _tf2.TemporaryDirectory() as _td_h3:
+    _hv3 = _narr_vault(_td_h3)
+    _run_narr_apply(_hv3, {"infra-cost": {
+        "now": "這輪 heat 8–10 偏低，還沒共振。", "next": "乾淨的下一步。"}})
+    _led3 = _read_ledger(_hv3)
+acase("判斷層帳本：被熱度規則拒收的欄位不留痕（它沒有被寫進 yaml，"
+      "記一筆等於帳本說了一件沒發生的事）",
+      [r.get("field") for r in _led3], ["next"])
+
+# jsonl 的半行只損失那一筆；一個大 JSON 的半份是整份讀不起來。append 不是原子的，
+# 所以讀取端一定要容錯——而容錯不能靜靜吃掉「缺欄位」那種壞行（它進到下游會被
+# 當成某個欄位處理，而它其實是壞的）。
+with _tf2.TemporaryDirectory() as _td_h4:
+    _hp4 = Path(_td_h4) / "h.jsonl"
+    _hist.append(_hp4, [_hist.change("t1", "a", "now", "x", "y", "r")])
+    with _hp4.open("a", encoding="utf-8") as _fh:
+        _fh.write('{"at":"t2","id":"a","field":"now","from":"y","to":  \n')  # 半行
+        _fh.write('{"at":"t3","id":"b"}\n')                                   # 缺欄位
+    _hist.append(_hp4, [_hist.change("t4", "b", "next", None, "z", "r")])
+    _read4 = _hist.read(_hp4)
+    _read4b = _hist.read(_hp4, id="b")      # 要在 with 裡讀完：temp dir 一刪，
+    _read4x = _hist.read(_hp4 / "nope")     # read() 對不存在的路徑回 []，
+                                            # 兩者長得一樣，測試會假綠。
+acase("帳本讀取：半行與缺欄位的壞行一律跳過，不炸也不放行"
+      "（append 不是原子的，被砍在中間會留下半行；壞行進到下游會被當成好行）",
+      [len(_read4), [(r.get("id"), r.get("field")) for r in _read4],
+       len(_read4b), _read4x],
+      [2, [("a", "now"), ("b", "next")], 1, []])
+acase("帳本：rows 是空的就連檔案都不建"
+      "（0 bytes 的帳本會讓「還沒開始記」跟「這班沒有異動」長得一樣）",
+      [_hist.append(Path(_td_h4) / "never.jsonl", []),
+       (Path(_td_h4) / "never.jsonl").exists()], [0, False])
+
+# 一份沒有人讀的帳本會在某一天停掉，而停掉的樣子跟「這陣子沒有主線改過主張」
+# 一模一樣。這個 repo 已經量過同一隻病：value 每則都算、沒有任何東西讀它。
+_nl_today = _dt_m.date(2026, 8, 3)
+acase("判斷層帳本要有消費者：空帳本標成異常，有紀錄的印出最近改過的主線"
+      "（沒有這一行，帳本停掉不會有任何東西變紅——value-沒人用 同一隻病）",
+      [_mon.narrative_ledger_line([], _nl_today)[1],
+       _mon.narrative_ledger_line(
+           [_hist.change("2026-08-02T01:00:00+00:00", "infra-cost", "now", "a", "b", "r")],
+           _nl_today)[1],
+       "infra-cost" in _mon.narrative_ledger_line(
+           [_hist.change("2026-08-02T01:00:00+00:00", "infra-cost", "now", "a", "b", "r")],
+           _nl_today)[0],
+       "沒有主線改過主張" in _mon.narrative_ledger_line(
+           [_hist.change("2026-06-01T01:00:00+00:00", "infra-cost", "now", "a", "b", "r")],
+           _nl_today)[0]],
+      [True, False, True, True])
+# render_health 拿的 today 是報告裡的 r["date"]，那是字串。直接丟給 _lag 會 TypeError，
+# 而 render_health 沒有人接例外——一個觀測用的欄位不該炸掉整張看板。
+acase("判斷層帳本：today 給字串也要活著（看板那條路徑傳的就是字串）",
+      _mon.narrative_ledger_line(
+          [_hist.change("2026-08-02T01:00:00+00:00", "x", "now", "a", "b", "r")],
+          "2026-08-03")[1], False)
+
+# narratives.yaml 下一班會被讀回去當事實，卻一直用裸 write_text。半份 YAML 讀得
+# 起來、不報錯、被 git add -A commit 上去，而站上與 Tracks/*.md 照樣渲染。
+_NA_SRC = open(os.path.join(_HERE, "pulse-narrative-apply.py"), encoding="utf-8").read()
+acase("narratives.yaml 走原子寫，而且進了 atomic-writes 的表"
+      "（它下一班會被讀回去當事實，半份 YAML 讀得起來——就是 sources.yaml 那次）",
+      ['narr_file.write_text' in _NA_SRC,
+       'atomic_write_text(narr_file' in _NA_SRC,
+       "`_config/narratives.yaml`" in open(
+           os.path.join(_HERE, "..", "references", "atomic-writes.md"),
+           encoding="utf-8").read()],
+      [False, True, True])
 
 # M09：從來沒抓到過（item_lag is None）必須判紅。改成 `is not None and ...` 的話，
 # 一個**完全空的 vault** 會顯示綠燈——死人開關在最該叫的那一天最安靜。

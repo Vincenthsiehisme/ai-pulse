@@ -35,6 +35,7 @@
 | 檔案 | 下一班誰讀它 | 半份的後果 |
 |---|---|---|
 | `_config/sources.yaml` | probe / score / cluster / render / monitor / recheck | 來源整批消失，鏈跑得很完美但什麼都看不見 |
+| `_config/narratives.yaml` | prep / render / entity-notes / narrative-apply 自己 | 半份 YAML 讀得起來：某幾條主線的 `now` / `next` / `lenses` 整段不見，而站上與 `Tracks/*.md` 照樣渲染得出來，只是那幾條線從此沒有敘事 |
 | `_probe/state.json` | probe 的 `first_fetch_at` / cursor | 每條來源都變成「從沒抓過」＝整批重跑成 backfill，事件全掛 `stale_backfill` 永不發布 |
 | `_probe/seen.json` | probe 的去重 | 舊項目重新被當成新項目收一次 |
 | `_probe/source-health.json` | source-health 的連續計數與 `degraded_by` | 機器降級的記號掉了 ⇒ 機器不再撤銷自己做過的降級 |

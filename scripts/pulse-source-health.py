@@ -58,6 +58,7 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _HERE)
 from lib.atomicwrite import atomic_write_text, atomic_write_with  # noqa: E402  見 references/atomic-writes.md
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
+from lib import history  # noqa: E402  帳本讀寫單一真相源，見 lib/history.py
 
 # 這支自動降級只會作用在會被抓的 lifecycle。draft / dormant 根本沒有觀測。
 RUNNABLE = {"active", "degraded", "probing"}
@@ -420,11 +421,7 @@ def main():
     # 下一班的 probe 才發現零條來源。見 references/atomic-writes.md。
     atomic_write_with(spath, lambda fh: y.dump(doc, fh))
 
-    hist = vault / "_probe" / "source-history.jsonl"
-    hist.parent.mkdir(parents=True, exist_ok=True)
-    with hist.open("a", encoding="utf-8") as f:
-        for c in recorded:
-            f.write(json.dumps(c, ensure_ascii=False) + "\n")
+    history.append(vault / "_probe" / "source-history.jsonl", recorded)
     print(f"  已寫回 sources.yaml；{len(recorded)} 筆異動記入 _probe/source-history.jsonl")
     return 0
 
