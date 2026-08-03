@@ -261,8 +261,8 @@ mutations:
   - id: M27
     title: "命中了照樣寫進去（stderr 有抱怨，磁碟上還是那句謊）"
     file: pulse-narrative-apply.py
-    find: "                    continue\n            tracks[slug][k] = cleaned"
-    replace: "                    pass\n            tracks[slug][k] = cleaned"
+    find: "                    continue\n            # 只有真的變了才記一筆。"
+    replace: "                    pass\n            # 只有真的變了才記一筆。"
     survives: false
     why: ""
 
@@ -1683,5 +1683,57 @@ mutations:
     file: pulse-render.py
     find: "<div class=\"idx\"><div class=\"col-head\">最新索引</div>"
     replace: "<div class=\"idx\"><div class=\"col-head\">今日索引</div>"
+    survives: false
+    why: ""
+
+  # ── 判斷層的記憶：覆寫之前先留痕（2026-08-03）──
+  # now / next 是整段覆寫的，實測相鄰兩版有過只剩 10% 相同。在這一版之前被改掉的
+  # 那一段只活在 git history 裡，而沒有任何一支腳本或任何一頁在讀它。
+
+  - id: M193
+    title: "覆寫之前不留痕（帳本從此空著，而空帳本跟「這陣子沒有主線改過主張」在看板上長得一樣——判斷的歷史每天丟掉一天，而那是唯一補不回來的東西）"
+    file: pulse-narrative-apply.py
+    find: "            if old_val != cleaned:\n                ledger.append(history.change(stamp, slug, k, old_val, cleaned,\n                                             \"nightly-enrich\"))"
+    replace: "            if False:\n                ledger.append(history.change(stamp, slug, k, old_val, cleaned,\n                                             \"nightly-enrich\"))"
+    survives: false
+    why: ""
+
+  - id: M194
+    title: "值沒變也記一筆（帳本每晚多六筆「什麼都沒改」，而「這一期有幾條主線改過主張」被稀釋成常數——這個 repo 已經量過的那種沒有鑑別力的指標）"
+    file: pulse-narrative-apply.py
+    find: "            if old_val != cleaned:"
+    replace: "            if True:"
+    survives: false
+    why: ""
+
+  - id: M195
+    title: "帳本只存 from 不存 to（每一行不再自足，而且「有人繞過寫入路徑動了 narratives.yaml」那件事會無聲通過——首尾相接的交叉驗證正是靠 to）"
+    file: lib/history.py
+    find: "    return {\"at\": at, \"id\": id, \"field\": field, \"from\": old, \"to\": new, \"reason\": reason}"
+    replace: "    return {\"at\": at, \"id\": id, \"field\": field, \"from\": old, \"to\": old, \"reason\": reason}"
+    survives: false
+    why: ""
+
+  - id: M196
+    title: "帳本讀取放行缺欄位的壞行（一筆缺 field 的紀錄進到下游會被當成「某個欄位」處理，而它其實是壞的）"
+    file: lib/history.py
+    find: "        if not isinstance(row, dict) or any(k not in row for k in REQUIRED):"
+    replace: "        if not isinstance(row, dict):"
+    survives: false
+    why: ""
+
+  - id: M197
+    title: "narratives.yaml 改回裸 write_text（寫到一半被砍留下的是一份合法但少了某幾條主線 now/next/lenses 的 YAML——讀得起來、不報錯、被 commit 上去，而站上照樣渲染，只是那幾條線從此沒有敘事）"
+    file: pulse-narrative-apply.py
+    find: "    atomic_write_text(narr_file, HEADER + body)"
+    replace: "    narr_file.write_text(HEADER + body, encoding=\"utf-8\")"
+    survives: false
+    why: ""
+
+  - id: M198
+    title: "看板不印判斷層帳本（帳本從此沒有消費者：它哪天停掉不會有任何東西變紅——scoring.py 的 value 每則都算、沒人讀，是同一隻病）"
+    file: pulse-monitor.py
+    find: "    _nline, _nbad = narrative_ledger_line(narr_hist or [], r[\"date\"])"
+    replace: "    _nline, _nbad = (\"\", False)"
     survives: false
     why: ""

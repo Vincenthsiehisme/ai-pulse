@@ -56,6 +56,7 @@ _spec.loader.exec_module(_probe)
 sys.path.insert(0, _HERE)
 from lib.atomicwrite import atomic_write_with  # noqa: E402  見 references/atomic-writes.md
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
+from lib import history  # noqa: E402  帳本讀寫單一真相源，見 lib/history.py
 
 
 def _now():
@@ -243,11 +244,9 @@ def main():
     # 規格與那次實測見 references/atomic-writes.md。
     atomic_write_with(path, lambda fh: y.dump(doc, fh))
 
-    hist = vault / "_probe" / "source-history.jsonl"
-    hist.parent.mkdir(parents=True, exist_ok=True)
-    with hist.open("a", encoding="utf-8") as f:
-        for c in changes:
-            f.write(json.dumps(c, ensure_ascii=False) + "\n")
+    # append 走 lib/history：這段原本在這裡與 pulse-source-health.py 各抄一份，
+    # 判斷層要接上來時就會變成第三份。抄本的失敗形態見 lib/history.py 的 docstring。
+    history.append(vault / "_probe" / "source-history.jsonl", changes)
 
     print(f"  已寫回 sources.yaml；{len(changes)} 筆異動記入 _probe/source-history.jsonl")
     for c in changes:
