@@ -215,7 +215,7 @@ official_sources:
   language: en
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-26T23:02:21+00:00"
+  robots_checked_at: "2026-08-03T17:31:34+00:00"
   license_note: "titles + links only"
   frequency: daily
   quota_per_run: 50
@@ -258,7 +258,7 @@ official_sources:
   language: en
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-26T23:02:21+00:00"
+  robots_checked_at: "2026-08-03T17:31:34+00:00"
   license_note: "titles + links only"
   frequency: daily
   quota_per_run: 40
@@ -340,7 +340,7 @@ official_sources:
     # 2026-07-24 實抓確認活著：最新項目 2026-07-22，發文密度高，backlog 上百則。
     # 收進來後，字典裡 Google / Gemini / Gemma 那批實體才第一次有語料可命中。
 
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-hf-blog
   track: official
   owner: Hugging Face
@@ -364,7 +364,7 @@ official_sources:
     # rss adapter 取 URL 時要 fallback 到 guid，否則靜默拿到空字串。
     # 若 7 天 0 筆，直接標 dormant，不要留著當「有在跑」的假象。
 
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-nvidia-blog
   track: official
   owner: NVIDIA
@@ -388,7 +388,7 @@ official_sources:
     # 判為「命中但無資訊」，降 quota 而非移除。
 
   # ── v2.1 新增：研究發布類 ──
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-msr-blog
   track: official
   owner: Microsoft Research
@@ -412,7 +412,7 @@ official_sources:
   frequency: daily
   quota_per_run: 30
 
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-meta-research
   track: official
   owner: Meta
@@ -436,7 +436,7 @@ official_sources:
     # 若 probe 回 404 或連續 0 筆，先找 ai.meta.com 的 feed，再標 dormant。
 
   # ── v2.1 新增：政策法規類（目前完全空白的一類）──
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-ec-digital-strategy
   track: official
   owner: European Commission
@@ -570,7 +570,7 @@ official_sources:
   language: en
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-27T03:37:02+00:00"
+  robots_checked_at: "2026-08-03T17:31:34+00:00"
   license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, search=yes, ai-input=no"
   frequency: daily
   quota_per_run: 40
@@ -601,7 +601,7 @@ official_sources:
   language: en
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-27T03:37:02+00:00"
+  robots_checked_at: "2026-08-03T17:31:34+00:00"
   license_note: "titles + links only"
   frequency: daily
   quota_per_run: 40
@@ -626,7 +626,7 @@ official_sources:
   language: en
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-27T03:37:02+00:00"
+  robots_checked_at: "2026-08-03T17:31:34+00:00"
   license_note: "titles + links only"
   frequency: weekly
   quota_per_run: 30
@@ -877,7 +877,7 @@ media_sources:
 
   # ── fetched：拿到非空 payload，但本機工具解不開（顯示為 binary） ──
   # 沒有 404，也沒有錯誤頁，所以端點存在；能不能解析由 Actions 首跑認定。
-  robots_checked_at: '2026-07-27T11:30:22+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-media-techcrunch
   track: media
   owner: TechCrunch
@@ -901,7 +901,7 @@ media_sources:
 
   # fetched（同上）。IEEE 是學會不是商業媒體，稿源與矽谷科技媒體重疊度低，
   # 對「同一件事有沒有第二個獨立聲音」的貢獻比再多一家矽谷站大。
-  robots_checked_at: '2026-07-27T11:30:22+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-media-ieee-spectrum
   track: media
   owner: IEEE Spectrum
@@ -925,7 +925,7 @@ media_sources:
 
   # fetched（同上）。付費牆只擋內文，feed 的標題與摘要是站方主動公開的部分；
   # license_note 照舊只存標題與節錄，不落全文，也不繞牆（紅線 7）。
-  robots_checked_at: '2026-07-27T11:30:22+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-media-mit-techreview
   track: media
   owner: MIT Technology Review
@@ -951,7 +951,7 @@ media_sources:
   # 這三條的 403 有兩種可能：WAF 擋容器 IP，或路徑真的錯。**兩者在本機分不出來**，
   # 所以不寫 robots_ok: false——那會把量測失敗偽裝成站方政策（本檔開頭那條禁令）。
   # Actions 端跑一次就知道：真的 404 會出現在狀態表，是 WAF 就會正常抓到。
-  robots_checked_at: '2026-07-27T11:30:22+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-media-theregister
   track: media
   owner: The Register
@@ -977,7 +977,7 @@ media_sources:
   quota_per_run: 25
   can_satisfy_primary: false
 
-  robots_checked_at: '2026-07-27T11:30:22+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-media-arstechnica
   track: media
   owner: Ars Technica
@@ -999,7 +999,7 @@ media_sources:
   quota_per_run: 25
   can_satisfy_primary: false
 
-  robots_checked_at: '2026-07-27T11:30:22+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-media-theverge
   track: media
   owner: The Verge
@@ -1023,7 +1023,7 @@ media_sources:
     # 全站 feed 不是 AI 專版，雜訊比會是這一節最高的。留著是因為 The Verge 的
     # AI 專版 feed 路徑在本機驗不到；若首跑後實體命中率過低，換成專版或直接降級。
 
-  robots_checked_at: '2026-07-27T11:30:22+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 kol_sources:
 - id: src-kol-karpathy
   track: kol
@@ -1048,7 +1048,7 @@ kol_sources:
     # 本節唯一「feed 本體真的在本機解析成功」的一條：Atom 格式、署名 karpathy、
     # 最近兩篇為 2026-04-30 與 2025-12-19。其餘各條只驗到 robots.txt。
 
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-kol-simonwillison
   track: kol
   owner: Simon Willison
@@ -1072,7 +1072,7 @@ kol_sources:
     # [待驗證] feed payload 未在本機解碼（工具限制），由 Actions 端首跑驗證。
     # 日更且大量轉述他人發布 → 對 lead_days 特別有用，但雜訊比也最高。
 
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-kol-interconnects
   track: kol
   owner: Nathan Lambert
@@ -1095,7 +1095,7 @@ kol_sources:
   can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼。
 
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-kol-thezvi
   track: kol
   owner: Zvi Mowshowitz
@@ -1142,7 +1142,7 @@ kol_sources:
   can_satisfy_primary: false
     # [待驗證] feed payload 未在本機解碼。
 
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-kol-lilianweng
   track: kol
   owner: Lilian Weng
@@ -1173,7 +1173,7 @@ kol_sources:
   #   也不擅自寫 true（本機確實沒讀到），改標 revive_when_allowed: true，
   #   交給 pulse-robots-recheck 在 Actions 的真網路環境裡下判斷。
   # 判定為真 Disallow 的話它會維持 dormant；判定放行則自動升 probing。
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 - id: src-kol-importai
   track: kol
   owner: Jack Clark
@@ -1254,7 +1254,7 @@ kol_sources:
 # ===========================================================================
 # 聚合線 — 只當候選與熱度提示，永不作為任何事實的唯一證據
 # ===========================================================================
-  robots_checked_at: '2026-07-27T07:38:18+00:00'
+  robots_checked_at: '2026-08-03T17:31:34+00:00'
 aggregator_sources:
 - id: src-hn-frontpage
   track: aggregator
@@ -1283,7 +1283,7 @@ aggregator_sources:
     # 只當候選與熱度提示——補的是視野，不是證據權利。
   lifecycle: probing
   robots_ok: true
-  robots_checked_at: "2026-07-26T23:02:21+00:00"
+  robots_checked_at: "2026-08-03T17:31:34+00:00"
   license_note: "titles + links only"
   frequency: daily
   quota_per_run: 30
