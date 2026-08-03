@@ -14,7 +14,7 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "titles + excerpt + link"
 endpoint: "https://huggingface.co/blog/feed.xml"
-robots_checked_day: "2026-07-27"
+robots_checked_day: "2026-08-03"
 first_fetch_at: "2026-07-23"
 last_observed_day: "2026-07-30"
 items_observed: 25

@@ -14,9 +14,9 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "titles + links only"
 endpoint: "https://openai.com/news/rss.xml"
-robots_checked_day: "2026-07-26"
+robots_checked_day: "2026-08-03"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-02"
+last_observed_day: "2026-08-03"
 items_observed: 62
 events_bound: 23
 events_published: 22

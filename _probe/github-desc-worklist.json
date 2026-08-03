@@ -1,91 +1,50 @@
 [
   {
-    "full_name": "drumih/turbo-fieldfare",
-    "desc": "Gemma 4 26B-A4B inference in ~2 GB of RAM on any M-series MacBook",
-    "language": "Swift",
-    "topics": [
-      "apple-silicon",
-      "gemma",
-      "gemma4",
-      "gemma4-26b-a4b",
-      "gpgpu",
-      "llm"
-    ],
-    "stars": 4013,
-    "url": "https://github.com/drumih/turbo-fieldfare",
-    "stale_zh": null
-  },
-  {
-    "full_name": "livekit/agents",
-    "desc": "A framework for building realtime voice AI agents 🤖🎙️📹",
-    "language": "Python",
-    "topics": [
-      "agents",
-      "ai",
-      "openai",
-      "real-time",
-      "video",
-      "voice"
-    ],
-    "stars": 11692,
-    "url": "https://github.com/livekit/agents",
-    "stale_zh": null
-  },
-  {
-    "full_name": "scrypster/muninndb",
-    "desc": "The cognitive database. A new class of data storage. Not a vector store, not a graph DB, not a RAG wrapper. Ebbinghaus decay, Hebbian   learning, and Bayesian confidence are engine-native primitives. Memories evolve on their own. MCP-native. Single binary.",
-    "language": "Go",
-    "topics": [],
-    "stars": 322,
-    "url": "https://github.com/scrypster/muninndb",
-    "stale_zh": null
-  },
-  {
-    "full_name": "xberg-io/xberg",
-    "desc": "A polyglot document intelligence framework with a Rust core. Extract text, metadata, images, and structured data from 101 formats (115 file extensions) plus code intelligence for 371 code languages. 15 language bindings — Rust, Python, Ruby, Java, Go, PHP, Elixir, C#, TypeScript — plus CLI, REST API, and MCP server.",
-    "language": "Rust",
-    "topics": [
-      "bun",
-      "csharp",
-      "document-intelligence",
-      "elixir",
-      "ffi",
-      "golang"
-    ],
-    "stars": 8778,
-    "url": "https://github.com/xberg-io/xberg",
-    "stale_zh": null
-  },
-  {
-    "full_name": "mobile-next/mobile-mcp",
-    "desc": "Model Context Protocol Server for Mobile Automation and Scraping (iOS, Android, Emulators, Simulators and Real Devices)",
+    "full_name": "firecrawl/firecrawl",
+    "desc": "The context API to search, scrape, and interact with the web at scale. 🔥",
     "language": "TypeScript",
     "topics": [
-      "agent",
-      "android",
-      "emulator",
-      "ios",
-      "mcp",
-      "mobile"
+      "ai",
+      "ai-agents",
+      "ai-crawler",
+      "ai-scraping",
+      "ai-search",
+      "crawler"
     ],
-    "stars": 5758,
-    "url": "https://github.com/mobile-next/mobile-mcp",
+    "stars": 159925,
+    "url": "https://github.com/firecrawl/firecrawl",
+    "stale_zh": "大規模搜尋、抓取並操作網頁的 API"
+  },
+  {
+    "full_name": "calesthio/OpenMontage",
+    "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent skill and production-knowledge files. Turn your AI coding assistant into a full video production studio.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "ai",
+      "claude",
+      "copilot",
+      "cursor"
+    ],
+    "stars": 44866,
+    "url": "https://github.com/calesthio/OpenMontage",
     "stale_zh": null
   },
   {
-    "full_name": "pathwaycom/llm-app",
-    "desc": "Ready-to-run cloud templates for RAG, AI pipelines, and enterprise search with live data. 🐳Docker-friendly.⚡Always in sync with Sharepoint, Google Drive, S3, Kafka, PostgreSQL, real-time data APIs, and more.",
-    "language": "Jupyter Notebook",
+    "full_name": "ScrapeGraphAI/Scrapegraph-ai",
+    "desc": "Python scraper based on AI",
+    "language": "Python",
     "topics": [
-      "chatbot",
-      "hugging-face",
-      "llm",
-      "llm-local",
-      "llm-prompting",
-      "llm-security"
+      "ai-crawler",
+      "ai-scraping",
+      "ai-search",
+      "crawler",
+      "data-extraction",
+      "firecrawl-alternative"
     ],
-    "stars": 59056,
-    "url": "https://github.com/pathwaycom/llm-app",
+    "stars": 28994,
+    "url": "https://github.com/ScrapeGraphAI/Scrapegraph-ai",
     "stale_zh": null
   }
 ]
