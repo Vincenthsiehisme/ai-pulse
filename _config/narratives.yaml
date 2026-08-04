@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-08-03'
+updated: '2026-08-04'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: NVIDIA 還是主角，這輪主要是既有戰線的延續，加一則份量很輕的新料。硬體側 Vera Rubin 用每 token 成本、每瓦效能、每塊錢智慧輪流打，往外鋪到網通（Spectrum-6）、在地製造（緯創德州福和市廠、Build in America）、實體與醫療（開源醫療物理模擬、海軍研究院的 DGX GB300、BMS 製藥 AI 工廠）；Vera CPU 加速 EDA、攜手 Cadence 與 Synopsys 設計下一代晶片，等於用自家算力造自家下一代算力。軟體端推論棧在降成本：vLLM v0.26.0 帶 411 個 commit 與多項 GPU 優化，Hugging Face 把 Nunchaku 4-bit 擴散推論接進 Diffusers。OpenAI 這邊 Project Camellia 在喬治亞州綁能源、就業與社區承諾，屬搶地搶電那端；這兩天新增的一則是 OpenAI 談用全端方式做充裕、便宜、普及的智慧，但只有方向沒有任何投資或數字，份量極輕，先當願景表態。前幾天那則 Jetson 邊緣行銷同樣沒帶新型號或出貨數字。方向一致：供給端在替 agent 工作負載重新定價，戰線鋪到實體、產地與設計上游，連開源推論棧也一起壓成本。
-    next: 硬體那批仍要第二個獨立來源（雲廠、對手晶片、實際部署者）印證每 token 成本最低。可追的硬事：緯創福和市廠的產能爬坡、BMS 的算力跑出什麼研發成果、開源醫療模擬有沒有外部團隊採用、Vera CPU 加速 EDA 有沒有公布具體加速倍數。軟體這條可查實測：vLLM 新優化的 throughput、Nunchaku 4-bit 的品質與速度取捨。OpenAI 的 abundant intelligence 看有沒有後續帶出具體算力或資本動作把它兌現，否則停在願景。邊緣那則看 Jetson 有沒有跟上型號規格或出貨數字。NVIDIA 那批仍多為單一來源、標待證實。
+    now: NVIDIA 還是主角，這輪是既有戰線延續再加一則觀點文。硬體側 Vera Rubin 用每 token 成本、每瓦效能輪流打，往網通、在地製造、實體與醫療鋪；Vera CPU 加速 EDA、攜手 Cadence 與 Synopsys 設計下一代晶片，等於用自家算力造下一代算力。軟體端推論棧持續降成本：vLLM v0.26.0 帶 411 個 commit 與多項 GPU 優化。這兩天新增的一則把焦點從算力挪到記憶體牆，NVIDIA 談 AI 的資料集與 context window 撐爆系統記憶體，主張光加儲存容量不夠、要有效率的儲存架構，是趨勢敘事、沒有產品或數字。
+    next: 硬體那批仍要第二個獨立來源印證每 token 成本最低；記憶體那則看有沒有落到具體產品或規格（儲存加速、記憶體階層），或第三方驗證的成本數字。軟體可查實測：vLLM 新優化的 throughput、Nunchaku 4-bit 的品質與速度取捨。NVIDIA 那批仍多為單一來源、標待證實。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這兩天的新訊號往安全治理那條旁支集中。OpenAI 一口氣加了兩則都不是模型本身：一則說明自家安全、透明與 provenance 做法怎麼對接歐洲與 EU AI Act，一則揭露查禁柬埔寨詐騙集團、對方拿 ChatGPT 做投資與假交友詐騙。加上先前 OpenAI 與 Hugging Face 公布評測期間模型展現進階攻擊能力、以及長時程模型的失效教訓，安全與濫用治理已經是這條線穩定的一半，而且清一色是各家自述、沒有第三方複核。另一半仍是模型迭代本身：效率端 OpenAI 發 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於提醒這種跑分對設定極敏感；實體端 Google DeepMind 再發 Gemini Robotics ER 2 主打推理、工具編排與多機協作，跟 NVIDIA Cosmos-H-Dreams 把生成式模擬推進手術機器人同向。整線佈局那格仍是 Anthropic 一次翻新 Opus 5、Sonnet 5、Haiku 4.5，其中 Opus 5 是這批唯一多來源、信心滿分的一則。小而專、開放那格續在：LiquidAI 的 LFM2.5-Encoders 在 CPU 上跑長脈絡，Ai2 的 OlmoEarth 把開放路線延到行星尺度。xAI 的 Grok Voice Think Fast 2 只有標題、規格待補。
-    next: GPT-5.6 的每 token 成本要對比前代與對手，才知道更省是行銷還是實質；ARC-AGI-3 那個三倍，看有沒有第三方用同一組設定複現。安全治理那批全是自述，看 OpenAI 對歐洲的 provenance 做法有沒有被監管明確接受、查禁詐騙有沒有完整威脅情報報告與執法端佐證、資安事件有沒有 post-mortem。機器人看 Gemini Robotics ER 2 與 Cosmos-H-Dreams 有沒有第三方或客戶實測，多機協作能同步幾台、擬真度有沒有量化。Opus 5、Sonnet 5 看第三方 benchmark 與定價，判斷主版號跳升是真跳代還是命名。小型那批看 LFM2.5-Encoders 的 CPU 延遲吞吐、OlmoEarth 是否開放權重。多數事件仍單一來源、標待證實。
+    now: 這條線最近分兩股。一股是模型往「小而專、能落地」走：Liquid AI 發 LFM2.5-2.6B 主打端側 agent，NVIDIA 把自駕的 Alpamayo 2 Super 開放商用，OpenAI 揭 GPT-Live 的即時語音架構，都不是追單一最強，而是把能力塞進特定尺寸與場景。另一股是安全與濫用治理，且清一色自述：OpenAI 這兩天再添一則查禁柬埔寨詐騙集團（對方拿 ChatGPT 做投資與假交友詐騙），接上先前對接 EU AI Act 的 provenance 說明。效率端 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於自己提醒這種跑分經不起設定操弄。
+    next: 端側與開放模型那批看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 在長尾場景的第三方驗證與授權開放程度，GPT-Live 看有沒有延遲與打斷準確率的可比數字。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述，看查禁詐騙有沒有完整威脅情報與執法佐證、provenance 做法有沒有被監管明確接受。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這條線現在的主軸，是把 AI 推進每一個客群與垂直場景，而且開始從展示轉向帶數字的落地。導入案例見到具體成效：avatarin 幫山田電機做 24 小時客服，兩週 3 萬人用、92% 滿意；NTT DATA 用 Codex 把事故分析壓到 30 分鐘，覆蓋 9,000 名員工。客群擴張也在持續：OpenAI 開放 10 萬名學術研究者免費用、推小企業計畫，Anthropic 這批新增非營利方案 Claude for Nonprofits（細節未載）。價格同時在往下走，OpenAI 砍 GPT-5.6，Luna 降 80%。
-    next: 接下來看這些方案能不能從「宣布」走到「揭露條件與成效」：Claude for Nonprofits 的適用產品與補助額度、學術與小企業計畫的實際採用數；企業落地案例能不能被複製，而不是單一客戶的漂亮數字；以及 GPT-5.6 降價後有沒有帶動用量或營收的可查訊號。
+    now: 這條線的主軸是把 AI 推進每個客群與垂直，而且從展示轉向帶數字的落地。落地案例有具體成效：avatarin 幫山田電機做 24 小時客服，兩週 3 萬人用、92% 滿意。客群與垂直持續擴張，這兩天再添兩則：OpenAI 為 ChatGPT Work 與 Codex 推教育外掛切進 K-12 與大學，電信商 Circles 用 OpenAI API 與 Codex 重做用戶體驗、端出 ARPU 提升 22%、流失下降 9% 的數字，但這是供應商自報的案例。價格同時往下走，OpenAI 砍 GPT-5.6、Luna 降 80%。
+    next: 看這些方案能不能從「宣布」走到「揭露條件與成效」：教育外掛的試點學區與採用數、Circles 那組留存與 ARPU 有沒有第三方或財報印證、企業案例能不能被複製而非單一客戶的漂亮數字，以及 GPT-5.6 降價後有沒有帶動用量或營收的可查訊號。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -50,8 +50,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 兩則。Google 的 Genesis Mission 用 4,000 萬美元的 token 與額度（而非現金）綁科研，摘要自評象徵大於實質，代表雲廠開始拿「算力額度」當投資工具。另一則是 OpenAI 董事會補進兩名金融重量級人物 David Vélez 與 Robin Vince，在雙層（Foundation 加 PBC）結構下找金融背景董事，通常是為更大的融資或財務規模鋪路。兩則分別指向「算力當資本」與「治理為資本化鋪路」，方向不同，但都是公司資本化的動作。
-    next: 看有沒有第二筆「算力當資本」的同類案例，判斷 Google 那招是模式還是個案；OpenAI 這邊看董事變動後，有沒有大型融資、重組或財務揭露對得上。
+    now: 這條線現在四則，樣貌分散。資本化動作端：Google 的 Genesis Mission 用 4,000 萬美元的 token 與額度（而非現金）綁科研，自評象徵大於實質，代表雲廠拿「算力額度」當投資工具；OpenAI 董事會補進 David Vélez 與 Robin Vince 兩名金融重量級人物，雙層結構下找金融背景董事，通常是替更大的融資或財務規模鋪路。這兩天新增兩則偏公司事務：OpenAI 公開反駁 Apple 的訴訟（單方說法、法院文件不在證據內），Anthropic 發一則以「Tino Cuellar」為題的消息、但內容證據不足待補。後兩則份量都輕。
+    next: 看有沒有第二筆「算力當資本」的同類案例，判斷 Google 那招是模式還是個案；OpenAI 董事變動後有沒有大型融資、重組或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
@@ -59,11 +59,11 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這條線現在的走向，是把 agent 從「能對話」推到「能被部署、能被重用」。OpenAI 用 Presence 把語音與客服 agent 做成企業可部署的平台，xAI 給 Grok 加 Build Mode 讓使用者自己搭，微軟研究院則把 agent 的訓練與評測基礎設施開源（Orchard）。三者方向一致：壓掉搭 agent 與評 agent 的重複工。另外 OpenAI 的科學計算 field report 顯示，coding agent 已經在改寫科學工作者的日常流程。
-    next: 接下來看幾個可驗證訊號：Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用），Presence 與 Build Mode 有沒有公開的部署數或具名客戶案例，以及科學計算那類成效有沒有可複現的量化結果，而不只是敘事式的 field report。
+    now: 這條線的走向，是把 agent 從「能對話」推到「能被部署、能被重用」，這兩天又多了「能被治理」這一層。部署與重用端：OpenAI 用 Presence 把語音客服 agent 做成企業可部署平台，xAI 給 Grok 加 Build Mode 讓使用者自己搭，微軟研究院把 agent 訓練與評測基礎設施開源（Orchard），方向一致是壓掉搭 agent 與評 agent 的重複工；OpenAI 的科學計算 field report 則顯示 coding agent 已在改寫科學工作者的日常。新加的治理端：Open Secure AI Alliance 趁 Black Hat 提出 SAFE 準則、Linux Foundation 釋出 findings 交換的 RFC，開始替 agent 的資安揭露立共通語言，但還在提案階段。
+    next: 部署端看 Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用）、Presence 與 Build Mode 有沒有公開部署數或具名客戶、科學計算成效能不能複現而非只有敘事。治理端看 SAFE 的 RFC 會不會收斂成正式規範、主要雲廠與模型商是否採用、有沒有第一批實際的 findings 交換。簽名的組織數不算數，照做的家數才算。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這條線現在四則，兩種樣貌。國家隊那組：南韓總統李在明率企業界在 AI Summit 與 NVIDIA 及夥伴會談，挾三星、SK 海力士的 HBM 供應鏈籌碼談算力綁定；OpenAI 則宣布與美國能源部及國家實驗室合作，用前沿模型加速科學。治理那組：產業多方組成 Open Secure AI Alliance，把開源 AI 的資安拉成跨廠共同治理題；這兩天再加一則，Anthropic 發表對 open-weights 模型的官方立場文，一家走封閉權重路線的公司出面談開放權重，本身就是訊號，但文章具體主張只有標題、內容待補。四則指向同一件事：AI 的算力、科研與開放安全，正變成國家級與產業級的戰略與政策議題，政府、企業、聯盟互相綁定。
-    next: 多數仍停在宣示層，要看有沒有具體落地：南韓的 GPU 採購、資料中心或半導體合作，OpenAI 與能源部的專案、經費與成果，Open Secure AI Alliance 有沒有交出可稽核的規範與非發起方成員。Anthropic 那則看全文實際主張、以及是否引來開放權重陣營（Meta、Mistral 等）或政策圈回應。事件數仍少，這條線的判斷先當暫定。
+    now: 這條線現在五則，幾種樣貌。國家隊組：南韓總統李在明率企業界在 AI Summit 與 NVIDIA 及夥伴會談，挾三星、SK 海力士的 HBM 供應鏈談算力綁定；OpenAI 與美國能源部及國家實驗室合作用前沿模型加速科學。這兩天新增一則同屬「國家把算力鋪向地方」：NVIDIA 加入美國 NSF 的州與區域 AI 基礎設施中心計畫，要把算力、資料與軟體推向更多地區的研究與教育。治理組：Open Secure AI Alliance 把開源 AI 資安拉成跨廠共同治理題，Anthropic 發表 open-weights 立場文，一家走封閉權重的公司出面談開放權重本身就是訊號，但主張只有標題、內容待補。
+    next: 多數仍停在宣示層，看有沒有具體落地：南韓的 GPU 採購與半導體合作、OpenAI 與能源部的專案經費與成果、NSF 計畫實際撥給哪些中心與 NVIDIA 投入規模、Open Secure AI Alliance 有沒有交出可稽核規範與非發起方成員。Anthropic 那則看全文實際主張與開放權重陣營或政策圈的回應。
     lenses: []

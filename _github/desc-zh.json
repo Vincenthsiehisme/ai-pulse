@@ -74,6 +74,11 @@
     "src_hash": "8f35b4a2144f",
     "zh": "LLM 驅動的多市場股票分析系統：多源行情、即時新聞、決策看板與自動推送，可零成本定時執行"
   },
+  "addyosmani/agent-skills": {
+    "at": "2026-08-04T19:21:24+00:00",
+    "src_hash": "f28264181fbb",
+    "zh": "給 AI coding agent 用的生產級工程 skills 集"
+  },
   "affaan-m/ECC": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "ac439f9c8bf6",
@@ -183,6 +188,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "43525ace4b73",
     "zh": "跨 Reddit、X、YouTube、HN 等查任何主題，再整理成有依據摘要的 agent skill"
+  },
+  "nanbingxyz/5ire": {
+    "at": "2026-08-04T19:21:24+00:00",
+    "src_hash": "0144872fe000",
+    "zh": "5ire：跨平台桌面 AI 助理兼 MCP client，透過 MCP server 接本機知識庫與工具"
   },
   "obra/superpowers": {
     "at": "2026-07-27T19:23:58+00:00",

@@ -1,14 +1,34 @@
-# 已發布事件（62）
+# 已發布事件（72）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-08-04
 - **[[Events/evt-2026-08-04-07332d|Disrupting a Criminal Scam Operation]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 查禁一個柬埔寨詐騙集團，對方用 ChatGPT 支援投資、假交友、賭博與冒名詐騙。
+- **[[Events/evt-2026-08-04-392f3d|New ways to learn and teach with ChatGPT Work and Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 為 ChatGPT Work 與 Codex 推教育外掛，鎖定 K-12 老師、大學師生的教學與研究。
+- **[[Events/evt-2026-08-04-5441bc|Deploy local agents everywhere with LFM2.5-2.6B]]** — Liquid AI · model-capability · conf 73 · heat 未量測
+  Liquid AI 發布 LFM2.5-2.6B，主打在本機、端側到處部署 agent 的小模型。
+- **[[Events/evt-2026-08-04-5d61fd|As AI Increases Demands on Memory, Storage Steps Up]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 談 AI 把記憶體撐爆後，儲存架構得跟上——光加容量不夠，要有效率的儲存設計。
+- **[[Events/evt-2026-08-04-6b1ee3|NVIDIA Alpamayo 2 Super, the Frontier Open Model for Robotaxis and Autonomous Vehicles, Now Available for Commercial Use]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  NVIDIA 開放 Alpamayo 2 Super 商用授權——一個專攻自駕長尾情境的開放模型。
+- **[[Events/evt-2026-08-04-6c9649|AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency]]** — Open Secure AI Alliance · policy · conf 73 · heat 未量測
+  Open Secure AI Alliance（120+ 組織）在 Black Hat 前提出 SAFE 準則，要補 agentic AI 的資安透明度。
+- **[[Events/evt-2026-08-04-9f0a8c|NVIDIA Joins NSF State and Regional AI Hubs Program to Expand AI Research and Education Across the US]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 加入美國 NSF 的州與區域 AI 基礎設施中心計畫，要把算力、資料、軟體推向更多地區的研究與教育。
+- **[[Events/evt-2026-08-04-b30acc|Tino Cuellar]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 官網發布一則以「Tino Cuellar」為題的消息，內容細節證據不足。
 
 ## 2026-08-03
 - **[[Events/evt-2026-08-03-591d58|Orchard: An open framework for scalable agentic AI]]** — Microsoft · infra · conf 73 · heat 未量測
   微軟研究院開源 agent 框架 Orchard，用同一套基礎設施訓練與評測跨任務 AI agent。
+- **[[Events/evt-2026-08-03-627d4d|Circles powers telco personalization with OpenAI technology]]** — OpenAI · product · conf 73 · heat 未量測
+  電信商 Circles 用 OpenAI API 與 Codex 重做用戶體驗，OpenAI 端出 ARPU +22%、流失 -9% 的自報數字。
+- **[[Events/evt-2026-08-03-c29aa3|How we built a realtime system for responsive voice AI in six months]]** — OpenAI · model-capability · conf 73 · heat 未量測
+  OpenAI 揭露 GPT-Live 的即時語音架構：用無回合制語音模型加低延遲設計做連續對話。
+- **[[Events/evt-2026-08-03-c41113|Apple is getting this wrong]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 公開反駁 Apple 的訴訟，稱對方指控毫無根據，並貼出往來訊息還原經過。
 - **[[Events/evt-2026-08-03-ca9363|Claude For Nonprofits]]** — Anthropic · product · conf 73 · heat 未量測
   Anthropic 推出 Claude for Nonprofits，把 Claude 帶進非營利組織。
 

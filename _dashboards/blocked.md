@@ -1,11 +1,7 @@
-# 被門禁擋下（29）
+# 被門禁擋下（19）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-08-04-6b1ee3|NVIDIA Alpamayo 2 Super, the Frontier Open Model for Robotaxis and Aut]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-04-9f0a8c|NVIDIA Joins NSF State and Regional AI Hubs Program to Expand AI Resea]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-03-627d4d|Circles powers telco personalization with OpenAI technology]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-03-c41113|Apple is getting this wrong]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-01-2a01f6|Ten advances in mathematics and theoretical computer science]]** — OpenAI — blockers: thin_fact, thin_research_analysis
 - **[[Events/evt-2026-07-31-15c85e|Grok Imagine Video 1 5 References]]** — xAI — blockers: thin_fact
 - **[[Events/evt-2026-07-30-54f43a|Investigating Incidents Cybersecurity Evals]]** — Anthropic — blockers: thin_research_analysis
@@ -24,10 +20,4 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-08-04-392f3d|New ways to learn and teach with ChatGPT Work and Codex]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-04-5441bc|Deploy local agents everywhere with LFM2.5-2.6B]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-04-5d61fd|As AI Increases Demands on Memory, Storage Steps Up]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-04-6c9649|AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-04-b30acc|Tino Cuellar]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-03-c29aa3|How we built a realtime system for responsive voice AI in six months]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity
