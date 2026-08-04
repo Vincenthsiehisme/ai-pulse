@@ -3,18 +3,20 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-03'
+generated_day: '2026-08-04'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **22** 則：`published` 21、`review` 1
+事件 **24** 則：`published` 21、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
 | 2026-08-04 | [[Events/evt-2026-08-04-07332d\|Disrupting a Criminal Scam Operation]] | published |
+| 2026-08-03 | [[Events/evt-2026-08-03-c41113\|Apple is getting this wrong]] | review |
+| 2026-08-03 | [[Events/evt-2026-08-03-627d4d\|Circles powers telco personalization with OpenAI technology]] | review |
 | 2026-08-01 | [[Events/evt-2026-08-01-2a01f6\|Ten advances in mathematics and theoretical computer science]] | review |
 | 2026-07-31 | [[Events/evt-2026-07-31-e5e5cc\|Building abundant intelligence]] | published |
 | 2026-07-31 | [[Events/evt-2026-07-31-e0a505\|Advancing responsible AI across Europe]] | published |

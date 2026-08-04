@@ -3,7 +3,7 @@ id: actor-mistral
 kind: company
 in_dictionary: true
 aliases: ["Mistral"]
-generated_day: '2026-08-03'
+generated_day: '2026-08-04'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

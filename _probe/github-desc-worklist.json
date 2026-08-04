@@ -1,50 +1,33 @@
 [
   {
-    "full_name": "firecrawl/firecrawl",
-    "desc": "The context API to search, scrape, and interact with the web at scale. 🔥",
-    "language": "TypeScript",
+    "full_name": "addyosmani/agent-skills",
+    "desc": "Production-grade engineering skills for AI coding agents.",
+    "language": "JavaScript",
     "topics": [
-      "ai",
-      "ai-agents",
-      "ai-crawler",
-      "ai-scraping",
-      "ai-search",
-      "crawler"
+      "agent-skills",
+      "antigravity",
+      "claude-code",
+      "codex",
+      "cursor",
+      "skills"
     ],
-    "stars": 159925,
-    "url": "https://github.com/firecrawl/firecrawl",
-    "stale_zh": "大規模搜尋、抓取並操作網頁的 API"
-  },
-  {
-    "full_name": "calesthio/OpenMontage",
-    "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent skill and production-knowledge files. Turn your AI coding assistant into a full video production studio.",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "agentic-ai",
-      "ai",
-      "claude",
-      "copilot",
-      "cursor"
-    ],
-    "stars": 44866,
-    "url": "https://github.com/calesthio/OpenMontage",
+    "stars": 81603,
+    "url": "https://github.com/addyosmani/agent-skills",
     "stale_zh": null
   },
   {
-    "full_name": "ScrapeGraphAI/Scrapegraph-ai",
-    "desc": "Python scraper based on AI",
-    "language": "Python",
+    "full_name": "nanbingxyz/5ire",
+    "desc": "5ire is a cross-platform desktop AI assistant, MCP client. It compatible with major service providers,  supports local knowledge base and  tools via model context protocol servers .",
+    "language": "TypeScript",
     "topics": [
-      "ai-crawler",
-      "ai-scraping",
-      "ai-search",
-      "crawler",
-      "data-extraction",
-      "firecrawl-alternative"
+      "knowledge-base",
+      "llms",
+      "mcp",
+      "mcp-client",
+      "model-context-protocol"
     ],
-    "stars": 28994,
-    "url": "https://github.com/ScrapeGraphAI/Scrapegraph-ai",
+    "stars": 5321,
+    "url": "https://github.com/nanbingxyz/5ire",
     "stale_zh": null
   }
 ]

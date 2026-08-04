@@ -16,13 +16,13 @@ license_note: "titles + excerpt + link"
 endpoint: "https://huggingface.co/blog/feed.xml"
 robots_checked_day: "2026-08-03"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-07-30"
-items_observed: 25
-events_bound: 5
+last_observed_day: "2026-08-04"
+items_observed: 26
+events_bound: 6
 events_published: 4
 health_score: 100
 consecutive_failures: 0
-last_status: 304
+last_status: 200
 ---
 
 # Hugging Face（src-hf-blog）
@@ -34,8 +34,8 @@ last_status: 304
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 25 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 5 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已觀測 | 26 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 6 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 4 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**HuggingFace**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。

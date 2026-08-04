@@ -18,7 +18,7 @@ can_satisfy_primary: false
 endpoint: "https://www.oneusefulthing.org/feed"
 robots_checked_day: "2026-08-03"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-03"
+last_observed_day: "2026-08-04"
 items_observed: 20
 events_bound: 0
 events_published: 0
