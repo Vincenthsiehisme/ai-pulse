@@ -3,19 +3,20 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-04'
+generated_day: '2026-08-05'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **21** 則：`published` 16、`review` 5
+事件 **22** 則：`published` 19、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-04 | [[Events/evt-2026-08-04-9f0a8c\|NVIDIA Joins NSF State and Regional AI Hubs Program to Expand AI Research and Education Across the US]] | review |
-| 2026-08-04 | [[Events/evt-2026-08-04-6b1ee3\|NVIDIA Alpamayo 2 Super, the Frontier Open Model for Robotaxis and Autonomous Vehicles, Now Available for Commercial Use]] | review |
+| 2026-08-04 | [[Events/evt-2026-08-04-9f0a8c\|NVIDIA Joins NSF State and Regional AI Hubs Program to Expand AI Research and Education Across the US]] | published |
+| 2026-08-04 | [[Events/evt-2026-08-04-6b1ee3\|NVIDIA Alpamayo 2 Super, the Frontier Open Model for Robotaxis and Autonomous Vehicles, Now Available for Commercial Use]] | published |
+| 2026-08-04 | [[Events/evt-2026-08-04-5d61fd\|As AI Increases Demands on Memory, Storage Steps Up]] | published |
 | 2026-07-30 | [[Events/evt-2026-07-30-637f40\|Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW]] | published |
 | 2026-07-28 | [[Events/evt-2026-07-28-8ecafa\|Powerful Compute So Compact, It’s Clutch — Build AI Anywhere With NVIDIA Jetson]] | published |
 | 2026-07-27 | [[Events/evt-2026-07-27-fdbc38\|NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs and GPUs]] | published |

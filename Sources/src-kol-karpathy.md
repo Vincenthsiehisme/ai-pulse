@@ -18,7 +18,7 @@ can_satisfy_primary: false
 endpoint: "https://karpathy.bearblog.dev/feed/"
 robots_checked_day: "2026-08-03"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-04"
+last_observed_day: "2026-08-05"
 items_observed: 10
 events_bound: 0
 events_published: 0

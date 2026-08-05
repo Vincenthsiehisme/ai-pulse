@@ -1,7 +1,8 @@
-# 被門禁擋下（19）
+# 被門禁擋下（20）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-08-04-e23cff|Third-party cyber evaluations involving OpenAI models]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-01-2a01f6|Ten advances in mathematics and theoretical computer science]]** — OpenAI — blockers: thin_fact, thin_research_analysis
 - **[[Events/evt-2026-07-31-15c85e|Grok Imagine Video 1 5 References]]** — xAI — blockers: thin_fact
 - **[[Events/evt-2026-07-30-54f43a|Investigating Incidents Cybersecurity Evals]]** — Anthropic — blockers: thin_research_analysis

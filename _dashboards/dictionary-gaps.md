@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-04'
+generated_day: '2026-08-05'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**12 天**（2026-07-24 … 2026-08-04），去重後 **1100** 列。
+語料範圍：**13 天**（2026-07-24 … 2026-08-05），去重後 **1162** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,43 +17,48 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| LLMs | 23 | 10 |
+| LLMs | 24 | 11 |
 | July | 18 | 7 |
 | Industry | 16 | 2 |
 | Research | 16 | 2 |
-| June | 14 | 6 |
+| LLM | 16 | 8 |
+| June | 15 | 7 |
+| Apple | 15 | 5 |
 | Here | 14 | 8 |
 | European Union | 13 | 2 |
-| LLM | 13 | 8 |
-| Apple | 13 | 5 |
-| Building | 12 | 8 |
+| Building | 13 | 8 |
 | U.S | 11 | 4 |
 | Union | 10 | 2 |
 | Amazon | 10 | 3 |
 | One | 10 | 7 |
+| When | 10 | 4 |
 | Energy | 9 | 2 |
 | Thursday | 9 | 3 |
-| When | 9 | 4 |
+| August | 9 | 3 |
+| Wednesday | 8 | 3 |
 | Monday | 8 | 4 |
 | They | 8 | 6 |
 | Trump | 8 | 4 |
+| There | 8 | 5 |
+| SpaceX | 8 | 4 |
 | Tuesday | 7 | 4 |
 | Python | 7 | 3 |
 | Learn | 7 | 3 |
-| There | 7 | 5 |
 | RAM | 7 | 2 |
-| Wednesday | 6 | 2 |
 | Security | 6 | 3 |
 | Gemma | 6 | 5 |
 | China | 6 | 5 |
 | With | 6 | 5 |
 | Opus | 6 | 3 |
 | Fable | 6 | 3 |
+| Chinese | 6 | 4 |
 | Rust | 6 | 2 |
 | Pro | 6 | 4 |
 | AI-native | 6 | 3 |
+| These | 6 | 4 |
+| Elon Musk | 6 | 4 |
 | Samsung | 6 | 2 |
-| August | 6 | 2 |
+| AI-powered | 5 | 4 |
 | Source | 5 | 2 |
 | Understanding | 5 | 3 |
 | San Francisco | 5 | 4 |
@@ -64,19 +69,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | Let | 5 | 4 |
 | January | 5 | 4 |
 | Mac | 5 | 3 |
-| Chinese | 5 | 4 |
+| SQLite | 5 | 2 |
 | Advancing | 5 | 3 |
-| These | 5 | 3 |
-| SpaceX | 5 | 3 |
+| NASA | 5 | 2 |
+| After | 5 | 3 |
 | CEO | 5 | 3 |
 | Chrome | 5 | 4 |
+| Android | 5 | 3 |
 | Flash | 4 | 2 |
-| AI-powered | 4 | 4 |
-| Making | 4 | 4 |
-| Video | 4 | 2 |
-| Updated | 4 | 2 |
-| Part | 4 | 3 |
-| Anatomy | 4 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -90,7 +90,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Show HN | 31 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
 | Highlights | 14 | src-gh-vllm-releases |
-| The Download | 11 | src-media-mit-techreview |
+| The Download | 12 | src-media-mit-techreview |
 | Draft | 10 | src-ep-itre |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
@@ -99,15 +99,17 @@ generator: scripts/pulse-dictionary-gaps.py
 | Qwen | 8 | src-qwen-blog |
 | Minutes | 7 | src-ep-itre |
 | Hi HN | 7 | src-hn-frontpage |
+| Tags | 6 | src-kol-simonwillison |
 | Co-Scientist | 5 | src-deepmind-blog |
-| Tags | 5 | src-kol-simonwillison |
 | Sam Altman | 5 | src-media-techcrunch |
 | The Verge | 5 | src-media-theverge |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
 | Release Notes | 4 | src-gh-vllm-releases |
+| Nancy Grace Roman | 4 | src-media-mit-techreview |
 | AI-generated | 4 | src-media-techcrunch |
+| TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Spider-Man | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
@@ -124,11 +126,12 @@ generator: scripts/pulse-dictionary-gaps.py
 | MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
-| TechCrunch Disrupt | 3 | src-media-techcrunch |
+| Space Telescope | 3 | src-media-mit-techreview |
 | RAMageddon | 3 | src-media-theverge |
 | Launch HN | 3 | src-hn-frontpage |
 | YC S26 | 3 | src-hn-frontpage |
 | Montana | 3 | src-media-mit-techreview |
+| Sure | 3 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

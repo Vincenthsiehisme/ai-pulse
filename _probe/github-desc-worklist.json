@@ -1,33 +1,66 @@
 [
   {
-    "full_name": "addyosmani/agent-skills",
-    "desc": "Production-grade engineering skills for AI coding agents.",
-    "language": "JavaScript",
+    "full_name": "agent-infra/sandbox",
+    "desc": "All-in-One Sandbox for AI Agents that combines Browser, Shell, File, MCP and VSCode Server in a single Docker container.",
+    "language": "Python",
     "topics": [
-      "agent-skills",
-      "antigravity",
-      "claude-code",
-      "codex",
-      "cursor",
-      "skills"
+      "agent",
+      "all-in-one",
+      "browser",
+      "filesystem",
+      "mcp",
+      "sandbox"
     ],
-    "stars": 81603,
-    "url": "https://github.com/addyosmani/agent-skills",
+    "stars": 5597,
+    "url": "https://github.com/agent-infra/sandbox",
     "stale_zh": null
   },
   {
-    "full_name": "nanbingxyz/5ire",
-    "desc": "5ire is a cross-platform desktop AI assistant, MCP client. It compatible with major service providers,  supports local knowledge base and  tools via model context protocol servers .",
+    "full_name": "CherryHQ/cherry-studio",
+    "desc": "AI productivity studio with smart chat, autonomous agents, and 300+ assistants. Unified access to frontier LLMs",
     "language": "TypeScript",
     "topics": [
-      "knowledge-base",
-      "llms",
-      "mcp",
-      "mcp-client",
-      "model-context-protocol"
+      "agent-skills",
+      "ai-agent",
+      "awesome-skills",
+      "claude-code",
+      "codex",
+      "deepseek"
     ],
-    "stars": 5321,
-    "url": "https://github.com/nanbingxyz/5ire",
+    "stars": 49622,
+    "url": "https://github.com/CherryHQ/cherry-studio",
+    "stale_zh": null
+  },
+  {
+    "full_name": "CursorTouch/Windows-MCP",
+    "desc": "MCP Server for Computer Use in Windows",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "desktop",
+      "mcp",
+      "tools",
+      "windows",
+      "windows-automation"
+    ],
+    "stars": 6608,
+    "url": "https://github.com/CursorTouch/Windows-MCP",
+    "stale_zh": null
+  },
+  {
+    "full_name": "thedotmack/claude-mem",
+    "desc": "Persistent Context Across Sessions for Every Agent –  Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More",
+    "language": "JavaScript",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-memory",
+      "anthropic",
+      "artificial-intelligence",
+      "chromadb"
+    ],
+    "stars": 89712,
+    "url": "https://github.com/thedotmack/claude-mem",
     "stale_zh": null
   }
 ]
