@@ -3807,13 +3807,38 @@ acase("潤稿鏈：那一格真的印在看板上，而且超過門檻時帶警�
       "（走真的 render_health——純函式對而呼叫端沒接，這一格等於不存在）",
       ["半夜潤稿那條鏈" in _md_enr, "⚠" in _md_enr.split("半夜潤稿那條鏈")[1][:200]],
       [True, True])
+# last_enrich_commit 自己也要有判準——上面那幾條餵的是手寫的 reason，
+# 而**產生那個 reason 的碼沒有任何東西在守**。M200 就是這樣活下來的：
+# 把偵測淺 clone 那一段拿掉，六條判準一條都不紅。
+# 所以這裡真的做一個淺 clone 出來問它。
+with _tf2.TemporaryDirectory() as _td_sh:
+    _sh_dst = Path(_td_sh) / "shallow"
+    _subprocess.run(["git", "clone", "--depth", "1", "-q",
+                     "file://" + os.path.abspath(os.path.join(_HERE, "..")), str(_sh_dst)],
+                    capture_output=True, text=True)
+    _sh_res = _mon.last_enrich_commit(_sh_dst) if _sh_dst.exists() else ("clone 失敗", "?")
+    _full_res = _mon.last_enrich_commit(Path(os.path.join(_HERE, "..")))
+    _nogit_res = _mon.last_enrich_commit(Path(_td_sh))
+acase("潤稿鏈：last_enrich_commit 分得出淺 clone、完整 clone 與非 git 目錄"
+      "（上面那幾條餵的是手寫 reason——產生 reason 的那段碼要自己有判準）",
+      [_sh_res[1], _full_res[1], _nogit_res[1],
+       bool(_re.fullmatch(r"\d{4}-\d{2}-\d{2}", _full_res[0] or ""))],
+      ["shallow", "ok", "no-git", True])
+
 # 這條檢查的是「旗標有沒有真的掛在夜班上」。判準寫得再好，沒有人開那個旗標，
 # 它就只是一段不會執行的碼。
+#
+# **註解要先剝掉。** 第一版寫 `"--alert-enrich-stale" in 整份 yaml`，而那個旗標
+# 在它上面的註解區塊裡也出現一次——把命令列那一行刪掉，判準照樣綠。
+# 這條分支上第四次「判準抓到隔壁那一處」，四次都是在一整份文字裡找一個字串。
 _WF_DR = open(os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml"),
               encoding="utf-8").read()
+_WF_DR_CODE = "\n".join(ln for ln in _WF_DR.splitlines()
+                        if not ln.lstrip().startswith("#"))
 acase("排程：夜班真的開了 --alert-enrich-stale，而且 checkout 拿得到 commit 歷史"
       "（判準量的是 git log；預設的淺 clone 裡它什麼都看不到）",
-      ["--alert-enrich-stale" in _WF_DR, "fetch-depth: 0" in _WF_DR], [True, True])
+      ["--alert-enrich-stale" in _WF_DR_CODE, "fetch-depth: 0" in _WF_DR_CODE],
+      [True, True])
 
 # ── 判斷層的帳本：覆寫之前先留痕（references/narrative-layer.md〈帳本〉）──
 # now / next 是整段覆寫的，實測相鄰兩版有過只剩 10% 相同的。在這一版之前，被改掉的
