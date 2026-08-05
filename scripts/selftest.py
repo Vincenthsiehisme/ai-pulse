@@ -3773,6 +3773,48 @@ with _tf2.TemporaryDirectory() as _td_n3:
           [_rc_n3, _tr_n3["infra-cost"]["now"]],
           [0, "這輪 heat 8–10 偏低，還沒共振。"])
 
+# ── 潤稿鏈的死人開關：由推得上去的那一邊，監看推不上去的那一邊 ──────
+# 2026-08-05：半夜潤稿那條 Cowork 鏈把活做完了、commit 也建了，但 push 被沙箱的
+# git proxy 擋掉（403）。容器是拋棄式的，那一晚的成果等於沒了——而現有三個警報
+# **一條都沒叫**，因為判準各自對得上別的故障：未 enrich 是 0、中文覆蓋 31/35 不是
+# 0、health 那一頁是 Actions 自己寫的。兩條鏈的失效模式不一樣，警報只長在其中一條。
+acase("潤稿鏈：超過門檻要叫，門檻內不叫（日更的鏈，隔一天是誤點，隔兩天是壞了）",
+      [_mon.enrich_chain_line("2026-08-04", "ok", "2026-08-05", 2)[1],
+       _mon.enrich_chain_line("2026-08-04", "ok", "2026-08-06", 2)[1],
+       "2 天前" in _mon.enrich_chain_line("2026-08-04", "ok", "2026-08-06", 2)[0]],
+      [False, True, True])
+# 淺 checkout 裡 git log --grep 什麼都找不到，而「找不到」跟「很久沒有」在數字上
+# 長得一模一樣。回一個大 lag 會變成天天叫的假警報，而天天叫的警報跟不會叫的
+# 一樣沒有資訊——所以量不到就說量不到，且不觸警（紅線 8）。
+acase("潤稿鏈：淺 checkout 判成「量不到」且不觸警，不是判成一個很大的 lag"
+      "（fetch-depth: 1 裡找不到 enrich commit，而那跟「很久沒推回」數字上一樣）",
+      [_mon.enrich_chain_line(None, "shallow", "2026-08-06", 2),
+       _mon.enrich_chain_line(None, "no-git", "2026-08-06", 2)[1]],
+      [(_mon.enrich_chain_line(None, "shallow", "2026-08-06", 2)[0], False), False])
+acase("潤稿鏈：淺 checkout 那句話要指得出怎麼修（不然讀的人只知道量不到）",
+      ["fetch-depth" in _mon.enrich_chain_line(None, "shallow", "x", 2)[0],
+       "量不到" in _mon.enrich_chain_line(None, "shallow", "x", 2)[0]], [True, True])
+# 「從來沒推回過」跟「淺 checkout」是兩件事：前者是潤稿鏈真的沒動，要叫；
+# 後者是這支腳本的環境沒設對，不該叫。擠成同一種就等於這一格不存在。
+acase("潤稿鏈：「從來沒推回過」要叫，跟「量不到」分開"
+      "（擠成同一種，第一天就會誤報，而真的斷掉那天反而不叫）",
+      [_mon.enrich_chain_line(None, "none", "2026-08-06", 2)[1],
+       _mon.enrich_chain_line(None, "shallow", "2026-08-06", 2)[1]], [True, False])
+# 判準對而呼叫端沒接，警報一樣不會叫——這條分支上已經抓過一次（M198）。
+_md_enr = _mm.render_health(_r3, dict(_h_green, enrich_stale_after_days=2),
+                            None, None, ("2026-06-01", "ok"))
+acase("潤稿鏈：那一格真的印在看板上，而且超過門檻時帶警告記號"
+      "（走真的 render_health——純函式對而呼叫端沒接，這一格等於不存在）",
+      ["半夜潤稿那條鏈" in _md_enr, "⚠" in _md_enr.split("半夜潤稿那條鏈")[1][:200]],
+      [True, True])
+# 這條檢查的是「旗標有沒有真的掛在夜班上」。判準寫得再好，沒有人開那個旗標，
+# 它就只是一段不會執行的碼。
+_WF_DR = open(os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml"),
+              encoding="utf-8").read()
+acase("排程：夜班真的開了 --alert-enrich-stale，而且 checkout 拿得到 commit 歷史"
+      "（判準量的是 git log；預設的淺 clone 裡它什麼都看不到）",
+      ["--alert-enrich-stale" in _WF_DR, "fetch-depth: 0" in _WF_DR], [True, True])
+
 # ── 判斷層的帳本：覆寫之前先留痕（references/narrative-layer.md〈帳本〉）──
 # now / next 是整段覆寫的，實測相鄰兩版有過只剩 10% 相同的。在這一版之前，被改掉的
 # 那一段只活在 git history 裡，而沒有任何一支腳本或任何一頁在讀它——這個系統因此
