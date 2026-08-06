@@ -1737,3 +1737,40 @@ mutations:
     replace: "    _nline, _nbad = (\"\", False)"
     survives: false
     why: ""
+
+  # ── 潤稿鏈的死人開關（2026-08-05）──
+  # 那條 Cowork 鏈跑在沙箱裡、最後一步要 push。push 被擋的那一晚，現有三個警報
+  # 一條都沒叫——判準各自對得上別的故障。推不上去的那一邊叫不出聲，只能由
+  # 推得上去的 Actions 這一邊量。
+
+  - id: M199
+    title: "潤稿鏈的門檻改成永遠叫不到（那條鏈斷掉不會有任何東西變紅——2026-08-05 那晚現有三個警報一條都沒叫，這一格是唯一補上的那個）"
+    file: pulse-monitor.py
+    find: "    if lag >= stale_after_days:"
+    replace: "    if lag >= 100000:"
+    survives: false
+    why: ""
+
+  - id: M200
+    title: "淺 checkout 判成「很久沒推回」而不是「量不到」（fetch-depth: 1 裡 git log --grep 什麼都找不到，於是每天都叫——天天叫的警報跟不會叫的一樣沒有資訊）"
+    file: pulse-monitor.py
+    find: "        if git(\"rev-parse\", \"--is-shallow-repository\").stdout.strip() == \"true\":\n            return None, \"shallow\""
+    replace: "        if False:\n            return None, \"shallow\""
+    survives: false
+    why: ""
+
+  - id: M201
+    title: "「從來沒推回過」跟「量不到」擠成同一種（第一天就誤報，而真的斷掉那天反而不叫——這一格拆成四種 reason 的理由就是它們要人做的事完全不同）"
+    file: pulse-monitor.py
+    find: "    if reason == \"none\":\n        return (\"潤稿鏈：**從來沒有推回過**（找不到任何 `nightly: enrich` commit）\"), True"
+    replace: "    if reason == \"none\":\n        return (\"潤稿鏈：**從來沒有推回過**（找不到任何 `nightly: enrich` commit）\"), False"
+    survives: false
+    why: ""
+
+  - id: M202
+    title: "夜班不開 --alert-enrich-stale（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "            --alert-enrich-stale > /dev/null"
+    replace: "            > /dev/null"
+    survives: false
+    why: ""

@@ -37,6 +37,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 import unicodedata
 from datetime import date, datetime, timezone
@@ -477,7 +478,7 @@ def health(vault: Path, today, r, stale_after_days: int):
     }
 
 
-def render_health(r, h, desc_cov=None, narr_hist=None):
+def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None):
     """健康頁的 markdown。**不寫任何比「日」更細的時間**——見 pulse-source-notes
     的同款理由：一天 12 班，帶時分秒的欄位會讓這頁每兩小時產生一次假 diff。"""
     c = r["coverage"]
@@ -603,12 +604,80 @@ def render_health(r, h, desc_cov=None, narr_hist=None):
     # 判斷層的帳本。來源層的狀態變更一直有 `_probe/source-history.jsonl` 在記，
     # 判斷層在 2026-08 之前什麼都沒有——這個系統對「一條來源的 robots 狀態變了」
     # 比對「我對一整條主線的判斷變了」還誠實。規格 references/narrative-layer.md。
+    _eline, _ebad = enrich_chain_line(*(enrich or (None, "no-git")),
+                                      today=r["date"],
+                                      stale_after_days=h.get("enrich_stale_after_days", 2))
+    out += ["## 半夜潤稿那條鏈", "",
+            ("- " + _eline) if not _ebad else ("- ⚠ " + _eline),
+            "", "它跑在沙箱裡、最後一步要 push。**推不上去的那一邊沒辦法通報自己",
+            "推不上去**——所以這一格由推得上去的 Actions 這一邊量。", ""]
     _nline, _nbad = narrative_ledger_line(narr_hist or [], r["date"])
     out += ["## 判斷層的記憶", "",
             ("- " + _nline) if not _nbad else ("- ⚠ " + _nline),
             "", "`now` / `next` 是整段覆寫的（實測有過相鄰兩版只剩 10% 相同）。",
             "沒有這份帳本，「我上週對這條線怎麼說」這個問題答不出來。", ""]
     return "\n".join(out)
+
+
+ENRICH_COMMIT_GREP = "^nightly: enrich"
+
+
+def last_enrich_commit(vault):
+    """`main` 上最近一個 `nightly: enrich` commit 的日期。回 (day|None, reason)。
+
+    reason ∈ {"ok", "shallow", "no-git", "none"}——**四種，不是「有值／沒值」兩種**，
+    因為它們要人做的事完全不同：淺 clone 是這支腳本的環境沒設對，找不到 commit 是
+    潤稿鏈真的沒推回來，而那是要叫的那一種。
+
+    **淺 checkout 一定要回 "shallow"，不能回 None 讓上面算成一個很大的 lag。**
+    `actions/checkout@v4` 預設 `fetch-depth: 1`，淺 clone 裡 `--grep` 找不到任何
+    enrich commit——而「找不到」跟「很久沒有」在數字上長得一模一樣。那會變成一個
+    天天叫的假警報，而天天叫的警報跟不會叫的一樣沒有資訊。
+    """
+    def git(*args):
+        return subprocess.run(["git", "-C", str(vault), *args],
+                              capture_output=True, text=True, timeout=20)
+    try:
+        if git("rev-parse", "--git-dir").returncode != 0:
+            return None, "no-git"
+        if git("rev-parse", "--is-shallow-repository").stdout.strip() == "true":
+            return None, "shallow"
+        out = git("log", "-1", "--format=%cd", "--date=short",
+                  f"--grep={ENRICH_COMMIT_GREP}", "--extended-regexp").stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return None, "no-git"
+    return (out, "ok") if out else (None, "none")
+
+
+def enrich_chain_line(day, reason, today, stale_after_days):
+    """潤稿鏈的一行摘要。回 (文字, 要不要叫)。純函式，可離線單測。
+
+    **為什麼這條判準長在這裡。** 半夜潤稿是另一條鏈：它跑在沙箱裡，最後一步要
+    `git push`。2026-08-05 那一步被沙箱的 git proxy 擋掉（403，repo 不在該 session
+    的授權集合裡），活做完了、commit 建了，然後跟拋棄式容器一起沒了。
+
+    而**推不上去的那一邊沒有辦法通報自己推不上去**——它的通報也要推。所以判準只能
+    長在推得上去的那一邊：Actions 每晚都跑、也推得上去。
+
+    那一晚現有三個警報一條都沒叫，因為它們各自對得上別的故障（未 enrich 是 0、
+    中文覆蓋 31/35 不是 0、health 那一頁是 Actions 自己寫的）。細節與為什麼不用
+    narratives.yaml 的 `updated` 當心跳，見 references/health-alarms.md。
+    """
+    if reason == "shallow":
+        return ("潤稿鏈：**量不到**——這是淺 checkout（`fetch-depth: 1`），"
+                "看不到 commit 歷史。`data-refresh.yml` 要設 `fetch-depth: 0`"), False
+    if reason == "no-git":
+        return "潤稿鏈：**量不到**——這裡不是一個 git 工作區", False
+    if reason == "none":
+        return ("潤稿鏈：**從來沒有推回過**（找不到任何 `nightly: enrich` commit）"), True
+    lag = _lag(_as_date(today), day)
+    if lag is None:
+        return f"潤稿鏈：最後一次推回 {day}，但今天的日期讀不出來——量不到", False
+    body = f"潤稿鏈：最後一次推回 {day}（{lag} 天前）"
+    if lag >= stale_after_days:
+        return (body + f"，**超過門檻 {stale_after_days} 天**"
+                       "——那一邊做完了推不上來，它自己叫不出聲"), True
+    return body, False
 
 
 def narrative_ledger_line(rows, today, window_days=7):
@@ -687,6 +756,9 @@ def main():
                     help="連 pending（已知未覆蓋）的也算失敗——要把待辦逼到零時才開")
     ap.add_argument("--alert-stale", action="store_true",
                     help="資料新鮮度超過 gate.yaml 的 monitor.stale_after_days → exit 1")
+    ap.add_argument("--alert-enrich-stale", action="store_true",
+                    help="半夜潤稿那條鏈太久沒推回 main → exit 1"
+                         "（門檻 gate.yaml 的 monitor.enrich_stale_after_days）")
     ap.add_argument("--write-health", action="store_true",
                     help="寫 _dashboards/health.md（內容沒變就不重寫，避免每班假 diff）")
     ap.add_argument("--top", type=int, default=5, help="人看報告列出幾則卡最久的")
@@ -707,10 +779,16 @@ def main():
     stale_after = ((gate.get("monitor") or {}).get("stale_after_days")
                    or DEFAULT_STALE_AFTER_DAYS)
     r["health"] = h = health(vault, today, r, stale_after)
+    # 門檻從 gate.yaml 讀，不寫死在碼裡——判準要能被審（CONTRIBUTING：改門檻走 PR）。
+    h["enrich_stale_after_days"] = ((gate.get("monitor") or {}).get("enrich_stale_after_days")
+                                    or DEFAULT_STALE_AFTER_DAYS)
+    enrich = last_enrich_commit(vault)
+    r["enrich_last_day"], r["enrich_reason"] = enrich
 
     if args.write_health:
         body = render_health(r, h, ghdesc.load_coverage(vault),
-                             history.read(vault / "_probe" / "narrative-history.jsonl"))
+                             history.read(vault / "_probe" / "narrative-history.jsonl"),
+                             enrich)
         p = vault / "_dashboards" / "health.md"
         # 一天 12 班：同一天內內容不變就不重寫，真正的變化才不會被淹掉。
         if not (p.exists() and p.read_text("utf-8") == body):
@@ -817,6 +895,18 @@ def main():
             print(f"[alert] 有 {r['unenriched_undated']} 則未 enrich 的事件缺 "
                   "`ingested_at`，放多久**量不到**——不是放了 0 天。"
                   "先把 ingested_at 補上，這個死人開關才量得到東西", file=sys.stderr)
+            rc = 1
+    if args.alert_enrich_stale:
+        _line, _bad = enrich_chain_line(*enrich, today=r["date"],
+                                        stale_after_days=h["enrich_stale_after_days"])
+        if _bad:
+            # 訊息要指向「那一邊推不上來」，不是「那一邊沒跑」——兩者要人做的事
+            # 完全不同：前者去補授權，後者去看排程。2026-08-05 那次是前者，
+            # 而活其實做完了。
+            print(f"[alert] {_line}——半夜潤稿那條鏈跑在沙箱裡、最後一步要 push，"
+                  "推不上來的時候它自己叫不出聲（實例：2026-08-05 被 git proxy 擋，"
+                  "commit 建了、跟拋棄式容器一起沒了）。先確認那個排程 session "
+                  "有沒有這個 repo 的授權，再看排程本身", file=sys.stderr)
             rc = 1
     if args.alert_days and r["oldest_stuck_days"] >= args.alert_days:
         print(f"[alert] 有事件卡在 review 已在庫裡放 {r['oldest_stuck_days']} 天"

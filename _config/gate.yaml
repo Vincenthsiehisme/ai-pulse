@@ -228,3 +228,17 @@ monitor:
   # 排程死掉的時候這支腳本自己也不會被叫到，health.md 的 generated_day 會停住
   # ——那才是排程的死人開關，兩件事不要混在同一個門檻裡。
   stale_after_days: 2
+
+  # 消費者：scripts/pulse-monitor.py 的 --alert-enrich-stale（2026-08-05 接上）。
+  #
+  # 判的是「半夜潤稿那條 Cowork 鏈最後一次成功推回 main 是幾天前」，量的是
+  # `main` 上最近一個 `nightly: enrich` commit——**不是** narratives.yaml 的
+  # `updated`。後者實測會出現合法的三天空窗（08-01、08-02 有 enrich commit
+  # 但沒有主線要重寫），拿它當門檻要嘛太鬆要嘛誤報。規格 references/health-alarms.md。
+  #
+  # 為什麼要由 Actions 這一邊量：推不上去的那一邊沒辦法通報自己推不上去——
+  # 它的通報也要推。2026-08-05 那次 push 被沙箱 proxy 擋掉，現有三個警報一條都沒叫。
+  #
+  # 2：跟上面同一個數字。日更的鏈，隔一天是誤點，隔兩天是壞了。
+  # 實測 2026-07-25 ~ 08-04 連續 11 天每天至少一個 enrich commit，零空窗。
+  enrich_stale_after_days: 2
