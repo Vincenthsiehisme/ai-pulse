@@ -3809,21 +3809,46 @@ acase("潤稿鏈：那一格真的印在看板上，而且超過門檻時帶警�
       [True, True])
 # last_enrich_commit 自己也要有判準——上面那幾條餵的是手寫的 reason，
 # 而**產生那個 reason 的碼沒有任何東西在守**。M200 就是這樣活下來的：
-# 把偵測淺 clone 那一段拿掉，六條判準一條都不紅。
-# 所以這裡真的做一個淺 clone 出來問它。
+# 把偵測淺 clone 那一段拿掉，六條判準一條都不紅。所以這裡真的建 repo 出來問它。
+#
+# **四個 fixture 全部現場造，一個都不看「這份 selftest 正在哪個 checkout 裡跑」。**
+# 第一版拿 repo 自己當「完整 clone」那一格——本機跑得好好的，進 CI 就紅了：
+# `mutation.yml` 的 checkout 沒設 fetch-depth，預設是淺的，於是那一格量到
+# "shallow" 而不是 "ok"，基準線一垮 mutate.py 當場收工（實測 14 秒就紅）。
+# 判準去問環境、而不是去問被判的那個東西——這條分支上第五次同一個形狀。
+def _mk_enrich_repo(path, with_enrich=True):
+    """造一個小 git repo。gpgsign / user 都在指令上帶，不吃全域設定。"""
+    g = ["git", "-c", "commit.gpgsign=false", "-c", "user.name=t",
+         "-c", "user.email=t@e", "-C", str(path)]
+    path.mkdir(parents=True, exist_ok=True)
+    _subprocess.run(g + ["init", "-q", "-b", "main"], capture_output=True)
+    (path / "a.txt").write_text("1", "utf-8")
+    _subprocess.run(g + ["add", "-A"], capture_output=True)
+    _subprocess.run(g + ["commit", "-q", "-m", "chore: base"], capture_output=True)
+    (path / "a.txt").write_text("2", "utf-8")
+    _subprocess.run(g + ["add", "-A"], capture_output=True)
+    _subprocess.run(g + ["commit", "-q", "-m",
+                         "nightly: enrich + narrative 2026-08-04" if with_enrich
+                         else "chore: nightly refresh"], capture_output=True)
+    return path
+
+
 with _tf2.TemporaryDirectory() as _td_sh:
-    _sh_dst = Path(_td_sh) / "shallow"
+    _root = Path(_td_sh)
+    _full = _mk_enrich_repo(_root / "full")
+    _noen = _mk_enrich_repo(_root / "noenrich", with_enrich=False)
     _subprocess.run(["git", "clone", "--depth", "1", "-q",
-                     "file://" + os.path.abspath(os.path.join(_HERE, "..")), str(_sh_dst)],
-                    capture_output=True, text=True)
-    _sh_res = _mon.last_enrich_commit(_sh_dst) if _sh_dst.exists() else ("clone 失敗", "?")
-    _full_res = _mon.last_enrich_commit(Path(os.path.join(_HERE, "..")))
-    _nogit_res = _mon.last_enrich_commit(Path(_td_sh))
-acase("潤稿鏈：last_enrich_commit 分得出淺 clone、完整 clone 與非 git 目錄"
-      "（上面那幾條餵的是手寫 reason——產生 reason 的那段碼要自己有判準）",
-      [_sh_res[1], _full_res[1], _nogit_res[1],
+                     "file://" + str(_full), str(_root / "shallow")], capture_output=True)
+    _full_res = _mon.last_enrich_commit(_full)
+    _sh_res = _mon.last_enrich_commit(_root / "shallow")
+    _noen_res = _mon.last_enrich_commit(_noen)
+    _nogit_res = _mon.last_enrich_commit(_root)
+acase("潤稿鏈：last_enrich_commit 分得出四種情況（完整 / 淺 clone / 沒有 enrich commit / 非 git）"
+      "——而且四個 fixture 都是現場造的，**不看這份 selftest 正在哪個 checkout 裡跑**"
+      "（第一版拿 repo 自己當「完整」那一格，進了淺 checkout 的 CI 就紅）",
+      [_full_res[1], _sh_res[1], _noen_res[1], _nogit_res[1],
        bool(_re.fullmatch(r"\d{4}-\d{2}-\d{2}", _full_res[0] or ""))],
-      ["shallow", "ok", "no-git", True])
+      ["ok", "shallow", "none", "no-git", True])
 
 # 這條檢查的是「旗標有沒有真的掛在夜班上」。判準寫得再好，沒有人開那個旗標，
 # 它就只是一段不會執行的碼。
