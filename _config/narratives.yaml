@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-08-04'
+updated: '2026-08-07'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這條線最近分兩股。一股是模型往「小而專、能落地」走：Liquid AI 發 LFM2.5-2.6B 主打端側 agent，NVIDIA 把自駕的 Alpamayo 2 Super 開放商用，OpenAI 揭 GPT-Live 的即時語音架構，都不是追單一最強，而是把能力塞進特定尺寸與場景。另一股是安全與濫用治理，且清一色自述：OpenAI 這兩天再添一則查禁柬埔寨詐騙集團（對方拿 ChatGPT 做投資與假交友詐騙），接上先前對接 EU AI Act 的 provenance 說明。效率端 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於自己提醒這種跑分經不起設定操弄。
-    next: 端側與開放模型那批看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 在長尾場景的第三方驗證與授權開放程度，GPT-Live 看有沒有延遲與打斷準確率的可比數字。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述，看查禁詐騙有沒有完整威脅情報與執法佐證、provenance 做法有沒有被監管明確接受。
+    now: 這條線最近分兩股。一股是模型往「小而專、能落地」走：Liquid AI 發 LFM2.5-2.6B 主打端側 agent，NVIDIA 把自駕的 Alpamayo 2 Super 開放商用，OpenAI 揭 GPT-Live 的即時語音架構，都不是追單一最強，而是把能力塞進特定尺寸與場景。另一股是安全與濫用治理，且清一色自述：OpenAI 這幾天連發兩則，一則查禁柬埔寨詐騙集團（對方拿 ChatGPT 做投資與假交友詐騙），一則說明近期涉及自家模型的第三方網路安全評測事件、並說要加上新的防護，接上先前對接 EU AI Act 的 provenance 說明。後面那則的主題對得上 07-21 OpenAI 與 Hugging Face 那起評測資安事件留下的「等完整事後報告」，但摘要沒有指名同一起，還不能算接上。效率端 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於自己提醒這種跑分經不起設定操弄。
+    next: 端側與開放模型那批看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 在長尾場景的第三方驗證與授權開放程度，GPT-Live 看有沒有延遲與打斷準確率的可比數字。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述：查禁詐騙看有沒有完整威脅情報與執法佐證、provenance 做法有沒有被監管明確接受，評測事件那則看執行評測的第三方會不會出面講同一組事件——那是這條線目前唯一能把自述變成雙來源的地方。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？

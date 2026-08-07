@@ -1,4 +1,4 @@
-# 已發布事件（72）
+# 已發布事件（73）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
@@ -19,6 +19,8 @@
   NVIDIA 加入美國 NSF 的州與區域 AI 基礎設施中心計畫，要把算力、資料、軟體推向更多地區的研究與教育。
 - **[[Events/evt-2026-08-04-b30acc|Tino Cuellar]]** — Anthropic · capital · conf 73 · heat 未量測
   Anthropic 官網發布一則以「Tino Cuellar」為題的消息，內容細節證據不足。
+- **[[Events/evt-2026-08-04-e23cff|Third-party cyber evaluations involving OpenAI models]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發文說明近期涉及自家模型的第三方網路安全評測事件，並提出一組新的防護措施。
 
 ## 2026-08-03
 - **[[Events/evt-2026-08-03-591d58|Orchard: An open framework for scalable agentic AI]]** — Microsoft · infra · conf 73 · heat 未量測

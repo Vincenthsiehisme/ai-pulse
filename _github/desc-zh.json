@@ -4,6 +4,16 @@
     "src_hash": "47e983421d6e",
     "zh": "幫你找出在自己硬體上跑得動、表現最好的本地 LLM，用實測 benchmark 排名而非參數量，一行指令就能跑"
   },
+  "CherryHQ/cherry-studio": {
+    "at": "2026-08-07T01:27:45+00:00",
+    "src_hash": "4d766d8331fc",
+    "zh": "AI 生產力工作室：智慧對話、自主 agent，內建 300 多個助理，一個介面接各家前沿 LLM"
+  },
+  "CursorTouch/Windows-MCP": {
+    "at": "2026-08-07T01:27:45+00:00",
+    "src_hash": "6e2520fd125c",
+    "zh": "讓模型直接操作 Windows 電腦的 MCP server"
+  },
   "DeusData/codebase-memory-mcp": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "e804f93bd902",
@@ -83,6 +93,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "ac439f9c8bf6",
     "zh": "agent harness 效能優化系統：技能、記憶與安全，支援 Claude Code、Codex、Cursor 等"
+  },
+  "agent-infra/sandbox": {
+    "at": "2026-08-07T01:27:45+00:00",
+    "src_hash": "259f1d28b8fc",
+    "zh": "AI agent 沙箱：瀏覽器、Shell、檔案、MCP、VSCode Server 收在單一 Docker 容器"
   },
   "asgeirtj/system_prompts_leaks": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -248,6 +263,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "373781648fa2",
     "zh": "20 MB 輕量跨平台資料庫客戶端，支援 70+ 種資料庫，內建 AI、MCP Server 與 CLI"
+  },
+  "thedotmack/claude-mem": {
+    "at": "2026-08-07T01:27:45+00:00",
+    "src_hash": "0746c8f49f1d",
+    "zh": "跨 session 保留 agent 記憶：記錄它做過的事、用 AI 壓縮，再把相關脈絡帶進下次 session"
   },
   "tickernelz/opencode-mem": {
     "at": "2026-07-30T19:18:19+00:00",
