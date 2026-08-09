@@ -619,6 +619,28 @@ def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None):
     return "\n".join(out)
 
 
+def stale_alert_tail(run_lag):
+    """`--alert-stale` 那句話的尾巴。純函式，可離線單測。
+
+    這一段以前是**寫死**在訊息裡的一句：「跑班日期是今天而這裡紅了，代表鏈在跑但
+    每條來源都沒東西進來」。它只有在 `run_lag == 0` 時成立，卻無條件印。
+
+    2026-08-09 實際踩到：那次它跟「最後一次跑班 2026-08-05」印在同一行——同一句話
+    裡自相矛盾，而且把讀的人指向「來源全死了」，實際上是**鏈連跑都沒跑到**
+    （job 卡在部署環境的閘門上）。那兩件事要做的動作完全相反：一個去查來源，
+    一個去查排程／CI。`data-refresh.yml` 自己的註解早就寫過這句話——
+    **一個假訊號指向錯的地方，比沒有訊號更花時間。**
+
+    經過見 references/incidents/2026-08-09-the-gate-that-stopped-the-chain.md。
+    """
+    if run_lag == 0:
+        return "跑班日期是今天而這裡紅了，代表鏈在跑但每條來源都沒東西進來"
+    if run_lag is None:
+        return "而這個 vault 裡從來沒有一班留下報告——鏈沒跑過，不是來源的問題"
+    return (f"那是 {run_lag} 天前——**鏈連跑都沒跑到**，不是來源沒東西。"
+            "先去看排程／CI 那一邊為什麼沒被排上，不要從來源開始找")
+
+
 ENRICH_COMMIT_GREP = "^nightly: enrich"
 
 
@@ -673,6 +695,17 @@ def enrich_chain_line(day, reason, today, stale_after_days):
     lag = _lag(_as_date(today), day)
     if lag is None:
         return f"潤稿鏈：最後一次推回 {day}，但今天的日期讀不出來——量不到", False
+    if lag < 0:
+        # 下面〈三條規則〉第 3 條為 stale_after_days 寫過同一句，而這裡是第二個
+        # 消費者，沒有一起接到：`lag >= 門檻` 對負數是沉默的，-1 >= 2 為假就綠燈，
+        # 而且時間往前走只會更綠，這個洞不會自癒。
+        # 成因排序過：最常見的不是時鐘，是有人在**推不上去的那一邊**開了這支旗標
+        # ——那一邊會讀到自己剛建、還沒推出去的那顆 commit。規格見
+        # references/health-alarms.md〈讀本地的那一邊，分不出 commit 了與推上去了〉。
+        # 不寫「量不到」：那個詞在這支腳本裡保留給不觸警的那幾種。
+        return (f"潤稿鏈：讀到一顆日期在未來的 enrich commit（{day}），**這一格不算數**"
+                "——負數的 lag 不是「很新鮮」。最可能是在推不上去的那一邊開了這支旗標"
+                "（它會讀到自己剛建、還沒推出去的那顆），其次才是時鐘"), True
     body = f"潤稿鏈：最後一次推回 {day}（{lag} 天前）"
     if lag >= stale_after_days:
         return (body + f"，**超過門檻 {stale_after_days} 天**"
@@ -864,8 +897,7 @@ def main():
             lag = "從來沒有" if h["probe_lag_days"] is None else f"已 {h['probe_lag_days']} 天沒"
             print(f"[alert] {lag}抓到任何項目（門檻 monitor.stale_after_days="
                   f"{h['stale_after_days']}）——最後一次跑班 {h['last_run_day'] or '從未'}，"
-                  "跑班日期是今天而這裡紅了，代表鏈在跑但每條來源都沒東西進來",
-                  file=sys.stderr)
+                  + stale_alert_tail(h.get("run_lag_days")), file=sys.stderr)
         rc = 1
     if args.alert_coverage:
         gone = [w["label"] for w in cv["must_watch"] if w["reason"] == "no_source"

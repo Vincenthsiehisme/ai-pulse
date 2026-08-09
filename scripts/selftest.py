@@ -3800,6 +3800,24 @@ acase("潤稿鏈：「從來沒推回過」要叫，跟「量不到」分開"
       "（擠成同一種，第一天就會誤報，而真的斷掉那天反而不叫）",
       [_mon.enrich_chain_line(None, "none", "2026-08-06", 2)[1],
        _mon.enrich_chain_line(None, "shallow", "2026-08-06", 2)[1]], [True, False])
+# 負數的 lag。`lag >= 門檻` 對它是沉默的（-1 >= 2 為假 → 綠燈），而且時間往前走
+# 只會更綠，這個洞**不會自癒**。〈三條規則〉第 3 條早就為 stale_after_days 寫過
+# 同一句，而 enrich_chain_line 是後來新接的第二個消費者、沒有一起拿到那條規則
+# ——同一個形狀這個 repo 量到第六次。
+# 成因最常見的不是時鐘：是有人在**推不上去的那一邊**開了這支旗標，那一邊會讀到
+# 自己剛建、還沒推出去的那顆 commit（實測 2026-08-07：回「-1 天前」、不叫）。
+_neg = _mon.enrich_chain_line("2026-08-07", "ok", "2026-08-06", 2)
+acase("潤稿鏈：日期在未來的 enrich commit 要叫，不能因為 lag 是負數就綠"
+      "（-1 >= 2 為假 → 靜靜綠燈，而且時間往前走只會更綠，這個洞不會自癒）",
+      [_neg[1], "-1 天前" in _neg[0], "不算數" in _neg[0]],
+      [True, False, True])
+# 訊息要自成一種：既不跟「超過門檻」混（那是鏈斷了），也不借用「量不到」那個詞
+# （那個詞在這支腳本裡保留給不觸警的淺 clone / 非 git）。混用會讓讀的人以為
+# 這一格不叫，然後往錯的方向找。
+acase("潤稿鏈：未來日期那句要自成一種，不跟「超過門檻」也不跟「量不到」混"
+      "（一個是鏈斷了、一個是這一格算不得數，要人做的事不一樣）",
+      ["超過門檻" in _neg[0], "量不到" in _neg[0], "推不上去的那一邊" in _neg[0]],
+      [False, False, True])
 # 判準對而呼叫端沒接，警報一樣不會叫——這條分支上已經抓過一次（M198）。
 _md_enr = _mm.render_health(_r3, dict(_h_green, enrich_stale_after_days=2),
                             None, None, ("2026-06-01", "ok"))
@@ -3864,6 +3882,66 @@ acase("排程：夜班真的開了 --alert-enrich-stale，而且 checkout 拿得
       "（判準量的是 git log；預設的淺 clone 裡它什麼都看不到）",
       ["--alert-enrich-stale" in _WF_DR_CODE, "fetch-depth: 0" in _WF_DR_CODE],
       [True, True])
+
+# ── 2026-08-09：一個部署閘門把抓取鏈擋了四天 ────────────────────────────
+# refresh job 掛著 environment: github-pages，那個環境的一條保護規則讓它停在
+# Waiting 三天；concurrency: nightly 單槽且 cancel-in-progress: false，後面每一班
+# 排隊到期被砍。main 四天沒進資料，而**現場沒有一盞燈是紅的**——這條鏈所有的警報
+# 都住在它自己裡面，job 沒開始警報就沒開始。
+# 經過見 references/incidents/2026-08-09-the-gate-that-stopped-the-chain.md。
+_WF_PG = open(os.path.join(_HERE, "..", ".github", "workflows", "pages.yml"),
+              encoding="utf-8").read()
+_WF_PG_CODE = "\n".join(ln for ln in _WF_PG.splitlines()
+                        if not ln.lstrip().startswith("#"))
+acase("部署閘門不准擋資料鏈：data-refresh 不宣告 environment、也不自己部署"
+      "（那條鏈的最後一步是 push 到 main，必然觸發 pages.yml——自己再部署一次是重複的，"
+      "代價是兩支工作流搶同一個 environment）",
+      ["environment:" in _WF_DR_CODE, "deploy-pages" in _WF_DR_CODE,
+       "upload-pages-artifact" in _WF_DR_CODE],
+      [False, False, False])
+acase("部署只有一個主人：宣告 environment: github-pages 的工作流剛好一支"
+      "（兩支搶同一個環境，其中一支卡住另一支就跟著停在 Waiting）",
+      sorted(n for n, code in (("data-refresh.yml", _WF_DR_CODE),
+                               ("pages.yml", _WF_PG_CODE))
+             if "github-pages" in code),
+      ["pages.yml"])
+# 整份 workflow 以前一個 timeout-minutes 都沒有：卡住的那班燒滿預設 6 小時，
+# 而單槽 concurrency 讓後面每一班陪葬。實測正常一班 8～14 分鐘。
+acase("兩支工作流都有 timeout-minutes（沒有的話一次卡住會燒滿 6 小時，"
+      "而 concurrency 是單槽——後面每一班跟著排隊到期被砍）",
+      ["timeout-minutes" in _WF_DR_CODE, "timeout-minutes" in _WF_PG_CODE],
+      [True, True])
+# paths 清單跟 pulse-render 實際讀什麼會慢慢分岔，而分岔那天沒有任何東西會紅，
+# 網站只是靜靜停在舊版本。render 是確定性的、分鐘級，寧可多跑幾次。
+acase("pages.yml 不用 paths 過濾（清單跟渲染器讀什麼會分岔，而分岔那天不會有東西變紅）",
+      [ln.strip() for ln in _WF_PG_CODE.splitlines() if ln.strip().startswith("paths:")],
+      [])
+
+# --alert-stale 的訊息尾巴以前是寫死的「跑班日期是今天而這裡紅了」，而 2026-08-09
+# 那次它跟「最後一次跑班 2026-08-05」印在同一行——同一句話自相矛盾，還把人指向
+# 「來源全死了」，實際上是鏈連跑都沒跑到。兩件事要做的動作完全相反。
+_st_today = _mm.stale_alert_tail(0)
+_st_old = _mm.stale_alert_tail(4)
+_st_never = _mm.stale_alert_tail(None)
+acase("死人開關：「今天跑過但沒東西」跟「根本沒跑到」的訊息要分開"
+      "（前者去查來源，後者去查排程／CI——寫死成前者會讓人往反方向找一整晚）",
+      ["鏈在跑" in _st_today, "鏈連跑都沒跑到" in _st_old,
+       "鏈在跑" in _st_old, len({_st_today, _st_old, _st_never})],
+      [True, True, False, 3])
+
+# 同一條規矩的另一半：警報旗標**只准掛在推得上去的那一邊**。潤稿那一邊讀本地
+# git log，會讀到自己剛剛建、還沒推出去的那顆 commit，然後回報一盞綠燈——
+# 那正是這支旗標存在要抓的故障，由它自己來量就永遠是綠的。
+#
+# 只活在文件裡的規矩，會在有人「順手補齊」的那天消失，這個 repo 已經證明過很多次。
+# 所以量的是**命令列**、不是整份文字：散文要能解釋為什麼不准（runbook 步驟 17
+# 底下那段就是），所以只挑同時帶 `pulse-monitor` 與警報旗標的那幾行。
+_RB_ENRICH = open(os.path.join(_HERE, "enrich-runbook.md"), encoding="utf-8").read()
+_RB_ALERT_LINES = [ln.strip() for ln in _RB_ENRICH.splitlines()
+                   if "pulse-monitor" in ln and "--alert" in ln]
+acase("潤稿 runbook：步驟 17 不准帶警報旗標"
+      "（那一邊推不上去，判準卻讀本地 git log——它會把自己沒推成功的那顆讀成推成功了）",
+      _RB_ALERT_LINES, [])
 
 # ── 判斷層的帳本：覆寫之前先留痕（references/narrative-layer.md〈帳本〉）──
 # now / next 是整段覆寫的，實測相鄰兩版有過只剩 10% 相同的。在這一版之前，被改掉的
