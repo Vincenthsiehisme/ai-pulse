@@ -1774,3 +1774,25 @@ mutations:
     replace: "            > /dev/null"
     survives: false
     why: ""
+
+  # ── 同一條規則，第二個消費者沒拿到（2026-08-09）──
+  # `lag < 0 一律紅` 這條規矩 references/health-alarms.md〈三條規則〉第 3 條早就寫了，
+  # 但那是為 stale_after_days 寫的；enrich_chain_line 是後來新接的第二個消費者，
+  # 沒有一起拿到。而負數 lag 在這一格最常見的成因不是時鐘，是有人在推不上去的
+  # 那一邊開了這支旗標——它會讀到自己剛建、還沒推出去的那顆 commit。
+
+  - id: M203
+    title: "未來日期的 enrich commit 靜靜綠燈（-1 >= 2 為假，而且時間往前走只會更綠——這個洞不會自癒，正好蓋掉「在推不上去的那一邊量自己」這個故障）"
+    file: pulse-monitor.py
+    find: "    if lag < 0:"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M204
+    title: "潤稿 runbook 順手補上警報旗標（那一邊讀本地 git log，會把自己沒推成功的那顆讀成推成功了——這支旗標由它自己來量就永遠是綠的）"
+    file: enrich-runbook.md
+    find: "17. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`"
+    replace: "17. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5 --alert-enrich-stale`"
+    survives: false
+    why: ""

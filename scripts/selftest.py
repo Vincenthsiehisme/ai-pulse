@@ -3800,6 +3800,24 @@ acase("潤稿鏈：「從來沒推回過」要叫，跟「量不到」分開"
       "（擠成同一種，第一天就會誤報，而真的斷掉那天反而不叫）",
       [_mon.enrich_chain_line(None, "none", "2026-08-06", 2)[1],
        _mon.enrich_chain_line(None, "shallow", "2026-08-06", 2)[1]], [True, False])
+# 負數的 lag。`lag >= 門檻` 對它是沉默的（-1 >= 2 為假 → 綠燈），而且時間往前走
+# 只會更綠，這個洞**不會自癒**。〈三條規則〉第 3 條早就為 stale_after_days 寫過
+# 同一句，而 enrich_chain_line 是後來新接的第二個消費者、沒有一起拿到那條規則
+# ——同一個形狀這個 repo 量到第六次。
+# 成因最常見的不是時鐘：是有人在**推不上去的那一邊**開了這支旗標，那一邊會讀到
+# 自己剛建、還沒推出去的那顆 commit（實測 2026-08-07：回「-1 天前」、不叫）。
+_neg = _mon.enrich_chain_line("2026-08-07", "ok", "2026-08-06", 2)
+acase("潤稿鏈：日期在未來的 enrich commit 要叫，不能因為 lag 是負數就綠"
+      "（-1 >= 2 為假 → 靜靜綠燈，而且時間往前走只會更綠，這個洞不會自癒）",
+      [_neg[1], "-1 天前" in _neg[0], "不算數" in _neg[0]],
+      [True, False, True])
+# 訊息要自成一種：既不跟「超過門檻」混（那是鏈斷了），也不借用「量不到」那個詞
+# （那個詞在這支腳本裡保留給不觸警的淺 clone / 非 git）。混用會讓讀的人以為
+# 這一格不叫，然後往錯的方向找。
+acase("潤稿鏈：未來日期那句要自成一種，不跟「超過門檻」也不跟「量不到」混"
+      "（一個是鏈斷了、一個是這一格算不得數，要人做的事不一樣）",
+      ["超過門檻" in _neg[0], "量不到" in _neg[0], "推不上去的那一邊" in _neg[0]],
+      [False, False, True])
 # 判準對而呼叫端沒接，警報一樣不會叫——這條分支上已經抓過一次（M198）。
 _md_enr = _mm.render_health(_r3, dict(_h_green, enrich_stale_after_days=2),
                             None, None, ("2026-06-01", "ok"))
@@ -3864,6 +3882,20 @@ acase("排程：夜班真的開了 --alert-enrich-stale，而且 checkout 拿得
       "（判準量的是 git log；預設的淺 clone 裡它什麼都看不到）",
       ["--alert-enrich-stale" in _WF_DR_CODE, "fetch-depth: 0" in _WF_DR_CODE],
       [True, True])
+
+# 同一條規矩的另一半：警報旗標**只准掛在推得上去的那一邊**。潤稿那一邊讀本地
+# git log，會讀到自己剛剛建、還沒推出去的那顆 commit，然後回報一盞綠燈——
+# 那正是這支旗標存在要抓的故障，由它自己來量就永遠是綠的。
+#
+# 只活在文件裡的規矩，會在有人「順手補齊」的那天消失，這個 repo 已經證明過很多次。
+# 所以量的是**命令列**、不是整份文字：散文要能解釋為什麼不准（runbook 步驟 17
+# 底下那段就是），所以只挑同時帶 `pulse-monitor` 與警報旗標的那幾行。
+_RB_ENRICH = open(os.path.join(_HERE, "enrich-runbook.md"), encoding="utf-8").read()
+_RB_ALERT_LINES = [ln.strip() for ln in _RB_ENRICH.splitlines()
+                   if "pulse-monitor" in ln and "--alert" in ln]
+acase("潤稿 runbook：步驟 17 不准帶警報旗標"
+      "（那一邊推不上去，判準卻讀本地 git log——它會把自己沒推成功的那顆讀成推成功了）",
+      _RB_ALERT_LINES, [])
 
 # ── 判斷層的帳本：覆寫之前先留痕（references/narrative-layer.md〈帳本〉）──
 # now / next 是整段覆寫的，實測相鄰兩版有過只剩 10% 相同的。在這一版之前，被改掉的

@@ -673,6 +673,17 @@ def enrich_chain_line(day, reason, today, stale_after_days):
     lag = _lag(_as_date(today), day)
     if lag is None:
         return f"潤稿鏈：最後一次推回 {day}，但今天的日期讀不出來——量不到", False
+    if lag < 0:
+        # 下面〈三條規則〉第 3 條為 stale_after_days 寫過同一句，而這裡是第二個
+        # 消費者，沒有一起接到：`lag >= 門檻` 對負數是沉默的，-1 >= 2 為假就綠燈，
+        # 而且時間往前走只會更綠，這個洞不會自癒。
+        # 成因排序過：最常見的不是時鐘，是有人在**推不上去的那一邊**開了這支旗標
+        # ——那一邊會讀到自己剛建、還沒推出去的那顆 commit。規格見
+        # references/health-alarms.md〈讀本地的那一邊，分不出 commit 了與推上去了〉。
+        # 不寫「量不到」：那個詞在這支腳本裡保留給不觸警的那幾種。
+        return (f"潤稿鏈：讀到一顆日期在未來的 enrich commit（{day}），**這一格不算數**"
+                "——負數的 lag 不是「很新鮮」。最可能是在推不上去的那一邊開了這支旗標"
+                "（它會讀到自己剛建、還沒推出去的那顆），其次才是時鐘"), True
     body = f"潤稿鏈：最後一次推回 {day}（{lag} 天前）"
     if lag >= stale_after_days:
         return (body + f"，**超過門檻 {stale_after_days} 天**"
