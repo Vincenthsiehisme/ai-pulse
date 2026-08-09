@@ -1,17 +1,20 @@
-# 部署 AI Pulse 靜態站到 GitHub Pages。
-# 觸發：任何 push 到 main（含你手動 commit、Cowork 潤稿推回），或手動 Run。
-# 只做確定性 render（讀 Events/ → dist/index.html），零 LLM。
+# 部署 AI Pulse 靜態站到 GitHub Pages。**這是唯一一支部署的工作流。**
+# 2026-08-09 之前 data-refresh.yml 也自己部署一次，於是兩支同時宣告
+# `environment: github-pages`，而那個環境的閘門把整條資料鏈擋了四天。
+# 經過見 references/incidents/2026-08-09-the-gate-that-stopped-the-chain.md。
+#
+# 觸發：任何 push 到 main（含 data-refresh 的資料班、Cowork 潤稿推回、你手動 commit），
+# 或手動 Run。只做確定性 render（讀 Events/ → dist/index.html），零 LLM。
 name: Deploy AI Pulse to Pages
 
 on:
   push:
+    # **刻意不設 paths。** 以前那份清單只列了 Events/、render、github 那幾個，
+    # 而 pulse-render.py 實際上還讀 _dashboards/、_github/、_config/ 的別的檔
+    # ——清單跟渲染器讀什麼會慢慢分岔，而分岔的那天沒有任何東西會紅，只是網站
+    # 靜靜地停在舊版本。這個 repo 已經量過很多次同一個形狀。
+    # render 是確定性的、幾分鐘的事，寧可多跑幾次也不要漏掉一次。
     branches: [main]
-    paths:
-      - 'Events/**'
-      - 'scripts/pulse-render.py'
-      - 'scripts/pulse-github.py'
-      - '_config/github.yaml'
-      - '.github/workflows/pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -26,6 +29,9 @@ concurrency:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    # 整份 workflow 以前一個 timeout-minutes 都沒有：卡住的那一班會燒滿預設的
+    # 6 小時，而 concurrency 是單槽，後面每一班跟著排隊到期被砍。
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

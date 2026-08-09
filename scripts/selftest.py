@@ -3883,6 +3883,52 @@ acase("排程：夜班真的開了 --alert-enrich-stale，而且 checkout 拿得
       ["--alert-enrich-stale" in _WF_DR_CODE, "fetch-depth: 0" in _WF_DR_CODE],
       [True, True])
 
+# ── 2026-08-09：一個部署閘門把抓取鏈擋了四天 ────────────────────────────
+# refresh job 掛著 environment: github-pages，那個環境的一條保護規則讓它停在
+# Waiting 三天；concurrency: nightly 單槽且 cancel-in-progress: false，後面每一班
+# 排隊到期被砍。main 四天沒進資料，而**現場沒有一盞燈是紅的**——這條鏈所有的警報
+# 都住在它自己裡面，job 沒開始警報就沒開始。
+# 經過見 references/incidents/2026-08-09-the-gate-that-stopped-the-chain.md。
+_WF_PG = open(os.path.join(_HERE, "..", ".github", "workflows", "pages.yml"),
+              encoding="utf-8").read()
+_WF_PG_CODE = "\n".join(ln for ln in _WF_PG.splitlines()
+                        if not ln.lstrip().startswith("#"))
+acase("部署閘門不准擋資料鏈：data-refresh 不宣告 environment、也不自己部署"
+      "（那條鏈的最後一步是 push 到 main，必然觸發 pages.yml——自己再部署一次是重複的，"
+      "代價是兩支工作流搶同一個 environment）",
+      ["environment:" in _WF_DR_CODE, "deploy-pages" in _WF_DR_CODE,
+       "upload-pages-artifact" in _WF_DR_CODE],
+      [False, False, False])
+acase("部署只有一個主人：宣告 environment: github-pages 的工作流剛好一支"
+      "（兩支搶同一個環境，其中一支卡住另一支就跟著停在 Waiting）",
+      sorted(n for n, code in (("data-refresh.yml", _WF_DR_CODE),
+                               ("pages.yml", _WF_PG_CODE))
+             if "github-pages" in code),
+      ["pages.yml"])
+# 整份 workflow 以前一個 timeout-minutes 都沒有：卡住的那班燒滿預設 6 小時，
+# 而單槽 concurrency 讓後面每一班陪葬。實測正常一班 8～14 分鐘。
+acase("兩支工作流都有 timeout-minutes（沒有的話一次卡住會燒滿 6 小時，"
+      "而 concurrency 是單槽——後面每一班跟著排隊到期被砍）",
+      ["timeout-minutes" in _WF_DR_CODE, "timeout-minutes" in _WF_PG_CODE],
+      [True, True])
+# paths 清單跟 pulse-render 實際讀什麼會慢慢分岔，而分岔那天沒有任何東西會紅，
+# 網站只是靜靜停在舊版本。render 是確定性的、分鐘級，寧可多跑幾次。
+acase("pages.yml 不用 paths 過濾（清單跟渲染器讀什麼會分岔，而分岔那天不會有東西變紅）",
+      [ln.strip() for ln in _WF_PG_CODE.splitlines() if ln.strip().startswith("paths:")],
+      [])
+
+# --alert-stale 的訊息尾巴以前是寫死的「跑班日期是今天而這裡紅了」，而 2026-08-09
+# 那次它跟「最後一次跑班 2026-08-05」印在同一行——同一句話自相矛盾，還把人指向
+# 「來源全死了」，實際上是鏈連跑都沒跑到。兩件事要做的動作完全相反。
+_st_today = _mm.stale_alert_tail(0)
+_st_old = _mm.stale_alert_tail(4)
+_st_never = _mm.stale_alert_tail(None)
+acase("死人開關：「今天跑過但沒東西」跟「根本沒跑到」的訊息要分開"
+      "（前者去查來源，後者去查排程／CI——寫死成前者會讓人往反方向找一整晚）",
+      ["鏈在跑" in _st_today, "鏈連跑都沒跑到" in _st_old,
+       "鏈在跑" in _st_old, len({_st_today, _st_old, _st_never})],
+      [True, True, False, 3])
+
 # 同一條規矩的另一半：警報旗標**只准掛在推得上去的那一邊**。潤稿那一邊讀本地
 # git log，會讀到自己剛剛建、還沒推出去的那顆 commit，然後回報一盞綠燈——
 # 那正是這支旗標存在要抓的故障，由它自己來量就永遠是綠的。

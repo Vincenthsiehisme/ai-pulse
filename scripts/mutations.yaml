@@ -1796,3 +1796,33 @@ mutations:
     replace: "17. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5 --alert-enrich-stale`"
     survives: false
     why: ""
+
+  # ── 一個部署閘門把抓取鏈擋了四天（2026-08-09）──
+  # refresh job 掛著 environment: github-pages，那個環境的保護規則讓它停在 Waiting
+  # 三天；concurrency 單槽，後面每一班排隊到期被砍。main 四天沒進資料，而現場
+  # 沒有一盞燈是紅的——這條鏈所有的警報都住在它自己裡面。
+  # 經過見 references/incidents/2026-08-09-the-gate-that-stopped-the-chain.md。
+
+  - id: M205
+    title: "資料鏈重新綁上部署環境（一條部署保護規則就能讓 job 連 checkout 都不開始，而這條鏈所有的警報都住在它自己裡面——job 沒開始警報也沒開始）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "  refresh:\n    runs-on: ubuntu-latest\n"
+    replace: "  refresh:\n    runs-on: ubuntu-latest\n    environment:\n      name: github-pages\n"
+    survives: false
+    why: ""
+
+  - id: M206
+    title: "拿掉 data-refresh 的 timeout-minutes（卡住的那班燒滿預設 6 小時，而 concurrency 是單槽，後面每一班跟著排隊到期被砍）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "    timeout-minutes: 30"
+    replace: "    # timeout-minutes: 30"
+    survives: false
+    why: ""
+
+  - id: M207
+    title: "把「鏈沒跑到」的訊息寫死成「鏈在跑但來源沒東西」（同一句話裡自相矛盾，而且把人指向反方向——一個假訊號比沒有訊號更花時間）"
+    file: pulse-monitor.py
+    find: "    if run_lag == 0:\n        return \"跑班日期是今天而這裡紅了，代表鏈在跑但每條來源都沒東西進來\""
+    replace: "    if True:\n        return \"跑班日期是今天而這裡紅了，代表鏈在跑但每條來源都沒東西進來\""
+    survives: false
+    why: ""

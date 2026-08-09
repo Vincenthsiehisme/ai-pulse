@@ -1,4 +1,7 @@
-# 抓取鏈：probe → score → cluster → gate → dashboard → render → commit → 部署 Pages。
+# 抓取鏈：probe → score → cluster → gate → dashboard → render → commit。**到 commit 為止。**
+# 部署由 pages.yml 接手（它本來就在任何 push 到 main 時跑）。這條鏈曾經自己也部署一次，
+# 而部署要進 `github-pages` 這個 environment——2026-08-09 就是那個閘門把整條資料鏈
+# 擋了四天。經過見 references/incidents/2026-08-09-the-gate-that-stopped-the-chain.md。
 # 全程 0 LLM（判斷走規則）。潤稿（enrich）不在這條鏈上，由排程 Cowork 任務另跑。
 # 也可在 Actions 頁手動 Run。
 #
@@ -26,10 +29,10 @@ on:
     - cron: '0 16 * * *'   # 台北隔日 00:00
   workflow_dispatch:
 
+# 只留 contents: write。pages / id-token 是部署要的，而部署已經不在這條鏈上了——
+# 權限跟著責任一起搬走，不然下一個人看到 pages: write 會以為這裡還在部署。
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: nightly
@@ -38,9 +41,15 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    # 這一格以前是 `environment: github-pages`，掛在**整個 job** 上。那代表任何一條
+    # 部署保護規則（wait timer／分支政策／必要審核）都會讓這個 job 連 checkout 都
+    # 不開始，狀態停在 Waiting。2026-08-09 實際發生：#34 卡了三天，而
+    # concurrency: nightly 是單槽，後面每一班都排在它後面死掉，main 四天沒有資料。
+    # 網站晚上線，跟情報庫四天沒進資料，不是同一件事，不該共用一個閘門。
+    #
+    # timeout-minutes：整份 workflow 以前一個都沒有，所以任何一次卡住都會燒滿
+    # 預設的 6 小時，再連累後面每一班。正常一班是分鐘級（實測 8～14 分鐘）。
+    timeout-minutes: 30
     steps:
       # fetch-depth: 0 不是為了 build，是為了**看得到 commit 歷史**。
       # 底下的 --alert-enrich-stale 量的是「main 上最近一個 nightly: enrich commit
@@ -215,11 +224,9 @@ jobs:
           done
           echo "[fatal] 重試三次仍推不上去"
           exit 1
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      # 這裡以前是 upload-pages-artifact + deploy-pages。搬去 pages.yml 了：
+      # 那支本來就在 push 到 main 時跑，而這一步 push 完必然觸發它。
+      # 兩支工作流同時宣告 `environment: github-pages` 是這次事故的形狀之一。
       # 設定檔不變式：機器這一班寫回 _config/ 的東西，還守不守得住規則。
       #
       # 為什麼要有這一步：selftest 從來只在人的機器上跑，而這條鏈**會自己改設定檔**
@@ -229,15 +236,16 @@ jobs:
       # 卻沒附 robots_evidence 入場券，兩條 selftest 當場紅——但 CI 不跑 selftest，
       # 那一班仍然全綠，一筆看起來像人手寫死的 false 就這樣進了 main。
       #
-      # 放在部署之後、if: always()：跟死人開關同一個位階。設定檔壞了要有人知道，
-      # 但不該讓已經生出來的 dist/ 停在門外——網站舊一天，跟網站不見了，不是同一件事。
+      # if: always()：跟死人開關同一個位階。設定檔壞了要有人知道，但不該擋住前面
+      # 已經 push 出去的資料。（這段原本寫「放在部署之後」——部署已經搬去 pages.yml，
+      # 現在它擋不到任何東西了，位置留著是為了讓警報跑在最後。）
       # 0.5 秒，不值得為了省它而讓機器寫壞設定檔沒人發現。
       - name: Config invariants (selftest)
         if: always()
         env:
           VAULT_DIR: ${{ github.workspace }}
         run: python scripts/selftest.py
-      # 死人開關：放在部署之後，紅燈不擋上線，但會寄失敗通知。
+      # 死人開關：放在最後，紅燈不擋前面已經 push 出去的資料，但會寄失敗通知。
       # 觸發條件＝有事件「未 enrich 且放了 ≥2 天」——那代表半夜潤稿那條鏈連續兩晚沒跑到。
       - name: Health monitor (dead-man's switch)
         if: always()
