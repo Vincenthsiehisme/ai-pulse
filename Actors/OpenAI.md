@@ -3,18 +3,21 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-05'
+generated_day: '2026-08-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **27** 則：`published` 25、`review` 2
+事件 **30** 則：`published` 26、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-04 | [[Events/evt-2026-08-04-e23cff\|Third-party cyber evaluations involving OpenAI models]] | review |
+| 2026-08-07 | [[Events/evt-2026-08-07-3e0258\|Responding to the next frontier of critical cyber capabilities]] | review |
+| 2026-08-06 | [[Events/evt-2026-08-06-d3c850\|Working with the American Psychological Association on youth mental health and AI]] | review |
+| 2026-08-06 | [[Events/evt-2026-08-06-4a18c5\|From asking to doing: How the world is putting ChatGPT to work]] | review |
+| 2026-08-04 | [[Events/evt-2026-08-04-e23cff\|Third-party cyber evaluations involving OpenAI models]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-392f3d\|New ways to learn and teach with ChatGPT Work and Codex]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-07332d\|Disrupting a Criminal Scam Operation]] | published |
 | 2026-08-03 | [[Events/evt-2026-08-03-c41113\|Apple is getting this wrong]] | published |

@@ -3,7 +3,7 @@ id: actor-groq
 kind: company
 in_dictionary: true
 aliases: []
-generated_day: '2026-08-05'
+generated_day: '2026-08-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

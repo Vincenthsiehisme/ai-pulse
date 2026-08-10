@@ -1,66 +1,49 @@
 [
   {
-    "full_name": "agent-infra/sandbox",
-    "desc": "All-in-One Sandbox for AI Agents that combines Browser, Shell, File, MCP and VSCode Server in a single Docker container.",
+    "full_name": "rasbt/LLMs-from-scratch",
+    "desc": "Implement a ChatGPT-like LLM in PyTorch from scratch, step by step",
+    "language": "Jupyter Notebook",
+    "topics": [
+      "ai",
+      "artificial-intelligence",
+      "attention-mechanism",
+      "deep-learning",
+      "finetuning",
+      "from-scratch"
+    ],
+    "stars": 102040,
+    "url": "https://github.com/rasbt/LLMs-from-scratch",
+    "stale_zh": null
+  },
+  {
+    "full_name": "MervinPraison/PraisonAI",
+    "desc": "PraisonAI 🦞 — Hire a 24/7 AI Workforce. Stop writing boilerplate and start shipping autonomous self-improving agents that research, plan, code, and execute tasks. Deployed in 5 lines of code with built-in memory, RAG, and support for 100+ LLMs.",
+    "language": "Python",
+    "topics": [
+      "agents",
+      "ai",
+      "ai-agent-framework",
+      "ai-agent-sdk",
+      "ai-agents",
+      "ai-agents-framework"
+    ],
+    "stars": 8775,
+    "url": "https://github.com/MervinPraison/PraisonAI",
+    "stale_zh": null
+  },
+  {
+    "full_name": "TauricResearch/TradingAgents",
+    "desc": "TradingAgents: Multi-Agents LLM Financial Trading Framework",
     "language": "Python",
     "topics": [
       "agent",
-      "all-in-one",
-      "browser",
-      "filesystem",
-      "mcp",
-      "sandbox"
+      "finance",
+      "llm",
+      "multiagent",
+      "trading"
     ],
-    "stars": 5597,
-    "url": "https://github.com/agent-infra/sandbox",
-    "stale_zh": null
-  },
-  {
-    "full_name": "CherryHQ/cherry-studio",
-    "desc": "AI productivity studio with smart chat, autonomous agents, and 300+ assistants. Unified access to frontier LLMs",
-    "language": "TypeScript",
-    "topics": [
-      "agent-skills",
-      "ai-agent",
-      "awesome-skills",
-      "claude-code",
-      "codex",
-      "deepseek"
-    ],
-    "stars": 49622,
-    "url": "https://github.com/CherryHQ/cherry-studio",
-    "stale_zh": null
-  },
-  {
-    "full_name": "CursorTouch/Windows-MCP",
-    "desc": "MCP Server for Computer Use in Windows",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "desktop",
-      "mcp",
-      "tools",
-      "windows",
-      "windows-automation"
-    ],
-    "stars": 6608,
-    "url": "https://github.com/CursorTouch/Windows-MCP",
-    "stale_zh": null
-  },
-  {
-    "full_name": "thedotmack/claude-mem",
-    "desc": "Persistent Context Across Sessions for Every Agent –  Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More",
-    "language": "JavaScript",
-    "topics": [
-      "ai",
-      "ai-agents",
-      "ai-memory",
-      "anthropic",
-      "artificial-intelligence",
-      "chromadb"
-    ],
-    "stars": 89712,
-    "url": "https://github.com/thedotmack/claude-mem",
+    "stars": 96862,
+    "url": "https://github.com/TauricResearch/TradingAgents",
     "stale_zh": null
   }
 ]

@@ -16,8 +16,8 @@ license_note: "titles + links only"
 endpoint: "https://deepmind.google/blog/rss.xml"
 robots_checked_day: "2026-08-03"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-08-05"
-items_observed: 34
+last_observed_day: "2026-08-10"
+items_observed: 35
 events_bound: 14
 events_published: 5
 health_score: 100
@@ -34,7 +34,7 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 34 筆 | 抓到了，但站方那陣子沒發東西 |
+| 已觀測 | 35 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 14 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 5 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 

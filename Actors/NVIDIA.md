@@ -3,17 +3,20 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-05'
+generated_day: '2026-08-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **22** 則：`published` 19、`review` 3
+事件 **25** 則：`published` 19、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-08 | [[Events/evt-2026-08-08-46b340\|Firebird Launches CIS Region’s Largest AI Factory in Armenia]] | review |
+| 2026-08-06 | [[Events/evt-2026-08-06-6c5981\|Into the Omniverse: How Open World Models Push the Frontier of Physical AI]] | review |
+| 2026-08-05 | [[Events/evt-2026-08-05-11f6a7\|NVIDIA and Partners Build in America, for America]] | review |
 | 2026-08-04 | [[Events/evt-2026-08-04-9f0a8c\|NVIDIA Joins NSF State and Regional AI Hubs Program to Expand AI Research and Education Across the US]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-6b1ee3\|NVIDIA Alpamayo 2 Super, the Frontier Open Model for Robotaxis and Autonomous Vehicles, Now Available for Commercial Use]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-5d61fd\|As AI Increases Demands on Memory, Storage Steps Up]] | published |
