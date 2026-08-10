@@ -44,6 +44,11 @@
     "src_hash": "685042ad8a5f",
     "zh": "Taste-Skill：給 AI 一點品味，別再生出無聊平庸的內容"
   },
+  "MervinPraison/PraisonAI": {
+    "at": "2026-08-10T00:35:39+00:00",
+    "src_hash": "0db9ebf38607",
+    "zh": "PraisonAI：5 行程式碼部署自主 AI agent 團隊，會研究、規劃、寫程式、執行任務，支援 100+ LLM"
+  },
   "NVIDIA/Model-Optimizer": {
     "at": "2026-07-31T19:20:39+00:00",
     "src_hash": "8320033a1389",
@@ -68,6 +73,11 @@
     "at": "2026-08-03T19:17:58+00:00",
     "src_hash": "3bb869c327f2",
     "zh": "基於 AI 的 Python 爬蟲工具"
+  },
+  "TauricResearch/TradingAgents": {
+    "at": "2026-08-10T00:35:39+00:00",
+    "src_hash": "07fb9f695eda",
+    "zh": "TradingAgents：多 agent LLM 金融交易框架"
   },
   "TencentCloud/TencentDB-Agent-Memory": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -238,6 +248,11 @@
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "cd3a264f173e",
     "zh": "可直接跑的雲端範本，用於 RAG、AI pipeline 與企業搜尋，可與 S3、Kafka 等即時同步"
+  },
+  "rasbt/LLMs-from-scratch": {
+    "at": "2026-08-10T00:35:39+00:00",
+    "src_hash": "e970d5b0569c",
+    "zh": "用 PyTorch 一步步從零實作一個類 ChatGPT 的 LLM"
   },
   "rocketride-org/rocketride-server": {
     "at": "2026-07-30T19:18:19+00:00",
