@@ -70,15 +70,23 @@ NAV = [("home", "關鍵變化", ""), ("lines", "領域趨勢", "lines/"),
 DEV_LABEL = {"origin": ("起點", "fact"), "official": ("官方", "accent"),
              "discussion": ("討論", "forecast"), "response": ("後續", "impact")}
 # 10 維評分因子的中文標籤與顯示上限（用來畫比例條）
-# **只列讀者看得懂、而且真的量得到的因子。** 四項傳播輸入
-# （platformBreadth / regionBreadth / velocity / propagationSignals）從上線到現在
-# 一次都沒有量到過，畫出來是四條「未量測」，而它們合成的那個 heat 這一版也下架了
-# ——留著等於讓讀者看到四塊拼圖卻看不到拼出來的圖。它們照樣寫進 frontmatter 的
-# score_factors，只是不畫在讀者面前。規格 references/readiness-gate.md。
+# **只列會變的因子。** 一個在每一則上都相同的數字，佔著版面卻不帶資訊——
+# 它看起來像量出來的，其實是常數。2026-08-11 實測 86 則已發布事件：
+#
+#     authority        1 種值（86/86 都是 90，因為來源清一色官方部落格）
+#     uniqueAuthors    1 種值（86/86 都是 None，永遠印「未量測」）
+#     propagationSignals / platformBreadth / regionBreadth / velocity  同上（前一版下架）
+#
+# authority 想講的其實是「這則來自一手官方」——那是關於**整個語料庫**的事實，
+# 屬於方法說明頁，不屬於每一則事件的評分理由。uniqueAuthors 跟那四項傳播輸入
+# 同一類，前一版留著是判斷錯誤。兩個都照樣寫進 frontmatter 的 score_factors。
+#
+# 留下來這四項，是真的會隨事件不同的：佐證 4 種、一手證據 2 種、
+# 獨立來源 4 種、新鮮度 44 種。它們合起來解釋的正是「為什麼這則是 83 不是 73」。
+# 規格 references/readiness-gate.md〈只顯示會變的數字〉。
 FACTOR_META = [
-    ("authority", "權威", 100), ("corroboration", "佐證", 100), ("primaryEvidence", "一手證據", 100),
-    ("independentSources", "獨立來源", 5), ("uniqueAuthors", "獨立作者", 8),
-    ("freshness", "新鮮度", 100),
+    ("corroboration", "佐證", 100), ("primaryEvidence", "一手證據", 100),
+    ("independentSources", "獨立來源", 5), ("freshness", "新鮮度", 100),
 ]
 
 # heat 可以是 None：一項傳播訊號都沒量到時 scoring.py 不編一個數字出來
@@ -408,7 +416,9 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .journey small{color:var(--muted);font:var(--fs-micro) var(--mono);letter-spacing:.04em}
 .journey a.jn-open{color:var(--fact)}
 .aside-box{background:none;border:0;padding:0}
-.score-hero{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+/* auto-fit：這一格的數量會隨「哪些數字還會變」增減（heat/value/impact 陸續下架），
+   寫死 1fr 1fr 的話剩一格時右半邊會空著一塊沒有底線的洞。 */
+.score-hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
 .score-hero .sh{background:none;padding:0 0 10px;border-bottom:1px solid var(--border-soft)}
 .score-hero .sh span{display:block;color:var(--quiet);font:var(--fs-micro) var(--mono);letter-spacing:.08em}
 .score-hero .sh b{font-size:var(--fs-2xl);font-weight:660;font-variant-numeric:tabular-nums}
@@ -1098,10 +1108,13 @@ def journey_html(ev, corpus_idx, sources):
 
 def score_grid_html(ev):
     sf = ev.get("score_factors") or {}
-    # 四格砍成兩格：heat 恆為「未量測」，value 是內部排序用的合成分，兩個對讀者
-    # 都沒有可解釋的意義。規格 references/readiness-gate.md〈為什麼 heat 與 value
-    # 不對讀者顯示〉。欄位本身沒動，gate 照樣讀。
-    heroes = [("confidence", ev["confidence"]), ("impact", ev.get("impact", 0))]
+    # 剩一格。heat / value 前一版下架；`impact` 這一版下架——實測 86 則已發布事件
+    # **86/86 都是 55**，它是 `scoring.score_event(impact_hint=55)` 的預設值，
+    # 而整條鏈沒有任何呼叫端傳過那個參數。也就是它不是「大家剛好都 55」，
+    # 是它從來沒有被計算過。一個常數用全頁最大的字級印出來，比 heat 的「未量測」
+    # 更誤導——「未量測」至少誠實，「55」看起來像量出來的。
+    # 接上真的輸入是 scoring 的題目（BACKLOG），不是畫面的題目。
+    heroes = [("confidence", ev["confidence"])]
     hero_html = "".join(f'<div class="sh"><span>{esc(k)}</span><b>{esc(v)}</b></div>' for k, v in heroes)
     facs = []
     for key, label, cap in FACTOR_META:
@@ -1217,7 +1230,6 @@ def build_home(events, narratives, generated):
 <h1><a href="{ev_href("", lead["slug"])}">{esc(lead.get("title_zh") or lead["title"])}</a></h1>
 <p class="deck">{esc(lead.get("summary"))}</p>
 <div class="byline"><span>信心 <b>{lead.get("confidence")}</b></span>\
-<span>影響 <b>{lead.get("impact")}</b></span>\
 <span>獨立來源 <b>{lead.get("independent")}</b></span>\
 <span>{esc(lead.get("date_display"))}</span></div>
 <div class="lead-cols">{cols}</div>
@@ -1231,7 +1243,9 @@ def build_home(events, narratives, generated):
     # 這裡原本還有一格「熱度 未量測」。它從上線到現在沒有一天印過數字，
     # 佔著首頁計數欄的一格只為了說「這一格沒有內容」。2026-08-11 下架，
     # 規格 references/readiness-gate.md。
-    tallies = [("已發布 Event", n), ("涉及主體", companies), ("主線", len(TRACKS))]
+    # 「主線」那一列緊接著下面的「主線」區塊標頭，讀起來像重複 → 改成「主線數」。
+    # 「已發布 Event」中英夾雜 → 統一中文。
+    tallies = [("已發布事件", n), ("涉及主體", companies), ("主線數", len(TRACKS))]
     tally_html = "".join(f'<div class="tally"><span>{esc(k)}</span><b>{v}</b></div>'
                          for k, v in tallies)
 

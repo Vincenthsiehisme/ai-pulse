@@ -1856,7 +1856,7 @@ mutations:
   - id: M210
     title: "把 heat 與 value 加回詳情頁的 hero（一格永遠寫「未量測」、一格是讀者無法解釋的合成分，兩個都佔著最顯眼的位置）"
     file: pulse-render.py
-    find: "    heroes = [(\"confidence\", ev[\"confidence\"]), (\"impact\", ev.get(\"impact\", 0))]"
+    find: "    heroes = [(\"confidence\", ev[\"confidence\"])]"
     replace: "    heroes = [(\"confidence\", ev[\"confidence\"]), (\"heat\", heat_text(ev[\"heat\"])), (\"impact\", ev.get(\"impact\", 0)), (\"value\", ev.get(\"value\", 0))]"
     survives: false
     why: ""
@@ -1874,5 +1874,33 @@ mutations:
     file: pulse-gate.py
     find: "        blockers.append(\"unmeasured_heat\")"
     replace: "        pass"
+    survives: false
+    why: ""
+
+  # ── 只顯示會變的數字（2026-08-11 續）──
+  # 實測 86 則已發布事件：impact / authority / uniqueAuthors 各只有 1 種值。
+  # 一個在每一則上都相同的數字，看起來像量出來的，其實不帶資訊。
+
+  - id: M213
+    title: "常數欄位回到因子條（authority 86/86 都是 90、uniqueAuthors 86/86 都是 None——每一則都印一次，只是把同一句話重複 86 遍）"
+    file: pulse-render.py
+    find: "    (\"corroboration\", \"佐證\", 100), (\"primaryEvidence\", \"一手證據\", 100),"
+    replace: "    (\"authority\", \"權威\", 100), (\"corroboration\", \"佐證\", 100), (\"primaryEvidence\", \"一手證據\", 100),"
+    survives: false
+    why: ""
+
+  - id: M214
+    title: "會變的那四項因子被拿掉（只守「常數不准上版面」的話，這一塊縮到空的也會全綠——而那時它就不再解釋任何東西）"
+    file: pulse-render.py
+    find: "    (\"independentSources\", \"獨立來源\", 5), (\"freshness\", \"新鮮度\", 100),"
+    replace: "    (\"freshness\", \"新鮮度\", 100),"
+    survives: false
+    why: ""
+
+  - id: M215
+    title: "首頁頭條的 byline 把「影響」印回去（impact 是 score_event 的預設值，整條鏈沒有任何呼叫端傳過那個參數）"
+    file: pulse-render.py
+    find: "<div class=\"byline\"><span>信心 <b>{lead.get(\"confidence\")}</b></span>\\"
+    replace: "<div class=\"byline\"><span>信心 <b>{lead.get(\"confidence\")}</b></span><span>影響 <b>{lead.get(\"impact\")}</b></span>\\"
     survives: false
     why: ""
