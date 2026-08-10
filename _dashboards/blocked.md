@@ -1,20 +1,7 @@
-# 被門禁擋下（32）
+# 被門禁擋下（19）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-08-10-0e6ea5|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deplo]]** — NVIDIA — blockers: thin_fact
-- **[[Events/evt-2026-08-10-397543|Meta is back with Muse Glimmer: local, agentic, multimodal, and open s]]** — Meta — blockers: thin_fact
-- **[[Events/evt-2026-08-10-44574d|Making Knowledge Distillation Cheap Enough to Run at Scale]]** — Multiverse Computing — blockers: thin_fact
-- **[[Events/evt-2026-08-10-8a0492|What building an AI-native finance function taught me]]** — OpenAI — blockers: thin_fact
-- **[[Events/evt-2026-08-10-bbf2b8|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in]]** — OpenAI — blockers: thin_fact
-- **[[Events/evt-2026-08-08-46b340|Firebird Launches CIS Region’s Largest AI Factory in Armenia]]** — Firebird — blockers: thin_fact
-- **[[Events/evt-2026-08-07-16edd0|How HSP GRUPPE builds AI capabilities for tax advisory]]** — OpenAI — blockers: thin_fact
-- **[[Events/evt-2026-08-07-3e0258|Responding to the next frontier of critical cyber capabilities]]** — OpenAI — blockers: thin_fact, thin_research_analysis
-- **[[Events/evt-2026-08-06-00fb68|GeForce NOW Shakes Up August With 26 New Games]]** — NVIDIA — blockers: thin_fact
-- **[[Events/evt-2026-08-06-4a18c5|From asking to doing: How the world is putting ChatGPT to work]]** — OpenAI — blockers: thin_fact
-- **[[Events/evt-2026-08-06-6c5981|Into the Omniverse: How Open World Models Push the Frontier of Physica]]** — NVIDIA — blockers: thin_fact
-- **[[Events/evt-2026-08-06-d3c850|Working with the American Psychological Association on youth mental he]]** — OpenAI — blockers: thin_fact
-- **[[Events/evt-2026-08-05-11f6a7|NVIDIA and Partners Build in America, for America]]** — NVIDIA — blockers: thin_fact
 - **[[Events/evt-2026-08-01-2a01f6|Ten advances in mathematics and theoretical computer science]]** — OpenAI — blockers: thin_fact, thin_research_analysis
 - **[[Events/evt-2026-07-31-15c85e|Grok Imagine Video 1 5 References]]** — xAI — blockers: thin_fact
 - **[[Events/evt-2026-07-30-54f43a|Investigating Incidents Cybersecurity Evals]]** — Anthropic — blockers: thin_research_analysis

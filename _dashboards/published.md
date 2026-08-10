@@ -1,6 +1,42 @@
-# 已發布事件（73）
+# 已發布事件（86）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-08-10
+- **[[Events/evt-2026-08-10-0e6ea5|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  NVIDIA在Hugging Face開源Magpie TTS，主打低延遲多語音代理、權重全開放可自架。
+- **[[Events/evt-2026-08-10-397543|Meta is back with Muse Glimmer: local, agentic, multimodal, and open source]]** — Meta · model-capability · conf 73 · heat 未量測
+  Meta在Hugging Face發布Muse Glimmer，訴求本機可跑、具代理能力、多模態且開源。
+- **[[Events/evt-2026-08-10-44574d|Making Knowledge Distillation Cheap Enough to Run at Scale]]** — Multiverse Computing · infra · conf 73 · heat 未量測
+  Multiverse Computing發文主張把知識蒸餾成本壓到可規模化執行，但未附具體數字。
+- **[[Events/evt-2026-08-10-8a0492|What building an AI-native finance function taught me]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI財務長Sarah Friar談內部用AI改造財務職能的五個心得，涵蓋自動化預測到投報衡量。
+- **[[Events/evt-2026-08-10-bbf2b8|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI致函德州州長Abbott，說明在德州建置AI基礎設施的承諾與透明度主張。
+
+## 2026-08-08
+- **[[Events/evt-2026-08-08-46b340|Firebird Launches CIS Region’s Largest AI Factory in Armenia]]** — Firebird · infra · conf 73 · heat 未量測
+  新興 AI 雲端業者 Firebird 在亞美尼亞啟用 CIS 地區最大的 AI Factory，採用 NVIDIA 加速運算與 Dell 高效能基礎設施。
+
+## 2026-08-07
+- **[[Events/evt-2026-08-07-16edd0|How HSP GRUPPE builds AI capabilities for tax advisory]]** — OpenAI · product · conf 73 · heat 未量測
+  德國稅務顧問集團 HSP GRUPPE 導入 ChatGPT Enterprise，OpenAI 官方案例宣稱藉此提升生產力與服務量能。
+- **[[Events/evt-2026-08-07-3e0258|Responding to the next frontier of critical cyber capabilities]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 公布針對「Astra」模型的初步資安能力評估，並說明強化防護與安控機制的因應作法。
+
+## 2026-08-06
+- **[[Events/evt-2026-08-06-00fb68|GeForce NOW Shakes Up August With 26 New Games]]** — NVIDIA · product · conf 73 · heat 未量測
+  GeForce NOW 這週上新 8 款遊戲，8 月分批共 26 款，同時在 QuakeCon 現場有攤位活動。
+- **[[Events/evt-2026-08-06-4a18c5|From asking to doing: How the world is putting ChatGPT to work]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布新的 Signals 數據，用國家別拆解全球 ChatGPT 使用行為，指出用戶正從「問問題」轉向「交辦任務」。
+- **[[Events/evt-2026-08-06-6c5981|Into the Omniverse: How Open World Models Push the Frontier of Physical AI]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 在 Into the Omniverse 系列文章談開放世界模型如何推進物理 AI，並提到 7 月與 200 多個組織連署了一封 AI 領導力公開信。
+- **[[Events/evt-2026-08-06-d3c850|Working with the American Psychological Association on youth mental health and AI]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 與美國心理學會（APA）合作，針對青少年心理健康議題制定 AI 使用的實證指引與防護機制。
+
+## 2026-08-05
+- **[[Events/evt-2026-08-05-11f6a7|NVIDIA and Partners Build in America, for America]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 與夥伴宣布加碼投資美國本土製造、供應鏈、電網與人才培育，這是一篇官方定調文，沒有點名具體投資金額或項目。
 
 ## 2026-08-04
 - **[[Events/evt-2026-08-04-07332d|Disrupting a Criminal Scam Operation]]** — OpenAI · policy · conf 73 · heat 未量測
