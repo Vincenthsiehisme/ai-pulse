@@ -7,9 +7,9 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
 | aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 3/30 = 10% |
-| kol | 110 | 70/110 = 64% | 60/110 = 55% | 42/110 = 38% |
-| media | 87 | 87/87 = 100% | 79/87 = 91% | 34/87 = 39% |
-| official | 238 | 48/238 = 20% | 19/238 = 8% | 172/238 = 72% |
+| kol | 90 | 50/90 = 56% | 40/90 = 44% | 34/90 = 38% |
+| media | 57 | 57/57 = 100% | 49/57 = 86% | 24/57 = 42% |
+| official | 218 | 48/218 = 22% | 19/218 = 9% | 164/218 = 75% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
 - **5b（可解析自然人）才決定人物層與獨立性升級有沒有用。**官方線若過低，people.yaml 只在 KOL 線生效。
@@ -19,10 +19,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | kind | 筆數 | 計入 5b |
 |---|---|---|
-| none | 230 |  |
-| person | 142 | ✓ |
+| none | 210 |  |
+| person | 93 | ✓ |
 | handle | 68 |  |
-| multi_person | 16 | ✓ |
+| multi_person | 15 | ✓ |
 | org | 9 |  |
 
 分類全為字面規則，無推論。判不出來一律 unknown 且不計入 5b（保守預設）。
@@ -39,8 +39,6 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Baolin Peng, Wenlin Yao, Qianhui Wu, Hao Cheng, Jianfeng Gao | multi_person | src-msr-blog |
 | Jianfeng Gao | person | src-msr-blog |
 | michael.nunez@venturebeat.com (Michael Nuñez) | handle | src-media-venturebeat |
-| Anthony Ha | person | src-media-techcrunch |
-| Anthony Ha, Theresa Loconsolo | multi_person | src-media-techcrunch |
 | Matthew S. Smith | person | src-media-ieee-spectrum |
 | Patsnap | handle | src-media-ieee-spectrum |
 | Rohde & Schwarz | multi_person | src-media-ieee-spectrum |
@@ -48,20 +46,18 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Eileen Guo, Gisela Perez de Acha, Martin Sona | multi_person | src-media-mit-techreview |
 | Victoria Turk, wired.com | multi_person | src-media-arstechnica |
 | Scharon Harding | person | src-media-arstechnica |
-| Terrence O’Brien | person | src-media-theverge |
 | karpathy (hidden) | handle | src-kol-karpathy |
 | Nathan Lambert | person | src-kol-interconnects |
-| Ethan Mollick | person | src-kol-oneusefulthing |
 | Sebastian Raschka, PhD | person | src-kol-raschka |
 | satvikpendem | handle | src-hn-frontpage |
 
 ## 命中的實體型別分佈
 
-- company: 135
-- product_line: 98
-- product: 33
-- technology: 31
-- framework: 20
+- company: 121
+- product_line: 92
+- technology: 30
+- product: 28
+- framework: 17
 - infrastructure: 7
 - policy: 1
 
@@ -74,44 +70,36 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | 候選 | 次數 | 來源數 |
 |---|---|---|
 | LLMs | 12 | 6 |
-| U.S | 10 | 5 |
+| U.S | 9 | 4 |
 | LLM | 9 | 5 |
-| July | 8 | 7 |
 | Learn | 6 | 3 |
-| They | 6 | 5 |
 | Here | 6 | 3 |
 | Building | 5 | 5 |
+| July | 5 | 5 |
+| They | 5 | 4 |
 | When | 5 | 3 |
 | AI-native | 4 | 3 |
 | Gemma | 4 | 3 |
 | Updated | 4 | 2 |
-| San Francisco | 4 | 3 |
-| Texas | 4 | 4 |
 | Understanding | 4 | 2 |
 | May | 4 | 4 |
 | June | 4 | 3 |
 | August | 4 | 3 |
 | Open | 4 | 2 |
-| From | 3 | 3 |
-| Apple | 3 | 3 |
 | Department | 3 | 3 |
 | Frontier | 3 | 3 |
 | Models | 3 | 2 |
 | Added | 3 | 3 |
-| Finding | 3 | 3 |
-| Part | 3 | 3 |
-| With | 3 | 3 |
-| Elon Musk | 3 | 3 |
+| San Francisco | 3 | 2 |
 | NASA | 3 | 2 |
 | There | 3 | 2 |
 | Large | 3 | 3 |
 | One | 3 | 3 |
-| September | 3 | 3 |
 | January | 3 | 2 |
 
 ### 單來源高頻（觀察用，不列入晉升）
 
-目前活躍來源 22 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
+目前活躍來源 18 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
 上表為空不代表收割機制壞掉。此區僅供觀察，不得直接寫進字典。
 
 | 候選 | 次數 | 唯一來源 |
@@ -138,33 +126,33 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-consilium-press | official | skipped_lifecycle | 0 | 0 |  | None | dormant |
 | src-ep-itre | official | skipped_lifecycle | 0 | 0 |  | None | dormant |
 | src-kol-importai | kol | skipped_lifecycle | 0 | 0 |  | None | dormant |
-| src-openai-blog | official | 200 | 50 | 5 |  | True |  |
-| src-anthropic-news | official | 200 | 40 | 1 |  | True |  |
+| src-openai-blog | official | 200 | 50 | 0 |  | True |  |
+| src-anthropic-news | official | 200 | 40 | 0 |  | True |  |
 | src-gh-vllm-releases | official | 200 | 20 | 0 |  | None |  |
-| src-deepmind-blog | official | 200 | 30 | 1 |  | True |  |
-| src-hf-blog | official | 200 | 20 | 2 |  | True |  |
-| src-nvidia-blog | official | 200 | 18 | 3 |  | True |  |
+| src-deepmind-blog | official | 200 | 30 | 0 |  | True |  |
+| src-hf-blog | official | 304 | 0 | 0 |  | True |  |
+| src-nvidia-blog | official | 200 | 18 | 0 |  | True |  |
 | src-msr-blog | official | 200 | 10 | 0 |  | True |  |
 | src-meta-research | official | 200 | 10 | 0 |  | True |  |
-| src-xai-news | official | 200 | 40 | 1 |  | True |  |
+| src-xai-news | official | 200 | 40 | 0 |  | True |  |
 | src-mistral-news | official | 200 | 0 | 0 |  | True |  |
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
 | src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
 | src-media-venturebeat | media | 200 | 7 | 0 |  | True |  |
-| src-media-techcrunch | media | 200 | 20 | 20 |  | True |  |
-| src-media-ieee-spectrum | media | 200 | 20 | 2 |  | True |  |
-| src-media-mit-techreview | media | 200 | 10 | 3 |  | True |  |
+| src-media-techcrunch | media | 304 | 0 | 0 |  | True |  |
+| src-media-ieee-spectrum | media | 200 | 20 | 0 |  | True |  |
+| src-media-mit-techreview | media | 200 | 10 | 0 |  | True |  |
 | src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
-| src-media-arstechnica | media | 200 | 20 | 12 |  | True |  |
-| src-media-theverge | media | 200 | 10 | 10 |  | True |  |
+| src-media-arstechnica | media | 200 | 20 | 0 |  | True |  |
+| src-media-theverge | media | 304 | 0 | 0 |  | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
-| src-kol-simonwillison | kol | 200 | 20 | 18 |  | True |  |
-| src-kol-interconnects | kol | 200 | 20 | 1 |  | True |  |
+| src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-thezvi | kol | robots_unknown | 0 | 0 |  | False | robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕） |
-| src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-oneusefulthing | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 28 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 2 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
