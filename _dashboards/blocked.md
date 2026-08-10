@@ -2,11 +2,11 @@
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-08-10-0e6ea5|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deplo]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-10-397543|Meta is back with Muse Glimmer: local, agentic, multimodal, and open s]]** — Meta — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-10-44574d|Making Knowledge Distillation Cheap Enough to Run at Scale]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-10-8a0492|What building an AI-native finance function taught me]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-10-bbf2b8|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-10-0e6ea5|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deplo]]** — NVIDIA — blockers: thin_fact
+- **[[Events/evt-2026-08-10-397543|Meta is back with Muse Glimmer: local, agentic, multimodal, and open s]]** — Meta — blockers: thin_fact
+- **[[Events/evt-2026-08-10-44574d|Making Knowledge Distillation Cheap Enough to Run at Scale]]** — Multiverse Computing — blockers: thin_fact
+- **[[Events/evt-2026-08-10-8a0492|What building an AI-native finance function taught me]]** — OpenAI — blockers: thin_fact
+- **[[Events/evt-2026-08-10-bbf2b8|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in]]** — OpenAI — blockers: thin_fact
 - **[[Events/evt-2026-08-08-46b340|Firebird Launches CIS Region’s Largest AI Factory in Armenia]]** — Firebird — blockers: thin_fact
 - **[[Events/evt-2026-08-07-16edd0|How HSP GRUPPE builds AI capabilities for tax advisory]]** — OpenAI — blockers: thin_fact
 - **[[Events/evt-2026-08-07-3e0258|Responding to the next frontier of critical cyber capabilities]]** — OpenAI — blockers: thin_fact, thin_research_analysis

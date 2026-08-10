@@ -1,8 +1,8 @@
 [
   {
-    "id": "evt-2026-08-05-11f6a7",
-    "path": "evt-2026-08-05-11f6a7.md",
-    "title": "NVIDIA and Partners Build in America, for America",
+    "id": "evt-2026-08-10-0e6ea5",
+    "path": "evt-2026-08-10-0e6ea5.md",
+    "title": "Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "NVIDIA",
@@ -10,35 +10,53 @@
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/nvidia-and-partners-build-in-america-for-america/",
-        "title": "NVIDIA and Partners Build in America, for America",
-        "summary": "NVIDIA and its partners are investing in American manufacturing, supply chains, energy grids and skilled workforces so the U.S. can produce the infrastructure needed for better healthcare, breakthrough scientific discovery, stronger industrial productivity and global technology leadership."
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents",
+        "title": "Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-06-00fb68",
-    "path": "evt-2026-08-06-00fb68.md",
-    "title": "GeForce NOW Shakes Up August With 26 New Games",
+    "id": "evt-2026-08-10-397543",
+    "path": "evt-2026-08-10-397543.md",
+    "title": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "industry",
+    "company_guess": "Meta",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-august-2026-games-list/",
-        "title": "GeForce NOW Shakes Up August With 26 New Games",
-        "summary": "August is here, bringing 26 new games for GeForce NOW members.  Command the seas in World of Warships: Legends and discover what’s next in the GeForce NOW library, starting with the eight newly added games this week.  In addition, GeForce NOW is at the QuakeCon gaming conference this week in Grapevi"
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/muse-glimmer",
+        "title": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-06-4a18c5",
-    "path": "evt-2026-08-06-4a18c5.md",
-    "title": "From asking to doing: How the world is putting ChatGPT to work",
+    "id": "evt-2026-08-10-44574d",
+    "path": "evt-2026-08-10-44574d.md",
+    "title": "Making Knowledge Distillation Cheap Enough to Run at Scale",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Scale AI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/MultiverseComputingCAI/efficient-knowledge-distillation",
+        "title": "Making Knowledge Distillation Cheap Enough to Run at Scale",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-10-8a0492",
+    "path": "evt-2026-08-10-8a0492.md",
+    "title": "What building an AI-native finance function taught me",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -47,34 +65,16 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/how-the-world-is-putting-chatgpt-to-work",
-        "title": "From asking to doing: How the world is putting ChatGPT to work",
-        "summary": "New OpenAI Signals data shows how people use ChatGPT worldwide, with country-level insights on adoption, usage trends, and evolving behavior."
+        "url": "https://openai.com/index/building-an-ai-native-finance-function",
+        "title": "What building an AI-native finance function taught me",
+        "summary": "OpenAI CFO Sarah Friar shares five lessons for building an AI-native finance function, from automated forecasting to stronger controls and AI ROI."
       }
     ]
   },
   {
-    "id": "evt-2026-08-06-6c5981",
-    "path": "evt-2026-08-06-6c5981.md",
-    "title": "Into the Omniverse: How Open World Models Push the Frontier of Physical AI",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/open-world-models-physical-ai/",
-        "title": "Into the Omniverse: How Open World Models Push the Frontier of Physical AI",
-        "summary": "In July, NVIDIA joined more than 200 companies and organizations in signing “Open Weights and American AI Leadership,” an open letter arguing that AI leadership will be measured not by any single frontier model but by whether an open ecosystem reaches every sector."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-06-d3c850",
-    "path": "evt-2026-08-06-d3c850.md",
-    "title": "Working with the American Psychological Association on youth mental health and AI",
+    "id": "evt-2026-08-10-bbf2b8",
+    "path": "evt-2026-08-10-bbf2b8.md",
+    "title": "OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -83,63 +83,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/openai-and-apa-partner-to-advance-responsible-ai",
-        "title": "Working with the American Psychological Association on youth mental health and AI",
-        "summary": "OpenAI and the American Psychological Association advance evidence-based guidance, resources, and safeguards for responsible AI use and youth mental health."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-07-16edd0",
-    "path": "evt-2026-08-07-16edd0.md",
-    "title": "How HSP GRUPPE builds AI capabilities for tax advisory",
-    "fingerprint": null,
-    "facet": "capability",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/hsp-gruppe",
-        "title": "How HSP GRUPPE builds AI capabilities for tax advisory",
-        "summary": "Discover how HSP GRUPPE uses ChatGPT Enterprise to boost productivity, improve work quality, and create more capacity for tax advisory and client service."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-07-3e0258",
-    "path": "evt-2026-08-07-3e0258.md",
-    "title": "Responding to the next frontier of critical cyber capabilities",
-    "fingerprint": null,
-    "facet": "capability",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities",
-        "title": "Responding to the next frontier of critical cyber capabilities",
-        "summary": "OpenAI is sharing preliminary cybersecurity evaluations for Astra and the steps we’re taking to strengthen safeguards and security controls."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-08-46b340",
-    "path": "evt-2026-08-08-46b340.md",
-    "title": "Firebird Launches CIS Region’s Largest AI Factory in Armenia",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/firebird-ai-factory-armenia-blackwell-rubin-dsx/",
-        "title": "Firebird Launches CIS Region’s Largest AI Factory in Armenia",
-        "summary": "The global buildout of AI infrastructure reached a new milestone today — Firebird, an emerging AI cloud, launched the CIS region’s largest AI factory in Armenia, establishing a new AI computing hub powered by NVIDIA accelerated computing and Dell Technologies high-performance AI infrastructure.  Nik"
+        "url": "https://openai.com/index/responsible-ai-infrastructure-texas",
+        "title": "OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas",
+        "summary": "OpenAI sent Governor Greg Abbott a letter outlining its commitment to responsible AI infrastructure in Texas. The letter supports reliable, transparent growth that benefits Texans."
       }
     ]
   }

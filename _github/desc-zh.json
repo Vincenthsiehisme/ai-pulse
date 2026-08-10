@@ -24,6 +24,11 @@
     "src_hash": "0a977cb7f34a",
     "zh": "讓 AI agent 像全場最懶的資深工程師那樣想：最好的程式是你沒寫的那段"
   },
+  "FareedKhan-dev/kimi-k3-in-c": {
+    "at": "2026-08-10T19:09:33+00:00",
+    "src_hash": "0e143566f257",
+    "zh": "讓2.78兆參數的Kimi K3在單顆CPU、8.24GB RAM上跑推論，純C99實作，不用BLAS、框架或GPU"
+  },
   "Graphify-Labs/graphify": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "8e48530c1c58",
