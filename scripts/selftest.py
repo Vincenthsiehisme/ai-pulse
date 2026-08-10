@@ -4861,15 +4861,17 @@ _fac_html = _rmod.score_grid_html({
                       "uniqueAuthors": None, "platformBreadth": None,
                       "regionBreadth": None, "velocity": None},
 })
-# 2026-08-11：四項傳播因子連同 heat 一起從讀者頁面下架（見下一組判準），
-# 所以這裡剩下的是「還會畫出來、而且真的量得到」的那幾格。`uniqueAuthors`
-# 是其中唯一可能為 None 的——它有量測管道，只是這一則沒量到，
-# 那正是「未量測」這個字還有意義的地方。
-acase("因子條：None 在**印出來的 HTML 裡**是「未量測」，而且不畫比例條"
+# 2026-08-11：常數欄位全部下架之後，留下的四項都是會變、而且量得到的。
+# 「未量測」這三個字仍然要守——它現在守的是**缺鍵**那一種：舊 note 的
+# score_factors 少一格時，印 0 是編造，必須印「未量測」而且不畫比例條。
+_fac_partial = _rmod.score_grid_html({
+    "confidence": 74, "heat": None, "impact": 55, "value": 70, "independent": 2,
+    "score_factors": {"corroboration": 40, "primaryEvidence": 50}})
+acase("因子條：量不到的那幾格在**印出來的 HTML 裡**是「未量測」，而且不畫比例條"
       "（長度 0 的條子跟「量到 0」在畫面上一模一樣，那正是要修掉的誤會）",
-      [_fac_html.count("bar-unmeasured"),
-       _fac_html.count(">" + _rmod.HEAT_UNMEASURED + "</b>")],
-      [1, 1])
+      [_fac_partial.count("bar-unmeasured"),
+       _fac_partial.count(">" + _rmod.HEAT_UNMEASURED + "</b>")],
+      [2, 2])
 # 缺鍵也算沒量到。舊 note 的 score_factors 若少一格，印 0 是編造。
 acase("因子條：`score_factors` 缺鍵一律當成沒量到，不補 0",
       _rmod.score_grid_html({"confidence": 1, "heat": None, "impact": 1, "value": 1,
@@ -4886,12 +4888,30 @@ acase("因子條：`score_factors` 缺鍵一律當成沒量到，不補 0",
 # 判準守的是**反向**：只刪不反轉的話，下一個人會把它當回歸再加回去。
 _hero_html_811 = _rmod.score_grid_html({
     "confidence": 74, "heat": None, "impact": 55, "value": 70, "independent": 2,
-    "score_factors": {"authority": 80, "freshness": 90}})
-acase("讀者頁面：詳情頁的 hero 只剩 confidence 與 impact，沒有 heat 也沒有 value"
-      "（heat 恆為未量測、value 是內部合成分，兩個對讀者都不可解釋）",
+    "score_factors": {"freshness": 90}})
+acase("讀者頁面：詳情頁的 hero 只剩 confidence，heat / value / impact 都不在"
+      "（heat 恆為未量測、value 是內部合成分、impact 86/86 都是 55 —— "
+      "它是 score_event 的預設值，整條鏈沒有任何呼叫端傳過那個參數）",
       [_hero_html_811.count("<div class=\"sh\">"),
-       "heat" in _hero_html_811, ">value<" in _hero_html_811],
-      [2, False, False])
+       "heat" in _hero_html_811, ">value<" in _hero_html_811,
+       ">impact<" in _hero_html_811],
+      [1, False, False, False])
+# 常數欄位不上版面：一個在每一則上都相同的數字，看起來像量出來的，其實不帶資訊。
+# 實測 86 則已發布事件：authority 1 種值、uniqueAuthors 1 種值（永遠 None）。
+acase("讀者頁面：恆為常數的因子不畫在因子條上（authority 86/86 都是 90、"
+      "uniqueAuthors 86/86 都是 None —— 看起來像量出來的，其實是常數）",
+      sorted(k for k, _l, _c in _rmod.FACTOR_META
+             if k in ("authority", "uniqueAuthors")),
+      [])
+# 反向：真的會變的那四項必須還在，否則「只顯示會變的」會退化成「什麼都不顯示」。
+acase("讀者頁面：會變的那四項因子必須還在（不然這一塊就不再解釋任何東西）",
+      sorted(k for k, _l, _c in _rmod.FACTOR_META),
+      ["corroboration", "freshness", "independentSources", "primaryEvidence"])
+# 首頁頭條的 byline 也印過 impact，同一個常數同一個問題。
+acase("讀者頁面：首頁頭條的 byline 不再印「影響」（同一個常數，同一個問題）",
+      [ln for ln in open(os.path.join(_HERE, "pulse-render.py"), encoding="utf-8")
+       .read().splitlines() if "影響 <b>" in ln],
+      [])
 # 四項傳播輸入也一起下架：留著等於讓讀者看到四塊拼圖、卻看不到拼出來的圖。
 acase("讀者頁面：四項傳播因子不再畫在因子條上（它們合成的 heat 已經下架）",
       sorted(k for k, _l, _c in _rmod.FACTOR_META
