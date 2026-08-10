@@ -10,10 +10,12 @@ tags: [actor, company]
 
 # OpenAI
 
-事件 **31** 則：`published` 26、`review` 5
+事件 **33** 則：`published` 26、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-10 | [[Events/evt-2026-08-10-bbf2b8\|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas]] | review |
+| 2026-08-10 | [[Events/evt-2026-08-10-8a0492\|What building an AI-native finance function taught me]] | review |
 | 2026-08-07 | [[Events/evt-2026-08-07-3e0258\|Responding to the next frontier of critical cyber capabilities]] | review |
 | 2026-08-07 | [[Events/evt-2026-08-07-16edd0\|How HSP GRUPPE builds AI capabilities for tax advisory]] | review |
 | 2026-08-06 | [[Events/evt-2026-08-06-d3c850\|Working with the American Psychological Association on youth mental health and AI]] | review |

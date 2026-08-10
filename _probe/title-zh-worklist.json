@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "evt-2026-08-10-0e6ea5",
+    "title": "Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-10-397543",
+    "title": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+    "company": "Meta",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-10-44574d",
+    "title": "Making Knowledge Distillation Cheap Enough to Run at Scale",
+    "company": "Scale AI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-10-8a0492",
+    "title": "What building an AI-native finance function taught me",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-10-bbf2b8",
+    "title": "OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  }
+]

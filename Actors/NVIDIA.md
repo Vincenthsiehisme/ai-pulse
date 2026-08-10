@@ -10,10 +10,11 @@ tags: [actor, company]
 
 # NVIDIA
 
-事件 **25** 則：`published` 19、`review` 6
+事件 **26** 則：`published` 19、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-10 | [[Events/evt-2026-08-10-0e6ea5\|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS]] | review |
 | 2026-08-06 | [[Events/evt-2026-08-06-6c5981\|Into the Omniverse: How Open World Models Push the Frontier of Physical AI]] | review |
 | 2026-08-06 | [[Events/evt-2026-08-06-00fb68\|GeForce NOW Shakes Up August With 26 New Games]] | review |
 | 2026-08-05 | [[Events/evt-2026-08-05-11f6a7\|NVIDIA and Partners Build in America, for America]] | review |
