@@ -1,49 +1,143 @@
 [
   {
-    "full_name": "rasbt/LLMs-from-scratch",
-    "desc": "Implement a ChatGPT-like LLM in PyTorch from scratch, step by step",
-    "language": "Jupyter Notebook",
+    "full_name": "FareedKhan-dev/kimi-k3-in-c",
+    "desc": "A 2.78-trillion-parameter Kimi K3 running inference on a single CPU in 8.24 GB of RAM. Portable C99: no BLAS, no framework, no GPU.",
+    "language": "C",
     "topics": [
-      "ai",
-      "artificial-intelligence",
-      "attention-mechanism",
+      "avx2",
+      "c99",
+      "cpu-inference",
       "deep-learning",
-      "finetuning",
-      "from-scratch"
+      "from-scratch",
+      "inference-engine"
     ],
-    "stars": 102040,
-    "url": "https://github.com/rasbt/LLMs-from-scratch",
+    "stars": 4204,
+    "url": "https://github.com/FareedKhan-dev/kimi-k3-in-c",
     "stale_zh": null
   },
   {
-    "full_name": "MervinPraison/PraisonAI",
-    "desc": "PraisonAI 🦞 — Hire a 24/7 AI Workforce. Stop writing boilerplate and start shipping autonomous self-improving agents that research, plan, code, and execute tasks. Deployed in 5 lines of code with built-in memory, RAG, and support for 100+ LLMs.",
+    "full_name": "google-labs-code/stitch-skills",
+    "desc": "A library of Agent Skills designed to work with the Stitch MCP server. Each skill follows the Agent Skills open standard, for compatibility with coding agents such as Antigravity, Gemini CLI, Claude Code, Cursor.",
+    "language": "TypeScript",
+    "topics": [],
+    "stars": 7992,
+    "url": "https://github.com/google-labs-code/stitch-skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "jacob-bd/gemini-notebook-mcp-cli",
+    "desc": "Programmatic access to Gemini Notebook - via command-line interface (CLI), Model Context Protocol (MCP) server, and AI agent skills.",
     "language": "Python",
+    "topics": [],
+    "stars": 5796,
+    "url": "https://github.com/jacob-bd/gemini-notebook-mcp-cli",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ggml-org/llama.cpp",
+    "desc": "LLM inference in C/C++",
+    "language": "C++",
+    "topics": [
+      "ggml"
+    ],
+    "stars": 123218,
+    "url": "https://github.com/ggml-org/llama.cpp",
+    "stale_zh": null
+  },
+  {
+    "full_name": "VoltAgent/voltagent",
+    "desc": "AI Agent Engineering Platform built on an Open Source TypeScript AI Agent Framework",
+    "language": "TypeScript",
     "topics": [
       "agents",
       "ai",
-      "ai-agent-framework",
-      "ai-agent-sdk",
       "ai-agents",
-      "ai-agents-framework"
+      "ai-agents-framework",
+      "aiagentframework",
+      "chatbots"
     ],
-    "stars": 8775,
-    "url": "https://github.com/MervinPraison/PraisonAI",
+    "stars": 10324,
+    "url": "https://github.com/VoltAgent/voltagent",
     "stale_zh": null
   },
   {
-    "full_name": "TauricResearch/TradingAgents",
-    "desc": "TradingAgents: Multi-Agents LLM Financial Trading Framework",
+    "full_name": "microsoft/agent-framework",
+    "desc": "A framework for building, orchestrating and deploying AI agents and multi-agent workflows with support for Python and .NET.",
+    "language": "Python",
+    "topics": [
+      "agent-framework",
+      "agentic-ai",
+      "agents",
+      "ai",
+      "dotnet",
+      "multi-agent"
+    ],
+    "stars": 12699,
+    "url": "https://github.com/microsoft/agent-framework",
+    "stale_zh": null
+  },
+  {
+    "full_name": "FlowiseAI/Flowise",
+    "desc": "Build AI Agents, Visually",
+    "language": "TypeScript",
+    "topics": [
+      "agentic-ai",
+      "agentic-workflow",
+      "agents",
+      "artificial-intelligence",
+      "chatbot",
+      "chatgpt"
+    ],
+    "stars": 55280,
+    "url": "https://github.com/FlowiseAI/Flowise",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ollama/ollama",
+    "desc": "Get up and running with Kimi-K2.6, GLM-5.2, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
+    "language": "Go",
+    "topics": [
+      "deepseek",
+      "gemma",
+      "gemma3",
+      "glm",
+      "go",
+      "golang"
+    ],
+    "stars": 178139,
+    "url": "https://github.com/ollama/ollama",
+    "stale_zh": null
+  },
+  {
+    "full_name": "langgenius/dify",
+    "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-framework",
+      "agentic-workflow",
+      "ai",
+      "automation"
+    ],
+    "stars": 151869,
+    "url": "https://github.com/langgenius/dify",
+    "stale_zh": null
+  },
+  {
+    "full_name": "MODSetter/SurfSense",
+    "desc": "Open-source NotebookLM alternative. Research the open web with live data(Reddit, YT, IG, TikTok, Indeed, Google Search, Maps etc) through one platform, API or MCP server. Join our Discord: https://discord.gg/ejRNvftDp9",
     "language": "Python",
     "topics": [
       "agent",
-      "finance",
-      "llm",
-      "multiagent",
-      "trading"
+      "agents",
+      "ai",
+      "fastapi",
+      "langchain",
+      "langgraph"
     ],
-    "stars": 96862,
-    "url": "https://github.com/TauricResearch/TradingAgents",
+    "stars": 15852,
+    "url": "https://github.com/MODSetter/SurfSense",
     "stale_zh": null
   }
 ]

@@ -42,18 +42,15 @@ events_published: 73
 ## 佇列
 
 - 已上線 **73**／review **27**（待處理 16、設計上擋著 11）／人工判定不追 **1**
-- 未 enrich **8** 則，最久放了 **18** 天
+- 未 enrich **0** 則，最久放了 **0** 天
 - 待處理卡最久 **18** 天（天數＝**進庫**多久，不是新聞發布多久）
 
 | blocker | 則數 |
 |---|---|
 | `thin_fact` | 13 |
 | `stale_backfill` | 11 |
-| `placeholder_content` | 8 |
-| `missing_category` | 8 |
-| `missing_track` | 8 |
-| `thin_research_analysis` | 3 |
-| `generic_entity` | 3 |
+| `thin_research_analysis` | 4 |
+| `generic_entity` | 1 |
 
 ## 覆蓋範圍
 
@@ -61,7 +58,7 @@ events_published: 73
 
 | 必盯實體 | 來源 | 看見 | 事件 | 上線 | 最後看見 |
 |---|---|---|---|---|---|
-| OpenAI | 1 | 575 | 30 | 26 | 0d 前 |
+| OpenAI | 1 | 575 | 31 | 26 | 0d 前 |
 | Anthropic | 1 | 162 | 12 | 10 | 0d 前 |
 | Google DeepMind | 1 | 87 | 5 | 4 | 0d 前 |
 | Google | 1 | 274 | 7 | 5 | 0d 前 |
@@ -104,7 +101,7 @@ events_published: 73
 
 ## GitHub 動能榜的中文描述
 
-- 榜單中文描述：33/36 條
+- 榜單中文描述：26/36 條
 
 這一格不判紅燈：第一天本來就是 0 條，一個天天紅的看板跟一個
 永遠綠的一樣沒有資訊。**要判紅的是「有過然後停了」**，那個天數就在上面。
