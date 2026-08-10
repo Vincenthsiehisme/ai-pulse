@@ -4861,18 +4861,65 @@ _fac_html = _rmod.score_grid_html({
                       "uniqueAuthors": None, "platformBreadth": None,
                       "regionBreadth": None, "velocity": None},
 })
-acase("傳播因子：None 在**印出來的 HTML 裡**是「未量測」，而且不畫比例條"
+# 2026-08-11：四項傳播因子連同 heat 一起從讀者頁面下架（見下一組判準），
+# 所以這裡剩下的是「還會畫出來、而且真的量得到」的那幾格。`uniqueAuthors`
+# 是其中唯一可能為 None 的——它有量測管道，只是這一則沒量到，
+# 那正是「未量測」這個字還有意義的地方。
+acase("因子條：None 在**印出來的 HTML 裡**是「未量測」，而且不畫比例條"
       "（長度 0 的條子跟「量到 0」在畫面上一模一樣，那正是要修掉的誤會）",
       [_fac_html.count("bar-unmeasured"),
-       # 5 不是 4：heat 的 hero 本來就印「未量測」（既有行為），
-       # 加上這四格。寫 4 會過不了，而寫「>=4」就等於沒在測。
        _fac_html.count(">" + _rmod.HEAT_UNMEASURED + "</b>")],
-      [4, 5])
+      [1, 1])
 # 缺鍵也算沒量到。舊 note 的 score_factors 若少一格，印 0 是編造。
-acase("傳播因子：`score_factors` 缺鍵一律當成沒量到，不補 0",
+acase("因子條：`score_factors` 缺鍵一律當成沒量到，不補 0",
       _rmod.score_grid_html({"confidence": 1, "heat": None, "impact": 1, "value": 1,
                              "independent": 1, "score_factors": {}}
-                            ).count("bar-unmeasured"), 10)
+                            ).count("bar-unmeasured"), len(_rmod.FACTOR_META))
+
+# ── 2026-08-11：heat 與 value 從讀者看得到的地方下架 ────────────────────
+# heat 從上線到現在沒有一天印過數字（四項傳播輸入沒有量測管道，scoring 一律回
+# None），那一格每天講的都是「這一格沒有內容」；value 是內部排序用的合成分，
+# 對讀者沒有可解釋的意義。**下架的是顯示，不是欄位也不是判準**——frontmatter、
+# gate 的 unmeasured_heat / unsupported_heat、送給敘述層的「未量測」全部沒動。
+# 規格 references/readiness-gate.md〈為什麼 heat 與 value 不對讀者顯示〉。
+#
+# 判準守的是**反向**：只刪不反轉的話，下一個人會把它當回歸再加回去。
+_hero_html_811 = _rmod.score_grid_html({
+    "confidence": 74, "heat": None, "impact": 55, "value": 70, "independent": 2,
+    "score_factors": {"authority": 80, "freshness": 90}})
+acase("讀者頁面：詳情頁的 hero 只剩 confidence 與 impact，沒有 heat 也沒有 value"
+      "（heat 恆為未量測、value 是內部合成分，兩個對讀者都不可解釋）",
+      [_hero_html_811.count("<div class=\"sh\">"),
+       "heat" in _hero_html_811, ">value<" in _hero_html_811],
+      [2, False, False])
+# 四項傳播輸入也一起下架：留著等於讓讀者看到四塊拼圖、卻看不到拼出來的圖。
+acase("讀者頁面：四項傳播因子不再畫在因子條上（它們合成的 heat 已經下架）",
+      sorted(k for k, _l, _c in _rmod.FACTOR_META
+             if k in ("platformBreadth", "regionBreadth", "velocity", "propagationSignals")),
+      [])
+# 卡片那一行是 heat 出現頻率最高的地方——86 則事件、每一則一次。
+_card_811 = _rmod.event_card if hasattr(_rmod, "event_card") else None
+acase("讀者頁面：事件卡片的 score 行不再印 heat"
+      "（那是它出現最多次的地方，一則一次）",
+      [ln for ln in open(os.path.join(_HERE, "pulse-render.py"), encoding="utf-8")
+       .read().splitlines()
+       if 'class="score"' in ln and "heat" in ln],
+      [])
+# 對外資料檔跟畫面同一個標準：欄位存在就等同公開宣稱。
+acase("讀者頁面：dist 的事件 JSON 不再帶 heat 欄位（對外欄位等同公開宣稱）",
+      [ln for ln in open(os.path.join(_HERE, "pulse-render.py"), encoding="utf-8")
+       .read().splitlines()
+       if '"summary", "confidence"' in ln and "heat" in ln],
+      [])
+# 反向的另一半：欄位與判準**必須還在**。只斷言「畫面上沒有」的話，
+# 把 scoring 的 heat 整個拔掉也會全綠——那是完全不同的一件事。
+_pg_txt_811 = open(os.path.join(_HERE, "pulse-gate.py"), encoding="utf-8").read()
+acase("下架的是顯示不是判準：gate 的兩條 heat 規則與敘述層的「未量測」都還在"
+      "（只守畫面的話，把 heat 從 scoring 拔掉也會全綠——那是完全不同的一件事）",
+      ['blockers.append("unmeasured_heat")' in _pg_txt_811,
+       'blockers.append("unsupported_heat")' in _pg_txt_811,
+       '"未量測" if fm.get("heat") is None' in _np_txt],
+      [True, True, True])
 
 # 二、判斷層的 rule-tag 曾經被烙進 prose、之後不再重算，而同一頁的警示框是
 #     即時算的。實測 evt-2026-07-21-1bdb1a：內文「單一獨立來源」，
