@@ -70,21 +70,30 @@ NAV = [("home", "關鍵變化", ""), ("lines", "領域趨勢", "lines/"),
 DEV_LABEL = {"origin": ("起點", "fact"), "official": ("官方", "accent"),
              "discussion": ("討論", "forecast"), "response": ("後續", "impact")}
 # 10 維評分因子的中文標籤與顯示上限（用來畫比例條）
+# **只列讀者看得懂、而且真的量得到的因子。** 四項傳播輸入
+# （platformBreadth / regionBreadth / velocity / propagationSignals）從上線到現在
+# 一次都沒有量到過，畫出來是四條「未量測」，而它們合成的那個 heat 這一版也下架了
+# ——留著等於讓讀者看到四塊拼圖卻看不到拼出來的圖。它們照樣寫進 frontmatter 的
+# score_factors，只是不畫在讀者面前。規格 references/readiness-gate.md。
 FACTOR_META = [
     ("authority", "權威", 100), ("corroboration", "佐證", 100), ("primaryEvidence", "一手證據", 100),
     ("independentSources", "獨立來源", 5), ("uniqueAuthors", "獨立作者", 8),
-    ("platformBreadth", "平台廣度", 5), ("regionBreadth", "地域廣度", 4),
-    ("velocity", "傳播速度", 100), ("freshness", "新鮮度", 100),
-    ("propagationSignals", "傳播訊號", 4),
+    ("freshness", "新鮮度", 100),
 ]
 
 # heat 可以是 None：一項傳播訊號都沒量到時 scoring.py 不編一個數字出來
-# （紅線 8，規格見 references/readiness-gate.md）。前台印「未量測」不印 0——
-# 0 會被讀成「量過了，很冷」，那比不印更糟。
+# （紅線 8，規格見 references/readiness-gate.md）。
+#
+# **2026-08-11 起這兩個東西不再用在讀者頁面上。** heat 從上線到現在沒有一天印過
+# 數字，那一格每天講的都是「這一格沒有內容」——對讀者是雜訊不是資訊。欄位、
+# gate 的兩條判準、送給敘述層的「未量測」全部照舊，下架的只有顯示。
+# 留著這個常數是因為 `_R_COPY` 那類文案掃描還會引用它，而且 M3 接上之後
+# 要回到規格重新決定顯不顯示——到那天這裡是現成的。
 HEAT_UNMEASURED = "未量測"
 
 
 def heat_text(v):
+    """→ 顯示用字串。**不要用在讀者頁面上**，見上方註解與 readiness-gate.md。"""
     return HEAT_UNMEASURED if v is None else v
 
 BRAND = '<span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>'
@@ -941,7 +950,7 @@ def event_card(ev, prefix, full=True):
 <p class="lead">{esc(ev['summary'])}</p>
 {('<div class="layers">' + layers + '</div>') if layers else ''}
 {ev_block}
-<div class="score"><span>confidence <b>{esc(ev['confidence'])}</b></span><span>heat <b>{esc(heat_text(ev['heat']))}</b></span>{track_span}<a class="detail-link" href="{href}">看完整事件 {ARROW}</a></div>
+<div class="score"><span>confidence <b>{esc(ev['confidence'])}</b></span>{track_span}<a class="detail-link" href="{href}">看完整事件 {ARROW}</a></div>
 </article>"""
 
 
@@ -1089,8 +1098,10 @@ def journey_html(ev, corpus_idx, sources):
 
 def score_grid_html(ev):
     sf = ev.get("score_factors") or {}
-    heroes = [("confidence", ev["confidence"]), ("heat", heat_text(ev["heat"])),
-              ("impact", ev.get("impact", 0)), ("value", ev.get("value", 0))]
+    # 四格砍成兩格：heat 恆為「未量測」，value 是內部排序用的合成分，兩個對讀者
+    # 都沒有可解釋的意義。規格 references/readiness-gate.md〈為什麼 heat 與 value
+    # 不對讀者顯示〉。欄位本身沒動，gate 照樣讀。
+    heroes = [("confidence", ev["confidence"]), ("impact", ev.get("impact", 0))]
     hero_html = "".join(f'<div class="sh"><span>{esc(k)}</span><b>{esc(v)}</b></div>' for k, v in heroes)
     facs = []
     for key, label, cap in FACTOR_META:
@@ -1217,13 +1228,12 @@ def build_home(events, narratives, generated):
                      '<p class="deck">抓取鏈跑完了，但沒有一則湊得齊證據。'
                      '這一頁寧可空著，也不會把不夠格的補上來。</p></div>')
 
-    # 熱度那一格印「未量測」不印 0：四個傳播因子從來沒有量測管道，
-    # 印 0 會被讀成「量過，結果是零」。
+    # 這裡原本還有一格「熱度 未量測」。它從上線到現在沒有一天印過數字，
+    # 佔著首頁計數欄的一格只為了說「這一格沒有內容」。2026-08-11 下架，
+    # 規格 references/readiness-gate.md。
     tallies = [("已發布 Event", n), ("涉及主體", companies), ("主線", len(TRACKS))]
     tally_html = "".join(f'<div class="tally"><span>{esc(k)}</span><b>{v}</b></div>'
                          for k, v in tallies)
-    tally_html += ('<div class="tally"><span>熱度</span>'
-                   '<b class="unmeasured">未量測</b></div>')
 
     counts = {slug: len([e for e in events if (track_of(e) or ("",))[0] == slug])
               for slug, _n, _c in TRACKS}
@@ -1734,7 +1744,7 @@ def main():
     (out / "data" / "timeline.json").write_text(
         json.dumps({"generated": clock.utc_stamp(), "count": len(events),
                     "events": [{k: e[k] for k in ("id", "slug", "title", "date", "company", "category",
-                                                  "summary", "confidence", "heat")} for e in events]},
+                                                  "summary", "confidence")} for e in events]},
                    ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"pulse-render  published={len(events)}  signals={len(signals)}  events_pages={len(events)}  corpus_idx={len(corpus_idx)}")
     print(f"  → {out}/index.html + lines/ + timeline/ + signals/ + events/<slug>/ + assets/")

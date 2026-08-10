@@ -1847,3 +1847,32 @@ mutations:
     replace: "       \"fact\":        \"## 事實：發生了什麼，具體、只講證據有的\","
     survives: false
     why: ""
+
+  # ── heat 與 value 從讀者頁面下架（2026-08-11）──
+  # heat 從上線到現在沒有一天印過數字（四項傳播輸入沒有量測管道），那一格每天講的
+  # 都是「這一格沒有內容」；value 是內部排序用的合成分。下架的是**顯示**，不是欄位
+  # 也不是判準。規格 references/readiness-gate.md〈為什麼 heat 與 value 不對讀者顯示〉。
+
+  - id: M210
+    title: "把 heat 與 value 加回詳情頁的 hero（一格永遠寫「未量測」、一格是讀者無法解釋的合成分，兩個都佔著最顯眼的位置）"
+    file: pulse-render.py
+    find: "    heroes = [(\"confidence\", ev[\"confidence\"]), (\"impact\", ev.get(\"impact\", 0))]"
+    replace: "    heroes = [(\"confidence\", ev[\"confidence\"]), (\"heat\", heat_text(ev[\"heat\"])), (\"impact\", ev.get(\"impact\", 0)), (\"value\", ev.get(\"value\", 0))]"
+    survives: false
+    why: ""
+
+  - id: M211
+    title: "把 heat 欄位加回對外的事件 JSON（對外欄位等同公開宣稱，跟畫面同一個標準）"
+    file: pulse-render.py
+    find: "                                                  \"summary\", \"confidence\")} for e in events]},"
+    replace: "                                                  \"summary\", \"confidence\", \"heat\")} for e in events]},"
+    survives: false
+    why: ""
+
+  - id: M212
+    title: "把 gate 的 unmeasured_heat 拔掉（下架顯示之後只守畫面的話，這一條被拔掉不會有任何東西變紅——而那是完全不同的一件事）"
+    file: pulse-gate.py
+    find: "        blockers.append(\"unmeasured_heat\")"
+    replace: "        pass"
+    survives: false
+    why: ""
