@@ -1826,3 +1826,24 @@ mutations:
     replace: "    if True:\n        return \"跑班日期是今天而這裡紅了，代表鏈在跑但每條來源都沒東西進來\""
     survives: false
     why: ""
+
+  # ── 一行重複的標題，讓站上六天沒有新文章（2026-08-10）──
+  # 潤稿端把 `## 事實` 寫進值裡，apply 又加一次自己的標題，gate 抽 section 抽到
+  # 0 字，13 則事件全部掛 thin_fact 卡死——而四個警報全綠。
+  # 經過見 references/incidents/2026-08-10-the-heading-that-emptied-the-fact.md。
+
+  - id: M208
+    title: "apply 不剝掉值開頭的段落標題（檔案裡出現兩行標題 → gate 抽 section 抽到 0 字 → 每一則都掛 thin_fact，而且 enriched 已是 true，prep 不會再挑它們，不會自癒）"
+    file: pulse-enrich-apply.py
+    find: "            txt, ch = voice_clean.clean(strip_own_heading(heading, data.get(key, \"\")))"
+    replace: "            txt, ch = voice_clean.clean(data.get(key, \"\"))"
+    survives: false
+    why: ""
+
+  - id: M209
+    title: "runbook 的 schema 範例把標題寫回值裡（那是這次事故的源頭：潤稿端照著填，寫出來就是壞的）"
+    file: enrich-runbook.md
+    find: "       \"fact\":        \"發生了什麼，具體、只講證據有的\","
+    replace: "       \"fact\":        \"## 事實：發生了什麼，具體、只講證據有的\","
+    survives: false
+    why: ""
