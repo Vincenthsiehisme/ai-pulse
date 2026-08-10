@@ -33,11 +33,11 @@
    {
      "<event_id>": {
        "summary":     "一句話 lead：這件事最重要的是什麼（≤50 字）",
-       "fact":        "## 事實：發生了什麼，具體、只講證據有的",
-       "context":     "## 脈絡：放在什麼背景才看得懂",
-       "impact":      "## 影響：對能力 / 成本 / 競爭結構的影響",
-       "judgment":    "## 判斷：你的分析（rule-tag 由 apply 自動加，你不用寫待證實那句）",
-       "next_signal": "## 下一個訊號：接下來要觀察哪個可驗證訊號",
+       "fact":        "發生了什麼，具體、只講證據有的",
+       "context":     "放在什麼背景才看得懂",
+       "impact":      "對能力 / 成本 / 競爭結構的影響",
+       "judgment":    "你的分析（rule-tag 由 apply 自動加，你不用寫待證實那句）",
+       "next_signal": "接下來要觀察哪個可驗證訊號",
        "category":    "model-capability | product | research | policy | infra | capital | ...",
        "track":       "模型能力與研究 | Agent與軟體重構 | 產品與商業驗證 | 基礎設施與成本 | 資本與公司演化 | 全球創新版圖",
        "keywords":    ["3-6 個"],
@@ -46,6 +46,14 @@
    }
    ```
    存成 `enrich-result.json`。
+
+   **值裡面不要寫 `## 事實` 這種段落標題，只放那一段的內文**——標題由
+   `pulse-enrich-apply.py` 自己加。2026-08-10 之前這份範例把標題寫在值裡，
+   於是檔案裡出現兩行一樣的標題，而 `pulse-gate` 取「標題到下一個 `##` 之間」
+   時抽到 0 字，13 則事件全部掛 `thin_fact` 卡死、站上六天沒有新文章，
+   而四個警報全綠。現在 apply 會把值開頭的標題剝掉（`strip_own_heading()`），
+   所以寫了也不會壞——但別寫。經過見
+   `references/incidents/2026-08-10-the-heading-that-emptied-the-fact.md`。
 
 4. **跑 apply**（確定性寫回 + 後洗 + 事後摘要）：
    ```

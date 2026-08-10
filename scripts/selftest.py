@@ -4917,6 +4917,72 @@ acase("判斷層：enrich 端不再把 rule-tag 寫進 prose"
           os.path.join(_HERE, "pulse-enrich-apply.py"), encoding="utf-8").read(),
       False)
 
+# ── 2026-08-10：一行重複的標題，讓站上六天沒有新文章 ──────────────────
+# 潤稿端把 `## 事實` 寫進了 fact 的**值**裡（runbook 的 schema 範例當時就那樣寫），
+# apply 又加一次自己的標題，檔案裡於是有兩行一樣的標題。而 pulse-gate.section()
+# 取「標題到下一個 ## 之間」——下一個 ## 正好是那個重複的，**抽出來 0 字**，
+# 低於 thin_fact_min_chars，13 則事件全部掛 thin_fact 卡死，而四個警報全綠。
+# 而且不會自癒：那幾則的 enriched 已是 true、佔位詞也沒了，prep 不會再挑它們。
+# 經過見 references/incidents/2026-08-10-the-heading-that-emptied-the-fact.md。
+_ea_spec = importlib.util.spec_from_file_location(
+    "pulse_enrich_apply", os.path.join(_HERE, "pulse-enrich-apply.py"))
+_ea = importlib.util.module_from_spec(_ea_spec)
+_ea_spec.loader.exec_module(_ea)
+acase("潤稿寫回：值開頭那一行自己的段落標題要剝掉"
+      "（不剝的話檔案裡會有兩行標題，gate 抽 section 抽到 0 字，每一則都掛 thin_fact）",
+      [_ea.strip_own_heading("事實", "## 事實\nNVIDIA 發表了新的東西。"),
+       _ea.strip_own_heading("事實", "## 事實：\nNVIDIA 發表了新的東西。"),
+       _ea.strip_own_heading("事實", "## 事實：NVIDIA 發表了新的東西。"),
+       _ea.strip_own_heading("脈絡", "## 脈絡\n## 脈絡\n放在什麼背景才看得懂。")],
+      ["NVIDIA 發表了新的東西。", "NVIDIA 發表了新的東西。",
+       "NVIDIA 發表了新的東西。", "放在什麼背景才看得懂。"])
+# 剝過頭比不剝更難發現：它會靜靜吃掉內容，而檔案看起來完全正常。
+acase("潤稿寫回：沒有標題的值原樣不動，別段的標題與內文中間的 ## 都不能被吃掉"
+      "（剝過頭會靜靜少一段，比不剝更難發現）",
+      [_ea.strip_own_heading("事實", "NVIDIA 發表了新的東西。"),
+       _ea.strip_own_heading("事實", "本則提到 ## 事實 這三個字但不在開頭。"),
+       _ea.strip_own_heading("事實", "## 影響\n這是別段的標題，不該剝。")],
+      ["NVIDIA 發表了新的東西。", "本則提到 ## 事實 這三個字但不在開頭。",
+       "## 影響\n這是別段的標題，不該剝。"])
+# 真正的判準：走完整條 apply → gate，斷言 gate 抽得到內容。純函式對而呼叫端
+# 沒接，這一格等於不存在——M198 就是這樣活下來的。
+_gate_spec2 = importlib.util.spec_from_file_location(
+    "pulse_gate_eh", os.path.join(_HERE, "pulse-gate.py"))
+_gm2 = importlib.util.module_from_spec(_gate_spec2)
+_gate_spec2.loader.exec_module(_gm2)
+with _tf2.TemporaryDirectory() as _td_eh:
+    _ev_eh = Path(_td_eh) / "Events"
+    _ev_eh.mkdir(parents=True)
+    (_ev_eh / "e.md").write_text(
+        "---\nid: evt-x\nstatus: review\n---\n\n"
+        "## 事實\n待編輯\n\n## 證據\n- [[Sources/src-a|src-a]]\n\n"
+        "## 脈絡\n待編輯\n\n## 影響\n待編輯\n\n## 判斷\n待編輯\n\n"
+        "## 下一個訊號\n待編輯\n", "utf-8")
+    (Path(_td_eh) / "r.json").write_text(_json.dumps({"evt-x": {
+        "summary": "一句話摘要，長度要過門檻所以寫長一點點。",
+        "fact": "## 事實：NVIDIA 在官方部落格宣布一座新的資料中心，規模與時程未揭露。",
+        "context": "## 脈絡\n這是算力往新興市場擴張的一個案例。",
+        "impact": "## 影響\n對區域算力供給的實質貢獻，證據不足以評估。",
+        "judgment": "## 判斷\n目前只有單一來源，先當成有這件事。",
+        "next_signal": "## 下一個訊號\n看有沒有第二個獨立來源描述同一件事。",
+    }}, ensure_ascii=False), "utf-8")
+    _rc_eh = _subprocess.run(
+        [sys.executable, os.path.join(_HERE, "pulse-enrich-apply.py"),
+         "--in", str(Path(_td_eh) / "r.json")],
+        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=_td_eh))
+    _body_eh = (_ev_eh / "e.md").read_text("utf-8").split("\n---", 2)[-1]
+    _fact_eh = _gm2.section(_body_eh, "事實")
+acase("潤稿寫回 → 門禁：走完整條鏈，gate 抽得到「事實」而不是 0 字"
+      "（2026-08-10 就是這一格 0 字，13 則全部掛 thin_fact，站上六天沒有新文章）",
+      [_rc_eh.returncode, _body_eh.count("## 事實"), len(_fact_eh) >= 20],
+      [0, 1, True])
+# runbook 的 schema 範例就是這次的源頭：它把標題寫進了值裡，而潤稿端照著填。
+acase("潤稿 runbook：schema 範例的值裡不准出現段落標題（那是這次事故的源頭）",
+      [ln.strip() for ln in open(
+          os.path.join(_HERE, "enrich-runbook.md"), encoding="utf-8").read().splitlines()
+       if _re.match(r'"(fact|context|impact|judgment|next_signal)":\s*"##', ln.strip())],
+      [])
+
 # ── 首頁頭條：先框時間窗口，再在窗口裡比信心 ────────────────────────
 # 舊版是 `max(events, key=confidence)`，一個沒有時間邊界的全域極值。旁邊的註解
 # 寫著「兩者在平常的日子重合，正好在有大事的那天分岔」——實測**不重合、也不是

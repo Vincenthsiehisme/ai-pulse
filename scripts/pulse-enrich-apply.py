@@ -35,6 +35,45 @@ def extract_section(body, heading):
     return m.group(1).strip() if m else ""
 
 
+def strip_own_heading(heading, text):
+    """剝掉值開頭那一行自己的段落標題。**這一層不信任輸入的形狀。**
+
+    2026-08-10 實測的故障：潤稿端把 `## 事實` 寫進了 `fact` 的**值**裡（runbook 的
+    schema 範例當時就是那樣寫的），而下面重組 body 時又加了一次自己的標題，於是
+    檔案裡變成：
+
+        ## 事實
+        ## 事實
+        NVIDIA 官方部落格報導，…
+
+    `pulse-gate.section()` 取的是「這個標題到下一個 `##` 之間」，而下一個 `##`
+    正好是那個重複的標題——**抽出來是 0 字**，低於 `thin_fact_min_chars`，
+    於是每一則都掛 `thin_fact` 卡在 review。13 則裡 13 則中，零例外。
+
+    更糟的是它**不會自癒**：那幾則的 `enriched` 已經是 true、佔位詞也沒了，
+    下一班 prep 不會再挑它們。站上因此六天沒有新文章，而四個警報全綠。
+
+    修在這裡而不是修 runbook，是因為 runbook 只是一份給人／模型讀的文件，
+    而這一步是確定性那一層——**寫進檔案的形狀應該由碼決定，不由輸入決定**。
+    runbook 的範例同一版也修了，但那是止血不是根治。
+
+    兩種寫法都剝：整行只有標題（`## 事實`、`## 事實：`），或標題後面接了冒號
+    再接內容（`## 事實：某某公司發表…`）——後者只剝前綴，內容留著。
+    """
+    t = (text or "").lstrip()
+    for _ in range(3):          # 有界迴圈：重複貼兩次標題也剝得掉，不會無限轉
+        m = re.match(rf"^#{{1,6}}\s*{re.escape(heading)}\s*[：:]?[ \t]*(?:\n|$)", t)
+        if m:
+            t = t[m.end():].lstrip("\n")
+            continue
+        m = re.match(rf"^#{{1,6}}\s*{re.escape(heading)}\s*[：:][ \t]*", t)
+        if m:
+            t = t[m.end():]
+            continue
+        break
+    return t
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="infile", required=True)
@@ -65,10 +104,11 @@ def main():
         # 每段 prose 過 voice_clean
         cleaned = {}
         ev_changes = []
-        for _, key in LAYER_ORDER:
+        for heading, key in LAYER_ORDER:
             if key is None:
                 continue
-            txt, ch = voice_clean.clean(data.get(key, ""))
+            # 先剝標題再過 voice_clean：剝掉的東西不算「後洗」，那是形狀不是用字。
+            txt, ch = voice_clean.clean(strip_own_heading(heading, data.get(key, "")))
             cleaned[key] = txt
             ev_changes.extend(ch)
         summary_txt, sc = voice_clean.clean(data.get("summary", ""))
