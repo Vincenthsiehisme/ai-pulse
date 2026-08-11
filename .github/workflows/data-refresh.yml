@@ -176,6 +176,16 @@ jobs:
         env:
           VAULT_DIR: ${{ github.workspace }}
         run: python scripts/pulse-entity-notes.py --quiet
+      # 「我上次說要看什麼」的待回答清單。規格 references/vault-pages.md。
+      # 它不判定任何事，只把主線的 next 與事件的「下一個訊號」整理出來讓人回答，
+      # 答案進 _probe/signal-verdicts.jsonl。為什麼不自動核對，見
+      # docs/design/2026-08-11-theme-tracking-revisited.md。
+      # 排在這裡的理由跟上面幾支一樣：要進版控，所以必須在 commit 之前。
+      - name: Vault pages — signal review (0 LLM)
+        continue-on-error: true
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: python scripts/pulse-signal-review.py --write --quiet
       # 星速榜的待譯清單。**由這一班準備，不由潤稿端自己重建榜單。**
       # 潤稿端是 Cowork 容器、沒有 GITHUB_TOKEN，未認證額度很緊——它自己跑
       # pulse-github.py 那一步是整個 C2 段唯一需要外部服務的地方，而 runbook

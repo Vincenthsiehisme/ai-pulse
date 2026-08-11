@@ -3943,6 +3943,74 @@ acase("潤稿 runbook：步驟 17 不准帶警報旗標"
       "（那一邊推不上去，判準卻讀本地 git log——它會把自己沒推成功的那顆讀成推成功了）",
       _RB_ALERT_LINES, [])
 
+# ── 「我上次說要看什麼」：待回答清單與裁決帳本（2026-08-11）────────────
+# 原本的 P1 是「把 next_signal 結構化讓機器自動核對」。實測推翻了那個規劃：
+# next_signal 這個 frontmatter 欄位早就存在而且 **0/86 被填過**，有內容的一直是
+# body 那段散文；而那 86 段裡約六成以「看…」開頭——寫給人的觀察指示，
+# 指向 benchmark 數字、出貨時程這類抓取鏈看不到的世界。同期 81/86 的事件仍然
+# 只有一個獨立來源。**瓶頸不在資料結構，在觀測範圍。**
+# 所以這一支不判定任何事，只整理問題讓人回答。
+# 見 docs/design/2026-08-11-theme-tracking-revisited.md。
+_sr_spec = importlib.util.spec_from_file_location(
+    "pulse_signal_review", os.path.join(_HERE, "pulse-signal-review.py"))
+_sr = importlib.util.module_from_spec(_sr_spec)
+_sr_spec.loader.exec_module(_sr)
+# sid 綁內容不綁流水號：那段話被改寫過就是**另一個問題**，舊答案不該繼續掛著。
+acase("待答清單：sid 綁內容——同一個來源鍵、話改了就是另一個 sid"
+      "（不然改寫過的訊號會掛著上一版的答案，而那是完全不同的一個問題）",
+      [_sr.sid("infra-cost", "看第三方 benchmark") == _sr.sid("infra-cost", "看第三方 benchmark"),
+       _sr.sid("infra-cost", "看第三方 benchmark") == _sr.sid("infra-cost", "看出貨時程"),
+       _sr.sid("a", "x") == _sr.sid("b", "x")],
+      [True, False, False])
+with _tf2.TemporaryDirectory() as _td_sr:
+    _v = Path(_td_sr)
+    (_v / "Events").mkdir(parents=True)
+    (_v / "_config").mkdir(parents=True)
+    (_v / "_config" / "narratives.yaml").write_text(
+        "version: 1\ntracks:\n  infra-cost:\n    next: 看有沒有第三方成本數字。\n", "utf-8")
+    (_v / "Events" / "a.md").write_text(
+        "---\nid: evt-a\nstatus: published\n---\n\n## 事實\n某某公司發表了東西。\n\n"
+        "## 下一個訊號\n看有沒有第二個獨立來源。\n", "utf-8")
+    # 未潤稿的那一則不該進待答清單——它不是一個待回答的問題，是待潤稿。
+    (_v / "Events" / "b.md").write_text(
+        "---\nid: evt-b\nstatus: published\n---\n\n## 下一個訊號\n待編輯：接下來看什麼。\n", "utf-8")
+    # review 的也不該進：門禁還沒讓它上線，它的訊號還不是對外的宣稱。
+    (_v / "Events" / "c.md").write_text(
+        "---\nid: evt-c\nstatus: review\n---\n\n## 下一個訊號\n看後續有沒有人跟進。\n", "utf-8")
+    _sr_all = _sr.collect(_v)
+    _sr_kinds = sorted(k for _s, k, _src, _t in _sr_all)
+    _sr_srcs = sorted(src for _s, _k, src, _t in _sr_all)
+    _sr_pend0 = len(_sr.pending(_v))
+    _sr_sid0 = _sr.collect(_v)[0][0]
+    _rc_sr_bad = _subprocess.run(
+        [sys.executable, os.path.join(_HERE, "pulse-signal-review.py"),
+         "--answer", "bogus#00000000", "--verdict", "happened"],
+        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(_v))).returncode
+    _subprocess.run(
+        [sys.executable, os.path.join(_HERE, "pulse-signal-review.py"),
+         "--answer", _sr_sid0, "--verdict", "unanswerable", "--note", "看不到"],
+        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(_v)))
+    _sr_pend1 = len(_sr.pending(_v))
+    _sr_led = _sr.history.read(_v / "_probe" / "signal-verdicts.jsonl")
+acase("待答清單：只收已上線、而且真的潤過的那幾則"
+      "（待編輯佔位還在的是待潤稿不是待回答；review 的還不是對外宣稱）",
+      [_sr_kinds, _sr_srcs], [["主線", "事件"], ["evt-a", "infra-cost"]])
+acase("待答清單：回答過的從待辦消失，答案進帳本"
+      "（這一頁是待辦不是歷史——歷史在 _probe/signal-verdicts.jsonl）",
+      [_sr_pend0, _sr_pend1, len(_sr_led),
+       (_sr_led[0].get("to") if _sr_led else None)],
+      [2, 1, 1, "unanswerable"])
+# append-only 的帳本記錯了刪不掉，所以 sid 對不上就要拒寫並回非零。
+acase("待答清單：對不上任何問題的 sid 要拒寫並回非零"
+      "（帳本是 append-only，一筆打錯字的裁決會永遠留在裡面當雜訊）",
+      [_rc_sr_bad, len(_sr_led)], [2, 1])
+# 這一頁要有人產生，否則又是一個「寫了沒人讀」的反面：沒人寫。
+_WF_SR = "\n".join(ln for ln in open(
+    os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml"),
+    encoding="utf-8").read().splitlines() if not ln.lstrip().startswith("#"))
+acase("待答清單：夜班真的有一步在產生它（沒有生產者的頁面等於不存在）",
+      "pulse-signal-review.py --write" in _WF_SR, True)
+
 # ── 判斷層的帳本：覆寫之前先留痕（references/narrative-layer.md〈帳本〉）──
 # now / next 是整段覆寫的，實測相鄰兩版有過只剩 10% 相同的。在這一版之前，被改掉的
 # 那一段只活在 git history 裡，而沒有任何一支腳本或任何一頁在讀它——這個系統因此
