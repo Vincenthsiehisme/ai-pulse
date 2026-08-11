@@ -567,7 +567,10 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
    證據、旅程）——它們是讀者要拿來查的，不是要拿來讀的，所以走側邊不走正文。
    `--measure` 是一行的字數上限：中文一行超過 40 字左右，眼睛回行就會找錯行。 */
 .longform{max-width:1020px;margin-inline:auto}
-.lf-head{max-width:calc(var(--measure) + 8em);margin-bottom:30px}
+/* padding-top：實測 header 底 131px、h1 頂 163px，中間只有 32px，而 h1 是 serif
+   大字級，上面還壓著一條 page-rubric——導覽列、rubric、巨大標題三層擠在一起。
+   rubric 屬於導覽不屬於標題，中間要有明確的呼吸。 */
+.lf-head{max-width:calc(var(--measure) + 8em);padding-top:30px;margin-bottom:30px}
 .lf-head h1{font-family:var(--serif);font-size:var(--fs-h1);line-height:1.16;
   letter-spacing:-.025em;font-weight:700;margin:0 0 12px;text-wrap:balance;line-break:strict}
 .lf-orig{margin:0 0 16px;padding-left:13px;border-left:3px solid var(--border);
@@ -618,6 +621,10 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .front > .idx{grid-column:1;grid-row:1;padding-left:0;border-right:1px solid var(--border-soft)}
 .front > .lead-story{grid-column:2;grid-row:1}
 .front > .tally-col{grid-column:3;grid-row:1;padding-right:0;border-left:1px solid var(--border-soft)}
+/* 標題長度換字級。長標題不降級的話，中欄會被撐到兩側各空 250px。 */
+.lead-story.t-mid h1{font-size:calc(var(--fs-h1) * .84)}
+.lead-story.t-long h1{font-size:calc(var(--fs-h1) * .7);line-height:1.2}
+.trk .rc{margin-left:8px;color:var(--accent);font:500 var(--fs-micro) var(--mono);letter-spacing:.04em}
 .page-rubric{display:flex;align-items:baseline;gap:10px;padding:14px 0 0;
   color:var(--quiet);font:var(--fs-tiny) var(--mono);letter-spacing:.14em}
 .page-rubric b{color:var(--accent);font-weight:600}
@@ -1136,8 +1143,11 @@ def score_grid_html(ev):
     warn = ""
     if (ev["independent"] or 0) < 2:
         warn = '<div class="warnbox">目前只有一個獨立來源說過這件事。要等第二個彼此無關的來源，才會從「待證實」升上來。</div>'
+    # 這裡原本有一個 <h3>評分理由</h3>，而呼叫端外面又包一層 <h3>分數</h3>——
+    # 實測右欄的 h3 依序是「分數／評分理由／判斷的依據／證據／證據 · 1 筆」，
+    # 兩組疊字。標題層級重複會讓那一欄看起來頭重腳輕，而且讀者分不出
+    # 「分數」跟「評分理由」是兩個區塊還是一個。留外面那一層，這裡拿掉。
     return f"""<div class="aside-box">
-<h3>評分理由</h3>
 <div class="score-hero">{hero_html}</div>
 <div class="factors">{"".join(facs)}</div>
 {warn}</div>"""
@@ -1145,6 +1155,11 @@ def score_grid_html(ev):
 
 # ─────────────────────── pages ───────────────────────
 LEAD_WINDOW_DAYS = 7
+# 首頁索引筆數。**真正把兩側 250px 空白補起來的不是這個數字，是 h1 的字級分級**
+# ——實測 h1 降級之後中欄從 1070 掉到 821，而索引 9 筆本來就是 814。
+# 這裡從 9 微調到 10 只是留一點緩衝：頭條字級隨標題長度變動，中欄高度因此會浮動。
+# 這個數字沒有規格上的意義，純粹是版面容量，所以放在這裡讓它可以被調。
+IDX_ITEMS = 10
 
 
 def pick_lead(events, today):
@@ -1207,7 +1222,7 @@ def build_home(events, narratives, generated):
         f'<li><span class="co">{esc(e["company"])}</span>'
         f'<a class="t" href="{ev_href("", e["slug"])}">'
         f'{esc(e.get("title_zh") or e["title"])}</a></li>'
-        for e in others[:9])
+        for e in others[:IDX_ITEMS])
 
     deuce = "".join(
         f'<article><span class="kicker">{esc(e.get("track") or "未分線")}</span>'
@@ -1215,7 +1230,13 @@ def build_home(events, narratives, generated):
         f'{esc(e.get("title_zh") or e["title"])}</a></h3>'
         f'<p>{esc(e.get("summary"))}</p></article>' for e in others[:2])
 
+    # 標題長度決定字級。實測：21 字的中文標題在原本那個字級下折成四行，
+    # 把中欄撐到 1070px，而兩側是固定筆數（索引 9、計數 3、主線 6），
+    # 內容只有 814 / 829——兩邊各空 250px。報紙本來就依標題長度換字級，
+    # 這裡照做，而且是確定性規則不是人挑。
     if lead:
+        _lt = len(str(lead.get("title_zh") or lead.get("title") or ""))
+        lead_cls = "lead-story" + (" t-long" if _lt > 20 else " t-mid" if _lt > 12 else "")
         cols = "".join(
             f"<p>{esc(strip_frozen_tag(lead['layers'].get(k) or '').strip())}</p>"
             for k in ("事實", "脈絡") if (lead["layers"].get(k) or "").strip())
@@ -1225,7 +1246,7 @@ def build_home(events, narratives, generated):
         # 去讀 byline 那個小小的日期。
         stale_html = (f'<p class="lead-stale">最近 {LEAD_WINDOW_DAYS} 天沒有新的已發布事件，'
                       f'這則頭條是目前最新的一則。</p>' if lead_stale else "")
-        lead_html = f"""<div class="lead-story">
+        lead_html = f"""<div class="{lead_cls}">
 <span class="kicker">{esc(lead.get("track") or "未分線")}</span>{stale_html}
 <h1><a href="{ev_href("", lead["slug"])}">{esc(lead.get("title_zh") or lead["title"])}</a></h1>
 <p class="deck">{esc(lead.get("summary"))}</p>
@@ -1251,12 +1272,24 @@ def build_home(events, narratives, generated):
 
     counts = {slug: len([e for e in events if (track_of(e) or ("",))[0] == slug])
               for slug, _n, _c in TRACKS}
+    # 「本期」＝頭條窗口的同一段時間。右欄原本只有累計數，而累計數幾乎不動——
+    # 一頁每天都長一樣的看板，讀者第二天就不會再看它。用同一個窗口是刻意的：
+    # 頭條說「這七天最重要的是這則」，這一欄說「這七天各條線各有幾則」，
+    # 兩個講的是同一段時間，讀者對得起來。
+    _today_h = clock.display_date(clock.utc_now())
+    recent = {slug: len([e for e in events
+                         if (track_of(e) or ("",))[0] == slug
+                         and (_today_h - _date.fromisoformat(e["date"][:10])).days
+                         <= LEAD_WINDOW_DAYS])
+              for slug, _n, _c in TRACKS}
     trk_html = ""
     for slug, name, _color in sorted(TRACKS, key=lambda t: -counts[t[0]]):
         th = (narratives.get(slug) or {}).get("thesis") or ""
         th_html = f'<span class="th">{esc(th[:44])}…</span>' if th else ""
+        _r = recent.get(slug, 0)
+        rc_html = f'<span class="rc">本期 +{_r}</span>' if _r else ""
         trk_html += (f'<div class="trk"><span class="n">{counts[slug]:02d}</span>'
-                     f'<span class="nm">{esc(name)}</span>{th_html}</div>')
+                     f'<span class="nm">{esc(name)}{rc_html}</span>{th_html}</div>')
 
     hero_html = f"""<div class="shell">
 <div class="front">
@@ -1566,8 +1599,17 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
     ev_links = "".join(f'<a href="{esc(e["url"])}" rel="noopener" target="_blank">{esc(e["sid"])} {EXT}</a>'
                        for e in ev["evidence"] if e.get("url"))
     n_ev = len([e for e in ev["evidence"] if e.get("url")])
+    # 證據排在右欄最前面：讀者在讀「事實」那一段時，最想確認的是「這是誰說的」。
+    # 原本它排在分數、判斷依據、發展歷程之後——要捲到最底才看得到來源。
+    #
+    # **而且只在發展歷程沒有退化成證據清單時才印。** journey_shape() 在只有一筆
+    # 證據時會把區塊標題換成 EVIDENCE_HEADING——也就是那個區塊本身就是一份證據
+    # 清單，而且它每一筆都帶外連。實測右欄的 h3 因此變成
+    # 「證據 · 1 筆 / 評分理由 / 判斷的依據 / 證據」——同一份東西印兩次，
+    # 而 94% 的已發布事件都只有一筆證據，所以那是**常態不是例外**。
     ev_block = (f'<div class="lf-note"><h3>證據 · {n_ev} 筆</h3><ul class="ev">{ev_links}</ul>'
-                f'<p>譯文是二手的，原文那一句永遠留著——每一筆都點得進去。</p></div>') if ev_links else ""
+                f'<p>譯文是二手的，原文那一句永遠留著——每一筆都點得進去。</p></div>'
+                ) if (ev_links and journey_heading != EVIDENCE_HEADING) else ""
     # 相關事件：同主線或同公司，排除自己
     rel = [e for e in all_events if e["slug"] != ev["slug"]
            and (track_of(e) == tr and tr is not None or e["company"] == ev["company"])][:4]
@@ -1594,11 +1636,11 @@ def build_event_page(ev, all_events, corpus_idx, sources, generated):
 <div class="lf-grid">
 <div class="lf-body">{layers}</div>
 <aside class="lf-notes">
-<div class="lf-note"><h3>分數</h3>{scores}</div>
-<div class="lf-note"><h3>判斷的依據</h3><span class="chip">{esc(tag.strip("（）"))}</span>
-<p>這一格由規則即時算出來，不是人寫的評語，也不是寫進 note 時凍結的那一份。</p></div>
 <div class="lf-note"><h3>{esc(journey_heading)}</h3>{journey}</div>
 {ev_block}
+<div class="lf-note"><h3>評分理由</h3>{scores}</div>
+<div class="lf-note"><h3>判斷的依據</h3><span class="chip">{esc(tag.strip("（）"))}</span>
+<p>這一格由規則即時算出來，不是人寫的評語，也不是寫進 note 時凍結的那一份。</p></div>
 </aside>
 </div>
 </article></div>

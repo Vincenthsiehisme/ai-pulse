@@ -3943,6 +3943,56 @@ acase("潤稿 runbook：步驟 17 不准帶警報旗標"
       "（那一邊推不上去，判準卻讀本地 git log——它會把自己沒推成功的那顆讀成推成功了）",
       _RB_ALERT_LINES, [])
 
+# ── 版型：移除指標之後留下的三個洞（2026-08-11）──────────────────────
+# 實測（1440 寬）：header 底 131px、h1 頂 163px，中間只有 32px，而 h1 是 serif
+# 大字級、上面還壓著一條 page-rubric——三層文字擠在一起。
+_R_SRC_811 = open(os.path.join(_HERE, "pulse-render.py"), encoding="utf-8").read()
+_R_CSS_811 = _rmod.CSS
+acase("文章頁：標題與 header 之間要有呼吸（rubric 屬於導覽不屬於標題）",
+      "padding-top:30px" in _R_CSS_811.split(".lf-head{")[1].split("}")[0], True)
+# 右欄的 h3 曾經是「分數／評分理由／判斷的依據／證據／證據 · 1 筆」——兩組疊字。
+# score_grid_html 自己印一個 <h3>評分理由</h3>，而呼叫端外面又包一層 <h3>分數</h3>。
+acase("文章頁：評分那一塊只有一層標題（兩層疊字會讓讀者以為那是兩個區塊）",
+      _rmod.score_grid_html({"confidence": 1, "heat": None, "impact": 1, "value": 1,
+                             "independent": 2, "score_factors": {}}).count("<h3>"),
+      0)
+# journey_shape() 在只有一筆證據時把區塊標題換成 EVIDENCE_HEADING，也就是那個區塊
+# 本身就是證據清單、而且每一筆都帶外連。再印一次 ev_block 就是同一份東西印兩次，
+# 而 94% 的已發布事件都只有一筆證據——那是常態不是例外。
+acase("文章頁：發展歷程退化成證據清單時，不再另印一份證據"
+      "（94% 的事件只有一筆證據，所以那是常態）",
+      [ln for ln in _R_SRC_811.splitlines()
+       if "ev_links and journey_heading != EVIDENCE_HEADING" in ln] != [],
+      True)
+# 首頁：實測索引 9 筆內容 814px、計數欄 829px，而中欄被一個 21 字標題的 h1 撐到
+# 1070px——兩側各空 250px。真正的修法是 h1 依標題長度換字級，不是把側欄塞滿。
+def _hev811(title):
+    return {"id": "e1", "slug": "s1", "title": title, "title_zh": None,
+            "date": _rmod.clock.display_date(_rmod.clock.utc_now()).isoformat(), "date_display": "2026-08-11",
+            "company": "OpenAI", "track": "模型能力與研究", "summary": "摘要。",
+            "confidence": 73, "impact": 55, "independent": 1,
+            "layers": {"事實": "一段事實。"}}
+# 走真的 build_home，不是掃字串——掃字串的話，把 lead_cls 那一行整個拿掉、
+# 只留 CSS 裡的 .t-long 規則，判準照樣全綠（M220 第一版就是這樣活下來的）。
+_home_long = _rmod.build_home([_hev811("一二三四五六七八九十一二三四五六七八九十一")],
+                              {}, "2026-08-11")
+_home_mid = _rmod.build_home([_hev811("一二三四五六七八九十一二三四五")], {}, "2026-08-11")
+_home_short = _rmod.build_home([_hev811("短標題")], {}, "2026-08-11")
+acase("首頁：頭條字級依標題長度分級（長標題不降級，中欄會把兩側各撐出 250px 空白）"
+      "——走真的 build_home，掃字串會讓「規則還在但沒人套用」全綠",
+      ['class="lead-story t-long"' in _home_long,
+       'class="lead-story t-mid"' in _home_mid,
+       'class="lead-story"' in _home_short,
+       ".lead-story.t-long h1" in _R_CSS_811],
+      [True, True, True, True])
+# 累計數幾乎不動，一頁每天都長一樣的看板讀者第二天就不再看。「本期」用的是
+# 頭條的同一個窗口，兩邊講同一段時間，讀者才對得起來。
+acase("首頁：主線那一欄要有「本期」而不是只有累計"
+      "（累計幾乎不動，而窗口跟頭條同一個，兩邊講的是同一段時間）",
+      ["本期 +" in _R_SRC_811,
+       "LEAD_WINDOW_DAYS" in _R_SRC_811.split("recent = {")[1][:400]],
+      [True, True])
+
 # ── 「我上次說要看什麼」：待回答清單與裁決帳本（2026-08-11）────────────
 # 原本的 P1 是「把 next_signal 結構化讓機器自動核對」。實測推翻了那個規劃：
 # next_signal 這個 frontmatter 欄位早就存在而且 **0/86 被填過**，有內容的一直是
