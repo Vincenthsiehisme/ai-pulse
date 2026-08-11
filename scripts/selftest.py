@@ -4175,18 +4175,45 @@ _cgs = importlib.util.spec_from_file_location(
 _cg = importlib.util.module_from_spec(_cgs)
 _cgs.loader.exec_module(_cg)
 _CG_TH = _cg.thresholds({})
+_CG_SRC = _yaml.safe_load(
+    open(os.path.join(_HERE, "..", "_config", "sources.yaml"), encoding="utf-8"))
 acase("覆蓋缺口：樣本不足時**每一格**都是量不到，不是 0"
       "（燈號本身是拿需求算出來的，需求量不到而燈照亮，那個燈亮的是空氣）",
-      [_cg.cell(0, 13, False, _CG_TH)[0], _cg.cell(9, 0, False, _CG_TH)[0]],
+      [_cg.cell(0, 13, 0, False, _CG_TH)[0], _cg.cell(9, 0, 3, False, _CG_TH)[0]],
       ["－", "－"])
 acase("覆蓋缺口：0 需求不給綠燈"
       "（0 需求可能是「這一輪沒人問到」，不是「這一類沒問題」——"
       "而 0 需求 + 0 來源更不是綠，那是這個系統最大的盲區的樣子）",
-      [_cg.cell(0, 7, True, _CG_TH)[0], _cg.cell(0, 0, True, _CG_TH)[0]],
+      [_cg.cell(0, 7, 0, True, _CG_TH)[0], _cg.cell(0, 0, 0, True, _CG_TH)[0]],
       ["⚪", "⚪"])
-acase("覆蓋缺口：供給是 0 而有需求一律紅（不看比值——除以 0 那一格是另一種狀態，"
+acase("覆蓋缺口：獨立供給是 0 而有需求一律紅（不看比值——除以 0 那一格是另一種狀態，"
       "不該用一個大數字表達）",
-      _cg.cell(1, 0, True, _CG_TH)[0], "🔴")
+      _cg.cell(1, 0, 0, True, _CG_TH)[0], "🔴")
+# ── 供給拆兩欄（references/vault-pages.md〈官方自述 vs 獨立〉）──
+# P0-a 第一批量到：benchmark 名義供給 4 條判 🟡，但其中 3 條是官方線自己評自己，
+# 真正獨立的只有 1 條。7 個需求對 1 條獨立供給，那不是 🟡。
+acase("覆蓋缺口：燈號只看獨立供給，官方再多也不算"
+      "（22 則 unanswerable 每一則都是「只有官方說了，我們判定看不到」——"
+      "官方供給在這批需求上的實測命中率是 0）",
+      [_cg.cell(7, 1, 3, True, _CG_TH)[0], _cg.cell(7, 3, 0, True, _CG_TH)[0]],
+      ["🔴", "🟡"])
+acase("覆蓋缺口：獨立 0 而官方 > 0 的訊息要跟「完全沒人看」分開"
+      "（前者去找第三方來對，後者連題材都沒有人碰——擠成同一句話會讓人找錯方向）",
+      [_cg.cell(1, 0, 5, True, _CG_TH)[1], _cg.cell(1, 0, 0, True, _CG_TH)[1]],
+      ["只有當事人自己在說，沒有獨立來源", "沒有任何來源在看"])
+acase("lib/sources: aggregator 不算獨立供給"
+      "（sources.yaml 檔頭寫明它只當候選來源、不作任何事實依據；"
+      "把 HN 算成獨立，等於讓一個轉貼站撐起某一格的覆蓋率）",
+      ["aggregator" in _smod.INDEPENDENT_TRACKS,
+       "src-hn-frontpage" in sum(_smod.capability_claims(
+           _CG_SRC, _smod.INDEPENDENT_TRACKS).values(), []),
+       "src-hn-frontpage" in sum(_smod.capability_claims(_CG_SRC).values(), [])],
+      [False, False, True])
+acase("lib/sources: benchmark 的獨立供給實測只有 1 條"
+      "（名義 4 條裡 3 條是官方線自己評自己——這是 P0-a 之後把供給拆兩欄的起因）",
+      [len(_smod.capability_claims(_CG_SRC, _smod.INDEPENDENT_TRACKS).get("benchmark") or []),
+       len(_smod.capability_claims(_CG_SRC, _smod.OFFICIAL_TRACKS).get("benchmark") or [])],
+      [1, 3])
 acase("覆蓋缺口：`other` 佔比是那份分類表的死人開關（超過門檻要提醒；"
       "沒有樣本時是「量不到」不是 0%）",
       [_cg.other_line(0, 0, _CG_TH)[1], _cg.other_line(3, 29, _CG_TH)[1],
