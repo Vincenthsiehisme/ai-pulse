@@ -224,8 +224,20 @@ def eventability_score(rec, source):
     return min(100, score)
 
 
-def belongs_to_event(cand_title, cand_published, event_title, event_happened, threshold=0.46):
-    """3b 聚類判定（移植 belongsToEvent）。cand_*/event_* 為標題與時間字串。"""
+# 設定檔讀不到時的退路。**刻意留 0.46 而不是 0.30**——那是 2026-08-11 之前的
+# 舊值，也就是往「嚴」的方向倒（同 lib/dictgaps.thresholds()）。
+# 退回舊行為是可預期的損失（少黏一些），退到更鬆是不可預期的汙染。
+DEFAULT_TITLE_SIMILARITY_MIN = 0.46
+
+
+def belongs_to_event(cand_title, cand_published, event_title, event_happened,
+                     threshold=DEFAULT_TITLE_SIMILARITY_MIN):
+    """3b 聚類判定（移植 belongsToEvent）。cand_*/event_* 為標題與時間字串。
+
+    `threshold` 的正式來源是 `_config/gate.yaml` 的 `cluster.title_similarity_min`
+    （0.30），由 `pulse-cluster.py` 讀進來傳入。規格與實測數字見
+    references/attach-rule.md。這裡的預設值只是設定檔讀不到時的退路。
+    """
     cp = parse_dt(cand_published)
     ep = parse_dt(event_happened)
     if cp is None or ep is None:

@@ -3539,6 +3539,39 @@ acase("逐字轉載：只有這一支列 independent_sources 時照樣扣得到"
       "（排除清單取聯集，不是只讀跨語言那一份）",
       _vr_ev4.scores["independent_sources"], 1)
 
+# ── attach 門檻搬進 gate.yaml 並降到 0.30（references/attach-rule.md）──
+# P0-e：0.46 在 14 篇真實第三方後續裡只黏得上 2 篇，而那 2 篇都是逐字轉載。
+_AR_TH = _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+                              encoding="utf-8"))["cluster"]["title_similarity_min"]
+_AR_CAND = ("Meta's 'Open Source' Muse Glimmer Model Can Run On A Single Computer",
+            "2026-08-10T18:00:00+00:00")
+_AR_EV = ("Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+          "2026-08-10T00:00:00+00:00")
+acase("attach 門檻：gate.yaml 的 cluster.title_similarity_min 是 0.30"
+      "（在此之前它寫死在 belongs_to_event 的預設參數裡，設定檔沒有這一格）",
+      _AR_TH, 0.30)
+acase("attach 門檻：0.30 黏得上真實的第三方改寫，0.46 黏不上"
+      "（實測語料：Engadget 對 Hugging Face 官方那篇，相似度 0.33）",
+      [_cl.belongs_to_event(*_AR_CAND, *_AR_EV, _AR_TH),
+       _cl.belongs_to_event(*_AR_CAND, *_AR_EV, 0.46)],
+      [True, False])
+acase("attach 門檻：pulse-cluster 真的把它讀出來"
+      "（判準寫在設定檔但沒人讀，就是這個 repo 抓過很多次的假旋鈕）",
+      _cm.load_title_similarity_min(_P2(os.path.join(_HERE, "..", "_config"))), 0.30)
+# 讀出來還要真的用在聚類那一步。attach_target 的 sim_min 沒有預設值，
+# 所以「忘記傳」在語法上就會炸，不會安靜地退回某個內建數字。
+_AR_EVS = [_cm.Event("evt-mg", "mg", _AR_EV[0], _AR_EV[1])]
+acase("attach 門檻：真的用在聚類那一步（0.30 掛得上、0.46 掛不上，同一組輸入）",
+      [getattr(_cm.attach_target(*_AR_CAND, _AR_EVS, 0.30), "id", None),
+       getattr(_cm.attach_target(*_AR_CAND, _AR_EVS, 0.46), "id", None)],
+      ["evt-mg", None])
+acase("attach 門檻：設定檔讀不到要退回**舊的 0.46**，不是退回 0.30"
+      "（設定檔壞掉時規則要變嚴不是變鬆——在 YAML 打錯字的那天悄悄放寬聚類，"
+      "汙染會混進 independent_sources 而沒有人知道）",
+      [_cm.load_title_similarity_min(_P2("/nonexistent-cfg-dir")),
+       _cl.DEFAULT_TITLE_SIMILARITY_MIN],
+      [0.46, 0.46])
+
 acase("pulse-cluster 跑第二輪：這一輪真的重寫了那個檔"
       "（沒重寫的話上一條在斷言一個恆真的條件——測試自己變成一顆永遠綠的燈）",
       [_txt2 != _txt, "example.invalid/b" in _txt, "example.invalid/b" in _txt2],

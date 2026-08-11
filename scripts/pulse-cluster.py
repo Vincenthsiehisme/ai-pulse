@@ -82,6 +82,36 @@ def load_entities(cfg):
     return out
 
 
+def attach_target(title, published, events, sim_min):
+    """這則 signal 該掛到哪個既有 Event，沒有就回 None。純函式，可離線單測。
+
+    抽出來是為了讓門檻可測。`sim_min` **刻意沒有預設值**：這樣「忘記把 gate.yaml
+    的門檻傳進來」會在呼叫的當下丟 TypeError，而不是安靜地退回某個內建數字繼續跑。
+    一個讀得到、註解也寫了消費者、實際上沒被傳進去的門檻，就是這個 repo 抓過
+    很多次的假旋鈕——把它做成語法上不可能，比再加一條測試可靠。
+    """
+    return next((c for c in events if cluster.belongs_to_event(
+        title, published, c.title, c.happened_at, sim_min)), None)
+
+
+def load_title_similarity_min(cfg):
+    """gate.yaml 的 `cluster.title_similarity_min`。缺檔／缺值／壞值 → 回舊的 0.46。
+
+    退回**舊值**不是退回新值，方向是刻意的：設定檔壞掉的時候規則要變嚴，
+    不是變鬆（同 `lib/dictgaps.thresholds()`）。一個在 YAML 打錯字的那天
+    悄悄放寬聚類的系統，會把汙染混進 independent_sources 而沒有人知道。
+    """
+    p = cfg / "gate.yaml"
+    if not p.exists():
+        return cluster.DEFAULT_TITLE_SIMILARITY_MIN
+    raw = yaml.safe_load(p.read_text("utf-8")) or {}
+    v = ((raw.get("cluster") or {}).get("title_similarity_min"))
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return cluster.DEFAULT_TITLE_SIMILARITY_MIN
+
+
 def load_verbatim_repost_cfg(cfg):
     """gate.yaml 的 `evidence.verbatim_repost`。缺檔／缺區塊 → 回空 dict。
 
@@ -473,6 +503,7 @@ def main():
     # 沒有 aliases，而 aliases 正是這條規則能跨語言的原因。
     tc_cfg = load_translation_chain_cfg(cfg)
     vr_cfg = load_verbatim_repost_cfg(cfg)
+    sim_min = load_title_similarity_min(cfg)
     ent_table = load_entity_table(cfg)
 
     signals = [json.loads(x) for x in scored_path.read_text("utf-8").splitlines() if x.strip()]
@@ -514,8 +545,7 @@ def main():
     for sig in signals:
         title = sig["title"]
         published = sig.get("published") or sig.get("first_observed_at") or ""
-        ev = next((c for c in events if cluster.belongs_to_event(
-            title, published, c.title, c.happened_at)), None)
+        ev = attach_target(title, published, events, sim_min)
         if ev is None:
             score = eventability(sig, sources)
             if score < 70:

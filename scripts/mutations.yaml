@@ -2156,3 +2156,31 @@ mutations:
     replace: "    excluded = set((tc_cfg or {}).get(\"excluded_from\") or [])"
     survives: false
     why: ""
+
+  # ── attach 門檻搬進 gate.yaml 並降到 0.30（2026-08-11，Phase 0.5 後半）──
+  # 規格 references/attach-rule.md。P0-e：0.46 在 14 篇真實第三方後續裡只黏得上
+  # 2 篇，而那 2 篇都是逐字轉載——真的重寫過的 12 篇一篇都沒進來。
+
+  - id: M243
+    title: "門檻讀了但沒傳進去（gate.yaml 有這一格、註解也寫了消費者，實際上 belongs_to_event 還是吃自己的預設值——這個 repo 抓過很多次的假旋鈕）"
+    file: pulse-cluster.py
+    find: "        title, published, c.title, c.happened_at, sim_min)), None)"
+    replace: "        title, published, c.title, c.happened_at)), None)"
+    survives: false
+    why: ""
+
+  - id: M244
+    title: "設定檔壞掉時退回新的 0.30 而不是舊的 0.46（在 YAML 打錯字的那天悄悄放寬聚類，汙染會混進 independent_sources 而沒有人知道——壞掉要變嚴不是變鬆）"
+    file: lib/cluster.py
+    find: "DEFAULT_TITLE_SIMILARITY_MIN = 0.46"
+    replace: "DEFAULT_TITLE_SIMILARITY_MIN = 0.30"
+    survives: false
+    why: ""
+
+  - id: M245
+    title: "門檻退回 0.46（P0-e 量到那是 2/14，而且那 2 篇都是逐字轉載——等於系統只收得到最不獨立的那一種第二來源）"
+    file: ../_config/gate.yaml
+    find: "  title_similarity_min: 0.30"
+    replace: "  title_similarity_min: 0.46"
+    survives: false
+    why: ""

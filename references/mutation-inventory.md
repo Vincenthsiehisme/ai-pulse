@@ -1620,3 +1620,62 @@ TechCrunch、IEEE、The Register、One Useful Thing）報的是**新聞不是採
 擠成同一句「沒有任何來源在看」的話，看到 `official_announcement` 紅燈的人
 會去找一條根本不缺的線。這個 repo 對「訊息合併導致找錯方向」有紀錄——
 `stale_alert_tail` 那次是同一個形狀。
+
+---
+
+## 第四十五輪（2026-08-11，`feat/attach-what-was-actually-rewritten`，Phase 0.5）
+
+M240–M245，加上 M43／M45 因針腳撞名重驗。八條全部被殺（基準線 774/774）。
+**M240／M242／M243 第一版都存活**，三條是同一個病。
+
+### 兩個 commit，順序寫在歷史裡
+
+```
+a97b2d4  同語言逐字轉載也算轉載
+（後）    attach 門檻搬進 gate.yaml，0.46 → 0.30
+```
+
+降門檻會讓更多東西 attach，**包含更多逐字轉載**。中間那段空窗期
+`independent_sources` 會虛胖，而虛胖的數字混進帳本之後分不出哪些是虛的。
+分成兩個 commit 不是為了好看——是為了「只 revert 後面那個」時，防線還在。
+
+### M240／M242／M243：規則存在不等於規則被套用（第四十輪的病，這次一次三條）
+
+三條的第一版都是 `regression`——判準綠著，而那一行接線被拿掉了：
+
+```
+M240  mark_reposts 沒呼叫 verbatim_reposts       純函式測得好好的，沒人測有沒有被叫
+M242  排除清單只取跨語言那一份                    標記寫上去了，但沒有人扣分
+M243  門檻讀出來了但沒傳進 belongs_to_event       gate.yaml 有值、註解有寫消費者、沒人用
+```
+
+補法不一樣，值得分開記：
+
+- **M240／M242** 補的是**端到端斷言**：走真的 `rescore()`，斷言
+  `independent_sources` 從 2 變成 1。純函式測不到接線。
+- **M243** 沒有補測試，改的是**結構**：把那一行抽成
+  `attach_target(title, published, events, sim_min)`，而且 `sim_min`
+  **刻意不給預設值**。這樣「忘記傳門檻」會在呼叫的當下丟 TypeError，
+  不會安靜地退回某個內建數字繼續跑。
+
+  **把錯誤做成語法上不可能，比再加一條測試可靠。** 測試會被人改，
+  簽章不會被人不小心改對。
+
+### M244：退路要退回舊值，不是退回新值
+
+`DEFAULT_TITLE_SIMILARITY_MIN = 0.46` 是設定檔讀不到時的退路，
+而它刻意留在**改動前**的那個數字。
+
+一個在 YAML 打錯字的那天悄悄「放寬」聚類的系統，會把汙染混進
+`independent_sources`，而那是這整輪最不該弄髒的欄位。同
+`lib/dictgaps.thresholds()`：**壞掉要變嚴，不是變鬆。**
+
+### M43／M45：新函式讓舊針腳變成兩處
+
+`verbatim_reposts` 抄了 `suspected_reposts` 的骨架（union-find、
+`if not cfg.get("enabled")`、時間窗那行），於是兩條舊變異的 `find` 在同一個檔裡
+命中兩次。selftest 的「每個 find 剛好出現一次」當場紅。
+
+補法是把針腳加長到看得見隔壁那一行（`min_overlap` / `fa, fb`），不是縮短程式碼。
+**針腳要指名它在守哪一處**——這是這個 repo 第六次踩到同一個形狀，
+前五次記在第四十輪。
