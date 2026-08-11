@@ -1904,3 +1904,32 @@ mutations:
     replace: "<div class=\"byline\"><span>信心 <b>{lead.get(\"confidence\")}</b></span><span>影響 <b>{lead.get(\"impact\")}</b></span>\\"
     survives: false
     why: ""
+
+  # ── 「我上次說要看什麼」的待回答清單（2026-08-11）──
+  # 這一支刻意不判定任何事：86 則的「下一個訊號」約六成以「看…」開頭、指向抓取鏈
+  # 看不到的世界，而 81/86 的事件仍然只有一個獨立來源。瓶頸在觀測範圍不在資料結構。
+  # 見 docs/design/2026-08-11-theme-tracking-revisited.md。
+
+  - id: M216
+    title: "待答清單收未潤稿的那幾則（待編輯佔位還在的是待潤稿不是待回答——混進來這一頁就變成「未 enrich 清單」的副本，而那個清單已經有了）"
+    file: pulse-signal-review.py
+    find: "        if not txt or \"待編輯\" in txt:"
+    replace: "        if not txt:"
+    survives: false
+    why: ""
+
+  - id: M217
+    title: "對不上任何問題的 sid 照樣寫進帳本（帳本是 append-only，一筆打錯字的裁決會永遠留在裡面當雜訊，刪不掉）"
+    file: pulse-signal-review.py
+    find: "        if args.answer not in known:"
+    replace: "        if False:"
+    survives: false
+    why: ""
+
+  - id: M218
+    title: "夜班不產生待答清單（沒有生產者的頁面等於不存在——這個 repo 量過的同一隻病：desc-zh.json 在整個 git 歷史裡從來沒出現過）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "        run: python scripts/pulse-signal-review.py --write --quiet"
+    replace: "        run: true"
+    survives: false
+    why: ""
