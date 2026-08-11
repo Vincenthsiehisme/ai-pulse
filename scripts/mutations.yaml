@@ -1998,3 +1998,48 @@ mutations:
     replace: "        cfg = (yaml.safe_load(gp.read_text(\"utf-8\")) or {}).get(\"monitor\") or {}"
     survives: false
     why: ""
+
+  # ── 來源能力：這條來源有可能告訴我們什麼（2026-08-11）──
+  # 規格 references/source-capabilities.md。起因是 P0-e 量到 81/86（94%）只有一個
+  # 獨立來源，而「沒有人跟進」與「沒有人看得到跟進」在數字上長得一模一樣。
+  # 這四條守的是「判準不准過期」與「單一真相源不准再分裂」。
+
+  - id: M226
+    title: "會被抓的來源沒標 capabilities 也放行（驗收條件寫在文件裡會在下一次加來源時失效，而且不會有東西變紅——這正是執行計劃〈修正三〉要修的）"
+    file: ../_config/sources.yaml
+    find: "    - official_announcement\n    - financial_impact\n    - supply_chain"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M227
+    title: "capability 寫錯字也放行（開放詞彙表半年後會長出 benchmarks / benchmark_result / third-party_validation 這種同義異形，而覆蓋率矩陣會安靜地把它們算成不同格）"
+    file: ../_config/sources.yaml
+    find: "    - developer_feedback\n    - research_replication"
+    replace: "    - developer_feedback\n    - research_replications"
+    survives: false
+    why: ""
+
+  - id: M228
+    title: "把 procurement 從詞彙表拿掉（0 條來源宣稱它——順手拿掉一個「沒人用的值」，盲區就從清單上消失了，而盲區消失不等於盲區被補上）"
+    file: lib/sources.py
+    find: "    \"procurement\",             # 有人真的付錢買了（2026-08-11：0 條來源宣稱）"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M229
+    title: "capability_claims 連 dormant 的來源一起算（停用來源的宣稱是將來式，算進覆蓋率會讓盲區看起來比實際小——而這一層存在就是為了指出盲區）"
+    file: lib/sources.py
+    find: "        if not is_running(s):"
+    replace: "        if False:"
+    survives: false
+    why: ""
+
+  - id: M230
+    title: "可跑 lifecycle 又被硬寫回第五份（2026-08-11 之前這個集合散在四個檔案裡，漏改一處＝某一類 lifecycle 在那支腳本眼裡不存在，而清單長度不變、沒有東西會紅）"
+    file: pulse-monitor.py
+    find: "from lib.sources import RUN_LIFECYCLES  # noqa: E402  單一真相源，見 lib/sources.py"
+    replace: "RUN_LIFECYCLES = {\"active\", \"degraded\", \"probing\"}"
+    survives: false
+    why: ""

@@ -57,11 +57,10 @@ from pathlib import Path
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _HERE)
 from lib.atomicwrite import atomic_write_text, atomic_write_with  # noqa: E402  見 references/atomic-writes.md
-from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
+from lib.sources import SECTIONS, RUN_LIFECYCLES as RUNNABLE  # noqa: E402  單一真相源，見 lib/sources.py
 from lib import history  # noqa: E402  帳本讀寫單一真相源，見 lib/history.py
 
 # 這支自動降級只會作用在會被抓的 lifecycle。draft / dormant 根本沒有觀測。
-RUNNABLE = {"active", "degraded", "probing"}
 
 # 判分表。改這裡之前先改 references/source-lifecycle.md 的那張表（紅線 9）。
 OUTCOME_SUCCESS = "success"        # 加分，連續失敗歸零
