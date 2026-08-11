@@ -1933,3 +1933,31 @@ mutations:
     replace: "        run: true"
     survives: false
     why: ""
+
+  # ── 版型：移除指標之後留下的三個洞（2026-08-11）──
+  # 實測 1440 寬：header 底 131 / h1 頂 163（只差 32px）；右欄 h3 有兩組疊字；
+  # 首頁中欄被一個 21 字標題撐到 1070，兩側 814 / 829，各空 250px。
+
+  - id: M219
+    title: "文章頁的標題又貼回 header（導覽列、rubric、serif 大標三層擠在一起，實測只差 32px）"
+    file: pulse-render.py
+    find: ".lf-head{max-width:calc(var(--measure) + 8em);padding-top:30px;margin-bottom:30px}"
+    replace: ".lf-head{max-width:calc(var(--measure) + 8em);margin-bottom:30px}"
+    survives: false
+    why: ""
+
+  - id: M220
+    title: "頭條字級不再依標題長度分級（21 字的標題折成四行，把中欄撐到兩側各空 250px——側欄塞內容只是把空白填滿，不是修法）"
+    file: pulse-render.py
+    find: "        lead_cls = \"lead-story\" + (\" t-long\" if _lt > 20 else \" t-mid\" if _lt > 12 else \"\")"
+    replace: "        lead_cls = \"lead-story\""
+    survives: false
+    why: ""
+
+  - id: M221
+    title: "發展歷程退化成證據清單時又多印一份證據（94% 的事件只有一筆證據，所以那是常態不是例外——右欄會出現兩個「證據」標題）"
+    file: pulse-render.py
+    find: "                ) if (ev_links and journey_heading != EVIDENCE_HEADING) else \"\""
+    replace: "                ) if ev_links else \"\""
+    survives: false
+    why: ""
