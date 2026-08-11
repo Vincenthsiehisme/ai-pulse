@@ -3373,6 +3373,58 @@ acase("轉載鏈：entity_overlap_min 真的被讀（門檻拉到 1.01 就沒有
       set())
 acase("轉載鏈：enabled: false 是真的關掉（完全不判、不標記）",
       _cl.suspected_reposts([_tc_en, _tc_zh], {**_TC, "enabled": False}), set())
+
+# ── 同語言逐字轉載（references/attach-rule.md〈順序〉）──
+# P0-e 量到：現行 attach 規則唯一黏得上的兩篇第三方後續，兩篇的標題相似度都是
+# 1.00 —— 系統唯一收得到的「第二個獨立來源」正好是最不獨立的那一種，
+# 而上面那支跨語言守門的第一個條件就是「語言不同」，它在旁邊看著。
+_VR = _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+                           encoding="utf-8"))["evidence"]["verbatim_repost"]
+
+
+def _vrow(title, hour, tier=2, day=4):
+    from datetime import datetime as _dt2
+    return {"title": title, "tier": tier,
+            "published": _dt2(2026, 8, day, hour, tzinfo=_tz.utc)}
+
+
+_VR_A = _vrow("AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 13, tier=1)
+acase("逐字轉載：同語言、標題一字不差、47 小時後 → 後發的判成轉載"
+      "（實測那兩篇就是這個形狀，而跨語言那支攔不到）",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 12, day=6)],
+          _VR), {1})
+acase("逐字轉載：改寫過的標題不判"
+      "（兩家各自重寫是兩個真的聲音；判成轉載等於把獨立性做假到反方向——"
+      "而 P0-e 量到 12/14 的第三方後續正是這一類）",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI industry unveils SAFE cybersecurity disclosure framework", 18)], _VR), set())
+acase("逐字轉載：超出 window_hours 不判（168 小時真的被讀）",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 13, day=20)],
+          _VR), set())
+acase("逐字轉載：title_similarity_min 真的被讀（拉到 1.01 就沒有任何一對過得了）",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 12, day=6)],
+          {**_VR, "title_similarity_min": 1.01}), set())
+acase("逐字轉載：enabled: false 是真的關掉",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 12, day=6)],
+          {**_VR, "enabled": False}), set())
+acase("逐字轉載：缺標題或缺時間一律不判（往「維持原本算法」倒，"
+      "捏造一個「它們是同一篇」的結論比漏抓一次更難發現）",
+      [_cl.verbatim_reposts([_VR_A, _vrow("", 12, day=6)], _VR),
+       _cl.verbatim_reposts([_VR_A, {**_vrow("AI Leaders Propose SAFE Guidelines "
+                                             "for Cybersecurity Transparency", 12),
+                                     "published": None}], _VR)],
+      [set(), set()])
+acase("逐字轉載：原文＝最早發布的那一條（同 suspected_reposts 的三段排序，"
+      "確定性，同一份輸入永遠給同一個答案）",
+      _cl.verbatim_reposts([_vrow("Third-party cyber evaluations involving OpenAI models", 19, day=6),
+                            _vrow("Third-party cyber evaluations involving OpenAI models", 12, day=5)],
+                           _VR), {0})
+acase("gate.yaml: evidence.verbatim_repost 這一塊真的在（判準讀不到就靜靜不判）",
+      sorted(_VR), ["enabled", "excluded_from", "title_similarity_min", "window_hours"])
 acase("轉載鏈：設定讀不到時不判——設定檔壞掉不可以讓一條規則反而更積極扣分",
       [_cl.suspected_reposts([_tc_en, _tc_zh], {}),
        _cl.suspected_reposts([_tc_en, _tc_zh], None)], [set(), set()])
@@ -3435,6 +3487,90 @@ acase("轉載鏈：excluded_from 真的被讀——沒列 independent_sources �
       [_tc_ev3.scores["independent_sources"],
        [e["suspected_repost"] for e in _tc_ev3.evidence]],
       [2, [False, True]])
+
+# 端到端：判準寫好了不等於接上了。第四十輪的教訓是「規則存在 ≠ 規則被套用」，
+# 而 M240/M242 第一版就是靠這一段才被殺——上面那幾條只測 lib 裡的純函式，
+# 把 pulse-cluster 那一行接線拿掉，它們一條都不會紅。
+_VRSRC = {"src-orig": {"tier": 1, "media_group": "NVIDIA", "language": "en"},
+          "src-copy": {"tier": 3, "media_group": "Medium", "language": "en"}}
+
+
+def _vr_event():
+    e = _cm.Event("evt-vr", "vr",
+                  "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency",
+                  "2026-08-04T13:00:00+00:00")
+    e.add_evidence("src-orig", "https://nvidia.test/safe",
+                   "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency",
+                   100, "2026-08-04T13:00:00+00:00")
+    e.add_evidence("src-copy", "https://medium.test/safe",
+                   "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency",
+                   40, "2026-08-06T12:00:00+00:00")
+    return e
+
+
+_vr_ev = _vr_event()
+_cm.rescore(_vr_ev, _VRSRC, None, _TC, _ENT_TABLE, vr_cfg=_VR)
+acase("逐字轉載：走 rescore 之後真的扣得到分"
+      "（這是 P0-e 量到的那個形狀——兩篇標題一字不差、不同媒體集團，"
+      "在這一版之前它們會讓 independent_sources 從 1 變成 2）",
+      [_vr_ev.scores["independent_sources"], _vr_ev.scores["suspected_reposts"],
+       [e["suspected_repost"] for e in _vr_ev.evidence]],
+      [1, 1, [False, True]])
+_vr_ev2 = _vr_event()
+_cm.rescore(_vr_ev2, _VRSRC, None, _TC, _ENT_TABLE, vr_cfg={**_VR, "enabled": False})
+acase("逐字轉載：關掉之後獨立性回到 2（反方向，確認上面那條不是恆為 1）",
+      [_vr_ev2.scores["independent_sources"], _vr_ev2.scores["suspected_reposts"]],
+      [2, 0])
+_vr_ev3 = _vr_event()
+_cm.rescore(_vr_ev3, _VRSRC, None, _TC, _ENT_TABLE,
+            vr_cfg={**_VR, "excluded_from": ["heat"]})
+acase("逐字轉載：excluded_from 走的是兩支的聯集——這一支沒列 "
+      "independent_sources 而跨語言那支列了，所以照樣扣"
+      "（少了聯集就會出現「標記在那裡但沒有人扣分」）",
+      [_vr_ev3.scores["independent_sources"],
+       [e["suspected_repost"] for e in _vr_ev3.evidence]],
+      [1, [False, True]])
+# 反過來也要成立：只有逐字那一支列了 independent_sources 的時候，
+# 聯集才是唯一不會靜靜漏掉一邊的選法。少了聯集這一格會退回 2。
+_vr_ev4 = _vr_event()
+_cm.rescore(_vr_ev4, _VRSRC, None, {**_TC, "excluded_from": ["heat"]}, _ENT_TABLE,
+            vr_cfg=_VR)
+acase("逐字轉載：只有這一支列 independent_sources 時照樣扣得到"
+      "（排除清單取聯集，不是只讀跨語言那一份）",
+      _vr_ev4.scores["independent_sources"], 1)
+
+# ── attach 門檻搬進 gate.yaml 並降到 0.30（references/attach-rule.md）──
+# P0-e：0.46 在 14 篇真實第三方後續裡只黏得上 2 篇，而那 2 篇都是逐字轉載。
+_AR_TH = _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+                              encoding="utf-8"))["cluster"]["title_similarity_min"]
+_AR_CAND = ("Meta's 'Open Source' Muse Glimmer Model Can Run On A Single Computer",
+            "2026-08-10T18:00:00+00:00")
+_AR_EV = ("Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+          "2026-08-10T00:00:00+00:00")
+acase("attach 門檻：gate.yaml 的 cluster.title_similarity_min 是 0.30"
+      "（在此之前它寫死在 belongs_to_event 的預設參數裡，設定檔沒有這一格）",
+      _AR_TH, 0.30)
+acase("attach 門檻：0.30 黏得上真實的第三方改寫，0.46 黏不上"
+      "（實測語料：Engadget 對 Hugging Face 官方那篇，相似度 0.33）",
+      [_cl.belongs_to_event(*_AR_CAND, *_AR_EV, _AR_TH),
+       _cl.belongs_to_event(*_AR_CAND, *_AR_EV, 0.46)],
+      [True, False])
+acase("attach 門檻：pulse-cluster 真的把它讀出來"
+      "（判準寫在設定檔但沒人讀，就是這個 repo 抓過很多次的假旋鈕）",
+      _cm.load_title_similarity_min(_P2(os.path.join(_HERE, "..", "_config"))), 0.30)
+# 讀出來還要真的用在聚類那一步。attach_target 的 sim_min 沒有預設值，
+# 所以「忘記傳」在語法上就會炸，不會安靜地退回某個內建數字。
+_AR_EVS = [_cm.Event("evt-mg", "mg", _AR_EV[0], _AR_EV[1])]
+acase("attach 門檻：真的用在聚類那一步（0.30 掛得上、0.46 掛不上，同一組輸入）",
+      [getattr(_cm.attach_target(*_AR_CAND, _AR_EVS, 0.30), "id", None),
+       getattr(_cm.attach_target(*_AR_CAND, _AR_EVS, 0.46), "id", None)],
+      ["evt-mg", None])
+acase("attach 門檻：設定檔讀不到要退回**舊的 0.46**，不是退回 0.30"
+      "（設定檔壞掉時規則要變嚴不是變鬆——在 YAML 打錯字的那天悄悄放寬聚類，"
+      "汙染會混進 independent_sources 而沒有人知道）",
+      [_cm.load_title_similarity_min(_P2("/nonexistent-cfg-dir")),
+       _cl.DEFAULT_TITLE_SIMILARITY_MIN],
+      [0.46, 0.46])
 
 acase("pulse-cluster 跑第二輪：這一輪真的重寫了那個檔"
       "（沒重寫的話上一條在斷言一個恆真的條件——測試自己變成一顆永遠綠的燈）",
@@ -4175,18 +4311,45 @@ _cgs = importlib.util.spec_from_file_location(
 _cg = importlib.util.module_from_spec(_cgs)
 _cgs.loader.exec_module(_cg)
 _CG_TH = _cg.thresholds({})
+_CG_SRC = _yaml.safe_load(
+    open(os.path.join(_HERE, "..", "_config", "sources.yaml"), encoding="utf-8"))
 acase("覆蓋缺口：樣本不足時**每一格**都是量不到，不是 0"
       "（燈號本身是拿需求算出來的，需求量不到而燈照亮，那個燈亮的是空氣）",
-      [_cg.cell(0, 13, False, _CG_TH)[0], _cg.cell(9, 0, False, _CG_TH)[0]],
+      [_cg.cell(0, 13, 0, False, _CG_TH)[0], _cg.cell(9, 0, 3, False, _CG_TH)[0]],
       ["－", "－"])
 acase("覆蓋缺口：0 需求不給綠燈"
       "（0 需求可能是「這一輪沒人問到」，不是「這一類沒問題」——"
       "而 0 需求 + 0 來源更不是綠，那是這個系統最大的盲區的樣子）",
-      [_cg.cell(0, 7, True, _CG_TH)[0], _cg.cell(0, 0, True, _CG_TH)[0]],
+      [_cg.cell(0, 7, 0, True, _CG_TH)[0], _cg.cell(0, 0, 0, True, _CG_TH)[0]],
       ["⚪", "⚪"])
-acase("覆蓋缺口：供給是 0 而有需求一律紅（不看比值——除以 0 那一格是另一種狀態，"
+acase("覆蓋缺口：獨立供給是 0 而有需求一律紅（不看比值——除以 0 那一格是另一種狀態，"
       "不該用一個大數字表達）",
-      _cg.cell(1, 0, True, _CG_TH)[0], "🔴")
+      _cg.cell(1, 0, 0, True, _CG_TH)[0], "🔴")
+# ── 供給拆兩欄（references/vault-pages.md〈官方自述 vs 獨立〉）──
+# P0-a 第一批量到：benchmark 名義供給 4 條判 🟡，但其中 3 條是官方線自己評自己，
+# 真正獨立的只有 1 條。7 個需求對 1 條獨立供給，那不是 🟡。
+acase("覆蓋缺口：燈號只看獨立供給，官方再多也不算"
+      "（22 則 unanswerable 每一則都是「只有官方說了，我們判定看不到」——"
+      "官方供給在這批需求上的實測命中率是 0）",
+      [_cg.cell(7, 1, 3, True, _CG_TH)[0], _cg.cell(7, 3, 0, True, _CG_TH)[0]],
+      ["🔴", "🟡"])
+acase("覆蓋缺口：獨立 0 而官方 > 0 的訊息要跟「完全沒人看」分開"
+      "（前者去找第三方來對，後者連題材都沒有人碰——擠成同一句話會讓人找錯方向）",
+      [_cg.cell(1, 0, 5, True, _CG_TH)[1], _cg.cell(1, 0, 0, True, _CG_TH)[1]],
+      ["只有當事人自己在說，沒有獨立來源", "沒有任何來源在看"])
+acase("lib/sources: aggregator 不算獨立供給"
+      "（sources.yaml 檔頭寫明它只當候選來源、不作任何事實依據；"
+      "把 HN 算成獨立，等於讓一個轉貼站撐起某一格的覆蓋率）",
+      ["aggregator" in _smod.INDEPENDENT_TRACKS,
+       "src-hn-frontpage" in sum(_smod.capability_claims(
+           _CG_SRC, _smod.INDEPENDENT_TRACKS).values(), []),
+       "src-hn-frontpage" in sum(_smod.capability_claims(_CG_SRC).values(), [])],
+      [False, False, True])
+acase("lib/sources: benchmark 的獨立供給實測只有 1 條"
+      "（名義 4 條裡 3 條是官方線自己評自己——這是 P0-a 之後把供給拆兩欄的起因）",
+      [len(_smod.capability_claims(_CG_SRC, _smod.INDEPENDENT_TRACKS).get("benchmark") or []),
+       len(_smod.capability_claims(_CG_SRC, _smod.OFFICIAL_TRACKS).get("benchmark") or [])],
+      [1, 3])
 acase("覆蓋缺口：`other` 佔比是那份分類表的死人開關（超過門檻要提醒；"
       "沒有樣本時是「量不到」不是 0%）",
       [_cg.other_line(0, 0, _CG_TH)[1], _cg.other_line(3, 29, _CG_TH)[1],

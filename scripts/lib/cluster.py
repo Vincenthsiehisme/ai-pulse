@@ -224,8 +224,20 @@ def eventability_score(rec, source):
     return min(100, score)
 
 
-def belongs_to_event(cand_title, cand_published, event_title, event_happened, threshold=0.46):
-    """3b 聚類判定（移植 belongsToEvent）。cand_*/event_* 為標題與時間字串。"""
+# 設定檔讀不到時的退路。**刻意留 0.46 而不是 0.30**——那是 2026-08-11 之前的
+# 舊值，也就是往「嚴」的方向倒（同 lib/dictgaps.thresholds()）。
+# 退回舊行為是可預期的損失（少黏一些），退到更鬆是不可預期的汙染。
+DEFAULT_TITLE_SIMILARITY_MIN = 0.46
+
+
+def belongs_to_event(cand_title, cand_published, event_title, event_happened,
+                     threshold=DEFAULT_TITLE_SIMILARITY_MIN):
+    """3b 聚類判定（移植 belongsToEvent）。cand_*/event_* 為標題與時間字串。
+
+    `threshold` 的正式來源是 `_config/gate.yaml` 的 `cluster.title_similarity_min`
+    （0.30），由 `pulse-cluster.py` 讀進來傳入。規格與實測數字見
+    references/attach-rule.md。這裡的預設值只是設定檔讀不到時的退路。
+    """
     cp = parse_dt(cand_published)
     ep = parse_dt(event_happened)
     if cp is None or ep is None:
@@ -348,6 +360,96 @@ def suspected_reposts(items, cfg=None):
             continue
         # 原文＝發布最早的；同時間取 tier 小的；再同就取證據順序在前的。
         # 三段都是確定性的，沒有任意 tie-break——否則同一份輸入會給不同答案。
+        def rank(idx):
+            it = items[idx]
+            pub = it.get("published")
+            return (pub.timestamp() if pub else float("inf"),
+                    _as_int(it.get("tier"), 99), idx)
+        keep = min(members, key=rank)
+        reposts.update(m for m in members if m != keep)
+    return reposts
+
+
+def verbatim_reposts(items, cfg=None):
+    """同語言的逐字轉載。回傳被判成轉載的 index 集合（每一組保留一條原文）。
+
+    規格見 references/evidence-tiers.md〈`evidence.verbatim_repost`〉與
+    references/attach-rule.md〈順序〉。
+
+    ## 為什麼 suspected_reposts 蓋不到這一格
+
+    那一支的第一個條件就是「語言不同」——它認的是**跨語言翻譯**。
+    2026-08-11 實測：
+
+        同語言（en/en，逐字轉載）→ 空集合＝沒攔到
+        跨語言（en/zh）           → {1}
+
+    而 P0-e 量到，現行 attach 規則唯一黏得上的兩篇第三方後續，**兩篇都是
+    標題一字不差的逐字轉載**。也就是說系統唯一收得到的「第二個獨立來源」，
+    正好是最不獨立的那一種，而防線在旁邊看著。
+
+    ## 判準只有兩條，刻意不抄 suspected_reposts 那三條
+
+    標題相似度 ≥ `title_similarity_min` 且時間差在 `window_hours` 內。
+
+    不做實體 Jaccard：相似度 0.95 以上的兩個標題，實體集合必然幾乎相同，
+    再算一次只是把同一件事量兩遍。跨語言那支需要實體，是因為中英文標題的
+    token 交集趨近於零、相似度那條路走不通——兩支的判準不同不是不一致，
+    是它們在對付不同的東西。
+
+    同一條來源的兩筆不必特別處理：`independent_voices` 本來就會把它們併成
+    一個聲音，這裡再判一次不會改變任何數字。
+    """
+    cfg = cfg or {}
+    if not cfg.get("enabled"):
+        return set()
+    try:
+        min_sim = float(cfg.get("title_similarity_min", 0.95))
+        window = float(cfg.get("window_hours", 168))
+    except (TypeError, ValueError):
+        return set()
+
+    n = len(items)
+    parent = list(range(n))
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    linked = False
+    for i in range(n):
+        for j in range(i + 1, n):
+            a, b = items[i], items[j]
+            ta, tb = (a.get("title") or "").strip(), (b.get("title") or "").strip()
+            # 缺標題一律不判——往「維持原本算法」倒，同 suspected_reposts。
+            # 捏造一個「它們是同一篇」的結論比漏抓一次更難發現。
+            if not ta or not tb:
+                continue
+            pa, pb = a.get("published"), b.get("published")
+            if pa is None or pb is None:
+                continue
+            if abs((pa - pb).total_seconds()) / 3600.0 > window:
+                continue
+            if title_similarity(ta, tb) < min_sim:
+                continue
+            ra, rb = find(i), find(j)
+            if ra != rb:
+                parent[ra] = rb
+            linked = True
+
+    if not linked:
+        return set()
+    groups = {}
+    for i in range(n):
+        groups.setdefault(find(i), []).append(i)
+    reposts = set()
+    for members in groups.values():
+        if len(members) < 2:
+            continue
+        # 原文的選法跟 suspected_reposts 一模一樣：最早發布 → tier 小 → 順序在前。
+        # 三段都是確定性的，同一份輸入永遠給同一個答案。
         def rank(idx):
             it = items[idx]
             pub = it.get("published")

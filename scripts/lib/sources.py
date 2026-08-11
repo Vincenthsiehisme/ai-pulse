@@ -89,16 +89,35 @@ def is_running(src):
     return (src or {}).get("lifecycle") in RUN_LIFECYCLES
 
 
-def capability_claims(raw):
+# 「不是發布方的人」＝ 媒體線 + KOL 線。
+#
+# `aggregator` 刻意不在裡面：`_config/sources.yaml` 的檔頭寫明它「只當候選來源，
+# 不作任何事實依據」。把 HN 算成獨立供給，等於讓一個轉貼站撐起某一格的覆蓋率。
+#
+# 這個集合的消費者是覆蓋缺口矩陣的燈號（references/vault-pages.md）。
+# 為什麼燈號只看獨立那一欄：2026-08-11 的 26 則裁決裡，22 則判 unanswerable 的
+# **每一則都是「只有官方說了，我們判定看不到」**——官方供給在這批需求上的
+# 實測命中率是 0。這是量出來的，不是推論的。
+INDEPENDENT_TRACKS = frozenset({"media", "kol"})
+OFFICIAL_TRACKS = frozenset({"official"})
+
+
+def capability_claims(raw, tracks=None):
     """→ {capability: [source_id, ...]}，只算會被抓的來源。
 
     只算 running 的是刻意的：一條 dormant 來源的 capability 是**將來**的宣稱，
     把它算進覆蓋率會讓盲區看起來比實際小——而這一整層存在的理由就是把盲區
     指出來。停用的來源不補盲區。
+
+    `tracks` 給一個 track 集合就只算那幾軌（例如 INDEPENDENT_TRACKS）。
+    給 None 算全部——**包含 aggregator**，因為「這一格總共有幾條來源宣稱」
+    跟「有幾條獨立來源」是兩個不同的問題，不該用同一個過濾器回答。
     """
     out = {}
     for s in iter_sources(raw):
         if not is_running(s):
+            continue
+        if tracks is not None and s.get("track") not in tracks:
             continue
         for c in (s.get("capabilities") or []):
             out.setdefault(c, []).append(str(s.get("id")))

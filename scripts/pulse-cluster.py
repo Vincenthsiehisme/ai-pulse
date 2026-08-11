@@ -82,6 +82,49 @@ def load_entities(cfg):
     return out
 
 
+def attach_target(title, published, events, sim_min):
+    """這則 signal 該掛到哪個既有 Event，沒有就回 None。純函式，可離線單測。
+
+    抽出來是為了讓門檻可測。`sim_min` **刻意沒有預設值**：這樣「忘記把 gate.yaml
+    的門檻傳進來」會在呼叫的當下丟 TypeError，而不是安靜地退回某個內建數字繼續跑。
+    一個讀得到、註解也寫了消費者、實際上沒被傳進去的門檻，就是這個 repo 抓過
+    很多次的假旋鈕——把它做成語法上不可能，比再加一條測試可靠。
+    """
+    return next((c for c in events if cluster.belongs_to_event(
+        title, published, c.title, c.happened_at, sim_min)), None)
+
+
+def load_title_similarity_min(cfg):
+    """gate.yaml 的 `cluster.title_similarity_min`。缺檔／缺值／壞值 → 回舊的 0.46。
+
+    退回**舊值**不是退回新值，方向是刻意的：設定檔壞掉的時候規則要變嚴，
+    不是變鬆（同 `lib/dictgaps.thresholds()`）。一個在 YAML 打錯字的那天
+    悄悄放寬聚類的系統，會把汙染混進 independent_sources 而沒有人知道。
+    """
+    p = cfg / "gate.yaml"
+    if not p.exists():
+        return cluster.DEFAULT_TITLE_SIMILARITY_MIN
+    raw = yaml.safe_load(p.read_text("utf-8")) or {}
+    v = ((raw.get("cluster") or {}).get("title_similarity_min"))
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return cluster.DEFAULT_TITLE_SIMILARITY_MIN
+
+
+def load_verbatim_repost_cfg(cfg):
+    """gate.yaml 的 `evidence.verbatim_repost`。缺檔／缺區塊 → 回空 dict。
+
+    跟上面那支同一條原則：**設定檔讀不到不可以退回「照判」**。
+    一條在設定檔壞掉時反而更積極扣分的規則，會在最沒人注意的那天改變結果。
+    """
+    p = cfg / "gate.yaml"
+    if not p.exists():
+        return {}
+    raw = yaml.safe_load(p.read_text("utf-8")) or {}
+    return ((raw.get("evidence") or {}).get("verbatim_repost") or {})
+
+
 def load_translation_chain_cfg(cfg):
     """gate.yaml 的 evidence.translation_chain。缺檔／缺區塊 → 回空 dict。
 
@@ -233,7 +276,7 @@ def evidence_line(e):
     return f"{head}{title}（{e.get('url') or ''}）"
 
 
-def mark_reposts(ev, sources, tc_cfg, ent_table):
+def mark_reposts(ev, sources, tc_cfg, ent_table, vr_cfg=None):
     """在證據上標 `suspected_repost`。回傳被標記的 index 集合。
 
     規格見 references/evidence-tiers.md〈evidence.translation_chain〉。
@@ -245,6 +288,7 @@ def mark_reposts(ev, sources, tc_cfg, ent_table):
         src = sources.get(e["source_id"], {}) or {}
         title = e.get("title") or ""
         rows.append({
+            "title": title,           # verbatim_reposts 用；suspected_reposts 不看
             "lang": src.get("language"),
             "tier": src.get("tier"),
             "published": parse_dt(e.get("published")),
@@ -253,7 +297,11 @@ def mark_reposts(ev, sources, tc_cfg, ent_table):
             "entities": entities_lib.entity_ids(title, ent_table) if (title and ent_table) else frozenset(),
             "fingerprint": cluster.event_fingerprint(title) if title else None,
         })
+    # 兩支合起來才是完整的「這不是第二個聲音」：一支認跨語言翻譯，
+    # 一支認同語言逐字轉載。少了後者，2026-08-11 量到的那兩篇（相似度 1.00）
+    # 會實實在在地讓 independent_sources 從 1 變成 2。
     flagged = cluster.suspected_reposts(rows, tc_cfg)
+    flagged = flagged | cluster.verbatim_reposts(rows, vr_cfg)
     for idx, e in enumerate(ev.evidence):
         e["suspected_repost"] = idx in flagged
     return flagged
@@ -298,13 +346,18 @@ def patch_coverage(path, coverage):
     return True
 
 
-def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None, first_fetch=None):
-    reposts = mark_reposts(ev, sources, tc_cfg, ent_table)
+def rescore(ev, sources, ref_now, tc_cfg=None, ent_table=None, first_fetch=None,
+            vr_cfg=None):
+    reposts = mark_reposts(ev, sources, tc_cfg, ent_table, vr_cfg)
     # gate.yaml 的 excluded_from 真的被讀：把它寫成一個「改了也沒效果」的清單，
     # 就是這個 repo 一直在抓的假旋鈕。清單裡的 heat 今天是**由 independent_sources
     # 承擔的**（heat 的證據面輸入只有獨立來源數，metrics 還是 []），社群線接上那天
     # 要回來把它單獨接一次——那件事寫在 references/evidence-tiers.md。
-    excluded = set((tc_cfg or {}).get("excluded_from") or [])
+    # 兩支轉載守門的排除清單取**聯集**。它們排除的語意相同（那一條不是第二個
+    # 聲音），分開設定沒有意義。真要分開的話，得先讓 mark_reposts 回報是哪一支
+    # 判的——在那之前，聯集是唯一不會靜靜漏掉一邊的選法。
+    excluded = (set((tc_cfg or {}).get("excluded_from") or [])
+                | set((vr_cfg or {}).get("excluded_from") or []))
     authority_scores, tiers, voices, primary = [], [], [], 0
     for idx, e in enumerate(ev.evidence):
         src = sources.get(e["source_id"], {})
@@ -449,6 +502,8 @@ def main():
     # 字典讀原始 yaml 不讀 load_entities()——後者是給 infer_company 用的縮減版，
     # 沒有 aliases，而 aliases 正是這條規則能跨語言的原因。
     tc_cfg = load_translation_chain_cfg(cfg)
+    vr_cfg = load_verbatim_repost_cfg(cfg)
+    sim_min = load_title_similarity_min(cfg)
     ent_table = load_entity_table(cfg)
 
     signals = [json.loads(x) for x in scored_path.read_text("utf-8").splitlines() if x.strip()]
@@ -490,8 +545,7 @@ def main():
     for sig in signals:
         title = sig["title"]
         published = sig.get("published") or sig.get("first_observed_at") or ""
-        ev = next((c for c in events if cluster.belongs_to_event(
-            title, published, c.title, c.happened_at)), None)
+        ev = attach_target(title, published, events, sim_min)
         if ev is None:
             score = eventability(sig, sources)
             if score < 70:
@@ -538,7 +592,7 @@ def main():
     # rescore 所有動到的 Event
     changed = [e for e in events if e.dirty]
     for ev in changed:
-        rescore(ev, sources, ref_now, tc_cfg, ent_table, first_fetch)
+        rescore(ev, sources, ref_now, tc_cfg, ent_table, first_fetch, vr_cfg)
 
     # 摘要
     conf = [e.scores["confidence"] for e in changed if e.scores]

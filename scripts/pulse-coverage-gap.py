@@ -74,8 +74,13 @@ def thresholds(gate):
     return out
 
 
-def cell(demand, sources, measurable, th):
+def cell(demand, independent, official, measurable, th):
     """一列的燈號與說明。純函式，可離線單測。
+
+    **燈號只看 `independent`，不看 `official`。** 規格見
+    references/vault-pages.md〈供給拆成「官方自述」與「獨立」兩欄〉。
+    一句話：2026-08-11 的 26 則裁決裡，22 則判 unanswerable 的每一則都是
+    「只有官方說了，我們判定看不到」——官方供給在這批需求上實測命中率 0。
 
     `measurable` 是整張表共用的：樣本不夠時**每一格**都是量不到，
     不是只有需求那一欄。因為燈號本身就是拿需求算出來的，
@@ -83,16 +88,21 @@ def cell(demand, sources, measurable, th):
     """
     if not measurable:
         return "－", "量不到"
-    if sources == 0:
-        return ("🔴", "沒有任何來源在看") if demand else ("⚪", "沒人問，也沒人看")
+    if independent == 0:
+        if not demand:
+            return "⚪", ("只有當事人自己在說" if official else "沒人問，也沒人看")
+        # 有官方在說 vs 完全沒人看，要人做的事不一樣：前者要找第三方來對，
+        # 後者連題材都沒有人碰。擠成同一句話，看到紅燈的人會找錯方向。
+        return "🔴", ("只有當事人自己在說，沒有獨立來源" if official
+                      else "沒有任何來源在看")
     if demand == 0:
         return "⚪", "這一輪沒有人問到這一類"
-    ratio = demand / sources
+    ratio = demand / independent
     if ratio > th["red_ratio"]:
-        return "🔴", f"需求是供給的 {ratio:.1f} 倍"
+        return "🔴", f"需求是獨立供給的 {ratio:.1f} 倍"
     if ratio > th["amber_ratio"]:
-        return "🟡", f"需求是供給的 {ratio:.1f} 倍"
-    return "🟢", "供給跟得上"
+        return "🟡", f"需求是獨立供給的 {ratio:.1f} 倍"
+    return "🟢", "獨立供給跟得上"
 
 
 def other_line(other_n, unanswerable_n, th):
@@ -121,7 +131,12 @@ def collect(vault):
                 and r.get("to") == "unanswerable")
     demand = Counter(str(r.get("to")) for r in rows if r.get("field") == F_REASON)
     raw = yaml.safe_load((vault / "_config" / "sources.yaml").read_text("utf-8")) or {}
-    return demand, srcmod.capability_claims(raw), answered, unans
+    supply = {
+        "all": srcmod.capability_claims(raw),
+        "official": srcmod.capability_claims(raw, srcmod.OFFICIAL_TRACKS),
+        "independent": srcmod.capability_claims(raw, srcmod.INDEPENDENT_TRACKS),
+    }
+    return demand, supply, answered, unans
 
 
 def render(demand, supply, answered, unans, today, th):
@@ -151,20 +166,25 @@ def render(demand, supply, answered, unans, today, th):
             "要讓這張表活過來，走 `_dashboards/signal-review.md` 回答一批"
             f"（建議一次抽樣盤點而不是逐日累積，理由見執行計劃 P0-a）。", "",
         ]
+    ind, off = supply["independent"], supply["official"]
     out += ["## 矩陣", "",
-            "| 能力 | 需求（答不了幾次） | 供給（幾條來源） | 判斷 | 說明 |",
-            "|---|---:|---:|:---:|---|"]
+            "供給拆兩欄：**官方**是當事人自己說，**獨立**是媒體線與 KOL 線。",
+            "`track: aggregator`（HN）兩欄都不算——設定檔寫明它只當候選來源、",
+            "不作任何事實依據。**燈號只看獨立那一欄**，理由見 "
+            "`references/vault-pages.md`。", "",
+            "| 能力 | 需求（答不了幾次） | 官方 | 獨立 | 判斷 | 說明 |",
+            "|---|---:|---:|---:|:---:|---|"]
     keys = sorted(srcmod.CAPABILITIES,
-                  key=lambda c: (-demand.get(c, 0), -len(supply.get(c, [])), c))
+                  key=lambda c: (-demand.get(c, 0), -len(ind.get(c, [])), c))
     for c in keys:
-        d, s = demand.get(c, 0), len(supply.get(c, []))
-        mark, why = cell(d, s, measurable, th)
+        d, i, o = demand.get(c, 0), len(ind.get(c, [])), len(off.get(c, []))
+        mark, why = cell(d, i, o, measurable, th)
         dtxt = str(d) if measurable else "－"
-        out.append(f"| `{c}` | {dtxt} | {s} | {mark} | {why} |")
+        out.append(f"| `{c}` | {dtxt} | {o} | {i} | {mark} | {why} |")
     out += ["", ("- ⚠ " if obad else "- ") + oline, ""]
     # other 不是能力，不進矩陣（沒有來源能宣稱「有能力報導其他」），
     # 但它的計數要看得見——不然一個「大部分都填 other」的狀態會完全隱形。
-    zero = sorted(c for c in srcmod.CAPABILITIES if not supply.get(c))
+    zero = sorted(c for c in srcmod.CAPABILITIES if not supply["all"].get(c))
     if zero:
         out += [f"**{len(zero)} 種能力沒有任何在跑的來源宣稱**："
                 + "、".join(f"`{c}`" for c in zero),
@@ -201,8 +221,13 @@ def main():
         "measurable": measurable,
         "min_answers": th["min_answers"],
         "demand": dict(demand),
-        "sources": {c: sorted(v) for c, v in supply.items()},
-        "unclaimed": sorted(c for c in srcmod.CAPABILITIES if not supply.get(c)),
+        "sources": {k: {c: sorted(v) for c, v in m.items()} for k, m in supply.items()},
+        "unclaimed": sorted(c for c in srcmod.CAPABILITIES if not supply["all"].get(c)),
+        # 只有當事人自己在說的那幾格。獨立 0 而官方 > 0 —— 這是最容易被誤讀成
+        # 「有覆蓋」的形狀，所以它自己一個欄位，不用下游再算一次。
+        "official_only": sorted(c for c in srcmod.CAPABILITIES
+                                if supply["official"].get(c)
+                                and not supply["independent"].get(c)),
     }
     page = render(demand, supply, answered, unans, today, th)
     if args.write:

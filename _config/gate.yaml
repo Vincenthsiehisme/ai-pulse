@@ -165,6 +165,27 @@ readiness:
   # 要放寬得改 pulse-gate.py 並改 references/readiness-gate.md，讓它進 diff 被看見。
   require_primary_evidence: true   # ⚠ 未接線（刻意；見上）
 
+# ---------------------------------------------------------------------------
+# 聚類：一則新聞什麼時候算「同一件事」
+# 消費者：scripts/pulse-cluster.py（讀設定並傳給 belongs_to_event）。
+# 判準本身的消費者：scripts/lib/cluster.py（belongs_to_event）。
+# 完整規格與 2026-08-11 的實測數字見 references/attach-rule.md。
+cluster:
+  # 路徑 B（沒有共同 fingerprint 時）的標題相似度門檻。
+  #
+  # 2026-08-11 之前這個數字寫死在 belongs_to_event() 的預設參數裡。P0-e 拿 14 篇
+  # 真實的第三方後續實測：0.46 只黏得上 2 篇，而那 2 篇都是逐字轉載——真的重寫過
+  # 的 12 篇一篇都沒進來。降到 0.30 是 7/14，而且對 85 則負對照零誤黏。
+  #
+  # 為什麼不再低：0.25 以下開始出現誤黏（Muse Glimmer 黏到 Orchard，共同詞只有
+  # open / agentic / ai）。代價不對稱——漏一篇只是少一個聲音，黏錯一篇會讓
+  # independent_sources 記一個不存在的獨立來源，而那個數字會進 frontmatter、
+  # 進看板、進 KPI，事後分不出哪些是虛的。0.30 是「還沒開始付代價」的最後一格。
+  #
+  # 時間窗刻意不動：實測窗口從 96 小時放寬到 21 天，各門檻下的命中數完全不變。
+  # 守門的是門檻不是窗口。
+  title_similarity_min: 0.30
+
 evidence:                    # 發布證據門檻
   # ⚠ 兩個都未接線。真正在擋的是 pulse-gate.py 的 missing_primary_evidence
   # （primary_evidence 欄位為 0 就擋），那個欄位由 pulse-cluster.rescore() 的
@@ -185,6 +206,30 @@ evidence:                    # 發布證據門檻
   # 判準：語言不同 + 發布時間差 ≤ window_hours + 標題實體集合 Jaccard ≥
   # entity_overlap_min，三個同時成立；兩邊都有 fingerprint 且不相等則否決。
   # 缺任何一項資料就不判——往「維持原本算法」倒，不往「猜它是轉載」倒。
+  # 同語言逐字轉載：一篇原文＋一篇一字不差的複製貼上，也會被算成兩個獨立來源。
+  # 2026-08-11 實測，這正是現行 attach 規則**唯一收得到**的那種「第二個來源」——
+  # P0-e 的 14 篇真實第三方後續裡只有 2 篇黏得上，兩篇的標題相似度都是 1.00。
+  # 上面 translation_chain 攔不到它：那一支的第一個條件是「語言不同」。
+  #
+  # 消費者：scripts/pulse-cluster.py（讀設定、標記、扣獨立性）。
+  # 判準本身的消費者：scripts/lib/cluster.py（verbatim_reposts）。
+  # 完整判準與量到的數字見 references/attach-rule.md。
+  #
+  # 判準只有兩條：標題相似度 ≥ title_similarity_min 且時間差 ≤ window_hours。
+  # 不做實體 Jaccard——0.95 以上的兩個標題實體必然幾乎相同，再算一次是把
+  # 同一件事量兩遍。缺標題或缺時間一律不判。
+  verbatim_repost:
+    enabled: true
+    # 0.95：留一點餘裕給轉載時被加上的前後綴（「| Medium」「- 中譯」之類）。
+    # 再低就會開始碰到同一家媒體的系列標題，那些是不同的事件。
+    title_similarity_min: 0.95
+    # 168 小時（7 天）。比 translation_chain 的 48 小時寬很多是刻意的：
+    # 翻譯有時效壓力，複製貼上沒有——實測那兩篇一篇差 47 小時、一篇差 17 小時，
+    # 而 47 已經貼著 48 的邊。逐字轉載晚一週出現，它還是逐字轉載。
+    window_hours: 168
+    # 跟 translation_chain 同一份清單語意：被判成轉載的那一條不進獨立性計算。
+    excluded_from: [independent_sources, heat]
+
   translation_chain:
     # 真開關。關掉＝完全不判、不標記，獨立性回到 2026-07-27 之前的算法。
     # 這跟 readiness.require_primary_evidence 那種假開關不同：它關掉的是一個
