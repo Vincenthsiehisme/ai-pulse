@@ -11,6 +11,7 @@ import sys
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _HERE)
 from lib.sources import SECTIONS as _SECTIONS  # noqa: E402  分節清單單一真相源
+from lib import sources as _smod  # noqa: E402  詞彙表與 lifecycle 單一真相源
 
 spec = importlib.util.spec_from_file_location(
     "v", os.path.join(_HERE, "verify-policy-sources.py"))
@@ -5866,6 +5867,54 @@ acase("文案：讀者看得到的地方不得寫「零 LLM」「不靠 LLM」�
       [w for w in ("0 LLM", "零 LLM", "不靠 LLM") if w in _R_COPY], [])
 acase("文案：內部術語不外洩到讀者面前（門禁 / vault）",
       [w for w in ("門禁", "vault →") if w in _R_COPY], [])
+
+
+# ------------------------------------------------------- 來源能力（capability）
+# 規格：references/source-capabilities.md。三條判準都在這裡，不在文件裡——
+# 執行計劃的〈修正三〉：「所有 running sources 都有 capability」寫成驗收條件的話，
+# 它在通過的那天成立、在下一次有人加來源的那天失效，而且不會有任何東西變紅。
+_SC_RAW = _yaml.safe_load(
+    open(os.path.join(_HERE, "..", "_config", "sources.yaml"), encoding="utf-8"))
+_SC_RUN = [s for s in _smod.iter_sources(_SC_RAW) if _smod.is_running(s)]
+acase("sources.yaml: 會被抓的來源都要標 capabilities（缺了就是一塊看不見的盲區）",
+      sorted(str(s.get("id")) for s in _SC_RUN if not (s.get("capabilities") or [])), [])
+acase("sources.yaml: capabilities 的值必須在 lib/sources.CAPABILITIES 裡"
+      "（開放詞彙表會長出 benchmarks / benchmark_result 這種同義異形，"
+      "而覆蓋率矩陣會安靜地把它們算成不同格）",
+      sorted({c for s in _smod.iter_sources(_SC_RAW)
+              for c in (s.get("capabilities") or [])} - _smod.CAPABILITIES), [])
+acase("sources.yaml: capabilities 不准有重複值（同一格算兩次，覆蓋率就虛胖）",
+      sorted(str(s.get("id")) for s in _smod.iter_sources(_SC_RAW)
+             if len(s.get("capabilities") or []) != len(set(s.get("capabilities") or []))), [])
+# 詞彙表與 RUN_LIFECYCLES 都只准有一份，理由同上面那條 aggregator_sources 的禁令。
+acase("scripts/: capability 詞彙表只准有一份"
+      "（除 lib/sources.py 外不得再硬寫 'official_announcement'）",
+      sorted(os.path.basename(p) for p in _glob.glob(os.path.join(_HERE, "**", "*.py"),
+                                                     recursive=True)
+             if os.path.basename(p) not in ("sources.py", "selftest.py")
+             and "official_announcement" in open(p, encoding="utf-8").read()), [])
+acase("scripts/: 可跑 lifecycle 只准有一份"
+      "（2026-08-11 之前這個集合硬寫在四個檔案裡，漏改一處＝某一類 lifecycle "
+      "在那支腳本眼裡不存在，而清單長度不變、沒有東西會紅）",
+      sorted(os.path.basename(p) for p in _glob.glob(os.path.join(_HERE, "**", "*.py"),
+                                                     recursive=True)
+             if os.path.basename(p) not in ("sources.py", "selftest.py")
+             and '"degraded", "probing"' in open(p, encoding="utf-8").read()), [])
+acase("lib/sources.CAPABILITIES: 14 個值，且 procurement 在裡面"
+      "（0 條來源宣稱它，正是它必須留在表上的理由——把沒有人做的那一格從表上拿掉，"
+      "盲區就從清單裡消失了）",
+      (len(_smod.CAPABILITIES), "procurement" in _smod.CAPABILITIES),
+      (14, True))
+# 消費者。一個沒有人讀的欄位等於不存在，所以這一行在落地當天就要有人印。
+_CAP_LINE = _mm.capability_claims_line(_SC_RAW, {"src-openai-blog": 3})
+acase("pulse-monitor: 宣稱／觀察對照行，零產出的來源要被點名（不是只給一個總數）",
+      ("src-mistral-news" in _CAP_LINE, "procurement" in _CAP_LINE), (True, True))
+acase("pulse-monitor: 對照行不回 bool（永遠是 False 的旗標就是假旋鈕；"
+      "不觸警的理由見 references/source-capabilities.md）",
+      isinstance(_CAP_LINE, str), True)
+acase("lib/sources.capability_claims: 只算 running 的"
+      "（把停用來源算進覆蓋率，盲區會看起來比實際小，而這一層存在就是為了指出盲區）",
+      "src-arxiv-cs-cl" in sum(_smod.capability_claims(_SC_RAW).values(), []), False)
 
 print("offline self-test\n" + "-" * 70)
 fails = 0

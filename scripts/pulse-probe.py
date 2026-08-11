@@ -50,7 +50,7 @@ import yaml
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
-from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源，見 lib/sources.py
+from lib.sources import SECTIONS, RUN_LIFECYCLES  # noqa: E402  單一真相源，見 lib/sources.py
 from lib import dictgaps  # noqa: E402  晉升判準單一真相源，見 lib/dictgaps.py
 from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 from lib.entities import (ENTITY_SECTIONS, build_matcher,  # noqa: E402,F401
@@ -62,7 +62,6 @@ MAX_REDIRECTS = 5
 SUMMARY_CHARS = 300  # 尊重 license_note 的 "titles + excerpt"，不落全文
 
 # 只有這三種 lifecycle 會被實際請求。draft / dormant 一律跳過但仍出現在狀態表。
-RUN_LIFECYCLES = {"active", "degraded", "probing"}
 
 # --------------------------------------------------------- author 分類（5a/5b）
 # M1 實測：120/120 有 author，但 arXiv 是具名論文作者、GitHub release 是發版者
