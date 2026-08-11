@@ -129,6 +129,11 @@
     "src_hash": "43c34c4ce29f",
     "zh": "開源長時程 SuperAgent 框架，能研究、寫程式與創作，靠沙箱、記憶、工具、子代理處理數分鐘到數小時的任務"
   },
+  "cactus-compute/cactus": {
+    "at": "2026-08-11T19:12:15+00:00",
+    "src_hash": "c60b0a6ccb80",
+    "zh": "給手機、穿戴裝置、智慧家庭與機器人的量化、kernel、runtime 與推論引擎"
+  },
   "calesthio/OpenMontage": {
     "at": "2026-08-03T19:17:58+00:00",
     "src_hash": "e86b438611c0",
@@ -308,6 +313,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "0973420ed49d",
     "zh": "給 AI agent 的自我演化情境資料庫，整合 agent 記憶、RAG 知識與技能"
+  },
+  "wanshuiyin/Auto-claude-code-research-in-sleep": {
+    "at": "2026-08-11T19:12:15+00:00",
+    "src_hash": "965322c3682f",
+    "zh": "ARIS：純 Markdown 的自主 ML 研究技能，含跨模型審查、發想與實驗自動化，免框架、免綁定"
   },
   "withastro/flue": {
     "at": "2026-08-01T19:12:28+00:00",
