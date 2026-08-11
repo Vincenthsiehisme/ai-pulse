@@ -108,6 +108,11 @@
         "src-media-theverge",
         "src-media-venturebeat"
       ],
+      "legal_proceeding": [
+        "src-media-arstechnica",
+        "src-media-techcrunch",
+        "src-media-theverge"
+      ],
       "research_replication": [
         "src-kol-lilianweng",
         "src-kol-raschka",
@@ -218,6 +223,11 @@
       ],
       "supply_chain": [
         "src-media-techcrunch"
+      ],
+      "legal_proceeding": [
+        "src-media-arstechnica",
+        "src-media-techcrunch",
+        "src-media-theverge"
       ],
       "research_replication": [
         "src-kol-lilianweng",

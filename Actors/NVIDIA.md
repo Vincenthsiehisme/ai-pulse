@@ -10,12 +10,13 @@ tags: [actor, company]
 
 # NVIDIA
 
-事件 **28** 則：`published` 23、`review` 5
+事件 **29** 則：`published` 26、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-11 | [[Events/evt-2026-08-11-d99e44\|NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI]] | review |
-| 2026-08-11 | [[Events/evt-2026-08-11-6d61c1\|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]] | review |
+| 2026-08-11 | [[Events/evt-2026-08-11-d99e44\|NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI]] | published |
+| 2026-08-11 | [[Events/evt-2026-08-11-783838\|Why Scaling AI Compute Performance Requires a New Power Architecture]] | published |
+| 2026-08-11 | [[Events/evt-2026-08-11-6d61c1\|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]] | published |
 | 2026-08-10 | [[Events/evt-2026-08-10-0e6ea5\|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS]] | published |
 | 2026-08-06 | [[Events/evt-2026-08-06-6c5981\|Into the Omniverse: How Open World Models Push the Frontier of Physical AI]] | published |
 | 2026-08-06 | [[Events/evt-2026-08-06-00fb68\|GeForce NOW Shakes Up August With 26 New Games]] | published |

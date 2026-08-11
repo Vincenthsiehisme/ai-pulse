@@ -10,15 +10,19 @@ tags: [actor, company]
 
 # OpenAI
 
-事件 **36** 則：`published` 32、`review` 4
+事件 **40** 則：`published` 38、`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-11 | [[Events/evt-2026-08-11-5bb657\|Testing ads in ChatGPT]] | review |
-| 2026-08-10 | [[Events/evt-2026-08-10-f81fd9\|Expanding Daybreak as the Cyber Defense Window Narrows]] | review |
+| 2026-08-11 | [[Events/evt-2026-08-11-5bb657\|Testing ads in ChatGPT]] | published |
+| 2026-08-11 | [[Events/evt-2026-08-11-0f6472\|Daybreak models are now available on AWS]] | review |
+| 2026-08-10 | [[Events/evt-2026-08-10-f81fd9\|Expanding Daybreak as the Cyber Defense Window Narrows]] | published |
 | 2026-08-10 | [[Events/evt-2026-08-10-bbf2b8\|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas]] | published |
 | 2026-08-10 | [[Events/evt-2026-08-10-8a0492\|What building an AI-native finance function taught me]] | published |
-| 2026-08-10 | [[Events/evt-2026-08-10-4425be\|Putting frontier cyber models in more trusted hands]] | review |
+| 2026-08-10 | [[Events/evt-2026-08-10-6de2c6\|How Zapier transformed core marketing processes with ChatGPT Work]] | published |
+| 2026-08-10 | [[Events/evt-2026-08-10-4425be\|Putting frontier cyber models in more trusted hands]] | published |
+| 2026-08-10 | [[Events/evt-2026-08-10-2ea3f0\|Premium seats are coming to ChatGPT Business]] | published |
+| 2026-08-10 | [[Events/evt-2026-08-10-27696c\|Virgin Atlantic sharpens customer journeys with ChatGPT Work]] | published |
 | 2026-08-07 | [[Events/evt-2026-08-07-3e0258\|Responding to the next frontier of critical cyber capabilities]] | published |
 | 2026-08-07 | [[Events/evt-2026-08-07-16edd0\|How HSP GRUPPE builds AI capabilities for tax advisory]] | published |
 | 2026-08-06 | [[Events/evt-2026-08-06-d3c850\|Working with the American Psychological Association on youth mental health and AI]] | published |

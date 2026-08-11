@@ -9,7 +9,7 @@
   NVIDIA 8月串連開源社群，整月推廣本地部署的開源模型與智慧代理工具。
 - **[[Events/evt-2026-08-11-783838|Why Scaling AI Compute Performance Requires a New Power Architecture]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 主張 AI 算力擴張的瓶頸已從耗電量轉移到供電架構本身，需要新的電力配送設計。
-- **[[Events/evt-2026-08-11-d99e44|NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+- **[[Events/evt-2026-08-11-d99e44|NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI]]** — NVIDIA · model-capability · conf 80 · heat 未量測
   NVIDIA 擴大 Nemotron 3 開源模型家族，推出效率最高的 Nemotron 3.5 Lightning，鎖定長時間執行的代理工作負載。
 - **[[Events/evt-2026-08-11-dc5cff|v0.27.1]]** — vLLM · infra · conf 83 · heat 未量測
   vLLM 釋出 v0.27.1 patch 版本，修正並延伸剛發布的 v0.27.0（561 個 commit、支援 Kimi K3 全棧）。

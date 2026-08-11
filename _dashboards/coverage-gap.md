@@ -27,6 +27,7 @@ generated_day: "2026-08-11"
 | `procurement` | 1 | 0 | 0 | 🔴 | 沒有任何來源在看 |
 | `social_signal` | 0 | 0 | 8 | ⚪ | 這一輪沒有人問到這一類 |
 | `research_replication` | 0 | 0 | 5 | ⚪ | 這一輪沒有人問到這一類 |
+| `legal_proceeding` | 0 | 0 | 3 | ⚪ | 這一輪沒有人問到這一類 |
 | `infrastructure` | 0 | 1 | 1 | ⚪ | 這一輪沒有人問到這一類 |
 | `supply_chain` | 0 | 2 | 1 | ⚪ | 這一輪沒有人問到這一類 |
 | `official_announcement` | 0 | 9 | 0 | ⚪ | 只有當事人自己在說 |

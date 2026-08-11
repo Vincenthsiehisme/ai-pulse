@@ -8,9 +8,9 @@ last_run_day: "2026-08-11"
 run_lag_days: 0
 stale_after_days: 2
 sources_runnable: 27
-items_observed: 1341
-events_total: 117
-events_published: 86
+items_observed: 1348
+events_total: 119
+events_published: 96
 ---
 
 # 健康監看
@@ -26,9 +26,9 @@ events_published: 86
 | 層 | 數字 | 這一格不對勁代表什麼 |
 |---|---|---|
 | 收錄 | 27 條可跑來源 | 設定檔現在有幾條會被抓 |
-| 已觀測 | 累計 1341 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
-| 有效產出 | 117 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
-| 已發布 | 86 則 | 卡在門禁是設計，不是故障 |
+| 已觀測 | 累計 1348 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
+| 有效產出 | 119 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
+| 已發布 | 96 則 | 卡在門禁是設計，不是故障 |
 
 ## 鏈的兩條時間軸
 
@@ -41,19 +41,19 @@ events_published: 86
 
 ## 佇列
 
-- 已上線 **86**／review **30**（待處理 19、設計上擋著 11）／人工判定不追 **1**
-- 未 enrich **11** 則，最久放了 **0** 天
+- 已上線 **96**／review **22**（待處理 11、設計上擋著 11）／人工判定不追 **1**
+- 未 enrich **2** 則，最久放了 **0** 天
 - 待處理卡最久 **16** 天（天數＝**進庫**多久，不是新聞發布多久）
 
 | blocker | 則數 |
 |---|---|
-| `thin_fact` | 16 |
 | `stale_backfill` | 11 |
-| `placeholder_content` | 11 |
-| `missing_category` | 11 |
-| `missing_track` | 11 |
-| `generic_entity` | 7 |
-| `thin_research_analysis` | 3 |
+| `thin_fact` | 7 |
+| `thin_research_analysis` | 4 |
+| `generic_entity` | 2 |
+| `placeholder_content` | 2 |
+| `missing_category` | 2 |
+| `missing_track` | 2 |
 
 ## 覆蓋範圍
 
@@ -61,15 +61,15 @@ events_published: 86
 
 | 必盯實體 | 來源 | 看見 | 事件 | 上線 | 最後看見 |
 |---|---|---|---|---|---|
-| OpenAI | 1 | 617 | 36 | 32 | 0d 前 |
-| Anthropic | 1 | 178 | 12 | 10 | 0d 前 |
+| OpenAI | 1 | 621 | 40 | 38 | 0d 前 |
+| Anthropic | 1 | 176 | 12 | 10 | 0d 前 |
 | Google DeepMind | 1 | 94 | 5 | 4 | 0d 前 |
-| Google | 1 | 292 | 7 | 5 | 0d 前 |
+| Google | 1 | 299 | 7 | 5 | 0d 前 |
 | Meta | 1 | 94 | 1 | 1 | 0d 前 |
 | Microsoft | 1 | 104 | 1 | 1 | 0d 前 |
-| NVIDIA | 1 | 234 | 26 | 22 | 0d 前 |
+| NVIDIA | 1 | 234 | 27 | 25 | 0d 前 |
 | Hugging Face | 1 | 150 | 1 | 1 | 0d 前 |
-| xAI | 1 | 20 | 5 | 4 | 6d 前 |
+| xAI | 1 | 21 | 5 | 4 | 0d 前 |
 | Mistral AI | 1 | 3 | 0 | 0 | 1d 前 |
 | Alibaba | 1 | 2 | 0 | 0 | 8d 前 |
 | DeepSeek | 0 | 138 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
@@ -92,7 +92,7 @@ events_published: 86
 | Groq | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Cerebras | 0 | 5 | 1 | 0 | 13d 前 ○ 已知未覆蓋（不觸警） |
 | CoreWeave | 0 | 14 | 0 | 0 | 1d 前 ○ 已知未覆蓋（不觸警） |
-| AWS | 0 | 15 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| AWS | 0 | 16 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 
 - 可跑來源 27 條，本窗口零產出 3 條：`src-kol-thezvi`、`src-media-theregister`、`src-mistral-news`
 
@@ -104,28 +104,28 @@ events_published: 86
 
 ## GitHub 動能榜的中文描述
 
-- 榜單中文描述：33/35 條
+- 榜單中文描述：31/35 條
 
 這一格不判紅燈：第一天本來就是 0 條，一個天天紅的看板跟一個
 永遠綠的一樣沒有資訊。**要判紅的是「有過然後停了」**，那個天數就在上面。
 
 ## 半夜潤稿那條鏈
 
-- 潤稿鏈：最後一次推回 2026-08-10（1 天前）
+- 潤稿鏈：最後一次推回 2026-08-11（0 天前）
 
 它跑在沙箱裡、最後一步要 push。**推不上去的那一邊沒辦法通報自己
 推不上去**——所以這一格由推得上去的 Actions 這一邊量。
 
 ## 判斷層的記憶
 
-- 判斷層帳本：18 筆，最近一次 2026-08-07（4 天前）；最近 7 天有 6 條主線改過主張（agent-refactor、capital-evolution、global-map、infra-cost、model-research、product-market）
+- 判斷層帳本：28 筆，最近一次 2026-08-11（今天）；最近 7 天有 6 條主線改過主張（agent-refactor、capital-evolution、global-map、infra-cost、model-research、product-market）
 
 `now` / `next` 是整段覆寫的（實測有過相鄰兩版只剩 10% 相同）。
 沒有這份帳本，「我上週對這條線怎麼說」這個問題答不出來。
 
 ## 來源能力（宣稱 vs 觀察）
 
-- 來源能力：running 27 條，全數已標；14 種能力裡**1 種沒有任何來源宣稱**（`procurement`）；**3 條宣稱了但語料裡從來沒有過**（`src-kol-thezvi`、`src-media-theregister`、`src-mistral-news`）
+- 來源能力：running 27 條，全數已標；15 種能力裡**1 種沒有任何來源宣稱**（`procurement`）；**3 條宣稱了但語料裡從來沒有過**（`src-kol-thezvi`、`src-media-theregister`、`src-mistral-news`）
 
 這一格**不判紅燈**，理由寫在 `references/source-capabilities.md`：
 健康分沒有壞，它只是**只看單班**——「這一班安靜」跟「25 班一次都沒到過貨」

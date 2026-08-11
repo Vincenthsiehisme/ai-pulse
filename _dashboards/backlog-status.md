@@ -16,9 +16,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 總數 | 117 |
-| `published` | 86 |
-| `review` | 30 |
+| 總數 | 119 |
+| `published` | 96 |
+| `review` | 22 |
 | `dropped` | 1 |
 | 帶 `stale_backfill` | 12 |
 
@@ -53,9 +53,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-08-11T16:42:48+00:00 |
-| 條目 / 來源 | 465 items / 32 sources |
-| status 分佈 | 200 23、304 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
+| 時間 | 2026-08-11T22:17:48+00:00 |
+| 條目 / 來源 | 425 items / 32 sources |
+| status 分佈 | 200 21、304 3、robots_unknown 3、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |
 
 零產出那一格屬於哪一種 0，看那一天的 `_probe/<日>/report.md`

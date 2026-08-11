@@ -1,34 +1,59 @@
 [
   {
-    "full_name": "cactus-compute/cactus",
-    "desc": "Quantization, kernels, runtime and inference engine for mobiles, wearables, smart home and robots.",
-    "language": "C++",
+    "full_name": "unslothai/unsloth",
+    "desc": "Local UI to run and train LLMs and diffusion models, including Kimi K3, MiniMax-H3, Gemma 4, Qwen3.6, DeepSeek-V4, FLUX and more.",
+    "language": "Python",
     "topics": [
-      "ai",
-      "android",
-      "arm",
-      "edge",
-      "edge-ai",
-      "framework"
+      "agent",
+      "chatgpt",
+      "deepseek",
+      "fine-tuning",
+      "gemma",
+      "gemma3"
     ],
-    "stars": 5659,
-    "url": "https://github.com/cactus-compute/cactus",
+    "stars": 70198,
+    "url": "https://github.com/unslothai/unsloth",
+    "stale_zh": "本地 UI，用來訓練與運行 Kimi K3、Gemma 4、Qwen3.6、DeepSeek、GLM 等模型"
+  },
+  {
+    "full_name": "huggingface/transformers",
+    "desc": "🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.",
+    "language": "Python",
+    "topics": [
+      "audio",
+      "deep-learning",
+      "deepseek",
+      "gemma",
+      "glm",
+      "hacktoberfest"
+    ],
+    "stars": 163766,
+    "url": "https://github.com/huggingface/transformers",
     "stale_zh": null
   },
   {
-    "full_name": "wanshuiyin/Auto-claude-code-research-in-sleep",
-    "desc": "ARIS ⚔️ (Auto-Research-In-Sleep) — Lightweight Markdown-only skills for autonomous ML research: cross-model review loops, idea discovery, and experiment automation. No framework, no lock-in — works with Claude Code, Codex, OpenClaw, or any LLM agent.",
+    "full_name": "Gentleman-Programming/engram",
+    "desc": "Persistent memory system for AI coding agents. Agent-agnostic Go binary with SQLite + FTS5, MCP server, HTTP API, CLI, and TUI.",
+    "language": "Go",
+    "topics": [],
+    "stars": 5970,
+    "url": "https://github.com/Gentleman-Programming/engram",
+    "stale_zh": null
+  },
+  {
+    "full_name": "zilliztech/VectorDBBench",
+    "desc": "Benchmark for vector databases.",
     "language": "Python",
     "topics": [
-      "ai-research",
-      "ai-tools",
-      "aris",
-      "autonomous-agent",
-      "claude",
-      "claude-code"
+      "benchmark",
+      "cost-effectiveness",
+      "performance",
+      "vector-database",
+      "vector-search",
+      "vectordb"
     ],
-    "stars": 14554,
-    "url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+    "stars": 1160,
+    "url": "https://github.com/zilliztech/VectorDBBench",
     "stale_zh": null
   }
 ]
