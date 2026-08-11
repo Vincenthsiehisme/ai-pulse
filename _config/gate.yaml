@@ -219,6 +219,28 @@ source_health:
   quarantine_after_consecutive: 5   # 只列入報告的隔離候選，不自動寫 dormant
   recover_after_consecutive: 3      # 連續成功幾次 → 撤銷機器自己做的降級
 
+# ---------------------------------------------------------------------------
+# 覆蓋缺口矩陣（需求 × 供給）
+# 消費者：scripts/pulse-coverage-gap.py。規格 references/vault-pages.md
+# 〈`_dashboards/coverage-gap.md`〉。
+coverage_gap:
+  # 少於這麼多筆人工裁決，整張表一律印「量不到」，不給任何燈號。
+  # 這是這張表最重要的一個門檻：需求那一欄是人給的，而把「還沒有人回答過」
+  # 印成 0，會讓 procurement（0 需求、0 來源）看起來跟一個真的沒問題的格子
+  # 一樣綠——而它其實是這個系統最大的盲區之一。
+  # 10 這個數字是保守的下限，不是統計上的充分樣本；執行計劃 P0-a 的目標是 26。
+  min_answers: 10
+
+  # 需求／供給的比值落在哪一段給什麼燈。供給是 0 而需求 > 0 一律紅（不看比值，
+  # 除以 0 的那一格不該用一個大數字表達，它是另一種狀態）。
+  amber_ratio: 1.0
+  red_ratio: 3.0
+
+  # `other` 佔 unanswerable 的比例超過這個值 → 頁面印提醒。
+  # 它不是在說填的人偷懶，是在說**分類軸可能選錯了**：那 14 個值是在 n=0 的
+  # 情況下猜出來的，`other` 就是這份猜測的死人開關。
+  other_reason_warn: 0.3
+
 monitor:
   # 消費者：scripts/pulse-monitor.py 的 --write-health / --alert-stale
   # （2026-07-26 接上。在此之前這個 key 沒有任何消費者，連註解裡講的

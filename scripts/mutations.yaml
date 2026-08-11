@@ -2006,3 +2006,56 @@ mutations:
     replace: "RUN_LIFECYCLES = {\"active\", \"degraded\", \"probing\"}"
     survives: false
     why: ""
+
+  # ── 答不了的那些：reason 與覆蓋缺口矩陣（2026-08-11）──
+  # 規格 references/source-capabilities.md〈同一份詞彙表的第二個用途〉與
+  # references/vault-pages.md〈coverage-gap.md〉。
+  # 這六條守的是「量不到不准印成 0」與「兩邊的軸必須是同一份詞彙表」。
+
+  - id: M231
+    title: "unanswerable 不用填 reason 也放行（一筆「這個系統看不到它」但沒說看不到哪一類，只剩下一個計數——而那個原因碼正是整條線最有價值的資料點）"
+    file: pulse-signal-review.py
+    find: "        if args.verdict == \"unanswerable\" and not args.reason:"
+    replace: "        if False:"
+    survives: false
+    why: ""
+
+  - id: M232
+    title: "`other` 不用配 --note 也放行（分類表是 n=0 時猜出來的，other 是它的死人開關；一筆沒有說明的 other 會進分母把比例撐大，卻留不下任何能重新分類的線索）"
+    file: pulse-signal-review.py
+    find: "        if args.reason == \"other\" and not args.note.strip():"
+    replace: "        if False:"
+    survives: false
+    why: ""
+
+  - id: M233
+    title: "reason 詞彙表自己抄一份而不是從 CAPABILITIES 衍生（PRD 給的就是兩份不同的清單，而覆蓋率矩陣兩邊的軸對不齊時，對不到的列是詞彙表的洞不是量出來的洞）"
+    file: lib/sources.py
+    find: "REASONS = CAPABILITIES | frozenset({\"other\"})"
+    replace: "REASONS = frozenset({\"benchmark\", \"third_party_validation\", \"enterprise_adoption\", \"procurement\", \"supply_chain\", \"financial_impact\", \"research_replication\", \"policy_execution\", \"product_availability\", \"social_signal\", \"other\"})"
+    survives: false
+    why: ""
+
+  - id: M234
+    title: "覆蓋缺口矩陣在樣本不足時照樣給燈號（燈號是拿需求算出來的，需求量不到而燈照亮，那個燈亮的是空氣）"
+    file: pulse-coverage-gap.py
+    find: "    if not measurable:\n        return \"－\", \"量不到\""
+    replace: "    if False:\n        return \"－\", \"量不到\""
+    survives: false
+    why: ""
+
+  - id: M235
+    title: "0 需求給綠燈（0 需求可能是「這一輪沒人問到」不是「這一類沒問題」；0 需求 + 0 來源更不是綠，那是最大盲區的樣子）"
+    file: pulse-coverage-gap.py
+    find: "        return (\"🔴\", \"沒有任何來源在看\") if demand else (\"⚪\", \"沒人問，也沒人看\")"
+    replace: "        return (\"🔴\", \"沒有任何來源在看\") if demand else (\"🟢\", \"沒人問，也沒人看\")"
+    survives: false
+    why: ""
+
+  - id: M236
+    title: "覆蓋缺口那一頁沒有生產者（沒有生產者的頁面等於不存在——這個 repo 對 desc-zh.json 記過同一個形狀）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "        run: python scripts/pulse-coverage-gap.py --write --quiet"
+    replace: "        run: 'true'"
+    survives: false
+    why: ""
