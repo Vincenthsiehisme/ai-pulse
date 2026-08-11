@@ -2232,3 +2232,45 @@ mutations:
     replace: "    - official_announcement\n    - product_release\n    - research_release\n    - benchmark\n    - enterprise_adoption\n    - policy_execution"
     survives: false
     why: ""
+
+  # ── 身分否決與 slug 版號還原（2026-08-12，fix/identity-beats-similarity）──
+
+  - id: M251
+    title: "把 fingerprint 否決整條拿掉（回到「兩邊版本不同就落去比標題」——那正是 Claude Opus 4.x 掛進 Opus 5 的那條路）"
+    file: lib/cluster.py
+    find: "    if cfp and efp and cfp != efp:\n        return False\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M252
+    title: "否決改成單邊就成立（`efp` 換成 `or`——None 的意思是「正則不認得」不是「不是那個模型」，單邊否決會砍掉整批第三方報導）"
+    file: lib/cluster.py
+    find: "    if cfp and efp and cfp != efp:"
+    replace: "    if (cfp or efp) and cfp != efp:"
+    survives: false
+    why: ""
+
+  - id: M253
+    title: "slug 還原拿掉版號合併（回到 4-5 → 「4 5」——fingerprint 只吃得到 opus:4，四次發布塌成同一個鍵，M251 的否決因此對它們失效）"
+    file: pulse-probe.py
+    find: "    words = _merge_version_words([w for w in re.split(r\"[-_]+\", seg) if w])"
+    replace: "    words = [w for w in re.split(r\"[-_]+\", seg) if w]"
+    survives: false
+    why: ""
+
+  - id: M254
+    title: "版號段放寬成任意位數（`\\d{1,2}` → `\\d+`：`glp-1-123000637` 會變成 `1.123000637`，年份也擋不住）"
+    file: pulse-probe.py
+    find: "_VER_SEG = re.compile(r\"\\A\\d{1,2}\\Z\")"
+    replace: "_VER_SEG = re.compile(r\"\\A\\d+\\Z\")"
+    survives: false
+    why: ""
+
+  - id: M255
+    title: "拿掉「前面必須有含字母的詞」那道欄杆（`2026-08-03` 會變成 `2026 08.03`——一整批部落格標題安靜地變形，沒有任何東西會紅）"
+    file: pulse-probe.py
+    find: "                and out and any(c.isalpha() for c in out[-1])\n"
+    replace: ""
+    survives: false
+    why: ""

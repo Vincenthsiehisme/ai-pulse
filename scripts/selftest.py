@@ -3689,6 +3689,87 @@ acase("attach 門檻：設定檔讀不到要退回**舊的 0.46**，不是退回
        _cl.DEFAULT_TITLE_SIMILARITY_MIN],
       [0.46, 0.46])
 
+# ── 身分否決：結構化事實不准被模糊相似覆寫（2026-08-12）──
+#
+# 這一組全部用**真實發生過的污染案例**，不是造的。
+# evt-2026-07-25-0fa594「Claude Opus 5」的 primary_evidence 是 5，
+# 其中 4 筆是 Opus 4.5 / 4.6 / 4.7 / 4.8，全部 relevance 100，
+# 而它的 confidence 是全 vault 最高的 100。規格 references/attach-rule.md。
+_IV_5 = ("Claude Opus 5", "2026-07-25T02:03:36+00:00")
+_IV_47 = ("Claude Opus 4.7", "2026-07-23T04:19:56+00:00")
+_IV_46 = ("Claude Opus 4.6", "2026-07-22T00:06:14+00:00")
+_IV_45 = ("Claude Opus 4.5", "2026-07-23T04:09:31+00:00")
+_IV_48 = ("Claude Opus 4.8", "2026-07-22T01:28:45+00:00")
+
+acase("身分否決：Claude Opus 4.7 不得掛進 Claude Opus 5"
+      "（標題 token 集合完全相同、相似度 1.00——這就是那 6 筆 relevance 100 的來源）",
+      _cl.belongs_to_event(*_IV_47, *_IV_5, 0.30), False)
+
+acase("身分否決：反向也一樣（Opus 5 不得掛進 Opus 4.7）"
+      "（否決要對稱，不然掛不掛得上會取決於誰先進 vault）",
+      _cl.belongs_to_event(*_IV_5, *_IV_47, 0.30), False)
+
+# 這一條的成功標準很容易被漏掉，而少了它會誤報成功：只加 veto 不修 slug 的話，
+# 四則 4.x 的 fingerprint 全是 opus:4，veto 對它們之間不觸發，
+# 它們會改走路徑 A 合併成一則、relevance 全部 100——錯誤只是換了個形狀。
+acase("身分否決：Opus 4.5 / 4.6 / 4.7 / 4.8 四次發布不得互相合併"
+      "（只驗「4.x 不進 5」會漏掉這個形狀——它們本來就是四件事）",
+      [_cl.belongs_to_event(*a, *b, 0.30)
+       for a, b in [(_IV_48, _IV_47), (_IV_48, _IV_46), (_IV_48, _IV_45),
+                    (_IV_47, _IV_46), (_IV_47, _IV_45), (_IV_46, _IV_45)]],
+      [False] * 6)
+
+acase("身分否決：正向不得被砍（Introducing Claude Opus 5 仍要掛得上 Claude Opus 5）"
+      "（一條只會拒絕的規則很容易全綠——要有一條證明它還讓對的通過）",
+      _cl.belongs_to_event("Introducing Claude Opus 5", "2026-07-25T03:00:00+00:00",
+                           *_IV_5, 0.30), True)
+
+acase("身分否決：只有兩邊都說得出版本才否決，單邊 None 照走 fallback"
+      "（_FP_PATTERNS 是寫死的 11 個家族白名單，None 是「這支正則不認得」，"
+      "不是「這不是那個模型」——拿「我不認得」去否決會砍掉整批第三方報導）",
+      [_cl.event_fingerprint("Anthropic ships pricing changes"),
+       _cl.belongs_to_event("Claude Opus 5 pricing changes", "2026-07-25T05:00:00+00:00",
+                            "Anthropic ships pricing changes", "2026-07-25T02:00:00+00:00",
+                            0.30)],
+      [None, True])
+
+# 為什麼 slug 還原必須跟這條 veto 同一輪：沒有小數點，版號組吃到第一個整數就停。
+acase("身分否決的前提：版號要進得了 fingerprint"
+      "（`Claude Opus 4 5` 少了小數點 → opus:4，四次發布塌成同一個鍵，veto 因此失效）",
+      [_cl.event_fingerprint("Claude Opus 4.5"),
+       _cl.event_fingerprint("Claude Opus 4 5"),
+       _cl.event_fingerprint("Claude Opus 5")],
+      ["anthropic:claude:opus:4.5", "anthropic:claude:opus:4",
+       "anthropic:claude:opus:5"])
+
+# ── sitemap 還原：URL 的 `-` 同時是斷詞符與小數點 ──
+# 規格 references/title-provenance.md。
+acase("slug 還原：版號的小數點要還原回來"
+      "（sitemap 沒有標題欄位，這幾條來源的標題全是從 URL 推導的）",
+      [_pp._slug_to_title("https://www.anthropic.com/news/claude-opus-4-5"),
+       _pp._slug_to_title("https://www.anthropic.com/news/claude-sonnet-4-6"),
+       _pp._slug_to_title("https://x.ai/news/grok-4-5-everywhere")],
+      ["Claude Opus 4.5", "Claude Sonnet 4.6", "Grok 4.5 Everywhere"])
+
+acase("slug 還原：沒有版號的照舊，不得無中生有小數點",
+      _pp._slug_to_title("https://www.anthropic.com/news/claude-opus-5"),
+      "Claude Opus 5")
+
+acase("slug 還原：年份型 slug 不得被當成版號"
+      "（`2026-08-03` 變成 `2026.08.03` 會讓一整批部落格標題變形，"
+      "而那種變形不會讓任何東西變紅——它只會安靜地改變相似度）",
+      [_pp._slug_to_title("https://example.invalid/blog/2026-08-03"),
+       _pp._slug_to_title("https://example.invalid/a/webb-telescope-2026-08-moons")],
+      ["2026 08 03", "Webb Telescope 2026 08 Moons"])
+
+acase("slug 還原：文章編號不得被當成版號（右邊限 1–2 位數的理由）",
+      _pp._slug_to_title(
+          "https://example.invalid/x/harvard-study-links-glp-1-123000637.html"),
+      "Harvard Study Links Glp 1 123000637")
+
+acase("slug 還原：併過的結果不再參與下一輪（不無限往右吃）",
+      _pp._slug_to_title("https://example.invalid/n/a-1-2-3-4"), "A 1.2 3 4")
+
 acase("pulse-cluster 跑第二輪：這一輪真的重寫了那個檔"
       "（沒重寫的話上一條在斷言一個恆真的條件——測試自己變成一顆永遠綠的燈）",
       [_txt2 != _txt, "example.invalid/b" in _txt, "example.invalid/b" in _txt2],

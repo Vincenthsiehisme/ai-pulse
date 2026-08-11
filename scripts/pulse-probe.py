@@ -436,16 +436,56 @@ def adapt_rss(source: dict, body: str, diag: dict | None = None) -> list[dict]:
 SM_NS = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
 
 
+_VER_SEG = re.compile(r"\A\d{1,2}\Z")
+
+
+def _merge_version_words(words):
+    """把「含字母的詞 數字 數字」裡的那兩個數字併成小數點：opus 4 5 → opus 4.5。
+
+    URL 的 `-` 同時是斷詞符與小數點，`re.split` 分不出來。三道欄杆一起用，
+    因為每一道單獨都會誤傷（實測血徑見 references/title-provenance.md）：
+
+      左右都必須是 1–2 位數    → 擋掉 `123000637`（文章編號）
+      前面必須有一個含字母的詞  → 擋掉 `2026-08-03` 的 `08-03`（前面是純數字 2026）
+      併過的結果不含字母        → `a-1-2-3-4` 只併第一組，不無限往右吃
+
+    只在 sitemap 這條路徑上發生。RSS / JSON 給的是原文標題，不走這裡。
+    """
+    out = []
+    i = 0
+    while i < len(words):
+        w = words[i]
+        if (i + 1 < len(words)
+                and out and any(c.isalpha() for c in out[-1])
+                and _VER_SEG.match(w) and _VER_SEG.match(words[i + 1])):
+            out.append(f"{w}.{words[i + 1]}")
+            i += 2
+            continue
+        out.append(w)
+        i += 1
+    return out
+
+
 def _slug_to_title(url: str) -> str:
     """從 URL 尾段還原標題：/news/claude-opus-5 → "Claude Opus 5"。
 
     這是**推導**不是原文標題。sitemap 沒有標題欄位，要嘛從 slug 還原、要嘛去抓內文；
     抓內文超出 license_note 的 "titles + links only"，所以選還原。
-    還原不準的代價由 cluster 的實體比對吸收，不由編造吸收。
+
+    2026-08-12：這裡原本寫著「還原不準的代價由 cluster 的實體比對吸收」。
+    那是個判斷，而這次量到的是——**cluster 的實體比對正是被這個不準打壞的
+    那一層**。`/news/claude-opus-4-5` 還原成 `Claude Opus 4 5`，小數點掉了，
+    於是 `event_fingerprint()` 的版號組只吃到 `opus:4`（4.5 / 4.6 / 4.7 / 4.8
+    四次發布塌成同一個鍵），`title_tokens()` 再把剩下的單字元丟掉，
+    `Claude Opus 4 5` 與 `Claude Opus 5` 的相似度變成 1.00。
+    最後 vault 裡 129 筆證據有 6 筆掛錯，全部 relevance 100。
+
+    代價沒有被吸收，它一路走到 confidence。所以還原這一層要自己把版號還原對。
+    規格見 references/title-provenance.md。
     """
     seg = urlsplit(url).path.rstrip("/").rsplit("/", 1)[-1]
     seg = re.sub(r"\.(html?|php|aspx?)$", "", seg)
-    words = [w for w in re.split(r"[-_]+", seg) if w]
+    words = _merge_version_words([w for w in re.split(r"[-_]+", seg) if w])
     return " ".join(w if (w.isupper() or any(c.isdigit() for c in w))
                     else w.capitalize() for w in words)
 

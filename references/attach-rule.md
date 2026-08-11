@@ -8,11 +8,151 @@
 
 ```
 時間差 > 21 天                         → 不 attach（硬上限）
+fingerprint 兩邊都有 且 不相同         → 不 attach（身分否決，2026-08-12 加）
 fingerprint 相同 且 facet bucket 相同  → attach（窗口 21 天，incident 7 天）
 其餘                                    → 96 小時內 且 標題相似度 ≥ 門檻
 ```
 
 相似度是標題 token 的 Jaccard（`title_similarity`），停用詞已剔除。
+
+## 2026-08-12：身分否決 —— 結構化事實不准被模糊相似覆寫
+
+第二條是後來補的。在此之前的規則是「fingerprint **相同**就走路徑 A」，
+而不同的時候**沒有任何處置**——直接落到路徑 B 的標題相似度去重新裁決。
+
+於是同一份身分訊號，前面說「這是兩個版本」，後面又允許相似度說「其實一樣」。
+
+### 這不是新規則，是一條已經寫下來的規則漏了一個消費端
+
+`lib/cluster.suspected_reposts()` 早就有這條：
+
+```python
+fa, fb = a.get("fingerprint"), b.get("fingerprint")
+if fa and fb and fa != fb:
+    continue          # 不同版本，不可能互為翻譯
+```
+
+轉載偵測認這個不變式，attach 判定不認。跟 `SECTIONS`、`RUN_LIFECYCLES`
+那兩次搬家是同一個病的形態：一條規則有兩個消費端，只釘住了一個。
+
+### 它讓什麼東西進了 vault
+
+`evt-2026-07-25-0fa594`「Claude Opus 5」，全 vault confidence 最高的那則（100）：
+
+```
+primary_evidence: 5
+  rel=100  Claude Opus 5      ← 真的
+  rel=100  Claude Opus 4 7    ← 另一次發布
+  rel=100  Claude Opus 4 5    ← 另一次發布
+  rel=100  Claude Opus 4 8    ← 另一次發布
+  rel=100  Claude Opus 4 6    ← 另一次發布
+```
+
+真正的 primary evidence 是 **1**。`evt-2026-07-22-09b47d`「Claude Sonnet 5」
+同樣的形狀（3 筆裡 2 筆是 4.5 / 4.6）。全 vault 129 筆證據裡有 **6 筆**是這個形狀。
+
+它們的相似度是 **1.00**——不是「有點像所以黏上去」，是 token 集合完全相同
+（理由見 `references/title-provenance.md`〈版號會整個消失〉）。
+
+### 實測：863 signal × 106 事件，誤殺 0
+
+```
+                       加 veto 前   加 veto 後
+多候選                    10            1
+零候選                   745          751      （+6 = 那六筆錯的）
+被 veto 掉的配對           —           24
+其中誤殺（本來對的）        —            0
+```
+
+24 筆全部是跨家族或跨版本（`opus:5 ≠ sonnet:5`、`opus:4 ≠ opus:5`、
+`sonnet:4 ≠ haiku:4` …）。**一筆都沒殺錯。**
+
+### 端到端對照：不修的話，下一班會再多掛六筆
+
+同一天（`--day 2026-08-10`、232 則訊號）跑兩次，一次用改前的碼、一次用改後的：
+
+```
+                事件數   證據總筆數
+跑之前            106       129
+對照（舊碼）      106       138     +9 筆證據、+0 則事件
+實驗（新碼）      108       138     +9 筆證據、+2 則事件
+```
+
+**證據總筆數一樣，差別在它們去了哪裡。** 舊碼把其中 6 筆全部堆到
+`evt-2026-07-22-09b47d`「Claude Sonnet 5」身上：
+
+```
+evt-2026-07-22-09b47d「Claude Sonnet 5」  primary_evidence  3 → 10
+    rel=33  Claude Opus 5
+    rel=33  Claude Opus 4 7
+    rel=33  Claude Opus 4 5
+    rel=33  Claude Opus 4 8
+    rel=33  Claude Haiku 4 5
+    rel=33  Claude Opus 4 6
+```
+
+新碼把它們分流成兩則新事件，同一格是 `primary_evidence: 4`。
+
+也就是說這不只是「歷史上有 6 筆髒的」——**不修的話，這個形狀每一班都在長。**
+
+### 為什麼 veto 必須跟 slug 還原同一個 commit
+
+`Claude Opus 4 5 / 4 6 / 4 7 / 4 8` 的 fingerprint 在還原修好之前**全部是
+`anthropic:claude:opus:4`**（`_FP_PATTERNS` 的版號組吃到第一個整數就停）。
+veto 對它們**之間**不觸發，而它們會改走路徑 A（同 fingerprint、同 facet
+bucket、21 天窗內），實測六對全部 attach、relevance 全部 100：
+
+```
+只加 veto、不修 slug：
+  4 8 ⟷ 4 7   attach=True  relevance=100
+  4 8 ⟷ 4 6   attach=True  relevance=100
+  4 8 ⟷ 4 5   attach=True  relevance=100
+  4 7 ⟷ 4 6   attach=True  relevance=100
+  4 7 ⟷ 4 5   attach=True  relevance=100
+  4 6 ⟷ 4 5   attach=True  relevance=100
+```
+
+也就是說：**「Opus 4.x 不得進 Opus 5」會通過，而錯誤只是換了個形狀。**
+一個只驗前者的成功標準會回報成功。所以本輪的成功標準有兩條，缺一不可：
+
+```
+Claude Opus 4.x                  不得進 Claude Opus 5
+Claude Opus 4.5 / 4.6 / 4.7 / 4.8  不得互相合併
+```
+
+補上還原修正之後，上面六對與四筆對 Opus 5 的判定全部是 `False`。
+
+### 這一輪**不**動 tokenizer
+
+保留數字並不能解決這件事：
+
+```
+{claude, opus, 5}  vs  {claude, opus, 4, 7}   → 2/5 = 0.40
+{claude, opus, 5}  vs  {claude, opus, 4.7}    → 2/4 = 0.50
+門檻 0.30 → 兩種都還是 attach
+```
+
+**tokenizer 是必要條件、不是充分條件。** 而且修好 slug 之後
+`Claude Opus 4.5` 的 token 集合仍然是 `{claude, opus}`（`.` 被
+`_TOKEN_STRIP` 切開、剩下的單字元被 `len(t) > 1` 丟掉），相似度仍然 1.00——
+**但那已經不當家了**，因為 veto 在它之前就否決掉。分工是：
+
+```
+slug 還原  →  讓 fingerprint 正確
+veto      →  讓 fingerprint 蓋過 similarity
+tokenizer →  只影響「兩邊至少一邊沒有 fingerprint」時的 fallback 品質與 relevance 數字
+```
+
+tokenizer 因此延後處理，等候選排名上線後再依 relevance 品質決定要不要動。
+
+### 邊界：只有兩邊都有 fingerprint 才否決
+
+單邊有、單邊沒有 → **不否決**，照走路徑 B。因為 `_FP_PATTERNS` 是一份寫死的
+11 個模型家族白名單（Grok 不在裡面、Muse Glimmer 不在裡面），`None` 的意思是
+「這支正則不認得」，不是「這不是那個模型」。拿「我不認得」去否決，
+會把整批第三方報導砍掉——那正是 P0-e 已經量到的 12/14 黏不上的族群。
+
+往嚴的方向倒在這裡是**只在兩邊都說得出身分、而且說的不一樣**時才動手。
 
 ## 2026-08-11：這條規則被實測過，結果很難看
 
