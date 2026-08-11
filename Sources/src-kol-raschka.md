@@ -16,9 +16,9 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://magazine.sebastianraschka.com/feed"
-robots_checked_day: "2026-08-03"
+robots_checked_day: "2026-08-11"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-10"
+last_observed_day: "2026-08-11"
 items_observed: 20
 events_bound: 0
 events_published: 0

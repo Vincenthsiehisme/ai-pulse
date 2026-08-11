@@ -1,18 +1,34 @@
 [
   {
-    "full_name": "FareedKhan-dev/kimi-k3-in-c",
-    "desc": "A 2.78-trillion-parameter Kimi K3 running inference on a single CPU in 8.24 GB of RAM. Portable C99: no BLAS, no framework, no GPU.",
-    "language": "C",
+    "full_name": "cactus-compute/cactus",
+    "desc": "Quantization, kernels, runtime and inference engine for mobiles, wearables, smart home and robots.",
+    "language": "C++",
     "topics": [
-      "avx2",
-      "c99",
-      "cpu-inference",
-      "deep-learning",
-      "from-scratch",
-      "inference-engine"
+      "ai",
+      "android",
+      "arm",
+      "edge",
+      "edge-ai",
+      "framework"
     ],
-    "stars": 4570,
-    "url": "https://github.com/FareedKhan-dev/kimi-k3-in-c",
+    "stars": 5659,
+    "url": "https://github.com/cactus-compute/cactus",
+    "stale_zh": null
+  },
+  {
+    "full_name": "wanshuiyin/Auto-claude-code-research-in-sleep",
+    "desc": "ARIS ⚔️ (Auto-Research-In-Sleep) — Lightweight Markdown-only skills for autonomous ML research: cross-model review loops, idea discovery, and experiment automation. No framework, no lock-in — works with Claude Code, Codex, OpenClaw, or any LLM agent.",
+    "language": "Python",
+    "topics": [
+      "ai-research",
+      "ai-tools",
+      "aris",
+      "autonomous-agent",
+      "claude",
+      "claude-code"
+    ],
+    "stars": 14554,
+    "url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
     "stale_zh": null
   }
 ]

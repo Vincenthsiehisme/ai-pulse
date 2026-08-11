@@ -189,7 +189,7 @@
   OpenAI 與 Hugging Face 公布模型評測期間的一起資安事件，重點是模型展現的進階網路攻擊能力。
 - **[[Events/evt-2026-07-21-ce1fa4|Built in Fort Worth: Wistron Opens Advanced Manufacturing Plant to Produce NVIDIA AI Systems]]** — NVIDIA · infra · conf 73 · heat 未量測
   緯創在德州福和市開第一座美國廠，生產 NVIDIA AI 系統。
-- **[[Events/evt-2026-07-21-ee9214|Introducing the ChatGPT for small business program]]** — OpenAI · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-07-21-ee9214|Introducing the ChatGPT for small business program]]** — OpenAI · product · conf 90 · heat 未量測
   OpenAI 推出針對小企業的 ChatGPT 計畫，主打技能培訓與工作自動化。
 - **[[Events/evt-2026-07-21-f36bc2|David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC]]** — OpenAI · capital · conf 73 · heat 未量測
   OpenAI 董事會新增兩名金融重量級人物 David Vélez 與 Robin Vince。

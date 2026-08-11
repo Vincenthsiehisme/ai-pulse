@@ -14,9 +14,9 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "titles + links only"
 endpoint: "https://deepmind.google/blog/rss.xml"
-robots_checked_day: "2026-08-03"
+robots_checked_day: "2026-08-11"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-08-10"
+last_observed_day: "2026-08-11"
 items_observed: 35
 events_bound: 14
 events_published: 5

@@ -3,21 +3,23 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-10'
+generated_day: '2026-08-11'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **26** 則：`published` 19、`review` 7
+事件 **28** 則：`published` 23、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-10 | [[Events/evt-2026-08-10-0e6ea5\|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS]] | review |
-| 2026-08-06 | [[Events/evt-2026-08-06-6c5981\|Into the Omniverse: How Open World Models Push the Frontier of Physical AI]] | review |
-| 2026-08-06 | [[Events/evt-2026-08-06-00fb68\|GeForce NOW Shakes Up August With 26 New Games]] | review |
-| 2026-08-05 | [[Events/evt-2026-08-05-11f6a7\|NVIDIA and Partners Build in America, for America]] | review |
+| 2026-08-11 | [[Events/evt-2026-08-11-d99e44\|NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI]] | review |
+| 2026-08-11 | [[Events/evt-2026-08-11-6d61c1\|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]] | review |
+| 2026-08-10 | [[Events/evt-2026-08-10-0e6ea5\|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS]] | published |
+| 2026-08-06 | [[Events/evt-2026-08-06-6c5981\|Into the Omniverse: How Open World Models Push the Frontier of Physical AI]] | published |
+| 2026-08-06 | [[Events/evt-2026-08-06-00fb68\|GeForce NOW Shakes Up August With 26 New Games]] | published |
+| 2026-08-05 | [[Events/evt-2026-08-05-11f6a7\|NVIDIA and Partners Build in America, for America]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-9f0a8c\|NVIDIA Joins NSF State and Regional AI Hubs Program to Expand AI Research and Education Across the US]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-6b1ee3\|NVIDIA Alpamayo 2 Super, the Frontier Open Model for Robotaxis and Autonomous Vehicles, Now Available for Commercial Use]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-5d61fd\|As AI Increases Demands on Memory, Storage Steps Up]] | published |

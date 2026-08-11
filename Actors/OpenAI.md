@@ -3,23 +3,26 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-10'
+generated_day: '2026-08-11'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **33** 則：`published` 26、`review` 7
+事件 **36** 則：`published` 32、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-10 | [[Events/evt-2026-08-10-bbf2b8\|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas]] | review |
-| 2026-08-10 | [[Events/evt-2026-08-10-8a0492\|What building an AI-native finance function taught me]] | review |
-| 2026-08-07 | [[Events/evt-2026-08-07-3e0258\|Responding to the next frontier of critical cyber capabilities]] | review |
-| 2026-08-07 | [[Events/evt-2026-08-07-16edd0\|How HSP GRUPPE builds AI capabilities for tax advisory]] | review |
-| 2026-08-06 | [[Events/evt-2026-08-06-d3c850\|Working with the American Psychological Association on youth mental health and AI]] | review |
-| 2026-08-06 | [[Events/evt-2026-08-06-4a18c5\|From asking to doing: How the world is putting ChatGPT to work]] | review |
+| 2026-08-11 | [[Events/evt-2026-08-11-5bb657\|Testing ads in ChatGPT]] | review |
+| 2026-08-10 | [[Events/evt-2026-08-10-f81fd9\|Expanding Daybreak as the Cyber Defense Window Narrows]] | review |
+| 2026-08-10 | [[Events/evt-2026-08-10-bbf2b8\|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas]] | published |
+| 2026-08-10 | [[Events/evt-2026-08-10-8a0492\|What building an AI-native finance function taught me]] | published |
+| 2026-08-10 | [[Events/evt-2026-08-10-4425be\|Putting frontier cyber models in more trusted hands]] | review |
+| 2026-08-07 | [[Events/evt-2026-08-07-3e0258\|Responding to the next frontier of critical cyber capabilities]] | published |
+| 2026-08-07 | [[Events/evt-2026-08-07-16edd0\|How HSP GRUPPE builds AI capabilities for tax advisory]] | published |
+| 2026-08-06 | [[Events/evt-2026-08-06-d3c850\|Working with the American Psychological Association on youth mental health and AI]] | published |
+| 2026-08-06 | [[Events/evt-2026-08-06-4a18c5\|From asking to doing: How the world is putting ChatGPT to work]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-e23cff\|Third-party cyber evaluations involving OpenAI models]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-392f3d\|New ways to learn and teach with ChatGPT Work and Codex]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-07332d\|Disrupting a Criminal Scam Operation]] | published |

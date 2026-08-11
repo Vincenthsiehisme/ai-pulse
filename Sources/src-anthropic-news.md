@@ -14,12 +14,12 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "titles + links only"
 endpoint: "https://www.anthropic.com/sitemap.xml"
-robots_checked_day: "2026-08-03"
+robots_checked_day: "2026-08-11"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-10"
+last_observed_day: "2026-08-11"
 items_observed: 46
-events_bound: 11
-events_published: 10
+events_bound: 12
+events_published: 11
 health_score: 100
 consecutive_failures: 0
 last_status: 200
@@ -35,8 +35,8 @@ last_status: 200
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
 | 已觀測 | 46 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 11 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 10 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 有效產出 | 12 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已發布 | 11 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**Anthropic**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 

@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-08-10'
+generated_day: '2026-08-11'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -16,9 +16,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 總數 | 106 |
-| `published` | 73 |
-| `review` | 32 |
+| 總數 | 117 |
+| `published` | 86 |
+| `review` | 30 |
 | `dropped` | 1 |
 | 帶 `stale_backfill` | 12 |
 
@@ -26,8 +26,8 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 14 |
-| 起訖 | 2026-07-24 … 2026-08-10 |
+| `_corpus/` 天數 | 15 |
+| 起訖 | 2026-07-24 … 2026-08-11 |
 
 ## 來源
 
@@ -42,9 +42,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| leaf key 總數 | 58 |
+| leaf key 總數 | 68 |
 | 標成 ⚠ 未接線 | 31 |
-| 有指名消費者 | 27 |
+| 有指名消費者 | 37 |
 
 判準在 `scripts/lib/gate_keys.py`，它**不保證**什麼寫在
 `references/gate-config-status.md` 最後一節。
@@ -53,7 +53,7 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-08-10T16:39:53+00:00 |
+| 時間 | 2026-08-11T16:42:48+00:00 |
 | 條目 / 來源 | 465 items / 32 sources |
 | status 分佈 | 200 23、304 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |

@@ -15,7 +15,7 @@ robots_ok: false
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://www.theregister.com/software/ai_ml/headlines.atom"
-robots_checked_day: "2026-08-03"
+robots_checked_day: "2026-08-11"
 first_fetch_at:
 last_observed_day:
 items_observed:
