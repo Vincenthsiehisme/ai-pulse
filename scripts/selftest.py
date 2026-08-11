@@ -1547,6 +1547,15 @@ with _tf2.TemporaryDirectory() as _td5:
 # diff 的可讀性、以及任何拿字串去比對這個檔的判準。
 #
 # 它在 CI 上的成本是一次 round-trip（毫秒級），換到的是「手寫 YAML 的那一刻就知道」。
+def _ok(fn):
+    """跑得起來回 True，丟 SystemExit 回 False。用來測「壞輸入要拒跑」。"""
+    try:
+        fn()
+        return True
+    except SystemExit:
+        return False
+
+
 def _rt_fixed_point():
     try:
         from ruamel.yaml import YAML
@@ -1564,6 +1573,36 @@ def _rt_fixed_point():
     y.dump(y.load(src), buf)
     return buf.getvalue() == src
 
+
+# ── 變異分片必須是一個分割（不重不漏）──
+# 一條變異因為切片邏輯而從來沒被跑過，是這支腳本最糟的失敗方式：清單看起來很完整，
+# 而其中一格從來沒有人驗過。而且它不會紅——沒跑到的那一條當然不會回報失敗。
+_MT = importlib.util.spec_from_file_location(
+    "mutate_mod", os.path.join(_HERE, "mutate.py"))
+_MTM = importlib.util.module_from_spec(_MT)
+_MT.loader.exec_module(_MTM)
+_MUT_WF = _yaml.safe_load(open(os.path.join(
+    _HERE, "..", ".github", "workflows", "mutation.yml"), encoding="utf-8"))
+_MUT_N = len(_MUT_WF["jobs"]["mutate"]["strategy"]["matrix"]["shard"])
+_MUT_ALL = _MTM.load_inventory()
+_MUT_PARTS = [{x["id"] for x in _MTM.shard(_MUT_ALL, k, _MUT_N)}
+              for k in range(1, _MUT_N + 1)]
+acase("變異分片：n 片合起來剛好是全部，而且兩兩不相交"
+      "（漏掉一條不會有任何東西變紅——沒跑到的那一條當然不會回報失敗）",
+      [set().union(*_MUT_PARTS) == {x["id"] for x in _MUT_ALL},
+       sum(len(p) for p in _MUT_PARTS) == len(_MUT_ALL)],
+      [True, True])
+acase("變異分片：workflow 的 matrix 片數與 --shard 的分母一致"
+      "（兩個數字寫在不同地方，對不上的時候會靜靜地少跑或重跑一整片）",
+      f"--shard ${{{{ matrix.shard }}}}/{_MUT_N}" in open(os.path.join(
+          _HERE, "..", ".github", "workflows", "mutation.yml"),
+          encoding="utf-8").read(),
+      True)
+acase("變異分片：壞掉的規格一律拒跑，不猜"
+      "（猜的話最糟是「只跑了一部分卻報成全部跑過」）",
+      [_ok(lambda: _MTM.parse_shard("2/4")), _ok(lambda: _MTM.parse_shard("5/4")),
+       _ok(lambda: _MTM.parse_shard("abc")), _ok(lambda: _MTM.parse_shard("0/4"))],
+      [True, False, False, False])
 
 acase("sources.yaml：是 ruamel round-trip 的不動點"
       "（人手寫的格式要跟機器會吐的格式一致——不一致的話，機器第一次 --apply 就會"

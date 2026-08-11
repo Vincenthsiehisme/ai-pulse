@@ -133,13 +133,46 @@ def apply_one(item):
     return ("survived-as-recorded" if survived else "killed"), detail
 
 
+def parse_shard(spec):
+    """"k/n" → (k, n)。壞掉的規格一律拒跑，不猜。
+
+    猜的話最糟的結果是**只跑了一部分卻報成全部跑過**——而這支腳本的整個價值
+    就是「清單上的每一條都還守得住」。少跑一片而沒有人知道，比整支掛掉更糟。
+    """
+    try:
+        k, n = (int(x) for x in str(spec).split("/", 1))
+    except (TypeError, ValueError):
+        raise SystemExit(f"--shard 要寫成 k/n，收到：{spec!r}")
+    if n < 1 or not (1 <= k <= n):
+        raise SystemExit(f"--shard 超出範圍：{spec!r}（要 1 ≤ k ≤ n，n ≥ 1）")
+    return k, n
+
+
+def shard(items, k, n):
+    """把清單切成 n 片，回第 k 片（1-based）。
+
+    切法是**依索引取模**，不是依檔案分組：同一個檔的變異會散到不同片，
+    每片的耗時才會接近。依檔案分組的話，`pulse-render.py` 那 57 條會擠在同一片，
+    那一片跑的時間跟不切幾乎一樣。
+
+    這個切法是確定性的：同一份清單、同一個 n，每一條永遠落在同一片。
+    分片必須是一個**分割**（不重不漏），selftest 有一條釘住這件事——
+    一條變異因為切片邏輯而從來沒被跑過，是這支腳本最糟的失敗方式：
+    清單看起來很完整，而其中一格從來沒有人驗過。
+    """
+    return [it for i, it in enumerate(items) if i % n == (k - 1)]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", help="逗號分隔的 id")
+    ap.add_argument("--shard", help="k/n —— 只跑第 k 片（1-based），共 n 片")
     ap.add_argument("--list", action="store_true", help="只列清單")
     args = ap.parse_args()
 
     items = load_inventory()
+    if args.shard:
+        items = shard(items, *parse_shard(args.shard))
     if args.only:
         want = {s.strip() for s in args.only.split(",") if s.strip()}
         unknown = want - {i["id"] for i in items}

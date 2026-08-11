@@ -43,6 +43,20 @@ jobs:
   mutate:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # 分片跑。2026-08-12 量到的：selftest 單次 4.6 秒 × 248 條 ≈ 19 分鐘，
+    # 加上 mutate.py 自己的開銷就撞上 20 分鐘的上限，整班被砍。
+    #
+    # 為什麼是分片而不是「只跑改到的檔案那幾條」：**那樣不成立**。
+    # 一條變異被殺，靠的是 selftest 裡某一條判準；改 selftest 可以在不碰
+    # 被變異的那個檔的情況下，讓某一格從此不再被守住。依改動檔案篩選，
+    # 正好漏掉這個 repo 最在意的那種失效。
+    #
+    # 為什麼不是單純把 timeout 調大：清單只會變長（今天 248），
+    # 調大只是把同一道牆往後挪。分片是可以一直加的那一種解法。
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -57,7 +71,7 @@ jobs:
       - name: Mutation inventory
         env:
           VAULT_DIR: ${{ github.workspace }}
-        run: python scripts/mutate.py
+        run: python scripts/mutate.py --shard ${{ matrix.shard }}/4
       # 還原護欄的第四道：mutate.py 自己比對 sha256，這裡再讓 CI 說一次話。
       # 前面那步就算因為某種想不到的理由沒還原乾淨，這裡會紅，而且看得到 diff。
       - name: 工作區必須乾淨（還原失敗的最後一道欄杆）
