@@ -1,0 +1,132 @@
+{
+  "generated_day": "2026-08-11",
+  "answered": 26,
+  "unanswerable": 22,
+  "other_ratio": 0.13636363636363635,
+  "measurable": true,
+  "min_answers": 10,
+  "demand": {
+    "benchmark": 7,
+    "financial_impact": 1,
+    "other": 3,
+    "developer_feedback": 1,
+    "policy_execution": 3,
+    "enterprise_adoption": 4,
+    "third_party_validation": 1,
+    "product_release": 1,
+    "procurement": 1
+  },
+  "sources": {
+    "official_announcement": [
+      "src-amd-ir",
+      "src-anthropic-news",
+      "src-deepmind-blog",
+      "src-hf-blog",
+      "src-mistral-news",
+      "src-nvidia-blog",
+      "src-openai-blog",
+      "src-qwen-blog",
+      "src-xai-news"
+    ],
+    "product_release": [
+      "src-anthropic-news",
+      "src-deepmind-blog",
+      "src-gh-vllm-releases",
+      "src-hf-blog",
+      "src-media-theverge",
+      "src-media-venturebeat",
+      "src-meta-research",
+      "src-mistral-news",
+      "src-msr-blog",
+      "src-nvidia-blog",
+      "src-openai-blog",
+      "src-qwen-blog",
+      "src-xai-news"
+    ],
+    "research_release": [
+      "src-anthropic-news",
+      "src-deepmind-blog",
+      "src-hf-blog",
+      "src-meta-research",
+      "src-mistral-news",
+      "src-msr-blog",
+      "src-openai-blog",
+      "src-qwen-blog"
+    ],
+    "benchmark": [
+      "src-anthropic-news",
+      "src-hf-blog",
+      "src-kol-interconnects",
+      "src-openai-blog"
+    ],
+    "enterprise_adoption": [
+      "src-anthropic-news",
+      "src-kol-oneusefulthing",
+      "src-media-ieee-spectrum",
+      "src-media-techcrunch",
+      "src-media-theregister",
+      "src-media-venturebeat",
+      "src-openai-blog"
+    ],
+    "policy_execution": [
+      "src-media-arstechnica",
+      "src-media-ieee-spectrum",
+      "src-media-mit-techreview",
+      "src-openai-blog"
+    ],
+    "developer_feedback": [
+      "src-hf-blog",
+      "src-hn-frontpage",
+      "src-kol-karpathy",
+      "src-kol-raschka",
+      "src-kol-simonwillison"
+    ],
+    "infrastructure": [
+      "src-media-theregister",
+      "src-nvidia-blog"
+    ],
+    "supply_chain": [
+      "src-amd-ir",
+      "src-media-techcrunch",
+      "src-nvidia-blog"
+    ],
+    "financial_impact": [
+      "src-amd-ir",
+      "src-media-techcrunch",
+      "src-media-venturebeat"
+    ],
+    "third_party_validation": [
+      "src-kol-interconnects",
+      "src-kol-simonwillison",
+      "src-kol-thezvi",
+      "src-media-arstechnica",
+      "src-media-ieee-spectrum",
+      "src-media-mit-techreview",
+      "src-media-techcrunch",
+      "src-media-theregister",
+      "src-media-theverge",
+      "src-media-venturebeat"
+    ],
+    "research_replication": [
+      "src-kol-lilianweng",
+      "src-kol-raschka",
+      "src-media-arstechnica",
+      "src-media-ieee-spectrum",
+      "src-media-mit-techreview"
+    ],
+    "social_signal": [
+      "src-hn-frontpage",
+      "src-kol-interconnects",
+      "src-kol-karpathy",
+      "src-kol-lilianweng",
+      "src-kol-oneusefulthing",
+      "src-kol-raschka",
+      "src-kol-simonwillison",
+      "src-kol-thezvi",
+      "src-media-theverge"
+    ]
+  },
+  "unclaimed": [
+    "procurement"
+  ]
+}
