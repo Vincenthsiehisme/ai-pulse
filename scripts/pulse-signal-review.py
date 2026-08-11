@@ -227,9 +227,10 @@ def main():
         return 0
 
     rows = pending(vault)
-    # 只數 verdict 那一種。兩筆制之後 `len(read(led))` 會把每一筆 unanswerable
-    # 算成兩則——一個會隨著「答不了的比例」自己浮動的分母，比錯得離譜更難發現。
-    answered = len(history.read(led, field=F_VERDICT))
+    # 只數 verdict 那一種，而且只數**現值**。兩筆制之後 `len(read(led))` 會把每一筆
+    # unanswerable 算成兩則（一個會隨著「答不了的比例」自己浮動的分母）；
+    # 而只過濾 field 還不夠——同一則改過答案會再多算一次（見 lib/history.latest）。
+    answered = len(history.latest(history.read(led), F_VERDICT))
     if args.write:
         atomic_write_text(vault / PAGE[0] / PAGE[1],
                           render(rows, clock.utc_today().isoformat(), answered))

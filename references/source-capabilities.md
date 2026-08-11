@@ -51,7 +51,7 @@ capability 說的是**題材**，不是**可信度**。可信度由 `track` 與 
 
 ## 詞彙表是封閉的，而且只有一份
 
-14 個值，定義在 `scripts/lib/sources.py` 的 `CAPABILITIES`。
+15 個值，定義在 `scripts/lib/sources.py` 的 `CAPABILITIES`。
 
 ```
 official_announcement   官方承認某件事發生了
@@ -70,6 +70,7 @@ infrastructure          機房、算力、網路蓋起來了
 financial_impact        錢的方向變了
 
 policy_execution        法規從紙上變成執行
+legal_proceeding        訴訟、法院受理與裁定
 
 social_signal           圈子在談
 developer_feedback      用的人回報了什麼
@@ -208,6 +209,27 @@ reason 的分佈本來就住在那一頁，而 `pulse-monitor` 已經有六個�
 為一個今天是 0/0 的數字再開第七個，是在稀釋那頁的訊噪比。
 同一條規則不寫兩份——那是這個 repo 量過很多次的病。）
 
+## `other` 交出了東西：`legal_proceeding`（2026-08-11 P0-a 之後補）
+
+第一批 26 則裁決裡 `other` 出現 3 次，而**其中 2 次是同一件事**：
+
+```
+第 4 則  capital-evolution  「Apple 訴訟看 Apple 回應與法院動作」
+第 25 則 Apple is getting this wrong  「Apple 的正式回應、法院是否受理與後續裁定」
+```
+
+一次是巧合，兩次就是這張表少了一格。所以補上 `legal_proceeding`。
+第三筆 `other` 是 GeForce NOW——那一則的下一個訊號原文就寫著「無明確的 AI 相關
+後續訊號可追」，指向的是**門禁的相關性判斷**，不是觀測盲區。三筆分成兩種毛病，
+而 `other` 這個死人開關的價值就在這裡：它把「分類表不夠用」變成看得見的東西。
+
+**但那條 30% 的警報沒有響**（3/22 = 14%）。它看的是比例，看不出「同一個缺口
+撞了兩次」。這是那條判準自己的盲點——寫下來是因為它下一次也不會響。
+
+供給實測：`legal_proceeding` 是**官方 0／獨立 3**（Ars Technica 5 篇、
+TechCrunch 4 篇、The Verge 1 篇，用語料實際數的）。沒有公司會發文報自己被告的
+進度，所以這一類只可能從第三方來——跟 `research_replication` 同一個形狀。
+
 ## 標註是怎麼決定的（2026-08-11）
 
 25 條有語料的，讀 `_corpus/` 裡的實際標題標；7 條沒有語料的（4 條 dormant
@@ -231,6 +253,7 @@ reason 的分佈本來就住在那一頁，而 `pulse-monitor` 已經有六個�
 | supply_chain | 3 |
 | financial_impact | 3 |
 | infrastructure | 2 |
+| legal_proceeding | 3 |
 | **procurement** | **0** |
 
 `procurement`（有人真的付錢買了）是 0。這不是標註漏了——

@@ -1422,17 +1422,39 @@ def _sh_vault(tmp, runs_statuses, history_lines=None, health_json=None):
 
 
 def _run_sh(vault, *argv):
-    """在子行程跑 pulse-source-health.py，回傳 (returncode, stdout)。
+    """在子行程跑 pulse-source-health.py，回傳 (returncode, stdout, **stderr**)。
 
     刻意走子行程而不是直接呼叫 main()：這幾條要測的正是「跑完之後磁碟上多了什麼」，
     而 main() 讀 os.environ["VAULT_DIR"]、還會 argparse sys.argv——在同一個行程裡
     模擬那兩件事，測到的就不再是真正會發生的那條路徑了。
+
+    ## 為什麼 stderr 要帶回來
+
+    2026-08-11 實測過丟掉它的代價：`--apply` 因為缺 `ruamel.yaml` 回了 exit 2、
+    stderr 白紙黑字寫著要裝什麼，而這裡只回 `(rc, stdout)`。於是下一行
+    `json.loads(路徑.read_text())` 丟出 `FileNotFoundError`——一個「缺套件」的錯誤
+    在畫面上長成「檔案不見了」，排查方向被帶去猜 Python 版本，花掉一整輪。
+
+    子行程已經把原因說得很清楚了，是判準沒有聽。這是這個 repo 反覆在抓的形狀的
+    又一種：**拿到了資訊卻把它丟掉**。
     """
     env = dict(os.environ, VAULT_DIR=str(vault))
     p = _subprocess.run([sys.executable,
                          os.path.join(_HERE, "pulse-source-health.py"), *argv],
                         capture_output=True, text=True, env=env)
-    return p.returncode, p.stdout
+    return p.returncode, p.stdout, (p.stderr or "")
+
+
+def _sh_ran(rc, err, what):
+    """子行程有沒有跑起來。跑不起來就把 stderr 當成判準的 got 值印出來。
+
+    這一條**不是**在測 pulse-source-health 的行為，是在測「下面那幾條有沒有
+    真的跑到」。少了它，一個掛掉的子行程會讓下游的斷言以一個對不上的例外收場，
+    而例外不會紅、會 crash——crash 的判準在 mutate.py 眼裡「不算數」。
+    """
+    acase(f"子行程跑得起來：{what}（跑不起來時把 stderr 印出來，"
+          "不要讓下游長成一個對不上的 FileNotFoundError）",
+          [rc, err.strip()[:200]], [0, ""])
 
 
 import subprocess as _subprocess  # noqa: E402
@@ -1440,8 +1462,19 @@ import subprocess as _subprocess  # noqa: E402
 with _tf2.TemporaryDirectory() as _td3:
     # 連續 5 班 503 → 達到 quarantine_after_consecutive，而且來源已經是 degraded。
     _vq = _sh_vault(_td3, [503] * 5)
-    _rc, _out = _run_sh(_vq, "--apply")
-    _snap = _json.loads((_vq / "_probe" / "source-health.json").read_text("utf-8"))
+    # 先驗這條管線本身：拿一個不存在的旗標當探針，argparse 會回非零、
+    # 而訊息**只在 stderr**。這一條守的是「判準聽得見子行程」，
+    # 不是 source-health 的行為——成功路徑上 stderr 本來就是空的，
+    # 只用成功路徑測，把 stderr 丟掉這件事永遠不會紅。
+    _rc_probe, _, _err_probe = _run_sh(_vq, "--no-such-flag-exists")
+    acase("子行程的 stderr 真的帶得回來（丟掉它的代價實測過：一個「缺 ruamel.yaml」"
+          "的錯誤在下游長成 FileNotFoundError，排查方向被帶去猜 Python 版本）",
+          [_rc_probe != 0, bool(_err_probe.strip())], [True, True])
+    _rc, _out, _err = _run_sh(_vq, "--apply")
+    _sh_ran(_rc, _err, "source-health --apply（隔離候選那一組）")
+    _snap_p = _vq / "_probe" / "source-health.json"
+    # 檔案不在就給空 dict：下面那幾條要**紅**，不要 crash。
+    _snap = _json.loads(_snap_p.read_text("utf-8")) if _snap_p.exists() else {}
     acase("隔離候選：寫進**磁碟上的** source-health.json，不是只印在 stdout"
           "（dormant 只有人能寫，這份清單是機器交棒給人的唯一介面；"
           "它斷掉的時候不會有任何東西變紅）",
@@ -1457,7 +1490,8 @@ with _tf2.TemporaryDirectory() as _td4:
     # sources.yaml 一個字沒動——兩個檔案從此互相矛盾，下一班會以為降級真的發生過。
     _vd = _sh_vault(_td4, [503] * 5)
     _before = sorted(p.name for p in (_vd / "_probe").iterdir())
-    _rc, _out = _run_sh(_vd, "--json")
+    _rc, _out, _err = _run_sh(_vd, "--json")
+    _sh_ran(_rc, _err, "source-health --json（dry run 那一組）")
     acase("dry run：`--json` 跑完，_probe/ 一個新檔案都沒有"
           "（宣稱「只看」的旗標留下改動，咬到的是未來的自己）",
           sorted(p.name for p in (_vd / "_probe").iterdir()), _before)
@@ -1465,7 +1499,7 @@ with _tf2.TemporaryDirectory() as _td4:
           "（那句「加 --apply 才會寫回」以前無條件印在 JSON 後面）",
           sorted(_json.loads(_out)), ["changes", "prior_source",
                                       "quarantine_candidates", "runs", "sources"])
-    _rc2, _out2 = _run_sh(_vd, )
+    _rc2, _out2, _err2 = _run_sh(_vd, )
     acase("dry run：不加旗標也一樣不寫",
           sorted(p.name for p in (_vd / "_probe").iterdir()), _before)
 
@@ -1482,8 +1516,11 @@ with _tf2.TemporaryDirectory() as _td5:
           "（不然機器自己降的級會跟人手設的長得一模一樣，永遠回不來，而且不會變紅）",
           _sh.rebuild_prior_from_history(_vr),
           {"s1": {"degraded_by": "health", "degraded_from": "active"}})
-    _rc, _out = _run_sh(_vr, "--apply")
-    _snap5 = _json.loads((_vr / "_probe" / "source-health.json").read_text("utf-8"))
+    _rc, _out, _err = _run_sh(_vr, "--apply")
+    _sh_ran(_rc, _err, "source-health --apply（吸收態那一組）")
+    _snap5_p = _vr / "_probe" / "source-health.json"
+    _snap5 = _json.loads(_snap5_p.read_text("utf-8")) if _snap5_p.exists() else {
+        "sources": {"s1": {}}, "prior_source": None}
     # 判準看的是 sources.yaml 真的被寫成什麼，不是 degraded_by 變成 None——
     # 沒重建成功時 degraded_by 本來就是 None，拿它當判準的話這條測試測不到東西。
     acase("吸收態：重建之後那條來源真的自己回到降級前的那個狀態（active）",
@@ -1495,6 +1532,14 @@ with _tf2.TemporaryDirectory() as _td5:
           _snap5["prior_source"], "history")
     acase("吸收態：正常路徑的 prior_source 是 snapshot",
           _json.loads(_run_sh(_vr, "--json")[1])["prior_source"], "snapshot")
+
+# 相依套件缺了要**紅**，不要跳過。跳過會讓「這幾條測過了」跟「這幾條沒跑」
+# 在畫面上長得一樣，而那正是這個 repo 花最多力氣在防的東西（紅線 8）。
+# CI 的 mutation.yml 有裝 ruamel.yaml，所以這一條在 CI 恆綠；它紅的時候
+# 講的是**你這台機器**測不到那幾條，一行指令就能修。
+acase("環境：`--apply` 那幾條需要 ruamel.yaml——缺了是「測不到」，不是「測過了」"
+      "（pip install ruamel.yaml）",
+      importlib.util.find_spec("ruamel.yaml") is not None, True)
 
 with _tf2.TemporaryDirectory() as _td6:
     _hist6 = [{"at": "2026-07-01T00:00:00+00:00", "id": "s1", "field": "lifecycle",
@@ -4291,7 +4336,7 @@ acase("lib/sources.REASONS ＝ CAPABILITIES + other（衍生不抄寫）"
       "——PRD 給的是兩份不同的清單（11 vs 14），而 §19 的矩陣要求兩邊能直接比較；"
       "用兩份清單 join，對不到的列是詞彙表的洞不是量出來的洞",
       [sorted(_smod.REASONS - _smod.CAPABILITIES), len(_smod.REASONS)],
-      [["other"], 15])
+      [["other"], 16])
 # append-only 的帳本記錯了刪不掉，所以 sid 對不上就要拒寫並回非零。
 acase("待答清單：對不上任何問題的 sid 要拒寫並回非零"
       "（帳本是 append-only，一筆打錯字的裁決會永遠留在裡面當雜訊）",
@@ -4345,6 +4390,16 @@ acase("lib/sources: aggregator 不算獨立供給"
            _CG_SRC, _smod.INDEPENDENT_TRACKS).values(), []),
        "src-hn-frontpage" in sum(_smod.capability_claims(_CG_SRC).values(), [])],
       [False, False, True])
+# legal_proceeding 是 P0-a 的 `other` 累積出來的第一個具體產出：3 筆 other 裡
+# 有 2 筆是同一件事（法院受理與裁定）。一次是巧合，兩次是分類表少一格。
+acase("lib/sources: legal_proceeding 在詞彙表裡，而且供給是「官方 0／獨立 3」"
+      "（沒有公司會發文報自己被告的進度——這一類只可能從第三方來）",
+      ["legal_proceeding" in _smod.CAPABILITIES,
+       len(_smod.capability_claims(_CG_SRC, _smod.OFFICIAL_TRACKS)
+           .get("legal_proceeding") or []),
+       len(_smod.capability_claims(_CG_SRC, _smod.INDEPENDENT_TRACKS)
+           .get("legal_proceeding") or [])],
+      [True, 0, 3])
 acase("lib/sources: benchmark 的獨立供給實測只有 1 條"
       "（名義 4 條裡 3 條是官方線自己評自己——這是 P0-a 之後把供給拆兩欄的起因）",
       [len(_smod.capability_claims(_CG_SRC, _smod.INDEPENDENT_TRACKS).get("benchmark") or []),
@@ -4364,6 +4419,28 @@ acase("覆蓋缺口：gate.yaml 真的有 coverage_gap 這一塊（判準讀不�
       sorted((_yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
                                    encoding="utf-8")).get("coverage_gap") or {})),
       ["amber_ratio", "min_answers", "other_reason_warn", "red_ratio"])
+# append-only 的現值是最後一筆，不是每一筆。這條在 26 則一次答完的時候
+# 跟舊算法給一樣的答案——它會在第一次有人改答案的那天才開始分岔，
+# 而那正是「錯得慢」的形狀：一直是個合理的數字，只是慢慢地偏。
+from lib import history as _histmod  # noqa: E402
+_LAT = [{"id": "a", "field": "verdict", "to": "unanswerable"},
+        {"id": "a", "field": "unanswerable_reason", "to": "benchmark"},
+        {"id": "b", "field": "verdict", "to": "unanswerable"},
+        {"id": "b", "field": "unanswerable_reason", "to": "procurement"}]
+_LAT2 = _LAT + [{"id": "a", "field": "verdict", "to": "happened"}]
+acase("帳本現值：latest() 取每個 id 的最後一筆，不是每一筆"
+      "（append-only 的 from/to 就是為了讓「改過」看得見，"
+      "下游不分現值與歷史的話那個設計就白做了）",
+      [len(_histmod.latest(_LAT2, "verdict")),
+       _histmod.latest(_LAT2, "verdict")["a"]["to"]],
+      [2, "happened"])
+acase("覆蓋缺口：改判之後那一則的舊原因碼不再佔需求"
+      "（a 從 unanswerable 改成 happened，benchmark 就不該繼續算一格；"
+      "而 26 則一次答完時新舊算法同分——它是在第一次改答案那天才分岔的）",
+      [dict(_cg.tally(_LAT)[0]), dict(_cg.tally(_LAT2)[0]),
+       _cg.tally(_LAT2)[1], _cg.tally(_LAT2)[2]],
+      [{"benchmark": 1, "procurement": 1}, {"procurement": 1}, 2, 1])
+
 acase("覆蓋缺口：夜班真的有一步在產生它（沒有生產者的頁面等於不存在）",
       "pulse-coverage-gap.py --write" in _WF_SR, True)
 # `.index()` 在字串不見時會丟 ValueError，而丟例外的判準不會紅，會 crash——
@@ -6154,11 +6231,11 @@ acase("scripts/: 可跑 lifecycle 只准有一份"
                                                      recursive=True)
              if os.path.basename(p) not in ("sources.py", "selftest.py")
              and '"degraded", "probing"' in open(p, encoding="utf-8").read()), [])
-acase("lib/sources.CAPABILITIES: 14 個值，且 procurement 在裡面"
+acase("lib/sources.CAPABILITIES: 15 個值，且 procurement 在裡面"
       "（0 條來源宣稱它，正是它必須留在表上的理由——把沒有人做的那一格從表上拿掉，"
       "盲區就從清單裡消失了）",
       (len(_smod.CAPABILITIES), "procurement" in _smod.CAPABILITIES),
-      (14, True))
+      (15, True))
 # 消費者。一個沒有人讀的欄位等於不存在，所以這一行在落地當天就要有人印。
 _CAP_LINE = _mm.capability_claims_line(_SC_RAW, {"src-openai-blog": 3})
 acase("pulse-monitor: 宣稱／觀察對照行，零產出的來源要被點名（不是只給一個總數）",

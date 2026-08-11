@@ -64,6 +64,14 @@ CAPABILITIES = frozenset({
     "infrastructure",          # 機房、算力、網路蓋起來了
     "financial_impact",        # 錢的方向變了
     "policy_execution",        # 法規從紙上變成執行
+    # 2026-08-11 補。P0-a 第一批 26 則裁決裡，`other` 出現 3 次，其中**2 次是同一件事**：
+    # 「法院受理了沒、裁定是什麼」（Apple 那場訴訟，主線層與事件層各一）。
+    # 一次是巧合，兩次就是這張表少了一格。這是 `other` 這個死人開關第一次真的交出東西。
+    #
+    # 注意它沒有觸發 30% 那個警報（3/22 = 14%）——那條判準看的是比例，
+    # 看不出「同一個缺口撞了兩次」。這是那條警報自己的盲點，記在
+    # references/source-capabilities.md。
+    "legal_proceeding",        # 訴訟、法院受理與裁定
     "social_signal",           # 圈子在談
     "developer_feedback",      # 用的人回報了什麼
 })

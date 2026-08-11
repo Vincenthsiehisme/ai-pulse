@@ -123,13 +123,30 @@ def other_line(other_n, unanswerable_n, th):
     return body, False
 
 
+def tally(rows):
+    """帳本 → (需求 Counter, 已裁決數, unanswerable 數)。純函式，可離線單測。
+
+    **現值＝最後一筆，不是每一筆**（見 `lib/history.latest`）。帳本是 append-only，
+    同一則被改過答案的話，數每一筆會靜靜多算——而且不會有任何東西變紅。
+    26 則一次答完的時候兩種算法給一樣的答案，所以舊版看起來是對的；
+    它會在**第一次有人改答案的那天**才開始分岔，那是「錯得慢」的形狀。
+
+    而且只數「現在還是 unanswerable」那幾則的原因碼：一則從 unanswerable 改判成
+    happened 之後，它的舊原因碼不該繼續佔著矩陣上的一格需求。
+    """
+    verdicts = history.latest(rows, F_VERDICT)
+    reasons = history.latest(rows, F_REASON)
+    demand = Counter(
+        str(r.get("to")) for sid, r in reasons.items()
+        if (verdicts.get(sid) or {}).get("to") == "unanswerable")
+    unans = sum(1 for r in verdicts.values() if r.get("to") == "unanswerable")
+    return demand, len(verdicts), unans
+
+
 def collect(vault):
     """→ (需求 Counter, 供給 {cap: [sid]}, 已裁決筆數, unanswerable 筆數)。純讀。"""
     rows = history.read(vault / LEDGER[0] / LEDGER[1])
-    answered = sum(1 for r in rows if r.get("field") == F_VERDICT)
-    unans = sum(1 for r in rows if r.get("field") == F_VERDICT
-                and r.get("to") == "unanswerable")
-    demand = Counter(str(r.get("to")) for r in rows if r.get("field") == F_REASON)
+    demand, answered, unans = tally(rows)
     raw = yaml.safe_load((vault / "_config" / "sources.yaml").read_text("utf-8")) or {}
     supply = {
         "all": srcmod.capability_claims(raw),

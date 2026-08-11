@@ -67,6 +67,26 @@ def append(path, rows) -> int:
     return len(rows)
 
 
+def latest(rows, field=None):
+    """→ {id: 最後一筆}。append-only 帳本的**現值是最後一筆，不是每一筆**。
+
+    2026-08-11 加。在此之前覆蓋缺口矩陣是把每一筆 `unanswerable_reason` 都數進去
+    的——26 則一次答完的時候，那跟數最後一筆給的答案一樣，所以它看起來是對的。
+    而它會在**第一次有人改答案的那天**開始靜靜多算一筆，且沒有任何東西會變紅。
+
+    這正是這個帳本存在的理由：`from` / `to` 是為了讓「改過」看得見。
+    下游如果不分現值與歷史，那個設計就白做了。
+
+    `field` 給值就只看那一格（同 `read()` 的過濾語意）。
+    """
+    out = {}
+    for r in rows:
+        if field is not None and r.get("field") != field:
+            continue
+        out[r.get("id")] = r
+    return out
+
+
 def read(path, *, id=None, field=None):  # noqa: A002 — id 是欄位名，跟 builtin 同名是刻意的
     """讀回帳本（list，依檔案順序）。檔案不存在回 []。
 

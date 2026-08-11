@@ -2184,3 +2184,39 @@ mutations:
     replace: "  title_similarity_min: 0.46"
     survives: false
     why: ""
+
+  # ── 判準聽得見子行程、帳本分得出現值（2026-08-11）──
+  # 起因兩件都是實測：一個「缺 ruamel.yaml」的錯誤在下游長成 FileNotFoundError，
+  # 排查方向被帶去猜 Python 版本；以及 other 撞了兩次同一個缺口（法院動作）。
+
+  - id: M246
+    title: "子行程的 stderr 又被丟掉（子行程把原因說得很清楚了，判準拿到資訊卻不用——一個「缺套件」的錯誤會在下游長成「檔案不見了」）"
+    file: selftest.py
+    find: "    return p.returncode, p.stdout, (p.stderr or \"\")"
+    replace: "    return p.returncode, p.stdout, \"\""
+    survives: false
+    why: ""
+
+  - id: M247
+    title: "帳本現值改回數每一筆（26 則一次答完時兩種算法同分，所以看起來是對的——它在第一次有人改答案那天才開始靜靜多算，而且不會有東西變紅）"
+    file: lib/history.py
+    find: "        out[r.get(\"id\")] = r"
+    replace: "        out.setdefault(r.get(\"id\"), r)"
+    survives: false
+    why: ""
+
+  - id: M248
+    title: "改判之後舊的原因碼繼續佔需求（一則從 unanswerable 改成 happened，它的舊原因碼不該還在矩陣上佔一格）"
+    file: pulse-coverage-gap.py
+    find: "        if (verdicts.get(sid) or {}).get(\"to\") == \"unanswerable\")"
+    replace: "        if True)"
+    survives: false
+    why: ""
+
+  - id: M249
+    title: "把 legal_proceeding 從詞彙表拿掉（P0-a 的 other 撞了兩次同一個缺口才補上的那一格——拿掉之後「法院動作」又會變成一筆 other，而 30% 那條警報看不出同一個缺口撞兩次）"
+    file: lib/sources.py
+    find: "    \"legal_proceeding\",        # 訴訟、法院受理與裁定"
+    replace: ""
+    survives: false
+    why: ""

@@ -962,6 +962,7 @@ media_sources:
   - financial_impact
   - supply_chain
   - enterprise_adoption
+  - legal_proceeding
   adapter: rss
   endpoint: "https://techcrunch.com/category/artificial-intelligence/feed/"
   region: US
@@ -1079,6 +1080,7 @@ media_sources:
   - third_party_validation
   - research_replication
   - policy_execution
+  - legal_proceeding
   adapter: rss
   endpoint: "https://arstechnica.com/ai/feed/"
   region: US
@@ -1105,6 +1107,7 @@ media_sources:
   - third_party_validation
   - product_release
   - social_signal
+  - legal_proceeding
   adapter: atom
   endpoint: "https://www.theverge.com/rss/index.xml"
   region: US
