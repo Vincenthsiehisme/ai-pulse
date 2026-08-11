@@ -3373,6 +3373,58 @@ acase("轉載鏈：entity_overlap_min 真的被讀（門檻拉到 1.01 就沒有
       set())
 acase("轉載鏈：enabled: false 是真的關掉（完全不判、不標記）",
       _cl.suspected_reposts([_tc_en, _tc_zh], {**_TC, "enabled": False}), set())
+
+# ── 同語言逐字轉載（references/attach-rule.md〈順序〉）──
+# P0-e 量到：現行 attach 規則唯一黏得上的兩篇第三方後續，兩篇的標題相似度都是
+# 1.00 —— 系統唯一收得到的「第二個獨立來源」正好是最不獨立的那一種，
+# 而上面那支跨語言守門的第一個條件就是「語言不同」，它在旁邊看著。
+_VR = _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+                           encoding="utf-8"))["evidence"]["verbatim_repost"]
+
+
+def _vrow(title, hour, tier=2, day=4):
+    from datetime import datetime as _dt2
+    return {"title": title, "tier": tier,
+            "published": _dt2(2026, 8, day, hour, tzinfo=_tz.utc)}
+
+
+_VR_A = _vrow("AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 13, tier=1)
+acase("逐字轉載：同語言、標題一字不差、47 小時後 → 後發的判成轉載"
+      "（實測那兩篇就是這個形狀，而跨語言那支攔不到）",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 12, day=6)],
+          _VR), {1})
+acase("逐字轉載：改寫過的標題不判"
+      "（兩家各自重寫是兩個真的聲音；判成轉載等於把獨立性做假到反方向——"
+      "而 P0-e 量到 12/14 的第三方後續正是這一類）",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI industry unveils SAFE cybersecurity disclosure framework", 18)], _VR), set())
+acase("逐字轉載：超出 window_hours 不判（168 小時真的被讀）",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 13, day=20)],
+          _VR), set())
+acase("逐字轉載：title_similarity_min 真的被讀（拉到 1.01 就沒有任何一對過得了）",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 12, day=6)],
+          {**_VR, "title_similarity_min": 1.01}), set())
+acase("逐字轉載：enabled: false 是真的關掉",
+      _cl.verbatim_reposts([_VR_A, _vrow(
+          "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency", 12, day=6)],
+          {**_VR, "enabled": False}), set())
+acase("逐字轉載：缺標題或缺時間一律不判（往「維持原本算法」倒，"
+      "捏造一個「它們是同一篇」的結論比漏抓一次更難發現）",
+      [_cl.verbatim_reposts([_VR_A, _vrow("", 12, day=6)], _VR),
+       _cl.verbatim_reposts([_VR_A, {**_vrow("AI Leaders Propose SAFE Guidelines "
+                                             "for Cybersecurity Transparency", 12),
+                                     "published": None}], _VR)],
+      [set(), set()])
+acase("逐字轉載：原文＝最早發布的那一條（同 suspected_reposts 的三段排序，"
+      "確定性，同一份輸入永遠給同一個答案）",
+      _cl.verbatim_reposts([_vrow("Third-party cyber evaluations involving OpenAI models", 19, day=6),
+                            _vrow("Third-party cyber evaluations involving OpenAI models", 12, day=5)],
+                           _VR), {0})
+acase("gate.yaml: evidence.verbatim_repost 這一塊真的在（判準讀不到就靜靜不判）",
+      sorted(_VR), ["enabled", "excluded_from", "title_similarity_min", "window_hours"])
 acase("轉載鏈：設定讀不到時不判——設定檔壞掉不可以讓一條規則反而更積極扣分",
       [_cl.suspected_reposts([_tc_en, _tc_zh], {}),
        _cl.suspected_reposts([_tc_en, _tc_zh], None)], [set(), set()])
@@ -3435,6 +3487,57 @@ acase("轉載鏈：excluded_from 真的被讀——沒列 independent_sources �
       [_tc_ev3.scores["independent_sources"],
        [e["suspected_repost"] for e in _tc_ev3.evidence]],
       [2, [False, True]])
+
+# 端到端：判準寫好了不等於接上了。第四十輪的教訓是「規則存在 ≠ 規則被套用」，
+# 而 M240/M242 第一版就是靠這一段才被殺——上面那幾條只測 lib 裡的純函式，
+# 把 pulse-cluster 那一行接線拿掉，它們一條都不會紅。
+_VRSRC = {"src-orig": {"tier": 1, "media_group": "NVIDIA", "language": "en"},
+          "src-copy": {"tier": 3, "media_group": "Medium", "language": "en"}}
+
+
+def _vr_event():
+    e = _cm.Event("evt-vr", "vr",
+                  "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency",
+                  "2026-08-04T13:00:00+00:00")
+    e.add_evidence("src-orig", "https://nvidia.test/safe",
+                   "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency",
+                   100, "2026-08-04T13:00:00+00:00")
+    e.add_evidence("src-copy", "https://medium.test/safe",
+                   "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency",
+                   40, "2026-08-06T12:00:00+00:00")
+    return e
+
+
+_vr_ev = _vr_event()
+_cm.rescore(_vr_ev, _VRSRC, None, _TC, _ENT_TABLE, vr_cfg=_VR)
+acase("逐字轉載：走 rescore 之後真的扣得到分"
+      "（這是 P0-e 量到的那個形狀——兩篇標題一字不差、不同媒體集團，"
+      "在這一版之前它們會讓 independent_sources 從 1 變成 2）",
+      [_vr_ev.scores["independent_sources"], _vr_ev.scores["suspected_reposts"],
+       [e["suspected_repost"] for e in _vr_ev.evidence]],
+      [1, 1, [False, True]])
+_vr_ev2 = _vr_event()
+_cm.rescore(_vr_ev2, _VRSRC, None, _TC, _ENT_TABLE, vr_cfg={**_VR, "enabled": False})
+acase("逐字轉載：關掉之後獨立性回到 2（反方向，確認上面那條不是恆為 1）",
+      [_vr_ev2.scores["independent_sources"], _vr_ev2.scores["suspected_reposts"]],
+      [2, 0])
+_vr_ev3 = _vr_event()
+_cm.rescore(_vr_ev3, _VRSRC, None, _TC, _ENT_TABLE,
+            vr_cfg={**_VR, "excluded_from": ["heat"]})
+acase("逐字轉載：excluded_from 走的是兩支的聯集——這一支沒列 "
+      "independent_sources 而跨語言那支列了，所以照樣扣"
+      "（少了聯集就會出現「標記在那裡但沒有人扣分」）",
+      [_vr_ev3.scores["independent_sources"],
+       [e["suspected_repost"] for e in _vr_ev3.evidence]],
+      [1, [False, True]])
+# 反過來也要成立：只有逐字那一支列了 independent_sources 的時候，
+# 聯集才是唯一不會靜靜漏掉一邊的選法。少了聯集這一格會退回 2。
+_vr_ev4 = _vr_event()
+_cm.rescore(_vr_ev4, _VRSRC, None, {**_TC, "excluded_from": ["heat"]}, _ENT_TABLE,
+            vr_cfg=_VR)
+acase("逐字轉載：只有這一支列 independent_sources 時照樣扣得到"
+      "（排除清單取聯集，不是只讀跨語言那一份）",
+      _vr_ev4.scores["independent_sources"], 1)
 
 acase("pulse-cluster 跑第二輪：這一輪真的重寫了那個檔"
       "（沒重寫的話上一條在斷言一個恆真的條件——測試自己變成一顆永遠綠的燈）",

@@ -397,8 +397,10 @@ mutations:
   - id: M43
     title: "enabled 不讀（設定檔關掉了，規則照跑）"
     file: lib/cluster.py
-    find: "    if not cfg.get(\"enabled\"):"
-    replace: "    if False:"
+    # 2026-08-11 加長：verbatim_reposts 上線後這一行在同一個檔裡出現兩次，
+    # 針腳必須指名是哪一支（selftest 的「剛好出現一次」那條抓到的）。
+    find: "    if not cfg.get(\"enabled\"):\n        return set()\n    try:\n        min_overlap"
+    replace: "    if False:\n        return set()\n    try:\n        min_overlap"
     survives: false
     why: ""
 
@@ -413,8 +415,9 @@ mutations:
   - id: M45
     title: "時間窗不比（window_hours 變裝飾，隔一個月的改寫照樣算轉載）"
     file: lib/cluster.py
-    find: "            if abs((pa - pb).total_seconds()) / 3600.0 > window:"
-    replace: "            if False:"
+    # 同上，加長到看得見 fingerprint 那一行，才指得到跨語言那一支。
+    find: "            if abs((pa - pb).total_seconds()) / 3600.0 > window:\n                continue\n            fa, fb"
+    replace: "            if False:\n                continue\n            fa, fb"
     survives: false
     why: ""
 
@@ -2122,5 +2125,34 @@ mutations:
     file: pulse-coverage-gap.py
     find: "        return \"🔴\", (\"只有當事人自己在說，沒有獨立來源\" if official\n                      else \"沒有任何來源在看\")"
     replace: "        return \"🔴\", \"沒有任何來源在看\""
+    survives: false
+    why: ""
+
+  # ── 同語言逐字轉載（2026-08-11，Phase 0.5 前半）──
+  # 規格 references/attach-rule.md。P0-e 量到：現行 attach 規則唯一黏得上的
+  # 兩篇第三方後續，兩篇的標題相似度都是 1.00——系統唯一收得到的「第二個
+  # 獨立來源」正好是最不獨立的那一種。
+
+  - id: M240
+    title: "逐字轉載守門沒接上（跨語言那支的第一個條件是「語言不同」，同語言的複製貼上它看不到——降門檻之後這一格會實實在在讓 independent_sources 從 1 變成 2）"
+    file: pulse-cluster.py
+    find: "    flagged = flagged | cluster.verbatim_reposts(rows, vr_cfg)"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M241
+    title: "逐字轉載的時間窗不比（複製貼上沒有時效壓力，隔一個月的轉貼照樣是轉貼——但窗口變裝飾之後，同一家媒體隔季的系列標題也會被判成轉載）"
+    file: lib/cluster.py
+    find: "            if abs((pa - pb).total_seconds()) / 3600.0 > window:\n                continue\n            if title_similarity(ta, tb) < min_sim:"
+    replace: "            if False:\n                continue\n            if title_similarity(ta, tb) < min_sim:"
+    survives: false
+    why: ""
+
+  - id: M242
+    title: "兩支轉載守門的排除清單只取跨語言那一份（少了聯集，逐字轉載被標記了卻照樣進獨立性計算——標記在那裡但沒有人扣分）"
+    file: pulse-cluster.py
+    find: "    excluded = (set((tc_cfg or {}).get(\"excluded_from\") or [])\n                | set((vr_cfg or {}).get(\"excluded_from\") or []))"
+    replace: "    excluded = set((tc_cfg or {}).get(\"excluded_from\") or [])"
     survives: false
     why: ""
