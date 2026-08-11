@@ -219,6 +219,16 @@ source_health:
   quarantine_after_consecutive: 5   # 只列入報告的隔離候選，不自動寫 dormant
   recover_after_consecutive: 3      # 連續成功幾次 → 撤銷機器自己做的降級
 
+# 鏈外死人開關的門檻。**跟 monitor.stale_after_days 是兩個 key，刻意的。**
+# monitor 那個判的是「幾天沒抓到東西」，而且它自己就跑在被監看的那條鏈裡；
+# 這一個判的是「那條鏈到底有沒有被排上」，跑在另一支 workflow 上。
+# 共用一個 key 的話，哪天有人為了讓 monitor 安靜而調鬆它，會連鏈外那一支
+# 一起調鬆——而那正是唯一還會叫的東西。
+# 消費者：scripts/pulse-watchdog.py 的 --alert。
+# 規格見 references/health-alarms.md〈鏈外的那一個〉。
+watchdog:
+  stale_after_days: 2
+
 monitor:
   # 消費者：scripts/pulse-monitor.py 的 --write-health / --alert-stale
   # （2026-07-26 接上。在此之前這個 key 沒有任何消費者，連註解裡講的

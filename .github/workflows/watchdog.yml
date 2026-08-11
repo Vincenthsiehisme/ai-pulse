@@ -1,0 +1,56 @@
+# 鏈外的死人開關。**這支存在的唯一理由，是它不在被監看的那條鏈裡面。**
+#
+# 2026-08-09：main 從 08-05 到 08-09 沒有進過任何資料，而四個警報全綠——
+# 因為那四個判準全部長在 data-refresh.yml 最後兩個 step 上，而那一班卡在部署
+# 環境的閘門、job 一個 step 都沒開始。**沒被排上的鏈沒辦法通報自己沒被排上。**
+# 經過見 references/incidents/2026-08-09-the-gate-that-stopped-the-chain.md。
+#
+# 所以這裡的每一個「分開」都是刻意的，不是排版偏好：
+#   - 另一支 workflow（同一支裡加 step 完全沒用，job 沒開始 step 也不會開始）
+#   - 另一個 concurrency group（nightly 那一組卡住時，這支不能跟著排隊）
+#   - 另一個時間（04:00Z ＝ 台北 12:00，看的是前一晚 16:00Z 那班的結果）
+#   - 不掛 environment（部署閘門正是 08-09 那次卡住 data-refresh 的東西）
+#   - 只裝 pyyaml（依賴愈少，它自己壞掉的機會愈小）
+name: AI Pulse watchdog
+
+on:
+  schedule:
+    # cron 一律 UTC。04:00Z ＝ 台北 12:00。
+    # 抓取班是 16:00Z，所以這支看的是前一晚那一班的結果，中間隔了 12 小時
+    # ——夠久到誤點不會誤報，又不會等到隔天才發現。
+    - cron: '0 4 * * *'   # 台北當日 12:00
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: watchdog
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # fetch-depth: 0 不是為了 build，是為了看得到 commit 歷史。
+      # 拿掉不會變成假紅燈——watchdog 會先問 is-shallow-repository，
+      # 淺的就四格全印「量不到」且不觸警（紅線 8）。
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: Watchdog (0 LLM)
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: |
+          {
+            echo '### AI Pulse 鏈外死人開關'
+            echo '```'
+            python scripts/pulse-watchdog.py || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          python scripts/pulse-watchdog.py --alert > /dev/null
