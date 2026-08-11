@@ -385,6 +385,44 @@ url_canonical)` 去重再計數——**去重之後它才跟當班區塊同單�
 `--answer` 收到對不上任何問題的 sid 會回非零並拒寫——帳本是 append-only，
 記錯了刪不掉。
 
+## `_dashboards/coverage-gap.md`
+
+`pulse-coverage-gap.py --write` 產生，同時寫 `_probe/coverage-gap.json`。
+**需求 × 供給的對照矩陣**：左邊是人回答 `unanswerable` 時填的原因碼，
+右邊是會被抓的來源宣稱的能力。兩邊用同一份詞彙表（`lib/sources.REASONS ⊃
+CAPABILITIES`），所以放得進同一列比較——理由見 `references/source-capabilities.md`。
+
+### 分母是人給的，所以它會誠實地說自己量不到
+
+已裁決筆數 < `gate.yaml` 的 `coverage_gap.min_answers`（今天是 10）時，
+**每一格都印「量不到」，不給任何燈號**。
+
+這是這一頁最重要的設計。把「還沒有人回答過」印成 `0`，會讓
+`procurement`（0 需求、0 來源）看起來跟一個真的沒問題的格子一樣——
+而它其實是這個系統最大的盲區之一。同理 `coverage-gap.json` 的
+`other_ratio` 在量不到時是 `null` 不是 `0.0`：兩者在 JSON 裡差一個字，
+在判斷上差一個「我們知道」與「我們不知道」。
+
+燈號本身也是拿需求算出來的，所以需求量不到而燈照亮，那個燈亮的是空氣。
+
+### 供給那一欄今天就量得到
+
+所以樣本不足時那一欄照印——**它本身已經是一份盲區清單**。
+2026-08-11 量到：14 種能力裡 `procurement` 有 **0 條在跑的來源**宣稱。
+那一格不需要等任何人回答就成立。
+
+（這一頁的供給數字只算 **running** 的來源，比
+`references/source-capabilities.md` 那張「幾條來源宣稱」的表小——那張算全部 32 條。
+兩個數字不一樣是刻意的：停用的來源不補盲區。）
+
+### `other` 佔比是那份分類表的死人開關
+
+14 個原因碼是在 **n=0** 的情況下猜出來的。`other` 佔 `unanswerable` 超過
+`coverage_gap.other_reason_warn`（30%）時，頁面印一行提醒——
+它不是在說填的人偷懶，是在說**分類軸可能選錯了**。
+所以 `--reason other` 必須配 `--note`：一筆沒有說明的 `other` 會進分母
+把比例撐大，卻沒留下任何能拿來重新分類的線索。
+
 ## 排在哪裡
 
 四支都排在 `Source health (0 LLM)` 之後（才讀得到這一班的分數）、

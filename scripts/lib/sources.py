@@ -69,6 +69,21 @@ CAPABILITIES = frozenset({
 })
 
 
+# `unanswerable` 的原因碼 ＝ 能力詞彙表 ＋ 一個 other。**衍生，不抄寫。**
+#
+# 規格 references/source-capabilities.md〈同一份詞彙表的第二個用途〉。
+# PRD 把 reason 與 capability 寫成兩份不同的清單（11 vs 14），但 §19 的
+# Gap × Capability 矩陣要求兩者能直接比較——用兩份清單 join，會有些 Demand 的列
+# 永遠對不到 Source、有些 Source 的列永遠沒有 Demand，而那不是量出來的洞，
+# 是詞彙表的洞。
+#
+# 更根本的：「這個訊號我回答不了」的理由本來就是一個**能力請求**。
+# 需求面與供給面講的是同一件事，軸必須對齊。
+#
+# `other` 只在 reason 這一側：一條來源不能宣稱自己「有能力報導其他」。
+REASONS = CAPABILITIES | frozenset({"other"})
+
+
 def is_running(src):
     """這條來源會不會被抓。`lifecycle` 缺值＝不會（往嚴的方向倒）。"""
     return (src or {}).get("lifecycle") in RUN_LIFECYCLES

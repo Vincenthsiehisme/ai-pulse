@@ -53,11 +53,21 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import clock, history  # noqa: E402
+from lib.sources import REASONS  # noqa: E402  原因碼＝能力詞彙表＋other，單一真相源
 from lib.atomicwrite import atomic_write_text  # noqa: E402
 
 import yaml  # noqa: E402
 
 VERDICTS = ("happened", "not-yet", "unanswerable")
+# 一次裁決寫**兩筆**，不是一筆塞兩件事。
+#   field="verdict"             to=happened / not-yet / unanswerable
+#   field="unanswerable_reason" to=<原因碼>            （只有 unanswerable 才有）
+# 兩筆的理由：`lib/history.read()` 本來就吃 `field=` 過濾，覆蓋率矩陣要的是
+# 「原因碼的分佈」，用 field 分開之後那是一次過濾就拿得到的東西。
+# 把兩件事塞進同一筆（例如 to="unanswerable:enterprise_adoption"）的話，
+# 下游每個消費者都要自己 split 一次，而 split 規則會在第二個消費者那裡分岔。
+F_VERDICT = "verdict"
+F_REASON = "unanswerable_reason"
 LEDGER = ("_probe", "signal-verdicts.jsonl")
 PAGE = ("_dashboards", "signal-review.md")
 SECTION = "下一個訊號"
@@ -113,7 +123,8 @@ def collect(vault: Path):
 
 def pending(vault: Path):
     """待回答的 ＝ 全部 − 帳本裡已經有裁決的。"""
-    answered = {r["id"] for r in history.read(vault / LEDGER[0] / LEDGER[1])}
+    answered = {r["id"] for r in history.read(vault / LEDGER[0] / LEDGER[1],
+                                              field=F_VERDICT)}
     return [row for row in collect(vault) if row[0] not in answered]
 
 
@@ -139,7 +150,8 @@ def render(rows, today, answered_n):
         "",
         "```",
         "python scripts/pulse-signal-review.py --answer <sid> \\",
-        "    --verdict happened|not-yet|unanswerable --note \"一句話\"",
+        "    --verdict happened|not-yet|unanswerable \\",
+        "    --reason <原因碼，只有 unanswerable 要> --note \"一句話\"",
         "```",
         "",
         "`unanswerable` 不是失敗，是**這一頁最有價值的那個答案**：它累積出來的清單，",
@@ -164,6 +176,7 @@ def main():
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--answer")
     ap.add_argument("--verdict", choices=VERDICTS)
+    ap.add_argument("--reason", help="unanswerable 的原因碼（lib/sources.REASONS）")
     ap.add_argument("--note", default="")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
@@ -174,20 +187,49 @@ def main():
         if not args.verdict:
             print("[fatal] --answer 要配 --verdict", file=sys.stderr)
             return 2
+        # unanswerable 沒有原因碼＝一筆「這個系統看不到它」但沒說看不到哪一類。
+        # 那正是整條線最有價值的那個資料點，缺了它這一筆只剩下一個計數。
+        if args.verdict == "unanswerable" and not args.reason:
+            print("[fatal] --verdict unanswerable 要配 --reason，可選："
+                  + "、".join(sorted(REASONS)), file=sys.stderr)
+            return 2
+        if args.reason and args.reason not in REASONS:
+            print(f"[fatal] 不認得的 reason：{args.reason}（可選："
+                  + "、".join(sorted(REASONS)) + "）", file=sys.stderr)
+            return 2
+        # other 是這份分類表的死人開關（表是在 n=0 時猜出來的）。沒有 note 的
+        # other 會進分母把比例撐大，卻沒留下任何能拿來重新分類的線索。
+        if args.reason == "other" and not args.note.strip():
+            print("[fatal] --reason other 要配 --note：分類表是猜出來的，"
+                  "`other` 是它的死人開關，而一筆沒有說明的 other 什麼都告訴不了我們",
+                  file=sys.stderr)
+            return 2
+        if args.reason and args.verdict != "unanswerable":
+            print(f"[fatal] --reason 只用在 unanswerable（這一筆是 {args.verdict}）"
+                  "——happened / not-yet 記了原因碼會進覆蓋率矩陣的分子，"
+                  "而那張表問的是「答不了的有哪些」", file=sys.stderr)
+            return 2
         known = {row[0] for row in collect(vault)}
         # 打錯一個字就記一筆對不到任何問題的裁決，而那筆會永遠留在帳本裡
         # 當成雜訊——帳本是 append-only，記錯了刪不掉。
         if args.answer not in known:
             print(f"[fatal] 找不到這個 sid：{args.answer}", file=sys.stderr)
             return 2
-        history.append(led, [history.change(
-            clock.utc_now().isoformat(), args.answer, "verdict",
-            None, args.verdict, args.note or "human-review")])
-        print(f"記錄：{args.answer} → {args.verdict}")
+        at = clock.utc_now().isoformat()
+        rows = [history.change(at, args.answer, F_VERDICT,
+                               None, args.verdict, args.note or "human-review")]
+        if args.reason:
+            rows.append(history.change(at, args.answer, F_REASON,
+                                       None, args.reason, args.note or "human-review"))
+        history.append(led, rows)
+        print(f"記錄：{args.answer} → {args.verdict}"
+              + (f"（{args.reason}）" if args.reason else ""))
         return 0
 
     rows = pending(vault)
-    answered = len(history.read(led))
+    # 只數 verdict 那一種。兩筆制之後 `len(read(led))` 會把每一筆 unanswerable
+    # 算成兩則——一個會隨著「答不了的比例」自己浮動的分母，比錯得離譜更難發現。
+    answered = len(history.read(led, field=F_VERDICT))
     if args.write:
         atomic_write_text(vault / PAGE[0] / PAGE[1],
                           render(rows, clock.utc_today().isoformat(), answered))
