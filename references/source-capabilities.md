@@ -165,12 +165,56 @@ src-mistral-news   score=100  runs=25  consecutive_successes=24  last_status=200
 要把它變成警報，得先能分開「合規上抓不到」與「抓得到但一直空手」。
 那是下一輪的題目，規格會寫在 `references/source-lifecycle.md`〈健康分〉。
 
+## 同一份詞彙表的第二個用途：`unanswerable` 的 reason
+
+`pulse-signal-review.py --verdict unanswerable` 必須配 `--reason`，
+而 reason 的合法值就是 **`CAPABILITIES` 再加一個 `other`**
+（`lib/sources.REASONS`，衍生不抄寫）。
+
+### PRD 把這兩份寫成不同的清單，那是個錯
+
+PRD §7 給了 11 個 reason，§14 給了 14 個 capability。兩份重疊很多但不相等：
+
+```
+只在 reason 那份     product_availability、other
+只在 capability 那份 official_announcement、product_release、research_release、
+                     infrastructure、developer_feedback
+```
+
+而 PRD §19 的 Gap × Capability 矩陣要求兩者**可以直接比較**。
+用兩份不同的清單去 join，結果是有些 Demand 的列永遠對不到任何 Source，
+有些 Source 的列永遠沒有 Demand——而那不是量出來的洞，是詞彙表的洞。
+
+更根本的：**「這個訊號我回答不了」的理由，本來就是一個能力請求。**
+「看有沒有企業真的拿它進 production」答不了，缺的正是 `enterprise_adoption`
+這種觀測能力。兩份清單描述的是同一件事的兩面——需求面與供給面。
+所以它們必須是同一份，否則矩陣兩邊的軸對不齊。
+
+`product_availability` 併進 `product_release`（「有東西可以用了」是同一個問題）。
+`other` 只存在於 reason 這一側：一條來源不能宣稱自己「有能力報導其他」。
+
+### `other` 是這份分類表的死人開關
+
+分類表是在 **n=0** 的情況下猜出來的。猜錯了要有東西告訴我們。
+
+`other` 佔比 > 30% 時，`_dashboards/coverage-gap.md` 印一行提醒：
+**分類軸選錯了，該回頭重看，而不是繼續往一個對不上真實問題的表裡塞。**
+
+所以 `--reason other` **必須配 `--note`**。沒有 note 的 `other` 是一筆
+「我不知道」——它會進分母、把比例撐大，卻沒有留下任何能拿來重新分類的線索。
+
+（原執行計劃寫這一行放在 `pulse-monitor`。改放 coverage-gap 頁：
+reason 的分佈本來就住在那一頁，而 `pulse-monitor` 已經有六個區塊，
+為一個今天是 0/0 的數字再開第七個，是在稀釋那頁的訊噪比。
+同一條規則不寫兩份——那是這個 repo 量過很多次的病。）
+
 ## 標註是怎麼決定的（2026-08-11）
 
 25 條有語料的，讀 `_corpus/` 裡的實際標題標；7 條沒有語料的（4 條 dormant
 ＋ 3 條上面那 3 條），照它的官方定位標，並且**知道那是純宣稱**。
 
-量到的分佈：
+量到的分佈（**全部 32 條**。`_dashboards/coverage-gap.md` 那張表只算 running 的 27 條，
+數字會比這裡小——停用的來源不補盲區，那是刻意的）：
 
 | capability | 幾條來源宣稱 |
 |---|---:|

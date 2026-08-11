@@ -186,6 +186,15 @@ jobs:
         env:
           VAULT_DIR: ${{ github.workspace }}
         run: python scripts/pulse-signal-review.py --write --quiet
+      # 覆蓋缺口矩陣：需求（答不了的原因碼）× 供給（來源宣稱的能力）。
+      # 必須排在 signal review **之後**——它讀的是那一支寫進帳本的東西。
+      # 分母是人給的，今天是 0，所以整張表會印「量不到」而不是一排 0。
+      # 一個沒有生產者的頁面等於不存在，所以它從第一天就掛在這裡。
+      - name: Vault pages — coverage gap (0 LLM)
+        continue-on-error: true
+        env:
+          VAULT_DIR: ${{ github.workspace }}
+        run: python scripts/pulse-coverage-gap.py --write --quiet
       # 星速榜的待譯清單。**由這一班準備，不由潤稿端自己重建榜單。**
       # 潤稿端是 Cowork 容器、沒有 GITHUB_TOKEN，未認證額度很緊——它自己跑
       # pulse-github.py 那一步是整個 C2 段唯一需要外部服務的地方，而 runbook

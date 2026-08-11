@@ -4100,30 +4100,121 @@ with _tf2.TemporaryDirectory() as _td_sr:
         [sys.executable, os.path.join(_HERE, "pulse-signal-review.py"),
          "--answer", "bogus#00000000", "--verdict", "happened"],
         capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(_v))).returncode
-    _subprocess.run(
-        [sys.executable, os.path.join(_HERE, "pulse-signal-review.py"),
-         "--answer", _sr_sid0, "--verdict", "unanswerable", "--note", "看不到"],
-        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(_v)))
+    def _sr_run(*extra):
+        return _subprocess.run(
+            [sys.executable, os.path.join(_HERE, "pulse-signal-review.py"),
+             "--answer", _sr_sid0, *extra],
+            capture_output=True, text=True,
+            env=dict(os.environ, VAULT_DIR=str(_v))).returncode
+    # P0-b 的四道閘。全部要在寫進帳本**之前**擋下來——帳本是 append-only。
+    _sr_rc_noreason = _sr_run("--verdict", "unanswerable", "--note", "看不到")
+    _sr_rc_badreason = _sr_run("--verdict", "unanswerable",
+                               "--reason", "enterprise_adoptions")
+    _sr_rc_other = _sr_run("--verdict", "unanswerable", "--reason", "other")
+    _sr_rc_misplaced = _sr_run("--verdict", "happened", "--reason", "benchmark")
+    _sr_led_before = _sr.history.read(_v / "_probe" / "signal-verdicts.jsonl")
+    _sr_run("--verdict", "unanswerable", "--reason", "enterprise_adoption",
+            "--note", "看不到")
     _sr_pend1 = len(_sr.pending(_v))
     _sr_led = _sr.history.read(_v / "_probe" / "signal-verdicts.jsonl")
+    _sr_led_v = _sr.history.read(_v / "_probe" / "signal-verdicts.jsonl",
+                                 field="verdict")
+    _sr_led_r = _sr.history.read(_v / "_probe" / "signal-verdicts.jsonl",
+                                 field="unanswerable_reason")
 acase("待答清單：只收已上線、而且真的潤過的那幾則"
       "（待編輯佔位還在的是待潤稿不是待回答；review 的還不是對外宣稱）",
       [_sr_kinds, _sr_srcs], [["主線", "事件"], ["evt-a", "infra-cost"]])
 acase("待答清單：回答過的從待辦消失，答案進帳本"
       "（這一頁是待辦不是歷史——歷史在 _probe/signal-verdicts.jsonl）",
-      [_sr_pend0, _sr_pend1, len(_sr_led),
-       (_sr_led[0].get("to") if _sr_led else None)],
+      [_sr_pend0, _sr_pend1, len(_sr_led_v),
+       (_sr_led_v[0].get("to") if _sr_led_v else None)],
       [2, 1, 1, "unanswerable"])
+# 一次裁決寫兩筆、用 field 分開：覆蓋率矩陣要的是「原因碼的分佈」，
+# 用 field 過濾一次就拿得到。塞進同一筆（to="unanswerable:enterprise_adoption"）
+# 的話，每個下游都要自己 split，而 split 規則會在第二個消費者那裡分岔。
+acase("裁決帳本：unanswerable 寫兩筆（verdict + unanswerable_reason），"
+      "而且 field 分得開",
+      [len(_sr_led), len(_sr_led_r),
+       (_sr_led_r[0].get("to") if _sr_led_r else None)],
+      [2, 1, "enterprise_adoption"])
+acase("裁決帳本：unanswerable 缺 reason 要拒寫"
+      "（一筆「這個系統看不到它」但沒說看不到哪一類，只剩下一個計數——"
+      "而那個原因碼正是整條線最有價值的資料點）",
+      [_sr_rc_noreason, len(_sr_led_before)], [2, 0])
+acase("裁決帳本：不認得的 reason 要拒寫（開放詞彙表會讓覆蓋率矩陣的軸長出同義異形）",
+      _sr_rc_badreason, 2)
+acase("裁決帳本：`other` 沒有 --note 要拒寫"
+      "（分類表是 n=0 時猜出來的，other 是它的死人開關；"
+      "一筆沒有說明的 other 會進分母把比例撐大，卻留不下任何能重新分類的線索）",
+      _sr_rc_other, 2)
+acase("裁決帳本：reason 只能配 unanswerable"
+      "（happened / not-yet 記了原因碼會進覆蓋率矩陣的分子，"
+      "而那張表問的是「答不了的有哪些」）",
+      _sr_rc_misplaced, 2)
+acase("lib/sources.REASONS ＝ CAPABILITIES + other（衍生不抄寫）"
+      "——PRD 給的是兩份不同的清單（11 vs 14），而 §19 的矩陣要求兩邊能直接比較；"
+      "用兩份清單 join，對不到的列是詞彙表的洞不是量出來的洞",
+      [sorted(_smod.REASONS - _smod.CAPABILITIES), len(_smod.REASONS)],
+      [["other"], 15])
 # append-only 的帳本記錯了刪不掉，所以 sid 對不上就要拒寫並回非零。
 acase("待答清單：對不上任何問題的 sid 要拒寫並回非零"
       "（帳本是 append-only，一筆打錯字的裁決會永遠留在裡面當雜訊）",
-      [_rc_sr_bad, len(_sr_led)], [2, 1])
+      [_rc_sr_bad, len(_sr_led_v)], [2, 1])
 # 這一頁要有人產生，否則又是一個「寫了沒人讀」的反面：沒人寫。
 _WF_SR = "\n".join(ln for ln in open(
     os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml"),
     encoding="utf-8").read().splitlines() if not ln.lstrip().startswith("#"))
 acase("待答清單：夜班真的有一步在產生它（沒有生產者的頁面等於不存在）",
       "pulse-signal-review.py --write" in _WF_SR, True)
+
+# ── 覆蓋缺口矩陣：需求 × 供給（references/vault-pages.md〈coverage-gap.md〉）──
+# 這一頁最重要的性質是「它會誠實地說自己量不到」。把「還沒有人回答過」印成 0，
+# 會讓 procurement（0 需求、0 來源）看起來跟一個真的沒問題的格子一樣綠。
+_cgs = importlib.util.spec_from_file_location(
+    "pulse_coverage_gap", os.path.join(_HERE, "pulse-coverage-gap.py"))
+_cg = importlib.util.module_from_spec(_cgs)
+_cgs.loader.exec_module(_cg)
+_CG_TH = _cg.thresholds({})
+acase("覆蓋缺口：樣本不足時**每一格**都是量不到，不是 0"
+      "（燈號本身是拿需求算出來的，需求量不到而燈照亮，那個燈亮的是空氣）",
+      [_cg.cell(0, 13, False, _CG_TH)[0], _cg.cell(9, 0, False, _CG_TH)[0]],
+      ["－", "－"])
+acase("覆蓋缺口：0 需求不給綠燈"
+      "（0 需求可能是「這一輪沒人問到」，不是「這一類沒問題」——"
+      "而 0 需求 + 0 來源更不是綠，那是這個系統最大的盲區的樣子）",
+      [_cg.cell(0, 7, True, _CG_TH)[0], _cg.cell(0, 0, True, _CG_TH)[0]],
+      ["⚪", "⚪"])
+acase("覆蓋缺口：供給是 0 而有需求一律紅（不看比值——除以 0 那一格是另一種狀態，"
+      "不該用一個大數字表達）",
+      _cg.cell(1, 0, True, _CG_TH)[0], "🔴")
+acase("覆蓋缺口：`other` 佔比是那份分類表的死人開關（超過門檻要提醒；"
+      "沒有樣本時是「量不到」不是 0%）",
+      [_cg.other_line(0, 0, _CG_TH)[1], _cg.other_line(3, 29, _CG_TH)[1],
+       _cg.other_line(12, 29, _CG_TH)[1],
+       "量不到" in _cg.other_line(0, 0, _CG_TH)[0]],
+      [False, False, True, True])
+acase("覆蓋缺口：門檻讀 gate.yaml，壞掉的值走預設而不是往鬆的方向倒",
+      [_cg.thresholds({"coverage_gap": {"min_answers": "十"}})["min_answers"],
+       _cg.thresholds({"coverage_gap": {"min_answers": 26}})["min_answers"]],
+      [10, 26])
+acase("覆蓋缺口：gate.yaml 真的有 coverage_gap 這一塊（判準讀不到就會靜靜走預設）",
+      sorted((_yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "gate.yaml"),
+                                   encoding="utf-8")).get("coverage_gap") or {})),
+      ["amber_ratio", "min_answers", "other_reason_warn", "red_ratio"])
+acase("覆蓋缺口：夜班真的有一步在產生它（沒有生產者的頁面等於不存在）",
+      "pulse-coverage-gap.py --write" in _WF_SR, True)
+# `.index()` 在字串不見時會丟 ValueError，而丟例外的判準不會紅，會 crash——
+# 而 crash 的變異在 mutate.py 眼裡「不算數」（M182 記過同一個形狀）。
+# 所以用 find()：不存在是 -1，順序判斷自然為假，紅得乾淨。
+def _wf_at(needle):
+    return _WF_SR.find(needle)
+
+
+acase("覆蓋缺口：必須排在 signal review 之後（它讀的是那一支寫進帳本的東西）"
+      "，也必須在 commit 之前（不然整天不會被推上去）",
+      (0 <= _wf_at("pulse-signal-review.py --write")
+       < _wf_at("pulse-coverage-gap.py --write")
+       < _wf_at("Commit & push data changes")), True)
 
 # ── 判斷層的帳本：覆寫之前先留痕（references/narrative-layer.md〈帳本〉）──
 # now / next 是整段覆寫的，實測相鄰兩版有過只剩 10% 相同的。在這一版之前，被改掉的
