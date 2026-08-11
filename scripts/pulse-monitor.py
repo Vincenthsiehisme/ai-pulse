@@ -47,6 +47,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 from lib import corpus as _corpus  # noqa: E402  _corpus/、_probe/ 盤點的單一真相源
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
+from lib import sources as _srcmod  # noqa: E402  來源清單/詞彙表單一真相源
+from lib.sources import RUN_LIFECYCLES  # noqa: E402  單一真相源，見 lib/sources.py
 from lib import ghdesc  # noqa: E402  榜單中文描述的覆蓋率，見 lib/ghdesc.py
 from lib import history  # noqa: E402  狀態帳本讀寫，見 lib/history.py
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
@@ -80,7 +82,6 @@ def _as_date(v):
         return None
 
 
-RUN_LIFECYCLES = {"active", "degraded", "probing"}
 
 
 def _norm(s) -> str:
@@ -478,7 +479,7 @@ def health(vault: Path, today, r, stale_after_days: int):
     }
 
 
-def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None):
+def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=None):
     """健康頁的 markdown。**不寫任何比「日」更細的時間**——見 pulse-source-notes
     的同款理由：一天 12 班，帶時分秒的欄位會讓這頁每兩小時產生一次假 diff。"""
     c = r["coverage"]
@@ -616,7 +617,56 @@ def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None):
             ("- " + _nline) if not _nbad else ("- ⚠ " + _nline),
             "", "`now` / `next` 是整段覆寫的（實測有過相鄰兩版只剩 10% 相同）。",
             "沒有這份帳本，「我上週對這條線怎麼說」這個問題答不出來。", ""]
+    if caps_line:
+        out += ["## 來源能力（宣稱 vs 觀察）", "", "- " + caps_line,
+                "", "這一格**不判紅燈**，理由寫在 `references/source-capabilities.md`：",
+                "健康分沒有壞，它只是**只看單班**——「這一班安靜」跟「25 班一次都沒到過貨」",
+                "在分數上都是 100。這一行補的是累計那一面；不觸警是因為今天三條裡有兩條",
+                "的成因是 robots 合規，會永遠紅，而永遠紅的警報兩週內就會被關掉。", ""]
     return "\n".join(out)
+
+
+def capability_claims_line(raw_sources, counts):
+    """來源能力的宣稱／觀察對照。回**一個字串**，沒有 bool。
+
+    規格見 references/source-capabilities.md〈宣稱 vs 觀察〉。
+
+    刻意不回「要不要叫」，因為這一格不觸警，而回一個永遠是 False 的旗標，
+    就是這個 repo 一直在抓的假旋鈕。
+
+    健康分**沒有壞**：`source-lifecycle.md` 那張表寫著「200 但 0 筆＝成功」，
+    理由是安靜的 feed 是健康的 feed。缺口在它**只看單班**——25 班全部 0 筆
+    跟這一班安靜，在分數上長得一模一樣（都是 100）。這一行補的是累計那一面。
+
+    不觸警的理由：今天那三條裡有兩條的成因是 robots 合規，那是設計上就會
+    一直維持的狀態（同 TERMINAL_BLOCKERS）。一個第一天紅、之後每天都紅的
+    警報，兩週內就會被人加旗標關掉，連真的該追的那一條也一起靜音。
+
+    三個數字各自回答不同的問題，所以分開印，不擠成一個「健康度」：
+
+        已標幾條      判準有沒有被繞過
+        幾種沒人宣稱  **盲區在哪**（P0-d 覆蓋率矩陣的雛形）
+        幾條零產出    宣稱是不是空頭支票
+    """
+    running = [s for s in _srcmod.iter_sources(raw_sources or {}) if _srcmod.is_running(s)]
+    claimed = _srcmod.capability_claims(raw_sources or {})
+    unlabelled = sorted(str(s.get("id")) for s in running if not (s.get("capabilities") or []))
+    gaps = sorted(_srcmod.CAPABILITIES - set(claimed))
+    # 零產出＝**累計**相異項目數為 0。用累計不用當期：一條這一窗沒發文是正常的，
+    # 一條從來沒有過才是宣稱兌不了現。當期的那個數字上面「本窗口零產出」
+    # 已經在講了，這裡刻意問另一個問題。
+    silent = sorted(str(s.get("id")) for s in running
+                    if (s.get("capabilities") or [])
+                    and not (counts or {}).get(str(s.get("id"))))
+    parts = [f"running {len(running)} 條，"
+             + ("全數已標" if not unlabelled
+                else f"**{len(unlabelled)} 條沒標**：" + "、".join(f"`{x}`" for x in unlabelled))]
+    parts.append(f"{len(_srcmod.CAPABILITIES)} 種能力裡"
+                 + (f"**{len(gaps)} 種沒有任何來源宣稱**（"
+                    + "、".join(f"`{g}`" for g in gaps) + "）" if gaps else "每一種都有來源"))
+    parts.append(f"**{len(silent)} 條宣稱了但語料裡從來沒有過**"
+                 + ("（" + "、".join(f"`{x}`" for x in silent) + "）" if silent else ""))
+    return "來源能力：" + "；".join(parts)
 
 
 def stale_alert_tail(run_lag):
@@ -819,9 +869,13 @@ def main():
     r["enrich_last_day"], r["enrich_reason"] = enrich
 
     if args.write_health:
+        _caps_counts, _ = _corpus.observed(vault)
         body = render_health(r, h, ghdesc.load_coverage(vault),
                              history.read(vault / "_probe" / "narrative-history.jsonl"),
-                             enrich)
+                             enrich,
+                             capability_claims_line(
+                                 yaml.safe_load((cfg / "sources.yaml").read_text("utf-8")) or {},
+                                 _caps_counts))
         p = vault / "_dashboards" / "health.md"
         # 一天 12 班：同一天內內容不變就不重寫，真正的變化才不會被淹掉。
         if not (p.exists() and p.read_text("utf-8") == body):

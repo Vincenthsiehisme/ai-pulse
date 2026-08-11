@@ -32,6 +32,64 @@ SECTIONS = (
 )
 
 
+# 會被抓的 lifecycle。規格見 references/source-lifecycle.md〈五個狀態〉。
+#
+# 2026-08-11 搬到這裡。在那之前這個集合被硬寫在**四個**檔案裡：pulse-probe、
+# pulse-monitor、pulse-source-notes，以及 pulse-source-health（在那裡叫 RUNNABLE）。
+# 跟上面 SECTIONS 是同一個病、同樣是靜默的：漏改一處的後果是「某一類 lifecycle
+# 在這支腳本眼裡不存在」，而清單長度不會變、沒有東西會紅。
+#
+# 搬家的觸發點是 capability 判準要用到這個集合（references/source-capabilities.md）。
+# 寫第五份會讓判準自己變成病的一部分，所以先搬再用。
+RUN_LIFECYCLES = frozenset({"active", "degraded", "probing"})
+
+# capability 封閉詞彙表。規格與每個值的語意見 references/source-capabilities.md。
+#
+# 為什麼在 lib/ 不在 _config/：`_config/` 放的是操作者可以調的旋鈕，
+# 詞彙表不是旋鈕是結構——改它等於改資料模型，該走 PR 不該改一行 YAML。
+#
+# 為什麼封閉：開放詞彙表半年後會長出 benchmarks / benchmark_result /
+# third-party_validation 這種同義異形，而覆蓋率矩陣會安靜地把它們算成不同格。
+# selftest 有一條釘住：值不在這裡就紅。
+CAPABILITIES = frozenset({
+    "official_announcement",   # 官方承認某件事發生了
+    "product_release",         # 有東西可以用了
+    "research_release",        # 方法／模型／論文本身
+    "benchmark",               # 有人跑了數字
+    "third_party_validation",  # 不是發布方的人說了話
+    "research_replication",    # 有人試著重現
+    "enterprise_adoption",     # 有組織真的在用
+    "procurement",             # 有人真的付錢買了（2026-08-11：0 條來源宣稱）
+    "supply_chain",            # 晶片／機櫃／電力實際流動
+    "infrastructure",          # 機房、算力、網路蓋起來了
+    "financial_impact",        # 錢的方向變了
+    "policy_execution",        # 法規從紙上變成執行
+    "social_signal",           # 圈子在談
+    "developer_feedback",      # 用的人回報了什麼
+})
+
+
+def is_running(src):
+    """這條來源會不會被抓。`lifecycle` 缺值＝不會（往嚴的方向倒）。"""
+    return (src or {}).get("lifecycle") in RUN_LIFECYCLES
+
+
+def capability_claims(raw):
+    """→ {capability: [source_id, ...]}，只算會被抓的來源。
+
+    只算 running 的是刻意的：一條 dormant 來源的 capability 是**將來**的宣稱，
+    把它算進覆蓋率會讓盲區看起來比實際小——而這一整層存在的理由就是把盲區
+    指出來。停用的來源不補盲區。
+    """
+    out = {}
+    for s in iter_sources(raw):
+        if not is_running(s):
+            continue
+        for c in (s.get("capabilities") or []):
+            out.setdefault(c, []).append(str(s.get("id")))
+    return out
+
+
 def iter_sources(raw, skip_templates=True):
     """依 SECTIONS 順序走訪 sources.yaml 的所有來源條目。
 

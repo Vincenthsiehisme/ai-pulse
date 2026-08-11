@@ -209,6 +209,13 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:
+    - official_announcement
+    - product_release
+    - research_release
+    - benchmark
+    - enterprise_adoption
+    - policy_execution
   adapter: rss
   endpoint: "https://openai.com/news/rss.xml"
   region: US
@@ -249,6 +256,12 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:
+    - official_announcement
+    - product_release
+    - research_release
+    - benchmark
+    - enterprise_adoption
   adapter: sitemap
   endpoint: "https://www.anthropic.com/sitemap.xml"
   url_prefix: "/news/"
@@ -273,6 +286,10 @@ official_sources:
   role: official
   source_category: research
   corpus_type: research_paper
+  capabilities:  # 未觀察：這條零語料，下面是定位不是實績
+    - research_release
+    - research_replication
+    - benchmark
   adapter: rss
   endpoint: "http://export.arxiv.org/rss/cs.CL"
   region: global
@@ -305,6 +322,8 @@ official_sources:
   role: official
   source_category: framework
   corpus_type: oss_release
+  capabilities:
+    - product_release
   adapter: github-releases
   endpoint: "vllm-project/vllm"                    # owner/repo
   region: global
@@ -328,6 +347,10 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:
+    - official_announcement
+    - product_release
+    - research_release
   adapter: rss
   endpoint: "https://deepmind.google/blog/rss.xml"     # 舊路徑 /blog/feed/basic/ 會 302 到此
   region: US
@@ -351,6 +374,12 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:
+    - official_announcement
+    - product_release
+    - research_release
+    - benchmark
+    - developer_feedback
   adapter: rss
   endpoint: "https://huggingface.co/blog/feed.xml"
   region: US
@@ -375,6 +404,11 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:
+    - official_announcement
+    - product_release
+    - infrastructure
+    - supply_chain
   adapter: rss
   endpoint: "https://blogs.nvidia.com/feed/"
   region: US
@@ -402,6 +436,9 @@ official_sources:
   role: official
   source_category: research
   corpus_type: research_paper
+  capabilities:
+    - research_release
+    - product_release
   adapter: rss
   endpoint: "https://www.microsoft.com/en-us/research/feed/"
   region: US
@@ -423,6 +460,9 @@ official_sources:
   role: official
   source_category: research
   corpus_type: research_paper
+  capabilities:
+    - research_release
+    - product_release
   adapter: rss
   endpoint: "https://research.facebook.com/feed/"     # [待驗證] 可能已改址
   region: US
@@ -447,6 +487,9 @@ official_sources:
   role: official
   source_category: regulator      # v2.1 新增值域
   corpus_type: policy
+  capabilities:  # 未觀察：這條零語料，下面是定位不是實績
+    - official_announcement
+    - policy_execution
   adapter: rss
   endpoint:                      # 判死：站台無 RSS，端點永久為 null
   region: EU
@@ -475,6 +518,9 @@ official_sources:
   role: official
   source_category: regulator
   corpus_type: policy
+  capabilities:  # 未觀察：這條零語料，下面是定位不是實績
+    - official_announcement
+    - policy_execution
   adapter: rss
   endpoint: "https://www.consilium.europa.eu/en/rss/pressreleases.ashx"
   region: EU
@@ -512,6 +558,9 @@ official_sources:
   role: official
   source_category: regulator
   corpus_type: policy
+  capabilities:
+    - official_announcement
+    - policy_execution
   adapter: rss
   endpoint: "https://www.europarl.europa.eu/rss/committee/itre/en.xml"
   region: EU
@@ -561,6 +610,9 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:
+    - official_announcement
+    - product_release
   adapter: sitemap
   endpoint: "https://x.ai/sitemap.xml"
   url_prefix: "/news/"
@@ -592,6 +644,10 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:  # 未觀察：這條零語料，下面是定位不是實績
+    - official_announcement
+    - product_release
+    - research_release
   adapter: sitemap
   endpoint: "https://mistral.ai/sitemap-index.xml"
   url_prefix: "/news/"
@@ -620,6 +676,10 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:
+    - official_announcement
+    - product_release
+    - research_release
   adapter: rss
   endpoint: "https://qwenlm.github.io/blog/index.xml"
   region: CN
@@ -674,6 +734,10 @@ official_sources:
   role: official
   source_category: vendor
   corpus_type: company_release
+  capabilities:
+    - official_announcement
+    - financial_impact
+    - supply_chain
   adapter: rss
   endpoint: "https://ir.amd.com/rss/news-releases.xml"
   region: US
@@ -864,6 +928,11 @@ media_sources:
   role: media
   source_category: media
   corpus_type: media_report
+  capabilities:
+    - third_party_validation
+    - enterprise_adoption
+    - financial_impact
+    - product_release
   adapter: rss
   endpoint: "https://venturebeat.com/category/ai/feed/"
   region: US
@@ -888,6 +957,11 @@ media_sources:
   role: media
   source_category: media
   corpus_type: media_report
+  capabilities:
+    - third_party_validation
+    - financial_impact
+    - supply_chain
+    - enterprise_adoption
   adapter: rss
   endpoint: "https://techcrunch.com/category/artificial-intelligence/feed/"
   region: US
@@ -912,6 +986,11 @@ media_sources:
   role: media
   source_category: media
   corpus_type: media_report
+  capabilities:
+    - third_party_validation
+    - research_replication
+    - policy_execution
+    - enterprise_adoption
   adapter: rss
   endpoint: "https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss"
   region: US
@@ -936,6 +1015,10 @@ media_sources:
   role: media
   source_category: media
   corpus_type: media_report
+  capabilities:
+    - third_party_validation
+    - policy_execution
+    - research_replication
   adapter: rss
   endpoint: "https://www.technologyreview.com/feed/"
   region: US
@@ -962,6 +1045,10 @@ media_sources:
   role: media
   source_category: media
   corpus_type: media_report
+  capabilities:  # 未觀察：這條零語料，下面是定位不是實績
+    - third_party_validation
+    - enterprise_adoption
+    - infrastructure
   adapter: atom
   endpoint: "https://www.theregister.com/software/ai_ml/headlines.atom"
   region: UK                     # 非美國編輯台，region 廣度唯一不同的一條
@@ -988,6 +1075,10 @@ media_sources:
   role: media
   source_category: media
   corpus_type: media_report
+  capabilities:
+    - third_party_validation
+    - research_replication
+    - policy_execution
   adapter: rss
   endpoint: "https://arstechnica.com/ai/feed/"
   region: US
@@ -1010,6 +1101,10 @@ media_sources:
   role: media
   source_category: media
   corpus_type: media_report
+  capabilities:
+    - third_party_validation
+    - product_release
+    - social_signal
   adapter: atom
   endpoint: "https://www.theverge.com/rss/index.xml"
   region: US
@@ -1035,6 +1130,9 @@ kol_sources:
   role: expert
   source_category: individual
   corpus_type: person_signal
+  capabilities:
+    - social_signal
+    - developer_feedback
   adapter: atom
   endpoint: "https://karpathy.bearblog.dev/feed/"
   region: US
@@ -1059,6 +1157,10 @@ kol_sources:
   role: expert
   source_category: individual
   corpus_type: person_signal
+  capabilities:
+    - social_signal
+    - developer_feedback
+    - third_party_validation
   adapter: atom
   endpoint: "https://simonwillison.net/atom/everything/"
   region: US
@@ -1083,6 +1185,10 @@ kol_sources:
   role: expert
   source_category: individual
   corpus_type: person_signal
+  capabilities:
+    - social_signal
+    - benchmark
+    - third_party_validation
   adapter: rss
   endpoint: "https://www.interconnects.ai/feed"
   region: US
@@ -1106,6 +1212,9 @@ kol_sources:
   role: expert
   source_category: individual
   corpus_type: person_signal
+  capabilities:  # 未觀察：這條零語料，下面是定位不是實績
+    - social_signal
+    - third_party_validation
   adapter: rss
   endpoint: "https://thezvi.substack.com/feed"
   region: US
@@ -1130,6 +1239,9 @@ kol_sources:
   role: expert
   source_category: individual
   corpus_type: person_signal
+  capabilities:
+    - social_signal
+    - enterprise_adoption
   adapter: rss
   endpoint: "https://www.oneusefulthing.org/feed"
   region: US
@@ -1153,6 +1265,9 @@ kol_sources:
   role: expert
   source_category: individual
   corpus_type: person_signal
+  capabilities:
+    - social_signal
+    - research_replication
   adapter: rss
   endpoint: "https://lilianweng.github.io/index.xml"
   region: US
@@ -1184,6 +1299,10 @@ kol_sources:
   role: expert
   source_category: individual
   corpus_type: person_signal
+  capabilities:  # 未觀察：這條零語料，下面是定位不是實績
+    - social_signal
+    - research_replication
+    - policy_execution
   adapter: rss
   endpoint: "https://importai.substack.com/feed"
   region: US
@@ -1207,6 +1326,10 @@ kol_sources:
   role: expert
   source_category: individual
   corpus_type: person_signal
+  capabilities:
+    - social_signal
+    - developer_feedback
+    - research_replication
   adapter: rss
   endpoint: "https://magazine.sebastianraschka.com/feed"
   region: US
@@ -1266,6 +1389,9 @@ aggregator_sources:
   role: aggregator
   source_category: aggregator
   corpus_type: aggregated
+  capabilities:
+    - social_signal
+    - developer_feedback
   adapter: json-api
     # 2026-07-25 換端點。原本指 hacker-news.firebaseio.com，但那個 host 的
     # robots.txt 是全面 Disallow——紅線 7 不繞，直接換掉。

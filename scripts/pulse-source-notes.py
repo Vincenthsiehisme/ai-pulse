@@ -50,9 +50,8 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.corpus import observed  # noqa: E402  _corpus/ 盤點的單一真相源
 from lib.notes import parse_note  # noqa: E402
-from lib.sources import iter_sources  # noqa: E402  分節清單單一真相源
+from lib.sources import iter_sources, RUN_LIFECYCLES  # noqa: E402  單一真相源，見 lib/sources.py
 
-RUN_LIFECYCLES = {"active", "degraded", "probing"}
 
 # frontmatter 只放這些欄位（紅線 6）。endpoint 是公開 URL 所以可以進，
 # 但 headers / api key / 本機路徑那類東西一個都不准出現在 vault 裡。
