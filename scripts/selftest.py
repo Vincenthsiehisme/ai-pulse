@@ -1818,11 +1818,23 @@ acase("每一行 cron 都在同一行註解裡寫出台北時間"
       "（cron 欄位沒有時區，一個沒被換算過的 cron 會被下一個人照台北讀）",
       {_n: _clk.cron_unannotated(_t) for _n, _t in _crons.items()
        if _clk.cron_unannotated(_t)}, {})
+# **豁免清單是具名的，不是規則變寬。** 16:00Z 那條規則的理由是
+# 「一班收到的東西正好是台北的一整天，而 _corpus/<UTC 日>/ 的目錄名也正好
+# 等於那個台北日」——它是**寫 _corpus/ 的那條鏈**的規則，不是所有 cron 的規則。
+#
+# watchdog 不寫 _corpus/，而且它跑在 16:00Z 就失去意義：它存在的理由是
+# 「被監看的那條鏈沒被排上時，它還在」，跟被監看的那一班同時起跑等於自廢武功
+# （04:00Z ＝ 台北 12:00，看的是前一晚那班的結果）。
+#
+# 用具名清單而不是「只檢查 data-refresh」，是因為前者在有人加第三支每日班時
+# 會紅——那正是應該有人停下來想一想的時刻。
+_CRON_1600_EXEMPT = {"watchdog.yml"}
 acase("每天固定一班的 cron 必須跑在 16:00Z"
       "（＝台北隔日 00:00，於是一班收到的東西正好是台北的一整天，"
       "而 _corpus/<UTC 日>/ 的目錄名也正好等於那個台北日。"
       "改成 20:00Z 看起來無害，但目錄名會跟內容錯開一天而不會有東西紅）",
       {_n: _clk.misanchored_daily(_t) for _n, _t in _crons.items()
+       if _n not in _CRON_1600_EXEMPT
        if _clk.misanchored_daily(_t)}, {})
 # 判準本身的單元測試。
 acase("clock.daily_utc_hour：每天一班才回小時；週班與 */N 都回 None"
@@ -3942,6 +3954,57 @@ _RB_ALERT_LINES = [ln.strip() for ln in _RB_ENRICH.splitlines()
 acase("潤稿 runbook：步驟 17 不准帶警報旗標"
       "（那一邊推不上去，判準卻讀本地 git log——它會把自己沒推成功的那顆讀成推成功了）",
       _RB_ALERT_LINES, [])
+
+import datetime as _hdt2  # noqa: E402
+
+# ── 鏈外的死人開關（2026-08-11）──────────────────────────────────────
+# 前面每一條警報都有一個共同前提：它自己要被執行到。2026-08-09 證明那個前提
+# 不成立——四個判準全長在 data-refresh.yml 最後兩個 step 上，而那一班卡在
+# 部署閘門、job 一個 step 都沒開始。這一支的價值**全部來自它跟被監看的那條鏈
+# 分開**，所以判準守的是那幾個「分開」，不只是它算得對不對。
+_wd_spec = importlib.util.spec_from_file_location(
+    "pulse_watchdog", os.path.join(_HERE, "pulse-watchdog.py"))
+_wd = importlib.util.module_from_spec(_wd_spec)
+_wd_spec.loader.exec_module(_wd)
+_D = _hdt2.date(2026, 8, 11)
+acase("鏈外開關：四種結果分開——量不到／從來沒有／未來日期／超過門檻"
+      "（擠成兩種的話，看到紅燈的人得自己猜是哪一種，而四種要做的事完全不同）",
+      [_wd.verdict("x", "2026-08-10", 1, 2, "ok")[1],
+       _wd.verdict("x", "2026-08-05", 6, 2, "ok")[1],
+       _wd.verdict("x", None, None, 2, "ok")[1],
+       _wd.verdict("x", "2026-08-20", -9, 2, "ok")[1],
+       _wd.verdict("x", "2026-08-05", 6, 2, "shallow")[1]],
+      [False, True, True, True, False])
+acase("鏈外開關：未來日期那句要跟「太久沒有」分開（一個是鏈斷了，一個是日期壞了）",
+      ["不算數" in _wd.verdict("x", "2026-08-20", -9, 2, "ok")[0],
+       "超過門檻" in _wd.verdict("x", "2026-08-20", -9, 2, "ok")[0],
+       "量不到" in _wd.verdict("x", "2026-08-05", 6, 2, "shallow")[0]],
+      [True, False, True])
+# 它的價值全部來自「分開」。這幾條守的是那幾個分開還在不在——
+# 同一支 workflow、同一個 concurrency group、或掛上 environment，都會讓它
+# 在 08-09 那種故障裡跟著沉默，而判準算得再對也沒用。
+_WD_YML = open(os.path.join(_HERE, "..", ".github", "workflows", "watchdog.yml"),
+               encoding="utf-8").read()
+_WD_CODE = "\n".join(ln for ln in _WD_YML.splitlines() if not ln.lstrip().startswith("#"))
+acase("鏈外開關：它必須是另一支 workflow、另一個 concurrency、不掛 environment"
+      "（同一支裡加 step 完全沒用——job 沒開始，step 也不會開始）",
+      ["group: watchdog" in _WD_CODE, "group: nightly" in _WD_CODE,
+       "environment:" in _WD_CODE, "fetch-depth: 0" in _WD_CODE],
+      [True, False, False, True])
+# 不 import pipeline 模組：pulse-monitor.py 哪天語法壞掉，這一支要還跑得起來。
+# 唯一准的是 lib.clock——取日期的唯一入口是紅線，抄第二份是這個 repo 量過的病。
+_WD_SRC = open(os.path.join(_HERE, "pulse-watchdog.py"), encoding="utf-8").read()
+acase("鏈外開關：只 import lib.clock，不碰任何 pipeline 模組"
+      "（拿被監看那條鏈自己的碼去判斷它有沒有跑，等於問一個昏迷的人他醒著沒有）",
+      sorted(set(_re.findall(r"^from lib import (\w+)", _WD_SRC, _re.M))
+             | set(_re.findall(r"^from lib\.(\w+)", _WD_SRC, _re.M))),
+      ["clock"])
+# 門檻是另一個 key：共用的話，有人為了讓 monitor 安靜而調鬆它，會連這一支
+# 一起調鬆——而這一支正是那種故障裡唯一還會叫的東西。
+acase("鏈外開關：門檻是自己的 key，不跟 monitor 共用"
+      "（共用的話，調鬆 monitor 會連唯一還會叫的那個一起調鬆）",
+      ["watchdog:" in _gate_txt, "stale_after_days" in _gate_txt.split("watchdog:")[1][:200]],
+      [True, True])
 
 # ── 版型：移除指標之後留下的三個洞（2026-08-11）──────────────────────
 # 實測（1440 寬）：header 底 131px、h1 頂 163px，中間只有 32px，而 h1 是 serif

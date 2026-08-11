@@ -1961,3 +1961,40 @@ mutations:
     replace: "                ) if ev_links else \"\""
     survives: false
     why: ""
+
+  # ── 鏈外的死人開關（2026-08-11）──
+  # 2026-08-09：main 四天沒進資料而四個警報全綠，因為判準全長在 data-refresh.yml
+  # 最後兩個 step 上，而那一班的 job 一個 step 都沒開始。
+  # 「沒被排上的鏈沒辦法通報自己沒被排上」——這一種補不到同一條鏈上。
+
+  - id: M222
+    title: "鏈外開關跟被監看的那條鏈共用 concurrency（nightly 那一組卡住時它跟著排隊，於是唯一還會叫的東西也不叫了）"
+    file: ../.github/workflows/watchdog.yml
+    find: "  group: watchdog"
+    replace: "  group: nightly"
+    survives: false
+    why: ""
+
+  - id: M223
+    title: "鏈外開關掛上 environment（部署閘門正是 2026-08-09 卡住 data-refresh 四天的那個東西——掛上去等於複製同一個單點）"
+    file: ../.github/workflows/watchdog.yml
+    find: "    timeout-minutes: 10"
+    replace: "    timeout-minutes: 10\n    environment:\n      name: github-pages"
+    survives: false
+    why: ""
+
+  - id: M224
+    title: "鏈外開關的未來日期靜靜放行（負數的 lag 不是「很新鮮」——同 references/health-alarms.md 三條規則第 3 條，而這是第三個沒接到那條規則的消費者）"
+    file: pulse-watchdog.py
+    find: "    if lag < 0:"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M225
+    title: "鏈外開關的門檻改吃 monitor 那個 key（有人為了讓 monitor 安靜而調鬆它時，會連唯一還會叫的那一支一起調鬆）"
+    file: pulse-watchdog.py
+    find: "        cfg = (yaml.safe_load(gp.read_text(\"utf-8\")) or {}).get(\"watchdog\") or {}"
+    replace: "        cfg = (yaml.safe_load(gp.read_text(\"utf-8\")) or {}).get(\"monitor\") or {}"
+    survives: false
+    why: ""
