@@ -247,6 +247,23 @@ def belongs_to_event(cand_title, cand_published, event_title, event_happened,
         return False
     cfp = event_fingerprint(cand_title)
     efp = event_fingerprint(event_title)
+    # 身分否決：兩邊都說得出版本、而且說的不一樣 → 不可能是同一件事。
+    #
+    # 這條**不是新規則**。suspected_reposts() 底下早就有一模一樣的一行
+    # （`if fa and fb and fa != fb: continue  # 不同版本，不可能互為翻譯`），
+    # 只是 attach 判定這個消費端漏了——跟 SECTIONS、RUN_LIFECYCLES 那兩次
+    # 搬家同一個病：一條規則有兩個消費端，只釘住了一個。
+    #
+    # 漏的代價量得到：vault 裡 129 筆證據有 6 筆掛錯，全部 relevance 100，
+    # 其中 evt-2026-07-25-0fa594「Claude Opus 5」的 primary_evidence 是 5，
+    # 真值是 1，而它的 confidence 是全 vault 最高的 100。
+    #
+    # **只有兩邊都有才否決。** 單邊 None 照走 fallback——_FP_PATTERNS 是一份
+    # 寫死的 11 個家族白名單（Grok 不在裡面），None 的意思是「這支正則不認得」，
+    # 不是「這不是那個模型」。拿「我不認得」去否決會砍掉整批第三方報導，
+    # 那正是 P0-e 量到 12/14 黏不上的那個族群。
+    if cfp and efp and cfp != efp:
+        return False
     if cfp and cfp == efp:
         cf = event_facet_bucket(event_facet(cand_title))
         ef = event_facet_bucket(event_facet(event_title))
