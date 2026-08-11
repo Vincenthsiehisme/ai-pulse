@@ -1537,6 +1537,39 @@ with _tf2.TemporaryDirectory() as _td5:
 # 在畫面上長得一樣，而那正是這個 repo 花最多力氣在防的東西（紅線 8）。
 # CI 的 mutation.yml 有裝 ruamel.yaml，所以這一條在 CI 恆綠；它紅的時候
 # 講的是**你這台機器**測不到那幾條，一行指令就能修。
+# ── sources.yaml 必須是 ruamel round-trip 的不動點 ──
+# 2026-08-11 實際踩到：capabilities 那 97 行我手寫成 4 空格縮排，而 ruamel 吐出來的
+# 是 2 空格（跟這個檔其他序列一致）。機器第一次 `--apply` 就把整份重排，
+# 而 M226/M227 兩條變異的針腳指著 4 空格的字串——當晚夜班直接紅。
+#
+# 這一條守的不是縮排好不好看，是**「人手寫的格式」與「機器會吐的格式」必須一致**。
+# 不一致的時候，第一個踩到的不是格式，是所有依賴那段文字的東西：變異針腳、
+# diff 的可讀性、以及任何拿字串去比對這個檔的判準。
+#
+# 它在 CI 上的成本是一次 round-trip（毫秒級），換到的是「手寫 YAML 的那一刻就知道」。
+def _rt_fixed_point():
+    try:
+        from ruamel.yaml import YAML
+    except ImportError:
+        return None
+    import io as _io2
+    src = open(os.path.join(_HERE, "..", "_config", "sources.yaml"),
+               encoding="utf-8").read()
+    # 這兩行要跟 pulse-source-health.py / pulse-robots-recheck.py 的 writer 一致。
+    # 不一致的話這條測的就不是真的會被寫回去的那個格式。
+    y = YAML()
+    y.preserve_quotes = True
+    y.width = 4096
+    buf = _io2.StringIO()
+    y.dump(y.load(src), buf)
+    return buf.getvalue() == src
+
+
+acase("sources.yaml：是 ruamel round-trip 的不動點"
+      "（人手寫的格式要跟機器會吐的格式一致——不一致的話，機器第一次 --apply 就會"
+      "把整份重排，而所有拿字串比對這個檔的東西會在那一晚同時失效）",
+      _rt_fixed_point(), True)
+
 acase("環境：`--apply` 那幾條需要 ruamel.yaml——缺了是「測不到」，不是「測過了」"
       "（pip install ruamel.yaml）",
       importlib.util.find_spec("ruamel.yaml") is not None, True)

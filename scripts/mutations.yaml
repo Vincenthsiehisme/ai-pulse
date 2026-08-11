@@ -2010,7 +2010,9 @@ mutations:
   - id: M226
     title: "會被抓的來源沒標 capabilities 也放行（驗收條件寫在文件裡會在下一次加來源時失效，而且不會有東西變紅——這正是執行計劃〈修正三〉要修的）"
     file: ../_config/sources.yaml
-    find: "    - official_announcement\n    - financial_impact\n    - supply_chain"
+    # 縮排是 2 空格，跟 ruamel round-trip 吐出來的一致。寫 4 空格的話，
+    # 機器第一次 --apply 之後這個針腳就指不到任何地方了（2026-08-11 實際發生）。
+    find: "  - official_announcement\n  - financial_impact\n  - supply_chain"
     replace: ""
     survives: false
     why: ""
@@ -2018,8 +2020,8 @@ mutations:
   - id: M227
     title: "capability 寫錯字也放行（開放詞彙表半年後會長出 benchmarks / benchmark_result / third-party_validation 這種同義異形，而覆蓋率矩陣會安靜地把它們算成不同格）"
     file: ../_config/sources.yaml
-    find: "    - developer_feedback\n    - research_replication"
-    replace: "    - developer_feedback\n    - research_replications"
+    find: "  - developer_feedback\n  - research_replication"
+    replace: "  - developer_feedback\n  - research_replications"
     survives: false
     why: ""
 
@@ -2218,5 +2220,15 @@ mutations:
     file: lib/sources.py
     find: "    \"legal_proceeding\",        # 訴訟、法院受理與裁定"
     replace: ""
+    survives: false
+    why: ""
+
+  # ── sources.yaml 的格式不動點（2026-08-11 夜班紅燈的直接成因）──
+
+  - id: M250
+    title: "sources.yaml 的縮排偏離 writer 會吐的格式（人手寫 4 空格、機器吐 2 空格——機器第一次 --apply 就把整份重排，所有拿字串比對這個檔的東西當晚同時失效）"
+    file: ../_config/sources.yaml
+    find: "  - official_announcement\n  - product_release\n  - research_release\n  - benchmark\n  - enterprise_adoption\n  - policy_execution"
+    replace: "    - official_announcement\n    - product_release\n    - research_release\n    - benchmark\n    - enterprise_adoption\n    - policy_execution"
     survives: false
     why: ""
