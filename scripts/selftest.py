@@ -1626,6 +1626,46 @@ acase("workflow：每一支會跑 python 的都真的有安裝步驟"
 # 14 份夜班報告每一份都印著「簡繁正規化：**未啟用**」。那個行為是對的
 # （量不到就說量不到），但「從來沒裝過」在此之前只寫在報告的一行字裡，
 # 沒有任何地方把它記成一個決定。規格 references/runtime-pins.md。
+def _dep_origin_is_stdlib(origin, std_dir, site_dirs):
+    """一個模組的檔案路徑算不算標準庫。**純函式，兩種目錄佈局都測得到。**
+
+    只比 `startswith(stdlib)` 是不夠的，而這一格 2026-08-13 在 CI 上真的紅過：
+
+        容器（Debian）  stdlib /usr/lib/python3.11
+                        site   /usr/local/lib/python3.11/dist-packages   ← 兩棵樹
+        CI（hostedtool） stdlib /opt/.../x64/lib/python3.12
+                        site   /opt/.../x64/lib/python3.12/site-packages ← 在裡面
+
+    **標準 Python 安裝把 site-packages 放在 stdlib 目錄底下**（macOS、venv、
+    hostedtoolcache 都是），只有 Debian 系把它挪去 /usr/local。所以第一版在
+    開發容器上全綠、一進 CI 就把 `yaml` 判成標準庫。
+
+    這條之所以要抽成純函式吃 `std_dir` / `site_dirs`，就是為了讓兩種佈局
+    都能在同一台機器上測——不然它永遠只驗得到自己這台的那一種。
+    """
+    if not origin:
+        return False
+    if any(d and origin.startswith(d) for d in site_dirs):
+        return False
+    return origin.startswith(std_dir)
+
+
+_DEP_LAYOUT_NESTED = ("/x/lib/python3.12", {"/x/lib/python3.12/site-packages"})
+_DEP_LAYOUT_SPLIT = ("/usr/lib/python3.11", {"/usr/local/lib/python3.11/dist-packages"})
+acase("相依檢查：site-packages 在 stdlib 底下時不得把第三方判成標準庫"
+      "（標準 Python 安裝就是這樣擺——macOS、venv、CI 的 hostedtoolcache 都是。"
+      "只有 Debian 系把 site 挪去 /usr/local，而開發容器剛好是 Debian，"
+      "所以第一版在容器全綠、一進 CI 就紅）",
+      [_dep_origin_is_stdlib("/x/lib/python3.12/json/__init__.py", *_DEP_LAYOUT_NESTED),
+       _dep_origin_is_stdlib("/x/lib/python3.12/site-packages/yaml/__init__.py",
+                             *_DEP_LAYOUT_NESTED),
+       _dep_origin_is_stdlib("/usr/lib/python3.11/json/__init__.py", *_DEP_LAYOUT_SPLIT),
+       _dep_origin_is_stdlib("/usr/local/lib/python3.11/dist-packages/yaml/__init__.py",
+                             *_DEP_LAYOUT_SPLIT),
+       _dep_origin_is_stdlib("", *_DEP_LAYOUT_NESTED)],
+      [True, False, True, False, False])
+
+
 _DEP_AUTO = object()
 
 
@@ -1662,8 +1702,9 @@ def _dep_is_stdlib(name, std=_DEP_AUTO):
         return False
     if spec.origin in ("built-in", "frozen"):
         return True
-    return bool(spec.origin) and spec.origin.startswith(
-        _sysconfig.get_paths()["stdlib"])
+    _paths = _sysconfig.get_paths()
+    return _dep_origin_is_stdlib(spec.origin, _paths["stdlib"],
+                                 {_paths.get("purelib"), _paths.get("platlib")})
 
 
 acase("相依檢查在舊 Python 上也要跑得起來"
