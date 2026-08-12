@@ -113,16 +113,76 @@ def load_entities(cfg):
     return out
 
 
+def attach_rank(title, event):
+    """一個候選有多好。→ `(指紋一致, facet 一致, 標題相似度)`，大的贏。
+
+    **時間距離刻意不在這個鍵裡面**，而《修正版》的建議把它排在第 4 位。
+    理由是實測（2026-08-12，934 訊號 × 125 事件）：
+
+        訊號「Claude For Teachers」對 9 則 Claude 系列事件全部 sim=0.33，
+        加上時間距離之後會挑出「Claude Sonnet 4.6」——理由是差 0.2 小時。
+
+    一個師資產品公告，用 0.2 小時的時間差挑一則模型發布事件。**那是把
+    first-match 的任意性換成另一種任意性，而且看起來更精確。**
+
+    更根本的：時間已經是硬閘了（96 小時 / 21 天，見 belongs_to_event）。
+    再拿它當偏好，是把同一個訊號用兩次——閘後面的每一個候選，時間都已經
+    「夠近」了，那之後誰更近不再是證據。
+    """
+    cfp, efp = cluster.event_fingerprint(title), cluster.event_fingerprint(event.title)
+    cf = cluster.event_facet_bucket(cluster.event_facet(title))
+    ef = cluster.event_facet_bucket(cluster.event_facet(event.title))
+    return (1 if (cfp and cfp == efp) else 0,
+            1 if cf == ef else 0,
+            round(cluster.title_similarity(title, event.title), 6))
+
+
 def attach_target(title, published, events, sim_min):
-    """這則 signal 該掛到哪個既有 Event，沒有就回 None。純函式，可離線單測。
+    """這則 signal 該掛到哪個既有 Event，沒有或分不出來就回 None。純函式。
 
     抽出來是為了讓門檻可測。`sim_min` **刻意沒有預設值**：這樣「忘記把 gate.yaml
     的門檻傳進來」會在呼叫的當下丟 TypeError，而不是安靜地退回某個內建數字繼續跑。
     一個讀得到、註解也寫了消費者、實際上沒被傳進去的門檻，就是這個 repo 抓過
     很多次的假旋鈕——把它做成語法上不可能，比再加一條測試可靠。
+
+    ## 2026-08-12：從「第一個符合的」改成「最好的那個，分不出來就不掛」
+
+    在此之前這裡是 `next(c for c in events if belongs_to_event(...))`。
+    `events` 來自 `sorted(Events/*.md)`，檔名是 `evt-<日期>-<hash>`，所以
+    「第一個符合的」實際上等於**最舊的那個符合的**——而「最舊」跟「最像」
+    沒有任何關係。
+
+    這不是不確定性（同樣輸入給同樣輸出，這條鏈仍然是 deterministic 的），
+    是**確定地挑錯**。差別在於：不確定性可以用「跑兩次比對」抓，
+    確定地挑錯跑一百次都一樣綠。
+
+    ### 誠實話：排名這一半，今天量不到任何效果
+
+    實測 934 訊號 × 125 事件：`first-match ≠ 最佳候選` 的筆數是 **0**。
+    身分否決（`belongs_to_event` 的 fingerprint veto）已經把排名會修的那些
+    全修掉了。**這一半是結構修正，不是量出來的修正**——留著它是因為
+    「挑檔名最前面的」本來就不是一個判斷，而且候選蒐集本來就是平手守門的前置。
+
+    ### 平手不掛，而且門檻不開成旋鈕
+
+    語意鍵完全相同的候選有兩個以上 → 回 None，這則 signal 去開自己的 Event
+    或被 defer。**寧可少 attach，也不要錯 attach**：漏掉的代價是少一個聲音，
+    掛錯的代價是 `independent_sources` 記一個不存在的來源，而那個數字會進
+    frontmatter、進看板、進 KPI，事後分不出哪些是虛的。
+
+    《修正版》建議 `attach_ambiguity_margin: 0.08`。**這一輪不做成可調的門檻**：
+    實測整份語料只有一筆多候選（`Claude For Teachers`，9 路平手，差距 0.00），
+    n=1 的資料校準不出 0.02 跟 0.30 哪個對。一個沒有資料支撐的旋鈕，
+    日後會被當成校準過的旋鈕來調——同 `coverage_gap.min_answers` 那條。
+    等真的出現 0.61 / 0.59 那種形狀，再把它變成可調的。
     """
-    return next((c for c in events if cluster.belongs_to_event(
-        title, published, c.title, c.happened_at, sim_min)), None)
+    cands = [c for c in events if cluster.belongs_to_event(
+        title, published, c.title, c.happened_at, sim_min)]
+    if not cands:
+        return None
+    best = max(attach_rank(title, c) for c in cands)
+    tied = [c for c in cands if attach_rank(title, c) == best]
+    return tied[0] if len(tied) == 1 else None
 
 
 def load_title_similarity_min(cfg):
