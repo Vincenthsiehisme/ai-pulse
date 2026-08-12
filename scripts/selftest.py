@@ -3181,6 +3181,65 @@ _cs = importlib.util.spec_from_file_location(
 _cm = importlib.util.module_from_spec(_cs)
 _cs.loader.exec_module(_cm)
 
+# ── 實體字典：讀的人要拿對鑰匙（pulse-cluster.load_entities）──
+#
+# 2026-08-13 之前這支函式有兩個各自獨立的錯，兩個都不會讓任何東西變紅：
+#   一、分節清單手寫成第二份，其中 `products` / `policy` 兩個名字不存在，
+#       而 infrastructure / frameworks / policies 整批沒被載入（六節 93 個只載 70 個）
+#   二、公司欄位讀成 `parent`，而 23 個 product_line 帶的是 `company`
+# 後果是 infer_company() 的第二段從來沒有執行成功過——它是死碼，而所有只命中
+# 產品線的訊號一律落到 `industry` 兜底，再被 gate 掛上 generic_entity。
+from lib import entities as _entities_lib  # noqa: E402
+
+_ENT_CFG = _pathlib.Path(os.path.join(_HERE, "..", "_config"))
+_ENT_RAW = _yaml.safe_load((_ENT_CFG / "entities.yaml").read_text("utf-8")) or {}
+_ENT_LOADED = _cm.load_entities(_ENT_CFG)
+
+acase("實體字典：分節清單只有一份（lib/entities.ENTITY_SECTIONS）"
+      "（手寫第二份是 SECTIONS / RUN_LIFECYCLES 之後第三次同一個病——"
+      "而漏掉的那幾節不會讓任何東西變紅，只是那些實體從此不存在）",
+      len(_ENT_LOADED),
+      sum(len(_ENT_RAW.get(k) or []) for k in _entities_lib.ENTITY_SECTIONS))
+
+acase("實體字典：產品線解得到所屬公司"
+      "（infer_company 的第二段在此之前是死碼）",
+      [_cm.infer_company(["claude"], _ENT_LOADED),
+       _cm.infer_company(["grok"], _ENT_LOADED),
+       _cm.infer_company([], _ENT_LOADED)],
+      ["Anthropic", "xAI", "industry"])
+
+_ENT_COMPANIES = {e["id"] for e in (_ENT_RAW.get("companies") or [])
+                  if isinstance(e, dict) and e.get("id")}
+acase("實體字典：每個 `company:` 都指到存在的公司 id"
+      "（指到不存在的公司跟沒指一樣壞，而且更難發現）",
+      sorted({(e.get("id"), e.get("company"))
+              for k in _entities_lib.ENTITY_SECTIONS
+              for e in (_ENT_RAW.get(k) or [])
+              if isinstance(e, dict) and e.get("company")
+              and e["company"] not in _ENT_COMPANIES}),
+      [])
+
+# `parent` 與 `company` 是**兩種不同的關係**，這一條把它們釘開：
+#   company  層 → `parent`   企業層級（google-deepmind 的 parent 是 google）
+#   其餘各層 → `company`  所屬公司（claude 的 company 是 anthropic）
+# 讀錯欄位那次就是把後者當成前者。非 company 的條目寫 `parent` 一定是筆誤，
+# 而筆誤的後果是那一條的公司從此解不出來——沒有任何東西會變紅。
+acase("實體字典：非 company 的條目不准用 `parent` 表示所屬公司"
+      "（那一層的欄位名是 `company`；寫成 parent 沒有任何消費端會讀，"
+      "而那條實體的公司從此解不出來、只會落到 industry 兜底）",
+      sorted({e.get("id") for k in _entities_lib.ENTITY_SECTIONS if k != "companies"
+              for e in (_ENT_RAW.get(k) or [])
+              if isinstance(e, dict) and e.get("parent")}),
+      [])
+
+acase("實體字典：company 層的 `parent` 也要指到存在的公司"
+      "（google-deepmind → google 這種企業層級關係是合法的，但指空的一樣壞）",
+      sorted({(e.get("id"), e.get("parent"))
+              for e in (_ENT_RAW.get("companies") or [])
+              if isinstance(e, dict) and e.get("parent")
+              and e["parent"] not in _ENT_COMPANIES}),
+      [])
+
 _e = _cm.Event("evt-x", "x", "T", "2026-07-22T00:00:00+00:00")
 _e.ingested_at = "2026-07-26T06:41:46+00:00"
 _e.scores = {"tier_evidence": 1, "independent_sources": 1, "primary_evidence": 1,

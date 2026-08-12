@@ -69,16 +69,47 @@ def load_sources(cfg):
 
 
 def load_entities(cfg):
-    """id → (canonical, term_type)。用於 Event 的 company 初判。"""
+    """id → (canonical, term_type, 所屬公司)。用於 Event 的 company 初判。
+
+    ## 2026-08-13：這支函式讀了兩個不存在的東西
+
+    在此之前它有兩個各自獨立的錯，兩個都不會讓任何東西變紅：
+
+    **一、分節清單是手寫的第二份。** 它自己列
+    `("companies", "product_lines", "products", "technologies", "policy")`，
+    而 `entities.yaml` 的實際分節是 `companies / product_lines / infrastructure
+    / frameworks / technologies / policies`。於是 `products` 與 `policy`
+    永遠讀到空的，`infrastructure`（7）/ `frameworks`（12）/ `policies`（4）
+    整批沒被載入——**104 個實體只載了 70 個**。
+
+    而單一真相源一直都在：`lib/entities.ENTITY_SECTIONS`，`build_matcher()`
+    用的就是它。同一份清單兩個消費端、只釘住一個——這是 `SECTIONS`、
+    `RUN_LIFECYCLES` 之後第三次同一個病。
+
+    **二、公司欄位讀成 `parent`。** `entities.yaml` 的 23 個 product_line
+    **全部**帶著 `company: <公司 id>`，而且每一個都指到存在的公司。
+    沒有任何一個有 `parent`。
+
+    後果是 `infer_company()` 的第二段（product_line → 往上解析到公司）
+    **從來沒有執行成功過**——它是死碼。所有只命中產品線的訊號都落到
+    `"industry"` 兜底，然後被 gate 掛上 `generic_entity`。
+
+    實測：132 則事件裡 12 則是 `company: industry`，其中 **7 則**的
+    entity_hits 有產品線可解（6 則 claude → Anthropic、1 則 grok → xAI）。
+    剩下 5 則是真的一個實體都沒命中，那不是這個 bug。
+
+    **設定檔一直是對的，是讀的人拿錯鑰匙。**
+    """
     p = cfg / "entities.yaml"
     if not p.exists():
         return {}
     raw = yaml.safe_load(p.read_text("utf-8")) or {}
     out = {}
-    for key in ("companies", "product_lines", "products", "technologies", "policy"):
+    for key in entities_lib.ENTITY_SECTIONS:
         for e in (raw.get(key) or []):
             if isinstance(e, dict) and e.get("id"):
-                out[e["id"]] = (e.get("canonical") or e["id"], e.get("term_type"), e.get("parent"))
+                out[e["id"]] = (e.get("canonical") or e["id"], e.get("term_type"),
+                                e.get("company"))
     return out
 
 
@@ -161,11 +192,13 @@ def infer_company(entity_hits, entities):
         canon, ttype, _ = entities.get(hid, (None, None, None))
         if ttype == "company":
             return canon
-    # 2) 命中 product_line/product → 往上解析到 parent 公司（例：gemini → Google DeepMind）
+    # 2) 命中產品線／基礎設施／框架 → 往上解析到所屬公司（例：gemini → Google DeepMind）。
+    #    第三格來自 entities.yaml 的 `company:` 欄位。2026-08-13 之前 load_entities
+    #    讀的是 `parent`，而那個欄位一個都不存在——這一整段是死碼。見該函式的說明。
     for hid in entity_hits or []:
-        canon, ttype, parent = entities.get(hid, (None, None, None))
-        if parent:
-            pcanon, pttype, _ = entities.get(parent, (None, None, None))
+        canon, ttype, owner = entities.get(hid, (None, None, None))
+        if owner:
+            pcanon, pttype, _ = entities.get(owner, (None, None, None))
             if pttype == "company":
                 return pcanon
     return "industry"  # 泛稱 → 會觸發 generic_entity blocker，待 enrich 修正
