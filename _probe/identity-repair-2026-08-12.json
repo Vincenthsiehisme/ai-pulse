@@ -1,8 +1,2087 @@
 {
   "tag": "identity-repair-2026-08-12",
-  "corpus": [],
-  "titles": [],
-  "moved": [],
-  "created": [],
-  "rescored": []
+  "corpus": [
+    {
+      "file": "_corpus/2026-07-25/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-07-25/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-07-26/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-07-27/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-07-28/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-07-29/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-07-30/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-07-31/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-08-01/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-08-02/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-08-03/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-08-04/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-08-05/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-08-10/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-anthropic-news.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-4-5",
+      "from": "Grok 4 5",
+      "to": "Grok 4.5"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5",
+      "from": "Grok Imagine Video 1 5",
+      "to": "Grok Imagine Video 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-imagine-1-5",
+      "from": "Grok Imagine 1 5",
+      "to": "Grok Imagine 1.5"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-xai-news.jsonl",
+      "url": "https://x.ai/news/composer-2-5",
+      "from": "Composer 2 5",
+      "to": "Composer 2.5"
+    },
+    {
+      "file": "_corpus/2026-08-11/src-xai-news.jsonl",
+      "url": "https://x.ai/news/grok-build-0-1",
+      "from": "Grok Build 0 1",
+      "to": "Grok Build 0.1"
+    },
+    {
+      "file": "_probe/2026-07-25/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-07-25/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-07-25/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-07-25/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-07-25/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-07-25/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-07-25/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-07-25/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-07-26/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-07-26/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-07-26/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-07-26/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-07-26/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-07-26/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-07-26/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-07-26/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-07-27/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-07-27/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-07-27/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-07-27/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-07-27/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-07-27/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-07-27/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-07-27/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-07-28/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-07-28/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-07-28/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-07-28/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-07-28/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-07-28/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-07-28/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-07-28/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-07-29/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-07-29/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-07-29/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-07-29/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-07-29/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-07-29/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-07-29/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-07-29/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-07-30/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-07-30/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-07-30/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-07-30/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-07-30/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-07-30/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-07-30/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-07-30/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-07-31/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-07-31/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-07-31/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-07-31/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-07-31/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-07-31/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-07-31/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-07-31/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_probe/2026-08-01/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_probe/2026-08-02/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_probe/2026-08-03/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_probe/2026-08-04/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_probe/2026-08-05/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_probe/2026-08-10/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "from": "Claude Opus 4 7",
+      "to": "Claude Opus 4.7"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "from": "Claude Opus 4 5",
+      "to": "Claude Opus 4.5"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "from": "Claude Opus 4 8",
+      "to": "Claude Opus 4.8"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "from": "Claude Sonnet 4 5",
+      "to": "Claude Sonnet 4.5"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "from": "Claude Opus 4 6",
+      "to": "Claude Opus 4.6"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "from": "Claude Sonnet 4 6",
+      "to": "Claude Sonnet 4.6"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-imagine-video-1-5-references",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References"
+    },
+    {
+      "file": "_probe/2026-08-11/signals-scored.jsonl",
+      "url": "https://x.ai/news/grok-4-5-everywhere",
+      "from": "Grok 4 5 Everywhere",
+      "to": "Grok 4.5 Everywhere"
+    }
+  ],
+  "titles": [
+    {
+      "id": "evt-2026-07-22-4c0123",
+      "from": "Claude Haiku 4 5",
+      "to": "Claude Haiku 4.5",
+      "fingerprint_from": "anthropic:claude:haiku:4",
+      "fingerprint_to": "anthropic:claude:haiku:4.5"
+    },
+    {
+      "id": "evt-2026-07-31-15c85e",
+      "from": "Grok Imagine Video 1 5 References",
+      "to": "Grok Imagine Video 1.5 References",
+      "fingerprint_from": null,
+      "fingerprint_to": null
+    }
+  ],
+  "moved": [
+    {
+      "from": "evt-2026-07-22-09b47d",
+      "to": null,
+      "fingerprint": "anthropic:claude:sonnet:4.5",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+      "title": "Claude Sonnet 4.5"
+    },
+    {
+      "from": "evt-2026-07-22-09b47d",
+      "to": null,
+      "fingerprint": "anthropic:claude:sonnet:4.6",
+      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+      "title": "Claude Sonnet 4.6"
+    },
+    {
+      "from": "evt-2026-07-22-09b47d",
+      "to": "evt-2026-07-25-0fa594",
+      "fingerprint": "anthropic:claude:opus:5",
+      "url": "https://www.anthropic.com/news/claude-opus-5",
+      "title": "Claude Opus 5"
+    },
+    {
+      "from": "evt-2026-07-22-09b47d",
+      "to": null,
+      "fingerprint": "anthropic:claude:opus:4.7",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "title": "Claude Opus 4.7"
+    },
+    {
+      "from": "evt-2026-07-22-09b47d",
+      "to": null,
+      "fingerprint": "anthropic:claude:opus:4.5",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "title": "Claude Opus 4.5"
+    },
+    {
+      "from": "evt-2026-07-22-09b47d",
+      "to": null,
+      "fingerprint": "anthropic:claude:opus:4.8",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "title": "Claude Opus 4.8"
+    },
+    {
+      "from": "evt-2026-07-22-09b47d",
+      "to": "evt-2026-07-22-4c0123",
+      "fingerprint": "anthropic:claude:haiku:4.5",
+      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+      "title": "Claude Haiku 4.5"
+    },
+    {
+      "from": "evt-2026-07-22-09b47d",
+      "to": null,
+      "fingerprint": "anthropic:claude:opus:4.6",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "title": "Claude Opus 4.6"
+    },
+    {
+      "from": "evt-2026-07-25-0fa594",
+      "to": null,
+      "fingerprint": "anthropic:claude:opus:4.7",
+      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+      "title": "Claude Opus 4.7"
+    },
+    {
+      "from": "evt-2026-07-25-0fa594",
+      "to": null,
+      "fingerprint": "anthropic:claude:opus:4.5",
+      "url": "https://www.anthropic.com/news/claude-opus-4-5",
+      "title": "Claude Opus 4.5"
+    },
+    {
+      "from": "evt-2026-07-25-0fa594",
+      "to": null,
+      "fingerprint": "anthropic:claude:opus:4.8",
+      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+      "title": "Claude Opus 4.8"
+    },
+    {
+      "from": "evt-2026-07-25-0fa594",
+      "to": null,
+      "fingerprint": "anthropic:claude:opus:4.6",
+      "url": "https://www.anthropic.com/news/claude-opus-4-6",
+      "title": "Claude Opus 4.6"
+    }
+  ],
+  "created": [
+    {
+      "id": "evt-2026-07-23-7788b3",
+      "title": "Claude Opus 4.5",
+      "fingerprint": "anthropic:claude:opus:4.5",
+      "evidence": 1,
+      "confidence": 73,
+      "recovered_by": "identity-repair-2026-08-12"
+    },
+    {
+      "id": "evt-2026-07-22-7df86d",
+      "title": "Claude Opus 4.6",
+      "fingerprint": "anthropic:claude:opus:4.6",
+      "evidence": 1,
+      "confidence": 73,
+      "recovered_by": "identity-repair-2026-08-12"
+    },
+    {
+      "id": "evt-2026-07-23-516cf6",
+      "title": "Claude Opus 4.7",
+      "fingerprint": "anthropic:claude:opus:4.7",
+      "evidence": 1,
+      "confidence": 73,
+      "recovered_by": "identity-repair-2026-08-12"
+    },
+    {
+      "id": "evt-2026-07-22-9c2e03",
+      "title": "Claude Opus 4.8",
+      "fingerprint": "anthropic:claude:opus:4.8",
+      "evidence": 1,
+      "confidence": 73,
+      "recovered_by": "identity-repair-2026-08-12"
+    },
+    {
+      "id": "evt-2026-07-22-00fb73",
+      "title": "Claude Sonnet 4.5",
+      "fingerprint": "anthropic:claude:sonnet:4.5",
+      "evidence": 1,
+      "confidence": 73,
+      "recovered_by": "identity-repair-2026-08-12"
+    },
+    {
+      "id": "evt-2026-07-21-9089cf",
+      "title": "Claude Sonnet 4.6",
+      "fingerprint": "anthropic:claude:sonnet:4.6",
+      "evidence": 1,
+      "confidence": 73,
+      "recovered_by": "identity-repair-2026-08-12"
+    }
+  ],
+  "rescored": [
+    {
+      "id": "evt-2026-07-22-09b47d",
+      "title": "Claude Sonnet 5",
+      "before": {
+        "primary_evidence": 10,
+        "independent_sources": 1,
+        "suspected_reposts": 6,
+        "confidence": 83,
+        "heat": null,
+        "value": 55
+      },
+      "after": {
+        "primary_evidence": 2,
+        "independent_sources": 1,
+        "suspected_reposts": 0,
+        "confidence": 83,
+        "heat": null,
+        "value": 55
+      }
+    },
+    {
+      "id": "evt-2026-07-22-4c0123",
+      "title": "Claude Haiku 4.5",
+      "before": {
+        "primary_evidence": 1,
+        "independent_sources": 1,
+        "suspected_reposts": 0,
+        "confidence": 73,
+        "heat": null,
+        "value": 56
+      },
+      "after": {
+        "primary_evidence": 1,
+        "independent_sources": 1,
+        "suspected_reposts": 0,
+        "confidence": 73,
+        "heat": null,
+        "value": 51
+      }
+    },
+    {
+      "id": "evt-2026-07-25-0fa594",
+      "title": "Claude Opus 5",
+      "before": {
+        "primary_evidence": 5,
+        "independent_sources": 4,
+        "suspected_reposts": 0,
+        "confidence": 100,
+        "heat": null,
+        "value": 62
+      },
+      "after": {
+        "primary_evidence": 1,
+        "independent_sources": 4,
+        "suspected_reposts": 1,
+        "confidence": 94,
+        "heat": null,
+        "value": 60
+      }
+    },
+    {
+      "id": "evt-2026-07-31-15c85e",
+      "title": "Grok Imagine Video 1.5 References",
+      "before": {
+        "primary_evidence": 1,
+        "independent_sources": 1,
+        "suspected_reposts": 0,
+        "confidence": 73,
+        "heat": null,
+        "value": 64
+      },
+      "after": {
+        "primary_evidence": 1,
+        "independent_sources": 1,
+        "suspected_reposts": 0,
+        "confidence": 73,
+        "heat": null,
+        "value": 52
+      }
+    }
+  ]
 }
