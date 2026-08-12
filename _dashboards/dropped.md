@@ -1,8 +1,14 @@
-# 人工判定不追（1）
+# 人工判定不追（2）
 
 > status: dropped。**這些不是被門禁擋下，是人看過之後決定不追。**
 > 檔案與證據都留著，只是不進門禁、不排潤稿、不上站。
 > 情況變了（例如出現第二個獨立來源）就把 status 改回 review，它會重新走一次門禁。
+
+## [[Events/evt-2026-08-12-6e1c47|NVIDIA CEO Tops Glassdoor’s 2026 List of Best CEOs]]
+- 2026-08-12 · NVIDIA · 
+- 按掉的人／機制：human　時間：2026-08-12T23:58:26+00:00
+- 當時的 blockers：placeholder_content, thin_fact, missing_category, missing_track
+- 理由：這是人資公關素材，不是產業情報：Glassdoor 榜由員工匿名評分產生，樣本與加權外界看不到，而 NVIDIA 自家部落格轉述時也沒附原始方法論。它對能力、成本、競爭結構沒有任何可驗證的影響，拿它當論據會失準。另一個實務理由是現有六個 category（model-capability / product / research / infra / capital / policy）沒有一格裝得下它——硬塞 capital 前台會標成「資本」，語意是錯的；為它單開一個 category 又要動 pulse-render 的 CAT_LABEL，代價高於這則的價值。這不是刪除：檔案與證據留著。若日後人才流動出現可驗證的數字（離職率、關鍵研究員去向、薪酬揭露），把 status 改回 review 即可重走門禁。
 
 ## [[Events/evt-2026-07-15-3154bf|Introducing Real World VoiceEQ: Measuring the human quality of voice AI]]
 - 2026-07-15 · industry · research

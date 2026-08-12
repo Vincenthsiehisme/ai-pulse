@@ -1,8 +1,20 @@
-# 已發布事件（96）
+# 已發布事件（101）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-08-12
+- **[[Events/evt-2026-08-12-a9d882|NVIDIA AI Factory Compute Is Becoming an Investable Asset Class]]** — NVIDIA · capital · conf 73 · heat 未量測
+  NVIDIA 找上六家資產管理與投行建融資平台，目標動員逾 5,000 億美元第三方資本蓋 AI 基礎設施。
+- **[[Events/evt-2026-08-12-b76d3a|Putting sign language AI into users’ hands]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
+  Google DeepMind 發表手語轉文字模型 SL2T，並說它已經驅動給聾人與聽損使用者的新功能。
+- **[[Events/evt-2026-08-12-de5d3a|MindTopo reveals VLMs’ spatial reasoning abilities]]** — Microsoft · research · conf 73 · heat 未量測
+  微軟研究院推出 MindTopo，專門量視覺語言模型懂不懂拓撲關係。
+- **[[Events/evt-2026-08-12-e647a7|From assistance to execution: How enterprises put AI to work]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 發布企業採用研究，主張企業正從輔助走向執行，領先者的差距在拉開。
+
 ## 2026-08-11
+- **[[Events/evt-2026-08-11-0f6472|Daybreak models are now available on AWS]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 的 Daybreak 資安能力上架 Amazon Bedrock，企業不必離開 AWS 就能調用。
 - **[[Events/evt-2026-08-11-5bb657|Testing ads in ChatGPT]]** — OpenAI · capital · conf 73 · heat 未量測
   OpenAI 開始在 ChatGPT 測試廣告，作為支撐免費使用的營收來源。
 - **[[Events/evt-2026-08-11-6d61c1|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]]** — NVIDIA · product · conf 73 · heat 未量測

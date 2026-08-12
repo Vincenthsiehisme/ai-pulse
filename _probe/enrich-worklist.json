@@ -1,134 +1,152 @@
 [
   {
-    "id": "evt-2026-08-10-27696c",
-    "path": "evt-2026-08-10-27696c.md",
-    "title": "Virgin Atlantic sharpens customer journeys with ChatGPT Work",
-    "fingerprint": null,
+    "id": "evt-2026-07-21-9089cf",
+    "path": "evt-2026-07-21-9089cf.md",
+    "title": "Claude Sonnet 4.6",
+    "fingerprint": "anthropic:claude:sonnet:4.6",
     "facet": "update",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/virgin-atlantic/chatgpt-work",
-        "title": "Virgin Atlantic sharpens customer journeys with ChatGPT Work",
-        "summary": "Virgin Atlantic is accelerating research, product planning, and decision-making with ChatGPT Work, helping teams connect signals across the customer journey."
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+        "title": "Claude Sonnet 4.6",
+        "summary": ""
+      },
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-for-teachers",
+        "title": "Claude For Teachers",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-10-2ea3f0",
-    "path": "evt-2026-08-10-2ea3f0.md",
-    "title": "Premium seats are coming to ChatGPT Business",
-    "fingerprint": null,
+    "id": "evt-2026-07-22-00fb73",
+    "path": "evt-2026-07-22-00fb73.md",
+    "title": "Claude Sonnet 4.5",
+    "fingerprint": "anthropic:claude:sonnet:4.5",
     "facet": "update",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/premium-seats-chatgpt-business",
-        "title": "Premium seats are coming to ChatGPT Business",
-        "summary": "Premium seats are coming to ChatGPT Business. Sign up by August 20 to get $100 in workspace credits and unlock higher usage for your team's most demanding work."
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+        "title": "Claude Sonnet 4.5",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-10-4425be",
-    "path": "evt-2026-08-10-4425be.md",
-    "title": "Putting frontier cyber models in more trusted hands",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/putting-frontier-cyber-models-in-more-trusted-hands",
-        "title": "Putting frontier cyber models in more trusted hands",
-        "summary": "Approved Daybreak partners can use OpenAI’s frontier cyber models to deliver authorized, governed cybersecurity services to customers."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-10-6de2c6",
-    "path": "evt-2026-08-10-6de2c6.md",
-    "title": "How Zapier transformed core marketing processes with ChatGPT Work",
-    "fingerprint": null,
+    "id": "evt-2026-07-22-7df86d",
+    "path": "evt-2026-07-22-7df86d.md",
+    "title": "Claude Opus 4.6",
+    "fingerprint": "anthropic:claude:opus:4.6",
     "facet": "update",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/zapier",
-        "title": "How Zapier transformed core marketing processes with ChatGPT Work",
-        "summary": "The enterprise marketing team at Zapier uses ChatGPT Work to reduce the number of drop-offs in its lead funnel, build campaign assets, and automate reporting."
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-opus-4-6",
+        "title": "Claude Opus 4.6",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-10-f81fd9",
-    "path": "evt-2026-08-10-f81fd9.md",
-    "title": "Expanding Daybreak as the Cyber Defense Window Narrows",
-    "fingerprint": null,
+    "id": "evt-2026-07-22-9c2e03",
+    "path": "evt-2026-07-22-9c2e03.md",
+    "title": "Claude Opus 4.8",
+    "fingerprint": "anthropic:claude:opus:4.8",
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows",
-        "title": "Expanding Daybreak as the Cyber Defense Window Narrows",
-        "summary": "Meet GPT-5.6-Cyber, OpenAI’s cybersecurity-specific model available through Daybreak Red for authorized vulnerability research, exploit validation, and security testing."
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-opus-4-8",
+        "title": "Claude Opus 4.8",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-11-5bb657",
-    "path": "evt-2026-08-11-5bb657.md",
-    "title": "Testing ads in ChatGPT",
-    "fingerprint": null,
+    "id": "evt-2026-07-23-516cf6",
+    "path": "evt-2026-07-23-516cf6.md",
+    "title": "Claude Opus 4.7",
+    "fingerprint": "anthropic:claude:opus:4.7",
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/testing-ads-in-chatgpt",
-        "title": "Testing ads in ChatGPT",
-        "summary": "OpenAI begins testing ads in ChatGPT to support free access, with clear labeling, answer independence, strong privacy protections, and user control."
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-opus-4-7",
+        "title": "Claude Opus 4.7",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-11-6d61c1",
-    "path": "evt-2026-08-11-6d61c1.md",
-    "title": "NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents",
-    "fingerprint": null,
+    "id": "evt-2026-07-23-7788b3",
+    "path": "evt-2026-07-23-7788b3.md",
+    "title": "Claude Opus 4.5",
+    "fingerprint": "anthropic:claude:opus:4.5",
     "facet": "update",
-    "company_guess": "NVIDIA",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/local-ai-open-source-models-agents-nemotron/",
-        "title": "NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents",
-        "summary": "The open source ecosystem is making it easier for AI enthusiasts and developers to build, customize and run increasingly capable agents locally.  Throughout August, NVIDIA is celebrating the partners and open source communities moving local AI forward, along with the models, applications and tools e"
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-opus-4-5",
+        "title": "Claude Opus 4.5",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-11-783838",
-    "path": "evt-2026-08-11-783838.md",
-    "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
+    "id": "evt-2026-08-11-797106",
+    "path": "evt-2026-08-11-797106.md",
+    "title": "Introducing Grok Bot",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-xai-news",
+        "url": "https://x.ai/news/introducing-grok-bot",
+        "title": "Introducing Grok Bot",
+        "summary": ""
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://x.ai/bot",
+        "title": "Grok Bot",
+        "summary": ""
+      },
+      {
+        "source_id": "src-xai-news",
+        "url": "https://x.ai/news/grok-4-6",
+        "title": "Grok 4.6",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-12-843c78",
+    "path": "evt-2026-08-12-843c78.md",
+    "title": "LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge",
     "fingerprint": null,
     "facet": "capability",
     "company_guess": "industry",
@@ -136,70 +154,28 @@
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
-        "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
-        "summary": "Every new generation of accelerated computing demands more from the infrastructure underneath it — more compute performance, higher rack density and more efficient, scalable power distribution. The bottleneck isn’t just wattage. It’s how power gets from the grid to the GPU.  In traditional power del"
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/LiquidAI/lfm2-5-vl-3b",
+        "title": "LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-08-11-919327",
-    "path": "evt-2026-08-11-919327.md",
-    "title": "Thinking of ACE? We Can Do It with Fewer Tokens",
+    "id": "evt-2026-08-12-c210cb",
+    "path": "evt-2026-08-12-c210cb.md",
+    "title": "Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEarth Studio for downstream analysis",
     "fingerprint": null,
-    "facet": "update",
+    "facet": "release",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/ibm-research/altk-evolve-sldd",
-        "title": "Thinking of ACE? We Can Do It with Fewer Tokens",
+        "url": "https://huggingface.co/blog/allenai/olmoearth-embeddings",
+        "title": "Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEarth Studio for downstream analysis",
         "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-11-d99e44",
-    "path": "evt-2026-08-11-d99e44.md",
-    "title": "NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/",
-        "title": "NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI",
-        "summary": "As AI shifts from chatbots to autonomous agents, open models are serving market demands for full control over where AI runs and how it’s deployed and evolves. Today, NVIDIA is expanding its Nemotron 3 model family with Nemotron 3.5 Lightning, the highest-efficiency model in its class for long-runnin"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-11-dc5cff",
-    "path": "evt-2026-08-11-dc5cff.md",
-    "title": "v0.27.1",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-gh-vllm-releases",
-        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.27.1",
-        "title": "v0.27.1",
-        "summary": "This is a patch release on top of v0.27.0.\r\n\r\n- Support quantized DSpark Markov heads (#50424)"
-      },
-      {
-        "source_id": "src-gh-vllm-releases",
-        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.27.0",
-        "title": "v0.27.0",
-        "summary": "# vLLM v0.27.0 Release Notes\r\n\r\n## Highlights\r\n\r\nThis release features 561 commits from 242 contributors (64 new)!\r\n\r\n* **Kimi K3 support** with a full stack landing in one release: core model files and kernels (#50089, #50000), Python (#50093) and Rust (#50104) frontends, AttnRes kernels (#50090), "
       }
     ]
   }

@@ -1,12 +1,7 @@
-# 被門禁擋下（35）
+# 被門禁擋下（29）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-08-12-6e1c47|NVIDIA CEO Tops Glassdoor’s 2026 List of Best CEOs]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-12-a9d882|NVIDIA AI Factory Compute Is Becoming an Investable Asset Class]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-12-de5d3a|MindTopo reveals VLMs’ spatial reasoning abilities]]** — Microsoft — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-12-e647a7|From assistance to execution: How enterprises put AI to work]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-11-0f6472|Daybreak models are now available on AWS]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-11-919327|Thinking of ACE? We Can Do It with Fewer Tokens]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-01-2a01f6|Ten advances in mathematics and theoretical computer science]]** — OpenAI — blockers: thin_fact, thin_research_analysis
 - **[[Events/evt-2026-07-31-15c85e|Grok Imagine Video 1.5 References]]** — xAI — blockers: thin_fact
@@ -27,7 +22,6 @@
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-08-12-843c78|LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-12-b76d3a|Putting sign language AI into users’ hands]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-08-12-c210cb|Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEa]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-08-11-797106|Introducing Grok Bot]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity
