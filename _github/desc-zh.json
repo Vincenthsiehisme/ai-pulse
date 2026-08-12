@@ -169,6 +169,11 @@
     "src_hash": "d66dd05437be",
     "zh": "大規模搜尋、抓取並操作網頁的 context API"
   },
+  "ggml-org/llama.cpp": {
+    "at": "2026-08-12T19:14:16+00:00",
+    "src_hash": "e66c50f0ba6c",
+    "zh": "用 C/C++ 做 LLM 推論"
+  },
   "harry0703/MoneyPrinterTurbo": {
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "1a156a1c8dec",
@@ -183,6 +188,16 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "b239f2c17c0e",
     "zh": "寫 HTML、算繪成影片，為 agent 而生"
+  },
+  "huggingface/transformers": {
+    "at": "2026-08-12T19:14:16+00:00",
+    "src_hash": "868d99d02cc8",
+    "zh": "Transformers：文字、視覺、音訊與多模態最先進機器學習模型的定義框架，支援推論與訓練"
+  },
+  "infiniflow/ragflow": {
+    "at": "2026-08-12T19:14:16+00:00",
+    "src_hash": "f5b7e92297d4",
+    "zh": "RAGFlow：開源 RAG 引擎，結合 RAG 與 Agent 能力，讓 LLM 有更好的 context 層"
   },
   "jaredrhod/ai-memory-vault": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -305,9 +320,9 @@
     "zh": "Crawl4AI：對 LLM 友善的開源網頁爬蟲與抓取工具"
   },
   "unslothai/unsloth": {
-    "at": "2026-07-30T19:18:19+00:00",
-    "src_hash": "e7bf9c2920b2",
-    "zh": "本地 UI，用來訓練與運行 Kimi K3、Gemma 4、Qwen3.6、DeepSeek、GLM 等模型"
+    "at": "2026-08-12T19:14:16+00:00",
+    "src_hash": "1e937f5d8513",
+    "zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
   },
   "volcengine/OpenViking": {
     "at": "2026-07-27T19:23:58+00:00",

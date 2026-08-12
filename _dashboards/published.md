@@ -3,38 +3,38 @@
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-08-11
-- **[[Events/evt-2026-08-11-5bb657|Testing ads in ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
-  OpenAI 開始在 ChatGPT 免費版測試廣告，強調標示清楚、答案獨立、保護隱私。
-- **[[Events/evt-2026-08-11-6d61c1|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]]** — NVIDIA · research · conf 73 · heat 未量測
-  NVIDIA 8月串連開源社群，整月推廣本地部署的開源模型與智慧代理工具。
+- **[[Events/evt-2026-08-11-5bb657|Testing ads in ChatGPT]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 開始在 ChatGPT 測試廣告，作為支撐免費使用的營收來源。
+- **[[Events/evt-2026-08-11-6d61c1|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 八月起連續介紹推動開源本地 AI 模型與代理的社群夥伴。
 - **[[Events/evt-2026-08-11-783838|Why Scaling AI Compute Performance Requires a New Power Architecture]]** — NVIDIA · infra · conf 73 · heat 未量測
-  NVIDIA 主張 AI 算力擴張的瓶頸已從耗電量轉移到供電架構本身，需要新的電力配送設計。
+  NVIDIA 談 AI 運算擴張的瓶頸從算力轉向電力，主張改用新供電架構。
 - **[[Events/evt-2026-08-11-d99e44|NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI]]** — NVIDIA · model-capability · conf 80 · heat 未量測
-  NVIDIA 擴大 Nemotron 3 開源模型家族，推出效率最高的 Nemotron 3.5 Lightning，鎖定長時間執行的代理工作負載。
+  NVIDIA 推出 Nemotron 3.5 Lightning，主打長時間運行代理任務的高效率。
 - **[[Events/evt-2026-08-11-dc5cff|v0.27.1]]** — vLLM · infra · conf 83 · heat 未量測
-  vLLM 釋出 v0.27.1 patch 版本，修正並延伸剛發布的 v0.27.0（561 個 commit、支援 Kimi K3 全棧）。
+  vLLM 發布 v0.27.1 修補版，前一版 v0.27.0 已加入 Kimi K3 全端支援。
 
 ## 2026-08-10
 - **[[Events/evt-2026-08-10-0e6ea5|Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS]]** — NVIDIA · model-capability · conf 73 · heat 未量測
   NVIDIA在Hugging Face開源Magpie TTS，主打低延遲多語音代理、權重全開放可自架。
-- **[[Events/evt-2026-08-10-27696c|Virgin Atlantic sharpens customer journeys with ChatGPT Work]]** — OpenAI · product · conf 73 · heat 未量測
-  OpenAI 案例研究：Virgin Atlantic 用 ChatGPT Work 串起顧客旅程各環節的訊號。
+- **[[Events/evt-2026-08-10-27696c|Virgin Atlantic sharpens customer journeys with ChatGPT Work]]** — Virgin Atlantic · product · conf 73 · heat 未量測
+  Virgin Atlantic 導入 ChatGPT Work，加快研究、產品規劃與決策速度。
 - **[[Events/evt-2026-08-10-2ea3f0|Premium seats are coming to ChatGPT Business]]** — OpenAI · product · conf 73 · heat 未量測
-  OpenAI 為 ChatGPT Business 推出 Premium seats，8月20日前註冊送100美元額度。
+  OpenAI 為 ChatGPT Business 推出 Premium 席位，8/20 前訂閱送 100 美元額度。
 - **[[Events/evt-2026-08-10-397543|Meta is back with Muse Glimmer: local, agentic, multimodal, and open source]]** — Meta · model-capability · conf 73 · heat 未量測
   Meta在Hugging Face發布Muse Glimmer，訴求本機可跑、具代理能力、多模態且開源。
 - **[[Events/evt-2026-08-10-4425be|Putting frontier cyber models in more trusted hands]]** — OpenAI · policy · conf 73 · heat 未量測
-  OpenAI 讓通過審核的 Daybreak 夥伴使用前沿網路安全模型，提供受治理的資安服務。
+  OpenAI 讓通過審核的 Daybreak 夥伴使用前沿網路安全模型做授權資安服務。
 - **[[Events/evt-2026-08-10-44574d|Making Knowledge Distillation Cheap Enough to Run at Scale]]** — Multiverse Computing · infra · conf 73 · heat 未量測
   Multiverse Computing發文主張把知識蒸餾成本壓到可規模化執行，但未附具體數字。
-- **[[Events/evt-2026-08-10-6de2c6|How Zapier transformed core marketing processes with ChatGPT Work]]** — OpenAI · product · conf 73 · heat 未量測
-  OpenAI 案例研究：Zapier 用 ChatGPT Work 改造行銷流程，降低名單流失。
+- **[[Events/evt-2026-08-10-6de2c6|How Zapier transformed core marketing processes with ChatGPT Work]]** — Zapier · product · conf 73 · heat 未量測
+  Zapier 用 ChatGPT Work 降低行銷漏斗流失、產生活動素材與自動化報告。
 - **[[Events/evt-2026-08-10-8a0492|What building an AI-native finance function taught me]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI財務長Sarah Friar談內部用AI改造財務職能的五個心得，涵蓋自動化預測到投報衡量。
 - **[[Events/evt-2026-08-10-bbf2b8|OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI致函德州州長Abbott，說明在德州建置AI基礎設施的承諾與透明度主張。
-- **[[Events/evt-2026-08-10-f81fd9|Expanding Daybreak as the Cyber Defense Window Narrows]]** — OpenAI · model-capability · conf 73 · heat 未量測
-  OpenAI 推出 GPT-5.6-Cyber，透過 Daybreak Red 供授權漏洞研究與滲透測試使用。
+- **[[Events/evt-2026-08-10-f81fd9|Expanding Daybreak as the Cyber Defense Window Narrows]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出 GPT-5.6-Cyber，透過 Daybreak Red 供授權漏洞研究與資安測試。
 
 ## 2026-08-08
 - **[[Events/evt-2026-08-08-46b340|Firebird Launches CIS Region’s Largest AI Factory in Armenia]]** — Firebird · infra · conf 73 · heat 未量測
