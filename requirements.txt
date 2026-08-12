@@ -1,0 +1,10 @@
+# 這條鏈對外的承諾是「同樣的輸入給同樣的輸出」。沒有這個檔的時候，
+# 那句話只涵蓋 repo 裡的東西——runtime 不在裡面。
+#
+# 規格與釘版本的理由見 references/runtime-pins.md。改這裡之前先改那裡（紅線 9）。
+#
+# 一份清單給五個 workflow。不切子集是刻意的，理由見規格〈為什麼不切子集〉。
+requests==2.33.1
+PyYAML==6.0.3
+feedparser==6.0.14
+ruamel.yaml==0.19.1
