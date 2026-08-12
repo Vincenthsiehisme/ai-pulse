@@ -163,6 +163,33 @@ observable_from = min(first_fetch_at[s] for s in 該事件證據的來源)
 `state.json` 重算，`event_markdown()` 整份重寫不會傷到它。**不要**把它加進
 sticky 清單：寫死之後，來源的 `first_fetch_at` 修正了它也不會跟著改。
 
+## `recovered_by`：這則事件是修復腳本補寫的
+
+值是那支遷移的標籤（今天只有一個：`identity-repair-2026-08-12`），
+沒有就是 `null`。**它跟上面那格 `coverage: backfilled` 不是同一件事。**
+
+```
+coverage: backfilled    事情發生時，我們的來源還沒開始觀測
+recovered_by: <tag>     這則 Event 的紀錄是修復腳本補的，不是這條鏈自己長出來的
+```
+
+兩者會同時成立，而且在 2026-08-12 那批補寫的六則上**真的同時成立**：
+Anthropic 在 7/21–7/23 連發六個模型版本，我們的來源當時抓到了
+（語料裡有它們的 `first_observed_at`），但因為 URL 還原掉了版號小數點，
+它們被歸進了別則事件。事情發生時我們在場，只是把檔案放錯了抽屜。
+
+把這兩件事塞進同一格就分不出「當時沒看到」與「當時看到了但歸錯」——
+而這兩者要採取的行動完全不同：前者去補來源，後者去修規則。
+
+**這是 sticky 欄位**，跟 `ingested_at` / `title_zh` 同一批：
+`event_markdown()` 整份重寫 frontmatter，沒被明確帶過去的欄位會被抹掉。
+它是第四個踩到那個坑的欄位，selftest 有一條釘住它「跑第二輪還在」。
+
+補寫的 Event 一律 `status: review`，不給 `published`——
+**機器補的事件不該自己升到已發布**，跟「升到 active 只有人能做」是同一條線。
+
+完整帳目：`references/incidents/2026-08-12-identity-repair.md`。
+
 ## `_dashboards/` 是靜態表，不是 Dataview
 
 skill 的規格寫的是 Dataview 查詢頁。實作不是，而且**刻意不是**：

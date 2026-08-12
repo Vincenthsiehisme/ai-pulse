@@ -208,6 +208,17 @@ class Event:
         # fix/backfill-flag-erased-by-second-run 修的坑，這裡是第三個踩到它的欄位。
         self.title_zh = None
         self.title_zh_src = None
+        # 這則 Event 是**修復腳本補寫的**，不是這條鏈自己長出來的。
+        # 值是那支遷移的標籤（例：identity-repair-2026-08-12），沒有就是 None。
+        #
+        # 為什麼不共用下面那格的 `coverage: backfilled`：那一格說的是
+        # 「事情發生時我們的來源還沒開始觀測」，是 lib/coverage.py 每班重算的
+        # 推導欄位。一個欄位兩個意思正是這個 repo 一直在抓的病——而且這兩個意思
+        # 會同時成立（補寫的事件當時通常真的看得到，只是被歸錯了檔）。
+        #
+        # 跟 ingested_at / title_zh 同樣 sticky。這是第四個踩到那個坑的欄位，
+        # 所以 selftest 有一條釘住它「跑第二輪還在」。
+        self.recovered_by = None
         # 事情發生時我們看不看得到（observed / backfilled / unknown）。
         # 跟上面那批 sticky 欄位**相反**：這一格每班從 _probe/state.json 重算，
         # reload 時刻意不從 frontmatter 讀回來——寫死之後，來源的 first_fetch_at
@@ -418,6 +429,9 @@ def event_markdown(ev):
         # 監控佇列年紀只能看這個。拿 happened_at 去量「我們放了多久」，
         # 等於新增一條會補歷史的來源就讓 CI 立刻紅——2026-07-26 就是這樣紅的。
         "ingested_at": ev.ingested_at,
+        # 補寫標記。沒被補寫過就是 None——**不是省略**：省略的話一則被補寫的
+        # Event 在下一次整份重寫時會靜靜變回「看起來是自己長出來的」。
+        "recovered_by": ev.recovered_by,
         # 事情發生時我們看不看得到：observed / backfilled / unknown。
         # 上面兩格是「什麼時候」，這一格是「當時我們在不在場」——少了它，
         # 一則 backfilled 的舊事件在時間軸上跟真的追到的長得一模一樣。
@@ -529,6 +543,7 @@ def main():
             ev.ingested_at = fm.get("ingested_at")
             ev.title_zh = fm.get("title_zh")
             ev.title_zh_src = fm.get("title_zh_src")
+            ev.recovered_by = fm.get("recovered_by")
             ev.orig_body = body
             ev.fm = fm
             ev.evidence.extend(evidence_from_frontmatter(fm.get("evidence")))
