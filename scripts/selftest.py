@@ -3195,10 +3195,13 @@ _e2 = _cm.Event("evt-x", "x", "T", "2026-07-22T00:00:00+00:00")
 _e2.ingested_at = None
 acase("pulse-cluster：ingested_at 沒帶值時寫成空，不會偷偷填成今天",
       "ingested_at: null" in _cm.event_markdown(
+          # 這份清單要跟 event_markdown() 讀的欄位同步。不同步就 AttributeError
+          # 當場炸——**那是刻意留著的**：一個會自動補上缺欄位的假物件，
+          # 會讓「event_markdown 多讀了一格而沒人帶」變成靜默通過。
           type("E", (), {**{k: getattr(_e, k) for k in
                            ("id", "slug", "title", "happened_at", "fingerprint",
                             "facet", "company", "keywords", "evidence", "scores",
-                            "title_zh", "title_zh_src", "coverage")},
+                            "title_zh", "title_zh_src", "coverage", "recovered_by")},
                          "ingested_at": None})()), True)
 
 # ── coverage：事情發生的時候，我們看得到嗎 ───────────────────────────
@@ -3370,7 +3373,8 @@ acase("pulse-cluster 跑完一輪：新建的 Event 真的帶著 probe 第一次
 # 在第二輪之前先把譯文寫進去，第二輪之後它要還在。
 _t_before = _made[0].read_text("utf-8")
 _made[0].write_text(
-    _t_before.replace("\nstatus:", "\ntitle_zh: 一句中文標題\ntitle_zh_src: deadbeef1234\nstatus:", 1),
+    _t_before.replace("\nstatus:", "\ntitle_zh: 一句中文標題\ntitle_zh_src: deadbeef1234\n"
+                      "recovered_by: identity-repair-2026-08-12\nstatus:", 1),
     "utf-8")
 
 (_cvault / "_probe" / "2026-07-26" / "signals-scored.jsonl").write_text(
@@ -3401,6 +3405,181 @@ acase("pulse-cluster 跑第二輪：中文標題也活下來"
       "而且它會安靜地重新排進待譯清單——每晚翻一次、每晚被洗掉一次）",
       ["title_zh: 一句中文標題" in _txt2, "title_zh_src: deadbeef1234" in _txt2],
       [True, True])
+# 第五個踩到 sticky 坑的欄位。被抹掉的後果特別隱蔽：一則補寫的 Event 會在
+# 下一次整份重寫時**變回看起來像自己長出來的**，而 recovered_by 存在的唯一
+# 理由就是讓它別看起來像那樣。規格 references/obsidian-schema.md〈recovered_by〉。
+acase("pulse-cluster 跑第二輪：recovered_by 也活下來"
+      "（被抹掉的話，補寫的事件會安靜地變回「看起來是這條鏈自己長出來的」）",
+      ["recovered_by: identity-repair-2026-08-12" in _txt2,
+       "recovered_by: null" in _txt2], [True, False])
+acase("event_markdown：沒補寫過的 Event 這一格是 null，不是缺席"
+      "（省略的話，讀的人分不出「沒補寫過」與「這個版本還沒有這個欄位」）",
+      "recovered_by:" in _txt, True)
+
+# ── 身分修復遷移（references/incidents/2026-08-12-identity-repair.md）──
+#
+# 這支是一次性腳本，但它會**改既有資料**，所以兩道欄杆要有測試釘住。
+_mgs = importlib.util.spec_from_file_location(
+    "mig_identity", os.path.join(_HERE, "migrate-2026-08-12-identity-repair.py"))
+_mg = importlib.util.module_from_spec(_mgs)
+_mgs.loader.exec_module(_mg)
+
+acase("身分修復：只在「現值等於舊還原法的產出」時才改標題"
+      "（拿新還原法直接覆蓋的話，人手改過的標題會被機器版本蓋掉，"
+      "而且沒有任何地方會顯示它被蓋過）",
+      [_mg.retitle("https://www.anthropic.com/news/claude-opus-4-5",
+                   "Claude Opus 4 5", "sitemap"),
+       _mg.retitle("https://www.anthropic.com/news/claude-opus-4-5",
+                   "人手改過的標題", "sitemap"),
+       _mg.retitle("https://www.anthropic.com/news/claude-opus-4-5",
+                   "Claude Opus 4 5", "rss")],
+      ["Claude Opus 4.5", None, None])
+
+# 冪等：跑第二次要什麼都不做。**這一條抓到過一個真的 bug**——第一版把
+# 「標題改了」漏出髒集合，於是只改標題、沒有錯掛證據的那幾則改在記憶體裡
+# 沒落地，報告說改了、檔案沒改。沒有任何斷言看得出來，是跑第二次看出來的。
+_mvault = Path(tempfile.mkdtemp())
+(_mvault / "Events").mkdir()
+(_mvault / "_probe").mkdir()
+(_mvault / "_corpus").mkdir()
+shutil.copytree(os.path.join(_HERE, "..", "_config"), _mvault / "_config")
+(_mvault / "Events" / "evt-2026-07-22-aaaaaa.md").write_text(
+    "---\n" + _yaml.safe_dump({
+        "id": "evt-2026-07-22-aaaaaa", "slug": "claude-haiku-4-5-aaaa",
+        "title": "Claude Haiku 4 5", "date": "2026-07-22",
+        "happened_at": "2026-07-22T01:05:15+00:00", "status": "published",
+        "fingerprint": "anthropic:claude:haiku:4", "facet": "update",
+        "evidence": [{"source_id": "src-anthropic-news",
+                      "url": "https://www.anthropic.com/news/claude-haiku-4-5",
+                      "title": "Claude Haiku 4 5", "relevance": 100,
+                      "published": "2026-07-22T01:05:15.000Z",
+                      "suspected_repost": False},
+                     {"source_id": "src-anthropic-news",
+                      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+                      "title": "Claude Opus 4.7", "relevance": 33,
+                      "published": "2026-07-23T04:19:56.000Z",
+                      "suspected_repost": False}],
+    }, allow_unicode=True, sort_keys=False) + "---\n\n內文\n", "utf-8")
+# 第二則專門隔離「只有 Event 標題要改」那條路：證據標題已經是對的
+# （人手修過），所以證據那一圈不會標髒。第一版的 fixture 沒有這一則，
+# 於是 M259 那條變異跑成 regression——測試看起來在守，其實是被隔壁那圈救的。
+(_mvault / "Events" / "evt-2026-07-22-bbbbbb.md").write_text(
+    "---\n" + _yaml.safe_dump({
+        "id": "evt-2026-07-22-bbbbbb", "slug": "claude-opus-4-8-bbbb",
+        "title": "Claude Opus 4 8", "date": "2026-07-22",
+        "happened_at": "2026-07-22T01:28:45+00:00", "status": "published",
+        "fingerprint": "anthropic:claude:opus:4", "facet": "update",
+        "evidence": [{"source_id": "src-anthropic-news",
+                      "url": "https://www.anthropic.com/news/claude-opus-4-8",
+                      "title": "Claude Opus 4.8", "relevance": 100,
+                      "published": "2026-07-22T01:28:45.000Z",
+                      "suspected_repost": False}],
+    }, allow_unicode=True, sort_keys=False) + "---\n\n內文\n", "utf-8")
+
+
+# 第三則：帶一筆身分衝突的證據，而且它的 relevance 是**對舊標題**算的。
+# 搬到正確的事件之後那個數字必須重算——33 是「跟 Sonnet 5 有多像」，
+# 對 Opus 4.8 而言它其實是 100。不重算的話那一格會留著一個看起來有意義、
+# 其實在講另一件事的值。
+(_mvault / "Events" / "evt-2026-07-22-cccccc.md").write_text(
+    "---\n" + _yaml.safe_dump({
+        "id": "evt-2026-07-22-cccccc", "slug": "claude-sonnet-5-cccc",
+        "title": "Claude Sonnet 5", "date": "2026-07-22",
+        "happened_at": "2026-07-22T01:20:28+00:00", "status": "published",
+        "fingerprint": "anthropic:claude:sonnet:5", "facet": "update",
+        "evidence": [{"source_id": "src-anthropic-news",
+                      "url": "https://www.anthropic.com/news/claude-sonnet-5",
+                      "title": "Claude Sonnet 5", "relevance": 100,
+                      "published": "2026-07-22T01:20:28.000Z",
+                      "suspected_repost": False},
+                     # 這一筆的 URL **刻意跟 bbbbbb 自己那筆不同**：同 URL 會被
+                     # 去重、根本不會被附上去，那樣「搬家後重算 relevance」那條
+                     # 斷言讀到的是目的地原本就有的那一筆——一顆永遠綠的燈。
+                     # 標題也刻意不同，讓重算後的值不是 100：
+                     # {introducing, claude, opus} ∩ {claude, opus} = 2/3 → 67。
+                     {"source_id": "src-anthropic-news",
+                      "url": "https://www.anthropic.com/news/introducing-claude-opus-4-8",
+                      "title": "Introducing Claude Opus 4.8", "relevance": 33,
+                      "published": "2026-07-22T01:28:45.000Z",
+                      "suspected_repost": False},
+                     {"source_id": "src-anthropic-news",
+                      "url": "https://www.anthropic.com/news/claude-opus-4-7",
+                      "title": "Claude Opus 4.7", "relevance": 33,
+                      "published": "2026-07-23T04:19:56.000Z",
+                      "suspected_repost": False}],
+    }, allow_unicode=True, sort_keys=False) + "---\n\n內文\n", "utf-8")
+
+
+# 第四則，也是 M259 真正的隔離組：**既不是搬家的來源、也不是目的地**。
+# 前面 bbbbbb 兩度失去隔離性——第一次是它的證據標題也要重推導、
+# 第二次是它變成了搬家的目的地——兩次都靠變異盤點才發現斷言在測空氣。
+# 這一則的證據標題已經是對的、指紋跟事件一致，所以「標題那一圈標髒」
+# 是它唯一的落地理由。
+(_mvault / "Events" / "evt-2026-07-21-dddddd.md").write_text(
+    "---\n" + _yaml.safe_dump({
+        "id": "evt-2026-07-21-dddddd", "slug": "claude-sonnet-4-6-dddd",
+        "title": "Claude Sonnet 4 6", "date": "2026-07-21",
+        "happened_at": "2026-07-21T23:52:43+00:00", "status": "published",
+        "fingerprint": "anthropic:claude:sonnet:4", "facet": "update",
+        "evidence": [{"source_id": "src-anthropic-news",
+                      "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+                      "title": "Claude Sonnet 4.6", "relevance": 100,
+                      "published": "2026-07-21T23:52:43.000Z",
+                      "suspected_repost": False}],
+    }, allow_unicode=True, sort_keys=False) + "---\n\n內文\n", "utf-8")
+
+
+def _mig_run(apply_it):
+    _a, _e2 = sys.argv[:], os.environ.get("VAULT_DIR")
+    sys.argv = ["m"] + (["--apply"] if apply_it else [])
+    os.environ["VAULT_DIR"] = str(_mvault)
+    _buf = io.StringIO()
+    try:
+        with _c2.redirect_stdout(_buf):
+            _mg.main()
+    finally:
+        sys.argv = _a
+        if _e2 is not None:
+            os.environ["VAULT_DIR"] = _e2
+    return _buf.getvalue()
+
+
+_m1 = _mig_run(True)
+_m2 = _mig_run(False)
+acase("身分修復：只改了標題、沒有錯掛證據的那則也要真的落地"
+      "（第一版漏了這一格：報告說改了、檔案沒改）",
+      "title: Claude Haiku 4.5" in
+      (_mvault / "Events" / "evt-2026-07-22-aaaaaa.md").read_text("utf-8"), True)
+acase("身分修復：標題改了，fingerprint 要跟著改"
+      "（只改標題不改指紋，這則從此對不上自己的證據）",
+      "fingerprint: anthropic:claude:haiku:4.5" in
+      (_mvault / "Events" / "evt-2026-07-22-aaaaaa.md").read_text("utf-8"), True)
+acase("身分修復：**只有** Event 標題要改的那則也要落地"
+      "（證據標題已經對了、指紋也一致 → 既不是搬家來源也不是目的地。"
+      "少了標題那圈自己標髒，這則會改在記憶體裡不落地，而報告會說它改了）",
+      ["title: Claude Sonnet 4.6", "fingerprint: anthropic:claude:sonnet:4.6"],
+      [x for x in ["title: Claude Sonnet 4.6",
+                   "fingerprint: anthropic:claude:sonnet:4.6"]
+       if x in (_mvault / "Events" / "evt-2026-07-21-dddddd.md").read_text("utf-8")])
+acase("身分修復：證據搬家之後 relevance 要對新標題重算"
+      "（relevance 的不變式是「證據標題與事件標題的相似度」，"
+      "搬家不重算就留下一個看起來有意義、其實在講另一件事的數字）",
+      [(e["relevance"], e["title"]) for e in _yaml.safe_load(
+          (_mvault / "Events" / "evt-2026-07-22-bbbbbb.md").read_text("utf-8")
+          .split("---")[1])["evidence"]],
+      [(100, "Claude Opus 4.8"), (67, "Introducing Claude Opus 4.8")])
+# 同一個 URL 從兩則事件被搬到同一個補寫的 Event：add_evidence 依
+# (source_id, url) 去重，所以實際只會有一筆。帳目要記實際附上的那個數字——
+# **報告多報比少報更難發現**，因為看起來像是資料比較豐富。
+_mrep = _json.loads(
+    (_mvault / "_probe" / "identity-repair-2026-08-12.json").read_text("utf-8"))
+acase("身分修復：補寫的 Event 帳目記實際附上的證據數，不是蒐集到的筆數"
+      "（同一個 URL 從兩則事件搬過來會被去重，帳目報兩筆就是在多報）",
+      [(c["title"], c["evidence"]) for c in _mrep["created"]],
+      [("Claude Opus 4.7", 1)])
+acase("身分修復：可重跑——第二次應該什麼都不寫"
+      "（一次性遷移只跑一次就不會有人發現它沒落地，冪等是唯一看得見的訊號）",
+      "要寫的檔：0" in _m2, True)
 
 # ── 證據記錄要留下判斷用的欄位（references/evidence-tiers.md）──
 # 第二輪走的正是「從磁碟讀回來、再重寫一次」那條路，所以這幾條釘的是真的

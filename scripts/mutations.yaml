@@ -2274,3 +2274,53 @@ mutations:
     replace: ""
     survives: false
     why: ""
+
+  # ── 身分修復：sticky 欄位與遷移的兩道欄杆（2026-08-12，fix/recover-what-was-misfiled）──
+
+  - id: M256
+    title: "reload 時不讀回 recovered_by（補寫的 Event 在下一次整份重寫時，會安靜地變回「看起來是這條鏈自己長出來的」——這是第五個踩到 sticky 坑的欄位）"
+    file: pulse-cluster.py
+    find: "            ev.recovered_by = fm.get(\"recovered_by\")\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M257
+    title: "event_markdown 不寫 recovered_by（欄位整個消失，而不是寫成 null——讀的人分不出「沒補寫過」與「這個版本還沒有這欄」）"
+    file: pulse-cluster.py
+    find: "        \"recovered_by\": ev.recovered_by,\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M258
+    title: "遷移拿掉「現值必須等於舊還原法產出」那道欄杆（人手改過的標題會被機器重新推導的版本蓋掉，而且沒有任何地方會顯示它被蓋過）"
+    file: migrate-2026-08-12-identity-repair.py
+    find: "    if old_slug_to_title(url) != (current or \"\"):\n        return None"
+    replace: "    if False:\n        return None"
+    survives: false
+    why: ""
+
+  - id: M259
+    title: "遷移修完 Event 標題不標髒（只改了標題、沒有錯掛證據的那幾則會改在記憶體裡不落地——報告說改了、檔案沒改。抓到它的是冪等性檢查不是斷言）"
+    file: migrate-2026-08-12-identity-repair.py
+    find: "                fm[\"fingerprint\"] = cluster.event_fingerprint(new)\n                touched.add(eid)"
+    replace: "                fm[\"fingerprint\"] = cluster.event_fingerprint(new)"
+    survives: false
+    why: ""
+
+  - id: M260
+    title: "證據搬家後不重算 relevance（一筆 relevance=33 的證據搬到它真正該在的事件之後，那個 33 是對舊標題算的——留著就是一個看起來有意義、其實在講另一件事的數字）"
+    file: migrate-2026-08-12-identity-repair.py
+    find: "        refresh_relevance(fm.get(\"title\") or \"\", ev.evidence)\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M261
+    title: "補寫的 Event 帳目記 len(rows) 而不是 len(ev.evidence)（同一個 URL 從兩則事件被搬過來時 add_evidence 會去重，帳目卻報兩筆——報告多報比少報更難發現）"
+    file: migrate-2026-08-12-identity-repair.py
+    find: "                                  \"evidence\": len(ev.evidence),"
+    replace: "                                  \"evidence\": len(rows),"
+    survives: false
+    why: ""
