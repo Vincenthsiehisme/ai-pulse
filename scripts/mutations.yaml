@@ -2418,3 +2418,11 @@ mutations:
     replace: "    if std is _DEP_AUTO:\n        std = sys.stdlib_module_names\n"
     survives: true
     why: "只有在 Python 3.10 以下的直譯器上才殺得掉，而 CI 跑 3.12、開發容器跑 3.11。這一條記在清單裡是為了讓「這個保護存在的理由」有地方寫——它守的是**人的機器**，而 CI 永遠證明不了它。真正踩到的那次：macOS 內建 python3 跑 selftest 當場 AttributeError，整支跑不完。"
+
+  - id: M273
+    title: "stdlib 判定不排除 site-packages（標準 Python 安裝把 site 放在 stdlib 底下，於是每一個第三方套件都被判成標準庫——2026-08-13 CI 上四片變異全部拒跑就是這個）"
+    file: selftest.py
+    find: "    if any(d and origin.startswith(d) for d in site_dirs):\n        return False\n"
+    replace: ""
+    survives: false
+    why: ""

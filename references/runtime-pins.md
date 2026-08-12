@@ -140,6 +140,36 @@ annotations` 就是為了這件事。所以修法是加 fallback，不是要人�
 **因為兩條路徑都要測得到**。第一版把「強制 fallback」寫成傳 `None`，
 而 `None` 當時的意思是「照機器決定」——那條斷言在測另一件事，而且它是綠的。
 
+## 2026-08-13：fallback 第一版在 CI 上把 `yaml` 判成標準庫
+
+fallback 只比 `origin.startswith(stdlib)`。而 site-packages 放在哪，
+**各家 Python 不一樣**：
+
+```
+開發容器（Debian）   stdlib  /usr/lib/python3.11
+                     site    /usr/local/lib/python3.11/dist-packages   ← 兩棵樹
+CI（hostedtoolcache）stdlib  /opt/.../x64/lib/python3.12
+                     site    /opt/.../x64/lib/python3.12/site-packages ← 在裡面
+```
+
+**標準 Python 安裝把 site-packages 放在 stdlib 目錄底下**——macOS、venv、
+GitHub Actions 的 hostedtoolcache 都是。只有 Debian 系把它挪去 `/usr/local`，
+而開發容器剛好是 Debian。
+
+於是第一版在容器全綠，一進 CI 就把 `yaml` 判成標準庫，
+「第三方套件都在清單裡」那條當場紅——而且是**四片變異全部 `[拒跑]`**，
+因為 mutate.py 的第一件事就是確認基準線全綠。
+
+修法是把 `purelib` / `platlib` 也排除掉。更重要的是把判斷抽成一支**純函式**、
+目錄路徑用參數傳進去：
+
+```python
+_dep_origin_is_stdlib(origin, std_dir, site_dirs)
+```
+
+**這樣兩種佈局都能在同一台機器上測。** 第一版做不到——它只驗得到跑測試的那台
+機器剛好是哪一種佈局，而那正是它為什麼綠著出門。
+
 ## 升級相依要走顯式流程
 
 ```
