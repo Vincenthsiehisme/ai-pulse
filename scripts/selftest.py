@@ -3931,6 +3931,68 @@ acase("attach 門檻：真的用在聚類那一步（0.30 掛得上、0.46 掛�
       [getattr(_cm.attach_target(*_AR_CAND, _AR_EVS, 0.30), "id", None),
        getattr(_cm.attach_target(*_AR_CAND, _AR_EVS, 0.46), "id", None)],
       ["evt-mg", None])
+# ── 候選排名與平手不掛（references/attach-rule.md〈最好的那個，分不出來就不掛〉）──
+#
+# 這一組用的是**真實語料裡唯一那筆多候選**：「Claude For Teachers」對九則
+# Claude 系列事件全部 sim=0.33。共同 token 只有 claude。
+_TIE_EVS = [
+    _cm.Event("evt-sonnet5", "s5", "Claude Sonnet 5", "2026-07-22T01:20:28+00:00"),
+    _cm.Event("evt-haiku45", "h45", "Claude Haiku 4.5", "2026-07-22T01:05:15+00:00"),
+    _cm.Event("evt-opus5", "o5", "Claude Opus 5", "2026-07-25T02:03:36+00:00"),
+]
+_TIE_SIG = ("Claude For Teachers", "2026-07-21T23:43:25+00:00")
+
+acase("平手不掛：一則對多個候選語意鍵完全相同的 signal，不得掛上任何一個"
+      "（實測就是這一筆：師資產品公告對九則模型發布事件九路 0.33 平手。"
+      "任何一種「挑一個」的規則都會挑錯——它不屬於其中任何一則）",
+      _cm.attach_target(*_TIE_SIG, _TIE_EVS, 0.30), None)
+
+acase("平手不掛：三個候選的語意鍵真的相同（不然上一條在斷言別的東西）",
+      len({_cm.attach_rank(_TIE_SIG[0], e) for e in _TIE_EVS}), 1)
+
+# 時間距離刻意不進排名鍵。加進去的話上面那筆會被挑走——理由是差 0.2 小時。
+acase("平手不掛：時間距離不得進排名鍵"
+      "（三個候選的時間距離差很多，而排名鍵必須看不見這件事；"
+      "時間已經是硬閘了，再拿它當偏好是把同一個訊號用兩次）",
+      len({round(abs((_cm.parse_dt(_TIE_SIG[1]) - _cm.parse_dt(e.happened_at))
+                     .total_seconds()) / 3600.0, 1) for e in _TIE_EVS}) > 1, True)
+
+acase("最佳候選：唯一勝出的那個要掛得上（一條只會拒絕的規則很容易全綠）",
+      getattr(_cm.attach_target("Introducing Claude Opus 5",
+                                "2026-07-25T03:00:00+00:00", _TIE_EVS, 0.30),
+              "id", None), "evt-opus5")
+
+# first-match 不准偷偷回來：把 events 反過來，結果必須一模一樣。
+acase("最佳候選：把候選清單反轉，結果不變"
+      "（events 來自 sorted(Events/*.md)，「第一個符合的」等於「最舊的那個」——"
+      "這一條釘住那個行為不准回來）",
+      [getattr(_cm.attach_target("Introducing Claude Opus 5",
+                                 "2026-07-25T03:00:00+00:00", _e, 0.30), "id", None)
+       for _e in (_TIE_EVS, list(reversed(_TIE_EVS)))],
+      ["evt-opus5", "evt-opus5"])
+
+# 排名真的要挑「最像的」而不是「清單第一個」。
+#
+# 這一組必須自己造：**真實語料裡找不到反例**——實測 934 訊號 × 125 事件，
+# `first-match ≠ 最佳候選` 是 0，因為身分否決已經把跨版本那些全擋掉了。
+# 剩下會多候選的都是 fingerprint 皆 None 的情況，而那正是這裡模擬的形狀。
+# 清單第一個刻意放相似度低的那則（events 來自 sorted()，順序是檔名不是相似度）。
+_RANK_EVS = [
+    _cm.Event("evt-low", "low", "Open agentic AI tooling arrives",
+              "2026-08-10T00:00:00+00:00"),
+    _cm.Event("evt-high", "high", "Orchard an open framework for scalable agentic AI",
+              "2026-08-10T00:00:00+00:00"),
+]
+_RANK_SIG = ("Orchard an open framework for scalable agentic AI",
+             "2026-08-10T06:00:00+00:00")
+acase("最佳候選：兩個都符合時挑相似度高的，不是清單第一個"
+      "（events 來自 sorted(Events/*.md)，檔名以事件日期開頭——"
+      "「第一個符合的」等於「最舊的那個符合的」，而最舊跟最像無關）",
+      [getattr(_cm.attach_target(*_RANK_SIG, _RANK_EVS, 0.30), "id", None),
+       len([c for c in _RANK_EVS if _cl.belongs_to_event(
+           *_RANK_SIG, c.title, c.happened_at, 0.30)])],
+      ["evt-high", 2])
+
 acase("attach 門檻：設定檔讀不到要退回**舊的 0.46**，不是退回 0.30"
       "（設定檔壞掉時規則要變嚴不是變鬆——在 YAML 打錯字的那天悄悄放寬聚類，"
       "汙染會混進 independent_sources 而沒有人知道）",
