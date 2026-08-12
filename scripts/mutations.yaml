@@ -2332,3 +2332,21 @@ mutations:
     replace: ""
     survives: false
     why: ""
+
+  # ── 實體字典讀錯鑰匙（2026-08-13，fix/the-key-that-was-never-read）──
+
+  - id: M269
+    title: "分節清單改回手寫第二份（`products` / `policy` 兩個名字不存在，infrastructure / frameworks / policies 整批不載入——那些實體從此不存在，而不會有任何東西變紅）"
+    file: pulse-cluster.py
+    find: "    for key in entities_lib.ENTITY_SECTIONS:\n"
+    replace: "    for key in (\"companies\", \"product_lines\", \"products\", \"technologies\", \"policy\"):\n"
+    survives: false
+    why: ""
+
+  - id: M270
+    title: "公司欄位讀回 `parent`（23 個 product_line 全部帶的是 `company`，沒有一個有 parent——infer_company 的第二段變回死碼，只命中產品線的訊號一律落到 industry）"
+    file: pulse-cluster.py
+    find: "                                e.get(\"company\"))"
+    replace: "                                e.get(\"parent\"))"
+    survives: false
+    why: ""
