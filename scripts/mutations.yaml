@@ -2324,3 +2324,11 @@ mutations:
     replace: "                                  \"evidence\": len(rows),"
     survives: false
     why: ""
+
+  - id: M262
+    title: "沒事可做的重跑照樣覆蓋帳目（資料層冪等不等於帳目冪等——第二次 --apply 把上一次的紀錄洗成全 0，留下一份寫著「什麼都沒做」的帳目躺在一個改了 53 個檔的 commit 旁邊。2026-08-12 真的在 main 上踩到）"
+    file: migrate-2026-08-12-identity-repair.py
+    find: "    if not writes:\n        print(\"\\n沒有東西要寫。帳目不動——一次沒做事的重跑，不該把上一次的紀錄洗掉。\")\n        return 0\n"
+    replace: ""
+    survives: false
+    why: ""

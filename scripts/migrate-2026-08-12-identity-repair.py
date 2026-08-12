@@ -359,6 +359,20 @@ def main():
     if not args.apply:
         print("\n（dry-run。加 --apply 才會寫。）")
         return 0
+    # 沒事可做就**連帳目都不寫**。
+    #
+    # 這一格是 2026-08-12 真的踩到的：資料層是冪等的（第二次跑什麼都不改），
+    # 但帳目原本寫在 --apply 的無條件路徑上，於是第二次跑——那一次它正確地
+    # 什麼都沒做——把上一次的紀錄整份覆蓋成全 0。
+    #
+    # 後果是一個寫著「這次遷移什麼都沒做」的檔案，躺在一個改了 53 個檔的
+    # commit 旁邊。**那比沒有帳目更糟**：沒有帳目的時候人會去翻 diff，
+    # 有一份說謊的帳目時人會相信它。
+    #
+    # 冪等要冪等到帳目那一層才算數。
+    if not writes:
+        print("\n沒有東西要寫。帳目不動——一次沒做事的重跑，不該把上一次的紀錄洗掉。")
+        return 0
     for path, text in sorted(writes.items()):
         atomic_write_text(path, text)
     atomic_write_text(vault / "_probe" / f"{TAG}.json",
