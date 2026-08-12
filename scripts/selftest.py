@@ -3577,6 +3577,17 @@ acase("身分修復：補寫的 Event 帳目記實際附上的證據數，不是
       "（同一個 URL 從兩則事件搬過來會被去重，帳目報兩筆就是在多報）",
       [(c["title"], c["evidence"]) for c in _mrep["created"]],
       [("Claude Opus 4.7", 1)])
+# 冪等要冪等到帳目那一層。第一版的帳目寫在 --apply 的無條件路徑上，
+# 於是「第二次跑（正確地什麼都沒做）」會把第一次的紀錄整份覆蓋成全 0——
+# 一份說謊的帳目比沒有帳目更糟：沒有的時候人會去翻 diff，有的時候人會相信它。
+# 2026-08-12 真的在 main 上踩到，全 0 的那份還進了 commit。
+_mrep_before = (_mvault / "_probe" / "identity-repair-2026-08-12.json").read_text("utf-8")
+_mig_run(True)
+acase("身分修復：沒事可做的重跑不得把上一次的帳目洗掉"
+      "（資料層冪等不等於帳目冪等——第二次 --apply 覆蓋成全 0，"
+      "會留下一份寫著「什麼都沒做」的紀錄躺在一個改了幾十個檔的 commit 旁邊）",
+      (_mvault / "_probe" / "identity-repair-2026-08-12.json").read_text("utf-8"),
+      _mrep_before)
 acase("身分修復：可重跑——第二次應該什麼都不寫"
       "（一次性遷移只跑一次就不會有人發現它沒落地，冪等是唯一看得見的訊號）",
       "要寫的檔：0" in _m2, True)
