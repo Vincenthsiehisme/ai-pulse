@@ -1574,6 +1574,149 @@ def _rt_fixed_point():
     return buf.getvalue() == src
 
 
+# ── runtime 也要進「同樣的輸入給同樣的輸出」（references/runtime-pins.md）──
+#
+# 五個 workflow 之前各自手寫 `pip install requests pyyaml ...`，沒有版本。
+# 於是同一個 commit、同一份語料，在不同日期安裝的套件底下可能給出不同輸出，
+# 而且不會有任何東西變紅——輸出只是「跟昨天不一樣」。
+#
+# 這不是預防性的：下面那條「sources.yaml 是 ruamel round-trip 不動點」
+# 直接綁死 ruamel emitter 的縮排行為，換版就會紅在一個沒改過碼的半夜。
+import ast as _ast_dep  # noqa: E402
+import sysconfig as _sysconfig  # noqa: E402
+import re as _re_dep  # noqa: E402
+
+_REQ_PATH = os.path.join(_HERE, "..", "requirements.txt")
+_REQ_LINES = [ln.strip() for ln in open(_REQ_PATH, encoding="utf-8").read().splitlines()
+              if ln.strip() and not ln.strip().startswith("#")]
+_REQ_PKGS = {ln.split("==")[0].strip().lower().replace("-", "_") for ln in _REQ_LINES}
+
+acase("requirements.txt：每一行都是 name==version"
+      "（`>=` 或不寫版本等於沒釘——那正是這個檔要修的東西）",
+      [ln for ln in _REQ_LINES if not _re_dep.fullmatch(r"[A-Za-z0-9._-]+==[0-9][^\s]*", ln)],
+      [])
+
+# 第六份手寫清單不准出現。五份各裝各的正是 SECTIONS / RUN_LIFECYCLES 那兩次
+# 搬家的同一個病：watchdog 只裝 pyyaml，哪天它的路徑上多一個 import requests
+# 就會在 runtime 炸——而那個 job 的全部功能就是當死人開關。
+# 迴圈變數用 _dep_ 前綴：這支是一個幾千行的單一命名空間，_wf 已經是別處的
+# workflow 內文字串了。第一版用 _wf 當這裡的 Path，把它蓋掉之後
+# 2319 行那條在斷言 "pulse-source-notes.py" in PosixPath——當場 TypeError。
+_WF_PIP = []
+for _dep_wf in sorted(_pathlib.Path(os.path.join(_HERE, "..", ".github", "workflows"))
+                      .glob("*.yml")):
+    for _dep_ln in _dep_wf.read_text("utf-8").splitlines():
+        if "pip install" in _dep_ln:
+            _WF_PIP.append((_dep_wf.name,
+                            _dep_ln.split("pip install", 1)[1].strip()))
+acase("workflow：pip 安裝只准走 requirements.txt"
+      "（五份手寫清單分岔的成本是靜默失效；多裝幾個套件的成本是幾秒鐘）",
+      sorted({_a for _n, _a in _WF_PIP}), ["-r requirements.txt"])
+
+acase("workflow：每一支會跑 python 的都真的有安裝步驟"
+      "（上一條只檢查「有 pip install 的那幾行長什麼樣」，"
+      "一支根本沒有安裝步驟的 workflow 會從那條底下溜過去）",
+      len(_WF_PIP), 5)
+
+# scripts/ 裡 import 的第三方套件都要在清單裡。**這是唯一會抓到
+# 「新增了一個 import 但忘記加相依」的那條。** 用 sys.stdlib_module_names
+# 分辨標準庫，所以不需要維護一份會過期的標準庫清單。
+#
+# 例外要明列、旁邊要有理由。opencc 是刻意不裝的：五個 workflow 從來沒裝過它，
+# 14 份夜班報告每一份都印著「簡繁正規化：**未啟用**」。那個行為是對的
+# （量不到就說量不到），但「從來沒裝過」在此之前只寫在報告的一行字裡，
+# 沒有任何地方把它記成一個決定。規格 references/runtime-pins.md。
+_DEP_AUTO = object()
+
+
+def _dep_is_stdlib(name, std=_DEP_AUTO):
+    """這個名字是不是標準庫。純函式，兩條路徑都可離線單測。
+
+    `sys.stdlib_module_names` 是 **Python 3.10 才有**的。CI 跑 3.12，
+    而人的機器不一定——macOS 內建的 `/usr/bin/python3` 到今天還是 3.9。
+
+    **selftest 本來就該在人的機器上跑得起來**，那是它存在的理由之一
+    （這個 repo 的其他腳本都寫了 `from __future__ import annotations`
+    就是為了這件事）。所以舊版走 fallback，不是要人升級 Python。
+
+    fallback 用 `find_spec` 看模組解析出來的檔案在不在標準庫目錄底下。
+    `find_spec` **不會執行**那個模組，所以拿來問「這是什麼」是安全的。
+    模組根本不存在時回 False——那正確：一個裝都沒裝的第三方套件，
+    本來就該被下面那條檢查抓出來。
+    """
+    # std 有三種意思，分開才測得到兩條路徑：
+    #   _DEP_AUTO  → 照這台機器實際有沒有那一格決定（正式用法）
+    #   None       → 強制走 fallback（測舊 Python 那條路）
+    #   一個集合    → 直接用它（測 3.10+ 那條路）
+    # 第一版把 None 當成 auto，於是「強制 fallback」測不出來——傳空集合進去
+    # 會走 `name in std` 而不是 fallback，那條斷言在測另一件事。
+    if std is _DEP_AUTO:
+        std = getattr(sys, "stdlib_module_names", None)
+    if std is not None:
+        return name in std
+    try:
+        spec = importlib.util.find_spec(name)
+    except (ImportError, ValueError):
+        return False
+    if spec is None:
+        return False
+    if spec.origin in ("built-in", "frozen"):
+        return True
+    return bool(spec.origin) and spec.origin.startswith(
+        _sysconfig.get_paths()["stdlib"])
+
+
+acase("相依檢查在舊 Python 上也要跑得起來"
+      "（sys.stdlib_module_names 是 3.10 才有的，而 macOS 內建的 python3 還是 3.9。"
+      "selftest 跑不起來的機器，等於那台機器上一條檢查都沒有）",
+      [_dep_is_stdlib("json", std=None),      # fallback：標準庫（有檔案）
+       _dep_is_stdlib("os", std=None),        # fallback：frozen 模組
+       _dep_is_stdlib("yaml", std=None),      # fallback：第三方（site-packages）
+       _dep_is_stdlib("no_such_module_xyz", std=None),   # fallback：根本不存在
+       _dep_is_stdlib("json", std=frozenset({"json"}))],  # 有 3.10 那一格時走它
+      [True, True, False, False, True])
+
+_IMPORT_ALIAS = {"yaml": "pyyaml", "ruamel": "ruamel.yaml"}
+_DEP_EXEMPT = {
+    "opencc": "選用；缺了就 simp_trad=False 並在報告印「未啟用」，不假裝有做",
+}
+_LOCAL = {"lib"} | {p.stem.replace("-", "_")
+                    for p in _pathlib.Path(_HERE).glob("*.py")}
+_EXT_IMPORTS = {}
+for _p in (list(_pathlib.Path(_HERE).glob("*.py"))
+           + list(_pathlib.Path(os.path.join(_HERE, "lib")).glob("*.py"))):
+    try:
+        _tree = _ast_dep.parse(_p.read_text("utf-8"))
+    except SyntaxError:
+        continue
+    for _n in _ast_dep.walk(_tree):
+        _names = []
+        if isinstance(_n, _ast_dep.Import):
+            _names = [a.name for a in _n.names]
+        elif isinstance(_n, _ast_dep.ImportFrom) and _n.level == 0 and _n.module:
+            _names = [_n.module]
+        for _nm in _names:
+            _top = _nm.split(".")[0]
+            if _dep_is_stdlib(_top) or _top in _LOCAL:
+                continue
+            _EXT_IMPORTS.setdefault(_top, set()).add(_p.name)
+
+acase("相依：scripts/ 裡 import 的第三方套件都在 requirements.txt 或例外表裡"
+      "（唯一會抓到「加了 import 但忘記加相依」的那條——"
+      "而那種漏會在半夜炸，或更糟，安靜地降級）",
+      sorted(k for k in _EXT_IMPORTS
+             if _IMPORT_ALIAS.get(k, k).lower().replace("-", "_") not in _REQ_PKGS
+             and k not in _DEP_EXEMPT),
+      [])
+
+acase("相依：例外表裡的每一項都真的還被 import"
+      "（一個沒有人 import 的例外會留在表裡當成「我們考慮過」，"
+      "而實際上那段碼可能早就刪了）",
+      sorted(k for k in _DEP_EXEMPT if k not in _EXT_IMPORTS), [])
+
+acase("相依：例外表每一項都要寫理由（空字串等於沒寫）",
+      sorted(k for k, v in _DEP_EXEMPT.items() if not (v or "").strip()), [])
+
 # ── 變異分片必須是一個分割（不重不漏）──
 # 一條變異因為切片邏輯而從來沒被跑過，是這支腳本最糟的失敗方式：清單看起來很完整，
 # 而其中一格從來沒有人驗過。而且它不會紅——沒跑到的那一條當然不會回報失敗。

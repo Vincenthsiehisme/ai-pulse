@@ -62,7 +62,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install requests pyyaml feedparser ruamel.yaml
+      - run: pip install -r requirements.txt
       # 不 continue-on-error。這支紅了代表下面三件事之一，每一件都要有人看：
       #   regression    記著「會被抓到」的地方，現在改壞了沒人管
       #   stale-record  有人補了測試但沒更新清單（清單開始腐爛）

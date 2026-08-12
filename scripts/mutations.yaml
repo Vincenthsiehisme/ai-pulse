@@ -2376,3 +2376,45 @@ mutations:
     replace: "            round(cluster.title_similarity(title, event.title), 6),\n            -abs((parse_dt(event.happened_at) or datetime.min.replace(tzinfo=timezone.utc)).timestamp()))"
     survives: false
     why: ""
+
+  # ── runtime 釘版本（2026-08-12，chore/pin-the-runtime）──
+
+  - id: M266
+    title: "requirements.txt 用範圍而不是等號（釘了等於沒釘——同一個 commit 在不同日期安裝出不同的套件，而輸出只是「跟昨天不一樣」，不會有東西變紅）"
+    file: ../requirements.txt
+    find: "requests==2.33.1"
+    replace: "requests>=2.33.1"
+    survives: false
+    why: ""
+
+  - id: M267
+    title: "workflow 改回手寫套件清單（第六份清單，就是 SECTIONS / RUN_LIFECYCLES 那兩次搬家的同一個病）"
+    file: ../.github/workflows/watchdog.yml
+    find: "      - run: pip install -r requirements.txt"
+    replace: "      - run: pip install pyyaml"
+    survives: false
+    why: ""
+
+  - id: M268
+    title: "requirements.txt 少一個 scripts 還在 import 的套件（pulse-probe 半夜 import feedparser 會炸，而炸在一個沒有人看的 job 裡）"
+    file: ../requirements.txt
+    find: "feedparser==6.0.14\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M271
+    title: "舊 Python 的 fallback 認不出 frozen 模組（3.11 起 os / io 這些是 frozen，origin 不是路徑——判成第三方之後，一個標準庫模組會被要求寫進 requirements.txt）"
+    file: selftest.py
+    find: "    if spec.origin in (\"built-in\", \"frozen\"):\n        return True\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M272
+    title: "相依檢查直接吃 sys.stdlib_module_names，不留 fallback（那一格是 Python 3.10 才有的）"
+    file: selftest.py
+    find: "    if std is _DEP_AUTO:\n        std = getattr(sys, \"stdlib_module_names\", None)\n"
+    replace: "    if std is _DEP_AUTO:\n        std = sys.stdlib_module_names\n"
+    survives: true
+    why: "只有在 Python 3.10 以下的直譯器上才殺得掉，而 CI 跑 3.12、開發容器跑 3.11。這一條記在清單裡是為了讓「這個保護存在的理由」有地方寫——它守的是**人的機器**，而 CI 永遠證明不了它。真正踩到的那次：macOS 內建 python3 跑 selftest 當場 AttributeError，整支跑不完。"
