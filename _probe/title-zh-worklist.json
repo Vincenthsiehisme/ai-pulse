@@ -1,5 +1,69 @@
 [
   {
+    "id": "evt-2026-07-21-9089cf",
+    "title": "Claude Sonnet 4.6",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-22-00fb73",
+    "title": "Claude Sonnet 4.5",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-22-4c0123",
+    "title": "Claude Haiku 4.5",
+    "company": "Anthropic",
+    "track": "模型能力與研究",
+    "summary": "Anthropic 發布 Claude Haiku 4.5，家族裡最輕量、最快的一線。",
+    "stale_zh": "Anthropic 發布 Claude Haiku 4.5"
+  },
+  {
+    "id": "evt-2026-07-22-7df86d",
+    "title": "Claude Opus 4.6",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-22-9c2e03",
+    "title": "Claude Opus 4.8",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-23-516cf6",
+    "title": "Claude Opus 4.7",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-23-7788b3",
+    "title": "Claude Opus 4.5",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-07-31-15c85e",
+    "title": "Grok Imagine Video 1.5 References",
+    "company": "xAI",
+    "track": "產品與商業驗證",
+    "summary": "xAI 為 Grok Imagine 影片生成推出 References 功能（Video 1.5）。",
+    "stale_zh": "Grok Imagine 影片 1.5 版 References"
+  },
+  {
     "id": "evt-2026-08-11-0f6472",
     "title": "Daybreak models are now available on AWS",
     "company": "OpenAI",
@@ -11,6 +75,62 @@
     "id": "evt-2026-08-11-797106",
     "title": "Introducing Grok Bot",
     "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-12-6e1c47",
+    "title": "NVIDIA CEO Tops Glassdoor’s 2026 List of Best CEOs",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-12-843c78",
+    "title": "LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-12-a9d882",
+    "title": "NVIDIA AI Factory Compute Is Becoming an Investable Asset Class",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-12-b76d3a",
+    "title": "Putting sign language AI into users’ hands",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-12-c210cb",
+    "title": "Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEarth Studio for downstream analysis",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-12-de5d3a",
+    "title": "MindTopo reveals VLMs’ spatial reasoning abilities",
+    "company": "Microsoft",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-12-e647a7",
+    "title": "From assistance to execution: How enterprises put AI to work",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null

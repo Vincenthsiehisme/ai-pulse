@@ -16,9 +16,9 @@ license_note: "titles + links only"
 endpoint: "https://deepmind.google/blog/rss.xml"
 robots_checked_day: "2026-08-11"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-08-11"
-items_observed: 35
-events_bound: 14
+last_observed_day: "2026-08-12"
+items_observed: 36
+events_bound: 15
 events_published: 5
 health_score: 100
 consecutive_failures: 0
@@ -34,8 +34,8 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 35 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 14 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已觀測 | 36 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 15 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 5 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**Google**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。

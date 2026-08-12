@@ -3,17 +3,19 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-11'
+generated_day: '2026-08-12'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **29** 則：`published` 26、`review` 3
+事件 **31** 則：`published` 26、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-12 | [[Events/evt-2026-08-12-a9d882\|NVIDIA AI Factory Compute Is Becoming an Investable Asset Class]] | review |
+| 2026-08-12 | [[Events/evt-2026-08-12-6e1c47\|NVIDIA CEO Tops Glassdoor’s 2026 List of Best CEOs]] | review |
 | 2026-08-11 | [[Events/evt-2026-08-11-d99e44\|NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI]] | published |
 | 2026-08-11 | [[Events/evt-2026-08-11-783838\|Why Scaling AI Compute Performance Requires a New Power Architecture]] | published |
 | 2026-08-11 | [[Events/evt-2026-08-11-6d61c1\|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]] | published |

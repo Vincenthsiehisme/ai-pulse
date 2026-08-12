@@ -1,7 +1,7 @@
 [
   {
     "full_name": "unslothai/unsloth",
-    "desc": "Local UI to run and train LLMs and diffusion models, including Kimi K3, MiniMax-H3, Gemma 4, Qwen3.6, DeepSeek-V4, FLUX and more.",
+    "desc": "Local UI to run and train LLMs and diffusion models, including Qwen3.8, Kimi K3, MiniMax-H3, Gemma 4, DeepSeek-V4, FLUX and more.",
     "language": "Python",
     "topics": [
       "agent",
@@ -11,7 +11,7 @@
       "gemma",
       "gemma3"
     ],
-    "stars": 70198,
+    "stars": 70551,
     "url": "https://github.com/unslothai/unsloth",
     "stale_zh": "本地 UI，用來訓練與運行 Kimi K3、Gemma 4、Qwen3.6、DeepSeek、GLM 等模型"
   },
@@ -27,33 +27,35 @@
       "glm",
       "hacktoberfest"
     ],
-    "stars": 163766,
+    "stars": 164003,
     "url": "https://github.com/huggingface/transformers",
     "stale_zh": null
   },
   {
-    "full_name": "Gentleman-Programming/engram",
-    "desc": "Persistent memory system for AI coding agents. Agent-agnostic Go binary with SQLite + FTS5, MCP server, HTTP API, CLI, and TUI.",
-    "language": "Go",
-    "topics": [],
-    "stars": 5970,
-    "url": "https://github.com/Gentleman-Programming/engram",
+    "full_name": "ggml-org/llama.cpp",
+    "desc": "LLM inference in C/C++",
+    "language": "C++",
+    "topics": [
+      "ggml"
+    ],
+    "stars": 123655,
+    "url": "https://github.com/ggml-org/llama.cpp",
     "stale_zh": null
   },
   {
-    "full_name": "zilliztech/VectorDBBench",
-    "desc": "Benchmark for vector databases.",
-    "language": "Python",
+    "full_name": "infiniflow/ragflow",
+    "desc": "RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs",
+    "language": "Go",
     "topics": [
-      "benchmark",
-      "cost-effectiveness",
-      "performance",
-      "vector-database",
-      "vector-search",
-      "vectordb"
+      "agent-harness",
+      "agentic-ai",
+      "agentic-retrieval",
+      "agentic-search",
+      "ai",
+      "ai-agents"
     ],
-    "stars": 1160,
-    "url": "https://github.com/zilliztech/VectorDBBench",
+    "stars": 87452,
+    "url": "https://github.com/infiniflow/ragflow",
     "stale_zh": null
   }
 ]

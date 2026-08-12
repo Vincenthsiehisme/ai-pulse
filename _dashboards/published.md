@@ -149,7 +149,7 @@
   NVIDIA 用 Vera CPU 加速 EDA 流程，攜手 Cadence、Synopsys 設計下一代 CPU 與 GPU。
 
 ## 2026-07-25
-- **[[Events/evt-2026-07-25-0fa594|Claude Opus 5]]** — Anthropic · model-capability · conf 100 · heat 未量測
+- **[[Events/evt-2026-07-25-0fa594|Claude Opus 5]]** — Anthropic · model-capability · conf 94 · heat 未量測
   Anthropic 發布旗艦模型 Claude Opus 5，官方稱其「深思且主動」，多個獨立來源同步報導。
 - **[[Events/evt-2026-07-25-74ed64|v0.26.0]]** — vLLM · infra · conf 73 · heat 未量測
   vLLM 發布 v0.26.0，含 411 個 commit、新增 Inkling 模型家族支援與多項 GPU 推論優化。
@@ -179,7 +179,7 @@
   Anthropic 發布 Claude Sonnet 5，中階模型線的新主版本。
 - **[[Events/evt-2026-07-22-2c7cdc|NTT DATA Group cuts incident analysis to 30 minutes with Codex]]** — NTT DATA · product · conf 73 · heat 未量測
   NTT DATA 用 ChatGPT Enterprise 與 Codex，把事故分析時間壓到 30 分鐘，覆蓋 9,000 名員工。
-- **[[Events/evt-2026-07-22-4c0123|Claude Haiku 4 5]]** — Anthropic · model-capability · conf 73 · heat 未量測
+- **[[Events/evt-2026-07-22-4c0123|Claude Haiku 4.5]]** — Anthropic · model-capability · conf 73 · heat 未量測
   Anthropic 發布 Claude Haiku 4.5，家族裡最輕量、最快的一線。
 - **[[Events/evt-2026-07-22-5d5ed0|Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission]]** — Google · capital · conf 73 · heat 未量測
   Google 以 4,000 萬美元 token 與額度綁 Genesis Mission，象徵大於實質。

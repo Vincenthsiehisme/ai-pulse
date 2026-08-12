@@ -3,17 +3,18 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-11'
+generated_day: '2026-08-12'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **40** 則：`published` 38、`review` 2
+事件 **41** 則：`published` 38、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-12 | [[Events/evt-2026-08-12-e647a7\|From assistance to execution: How enterprises put AI to work]] | review |
 | 2026-08-11 | [[Events/evt-2026-08-11-5bb657\|Testing ads in ChatGPT]] | published |
 | 2026-08-11 | [[Events/evt-2026-08-11-0f6472\|Daybreak models are now available on AWS]] | review |
 | 2026-08-10 | [[Events/evt-2026-08-10-f81fd9\|Expanding Daybreak as the Cyber Defense Window Narrows]] | published |
