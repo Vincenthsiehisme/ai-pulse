@@ -5,32 +5,32 @@
   },
   "src-gh-vllm-releases": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:15+00:00",
+    "last_run": "2026-08-12T16:42:17+00:00",
     "first_fetch_at": "2026-07-23T23:52:35+00:00"
   },
   "src-deepmind-blog": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:16+00:00",
+    "last_run": "2026-08-12T16:42:19+00:00",
     "first_fetch_at": "2026-07-23T23:52:37+00:00"
   },
   "src-hf-blog": {
-    "etag": "W/\"3c56c-qedi346ph8miRyAzGK4c8NA/RXU\"",
-    "last_run": "2026-08-11T16:42:18+00:00",
+    "etag": "W/\"3c5b7-p/vDyW62TOgN8qrJTX86xyLZaic\"",
+    "last_run": "2026-08-12T16:42:20+00:00",
     "first_fetch_at": "2026-07-23T23:52:39+00:00"
   },
   "src-nvidia-blog": {
-    "etag": "\"8d8a7d2c360156f6ab98136b8a98c9a0-gzip\"",
-    "last_run": "2026-08-11T22:17:19+00:00",
+    "etag": "\"1491f0109ed82d6ae3155a549a77f7ef-gzip\"",
+    "last_run": "2026-08-12T16:42:21+00:00",
     "first_fetch_at": "2026-07-23T23:52:42+00:00"
   },
   "src-msr-blog": {
-    "etag": "\"3d0d18567317465b9d4bf29e8f4d3109\"",
-    "last_run": "2026-08-11T22:17:20+00:00",
+    "etag": "\"aba162e247079b50a04c43ef65e0bb79\"",
+    "last_run": "2026-08-12T16:42:23+00:00",
     "first_fetch_at": "2026-07-23T23:52:44+00:00"
   },
   "src-meta-research": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:23+00:00",
+    "last_run": "2026-08-12T16:42:25+00:00",
     "first_fetch_at": "2026-07-23T23:52:48+00:00"
   },
   "src-ep-itre": {
@@ -40,22 +40,22 @@
   },
   "src-openai-blog": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:12+00:00",
+    "last_run": "2026-08-12T16:42:15+00:00",
     "first_fetch_at": "2026-07-25T05:21:16+00:00"
   },
   "src-anthropic-news": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:13+00:00",
+    "last_run": "2026-08-12T16:42:16+00:00",
     "first_fetch_at": "2026-07-25T05:21:18+00:00"
   },
   "src-xai-news": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:24+00:00",
+    "last_run": "2026-08-12T16:42:26+00:00",
     "first_fetch_at": "2026-07-25T05:21:28+00:00"
   },
   "src-mistral-news": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:25+00:00",
+    "last_run": "2026-08-12T16:42:28+00:00",
     "first_fetch_at": "2026-07-25T05:21:29+00:00"
   },
   "src-qwen-blog": {
@@ -65,22 +65,22 @@
   },
   "src-kol-karpathy": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:38+00:00",
+    "last_run": "2026-08-12T16:42:40+00:00",
     "first_fetch_at": "2026-07-25T05:21:31+00:00"
   },
   "src-kol-simonwillison": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:40+00:00",
+    "last_run": "2026-08-12T16:42:42+00:00",
     "first_fetch_at": "2026-07-25T05:21:33+00:00"
   },
   "src-kol-interconnects": {
-    "etag": "W/\"85f94-QXpqTSdz1HjMb79rRq5wyXj+JjU\"",
-    "last_run": "2026-08-11T22:17:41+00:00",
+    "etag": "W/\"851d5-/9z3QxXHw+Kdns/oWYh3DUCDXLc\"",
+    "last_run": "2026-08-12T16:42:43+00:00",
     "first_fetch_at": "2026-07-25T05:21:34+00:00"
   },
   "src-kol-oneusefulthing": {
-    "etag": "W/\"df961-/4h/WRcB1MWhyL9rmwuRqHLz1Ew\"",
-    "last_run": "2026-08-11T22:17:43+00:00",
+    "etag": "W/\"df961-8G46fFbdP+Hs6I1Rj+dcEgopI98\"",
+    "last_run": "2026-08-12T16:42:46+00:00",
     "first_fetch_at": "2026-07-25T05:21:36+00:00"
   },
   "src-kol-lilianweng": {
@@ -89,13 +89,13 @@
     "first_fetch_at": "2026-07-25T05:21:37+00:00"
   },
   "src-kol-raschka": {
-    "etag": "W/\"265c9b-C70KuYKYb7CYJB5VFgBWGmadTy4\"",
-    "last_run": "2026-08-11T22:17:46+00:00",
+    "etag": "W/\"265c9b-GezQYExlBhLqgvgqIpdbqI40U2A\"",
+    "last_run": "2026-08-12T16:42:48+00:00",
     "first_fetch_at": "2026-07-25T05:21:39+00:00"
   },
   "src-hn-frontpage": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:47+00:00",
+    "last_run": "2026-08-12T16:42:50+00:00",
     "first_fetch_at": "2026-07-25T05:21:40+00:00"
   },
   "src-amd-ir": {
@@ -105,32 +105,32 @@
   },
   "src-media-venturebeat": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:29+00:00",
+    "last_run": "2026-08-12T16:42:31+00:00",
     "first_fetch_at": "2026-07-26T10:05:04+00:00"
   },
   "src-media-techcrunch": {
-    "etag": "W/\"fe39c84bdb66ab105e3d71bb524c34ae\"",
-    "last_run": "2026-08-11T22:17:30+00:00",
+    "etag": "W/\"d194f0f09aa47790bf85f07aa8b90855\"",
+    "last_run": "2026-08-12T16:42:33+00:00",
     "first_fetch_at": "2026-07-26T10:05:05+00:00"
   },
   "src-media-ieee-spectrum": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:32+00:00",
+    "last_run": "2026-08-12T16:42:34+00:00",
     "first_fetch_at": "2026-07-26T10:05:06+00:00"
   },
   "src-media-mit-techreview": {
     "etag": null,
-    "last_run": "2026-08-11T22:17:33+00:00",
+    "last_run": "2026-08-12T16:42:35+00:00",
     "first_fetch_at": "2026-07-26T10:05:07+00:00"
   },
   "src-media-arstechnica": {
-    "etag": "\"e25122b433a64c6bf046c6d863ccc6da\"",
-    "last_run": "2026-08-11T22:17:36+00:00",
+    "etag": "\"c09132a39383b3deea6ce21e4bf8ef29\"",
+    "last_run": "2026-08-12T16:42:38+00:00",
     "first_fetch_at": "2026-07-26T10:05:10+00:00"
   },
   "src-media-theverge": {
-    "etag": "W/\"127b85c4cb3a2474e1d7b5c5305e6f56\"",
-    "last_run": "2026-08-11T22:17:37+00:00",
+    "etag": "W/\"42bfd357124c41e5394848d282470be8\"",
+    "last_run": "2026-08-12T16:42:39+00:00",
     "first_fetch_at": "2026-07-26T10:05:11+00:00"
   }
 }
