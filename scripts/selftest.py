@@ -4472,6 +4472,103 @@ acase(".gitignore 蓋得住原子寫的暫存檔（runner 被砍時它會留在�
 acase("references/atomic-writes.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "atomic-writes.md")), True)
 
+# ── 每日精選的選材（references/digest-framework.md）────────────────────────
+# 這一區釘的是「哪些事件可以寫成同一篇」的判準。實測結論跟直覺相反：
+# Obsidian 圖上最近的一對在文章裡最沒話講，而撐起 8/12 那篇的骨幹是一組
+# 圖上不相連的配對。所以距離是警訊不是入選條件。
+_dg_s = importlib.util.spec_from_file_location(
+    "pulse_digest_prep", os.path.join(_HERE, "pulse-digest-prep.py"))
+_dg = importlib.util.module_from_spec(_dg_s)
+_dg_s.loader.exec_module(_dg)
+
+acase("references/digest-framework.md 存在（這一層的規格書，紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "digest-framework.md")),
+      True)
+
+# frontmatter 的「空」有好幾種長相。漏掉字串 "null" 那一種，兩個都沒有 fingerprint
+# 的事件會被判成「同一件事」——2026-08-13 手算距離時就是這樣跑出 72% 的假結果，
+# 而那個數字看起來完全合理。
+acase("digest.blank：None、空字串、字串 null 都算空（漏一種就會生出假的相同）",
+      [_dg.blank(None), _dg.blank(""), _dg.blank("null"), _dg.blank("None"),
+       _dg.blank("~"), _dg.blank("anthropic:claude:opus:4.6"), _dg.blank("industry")],
+      [True, True, True, True, True, False, False])
+
+
+def _dg_ev(**kw):
+    d = {"id": "e", "company": "", "track": "", "category": "", "fingerprint": None,
+         "keywords": [], "source_ids": [], "layers": {}, "independent_sources": 0,
+         "date": "2026-08-01", "value": 50}
+    d.update(kw)
+    return d
+
+
+acase("digest.pair_distance：同 fingerprint → 1（這是同一件事，該合併成一段）",
+      _dg.pair_distance(_dg_ev(fingerprint="anthropic:claude:opus:4.6"),
+                        _dg_ev(fingerprint="anthropic:claude:opus:4.6"))[0], 1)
+# 這一條是這一區最重要的。它守的是那個真的發生過的誤判。
+acase("digest.pair_distance：兩邊都沒有 fingerprint → **不是** 1"
+      "（null == null 不代表同一件事；漏這條會讓大半配對變成假的「同一件事」）",
+      [_dg.pair_distance(_dg_ev(fingerprint=None), _dg_ev(fingerprint=None))[0],
+       _dg.pair_distance(_dg_ev(fingerprint="null"), _dg_ev(fingerprint="null"))[0]],
+      [4, 4])
+acase("digest.pair_distance：同公司 → 2，而 industry 不算同公司"
+      "（industry 是「認不出主體」的合法值，不是一家公司）",
+      [_dg.pair_distance(_dg_ev(company="NVIDIA"), _dg_ev(company="NVIDIA"))[0],
+       _dg.pair_distance(_dg_ev(company="industry"), _dg_ev(company="industry"))[0]],
+      [2, 4])
+acase("digest.pair_distance：同主線／同來源／共用關鍵詞都算 2",
+      [_dg.pair_distance(_dg_ev(track="T"), _dg_ev(track="T"))[0],
+       _dg.pair_distance(_dg_ev(source_ids=["s1"]), _dg_ev(source_ids=["s1"]))[0],
+       _dg.pair_distance(_dg_ev(keywords=["k"]), _dg_ev(keywords=["k"]))[0]],
+      [2, 2, 2])
+acase("digest.pair_distance：什麼都不共用 → 4（不相連是候選，不是障礙）",
+      _dg.pair_distance(_dg_ev(company="A", track="X"),
+                        _dg_ev(company="B", track="Y"))[0], 4)
+
+acase("digest.all_within_distance_two：全部 ≤2 → True；有一組 4 → False；"
+      "沒有配對 → False（一則談不上「全部很近」）",
+      [_dg.all_within_distance_two([{"distance": 2}, {"distance": 1}]),
+       _dg.all_within_distance_two([{"distance": 2}, {"distance": 4}]),
+       _dg.all_within_distance_two([])],
+      [True, False, False])
+
+# 107 則已上線事件裡 frontmatter 的 next_signal 有值的是 0 則，body 的
+# 〈下一個訊號〉有內容的是 107 則。讀錯那一格，這整條關係就永遠是空的。
+acase("digest.event_next_signal：讀 body 的〈下一個訊號〉，不讀 frontmatter"
+      "（那一格 0/107 有值，是個存在但沒有生產者的欄位）",
+      _dg.event_next_signal({"next_signal": "不該讀這個",
+                             "layers": {"下一個訊號": "看第三方有沒有跑出數字。"}}),
+      "看第三方有沒有跑出數字。")
+
+_DG_SIG = {"下一個訊號": "看有沒有第三方數字。"}
+acase("digest.pending_signals：只留下「說過要看什麼、而且還沒有第二個聲音」的",
+      [r["id"] for r in _dg.pending_signals([
+          _dg_ev(id="ok", layers=_DG_SIG, independent_sources=1, date="2026-08-01"),
+          _dg_ev(id="已被佐證", layers=_DG_SIG, independent_sources=2, date="2026-08-01"),
+          _dg_ev(id="還沒寫", layers={"下一個訊號": "待編輯：接下來要觀察什麼。"},
+                 independent_sources=1, date="2026-08-01"),
+          _dg_ev(id="太新", layers=_DG_SIG, independent_sources=1, date="2026-08-12"),
+      ], "2026-08-13")],
+      ["ok"])
+
+acase("digest.pick_retrospective：優先挑「說過要看什麼還沒兌現」的那一則",
+      _dg.pick_retrospective([
+          _dg_ev(id="高分但沒說要看什麼", value=99, date="2026-08-01"),
+          _dg_ev(id="有待回答的訊號", value=10, layers=_DG_SIG,
+                 independent_sources=1, date="2026-08-01"),
+      ], set(), "2026-08-13")[0]["id"], "有待回答的訊號")
+acase("digest.pick_retrospective：沒有待回答訊號時退到最高 value",
+      _dg.pick_retrospective([_dg_ev(id="低", value=10), _dg_ev(id="高", value=99)],
+                             set(), "2026-08-13")[0]["id"], "高")
+# 不排除用過的，空日會一直挑到同一則，而讀者每隔幾天就看到同一篇回顧。
+acase("digest.pick_retrospective：已經在某一期用過的不再挑",
+      _dg.pick_retrospective([_dg_ev(id="用過", value=99), _dg_ev(id="沒用過", value=10)],
+                             {"用過"}, "2026-08-13")[0]["id"], "沒用過")
+acase("digest.pick_retrospective：全部用過 → 挑不到，並說出理由（不是安靜回 None）",
+      [_dg.pick_retrospective([_dg_ev(id="用過")], {"用過"}, "2026-08-13")[0],
+       bool(_dg.pick_retrospective([_dg_ev(id="用過")], {"用過"}, "2026-08-13")[1])],
+      [None, True])
+
 # ── 變異盤點清單的鮮度：規格 references/mutation-inventory.md ────────────────
 # 這一區**不跑變異**。跑一輪要幾十次 selftest，掛在每次 push 上太慢——那是
 # scripts/mutate.py 與 .github/workflows/mutation.yml 的事。這裡只釘一件
