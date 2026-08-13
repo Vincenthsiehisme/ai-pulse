@@ -143,6 +143,19 @@ fi
 **B. 過門禁 + 索引**
 7. `python scripts/pulse-gate.py && python scripts/pulse-dashboard.py`
 
+**B2. 每日精選的選材（確定性，不寫散文）**
+
+7.5. `python scripts/pulse-digest-prep.py` → 產出 `_probe/digest-worklist.json`。
+
+   **一定要跑在第 7 步之後**：它挑的是「今晚通過門禁上線」的事件，
+   gate 還沒跑就挑不到東西，而它不會報錯，只會安靜地產出一份空的清單。
+
+   這一步**不寫任何文章**，只是把材料與關係線索備好。輸出那一行要進收尾摘要
+   （`素材=N 則 配對=M 組`），跟 prep 那一行同樣的理由：它是唯一能證明
+   「這一輪真的有挑過材料」的東西。看到 `[warn] 素材全部落在距離 2 以內`
+   照樣往下跑，那是給寫的人看的提醒，不是錯誤。規格見
+   `references/digest-framework.md`。
+
 **C. 主線敘事刷新（只在有主線變動時；這也是敘述、同樣過 speak-human-tw）**
 8. `python scripts/pulse-narrative-prep.py` → 讀 `_probe/narrative-worklist.json`。
    - **若為空陣列 → 整個 C 段跳過**（多數夜晚如此：只有某主線今晚新增／變動事件才會 dirty；dirty 由事件集合簽章決定，不由你判斷）。

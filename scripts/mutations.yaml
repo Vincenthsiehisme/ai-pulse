@@ -2586,3 +2586,27 @@ mutations:
     replace: "        if False:\n"
     survives: false
     why: ""
+
+  - id: M294
+    title: "期別改看 date 而不是 published_at（3 天前發生、今晚才上線的事件會從每一期消失——發生那天還沒上線、上線那天又不是它的 date）"
+    file: pulse-digest-prep.py
+    find: "    v = e.get(\"published_at\")\n    if blank(v):\n        return None\n"
+    replace: "    v = e.get(\"date\")\n    if blank(v):\n        return None\n"
+    survives: false
+    why: ""
+
+  - id: M295
+    title: "沒有 published_at 的事件不被回報（它們不屬於任何一期、從每一版消失，而清單看起來完全正常）"
+    file: pulse-digest-prep.py
+    find: "    return sorted(e[\"id\"] for e in events if edition_day(e) is None)\n"
+    replace: "    return []\n"
+    survives: false
+    why: ""
+
+  - id: M296
+    title: "選材沒有人接期別判定（判準對，但 main() 還是照舊用 date 挑——釘了判準沒釘消費端，這個 repo 三天內第五次）"
+    file: pulse-digest-prep.py
+    find: "    items = [e for e in events if edition_day(e) == today]\n"
+    replace: "    items = [e for e in events if e[\"date\"] == today]\n"
+    survives: false
+    why: ""

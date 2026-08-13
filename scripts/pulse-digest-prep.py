@@ -159,6 +159,39 @@ def pick_retrospective(events, featured, today):
     return ranked[0], "highest_value_unfeatured"
 
 
+def edition_day(e):
+    """這一則屬於哪一期。**看 `published_at`（我們發布它的日子），不看 `date`。**
+
+    `date` 是事情發生的日子，`published_at` 是它通過門禁進站的日子，兩者常常不同天
+    ——一則 3 天前發生的事，可能今晚才補完潤稿、才通過門禁。
+
+    用 `date` 挑材料的話，那一則**永遠不會出現在任何一期**：它發生的那天還沒上線、
+    上線的那天又不是它的 `date`。它會安靜地掉出所有版本，而沒有東西會發現。
+    實測 107 則已上線事件，依 `date` 分佈是 22 個日期、依 `published_at` 是 14 個
+    ——兩邊對不上的部分就是會掉出去的那些。
+
+    改用 `published_at` 換到一個可保證的性質：**每一則已上線事件剛好落在一期裡。**
+    跟 dashboard 的三桶對帳是同一個道理——每一則都要出現在某個地方。
+
+    取不到回 None，由 `edition_orphans()` 回報。**不要退回 `date`**：
+    那正好是這條規則要修掉的行為，退回去等於白改。
+    """
+    v = e.get("published_at")
+    if blank(v):
+        return None
+    return str(v)[:10]
+
+
+def edition_orphans(events):
+    """沒有 `published_at`、因此不屬於任何一期的已上線事件。
+
+    正常情況下是空的（`pulse-gate.py` 上線時一定會寫這一格）。不是空的代表有人
+    手改過 frontmatter、或遷移腳本漏了——那幾則會從每一期裡消失，
+    所以要印出來，不要靜靜跳過。
+    """
+    return sorted(e["id"] for e in events if edition_day(e) is None)
+
+
 def load_events(vault):
     out = []
     for p in sorted((vault / "Events").glob("*.md")):
@@ -169,7 +202,9 @@ def load_events(vault):
         out.append({
             "id": fm.get("id"), "path": p.name,
             "title": fm.get("title"), "title_zh": fm.get("title_zh"),
-            "date": str(fm.get("date") or ""), "company": fm.get("company"),
+            "date": str(fm.get("date") or ""),
+            "published_at": fm.get("published_at"),
+            "company": fm.get("company"),
             "track": fm.get("track"), "category": fm.get("category"),
             "fingerprint": fm.get("fingerprint"), "facet": fm.get("facet"),
             "value": fm.get("value"), "confidence": fm.get("confidence"),
@@ -218,7 +253,8 @@ def main():
     events = load_events(vault)
     featured = load_featured(vault)
 
-    items = [e for e in events if e["date"] == today]
+    items = [e for e in events if edition_day(e) == today]
+    orphans = edition_orphans(events)
     mode = "normal"
     retro_rule = None
     if not items:
@@ -241,6 +277,8 @@ def main():
         "all_within_distance_two": all_within_distance_two(pairs),
         "pending_signals": pending_signals(events, today),
         "already_featured": sorted(featured),
+        # 沒有 published_at 的已上線事件：它們不屬於任何一期，會從每一版消失。
+        "edition_orphans": orphans,
         "note": ("距離大不是缺點：實測 8/12 那篇的骨幹是一組距離 ≥4 的配對，"
                  "而唯一一組距離 2 的在文章裡最沒話講。"
                  "距離 1 代表同一件事、該合併成一段。"
@@ -254,6 +292,10 @@ def main():
     print(f"pulse-digest-prep  {today}  mode={mode}"
           + (f"（{retro_rule}）" if retro_rule else "")
           + f"  素材={len(items)} 則  配對={len(pairs)} 組")
+    if orphans:
+        print(f"  [warn] {len(orphans)} 則已上線事件沒有 published_at，"
+              "它們不屬於任何一期、會從每一版消失："
+              + "、".join(orphans[:5]) + ("…" if len(orphans) > 5 else ""))
     if work["all_within_distance_two"]:
         print("  [warn] 素材全部落在距離 2 以內——同題材併起來容易變成清單，"
               "寫之前先確認它們之間有沒有話要說")
