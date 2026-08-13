@@ -2249,3 +2249,60 @@ CI 只有一個 Python 版本，而這條保護守的是 CI 沒有的那些版�
 ### 清單長度
 
 263 → 268。分片 4 片，每片 67 條，仍在 20 分鐘牆內。
+
+## 第五十五輪（2026-08-13，`fix/the-bucket-that-swallowed-one`）
+
+M274–M277，四條第一版全殺。守的是 `pulse-dashboard.py` 的三桶對帳。
+
+### 這支腳本在此之前一條測試都沒有
+
+它是 `published.md` / `blocked.md` / `dropped.md` 三張人看的索引頁的唯一產出者，
+而 selftest 從來沒有 import 過它。發現的方式是我自己寫壞一個檔：
+補 `status: dropped` 時忘了 `---` 分隔線，整份 frontmatter 變成內文。
+
+`parse_note` 對這種檔回空 dict，`fm.get("status")` 是 `None`，
+而分桶是 if/elif：
+
+```python
+if   status == "published": pub.append(...)
+elif status == "review":    blk.append(...)
+elif status == "dropped":   dropped.append(...)
+# 落在三者之外的，靜靜地不屬於任何一頁
+```
+
+於是那一則從三張看板一起消失，`pulse-gate` 同樣跳過它，而腳本印出來的是：
+
+```
+pulse-dashboard  published=101  blocked=29  dropped=1
+```
+
+**131 個檔進了看板，掃到的是 132 個，而沒有任何一行說這件事。**
+是因為當時剛好知道 dropped 應該是 2 才發現的——換一個不知道的人、
+或換成夜間鏈自己跑，這一則就這樣沒了。
+
+### 只釘判準會全綠
+
+第一版只抽出 `unbucketed()` 並釘它的三種輸入。那三條測試是對的，
+但把 `main()` 裡的 `missing = unbucketed(seen)` 改成 `missing = []`，
+**832 條一條都不會紅**。M274 就是這一刀。
+
+這是這個 repo 第十次同一個形態：釘了判準，沒釘消費端。
+所以補了一條端到端的——在臨時 vault 上真的跑一次 `main()`，
+其中一個檔故意砍掉開頭的 `---`，斷言離開碼是 1。
+
+M277 是同一件事的另一個入口：把 `seen.append(...)` 拿掉，
+對帳的輸入永遠是空的，於是它永遠通過。看起來有一道對帳，實際上沒有。
+
+### 為什麼是非零離開，不是印個警告
+
+`data-refresh.yml` 那條鏈的同一個 `run:` 底下是 `bash -e`，
+非零會讓它停在 dashboard，`render` 與 `commit` 都不會發生。
+代價是一個壞檔擋掉當天的整條鏈。
+
+那是刻意選的。一個讀不進來的 Event，等於它在站上與看板上同時消失；
+帶著這種狀態把當天的 101 篇發出去，正是這個 repo 一路在寫事故報告的那件事。
+而修法的成本是改一個檔或 revert 一顆 commit。
+
+### 清單長度
+
+271 → 275。分片 4 片，每片 69 條，仍在 20 分鐘牆內。

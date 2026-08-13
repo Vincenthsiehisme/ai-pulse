@@ -2426,3 +2426,35 @@ mutations:
     replace: ""
     survives: false
     why: ""
+
+  - id: M274
+    title: "對帳結果沒有人接（判準算得出來，但 main() 不拿它決定離開碼——夜間鏈照樣帶著一則消失的事件跑完並 commit）"
+    file: pulse-dashboard.py
+    find: "    missing = unbucketed(seen)\n"
+    replace: "    missing = []\n"
+    survives: false
+    why: ""
+
+  - id: M275
+    title: "對帳把 None 當成合法狀態（而 None 正是 frontmatter 讀不進來的長相，也就是唯一真的踩到過的那一種）"
+    file: pulse-dashboard.py
+    find: "    return sorted((n, s) for n, s in rows if s not in BUCKETS)\n"
+    replace: "    return sorted((n, s) for n, s in rows if s is not None and s not in BUCKETS)\n"
+    survives: false
+    why: ""
+
+  - id: M276
+    title: "dropped.md 的 meta 行改回無條件串接（category 空的時候留下行尾空白，git am 每次都吠一句沒有訊息的警告）"
+    file: pulse-dashboard.py
+    find: "    return \"- \" + \" · \".join(x for x in (item[\"date\"], item[\"company\"], item[\"category\"]) if x)\n"
+    replace: "    return f\"- {item['date']} · {item['company']} · {item['category']}\"\n"
+    survives: false
+    why: ""
+
+  - id: M277
+    title: "掃到的檔案沒有被記下來（seen 永遠是空的，對帳於是永遠通過——跟沒有對帳一樣，但看起來有）"
+    file: pulse-dashboard.py
+    find: "        seen.append((p.name, fm.get(\"status\")))\n"
+    replace: ""
+    survives: false
+    why: ""
