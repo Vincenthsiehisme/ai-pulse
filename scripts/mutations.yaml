@@ -2538,3 +2538,51 @@ mutations:
     replace: ""
     survives: false
     why: ""
+
+  - id: M288
+    title: "「空」只認 None 不認字串 null（frontmatter 的 null 用正則讀出來是字串——2026-08-13 手算距離時 317 組配對有 229 組是這樣來的假結果）"
+    file: pulse-digest-prep.py
+    find: "    if v is None:\n        return True\n    return str(v).strip() in _EMPTY\n"
+    replace: "    return v is None\n"
+    survives: false
+    why: ""
+
+  - id: M289
+    title: "距離判定不檢查 fingerprint 是不是空的（兩則都沒有 fingerprint 就被判成「同一件事」，而大半事件的 fingerprint 都是空的）"
+    file: pulse-digest-prep.py
+    find: "    if not blank(a.get(\"fingerprint\")) and a.get(\"fingerprint\") == b.get(\"fingerprint\"):\n"
+    replace: "    if a.get(\"fingerprint\") == b.get(\"fingerprint\"):\n"
+    survives: false
+    why: ""
+
+  - id: M290
+    title: "沒有配對時也回「全部落在距離 2 以內」（只有一則的日子每天都會被警告素材太近，警告變成雜訊之後就沒有人看了）"
+    file: pulse-digest-prep.py
+    find: "    if not pairs:\n        return False\n"
+    replace: "    if not pairs:\n        return True\n"
+    survives: false
+    why: ""
+
+  - id: M293
+    title: "空日取材不排除用過的（每個空日都挑到同一則，讀者每隔幾天看到同一篇回顧，而系統以為自己每天都有東西）"
+    file: pulse-digest-prep.py
+    find: "    fresh = [e for e in events if e[\"id\"] not in featured]\n"
+    replace: "    fresh = list(events)\n"
+    survives: false
+    why: ""
+
+  - id: M291
+    title: "「當初說要看什麼」改讀 frontmatter 的 next_signal（那一格 0/107 有值，改過去之後這條關係永遠是空的，而空日規則會安靜地全部退到弱規則）"
+    file: pulse-digest-prep.py
+    find: "    return (e.get(\"layers\") or {}).get(\"\u4e0b\u4e00\u500b\u8a0a\u865f\", \"\")\n"
+    replace: "    return e.get(\"next_signal\") or \"\"\n"
+    survives: false
+    why: ""
+
+  - id: M292
+    title: "待回答訊號不排除已經有第二個獨立來源的（已經被佐證的事件還掛在「還沒兌現」清單上，那份清單就不再是「我們說過的話還沒應驗」）"
+    file: pulse-digest-prep.py
+    find: "        if (e.get(\"independent_sources\") or 0) >= 2:\n"
+    replace: "        if False:\n"
+    survives: false
+    why: ""
