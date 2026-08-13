@@ -6347,6 +6347,85 @@ acase("潤稿寫回：沒有標題的值原樣不動，別段的標題與內文�
        _ea.strip_own_heading("事實", "## 影響\n這是別段的標題，不該剝。")],
       ["NVIDIA 發表了新的東西。", "本則提到 ## 事實 這三個字但不在開頭。",
        "## 影響\n這是別段的標題，不該剝。"])
+# ── 潤稿冪等的執行點（references/enrich-idempotence.md）──────────────────
+# 這條鏈的冪等在此之前由上游的 pulse-enrich-prep.py 守：它只挑還有佔位詞的
+# Event，apply 拿到什麼寫什麼。2026-08-12 那晚 prep 沒跑，apply 就拿 08-11
+# 留下的 worklist 把昨天已經潤好的 10 則整批重寫了一遍，而 commit 訊息寫著
+# `nightly: enrich + narrative 2026-08-12`、動了 18 個檔——看起來是健康的一晚。
+_EA_PH = "## 事實\n待編輯：一句話講清楚發生了什麼。\n"
+_EA_DONE = "## 事實\nOpenAI 開始在 ChatGPT 測試廣告，說法是要支撐免費版。\n"
+acase("潤稿寫回：body 還有佔位詞 → 可以寫（基準線；沒有這條，下面幾條"
+      "可能是因為它什麼都拒才綠）",
+      _ea.overwrite_verdict({"enriched": False}, _EA_PH), None)
+acase("潤稿寫回：body 沒有佔位詞 → 拒寫"
+      "（會走到這裡代表上游拿的是過期的 worklist，而那一晚沒有任何東西會紅）",
+      bool(_ea.overwrite_verdict({"enriched": True}, _EA_DONE)), True)
+acase("潤稿寫回：--force 時放行（逃生口要留給「人在追已知故障」的場合，"
+      "例如 2026-08-10 修 13 則被段落標題洗成空的事實層）",
+      _ea.overwrite_verdict({"enriched": True}, _EA_DONE, force=True), None)
+# 判準要讀 body 的實際狀態，不讀 frontmatter 那一格。2026-08-10 那次事故就是
+# enriched: true 而事實層其實是空的——以旗標為準的話那批永遠救不回來。
+acase("潤稿寫回：判準看佔位詞不看 enriched 旗標（旗標寫錯過，佔位詞沒有）",
+      [_ea.overwrite_verdict({"enriched": True}, _EA_PH),
+       bool(_ea.overwrite_verdict({"enriched": False}, _EA_DONE))],
+      [None, True])
+
+# 消費端。上面釘的是判準，而判準再對，main() 不拿它擋就等於這一層不存在——
+# 2026-08-13 已經因為同樣的理由讓 M274 與 M283 活下來過。這條真的跑一次 main()。
+_EA_FM = ("---\nid: {i}\ntitle: T\ndate: '2026-08-12'\nstatus: review\n"
+          "company: C\ncategory: product\nconfidence: 80\nheat: null\n"
+          "enriched: {e}\n---\n\n{b}\n## 證據\n- x\n\n## 脈絡\nc\n\n"
+          "## 影響\ni\n\n## 判斷\nj\n\n## 下一個訊號\nn\n")
+
+
+def _ea_run(force=False):
+    """臨時 vault：一則已潤稿、一則還有佔位詞。回傳 (離開碼, 已潤稿那則有沒有被改)。"""
+    with _tf8.TemporaryDirectory() as _ea_v:
+        _ea_ev = os.path.join(_ea_v, "Events")
+        os.makedirs(_ea_ev)
+        for _ea_i, (_ea_e, _ea_b) in {"evt-done": ("true", _EA_DONE),
+                                      "evt-todo": ("false", _EA_PH)}.items():
+            open(os.path.join(_ea_ev, _ea_i + ".md"), "w", encoding="utf-8").write(
+                _EA_FM.format(i=_ea_i, e=_ea_e, b=_ea_b))
+        _ea_payload = {k: {"summary": "覆蓋後的摘要", "fact": "覆蓋後的事實層",
+                           "context": "c", "impact": "i", "judgment": "j",
+                           "next_signal": "n"} for k in ("evt-done", "evt-todo")}
+        _ea_rf = os.path.join(_ea_v, "r.json")
+        open(_ea_rf, "w", encoding="utf-8").write(_json.dumps(_ea_payload))
+        _ea_argv, _ea_old = sys.argv, os.environ.get("VAULT_DIR")
+        sys.argv = ["pulse-enrich-apply.py", "--in", _ea_rf] + (["--force"] if force else [])
+        os.environ["VAULT_DIR"] = _ea_v
+        try:
+            with _c2.redirect_stdout(io.StringIO()), _c2.redirect_stderr(io.StringIO()):
+                _ea_rc = _ea.main()
+        finally:
+            sys.argv = _ea_argv
+            if _ea_old is None:
+                os.environ.pop("VAULT_DIR", None)
+            else:
+                os.environ["VAULT_DIR"] = _ea_old
+        _ea_txt = open(os.path.join(_ea_ev, "evt-done.md"), encoding="utf-8").read()
+        return _ea_rc, "覆蓋後的事實層" in _ea_txt
+
+
+acase("潤稿寫回 main()：已潤稿的那則沒被動，而且離開碼是 1"
+      "（非零會讓夜間鏈停在這裡、不 push 半成品——這正是 08-12 那晚缺的）",
+      list(_ea_run()), [1, False])
+acase("潤稿寫回 main()：--force 時照寫、離開碼 0（反方向；"
+      "只釘「會拒」的話，一個永遠拒寫的版本也會全綠）",
+      list(_ea_run(force=True)), [0, True])
+
+# 逃生口不能寫進半夜那一端。runbook 一旦寫了「拒寫就加 --force 再跑一次」，
+# 這道守衛等於不存在，而那一端正是最沒有能力判斷「這次覆寫是對的嗎」的一端。
+_EA_RB = open(os.path.join(_HERE, "enrich-runbook.md"), encoding="utf-8").read()
+_EA_AUTO = _EA_RB[_EA_RB.index("## 自動化模式"):]
+acase("enrich-runbook 的自動化模式那一節不准出現 --force"
+      "（逃生口寫進無人值守的那一端，等於把守衛關掉）",
+      "--force" in _EA_AUTO, False)
+acase("references/enrich-idempotence.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "enrich-idempotence.md")),
+      True)
+
 # 真正的判準：走完整條 apply → gate，斷言 gate 抽得到內容。純函式對而呼叫端
 # 沒接，這一格等於不存在——M198 就是這樣活下來的。
 _gate_spec2 = importlib.util.spec_from_file_location(

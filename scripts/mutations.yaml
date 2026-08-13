@@ -2514,3 +2514,27 @@ mutations:
     replace: "- id: src-xai-news\n  excerpt_fetch: true\n"
     survives: false
     why: ""
+
+  - id: M285
+    title: "拒寫判準改看 enriched 旗標而不是佔位詞（2026-08-10 那次事故正是 enriched: true 而事實層是空的——以旗標為準的話那批永遠救不回來）"
+    file: pulse-enrich-apply.py
+    find: "    if PLACEHOLDER_RE.search(body):\n        return None\n"
+    replace: "    if not fm.get(\"enriched\"):\n        return None\n"
+    survives: false
+    why: ""
+
+  - id: M286
+    title: "拒寫判準沒有人接（main() 不擋，夜間鏈照樣拿過期 worklist 把昨天的文章整批重寫，而 commit 看起來很健康）"
+    file: pulse-enrich-apply.py
+    find: "        refuse = overwrite_verdict(fm, body, args.force)\n"
+    replace: "        refuse = None\n"
+    survives: false
+    why: ""
+
+  - id: M287
+    title: "--force 失效（逃生口沒了，2026-08-10 那種「人在追已知故障要覆寫 13 則」的場合就沒有路——一道只會拒絕的守衛會被繞過去，繞過去之後它就是永遠綠的燈）"
+    file: pulse-enrich-apply.py
+    find: "    if force:\n        return None\n"
+    replace: ""
+    survives: false
+    why: ""

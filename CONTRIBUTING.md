@@ -83,11 +83,20 @@ scripts/**  .github/workflows/**  _config/**  *.md  其餘所有檔案
 ```bash
 git checkout -b fix/短描述        # 或 docs/ chore/ feat/
 # 改、測
-python3 scripts/test-pulse-score.py
+python3 scripts/selftest.py            # 這一支才是門檻：CI 跑它，它紅就別推
+python3 scripts/test-pulse-score.py    # lib/quality 與 lib/cluster 的離線單元測試
 git commit                        # commit message 寫「為什麼」，不是「改了什麼」
 git push -u origin fix/短描述
 # 開 PR
 ```
+
+**兩支測試不是同一件事，別只跑第二支。** `selftest.py` 是這個 repo 的門檻——
+八百多條判準，`data-refresh.yml` 的 Config invariants 那一步跑的就是它，紅了 CI 就紅。
+`test-pulse-score.py` 只有兩百多行，範圍是 `lib/quality.py` 與 `lib/cluster.py`。
+
+這一段是 2026-08-13 補的：在那之前這裡只寫了第二支，而半夜那條潤稿鏈的
+routine 是照這份文件寫的——於是「改完碼要跑的測試」這句話，在整個系統裡指向的
+是覆蓋率最小的那一支。沒有人會發現，因為它永遠是綠的。
 
 ---
 

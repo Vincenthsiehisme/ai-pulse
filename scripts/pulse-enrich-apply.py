@@ -23,10 +23,36 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import voice_clean  # noqa: E402
-from lib.notes import dump_frontmatter, parse_note  # noqa: E402
+from lib.notes import PLACEHOLDER_RE, dump_frontmatter, parse_note  # noqa: E402
 
 LAYER_ORDER = [("事實", "fact"), ("證據", None), ("脈絡", "context"),
                ("影響", "impact"), ("判斷", "judgment"), ("下一個訊號", "next_signal")]
+
+
+def overwrite_verdict(fm, body, force=False):
+    """要不要讓這一則被寫回。回 None＝可以寫；回字串＝拒絕的理由。
+
+    規格：references/enrich-idempotence.md。
+
+    這條鏈的冪等在此之前**不是由這一步守的**，是由上游 pulse-enrich-prep.py 守的
+    ——prep 只挑還有佔位詞的 Event，apply 拿到什麼寫什麼。2026-08-12 那晚 prep
+    沒跑，apply 就拿 08-11 留下的清單把昨天已經潤好的 10 則整批重寫了一遍，
+    而 commit 訊息寫著 `nightly: enrich + narrative 2026-08-12`、動了 18 個檔，
+    看起來是健康的一晚。當天真正該潤的 7 則一則都沒被碰。
+
+    一個不變式的執行點，掛在另一步有沒有被叫到上——而那一步是由一份給模型讀的
+    文件指揮的。所以守衛搬到寫入的那一刻。
+
+    判準用**佔位詞**不用 `enriched` 旗標：佔位詞是 body 的實際狀態，`enriched`
+    是一格可以被寫錯的 frontmatter。2026-08-10 那次事故就是 `enriched: true`
+    但事實層其實是空的——以旗標為準的話那批永遠救不回來。
+    """
+    if PLACEHOLDER_RE.search(body):
+        return None
+    if force:
+        return None
+    return (f"已經潤過（body 沒有佔位詞，enriched={fm.get('enriched')!r}）。"
+            "正常路徑上 prep 不會再挑它，會走到這裡代表上游拿的是過期的 worklist")
 
 
 def extract_section(body, heading):
@@ -78,6 +104,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="infile", required=True)
     ap.add_argument("--dry-run", action="store_true")
+    # 逃生口，給「人在追一個已知故障、知道自己在覆蓋什麼」的場合
+    # （例：2026-08-10 修 13 則被段落標題洗成空的事實層）。
+    # **不要寫進 enrich-runbook 的自動化模式那一節**——半夜那一端照做的話，
+    # 這道守衛就等於不存在，而它正是最沒有能力判斷「這次覆寫是對的嗎」的一端。
+    # selftest 有一條釘住 runbook 裡不准出現 --force。
+    ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
 
     vault = Path(os.environ["VAULT_DIR"])
@@ -92,6 +124,7 @@ def main():
 
     total_changes = 0
     written = 0
+    refused = []
     print(f"pulse-enrich-apply  收到 {len(result)} 個 Event 的 enrich 結果\n")
     for eid, data in result.items():
         p = by_id.get(eid)
@@ -99,6 +132,12 @@ def main():
             print(f"  [skip] 找不到 Event {eid}")
             continue
         fm, body = parse_note(p.read_text("utf-8"))
+        refuse = overwrite_verdict(fm, body, args.force)
+        if refuse:
+            refused.append((eid, refuse))
+            print(f"  [拒寫] {eid}  ({p.name})")
+            print(f"    {refuse}")
+            continue
         evidence_block = extract_section(body, "證據")
 
         # 每段 prose 過 voice_clean
@@ -164,6 +203,16 @@ def main():
         print("[dry-run] 未寫檔")
     else:
         print(f"寫入 {written} 個 Event。")
+
+    if refused:
+        print(f"\n[fatal] {len(refused)} 則被拒寫——它們的 body 沒有佔位詞，"
+              "也就是已經潤過了。", file=sys.stderr)
+        for eid, why in refused:
+            print(f"  {eid}  {why}", file=sys.stderr)
+        print("正常路徑上 prep 不會再挑已潤稿的事件。先確認這一輪有沒有真的跑過 "
+              "pulse-enrich-prep.py；確定要覆寫再加 --force。"
+              "理由見 references/enrich-idempotence.md。", file=sys.stderr)
+        return 1
     return 0
 
 
