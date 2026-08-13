@@ -125,7 +125,18 @@ fi
 補跑過就在收尾摘要註明「今晚由潤稿端補跑抓取」——這是要被看見的異常，不是可以吞掉的細節。
 
 **A. 事件潤稿（敘述）**
-4. prep：`python scripts/pulse-enrich-prep.py` → 讀 `_probe/enrich-worklist.json`。若為空陣列 → A 段跳過。
+
+> **第 4 步不可以跳過，也不可以拿倉庫裡現成的 `_probe/enrich-worklist.json` 就開始潤。**
+> 那個檔是**上一班留下來的產物**，它躺在 repo 裡是因為它進版控，不是因為它是今天的。
+> 2026-08-12 那晚就是這樣：prep 沒跑，於是拿 08-11 的清單把昨天已經潤好的 10 則
+> 整批重寫了一遍，當天真正該潤的 7 則一則都沒碰，而 commit 訊息寫著
+> `nightly: enrich + narrative 2026-08-12`、動了 18 個檔——看起來是健康的一晚。
+> 現在 `pulse-enrich-apply.py` 會拒寫已經潤過的事件並回離開碼 1，所以跳過這一步
+> 不再是安靜的錯，而是會當場停住的錯。經過見 `references/enrich-idempotence.md`。
+
+4. prep：`python scripts/pulse-enrich-prep.py` → 讀 `_probe/enrich-worklist.json`。
+   **這一步的輸出要貼進收尾摘要**（那一行長這樣：`pulse-enrich-prep  待 enrich=N  已 enrich 跳過=M`）
+   ——它是唯一能證明「清單是這一輪產的」的東西。若為空陣列 → A 段跳過。
 5. 依本檔「流程 步驟 2–3」的 schema 與 speak-human-tw 規則，為 worklist 每個 Event 產出 `enrich-result.json`（dict keyed by event_id）。紅線：判斷不由你決定發不發、只依證據不編造、去 AI 口吻。
 6. apply：先 `python scripts/pulse-enrich-apply.py --in enrich-result.json --dry-run` 自檢，再正式 `python scripts/pulse-enrich-apply.py --in enrich-result.json`。
 
@@ -235,7 +246,7 @@ repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀
     commit，然後回報一盞綠燈。警報要長在推得上去的那一邊（`data-refresh.yml`），
     不是這裡。理由全文見 `references/health-alarms.md`。
     selftest 會擋：這份 runbook 裡不准出現帶警報旗標的 `pulse-monitor` 呼叫。
-18. 收尾摘要：潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、翻了幾條 repo 描述與幾則 Event 標題
+18. 收尾摘要：**prep 那一行原樣照貼**（`待 enrich=N  已 enrich 跳過=M`——沒有這一行就證明不了清單是今晚產的）、潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、翻了幾條 repo 描述與幾則 Event 標題
     （各退件幾條、為什麼）、push 的 commit hash
     （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 17 步的監看輸出。
     **C2 那一段要分開寫**，而且是四種不是兩種：「Actions 沒準備清單」（抓取鏈出事）／
