@@ -9,7 +9,7 @@
   Google DeepMind 發表手語轉文字模型 SL2T，並說它已經驅動給聾人與聽損使用者的新功能。
 - **[[Events/evt-2026-08-12-de5d3a|MindTopo reveals VLMs’ spatial reasoning abilities]]** — Microsoft · research · conf 73 · heat 未量測
   微軟研究院推出 MindTopo，專門量視覺語言模型懂不懂拓撲關係。
-- **[[Events/evt-2026-08-12-e647a7|From assistance to execution: How enterprises put AI to work]]** — OpenAI · research · conf 73 · heat 未量測
+- **[[Events/evt-2026-08-12-e647a7|From assistance to execution: How enterprises put AI to work]]** — OpenAI · research · conf 83 · heat 未量測
   OpenAI 發布企業採用研究，主張企業正從輔助走向執行，領先者的差距在拉開。
 
 ## 2026-08-11

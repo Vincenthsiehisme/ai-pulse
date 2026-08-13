@@ -3,7 +3,7 @@ id: actor-xai
 kind: company
 in_dictionary: true
 aliases: ["x.AI"]
-generated_day: '2026-08-12'
+generated_day: '2026-08-13'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

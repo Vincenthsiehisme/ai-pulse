@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-08-12'
+generated_day: '2026-08-13'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -18,7 +18,7 @@ tags: [track]
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-11 | [[Events/evt-2026-08-11-dc5cff\|v0.27.1]] | published |
+| 2026-08-11 | [[Events/evt-2026-08-11-6d61c1\|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-6c9649\|AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency]] | published |
 | 2026-08-03 | [[Events/evt-2026-08-03-591d58\|Orchard: An open framework for scalable agentic AI]] | published |
 | 2026-07-28 | [[Events/evt-2026-07-28-a1c41f\|Scientific computing in the age of agentic AI]] | published |

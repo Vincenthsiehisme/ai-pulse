@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-08-12'
+generated_day: '2026-08-13'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -16,18 +16,18 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 總數 | 132 |
-| `published` | 96 |
-| `review` | 35 |
-| `dropped` | 1 |
+| 總數 | 134 |
+| `published` | 107 |
+| `review` | 25 |
+| `dropped` | 2 |
 | 帶 `stale_backfill` | 12 |
 
 ## 語料
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 16 |
-| 起訖 | 2026-07-24 … 2026-08-12 |
+| `_corpus/` 天數 | 17 |
+| 起訖 | 2026-07-24 … 2026-08-13 |
 
 ## 來源
 
@@ -53,9 +53,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-08-12T16:42:51+00:00 |
-| 條目 / 來源 | 445 items / 32 sources |
-| status 分佈 | 200 22、304 2、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
+| 時間 | 2026-08-13T16:41:45+00:00 |
+| 條目 / 來源 | 425 items / 32 sources |
+| status 分佈 | 200 21、304 3、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |
 
 零產出那一格屬於哪一種 0，看那一天的 `_probe/<日>/report.md`

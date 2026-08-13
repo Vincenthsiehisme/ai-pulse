@@ -1,61 +1,18 @@
 [
   {
-    "full_name": "unslothai/unsloth",
-    "desc": "Local UI to run and train LLMs and diffusion models, including Qwen3.8, Kimi K3, MiniMax-H3, Gemma 4, DeepSeek-V4, FLUX and more.",
+    "full_name": "browser-use/browser-use",
+    "desc": "🌐 Make websites accessible for AI agents. Automate tasks online with ease.",
     "language": "Python",
     "topics": [
-      "agent",
-      "chatgpt",
-      "deepseek",
-      "fine-tuning",
-      "gemma",
-      "gemma3"
+      "ai-agents",
+      "ai-tools",
+      "browser-automation",
+      "browser-use",
+      "llm",
+      "playwright"
     ],
-    "stars": 70551,
-    "url": "https://github.com/unslothai/unsloth",
-    "stale_zh": "本地 UI，用來訓練與運行 Kimi K3、Gemma 4、Qwen3.6、DeepSeek、GLM 等模型"
-  },
-  {
-    "full_name": "huggingface/transformers",
-    "desc": "🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.",
-    "language": "Python",
-    "topics": [
-      "audio",
-      "deep-learning",
-      "deepseek",
-      "gemma",
-      "glm",
-      "hacktoberfest"
-    ],
-    "stars": 164003,
-    "url": "https://github.com/huggingface/transformers",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ggml-org/llama.cpp",
-    "desc": "LLM inference in C/C++",
-    "language": "C++",
-    "topics": [
-      "ggml"
-    ],
-    "stars": 123655,
-    "url": "https://github.com/ggml-org/llama.cpp",
-    "stale_zh": null
-  },
-  {
-    "full_name": "infiniflow/ragflow",
-    "desc": "RAGFlow is a leading open-source Retrieval-Augmented Generation (RAG) engine that fuses cutting-edge RAG with Agent capabilities to create a superior context layer for LLMs",
-    "language": "Go",
-    "topics": [
-      "agent-harness",
-      "agentic-ai",
-      "agentic-retrieval",
-      "agentic-search",
-      "ai",
-      "ai-agents"
-    ],
-    "stars": 87452,
-    "url": "https://github.com/infiniflow/ragflow",
+    "stars": 109100,
+    "url": "https://github.com/browser-use/browser-use",
     "stale_zh": null
   }
 ]

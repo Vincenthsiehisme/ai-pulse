@@ -3,7 +3,7 @@ id: actor-bytedance
 kind: company
 in_dictionary: true
 aliases: ["字節跳動", "字节"]
-generated_day: '2026-08-12'
+generated_day: '2026-08-13'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
