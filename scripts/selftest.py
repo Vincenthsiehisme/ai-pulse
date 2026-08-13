@@ -4477,6 +4477,76 @@ acase("pulse-gate：heat 高但證據撐得住就不擋（反方向；只釘一�
                                                 "platformBreadth": 2}),
                    _GBODY, _GATE_T)[0], [])
 
+# ── pulse-dashboard 的三桶對帳（2026-08-13）──────────────────────────────
+# 這支腳本在此之前**一條測試都沒有**，而它是三張人看的索引頁的唯一產出者。
+# 它用 if/elif 分桶：status 落在三者之外的檔案不屬於任何一頁，而且不報錯。
+# 實際踩到的那次是一個 frontmatter 被寫壞的 Event（少了 --- 分隔線），
+# parse_note 回空 dict、status 是 None，於是它從三張看板一起消失，
+# 印出來的卻是「published=101 blocked=29 dropped=1」——一個看起來很正常的句子。
+_ds = importlib.util.spec_from_file_location(
+    "pulse_dashboard", os.path.join(_HERE, "pulse-dashboard.py"))
+_dmod = importlib.util.module_from_spec(_ds)
+_ds.loader.exec_module(_dmod)
+
+acase("pulse-dashboard.unbucketed：三個 status 都認得的話沒有漏網（基準線；"
+      "沒有這條，下面兩條可能是因為它什麼都回才綠）",
+      _dmod.unbucketed([("a.md", "published"), ("b.md", "review"),
+                        ("c.md", "dropped")]), [])
+acase("pulse-dashboard.unbucketed：status 是 None → 抓出來"
+      "（frontmatter 讀不進來的檔，是「壞了」不是「沒狀態」，"
+      "而它會安靜地從三張看板一起消失）",
+      _dmod.unbucketed([("a.md", "published"), ("bad.md", None)]),
+      [("bad.md", None)])
+acase("pulse-dashboard.unbucketed：沒看過的 status 也抓出來"
+      "（將來多一種狀態時，要在這裡吵，不是安靜地少算一則）",
+      _dmod.unbucketed([("a.md", "published"), ("x.md", "archived")]),
+      [("x.md", "archived")])
+acase("pulse-dashboard.drop_meta_line：category 空的時候不留行尾空白"
+      "（dropped 的 category 常常是空的——人按掉它的理由往往就是"
+      "「沒有一格裝得下」——而行尾空白會讓 git am 每次都吠一句沒有訊息的警告）",
+      [_dmod.drop_meta_line({"date": "2026-08-12", "company": "NVIDIA", "category": ""}),
+       _dmod.drop_meta_line({"date": "2026-07-15", "company": "industry",
+                             "category": "research"})],
+      ["- 2026-08-12 · NVIDIA", "- 2026-07-15 · industry · research"])
+
+# 上面三條釘的是判準，這兩條釘的是**消費端**：main() 有沒有真的拿去用、
+# 而且拿它決定離開碼。只釘判準的話，把 main() 裡那一行改成 `missing = []`
+# 一樣全綠——這個 repo 已經在別的地方犯過九次這種錯（見 M78/M81 那一段）。
+_dash_fm = ("---\nid: {i}\ntitle: T\ndate: '2026-08-12'\nstatus: {s}\n"
+            "company: C\ncategory: product\nconfidence: 80\nheat: null\n---\n\n## 事實\nX\n")
+
+
+def _dash_run(specs, broken=()):
+    """在一個臨時 vault 上跑一次 main()，回傳離開碼。specs = {檔名: status}。
+    broken 裡的檔名會被砍掉開頭的 --- ——正是 2026-08-13 那個檔的長相。"""
+    with _tf8.TemporaryDirectory() as _dash_v:
+        _dash_ev = os.path.join(_dash_v, "Events")
+        os.makedirs(_dash_ev)
+        for _dash_n, _dash_s in specs.items():
+            _dash_t = _dash_fm.format(i=_dash_n[:-3], s=_dash_s)
+            if _dash_n in broken:
+                _dash_t = _dash_t.split("\n", 1)[1]
+            open(os.path.join(_dash_ev, _dash_n), "w", encoding="utf-8").write(_dash_t)
+        _dash_old = os.environ.get("VAULT_DIR")
+        os.environ["VAULT_DIR"] = _dash_v
+        try:
+            with _c2.redirect_stdout(io.StringIO()), \
+                    _c2.redirect_stderr(io.StringIO()):
+                return _dmod.main()
+        finally:
+            if _dash_old is None:
+                os.environ.pop("VAULT_DIR", None)
+            else:
+                os.environ["VAULT_DIR"] = _dash_old
+
+
+acase("pulse-dashboard.main：三個檔都分得掉 → 離開碼 0（基準線）",
+      _dash_run({"a.md": "published", "b.md": "review", "c.md": "dropped"}), 0)
+acase("pulse-dashboard.main：有一個檔 frontmatter 讀不進來 → 離開碼 1"
+      "（釘的是消費端。判準對、但沒有人拿它決定離開碼的話，"
+      "整條夜間鏈還是會帶著一則消失的事件跑完並 commit）",
+      _dash_run({"a.md": "published", "bad.md": "review"}, broken={"bad.md"}), 1)
+
 # 缺席要一路走到前台。heat=None 在後端誠實、在畫面上印成 0 的話，讀的人看到的
 # 還是「量過了，很冷」——那是這次要修掉的那個謊，只是換一層出現。
 _rs = importlib.util.spec_from_file_location(

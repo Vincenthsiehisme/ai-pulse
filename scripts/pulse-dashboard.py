@@ -12,6 +12,19 @@ status: dropped 在 gate / enrich-prep / render / monitor 眼中都是隱形的�
 裡消失，而「東西為什麼不見了」是這套系統最貴的一種問題。所以它必須有一頁列著，
 連理由一起列。
 
+**三個桶加起來必須等於掃到的檔案數。** 這支腳本用 if/elif 分桶，任何一個
+status 落在三者之外的檔案就不屬於任何一頁——不報錯、不警告，只是不見。
+2026-08-13 就這樣少算過一則：一個 frontmatter 被寫壞的 Event（少了 `---`
+分隔線），`parse_note` 回空 dict、status 是 None，於是它從三張看板上一起消失，
+而腳本印出來的是「published=101 blocked=29 dropped=1」——一個看起來完全正常
+的句子。是因為當時剛好知道 dropped 應該是 2 才發現的。
+
+所以最後多一道對帳：掃到幾個檔、分掉幾個，對不上就把漏掉的印出來並非零離開。
+非零會讓 data-refresh 那條鏈停在這裡（同一個 `run:` 底下是 `bash -e`），
+render 與 commit 都不會發生。那是刻意的：一個讀不進來的 Event 等於它在站上
+與看板上同時消失，帶著這種狀態把當天的 101 篇發出去，正是這個 repo 一路在
+寫事故報告的那件事。
+
 用法：VAULT_DIR=/path/to/AI-Pulse python scripts/pulse-dashboard.py
 依賴：PyYAML。
 """
@@ -23,6 +36,29 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib.notes import parse_note  # noqa: E402
 
+# 分桶認得的三個 status。改這裡等於改對帳的定義，不要順手加。
+BUCKETS = ("published", "review", "dropped")
+
+
+def unbucketed(rows):
+    """rows = [(檔名, status)]。回傳沒有歸到任何一桶的，排序過。
+
+    None 也算漏掉，而且是最重要的那一種：`parse_note` 讀不到 frontmatter 時
+    回的是空 dict，`fm.get("status")` 就是 None。那不是「這個檔沒有狀態」，
+    是「這個檔壞了」，兩件事在這裡必須長得一樣顯眼。
+    """
+    return sorted((n, s) for n, s in rows if s not in BUCKETS)
+
+
+def drop_meta_line(item):
+    """dropped.md 每則底下的第一行。空欄位直接不出現。
+
+    原本是 f"- {date} · {company} · {category}"，而 dropped 的 category 常常
+    是空的（人按掉它的理由往往就是「沒有一格裝得下」）——串出來的行尾就多一個
+    空白，`git am` 每次都吠一句 trailing whitespace。那是雜訊，久了會蓋掉真的警告。
+    """
+    return "- " + " · ".join(x for x in (item["date"], item["company"], item["category"]) if x)
+
 
 def main():
     vault = Path(os.environ["VAULT_DIR"])
@@ -31,8 +67,10 @@ def main():
     dash.mkdir(parents=True, exist_ok=True)
 
     pub, blk, dropped = [], [], []
+    seen = []
     for p in sorted(events_dir.glob("*.md")):
         fm, _ = parse_note(p.read_text("utf-8"))
+        seen.append((p.name, fm.get("status")))
         item = {
             "id": fm.get("id"), "title": fm.get("title", fm.get("id")),
             "date": str(fm.get("date") or ""), "company": fm.get("company", ""),
@@ -87,7 +125,7 @@ def main():
           "> 情況變了（例如出現第二個獨立來源）就把 status 改回 review，它會重新走一次門禁。", ""]
     for it in dropped:
         dl.append(f"## [[Events/{it['id']}|{it['title']}]]")
-        dl.append(f"- {it['date']} · {it['company']} · {it['category']}")
+        dl.append(drop_meta_line(it))
         dl.append(f"- 按掉的人／機制：{it['dropped_by'] or '（未記錄）'}"
                   f"　時間：{it['dropped_at'] or '（未記錄）'}")
         dl.append(f"- 當時的 blockers：{', '.join(it['blockers']) or '（無）'}")
@@ -99,6 +137,17 @@ def main():
     print(f"  → {dash / 'published.md'}")
     print(f"  → {dash / 'blocked.md'}")
     print(f"  → {dash / 'dropped.md'}")
+
+    # 對帳。三張看板已經寫完才檢查，是為了讓人能同時看到「產出長什麼樣」跟
+    # 「哪一則不見了」；非零離開會擋住後面的 render 與 commit。
+    missing = unbucketed(seen)
+    if missing:
+        print(f"[fatal] 掃到 {len(seen)} 個檔，只有 {len(pub) + len(blk) + len(dropped)} 個"
+              f"進了看板。以下這些 status 不屬於 {'/'.join(BUCKETS)}：", file=sys.stderr)
+        for name, st in missing:
+            hint = "（frontmatter 讀不進來——多半是少了 --- 分隔線）" if st is None else ""
+            print(f"  {name}  status={st!r} {hint}", file=sys.stderr)
+        return 1
     return 0
 
 
