@@ -64,5 +64,41 @@
         "summary": ""
       }
     ]
+  },
+  {
+    "id": "evt-2026-08-13-1db924",
+    "path": "evt-2026-08-13-1db924.md",
+    "title": "Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-linux-native-app/",
+        "title": "Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More",
+        "summary": "GeForce NOW is giving cloud gaming an extra-credit upgrade just in time for back-to-school season. The native Linux app for GeForce NOW is officially out of beta. GeForce NOW is also delivering new cloud optimizations that make Frame Generation feel even more responsive while streaming. On top of th"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-13-b9676e",
+    "path": "evt-2026-08-13-b9676e.md",
+    "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/dali-rajic-chief-revenue-officer",
+        "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer",
+        "summary": "OpenAI appoints Dali Rajic as Chief Revenue Officer to lead its global revenue organization and help businesses realize the full value of AI."
+      }
+    ]
   }
 ]

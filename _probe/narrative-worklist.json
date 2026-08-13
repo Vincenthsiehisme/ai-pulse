@@ -3,15 +3,33 @@
     "slug": "model-research",
     "name": "模型能力與研究",
     "current_thesis": "訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。",
-    "current_now": "這條線最近分兩股。一股是模型往「小而專、能落地」走：Liquid AI 發 LFM2.5-2.6B 主打端側 agent，NVIDIA 把自駕的 Alpamayo 2 Super 開放商用，OpenAI 揭 GPT-Live 的即時語音架構，都不是追單一最強，而是把能力塞進特定尺寸與場景。另一股是安全與濫用治理，且清一色自述：OpenAI 這幾天連發兩則，一則查禁柬埔寨詐騙集團（對方拿 ChatGPT 做投資與假交友詐騙），一則說明近期涉及自家模型的第三方網路安全評測事件、並說要加上新的防護，接上先前對接 EU AI Act 的 provenance 說明。後面那則的主題對得上 07-21 OpenAI 與 Hugging Face 那起評測資安事件留下的「等完整事後報告」，但摘要沒有指名同一起，還不能算接上。效率端 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於自己提醒這種跑分經不起設定操弄。",
-    "current_next": "端側與開放模型那批看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 在長尾場景的第三方驗證與授權開放程度，GPT-Live 看有沒有延遲與打斷準確率的可比數字。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述：查禁詐騙看有沒有完整威脅情報與執法佐證、provenance 做法有沒有被監管明確接受，評測事件那則看執行評測的第三方會不會出面講同一組事件——那是這條線目前唯一能把自述變成雙來源的地方。",
+    "current_now": "這條線最新加了三則：NVIDIA 把 Nemotron 3 家族擴到 Nemotron 3.5 Lightning，主打長時間執行 agent 任務的效率，同時發布 NeMo Switchyard；NVIDIA 另開一個系列文章，八月起要陸續介紹本地開源模型與代理社群的夥伴，目前只有開場頁、沒點名具體對象；OpenAI 把 Daybreak 網路安全治理框架具體化成 GPT-5.6-Cyber，一個專供審核過對象使用的資安模型，跟同批「先審核、再開放」的存取管制公告接在一起看。這些延續原本兩股主軸：一股是模型往小而專、能落地走（LFM2.5-2.6B 端側 agent、Alpamayo 2 Super 自駕商用、GPT-Live 即時語音架構）；另一股是安全與濫用治理，且清一色自述（查禁柬埔寨詐騙集團、第三方網安評測事件說明、EU AI Act provenance）。效率端 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於自己提醒這種跑分經不起設定操弄。",
+    "current_next": "Nemotron 3.5 Lightning 要看有沒有第三方基準測試佐證「同級距最高效率」的說法；那系列開場文看後續是否點名具體模型與夥伴；GPT-5.6-Cyber 看是否有第三方資安研究者測試或實際案例流出。端側與開放模型那批持續看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 的第三方驗證。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述：查禁詐騙看有沒有完整威脅情報與執法佐證，評測事件那則看執行評測的第三方會不會出面講同一組事件。",
     "events": [
       {
-        "slug": "nvidia-and-local-ai-community-fuel-open-source-models-and-in-6d61",
-        "date": "2026-08-11",
-        "company": "NVIDIA",
-        "title": "NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents",
-        "summary": "NVIDIA 8月串連開源社群，整月推廣本地部署的開源模型與智慧代理工具。",
+        "slug": "lfm2-5-vl-3b-for-better-and-faster-vision-capabilities-for-t-843c",
+        "date": "2026-08-12",
+        "company": "Liquid AI",
+        "title": "LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge",
+        "summary": "Liquid AI 發布邊緣裝置視覺模型 LFM2.5-VL-3B，訴求更快更好的視覺能力",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "putting-sign-language-ai-into-users-hands-b76d",
+        "date": "2026-08-12",
+        "company": "Google DeepMind",
+        "title": "Putting sign language AI into users’ hands",
+        "summary": "Google DeepMind 發表手語轉文字模型 SL2T，並說它已經驅動給聾人與聽損使用者的新功能。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "mindtopo-reveals-vlms-spatial-reasoning-abilities-de5d",
+        "date": "2026-08-12",
+        "company": "Microsoft",
+        "title": "MindTopo reveals VLMs’ spatial reasoning abilities",
+        "summary": "微軟研究院推出 MindTopo，專門量視覺語言模型懂不懂拓撲關係。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -20,8 +38,8 @@
         "date": "2026-08-11",
         "company": "NVIDIA",
         "title": "NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI",
-        "summary": "NVIDIA 擴大 Nemotron 3 開源模型家族，推出效率最高的 Nemotron 3.5 Lightning，鎖定長時間執行的代理工作負載。",
-        "confidence": 73,
+        "summary": "NVIDIA 推出 Nemotron 3.5 Lightning，主打長時間運行代理任務的高效率。",
+        "confidence": 80,
         "heat": "未量測"
       },
       {
@@ -39,15 +57,6 @@
         "company": "Meta",
         "title": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
         "summary": "Meta在Hugging Face發布Muse Glimmer，訴求本機可跑、具代理能力、多模態且開源。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "expanding-daybreak-as-the-cyber-defense-window-narrows-f81f",
-        "date": "2026-08-10",
-        "company": "OpenAI",
-        "title": "Expanding Daybreak as the Cyber Defense Window Narrows",
-        "summary": "OpenAI 推出 GPT-5.6-Cyber，透過 Daybreak Red 供授權漏洞研究與滲透測試使用。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -183,7 +192,7 @@
         "company": "Anthropic",
         "title": "Claude Opus 5",
         "summary": "Anthropic 發布旗艦模型 Claude Opus 5，官方稱其「深思且主動」，多個獨立來源同步報導。",
-        "confidence": 100,
+        "confidence": 94,
         "heat": "未量測"
       },
       {
@@ -192,6 +201,33 @@
         "company": "Anthropic",
         "title": "Economic Futures Research Fund Agenda",
         "summary": "Anthropic 公布 Economic Futures 研究基金的議程，圈定要資助的 AI 經濟影響研究方向。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-opus-4-7-516c",
+        "date": "2026-07-23",
+        "company": "Anthropic",
+        "title": "Claude Opus 4.7",
+        "summary": "Anthropic 官方站出現 Claude Opus 4.7 的發布頁，時間落在追蹤開始前兩天。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-opus-4-5-7788",
+        "date": "2026-07-23",
+        "company": "Anthropic",
+        "title": "Claude Opus 4.5",
+        "summary": "Anthropic 官方站出現 Claude Opus 4.5 的發布頁，時間落在追蹤開始前兩天。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-sonnet-4-5-00fb",
+        "date": "2026-07-22",
+        "company": "Anthropic",
+        "title": "Claude Sonnet 4.5",
+        "summary": "Anthropic 官方站出現 Claude Sonnet 4.5 的發布頁，時間落在追蹤開始前三天。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -208,8 +244,26 @@
         "slug": "claude-haiku-4-5-4c01",
         "date": "2026-07-22",
         "company": "Anthropic",
-        "title": "Claude Haiku 4 5",
+        "title": "Claude Haiku 4.5",
         "summary": "Anthropic 發布 Claude Haiku 4.5，家族裡最輕量、最快的一線。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-opus-4-6-7df8",
+        "date": "2026-07-22",
+        "company": "Anthropic",
+        "title": "Claude Opus 4.6",
+        "summary": "Anthropic 官方站出現 Claude Opus 4.6 的發布頁，時間落在追蹤開始前三天。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "claude-opus-4-8-9c2e",
+        "date": "2026-07-22",
+        "company": "Anthropic",
+        "title": "Claude Opus 4.8",
+        "summary": "Anthropic 官方站出現 Claude Opus 4.8 的發布頁，時間落在追蹤開始前三天。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -241,6 +295,15 @@
         "heat": "未量測"
       },
       {
+        "slug": "claude-sonnet-4-6-9089",
+        "date": "2026-07-21",
+        "company": "Anthropic",
+        "title": "Claude Sonnet 4.6",
+        "summary": "Anthropic 官方站出現 Claude Sonnet 4.6 的發布頁。我們兩天後才開始追這條來源，內容無從引用。",
+        "confidence": 83,
+        "heat": "未量測"
+      },
+      {
         "slug": "safety-and-alignment-in-an-era-of-long-horizon-models-3b61",
         "date": "2026-07-20",
         "company": "OpenAI",
@@ -255,16 +318,16 @@
     "slug": "agent-refactor",
     "name": "Agent 與軟體重構",
     "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "這條線的走向，是把 agent 從「能對話」推到「能被部署、能被重用」，這兩天又多了「能被治理」這一層。部署與重用端：OpenAI 用 Presence 把語音客服 agent 做成企業可部署平台，xAI 給 Grok 加 Build Mode 讓使用者自己搭，微軟研究院把 agent 訓練與評測基礎設施開源（Orchard），方向一致是壓掉搭 agent 與評 agent 的重複工；OpenAI 的科學計算 field report 則顯示 coding agent 已在改寫科學工作者的日常。新加的治理端：Open Secure AI Alliance 趁 Black Hat 提出 SAFE 準則、Linux Foundation 釋出 findings 交換的 RFC，開始替 agent 的資安揭露立共通語言，但還在提案階段。",
-    "current_next": "部署端看 Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用）、Presence 與 Build Mode 有沒有公開部署數或具名客戶、科學計算成效能不能複現而非只有敘事。治理端看 SAFE 的 RFC 會不會收斂成正式規範、主要雲廠與模型商是否採用、有沒有第一批實際的 findings 交換。簽名的組織數不算數，照做的家數才算。",
+    "current_now": "這條線把 agent 從「能對話」推向「能被部署、能被重用、能被治理」。部署端：OpenAI 用 Presence 把語音客服 agent 做成企業可部署平台；xAI 給 Grok 加 Build Mode 讓使用者自己搭；微軟研究院開源 Orchard，用同一套基礎設施訓練與評測跨任務 agent；OpenAI 的科學計算 field report 指出 coding agent 已在改寫科學工作者的日常工作方式。治理端：Open Secure AI Alliance（120+ 組織）趁 Black Hat 提出 SAFE 準則，要補上 agentic AI 的資安透明度，目前只是準則提案。基礎設施端新增一則：vLLM 釋出 v0.27.1 修補版，緊接在 v0.27.0（561 個 commit、支援 Kimi K3 全棧）之後，是開源推論引擎持續追新模型的例行維護動作。",
+    "current_next": "部署端看 Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用）、Presence 與 Build Mode 有沒有公開部署數或具名客戶、科學計算成效能不能複現而非只有敘事。治理端看 SAFE 準則會不會收斂成正式規範、主要雲廠與模型商是否採用。基礎設施端看 vLLM 對 Kimi K3 的支援實際效能如何、下一個 minor 版本是否有更大的架構變動。簽名的組織數不算數，照做的家數才算。",
     "events": [
       {
-        "slug": "v0-27-1-dc5c",
+        "slug": "nvidia-and-local-ai-community-fuel-open-source-models-and-in-6d61",
         "date": "2026-08-11",
-        "company": "vLLM",
-        "title": "v0.27.1",
-        "summary": "vLLM 釋出 v0.27.1 patch 版本，修正並延伸剛發布的 v0.27.0（561 個 commit、支援 Kimi K3 全棧）。",
-        "confidence": 83,
+        "company": "NVIDIA",
+        "title": "NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents",
+        "summary": "NVIDIA 八月起連續介紹推動開源本地 AI 模型與代理的社群夥伴。",
+        "confidence": 73,
         "heat": "未量測"
       },
       {
@@ -318,24 +381,51 @@
     "slug": "product-market",
     "name": "產品與商業驗證",
     "current_thesis": "本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。",
-    "current_now": "這條線的主軸是把 AI 推進每個客群與垂直，而且從展示轉向帶數字的落地。落地案例有具體成效：avatarin 幫山田電機做 24 小時客服，兩週 3 萬人用、92% 滿意。客群與垂直持續擴張，這兩天再添兩則：OpenAI 為 ChatGPT Work 與 Codex 推教育外掛切進 K-12 與大學，電信商 Circles 用 OpenAI API 與 Codex 重做用戶體驗、端出 ARPU 提升 22%、流失下降 9% 的數字，但這是供應商自報的案例。價格同時往下走，OpenAI 砍 GPT-5.6、Luna 降 80%。",
-    "current_next": "看這些方案能不能從「宣布」走到「揭露條件與成效」：教育外掛的試點學區與採用數、Circles 那組留存與 ARPU 有沒有第三方或財報印證、企業案例能不能被複製而非單一客戶的漂亮數字，以及 GPT-5.6 降價後有沒有帶動用量或營收的可查訊號。",
+    "current_now": "這條線最新加了五則，主軸不變——把 AI 能力接進更多客群與商業模式，但這次多了一條新支線：ChatGPT 開始測試廣告，作為支撐免費版的營收來源，是從純訂閱擴充到廣告模式的轉向，官方強調標示清楚、答案獨立、有隱私保護，但這是自我保證，不是外部驗證。企業案例端新增兩則 OpenAI 客戶故事：Virgin Atlantic 用 ChatGPT Work 串連客戶旅程訊號、Zapier 用它降低行銷漏斗流失，這些都是 OpenAI 自己發布的案例，沒有第三方或量化數字佐證。方案分層端：ChatGPT Business 加推 Premium 席位，8 月 20 日前訂閱送 100 美元額度，是把付費層級再往上切一層。網路安全治理端也新增一則：OpenAI 讓通過審核的 Daybreak 夥伴使用前沿網路安全模型做授權資安服務，跟同批「Expanding Daybreak」的 GPT-5.6-Cyber 發布是同一套治理框架。原本的落地案例（avatarin 24 小時客服兩週 3 萬人用、92% 滿意；教育外掛切 K-12；Circles 自報 ARPU 提升 22%）與 GPT-5.6 降價（Luna -80%）仍是這條線最具體的數字，其餘多是宣布層。",
+    "current_next": "廣告測試看擴大速度、使用者反應，以及是否有獨立分析指出回答中立性受影響。企業案例（Virgin Atlantic、Zapier）看是否有後續可獨立查證的效益數字。Premium 席位看正式定價與採用率。Daybreak 資安服務看夥伴名單與審核標準是否公開。既有支線持續看：教育外掛的試點學區與採用數、Circles 那組留存與 ARPU 有沒有第三方或財報印證、GPT-5.6 降價後有沒有帶動用量或營收的可查訊號。",
     "events": [
       {
-        "slug": "testing-ads-in-chatgpt-5bb6",
+        "slug": "class-is-in-session-geforce-now-levels-up-linux-chromebooks--1db9",
+        "date": "2026-08-13",
+        "company": "NVIDIA",
+        "title": "Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More",
+        "summary": "GeForce NOW 原生 Linux 應用程式正式脫離測試版，同步加入新雲端串流優化",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "from-assistance-to-execution-how-enterprises-put-ai-to-work-e647",
+        "date": "2026-08-12",
+        "company": "OpenAI",
+        "title": "From assistance to execution: How enterprises put AI to work",
+        "summary": "OpenAI 發布企業採用研究，主張企業正從輔助走向執行，領先者的差距在拉開。",
+        "confidence": 83,
+        "heat": "未量測"
+      },
+      {
+        "slug": "daybreak-models-are-now-available-on-aws-0f64",
         "date": "2026-08-11",
         "company": "OpenAI",
-        "title": "Testing ads in ChatGPT",
-        "summary": "OpenAI 開始在 ChatGPT 免費版測試廣告，強調標示清楚、答案獨立、保護隱私。",
+        "title": "Daybreak models are now available on AWS",
+        "summary": "OpenAI 的 Daybreak 資安能力上架 Amazon Bedrock，企業不必離開 AWS 就能調用。",
         "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-grok-bot-7971",
+        "date": "2026-08-11",
+        "company": "xAI",
+        "title": "Introducing Grok Bot",
+        "summary": "xAI 發布新產品 Grok Bot，同批公告一併提到 Grok 4.6",
+        "confidence": 90,
         "heat": "未量測"
       },
       {
         "slug": "virgin-atlantic-sharpens-customer-journeys-with-chatgpt-work-2769",
         "date": "2026-08-10",
-        "company": "OpenAI",
+        "company": "Virgin Atlantic",
         "title": "Virgin Atlantic sharpens customer journeys with ChatGPT Work",
-        "summary": "OpenAI 案例研究：Virgin Atlantic 用 ChatGPT Work 串起顧客旅程各環節的訊號。",
+        "summary": "Virgin Atlantic 導入 ChatGPT Work，加快研究、產品規劃與決策速度。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -344,7 +434,7 @@
         "date": "2026-08-10",
         "company": "OpenAI",
         "title": "Premium seats are coming to ChatGPT Business",
-        "summary": "OpenAI 為 ChatGPT Business 推出 Premium seats，8月20日前註冊送100美元額度。",
+        "summary": "OpenAI 為 ChatGPT Business 推出 Premium 席位，8/20 前訂閱送 100 美元額度。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -353,16 +443,16 @@
         "date": "2026-08-10",
         "company": "OpenAI",
         "title": "Putting frontier cyber models in more trusted hands",
-        "summary": "OpenAI 讓通過審核的 Daybreak 夥伴使用前沿網路安全模型，提供受治理的資安服務。",
+        "summary": "OpenAI 讓通過審核的 Daybreak 夥伴使用前沿網路安全模型做授權資安服務。",
         "confidence": 73,
         "heat": "未量測"
       },
       {
         "slug": "how-zapier-transformed-core-marketing-processes-with-chatgpt-6de2",
         "date": "2026-08-10",
-        "company": "OpenAI",
+        "company": "Zapier",
         "title": "How Zapier transformed core marketing processes with ChatGPT Work",
-        "summary": "OpenAI 案例研究：Zapier 用 ChatGPT Work 改造行銷流程，降低名單流失。",
+        "summary": "Zapier 用 ChatGPT Work 降低行銷漏斗流失、產生活動素材與自動化報告。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -372,6 +462,15 @@
         "company": "OpenAI",
         "title": "What building an AI-native finance function taught me",
         "summary": "OpenAI財務長Sarah Friar談內部用AI改造財務職能的五個心得，涵蓋自動化預測到投報衡量。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "expanding-daybreak-as-the-cyber-defense-window-narrows-f81f",
+        "date": "2026-08-10",
+        "company": "OpenAI",
+        "title": "Expanding Daybreak as the Cyber Defense Window Narrows",
+        "summary": "OpenAI 推出 GPT-5.6-Cyber，透過 Daybreak Red 供授權漏洞研究與資安測試。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -606,16 +705,25 @@
     "slug": "infra-cost",
     "name": "基礎設施與成本",
     "current_thesis": "本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。",
-    "current_now": "NVIDIA 還是主角，這輪是既有戰線延續再加一則觀點文。硬體側 Vera Rubin 用每 token 成本、每瓦效能輪流打，往網通、在地製造、實體與醫療鋪；Vera CPU 加速 EDA、攜手 Cadence 與 Synopsys 設計下一代晶片，等於用自家算力造下一代算力。軟體端推論棧持續降成本：vLLM v0.26.0 帶 411 個 commit 與多項 GPU 優化。這兩天新增的一則把焦點從算力挪到記憶體牆，NVIDIA 談 AI 的資料集與 context window 撐爆系統記憶體，主張光加儲存容量不夠、要有效率的儲存架構，是趨勢敘事、沒有產品或數字。",
-    "current_next": "硬體那批仍要第二個獨立來源印證每 token 成本最低；記憶體那則看有沒有落到具體產品或規格（儲存加速、記憶體階層），或第三方驗證的成本數字。軟體可查實測：vLLM 新優化的 throughput、Nunchaku 4-bit 的品質與速度取捨。NVIDIA 那批仍多為單一來源、標待證實。",
+    "current_now": "NVIDIA 仍是這條線的主角，這輪新增一則觀點文：算力擴張的瓶頸已經從「總耗電量」轉向「供電架構本身」，傳統供電方式沒辦法有效把電力從電網送到 GPU，NVIDIA 提出 800 VDC 這個新方向，但沒給具體規格或第三方驗證數字，是廠商立場文。這接著上週的記憶體牆論述（AI 的資料集與 context window 撐爆系統記憶體，主張要有效率的儲存架構）——兩篇合看，NVIDIA 正在把敘事重心從晶片本身，往供電與記憶體這類「晶片外」的基礎設施瓶頸移。硬體側 Vera Rubin 仍用每 token 成本、每瓦效能輪流打，往網通、在地製造、實體與醫療鋪；Vera CPU 加速 EDA，攜手 Cadence 與 Synopsys 設計下一代晶片。軟體端推論棧持續降成本：vLLM v0.26.0 帶 411 個 commit 與多項 GPU 優化。",
+    "current_next": "供電架構那則看是否有實際部署案例採用 800 VDC，或第三方工程機構的獨立評估。記憶體牆那則看有沒有落到具體產品或規格。硬體那批仍要第二個獨立來源印證每 token 成本最低；軟體可查實測：vLLM 新優化的 throughput、Nunchaku 4-bit 的品質與速度取捨。NVIDIA 那批仍多為單一來源、標待證實。",
     "events": [
       {
         "slug": "why-scaling-ai-compute-performance-requires-a-new-power-arch-7838",
         "date": "2026-08-11",
         "company": "NVIDIA",
         "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
-        "summary": "NVIDIA 主張 AI 算力擴張的瓶頸已從耗電量轉移到供電架構本身，需要新的電力配送設計。",
+        "summary": "NVIDIA 談 AI 運算擴張的瓶頸從算力轉向電力，主張改用新供電架構。",
         "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-27-1-dc5c",
+        "date": "2026-08-11",
+        "company": "vLLM",
+        "title": "v0.27.1",
+        "summary": "vLLM 發布 v0.27.1 修補版，前一版 v0.27.0 已加入 Kimi K3 全端支援。",
+        "confidence": 83,
         "heat": "未量測"
       },
       {
@@ -801,72 +909,72 @@
     ]
   },
   {
-    "slug": "global-map",
-    "name": "全球創新版圖",
-    "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "這條線現在五則，幾種樣貌。國家隊組：南韓總統李在明率企業界在 AI Summit 與 NVIDIA 及夥伴會談，挾三星、SK 海力士的 HBM 供應鏈談算力綁定；OpenAI 與美國能源部及國家實驗室合作用前沿模型加速科學。這兩天新增一則同屬「國家把算力鋪向地方」：NVIDIA 加入美國 NSF 的州與區域 AI 基礎設施中心計畫，要把算力、資料與軟體推向更多地區的研究與教育。治理組：Open Secure AI Alliance 把開源 AI 資安拉成跨廠共同治理題，Anthropic 發表 open-weights 立場文，一家走封閉權重的公司出面談開放權重本身就是訊號，但主張只有標題、內容待補。",
-    "current_next": "多數仍停在宣示層，看有沒有具體落地：南韓的 GPU 採購與半導體合作、OpenAI 與能源部的專案經費與成果、NSF 計畫實際撥給哪些中心與 NVIDIA 投入規模、Open Secure AI Alliance 有沒有交出可稽核規範與非發起方成員。Anthropic 那則看全文實際主張與開放權重陣營或政策圈的回應。",
+    "slug": "capital-evolution",
+    "name": "資本與公司演化",
+    "current_thesis": "唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。",
+    "current_now": "這條線現在四則，樣貌分散。資本化動作端：Google 的 Genesis Mission 用 4,000 萬美元的 token 與額度（而非現金）綁科研，自評象徵大於實質，代表雲廠拿「算力額度」當投資工具；OpenAI 董事會補進 David Vélez 與 Robin Vince 兩名金融重量級人物，雙層結構下找金融背景董事，通常是替更大的融資或財務規模鋪路。這兩天新增兩則偏公司事務：OpenAI 公開反駁 Apple 的訴訟（單方說法、法院文件不在證據內），Anthropic 發一則以「Tino Cuellar」為題的消息、但內容證據不足待補。後兩則份量都輕。",
+    "current_next": "看有沒有第二筆「算力當資本」的同類案例，判斷 Google 那招是模式還是個案；OpenAI 董事變動後有沒有大型融資、重組或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。",
     "events": [
       {
-        "slug": "into-the-omniverse-how-open-world-models-push-the-frontier-o-6c59",
-        "date": "2026-08-06",
-        "company": "NVIDIA",
-        "title": "Into the Omniverse: How Open World Models Push the Frontier of Physical AI",
-        "summary": "NVIDIA 在 Into the Omniverse 系列文章談開放世界模型如何推進物理 AI，並提到 7 月與 200 多個組織連署了一封 AI 領導力公開信。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "working-with-the-american-psychological-association-on-youth-d3c8",
-        "date": "2026-08-06",
+        "slug": "openai-appoints-dali-rajic-as-chief-revenue-officer-b967",
+        "date": "2026-08-13",
         "company": "OpenAI",
-        "title": "Working with the American Psychological Association on youth mental health and AI",
-        "summary": "OpenAI 與美國心理學會（APA）合作，針對青少年心理健康議題制定 AI 使用的實證指引與防護機制。",
+        "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer",
+        "summary": "OpenAI 任命 Dali Rajic 為首席營收長，帶領全球營收組織",
         "confidence": 73,
         "heat": "未量測"
       },
       {
-        "slug": "nvidia-joins-nsf-state-and-regional-ai-hubs-program-to-expan-9f0a",
+        "slug": "nvidia-ai-factory-compute-is-becoming-an-investable-asset-cl-a9d8",
+        "date": "2026-08-12",
+        "company": "NVIDIA",
+        "title": "NVIDIA AI Factory Compute Is Becoming an Investable Asset Class",
+        "summary": "NVIDIA 找上六家資產管理與投行建融資平台，目標動員逾 5,000 億美元第三方資本蓋 AI 基礎設施。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "testing-ads-in-chatgpt-5bb6",
+        "date": "2026-08-11",
+        "company": "OpenAI",
+        "title": "Testing ads in ChatGPT",
+        "summary": "OpenAI 開始在 ChatGPT 測試廣告，作為支撐免費使用的營收來源。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "tino-cuellar-b30a",
         "date": "2026-08-04",
-        "company": "NVIDIA",
-        "title": "NVIDIA Joins NSF State and Regional AI Hubs Program to Expand AI Research and Education Across the US",
-        "summary": "NVIDIA 加入美國 NSF 的州與區域 AI 基礎設施中心計畫，要把算力、資料、軟體推向更多地區的研究與教育。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "position-open-weights-models-1cc9",
-        "date": "2026-07-28",
         "company": "Anthropic",
-        "title": "Position Open Weights Models",
-        "summary": "Anthropic 發表對 open-weights 模型的官方立場文",
+        "title": "Tino Cuellar",
+        "summary": "Anthropic 官網發布一則以「Tino Cuellar」為題的消息，內容細節證據不足。",
         "confidence": 73,
         "heat": "未量測"
       },
       {
-        "slug": "industry-leaders-unite-in-open-secure-ai-alliance-for-ai-saf-22a7",
-        "date": "2026-07-27",
-        "company": "Open Secure AI Alliance",
-        "title": "Industry Leaders Unite in Open Secure AI Alliance for AI Safety and Security",
-        "summary": "產業多方組成 Open Secure AI Alliance，把開源 AI 的資安當共同治理題。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "at-ai-summit-south-korea-outlines-its-ai-future-with-nvidia--dd57",
-        "date": "2026-07-24",
-        "company": "NVIDIA",
-        "title": "At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners",
-        "summary": "南韓總統李在明率企業界在 AI Summit 與 NVIDIA 及夥伴會談，勾勒南韓的 AI 發展路線。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "advancing-the-next-era-of-national-science-af77",
-        "date": "2026-07-22",
+        "slug": "apple-is-getting-this-wrong-c411",
+        "date": "2026-08-03",
         "company": "OpenAI",
-        "title": "Advancing the next era of national science",
-        "summary": "OpenAI 宣布與美國能源部及國家實驗室合作，用前沿模型加速科學研究。",
+        "title": "Apple is getting this wrong",
+        "summary": "OpenAI 公開反駁 Apple 的訴訟，稱對方指控毫無根據，並貼出往來訊息還原經過。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "accelerating-the-frontiers-of-scientific-discovery-google-s--5d5e",
+        "date": "2026-07-22",
+        "company": "Google",
+        "title": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
+        "summary": "Google 以 4,000 萬美元 token 與額度綁 Genesis Mission，象徵大於實質。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "david-v-lez-and-robin-vince-join-the-boards-of-the-openai-fo-f36b",
+        "date": "2026-07-21",
+        "company": "OpenAI",
+        "title": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC",
+        "summary": "OpenAI 董事會新增兩名金融重量級人物 David Vélez 與 Robin Vince。",
         "confidence": 73,
         "heat": "未量測"
       }

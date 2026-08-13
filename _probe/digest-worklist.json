@@ -1,0 +1,1489 @@
+{
+  "date": "2026-08-13",
+  "mode": "normal",
+  "retrospective_rule": null,
+  "items": [
+    {
+      "id": "evt-2026-07-21-9089cf",
+      "path": "evt-2026-07-21-9089cf.md",
+      "title": "Claude Sonnet 4.6",
+      "title_zh": "Claude Sonnet 4.6 模型",
+      "date": "2026-07-21",
+      "published_at": "2026-08-13T02:12:51.442947+00:00",
+      "company": "Anthropic",
+      "track": "模型能力與研究",
+      "category": "model-capability",
+      "fingerprint": "anthropic:claude:sonnet:4.6",
+      "facet": "update",
+      "value": 55,
+      "confidence": 83,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "Anthropic",
+        "Claude Sonnet 4.6",
+        "回填",
+        "版本序列"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "Anthropic 官方站出現 Claude Sonnet 4.6 的發布頁。我們兩天後才開始追這條來源，內容無從引用。",
+      "source_ids": [
+        "src-anthropic-news",
+        "src-anthropic-news"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-anthropic-news",
+          "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+          "title": "Claude Sonnet 4.6"
+        },
+        {
+          "source_id": "src-anthropic-news",
+          "url": "https://www.anthropic.com/news/claude-for-teachers",
+          "title": "Claude For Teachers"
+        }
+      ],
+      "layers": {
+        "事實": "Anthropic 官方新聞站有一個 Claude Sonnet 4.6 的發布頁，站台地圖記錄的更新時間是 2026-07-21。我們是 2026-07-25 才第一次抓這條來源，所以除了「這一頁存在」與那個時間戳之外，沒有任何可引用的內容——不是漏抓，是當時還沒開始看。附帶一提，這則的證據列裡有一筆 Claude For Teachers，跟本則不是同一件事，是聚類誤掛，待清。",
+        "脈絡": "這是回填。時間軸上標著「回填」的條目，講的都是我們開始追蹤之前就已經發生的事。它跟當期訊號的差別不在重要性，在於我們沒有第一手的觀測——沒有首次觀測時間差可以算，也沒有同時間的第三方報導可以對照。",
+        "影響": "對能力、成本、競爭結構的影響無從判讀：證據只有一個網址和一個時間戳。這一則的用處是時間軸上的一個座標，不是可以拿來推論的素材。",
+        "判斷": "把它留在庫裡而不是刪掉，是因為「某天官方站上出現了這個版本的發布頁」本身是可查證的事實，而版本序列是後面聚類與去重的主鍵。要補的是內容，不是它的存在。",
+        "下一個訊號": "看有沒有第三方（媒體、獨立評測、模型卡）回頭談這個版本；有的話這則會多出一個獨立來源，也才第一次有東西可以寫。"
+      }
+    },
+    {
+      "id": "evt-2026-07-22-00fb73",
+      "path": "evt-2026-07-22-00fb73.md",
+      "title": "Claude Sonnet 4.5",
+      "title_zh": "Claude Sonnet 4.5 模型",
+      "date": "2026-07-22",
+      "published_at": "2026-08-13T02:12:51.442947+00:00",
+      "company": "Anthropic",
+      "track": "模型能力與研究",
+      "category": "model-capability",
+      "fingerprint": "anthropic:claude:sonnet:4.5",
+      "facet": "update",
+      "value": 51,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "Anthropic",
+        "Claude Sonnet 4.5",
+        "回填",
+        "sitemap 時間戳"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "Anthropic 官方站出現 Claude Sonnet 4.5 的發布頁，時間落在追蹤開始前三天。",
+      "source_ids": [
+        "src-anthropic-news"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-anthropic-news",
+          "url": "https://www.anthropic.com/news/claude-sonnet-4-5",
+          "title": "Claude Sonnet 4.5"
+        }
+      ],
+      "layers": {
+        "事實": "Anthropic 官方新聞站有一個 Claude Sonnet 4.5 的發布頁，站台地圖記錄的更新時間是 2026-07-22。我們是 2026-07-25 才第一次抓這條來源，除了這一頁存在與那個時間戳之外沒有可引用的內容。",
+        "脈絡": "這是回填。連同 Opus 4.5 到 4.8，六個版本的發布頁全部落在 2026-07-21 深夜到 07-23 清晨、約 28 小時之內。這個密度是證據本身說得出來的事，而它也正是這批資料當初被錯誤合併成同一則事件的原因：版本號在網址裡是用連字號寫的，還原標題時小數點會掉，四個 Opus 版本因此塌成同一個鍵。",
+        "影響": "單則的影響無從判讀。六頁擠在一天多之內這件事，倒是說明官方站的 lastmod 不等於發布時間——可能是同一次網站改版把整批頁面的時間戳一起推新了。這一點會影響所有從 sitemap 取得的日期，值得記著。",
+        "判斷": "版本序列本身有價值，內容沒有。把時間戳當成發布時間讀會出錯，所以這則寫的是「站台地圖記錄的更新時間」而不是「發布於」。",
+        "下一個訊號": "看 Anthropic 的 model card 或定價頁有沒有列出這些版本的實際發布日期，能拿來校正 sitemap 時間戳的可信度。"
+      }
+    },
+    {
+      "id": "evt-2026-07-22-7df86d",
+      "path": "evt-2026-07-22-7df86d.md",
+      "title": "Claude Opus 4.6",
+      "title_zh": "Claude Opus 4.6 模型",
+      "date": "2026-07-22",
+      "published_at": "2026-08-13T02:12:51.442947+00:00",
+      "company": "Anthropic",
+      "track": "模型能力與研究",
+      "category": "model-capability",
+      "fingerprint": "anthropic:claude:opus:4.6",
+      "facet": "update",
+      "value": 51,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "Anthropic",
+        "Claude Opus 4.6",
+        "回填",
+        "版本序列"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "Anthropic 官方站出現 Claude Opus 4.6 的發布頁，時間落在追蹤開始前三天。",
+      "source_ids": [
+        "src-anthropic-news"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-anthropic-news",
+          "url": "https://www.anthropic.com/news/claude-opus-4-6",
+          "title": "Claude Opus 4.6"
+        }
+      ],
+      "layers": {
+        "事實": "Anthropic 官方新聞站有一個 Claude Opus 4.6 的發布頁，站台地圖記錄的更新時間是 2026-07-22。我們是 2026-07-25 才第一次抓這條來源，除了這一頁存在與那個時間戳之外沒有可引用的內容。",
+        "脈絡": "這是回填，也是 Opus 4.x 那一組四頁裡的一頁（4.5 到 4.8 全部落在 07-22 到 07-23）。這條來源走的是站台地圖，只拿得到網址與更新時間，沒有標題欄位也沒有摘要——標題是從網址尾段還原的。",
+        "影響": "無從判讀。它在庫裡的作用是讓 Opus 4.6 這個版本在時間軸上有一個位置，而不是讓人拿它去比較能力。",
+        "判斷": "四個 Opus 版本各自獨立成一則，是 2026-08-12 那次身分修復的結果——在那之前它們被當成同一件事。分開之後每一則都很薄，但薄得誠實，比一則混著四個版本的厚事件正確。",
+        "下一個訊號": "同上：等第三方或官方的版本清單出現，才有東西可寫。"
+      }
+    },
+    {
+      "id": "evt-2026-07-22-9c2e03",
+      "path": "evt-2026-07-22-9c2e03.md",
+      "title": "Claude Opus 4.8",
+      "title_zh": "Claude Opus 4.8 模型",
+      "date": "2026-07-22",
+      "published_at": "2026-08-13T02:12:51.442947+00:00",
+      "company": "Anthropic",
+      "track": "模型能力與研究",
+      "category": "model-capability",
+      "fingerprint": "anthropic:claude:opus:4.8",
+      "facet": "update",
+      "value": 51,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "Anthropic",
+        "Claude Opus 4.8",
+        "回填",
+        "版本序列"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "Anthropic 官方站出現 Claude Opus 4.8 的發布頁，時間落在追蹤開始前三天。",
+      "source_ids": [
+        "src-anthropic-news"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-anthropic-news",
+          "url": "https://www.anthropic.com/news/claude-opus-4-8",
+          "title": "Claude Opus 4.8"
+        }
+      ],
+      "layers": {
+        "事實": "Anthropic 官方新聞站有一個 Claude Opus 4.8 的發布頁，站台地圖記錄的更新時間是 2026-07-22。我們是 2026-07-25 才第一次抓這條來源，除了這一頁存在與那個時間戳之外沒有可引用的內容。",
+        "脈絡": "這是回填。它跟 4.5、4.6、4.7 的頁面時間戳只差幾十分鐘到一天，四個版本號同時出現在站台地圖上——這種形狀比較像一次整批的網站變更，不像四次獨立發布。",
+        "影響": "無從判讀。要注意的是不要把「4.8 比 4.6 新」讀成能力排序：我們手上只有網址裡的數字，沒有任何一頁的內容。",
+        "判斷": "版本號大小是命名，不是測量。這則存在的意義是佔住 Opus 4.8 這個鍵，讓日後真的有內容進來時綁得上。",
+        "下一個訊號": "看 Anthropic 之後的公告或模型卡有沒有提到 Opus 4.8，能確認它是不是一個真的對外發布過的版本。"
+      }
+    },
+    {
+      "id": "evt-2026-07-23-516cf6",
+      "path": "evt-2026-07-23-516cf6.md",
+      "title": "Claude Opus 4.7",
+      "title_zh": "Claude Opus 4.7 模型",
+      "date": "2026-07-23",
+      "published_at": "2026-08-13T02:12:51.442947+00:00",
+      "company": "Anthropic",
+      "track": "模型能力與研究",
+      "category": "model-capability",
+      "fingerprint": "anthropic:claude:opus:4.7",
+      "facet": "update",
+      "value": 51,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "Anthropic",
+        "Claude Opus 4.7",
+        "回填",
+        "版本序列"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "Anthropic 官方站出現 Claude Opus 4.7 的發布頁，時間落在追蹤開始前兩天。",
+      "source_ids": [
+        "src-anthropic-news"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-anthropic-news",
+          "url": "https://www.anthropic.com/news/claude-opus-4-7",
+          "title": "Claude Opus 4.7"
+        }
+      ],
+      "layers": {
+        "事實": "Anthropic 官方新聞站有一個 Claude Opus 4.7 的發布頁，站台地圖記錄的更新時間是 2026-07-23。我們是 2026-07-25 才第一次抓這條來源，除了這一頁存在與那個時間戳之外沒有可引用的內容。",
+        "脈絡": "這是回填，Opus 4.x 那一組的第三頁。這條來源沒有 RSS，走的是站方 robots.txt 自己宣告的站台地圖入口——那個格式只給網址與更新時間，不給標題也不給摘要。",
+        "影響": "無從判讀。",
+        "判斷": "薄到只剩一個座標的事件，留著的理由是它可查證：那個網址現在還在。刪掉它等於讓時間軸上憑空少一格，而那一格是真的發生過的。",
+        "下一個訊號": "同組其他版本一起看：哪一個版本先被第三方談到，那個才是真正被使用的版本。"
+      }
+    },
+    {
+      "id": "evt-2026-07-23-7788b3",
+      "path": "evt-2026-07-23-7788b3.md",
+      "title": "Claude Opus 4.5",
+      "title_zh": "Claude Opus 4.5 模型",
+      "date": "2026-07-23",
+      "published_at": "2026-08-13T02:12:51.442947+00:00",
+      "company": "Anthropic",
+      "track": "模型能力與研究",
+      "category": "model-capability",
+      "fingerprint": "anthropic:claude:opus:4.5",
+      "facet": "update",
+      "value": 51,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "Anthropic",
+        "Claude Opus 4.5",
+        "回填",
+        "標題還原"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "Anthropic 官方站出現 Claude Opus 4.5 的發布頁，時間落在追蹤開始前兩天。",
+      "source_ids": [
+        "src-anthropic-news"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-anthropic-news",
+          "url": "https://www.anthropic.com/news/claude-opus-4-5",
+          "title": "Claude Opus 4.5"
+        }
+      ],
+      "layers": {
+        "事實": "Anthropic 官方新聞站有一個 Claude Opus 4.5 的發布頁，站台地圖記錄的更新時間是 2026-07-23。我們是 2026-07-25 才第一次抓這條來源，除了這一頁存在與那個時間戳之外沒有可引用的內容。",
+        "脈絡": "這是回填，也是這一組裡最容易被弄錯的一則：`/news/claude-opus-4-5` 這個網址在還原標題時，小數點會掉成「Claude Opus 4 5」，接著跟「Claude Opus 5」的相似度算出來是 1.00。2026-08-12 修掉的就是這個，修法是還原時把版本號併回小數。",
+        "影響": "無從判讀。這則真正的用處在別的地方：它是版本號還原這條規則的實測案例，而那條規則影響的是整個聚類的正確性。",
+        "判斷": "一則沒有內容的事件，仍然可以是一個有用的測試案例。這則就是。",
+        "下一個訊號": "看聚類端有沒有再把 4.x 的頁面跟整數版本混在一起——那代表還原規則又鬆掉了。"
+      }
+    },
+    {
+      "id": "evt-2026-08-11-797106",
+      "path": "evt-2026-08-11-797106.md",
+      "title": "Introducing Grok Bot",
+      "title_zh": "推出 Grok Bot",
+      "date": "2026-08-11",
+      "published_at": "2026-08-13T19:09:41.964783+00:00",
+      "company": "xAI",
+      "track": "產品與商業驗證",
+      "category": "product",
+      "fingerprint": null,
+      "facet": "release",
+      "value": 71,
+      "confidence": 90,
+      "independent_sources": 2,
+      "tier_evidence": 1,
+      "keywords": [
+        "xAI",
+        "Grok Bot",
+        "Grok 4.6"
+      ],
+      "warnings": [],
+      "summary": "xAI 發布新產品 Grok Bot，同批公告一併提到 Grok 4.6",
+      "source_ids": [
+        "src-xai-news",
+        "src-hn-frontpage",
+        "src-xai-news"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-xai-news",
+          "url": "https://x.ai/news/introducing-grok-bot",
+          "title": "Introducing Grok Bot"
+        },
+        {
+          "source_id": "src-hn-frontpage",
+          "url": "https://x.ai/bot",
+          "title": "Grok Bot"
+        },
+        {
+          "source_id": "src-xai-news",
+          "url": "https://x.ai/news/grok-4-6",
+          "title": "Grok 4.6"
+        }
+      ],
+      "layers": {
+        "事實": "xAI 在官網公告推出名為 Grok Bot 的新產品，並開出 x.ai/bot 專屬頁面；同一批公告也出現 Grok 4.6 字樣（證據不足，待補：Grok Bot 實際功能與 Grok 4.6 的關係）",
+        "脈絡": "（證據不足，待補）",
+        "影響": "（證據不足，待補）",
+        "判斷": "（證據不足，待補）",
+        "下一個訊號": "xAI 是否釋出 Grok Bot 的功能說明、使用文件或與 Grok 4.6 的關聯說明"
+      }
+    },
+    {
+      "id": "evt-2026-08-12-843c78",
+      "path": "evt-2026-08-12-843c78.md",
+      "title": "LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge",
+      "title_zh": "LFM2.5-VL-3B：讓邊緣視覺能力更好更快",
+      "date": "2026-08-12",
+      "published_at": "2026-08-13T19:09:41.964783+00:00",
+      "company": "Liquid AI",
+      "track": "模型能力與研究",
+      "category": "model-capability",
+      "fingerprint": null,
+      "facet": "capability",
+      "value": 71,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "Liquid AI",
+        "LFM2.5-VL-3B",
+        "邊緣運算",
+        "視覺語言模型"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "Liquid AI 發布邊緣裝置視覺模型 LFM2.5-VL-3B，訴求更快更好的視覺能力",
+      "source_ids": [
+        "src-hf-blog"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-hf-blog",
+          "url": "https://huggingface.co/blog/LiquidAI/lfm2-5-vl-3b",
+          "title": "LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge"
+        }
+      ],
+      "layers": {
+        "事實": "Liquid AI 在 Hugging Face 部落格發布 LFM2.5-VL-3B，定位為給邊緣裝置用的視覺語言模型（證據不足，待補：具體效能數據與基準測試結果）",
+        "脈絡": "（證據不足，待補）",
+        "影響": "（證據不足，待補）",
+        "判斷": "（證據不足，待補）",
+        "下一個訊號": "是否釋出基準測試數據或裝置端實測結果"
+      }
+    },
+    {
+      "id": "evt-2026-08-13-1db924",
+      "path": "evt-2026-08-13-1db924.md",
+      "title": "Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More",
+      "title_zh": null,
+      "date": "2026-08-13",
+      "published_at": "2026-08-13T19:09:41.964783+00:00",
+      "company": "NVIDIA",
+      "track": "產品與商業驗證",
+      "category": "product",
+      "fingerprint": null,
+      "facet": "update",
+      "value": 70,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "NVIDIA",
+        "GeForce NOW",
+        "Linux",
+        "雲端遊戲",
+        "Frame Generation"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "GeForce NOW 原生 Linux 應用程式正式脫離測試版，同步加入新雲端串流優化",
+      "source_ids": [
+        "src-nvidia-blog"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-nvidia-blog",
+          "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-linux-native-app/",
+          "title": "Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More"
+        }
+      ],
+      "layers": {
+        "事實": "NVIDIA 宣布 GeForce NOW 的原生 Linux 應用程式正式脫離 beta 階段，同時擴大 Chromebook 等裝置支援，並加入讓 Frame Generation 在串流時反應更即時的雲端優化",
+        "脈絡": "GeForce NOW 是 NVIDIA 的雲端遊戲服務，過去 Linux 平台主要靠瀏覽器或第三方管道使用，原生應用程式此前一直停留在測試階段",
+        "影響": "對 Linux 與 Chromebook 使用者而言，這代表雲端遊戲在非 Windows 平台的可用性補齊到接近主流平台的水準，但證據不足以判斷實際延遲改善幅度或訂閱數變化（待補）",
+        "判斷": "這則屬於既有服務的平台擴張與體驗優化，不是新技術突破，重點是把 Linux 原生體驗補齊到跟 Windows、Mac 同等級",
+        "下一個訊號": "Linux 用戶的實際使用回饋與效能評測，以及是否有更多裝置種類跟進支援"
+      }
+    },
+    {
+      "id": "evt-2026-08-13-b9676e",
+      "path": "evt-2026-08-13-b9676e.md",
+      "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer",
+      "title_zh": null,
+      "date": "2026-08-13",
+      "published_at": "2026-08-13T19:09:41.964783+00:00",
+      "company": "OpenAI",
+      "track": "資本與公司演化",
+      "category": "capital",
+      "fingerprint": null,
+      "facet": "update",
+      "value": 70,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "OpenAI",
+        "Dali Rajic",
+        "Chief Revenue Officer",
+        "人事任命"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "OpenAI 任命 Dali Rajic 為首席營收長，帶領全球營收組織",
+      "source_ids": [
+        "src-openai-blog"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-openai-blog",
+          "url": "https://openai.com/index/dali-rajic-chief-revenue-officer",
+          "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer"
+        }
+      ],
+      "layers": {
+        "事實": "OpenAI 官方公告任命 Dali Rajic 為 Chief Revenue Officer，將帶領全球營收組織，公告定位是協助企業客戶發揮 AI 的完整價值",
+        "脈絡": "（證據不足，待補：Dali Rajic 過去經歷與加入時間點）",
+        "影響": "顯示 OpenAI 持續強化面向企業客戶的營收與商業化組織，但證據不足以判斷具體業務調整方向（待補）",
+        "判斷": "這是人事任命公告，本身不代表產品或技術變化，實際影響要看上任後帶來的具體商業動作",
+        "下一個訊號": "Dali Rajic 上任後 OpenAI 的企業營收策略是否出現具體調整"
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-07-22-00fb73",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-07-22-7df86d",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填、版本序列"
+      ]
+    },
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-07-22-9c2e03",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填、版本序列"
+      ]
+    },
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-07-23-516cf6",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填、版本序列"
+      ]
+    },
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-07-23-7788b3",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-08-11-797106",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-08-12-843c78",
+      "distance": 2,
+      "shared": [
+        "同主線：模型能力與研究",
+        "同類別：model-capability"
+      ]
+    },
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-08-13-1db924",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-21-9089cf",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-00fb73",
+      "b": "evt-2026-07-22-7df86d",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-00fb73",
+      "b": "evt-2026-07-22-9c2e03",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-00fb73",
+      "b": "evt-2026-07-23-516cf6",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-00fb73",
+      "b": "evt-2026-07-23-7788b3",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-00fb73",
+      "b": "evt-2026-08-11-797106",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-00fb73",
+      "b": "evt-2026-08-12-843c78",
+      "distance": 2,
+      "shared": [
+        "同主線：模型能力與研究",
+        "同類別：model-capability"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-00fb73",
+      "b": "evt-2026-08-13-1db924",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-00fb73",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-7df86d",
+      "b": "evt-2026-07-22-9c2e03",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填、版本序列"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-7df86d",
+      "b": "evt-2026-07-23-516cf6",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填、版本序列"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-7df86d",
+      "b": "evt-2026-07-23-7788b3",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-7df86d",
+      "b": "evt-2026-08-11-797106",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-7df86d",
+      "b": "evt-2026-08-12-843c78",
+      "distance": 2,
+      "shared": [
+        "同主線：模型能力與研究",
+        "同類別：model-capability"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-7df86d",
+      "b": "evt-2026-08-13-1db924",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-7df86d",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-9c2e03",
+      "b": "evt-2026-07-23-516cf6",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填、版本序列"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-9c2e03",
+      "b": "evt-2026-07-23-7788b3",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-9c2e03",
+      "b": "evt-2026-08-11-797106",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-9c2e03",
+      "b": "evt-2026-08-12-843c78",
+      "distance": 2,
+      "shared": [
+        "同主線：模型能力與研究",
+        "同類別：model-capability"
+      ]
+    },
+    {
+      "a": "evt-2026-07-22-9c2e03",
+      "b": "evt-2026-08-13-1db924",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-22-9c2e03",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-23-516cf6",
+      "b": "evt-2026-07-23-7788b3",
+      "distance": 2,
+      "shared": [
+        "同公司：Anthropic",
+        "同主線：模型能力與研究",
+        "同類別：model-capability",
+        "同來源：src-anthropic-news",
+        "共用關鍵詞：Anthropic、回填"
+      ]
+    },
+    {
+      "a": "evt-2026-07-23-516cf6",
+      "b": "evt-2026-08-11-797106",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-23-516cf6",
+      "b": "evt-2026-08-12-843c78",
+      "distance": 2,
+      "shared": [
+        "同主線：模型能力與研究",
+        "同類別：model-capability"
+      ]
+    },
+    {
+      "a": "evt-2026-07-23-516cf6",
+      "b": "evt-2026-08-13-1db924",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-23-516cf6",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-23-7788b3",
+      "b": "evt-2026-08-11-797106",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-23-7788b3",
+      "b": "evt-2026-08-12-843c78",
+      "distance": 2,
+      "shared": [
+        "同主線：模型能力與研究",
+        "同類別：model-capability"
+      ]
+    },
+    {
+      "a": "evt-2026-07-23-7788b3",
+      "b": "evt-2026-08-13-1db924",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-07-23-7788b3",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-08-11-797106",
+      "b": "evt-2026-08-12-843c78",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-08-11-797106",
+      "b": "evt-2026-08-13-1db924",
+      "distance": 2,
+      "shared": [
+        "同主線：產品與商業驗證",
+        "同類別：product"
+      ]
+    },
+    {
+      "a": "evt-2026-08-11-797106",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-08-12-843c78",
+      "b": "evt-2026-08-13-1db924",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-08-12-843c78",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-08-13-1db924",
+      "b": "evt-2026-08-13-b9676e",
+      "distance": 4,
+      "shared": []
+    }
+  ],
+  "all_within_distance_two": false,
+  "pending_signals": [
+    {
+      "id": "evt-2026-07-07-81e525",
+      "title": "AI 業者採用 NVIDIA Vera：為何大規模單執行緒 CPU 很關鍵",
+      "date": "2026-07-07",
+      "days_since": 37,
+      "next_signal": "獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。"
+    },
+    {
+      "id": "evt-2026-07-17-484ed7",
+      "title": "Gemini 3.5 Flash Cyber 登場",
+      "date": "2026-07-17",
+      "days_since": 27,
+      "next_signal": "第三方在真實 codebase 的漏洞命中率與誤報數據。"
+    },
+    {
+      "id": "evt-2026-07-17-57c01e",
+      "title": "AI 時代的計分卡",
+      "date": "2026-07-17",
+      "days_since": 27,
+      "next_signal": "看有沒有第三方（顧問公司、企業 IT）真的拿這套指標做採購決策，還是只停在 OpenAI 的部落格。"
+    },
+    {
+      "id": "evt-2026-07-17-593335",
+      "title": "NVIDIA Vera Rubin 讓後訓練的每塊錢智慧最大化",
+      "date": "2026-07-17",
+      "days_since": 27,
+      "next_signal": "第三方後訓練 TCO 對比、實際出貨。"
+    },
+    {
+      "id": "evt-2026-07-20-2da7a6",
+      "title": "NVIDIA 在 SIGGRAPH 推進 agentic 與實體 AI",
+      "date": "2026-07-20",
+      "days_since": 24,
+      "next_signal": "看這些工具的實際釋出時程與開發者採用，而不是發表當天的 demo。"
+    },
+    {
+      "id": "evt-2026-07-20-3b61fa",
+      "title": "長時程模型時代的安全與對齊",
+      "date": "2026-07-20",
+      "days_since": 24,
+      "next_signal": "看後續有沒有把這些 safeguard 寫進 model card 或 API 的具體限制，而不只是部落格宣示。"
+    },
+    {
+      "id": "evt-2026-07-20-a01040",
+      "title": "必治妥施貴寶在 NVIDIA Vera Rubin 上蓋最先進 AI 工廠",
+      "date": "2026-07-20",
+      "days_since": 24,
+      "next_signal": "看這套算力實際跑出什麼研發成果，而不是規格數字。"
+    },
+    {
+      "id": "evt-2026-07-21-11f6a7",
+      "title": "NVIDIA 與夥伴：在美國本土製造，為美國",
+      "date": "2026-07-21",
+      "days_since": 23,
+      "next_signal": "看具名的工廠、金額、時程這類可查事項，而不是宣示。"
+    },
+    {
+      "id": "evt-2026-07-21-2d1482",
+      "title": "NVIDIA Spectrum-6 網通進駐 gigascale AI 工廠",
+      "date": "2026-07-21",
+      "days_since": 23,
+      "next_signal": "看實際部署的頻寬、延遲數據，以及和其他網通方案的第三方對比。"
+    },
+    {
+      "id": "evt-2026-07-21-34af41",
+      "title": "NVIDIA Vera Rubin 主打每瓦效能與最低 token 成本",
+      "date": "2026-07-21",
+      "days_since": 23,
+      "next_signal": "看獨立的每瓦效能、每 token 成本 benchmark，以及雲端是否跟著調價。"
+    },
+    {
+      "id": "evt-2026-07-21-740913",
+      "title": "xAI 推出 Outlook 外掛",
+      "date": "2026-07-21",
+      "days_since": 23,
+      "next_signal": "看有沒有企業部署案例，或微軟這邊的反制，例如限制第三方 add-in。"
+    },
+    {
+      "id": "evt-2026-07-21-78cd95",
+      "title": "OpenAI 與 Hugging Face 合作處理模型評測資安事件",
+      "date": "2026-07-21",
+      "days_since": 23,
+      "next_signal": "看有沒有完整的事後報告（post-mortem）或 CVE 級別的揭露，還是停在聯合聲明。"
+    },
+    {
+      "id": "evt-2026-07-21-9089cf",
+      "title": "Claude Sonnet 4.6 模型",
+      "date": "2026-07-21",
+      "days_since": 23,
+      "next_signal": "看有沒有第三方（媒體、獨立評測、模型卡）回頭談這個版本；有的話這則會多出一個獨立來源，也才第一次有東西可以寫。"
+    },
+    {
+      "id": "evt-2026-07-21-ce1fa4",
+      "title": "緯創在沃斯堡設先進製造廠，生產 NVIDIA AI 系統",
+      "date": "2026-07-21",
+      "days_since": 23,
+      "next_signal": "看這座廠的實際產能爬坡與出貨時程。"
+    },
+    {
+      "id": "evt-2026-07-21-f36bc2",
+      "title": "David Vélez、Robin Vince 加入 OpenAI 董事會",
+      "date": "2026-07-21",
+      "days_since": 23,
+      "next_signal": "看後續有沒有大型融資、重組或財務揭露，跟這波董事變動對得上。"
+    },
+    {
+      "id": "evt-2026-07-22-00fb73",
+      "title": "Claude Sonnet 4.5 模型",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "看 Anthropic 的 model card 或定價頁有沒有列出這些版本的實際發布日期，能拿來校正 sitemap 時間戳的可信度。"
+    },
+    {
+      "id": "evt-2026-07-22-09b47d",
+      "title": "Anthropic 發布 Claude Sonnet 5",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "等第三方評測與定價出來，才看得出 Sonnet 5 是真跳代，還是命名策略。"
+    },
+    {
+      "id": "evt-2026-07-22-2c7cdc",
+      "title": "NTT DATA 用 Codex 把事故分析壓到 30 分鐘",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "看有沒有 NTT DATA 自己（而不是 OpenAI 部落格）出面確認這個數字。"
+    },
+    {
+      "id": "evt-2026-07-22-4c0123",
+      "title": "Claude Haiku 4.5 模型",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "等定價與延遲數據，看它跟 OpenAI 的小模型、Gemini Flash 的CP 值對比。"
+    },
+    {
+      "id": "evt-2026-07-22-5d5ed0",
+      "title": "Google 投入 4,000 萬美元支持 Genesis Mission",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "Genesis Mission 的實際參與者與產出。"
+    },
+    {
+      "id": "evt-2026-07-22-75389f",
+      "title": "新聞機構如何用 AI 推進核心任務",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "看有沒有轉成具體授權合約或產品（例如新聞專用工具），還是止於敘事。"
+    },
+    {
+      "id": "evt-2026-07-22-7a1a69",
+      "title": "OpenAI 在 Effingham County 建 AI 基礎設施",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "看有沒有具體的資料中心容量、用電量與時程數字落地。"
+    },
+    {
+      "id": "evt-2026-07-22-7df86d",
+      "title": "Claude Opus 4.6 模型",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "同上：等第三方或官方的版本清單出現，才有東西可寫。"
+    },
+    {
+      "id": "evt-2026-07-22-8a7a1d",
+      "title": "OpenAI 推出 Presence",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "看定價模式與首批客戶，判斷它是真平台，還是 API 的包裝。"
+    },
+    {
+      "id": "evt-2026-07-22-9c2e03",
+      "title": "Claude Opus 4.8 模型",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "看 Anthropic 之後的公告或模型卡有沒有提到 Opus 4.8，能確認它是不是一個真的對外發布過的版本。"
+    },
+    {
+      "id": "evt-2026-07-22-af7762",
+      "title": "推進國家科學的下一個世代",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "看有沒有具體專案、經費或發表成果，還是停在意向聲明。"
+    },
+    {
+      "id": "evt-2026-07-22-bd324b",
+      "title": "Anthropic 為 Economic Index 推出 connector",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "看有沒有文件或實際 integration 出來，說明它接什麼、給誰用。"
+    },
+    {
+      "id": "evt-2026-07-22-d8044f",
+      "title": "NVIDIA 開源首個 GPU 加速醫療物理模擬框架",
+      "date": "2026-07-22",
+      "days_since": 22,
+      "next_signal": "框架的 GitHub 採用、醫療機器人團隊的實際使用。"
+    },
+    {
+      "id": "evt-2026-07-23-0475fe",
+      "title": "把 Nunchaku 4-bit 擴散推論帶進 Diffusers",
+      "date": "2026-07-23",
+      "days_since": 21,
+      "next_signal": "看 4-bit 相對全精度的畫質落差，以及速度和記憶體的實際增益數字。"
+    },
+    {
+      "id": "evt-2026-07-23-4f7d28",
+      "title": "Claude 用於創意工作",
+      "date": "2026-07-23",
+      "days_since": 21,
+      "next_signal": "看 Anthropic 有沒有正式的「Claude for Creative Work」公告，屆時再補實質內容。"
+    },
+    {
+      "id": "evt-2026-07-23-4fb946",
+      "title": "GeForce NOW 上架《流亡黯道》等雲端遊戲",
+      "date": "2026-07-23",
+      "days_since": 21,
+      "next_signal": "無特別要追的 AI 訊號。"
+    },
+    {
+      "id": "evt-2026-07-23-516cf6",
+      "title": "Claude Opus 4.7 模型",
+      "date": "2026-07-23",
+      "days_since": 21,
+      "next_signal": "同組其他版本一起看：哪一個版本先被第三方談到，那個才是真正被使用的版本。"
+    },
+    {
+      "id": "evt-2026-07-23-7788b3",
+      "title": "Claude Opus 4.5 模型",
+      "date": "2026-07-23",
+      "days_since": 21,
+      "next_signal": "看聚類端有沒有再把 4.x 的頁面跟整數版本混在一起——那代表還原規則又鬆掉了。"
+    },
+    {
+      "id": "evt-2026-07-23-821bb6",
+      "title": "NVIDIA AI 超級電腦在美國海軍研究院上線",
+      "date": "2026-07-23",
+      "days_since": 21,
+      "next_signal": "看這套系統實際支援哪些研究，而不是啟用儀式。"
+    },
+    {
+      "id": "evt-2026-07-23-b82259",
+      "title": "ChatGPT 推出健康功能",
+      "date": "2026-07-23",
+      "days_since": 21,
+      "next_signal": "看隱私條款、監管態度（FDA 或 HIPAA），以及是否出現誤導性健康建議的爭議。"
+    },
+    {
+      "id": "evt-2026-07-24-4f2f9f",
+      "title": "Anthropic 公布 Economic Futures 研究基金議程",
+      "date": "2026-07-24",
+      "days_since": 20,
+      "next_signal": "看實際撥款對象與產出的研究，才知道議程是否落地。"
+    },
+    {
+      "id": "evt-2026-07-24-a58179",
+      "title": "xAI 推出 Google Workspace 外掛",
+      "date": "2026-07-24",
+      "days_since": 20,
+      "next_signal": "看有沒有企業採用，或 Google 對第三方 add-on 的態度。"
+    },
+    {
+      "id": "evt-2026-07-24-dd57bd",
+      "title": "南韓在 AI Summit 偕 NVIDIA 與夥伴勾勒 AI 未來",
+      "date": "2026-07-24",
+      "days_since": 20,
+      "next_signal": "看有沒有具體的 GPU 採購、資料中心或半導體合作數字落地。"
+    },
+    {
+      "id": "evt-2026-07-25-74ed64",
+      "title": "vLLM 發布 v0.26.0",
+      "date": "2026-07-25",
+      "days_since": 19,
+      "next_signal": "看 Inkling 家族後續有沒有更多模型跟進，以及這些優化的實測 throughput 數字。"
+    },
+    {
+      "id": "evt-2026-07-27-1b4ef0",
+      "title": "AI 正在擴大人們在職場上做的事",
+      "date": "2026-07-27",
+      "days_since": 17,
+      "next_signal": "看有沒有第三方（學界或勞動統計單位）用獨立資料複現「跨職務」這個現象，而不是只有平台方自述。"
+    },
+    {
+      "id": "evt-2026-07-27-22a744",
+      "title": "業界組成 Open Secure AI Alliance，聚焦 AI 安全",
+      "date": "2026-07-27",
+      "days_since": 17,
+      "next_signal": "看聯盟有沒有產出具體、可稽核的技術規範或稽核機制，以及有哪些非發起方的公司真的加入。"
+    },
+    {
+      "id": "evt-2026-07-27-32add4",
+      "title": "Anthropic 與 Cognizant 合作",
+      "date": "2026-07-27",
+      "days_since": 17,
+      "next_signal": "補到公告內文或第三方報導，確認合作的實際形式（部署、通路、投資或其他）。"
+    },
+    {
+      "id": "evt-2026-07-27-ccaf21",
+      "title": "NVIDIA Cosmos-H-Dreams：把即時生成式模擬帶進手術機器人",
+      "date": "2026-07-27",
+      "days_since": 17,
+      "next_signal": "看有沒有跟上模型卡的量化指標（延遲、擬真度），或第三方機器人團隊的實測回饋。"
+    },
+    {
+      "id": "evt-2026-07-27-fdbc38",
+      "title": "NVIDIA 用 Vera CPU 加速下一代 CPU 與 GPU 設計",
+      "date": "2026-07-27",
+      "days_since": 17,
+      "next_signal": "看有沒有公布具體加速倍數，或 Cadence、Synopsys 把 Vera 優化納入正式產品線的後續動作。"
+    },
+    {
+      "id": "evt-2026-07-28-0162e2",
+      "title": "LFM2.5-Encoders：在 CPU 上做快速長脈絡推論",
+      "date": "2026-07-28",
+      "days_since": 16,
+      "next_signal": "看 LiquidAI 是否放出 benchmark（CPU 延遲、吞吐 vs 既有 encoder），以及模型權重的下載與採用。"
+    },
+    {
+      "id": "evt-2026-07-28-1cc93a",
+      "title": "對 open-weights 模型的立場",
+      "date": "2026-07-28",
+      "days_since": 16,
+      "next_signal": "看文章實際主張，以及是否引來同業（Meta、Mistral 等開放權重陣營）或政策圈回應。"
+    },
+    {
+      "id": "evt-2026-07-28-5b94da",
+      "title": "Grok 建構模式（Build Mode）",
+      "date": "2026-07-28",
+      "days_since": 16,
+      "next_signal": "看 Build Mode 的實際 demo 與可用範圍，是否與 X 生態綁定。"
+    },
+    {
+      "id": "evt-2026-07-28-8ecafa",
+      "title": "NVIDIA Jetson：緊湊算力，隨處建 AI",
+      "date": "2026-07-28",
+      "days_since": 16,
+      "next_signal": "看是否有新 Jetson 型號規格、出貨量，或第三方開發者採用數字。"
+    },
+    {
+      "id": "evt-2026-07-28-a1c41f",
+      "title": "agentic AI 時代的科學計算",
+      "date": "2026-07-28",
+      "days_since": 16,
+      "next_signal": "看是否有具名團隊、可重現的成果，或第三方（非 OpenAI 客戶）採用數據。"
+    },
+    {
+      "id": "evt-2026-07-28-cd0a00",
+      "title": "OlmoEarth 平台：行星尺度的地理空間推論",
+      "date": "2026-07-28",
+      "days_since": 16,
+      "next_signal": "看是否釋出權重、資料集、與既有 geospatial 模型的 benchmark，以及實際應用夥伴。"
+    },
+    {
+      "id": "evt-2026-07-29-001f1f",
+      "title": "ChatGPT 面向學術研究者，加速科學發現",
+      "date": "2026-07-29",
+      "days_since": 15,
+      "next_signal": "看有沒有研究者或第三方回報實際開通人數，以及用的是哪個模型版本。"
+    },
+    {
+      "id": "evt-2026-07-29-08f1e5",
+      "title": "Lyria 3.5 上線 Flow Music，強化音樂、歌詞、人聲與創作控制",
+      "date": "2026-07-29",
+      "days_since": 15,
+      "next_signal": "看三件可驗證的事：第三方創作者的實測與對比、官方後續有沒有補出 benchmark 或跟前代、競品的量化對照、Flow Music 的開放地區與定價方案。"
+    },
+    {
+      "id": "evt-2026-07-29-50ea44",
+      "title": "開兩個設定，讓 ARC-AGI-3 分數翻三倍",
+      "date": "2026-07-29",
+      "days_since": 15,
+      "next_signal": "看有沒有獨立第三方用同組設定在 ARC-AGI-3 上複現這個三倍。"
+    },
+    {
+      "id": "evt-2026-07-29-ad1ae1",
+      "title": "Grok Voice Think Fast 2（語音）",
+      "date": "2026-07-29",
+      "days_since": 15,
+      "next_signal": "看 xAI 是否釋出 Grok Voice Think Fast 2 的 demo 或規格，說明「Think Fast」指的是延遲還是推理速度。"
+    },
+    {
+      "id": "evt-2026-07-30-601e8d",
+      "title": "Gemini Robotics ER 2：影片理解、工具編排與多機器人協作",
+      "date": "2026-07-30",
+      "days_since": 14,
+      "next_signal": "看有沒有第三方或客戶實測多機器人協作與工具編排的場景 demo。"
+    },
+    {
+      "id": "evt-2026-07-30-637f40",
+      "title": "GeForce NOW：同一台筆電既能上課也能串流玩 PC 遊戲",
+      "date": "2026-07-30",
+      "days_since": 14,
+      "next_signal": "（證據不足，待補）無明確的 AI 相關後續訊號可追。"
+    },
+    {
+      "id": "evt-2026-07-30-d3af04",
+      "title": "avatarin 用 GPT-Realtime 做 24 小時零售 agent",
+      "date": "2026-07-30",
+      "days_since": 14,
+      "next_signal": "看 avatarin 或山田電機有沒有公布留存、客訴或營收面的後續數字，以及這套有沒有複製到其他門市。"
+    },
+    {
+      "id": "evt-2026-07-31-ae50a2",
+      "title": "Univé 建立能用 AI 的團隊",
+      "date": "2026-07-31",
+      "days_since": 13,
+      "next_signal": "看有沒有 Univé 側的量化成果（採用率、生產力、治理踩雷紀錄），或第三方對這套導入法的複盤。"
+    },
+    {
+      "id": "evt-2026-07-31-e0a505",
+      "title": "在歐洲推進負責任的 AI",
+      "date": "2026-07-31",
+      "days_since": 13,
+      "next_signal": "看 EU AI Act 下一階段條文生效時，OpenAI 的 provenance、透明度做法有沒有被監管明確接受或要求補強。"
+    },
+    {
+      "id": "evt-2026-07-31-e5e5cc",
+      "title": "建構充裕的智慧",
+      "date": "2026-07-31",
+      "days_since": 13,
+      "next_signal": "看這篇有沒有後續帶出具體的算力、資本或產品動作，把 abundant intelligence 兌現成可驗證的事。"
+    },
+    {
+      "id": "evt-2026-08-03-591d58",
+      "title": "Orchard：可擴展 agentic AI 的開源框架",
+      "date": "2026-08-03",
+      "days_since": 10,
+      "next_signal": "看 GitHub 上的採用訊號：star、外部貢獻者的 PR、論文引用，以及有沒有微軟以外的團隊用 Orchard 發表 agent 訓練或評測結果。"
+    },
+    {
+      "id": "evt-2026-08-03-627d4d",
+      "title": "Circles 用 OpenAI 技術做電信個人化",
+      "date": "2026-08-03",
+      "days_since": 10,
+      "next_signal": "Circles 財報或第三方是否印證這些留存與 ARPU 數字；其他電信商是否跟進採用。"
+    },
+    {
+      "id": "evt-2026-08-03-c29aa3",
+      "title": "六個月做出即時語音 AI 系統的經過",
+      "date": "2026-08-03",
+      "days_since": 10,
+      "next_signal": "是否釋出延遲、打斷準確率之類可比數字，或開放給開發者實測。"
+    },
+    {
+      "id": "evt-2026-08-03-c41113",
+      "title": "Apple 這次搞錯了",
+      "date": "2026-08-03",
+      "days_since": 10,
+      "next_signal": "Apple 的正式回應、法院是否受理與後續裁定。"
+    },
+    {
+      "id": "evt-2026-08-03-ca9363",
+      "title": "Claude for Nonprofits：給非營利組織的方案",
+      "date": "2026-08-03",
+      "days_since": 10,
+      "next_signal": "看 Anthropic 是否公布方案細節：適用哪些產品、折扣或補助額度、申請條件；以及有沒有非營利組織實際導入的案例。"
+    },
+    {
+      "id": "evt-2026-08-04-07332d",
+      "title": "破獲一個犯罪詐騙集團",
+      "date": "2026-08-04",
+      "days_since": 9,
+      "next_signal": "看 OpenAI 有沒有出完整的威脅情報報告（規模、手法、指標），或有第三方、執法單位佐證這次行動。"
+    },
+    {
+      "id": "evt-2026-08-04-392f3d",
+      "title": "用 ChatGPT Work 與 Codex 教與學的新方法",
+      "date": "2026-08-04",
+      "days_since": 9,
+      "next_signal": "是否公布試點學區/學校數，以及教師採用與留存數據。"
+    },
+    {
+      "id": "evt-2026-08-04-5441bc",
+      "title": "用 LFM2.5-2.6B 到處部署本機 agent",
+      "date": "2026-08-04",
+      "days_since": 9,
+      "next_signal": "官方或第三方跑出的 benchmark、工具呼叫成功率、實際部署案例。"
+    },
+    {
+      "id": "evt-2026-08-04-5d61fd",
+      "title": "AI 撐大記憶體需求，儲存跟著升級",
+      "date": "2026-08-04",
+      "days_since": 9,
+      "next_signal": "是否落到具體產品或規格（儲存加速、記憶體階層方案），或第三方驗證的成本數字。"
+    },
+    {
+      "id": "evt-2026-08-04-6b1ee3",
+      "title": "NVIDIA Alpamayo 2 Super 自駕開放模型開放商用",
+      "date": "2026-08-04",
+      "days_since": 9,
+      "next_signal": "授權條款與權重釋出範圍、第三方在長尾場景的實測、有哪些車廠或 robotaxi 業者採用。"
+    },
+    {
+      "id": "evt-2026-08-04-6c9649",
+      "title": "AI 業界提出 SAFE 資安透明準則",
+      "date": "2026-08-04",
+      "days_since": 9,
+      "next_signal": "RFC 收斂成正式規範、主要雲廠與模型商是否採用、有沒有第一批實際的 findings 交換。"
+    },
+    {
+      "id": "evt-2026-08-04-9f0a8c",
+      "title": "NVIDIA 加入 NSF 州與區域 AI 中心計畫",
+      "date": "2026-08-04",
+      "days_since": 9,
+      "next_signal": "計畫實際撥給哪些中心、NVIDIA 投入的算力或資金規模、第一批受惠機構名單。"
+    },
+    {
+      "id": "evt-2026-08-04-b30acc",
+      "title": "Anthropic 消息：Tino Cuellar",
+      "date": "2026-08-04",
+      "days_since": 9,
+      "next_signal": "補齊該則消息的內文後，確認它到底是任命、政策發言還是其他。"
+    },
+    {
+      "id": "evt-2026-08-05-11f6a7",
+      "title": "NVIDIA 與夥伴在美國、為美國投資建設",
+      "date": "2026-08-05",
+      "days_since": 8,
+      "next_signal": "留意 NVIDIA 是否公布具體投資金額、廠址或夥伴名單，那才是能驗證這篇聲明的下一步。"
+    },
+    {
+      "id": "evt-2026-08-06-00fb68",
+      "title": "GeForce NOW 8 月新增 26 款遊戲",
+      "date": "2026-08-06",
+      "days_since": 7,
+      "next_signal": "GeForce NOW 若開始整合 AI 生成內容或雲端推論功能，才會是值得追蹤的轉折。"
+    },
+    {
+      "id": "evt-2026-08-06-4a18c5",
+      "title": "從問到做：全球如何讓 ChatGPT 真正做事",
+      "date": "2026-08-06",
+      "days_since": 7,
+      "next_signal": "留意是否有第三方數據能佐證或反駁這個「問到做」的轉向趨勢。"
+    },
+    {
+      "id": "evt-2026-08-06-6c5981",
+      "title": "Into the Omniverse：開放世界模型如何推進物理 AI",
+      "date": "2026-08-06",
+      "days_since": 7,
+      "next_signal": "留意這封公開信是否催生具體政策動作，或 NVIDIA 是否接著釋出對應的開放世界模型。"
+    },
+    {
+      "id": "evt-2026-08-06-d3c850",
+      "title": "攜手美國心理學會，關注青少年心理健康與 AI",
+      "date": "2026-08-06",
+      "days_since": 7,
+      "next_signal": "留意 ChatGPT 是否推出針對青少年帳號的具體安全功能，或 APA 是否公開發布合作產出的指引文件。"
+    },
+    {
+      "id": "evt-2026-08-07-16edd0",
+      "title": "HSP GRUPPE 如何為稅務顧問建立 AI 能力",
+      "date": "2026-08-07",
+      "days_since": 6,
+      "next_signal": "留意稅務、會計顧問業是否有更多同類型企業導入案例出現，能否形成可觀察的產業採用趨勢。"
+    },
+    {
+      "id": "evt-2026-08-07-3e0258",
+      "title": "因應下一階段的關鍵資安能力挑戰",
+      "date": "2026-08-07",
+      "days_since": 6,
+      "next_signal": "留意 Astra 是否對應到某個即將發布的新模型，以及 OpenAI 是否公布完整的評估報告或第三方稽核結果。"
+    },
+    {
+      "id": "evt-2026-08-08-46b340",
+      "title": "Firebird 在亞美尼亞啟用 CIS 地區最大 AI Factory",
+      "date": "2026-08-08",
+      "days_since": 5,
+      "next_signal": "留意 Firebird 是否公布具體 GPU 數量或算力規模，以及設施上線後是否吸引到區域內的企業客戶採用。"
+    },
+    {
+      "id": "evt-2026-08-10-0e6ea5",
+      "title": "NVIDIA開源Magpie TTS：低延遲多語音代理，權重全開放",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看有沒有第三方測試延遲與多語言品質、或有人拿它接進實際語音代理產品。"
+    },
+    {
+      "id": "evt-2026-08-10-27696c",
+      "title": "Virgin Atlantic 用 ChatGPT Work 精進顧客旅程",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看 Virgin Atlantic 或其他航空業者是否有後續、可獨立查證的導入數字或效益揭露。"
+    },
+    {
+      "id": "evt-2026-08-10-2ea3f0",
+      "title": "ChatGPT Business 即將推出 Premium seats",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看 Premium 席位正式定價公布後，企業客戶的採用率或評價。"
+    },
+    {
+      "id": "evt-2026-08-10-397543",
+      "title": "Meta推出Muse Glimmer：本機、代理、多模態、開源",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看模型卡與權重正式釋出後，有沒有人實測本機部署門檻與代理任務表現。"
+    },
+    {
+      "id": "evt-2026-08-10-4425be",
+      "title": "讓前沿網路安全模型交到更多受信任夥伴手中",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看是否公布 Daybreak 夥伴名單、審核標準，或是否有濫用案例被揭露。"
+    },
+    {
+      "id": "evt-2026-08-10-44574d",
+      "title": "把知識蒸餾的成本壓到可規模化執行",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看有沒有公開的成本或效能對比數字、或其他團隊拿這套方法覆現結果。"
+    },
+    {
+      "id": "evt-2026-08-10-6de2c6",
+      "title": "Zapier 如何用 ChatGPT Work 改造核心行銷流程",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看 Zapier 是否公開具體的漏斗轉換率或效率數字，或其他 SaaS 公司是否跟進類似案例。"
+    },
+    {
+      "id": "evt-2026-08-10-8a0492",
+      "title": "建立AI原生財務職能的心得",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看有沒有後續公開的具體數字（例如財務團隊人力配置變化、預測準確度改善），或其他企業跟進分享類似案例。"
+    },
+    {
+      "id": "evt-2026-08-10-bbf2b8",
+      "title": "OpenAI致信德州州長Abbott談AI基礎設施",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看德州州政府或監管機構有沒有公開回應，或 OpenAI 在德州的實際基礎設施投資（電力採購、廠址）有沒有具體進展。"
+    },
+    {
+      "id": "evt-2026-08-10-f81fd9",
+      "title": "資安防禦窗口收窄，擴大 Daybreak 計畫",
+      "date": "2026-08-10",
+      "days_since": 3,
+      "next_signal": "看 GPT-5.6-Cyber 是否被第三方資安研究者測試、或是否有實際案例被揭露。"
+    }
+  ],
+  "already_featured": [],
+  "edition_orphans": [],
+  "note": "距離大不是缺點：實測 8/12 那篇的骨幹是一組距離 ≥4 的配對，而唯一一組距離 2 的在文章裡最沒話講。距離 1 代表同一件事、該合併成一段。規格見 references/digest-framework.md。"
+}

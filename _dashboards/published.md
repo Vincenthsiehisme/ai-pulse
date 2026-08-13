@@ -1,8 +1,16 @@
-# 已發布事件（107）
+# 已發布事件（111）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-08-13
+- **[[Events/evt-2026-08-13-1db924|Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More]]** — NVIDIA · product · conf 73 · heat 未量測
+  GeForce NOW 原生 Linux 應用程式正式脫離測試版，同步加入新雲端串流優化
+- **[[Events/evt-2026-08-13-b9676e|OpenAI appoints Dali Rajic as Chief Revenue Officer]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 任命 Dali Rajic 為首席營收長，帶領全球營收組織
+
 ## 2026-08-12
+- **[[Events/evt-2026-08-12-843c78|LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge]]** — Liquid AI · model-capability · conf 73 · heat 未量測
+  Liquid AI 發布邊緣裝置視覺模型 LFM2.5-VL-3B，訴求更快更好的視覺能力
 - **[[Events/evt-2026-08-12-a9d882|NVIDIA AI Factory Compute Is Becoming an Investable Asset Class]]** — NVIDIA · capital · conf 73 · heat 未量測
   NVIDIA 找上六家資產管理與投行建融資平台，目標動員逾 5,000 億美元第三方資本蓋 AI 基礎設施。
 - **[[Events/evt-2026-08-12-b76d3a|Putting sign language AI into users’ hands]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
@@ -21,6 +29,8 @@
   NVIDIA 八月起連續介紹推動開源本地 AI 模型與代理的社群夥伴。
 - **[[Events/evt-2026-08-11-783838|Why Scaling AI Compute Performance Requires a New Power Architecture]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 談 AI 運算擴張的瓶頸從算力轉向電力，主張改用新供電架構。
+- **[[Events/evt-2026-08-11-797106|Introducing Grok Bot]]** — xAI · product · conf 90 · heat 未量測
+  xAI 發布新產品 Grok Bot，同批公告一併提到 Grok 4.6
 - **[[Events/evt-2026-08-11-d99e44|NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI]]** — NVIDIA · model-capability · conf 80 · heat 未量測
   NVIDIA 推出 Nemotron 3.5 Lightning，主打長時間運行代理任務的高效率。
 - **[[Events/evt-2026-08-11-dc5cff|v0.27.1]]** — vLLM · infra · conf 83 · heat 未量測
