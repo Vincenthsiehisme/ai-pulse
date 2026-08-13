@@ -2458,3 +2458,59 @@ mutations:
     replace: ""
     survives: false
     why: ""
+
+  - id: M278
+    title: "摘要補抓不看主機（robots 與 Content-Signal 是對某一台主機驗的；feed 指到別的網域就照抓，等於把一次檢查的結論套到沒檢查過的地方）"
+    file: pulse-probe.py
+    find: "    return urlsplit(item_url).netloc.lower() == \\\n        urlsplit(source.get(\"endpoint\") or \"\").netloc.lower()\n"
+    replace: "    return True\n"
+    survives: false
+    why: ""
+
+  - id: M279
+    title: "摘要補抓不看白名單（excerpt_allowed 不再檢查來源有沒有登記——白名單變成全點開）"
+    file: pulse-probe.py
+    find: "    if not source.get(\"excerpt_fetch\"):\n        return False\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M280
+    title: "每班補抓沒有上限（回填首班一次冒出幾十筆新項目，就是對別人站台一陣連發）"
+    file: pulse-probe.py
+    find: "    cap = int(source.get(\"excerpt_fetch_max\", 10))\n"
+    replace: "    cap = 10 ** 9\n"
+    survives: false
+    why: ""
+
+  - id: M281
+    title: "連 feed 已經給的摘要也去重抓（發布方主動放進 feed 的東西，跟我們自己去讀那一頁是兩件事；順帶讓請求量翻倍）"
+    file: pulse-probe.py
+    find: "        if (it.get(\"summary\") or \"\").strip():\n            continue\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M282
+    title: "抓不到時拿標題充數（紅線 2：「我們讀不到」被寫成「這篇的摘要就是標題」，而潤稿那端分不出來）"
+    file: pulse-probe.py
+    find: "        text = extract_excerpt(body) if status == 200 and body else \"\"\n"
+    replace: "        text = extract_excerpt(body) if status == 200 and body else it[\"title\"]\n"
+    survives: false
+    why: ""
+
+  - id: M283
+    title: "補抓的呼叫從 run_source 消失（判準全對，但沒有人叫它——這一層等於不存在，而語料看起來只是「這批剛好都沒摘要」）"
+    file: pulse-probe.py
+    find: "    fill_missing_excerpts(\n"
+    replace: "    _unused_fill = (\n"
+    survives: false
+    why: ""
+
+  - id: M284
+    title: "把宣告 ai-input=no 的來源開了補抓（站方公開宣告不要把內容當成 AI 輸入，而我們照抓——這是唯一一條不是我們自己畫的線）"
+    file: ../_config/sources.yaml
+    find: "- id: src-xai-news\n"
+    replace: "- id: src-xai-news\n  excerpt_fetch: true\n"
+    survives: false
+    why: ""

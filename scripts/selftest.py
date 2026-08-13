@@ -189,6 +189,111 @@ acase("零產出診斷：prefix 濾光時要留過濾前的樣本 URL"
       _d_prefix["sample_before_filter"],
       ["https://x.test/careers/a", "https://x.test/about/b"])
 
+# ── 摘要補抓的合規層（references/excerpt-fetch.md）────────────────────────
+# 這一層的每一條都是「不可以做什麼」，所以正反兩面都要釘：只釘「補得到」，
+# 邊界鬆掉不會有任何東西紅。
+acase("references/excerpt-fetch.md 存在（這一層的規格書，紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "excerpt-fetch.md")), True)
+
+acase("extract_excerpt：og:description 取得到，HTML entity 要還原",
+      _pp.extract_excerpt(
+          '<html><meta property="og:description" '
+          'content="A path, a fence, a knot &amp; more."></html>'),
+      "A path, a fence, a knot & more.")
+acase("extract_excerpt：退到 <meta name=\"description\">，空白收斂",
+      _pp.extract_excerpt('<meta name="description" content="  fallback   line  ">'),
+      "fallback line")
+# 這條是這一層的紅線：取的是發布方寫給別人轉述用的那一句，不是內文。
+# 哪天有人加了 <p> 的 fallback，這條會紅——而那正是「抓內文」的定義。
+acase("extract_excerpt：沒有 meta 時回空字串，**不退去抓 <p>**"
+      "（那才是「抓內文」，超出 license_note 的 excerpt）",
+      _pp.extract_excerpt("<html><article><p>整篇內文都在這裡</p></article></html>"), "")
+
+_EX_SRC = {"excerpt_fetch": True, "endpoint": "https://huggingface.co/blog/feed.xml"}
+acase("excerpt_allowed：同主機且來源已登記 → 可以",
+      _pp.excerpt_allowed(_EX_SRC, "https://huggingface.co/blog/x"), True)
+acase("excerpt_allowed：跨主機 → 不行"
+      "（robots 與 Content-Signal 是對某一台主機驗的，別台我們一次都沒驗過；"
+      "這條也擋掉 feed 被動手腳指向任意網址）",
+      _pp.excerpt_allowed(_EX_SRC, "https://evil.example/x"), False)
+acase("excerpt_allowed：來源沒登記 → 不行（白名單不是全點開）",
+      _pp.excerpt_allowed({"endpoint": "https://huggingface.co/blog/feed.xml"},
+                          "https://huggingface.co/blog/x"), False)
+
+
+def _ex_fetch(url):
+    if "bad" in url:
+        return 404, None, {}
+    return 200, f'<meta property="og:description" content="來自 {url} 的一句話">', {}
+
+
+_ex_items = [
+    {"title": "有摘要", "summary": "feed 自己給的", "url": "https://huggingface.co/blog/a"},
+    {"title": "沒摘要", "summary": "", "url": "https://huggingface.co/blog/b"},
+    {"title": "跨主機", "summary": "", "url": "https://evil.example/c"},
+    {"title": "抓不到", "summary": "", "url": "https://huggingface.co/blog/bad"},
+]
+_ex_diag: dict = {}
+_ex_counts = _pp.fill_missing_excerpts(dict(_EX_SRC), _ex_items, _ex_fetch, _ex_diag)
+acase("fill_missing_excerpts：feed 已經給的摘要一個字都不動"
+      "（發布方主動放進 feed 的東西，跟我們自己去讀那一頁是兩件事）",
+      _ex_items[0]["summary"], "feed 自己給的")
+acase("fill_missing_excerpts：空摘要且同主機 → 補上",
+      _ex_items[1]["summary"], "來自 https://huggingface.co/blog/b 的一句話")
+acase("fill_missing_excerpts：跨主機與抓不到的都維持空摘要"
+      "（紅線 2：抓不到就留空，不猜、不拿標題充數）",
+      [_ex_items[2]["summary"], _ex_items[3]["summary"]], ["", ""])
+acase("fill_missing_excerpts：四格 diag 分得開"
+      "（壓成一個數字的話，「我們讀不到」會長得跟「這篇沒有摘要」一樣）",
+      [_ex_counts["excerpt_tried"], _ex_counts["excerpt_ok"],
+       _ex_counts["excerpt_skipped_host"], _ex_counts["excerpt_failed"]],
+      [2, 1, 1, 1])
+acase("fill_missing_excerpts：來源沒登記時一個請求都不送（反方向）",
+      _pp.fill_missing_excerpts(
+          {"endpoint": "https://huggingface.co/blog/feed.xml"},
+          [{"title": "x", "summary": "", "url": "https://huggingface.co/blog/z"}],
+          _ex_fetch)["excerpt_tried"], 0)
+acase("fill_missing_excerpts：excerpt_fetch_max 是硬上限"
+      "（回填首班可能一次冒出幾十筆新項目，沒有上限就是對別人站台一陣連發）",
+      _pp.fill_missing_excerpts(
+          {**_EX_SRC, "excerpt_fetch_max": 1},
+          [{"title": str(_ex_i), "summary": "",
+            "url": f"https://huggingface.co/blog/{_ex_i}"} for _ex_i in range(5)],
+          _ex_fetch)["excerpt_tried"], 1)
+
+# 設定檔那一端。上面釘的是碼守不守得住，這兩條釘的是**有沒有人把不該開的開起來**。
+# 這是唯一一條「站方畫的線」，不是我們自己的保守設定——不管誰要求都不改。
+_EX_CFG = _yaml.safe_load(
+    open(os.path.join(_HERE, "..", "_config", "sources.yaml"), encoding="utf-8"))
+_EX_ALL = [s for _ex_sec in _smod.SECTIONS for s in (_EX_CFG.get(_ex_sec) or [])]
+acase("sources.yaml：宣告 ai-input=no 的來源一律不得開 excerpt_fetch"
+      "（Content-Signal 是站方公開宣告的偏好，不是我們能決定的那一層）",
+      sorted(s["id"] for s in _EX_ALL
+             if "ai-input=no" in str(s.get("license_note") or "")
+             and s.get("excerpt_fetch")), [])
+acase("sources.yaml：license_note 沒寫 excerpt 的來源一律不得開 excerpt_fetch"
+      "（要放寬是改 license_note 並在 references/excerpt-fetch.md 寫下理由，"
+      "不是在這裡多打一個 true）",
+      sorted(s["id"] for s in _EX_ALL
+             if s.get("excerpt_fetch")
+             and "excerpt" not in str(s.get("license_note") or "")), [])
+acase("sources.yaml：今天真的開著 excerpt_fetch 的就是那一條"
+      "（白名單要看得見。哪天多一條，這裡會紅，人才會被迫去讀三層判準）",
+      sorted(s["id"] for s in _EX_ALL if s.get("excerpt_fetch")), ["src-hf-blog"])
+
+# 消費端。上面全部釘的是判準，而判準再對，沒有人叫它就等於這一層不存在——
+# 2026-08-13 的 M274 才剛因為同樣的理由活下來一次。run_source 要跑起來得先有
+# 實體表、state 與 seen，端到端成本太高，所以這裡退一步用文字釘：呼叫在不在、
+# 以及在不在 match_entities 前面（補到的字要一起參與實體比對）。
+_ex_pp_txt = open(os.path.join(_HERE, "pulse-probe.py"), encoding="utf-8").read()
+_ex_run = _ex_pp_txt[_ex_pp_txt.index("def run_source("):]
+acase("run_source 真的呼叫 fill_missing_excerpts，而且在 match_entities 之前"
+      "（只補進 summary 卻不讓它參與實體比對，等於拿到了證據卻不採信）",
+      [_ex_run.count("fill_missing_excerpts(") == 1,
+       ("fill_missing_excerpts(" in _ex_run
+        and _ex_run.index("fill_missing_excerpts(") < _ex_run.index("match_entities("))],
+      [True, True])
+
 _d_empty: dict = {}
 _pp.adapt_sitemap({"url_prefix": "/news/"},
                   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>',

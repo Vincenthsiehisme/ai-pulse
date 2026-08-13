@@ -387,6 +387,12 @@ official_sources:
   lifecycle: probing
   robots_ok: true                 # [待驗證]
   license_note: "titles + excerpt + link"
+  # 這條 feed 不給 <description>：180 筆語料 0 筆有摘要，而標題是正常的原文標題，
+  # 所以不是解析壞掉，是 feed 本來就沒放。三層判準都過才開這一格
+  # （robots `Allow: /`、無 Content-Signal、license_note 本來就寫 excerpt 可以），
+  # 對照表與理由見 references/excerpt-fetch.md。白名單不是全點開。
+  excerpt_fetch: true
+  excerpt_fetch_max: 10
   frequency: weekly               # [待驗證] 索引顯示最新到 2026-04，可能低頻也可能是快取
   quota_per_run: 20
     # 已知格式坑：item 缺 <link>，只有 <guid isPermaLink="true">。
