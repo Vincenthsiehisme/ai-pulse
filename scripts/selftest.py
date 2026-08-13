@@ -4564,6 +4564,76 @@ acase("digest.pick_retrospective：沒有待回答訊號時退到最高 value",
 acase("digest.pick_retrospective：已經在某一期用過的不再挑",
       _dg.pick_retrospective([_dg_ev(id="用過", value=99), _dg_ev(id="沒用過", value=10)],
                              {"用過"}, "2026-08-13")[0]["id"], "沒用過")
+# ── 每一則都要落在某一期（2026-08-13）──────────────────────────────────
+# 第一版用 `date`（事情發生日）挑材料。那會漏：一則 3 天前發生、今晚才通過門禁的
+# 事件，發生那天還沒上線、上線那天又不是它的 date——**它永遠不會出現在任何一期**，
+# 而沒有東西會發現。實測 107 則已上線事件依 date 分佈 22 個日期、依 published_at
+# 14 個，兩邊對不上的部分就是會掉出去的那些。
+acase("digest.edition_day：看 published_at，不看 date"
+      "（date 是事情發生日，published_at 才是它進站的日子）",
+      _dg.edition_day({"date": "2026-08-01",
+                       "published_at": "2026-08-12T19:16:19+00:00"}), "2026-08-12")
+# 這一條擋的是「修不乾淨」：退回 date 等於把剛修掉的行為放回來。
+acase("digest.edition_day：沒有 published_at → None，**不退回 date**"
+      "（退回去就是這條規則要修掉的那個行為）",
+      _dg.edition_day({"date": "2026-08-01", "published_at": None}), None)
+acase("digest.edition_orphans：沒有 published_at 的要被列出來"
+      "（它們不屬於任何一期、會從每一版消失，所以不能靜靜跳過）",
+      _dg.edition_orphans([{"id": "有", "published_at": "2026-08-12T00:00:00+00:00"},
+                           {"id": "沒有", "published_at": None},
+                           {"id": "空字串", "published_at": ""}]),
+      ["沒有", "空字串"])
+# 這條釘的是那個性質本身：一組事件依 edition_day 分組之後，每一則剛好出現一次。
+_dg_cov = [{"id": f"e{_dg_i}", "published_at": f"2026-08-{10 + _dg_i % 3:02d}T01:00:00+00:00"}
+           for _dg_i in range(7)]
+acase("digest：每一則已上線事件剛好落在一期裡（分組後的總數等於原數，"
+      "且沒有任何一則同時出現在兩期）",
+      [sum(len([e for e in _dg_cov if _dg.edition_day(e) == d])
+           for d in {_dg.edition_day(e) for e in _dg_cov}),
+       len(_dg.edition_orphans(_dg_cov))],
+      [7, 0])
+
+# 消費端。上面釘的全是判準，而 M296 實測證明：把 main() 裡那一行換回 `e["date"]`，
+# 875 條**一條都不會紅**——變異工具直接印「沒有任何測試在守這裡」。
+# 這是三天內第五次同一個形態（M198 / M274 / M283 / M291 / M296）。
+_DG_FM = ("---\nid: {i}\nstatus: published\ntitle: T\ndate: '{d}'\n"
+          "published_at: '{p}'\ncompany: C\ntrack: T1\ncategory: product\n"
+          "value: 50\nindependent_sources: 1\n---\n\n## 事實\nx\n\n"
+          "## 下一個訊號\n看第三方數字。\n")
+
+
+def _dg_run(today):
+    """臨時 vault：一則 date 是今天但發布在別天，一則發布在今天但 date 是別天。
+    正確的實作只會挑到第二則。"""
+    with _tf8.TemporaryDirectory() as _dg_v:
+        os.makedirs(os.path.join(_dg_v, "Events"))
+        for _dg_i, _dg_d, _dg_p in [
+                ("evt-date-today", today, "2026-07-01T00:00:00+00:00"),
+                ("evt-published-today", "2026-07-01", today + "T19:00:00+00:00")]:
+            open(os.path.join(_dg_v, "Events", _dg_i + ".md"), "w",
+                 encoding="utf-8").write(_DG_FM.format(i=_dg_i, d=_dg_d, p=_dg_p))
+        _dg_argv, _dg_old = sys.argv, os.environ.get("VAULT_DIR")
+        sys.argv = ["pulse-digest-prep.py", "--date", today]
+        os.environ["VAULT_DIR"] = _dg_v
+        try:
+            with _c2.redirect_stdout(io.StringIO()), _c2.redirect_stderr(io.StringIO()):
+                _dg.main()
+        finally:
+            sys.argv = _dg_argv
+            if _dg_old is None:
+                os.environ.pop("VAULT_DIR", None)
+            else:
+                os.environ["VAULT_DIR"] = _dg_old
+        with open(os.path.join(_dg_v, "_probe", "digest-worklist.json"),
+                  encoding="utf-8") as _dg_f:
+            return [i["id"] for i in _json.load(_dg_f)["items"]]
+
+
+acase("digest.main：挑的是「今晚上線」的那一則，不是「今天發生」的那一則"
+      "（釘消費端。判準對而 main() 沒接的話，晚上線的事件會從每一期消失，"
+      "而 worklist 看起來完全正常）",
+      _dg_run("2026-08-12"), ["evt-published-today"])
+
 acase("digest.pick_retrospective：全部用過 → 挑不到，並說出理由（不是安靜回 None）",
       [_dg.pick_retrospective([_dg_ev(id="用過")], {"用過"}, "2026-08-13")[0],
        bool(_dg.pick_retrospective([_dg_ev(id="用過")], {"用過"}, "2026-08-13")[1])],
