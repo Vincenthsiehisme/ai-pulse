@@ -4472,6 +4472,58 @@ acase(".gitignore 蓋得住原子寫的暫存檔（runner 被砍時它會留在�
 acase("references/atomic-writes.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "atomic-writes.md")), True)
 
+# ── 「沒有內容」的三種原因（references/evidence-availability.md）──────────
+# 2026-08-13 夜間鏈潤 Grok Bot 那則，三層寫「（證據不足，待補）」，下一個訊號寫
+# 「xAI 是否釋出功能說明」——而那份說明就在 x.ai/bot，連結躺在它自己的證據列裡。
+# 空摘要的理由不是頁面沒內容，是 src-xai-news 標了 ai-input=no：我們選擇不取。
+# 政策決定被寫成了證據狀態。
+from lib import availability as _av  # noqa: E402
+
+acase("references/evidence-availability.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references",
+                                  "evidence-availability.md")), True)
+
+_AV_XAI = {"license_note": "titles + links only；站方另掛 Content-Signal: "
+                           "ai-train=no, search=yes, ai-input=no"}
+_AV_HF = {"license_note": "titles + excerpt + link", "excerpt_fetch": True}
+_AV_LINKS = {"license_note": "titles + links only"}
+
+# 順序：先看手上有沒有東西，再看為什麼沒有。反過來的話，一條 license 很嚴、
+# 但這次剛好給了摘要的來源會被判成不能用。
+acase("availability：有摘要就是 has_text，即使那條來源的 license 很嚴"
+      "（先看手上有什麼，再看為什麼沒有）",
+      _av.evidence_availability(_AV_XAI, "這一筆真的有摘要")[0], _av.HAS_TEXT)
+acase("availability：站方宣告 ai-input=no → withheld（政策，不是證據狀態）",
+      [_av.evidence_availability(_AV_XAI, "")[0],
+       "ai-input=no" in _av.evidence_availability(_AV_XAI, "")[1]],
+      [_av.WITHHELD, True])
+acase("availability：來源允許摘錄卻沒摘要 → unfetched（我們的缺口，該去修抓取端）",
+      _av.evidence_availability(_AV_HF, "")[0], _av.UNFETCHED)
+acase("availability：license 只寫「標題＋連結」→ withheld，但理由要說出這是我們自己的線"
+      "（站方畫的線不能改，我們畫的可以走 PR 改，兩者對外說法不同）",
+      [_av.evidence_availability(_AV_LINKS, "")[0],
+       "自己的保守約束" in _av.evidence_availability(_AV_LINKS, "")[1]],
+      [_av.WITHHELD, True])
+# 漏登記的來源不可以長得跟站方拒絕一樣——前者要有人去補設定，後者不用做任何事。
+acase("availability：找不到來源設定 → unfetched 並說出來，不是靜靜當成 withheld",
+      [_av.evidence_availability(None, "")[0],
+       bool(_av.evidence_availability(None, "")[1])],
+      [_av.UNFETCHED, True])
+
+acase("availability.writing_hint：unfetched 明講「不要寫進文章」"
+      "（那是我們的故障，不該變成給讀者的一句「證據不足」）",
+      "不要寫進文章" in _av.writing_hint(_av.UNFETCHED), True)
+acase("availability.writing_hint：withheld 要求給連結，而且明講不准寫成「證據不足」",
+      [ "連結" in _av.writing_hint(_av.WITHHELD),
+        "證據不足" in _av.writing_hint(_av.WITHHELD)],
+      [True, True])
+
+acase("availability.event_availability：有任何一筆 withheld → 這一則欠讀者一個原文連結",
+      [_av.event_availability([(_AV_XAI, ""), (_AV_HF, "有摘要")])["needs_source_link"],
+       _av.event_availability([(_AV_HF, "有摘要")])["needs_source_link"],
+       _av.event_availability([(_AV_HF, "")])["needs_source_link"]],
+      [True, False, False])
+
 # ── 每日精選的選材（references/digest-framework.md）────────────────────────
 # 這一區釘的是「哪些事件可以寫成同一篇」的判準。實測結論跟直覺相反：
 # Obsidian 圖上最近的一對在文章裡最沒話講，而撐起 8/12 那篇的骨幹是一組
@@ -4607,6 +4659,12 @@ def _dg_run(today):
     正確的實作只會挑到第二則。"""
     with _tf8.TemporaryDirectory() as _dg_v:
         os.makedirs(os.path.join(_dg_v, "Events"))
+        # prep 會讀來源設定來判斷每筆證據「為什麼沒有內容」，所以臨時 vault 也要有一份。
+        # 這裡不讓它容忍缺檔：正式路徑上 _config/sources.yaml 不見＝整個 vault 壞了，
+        # 那時候當場炸掉比默默降級正確。
+        os.makedirs(os.path.join(_dg_v, "_config"))
+        open(os.path.join(_dg_v, "_config", "sources.yaml"), "w",
+             encoding="utf-8").write("official_sources: []\n")
         for _dg_i, _dg_d, _dg_p in [
                 ("evt-date-today", today, "2026-07-01T00:00:00+00:00"),
                 ("evt-published-today", "2026-07-01", today + "T19:00:00+00:00")]:

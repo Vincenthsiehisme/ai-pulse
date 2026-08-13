@@ -24,7 +24,11 @@ from itertools import combinations
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import yaml  # noqa: E402
+
+from lib import availability as avail  # noqa: E402  規格見 references/evidence-availability.md
 from lib import clock  # noqa: E402  唯一一個可以取日期的地方，見 references/timezones.md
+from lib import sources as sources_lib  # noqa: E402  分節清單的單一真相源
 from lib.atomicwrite import atomic_write_text  # noqa: E402
 from lib.notes import parse_note  # noqa: E402
 
@@ -192,7 +196,20 @@ def edition_orphans(events):
     return sorted(e["id"] for e in events if edition_day(e) is None)
 
 
-def load_events(vault):
+def load_source_index(vault):
+    """source_id → 該條來源的設定。判斷一筆證據為什麼沒有內容要靠它。"""
+    cfg = yaml.safe_load((vault / "_config" / "sources.yaml").read_text("utf-8"))
+    out = {}
+    for sec in sources_lib.SECTIONS:
+        for s in (cfg.get(sec) or []):
+            if s.get("id"):
+                out[s["id"]] = s
+    return out
+
+
+def load_events(vault, corpus=None, srcs=None):
+    corpus = corpus or {}
+    srcs = srcs or {}
     out = []
     for p in sorted((vault / "Events").glob("*.md")):
         fm, body = parse_note(p.read_text("utf-8"))
@@ -216,12 +233,49 @@ def load_events(vault):
             # 不放 frontmatter 的 next_signal：那一格 0/107 有值，放進來就是假欄位。
             # 真的那一份在 layers["下一個訊號"]，見 event_next_signal()。
             "source_ids": [x.get("source_id") for x in ev if x.get("source_id")],
-            "evidence": [{"source_id": x.get("source_id"), "url": x.get("url"),
-                          "title": x.get("title")} for x in ev],
+            # 每一筆證據都帶「有沒有內容、沒有的話為什麼」。少了這一格，潤稿端
+            # 會把「我們不取」寫成「證據不足」——2026-08-13 的 Grok Bot 就是。
+            "evidence": [_evidence_row(x, corpus, srcs) for x in ev],
+            "availability": avail.event_availability(
+                [(srcs.get(x.get("source_id")),
+                  (corpus.get(x.get("url")) or {}).get("summary", "")) for x in ev]),
             "layers": {name: _section(body, name) for name in
                        ("事實", "脈絡", "影響", "判斷", "下一個訊號")},
         })
     return out
+
+
+def _evidence_row(x, corpus, srcs):
+    summary = (corpus.get(x.get("url")) or {}).get("summary", "")
+    state, why = avail.evidence_availability(srcs.get(x.get("source_id")), summary)
+    return {"source_id": x.get("source_id"), "url": x.get("url"),
+            "title": x.get("title"), "summary": summary,
+            "availability": state, "availability_reason": why,
+            "writing_hint": avail.writing_hint(state)}
+
+
+def load_corpus_summaries(vault):
+    """url → {summary}。跟 pulse-enrich-prep 同一份資料，這裡只要摘要。"""
+    idx = {}
+    corpus = vault / "_corpus"
+    if not corpus.exists():
+        return idx
+    for day in corpus.iterdir():
+        if not day.is_dir():
+            continue
+        for jf in day.glob("*.jsonl"):
+            for line in jf.read_text("utf-8").splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    r = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                for key in (r.get("url"), r.get("url_canonical")):
+                    if key:
+                        idx.setdefault(key, {"summary": r.get("summary", "")})
+    return idx
 
 
 def _section(body, heading):
@@ -250,7 +304,9 @@ def main():
 
     vault = Path(os.environ["VAULT_DIR"])
     today = args.date or clock.utc_today().isoformat()
-    events = load_events(vault)
+    srcs = load_source_index(vault)
+    corpus = load_corpus_summaries(vault)
+    events = load_events(vault, corpus, srcs)
     featured = load_featured(vault)
 
     items = [e for e in events if edition_day(e) == today]

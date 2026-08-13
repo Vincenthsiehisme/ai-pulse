@@ -2610,3 +2610,35 @@ mutations:
     replace: "    items = [e for e in events if e[\"date\"] == today]\n"
     survives: false
     why: ""
+
+  - id: M297
+    title: "先看 license 再看手上有沒有東西（一條 license 很嚴、但這次剛好給了摘要的來源會被判成不能用，於是有內容也不寫）"
+    file: lib/availability.py
+    find: "    if str(summary or \"\").strip():\n        return HAS_TEXT, \"\"\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M298
+    title: "找不到來源設定就當成政策不取用（漏登記的來源長得跟站方拒絕一模一樣——前者要有人去補設定，後者不用做任何事）"
+    file: lib/availability.py
+    find: "    if not source_cfg:\n        return UNFETCHED, \"找不到這條來源的設定，查不出是不能取還是沒取到\"\n"
+    replace: "    if not source_cfg:\n        return WITHHELD, \"\"\n"
+    survives: false
+    why: ""
+
+  - id: M299
+    title: "政策不取用的事件不再要求給原文連結（讀者被告知「證據不足」，而原文連結就在證據列裡沒被寫出來——2026-08-13 的 Grok Bot 就是這樣）"
+    file: lib/availability.py
+    find: "        \"needs_source_link\": seen[WITHHELD] > 0,\n"
+    replace: "        \"needs_source_link\": False,\n"
+    survives: false
+    why: ""
+
+  - id: M300
+    title: "允許摘錄的來源沒抓到時也判成 withheld（我們自己的抓取缺口被寫成站方政策，於是永遠沒有人去修）"
+    file: lib/availability.py
+    find: "    if source_cfg.get(\"excerpt_fetch\") or \"excerpt\" in note:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
