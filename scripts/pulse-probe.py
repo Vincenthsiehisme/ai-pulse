@@ -30,6 +30,7 @@ lifecycle 語意（v2.1）：
 from __future__ import annotations
 
 import argparse
+import html as html_mod
 import ipaddress
 import json
 import os
@@ -405,6 +406,97 @@ def harvest_candidates(text: str, matched: set[str]) -> list[str]:
     for m in CAND_BRACKET.finditer(text):
         consider(m.group(1))
     return out
+
+
+# ------------------------------------------------------------- 摘要補抓（合規層）
+# 規格：references/excerpt-fetch.md。三層判準、四格 diag、以及「為什麼不是四條
+# 來源都補」的三個錯，全寫在那裡。這裡只放碼。
+
+# 只認 meta。**不解析 <article>、不抽第一段 <p>**——那才是「抓內文」，
+# 而這一層的整個立足點是「取的是發布方寫給別人轉述用的那一句」。
+# 這個界線守得住的唯一理由是這裡只有一條正則、沒有第二條路徑。
+_EXCERPT_META = re.compile(
+    r"<meta[^>]*?(?:property|name)\s*=\s*[\"'](?:og:description|description)[\"'][^>]*>",
+    re.I)
+_EXCERPT_CONTENT = re.compile(r"content\s*=\s*[\"'](.*?)[\"']", re.I | re.S)
+
+
+def extract_excerpt(html: str) -> str:
+    """從 HTML 取 og:description / meta description，截到 SUMMARY_CHARS。
+
+    取不到回空字串。**不退去抓內文、不拿標題充數**——「我們讀不到」跟
+    「這篇沒有摘要」必須是同一個結果（空），但在 diag 裡分得開。
+    """
+    for m in _EXCERPT_META.finditer(html or ""):
+        c = _EXCERPT_CONTENT.search(m.group(0))
+        if not c:
+            continue
+        text = html_mod.unescape(c.group(1))
+        text = re.sub(r"<[^>]+>", " ", text)
+        text = re.sub(r"\s+", " ", text).strip()
+        if text:
+            return text[:SUMMARY_CHARS]
+    return ""
+
+
+def excerpt_allowed(source: dict, item_url: str) -> bool:
+    """這一條項目可不可以去取那一頁。
+
+    兩個條件，缺一不可：
+
+      1. 來源被人工登記為可補抓（`excerpt_fetch: true`）。白名單不是全點開——
+         登記的那一刻代表有人查過 robots、Content-Signal 與 license_note 三層。
+      2. 項目跟 endpoint 同一台主機。robots 與 Content-Signal 是**對某一台主機**
+         驗的；feed 裡指到別的網域時那台我們一次都沒驗過，照抓等於把一次檢查的
+         結論套到沒檢查過的地方。這條也順便擋掉 feed 被動手腳指向任意網址。
+    """
+    if not source.get("excerpt_fetch"):
+        return False
+    if not item_url:
+        return False
+    return urlsplit(item_url).netloc.lower() == \
+        urlsplit(source.get("endpoint") or "").netloc.lower()
+
+
+def fill_missing_excerpts(source: dict, items: list[dict], fetch, diag=None) -> dict:
+    """就地補上空摘要。回傳這一班的四格計數（同時寫進 diag）。
+
+    只處理 summary 是空字串的：feed 給了摘要就用 feed 的——那是發布方主動放進
+    feed 的東西，跟我們自己去讀那一頁是兩件事。
+
+    `fetch` 由呼叫端傳入（正式路徑是 safe_fetch），為的是這支能在沒有網路的
+    情況下被測到。上限走 `excerpt_fetch_max`（預設 10）：回填首班可能一次冒出
+    幾十筆新項目，沒有上限的話第一次跑就是對別人站台的一陣連發。
+    """
+    d = diag if diag is not None else {}
+    counts = {"excerpt_tried": 0, "excerpt_ok": 0,
+              "excerpt_skipped_host": 0, "excerpt_failed": 0}
+    if not source.get("excerpt_fetch"):
+        d.update(counts)
+        return counts
+    cap = int(source.get("excerpt_fetch_max", 10))
+    for it in items:
+        if counts["excerpt_tried"] >= cap:
+            break
+        if (it.get("summary") or "").strip():
+            continue
+        if not excerpt_allowed(source, it.get("url") or ""):
+            counts["excerpt_skipped_host"] += 1
+            continue
+        counts["excerpt_tried"] += 1
+        try:
+            status, body, _ = fetch(it["url"])
+        except Exception:  # noqa: BLE001
+            counts["excerpt_failed"] += 1
+            continue
+        text = extract_excerpt(body) if status == 200 and body else ""
+        if text:
+            it["summary"] = text
+            counts["excerpt_ok"] += 1
+        else:
+            counts["excerpt_failed"] += 1
+    d.update(counts)
+    return counts
 
 
 # -------------------------------------------------------------------- adapters
@@ -814,6 +906,19 @@ def run_source(src: dict, table, state: dict, seen: dict) -> tuple[list[dict], d
     # 這是保守的一邊——寧可少算一筆 lead_days，不要讓半年前的存量污染它。
     is_backfill = not st.get("first_fetch_at")
     stat["backfill"] = is_backfill
+
+    # 摘要補抓。只給白名單來源、只給這一班第一次看到的項目。規格見
+    # references/excerpt-fetch.md。
+    #
+    # 位置有意義：**要在 match_entities 之前**。補到的那段文字本來就該一起參與
+    # 實體比對——只補進 summary 卻不讓它參與比對，等於拿到了證據卻不採信。
+    # 也**要在 seen 過濾之後**：已經看過的 URL 內容不會變，每晚重取一次的請求量
+    # 會跟語料規模同階成長，而換回來的是同一段字。
+    fill_missing_excerpts(
+        src,
+        [it for it in items
+         if it.get("url") and canonical_url(it["url"]) not in seen],
+        safe_fetch, stat["diag"])
 
     out, new_count = [], 0
     for it in items:
