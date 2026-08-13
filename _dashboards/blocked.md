@@ -1,4 +1,4 @@
-# 被門禁擋下（29）
+# 被門禁擋下（23）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
@@ -25,9 +25,3 @@
 - **[[Events/evt-2026-08-12-c210cb|Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEa]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-08-11-797106|Introducing Grok Bot]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity
-- **[[Events/evt-2026-07-23-516cf6|Claude Opus 4.7]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-07-23-7788b3|Claude Opus 4.5]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-07-22-00fb73|Claude Sonnet 4.5]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-07-22-7df86d|Claude Opus 4.6]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-07-22-9c2e03|Claude Opus 4.8]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-07-21-9089cf|Claude Sonnet 4.6]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track

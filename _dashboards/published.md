@@ -1,4 +1,4 @@
-# 已發布事件（101）
+# 已發布事件（107）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
@@ -181,12 +181,18 @@
   抓到 Anthropic 一則「Claude for Creative Work」相關頁面，指向把 Claude 用於創意工作，但很可能是未上線頁。
 - **[[Events/evt-2026-07-23-4fb946|GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud]]** — NVIDIA · product · conf 73 · heat 未量測
   GeForce NOW 本週上架《流亡黯道：Curse of the Allflame》等遊戲。
+- **[[Events/evt-2026-07-23-516cf6|Claude Opus 4.7]]** — Anthropic · model-capability · conf 73 · heat 未量測
+  Anthropic 官方站出現 Claude Opus 4.7 的發布頁，時間落在追蹤開始前兩天。
+- **[[Events/evt-2026-07-23-7788b3|Claude Opus 4.5]]** — Anthropic · model-capability · conf 73 · heat 未量測
+  Anthropic 官方站出現 Claude Opus 4.5 的發布頁，時間落在追蹤開始前兩天。
 - **[[Events/evt-2026-07-23-821bb6|NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 在美國海軍研究院裝上 DGX GB300，黃仁勳到場啟用。
 - **[[Events/evt-2026-07-23-b82259|Launching Health in ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 在 ChatGPT 推出健康功能，讓符合資格的美國用戶串接病歷與 Apple Health。
 
 ## 2026-07-22
+- **[[Events/evt-2026-07-22-00fb73|Claude Sonnet 4.5]]** — Anthropic · model-capability · conf 73 · heat 未量測
+  Anthropic 官方站出現 Claude Sonnet 4.5 的發布頁，時間落在追蹤開始前三天。
 - **[[Events/evt-2026-07-22-09b47d|Claude Sonnet 5]]** — Anthropic · model-capability · conf 83 · heat 未量測
   Anthropic 發布 Claude Sonnet 5，中階模型線的新主版本。
 - **[[Events/evt-2026-07-22-2c7cdc|NTT DATA Group cuts incident analysis to 30 minutes with Codex]]** — NTT DATA · product · conf 73 · heat 未量測
@@ -199,8 +205,12 @@
   OpenAI 整理新聞機構如何用 AI 做報導、拉受眾與改善營運。
 - **[[Events/evt-2026-07-22-7a1a69|Building AI infrastructure with the Effingham County community]]** — OpenAI · infra · conf 73 · heat 未量測
   OpenAI 在喬治亞州 Effingham County 推 Project Camellia 基礎設施，綁能源、就業與社區投資承諾。
+- **[[Events/evt-2026-07-22-7df86d|Claude Opus 4.6]]** — Anthropic · model-capability · conf 73 · heat 未量測
+  Anthropic 官方站出現 Claude Opus 4.6 的發布頁，時間落在追蹤開始前三天。
 - **[[Events/evt-2026-07-22-8a7a1d|Introducing OpenAI Presence]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 推出企業級 agent 平台 Presence，主打可部署的語音與聊天客服 agent。
+- **[[Events/evt-2026-07-22-9c2e03|Claude Opus 4.8]]** — Anthropic · model-capability · conf 73 · heat 未量測
+  Anthropic 官方站出現 Claude Opus 4.8 的發布頁，時間落在追蹤開始前三天。
 - **[[Events/evt-2026-07-22-af7762|Advancing the next era of national science]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 宣布與美國能源部及國家實驗室合作，用前沿模型加速科學研究。
 - **[[Events/evt-2026-07-22-bd324b|Anthropic Economic Index Connector]]** — Anthropic · research · conf 73 · heat 未量測
@@ -221,6 +231,8 @@
   xAI 推出 Outlook 與 Excel 的外掛，把 Grok 塞進微軟 Office 的兩個主力入口。
 - **[[Events/evt-2026-07-21-78cd95|OpenAI and Hugging Face partner to address security incident during model evaluation]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 與 Hugging Face 公布模型評測期間的一起資安事件，重點是模型展現的進階網路攻擊能力。
+- **[[Events/evt-2026-07-21-9089cf|Claude Sonnet 4.6]]** — Anthropic · model-capability · conf 83 · heat 未量測
+  Anthropic 官方站出現 Claude Sonnet 4.6 的發布頁。我們兩天後才開始追這條來源，內容無從引用。
 - **[[Events/evt-2026-07-21-ce1fa4|Built in Fort Worth: Wistron Opens Advanced Manufacturing Plant to Produce NVIDIA AI Systems]]** — NVIDIA · infra · conf 73 · heat 未量測
   緯創在德州福和市開第一座美國廠，生產 NVIDIA AI 系統。
 - **[[Events/evt-2026-07-21-ee9214|Introducing the ChatGPT for small business program]]** — OpenAI · product · conf 90 · heat 未量測
