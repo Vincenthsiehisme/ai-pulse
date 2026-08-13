@@ -4759,6 +4759,16 @@ _GATE_T = {"readiness": {"min_confidence": 60, "thin_fact_min_chars": 20,
                          "heat_min_platform_breadth": 2}}
 _GBODY = ("## 事實\nOpenAI 在官方部落格宣布了一項新的模型定價方案，生效日為下月一日。\n\n"
           "## 證據\n- 官方部落格\n\n## 脈絡\n這是今年第三次調整。\n")
+# evaluate() 的後兩個參數（2026-08-13 起必填）：來源設定與語料摘要。
+# 三條來源刻意各代表一種可得性，下面〈薄的三種原因〉整組共用。
+_GSRC = {
+    "src-open": {"id": "src-open", "license_note": "excerpt allowed",
+                 "excerpt_fetch": True},                       # 允許摘錄
+    "src-ours": {"id": "src-ours", "license_note": "titles + links only"},  # 我們自己的約束
+    "src-them": {"id": "src-them",
+                 "license_note": "titles + links only；Content-Signal: ai-input=no"},
+}
+_GSUM = {"https://ex/has": "官方部落格那一篇的摘要，長度不重要，非空就代表內容在手上。"}
 
 
 def _gfm(**kw):
@@ -4775,37 +4785,162 @@ def _gfm(**kw):
 
 acase("pulse-gate：一則各項都合格的 Event 沒有任何 blocker"
       "（基準線；沒有這條，下面幾條可能是被別的 blocker 擋住而不是被守住）",
-      _gm.evaluate(_gfm(), _GBODY, _GATE_T)[0], [])
+      _gm.evaluate(_gfm(), _GBODY, _GATE_T, _GSRC, _GSUM)[0], [])
 acase("pulse-gate：沒有一手證據 → missing_primary_evidence（紅線 2 的執法點）",
-      _gm.evaluate(_gfm(primary_evidence=0), _GBODY, _GATE_T)[0],
+      _gm.evaluate(_gfm(primary_evidence=0), _GBODY, _GATE_T, _GSRC, _GSUM)[0],
       ["missing_primary_evidence"])
 # unmeasured_heat：有 heat 數字但一項傳播訊號都沒量到 → 擋。這是 scoring.py 回 None
 # 的執法點，守的是「手改 frontmatter / 遷移腳本寫壞 / 有人把無條件計算加回去」這三種
 # 走回頭路的方式。規格見 references/readiness-gate.md。
 acase("pulse-gate：heat 有數字但 propagationSignals=0 → unmeasured_heat"
       "（紅線 8：量不到就寫量不到，不是編一個低分出來）",
-      _gm.evaluate(_gfm(heat=12), _GBODY, _GATE_T)[0], ["unmeasured_heat"])
+      _gm.evaluate(_gfm(heat=12), _GBODY, _GATE_T, _GSRC, _GSUM)[0], ["unmeasured_heat"])
 acase("pulse-gate：heat 是 None 時不擋（反方向；缺席是合法狀態，不是錯誤狀態）",
-      _gm.evaluate(_gfm(heat=None), _GBODY, _GATE_T)[0], [])
+      _gm.evaluate(_gfm(heat=None), _GBODY, _GATE_T, _GSRC, _GSUM)[0], [])
 acase("pulse-gate：heat 有數字且真的量到傳播訊號 → 不擋 unmeasured_heat"
       "（第二個反方向：擋的是「沒證據卻有數字」，不是「有數字」）",
       _gm.evaluate(_gfm(heat=30, score_factors={"propagationSignals": 2,
                                                 "independentSources": 2,
                                                 "platformBreadth": 2}),
-                   _GBODY, _GATE_T)[0], [])
+                   _GBODY, _GATE_T, _GSRC, _GSUM)[0], [])
 acase("pulse-gate：heat 過門檻但獨立來源/平台廣度撐不住 → unsupported_heat"
       "（紅線 4：禁止把手工分數包裝成已測量熱度。這條現在要靠社群線接上才走得到，"
       "但語意正確且正反兩面都釘住，那天它會是活的碼）",
       _gm.evaluate(_gfm(heat=75, score_factors={"propagationSignals": 1,
                                                 "independentSources": 1,
                                                 "platformBreadth": 1}),
-                   _GBODY, _GATE_T)[0], ["unsupported_heat"])
+                   _GBODY, _GATE_T, _GSRC, _GSUM)[0], ["unsupported_heat"])
 acase("pulse-gate：heat 高但證據撐得住就不擋（反方向；只釘一邊的話"
       "「永遠擋」跟「永遠不擋」一樣沒有資訊）",
       _gm.evaluate(_gfm(heat=75, score_factors={"propagationSignals": 3,
                                                 "independentSources": 2,
                                                 "platformBreadth": 2}),
-                   _GBODY, _GATE_T)[0], [])
+                   _GBODY, _GATE_T, _GSRC, _GSUM)[0], [])
+
+# ── 薄的三種原因，三個 blocker（2026-08-13）──────────────────────────────
+# 拆之前：4 則 AMD/xAI 的事件每晚重算、每晚掛同一個 thin_fact，而 thin_fact 的
+# 意思是「去把事實寫厚一點」——那件事做不到，因為那些來源的 license 只給標題與
+# 連結，我們選擇不取內文。看板上那條數字每天都在要求一個沒有人能做的動作。
+# 判準與量到的分佈見 references/evidence-availability.md〈門禁那一邊〉。
+_GTHIN_BODY = "## 事實\n很短。\n"
+
+
+def _gthin(evidence):
+    # summary 也要短，否則 thin 的條件是 or，測到的可能是另一半。
+    return _gfm(summary="短", evidence=evidence)
+
+
+def _gblk(evidence):
+    return [b for b in _gm.evaluate(_gthin(evidence), _GTHIN_BODY, _GATE_T,
+                                    _GSRC, _GSUM)[0] if b.startswith("thin")]
+
+
+acase("pulse-gate：薄 + 有一筆拿得到內文 → thin_fact（內容在手上，是寫得薄）",
+      _gblk([{"source_id": "src-ours", "url": "https://ex/has"}]), ["thin_fact"])
+acase("pulse-gate：薄 + 來源允許摘錄但沒摘要 → thin_unfetched"
+      "（我們這邊的缺口，該去修抓取端；今天實際 0 則，這條守的是 excerpt_fetch "
+      "每多開一條來源就多一批「該抓到而沒抓到」，而它們會混進 thin_fact 裡）",
+      _gblk([{"source_id": "src-open", "url": "https://ex/nope"}]), ["thin_unfetched"])
+acase("pulse-gate：薄 + 全部來源政策不取 → thin_by_policy（沒有人有事可做）",
+      _gblk([{"source_id": "src-them", "url": "https://ex/x"},
+             {"source_id": "src-ours", "url": "https://ex/y"}]), ["thin_by_policy"])
+# 優先序的反方向。反過來排的話這一則會被判成終端，而它其實寫得出來——
+# 那是把一個做得到的動作靜靜取消掉，比擋著更糟。
+acase("pulse-gate：混合（兩筆政策不取 + 一筆有內文）→ thin_fact 不是 thin_by_policy"
+      "（優先序 has_text > unfetched > withheld，判準是「誰還有事可做」）",
+      _gblk([{"source_id": "src-them", "url": "https://ex/x"},
+             {"source_id": "src-ours", "url": "https://ex/y"},
+             {"source_id": "src-ours", "url": "https://ex/has"}]), ["thin_fact"])
+acase("pulse-gate：薄 + 證據欄是空的 → 維持 thin_fact（薄推不到來源身上）",
+      _gblk([]), ["thin_fact"])
+# 漏登記的來源要被看見。判成 withheld 的話，一條忘了寫進 sources.yaml 的來源
+# 會長得跟站方拒絕一模一樣，然後靜靜進終端清單、從監看裡消失。
+acase("pulse-gate：薄 + source_id 不在 sources.yaml 裡 → thin_unfetched 而不是終端"
+      "（設定檔的漏洞要被看見，不可以長得像站方拒絕）",
+      _gblk([{"source_id": "src-not-registered", "url": "https://ex/z"}]),
+      ["thin_unfetched"])
+acase("pulse-gate：不薄的事件一條 thin_* 都不掛（反方向；只釘會擋的話，"
+      "一個永遠掛 thin_by_policy 的版本也會全綠）",
+      [b for b in _gm.evaluate(_gfm(evidence=[{"source_id": "src-them", "url": "https://ex/x"}]),
+                               _GBODY, _GATE_T, _GSRC, _GSUM)[0] if b.startswith("thin")],
+      [])
+
+# 判準拆了、消費端不認得，等於什麼都沒改變。monitor 的終端清單與 gate 產得出來
+# 的三個名字要對得上：只有 thin_by_policy 是終端。這一格是 M198/M274/M283/M291/
+# M296 那個病（釘了判準沒釘消費端）在這一支上的釘子。
+_mon_spec = importlib.util.spec_from_file_location(
+    "pulse_monitor_tb", os.path.join(_HERE, "pulse-monitor.py"))
+_mon_tb = importlib.util.module_from_spec(_mon_spec)
+_mon_spec.loader.exec_module(_mon_tb)
+acase("pulse-monitor.TERMINAL_BLOCKERS 認得 thin_by_policy，而且只認得它"
+      "（三個 thin_* 裡另外兩個都還有人可以修，進終端清單等於把待辦靜音）",
+      sorted(b for b in _gm.THIN_BLOCKER.values() if b in _mon_tb.TERMINAL_BLOCKERS),
+      ["thin_by_policy"])
+acase("pulse-gate.THIN_BLOCKER 三個狀態各對一個名字，沒有兩個狀態共用一個"
+      "（共用等於沒拆，而看板上會看不出來）",
+      len(set(_gm.THIN_BLOCKER.values())), 3)
+
+# 端到端：純函式對而 main() 沒把 srcs/summaries 接進去，這一格等於不存在。
+# evaluate() 的兩個參數是必填的（忘了傳會 TypeError），但「傳了一個空 dict」
+# 不會——那會讓每一則都掉進 thin_unfetched，而且沒有任何純函式測試會紅。
+with _tf2.TemporaryDirectory() as _td_tb:
+    _tb = Path(_td_tb)
+    (_tb / "Events").mkdir()
+    (_tb / "_config").mkdir()
+    (_tb / "_corpus" / "2026-08-13").mkdir(parents=True)
+    (_tb / "_config" / "gate.yaml").write_text(
+        "readiness:\n  thin_fact_min_chars: 20\n  min_confidence: 60\n"
+        "quality:\n  recency_max_lead_days: 0\n", "utf-8")
+    (_tb / "_config" / "sources.yaml").write_text(
+        "official_sources:\n"
+        "  - id: src-them\n"
+        "    license_note: 'titles + links only；Content-Signal: ai-input=no'\n"
+        "  - id: src-open\n"
+        "    license_note: excerpt allowed\n"
+        "    excerpt_fetch: true\n", "utf-8")
+    # 第三筆 url 刻意出現兩次：先有摘要、後來那次是空的。同一個 url 跨天再被抓到
+    # 是常態（來源改版、RSS 重發），而後來那次沒有摘要不代表內容消失了。
+    # 取最後一筆的話會把已經有的內文蓋掉，那一則無聲從「寫得薄」變成「不能取」。
+    (_tb / "_corpus" / "2026-08-13" / "c.jsonl").write_text(
+        _json.dumps({"url": "https://ex/x", "summary": ""}, ensure_ascii=False) + "\n"
+        + _json.dumps({"url": "https://ex/o", "summary": ""}, ensure_ascii=False) + "\n"
+        + _json.dumps({"url": "https://ex/dup", "summary": "這一筆真的抓到內文了，摘要在這裡。"},
+                      ensure_ascii=False) + "\n"
+        + _json.dumps({"url": "https://ex/dup", "summary": ""}, ensure_ascii=False) + "\n",
+        "utf-8")
+
+    def _tb_event(name, source_id, url):
+        (_tb / "Events" / name).write_text(
+            "---\nid: " + name[:-3] + "\nstatus: review\nsummary: 短\n"
+            "category: product\ncompany: xAI\ntrack: 模型能力\nkeywords:\n  - x\n"
+            "confidence: 70\nprimary_evidence: 1\nindependent_sources: 2\n"
+            "evidence:\n  - source_id: " + source_id + "\n    url: " + url + "\n"
+            "---\n\n## 事實\n很短。\n", "utf-8")
+
+    _tb_event("a.md", "src-them", "https://ex/x")
+    _tb_event("b.md", "src-open", "https://ex/o")
+    _tb_event("c.md", "src-open", "https://ex/dup")
+    _rc_tb = _subprocess.run(
+        [sys.executable, os.path.join(_HERE, "pulse-gate.py")],
+        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(_tb)))
+    from lib.notes import parse_note as _tb_parse  # noqa: E402
+    _tb_got = [_tb_parse((_tb / "Events" / n).read_text("utf-8"))[0].get("blockers")
+               for n in ("a.md", "b.md", "c.md")]
+# 這個 vault 的 recency_max_lead_days 是 0（新鮮度閘關著）。第三則就是那個
+# 「語料只在新鮮度閘開著時才讀」的煞車：那樣寫的話 summaries 是空的，
+# c.md 會從 thin_fact 變成 thin_unfetched，而 a/b 兩則不動——一個看起來
+# 只差一格的差異，實際上是一批寫得出來的事件被判成沒有人能修。
+acase("pulse-gate main()：跑完整支，三則分別落在 thin_by_policy / thin_unfetched / thin_fact"
+      "（main() 忘了把 srcs 或 summaries 接進去的話，它們會塌回同一個名字，"
+      "而上面每一條純函式測試照樣全綠——M296 就是這樣活下來的）",
+      [_rc_tb.returncode, _tb_got],
+      [0, [["thin_by_policy"], ["thin_unfetched"], ["thin_fact"]]])
+acase("lib/sources.source_index：id 以 <slug> 結尾的樣板條目不進索引"
+      "（樣板的 license_note 會被當成真的政策；而在此之前 digest-prep 自己展開一份、"
+      "沒跳過樣板，兩支腳本對同一個 id 可以給出兩種答案）",
+      sorted(_smod.source_index(
+          {"official_sources": [{"id": "src-real"}, {"id": "src-<slug>"}]})),
+      ["src-real"])
 
 # ── pulse-dashboard 的三桶對帳（2026-08-13）──────────────────────────────
 # 這支腳本在此之前**一條測試都沒有**，而它是三張人看的索引頁的唯一產出者。

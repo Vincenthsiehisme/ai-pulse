@@ -150,24 +150,24 @@ fm_ok = {"summary": "這是一段夠長的摘要內容超過二十個字元用�
          "primary_evidence": 1, "confidence": 73, "heat": None, "independent_sources": 1,
          "score_factors": {"propagationSignals": 0}}
 body_ok = "## 事實\n這是一段夠長的事實描述內容超過二十個字元有具體資訊。\n\n## 影響\nxxx\n"
-bk_ok, _w = _gate.evaluate(fm_ok, body_ok, GATE)
+bk_ok, _w = _gate.evaluate(fm_ok, body_ok, GATE, {}, {})
 check("gate 乾淨事件=0 blocker", bk_ok, [])
 fm_ph = dict(fm_ok, category=None, track=None)
 # 簡體舊寫法。**這一條是相容性回歸測試，不要改成繁體。**
 # vault 裡已經有用「待编辑」寫成的既有 Event（例：evt-2026-07-24-dd57bd）。
 # 哪天有人把舊寫法從 PLACEHOLDER_RE 拿掉，那些未潤稿的事件會突然通過
 # placeholder_content，佔位文字直接上線——這裡就是那個哪天的煞車。
-bk_ph, _w2 = _gate.evaluate(fm_ph, "## 事實\n待编辑：待補\n", GATE)
+bk_ph, _w2 = _gate.evaluate(fm_ph, "## 事實\n待编辑：待補\n", GATE, {}, {})
 check_true("gate 佔位被擋（簡體舊寫法）",
            "placeholder_content" in bk_ph and "missing_category" in bk_ph)
-bk_ph2, _w2b = _gate.evaluate(fm_ph, "## 事實\n待編輯：待補\n", GATE)
+bk_ph2, _w2b = _gate.evaluate(fm_ph, "## 事實\n待編輯：待補\n", GATE, {}, {})
 check_true("gate 佔位被擋（繁體新寫法）", "placeholder_content" in bk_ph2)
 # 產生端與偵測端共用 lib/notes.py 一份常數；新事件寫繁體，偵測端兩種都認。
 from lib.notes import PLACEHOLDER, PLACEHOLDER_RE  # noqa: E402
 check("新事件佔位詞是繁體", PLACEHOLDER, "待編輯")
 check_true("偵測端認得自家產生的佔位詞", bool(PLACEHOLDER_RE.search(PLACEHOLDER)))
 check_true("偵測端認得簡體舊寫法", bool(PLACEHOLDER_RE.search("待编辑")))
-bk_gen, _w3 = _gate.evaluate(dict(fm_ok, company="industry"), body_ok, GATE)
+bk_gen, _w3 = _gate.evaluate(dict(fm_ok, company="industry"), body_ok, GATE, {}, {})
 check_true("gate 泛稱實體被擋", "generic_entity" in bk_gen)
 
 # ── keyword_tokens：確定性 + 虛詞過濾 ──
