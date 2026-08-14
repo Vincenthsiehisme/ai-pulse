@@ -1,12 +1,18 @@
-# 已發布事件（111）
+# 已發布事件（114）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-08-13
 - **[[Events/evt-2026-08-13-1db924|Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More]]** — NVIDIA · product · conf 73 · heat 未量測
   GeForce NOW 原生 Linux 應用程式正式脫離測試版，同步加入新雲端串流優化
+- **[[Events/evt-2026-08-13-3b6799|Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets]]** — Amazon · infra · conf 73 · heat 未量測
+  Amazon 用 Strands Agents 串接機器人資料錄製、訓練與部署流程
+- **[[Events/evt-2026-08-13-49ffbf|The builder’s guide to GPT‑5.6]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 出 GPT-5.6 建構者指南，教新創用模型選擇省成本
 - **[[Events/evt-2026-08-13-b9676e|OpenAI appoints Dali Rajic as Chief Revenue Officer]]** — OpenAI · capital · conf 73 · heat 未量測
   OpenAI 任命 Dali Rajic 為首席營收長，帶領全球營收組織
+- **[[Events/evt-2026-08-13-c970d1|Introducing Gemini 3.7 Flash]]** — Google DeepMind · model-capability · conf 80 · heat 未量測
+  Google 距上一版僅三週再推 Gemini 3.7 Flash，稱有顯著改進
 
 ## 2026-08-12
 - **[[Events/evt-2026-08-12-843c78|LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge]]** — Liquid AI · model-capability · conf 73 · heat 未量測

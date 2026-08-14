@@ -214,6 +214,11 @@
     "src_hash": "4fd40cb6ef54",
     "zh": "即時全球情報儀表板：AI 新聞彙整、地緣政治與基礎設施監看"
   },
+  "lightonai/next-plaid": {
+    "at": "2026-08-14T19:13:10+00:00",
+    "src_hash": "064db50fe87f",
+    "zh": "NextPlaid、ColGREP：多向量搜尋工具，串接資料庫到 coding agent"
+  },
   "livekit/agents": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "e499b8f91d00",

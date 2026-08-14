@@ -1,92 +1,26 @@
 [
   {
-    "id": "evt-2026-08-11-797106",
-    "path": "evt-2026-08-11-797106.md",
-    "title": "Introducing Grok Bot",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 2,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/introducing-grok-bot",
-        "title": "Introducing Grok Bot",
-        "summary": ""
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://x.ai/bot",
-        "title": "Grok Bot",
-        "summary": ""
-      },
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/grok-4-6",
-        "title": "Grok 4.6",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-12-843c78",
-    "path": "evt-2026-08-12-843c78.md",
-    "title": "LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge",
-    "fingerprint": null,
-    "facet": "capability",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/LiquidAI/lfm2-5-vl-3b",
-        "title": "LFM2.5-VL-3B for Better and Faster Vision Capabilities for the Edge",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-12-c210cb",
-    "path": "evt-2026-08-12-c210cb.md",
-    "title": "Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEarth Studio for downstream analysis",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/allenai/olmoearth-embeddings",
-        "title": "Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEarth Studio for downstream analysis",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-13-1db924",
-    "path": "evt-2026-08-13-1db924.md",
-    "title": "Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More",
+    "id": "evt-2026-08-13-3b6799",
+    "path": "evt-2026-08-13-3b6799.md",
+    "title": "Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "industry",
+    "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-linux-native-app/",
-        "title": "Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More",
-        "summary": "GeForce NOW is giving cloud gaming an extra-credit upgrade just in time for back-to-school season. The native Linux app for GeForce NOW is officially out of beta. GeForce NOW is also delivering new cloud optimizations that make Frame Generation feel even more responsive while streaming. On top of th"
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/amazon/strands-lerobot-streaming-data-loop",
+        "title": "Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets",
+        "summary": "A Blog post by Amazon on Hugging Face"
       }
     ]
   },
   {
-    "id": "evt-2026-08-13-b9676e",
-    "path": "evt-2026-08-13-b9676e.md",
-    "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer",
+    "id": "evt-2026-08-13-49ffbf",
+    "path": "evt-2026-08-13-49ffbf.md",
+    "title": "The builder’s guide to GPT‑5.6",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -95,9 +29,69 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/dali-rajic-chief-revenue-officer",
-        "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer",
-        "summary": "OpenAI appoints Dali Rajic as Chief Revenue Officer to lead its global revenue organization and help businesses realize the full value of AI."
+        "url": "https://openai.com/index/builders-guide-to-gpt-5-6",
+        "title": "The builder’s guide to GPT‑5.6",
+        "summary": "Learn how startups use GPT-5.6 to build faster, more cost-efficient AI agents with smarter model selection and new Responses API capabilities."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-13-c970d1",
+    "path": "evt-2026-08-13-c970d1.md",
+    "title": "Introducing Gemini 3.7 Flash",
+    "fingerprint": "google:gemini:3.7-flash",
+    "facet": "release",
+    "company_guess": "Google DeepMind",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/introducing-gemini-3-7-flash/",
+        "title": "Introducing Gemini 3.7 Flash",
+        "summary": ""
+      },
+      {
+        "source_id": "src-media-arstechnica",
+        "url": "https://arstechnica.com/ai/2026/08/google-announces-gemini-3-7-flash-just-three-weeks-after-previous-release/",
+        "title": "Google announces Gemini 3.7 Flash just three weeks after previous release",
+        "summary": "Gemini 3.6 Flash debuted just 3 weeks ago, but Google says 3.7 has \"substantial improvements.\""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-13-e02d4a",
+    "path": "evt-2026-08-13-e02d4a.md",
+    "title": "What We Learned by Reproducing 2,200 papers from ICML",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/icml-2026-open-reproductions",
+        "title": "What We Learned by Reproducing 2,200 papers from ICML",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-14-63e703",
+    "path": "evt-2026-08-14-63e703.md",
+    "title": "State of Open Models: Summer 2026 Observations",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/state-of-open-models-summer-2026",
+        "title": "State of Open Models: Summer 2026 Observations",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
       }
     ]
   }

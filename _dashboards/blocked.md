@@ -1,10 +1,9 @@
-# 被門禁擋下（26）
+# 被門禁擋下（23）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-08-13-3b6799|Record, train, and deploy from one place with Strands Agents, LeRobot,]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-13-49ffbf|The builder’s guide to GPT‑5.6]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-13-c970d1|Introducing Gemini 3.7 Flash]]** — Google DeepMind — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-14-63e703|State of Open Models: Summer 2026 Observations]]** — Hugging Face — blockers: thin_research_analysis
+- **[[Events/evt-2026-08-13-e02d4a|What We Learned by Reproducing 2,200 papers from ICML]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-12-c210cb|Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEa]]** — Allen Institute for AI — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-11-919327|Thinking of ACE? We Can Do It with Fewer Tokens]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-01-2a01f6|Ten advances in mathematics and theoretical computer science]]** — OpenAI — blockers: thin_fact, thin_research_analysis
@@ -25,6 +24,4 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-08-14-63e703|State of Open Models: Summer 2026 Observations]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-13-e02d4a|What We Learned by Reproducing 2,200 papers from ICML]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity

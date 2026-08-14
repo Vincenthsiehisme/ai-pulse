@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-08-13'
+updated: '2026-08-14'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這條線最新加了三則：Liquid AI 發布 LFM2.5-VL-3B，接續 LFM2.5 家族路線，把「快又好」的視覺能力做進邊緣裝置；Google DeepMind 發表手語轉文字模型 SL2T，官方稱已經驅動聾人與聽損使用者的新功能，兩則證據都只到標題與一行摘要，實測數據待補；微軟研究院推出 MindTopo，是拿來量視覺語言模型懂不懂拓撲空間關係的評測工具，屬於能力量測而非模型發布。這些延續原本兩股主軸：一股是模型往小而專、能落地走（Nemotron 3.5 Lightning 主打長時間執行 agent 任務的效率、NeMo Switchyard、LFM2.5-2.6B 端側 agent、Alpamayo 2 Super 自駕商用、GPT-Live 即時語音架構）；另一股是安全與濫用治理，且清一色自述（查禁柬埔寨詐騙集團、第三方網安評測事件說明、EU AI Act provenance、專供審核過對象使用的資安模型 GPT-5.6-Cyber）。效率端 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於自己提醒這種跑分經不起設定操弄。
-    next: SL2T 看有沒有聾人社群或第三方無障礙研究者的實測回饋；MindTopo 看有沒有其他模型商拿它跑分、成為業界共通評測工具；LFM2.5-VL-3B 看實際效能數據與基準測試結果。Nemotron 3.5 Lightning 要看有沒有第三方基準測試佐證「同級距最高效率」的說法；那系列開場文看後續是否點名具體模型與夥伴；GPT-5.6-Cyber 看是否有第三方資安研究者測試或實際案例流出。端側與開放模型那批持續看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 的第三方驗證。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述：查禁詐騙看有沒有完整威脅情報與執法佐證，評測事件那則看執行評測的第三方會不會出面講同一組事件。
+    now: 這條線最新加了一則：Google DeepMind 距上一版 Gemini 3.6 Flash 只隔三週，再推 Gemini 3.7 Flash，官方說有顯著改進，但語料裡沒有附上具體的評測分數，跟這條線一貫的「先講改進、數字後補」模式一致。加上前一輪新增的 LFM2.5-VL-3B（Liquid AI 邊緣視覺模型）、SL2T（Google DeepMind 手語轉文字，已用在聾人與聽損使用者的功能上，實測數據待補）、MindTopo（微軟研究院量視覺語言模型空間推理能力的評測工具），這條線延續原本兩股主軸：一股是模型往小而專、能落地走（Nemotron 3.5 Lightning 主打長時間執行 agent 任務的效率、NeMo Switchyard、LFM2.5-2.6B 端側 agent、Alpamayo 2 Super 自駕商用、GPT-Live 即時語音架構）；另一股是安全與濫用治理，且清一色自述（查禁柬埔寨詐騙集團、第三方網安評測事件說明、EU AI Act provenance、專供審核過對象使用的資安模型 GPT-5.6-Cyber）。效率端 GPT-5.6 把賣點從更強移到更省，還自曝兩個 API 設定就讓 ARC-AGI-3 分數翻三倍，等於自己提醒這種跑分經不起設定操弄。
+    next: Gemini 3.7 Flash 看有沒有第三方跑分測試出「顯著改進」具體是什麼，以及下一次 Flash 版本更新的間隔會不會繼續壓縮到三週以內。SL2T 看有沒有聾人社群或第三方無障礙研究者的實測回饋；MindTopo 看有沒有其他模型商拿它跑分、成為業界共通評測工具；LFM2.5-VL-3B 看實際效能數據與基準測試結果。Nemotron 3.5 Lightning 要看有沒有第三方基準測試佐證「同級距最高效率」的說法；GPT-5.6-Cyber 看是否有第三方資安研究者測試或實際案例流出。端側與開放模型那批持續看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 的第三方驗證。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述：查禁詐騙看有沒有完整威脅情報與執法佐證，評測事件那則看執行評測的第三方會不會出面講同一組事件。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -59,8 +59,8 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這條線把 agent 從「能對話」推向「能被部署、能被重用、能被治理」，這次新增一則：NVIDIA 開了一個系列文章，八月起要陸續介紹推動開源本地 AI 模型與智慧代理的社群夥伴，目前只有開場頁、沒點名任何具體對象或項目。既有主軸不變。部署端：OpenAI 用 Presence 把語音客服 agent 做成企業可部署平台；xAI 給 Grok 加 Build Mode 讓使用者自己搭；微軟研究院開源 Orchard，用同一套基礎設施訓練與評測跨任務 agent；OpenAI 的科學計算 field report 指出 coding agent 已在改寫科學工作者的日常工作方式。治理端：Open Secure AI Alliance（120+ 組織）趁 Black Hat 提出 SAFE 準則，要補上 agentic AI 的資安透明度，目前只是準則提案。
-    next: NVIDIA 那則開場文看後續是否點名具體模型與合作夥伴、有沒有實質內容而非公關稿。部署端看 Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用）、Presence 與 Build Mode 有沒有公開部署數或具名客戶、科學計算成效能不能複現而非只有敘事。治理端看 SAFE 準則會不會收斂成正式規範、主要雲廠與模型商是否採用——簽名的組織數不算數，照做的家數才算。
+    now: 這條線這次新增兩則，都跟把 agent 接進既有工作流有關：Amazon 在 Hugging Face 部落格說明怎麼把自家的 Strands Agents 框架、Hugging Face 的 LeRobot 機器人學習函式庫與 HF Storage Buckets 接起來，讓機器人資料的錄製、訓練、部署走同一條流程；OpenAI 發布給新創的 GPT-5.6 建構者指南，教怎麼靠模型選擇與 Responses API 的新功能把 agent 做得更快、更省成本，兩則都只給了標題與簡短摘要，沒有實測數字或具體案例。前一輪新增的 NVIDIA 系列文章（八月起要陸續介紹推動開源本地 AI 模型與智慧代理的社群夥伴）目前仍只有開場頁，沒點名任何具體對象。既有主軸不變：部署端 OpenAI 用 Presence 把語音客服 agent 做成企業可部署平台、xAI 給 Grok 加 Build Mode 讓使用者自己搭、微軟研究院開源 Orchard 用同一套基礎設施訓練與評測跨任務 agent、OpenAI 的科學計算 field report 指出 coding agent 已在改寫科學工作者的日常工作方式；治理端 Open Secure AI Alliance（120+ 組織）趁 Black Hat 提出 SAFE 準則，要補上 agentic AI 的資安透明度，目前只是準則提案。
+    next: Amazon 這則看有沒有實際機器人團隊公開採用這套 Strands Agents 加 LeRobot 加 HF Storage Buckets 整合，並公布具體效能或成本數字；OpenAI 建構者指南看有沒有第三方新創公布用 GPT-5.6 加 Responses API 前後的實際成本或延遲對比數據。NVIDIA 那則開場文看後續是否點名具體模型與合作夥伴、有沒有實質內容而非公關稿。部署端看 Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用）、Presence 與 Build Mode 有沒有公開部署數或具名客戶、科學計算成效能不能複現而非只有敘事。治理端看 SAFE 準則會不會收斂成正式規範、主要雲廠與模型商是否採用，簽名的組織數不算數，照做的家數才算。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
