@@ -13,17 +13,30 @@
 判斷不由 LLM 決定，具體就落在這支腳本上：它讀 frontmatter 與 body，回傳一串
 `blockers[]`，空的才發。LLM 寫的敘述會被它擋，不會被它相信。
 
-判定是**純函式** `evaluate(fm, body, gate) -> (blockers, warnings)`：同樣的
-frontmatter 與同樣的 `gate.yaml` 一定得到同樣的結果，不讀時鐘、不讀網路、不讀
-磁碟。唯一的例外是 `stale_backfill`（見下），它需要知道「這則在佇列裡放多久了」，
-所以走另一條路徑、由 `main()` 附加。
+判定是**純函式** `evaluate(fm, body, gate, srcs, summaries) -> (blockers, warnings)`：
+同樣的輸入一定得到同樣的結果，不讀時鐘、不讀網路、不讀磁碟。唯一的例外是
+`stale_backfill`（見下），它需要知道「這則在佇列裡放多久了」，所以走另一條路徑、
+由 `main()` 附加。
+
+後兩個參數是 2026-08-13 加的，**故意沒有預設值**：
+
+```
+srcs       source_id → _config/sources.yaml 的那一條   判「不能取」還是「沒取到」
+summaries  url → 語料裡那一筆的摘要                    判「手上到底有沒有內文」
+```
+
+給預設值 `None` 的話，忘了傳的呼叫端會靜靜退回舊行為（全部判成 `thin_fact`），
+而沒有任何測試會紅——那正是變異清單記過五次的病（M198 / M274 / M283 / M291 /
+M296：釘了判準沒釘消費端）。必填參數讓「忘了傳」變成 `TypeError` 而不是無聲降級。
 
 ## blocker 一覽
 
 | blocker | 觸發條件 | 由什麼設定控制 | 今天走得到嗎 |
 |---|---|---|---|
 | `placeholder_content` | body 任一處還有佔位詞 | `lib/notes.PLACEHOLDER_RE`（硬寫） | 走得到 |
-| `thin_fact` | 「事實」段或 `summary` 短於門檻 | `readiness.thin_fact_min_chars` | 走得到 |
+| `thin_fact` | 短於門檻，且**有證據拿得到內文** | `readiness.thin_fact_min_chars` | 走得到 |
+| `thin_unfetched` | 短於門檻，一筆內文都沒有，而來源是允許摘錄的 | 同上 + `_config/sources.yaml` | 走得到，但今天 0 則（見下） |
+| `thin_by_policy` | 短於門檻，一筆內文都沒有，且來源全部政策不取 | 同上 | 走得到，**且是終端狀態** |
 | `thin_research_analysis` | `category ∈ {research, paper}` 且「影響」<40 或「脈絡」<30 | 硬寫 | 走得到 |
 | `generic_entity` | `company` 落在泛稱清單 | `GENERIC_ENTITY`（硬寫） | 走得到 |
 | `missing_category` | `category` 空、或還是 `industry` | 硬寫 | 走得到 |
@@ -38,6 +51,27 @@ frontmatter 與同樣的 `gate.yaml` 一定得到同樣的結果，不讀時鐘�
 
 `warnings[]` 不擋發布，只標記。目前只有一條：`independent_sources < 2` →
 「single-source fact; cross-source corroboration pending」。
+
+## 薄的那三條：2026-08-13 拆開
+
+判準與量到的數字在 `references/evidence-availability.md`〈門禁那一邊〉，
+這裡只記門禁自己要知道的三件事。
+
+**一、名字對應的是「誰該動」，不是「有多薄」。** 三條的觸發門檻是同一個
+`thin_fact_min_chars`；分岔的是那一則的證據拿不拿得到內文。所以拆完之後
+blocker 的總數不變，變的是每一條上面寫的待辦要交給誰。
+
+**二、`thin_by_policy` 是第二個終端狀態。** `pulse-monitor.TERMINAL_BLOCKERS`
+從 `{stale_backfill}` 變成 `{stale_backfill, thin_by_policy}`。判準跟第一條一樣：
+設計上就該永遠擋著，不是漏跑、也修不好。**這兩條清單必須一起改**——
+gate 拆了名字而 monitor 不認得，那 4 則會繼續躺在「待處理卡關」裡，
+只是名字更精確地說明了它們為什麼修不好。selftest 端到端釘住這一格。
+
+**三、判斷用的是 `_config/sources.yaml`，不是語料。** 「這個來源會不會給內文」
+是政策，寫在設定檔裡；語料只回答「這一筆手上有沒有」。順序是先看語料有沒有、
+再看設定檔為什麼沒有——反過來的話，一條 license 很嚴但這次剛好給了摘要的來源
+會被判成不能用。這個順序由 `lib/availability.evidence_availability()` 保證，
+它自己的 docstring 是那一段的規格。
 
 ## heat 那兩條：2026-07-26 的決定
 

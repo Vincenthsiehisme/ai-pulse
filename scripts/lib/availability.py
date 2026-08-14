@@ -65,6 +65,31 @@ def writing_hint(state):
     }.get(state, "")
 
 
+def thin_reason(rows):
+    """一則事件內容薄的時候，薄在哪一層。`rows` 同 `event_availability`。
+
+    回三個狀態之一。優先序 **has_text > unfetched > withheld**，判準是
+    **誰還有事可做**：
+
+        有任一筆拿得到內文  → 薄不是來源造成的，是還沒寫厚。潤稿端可以修。
+        一筆都沒有，有允許摘錄的來源 → 我們沒抓到。抓取端可以修。
+        一筆都沒有，來源全部政策不取 → 沒有人有事可做，只能把話寫對。
+
+    反過來排（withheld 優先）的話，一則「三筆政策不取 + 一筆有全文」會被判成
+    「沒有人有事可做」，而它其實寫得出來——那是把一個做得到的動作靜靜取消掉。
+
+    沒有證據列時回 `HAS_TEXT`：薄推不到來源身上（而且門禁的 missing_evidence
+    會同時叫）。**不要改成 WITHHELD 讓它閉嘴**——那會讓「證據欄是空的」
+    長得跟「站方不給」一模一樣。
+    """
+    states = [evidence_availability(cfg, summary)[0] for cfg, summary in rows]
+    if not states or HAS_TEXT in states:
+        return HAS_TEXT
+    if UNFETCHED in states:
+        return UNFETCHED
+    return WITHHELD
+
+
 def event_availability(rows):
     """一則事件的所有證據合起來是什麼狀況。
 

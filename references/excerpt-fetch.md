@@ -98,7 +98,12 @@ Content-Signal: ai-train=no, search=yes, ai-input=no
 所以就算 Anthropic 那條線開了、內文抓下來了，這 6 則能多出來的也只是
 「那一頁**現在**長什麼樣」，不是「當時發生了什麼」。
 **改抓取端解不掉回填期。** 它們的事實層要寫的是這句實話，
-然後由 `thin_fact` 照常擋著——那是正確的結果，不是待修的狀態。
+然後由門禁照常擋著——那是正確的結果，不是待修的狀態。
+
+2026-08-13 起「照常擋著」有了更精確的名字：薄的原因拆成三個 blocker
+（`thin_fact` / `thin_unfetched` / `thin_by_policy`），判準見
+`references/evidence-availability.md`〈門禁那一邊〉。回填期這 6 則落在哪一個
+要看各自的來源，**但都不會是 `thin_unfetched`**——問題不在抓取端。
 
 這一段寫在這裡，是因為下一個看到「未 enrich 一直不歸零」的人，
 第一個念頭多半還是「去補抓內文」。

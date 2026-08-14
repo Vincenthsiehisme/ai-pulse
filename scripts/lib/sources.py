@@ -142,3 +142,14 @@ def iter_sources(raw, skip_templates=True):
             if skip_templates and str(s.get("id", "")).endswith("<slug>"):
                 continue
             yield s
+
+
+def source_index(raw, skip_templates=True):
+    """source_id → 該條來源的設定。
+
+    「這條來源給不給內文」是政策，寫在 sources.yaml 裡；門禁與潤稿層都要查它
+    （`lib/availability.py`）。在此之前 `pulse-digest-prep.py` 自己展開了一份，
+    而那一份沒有跳過 `<slug>` 樣板條目——兩個地方各自展開同一個檔案，
+    遲早會在某個邊角上分岔。這裡是那份索引的唯一真相源。
+    """
+    return {str(s["id"]): s for s in iter_sources(raw, skip_templates) if s.get("id")}

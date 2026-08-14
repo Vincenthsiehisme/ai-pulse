@@ -2642,3 +2642,83 @@ mutations:
     replace: "    if False:\n"
     survives: false
     why: ""
+
+  - id: M301
+    title: "薄的原因不分（三種原因回到同一個 thin_fact——看板上那條數字裡混著「我們沒抓」與「不能抓」，而這兩件事要人做的動作完全相反）"
+    file: pulse-gate.py
+    find: "        blockers.append(thin_blocker(fm, srcs, summaries))\n"
+    replace: "        blockers.append(\"thin_fact\")\n"
+    survives: false
+    why: ""
+
+  - id: M302
+    title: "main() 不把來源索引接進門禁（純函式全對，而每一則薄的事件都掉進 thin_unfetched——釘了判準沒釘消費端，這個 repo 的第六次）"
+    file: pulse-gate.py
+    find: "        blockers, warnings = evaluate(fm, body, gate, srcs, summaries)\n"
+    replace: "        blockers, warnings = evaluate(fm, body, gate, {}, summaries)\n"
+    survives: false
+    why: ""
+
+  - id: M303
+    title: "main() 不把語料摘要接進門禁（有內文的事件會被判成「政策不取」而進終端清單，從待處理裡消失——而那一則其實寫得出來）"
+    file: pulse-gate.py
+    find: "        blockers, warnings = evaluate(fm, body, gate, srcs, summaries)\n"
+    replace: "        blockers, warnings = evaluate(fm, body, gate, srcs, {})\n"
+    survives: false
+    why: ""
+
+  - id: M304
+    title: "薄的優先序反過來（withheld 壓過 has_text：一則「三筆政策不取＋一筆有全文」被判成沒有人有事可做，把一個做得到的動作靜靜取消掉）"
+    file: lib/availability.py
+    find: "    if not states or HAS_TEXT in states:\n        return HAS_TEXT\n    if UNFETCHED in states:\n        return UNFETCHED\n    return WITHHELD\n"
+    replace: "    if WITHHELD in states:\n        return WITHHELD\n    if UNFETCHED in states:\n        return UNFETCHED\n    return HAS_TEXT\n"
+    survives: false
+    why: ""
+
+  - id: M305
+    title: "沒有證據列的事件判成 withheld（「證據欄是空的」長得跟「站方不給」一模一樣，於是它靜靜進終端清單、沒有人再看它）"
+    file: lib/availability.py
+    find: "    if not states or HAS_TEXT in states:\n"
+    replace: "    if HAS_TEXT in states:\n"
+    survives: false
+    why: ""
+
+  - id: M306
+    title: "monitor 不認得 thin_by_policy（gate 把名字拆得很漂亮，而那 4 則繼續躺在「待處理卡關」裡——拆完什麼都沒改變）"
+    file: pulse-monitor.py
+    find: "TERMINAL_BLOCKERS = {\"stale_backfill\", \"thin_by_policy\"}\n"
+    replace: "TERMINAL_BLOCKERS = {\"stale_backfill\"}\n"
+    survives: false
+    why: ""
+
+  - id: M307
+    title: "monitor 把三個 thin_* 全當終端（「我們沒抓到」與「寫得薄」也一起靜音，而那兩件事都有人修得動——警報從天天狼來了變成永遠不叫）"
+    file: pulse-monitor.py
+    find: "TERMINAL_BLOCKERS = {\"stale_backfill\", \"thin_by_policy\"}\n"
+    replace: "TERMINAL_BLOCKERS = {\"stale_backfill\", \"thin_by_policy\", \"thin_fact\", \"thin_unfetched\"}\n"
+    survives: false
+    why: ""
+
+  - id: M308
+    title: "語料索引只在新鮮度閘開著時才讀（recency 關掉的那天，每一則薄的事件都變成「沒有內文」，一批本來寫得出來的被判成政策終端）"
+    file: pulse-gate.py
+    find: "    first_obs, summaries = load_corpus_index(vault)\n    if not recency:\n        first_obs = {}\n"
+    replace: "    first_obs, summaries = load_corpus_index(vault) if recency else ({}, {})\n"
+    survives: false
+    why: ""
+
+  - id: M309
+    title: "語料摘要取最後一筆而不是第一筆非空的（同一個 url 跨天再抓到、後來那筆是空的，就把已經有的內文蓋掉，事件無聲變成「不能取」）"
+    file: pulse-gate.py
+    find: "                    if not summaries.get(u):\n                        summaries[u] = su\n"
+    replace: "                    summaries[u] = su\n"
+    survives: false
+    why: ""
+
+  - id: M310
+    title: "來源索引不跳過 <slug> 樣板條目（樣板的 license_note 會被當成真的政策，而 digest-prep 與 gate 從此對同一個 id 有兩種答案）"
+    file: lib/sources.py
+    find: "    return {str(s[\"id\"]): s for s in iter_sources(raw, skip_templates) if s.get(\"id\")}\n"
+    replace: "    return {str(s[\"id\"]): s for s in iter_sources(raw, False) if s.get(\"id\")}\n"
+    survives: false
+    why: ""

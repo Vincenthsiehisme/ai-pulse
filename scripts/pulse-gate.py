@@ -31,11 +31,26 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib import availability  # noqa: E402  「沒有內容」的三種原因，見 references/evidence-availability.md
+from lib import sources as _srcmod  # noqa: E402  來源索引的單一真相源
 from lib.notes import PLACEHOLDER_RE, dump_frontmatter, parse_note  # noqa: E402
 
 import yaml  # noqa: E402
 
 GENERIC_ENTITY = {"industry", "unknown", "other", "其他", "未知", ""}
+
+# 「內容太薄」有三種原因，各自要不同的人去做不同的事，所以是三個 blocker 而不是
+# 一個。門檻是同一個 thin_fact_min_chars；分岔的是那一則的證據拿不拿得到內文。
+# 規格：references/evidence-availability.md〈門禁那一邊〉。
+#
+# thin_by_policy 是**終端狀態**——沒有人有事可做，它會永遠擋著。所以
+# pulse-monitor.TERMINAL_BLOCKERS 必須同時認得它，否則那幾則會繼續躺在
+# 「待處理卡關」裡，只是名字更精確地說明了它們為什麼修不好。兩份清單一起改。
+THIN_BLOCKER = {
+    availability.HAS_TEXT: "thin_fact",        # 內容在手上，是寫得薄 → 潤稿端
+    availability.UNFETCHED: "thin_unfetched",  # 該抓到而沒抓到 → 抓取端
+    availability.WITHHELD: "thin_by_policy",   # 政策不取 → 沒有人，把話寫對就好
+}
 
 
 def section(body, heading):
@@ -53,13 +68,19 @@ def _parse_iso(s):
     return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
 
 
-def load_first_observed(vault):
-    """url / url_canonical → first_observed_at（給事件新鮮度閘用；讀 _corpus 全量）。"""
+def load_corpus_index(vault):
+    """讀 _corpus 全量一次，回 (first_observed, summaries)，兩個都以 url / url_canonical 為鍵。
+
+    `first_observed` 給事件新鮮度閘用；`summaries` 給「這一筆手上到底有沒有內文」用。
+    分成兩支函式的話會把 337 個 jsonl 走兩遍，而且第二遍很容易被人加上一個
+    「只在需要時才讀」的條件——那正是新鮮度閘現在的長相（`if recency`），
+    而薄的判定不能有那個條件：讀不到語料時每一則都會變成「沒有內文」。
+    """
     import json as _json
-    idx = {}
+    first_obs, summaries = {}, {}
     corpus = vault / "_corpus"
     if not corpus.exists():
-        return idx
+        return first_obs, summaries
     for day_dir in sorted(corpus.iterdir()):
         if not day_dir.is_dir():
             continue
@@ -73,10 +94,17 @@ def load_first_observed(vault):
                 except ValueError:
                     continue
                 fo = r.get("first_observed_at")
+                su = r.get("summary") or ""
                 for u in (r.get("url"), r.get("url_canonical")):
-                    if u and u not in idx:
-                        idx[u] = fo
-    return idx
+                    if not u:
+                        continue
+                    if u not in first_obs:
+                        first_obs[u] = fo
+                    # 摘要取第一個非空的：同一個 url 可能在多天的語料裡出現，
+                    # 早期那一筆可能是空的、後來補抓到了。往「有內容」倒。
+                    if not summaries.get(u):
+                        summaries[u] = su
+    return first_obs, summaries
 
 
 def event_lead_days(fm, first_obs):
@@ -92,7 +120,24 @@ def event_lead_days(fm, first_obs):
     return min(leads) if leads else None
 
 
-def evaluate(fm, body, gate):
+def thin_blocker(fm, srcs, summaries):
+    """這一則薄，該掛哪一個 blocker。三選一，判準見 lib/availability.thin_reason。
+
+    `srcs` 是 source_id → 來源設定；`summaries` 是 url → 語料裡那一筆的摘要。
+    """
+    rows = [(srcs.get(e.get("source_id")), summaries.get(e.get("url")) or "")
+            for e in (fm.get("evidence") or [])]
+    return THIN_BLOCKER[availability.thin_reason(rows)]
+
+
+def evaluate(fm, body, gate, srcs, summaries):
+    """回 (blockers, warnings)。純函式：不讀時鐘、不讀網路、不讀磁碟。
+
+    `srcs` / `summaries` **故意沒有預設值**。給了 None 預設之後，忘了傳的呼叫端
+    會靜靜退回舊行為（薄的一律判 thin_fact），而沒有任何測試會紅——變異清單記過
+    五次的病（M198 / M274 / M283 / M291 / M296：釘了判準沒釘消費端）。
+    必填參數讓「忘了傳」變成 TypeError。規格 references/readiness-gate.md。
+    """
     r = gate.get("readiness", {})
     min_conf = r.get("min_confidence", 60)
     thin_min = r.get("thin_fact_min_chars", 20)
@@ -108,7 +153,8 @@ def evaluate(fm, body, gate):
     if PLACEHOLDER_RE.search(body):
         blockers.append("placeholder_content")
     if len(fact) < thin_min or len(summary) < thin_min:
-        blockers.append("thin_fact")
+        # 薄的原因分三種，名字不同、要人做的動作也不同（其中一種是「什麼都不用做」）。
+        blockers.append(thin_blocker(fm, srcs, summaries))
     # thin_research_analysis：research 類需有實質分析
     if str(fm.get("category") or "").lower() in ("research", "paper"):
         if len(section(body, "影響")) < 40 or len(section(body, "脈絡")) < 30:
@@ -166,7 +212,18 @@ def main():
 
     now = datetime.now(timezone.utc).isoformat()
     recency = (gate.get("quality") or {}).get("recency_max_lead_days", 0)
-    first_obs = load_first_observed(vault) if recency else {}
+    # 語料**無條件**讀：新鮮度閘可以在 recency=0 時不讀（那是它自己的開關），
+    # 薄的判定不行——讀不到語料等於每一則都「沒有內文」，而那會讓一批本來
+    # 可以寫厚的事件被判成政策終端，然後從監看裡消失。
+    first_obs, summaries = load_corpus_index(vault)
+    if not recency:
+        first_obs = {}
+    srcs = _srcmod.source_index(
+        yaml.safe_load((vault / "_config" / "sources.yaml").read_text("utf-8")) or {})
+    if not summaries:
+        # 空語料是合法的（全新的 vault），但它會讓薄的原因只能靠來源設定判。
+        # 說出來，不要讓它變成一個看不見的降級。
+        print("[warn] 語料索引是空的，薄的原因只能靠 sources.yaml 判", file=sys.stderr)
     reviewed = published = blocked = demoted = 0
     blocker_hist = {}
     published_titles = []
@@ -200,7 +257,7 @@ def main():
 
         # status == review：正常門禁 + 新鮮度閘
         reviewed += 1
-        blockers, warnings = evaluate(fm, body, gate)
+        blockers, warnings = evaluate(fm, body, gate, srcs, summaries)
         if stale and "stale_backfill" not in blockers:
             blockers = blockers + ["stale_backfill"]
         fm["blockers"] = blockers

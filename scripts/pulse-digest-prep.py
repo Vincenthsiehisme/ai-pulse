@@ -197,14 +197,13 @@ def edition_orphans(events):
 
 
 def load_source_index(vault):
-    """source_id → 該條來源的設定。判斷一筆證據為什麼沒有內容要靠它。"""
-    cfg = yaml.safe_load((vault / "_config" / "sources.yaml").read_text("utf-8"))
-    out = {}
-    for sec in sources_lib.SECTIONS:
-        for s in (cfg.get(sec) or []):
-            if s.get("id"):
-                out[s["id"]] = s
-    return out
+    """source_id → 該條來源的設定。判斷一筆證據為什麼沒有內容要靠它。
+
+    展開規則走 `lib/sources.source_index()`——`pulse-gate.py` 現在也查同一份索引，
+    兩邊各自展開一次遲早會在邊角上分岔（這一支原本就沒跳過 `<slug>` 樣板條目）。
+    """
+    raw = yaml.safe_load((vault / "_config" / "sources.yaml").read_text("utf-8")) or {}
+    return sources_lib.source_index(raw)
 
 
 def load_events(vault, corpus=None, srcs=None):

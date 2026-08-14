@@ -54,9 +54,18 @@ from lib import history  # noqa: E402  狀態帳本讀寫，見 lib/history.py
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 
-# 這些 blocker 是「設計上就該永遠擋著」的（歷史存檔倒貨被新鮮度閘擋下），
-# 不是漏跑、也修不好——算警報會天天狼來了，所以只計數、不觸警。
-TERMINAL_BLOCKERS = {"stale_backfill"}
+# 這些 blocker 是「設計上就該永遠擋著」的，不是漏跑、也修不好——算警報會天天
+# 狼來了，所以只計數、不觸警。
+#
+#   stale_backfill   歷史存檔倒貨被新鮮度閘擋下
+#   thin_by_policy   證據全部來自「我們選擇不取內文」的來源，所以它不可能不薄
+#                    （2026-08-13 加。判準在 pulse-gate.THIN_BLOCKER，
+#                     規格 references/evidence-availability.md）
+#
+# **這份清單跟 pulse-gate.THIN_BLOCKER 必須一起改。** gate 拆了名字而這裡不認得，
+# 那幾則會繼續躺在「待處理卡關」裡，只是名字更精確地說明了它們為什麼修不好——
+# 拆得很漂亮而什麼都沒改變，正是「釘了判準沒釘消費端」那個病的長相。
+TERMINAL_BLOCKERS = {"stale_backfill", "thin_by_policy"}
 
 
 def _as_date(v):
