@@ -3,18 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-13'
+generated_day: '2026-08-14'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **40** 則：`published` 38、`review` 2
+事件 **41** 則：`published` 39、`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-13 | [[Events/evt-2026-08-13-b9676e\|OpenAI appoints Dali Rajic as Chief Revenue Officer]] | review |
+| 2026-08-13 | [[Events/evt-2026-08-13-b9676e\|OpenAI appoints Dali Rajic as Chief Revenue Officer]] | published |
+| 2026-08-13 | [[Events/evt-2026-08-13-49ffbf\|The builder’s guide to GPT‑5.6]] | review |
 | 2026-08-12 | [[Events/evt-2026-08-12-e647a7\|From assistance to execution: How enterprises put AI to work]] | published |
 | 2026-08-11 | [[Events/evt-2026-08-11-5bb657\|Testing ads in ChatGPT]] | published |
 | 2026-08-11 | [[Events/evt-2026-08-11-0f6472\|Daybreak models are now available on AWS]] | published |

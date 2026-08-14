@@ -17,10 +17,10 @@ can_satisfy_primary: false
 endpoint: "https://techcrunch.com/category/artificial-intelligence/feed/"
 robots_checked_day: "2026-08-11"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-08-13"
-items_observed: 151
-events_bound: 1
-events_published: 1
+last_observed_day: "2026-08-14"
+items_observed: 162
+events_bound: 2
+events_published: 2
 health_score: 100
 consecutive_failures: 0
 last_status: 200
@@ -35,9 +35,9 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 151 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 1 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 1 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 已觀測 | 162 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 2 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已發布 | 2 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 這條來源不能單獨作為一手證據（`can_satisfy_primary: false`）。它的角色是佐證與獨立性，不是「事情發生了」的來源。
 

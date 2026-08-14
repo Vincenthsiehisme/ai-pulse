@@ -3,17 +3,18 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-08-13'
+generated_day: '2026-08-14'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **9** 則：`published` 5、`review` 4
+事件 **10** 則：`published` 5、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-13 | [[Events/evt-2026-08-13-c970d1\|Introducing Gemini 3.7 Flash]] | review |
 | 2026-08-12 | [[Events/evt-2026-08-12-b76d3a\|Putting sign language AI into users’ hands]] | published |
 | 2026-07-30 | [[Events/evt-2026-07-30-601e8d\|Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration]] | published |
 | 2026-07-29 | [[Events/evt-2026-07-29-08f1e5\|We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control]] | published |

@@ -139,7 +139,7 @@
   Google DeepMind 推出音樂生成模型 Lyria 3.5，掛進 Flow Music，主打音樂性、歌詞、人聲、創作控制四項升級。
 - **[[Events/evt-2026-07-29-50ea44|How enabling two settings tripled our scores on the ARC-AGI-3 benchmark]]** — OpenAI · model-capability · conf 73 · heat 未量測
   OpenAI 稱靠兩個 API 設定讓 GPT-5.6 的 ARC-AGI-3 分數翻三倍。
-- **[[Events/evt-2026-07-29-6fb84b|How GPT-5.6 fuses frontier intelligence with frontier efficiency]]** — OpenAI · model-capability · conf 97 · heat 未量測
+- **[[Events/evt-2026-07-29-6fb84b|How GPT-5.6 fuses frontier intelligence with frontier efficiency]]** — OpenAI · model-capability · conf 100 · heat 未量測
   OpenAI 發布 GPT-5.6，賣點從更強轉向更省，主打每一塊錢買到更多智慧。
 - **[[Events/evt-2026-07-29-ad1ae1|Grok Voice Think Fast 2]]** — xAI · model-capability · conf 73 · heat 未量測
   xAI 發布 Grok Voice Think Fast 2，證據只有標題，能力待補。

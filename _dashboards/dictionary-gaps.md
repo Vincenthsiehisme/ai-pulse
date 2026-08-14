@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-13'
+generated_day: '2026-08-14'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**17 天**（2026-07-24 … 2026-08-13），去重後 **1472** 列。
+語料範圍：**18 天**（2026-07-24 … 2026-08-14），去重後 **1539** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -18,65 +18,65 @@ generator: scripts/pulse-dictionary-gaps.py
 | 候選 | 次數 | 來源數 |
 |---|---|---|
 | LLMs | 27 | 11 |
+| Apple | 24 | 5 |
 | July | 22 | 9 |
-| Apple | 22 | 5 |
 | June | 19 | 7 |
 | Research | 17 | 3 |
+| U.S | 17 | 7 |
 | Industry | 16 | 2 |
-| U.S | 16 | 7 |
+| Amazon | 16 | 5 |
 | LLM | 16 | 8 |
 | Here | 16 | 8 |
-| Amazon | 15 | 4 |
+| Building | 14 | 8 |
 | Pixel | 14 | 3 |
 | European Union | 13 | 2 |
-| Building | 13 | 8 |
+| One | 13 | 8 |
 | August | 13 | 5 |
-| One | 12 | 8 |
+| They | 12 | 7 |
 | There | 12 | 5 |
+| Draft | 11 | 2 |
 | Wednesday | 11 | 4 |
 | When | 11 | 4 |
+| Trump | 11 | 4 |
+| Android | 11 | 3 |
 | Union | 10 | 2 |
 | Python | 10 | 3 |
-| Trump | 10 | 4 |
 | After | 10 | 5 |
-| Android | 10 | 3 |
 | Energy | 9 | 2 |
 | Thursday | 9 | 3 |
 | Tuesday | 9 | 4 |
 | Monday | 9 | 4 |
-| They | 9 | 6 |
+| China | 9 | 5 |
 | Rust | 9 | 3 |
 | Pro | 9 | 4 |
 | These | 9 | 5 |
+| Elon Musk | 9 | 5 |
 | AI-powered | 8 | 5 |
-| China | 8 | 5 |
+| Learn | 8 | 3 |
+| San Francisco | 8 | 7 |
+| With | 8 | 7 |
+| Linux | 8 | 4 |
 | AI-native | 8 | 3 |
-| Elon Musk | 8 | 5 |
 | SpaceX | 8 | 4 |
 | Samsung | 8 | 2 |
-| Learn | 7 | 3 |
-| San Francisco | 7 | 6 |
-| With | 7 | 6 |
+| Flash | 7 | 3 |
+| Texas | 7 | 5 |
 | From | 7 | 6 |
+| Opus | 7 | 4 |
 | Fable | 7 | 3 |
-| Linux | 7 | 4 |
 | SQLite | 7 | 2 |
 | RAM | 7 | 2 |
+| Mark Zuckerberg | 7 | 3 |
 | AI-generated | 7 | 2 |
 | CEO | 7 | 4 |
 | Security | 6 | 3 |
 | Release Notes | 6 | 2 |
 | Gemma | 6 | 5 |
-| Texas | 6 | 5 |
+| Built | 6 | 4 |
+| GPUs | 6 | 4 |
+| Some | 6 | 6 |
 | Models | 6 | 5 |
 | January | 6 | 5 |
-| Opus | 6 | 3 |
-| Chinese | 6 | 4 |
-| Chrome | 6 | 4 |
-| Europe | 5 | 5 |
-| Making | 5 | 4 |
-| Source | 5 | 2 |
-| Understanding | 5 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,11 +87,10 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 37 | src-hn-frontpage |
-| The Download | 18 | src-media-mit-techreview |
+| Show HN | 39 | src-hn-frontpage |
+| The Download | 19 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Highlights | 15 | src-gh-vllm-releases |
-| Draft | 10 | src-ep-itre |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
@@ -136,6 +135,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | Ask HN | 3 | src-hn-frontpage |
 | Apple Silicon | 3 | src-hn-frontpage |
 | Galaxy Z Fold | 3 | src-media-theverge |
+| TechCrunch | 3 | src-media-techcrunch |
+| APIs | 3 | src-media-techcrunch |
 | Best Buy | 3 | src-media-theverge |
 | Montana | 3 | src-media-mit-techreview |
 | MIT Technology Review | 3 | src-media-mit-techreview |

@@ -1,18 +1,17 @@
 [
   {
-    "full_name": "browser-use/browser-use",
-    "desc": "🌐 Make websites accessible for AI agents. Automate tasks online with ease.",
-    "language": "Python",
+    "full_name": "lightonai/next-plaid",
+    "desc": "NextPlaid, ColGREP: Multi-vector search, from database to coding agents.",
+    "language": "Rust",
     "topics": [
-      "ai-agents",
-      "ai-tools",
-      "browser-automation",
-      "browser-use",
-      "llm",
-      "playwright"
+      "agentic-rag",
+      "cli",
+      "grep",
+      "multi-vector",
+      "vector-database"
     ],
-    "stars": 109100,
-    "url": "https://github.com/browser-use/browser-use",
+    "stars": 530,
+    "url": "https://github.com/lightonai/next-plaid",
     "stale_zh": null
   }
 ]
