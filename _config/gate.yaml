@@ -319,3 +319,26 @@ monitor:
   # 2：跟上面同一個數字。日更的鏈，隔一天是誤點，隔兩天是壞了。
   # 實測 2026-07-25 ~ 08-04 連續 11 天每天至少一個 enrich commit，零空窗。
   enrich_stale_after_days: 2
+
+# ---------------------------------------------------------------------------
+# 每日精選（digest）的機檢門檻。
+# 消費者：scripts/pulse-digest-apply.py。規格 references/digest-apply.md〈三、退件規則〉。
+#
+# 這一整塊是**退件門檻**，不是風格偏好。調鬆任何一個，退件會變少而稿子不會變好
+# ——那正是這條鏈最容易發生的事（沒有人喜歡自己的稿被退）。要調要走 PR 並寫理由。
+digest:
+  # C 級 claim 的 counter 至少要多長。「也可能不是」是 5 個字，那不是反例。
+  # 15 這個數字是保守的下限，不是實測出來的——目前一篇稿都還沒跑過。
+  # 消費者：scripts/pulse-digest-apply.py
+  counter_min_chars: 15
+  # 「不是 A，是 B」全篇的上限。一次是強調，三次是口頭禪。
+  # 消費者：scripts/pulse-digest-apply.py
+  not_a_but_b_max: 1
+  # 每千字的破折號上限。消費者：scripts/pulse-digest-apply.py
+  dash_per_1k_max: 8
+  # 每千字的粗體上限。每一句都是重點等於沒有重點。
+  # 消費者：scripts/pulse-digest-apply.py
+  bold_per_1k_max: 12
+  # 全篇設問句上限（不含 question 欄位自己那一句）。設問是 AI 腔最穩定的指紋之一。
+  # 消費者：scripts/pulse-digest-apply.py
+  questions_max: 2

@@ -4697,6 +4697,220 @@ acase("digest.pick_retrospective：全部用過 → 挑不到，並說出理由�
        bool(_dg.pick_retrospective([_dg_ev(id="用過")], {"用過"}, "2026-08-13")[1])],
       [None, True])
 
+# ── digest 寫回層的退件規則（2026-08-14）─────────────────────────────────
+# 規格 references/digest-apply.md。這一支是判斷層：退不退件由規則決定，
+# 不由寫的人自評。
+_da_spec = importlib.util.spec_from_file_location(
+    "pulse_digest_apply", os.path.join(_HERE, "pulse-digest-apply.py"))
+_da = importlib.util.module_from_spec(_da_spec)
+_da_spec.loader.exec_module(_da)
+
+_DA_CFG = {"counter_min_chars": 15, "not_a_but_b_max": 1, "dash_per_1k_max": 8,
+           "bold_per_1k_max": 12, "questions_max": 2}
+# 一則有「政策不取用」證據的素材：needs_source_link 為真，所以文章欠一條 D。
+_DA_ITEMS = {"evt-x": {
+    "id": "evt-x",
+    "evidence": [{"url": "https://ex/held", "availability": "withheld"}],
+    "availability": {"needs_source_link": True},
+}}
+
+
+def _da_ok(**kw):
+    """一份會過的稿。每條測試只壞掉其中一格，這樣紅的原因才是唯一的。"""
+    d = {
+        "date": "2026-08-14", "title": "t",
+        "question": "一個沒有人量過的瓶頸，憑什麼變成買 CPU 的理由？",
+        "sections": [
+            {"id": "s1", "layer": "A", "text": "官方部落格說了這件事。",
+             "evidence": ["evt-x"]},
+            {"id": "s2", "layer": "D", "text": "我們沒轉述內文，原文在這裡。",
+             "evidence": ["evt-x"], "source_url": "https://ex/held"},
+        ],
+        "so_what": "所以我們把還在等的東西記下來。",
+        "support": ["s1"], "dropped": [],
+    }
+    d.update(kw)
+    return d
+
+
+def _da_rules(result, items=None):
+    return sorted(p["rule"] for p in _da.check(result, items or _DA_ITEMS, _DA_CFG))
+
+
+acase("digest-apply：一份合格的稿零退件"
+      "（基準線；沒有這條，下面每一條可能是被別的規則擋住而不是被守住）",
+      _da_rules(_da_ok()), [])
+acase("digest-apply：B 級沒有 basis → 退（沒有出處的背景知識，讀者分不出是不是編的）",
+      _da_rules(_da_ok(sections=[
+          {"id": "s1", "layer": "A", "text": "a", "evidence": ["evt-x"]},
+          {"id": "s2", "layer": "D", "text": "d", "evidence": ["evt-x"],
+           "source_url": "https://ex/held"},
+          {"id": "s3", "layer": "B", "text": "背景"}])), ["b_without_basis"])
+acase("digest-apply：C 級沒有 counter → 退（反例測試，digest-framework §一）",
+      _da_rules(_da_ok(sections=_da_ok()["sections"] + [
+          {"id": "s3", "layer": "C", "text": "推論"}])), ["c_without_counter"])
+acase("digest-apply：counter 敷衍了事也要退"
+      "（只釘「有沒有填」的話，填「也可能不是」就過了，而那不是反例）",
+      _da_rules(_da_ok(sections=_da_ok()["sections"] + [
+          {"id": "s3", "layer": "C", "text": "推論", "counter": "也可能不是"}])),
+      ["counter_too_thin"])
+acase("digest-apply：so_what 的支撐鏈沒有 A 級 → 退"
+      "（硬規則：結論不能只靠背景知識與作者推論撐著）",
+      _da_rules(_da_ok(support=["s2"])), ["so_what_unsupported"])
+acase("digest-apply：worklist 裡有素材既沒被引用也沒被 dropped → 退"
+      "（跟 dashboard 的三桶對帳同一個道理：每一則都要有交代）",
+      _da_rules(_da_ok(), items=dict(_DA_ITEMS, **{"evt-y": {"id": "evt-y"}})),
+      ["unaccounted_material"])
+acase("digest-apply：dropped 沒寫理由 → 退（沒理由的丟棄跟資料不見了沒有區別）",
+      _da_rules(_da_ok(dropped=[{"id": "evt-x"}]),
+                items=dict(_DA_ITEMS, **{"evt-x2": {"id": "evt-x2"}})),
+      ["dropped_without_reason", "unaccounted_material"])
+acase("digest-apply：引用一則不在今天 worklist 裡的事件 → 退",
+      _da_rules(_da_ok(sections=_da_ok()["sections"] + [
+          {"id": "s3", "layer": "A", "text": "a", "evidence": ["evt-不存在"]}])),
+      ["unknown_event"])
+# withheld_without_d 是 references/evidence-availability.md 欠的那條線：
+# 2026-08-13 的 Grok Bot 寫「（證據不足，待補）」，而 https://x.ai/bot 就躺在
+# 它自己的證據列裡。把「誠實」變成欄位，不靠寫的人記得。
+acase("digest-apply：引用到政策不取用的來源、而全篇沒有 D 級指向原文 → 退"
+      "（那句「證據不足」是假的，而且把讀者擋在門外）",
+      _da_rules(_da_ok(sections=[_da_ok()["sections"][0]])),
+      ["withheld_without_d"])
+acase("digest-apply：D 級的 source_url 不在那則事件的證據列裡 → 退"
+      "（一條點到別的地方的連結，比沒有連結更糟；只檢查「有沒有填 url」擋不住它）",
+      _da_rules(_da_ok(sections=[
+          _da_ok()["sections"][0],
+          {"id": "s2", "layer": "D", "text": "d", "evidence": ["evt-x"],
+           "source_url": "https://別的地方"}])),
+      ["d_without_source_url", "withheld_without_d"])
+acase("digest-apply：封閉式推論黑名單 → 退（沒跑過反例的斷言講成唯一的答案）",
+      _da_rules(_da_ok(so_what="只有一種可能：他們相信需求夠耐久。")),
+      ["closed_inference"])
+acase("digest-apply：support 指到不存在的 section → 退（支撐鏈斷了而看起來有）",
+      _da_rules(_da_ok(support=["s1", "s99"])), ["dangling_support"])
+acase("digest-apply：layer 打錯字 → 退（打錯的層等於沒標層）",
+      _da_rules(_da_ok(sections=_da_ok()["sections"] + [
+          {"id": "s3", "layer": "Ａ", "text": "a", "evidence": ["evt-x"]}])),
+      ["bad_layer"])
+# 語言層看的是文章本身，不含 question——那一句本來就是問句，把它算進去等於
+# 處罰這個框架自己要求的東西，寫的人會學會不要寫問題。
+# 正文剛好踩在門檻上（questions_max=2），所以「有沒有把 question 算進來」
+# 是這一格唯一會變的東西——不踩門檻的話兩種版本都是綠的。
+_DA_Q = _da_ok(sections=[
+    {"id": "s1", "layer": "A", "text": "他們在賭什麼？還是根本沒在賭？",
+     "evidence": ["evt-x"]},
+    {"id": "s2", "layer": "D", "text": "原文在這裡。", "evidence": ["evt-x"],
+     "source_url": "https://ex/held"}])
+acase("digest-apply：正文剛好踩在設問上限時，question 那一句不會把它推爆",
+      _da_rules(_DA_Q), [])
+acase("digest-apply：正文自己超過設問上限就要退（反方向；只釘不擋的話，"
+      "一個永遠不擋的版本也會全綠）",
+      _da_rules(_da_ok(sections=[
+          dict(_DA_Q["sections"][0], text="賭什麼？沒在賭？還是不知道？"),
+          _DA_Q["sections"][1]])),
+      ["question_density"])
+
+# 驗收：拿 digest-framework 記下來的那篇手寫稿重建的片段餵進去，**必須被退**。
+# 原稿不在 repo 裡（它活在一次對話裡），所以這是重建的片段不是原文——
+# 寫在這裡免得下一個人以為有一份可回溯的原稿。
+_DA_HANDWRITTEN = _da_ok(sections=[
+    {"id": "h1", "layer": "B",
+     "text": "Brookfield 這種基礎建設基金買的是電廠、收費公路，那種資產是用二十年在算的。"},
+    {"id": "h2", "layer": "C", "text": "只有一種可能：他們相信需求夠耐久。"},
+    {"id": "h3", "layer": "C", "text": "GPU 三四年就換代，這不是基礎建設，是消耗品。",
+     "counter": "也可能不是"},
+], support=["h1", "h2"], so_what="這筆錢賭的不是硬體，是需求。")
+acase("digest-apply 驗收：2026-08-12 那篇手寫稿（重建片段）必須被退，而且不只被退一條"
+      "（那篇好看的原因正好全在沒有證據的那幾句——這一整支存在就是為了擋它）",
+      _da_rules(_DA_HANDWRITTEN),
+      ["b_without_basis", "c_without_counter", "closed_inference",
+       "counter_too_thin", "not_a_but_b_overuse", "so_what_unsupported",
+       "unaccounted_material"])
+# 這裡**沒有** withheld_without_d，而那不是漏掉：那篇一則事件都沒引用，
+# 所以擋住它的是 unaccounted_material（素材沒有交代），不是 D 層那條。
+# 第一版我照預期寫了八條，跑出來是七條——判準是量出來的，不是想出來的。
+
+# 端到端：純函式全對而 main() 沒把退件接上去，這一格等於不存在。
+with _tf2.TemporaryDirectory() as _td_da:
+    _dav = Path(_td_da)
+    (_dav / "_probe").mkdir()
+    (_dav / "_config").mkdir()
+    (_dav / "_config" / "gate.yaml").write_text(
+        "digest:\n  counter_min_chars: 15\n  not_a_but_b_max: 1\n", "utf-8")
+    (_dav / "_probe" / "digest-worklist.json").write_text(_json.dumps({
+        "date": "2026-08-14", "mode": "normal",
+        "items": [{"id": "evt-x",
+                   "evidence": [{"url": "https://ex/held", "availability": "withheld"}],
+                   "availability": {"needs_source_link": True}}],
+    }, ensure_ascii=False), "utf-8")
+
+    def _da_run(payload, *extra):
+        p = _dav / "in.json"
+        p.write_text(_json.dumps(payload, ensure_ascii=False), "utf-8")
+        r = _subprocess.run(
+            [sys.executable, os.path.join(_HERE, "pulse-digest-apply.py"),
+             "--in", str(p), *extra],
+            capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(_dav)))
+        return r.returncode
+
+    _da_rc_bad = _da_run(_DA_HANDWRITTEN)
+    _da_wrote_on_reject = (_dav / "Digests" / "2026-08-14.md").exists()
+    _da_rc_ok = _da_run(_da_ok())
+    _da_md = (_dav / "Digests" / "2026-08-14.md").read_text("utf-8")
+    _da_rc_again = _da_run(_da_ok())          # 第二次：拒寫守衛
+    _da_rc_forced = _da_run(_da_ok(), "--force")
+    _da_run(_da_ok(sections=[
+        {"id": "s1", "layer": "A", "text": "這個軟件的質量不錯,值得看.",
+         "evidence": ["evt-x"]},
+        {"id": "s2", "layer": "D", "text": "原文在這裡。", "evidence": ["evt-x"],
+         "source_url": "https://ex/held"}]), "--force")
+    _da_cleaned_md = (_dav / "Digests" / "2026-08-14.md").read_text("utf-8")
+    _da_rc_halfq = _da_run(_da_ok(sections=[
+        {"id": "s1", "layer": "A", "text": "賭什麼?沒在賭?還是不知道?",
+         "evidence": ["evt-x"]},
+        {"id": "s2", "layer": "D", "text": "原文在這裡。", "evidence": ["evt-x"],
+         "source_url": "https://ex/held"}]), "--force")
+acase("digest-apply main()：退件的稿不寫檔、離開碼非 0"
+      "（只釘 check() 的話，一個照樣寫檔的 main() 會全綠——M296 那個病）",
+      [_da_rc_bad, _da_wrote_on_reject], [1, False])
+acase("digest-apply main()：合格的稿寫出 kind: digest 的檔，人審三格是 null"
+      "（三格預設就填好的話，pulse-digest-gate 那一關等於不存在）",
+      [_da_rc_ok, "kind: digest" in _da_md, "review_question: null" in _da_md,
+       "status: draft" in _da_md],
+      [0, True, True, True])
+# voice_clean 跑在機檢之前，而且真的有跑。兩件事各自會壞：
+#   不洗   → 中國用語與半形標點直接進稿，而摘要裡也不會提（靜靜地不做）
+#   後洗   → 半形問號繞得過設問密度：機檢看到一篇沒有問號的文章，寫進檔案的有三個
+# 「軟件」在檔案裡還會出現一次——在〈機械清理〉那一段的 `軟件→軟體` 裡。
+# 所以要切開來看：正文不准有，清理報告一定要有。
+# 只斷言「整份檔案沒有軟件」的話這條會紅，而紅的理由跟它要守的東西無關。
+_da_art, _, _da_log = _da_cleaned_md.partition("## 機械清理")
+acase("digest-apply main()：中國用語與半形標點被洗掉，而且洗了什麼有寫出來"
+      "（靜靜地改掉跟靜靜地不改一樣糟——兩個都要看得見）",
+      ["軟體" in _da_art, "軟件" in _da_art, "不錯，值得看。" in _da_art,
+       "軟件→軟體" in _da_log],
+      [True, False, True, True])
+acase("digest-apply main()：半形問號的設問也算數（先洗再檢）"
+      "（反過來的話 `?` 繞得過門檻——機檢看到的跟讀者看到的不是同一篇）",
+      _da_rc_halfq,
+      1)
+acase("digest-apply main()：同一天再跑一次會拒寫，而 --force 寫得過"
+      "（只釘「會拒」的話，一個永遠拒寫的版本也會全綠。digest 的生成語意跟 "
+      "Tracks / Actors 相反：生成一次就定稿，隔天的班蓋掉審過的稿沒有人會發現）",
+      [_da_rc_again, _da_rc_forced], [1, 0])
+# digest 這一步真的排進半夜那一節了，而且那一節沒有逃生口。
+# 兩件事要一起釘：只釘「沒有 --force」的話，把整步刪掉也會全綠——
+# 一個沒有人跑的步驟當然不會有逃生口。
+_DA_RB = open(os.path.join(_HERE, "enrich-runbook.md"), encoding="utf-8").read()
+_DA_AUTO = _DA_RB[_DA_RB.index("## 自動化模式"):]
+acase("enrich-runbook 的自動化模式那一節排了 digest-apply，而且沒有逃生口"
+      "（覆寫的做法不寫進無人值守的那一端——那一端最沒有能力判斷這次覆寫對不對）",
+      ["pulse-digest-apply.py" in _DA_AUTO, "--force" in _DA_AUTO],
+      [True, False])
+acase("references/digest-apply.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "digest-apply.md")),
+      True)
+
 # ── 變異盤點清單的鮮度：規格 references/mutation-inventory.md ────────────────
 # 這一區**不跑變異**。跑一輪要幾十次 selftest，掛在每次 push 上太慢——那是
 # scripts/mutate.py 與 .github/workflows/mutation.yml 的事。這裡只釘一件
