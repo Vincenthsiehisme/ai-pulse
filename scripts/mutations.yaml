@@ -2722,3 +2722,91 @@ mutations:
     replace: "    return {str(s[\"id\"]): s for s in iter_sources(raw, False) if s.get(\"id\")}\n"
     survives: false
     why: ""
+
+  - id: M311
+    title: "退件了照樣寫檔（機檢每一條都對，而不合格的稿一樣進 Digests/——判斷層變成一份沒有人讀的報告）"
+    file: pulse-digest-apply.py
+    find: "    problems = check(result, items, cfg)\n    if problems:\n"
+    replace: "    problems = check(result, items, cfg)\n    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M312
+    title: "C 級的 counter 只檢查有沒有填（填「也可能不是」就過——反例測試退化成一格必填欄位）"
+    file: pulse-digest-apply.py
+    find: "            elif len(counter) < counter_min:\n"
+    replace: "            elif False:\n"
+    survives: false
+    why: ""
+
+  - id: M313
+    title: "so_what 的支撐鏈不要求 A 級（結論可以只靠背景知識與作者推論撐著——手寫那篇正是這樣，而它好看的原因全在那幾句）"
+    file: pulse-digest-apply.py
+    find: "    if not any((by_id.get(x) or {}).get(\"layer\") == \"A\" for x in support):\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M314
+    title: "政策不取用的來源不再要求 D 級（讀者被告知「證據不足」，而原文連結就在證據列裡沒被寫出來——2026-08-13 的 Grok Bot 就是這樣）"
+    file: pulse-digest-apply.py
+    find: "        if not ok:\n            _reject(out, \"withheld_without_d\", eid,\n"
+    replace: "        if False:\n            _reject(out, \"withheld_without_d\", eid,\n"
+    survives: false
+    why: ""
+
+  - id: M315
+    title: "D 級只檢查有沒有填 source_url，不檢查它在不在證據列裡（一條點到別的地方的連結照樣過，而那比沒有連結更糟）"
+    file: pulse-digest-apply.py
+    find: "            elif url not in urls:\n"
+    replace: "            elif False:\n"
+    survives: false
+    why: ""
+
+  - id: M316
+    title: "worklist 的素材不用交代（既沒引用也沒 dropped 的事件靜靜消失，而稿子看起來完整）"
+    file: pulse-digest-apply.py
+    find: "    missing = sorted(set(items) - referenced - dropped_ids)\n"
+    replace: "    missing = []\n"
+    survives: false
+    why: ""
+
+  - id: M317
+    title: "同一天可以重複寫（審過的稿被隔天的班蓋掉，而沒有人會發現——digest 的生成語意跟 Tracks / Actors 相反）"
+    file: pulse-digest-apply.py
+    find: "    if not path.exists():\n        return None\n"
+    replace: "    if True:\n        return None\n"
+    survives: false
+    why: ""
+
+  - id: M318
+    title: "語言層的設問密度把 question 也算進去（框架自己要求的那一句反而變成扣分項，寫的人會學會不要寫問題）"
+    file: pulse-digest-apply.py
+    find: "    parts.append(str(result.get(\"so_what\") or \"\"))\n"
+    replace: "    parts.append(str(result.get(\"so_what\") or \"\"))\n    parts.append(str(result.get(\"question\") or \"\"))\n"
+    survives: false
+    why: ""
+
+  - id: M319
+    title: "封閉式推論黑名單清空（「只有一種可能」照樣上稿——那正是 digest-framework 記下來的那句沒跑過反例的斷言）"
+    file: pulse-digest-apply.py
+    find: "CLOSED_INFERENCE = (\"只有一種可能\", \"唯一的解釋\", \"唯一可能\", \"無庸置疑\",\n                    \"毫無疑問\", \"不可避免地\", \"必然會\")\n"
+    replace: "CLOSED_INFERENCE = ()\n"
+    survives: false
+    why: ""
+
+  - id: M320
+    title: "根本不洗（voice_clean 沒被呼叫：中國用語與半形標點直接進稿，而事後摘要也不會提——靜靜地不做，比做錯更難發現）"
+    file: pulse-digest-apply.py
+    find: "    cleaned = clean_result(result)\n    problems = check(result, items, cfg)\n"
+    replace: "    cleaned = []\n    problems = check(result, items, cfg)\n"
+    survives: false
+    why: ""
+
+  - id: M321
+    title: "先檢再洗（半形問號繞過設問密度：`?` 不是 `？`，機檢看到一篇沒有問號的文章，洗完寫進檔案的卻有三個）"
+    file: pulse-digest-apply.py
+    find: "    cleaned = clean_result(result)\n    problems = check(result, items, cfg)\n"
+    replace: "    problems = check(result, items, cfg)\n    cleaned = clean_result(result)\n"
+    survives: false
+    why: ""

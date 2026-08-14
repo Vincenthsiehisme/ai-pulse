@@ -174,6 +174,34 @@ fi
    照樣往下跑，那是給寫的人看的提醒，不是錯誤。規格見
    `references/digest-framework.md`。
 
+**B3. 每日精選的寫作（敘述；這是這條鏈唯一一段真的在寫文章的地方）**
+
+7.6. 讀 `_probe/digest-worklist.json`，寫一份分層 JSON，然後
+   `python scripts/pulse-digest-apply.py --in digest.json`。
+
+   完整 schema 與每一條退件規則在 `references/digest-apply.md`，**以那一份為準**。
+   這裡只講三件最容易寫錯的：
+
+   - **不要交「文章全文」。** 這一版沒有 `body` 欄位。文章是 `sections[]` 依序組出來的，
+     一段一個 section，**一個 section 只有一層**（A 證據內／B 背景知識／C 推論／
+     D 原文有但我們沒取用）。分不出層的段落要拆開。
+   - **C 級一定要寫 `counter`**，而且要寫得出一個真的別的解釋。「也可能不是」會被
+     `counter_too_thin` 退掉，那不是刁難——一個沒跑過反例的推論，正是這一層要擋的東西。
+   - **引用到「政策不取用」的來源時，一定要有一條 D 級指向原文連結。** worklist 的
+     `availability.needs_source_link` 會標出來是哪幾則。沒寫會被 `withheld_without_d`
+     退件。理由見 `references/evidence-availability.md`：寫「證據不足」是假的，
+     而且把讀者擋在門外。
+
+   **退件不要繞過去。** 印出來的每一條都帶 rule id 與理由，照著改再送一次。
+   **看到「已經存在」的拒寫訊息就停手，把訊息貼進摘要**——那代表今天已經有一份稿，
+   而 digest 生成一次就定稿（審過的稿被隔天的班蓋掉，沒有人會發現）。
+   覆寫要由人在白天決定，這一節不提供那個做法。
+
+   **這一步失敗不擋 push**（同 7.5 的過渡期例外）：`Digests/` 目前還沒有下游消費者，
+   寫不出來不影響當天的潤稿與發布。退件或當掉就把**完整輸出原樣**寫進摘要、繼續往下
+   跑完 render 與 push。等 `pulse-digest-gate.py` 與 `/daily/` 那條線接上之後，
+   **這個豁免要拿掉**。
+
 **C. 主線敘事刷新（只在有主線變動時；這也是敘述、同樣過 speak-human-tw）**
 8. `python scripts/pulse-narrative-prep.py` → 讀 `_probe/narrative-worklist.json`。
    - **若為空陣列 → 整個 C 段跳過**（多數夜晚如此：只有某主線今晚新增／變動事件才會 dirty；dirty 由事件集合簽章決定，不由你判斷）。
