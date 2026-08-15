@@ -1,6 +1,16 @@
-# 已發布事件（114）
+# 已發布事件（117）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-08-15
+- **[[Events/evt-2026-08-15-c5f2a2|Claude Text Watermark]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發公告談 Claude 文字浮水印，我們目前只取標題未擷取全文。
+
+## 2026-08-14
+- **[[Events/evt-2026-08-14-61f43e|Universitas Gadjah Mada, Indosat and NVIDIA Open Indonesia’s First University AI Center to Develop Local AI Talent]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 與印尼電信商 Indosat、UGM 大學合開印尼第一座大學 AI 技術中心。
+- **[[Events/evt-2026-08-14-92a7be|Grok 4.6 Github Copilot]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發公告談 Grok 4.6 與 GitHub Copilot 的整合，站方不開放內文擷取。
 
 ## 2026-08-13
 - **[[Events/evt-2026-08-13-1db924|Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More]]** — NVIDIA · product · conf 73 · heat 未量測

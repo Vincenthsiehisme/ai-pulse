@@ -289,6 +289,11 @@
     "src_hash": "e970d5b0569c",
     "zh": "用 PyTorch 一步步從零實作一個類 ChatGPT 的 LLM"
   },
+  "raullenchai/Rapid-MLX": {
+    "at": "2026-08-15T19:12:09+00:00",
+    "src_hash": "191f84674864",
+    "zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
+  },
   "rocketride-org/rocketride-server": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "137c15108c22",
