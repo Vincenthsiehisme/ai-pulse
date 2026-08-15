@@ -17,7 +17,7 @@ can_satisfy_primary: false
 endpoint: "https://techcrunch.com/category/artificial-intelligence/feed/"
 robots_checked_day: "2026-08-11"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-08-14"
+last_observed_day: "2026-08-15"
 items_observed: 162
 events_bound: 2
 events_published: 2

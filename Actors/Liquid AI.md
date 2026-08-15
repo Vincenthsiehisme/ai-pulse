@@ -3,7 +3,7 @@ id: actor-liquid-ai
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-08-14'
+generated_day: '2026-08-15'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

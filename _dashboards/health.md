@@ -1,23 +1,23 @@
 ---
 type: "health"
-generated_day: "2026-08-14"
+generated_day: "2026-08-15"
 status: "green"
-last_success: "2026-08-14"
+last_success: "2026-08-15"
 probe_lag_days: 0
-last_run_day: "2026-08-14"
+last_run_day: "2026-08-15"
 run_lag_days: 0
 stale_after_days: 2
 sources_runnable: 27
-items_observed: 1539
-events_total: 139
-events_published: 111
+items_observed: 1582
+events_total: 142
+events_published: 114
 ---
 
 # 健康監看
 
 > 由 `pulse-monitor.py --write-health` 每班自動產生（零 LLM）。**手動編輯會在下一班被覆蓋。**
 
-> 這頁自己就是死人開關：鏈沒跑就沒人重寫它，`generated_day` 會停在 2026-08-14 不動。所以先看那個日期是不是今天，再看下面的燈。
+> 這頁自己就是死人開關：鏈沒跑就沒人重寫它，`generated_day` 會停在 2026-08-15 不動。所以先看那個日期是不是今天，再看下面的燈。
 
 > [!success] 綠燈：資料新鮮度在門檻內。
 
@@ -26,74 +26,74 @@ events_published: 111
 | 層 | 數字 | 這一格不對勁代表什麼 |
 |---|---|---|
 | 收錄 | 27 條可跑來源 | 設定檔現在有幾條會被抓 |
-| 已觀測 | 累計 1539 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
-| 有效產出 | 139 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
-| 已發布 | 111 則 | 卡在門禁是設計，不是故障 |
+| 已觀測 | 累計 1582 筆，來自 25 條來源 | 這裡是**歷來**累計，含現在已停用的來源，所以不能直接跟上一格相減。本窗口誰零產出看下面「覆蓋範圍」那一節 |
+| 有效產出 | 142 則事件 | 抓到了但沒聚成事件＝聚類沒認出來 |
+| 已發布 | 114 則 | 卡在門禁是設計，不是故障 |
 
 ## 鏈的兩條時間軸
 
 | | 最後一次 | 距今 | 這條停了代表什麼 |
 |---|---|---|---|
-| 有跑班（`_probe/`） | 2026-08-14 | 0 天 | 排程死了 |
-| 有抓到東西（`_corpus/`） | 2026-08-14 | 0 天 | 鏈在跑但瞎了（來源全壞、或全站沒更新） |
+| 有跑班（`_probe/`） | 2026-08-15 | 0 天 | 排程死了 |
+| 有抓到東西（`_corpus/`） | 2026-08-15 | 0 天 | 鏈在跑但瞎了（來源全壞、或全站沒更新） |
 
 「靜默死掉」與「靜默瞎掉」是兩種病，所以兩條軸分開印。2026-07-24 漏抓 Claude Opus 5 的那晚，上面那條是綠的。
 
 ## 佇列
 
-- 已上線 **111**／review **26**（待處理 11、設計上擋著 15）／人工判定不追 **2**
-- 未 enrich **5** 則，最久放了 **0** 天
-- 待處理卡最久 **15** 天（天數＝**進庫**多久，不是新聞發布多久）
+- 已上線 **114**／review **26**（待處理 11、設計上擋著 15）／人工判定不追 **2**
+- 未 enrich **3** 則，最久放了 **0** 天
+- 待處理卡最久 **16** 天（天數＝**進庫**多久，不是新聞發布多久）
 
 | blocker | 則數 |
 |---|---|
 | `stale_backfill` | 11 |
-| `thin_fact` | 6 |
-| `thin_research_analysis` | 5 |
-| `placeholder_content` | 5 |
-| `missing_category` | 5 |
-| `missing_track` | 5 |
-| `thin_by_policy` | 4 |
-| `generic_entity` | 3 |
+| `thin_research_analysis` | 7 |
+| `thin_by_policy` | 6 |
+| `placeholder_content` | 3 |
+| `missing_category` | 3 |
+| `missing_track` | 3 |
+| `thin_fact` | 2 |
+| `generic_entity` | 1 |
 
 ## 覆蓋範圍
 
-近 30 天（實有語料 22 天）。「沉默過久」是拿**每條實體自己的觀察期**判的（底下來源最早開始被觀察那天起算），不是拿語料庫長度——見 `references/health-alarms.md`。
+近 30 天（實有語料 23 天）。「沉默過久」是拿**每條實體自己的觀察期**判的（底下來源最早開始被觀察那天起算），不是拿語料庫長度——見 `references/health-alarms.md`。
 
 | 必盯實體 | 來源 | 看見 | 事件 | 上線 | 最後看見 |
 |---|---|---|---|---|---|
-| OpenAI | 1 | 751 | 41 | 39 | 0d 前 |
-| Anthropic | 1 | 222 | 18 | 16 | 0d 前 |
-| Google DeepMind | 1 | 116 | 7 | 5 | 0d 前 |
-| Google | 1 | 365 | 8 | 6 | 0d 前 |
-| Meta | 1 | 122 | 1 | 1 | 0d 前 |
-| Microsoft | 1 | 115 | 2 | 2 | 0d 前 |
-| NVIDIA | 1 | 281 | 30 | 27 | 0d 前 |
-| Hugging Face | 1 | 166 | 2 | 1 | 0d 前 |
-| xAI | 1 | 23 | 6 | 5 | 1d 前 |
-| Mistral AI | 1 | 3 | 0 | 0 | 4d 前 |
-| Alibaba | 1 | 3 | 0 | 0 | 0d 前 |
-| DeepSeek | 0 | 171 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
-| Safe Superintelligence | 0 | 2 | 0 | 0 | 17d 前 ○ 已知未覆蓋（不觸警） |
+| OpenAI | 1 | 793 | 41 | 40 | 0d 前 |
+| Anthropic | 1 | 237 | 19 | 16 | 0d 前 |
+| Google DeepMind | 1 | 123 | 7 | 6 | 0d 前 |
+| Google | 1 | 382 | 8 | 7 | 0d 前 |
+| Meta | 1 | 130 | 1 | 1 | 0d 前 |
+| Microsoft | 1 | 119 | 3 | 2 | 0d 前 |
+| NVIDIA | 1 | 295 | 29 | 27 | 0d 前 |
+| Hugging Face | 1 | 169 | 3 | 1 | 0d 前 |
+| xAI | 1 | 23 | 6 | 5 | 2d 前 |
+| Mistral AI | 1 | 3 | 0 | 0 | 5d 前 |
+| Alibaba | 1 | 3 | 0 | 0 | 1d 前 |
+| DeepSeek | 0 | 181 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Safe Superintelligence | 0 | 2 | 0 | 0 | 18d 前 ○ 已知未覆蓋（不觸警） |
 | Thinking Machines Lab | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
-| Cohere | 0 | 17 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
-| Perplexity | 0 | 7 | 0 | 0 | 4d 前 ○ 已知未覆蓋（不觸警） |
+| Cohere | 0 | 18 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Perplexity | 0 | 7 | 0 | 0 | 5d 前 ○ 已知未覆蓋（不觸警） |
 | Anysphere (Cursor) | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
-| Cognition | 0 | 4 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
-| Scale AI | 0 | 173 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
-| Z.ai | 0 | 2 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
-| Moonshot AI | 0 | 5 | 0 | 0 | 11d 前 ○ 已知未覆蓋（不觸警） |
-| MiniMax | 0 | 44 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
-| ByteDance | 0 | 5 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Cognition | 0 | 5 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Scale AI | 0 | 182 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Z.ai | 0 | 3 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Moonshot AI | 0 | 5 | 0 | 0 | 12d 前 ○ 已知未覆蓋（不觸警） |
+| MiniMax | 0 | 46 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| ByteDance | 0 | 6 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 | Baidu | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
 | Tencent | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
-| AMD | 1 | 33 | 1 | 0 | 0d 前 |
-| TSMC | 0 | 1 | 0 | 0 | 19d 前 ○ 已知未覆蓋（不觸警） |
-| Broadcom | 0 | 6 | 0 | 0 | 15d 前 ○ 已知未覆蓋（不觸警） |
+| AMD | 1 | 34 | 1 | 0 | 0d 前 |
+| TSMC | 0 | 1 | 0 | 0 | 20d 前 ○ 已知未覆蓋（不觸警） |
+| Broadcom | 0 | 6 | 0 | 0 | 16d 前 ○ 已知未覆蓋（不觸警） |
 | Groq | 0 | 0 | 0 | 0 | **從未** ○ 已知未覆蓋（不觸警） |
-| Cerebras | 0 | 6 | 1 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
-| CoreWeave | 0 | 14 | 0 | 0 | 4d 前 ○ 已知未覆蓋（不觸警） |
-| AWS | 0 | 22 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| Cerebras | 0 | 7 | 1 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
+| CoreWeave | 0 | 14 | 0 | 0 | 5d 前 ○ 已知未覆蓋（不觸警） |
+| AWS | 0 | 24 | 0 | 0 | 0d 前 ○ 已知未覆蓋（不觸警） |
 
 - 可跑來源 27 條，本窗口零產出 3 條：`src-kol-thezvi`、`src-media-theregister`、`src-mistral-news`
 
@@ -112,14 +112,14 @@ events_published: 111
 
 ## 半夜潤稿那條鏈
 
-- 潤稿鏈：最後一次推回 2026-08-13（1 天前）
+- 潤稿鏈：最後一次推回 2026-08-14（1 天前）
 
 它跑在沙箱裡、最後一步要 push。**推不上去的那一邊沒辦法通報自己
 推不上去**——所以這一格由推得上去的 Actions 這一邊量。
 
 ## 判斷層的記憶
 
-- 判斷層帳本：48 筆，最近一次 2026-08-13（1 天前）；最近 7 天有 6 條主線改過主張（agent-refactor、capital-evolution、global-map、infra-cost、model-research、product-market）
+- 判斷層帳本：52 筆，最近一次 2026-08-14（1 天前）；最近 7 天有 6 條主線改過主張（agent-refactor、capital-evolution、global-map、infra-cost、model-research、product-market）
 
 `now` / `next` 是整段覆寫的（實測有過相鄰兩版只剩 10% 相同）。
 沒有這份帳本，「我上週對這條線怎麼說」這個問題答不出來。
