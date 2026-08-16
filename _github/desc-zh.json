@@ -1,4 +1,9 @@
 {
+  "0x4m4/hexstrike-ai": {
+    "at": "2026-08-16T19:07:53+00:00",
+    "src_hash": "ec8bf8d7b0af",
+    "zh": "MCP 伺服器，讓 AI agent 自動跑 150 多種資安工具，做滲透測試與弱點挖掘"
+  },
   "Andyyyy64/whichllm": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "47e983421d6e",
@@ -243,6 +248,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "f6970773b060",
     "zh": "一整間 AI 代理商在你手上：從前端高手到 Reddit 社群專家，每個 agent 都是有個性的專才"
+  },
+  "mukul975/Anthropic-Cybersecurity-Skills": {
+    "at": "2026-08-16T19:07:53+00:00",
+    "src_hash": "5329e3096f48",
+    "zh": "817 個資安技能，對應 MITRE、NIST 等六套框架，支援 Claude Code 等 20 多個平台使用"
   },
   "mvanhorn/last30days-skill": {
     "at": "2026-07-27T19:23:58+00:00",
