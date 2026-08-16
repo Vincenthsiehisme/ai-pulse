@@ -192,6 +192,13 @@ fi
      退件。理由見 `references/evidence-availability.md`：寫「證據不足」是假的，
      而且把讀者擋在門外。
 
+   - **`mode: retrospective` 一樣要寫。** 空日不是「沒東西可寫」，是「今天寫的是
+     回頭看」——`digest-framework` §四整節在講這件事。素材只有一則也照寫，
+     一則寫深比三則各說一句好（框架第一節）。開頭那句「今天沒有新上線的事件」
+     由 apply 自動加，不用你寫。
+     2026-08-16 那晚有 1 則 retrospective 素材而沒有產出文章，而當時這裡一個字
+     都沒提空日。經過見 `references/digest-observability.md`。
+
    **退件不要繞過去。** 印出來的每一條都帶 rule id 與理由，照著改再送一次。
    **看到「已經存在」的拒寫訊息就停手，把訊息貼進摘要**——那代表今天已經有一份稿，
    而 digest 生成一次就定稿（審過的稿被隔天的班蓋掉，沒有人會發現）。
@@ -201,6 +208,12 @@ fi
    寫不出來不影響當天的潤稿與發布。退件或當掉就把**完整輸出原樣**寫進摘要、繼續往下
    跑完 render 與 push。等 `pulse-digest-gate.py` 與 `/daily/` 那條線接上之後，
    **這個豁免要拿掉**。
+
+   **但豁免不等於靜音。** apply 現在每次執行都寫 `_probe/digest-apply-last.json`
+   （成功、退件、拒寫都寫），而第 17 步的監看會拿它跟當日 worklist 對帳，
+   在你的摘要裡印一行「今晚有 N 則素材而沒有文章」。
+   2026-08-16 之前這一步**只有成功才留痕跡**，於是「今晚沒素材」跟「今晚有素材
+   但沒寫」在 git 裡長得一模一樣——那一晚就是這樣過去的。
 
 **C. 主線敘事刷新（只在有主線變動時；這也是敘述、同樣過 speak-human-tw）**
 8. `python scripts/pulse-narrative-prep.py` → 讀 `_probe/narrative-worklist.json`。
@@ -296,7 +309,10 @@ repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀
     `git add -A`
     `git diff --cached --quiet && echo "無變更" || (git commit -m "nightly: enrich + narrative $(date -u +%F)" && git push)`
 17. 健康監看（純規則，只讀不寫）：`python scripts/pulse-monitor.py --top 5`
-    把它的輸出原樣放進收尾摘要。重點看三個數字：`probe_lag_days`（資料幾天沒更新）、
+    把它的輸出原樣放進收尾摘要。**其中「每日精選」那一行是這一版新增的**：
+    它拿當日 worklist 跟 `Digests/` 對帳，分得出「今晚沒素材」「今晚有素材而沒寫」
+    「跑了但退件」三種。前面帶 ⚠ 就照抄進摘要，不要自己判斷要不要提。
+    重點看三個數字：`probe_lag_days`（資料幾天沒更新）、
     `待處理`（扣掉 stale_backfill 這種設計上就該擋著的，真正卡住的有幾則）、`未 enrich`，
     外加最後那張覆蓋範圍表——「來源」那欄是 0 的必盯公司代表沒有任何來源在看它。
 

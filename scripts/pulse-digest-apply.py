@@ -237,6 +237,13 @@ def render(result, mode, cleaned):
         "date": result["date"],
         "title": result.get("title") or result["date"],
         "mode": mode,
+        # 這一期用掉了哪幾則事件。**`pulse-digest-prep.load_featured()` 讀這一格**，
+        # 空日規則靠它排除用過的素材。2026-08-16 之前這一格沒有人寫，於是
+        # `already_featured` 恆為空集合，每一個空日都會挑到同一則（實測：NVIDIA Vera，
+        # 41 天，而它等的那個訊號永遠不會被滿足）。近 30 天有 47% 是空日。
+        # 規格 references/digest-observability.md〈三〉。
+        "sources": sorted({e for sec in result["sections"]
+                           for e in (sec.get("evidence") or [])}),
         "status": "draft",
         # 人審三格。三個都還是 null 就不 render，見 references/digest-apply.md〈四〉。
         "review_question": None,
@@ -301,6 +308,26 @@ def clean_result(result):
     return changed
 
 
+def write_trace(vault, dry_run, **fields):
+    """每次執行都留一份紀錄。**包含退件與拒寫那幾條路。**
+
+    `Digests/<date>.md` 只有成功才存在，所以「今晚沒素材」跟「今晚有素材但沒寫」
+    在 git 裡長得一模一樣——一個沒有辦法帶理由的表達方式，違反紅線 8。
+    這一份就是那個理由的落點：它證明 apply 被呼叫過、結果是什麼。
+
+    **它不能證明「該跑而沒跑」**——那要靠 pulse-monitor 比對天數。兩件事分開量，
+    因為要人做的動作不同：退件去看理由改稿，沒跑去看排程。
+    規格 references/digest-observability.md〈一〉。
+    """
+    if dry_run:
+        return
+    p = vault / "_probe" / "digest-apply-last.json"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    rec = {"at": clock.utc_stamp()}
+    rec.update(fields)
+    p.write_text(json.dumps(rec, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="infile", required=True)
@@ -314,10 +341,18 @@ def main():
     work = load_worklist(vault)
     if work is None:
         print("[fatal] 找不到 _probe/digest-worklist.json，先跑 pulse-digest-prep.py", file=sys.stderr)
+        # 這一條沒有 worklist 可以留日期，但「有人叫過 apply 而它連清單都找不到」
+        # 本身就是要被看見的事。
+        write_trace(vault, args.dry_run, date=str(result.get("date") or ""),
+                    outcome="no_worklist", material=0, mode=None, problems=[])
         return 2
     if str(result.get("date") or "") != str(work.get("date") or ""):
         print(f"[fatal] 稿子寫的是 {result.get('date')}，而 worklist 是 {work.get('date')}"
               "——素材對不上，機檢會全部誤判", file=sys.stderr)
+        write_trace(vault, args.dry_run, date=str(work.get("date") or ""),
+                    outcome="date_mismatch", material=len(work.get("items") or []),
+                    mode=work.get("mode"), problems=[],
+                    draft_date=str(result.get("date") or ""))
         return 2
 
     gate = yaml.safe_load((vault / "_config" / "gate.yaml").read_text("utf-8")) or {}
@@ -333,12 +368,17 @@ def main():
         print(f"pulse-digest-apply  退件 {len(problems)} 條  未寫檔", file=sys.stderr)
         for p in problems:
             print(f"  [{p['rule']}] {p['where']}：{p['why']}", file=sys.stderr)
+        write_trace(vault, args.dry_run, date=result["date"], outcome="rejected",
+                    material=len(items), mode=work.get("mode"), problems=problems)
         return 1
 
     out = vault / "Digests" / f"{result['date']}.md"
     refusal = overwrite_verdict(out, args.force)
     if refusal:
         print(f"pulse-digest-apply  [拒寫] {refusal}", file=sys.stderr)
+        write_trace(vault, args.dry_run, date=result["date"], outcome="refused",
+                    material=len(items), mode=work.get("mode"),
+                    problems=[{"rule": "already_exists", "where": out.name, "why": refusal}])
         return 1
 
     fm, body = render(result, work.get("mode") or "normal", cleaned)
@@ -346,6 +386,9 @@ def main():
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(f"---\n{dump_frontmatter(fm)}\n---\n\n{body}", encoding="utf-8")
 
+    write_trace(vault, args.dry_run, date=result["date"], outcome="written",
+                material=len(items), mode=work.get("mode"), problems=[],
+                sections=len(result["sections"]))
     print(f"pulse-digest-apply  {result['date']}  機檢全過  "
           f"段落={len(result['sections'])}  引用={len({e for s in result['sections'] for e in (s.get('evidence') or [])})} 則  "
           f"dropped={len(result.get('dropped') or [])} 則"

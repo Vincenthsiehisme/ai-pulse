@@ -4911,6 +4911,172 @@ acase("references/digest-apply.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "digest-apply.md")),
       True)
 
+# ── digest 那一段的可稽核性（2026-08-14…08-16）──────────────────────────
+# 2026-08-16 的夜班有跑、有 push，而沒有產出文章。當晚 worklist 上有 1 則
+# retrospective 素材，實測那份素材寫得出一篇過機檢的稿——所以不是規則太嚴。
+# 而「那一步沒跑」跟「跑了被退」**從 repo 裡分不出來**，因為它只有成功才留痕跡。
+# 規格 references/digest-observability.md。
+_dob_spec = importlib.util.spec_from_file_location(
+    "pulse_monitor_dg", os.path.join(_HERE, "pulse-monitor.py"))
+_dob = importlib.util.module_from_spec(_dob_spec)
+_dob_spec.loader.exec_module(_dob)
+
+_DOB_WL = {"date": "2026-08-16", "mode": "retrospective", "items": [{"id": "evt-x"}]}
+
+
+def _dob_line(worklist=_DOB_WL, days=(), last=None, today="2026-08-16", thr=2):
+    return _dob.digest_chain_line(worklist, set(days), last, today=today,
+                                  stale_after_days=thr)
+
+
+acase("digest 監看：今晚有素材、沒有文章、apply 沒紀錄 → 叫，而且說「沒被呼叫過」"
+      "（2026-08-16 那一晚的長相。訊息要指向排程，不是指向稿子）",
+      [_dob_line(days=("2026-08-15",))[1],
+       "沒被呼叫過" in _dob_line(days=("2026-08-15",))[0]],
+      [True, True])
+acase("digest 監看：今晚有素材、沒有文章、而 apply 紀錄是今天的退件 → 叫，並列出 rule id"
+      "（跟上一條要人做的動作相反：這條去改稿，上一條去看排程）",
+      [x in _dob_line(days=("2026-08-15",), last={
+          "date": "2026-08-16", "outcome": "rejected",
+          "problems": [{"rule": "withheld_without_d"}]})[0]
+       for x in ("rejected", "withheld_without_d")],
+      [True, True])
+acase("digest 監看：今晚有文章就不叫（反方向；只釘會叫的話，一個永遠叫的版本也全綠）",
+      _dob_line(days=("2026-08-15", "2026-08-16"))[1], False)
+# 這一條是整個當晚層的反誤報釘子。這支腳本 Actions 那一邊也會跑（16:09Z 的
+# --write-health），而那時候 repo 裡的 worklist 還是昨天那一份。判準若寫成
+# 「今天有沒有文章」，Actions 每天都會誤報一次——而一個天天紅的警報兩週內
+# 就會被關掉，連真的該叫的那一次也一起靜音。
+acase("digest 監看：worklist 還是昨天那一份時，當晚層不觸發"
+      "（Actions 跑的時候夜班還沒開始；兩條鏈只靠時鐘耦合，實測誤點過 96 分鐘）",
+      _dob_line(worklist=dict(_DOB_WL, date="2026-08-15"),
+                days=("2026-08-15", "2026-08-16"))[1],
+      False)
+acase("digest 監看：跨日層——最後一篇超過門檻天數 → 叫",
+      _dob_line(worklist=dict(_DOB_WL, items=[]), days=("2026-08-14",))[1], True)
+acase("digest 監看：跨日層——最後一篇還在門檻內 → 不叫",
+      _dob_line(worklist=dict(_DOB_WL, items=[]), days=("2026-08-15",))[1], False)
+# 負數的 lag 不是「很新鮮」。同 enrich_chain_line / pulse-watchdog 那兩條，
+# `lag >= 門檻` 對負數是沉默的，而時間往前走只會更綠——這個洞不會自癒。
+acase("digest 監看：最後一篇的日期在未來 → 叫，不是綠燈",
+      _dob_line(worklist=dict(_DOB_WL, items=[]), days=("2026-08-20",))[1], True)
+acase("digest 監看：Digests/ 全空 → 叫（「從來沒有產出過」跟「今天剛好沒有」不同）",
+      _dob_line(worklist=dict(_DOB_WL, items=[]), days=())[1], True)
+
+# 端到端：apply 每次執行都留痕跡，**包含退件那條路**。
+# 只留成功的話，「今晚沒素材」跟「今晚有素材但沒寫」在 git 裡長得一模一樣。
+with _tf2.TemporaryDirectory() as _td_ob:
+    _obv = Path(_td_ob)
+    (_obv / "_probe").mkdir()
+    (_obv / "_config").mkdir()
+    (_obv / "_config" / "gate.yaml").write_text("digest:\n  counter_min_chars: 15\n", "utf-8")
+    (_obv / "_probe" / "digest-worklist.json").write_text(_json.dumps({
+        "date": "2026-08-16", "mode": "retrospective",
+        "items": [{"id": "evt-x", "evidence": [{"url": "https://ex/h",
+                                                "availability": "withheld"}],
+                   "availability": {"needs_source_link": True}}]}, ensure_ascii=False), "utf-8")
+    _ob_env = dict(os.environ, VAULT_DIR=str(_obv))
+
+    def _ob_run(payload):
+        (_obv / "in.json").write_text(_json.dumps(payload, ensure_ascii=False), "utf-8")
+        _subprocess.run([sys.executable, os.path.join(_HERE, "pulse-digest-apply.py"),
+                         "--in", str(_obv / "in.json")],
+                        capture_output=True, text=True, env=_ob_env)
+        rec = _obv / "_probe" / "digest-apply-last.json"
+        # 檔案不在的時候回空 dict 而不是丟例外：**「沒留下痕跡」要紅成一條失敗，
+        # 不是炸成一個 traceback。** 變異跑起來會把崩潰記成「不算數」，
+        # 於是一個真的把守衛拿掉的改動會從清單上消失。
+        return _json.loads(rec.read_text("utf-8")) if rec.exists() else {}
+
+    _OB_OK = {"date": "2026-08-16", "title": "t", "question": "憑什麼？",
+              "sections": [
+                  {"id": "s1", "layer": "A", "text": "官方說了這件事。",
+                   "evidence": ["evt-x"]},
+                  {"id": "s2", "layer": "D", "text": "原文在這裡。",
+                   "evidence": ["evt-x"], "source_url": "https://ex/h"}],
+              "so_what": "所以記下來。", "support": ["s1"], "dropped": []}
+    _ob_bad = _ob_run(dict(_OB_OK, sections=[_OB_OK["sections"][0]]))   # 少了 D → 退件
+    _ob_good = _ob_run(_OB_OK)
+    _ob_md = (_obv / "Digests" / "2026-08-16.md").read_text("utf-8")
+acase("digest-apply：退件那條路也要留痕跡"
+      "（只留成功的話，「今晚沒素材」跟「今晚有素材但沒寫」在 git 裡一模一樣——"
+      "2026-08-16 就是這樣過去的）",
+      [_ob_bad.get("outcome"), _ob_bad.get("material"), _ob_bad.get("mode"),
+       sorted({p["rule"] for p in _ob_bad.get("problems") or []})],
+      ["rejected", 1, "retrospective", ["withheld_without_d"]])
+acase("digest-apply：寫成功也要留痕跡（兩種結果都在同一份檔案裡才對得起來）",
+      [_ob_good.get("outcome"), _ob_good.get("date")], ["written", "2026-08-16"])
+# sources 這一格有消費者（pulse-digest-prep.load_featured）而在此之前沒有生產者。
+# 後果是 already_featured 恆為空集合，每一個空日都挑到同一則。
+# **端到端釘**：只釘「apply 有寫這一格」的話，prep 那邊改了 key 名字不會有東西紅。
+_ob_prep_spec = importlib.util.spec_from_file_location(
+    "pulse_digest_prep_ob", os.path.join(_HERE, "pulse-digest-prep.py"))
+_ob_prep = importlib.util.module_from_spec(_ob_prep_spec)
+_ob_prep_spec.loader.exec_module(_ob_prep)
+with _tf2.TemporaryDirectory() as _td_ft:
+    _ftv = Path(_td_ft)
+    (_ftv / "Digests").mkdir()
+    (_ftv / "Digests" / "2026-08-16.md").write_text(_ob_md, "utf-8")
+    _ob_featured = _ob_prep.load_featured(_ftv)
+acase("digest：apply 寫的那一格就是 prep 讀的那一格（寫檔 → 讀回 → featured 非空）"
+      "（欄位有消費者沒有生產者，是這個 repo 記過的病；只釘一端等於沒釘）",
+      sorted(_ob_featured), ["evt-x"])
+
+_DOB_RB = open(os.path.join(_HERE, "enrich-runbook.md"), encoding="utf-8").read()
+acase("enrich-runbook 的 7.6 有交代空日（retrospective 一樣要寫）"
+      "（2026-08-16 那晚這裡一個字都沒提空日，而唯一的空日就是唯一沒產出的那天）",
+      "retrospective" in _DOB_RB[_DOB_RB.index("7.6."):_DOB_RB.index("**C. 主線敘事刷新")],
+      True)
+_DOB_WF = open(os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml"),
+               encoding="utf-8").read()
+acase("data-refresh.yml 真的開了 --alert-digest-stale"
+      "（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）",
+      "--alert-digest-stale" in _DOB_WF, True)
+# 端到端：判準對而 main() 沒把它接起來，這一格等於不存在。三個狀態各跑一次
+# 真的 pulse-monitor，斷言它印出來的那一行分得出「沒跑」「退件」「有文章」。
+with _tf2.TemporaryDirectory() as _td_mv:
+    _mvv = Path(_td_mv)
+    for d in ("_config", "_probe", "Events", "Digests"):
+        (_mvv / d).mkdir()
+    for f in ("gate.yaml", "sources.yaml", "entities.yaml"):
+        shutil.copy(os.path.join(_HERE, "..", "_config", f), _mvv / "_config" / f)
+    _mv_today = _clk.utc_today().isoformat()
+    (_mvv / "_probe" / "digest-worklist.json").write_text(_json.dumps(
+        {"date": _mv_today, "mode": "retrospective", "items": [{"id": "evt-x"}]},
+        ensure_ascii=False), "utf-8")
+
+    def _mv_run(*extra):
+        r = _subprocess.run([sys.executable, os.path.join(_HERE, "pulse-monitor.py"),
+                             "--top", "1", *extra], capture_output=True, text=True,
+                            env=dict(os.environ, VAULT_DIR=str(_mvv)))
+        line = next((ln for ln in (r.stdout + r.stderr).splitlines()
+                     if "每日精選" in ln), "")
+        return r.returncode, line
+
+    _mv_norun = _mv_run()
+    _mv_norun_rc = _mv_run("--alert-digest-stale")[0]
+    (_mvv / "_probe" / "digest-apply-last.json").write_text(_json.dumps(
+        {"date": _mv_today, "outcome": "rejected",
+         "problems": [{"rule": "withheld_without_d"}]}, ensure_ascii=False), "utf-8")
+    _mv_rejected = _mv_run()
+    (_mvv / "Digests" / f"{_mv_today}.md").write_text("---\nkind: digest\n---\n", "utf-8")
+    _mv_written = _mv_run("--alert-digest-stale")
+acase("pulse-monitor main()：跑完整支，digest 那一行印得出來而且分得出「沒跑」"
+      "（M296 那條線：判準對而 main() 沒接，等於沒有這一格）",
+      [_mv_norun[0], "沒被呼叫過" in _mv_norun[1], _mv_norun_rc],
+      [0, True, 1])
+acase("pulse-monitor main()：有 apply 紀錄時那一行改口說「退件」並帶 rule id"
+      "（沒讀那份紀錄的話這兩種狀態會印成同一句話，而要人做的動作相反）",
+      [x in _mv_rejected[1] for x in ("rejected", "withheld_without_d")],
+      [True, True])
+acase("pulse-monitor main()：今天有文章就不叫（反方向；只釘會叫的話，"
+      "一個永遠叫的版本也會全綠）",
+      [_mv_written[0], "沒有文章" in _mv_written[1]], [0, False])
+
+acase("references/digest-observability.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "digest-observability.md")),
+      True)
+
 # ── 變異盤點清單的鮮度：規格 references/mutation-inventory.md ────────────────
 # 這一區**不跑變異**。跑一輪要幾十次 selftest，掛在每次 push 上太慢——那是
 # scripts/mutate.py 與 .github/workflows/mutation.yml 的事。這裡只釘一件
