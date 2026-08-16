@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-08-15"
+generated_day: "2026-08-16"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-08-15"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **100** 則／已裁決 **26** 則。
+待回答 **103** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -30,19 +30,19 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`model-research#287ef82f`** — model-research
   > Gemini 3.7 Flash 看有沒有第三方跑分測試出「顯著改進」具體是什麼，以及下一次 Flash 版本更新的間隔會不會繼續壓縮到三週以內。SL2T 看有沒有聾人社群或第三方無障礙研究者的實測回饋；MindTopo 看有沒有其他模型商拿它跑分、成為業界共通評測工具；LFM2.5-VL-3B 看實際效能數據與基準測試結果。Nemotron 3.5 Lightning 要看有沒有第三方基準測試佐證「同級距最高效率」的說法；GPT-5.6-Cyber 看是否有第三方資安研究者測試或實際案例流出。端側與開放模型那批持續看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 的第三方驗證。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述：查禁詐騙看有沒有完整威脅情報與執法佐證，評測事件那則看執行評測的第三方會不會出面講同一組事件。
 
-- **`product-market#309cdff1`** — product-market
-  > GeForce NOW Linux 看使用者實際回饋與效能評測、是否有更多裝置種類跟進。《From assistance to execution》看有沒有第三方調查印證同樣的「輔助轉執行」趨勢。Daybreak on AWS 看實際採用的企業數與案例。Grok Bot 看官方是否釋出功能說明或使用文件。廣告測試看擴大速度、使用者反應，以及是否有獨立分析指出回答中立性受影響。企業案例（Virgin Atlantic、Zapier）看是否有後續可獨立查證的效益數字。Premium 席位看正式定價與採用率。Daybreak 資安服務看夥伴名單與審核標準是否公開。既有支線持續看：教育外掛的試點學區與採用數、Circles 那組留存與 ARPU 有沒有第三方或財報印證、GPT-5.6 降價後有沒有帶動用量或營收的可查訊號。
+- **`product-market#57e7e57b`** — product-market
+  > Claude Text Watermark 這則看 Anthropic 是否釋出浮水印技術文件、研究論文或第三方測試，確認偵測率與適用範圍。GeForce NOW Linux 看使用者實際回饋與效能評測、是否有更多裝置種類跟進。《From assistance to execution》看有沒有第三方調查印證同樣的「輔助轉執行」趨勢。Daybreak on AWS 看實際採用的企業數與案例。Grok Bot 看官方是否釋出功能說明或使用文件。廣告測試看擴大速度、使用者反應，以及是否有獨立分析指出回答中立性受影響。企業案例（Virgin Atlantic、Zapier）看是否有後續可獨立查證的效益數字。Premium 席位看正式定價與採用率。Daybreak 資安服務看夥伴名單與審核標準是否公開。既有支線持續看：教育外掛的試點學區與採用數、Circles 那組留存與 ARPU 有沒有第三方或財報印證、GPT-5.6 降價後有沒有帶動用量或營收的可查訊號。
 
 - **`capital-evolution#6621cf87`** — capital-evolution
   > 看 Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整。看 NVIDIA 的融資平台有沒有第一筆實際資金到位、動員規模是否對得上 5,000 億美元的說法。廣告測試看擴大速度與是否影響回答中立性，以及跟訂閱營收的比重變化。看有沒有第二筆「算力當資本」的同類案例，判斷 Google 那招是模式還是個案；OpenAI 董事變動後有沒有大型融資、重組或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。
 
-- **`agent-refactor#e041d360`** — agent-refactor
-  > Amazon 這則看有沒有實際機器人團隊公開採用這套 Strands Agents 加 LeRobot 加 HF Storage Buckets 整合，並公布具體效能或成本數字；OpenAI 建構者指南看有沒有第三方新創公布用 GPT-5.6 加 Responses API 前後的實際成本或延遲對比數據。NVIDIA 那則開場文看後續是否點名具體模型與合作夥伴、有沒有實質內容而非公關稿。部署端看 Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用）、Presence 與 Build Mode 有沒有公開部署數或具名客戶、科學計算成效能不能複現而非只有敘事。治理端看 SAFE 準則會不會收斂成正式規範、主要雲廠與模型商是否採用，簽名的組織數不算數，照做的家數才算。
+- **`agent-refactor#fa596c03`** — agent-refactor
+  > Grok 4.6 Github Copilot 這則看 GitHub Copilot 官方文件或 changelog 有沒有列出 Grok 4.6 為可選模型，或有沒有其他非 xAI 來源報導這次整合的實際內容。Amazon 這則看有沒有實際機器人團隊公開採用這套 Strands Agents 加 LeRobot 加 HF Storage Buckets 整合，並公布具體效能或成本數字；OpenAI 建構者指南看有沒有第三方新創公布用 GPT-5.6 加 Responses API 前後的實際成本或延遲對比數據。NVIDIA 那則開場文看後續是否點名具體模型與合作夥伴、有沒有實質內容而非公關稿。部署端看 Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用）、Presence 與 Build Mode 有沒有公開部署數或具名客戶、科學計算成效能不能複現而非只有敘事。治理端看 SAFE 準則會不會收斂成正式規範、主要雲廠與模型商是否採用，簽名的組織數不算數，照做的家數才算。
 
-- **`global-map#27fa7058`** — global-map
-  > Into the Omniverse 那篇看聯署信後續有沒有具體承諾或成果；APA 合作看實證指引是否發布、是否有第三方心理健康專業組織背書。南韓的 GPU 採購與半導體合作、OpenAI 與能源部的專案經費與成果、NSF 計畫實際撥給哪些中心與 NVIDIA 投入規模，多數仍停在宣示層。Open Secure AI Alliance 有沒有交出可稽核規範與非發起方成員。Anthropic 那則看全文實際主張與開放權重陣營或政策圈的回應。
+- **`global-map#ad803507`** — global-map
+  > NVAITC 這則看 Komdigi 或 UGM 是否釋出中心的課程規劃、GPU 規模與招生細節，或有無獨立媒體報導佐證合作條款。Into the Omniverse 那篇看聯署信後續有沒有具體承諾或成果；APA 合作看實證指引是否發布、是否有第三方心理健康專業組織背書。南韓的 GPU 採購與半導體合作、OpenAI 與能源部的專案經費與成果、NSF 計畫實際撥給哪些中心與 NVIDIA 投入規模，多數仍停在宣示層。Open Secure AI Alliance 有沒有交出可稽核規範與非發起方成員。Anthropic 那則看全文實際主張與開放權重陣營或政策圈的回應。
 
-## 事件層（94）
+## 事件層（97）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -325,3 +325,12 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-08-13-c970d1#d0d62a76`** — evt-2026-08-13-c970d1
   > 是否有第三方跑分測試比較 Gemini 3.6 Flash 與 3.7 Flash 的實際差異，以及下一次 Flash 版本更新的間隔會不會繼續壓縮。
+
+- **`evt-2026-08-14-61f43e#ef271b8a`** — evt-2026-08-14-61f43e
+  > 看 Komdigi 或 UGM 是否釋出中心的課程規劃、GPU 規模與招生細節，或有無獨立媒體報導佐證合作條款。
+
+- **`evt-2026-08-14-92a7be#53c05f74`** — evt-2026-08-14-92a7be
+  > 看 GitHub Copilot 官方文件或 changelog 是否列出 Grok 4.6 為可選模型，或有無其他非 xAI 來源報導這次整合的實際內容。
+
+- **`evt-2026-08-15-c5f2a2#0730d93d`** — evt-2026-08-15-c5f2a2
+  > 看 Anthropic 是否釋出浮水印技術文件、研究論文或第三方測試，以確認偵測率與適用範圍。

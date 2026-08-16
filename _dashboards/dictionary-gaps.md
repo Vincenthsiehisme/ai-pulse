@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-15'
+generated_day: '2026-08-16'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**19 天**（2026-07-24 … 2026-08-15），去重後 **1582** 列。
+語料範圍：**20 天**（2026-07-24 … 2026-08-16），去重後 **1621** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -19,22 +19,22 @@ generator: scripts/pulse-dictionary-gaps.py
 |---|---|---|
 | LLMs | 27 | 11 |
 | Apple | 24 | 5 |
-| July | 22 | 9 |
+| July | 23 | 9 |
 | June | 19 | 7 |
+| Research | 18 | 4 |
 | LLM | 18 | 9 |
-| Research | 17 | 3 |
 | U.S | 17 | 7 |
+| Amazon | 17 | 5 |
 | Industry | 16 | 2 |
-| Amazon | 16 | 5 |
 | Here | 16 | 8 |
 | Building | 15 | 9 |
 | Pixel | 14 | 3 |
 | European Union | 13 | 2 |
+| They | 13 | 7 |
 | One | 13 | 8 |
+| There | 13 | 5 |
 | August | 13 | 5 |
-| They | 12 | 7 |
 | When | 12 | 4 |
-| There | 12 | 5 |
 | Draft | 11 | 2 |
 | Wednesday | 11 | 4 |
 | Trump | 11 | 4 |
@@ -52,13 +52,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Pro | 9 | 4 |
 | These | 9 | 5 |
 | Elon Musk | 9 | 5 |
+| SpaceX | 9 | 4 |
 | Samsung | 9 | 2 |
 | AI-powered | 8 | 5 |
 | Learn | 8 | 3 |
 | With | 8 | 7 |
 | Linux | 8 | 4 |
 | AI-native | 8 | 3 |
-| SpaceX | 8 | 4 |
 | Flash | 7 | 3 |
 | Texas | 7 | 5 |
 | From | 7 | 6 |
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 42 | src-hn-frontpage |
+| Show HN | 45 | src-hn-frontpage |
 | The Download | 19 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Highlights | 15 | src-gh-vllm-releases |
@@ -112,6 +112,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Nancy Grace Roman | 4 | src-media-mit-techreview |
 | TechCrunch Disrupt | 4 | src-media-techcrunch |
 | YC S26 | 4 | src-hn-frontpage |
+| Firefox | 4 | src-hn-frontpage |
 | Sure | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
@@ -123,12 +124,15 @@ generator: scripts/pulse-dictionary-gaps.py
 | Latest | 3 | src-kol-interconnects |
 | Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
+| Tool | 3 | src-kol-simonwillison |
 | Qwen3 | 3 | src-qwen-blog |
 | MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
 | Space Telescope | 3 | src-media-mit-techreview |
 | Equity | 3 | src-media-techcrunch |
+| The Stepback | 3 | src-media-theverge |
+| Opt | 3 | src-media-theverge |
 | FCC | 3 | src-media-theverge |
 | RAMageddon | 3 | src-media-theverge |
 | The Algorithm | 3 | src-media-mit-techreview |
@@ -138,13 +142,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | TechCrunch | 3 | src-media-techcrunch |
 | APIs | 3 | src-media-techcrunch |
 | Best Buy | 3 | src-media-theverge |
-| Firefox | 3 | src-hn-frontpage |
 | Montana | 3 | src-media-mit-techreview |
 | Star Wars | 3 | src-media-theverge |
 | Brand New Day | 3 | src-media-theverge |
 | Disney | 3 | src-media-theverge |
 | Not | 3 | src-hn-frontpage |
-| MIT Technology Review | 3 | src-media-mit-techreview |
 
 ## 這一頁不保證什麼
 

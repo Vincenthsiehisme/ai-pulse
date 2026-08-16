@@ -3,18 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-15'
+generated_day: '2026-08-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **33** 則：`dropped` 1、`published` 28、`review` 4
+事件 **33** 則：`dropped` 1、`published` 29、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-14 | [[Events/evt-2026-08-14-61f43e\|Universitas Gadjah Mada, Indosat and NVIDIA Open Indonesia’s First University AI Center to Develop Local AI Talent]] | review |
+| 2026-08-14 | [[Events/evt-2026-08-14-61f43e\|Universitas Gadjah Mada, Indosat and NVIDIA Open Indonesia’s First University AI Center to Develop Local AI Talent]] | published |
 | 2026-08-13 | [[Events/evt-2026-08-13-1db924\|Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More]] | published |
 | 2026-08-12 | [[Events/evt-2026-08-12-a9d882\|NVIDIA AI Factory Compute Is Becoming an Investable Asset Class]] | published |
 | 2026-08-12 | [[Events/evt-2026-08-12-6e1c47\|NVIDIA CEO Tops Glassdoor’s 2026 List of Best CEOs]] | dropped |

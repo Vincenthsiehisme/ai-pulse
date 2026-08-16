@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-08-15'
+generated_day: '2026-08-16'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,11 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **10** 則：`published` 8、`review` 2
+事件 **11** 則：`published` 9、`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-14 | [[Events/evt-2026-08-14-92a7be\|Grok 4.6 Github Copilot]] | published |
 | 2026-08-13 | [[Events/evt-2026-08-13-49ffbf\|The builder’s guide to GPT‑5.6]] | published |
 | 2026-08-13 | [[Events/evt-2026-08-13-3b6799\|Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets]] | published |
 | 2026-08-11 | [[Events/evt-2026-08-11-6d61c1\|NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents]] | published |
