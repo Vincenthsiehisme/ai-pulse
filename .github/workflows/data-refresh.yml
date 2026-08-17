@@ -303,6 +303,10 @@ jobs:
           # 那三個旗標**一條都沒叫**，因為判準各自對得上別的故障（未 enrich 是 0、
           # 中文覆蓋 31/35 不是 0、health 那一頁是這一邊自己寫的）。
           # 兩條鏈的失效模式不一樣，警報卻只長在其中一條上。
+          # --alert-digest-stale：每日精選那一段。**這一邊只抓得到跨日層**——
+          # Actions 跑的時候（16:09Z）夜班還沒開始，repo 裡的 worklist 還是昨天
+          # 那一份，所以「今晚有素材而沒寫」在這裡永遠不會觸發。同一晚要被看見
+          # 靠的是夜班摘要裡那一行（runbook 第 17 步）。兩邊各抓一半，是刻意的。
           python scripts/pulse-monitor.py \
             --alert-unenriched-days 2 --alert-coverage --alert-stale \
-            --alert-enrich-stale > /dev/null
+            --alert-enrich-stale --alert-digest-stale > /dev/null

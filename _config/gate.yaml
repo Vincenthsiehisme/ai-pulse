@@ -342,3 +342,14 @@ digest:
   # 全篇設問句上限（不含 question 欄位自己那一句）。設問是 AI 腔最穩定的指紋之一。
   # 消費者：scripts/pulse-digest-apply.py
   questions_max: 2
+
+  # 消費者：scripts/pulse-monitor.py 的 --alert-digest-stale / --write-health。
+  #
+  # 判的是「每日精選最後一篇是幾天前」，跟上面兩個是**三個不同的 key**，
+  # 理由同 watchdog 那一段：共用一個 key 的話，哪天有人為了讓其中一個安靜而
+  # 調鬆它，會連另外兩個一起調鬆。
+  #
+  # 2：**空日也該有文章。** mode=retrospective 一定挑得出一則（除非所有已上線
+  # 事件都用過），所以連兩天沒有不是淡季，是壞了。近 30 天實測 14 天是空日（47%），
+  # 這條規則本來就是為那 47% 設計的。經過見 references/digest-observability.md。
+  digest_stale_after_days: 2

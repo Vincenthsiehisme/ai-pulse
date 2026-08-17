@@ -488,7 +488,8 @@ def health(vault: Path, today, r, stale_after_days: int):
     }
 
 
-def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=None):
+def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=None,
+                  digest=None):
     """健康頁的 markdown。**不寫任何比「日」更細的時間**——見 pulse-source-notes
     的同款理由：一天 12 班，帶時分秒的欄位會讓這頁每兩小時產生一次假 diff。"""
     c = r["coverage"]
@@ -621,6 +622,16 @@ def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=No
             ("- " + _eline) if not _ebad else ("- ⚠ " + _eline),
             "", "它跑在沙箱裡、最後一步要 push。**推不上去的那一邊沒辦法通報自己",
             "推不上去**——所以這一格由推得上去的 Actions 這一邊量。", ""]
+    # 每日精選那一段：7.5 成功會留痕跡（worklist 進版控），7.6 在此之前**只有成功
+    # 才留痕跡**，於是「今晚沒素材」跟「今晚有素材但沒寫」在 git 裡長得一模一樣。
+    # 2026-08-16 就是那一晚。規格 references/digest-observability.md。
+    _dline, _dbad = digest_chain_line(*(digest or (None, set(), None)), today=r["date"],
+                                      stale_after_days=h.get("digest_stale_after_days", 2))
+    out += ["## 每日精選那一段", "",
+            ("- " + _dline) if not _dbad else ("- ⚠ " + _dline),
+            "", "**空日也該有文章**：`mode: retrospective` 一定挑得出一則。",
+            "所以這一格的判準是天數，不是「今天有沒有」——這支腳本 Actions 那一邊",
+            "也會跑，而它跑的時候夜班還沒開始。", ""]
     _nline, _nbad = narrative_ledger_line(narr_hist or [], r["date"])
     out += ["## 判斷層的記憶", "",
             ("- " + _nline) if not _nbad else ("- ⚠ " + _nline),
@@ -728,6 +739,95 @@ def last_enrich_commit(vault):
     except (OSError, subprocess.SubprocessError):
         return None, "no-git"
     return (out, "ok") if out else (None, "none")
+
+
+def digest_facts(vault):
+    """→ (當日 worklist, 有文章的日期集合, 最後一次 apply 的紀錄)。只讀不判斷。
+
+    三個來源缺一不可：
+
+        digest-worklist.json    今天**該不該**有文章（有沒有素材）
+        Digests/*.md 的檔名     哪幾天**寫成功**了
+        digest-apply-last.json  最後一次**被呼叫**是什麼時候、結果是什麼
+
+    少了第一個，同一晚抓不到（只能等隔天用天數兜）；少了第三個，
+    「那一步沒跑」跟「跑了被退」分不出來——而那兩件事要人做的動作相反。
+    """
+    def _read(path):
+        if not path.exists():
+            return None
+        try:
+            rec = json.loads(path.read_text("utf-8"))
+        except ValueError:
+            return None
+        # 寫壞成非 dict 是發生過的事（見 source_clocks 那段）。死人開關不准丟例外。
+        return rec if isinstance(rec, dict) else None
+
+    days = set()
+    d = vault / "Digests"
+    if d.exists():
+        for p in d.glob("*.md"):
+            days.add(p.stem)
+    return (_read(vault / "_probe" / "digest-worklist.json"), days,
+            _read(vault / "_probe" / "digest-apply-last.json"))
+
+
+def digest_chain_line(worklist, digest_days, last, today, stale_after_days):
+    """每日精選那一段的一行摘要。回 (文字, 要不要叫)。純函式，可離線單測。
+
+    **判準分兩層，因為它們抓到的時間點不同。**
+
+    當晚層（worklist 是今天的 ＋ 有素材 ＋ 沒有今天的文章）：同一晚就叫。
+    這一層不會在 Actions 那一邊誤報——Actions 跑的時候（16:09Z）夜班還沒開始，
+    repo 裡的 worklist 還是昨天那一份，`worklist["date"] == today` 為假。
+    這條鏈跟 Actions 只靠時鐘耦合，實測誤點過 96 分鐘，所以判準不能假設誰先誰後。
+
+    跨日層（最後一篇文章幾天前 > 門檻）：兜底，抓連續好幾晚都沒寫的情況。
+
+    當晚層還要再分「沒跑」跟「退件」，因為要人做的動作相反：前者去看排程有沒有
+    走到那一步，後者去看退件理由改稿。2026-08-16 那晚就是這兩者分不出來——
+    那一步在此之前**只有成功才留痕跡**。規格 references/digest-observability.md。
+    """
+    wl = worklist or {}
+    wl_day = str(wl.get("date") or "")
+    material = len(wl.get("items") or [])
+    ldate = str((last or {}).get("date") or "")
+    outcome = str((last or {}).get("outcome") or "")
+    rules = "、".join(sorted({str(x.get("rule")) for x in ((last or {}).get("problems") or [])}))
+    last_day = max(digest_days) if digest_days else None
+
+    # ── 當晚層 ─────────────────────────────────────────────────────────
+    if wl_day == str(today) and material and str(today) not in digest_days:
+        head = f"每日精選：今晚有 {material} 則素材（{wl.get('mode') or 'normal'}）而**沒有文章**"
+        if ldate == str(today):
+            return (head + f"——apply 跑了，結果 **{outcome}**"
+                    + (f"（{rules}）" if rules else "")
+                    + "。去看退件理由改稿，不要繞過去"), True
+        return (head + "——**這一步今晚沒被呼叫過**（`_probe/digest-apply-last.json` "
+                f"停在 {ldate or '從來沒有'}）。先去看排程有沒有走到 runbook 的 7.6"), True
+
+    # ── 跨日層 ─────────────────────────────────────────────────────────
+    if last_day is None:
+        return ("每日精選：**從來沒有產出過**（`Digests/` 是空的）"), True
+    lag = _lag(_as_date(today), last_day)
+    if lag is None:
+        return f"每日精選：最後一篇 {last_day}，但今天的日期讀不出來——量不到", False
+    body = f"每日精選：最後一篇 {last_day}（{lag} 天前）"
+    if lag < 0:
+        # 同 enrich_chain_line 那條：負數的 lag 不是「很新鮮」，而 `>=` 對負數沉默。
+        return (f"每日精選：最後一篇 {last_day} 的日期在未來，**這一格不算數**"
+                "——最可能是時鐘，其次是有人手改過檔名"), True
+    if lag >= stale_after_days:
+        extra = ""
+        if not ldate or ldate < last_day:
+            extra = ("；而且 apply 的紀錄比它還舊——那一步近期沒被呼叫過")
+        return (body + f"，**超過門檻 {stale_after_days} 天**{extra}"
+                + "。空日也該有文章：retrospective 一定挑得出一則，"
+                  "連兩天沒有不是淡季，是壞了"), True
+    if ldate and last_day and ldate > last_day and outcome != "written":
+        return (body + f"；之後那次 apply（{ldate}）結果是 **{outcome}**"
+                + (f"（{rules}）" if rules else "") + "，那一天到現在還是空的"), True
+    return body, False
 
 
 def enrich_chain_line(day, reason, today, stale_after_days):
@@ -851,6 +951,9 @@ def main():
     ap.add_argument("--alert-enrich-stale", action="store_true",
                     help="半夜潤稿那條鏈太久沒推回 main → exit 1"
                          "（門檻 gate.yaml 的 monitor.enrich_stale_after_days）")
+    ap.add_argument("--alert-digest-stale", action="store_true",
+                    help="每日精選太久沒產出、或最後一次 apply 是退件 → exit 1"
+                         "（門檻 gate.yaml 的 monitor.digest_stale_after_days）")
     ap.add_argument("--write-health", action="store_true",
                     help="寫 _dashboards/health.md（內容沒變就不重寫，避免每班假 diff）")
     ap.add_argument("--top", type=int, default=5, help="人看報告列出幾則卡最久的")
@@ -874,8 +977,12 @@ def main():
     # 門檻從 gate.yaml 讀，不寫死在碼裡——判準要能被審（CONTRIBUTING：改門檻走 PR）。
     h["enrich_stale_after_days"] = ((gate.get("monitor") or {}).get("enrich_stale_after_days")
                                     or DEFAULT_STALE_AFTER_DAYS)
+    h["digest_stale_after_days"] = ((gate.get("monitor") or {}).get("digest_stale_after_days")
+                                    or DEFAULT_STALE_AFTER_DAYS)
     enrich = last_enrich_commit(vault)
     r["enrich_last_day"], r["enrich_reason"] = enrich
+    digest = digest_facts(vault)
+    r["digest_days"], r["digest_last_apply"] = sorted(digest[1]), digest[2]
 
     if args.write_health:
         _caps_counts, _ = _corpus.observed(vault)
@@ -884,7 +991,8 @@ def main():
                              enrich,
                              capability_claims_line(
                                  yaml.safe_load((cfg / "sources.yaml").read_text("utf-8")) or {},
-                                 _caps_counts))
+                                 _caps_counts),
+                             digest)
         p = vault / "_dashboards" / "health.md"
         # 一天 12 班：同一天內內容不變就不重寫，真正的變化才不會被淹掉。
         if not (p.exists() and p.read_text("utf-8") == body):
@@ -913,6 +1021,15 @@ def main():
                   f"——量不到不等於沒事，會觸警")
         if r["dropped_total"]:
             print(f"  人工判定不追={r['dropped_total']}（理由見 _dashboards/dropped.md）")
+        # 每日精選那一行**印在人看的報告裡，而不是靠旗標**。理由是 runbook 第 17 步
+        # 那條規則：夜班那一邊不准帶警報旗標。但它的成因（本地 git log 分不出
+        # commit 與 push）不適用於這一格——這一格讀的是檔案不是 git。
+        # 真正的理由是時序：Actions 跑的時候 worklist 還是昨天那一份，
+        # **當晚層在那一邊永遠不會觸發**，所以同一晚要被看見只能靠夜班的摘要。
+        # 帶旗標的那一半仍然長在推得上去的 Actions（跨日層兜底）。
+        _dl, _db = digest_chain_line(*digest, today=r["date"],
+                                     stale_after_days=h["digest_stale_after_days"])
+        print(("  ⚠ " if _db else "  ") + _dl)
         if r["blocker_hist"]:
             print("  ── blocker 分佈 ──")
             for b, n in r["blocker_hist"].items():
@@ -1002,6 +1119,15 @@ def main():
                   "推不上來的時候它自己叫不出聲（實例：2026-08-05 被 git proxy 擋，"
                   "commit 建了、跟拋棄式容器一起沒了）。先確認那個排程 session "
                   "有沒有這個 repo 的授權，再看排程本身", file=sys.stderr)
+            rc = 1
+    if args.alert_digest_stale:
+        _line, _bad = digest_chain_line(*digest, today=r["date"],
+                                        stale_after_days=h["digest_stale_after_days"])
+        if _bad:
+            # 訊息要分得出「沒跑」跟「退件」——那兩件事要人做的動作相反：
+            # 前者去看排程有沒有走到那一步，後者去看退件理由改稿。
+            # 2026-08-16 那晚就是這兩者分不出來（那一步只有成功才留痕跡）。
+            print(f"[alert] {_line}", file=sys.stderr)
             rc = 1
     if args.alert_days and r["oldest_stuck_days"] >= args.alert_days:
         print(f"[alert] 有事件卡在 review 已在庫裡放 {r['oldest_stuck_days']} 天"

@@ -1749,8 +1749,8 @@ mutations:
   - id: M199
     title: "潤稿鏈的門檻改成永遠叫不到（那條鏈斷掉不會有任何東西變紅——2026-08-05 那晚現有三個警報一條都沒叫，這一格是唯一補上的那個）"
     file: pulse-monitor.py
-    find: "    if lag >= stale_after_days:"
-    replace: "    if lag >= 100000:"
+    find: "    if lag >= stale_after_days:\n        return (body + f\"，**超過門檻 {stale_after_days} 天**\""
+    replace: "    if lag >= 100000:\n        return (body + f\"，**超過門檻 {stale_after_days} 天**\""
     survives: false
     why: ""
 
@@ -1773,8 +1773,8 @@ mutations:
   - id: M202
     title: "夜班不開 --alert-enrich-stale（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）"
     file: ../.github/workflows/data-refresh.yml
-    find: "            --alert-enrich-stale > /dev/null"
-    replace: "            > /dev/null"
+    find: "            --alert-enrich-stale --alert-digest-stale > /dev/null"
+    replace: "            --alert-digest-stale > /dev/null"
     survives: false
     why: ""
 
@@ -1787,8 +1787,8 @@ mutations:
   - id: M203
     title: "未來日期的 enrich commit 靜靜綠燈（-1 >= 2 為假，而且時間往前走只會更綠——這個洞不會自癒，正好蓋掉「在推不上去的那一邊量自己」這個故障）"
     file: pulse-monitor.py
-    find: "    if lag < 0:"
-    replace: "    if False:"
+    find: "    if lag < 0:\n        # 下面〈三條規則〉第 3 條為 stale_after_days 寫過同一句"
+    replace: "    if False:\n        # 下面〈三條規則〉第 3 條為 stale_after_days 寫過同一句"
     survives: false
     why: ""
 
@@ -1989,8 +1989,8 @@ mutations:
   - id: M224
     title: "鏈外開關的未來日期靜靜放行（負數的 lag 不是「很新鮮」——同 references/health-alarms.md 三條規則第 3 條，而這是第三個沒接到那條規則的消費者）"
     file: pulse-watchdog.py
-    find: "    if lag < 0:"
-    replace: "    if False:"
+    find: "    if lag < 0:\n        return (f\"{label}：讀到一個未來的日期（{day}），**這一格不算數**\""
+    replace: "    if False:\n        return (f\"{label}：讀到一個未來的日期（{day}），**這一格不算數**\""
     survives: false
     why: ""
 
@@ -2808,5 +2808,85 @@ mutations:
     file: pulse-digest-apply.py
     find: "    cleaned = clean_result(result)\n    problems = check(result, items, cfg)\n"
     replace: "    problems = check(result, items, cfg)\n    cleaned = clean_result(result)\n"
+    survives: false
+    why: ""
+
+  - id: M322
+    title: "apply 只在成功時留痕跡（退件那條路不寫紀錄——「今晚沒素材」跟「今晚有素材但沒寫」在 git 裡長得一模一樣，2026-08-16 就是這樣過去的）"
+    file: pulse-digest-apply.py
+    find: "        write_trace(vault, args.dry_run, date=result[\"date\"], outcome=\"rejected\",\n                    material=len(items), mode=work.get(\"mode\"), problems=problems)\n"
+    replace: "        pass\n"
+    survives: false
+    why: ""
+
+  - id: M323
+    title: "apply 不寫 sources（prep 的 load_featured 永遠回空集合，空日規則每天挑到同一則——近 30 天有 47% 是空日）"
+    file: pulse-digest-apply.py
+    find: "        \"sources\": sorted({e for sec in result[\"sections\"]\n                           for e in (sec.get(\"evidence\") or [])}),\n"
+    replace: "        \"sources\": [],\n"
+    survives: false
+    why: ""
+
+  - id: M324
+    title: "digest 監看的當晚層拿掉（有素材而沒有文章不再叫，只剩跨日層——同一晚看不出來，要等隔天）"
+    file: pulse-monitor.py
+    find: "    if wl_day == str(today) and material and str(today) not in digest_days:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M325
+    title: "當晚層不看 worklist 的日期（Actions 那一邊每天誤報一次——它跑的時候夜班還沒開始，而一個天天紅的警報兩週內會被關掉）"
+    file: pulse-monitor.py
+    find: "    if wl_day == str(today) and material and str(today) not in digest_days:\n"
+    replace: "    if material and str(today) not in digest_days:\n"
+    survives: false
+    why: ""
+
+  - id: M326
+    title: "「沒跑」跟「退件」印成同一句話（要人做的動作相反：一個去看排程，一個去看退件理由改稿）"
+    file: pulse-monitor.py
+    find: "        if ldate == str(today):\n"
+    replace: "        if False:\n"
+    survives: false
+    why: ""
+
+  - id: M327
+    title: "digest 的跨日門檻改成永遠叫不到（連續好幾晚沒產出也不會有任何東西變紅）"
+    file: pulse-monitor.py
+    find: "    if lag >= stale_after_days:\n        extra = \"\"\n"
+    replace: "    if lag >= 100000:\n        extra = \"\"\n"
+    survives: false
+    why: ""
+
+  - id: M328
+    title: "digest 的未來日期靜靜綠燈（-1 >= 2 為假，而且時間往前走只會更綠——這個洞在這個 repo 出現第三次了）"
+    file: pulse-monitor.py
+    find: "    if lag < 0:\n        # 同 enrich_chain_line 那條：負數的 lag 不是「很新鮮」，而 `>=` 對負數沉默。\n"
+    replace: "    if False:\n        # 同 enrich_chain_line 那條：負數的 lag 不是「很新鮮」，而 `>=` 對負數沉默。\n"
+    survives: false
+    why: ""
+
+  - id: M329
+    title: "digest 那一行不印進人看的報告（夜班摘要裡看不到它——而當晚層只有夜班那一邊觸發得到）"
+    file: pulse-monitor.py
+    find: "        print((\"  ⚠ \" if _db else \"  \") + _dl)\n"
+    replace: "        pass\n"
+    survives: false
+    why: ""
+
+  - id: M330
+    title: "digest_facts 不讀 worklist（當晚層拿不到「今天該不該有文章」，退化成只有跨日層）"
+    file: pulse-monitor.py
+    find: "    return (_read(vault / \"_probe\" / \"digest-worklist.json\"), days,\n"
+    replace: "    return (None, days,\n"
+    survives: false
+    why: ""
+
+  - id: M331
+    title: "digest_facts 不讀 apply 紀錄（「沒跑」跟「退件」又混回同一句話，而那份紀錄正是這一輪加的東西）"
+    file: pulse-monitor.py
+    find: "            _read(vault / \"_probe\" / \"digest-apply-last.json\"))\n"
+    replace: "            None)\n"
     survives: false
     why: ""
