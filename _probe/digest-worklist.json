@@ -1,808 +1,1046 @@
 {
-  "date": "2026-08-16",
-  "mode": "retrospective",
-  "retrospective_rule": "pending_signal",
+  "date": "2026-08-17",
+  "mode": "normal",
+  "retrospective_rule": null,
   "items": [
     {
-      "id": "evt-2026-07-07-81e525",
-      "path": "evt-2026-07-07-81e525.md",
-      "title": "AI Innovators Adopt NVIDIA Vera — Why Max Single-Threaded CPU at Scale Matters",
-      "title_zh": "AI 業者採用 NVIDIA Vera：為何大規模單執行緒 CPU 很關鍵",
-      "date": "2026-07-07",
-      "published_at": "2026-07-24T17:36:36.951984+00:00",
+      "id": "evt-2026-08-17-2212ad",
+      "path": "evt-2026-08-17-2212ad.md",
+      "title": "Securing the Infrastructure of Intelligence",
+      "title_zh": null,
+      "date": "2026-08-17",
+      "published_at": "2026-08-17T19:07:44.890977+00:00",
       "company": "NVIDIA",
       "track": "基礎設施與成本",
       "category": "infra",
       "fingerprint": null,
       "facet": "update",
-      "value": 51,
+      "value": 70,
       "confidence": 73,
       "independent_sources": 1,
       "tier_evidence": 1,
       "keywords": [
         "NVIDIA",
-        "Vera",
-        "CPU",
-        "agentic AI"
+        "AI工廠",
+        "基礎設施安全",
+        "運算力"
       ],
       "warnings": [
         "single-source fact; cross-source corroboration pending"
       ],
-      "summary": "NVIDIA 拋出 Vera，把 CPU 重新講成 agentic AI 的關鍵瓶頸。",
+      "summary": "NVIDIA 發部落格文，把「AI 工廠」的基礎設施安全定位成 AI 經濟的核心議題。",
       "source_ids": [
         "src-nvidia-blog"
       ],
       "evidence": [
         {
           "source_id": "src-nvidia-blog",
-          "url": "https://blogs.nvidia.com/blog/nvidia-vera-max-single-threaded-cpu-at-scale/",
-          "title": "AI Innovators Adopt NVIDIA Vera — Why Max Single-Threaded CPU at Scale Matters",
-          "summary": "",
-          "availability": "withheld",
-          "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-          "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+          "url": "https://blogs.nvidia.com/blog/securing-the-infrastructure-of-intelligence/",
+          "title": "Securing the Infrastructure of Intelligence",
+          "summary": "AI factories are the defining infrastructure of the AI era — where compute transforms energy and data into intelligence that powers every business, industry and country. In the AI economy, compute is revenue. AI factories require a full stack of critical resources: advanced chips, packaging, memory,",
+          "availability": "has_text",
+          "availability_reason": "",
+          "writing_hint": "內容在手上，照證據寫。"
         }
       ],
       "availability": {
         "counts": {
-          "has_text": 0,
+          "has_text": 1,
           "unfetched": 0,
-          "withheld": 1
+          "withheld": 0
         },
-        "needs_source_link": true,
-        "reasons": [
-          "license_note 限「標題＋連結」，這是我們自己的保守約束"
-        ]
+        "needs_source_link": false,
+        "reasons": []
       },
       "layers": {
-        "事實": "NVIDIA 提出 Vera，主打「大規模下的最高單執行緒 CPU」，定位成專為 agentic AI 時代打造的新型 CPU 類別。",
-        "脈絡": "過去談 AI 硬體幾乎都在講 GPU。NVIDIA 這次把 CPU 拉回話題，論點是：agent 系統的推理、回應時間與學習，其實卡在 CPU 這條關鍵路徑上。",
-        "影響": "如果 agent 的瓶頸真的在單執行緒 CPU，那算力採購的邏輯就多了一個維度，不再只比 GPU 數量。但這是 NVIDIA 自己下的定義，得看外部負載能不能驗證。",
-        "判斷": "目前是廠商拋出的新類別敘事，證據只有自家說法。先當成一個要觀察的主張，不是已成立的結論。 （單一獨立來源，暫標待證實）",
-        "下一個訊號": "獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。"
+        "事實": "NVIDIA 在官方部落格發文，主張運算力等同於 AI 經濟裡的營收，而 AI 工廠需要晶片、封裝、記憶體等一整套關鍵資源，安全防護是這套基礎設施能不能撐住的前提。證據只到這裡，文中具體提了哪些安全措施或產品，摘要沒有帶到。",
+        "脈絡": "NVIDIA 近期一直在把自己的敘事從「賣晶片」拉高到「AI 工廠基礎設施供應商」，這篇是這條敘事線的延伸——把「安全」也收進同一套語言裡。",
+        "影響": "（證據不足，待補）",
+        "判斷": "來源是 NVIDIA 自家部落格，屬廠商單方說法，用意帶有明顯的行銷與定位色彩。在看到具體安全機制或第三方評論之前，只能當公司敘事看，不能當成安全能力的證據。",
+        "下一個訊號": "留意 NVIDIA 是否後續釋出具體的安全產品、認證或客戶案例，或有獨立資安機構對這篇主張做出回應。"
+      }
+    },
+    {
+      "id": "evt-2026-08-17-318eff",
+      "path": "evt-2026-08-17-318eff.md",
+      "title": "New policy ideas for the Intelligence Age",
+      "title_zh": null,
+      "date": "2026-08-17",
+      "published_at": "2026-08-17T19:07:44.890977+00:00",
+      "company": "OpenAI",
+      "track": "全球創新版圖",
+      "category": "policy",
+      "fingerprint": null,
+      "facet": "update",
+      "value": 69,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "OpenAI",
+        "政策",
+        "智慧時代",
+        "資助專案"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "OpenAI 宣布資助 14 個獨立專案，探索「智慧時代」的新政策構想。",
+      "source_ids": [
+        "src-openai-blog"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-openai-blog",
+          "url": "https://openai.com/index/new-policy-ideas-for-the-intelligence-age",
+          "title": "New policy ideas for the Intelligence Age",
+          "summary": "OpenAI funds 14 independent projects exploring new AI policy ideas to expand economic opportunity and strengthen societal resilience in the Intelligence Age.",
+          "availability": "has_text",
+          "availability_reason": "",
+          "writing_hint": "內容在手上，照證據寫。"
+        }
+      ],
+      "availability": {
+        "counts": {
+          "has_text": 1,
+          "unfetched": 0,
+          "withheld": 0
+        },
+        "needs_source_link": false,
+        "reasons": []
+      },
+      "layers": {
+        "事實": "OpenAI 在部落格宣布資助 14 個獨立專案，主題圍繞擴大經濟機會與強化社會韌性的 AI 政策構想，是以「智慧時代」為框架的政策資助計畫。哪些機構或個人入選、資助金額多少，證據沒有提供。",
+        "脈絡": "隨著 AI 公司在政策圈的影響力擴大，OpenAI 資助外部政策研究已是它經營政府關係與公共形象的常態做法之一，這篇是同類動作的延伸。",
+        "影響": "（證據不足，待補）",
+        "判斷": "來源是 OpenAI 自家發布，屬單方宣布。14 個專案具體研究什麼、由誰執行，目前只有標題級別的資訊，實際政策影響力還看不出來。",
+        "下一個訊號": "留意這 14 個專案的具體名單與研究成果公布，以及是否有政策圈或學界對這批資助的獨立評論。"
+      }
+    },
+    {
+      "id": "evt-2026-08-17-ae278a",
+      "path": "evt-2026-08-17-ae278a.md",
+      "title": "OpenAI joins PORTS-Pike project",
+      "title_zh": null,
+      "date": "2026-08-17",
+      "published_at": "2026-08-17T19:07:44.890977+00:00",
+      "company": "OpenAI",
+      "track": "基礎設施與成本",
+      "category": "infra",
+      "fingerprint": null,
+      "facet": "update",
+      "value": 69,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "OpenAI",
+        "PORTS-Pike",
+        "俄亥俄州",
+        "社區投資"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "OpenAI 加入 PORTS-Pike 專案，投入俄亥俄州南部社區、涉及數千個工作機會。",
+      "source_ids": [
+        "src-openai-blog"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-openai-blog",
+          "url": "https://openai.com/index/openai-joins-ports-pike-project",
+          "title": "OpenAI joins PORTS-Pike project",
+          "summary": "OpenAI joins PORTS-Pike project, expanding community investment and supporting thousands of Southern Ohio jobs",
+          "availability": "has_text",
+          "availability_reason": "",
+          "writing_hint": "內容在手上，照證據寫。"
+        }
+      ],
+      "availability": {
+        "counts": {
+          "has_text": 1,
+          "unfetched": 0,
+          "withheld": 0
+        },
+        "needs_source_link": false,
+        "reasons": []
+      },
+      "layers": {
+        "事實": "OpenAI 宣布加入 PORTS-Pike 專案，內容是擴大對當地社區的投資，並表示這會支持俄亥俄州南部數千個工作機會。專案具體性質（例如是否為資料中心建設）、投資金額，證據沒有寫明。",
+        "脈絡": "OpenAI 近期在美國多個州推動資料中心與基礎設施投資，同時伴隨在地就業與社區關係的宣傳，這則屬於同一類地方經濟投資動作。",
+        "影響": "（證據不足，待補）",
+        "判斷": "來源是 OpenAI 自家發布，屬單方宣布，數千個工作機會是 OpenAI 自己給的數字，沒有第三方查證。專案內容本身（PORTS-Pike 具體在做什麼）證據也沒交代清楚。",
+        "下一個訊號": "留意 PORTS-Pike 專案的具體內容公布，以及俄亥俄州當地媒體或官方是否有獨立報導佐證就業數字。"
+      }
+    },
+    {
+      "id": "evt-2026-08-17-fbd708",
+      "path": "evt-2026-08-17-fbd708.md",
+      "title": "The Defender’s Window",
+      "title_zh": null,
+      "date": "2026-08-17",
+      "published_at": "2026-08-17T19:07:44.890977+00:00",
+      "company": "OpenAI",
+      "track": "模型能力與研究",
+      "category": "policy",
+      "fingerprint": null,
+      "facet": "update",
+      "value": 69,
+      "confidence": 73,
+      "independent_sources": 1,
+      "tier_evidence": 1,
+      "keywords": [
+        "OpenAI",
+        "資安",
+        "AI攻防",
+        "防禦"
+      ],
+      "warnings": [
+        "single-source fact; cross-source corroboration pending"
+      ],
+      "summary": "OpenAI 發文談 AI 如何同時改變資安的攻防兩端，並說明自身防禦作法。",
+      "source_ids": [
+        "src-openai-blog"
+      ],
+      "evidence": [
+        {
+          "source_id": "src-openai-blog",
+          "url": "https://openai.com/index/the-defenders-window",
+          "title": "The Defender’s Window",
+          "summary": "AI is reshaping cybersecurity for attackers and defenders alike. Learn how OpenAI is strengthening its defenses and what security teams can do now.",
+          "availability": "has_text",
+          "availability_reason": "",
+          "writing_hint": "內容在手上，照證據寫。"
+        }
+      ],
+      "availability": {
+        "counts": {
+          "has_text": 1,
+          "unfetched": 0,
+          "withheld": 0
+        },
+        "needs_source_link": false,
+        "reasons": []
+      },
+      "layers": {
+        "事實": "OpenAI 發部落格文章，主題是 AI 正在重塑資安領域——對攻擊者與防禦者都是如此，文中說明 OpenAI 如何強化自身防禦，並給資安團隊當下可以採取的建議。具體防禦措施或建議內容，證據只到這句概述，沒有更多細節。",
+        "脈絡": "AI 被用來提升攻擊效率、同時也被防禦端拿來加速偵測與應變，這是資安圈近年反覆討論的雙面刃問題，OpenAI 這篇是站在自身角度的表態。",
+        "影響": "（證據不足，待補）",
+        "判斷": "來源是 OpenAI 自家部落格，內容偏向公司立場說明與建議，不是獨立資安研究。「攻防雙方都在用 AI」是產業普遍觀察，但這篇具體給出的防禦做法有多少可驗證、多少是行銷語言，證據不足以判斷。",
+        "下一個訊號": "留意 OpenAI 是否公布具體防禦技術細節或案例，或有獨立資安研究者對這篇主張提出檢驗。"
       }
     }
   ],
-  "pairs": [],
+  "pairs": [
+    {
+      "a": "evt-2026-08-17-2212ad",
+      "b": "evt-2026-08-17-318eff",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-08-17-2212ad",
+      "b": "evt-2026-08-17-ae278a",
+      "distance": 2,
+      "shared": [
+        "同主線：基礎設施與成本",
+        "同類別：infra"
+      ]
+    },
+    {
+      "a": "evt-2026-08-17-2212ad",
+      "b": "evt-2026-08-17-fbd708",
+      "distance": 4,
+      "shared": []
+    },
+    {
+      "a": "evt-2026-08-17-318eff",
+      "b": "evt-2026-08-17-ae278a",
+      "distance": 2,
+      "shared": [
+        "同公司：OpenAI",
+        "同來源：src-openai-blog",
+        "共用關鍵詞：OpenAI"
+      ]
+    },
+    {
+      "a": "evt-2026-08-17-318eff",
+      "b": "evt-2026-08-17-fbd708",
+      "distance": 2,
+      "shared": [
+        "同公司：OpenAI",
+        "同類別：policy",
+        "同來源：src-openai-blog",
+        "共用關鍵詞：OpenAI"
+      ]
+    },
+    {
+      "a": "evt-2026-08-17-ae278a",
+      "b": "evt-2026-08-17-fbd708",
+      "distance": 2,
+      "shared": [
+        "同公司：OpenAI",
+        "同來源：src-openai-blog",
+        "共用關鍵詞：OpenAI"
+      ]
+    }
+  ],
   "all_within_distance_two": false,
   "pending_signals": [
     {
       "id": "evt-2026-07-07-81e525",
       "title": "AI 業者採用 NVIDIA Vera：為何大規模單執行緒 CPU 很關鍵",
       "date": "2026-07-07",
-      "days_since": 40,
+      "days_since": 41,
       "next_signal": "獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。"
     },
     {
       "id": "evt-2026-07-17-484ed7",
       "title": "Gemini 3.5 Flash Cyber 登場",
       "date": "2026-07-17",
-      "days_since": 30,
+      "days_since": 31,
       "next_signal": "第三方在真實 codebase 的漏洞命中率與誤報數據。"
     },
     {
       "id": "evt-2026-07-17-57c01e",
       "title": "AI 時代的計分卡",
       "date": "2026-07-17",
-      "days_since": 30,
+      "days_since": 31,
       "next_signal": "看有沒有第三方（顧問公司、企業 IT）真的拿這套指標做採購決策，還是只停在 OpenAI 的部落格。"
     },
     {
       "id": "evt-2026-07-17-593335",
       "title": "NVIDIA Vera Rubin 讓後訓練的每塊錢智慧最大化",
       "date": "2026-07-17",
-      "days_since": 30,
+      "days_since": 31,
       "next_signal": "第三方後訓練 TCO 對比、實際出貨。"
     },
     {
       "id": "evt-2026-07-20-2da7a6",
       "title": "NVIDIA 在 SIGGRAPH 推進 agentic 與實體 AI",
       "date": "2026-07-20",
-      "days_since": 27,
+      "days_since": 28,
       "next_signal": "看這些工具的實際釋出時程與開發者採用，而不是發表當天的 demo。"
     },
     {
       "id": "evt-2026-07-20-3b61fa",
       "title": "長時程模型時代的安全與對齊",
       "date": "2026-07-20",
-      "days_since": 27,
+      "days_since": 28,
       "next_signal": "看後續有沒有把這些 safeguard 寫進 model card 或 API 的具體限制，而不只是部落格宣示。"
     },
     {
       "id": "evt-2026-07-20-a01040",
       "title": "必治妥施貴寶在 NVIDIA Vera Rubin 上蓋最先進 AI 工廠",
       "date": "2026-07-20",
-      "days_since": 27,
+      "days_since": 28,
       "next_signal": "看這套算力實際跑出什麼研發成果，而不是規格數字。"
     },
     {
       "id": "evt-2026-07-21-11f6a7",
       "title": "NVIDIA 與夥伴：在美國本土製造，為美國",
       "date": "2026-07-21",
-      "days_since": 26,
+      "days_since": 27,
       "next_signal": "看具名的工廠、金額、時程這類可查事項，而不是宣示。"
     },
     {
       "id": "evt-2026-07-21-2d1482",
       "title": "NVIDIA Spectrum-6 網通進駐 gigascale AI 工廠",
       "date": "2026-07-21",
-      "days_since": 26,
+      "days_since": 27,
       "next_signal": "看實際部署的頻寬、延遲數據，以及和其他網通方案的第三方對比。"
     },
     {
       "id": "evt-2026-07-21-34af41",
       "title": "NVIDIA Vera Rubin 主打每瓦效能與最低 token 成本",
       "date": "2026-07-21",
-      "days_since": 26,
+      "days_since": 27,
       "next_signal": "看獨立的每瓦效能、每 token 成本 benchmark，以及雲端是否跟著調價。"
     },
     {
       "id": "evt-2026-07-21-740913",
       "title": "xAI 推出 Outlook 外掛",
       "date": "2026-07-21",
-      "days_since": 26,
+      "days_since": 27,
       "next_signal": "看有沒有企業部署案例，或微軟這邊的反制，例如限制第三方 add-in。"
     },
     {
       "id": "evt-2026-07-21-78cd95",
       "title": "OpenAI 與 Hugging Face 合作處理模型評測資安事件",
       "date": "2026-07-21",
-      "days_since": 26,
+      "days_since": 27,
       "next_signal": "看有沒有完整的事後報告（post-mortem）或 CVE 級別的揭露，還是停在聯合聲明。"
     },
     {
       "id": "evt-2026-07-21-9089cf",
       "title": "Claude Sonnet 4.6 模型",
       "date": "2026-07-21",
-      "days_since": 26,
+      "days_since": 27,
       "next_signal": "看有沒有第三方（媒體、獨立評測、模型卡）回頭談這個版本；有的話這則會多出一個獨立來源，也才第一次有東西可以寫。"
     },
     {
       "id": "evt-2026-07-21-ce1fa4",
       "title": "緯創在沃斯堡設先進製造廠，生產 NVIDIA AI 系統",
       "date": "2026-07-21",
-      "days_since": 26,
+      "days_since": 27,
       "next_signal": "看這座廠的實際產能爬坡與出貨時程。"
     },
     {
       "id": "evt-2026-07-21-f36bc2",
       "title": "David Vélez、Robin Vince 加入 OpenAI 董事會",
       "date": "2026-07-21",
-      "days_since": 26,
+      "days_since": 27,
       "next_signal": "看後續有沒有大型融資、重組或財務揭露，跟這波董事變動對得上。"
     },
     {
       "id": "evt-2026-07-22-00fb73",
       "title": "Claude Sonnet 4.5 模型",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "看 Anthropic 的 model card 或定價頁有沒有列出這些版本的實際發布日期，能拿來校正 sitemap 時間戳的可信度。"
     },
     {
       "id": "evt-2026-07-22-09b47d",
       "title": "Anthropic 發布 Claude Sonnet 5",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "等第三方評測與定價出來，才看得出 Sonnet 5 是真跳代，還是命名策略。"
     },
     {
       "id": "evt-2026-07-22-2c7cdc",
       "title": "NTT DATA 用 Codex 把事故分析壓到 30 分鐘",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "看有沒有 NTT DATA 自己（而不是 OpenAI 部落格）出面確認這個數字。"
     },
     {
       "id": "evt-2026-07-22-4c0123",
       "title": "Claude Haiku 4.5 模型",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "等定價與延遲數據，看它跟 OpenAI 的小模型、Gemini Flash 的CP 值對比。"
     },
     {
       "id": "evt-2026-07-22-5d5ed0",
       "title": "Google 投入 4,000 萬美元支持 Genesis Mission",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "Genesis Mission 的實際參與者與產出。"
     },
     {
       "id": "evt-2026-07-22-75389f",
       "title": "新聞機構如何用 AI 推進核心任務",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "看有沒有轉成具體授權合約或產品（例如新聞專用工具），還是止於敘事。"
     },
     {
       "id": "evt-2026-07-22-7a1a69",
       "title": "OpenAI 在 Effingham County 建 AI 基礎設施",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "看有沒有具體的資料中心容量、用電量與時程數字落地。"
     },
     {
       "id": "evt-2026-07-22-7df86d",
       "title": "Claude Opus 4.6 模型",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "同上：等第三方或官方的版本清單出現，才有東西可寫。"
     },
     {
       "id": "evt-2026-07-22-8a7a1d",
       "title": "OpenAI 推出 Presence",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "看定價模式與首批客戶，判斷它是真平台，還是 API 的包裝。"
     },
     {
       "id": "evt-2026-07-22-9c2e03",
       "title": "Claude Opus 4.8 模型",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "看 Anthropic 之後的公告或模型卡有沒有提到 Opus 4.8，能確認它是不是一個真的對外發布過的版本。"
     },
     {
       "id": "evt-2026-07-22-af7762",
       "title": "推進國家科學的下一個世代",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "看有沒有具體專案、經費或發表成果，還是停在意向聲明。"
     },
     {
       "id": "evt-2026-07-22-bd324b",
       "title": "Anthropic 為 Economic Index 推出 connector",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "看有沒有文件或實際 integration 出來，說明它接什麼、給誰用。"
     },
     {
       "id": "evt-2026-07-22-d8044f",
       "title": "NVIDIA 開源首個 GPU 加速醫療物理模擬框架",
       "date": "2026-07-22",
-      "days_since": 25,
+      "days_since": 26,
       "next_signal": "框架的 GitHub 採用、醫療機器人團隊的實際使用。"
     },
     {
       "id": "evt-2026-07-23-0475fe",
       "title": "把 Nunchaku 4-bit 擴散推論帶進 Diffusers",
       "date": "2026-07-23",
-      "days_since": 24,
+      "days_since": 25,
       "next_signal": "看 4-bit 相對全精度的畫質落差，以及速度和記憶體的實際增益數字。"
     },
     {
       "id": "evt-2026-07-23-4f7d28",
       "title": "Claude 用於創意工作",
       "date": "2026-07-23",
-      "days_since": 24,
+      "days_since": 25,
       "next_signal": "看 Anthropic 有沒有正式的「Claude for Creative Work」公告，屆時再補實質內容。"
     },
     {
       "id": "evt-2026-07-23-4fb946",
       "title": "GeForce NOW 上架《流亡黯道》等雲端遊戲",
       "date": "2026-07-23",
-      "days_since": 24,
+      "days_since": 25,
       "next_signal": "無特別要追的 AI 訊號。"
     },
     {
       "id": "evt-2026-07-23-516cf6",
       "title": "Claude Opus 4.7 模型",
       "date": "2026-07-23",
-      "days_since": 24,
+      "days_since": 25,
       "next_signal": "同組其他版本一起看：哪一個版本先被第三方談到，那個才是真正被使用的版本。"
     },
     {
       "id": "evt-2026-07-23-7788b3",
       "title": "Claude Opus 4.5 模型",
       "date": "2026-07-23",
-      "days_since": 24,
+      "days_since": 25,
       "next_signal": "看聚類端有沒有再把 4.x 的頁面跟整數版本混在一起——那代表還原規則又鬆掉了。"
     },
     {
       "id": "evt-2026-07-23-821bb6",
       "title": "NVIDIA AI 超級電腦在美國海軍研究院上線",
       "date": "2026-07-23",
-      "days_since": 24,
+      "days_since": 25,
       "next_signal": "看這套系統實際支援哪些研究，而不是啟用儀式。"
     },
     {
       "id": "evt-2026-07-23-b82259",
       "title": "ChatGPT 推出健康功能",
       "date": "2026-07-23",
-      "days_since": 24,
+      "days_since": 25,
       "next_signal": "看隱私條款、監管態度（FDA 或 HIPAA），以及是否出現誤導性健康建議的爭議。"
     },
     {
       "id": "evt-2026-07-24-4f2f9f",
       "title": "Anthropic 公布 Economic Futures 研究基金議程",
       "date": "2026-07-24",
-      "days_since": 23,
+      "days_since": 24,
       "next_signal": "看實際撥款對象與產出的研究，才知道議程是否落地。"
     },
     {
       "id": "evt-2026-07-24-a58179",
       "title": "xAI 推出 Google Workspace 外掛",
       "date": "2026-07-24",
-      "days_since": 23,
+      "days_since": 24,
       "next_signal": "看有沒有企業採用，或 Google 對第三方 add-on 的態度。"
     },
     {
       "id": "evt-2026-07-24-dd57bd",
       "title": "南韓在 AI Summit 偕 NVIDIA 與夥伴勾勒 AI 未來",
       "date": "2026-07-24",
-      "days_since": 23,
+      "days_since": 24,
       "next_signal": "看有沒有具體的 GPU 採購、資料中心或半導體合作數字落地。"
     },
     {
       "id": "evt-2026-07-25-74ed64",
       "title": "vLLM 發布 v0.26.0",
       "date": "2026-07-25",
-      "days_since": 22,
+      "days_since": 23,
       "next_signal": "看 Inkling 家族後續有沒有更多模型跟進，以及這些優化的實測 throughput 數字。"
     },
     {
       "id": "evt-2026-07-27-1b4ef0",
       "title": "AI 正在擴大人們在職場上做的事",
       "date": "2026-07-27",
-      "days_since": 20,
+      "days_since": 21,
       "next_signal": "看有沒有第三方（學界或勞動統計單位）用獨立資料複現「跨職務」這個現象，而不是只有平台方自述。"
     },
     {
       "id": "evt-2026-07-27-22a744",
       "title": "業界組成 Open Secure AI Alliance，聚焦 AI 安全",
       "date": "2026-07-27",
-      "days_since": 20,
+      "days_since": 21,
       "next_signal": "看聯盟有沒有產出具體、可稽核的技術規範或稽核機制，以及有哪些非發起方的公司真的加入。"
     },
     {
       "id": "evt-2026-07-27-32add4",
       "title": "Anthropic 與 Cognizant 合作",
       "date": "2026-07-27",
-      "days_since": 20,
+      "days_since": 21,
       "next_signal": "補到公告內文或第三方報導，確認合作的實際形式（部署、通路、投資或其他）。"
     },
     {
       "id": "evt-2026-07-27-ccaf21",
       "title": "NVIDIA Cosmos-H-Dreams：把即時生成式模擬帶進手術機器人",
       "date": "2026-07-27",
-      "days_since": 20,
+      "days_since": 21,
       "next_signal": "看有沒有跟上模型卡的量化指標（延遲、擬真度），或第三方機器人團隊的實測回饋。"
     },
     {
       "id": "evt-2026-07-27-fdbc38",
       "title": "NVIDIA 用 Vera CPU 加速下一代 CPU 與 GPU 設計",
       "date": "2026-07-27",
-      "days_since": 20,
+      "days_since": 21,
       "next_signal": "看有沒有公布具體加速倍數，或 Cadence、Synopsys 把 Vera 優化納入正式產品線的後續動作。"
     },
     {
       "id": "evt-2026-07-28-0162e2",
       "title": "LFM2.5-Encoders：在 CPU 上做快速長脈絡推論",
       "date": "2026-07-28",
-      "days_since": 19,
+      "days_since": 20,
       "next_signal": "看 LiquidAI 是否放出 benchmark（CPU 延遲、吞吐 vs 既有 encoder），以及模型權重的下載與採用。"
     },
     {
       "id": "evt-2026-07-28-1cc93a",
       "title": "對 open-weights 模型的立場",
       "date": "2026-07-28",
-      "days_since": 19,
+      "days_since": 20,
       "next_signal": "看文章實際主張，以及是否引來同業（Meta、Mistral 等開放權重陣營）或政策圈回應。"
     },
     {
       "id": "evt-2026-07-28-5b94da",
       "title": "Grok 建構模式（Build Mode）",
       "date": "2026-07-28",
-      "days_since": 19,
+      "days_since": 20,
       "next_signal": "看 Build Mode 的實際 demo 與可用範圍，是否與 X 生態綁定。"
     },
     {
       "id": "evt-2026-07-28-8ecafa",
       "title": "NVIDIA Jetson：緊湊算力，隨處建 AI",
       "date": "2026-07-28",
-      "days_since": 19,
+      "days_since": 20,
       "next_signal": "看是否有新 Jetson 型號規格、出貨量，或第三方開發者採用數字。"
     },
     {
       "id": "evt-2026-07-28-a1c41f",
       "title": "agentic AI 時代的科學計算",
       "date": "2026-07-28",
-      "days_since": 19,
+      "days_since": 20,
       "next_signal": "看是否有具名團隊、可重現的成果，或第三方（非 OpenAI 客戶）採用數據。"
     },
     {
       "id": "evt-2026-07-28-cd0a00",
       "title": "OlmoEarth 平台：行星尺度的地理空間推論",
       "date": "2026-07-28",
-      "days_since": 19,
+      "days_since": 20,
       "next_signal": "看是否釋出權重、資料集、與既有 geospatial 模型的 benchmark，以及實際應用夥伴。"
     },
     {
       "id": "evt-2026-07-29-001f1f",
       "title": "ChatGPT 面向學術研究者，加速科學發現",
       "date": "2026-07-29",
-      "days_since": 18,
+      "days_since": 19,
       "next_signal": "看有沒有研究者或第三方回報實際開通人數，以及用的是哪個模型版本。"
     },
     {
       "id": "evt-2026-07-29-08f1e5",
       "title": "Lyria 3.5 上線 Flow Music，強化音樂、歌詞、人聲與創作控制",
       "date": "2026-07-29",
-      "days_since": 18,
+      "days_since": 19,
       "next_signal": "看三件可驗證的事：第三方創作者的實測與對比、官方後續有沒有補出 benchmark 或跟前代、競品的量化對照、Flow Music 的開放地區與定價方案。"
     },
     {
       "id": "evt-2026-07-29-50ea44",
       "title": "開兩個設定，讓 ARC-AGI-3 分數翻三倍",
       "date": "2026-07-29",
-      "days_since": 18,
+      "days_since": 19,
       "next_signal": "看有沒有獨立第三方用同組設定在 ARC-AGI-3 上複現這個三倍。"
     },
     {
       "id": "evt-2026-07-29-ad1ae1",
       "title": "Grok Voice Think Fast 2（語音）",
       "date": "2026-07-29",
-      "days_since": 18,
+      "days_since": 19,
       "next_signal": "看 xAI 是否釋出 Grok Voice Think Fast 2 的 demo 或規格，說明「Think Fast」指的是延遲還是推理速度。"
     },
     {
       "id": "evt-2026-07-30-601e8d",
       "title": "Gemini Robotics ER 2：影片理解、工具編排與多機器人協作",
       "date": "2026-07-30",
-      "days_since": 17,
+      "days_since": 18,
       "next_signal": "看有沒有第三方或客戶實測多機器人協作與工具編排的場景 demo。"
     },
     {
       "id": "evt-2026-07-30-637f40",
       "title": "GeForce NOW：同一台筆電既能上課也能串流玩 PC 遊戲",
       "date": "2026-07-30",
-      "days_since": 17,
+      "days_since": 18,
       "next_signal": "（證據不足，待補）無明確的 AI 相關後續訊號可追。"
     },
     {
       "id": "evt-2026-07-30-d3af04",
       "title": "avatarin 用 GPT-Realtime 做 24 小時零售 agent",
       "date": "2026-07-30",
-      "days_since": 17,
+      "days_since": 18,
       "next_signal": "看 avatarin 或山田電機有沒有公布留存、客訴或營收面的後續數字，以及這套有沒有複製到其他門市。"
     },
     {
       "id": "evt-2026-07-31-ae50a2",
       "title": "Univé 建立能用 AI 的團隊",
       "date": "2026-07-31",
-      "days_since": 16,
+      "days_since": 17,
       "next_signal": "看有沒有 Univé 側的量化成果（採用率、生產力、治理踩雷紀錄），或第三方對這套導入法的複盤。"
     },
     {
       "id": "evt-2026-07-31-e0a505",
       "title": "在歐洲推進負責任的 AI",
       "date": "2026-07-31",
-      "days_since": 16,
+      "days_since": 17,
       "next_signal": "看 EU AI Act 下一階段條文生效時，OpenAI 的 provenance、透明度做法有沒有被監管明確接受或要求補強。"
     },
     {
       "id": "evt-2026-07-31-e5e5cc",
       "title": "建構充裕的智慧",
       "date": "2026-07-31",
-      "days_since": 16,
+      "days_since": 17,
       "next_signal": "看這篇有沒有後續帶出具體的算力、資本或產品動作，把 abundant intelligence 兌現成可驗證的事。"
     },
     {
       "id": "evt-2026-08-03-591d58",
       "title": "Orchard：可擴展 agentic AI 的開源框架",
       "date": "2026-08-03",
-      "days_since": 13,
+      "days_since": 14,
       "next_signal": "看 GitHub 上的採用訊號：star、外部貢獻者的 PR、論文引用，以及有沒有微軟以外的團隊用 Orchard 發表 agent 訓練或評測結果。"
     },
     {
       "id": "evt-2026-08-03-627d4d",
       "title": "Circles 用 OpenAI 技術做電信個人化",
       "date": "2026-08-03",
-      "days_since": 13,
+      "days_since": 14,
       "next_signal": "Circles 財報或第三方是否印證這些留存與 ARPU 數字；其他電信商是否跟進採用。"
     },
     {
       "id": "evt-2026-08-03-c29aa3",
       "title": "六個月做出即時語音 AI 系統的經過",
       "date": "2026-08-03",
-      "days_since": 13,
+      "days_since": 14,
       "next_signal": "是否釋出延遲、打斷準確率之類可比數字，或開放給開發者實測。"
     },
     {
       "id": "evt-2026-08-03-c41113",
       "title": "Apple 這次搞錯了",
       "date": "2026-08-03",
-      "days_since": 13,
+      "days_since": 14,
       "next_signal": "Apple 的正式回應、法院是否受理與後續裁定。"
     },
     {
       "id": "evt-2026-08-03-ca9363",
       "title": "Claude for Nonprofits：給非營利組織的方案",
       "date": "2026-08-03",
-      "days_since": 13,
+      "days_since": 14,
       "next_signal": "看 Anthropic 是否公布方案細節：適用哪些產品、折扣或補助額度、申請條件；以及有沒有非營利組織實際導入的案例。"
     },
     {
       "id": "evt-2026-08-04-07332d",
       "title": "破獲一個犯罪詐騙集團",
       "date": "2026-08-04",
-      "days_since": 12,
+      "days_since": 13,
       "next_signal": "看 OpenAI 有沒有出完整的威脅情報報告（規模、手法、指標），或有第三方、執法單位佐證這次行動。"
     },
     {
       "id": "evt-2026-08-04-392f3d",
       "title": "用 ChatGPT Work 與 Codex 教與學的新方法",
       "date": "2026-08-04",
-      "days_since": 12,
+      "days_since": 13,
       "next_signal": "是否公布試點學區/學校數，以及教師採用與留存數據。"
     },
     {
       "id": "evt-2026-08-04-5441bc",
       "title": "用 LFM2.5-2.6B 到處部署本機 agent",
       "date": "2026-08-04",
-      "days_since": 12,
+      "days_since": 13,
       "next_signal": "官方或第三方跑出的 benchmark、工具呼叫成功率、實際部署案例。"
     },
     {
       "id": "evt-2026-08-04-5d61fd",
       "title": "AI 撐大記憶體需求，儲存跟著升級",
       "date": "2026-08-04",
-      "days_since": 12,
+      "days_since": 13,
       "next_signal": "是否落到具體產品或規格（儲存加速、記憶體階層方案），或第三方驗證的成本數字。"
     },
     {
       "id": "evt-2026-08-04-6b1ee3",
       "title": "NVIDIA Alpamayo 2 Super 自駕開放模型開放商用",
       "date": "2026-08-04",
-      "days_since": 12,
+      "days_since": 13,
       "next_signal": "授權條款與權重釋出範圍、第三方在長尾場景的實測、有哪些車廠或 robotaxi 業者採用。"
     },
     {
       "id": "evt-2026-08-04-6c9649",
       "title": "AI 業界提出 SAFE 資安透明準則",
       "date": "2026-08-04",
-      "days_since": 12,
+      "days_since": 13,
       "next_signal": "RFC 收斂成正式規範、主要雲廠與模型商是否採用、有沒有第一批實際的 findings 交換。"
     },
     {
       "id": "evt-2026-08-04-9f0a8c",
       "title": "NVIDIA 加入 NSF 州與區域 AI 中心計畫",
       "date": "2026-08-04",
-      "days_since": 12,
+      "days_since": 13,
       "next_signal": "計畫實際撥給哪些中心、NVIDIA 投入的算力或資金規模、第一批受惠機構名單。"
     },
     {
       "id": "evt-2026-08-04-b30acc",
       "title": "Anthropic 消息：Tino Cuellar",
       "date": "2026-08-04",
-      "days_since": 12,
+      "days_since": 13,
       "next_signal": "補齊該則消息的內文後，確認它到底是任命、政策發言還是其他。"
     },
     {
       "id": "evt-2026-08-05-11f6a7",
       "title": "NVIDIA 與夥伴在美國、為美國投資建設",
       "date": "2026-08-05",
-      "days_since": 11,
+      "days_since": 12,
       "next_signal": "留意 NVIDIA 是否公布具體投資金額、廠址或夥伴名單，那才是能驗證這篇聲明的下一步。"
     },
     {
       "id": "evt-2026-08-06-00fb68",
       "title": "GeForce NOW 8 月新增 26 款遊戲",
       "date": "2026-08-06",
-      "days_since": 10,
+      "days_since": 11,
       "next_signal": "GeForce NOW 若開始整合 AI 生成內容或雲端推論功能，才會是值得追蹤的轉折。"
     },
     {
       "id": "evt-2026-08-06-4a18c5",
       "title": "從問到做：全球如何讓 ChatGPT 真正做事",
       "date": "2026-08-06",
-      "days_since": 10,
+      "days_since": 11,
       "next_signal": "留意是否有第三方數據能佐證或反駁這個「問到做」的轉向趨勢。"
     },
     {
       "id": "evt-2026-08-06-6c5981",
       "title": "Into the Omniverse：開放世界模型如何推進物理 AI",
       "date": "2026-08-06",
-      "days_since": 10,
+      "days_since": 11,
       "next_signal": "留意這封公開信是否催生具體政策動作，或 NVIDIA 是否接著釋出對應的開放世界模型。"
     },
     {
       "id": "evt-2026-08-06-d3c850",
       "title": "攜手美國心理學會，關注青少年心理健康與 AI",
       "date": "2026-08-06",
-      "days_since": 10,
+      "days_since": 11,
       "next_signal": "留意 ChatGPT 是否推出針對青少年帳號的具體安全功能，或 APA 是否公開發布合作產出的指引文件。"
     },
     {
       "id": "evt-2026-08-07-16edd0",
       "title": "HSP GRUPPE 如何為稅務顧問建立 AI 能力",
       "date": "2026-08-07",
-      "days_since": 9,
+      "days_since": 10,
       "next_signal": "留意稅務、會計顧問業是否有更多同類型企業導入案例出現，能否形成可觀察的產業採用趨勢。"
     },
     {
       "id": "evt-2026-08-07-3e0258",
       "title": "因應下一階段的關鍵資安能力挑戰",
       "date": "2026-08-07",
-      "days_since": 9,
+      "days_since": 10,
       "next_signal": "留意 Astra 是否對應到某個即將發布的新模型，以及 OpenAI 是否公布完整的評估報告或第三方稽核結果。"
     },
     {
       "id": "evt-2026-08-08-46b340",
       "title": "Firebird 在亞美尼亞啟用 CIS 地區最大 AI Factory",
       "date": "2026-08-08",
-      "days_since": 8,
+      "days_since": 9,
       "next_signal": "留意 Firebird 是否公布具體 GPU 數量或算力規模，以及設施上線後是否吸引到區域內的企業客戶採用。"
     },
     {
       "id": "evt-2026-08-10-0e6ea5",
       "title": "NVIDIA開源Magpie TTS：低延遲多語音代理，權重全開放",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看有沒有第三方測試延遲與多語言品質、或有人拿它接進實際語音代理產品。"
     },
     {
       "id": "evt-2026-08-10-27696c",
       "title": "Virgin Atlantic 用 ChatGPT Work 精進顧客旅程",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看 Virgin Atlantic 或其他航空業者是否有後續、可獨立查證的導入數字或效益揭露。"
     },
     {
       "id": "evt-2026-08-10-2ea3f0",
       "title": "ChatGPT Business 即將推出 Premium seats",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看 Premium 席位正式定價公布後，企業客戶的採用率或評價。"
     },
     {
       "id": "evt-2026-08-10-397543",
       "title": "Meta推出Muse Glimmer：本機、代理、多模態、開源",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看模型卡與權重正式釋出後，有沒有人實測本機部署門檻與代理任務表現。"
     },
     {
       "id": "evt-2026-08-10-4425be",
       "title": "讓前沿網路安全模型交到更多受信任夥伴手中",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看是否公布 Daybreak 夥伴名單、審核標準，或是否有濫用案例被揭露。"
     },
     {
       "id": "evt-2026-08-10-44574d",
       "title": "把知識蒸餾的成本壓到可規模化執行",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看有沒有公開的成本或效能對比數字、或其他團隊拿這套方法覆現結果。"
     },
     {
       "id": "evt-2026-08-10-6de2c6",
       "title": "Zapier 如何用 ChatGPT Work 改造核心行銷流程",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看 Zapier 是否公開具體的漏斗轉換率或效率數字，或其他 SaaS 公司是否跟進類似案例。"
     },
     {
       "id": "evt-2026-08-10-8a0492",
       "title": "建立AI原生財務職能的心得",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看有沒有後續公開的具體數字（例如財務團隊人力配置變化、預測準確度改善），或其他企業跟進分享類似案例。"
     },
     {
       "id": "evt-2026-08-10-bbf2b8",
       "title": "OpenAI致信德州州長Abbott談AI基礎設施",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看德州州政府或監管機構有沒有公開回應，或 OpenAI 在德州的實際基礎設施投資（電力採購、廠址）有沒有具體進展。"
     },
     {
       "id": "evt-2026-08-10-f81fd9",
       "title": "資安防禦窗口收窄，擴大 Daybreak 計畫",
       "date": "2026-08-10",
-      "days_since": 6,
+      "days_since": 7,
       "next_signal": "看 GPT-5.6-Cyber 是否被第三方資安研究者測試、或是否有實際案例被揭露。"
     },
     {
       "id": "evt-2026-08-11-0f6472",
       "title": "Daybreak 模型現在可以在 AWS 上使用",
       "date": "2026-08-11",
-      "days_since": 5,
+      "days_since": 6,
       "next_signal": "看 Bedrock 的定價頁與可用區域什麼時候列出 Daybreak，以及有沒有 OpenAI 與 AWS 以外的人出來講實際部署。"
     },
     {
       "id": "evt-2026-08-11-5bb657",
       "title": "在 ChatGPT 測試廣告",
       "date": "2026-08-11",
-      "days_since": 5,
+      "days_since": 6,
       "next_signal": "看廣告測試範圍擴大的速度、使用者反應，以及是否有獨立分析指出回答品質或中立性受影響。"
     },
     {
       "id": "evt-2026-08-11-6d61c1",
       "title": "NVIDIA 攜手本地 AI 社群推動開源模型與智慧代理",
       "date": "2026-08-11",
-      "days_since": 5,
+      "days_since": 6,
       "next_signal": "看這系列後續文章點名哪些具體模型、工具或合作夥伴。"
     },
     {
       "id": "evt-2026-08-11-783838",
       "title": "為何擴展 AI 算力效能需要新供電架構",
       "date": "2026-08-11",
-      "days_since": 5,
+      "days_since": 6,
       "next_signal": "看是否有實際部署案例採用 800 VDC 架構，或第三方工程機構對供電效率的獨立評估。"
     },
     {
       "id": "evt-2026-08-11-dc5cff",
       "title": "vLLM 釋出 v0.27.1",
       "date": "2026-08-11",
-      "days_since": 5,
+      "days_since": 6,
       "next_signal": "看 Kimi K3 在 vLLM 上的實際效能表現，或下一個 minor 版本是否有更大的架構變動。"
     },
     {
       "id": "evt-2026-08-12-843c78",
       "title": "LFM2.5-VL-3B：讓邊緣視覺能力更好更快",
       "date": "2026-08-12",
-      "days_since": 4,
+      "days_since": 5,
       "next_signal": "是否釋出基準測試數據或裝置端實測結果"
     },
     {
       "id": "evt-2026-08-12-a9d882",
       "title": "NVIDIA AI 工廠算力正成為可投資資產類別",
       "date": "2026-08-12",
-      "days_since": 4,
+      "days_since": 5,
       "next_signal": "看第一個融資平台的實際 close 金額與標的專案，以及 NVIDIA 財報上有沒有出現相關的擔保或回購承諾揭露。"
     },
     {
       "id": "evt-2026-08-12-b76d3a",
       "title": "把手語 AI 交到使用者手中",
       "date": "2026-08-12",
-      "days_since": 4,
+      "days_since": 5,
       "next_signal": "看有沒有 model card、支援語種清單，或聾人社群與無障礙評測給出的實際可用性回饋。"
     },
     {
       "id": "evt-2026-08-12-de5d3a",
       "title": "MindTopo 揭露 VLM 的空間推理能力",
       "date": "2026-08-12",
-      "days_since": 4,
+      "days_since": 5,
       "next_signal": "看 MindTopo 的資料與程式碼有沒有公開、有沒有第三方跑出跨模型排行，以及主流 VLM 在上面的分數差距大不大。"
     },
     {
       "id": "evt-2026-08-12-e647a7",
       "title": "從輔助到執行：企業如何運用 AI",
       "date": "2026-08-12",
-      "days_since": 4,
+      "days_since": 5,
       "next_signal": "看有沒有非 OpenAI 的第三方調查在相近時間得到類似結論，或企業自己揭露的導入數據對得上。"
     },
     {
       "id": "evt-2026-08-13-1db924",
       "title": "GeForce NOW 升級 Linux、Chromebook 支援等功能",
       "date": "2026-08-13",
-      "days_since": 3,
+      "days_since": 4,
       "next_signal": "Linux 用戶的實際使用回饋與效能評測，以及是否有更多裝置種類跟進支援"
     },
     {
       "id": "evt-2026-08-13-3b6799",
       "title": "Strands Agents 接 LeRobot：一站錄製、訓練、部署機器人資料",
       "date": "2026-08-13",
-      "days_since": 3,
+      "days_since": 4,
       "next_signal": "是否有實際機器人團隊公開採用這套 Strands Agents + LeRobot + HF Storage Buckets 的整合，並公布具體效能或成本數字。"
     },
     {
       "id": "evt-2026-08-13-49ffbf",
       "title": "GPT-5.6 建構者指南：教新創怎麼選模型、省成本",
       "date": "2026-08-13",
-      "days_since": 3,
+      "days_since": 4,
       "next_signal": "是否有第三方新創公布用 GPT-5.6 加 Responses API 前後的實際成本或延遲對比數據。"
     },
     {
       "id": "evt-2026-08-13-b9676e",
       "title": "OpenAI 任命 Dali Rajic 為首席營收長",
       "date": "2026-08-13",
-      "days_since": 3,
+      "days_since": 4,
       "next_signal": "Dali Rajic 上任後 OpenAI 的企業營收策略是否出現具體調整"
+    },
+    {
+      "id": "evt-2026-08-14-61f43e",
+      "title": "UGM、Indosat 與 NVIDIA 開設印尼首座大學 AI 中心",
+      "date": "2026-08-14",
+      "days_since": 3,
+      "next_signal": "看 Komdigi 或 UGM 是否釋出中心的課程規劃、GPU 規模與招生細節，或有無獨立媒體報導佐證合作條款。"
+    },
+    {
+      "id": "evt-2026-08-14-92a7be",
+      "title": "Grok 4.6 登陸 GitHub Copilot",
+      "date": "2026-08-14",
+      "days_since": 3,
+      "next_signal": "看 GitHub Copilot 官方文件或 changelog 是否列出 Grok 4.6 為可選模型，或有無其他非 xAI 來源報導這次整合的實際內容。"
     }
   ],
-  "already_featured": [],
+  "already_featured": [
+    "evt-2026-07-07-81e525"
+  ],
   "edition_orphans": [],
   "note": "距離大不是缺點：實測 8/12 那篇的骨幹是一組距離 ≥4 的配對，而唯一一組距離 2 的在文章裡最沒話講。距離 1 代表同一件事、該合併成一段。規格見 references/digest-framework.md。"
 }

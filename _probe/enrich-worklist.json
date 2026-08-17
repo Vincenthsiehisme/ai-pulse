@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "id": "evt-2026-08-17-2212ad",
+    "path": "evt-2026-08-17-2212ad.md",
+    "title": "Securing the Infrastructure of Intelligence",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/securing-the-infrastructure-of-intelligence/",
+        "title": "Securing the Infrastructure of Intelligence",
+        "summary": "AI factories are the defining infrastructure of the AI era — where compute transforms energy and data into intelligence that powers every business, industry and country. In the AI economy, compute is revenue. AI factories require a full stack of critical resources: advanced chips, packaging, memory,"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-17-318eff",
+    "path": "evt-2026-08-17-318eff.md",
+    "title": "New policy ideas for the Intelligence Age",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/new-policy-ideas-for-the-intelligence-age",
+        "title": "New policy ideas for the Intelligence Age",
+        "summary": "OpenAI funds 14 independent projects exploring new AI policy ideas to expand economic opportunity and strengthen societal resilience in the Intelligence Age."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-17-ae278a",
+    "path": "evt-2026-08-17-ae278a.md",
+    "title": "OpenAI joins PORTS-Pike project",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/openai-joins-ports-pike-project",
+        "title": "OpenAI joins PORTS-Pike project",
+        "summary": "OpenAI joins PORTS-Pike project, expanding community investment and supporting thousands of Southern Ohio jobs"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-17-fbd708",
+    "path": "evt-2026-08-17-fbd708.md",
+    "title": "The Defender’s Window",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/the-defenders-window",
+        "title": "The Defender’s Window",
+        "summary": "AI is reshaping cybersecurity for attackers and defenders alike. Learn how OpenAI is strengthening its defenses and what security teams can do now."
+      }
+    ]
+  }
+]

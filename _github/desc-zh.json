@@ -214,6 +214,11 @@
     "src_hash": "9611f41a21e8",
     "zh": "開源系統加範本，把 Obsidian vault 變成 AI 的持久記憶，不用向量資料庫，只靠 markdown"
   },
+  "jundot/omlx": {
+    "at": "2026-08-17T19:10:59+00:00",
+    "src_hash": "967d0d1fd482",
+    "zh": "Apple Silicon 上的 LLM 推論伺服器，支援連續批次處理與 SSD 快取，從 macOS 選單列管理"
+  },
   "koala73/worldmonitor": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "4fd40cb6ef54",
@@ -325,9 +330,9 @@
     "zh": "跨平台、高效率的 SQLite 擴充，替嵌入式資料庫加上向量搜尋"
   },
   "t8y2/dbx": {
-    "at": "2026-07-27T19:23:58+00:00",
-    "src_hash": "373781648fa2",
-    "zh": "20 MB 輕量跨平台資料庫客戶端，支援 70+ 種資料庫，內建 AI、MCP Server 與 CLI"
+    "at": "2026-08-17T19:10:59+00:00",
+    "src_hash": "179182e033ca",
+    "zh": "20 MB 輕量跨平台資料庫客戶端，支援 80+ 種資料庫，內建 AI、MCP Server 與 CLI"
   },
   "thedotmack/claude-mem": {
     "at": "2026-08-07T01:27:45+00:00",

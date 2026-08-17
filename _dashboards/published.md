@@ -1,6 +1,16 @@
-# 已發布事件（117）
+# 已發布事件（121）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-08-17
+- **[[Events/evt-2026-08-17-2212ad|Securing the Infrastructure of Intelligence]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 發部落格文，把「AI 工廠」的基礎設施安全定位成 AI 經濟的核心議題。
+- **[[Events/evt-2026-08-17-318eff|New policy ideas for the Intelligence Age]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 宣布資助 14 個獨立專案，探索「智慧時代」的新政策構想。
+- **[[Events/evt-2026-08-17-ae278a|OpenAI joins PORTS-Pike project]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 加入 PORTS-Pike 專案，投入俄亥俄州南部社區、涉及數千個工作機會。
+- **[[Events/evt-2026-08-17-fbd708|The Defender’s Window]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發文談 AI 如何同時改變資安的攻防兩端，並說明自身防禦作法。
 
 ## 2026-08-15
 - **[[Events/evt-2026-08-15-c5f2a2|Claude Text Watermark]]** — Anthropic · product · conf 80 · heat 未量測
