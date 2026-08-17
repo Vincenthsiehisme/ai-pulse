@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-16'
+generated_day: '2026-08-17'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**20 天**（2026-07-24 … 2026-08-16），去重後 **1621** 列。
+語料範圍：**21 天**（2026-07-24 … 2026-08-17），去重後 **1677** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -18,21 +18,21 @@ generator: scripts/pulse-dictionary-gaps.py
 | 候選 | 次數 | 來源數 |
 |---|---|---|
 | LLMs | 27 | 11 |
-| Apple | 24 | 5 |
+| Apple | 27 | 5 |
 | July | 23 | 9 |
+| LLM | 20 | 9 |
 | June | 19 | 7 |
 | Research | 18 | 4 |
-| LLM | 18 | 9 |
+| Amazon | 18 | 5 |
 | U.S | 17 | 7 |
-| Amazon | 17 | 5 |
 | Industry | 16 | 2 |
 | Here | 16 | 8 |
 | Building | 15 | 9 |
+| They | 15 | 8 |
+| There | 14 | 5 |
 | Pixel | 14 | 3 |
 | European Union | 13 | 2 |
-| They | 13 | 7 |
 | One | 13 | 8 |
-| There | 13 | 5 |
 | August | 13 | 5 |
 | When | 12 | 4 |
 | Draft | 11 | 2 |
@@ -41,12 +41,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | Android | 11 | 3 |
 | Union | 10 | 2 |
 | Python | 10 | 3 |
+| San Francisco | 10 | 7 |
 | After | 10 | 5 |
+| AI-powered | 9 | 5 |
 | Energy | 9 | 2 |
 | Thursday | 9 | 3 |
 | Tuesday | 9 | 4 |
 | Monday | 9 | 4 |
-| San Francisco | 9 | 7 |
+| Learn | 9 | 3 |
 | China | 9 | 5 |
 | Rust | 9 | 3 |
 | Pro | 9 | 4 |
@@ -54,11 +56,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | Elon Musk | 9 | 5 |
 | SpaceX | 9 | 4 |
 | Samsung | 9 | 2 |
-| AI-powered | 8 | 5 |
-| Learn | 8 | 3 |
 | With | 8 | 7 |
 | Linux | 8 | 4 |
 | AI-native | 8 | 3 |
+| Mark Zuckerberg | 8 | 3 |
+| CEO | 8 | 4 |
 | Flash | 7 | 3 |
 | Texas | 7 | 5 |
 | From | 7 | 6 |
@@ -67,16 +69,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | Fable | 7 | 3 |
 | SQLite | 7 | 2 |
 | RAM | 7 | 2 |
-| Mark Zuckerberg | 7 | 3 |
 | AI-generated | 7 | 2 |
-| CEO | 7 | 4 |
+| Europe | 6 | 5 |
 | Security | 6 | 3 |
 | Release Notes | 6 | 2 |
 | Gemma | 6 | 5 |
 | Built | 6 | 4 |
 | GPUs | 6 | 4 |
 | Some | 6 | 6 |
-| Models | 6 | 5 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,8 +87,8 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 45 | src-hn-frontpage |
-| The Download | 19 | src-media-mit-techreview |
+| Show HN | 47 | src-hn-frontpage |
+| The Download | 20 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Highlights | 15 | src-gh-vllm-releases |
 | AMENDMENTS | 9 | src-ep-itre |
@@ -99,19 +99,21 @@ generator: scripts/pulse-dictionary-gaps.py
 | Tags | 9 | src-kol-simonwillison |
 | Qwen | 8 | src-qwen-blog |
 | Minutes | 7 | src-ep-itre |
-| Launch HN | 6 | src-hn-frontpage |
+| Launch HN | 7 | src-hn-frontpage |
 | The Verge | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
 | GeForce NOW | 5 | src-nvidia-blog |
 | Marvel | 5 | src-media-theverge |
+| YC S26 | 5 | src-hn-frontpage |
 | Sam Altman | 5 | src-media-techcrunch |
 | Spider-Man | 5 | src-media-theverge |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
 | Nancy Grace Roman | 4 | src-media-mit-techreview |
+| Equity | 4 | src-media-techcrunch |
 | TechCrunch Disrupt | 4 | src-media-techcrunch |
-| YC S26 | 4 | src-hn-frontpage |
+| Ask HN | 4 | src-hn-frontpage |
 | Firefox | 4 | src-hn-frontpage |
 | Sure | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
@@ -120,7 +122,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Only | 3 | src-ep-itre |
 | Fix | 3 | src-gh-vllm-releases |
 | CEO Jensen Huang | 3 | src-nvidia-blog |
-| Markdown | 3 | src-hn-frontpage |
 | Latest | 3 | src-kol-interconnects |
 | Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
@@ -130,13 +131,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
 | Space Telescope | 3 | src-media-mit-techreview |
-| Equity | 3 | src-media-techcrunch |
 | The Stepback | 3 | src-media-theverge |
 | Opt | 3 | src-media-theverge |
 | FCC | 3 | src-media-theverge |
 | RAMageddon | 3 | src-media-theverge |
 | The Algorithm | 3 | src-media-mit-techreview |
-| Ask HN | 3 | src-hn-frontpage |
 | Apple Silicon | 3 | src-hn-frontpage |
 | Galaxy Z Fold | 3 | src-media-theverge |
 | TechCrunch | 3 | src-media-techcrunch |
@@ -147,6 +146,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Brand New Day | 3 | src-media-theverge |
 | Disney | 3 | src-media-theverge |
 | Not | 3 | src-hn-frontpage |
+| MIT Technology Review | 3 | src-media-mit-techreview |
 
 ## 這一頁不保證什麼
 

@@ -3,7 +3,7 @@
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-08-15
-- **[[Events/evt-2026-08-15-c5f2a2|Claude Text Watermark]]** — Anthropic · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-08-15-c5f2a2|Claude Text Watermark]]** — Anthropic · product · conf 80 · heat 未量測
   Anthropic 發公告談 Claude 文字浮水印，我們目前只取標題未擷取全文。
 
 ## 2026-08-14

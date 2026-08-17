@@ -1,34 +1,34 @@
 [
   {
-    "full_name": "0x4m4/hexstrike-ai",
-    "desc": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security capabilities.",
-    "language": "Python",
+    "full_name": "t8y2/dbx",
+    "desc": "20 MB lightweight cross-platform database client for 80+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 80+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP Server。",
+    "language": "Rust",
     "topics": [
-      "0x4m4",
       "ai",
-      "ai-agents",
-      "ai-cybersecurity",
-      "ai-hacking",
-      "ai-penetration-testing"
+      "cli",
+      "clickhouse",
+      "database",
+      "database-client",
+      "database-management"
     ],
-    "stars": 11076,
-    "url": "https://github.com/0x4m4/hexstrike-ai",
-    "stale_zh": null
+    "stars": 15313,
+    "url": "https://github.com/t8y2/dbx",
+    "stale_zh": "20 MB 輕量跨平台資料庫客戶端，支援 70+ 種資料庫，內建 AI、MCP Server 與 CLI"
   },
   {
-    "full_name": "mukul975/Anthropic-Cybersecurity-Skills",
-    "desc": "817 structured cybersecurity skills for AI agents · Mapped to 6 frameworks: MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF & MITRE F3 (Fight Fraud) · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 20+ platforms · 29 security domains · Apache 2.0",
+    "full_name": "jundot/omlx",
+    "desc": "LLM inference server with continuous batching & SSD caching for Apple Silicon — managed from the macOS menu bar",
     "language": "Python",
     "topics": [
-      "ai-agents",
-      "claude-code",
-      "cloud-security",
-      "cybersecurity",
-      "devsecops",
-      "ethical-hacking"
+      "apple-silicon",
+      "inference-server",
+      "llm",
+      "macos",
+      "mlx",
+      "openai-api"
     ],
-    "stars": 27941,
-    "url": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills",
+    "stars": 18884,
+    "url": "https://github.com/jundot/omlx",
     "stale_zh": null
   }
 ]
