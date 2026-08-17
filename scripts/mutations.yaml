@@ -2436,10 +2436,10 @@ mutations:
     why: ""
 
   - id: M275
-    title: "對帳把 None 當成合法狀態（而 None 正是 frontmatter 讀不進來的長相，也就是唯一真的踩到過的那一種）"
-    file: pulse-dashboard.py
-    find: "    return sorted((n, s) for n, s in rows if s not in BUCKETS)\n"
-    replace: "    return sorted((n, s) for n, s in rows if s is not None and s not in BUCKETS)\n"
+    title: "對帳把 None 當成合法狀態（而 None 正是 frontmatter 讀不進來的長相，也就是唯一真的踩到過的那一種）。2026-08-17 判準搬到 lib/buckets.py，這一條跟著搬——留在 dashboard 上會變成一條打在不存在的碼上的變異"
+    file: lib/buckets.py
+    find: "    return sorted((n, s) for n, s in rows if s not in known)\n"
+    replace: "    return sorted((n, s) for n, s in rows if s is not None and s not in known)\n"
     survives: false
     why: ""
 
@@ -2888,5 +2888,101 @@ mutations:
     file: pulse-monitor.py
     find: "            _read(vault / \"_probe\" / \"digest-apply-last.json\"))\n"
     replace: "            None)\n"
+    survives: false
+    why: ""
+
+  - id: M332
+    title: "後兩格只檢查有沒有涵蓋，不檢查有沒有多填（貼一串全部的段落 id 就過了——點名退化成打勾，而打勾正是這個設計要避開的東西）"
+    file: pulse-digest-gate.py
+    find: "        if have != want:\n"
+    replace: "        if not want <= have:\n"
+    survives: false
+    why: ""
+
+  - id: M333
+    title: "空 list 跟還沒填當成同一件事（「看過了，沒有東西要審」跟「還沒審」寫成同一個值——這個 repo 一直在修的那個病）"
+    file: pulse-digest-gate.py
+    find: "        if got is None:\n            out.append((key, f\"還沒填（這篇有 {len(want)} 個 {layer} 級段落）\"))\n            continue\n"
+    replace: "        if not got:\n            continue\n"
+    survives: false
+    why: ""
+
+  - id: M334
+    title: "review_question 只要不是 None 就算填了（YAML 手滑寫成 true 會靜靜通過，而那根本不是這個欄位的值域）"
+    file: pulse-digest-gate.py
+    find: "    if v not in (VERDICT_OK, VERDICT_NO):\n"
+    replace: "    if v is None:\n"
+    survives: false
+    why: ""
+
+  - id: M335
+    title: "內容改過不蓋過「三格齊了」（一份審過之後被改掉的稿維持 reviewed，而「審過」就跟檔案裡的東西脫鉤了——2026-08-12 那次事故的形狀）"
+    file: pulse-digest-gate.py
+    find: "    if stale:\n        return \"draft\", [(\"reviewed_sig\", \"文章改過了，三格作廢，要重審\")], True\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M336
+    title: "簽章把文末的層次附錄也簽進去（審的人補一句 counter 就讓整份稿作廢，而讀者看到的一個字都沒變——一道每次審完都會自己觸發的守衛，兩週內會被關掉）"
+    file: pulse-digest-gate.py
+    find: "    return body.split(ARTICLE_END, 1)[0].strip()\n"
+    replace: "    return body.strip()\n"
+    survives: false
+    why: ""
+
+  - id: M337
+    title: "簽章不看 body（永遠算得出同一個值，於是內容怎麼改都不會作廢——而那道守衛看起來還在）"
+    file: pulse-digest-gate.py
+    find: "    return hashlib.sha1(article_text(body).encode(\"utf-8\")).hexdigest()[:16]\n"
+    replace: "    return \"fixed\"\n"
+    survives: false
+    why: ""
+
+  - id: M338
+    title: "退回不要求寫理由（沒理由的退回跟資料不見了沒有區別，而寫的人隔天完全不知道該改什麼）"
+    file: pulse-digest-gate.py
+    find: "        if not str(fm.get(\"review_note\") or \"\").strip():\n"
+    replace: "        if False:\n"
+    survives: false
+    why: ""
+
+  - id: M339
+    title: "進 stale 時不清三格（那三個答案是對改之前那一版給的，留著會讓收錄頁把一份對不上內容的答案算成審過）"
+    file: pulse-digest-gate.py
+    find: "        for k in (\"review_question\", \"review_background\", \"review_counter\", \"reviewed_sig\"):\n            fm[k] = None\n"
+    replace: "        pass\n"
+    survives: false
+    why: ""
+
+  - id: M340
+    title: "判定不寫回檔案（純函式全對，而收錄頁永遠停在「等你審」——釘了判準沒釘消費端）"
+    file: pulse-digest-gate.py
+    find: "            if changed and not args.dry_run:\n"
+    replace: "            if False:\n"
+    survives: false
+    why: ""
+
+  - id: M341
+    title: "apply 不寫 section_layers（人審那一關算不出「這篇有哪幾個 B 級要你點名」，於是後兩格永遠是「有 0 個段落」，填 [] 就過）"
+    file: pulse-digest-apply.py
+    find: "        \"section_layers\": {sec[\"id\"]: sec[\"layer\"] for sec in result[\"sections\"]},\n"
+    replace: "        \"section_layers\": {},\n"
+    survives: false
+    why: ""
+
+  - id: M342
+    title: "收錄頁拿掉「現在擋不住東西」那句聲明（一關看起來在守、實際上沒有 render 可以擋，而沒有任何地方說出來）"
+    file: pulse-digest-gate.py
+    find: "    out += [\"---\", \"\",\n            \"**「已審可發」現在不會發到任何地方。** `pulse-render.py` 還沒有 \"\n            \"`/daily/`，所以這一關算得出狀態、擋不住東西。理由與到期日見 \"\n            \"`references/digest-review.md` 開頭那一節。\", \"\"]\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M343
+    title: "section_layers 缺席當成「沒有 B/C 級段落」（2026-08-17 之前寫的 digest 後兩格填 [] 就過，點名設計被繞開，而收錄頁說它審完了——這個病出現在守這個病的那一支自己身上）"
+    file: pulse-digest-gate.py
+    find: "    if \"section_layers\" not in fm:\n"
+    replace: "    if False:\n"
     survives: false
     why: ""

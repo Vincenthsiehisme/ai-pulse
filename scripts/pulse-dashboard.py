@@ -34,6 +34,7 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from lib import buckets as _buckets  # noqa: E402  對帳形狀的單一真相源
 from lib.notes import parse_note  # noqa: E402
 
 # 分桶認得的三個 status。改這裡等於改對帳的定義，不要順手加。
@@ -43,11 +44,10 @@ BUCKETS = ("published", "review", "dropped")
 def unbucketed(rows):
     """rows = [(檔名, status)]。回傳沒有歸到任何一桶的，排序過。
 
-    None 也算漏掉，而且是最重要的那一種：`parse_note` 讀不到 frontmatter 時
-    回的是空 dict，`fm.get("status")` 就是 None。那不是「這個檔沒有狀態」，
-    是「這個檔壞了」，兩件事在這裡必須長得一樣顯眼。
+    判準本體在 `lib/buckets.py`——每日精選那條鏈的收錄頁用同一個守衛，
+    但桶名完全不同。形狀共用，詞彙各自帶（見那個檔的 docstring）。
     """
-    return sorted((n, s) for n, s in rows if s not in BUCKETS)
+    return _buckets.unbucketed(rows, BUCKETS)
 
 
 def drop_meta_line(item):
