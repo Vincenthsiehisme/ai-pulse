@@ -215,6 +215,20 @@ fi
    2026-08-16 之前這一步**只有成功才留痕跡**，於是「今晚沒素材」跟「今晚有素材
    但沒寫」在 git 裡長得一模一樣——那一晚就是這樣過去的。
 
+7.7. `python scripts/pulse-digest-gate.py` → 算每一份 digest 的審核狀態，
+   產 `_dashboards/digests.md`。
+
+   **這一步不需要你做任何判斷，也不要你填那三格。** 三格是人白天填的。
+   你只要跑它、把那一行輸出貼進收尾摘要（`draft=N reviewed=M rejected=K`），
+   讓看摘要的人知道有幾份在等他。
+
+   它印出來的「還缺什麼」也一併貼上——那是給人的待辦，不是錯誤。
+   離開碼非 0 只有一種情況：有 digest 的 status 不屬於三桶，那代表檔案壞了，
+   照 7.6 的規則寫進摘要、繼續往下跑。
+
+   **看到 `stale_at`（內容改過、審核作廢）不要嘗試修**。那是人手改過檔案的痕跡，
+   由人重審。規格 `references/digest-review.md`。
+
 **C. 主線敘事刷新（只在有主線變動時；這也是敘述、同樣過 speak-human-tw）**
 8. `python scripts/pulse-narrative-prep.py` → 讀 `_probe/narrative-worklist.json`。
    - **若為空陣列 → 整個 C 段跳過**（多數夜晚如此：只有某主線今晚新增／變動事件才會 dirty；dirty 由事件集合簽章決定，不由你判斷）。

@@ -5077,6 +5077,195 @@ acase("references/digest-observability.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "digest-observability.md")),
       True)
 
+# ── digest 的人審那一關（2026-08-14）──────────────────────────────────────
+# 規格 references/digest-review.md。三格不是打勾是點名：後兩格要列出你確認過的
+# 段落 id，而它必須剛好等於這篇裡所有 B（或 C）級段落。你不打開檔案就列不出來。
+_dgg_spec = importlib.util.spec_from_file_location(
+    "pulse_digest_gate", os.path.join(_HERE, "pulse-digest-gate.py"))
+_dgg = importlib.util.module_from_spec(_dgg_spec)
+_dgg_spec.loader.exec_module(_dgg)
+
+_DGG_LAYERS = {"s1": "A", "s2": "D", "s3": "B", "s4": "C", "s5": "B"}
+_DGG_BODY = "\n# t\n\n正文第一段。\n\n## 這篇的層次\n\n- `s3` **B**　背景出處：某某年報\n"
+
+
+def _dgg_fm(**kw):
+    d = {"kind": "digest", "date": "2026-08-14", "section_layers": dict(_DGG_LAYERS),
+         "status": "draft", "review_question": None,
+         "review_background": None, "review_counter": None}
+    d.update(kw)
+    return d
+
+
+def _dgg_keys(fm):
+    return sorted(k for k, _why in _dgg.missing_reviews(fm))
+
+
+# 缺席不等於零。`section_layers` 是 2026-08-17 才有的欄位，而
+# `fm.get(...) or {}` 會讓「這一份沒有那一格」跟「這一份沒有 B/C 級段落」
+# 長得一模一樣——後兩格填 `[]` 就過，整個點名設計被繞開而收錄頁說它審完了。
+# 這個病出現在守這個病的這一支自己身上，所以要有一根自己的釘子。
+acase("digest-gate：沒有 section_layers 這一格 → 明講它是舊格式，不當成「沒有 B/C 級」"
+      "（缺席跟零是兩件事；混在一起的話填 [] 就過）",
+      [k for k, _w in _dgg.missing_reviews(
+          {"kind": "digest", "review_question": "ok",
+           "review_background": [], "review_counter": []})],
+      ["section_layers"])
+acase("digest-gate：有那一格而它是空的 → 才算「這篇沒有 B/C 級」（反方向）",
+      _dgg_keys(_dgg_fm(section_layers={}, review_question="ok",
+                        review_background=[], review_counter=[])), [])
+
+acase("digest-gate：三格都還沒填 → 三格都列出來",
+      _dgg_keys(_dgg_fm()),
+      ["review_background", "review_counter", "review_question"])
+acase("digest-gate：三格填齊且點名正確 → 沒有缺的（基準線）",
+      _dgg_keys(_dgg_fm(review_question="ok", review_background=["s3", "s5"],
+                        review_counter=["s4"])), [])
+acase("digest-gate：B 級點名漏一個 → 說出漏了誰"
+      "（只說「還沒審完」的話，審的人不知道要回去看哪一段）",
+      [k for k, _w in _dgg.missing_reviews(
+          _dgg_fm(review_question="ok", review_background=["s3"], review_counter=["s4"]))],
+      ["review_background"])
+acase("digest-gate：點名了不屬於那一層的段落也要擋"
+      "（只檢查「有沒有涵蓋」的話，貼一串全部的 id 就過了——那正是打勾，不是點名）",
+      _dgg_keys(_dgg_fm(review_question="ok", review_background=["s3", "s5", "s1"],
+                        review_counter=["s4"])), ["review_background"])
+# 空 list 跟 None 是兩件事：前者「看過了，沒有東西要審」，後者「還沒審」。
+# 把「沒有」跟「不知道」寫成同一個值，正是這個 repo 一直在修的病。
+acase("digest-gate：沒有 B 級段落時，[] 過而 null 不過（三態，不是兩態）",
+      [_dgg_keys(_dgg_fm(section_layers={"s1": "A"}, review_question="ok",
+                         review_background=[], review_counter=[])),
+       _dgg_keys(_dgg_fm(section_layers={"s1": "A"}, review_question="ok",
+                         review_background=None, review_counter=[]))],
+      [[], ["review_background"]])
+# YAML 的 `review_question: true` 會讀成 bool。封閉詞彙只認 ok / no——
+# 不然一個手滑寫成 true 的欄位會靜靜通過，而它根本不是這個欄位的值域。
+acase("digest-gate：review_question 填 true 不算 ok（封閉詞彙只認 ok / no）",
+      _dgg_keys(_dgg_fm(review_question=True, review_background=["s3", "s5"],
+                        review_counter=["s4"])), ["review_question"])
+
+_DGG_OK = _dgg_fm(review_question="ok", review_background=["s3", "s5"],
+                  review_counter=["s4"])
+acase("digest-gate.evaluate：三格齊 → reviewed",
+      _dgg.evaluate(_DGG_OK, _DGG_BODY)[0], "reviewed")
+acase("digest-gate.evaluate：退回但沒寫理由 → 還是 draft"
+      "（沒理由的退回跟資料不見了沒有區別，同 dropped 那條）",
+      _dgg.evaluate(_dgg_fm(review_question="no"), _DGG_BODY)[0], "draft")
+acase("digest-gate.evaluate：退回且寫了理由 → rejected",
+      _dgg.evaluate(_dgg_fm(review_question="no", review_note="問題不成立"),
+                    _DGG_BODY)[0], "rejected")
+# 內容改過要蓋過「三格齊了」。反過來的話，一份審過之後被改掉的稿會維持
+# reviewed，而「審過」就跟檔案裡的東西脫鉤了——2026-08-12 那次事故的形狀。
+acase("digest-gate.evaluate：簽章對不上 → 退回 draft 並標記，蓋過「三格齊了」",
+      list(_dgg.evaluate(dict(_DGG_OK, reviewed_sig="不一樣的簽章"), _DGG_BODY)[::2]),
+      ["draft", True])
+acase("digest-gate.evaluate：簽章對得上就不作廢（反方向；只釘會作廢的話，"
+      "一個永遠作廢的版本也會全綠）",
+      list(_dgg.evaluate(dict(_DGG_OK, reviewed_sig=_dgg.article_signature(_DGG_BODY)),
+                         _DGG_BODY)[::2]), ["reviewed", False])
+# 簽章只簽讀者看得到的那一段。文末〈這篇的層次〉是給審的人看的附錄，
+# 改它不該讓整份稿作廢——但 counter 就寫在那裡，所以那是已知缺口，規格〈二〉寫明了。
+acase("digest-gate：簽章不含文末的層次附錄（改附錄不會讓審核作廢）",
+      _dgg.article_signature(_DGG_BODY)
+      == _dgg.article_signature(_DGG_BODY + "\n- `s4` **C**　別的解釋：後來補的\n"),
+      True)
+acase("digest-gate：正文改了簽章就要變（反方向；不然上一條可能是因為"
+      "簽章根本沒在看 body 而成立）",
+      _dgg.article_signature(_DGG_BODY)
+      == _dgg.article_signature(_DGG_BODY.replace("正文第一段", "正文改過了")),
+      False)
+
+# 進 stale 時三格要被清掉：那三個答案是對改之前那一版給的，留著會讓收錄頁
+# 把它算成審過。清掉之後人重填一次，簽章自然重算——唯一一條不用人自己算雜湊的回頭路。
+_dgg_st = dict(_DGG_OK, reviewed_sig="舊的")
+_dgg.apply_verdict(_dgg_st, "draft", True, "2026-08-14 00:00Z")
+acase("digest-gate.apply_verdict：內容改過時三格被清成 null，並留下 stale_at 與舊簽章"
+      "（不清掉的話，收錄頁會把一份對不上內容的答案算成審過）",
+      [_dgg_st["review_question"], _dgg_st["review_background"],
+       _dgg_st["reviewed_sig"], _dgg_st["stale_from_sig"], bool(_dgg_st["stale_at"])],
+      [None, None, None, "舊的", True])
+
+# 對帳：每一份都要落在某一桶。形狀在 lib/buckets.py，跟 dashboard 共用一份。
+from lib import buckets as _bkt  # noqa: E402  對帳形狀的單一真相源
+acase("lib/buckets.unbucketed：詞彙由呼叫端帶，None 一樣算漏掉"
+      "（None 正是 frontmatter 讀不進來的長相，也就是唯一真的踩到過的那一種）",
+      _bkt.unbucketed([("a.md", "draft"), ("b.md", None), ("c.md", "published")],
+                      _dgg.STATUSES),
+      [("b.md", None), ("c.md", "published")])
+
+# 端到端：apply 寫檔 → gate 判 draft → 人填三格 → reviewed → 改內容 → 作廢。
+# 純函式全對而 main() 沒把判定寫回檔案，這一格等於不存在。
+with _tf2.TemporaryDirectory() as _td_dg:
+    _dgv = Path(_td_dg)
+    (_dgv / "_probe").mkdir()
+    (_dgv / "_config").mkdir()
+    (_dgv / "_config" / "gate.yaml").write_text("digest:\n  counter_min_chars: 15\n", "utf-8")
+    (_dgv / "_probe" / "digest-worklist.json").write_text(_json.dumps({
+        "date": "2026-08-14", "mode": "normal",
+        "items": [{"id": "evt-x", "evidence": [{"url": "https://ex/h",
+                                                "availability": "withheld"}],
+                   "availability": {"needs_source_link": True}}]}, ensure_ascii=False), "utf-8")
+    (_dgv / "in.json").write_text(_json.dumps({
+        "date": "2026-08-14", "title": "一篇稿", "question": "憑什麼？",
+        "sections": [
+            {"id": "s1", "layer": "A", "text": "官方部落格說了這件事。",
+             "evidence": ["evt-x"]},
+            {"id": "s2", "layer": "D", "text": "我們沒轉述，原文在這裡。",
+             "evidence": ["evt-x"], "source_url": "https://ex/h"},
+            {"id": "s3", "layer": "C", "text": "所以我推論這樣。",
+             "counter": "另一個解釋是他們只是在補產品線的空缺，跟需求無關。"}],
+        "so_what": "所以我們把還在等的記下來。", "support": ["s1"], "dropped": []},
+        ensure_ascii=False), "utf-8")
+    _dg_env = dict(os.environ, VAULT_DIR=str(_dgv))
+    _subprocess.run([sys.executable, os.path.join(_HERE, "pulse-digest-apply.py"),
+                     "--in", str(_dgv / "in.json")], capture_output=True, text=True,
+                    env=_dg_env)
+    _dg_md = _dgv / "Digests" / "2026-08-14.md"
+
+    def _dg_gate():
+        _subprocess.run([sys.executable, os.path.join(_HERE, "pulse-digest-gate.py")],
+                        capture_output=True, text=True, env=_dg_env)
+        from lib.notes import parse_note as _pn
+        return _pn(_dg_md.read_text("utf-8"))[0]
+
+    _dg_first = _dg_gate()
+    _dg_txt = _dg_md.read_text("utf-8")
+    _dg_md.write_text(_dg_txt.replace("review_question: null", "review_question: ok")
+                      .replace("review_background: null", "review_background: []")
+                      .replace("review_counter: null", "review_counter:\n  - s3"), "utf-8")
+    _dg_second = _dg_gate()
+    _dg_md.write_text(_dg_md.read_text("utf-8").replace("官方部落格說了這件事。",
+                                                        "官方部落格說的是別的事。"), "utf-8")
+    _dg_third = _dg_gate()
+    _dg_index = (_dgv / "_dashboards" / "digests.md").read_text("utf-8")
+acase("digest-gate main()：apply 剛寫的稿是 draft，而且 section_layers 有進 frontmatter"
+      "（沒有它，人審那一關算不出「這篇有哪幾個 B 級要你點名」）",
+      [_dg_first.get("status"), _dg_first.get("section_layers")],
+      ["draft", {"s1": "A", "s2": "D", "s3": "C"}])
+acase("digest-gate main()：三格填齊之後變成 reviewed，而且蓋上簽章"
+      "（判定對而 main() 沒寫回檔案的話，收錄頁永遠停在等你審——M296 那個病）",
+      [_dg_second.get("status"), bool(_dg_second.get("reviewed_sig"))],
+      ["reviewed", True])
+acase("digest-gate main()：審過之後正文被改掉 → 退回 draft、三格清空、留下 stale_at",
+      [_dg_third.get("status"), _dg_third.get("review_question"),
+       bool(_dg_third.get("stale_at"))],
+      ["draft", None, True])
+acase("digest-gate：收錄頁四段都在（每一份都要落在某一段，跟三桶對帳同一件事）",
+      [h in _dg_index for h in ("## 等你審", "## 內容改過，要重審",
+                                "## 已審可發", "## 退回重寫")],
+      [True, True, True, True])
+# 到期日：render 一長出 /daily/，這條就會紅，逼人回來把「擋不住東西」那句刪掉。
+# 一句留在原地繼續說一件不成立的事的話，比沒寫更糟——gate.yaml 那套標記紀律
+# 防的就是這個。
+_DG_RENDER = open(os.path.join(_HERE, "pulse-render.py"), encoding="utf-8").read()
+acase("digest-gate：「現在擋不住東西」的聲明，跟 render 有沒有 /daily/ 連動"
+      "（render 接上那天這條會紅——那是這句話的到期日，不是提醒）",
+      ["daily/" in _DG_RENDER, "擋不住東西" in _dg_index],
+      [False, True])
+acase("references/digest-review.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "digest-review.md")),
+      True)
+
 # ── 變異盤點清單的鮮度：規格 references/mutation-inventory.md ────────────────
 # 這一區**不跑變異**。跑一輪要幾十次 selftest，掛在每次 push 上太慢——那是
 # scripts/mutate.py 與 .github/workflows/mutation.yml 的事。這裡只釘一件

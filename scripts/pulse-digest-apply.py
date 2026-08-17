@@ -244,6 +244,11 @@ def render(result, mode, cleaned):
         # 規格 references/digest-observability.md〈三〉。
         "sources": sorted({e for sec in result["sections"]
                            for e in (sec.get("evidence") or [])}),
+        # 段落 id → 層。**只有 id 與層，沒有正文**——正文在 body 裡，複製第二份
+        # 就是這一支開頭那段 docstring 在講的病。人審那一關要靠它算「這篇有哪幾個
+        # B 級要你點名」（references/digest-review.md），文末的〈這篇的層次〉是
+        # 同一份資料給人看的版本，機器不再去 parse 它。
+        "section_layers": {sec["id"]: sec["layer"] for sec in result["sections"]},
         "status": "draft",
         # 人審三格。三個都還是 null 就不 render，見 references/digest-apply.md〈四〉。
         "review_question": None,
