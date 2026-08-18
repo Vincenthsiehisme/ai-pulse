@@ -1,26 +1,44 @@
 [
   {
-    "id": "evt-2026-08-17-2212ad",
-    "path": "evt-2026-08-17-2212ad.md",
-    "title": "Securing the Infrastructure of Intelligence",
+    "id": "evt-2026-08-17-a21909",
+    "path": "evt-2026-08-17-a21909.md",
+    "title": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "industry",
+    "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/securing-the-infrastructure-of-intelligence/",
-        "title": "Securing the Infrastructure of Intelligence",
-        "summary": "AI factories are the defining infrastructure of the AI era — where compute transforms energy and data into intelligence that powers every business, industry and country. In the AI economy, compute is revenue. AI factories require a full stack of critical resources: advanced chips, packaging, memory,"
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/Dharma-AI/gpu-management-pt2",
+        "title": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
+        "summary": "A Blog post by Dharma-AI on Hugging Face"
       }
     ]
   },
   {
-    "id": "evt-2026-08-17-318eff",
-    "path": "evt-2026-08-17-318eff.md",
-    "title": "New policy ideas for the Intelligence Age",
+    "id": "evt-2026-08-18-4be417",
+    "path": "evt-2026-08-18-4be417.md",
+    "title": "Introducing ChatGPT for Teens: Built for learning, backed by protections",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/chatgpt-for-teens",
+        "title": "Introducing ChatGPT for Teens: Built for learning, backed by protections",
+        "summary": "ChatGPT for Teens helps teens learn, think critically, and use AI with confidence, with stronger built-in protections, healthy-use features, and additional controls for parents."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-18-b3b5b7",
+    "path": "evt-2026-08-18-b3b5b7.md",
+    "title": "Partnering with CodeAI to prepare the first AI generation",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -29,45 +47,27 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/new-policy-ideas-for-the-intelligence-age",
-        "title": "New policy ideas for the Intelligence Age",
-        "summary": "OpenAI funds 14 independent projects exploring new AI policy ideas to expand economic opportunity and strengthen societal resilience in the Intelligence Age."
+        "url": "https://openai.com/index/partnering-with-codeai",
+        "title": "Partnering with CodeAI to prepare the first AI generation",
+        "summary": "OpenAI and CodeAI are partnering to help students build AI literacy, think critically about AI, and develop the skills to use and shape it responsibly."
       }
     ]
   },
   {
-    "id": "evt-2026-08-17-ae278a",
-    "path": "evt-2026-08-17-ae278a.md",
-    "title": "OpenAI joins PORTS-Pike project",
+    "id": "evt-2026-08-18-f10f20",
+    "path": "evt-2026-08-18-f10f20.md",
+    "title": "Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/openai-joins-ports-pike-project",
-        "title": "OpenAI joins PORTS-Pike project",
-        "summary": "OpenAI joins PORTS-Pike project, expanding community investment and supporting thousands of Southern Ohio jobs"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-17-fbd708",
-    "path": "evt-2026-08-17-fbd708.md",
-    "title": "The Defender’s Window",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/the-defenders-window",
-        "title": "The Defender’s Window",
-        "summary": "AI is reshaping cybersecurity for attackers and defenders alike. Learn how OpenAI is strengthening its defenses and what security teams can do now."
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/multi-vector-encoder",
+        "title": "Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
       }
     ]
   }

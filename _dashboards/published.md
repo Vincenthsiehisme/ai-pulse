@@ -1,12 +1,22 @@
-# 已發布事件（121）
+# 已發布事件（125）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-08-18
+- **[[Events/evt-2026-08-18-4be417|Introducing ChatGPT for Teens: Built for learning, backed by protections]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出「ChatGPT for Teens」，鎖定青少年族群，主打學習輔助與內建保護機制，並提供家長端管理功能。
+- **[[Events/evt-2026-08-18-b3b5b7|Partnering with CodeAI to prepare the first AI generation]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 與 CodeAI 合作，鎖定學生族群推動 AI 素養教育，協助他們培養批判思考與負責任使用 AI 的能力。
+- **[[Events/evt-2026-08-18-f10f20|Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers]]** — Hugging Face · model-capability · conf 73 · heat 未量測
+  Hugging Face 的 Sentence Transformers 函式庫發文介紹多向量（late interaction）嵌入模型的支援方式。
 
 ## 2026-08-17
 - **[[Events/evt-2026-08-17-2212ad|Securing the Infrastructure of Intelligence]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 發部落格文，把「AI 工廠」的基礎設施安全定位成 AI 經濟的核心議題。
 - **[[Events/evt-2026-08-17-318eff|New policy ideas for the Intelligence Age]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 宣布資助 14 個獨立專案，探索「智慧時代」的新政策構想。
+- **[[Events/evt-2026-08-17-a21909|Same Cluster, 33 Points More Utilization: What Changed Was the Order]]** — Dharma-AI · infra · conf 73 · heat 未量測
+  Hugging Face 部落格作者 Dharma-AI 發文稱同一批 GPU 叢集只靠調整工作排程順序，就把使用率拉高了 33 個百分點。
 - **[[Events/evt-2026-08-17-ae278a|OpenAI joins PORTS-Pike project]]** — OpenAI · infra · conf 73 · heat 未量測
   OpenAI 加入 PORTS-Pike 專案，投入俄亥俄州南部社區、涉及數千個工作機會。
 - **[[Events/evt-2026-08-17-fbd708|The Defender’s Window]]** — OpenAI · policy · conf 73 · heat 未量測

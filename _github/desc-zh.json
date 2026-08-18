@@ -44,6 +44,11 @@
     "src_hash": "7bf25fcf4ee9",
     "zh": "DeepTutor：終身個人化的家教"
   },
+  "HelixDB/helix-db": {
+    "at": "2026-08-18T19:14:47+00:00",
+    "src_hash": "a79e7f8b877b",
+    "zh": "跑在 Object Storage 上、用 Rust 寫成的 OLTP 圖形＋向量資料庫"
+  },
   "JuliusBrussee/caveman": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "a1ba0a8f169a",
