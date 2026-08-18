@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-08-17"
+generated_day: "2026-08-18"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-08-17"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **103** 則／已裁決 **26** 則。
+待回答 **107** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,11 +24,11 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#cb4ccb79`** — infra-cost
-  > 供電架構那則看是否有實際部署案例採用 800 VDC，或第三方工程機構的獨立評估。vLLM v0.27.1 看有沒有更大的架構變動接在後面。Multiverse Computing 的蒸餾成本主張要等它補上具體數字才能判斷是否可信。Abbott 那封信看德州當地社群與監管機構的實際回應，而不只是 OpenAI 單方承諾。Firebird 的亞美尼亞 AI Factory 看實際上線規模與客戶採用。硬體那批仍要第二個獨立來源印證每 token 成本最低；軟體可查實測：vLLM 新優化的 throughput、Nunchaku 4-bit 的品質與速度取捨。NVIDIA 那批仍多為單一來源、標待證實。
+- **`infra-cost#d72a3afe`** — infra-cost
+  > NVIDIA 那篇看是否後續釋出具體的安全產品、認證或客戶案例，或有獨立資安機構對這篇主張做出回應。PORTS-Pike 看專案具體內容公布，以及俄亥俄州當地媒體或官方是否有獨立報導佐證就業數字，跟 Effingham County、德州那兩起同類案例放在一起看，能不能看出 OpenAI 這套「基礎設施＋社區投資」組合動作的實際落地速度與規模差異。NVIDIA 供電架構那篇看是否有實際部署案例採用新架構，或第三方工程機構的獨立評估。
 
-- **`model-research#287ef82f`** — model-research
-  > Gemini 3.7 Flash 看有沒有第三方跑分測試出「顯著改進」具體是什麼，以及下一次 Flash 版本更新的間隔會不會繼續壓縮到三週以內。SL2T 看有沒有聾人社群或第三方無障礙研究者的實測回饋；MindTopo 看有沒有其他模型商拿它跑分、成為業界共通評測工具；LFM2.5-VL-3B 看實際效能數據與基準測試結果。Nemotron 3.5 Lightning 要看有沒有第三方基準測試佐證「同級距最高效率」的說法；GPT-5.6-Cyber 看是否有第三方資安研究者測試或實際案例流出。端側與開放模型那批持續看實測：LFM2.5-2.6B 的工具呼叫成功率、Alpamayo 2 Super 的第三方驗證。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。安全治理那批全是自述：查禁詐騙看有沒有完整威脅情報與執法佐證，評測事件那則看執行評測的第三方會不會出面講同一組事件。
+- **`model-research#0bbf4f50`** — model-research
+  > 《The Defender’s Window》看有沒有獨立資安研究者驗證 OpenAI 給出的防禦建議，或有沒有實際攻防案例被揭露佐證。Gemini 3.7 Flash 看有沒有第三方跑分測出「顯著改進」具體是什麼，以及下一次 Flash 更新間隔會不會繼續壓縮到三週以內。SL2T 看有沒有聾人社群或第三方無障礙研究者的實測回饋；MindTopo 看有沒有其他模型商拿它跑分、成為業界共通評測工具。安全治理那批全是自述：查禁詐騙看有沒有完整威脅情報與執法佐證，GPT-5.6-Cyber 看是否有第三方資安研究者測試或實際案例流出。效率端 GPT-5.6 的每 token 成本要對前代與對手，ARC-AGI-3 那個三倍看有沒有第三方用同一組設定複現。
 
 - **`product-market#57e7e57b`** — product-market
   > Claude Text Watermark 這則看 Anthropic 是否釋出浮水印技術文件、研究論文或第三方測試，確認偵測率與適用範圍。GeForce NOW Linux 看使用者實際回饋與效能評測、是否有更多裝置種類跟進。《From assistance to execution》看有沒有第三方調查印證同樣的「輔助轉執行」趨勢。Daybreak on AWS 看實際採用的企業數與案例。Grok Bot 看官方是否釋出功能說明或使用文件。廣告測試看擴大速度、使用者反應，以及是否有獨立分析指出回答中立性受影響。企業案例（Virgin Atlantic、Zapier）看是否有後續可獨立查證的效益數字。Premium 席位看正式定價與採用率。Daybreak 資安服務看夥伴名單與審核標準是否公開。既有支線持續看：教育外掛的試點學區與採用數、Circles 那組留存與 ARPU 有沒有第三方或財報印證、GPT-5.6 降價後有沒有帶動用量或營收的可查訊號。
@@ -39,10 +39,10 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`agent-refactor#fa596c03`** — agent-refactor
   > Grok 4.6 Github Copilot 這則看 GitHub Copilot 官方文件或 changelog 有沒有列出 Grok 4.6 為可選模型，或有沒有其他非 xAI 來源報導這次整合的實際內容。Amazon 這則看有沒有實際機器人團隊公開採用這套 Strands Agents 加 LeRobot 加 HF Storage Buckets 整合，並公布具體效能或成本數字；OpenAI 建構者指南看有沒有第三方新創公布用 GPT-5.6 加 Responses API 前後的實際成本或延遲對比數據。NVIDIA 那則開場文看後續是否點名具體模型與合作夥伴、有沒有實質內容而非公關稿。部署端看 Orchard 有沒有微軟以外的採用（star、外部 PR、論文引用）、Presence 與 Build Mode 有沒有公開部署數或具名客戶、科學計算成效能不能複現而非只有敘事。治理端看 SAFE 準則會不會收斂成正式規範、主要雲廠與模型商是否採用，簽名的組織數不算數，照做的家數才算。
 
-- **`global-map#ad803507`** — global-map
-  > NVAITC 這則看 Komdigi 或 UGM 是否釋出中心的課程規劃、GPU 規模與招生細節，或有無獨立媒體報導佐證合作條款。Into the Omniverse 那篇看聯署信後續有沒有具體承諾或成果；APA 合作看實證指引是否發布、是否有第三方心理健康專業組織背書。南韓的 GPU 採購與半導體合作、OpenAI 與能源部的專案經費與成果、NSF 計畫實際撥給哪些中心與 NVIDIA 投入規模，多數仍停在宣示層。Open Secure AI Alliance 有沒有交出可稽核規範與非發起方成員。Anthropic 那則看全文實際主張與開放權重陣營或政策圈的回應。
+- **`global-map#a51ee0df`** — global-map
+  > OpenAI 資助的 14 個專案看具體名單與研究成果何時公布，以及是否有政策圈或學界對這批資助的獨立評論。印尼 AI 中心看課程規劃、GPU 規模與招生細節是否公開；NSF AI 中心計畫看實際撥給哪些機構、NVIDIA 投入的算力或資金規模。APA 合作案看是否有具體安全功能上線，或 APA 是否公開發布合作產出的指引文件。這幾則放在一起，下一步要看的是有沒有更多同類型「公共領域佈局」公告在近期集中出現，還是這週只是巧合。
 
-## 事件層（97）
+## 事件層（101）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -334,3 +334,15 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-08-15-c5f2a2#0730d93d`** — evt-2026-08-15-c5f2a2
   > 看 Anthropic 是否釋出浮水印技術文件、研究論文或第三方測試，以確認偵測率與適用範圍。
+
+- **`evt-2026-08-17-2212ad#5a1ebc9f`** — evt-2026-08-17-2212ad
+  > 留意 NVIDIA 是否後續釋出具體的安全產品、認證或客戶案例，或有獨立資安機構對這篇主張做出回應。
+
+- **`evt-2026-08-17-318eff#0e9597d9`** — evt-2026-08-17-318eff
+  > 留意這 14 個專案的具體名單與研究成果公布，以及是否有政策圈或學界對這批資助的獨立評論。
+
+- **`evt-2026-08-17-ae278a#00357e85`** — evt-2026-08-17-ae278a
+  > 留意 PORTS-Pike 專案的具體內容公布，以及俄亥俄州當地媒體或官方是否有獨立報導佐證就業數字。
+
+- **`evt-2026-08-17-fbd708#41499bc8`** — evt-2026-08-17-fbd708
+  > 留意 OpenAI 是否公布具體防禦技術細節或案例，或有獨立資安研究者對這篇主張提出檢驗。

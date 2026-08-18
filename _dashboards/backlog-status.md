@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-08-17'
+generated_day: '2026-08-18'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -16,8 +16,8 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 總數 | 146 |
-| `published` | 117 |
+| 總數 | 150 |
+| `published` | 121 |
 | `review` | 27 |
 | `dropped` | 2 |
 | 帶 `stale_backfill` | 12 |
@@ -26,8 +26,8 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 21 |
-| 起訖 | 2026-07-24 … 2026-08-17 |
+| `_corpus/` 天數 | 22 |
+| 起訖 | 2026-07-24 … 2026-08-18 |
 
 ## 來源
 
@@ -53,10 +53,10 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-08-17T16:11:48+00:00 |
-| 條目 / 來源 | 425 items / 32 sources |
-| status 分佈 | 200 22、304 2、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
-| 零產出（200 但 0 筆） | src-gh-vllm-releases, src-mistral-news |
+| 時間 | 2026-08-18T16:16:16+00:00 |
+| 條目 / 來源 | 465 items / 32 sources |
+| status 分佈 | 200 23、304 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
+| 零產出（200 但 0 筆） | src-mistral-news |
 
 零產出那一格屬於哪一種 0，看那一天的 `_probe/<日>/report.md`
 〈零產出診斷〉——**這一頁不重算它**，重算就會有兩份判準。

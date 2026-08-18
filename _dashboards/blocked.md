@@ -1,7 +1,11 @@
-# 被門禁擋下（23）
+# 被門禁擋下（27）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-08-18-4be417|Introducing ChatGPT for Teens: Built for learning, backed by protectio]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-18-b3b5b7|Partnering with CodeAI to prepare the first AI generation]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-18-f10f20|Multi-Vector (Late Interaction) Embedding Models with Sentence Transfo]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-17-a21909|Same Cluster, 33 Points More Utilization: What Changed Was the Order]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-14-63e703|State of Open Models: Summer 2026 Observations]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-13-e02d4a|What We Learned by Reproducing 2,200 papers from ICML]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-12-c210cb|Introducing OlmoEarth embeddings: Custom embedding exports from OlmoEa]]** — Allen Institute for AI — blockers: thin_research_analysis

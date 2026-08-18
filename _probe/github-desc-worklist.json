@@ -1,34 +1,18 @@
 [
   {
-    "full_name": "t8y2/dbx",
-    "desc": "20 MB lightweight cross-platform database client for 80+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 80+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP Server。",
+    "full_name": "HelixDB/helix-db",
+    "desc": "HelixDB is an OLTP graph-vector database built in Rust on Object Storage.",
     "language": "Rust",
     "topics": [
       "ai",
       "cli",
-      "clickhouse",
       "database",
-      "database-client",
-      "database-management"
+      "databases",
+      "graph-database",
+      "helix"
     ],
-    "stars": 15313,
-    "url": "https://github.com/t8y2/dbx",
-    "stale_zh": "20 MB 輕量跨平台資料庫客戶端，支援 70+ 種資料庫，內建 AI、MCP Server 與 CLI"
-  },
-  {
-    "full_name": "jundot/omlx",
-    "desc": "LLM inference server with continuous batching & SSD caching for Apple Silicon — managed from the macOS menu bar",
-    "language": "Python",
-    "topics": [
-      "apple-silicon",
-      "inference-server",
-      "llm",
-      "macos",
-      "mlx",
-      "openai-api"
-    ],
-    "stars": 18884,
-    "url": "https://github.com/jundot/omlx",
+    "stars": 5792,
+    "url": "https://github.com/HelixDB/helix-db",
     "stale_zh": null
   }
 ]

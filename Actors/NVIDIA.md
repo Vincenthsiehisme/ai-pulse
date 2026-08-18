@@ -3,17 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-17'
+generated_day: '2026-08-18'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **33** 則：`dropped` 1、`published` 29、`review` 3
+事件 **34** 則：`dropped` 1、`published` 30、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-17 | [[Events/evt-2026-08-17-2212ad\|Securing the Infrastructure of Intelligence]] | published |
 | 2026-08-14 | [[Events/evt-2026-08-14-61f43e\|Universitas Gadjah Mada, Indosat and NVIDIA Open Indonesia’s First University AI Center to Develop Local AI Talent]] | published |
 | 2026-08-13 | [[Events/evt-2026-08-13-1db924\|Class Is in Session: GeForce NOW Levels Up Linux, Chromebooks and More]] | published |
 | 2026-08-12 | [[Events/evt-2026-08-12-a9d882\|NVIDIA AI Factory Compute Is Becoming an Investable Asset Class]] | published |

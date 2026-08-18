@@ -3,20 +3,22 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-17'
+generated_day: '2026-08-18'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **44** 則：`published` 40、`review` 4
+事件 **46** 則：`published` 43、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-17 | [[Events/evt-2026-08-17-fbd708\|The Defender’s Window]] | review |
-| 2026-08-17 | [[Events/evt-2026-08-17-ae278a\|OpenAI joins PORTS-Pike project]] | review |
-| 2026-08-17 | [[Events/evt-2026-08-17-318eff\|New policy ideas for the Intelligence Age]] | review |
+| 2026-08-18 | [[Events/evt-2026-08-18-b3b5b7\|Partnering with CodeAI to prepare the first AI generation]] | review |
+| 2026-08-18 | [[Events/evt-2026-08-18-4be417\|Introducing ChatGPT for Teens: Built for learning, backed by protections]] | review |
+| 2026-08-17 | [[Events/evt-2026-08-17-fbd708\|The Defender’s Window]] | published |
+| 2026-08-17 | [[Events/evt-2026-08-17-ae278a\|OpenAI joins PORTS-Pike project]] | published |
+| 2026-08-17 | [[Events/evt-2026-08-17-318eff\|New policy ideas for the Intelligence Age]] | published |
 | 2026-08-13 | [[Events/evt-2026-08-13-b9676e\|OpenAI appoints Dali Rajic as Chief Revenue Officer]] | published |
 | 2026-08-13 | [[Events/evt-2026-08-13-49ffbf\|The builder’s guide to GPT‑5.6]] | published |
 | 2026-08-12 | [[Events/evt-2026-08-12-e647a7\|From assistance to execution: How enterprises put AI to work]] | published |
