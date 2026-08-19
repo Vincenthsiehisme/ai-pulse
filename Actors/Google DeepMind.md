@@ -3,7 +3,7 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-08-18'
+generated_day: '2026-08-19'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

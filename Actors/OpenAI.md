@@ -3,19 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-18'
+generated_day: '2026-08-19'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **46** 則：`published` 43、`review` 3
+事件 **51** 則：`published` 45、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-18 | [[Events/evt-2026-08-18-b3b5b7\|Partnering with CodeAI to prepare the first AI generation]] | review |
-| 2026-08-18 | [[Events/evt-2026-08-18-4be417\|Introducing ChatGPT for Teens: Built for learning, backed by protections]] | review |
+| 2026-08-19 | [[Events/evt-2026-08-19-6fb84b\|Replit expands access to software creation with GPT-5.6 Luna]] | review |
+| 2026-08-18 | [[Events/evt-2026-08-18-b3b5b7\|Partnering with CodeAI to prepare the first AI generation]] | published |
+| 2026-08-18 | [[Events/evt-2026-08-18-4be417\|Introducing ChatGPT for Teens: Built for learning, backed by protections]] | published |
+| 2026-08-18 | [[Events/evt-2026-08-18-481e91\|ChatGPT Ads expands across Europe]] | review |
+| 2026-08-18 | [[Events/evt-2026-08-18-22c8a9\|Strengthening democratic oversight in national security]] | review |
+| 2026-08-18 | [[Events/evt-2026-08-18-113ed3\|Pacing model development in an era of cyber-critical capabilities]] | review |
+| 2026-08-18 | [[Events/evt-2026-08-18-0eacc3\|Asana cleared 5 years of engineering work in 2 weeks with Codex]] | review |
 | 2026-08-17 | [[Events/evt-2026-08-17-fbd708\|The Defender’s Window]] | published |
 | 2026-08-17 | [[Events/evt-2026-08-17-ae278a\|OpenAI joins PORTS-Pike project]] | published |
 | 2026-08-17 | [[Events/evt-2026-08-17-318eff\|New policy ideas for the Intelligence Age]] | published |

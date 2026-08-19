@@ -1,32 +1,72 @@
 [
   {
-    "id": "evt-2026-08-17-a21909",
-    "title": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-08-18-4be417",
-    "title": "Introducing ChatGPT for Teens: Built for learning, backed by protections",
+    "id": "evt-2026-08-18-0eacc3",
+    "title": "Asana cleared 5 years of engineering work in 2 weeks with Codex",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-08-18-b3b5b7",
-    "title": "Partnering with CodeAI to prepare the first AI generation",
+    "id": "evt-2026-08-18-113ed3",
+    "title": "Pacing model development in an era of cyber-critical capabilities",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-08-18-f10f20",
-    "title": "Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers",
+    "id": "evt-2026-08-18-22c8a9",
+    "title": "Strengthening democratic oversight in national security",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-18-481e91",
+    "title": "ChatGPT Ads expands across Europe",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-18-6f88db",
+    "title": "How Much Memory Does Your Agent Actually Need?",
     "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-18-e68d9a",
+    "title": "How NVIDIA scales expertise with ChatGPT Work",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-19-5773cb",
+    "title": "LFM2.5 Q4\\_0 Checkpoints from Quantization-Aware Distillation",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-19-6fb84b",
+    "title": "Replit expands access to software creation with GPT-5.6 Luna",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-19-ea74db",
+    "title": "Grok 4.6 Amazon Bedrock",
+    "company": "xAI",
     "track": null,
     "summary": "",
     "stale_zh": null

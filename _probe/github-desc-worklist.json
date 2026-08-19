@@ -1,18 +1,43 @@
 [
   {
-    "full_name": "HelixDB/helix-db",
-    "desc": "HelixDB is an OLTP graph-vector database built in Rust on Object Storage.",
-    "language": "Rust",
+    "full_name": "usemoss/moss",
+    "desc": "The retrieval layer for production AI systems. Lightning-fast (<10ms) search without vector databases. Built for browser, edge, on-device, and cloud.",
+    "language": "Python",
     "topics": [
-      "ai",
-      "cli",
-      "database",
-      "databases",
-      "graph-database",
-      "helix"
+      "ai-agents",
+      "ai-infra",
+      "hybrid-search",
+      "rag",
+      "real-time",
+      "retrieval"
     ],
-    "stars": 5792,
-    "url": "https://github.com/HelixDB/helix-db",
+    "stars": 663,
+    "url": "https://github.com/usemoss/moss",
+    "stale_zh": null
+  },
+  {
+    "full_name": "microsoft/agent-framework",
+    "desc": "A framework for building, orchestrating and deploying AI agents and multi-agent workflows with support for Python and .NET.",
+    "language": "Python",
+    "topics": [
+      "agent-framework",
+      "agentic-ai",
+      "agents",
+      "ai",
+      "dotnet",
+      "multi-agent"
+    ],
+    "stars": 12937,
+    "url": "https://github.com/microsoft/agent-framework",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Gentleman-Programming/engram",
+    "desc": "Persistent memory system for AI coding agents. Agent-agnostic Go binary with SQLite + FTS5, MCP server, HTTP API, CLI, and TUI.",
+    "language": "Go",
+    "topics": [],
+    "stars": 6062,
+    "url": "https://github.com/Gentleman-Programming/engram",
     "stale_zh": null
   }
 ]

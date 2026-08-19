@@ -16,7 +16,7 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://lilianweng.github.io/index.xml"
-robots_checked_day: "2026-08-11"
+robots_checked_day: "2026-08-19"
 first_fetch_at: "2026-07-25"
 last_observed_day: "2026-08-18"
 items_observed: 20
@@ -24,7 +24,7 @@ events_bound: 0
 events_published: 0
 health_score: 100
 consecutive_failures: 0
-last_status: 200
+last_status: 304
 ---
 
 # Lilian Weng（src-kol-lilianweng）
