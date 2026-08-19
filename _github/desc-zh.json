@@ -34,6 +34,11 @@
     "src_hash": "0e143566f257",
     "zh": "讓2.78兆參數的Kimi K3在單顆CPU、8.24GB RAM上跑推論，純C99實作，不用BLAS、框架或GPU"
   },
+  "Gentleman-Programming/engram": {
+    "at": "2026-08-19T19:13:25+00:00",
+    "src_hash": "e79a45ac4ae9",
+    "zh": "AI coding agent 的持久記憶系統，Go 執行檔，內建 SQLite+FTS5 與 MCP server"
+  },
   "Graphify-Labs/graphify": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "8e48530c1c58",
@@ -249,6 +254,11 @@
     "src_hash": "d0d80379dd24",
     "zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
   },
+  "microsoft/agent-framework": {
+    "at": "2026-08-19T19:13:25+00:00",
+    "src_hash": "45e33e15fd8b",
+    "zh": "用來建構、編排、部署 AI agent 與多 agent workflow 的框架，支援 Python 與 .NET"
+  },
   "mobile-next/mobile-mcp": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "cccdd0d6e025",
@@ -358,6 +368,11 @@
     "at": "2026-08-12T19:14:16+00:00",
     "src_hash": "1e937f5d8513",
     "zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
+  },
+  "usemoss/moss": {
+    "at": "2026-08-19T19:13:25+00:00",
+    "src_hash": "2a393b6e36ab",
+    "zh": "給正式環境的 AI 系統用的檢索層，不靠向量資料庫也能做到 10 毫秒內搜尋，瀏覽器、邊緣、裝置端到雲端都能跑"
   },
   "volcengine/OpenViking": {
     "at": "2026-07-27T19:23:58+00:00",

@@ -1,12 +1,28 @@
-# 已發布事件（125）
+# 已發布事件（132）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-08-19
+- **[[Events/evt-2026-08-19-6fb84b|Replit expands access to software creation with GPT-5.6 Luna]]** — OpenAI · product · conf 83 · heat 未量測
+  OpenAI 同步擴大 GPT-5.6 Luna 的免費使用範圍，Replit 也推出以它為底層、不限 token 用量的免費模式。
+- **[[Events/evt-2026-08-19-ea74db|Grok 4.6 Amazon Bedrock]]** — xAI · product · conf 73 · heat 未量測
+  xAI 在官網發布「Grok 4.6 Amazon Bedrock」公告，站方不開放內容被 AI 引用，這裡只留標題與連結。
+
 ## 2026-08-18
+- **[[Events/evt-2026-08-18-0eacc3|Asana cleared 5 years of engineering work in 2 weeks with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  Asana 用 OpenAI Codex 兩週內完成原本要五年才能做完的工程工作，只花約 1.2 萬美元。
+- **[[Events/evt-2026-08-18-113ed3|Pacing model development in an era of cyber-critical capabilities]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 表示會依前沿模型的資安風險調整開發節奏，強化監控與對齊機制。
+- **[[Events/evt-2026-08-18-22c8a9|Strengthening democratic oversight in national security]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 啟動一項計畫，協助政府機構在國安領域使用 AI 時維持民主監督機制。
+- **[[Events/evt-2026-08-18-481e91|ChatGPT Ads expands across Europe]]** — OpenAI · product · conf 73 · heat 未量測
+  ChatGPT Ads 廣告服務擴大至歐洲 31 個市場。
 - **[[Events/evt-2026-08-18-4be417|Introducing ChatGPT for Teens: Built for learning, backed by protections]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 推出「ChatGPT for Teens」，鎖定青少年族群，主打學習輔助與內建保護機制，並提供家長端管理功能。
 - **[[Events/evt-2026-08-18-b3b5b7|Partnering with CodeAI to prepare the first AI generation]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 與 CodeAI 合作，鎖定學生族群推動 AI 素養教育，協助他們培養批判思考與負責任使用 AI 的能力。
+- **[[Events/evt-2026-08-18-e68d9a|How NVIDIA scales expertise with ChatGPT Work]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 內部團隊用 ChatGPT Work 減少人工作業，把有效的工作流程推廣到全球團隊。
 - **[[Events/evt-2026-08-18-f10f20|Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers]]** — Hugging Face · model-capability · conf 73 · heat 未量測
   Hugging Face 的 Sentence Transformers 函式庫發文介紹多向量（late interaction）嵌入模型的支援方式。
 
