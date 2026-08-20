@@ -1,43 +1,50 @@
 [
   {
-    "full_name": "usemoss/moss",
-    "desc": "The retrieval layer for production AI systems. Lightning-fast (<10ms) search without vector databases. Built for browser, edge, on-device, and cloud.",
-    "language": "Python",
+    "full_name": "t8y2/dbx",
+    "desc": "20 MB lightweight cross-platform database client for 90+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 90+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP Server。",
+    "language": "Rust",
     "topics": [
-      "ai-agents",
-      "ai-infra",
-      "hybrid-search",
-      "rag",
-      "real-time",
-      "retrieval"
-    ],
-    "stars": 663,
-    "url": "https://github.com/usemoss/moss",
-    "stale_zh": null
-  },
-  {
-    "full_name": "microsoft/agent-framework",
-    "desc": "A framework for building, orchestrating and deploying AI agents and multi-agent workflows with support for Python and .NET.",
-    "language": "Python",
-    "topics": [
-      "agent-framework",
-      "agentic-ai",
-      "agents",
       "ai",
-      "dotnet",
-      "multi-agent"
+      "cli",
+      "clickhouse",
+      "database",
+      "database-client",
+      "database-management"
     ],
-    "stars": 12937,
-    "url": "https://github.com/microsoft/agent-framework",
+    "stars": 16027,
+    "url": "https://github.com/t8y2/dbx",
+    "stale_zh": "20 MB 輕量跨平台資料庫客戶端，支援 80+ 種資料庫，內建 AI、MCP Server 與 CLI"
+  },
+  {
+    "full_name": "ArcadeData/arcadedb",
+    "desc": "ArcadeDB Multi-Model Database, one DBMS that supports SQL, Cypher, Gremlin, HTTP/JSON, MongoDB and Redis. ArcadeDB is a conceptual fork of OrientDB, the first Multi-Model DBMS. ArcadeDB supports Vector Embeddings.",
+    "language": "Java",
+    "topics": [
+      "arcadedb",
+      "database",
+      "dbms",
+      "distributed",
+      "docker",
+      "document"
+    ],
+    "stars": 1095,
+    "url": "https://github.com/ArcadeData/arcadedb",
     "stale_zh": null
   },
   {
-    "full_name": "Gentleman-Programming/engram",
-    "desc": "Persistent memory system for AI coding agents. Agent-agnostic Go binary with SQLite + FTS5, MCP server, HTTP API, CLI, and TUI.",
-    "language": "Go",
-    "topics": [],
-    "stars": 6062,
-    "url": "https://github.com/Gentleman-Programming/engram",
+    "full_name": "microsoft/ai-agents-for-beginners",
+    "desc": "18 Lessons to Get Started Building AI Agents",
+    "language": "Jupyter Notebook",
+    "topics": [
+      "agentic-ai",
+      "agentic-framework",
+      "agentic-rag",
+      "ai-agents",
+      "ai-agents-framework",
+      "autogen"
+    ],
+    "stars": 72869,
+    "url": "https://github.com/microsoft/ai-agents-for-beginners",
     "stale_zh": null
   }
 ]
