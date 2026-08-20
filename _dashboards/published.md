@@ -1,8 +1,16 @@
-# 已發布事件（132）
+# 已發布事件（135）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-08-20
+- **[[Events/evt-2026-08-20-439e3e|Bring the Fire: Play Games on GeForce NOW With New Firefox Browser Support]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA把雲端遊戲平台GeForce NOW開放給Firefox瀏覽器，玩家不用下載用戶端也能直接跑遊戲。
+- **[[Events/evt-2026-08-20-7e5889|How ChatGPT Work helps Stampli move ideas to market]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI發布案例研究：企業軟體公司Stampli用Codex與ChatGPT Work，把原本要花數週的產品上線流程壓縮到幾天內完成。
+
 ## 2026-08-19
+- **[[Events/evt-2026-08-19-04d5a6|Offering Zero Data Retention for frontier models]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI重申對符合資格的API客戶提供零資料留存，並預告用Private Safety Processing在不留存資料的前提下做進階安全審查。
 - **[[Events/evt-2026-08-19-6fb84b|Replit expands access to software creation with GPT-5.6 Luna]]** — OpenAI · product · conf 83 · heat 未量測
   OpenAI 同步擴大 GPT-5.6 Luna 的免費使用範圍，Replit 也推出以它為底層、不限 token 用量的免費模式。
 - **[[Events/evt-2026-08-19-ea74db|Grok 4.6 Amazon Bedrock]]** — xAI · product · conf 73 · heat 未量測

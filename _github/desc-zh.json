@@ -9,6 +9,11 @@
     "src_hash": "47e983421d6e",
     "zh": "幫你找出在自己硬體上跑得動、表現最好的本地 LLM，用實測 benchmark 排名而非參數量，一行指令就能跑"
   },
+  "ArcadeData/arcadedb": {
+    "at": "2026-08-20T19:08:38+00:00",
+    "src_hash": "ac5e08fbccb4",
+    "zh": "多模型資料庫，一套 DBMS 同時吃 SQL、Cypher、Gremlin、MongoDB 與 Redis，支援向量嵌入"
+  },
   "CherryHQ/cherry-studio": {
     "at": "2026-08-07T01:27:45+00:00",
     "src_hash": "4d766d8331fc",
@@ -259,6 +264,11 @@
     "src_hash": "45e33e15fd8b",
     "zh": "用來建構、編排、部署 AI agent 與多 agent workflow 的框架，支援 Python 與 .NET"
   },
+  "microsoft/ai-agents-for-beginners": {
+    "at": "2026-08-20T19:08:38+00:00",
+    "src_hash": "b96fba42819c",
+    "zh": "18 堂課帶你從零開始寫 AI Agent"
+  },
   "mobile-next/mobile-mcp": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "cccdd0d6e025",
@@ -345,9 +355,9 @@
     "zh": "跨平台、高效率的 SQLite 擴充，替嵌入式資料庫加上向量搜尋"
   },
   "t8y2/dbx": {
-    "at": "2026-08-17T19:10:59+00:00",
-    "src_hash": "179182e033ca",
-    "zh": "20 MB 輕量跨平台資料庫客戶端，支援 80+ 種資料庫，內建 AI、MCP Server 與 CLI"
+    "at": "2026-08-20T19:08:38+00:00",
+    "src_hash": "ca269624a2e0",
+    "zh": "20 MB 輕量跨平台資料庫客戶端，支援 90+ 種資料庫，內建 AI、MCP Server 與 CLI"
   },
   "thedotmack/claude-mem": {
     "at": "2026-08-07T01:27:45+00:00",
