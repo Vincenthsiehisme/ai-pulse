@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-20'
+generated_day: '2026-08-21'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**24 天**（2026-07-24 … 2026-08-20），去重後 **1856** 列。
+語料範圍：**25 天**（2026-07-24 … 2026-08-21），去重後 **1918** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -22,36 +22,36 @@ generator: scripts/pulse-dictionary-gaps.py
 | Amazon | 25 | 5 |
 | July | 23 | 9 |
 | LLM | 22 | 9 |
-| Research | 20 | 5 |
+| Research | 21 | 5 |
 | June | 19 | 7 |
 | U.S | 19 | 7 |
+| There | 19 | 6 |
 | Here | 18 | 8 |
-| There | 18 | 5 |
+| Pixel | 18 | 3 |
+| They | 17 | 8 |
 | One | 17 | 9 |
-| Pixel | 17 | 3 |
 | Industry | 16 | 2 |
-| They | 16 | 8 |
-| Building | 15 | 9 |
+| Building | 16 | 10 |
+| When | 16 | 6 |
 | August | 15 | 5 |
-| When | 14 | 5 |
 | European Union | 13 | 2 |
-| Pro | 12 | 4 |
+| Pro | 13 | 4 |
+| Wednesday | 12 | 4 |
+| With | 12 | 8 |
 | Trump | 12 | 4 |
 | Draft | 11 | 2 |
-| Wednesday | 11 | 4 |
 | Python | 11 | 3 |
+| Rust | 11 | 3 |
 | Linux | 11 | 4 |
 | Elon Musk | 11 | 5 |
+| After | 11 | 5 |
 | Android | 11 | 3 |
 | AI-powered | 10 | 5 |
 | Union | 10 | 2 |
 | Tuesday | 10 | 4 |
 | Learn | 10 | 3 |
 | San Francisco | 10 | 7 |
-| With | 10 | 8 |
-| Rust | 10 | 3 |
 | SpaceX | 10 | 4 |
-| After | 10 | 5 |
 | Samsung | 10 | 2 |
 | Energy | 9 | 2 |
 | Thursday | 9 | 3 |
@@ -59,10 +59,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | China | 9 | 5 |
 | These | 9 | 5 |
 | Last | 9 | 5 |
+| RAM | 9 | 2 |
 | CEO | 9 | 4 |
 | Texas | 8 | 5 |
+| Flock | 8 | 3 |
 | AI-native | 8 | 3 |
-| RAM | 8 | 2 |
 | Mark Zuckerberg | 8 | 3 |
 | Flash | 7 | 3 |
 | Built | 7 | 5 |
@@ -72,11 +73,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | Opus | 7 | 4 |
 | Fable | 7 | 3 |
 | SQLite | 7 | 2 |
+| API | 7 | 4 |
 | AI-generated | 7 | 2 |
+| Over | 7 | 3 |
 | Chrome | 7 | 4 |
-| Europe | 6 | 5 |
-| Security | 6 | 3 |
-| Release Notes | 6 | 2 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,8 +87,8 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 50 | src-hn-frontpage |
-| The Download | 23 | src-media-mit-techreview |
+| Show HN | 52 | src-hn-frontpage |
+| The Download | 24 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Highlights | 15 | src-gh-vllm-releases |
 | Hi HN | 10 | src-hn-frontpage |
@@ -116,6 +116,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
 | Galaxy Z Fold | 4 | src-media-theverge |
+| TechCrunch | 4 | src-media-techcrunch |
 | Best Buy | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
 | Disney | 4 | src-media-theverge |
@@ -141,12 +142,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | RAMageddon | 3 | src-media-theverge |
 | Lean | 3 | src-hn-frontpage |
 | Apple Silicon | 3 | src-hn-frontpage |
-| TechCrunch | 3 | src-media-techcrunch |
+| Rippling | 3 | src-media-techcrunch |
 | APIs | 3 | src-media-techcrunch |
 | Montana | 3 | src-media-mit-techreview |
 | Star Wars | 3 | src-media-theverge |
 | The Pixel | 3 | src-media-theverge |
-| Brand New Day | 3 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

@@ -3,17 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-20'
+generated_day: '2026-08-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **35** 則：`dropped` 1、`published` 31、`review` 3
+事件 **36** 則：`dropped` 1、`published` 32、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-20 | [[Events/evt-2026-08-20-439e3e\|Bring the Fire: Play Games on GeForce NOW With New Firefox Browser Support]] | published |
 | 2026-08-18 | [[Events/evt-2026-08-18-e68d9a\|How NVIDIA scales expertise with ChatGPT Work]] | published |
 | 2026-08-17 | [[Events/evt-2026-08-17-2212ad\|Securing the Infrastructure of Intelligence]] | published |
 | 2026-08-14 | [[Events/evt-2026-08-14-61f43e\|Universitas Gadjah Mada, Indosat and NVIDIA Open Indonesia’s First University AI Center to Develop Local AI Talent]] | published |

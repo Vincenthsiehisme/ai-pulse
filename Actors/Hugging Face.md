@@ -3,17 +3,18 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-08-20'
+generated_day: '2026-08-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **6** 則：`published` 2、`review` 4
+事件 **7** 則：`published` 2、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-20 | [[Events/evt-2026-08-20-3eb48c\|Up to 3.2x Faster Inference with LFM2.5-DSpark]] | review |
 | 2026-08-19 | [[Events/evt-2026-08-19-5773cb\|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]] | review |
 | 2026-08-18 | [[Events/evt-2026-08-18-f10f20\|Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers]] | published |
 | 2026-08-18 | [[Events/evt-2026-08-18-6f88db\|How Much Memory Does Your Agent Actually Need?]] | review |

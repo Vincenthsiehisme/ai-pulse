@@ -1,24 +1,48 @@
 [
   {
-    "id": "evt-2026-08-19-04d5a6",
-    "title": "Offering Zero Data Retention for frontier models",
+    "id": "evt-2026-08-19-e403b3",
+    "title": "Grok Build For Everyone",
+    "company": "xAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-20-3eb48c",
+    "title": "Up to 3.2x Faster Inference with LFM2.5-DSpark",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-20-830f93",
+    "title": "Stampli cuts launch hours by 68% using ChatGPT Work",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-08-20-439e3e",
-    "title": "Bring the Fire: Play Games on GeForce NOW With New Firefox Browser Support",
+    "id": "evt-2026-08-20-e21d08",
+    "title": "Introducing AI Futures",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-21-1140ad",
+    "title": "From Atari to EVE Online: Building on 15 Years of AI Research in Games",
+    "company": "Google DeepMind",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-08-21-1534c7",
+    "title": "Measuring benchmark optimization in speech recognition",
     "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-08-20-7e5889",
-    "title": "How ChatGPT Work helps Stampli move ideas to market",
-    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null

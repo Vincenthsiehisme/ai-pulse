@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-08-20"
+generated_day: "2026-08-21"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-08-20"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **118** 則／已裁決 **26** 則。
+待回答 **121** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -30,8 +30,8 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`model-research#16690014`** — model-research
   > OpenAI 這一串資安、對齊公告會不會有任何一則補上具體的評估標準、稽核方由誰擔任，或是否真的因此延後過模型發布時程，目前四則全部只有敘述，這是這條線最值得盯的空白。Sentence Transformers 官方文件是否補上多向量嵌入的效能數據與使用範例，或有下游檢索框架採用。其餘沿用既有訊號：Gemini 3.7 Flash 看第三方跑分；SL2T、MindTopo 看社群與同業採用；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
 
-- **`product-market#5667e2d1`** — product-market
-  > ChatGPT Ads 擴大到歐洲後，歐盟監理機關（如愛爾蘭 DPC）是否對資料使用或廣告揭露方式展開審查。NVIDIA 案例是否補上採用團隊規模或省下的工時比例等具體數字，或 NVIDIA 官方是否對外證實。Grok 4.6 Amazon Bedrock 的原文內容公布後，能否確認實際是上架、整合還是其他形式。ChatGPT for Teens 上線後家長管控功能與內容限制的具體規則是否公開。其餘沿用既有訊號：GeForce NOW Linux 看使用者實測、Daybreak on AWS 看實際採用企業數、企業案例看後續可查證效益數字、Premium 席位看正式定價與採用率。
+- **`product-market#895422c7`** — product-market
+  > 看Private Safety Processing有沒有公布技術細節或架構說明，以及有沒有企業客戶把它當成採購理由講出來。看GeForce NOW的Firefox支援有沒有帶動可查證的使用量變化，或NVIDIA把同樣的瀏覽器優先策略延伸到其他服務。Stampli案例延續這條線既有的缺口：這一整批企業案例有沒有任何一則補上可查證的效益數字，或由客戶方獨立證實。ChatGPT Ads擴到歐洲後，歐盟監理機關是否對資料使用或廣告揭露展開審查。ChatGPT for Teens的家長管控與內容限制細則是否公開。Grok 4.6 Amazon Bedrock因站方政策我們只留標題連結，等原文能取用時再確認實際是上架、整合還是其他形式。
 
 - **`capital-evolution#6621cf87`** — capital-evolution
   > 看 Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整。看 NVIDIA 的融資平台有沒有第一筆實際資金到位、動員規模是否對得上 5,000 億美元的說法。廣告測試看擴大速度與是否影響回答中立性，以及跟訂閱營收的比重變化。看有沒有第二筆「算力當資本」的同類案例，判斷 Google 那招是模式還是個案；OpenAI 董事變動後有沒有大型融資、重組或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#a13b9cd4`** — global-map
   > 國安民主監督計畫是否有政府機構具名參與，或 OpenAI 是否公布實際交付的工具與訓練內容。CodeAI 合作的具體課程內容、覆蓋的學校或學生規模是否公布。OpenAI 資助的 14 個政策研究專案看具體名單與研究成果何時公布。印尼 AI 中心看課程規劃、GPU 規模與招生細節是否公開。NSF AI 中心計畫看實際撥給哪些機構、NVIDIA 投入的算力或資金規模。APA 合作案看是否有具體安全功能上線。這幾則放在一起，下一步要看的是有沒有更多同類型公共領域佈局公告在近期集中出現，還是這幾週只是巧合。
 
-## 事件層（112）
+## 事件層（115）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -374,8 +374,17 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-08-18-f10f20#ce5b51c3`** — evt-2026-08-18-f10f20
   > Sentence Transformers 官方文件或範例是否公布多向量嵌入的效能／成本比較數據，以及是否有下游專案（如 RAG 框架）採用。
 
+- **`evt-2026-08-19-04d5a6#7fc98bc0`** — evt-2026-08-19-04d5a6
+  > 後續要看OpenAI有沒有公布Private Safety Processing的技術細節或架構說明，以及是否有具體客戶引用這項機制作為採購理由。
+
 - **`evt-2026-08-19-6fb84b#eb2a63d6`** — evt-2026-08-19-6fb84b
   > Replit Free Mode 是否設有隱藏的速率限制或每日用量上限，以及 GPT-5.6 Luna 免費開放後的實際使用規模數據是否被公布。
 
 - **`evt-2026-08-19-ea74db#456cfd51`** — evt-2026-08-19-ea74db
   > 有人讀過原文後，把 Grok 4.6 與 Amazon Bedrock 之間具體是什麼關係（上架、整合、或其他形式）補進來。
+
+- **`evt-2026-08-20-439e3e#88c5dfb3`** — evt-2026-08-20-439e3e
+  > 接下來可以觀察GeForce NOW瀏覽器版的訂閱數或使用量是否因此成長，以及NVIDIA是否把同樣的瀏覽器優先策略延伸到其他雲端服務。
+
+- **`evt-2026-08-20-7e5889#ab694466`** — evt-2026-08-20-7e5889
+  > 後續可以觀察OpenAI是否釋出更多同類案例、有沒有第三方獨立證實這個時間壓縮的說法，以及Codex在企業客戶留存率上的具體數據。

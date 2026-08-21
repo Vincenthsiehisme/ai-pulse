@@ -1,50 +1,34 @@
 [
   {
-    "full_name": "t8y2/dbx",
-    "desc": "20 MB lightweight cross-platform database client for 90+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 90+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP Server。",
-    "language": "Rust",
+    "full_name": "LMCache/LMCache",
+    "desc": "LMCache: Supercharge Your LLM with the Fastest KV Cache Layer",
+    "language": "Python",
     "topics": [
-      "ai",
-      "cli",
-      "clickhouse",
-      "database",
-      "database-client",
-      "database-management"
+      "amd",
+      "cuda",
+      "fast",
+      "inference",
+      "kv-cache",
+      "llm"
     ],
-    "stars": 16027,
-    "url": "https://github.com/t8y2/dbx",
-    "stale_zh": "20 MB 輕量跨平台資料庫客戶端，支援 80+ 種資料庫，內建 AI、MCP Server 與 CLI"
-  },
-  {
-    "full_name": "ArcadeData/arcadedb",
-    "desc": "ArcadeDB Multi-Model Database, one DBMS that supports SQL, Cypher, Gremlin, HTTP/JSON, MongoDB and Redis. ArcadeDB is a conceptual fork of OrientDB, the first Multi-Model DBMS. ArcadeDB supports Vector Embeddings.",
-    "language": "Java",
-    "topics": [
-      "arcadedb",
-      "database",
-      "dbms",
-      "distributed",
-      "docker",
-      "document"
-    ],
-    "stars": 1095,
-    "url": "https://github.com/ArcadeData/arcadedb",
+    "stars": 11291,
+    "url": "https://github.com/LMCache/LMCache",
     "stale_zh": null
   },
   {
-    "full_name": "microsoft/ai-agents-for-beginners",
-    "desc": "18 Lessons to Get Started Building AI Agents",
-    "language": "Jupyter Notebook",
+    "full_name": "vllm-project/semantic-router",
+    "desc": "A programmable Mixture-of-Models router for heterogeneous LLM inference",
+    "language": "Go",
     "topics": [
-      "agentic-ai",
-      "agentic-framework",
-      "agentic-rag",
-      "ai-agents",
-      "ai-agents-framework",
-      "autogen"
+      "ai-gateway",
+      "bert-classification",
+      "fine-tuning",
+      "golang",
+      "huggingface-candle",
+      "huggingface-transformers"
     ],
-    "stars": 72869,
-    "url": "https://github.com/microsoft/ai-agents-for-beginners",
+    "stars": 5210,
+    "url": "https://github.com/vllm-project/semantic-router",
     "stale_zh": null
   }
 ]
