@@ -309,4 +309,5 @@ jobs:
           # 靠的是夜班摘要裡那一行（runbook 第 17 步）。兩邊各抓一半，是刻意的。
           python scripts/pulse-monitor.py \
             --alert-unenriched-days 2 --alert-coverage --alert-stale \
-            --alert-enrich-stale --alert-digest-stale > /dev/null
+            --alert-enrich-stale --alert-digest-stale \
+            --alert-unmerged-branches > /dev/null

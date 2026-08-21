@@ -5065,6 +5065,11 @@ with _tf2.TemporaryDirectory() as _td_mv:
     _mv_rejected = _mv_run()
     (_mvv / "Digests" / f"{_mv_today}.md").write_text("---\nkind: digest\n---\n", "utf-8")
     _mv_written = _mv_run("--alert-digest-stale")
+    _mv_full = _subprocess.run(
+        [sys.executable, os.path.join(_HERE, "pulse-monitor.py"), "--top", "1"],
+        capture_output=True, text=True, env=dict(os.environ, VAULT_DIR=str(_mvv)))
+    _mv_branch_line = next((ln for ln in _mv_full.stdout.splitlines()
+                            if "沒收的修碼分支" in ln), "")
 acase("pulse-monitor main()：跑完整支，digest 那一行印得出來而且分得出「沒跑」"
       "（M296 那條線：判準對而 main() 沒接，等於沒有這一格）",
       [_mv_norun[0], "沒被呼叫過" in _mv_norun[1], _mv_norun_rc],
@@ -5073,9 +5078,114 @@ acase("pulse-monitor main()：有 apply 紀錄時那一行改口說「退件」�
       "（沒讀那份紀錄的話這兩種狀態會印成同一句話，而要人做的動作相反）",
       [x in _mv_rejected[1] for x in ("rejected", "withheld_without_d")],
       [True, True])
+# 那一行要印進人看的報告。收尾摘要是人唯一會固定讀的那份東西，而這條判準
+# 存在的理由正是「產出沒有消費端」——它自己不能也沒有消費端。
+acase("pulse-monitor main()：分支那一行印得進人看的報告，而且這個 vault 不是 git "
+      "工作區時說「量不到」不是「0 支」",
+      ["沒收的修碼分支" in _mv_branch_line, "量不到" in _mv_branch_line],
+      [True, True])
 acase("pulse-monitor main()：今天有文章就不叫（反方向；只釘會叫的話，"
       "一個永遠叫的版本也會全綠）",
       [_mv_written[0], "沒有文章" in _mv_written[1]], [0, False])
+
+# ── 夜班修的碼有沒有人收（2026-08-21）────────────────────────────────────
+# runbook 給夜班的規矩是「碼的問題自己開分支、把分支名寫進摘要讓人去開 PR」。
+# 前半段它做得很好，後半段沒有人在做——同一組問題九天內開了六支分支，
+# 前五支一支都沒被收，於是它每隔一兩晚重新發現同一件事、再開一支新的。
+# 規格 references/health-alarms.md〈修好了但沒有人收〉。
+_UB = _dob.unmerged_branches_line
+
+
+def _ub(rows=(), reason="ok", today="2026-08-21", thr=3):
+    return _UB(list(rows), reason, today=today, stale_after_days=thr)
+
+
+acase("分支看板：一支都沒漏 → 不叫，而且說「0 支」",
+      [_ub()[1], "0 支" in _ub()[0]], [False, True])
+acase("分支看板：最久的一支超過門檻 → 叫，並點名是哪一支"
+      "（只說「有 N 支」的話，人不知道要去看哪一個）",
+      [_ub([("origin/fix/a", "2026-08-13")])[1],
+       "origin/fix/a" in _ub([("origin/fix/a", "2026-08-13")])[0]],
+      [True, True])
+acase("分支看板：昨天剛開的不叫（反方向；只釘會叫的話，一個永遠叫的版本也全綠）",
+      _ub([("origin/fix/a", "2026-08-20")])[1], False)
+# 這一條是整條規則的反誤報釘子，也是它最容易變成永遠綠燈的地方。
+# 單分支 clone 裡 `git branch -r` 只有 origin/main，算出來就是「0 支沒收」，
+# 而那跟「真的都收了」在畫面上長得一模一樣（紅線 8）。夜班那一邊正是這種 clone。
+acase("分支看板：只看得到 main 時要說「量不到」，不是「0 支」"
+      "（單分支 clone 算出來就是 0，而那跟真的都收了長得一樣）",
+      [_ub(reason="no-remotes")[1], "量不到" in _ub(reason="no-remotes")[0],
+       "0 支" in _ub(reason="no-remotes")[0]],
+      [False, True, False])
+acase("分支看板：不是 git 工作區也是量不到，不觸警",
+      [_ub(reason="no-git")[1], "量不到" in _ub(reason="no-git")[0]], [False, True])
+# 判準要說得出自己什麼時候不該被相信。squash-merge 會讓每一支歷史分支的 tip
+# 都不是 main 的祖先——那時候報「40 支沒收」是錯的，而那種警報兩週內會被關掉。
+acase("分支看板：超過一半不是 main 祖先 → 說判準可能失效，不報那個數字當真"
+      "（merge 改成 squash 的那天，每一支歷史分支都會長得像沒收）",
+      [_ub([("origin/x", "2026-08-01")] * 9, reason="suspect")[1],
+       "判準可能失效" in _ub([("origin/x", "2026-08-01")], reason="suspect")[0]],
+      [True, True])
+acase("分支看板：最後一顆 commit 的日期在未來 → 叫，不是綠燈"
+      "（同 enrich / digest 那兩條，`>=` 對負數是沉默的）",
+      _ub([("origin/fix/a", "2026-09-01")])[1], True)
+
+# 端到端：判準走 git 子行程，純函式全對而 `git branch -r` 那幾行寫錯的話，
+# 這一格等於不存在。建一個真的 repo：兩支已 merge、一支沒 merge。
+with _tf2.TemporaryDirectory() as _td_ub:
+    _ubr = Path(_td_ub)
+
+    def _g(*a, cwd=None):
+        return _subprocess.run(["git", "-C", str(cwd or _ubr / "work"), *a],
+                               capture_output=True, text=True)
+
+    _subprocess.run(["git", "init", "-q", "--bare", str(_ubr / "origin.git")],
+                    capture_output=True)
+    _subprocess.run(["git", "clone", "-q", str(_ubr / "origin.git"), str(_ubr / "work")],
+                    capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _g("config", k, v)
+    (_ubr / "work" / "a.txt").write_text("1", "utf-8")
+    _g("add", "-A"); _g("commit", "-qm", "base")
+    _g("branch", "-M", "main"); _g("push", "-q", "-u", "origin", "main")
+    _ub_only_main = _dob.unmerged_branches(_ubr / "work")[1]
+    for name, merge_it in (("fix/收了的", True), ("fix/沒收的", False)):
+        _g("checkout", "-q", "-b", name, "main")
+        (_ubr / "work" / f"{name.split('/')[1]}.txt").write_text("x", "utf-8")
+        _g("add", "-A"); _g("commit", "-qm", name)
+        _g("push", "-q", "origin", name)
+        _g("checkout", "-q", "main")
+        if merge_it:
+            _g("merge", "-q", "--no-ff", "-m", f"merge {name}", name)
+            _g("push", "-q", "origin", "main")
+    _g("fetch", "-q", "origin")
+    _ub_rows, _ub_reason = _dob.unmerged_branches(_ubr / "work")
+    # 再推一支沒 merge 的：2/3 不是 main 祖先 → 超過一半 → suspect。
+    # 只用「傳 reason='suspect' 進純函式」釘的話，算出 suspect 的那幾行沒有人守。
+    _g("checkout", "-q", "-b", "fix/也沒收", "main")
+    (_ubr / "work" / "c.txt").write_text("x", "utf-8")
+    _g("add", "-A"); _g("commit", "-qm", "c"); _g("push", "-q", "origin", "fix/也沒收")
+    _g("checkout", "-q", "main"); _g("fetch", "-q", "origin")
+    _ub_suspect = _dob.unmerged_branches(_ubr / "work")[1]
+acase("unmerged_branches：只有 main 的 clone 回 no-remotes（不是 0 支）",
+      _ub_only_main, "no-remotes")
+acase("unmerged_branches：真的跑 git，只挑出沒 merge 的那一支"
+      "（判準對而 `git branch -r` 那幾行寫錯的話，這一格等於不存在——M296 那條線）",
+      [[b for b, _d in _ub_rows], _ub_reason],
+      [["origin/fix/沒收的"], "ok"])
+acase("unmerged_branches：超過一半不是 main 祖先時，算出來的 reason 是 suspect"
+      "（squash 的自保要在算的那一端就成立，不是只在印的那一端）",
+      _ub_suspect, "suspect")
+acase("references/health-alarms.md 有〈修好了但沒有人收〉那一節（紅線 9 先文件後碼）",
+      "修好了但沒有人收" in open(
+          os.path.join(_HERE, "..", "references", "health-alarms.md"),
+          encoding="utf-8").read(),
+      True)
+_UB_WF = open(os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.yml"),
+              encoding="utf-8").read()
+acase("data-refresh.yml 真的開了 --alert-unmerged-branches"
+      "（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）",
+      "--alert-unmerged-branches" in _UB_WF, True)
 
 acase("references/digest-observability.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "digest-observability.md")),
@@ -5309,6 +5419,23 @@ acase("mutations.yaml 記 survives: true 的都寫了 why"
       "（已知的缺口掛著是誠實，沒有理由的存活是掩蓋）",
       sorted(m["id"] for m in _mut
              if m.get("survives") and not str(m.get("why") or "").strip()), [])
+
+# 這一頁的「清單長度 X → Y」四次有三次寫錯（第四次是 2026-08-21）。
+# 訂正一個手寫的數字撐不過三天——這一頁自己記過同一件事
+# （`fix/backlog-status-is-hand-written`：現況表從手寫改成每班重生成，
+# 而第一次的修法「把量測時間寫進標題、請下一個人複量」三小時就失效了）。
+# 所以那個數字改成機檢：最後一輪寫的 Y 必須等於 mutations.yaml 的實際條數。
+_INV_TXT = open(os.path.join(_HERE, "..", "references", "mutation-inventory.md"),
+                encoding="utf-8").read()
+from lib import inventory as _invmod  # noqa: E402  那個數字的判準，見該檔 docstring
+acase("mutation-inventory 最後一輪寫的清單長度，等於 mutations.yaml 的實際條數"
+      "（這個數字四次有三次是憑印象寫的；手寫的數字沒有人在維護，"
+      "比沒有數字更容易讓人放心。判準放在 lib 而不是這裡，因為"
+      "**沒有任何測試抓得到一條把自己改成恆真的測試**）",
+      _invmod.declared_latest(_INV_TXT), len(_mut))
+acase("lib/inventory.declared_latest：一次都沒宣稱過回 None，不是 0"
+      "（空的盤點頁跟真的 0 條的清單不能長得一樣）",
+      _invmod.declared_latest("這一頁還沒有任何一輪"), None)
 
 acase("references/mutation-inventory.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "mutation-inventory.md")),

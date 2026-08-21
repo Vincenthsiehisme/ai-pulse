@@ -1773,8 +1773,8 @@ mutations:
   - id: M202
     title: "夜班不開 --alert-enrich-stale（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）"
     file: ../.github/workflows/data-refresh.yml
-    find: "            --alert-enrich-stale --alert-digest-stale > /dev/null"
-    replace: "            --alert-digest-stale > /dev/null"
+    find: "            --alert-enrich-stale --alert-digest-stale \\\n            --alert-unmerged-branches > /dev/null"
+    replace: "            --alert-digest-stale \\\n            --alert-unmerged-branches > /dev/null"
     survives: false
     why: ""
 
@@ -2984,5 +2984,61 @@ mutations:
     file: pulse-digest-gate.py
     find: "    if \"section_layers\" not in fm:\n"
     replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M344
+    title: "單分支 clone 算成「0 支沒收」（量不到跟真的都收了長得一模一樣，而夜班那一邊的 clone 正是這種——這條規則會靜靜變成永遠綠燈）"
+    file: pulse-monitor.py
+    find: "    if not branches:\n        return [], \"no-remotes\"\n"
+    replace: "    if not branches:\n        return [], \"ok\"\n"
+    survives: false
+    why: ""
+
+  - id: M345
+    title: "拿掉 squash 的自保（merge 改成 squash 的那天，每一支歷史分支都會被報成沒收，一次 40 支，兩週內這個警報就被關掉）"
+    file: pulse-monitor.py
+    find: "    if len(rows) * 2 > len(branches):\n        return sorted(rows, key=lambda r: (r[1], r[0])), \"suspect\"\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M346
+    title: "分支看板的門檻改成永遠叫不到（夜班修好了推上去沒人收，不會有任何東西變紅）"
+    file: pulse-monitor.py
+    find: "    if lag >= stale_after_days:\n        return (body + f\"（門檻 {stale_after_days} 天）——夜班修好了推上去而沒有人收，\"\n"
+    replace: "    if lag >= 100000:\n        return (body + f\"（門檻 {stale_after_days} 天）——夜班修好了推上去而沒有人收，\"\n"
+    survives: false
+    why: ""
+
+  - id: M347
+    title: "分支看板的未來日期靜靜綠燈（-1 >= 3 為假，而時間往前走只會更綠——同一個洞在這個 repo 出現第四次）"
+    file: pulse-monitor.py
+    find: "    if lag < 0:\n        # 同 enrich_chain_line / digest_chain_line 那兩條：負數的 lag 不是「很新鮮」。\n"
+    replace: "    if False:\n        # 同 enrich_chain_line / digest_chain_line 那兩條：負數的 lag 不是「很新鮮」。\n"
+    survives: false
+    why: ""
+
+  - id: M348
+    title: "已經 merge 的分支也算沒收（9 支 claude/* 的夜間資料分支會被報成沒收，而那些資料早就進 main 了——天天紅的警報跟不會叫的一樣沒有資訊）"
+    file: pulse-monitor.py
+    find: "        if git(\"merge-base\", \"--is-ancestor\", b, main_ref).returncode == 0:\n            continue\n"
+    replace: "        if False:\n            continue\n"
+    survives: false
+    why: ""
+
+  - id: M349
+    title: "分支看板那一行不印進人看的報告（夜班摘要裡看不到它，而收尾摘要是人唯一會固定讀的那份東西）"
+    file: pulse-monitor.py
+    find: "        print((\"  ⚠ \" if _bb else \"  \") + _bl)\n"
+    replace: "        pass\n"
+    survives: false
+    why: ""
+
+  - id: M350
+    title: "盤點頁宣稱的清單長度永遠回 None（那條機檢退化成「沒宣稱過就不比對」，數字回到手寫，而它四次有三次寫錯——一個沒有人在維護的數字，比沒有數字更容易讓人放心）"
+    file: lib/inventory.py
+    find: "    return rows[-1][1] if rows else None\n"
+    replace: "    return None\n"
     survives: false
     why: ""

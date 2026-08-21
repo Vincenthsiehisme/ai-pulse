@@ -489,7 +489,7 @@ def health(vault: Path, today, r, stale_after_days: int):
 
 
 def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=None,
-                  digest=None):
+                  digest=None, branches=None):
     """健康頁的 markdown。**不寫任何比「日」更細的時間**——見 pulse-source-notes
     的同款理由：一天 12 班，帶時分秒的欄位會讓這頁每兩小時產生一次假 diff。"""
     c = r["coverage"]
@@ -632,6 +632,15 @@ def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=No
             "", "**空日也該有文章**：`mode: retrospective` 一定挑得出一則。",
             "所以這一格的判準是天數，不是「今天有沒有」——這支腳本 Actions 那一邊",
             "也會跑，而它跑的時候夜班還沒開始。", ""]
+    # 夜班修好了推上去，而沒有人收。runbook 叫它「把分支名寫進摘要讓人去開 PR」，
+    # 而摘要是一份沒有人固定去讀的自述——同 digest 那一步踩過的形狀。
+    _bline, _bbad = unmerged_branches_line(*(branches or ([], "no-git")), today=r["date"],
+                                           stale_after_days=h.get("unmerged_branch_days", 3))
+    out += ["## 夜班修的碼有沒有人收", "",
+            ("- " + _bline) if not _bbad else ("- ⚠ " + _bline),
+            "", "判準是「tip 不是 `main` 的祖先」，所以它**假設 merge 用 merge commit**。",
+            "改成 squash 的那天每一支歷史分支都會長得像沒收——那時候這一格會說",
+            "「判準可能失效」，不會報一個 40 支的數字。", ""]
     _nline, _nbad = narrative_ledger_line(narr_hist or [], r["date"])
     out += ["## 判斷層的記憶", "",
             ("- " + _nline) if not _nbad else ("- ⚠ " + _nline),
@@ -739,6 +748,86 @@ def last_enrich_commit(vault):
     except (OSError, subprocess.SubprocessError):
         return None, "no-git"
     return (out, "ok") if out else (None, "none")
+
+
+def unmerged_branches(vault, main_ref="origin/main"):
+    """origin 上「tip 不是 main 祖先」的分支。回 (rows, reason)。
+
+    `rows` = [(分支名, 最後一顆 commit 的日期)]，依日期由舊到新。
+
+    reason 四種，跟 `last_enrich_commit()` 同一個形狀，因為它們要人做的事不同：
+
+        ok           量到了
+        no-git       這裡不是 git 工作區
+        no-remotes   只看得到 main（或一支都沒有）→ **量不到，不是 0 支**
+        suspect      不在 main 的超過一半 → 判準可能失效（見下）
+
+    **`no-remotes` 是這條規則最容易變成永遠綠燈的地方。** 單分支 clone 裡
+    `git branch -r` 只有 `origin/main`，算出來就是「0 支沒收」——而那跟
+    「真的都收了」在畫面上長得一模一樣（紅線 8）。夜班那一邊的 clone 正是這種，
+    所以這條判準要長在 Actions 那一邊（`fetch-depth: 0`）。
+
+    **`suspect` 防的是 merge 策略改變。** 這條判準假設用 merge commit：squash-merge
+    會生一顆新 commit，原分支 tip 永遠不會變成 main 的祖先，於是**每一支歷史分支
+    都會看起來沒被收**，一次報 40 支，然後兩週內被人關掉。一個判準能說出自己
+    什麼時候不該被相信，比多抓幾支分支重要。規格 references/health-alarms.md。
+    """
+    def git(*args):
+        return subprocess.run(["git", "-C", str(vault), *args],
+                              capture_output=True, text=True, timeout=30)
+    try:
+        if git("rev-parse", "--git-dir").returncode != 0:
+            return [], "no-git"
+        listed = git("branch", "-r", "--format=%(refname:short)").stdout.split()
+    except (OSError, subprocess.SubprocessError):
+        return [], "no-git"
+    branches = [b for b in listed
+                if b != main_ref and not b.endswith("/HEAD") and "->" not in b]
+    if not branches:
+        return [], "no-remotes"
+    rows = []
+    for b in branches:
+        if git("merge-base", "--is-ancestor", b, main_ref).returncode == 0:
+            continue
+        day = git("log", "-1", "--format=%cd", "--date=short", b).stdout.strip()
+        rows.append((b, day))
+    if len(rows) * 2 > len(branches):
+        return sorted(rows, key=lambda r: (r[1], r[0])), "suspect"
+    return sorted(rows, key=lambda r: (r[1], r[0])), "ok"
+
+
+def unmerged_branches_line(rows, reason, today, stale_after_days):
+    """一行摘要。回 (文字, 要不要叫)。純函式，可離線單測。
+
+    夜班的 runbook 規矩是「碼的問題自己開分支、把分支名寫進摘要讓人去開 PR」。
+    前半段它做得很好，後半段沒有人在做——2026-08-21 量到同一組問題在九天內
+    開了六支分支，前五支一支都沒被收，於是夜班每隔一兩晚重新發現、重新修一次。
+    **產出沒有消費端**，跟這個 repo 修過的其他病同一個形狀。
+    """
+    if reason == "no-git":
+        return "沒收的修碼分支：**量不到**——這裡不是一個 git 工作區", False
+    if reason == "no-remotes":
+        return ("沒收的修碼分支：**量不到**——只看得到 `main`，"
+                "這是單分支 clone。這一格要在 `fetch-depth: 0` 的那一邊才算得出來"), False
+    if reason == "suspect":
+        return (f"沒收的修碼分支：**這個判準可能失效了**——{len(rows)} 支不是 main 的祖先，"
+                "超過總數一半。最可能是 merge 改成了 squash（那會讓每一支歷史分支"
+                "都長得像沒收）。先確認 merge 策略，不要照這個數字去收分支"), True
+    if not rows:
+        return "沒收的修碼分支：0 支", False
+    oldest_day = rows[0][1]
+    lag = _lag(_as_date(today), oldest_day)
+    body = f"沒收的修碼分支：{len(rows)} 支（最久的 {rows[0][0]}，{oldest_day}）"
+    if lag is None:
+        return body + "，但天數算不出來——量不到", False
+    if lag < 0:
+        # 同 enrich_chain_line / digest_chain_line 那兩條：負數的 lag 不是「很新鮮」。
+        return body + "，日期在未來，**這一格不算數**", True
+    body = f"沒收的修碼分支：{len(rows)} 支，最久的 {rows[0][0]} 已經 {lag} 天"
+    if lag >= stale_after_days:
+        return (body + f"（門檻 {stale_after_days} 天）——夜班修好了推上去而沒有人收，"
+                "它會每隔一兩晚重新發現同一件事，再開一支新的"), True
+    return body, False
 
 
 def digest_facts(vault):
@@ -951,6 +1040,9 @@ def main():
     ap.add_argument("--alert-enrich-stale", action="store_true",
                     help="半夜潤稿那條鏈太久沒推回 main → exit 1"
                          "（門檻 gate.yaml 的 monitor.enrich_stale_after_days）")
+    ap.add_argument("--alert-unmerged-branches", action="store_true",
+                    help="夜班修的碼推上去而沒有人收 → exit 1"
+                         "（門檻 gate.yaml 的 monitor.unmerged_branch_days）")
     ap.add_argument("--alert-digest-stale", action="store_true",
                     help="每日精選太久沒產出、或最後一次 apply 是退件 → exit 1"
                          "（門檻 gate.yaml 的 monitor.digest_stale_after_days）")
@@ -981,6 +1073,10 @@ def main():
                                     or DEFAULT_STALE_AFTER_DAYS)
     enrich = last_enrich_commit(vault)
     r["enrich_last_day"], r["enrich_reason"] = enrich
+    h["unmerged_branch_days"] = ((gate.get("monitor") or {}).get("unmerged_branch_days") or 3)
+    branches = unmerged_branches(vault)
+    r["unmerged_branches"] = [{"branch": b, "day": d} for b, d in branches[0]]
+    r["unmerged_branches_reason"] = branches[1]
     digest = digest_facts(vault)
     r["digest_days"], r["digest_last_apply"] = sorted(digest[1]), digest[2]
 
@@ -992,7 +1088,7 @@ def main():
                              capability_claims_line(
                                  yaml.safe_load((cfg / "sources.yaml").read_text("utf-8")) or {},
                                  _caps_counts),
-                             digest)
+                             digest, branches)
         p = vault / "_dashboards" / "health.md"
         # 一天 12 班：同一天內內容不變就不重寫，真正的變化才不會被淹掉。
         if not (p.exists() and p.read_text("utf-8") == body):
@@ -1027,6 +1123,9 @@ def main():
         # 真正的理由是時序：Actions 跑的時候 worklist 還是昨天那一份，
         # **當晚層在那一邊永遠不會觸發**，所以同一晚要被看見只能靠夜班的摘要。
         # 帶旗標的那一半仍然長在推得上去的 Actions（跨日層兜底）。
+        _bl, _bb = unmerged_branches_line(*branches, today=r["date"],
+                                          stale_after_days=h["unmerged_branch_days"])
+        print(("  ⚠ " if _bb else "  ") + _bl)
         _dl, _db = digest_chain_line(*digest, today=r["date"],
                                      stale_after_days=h["digest_stale_after_days"])
         print(("  ⚠ " if _db else "  ") + _dl)
@@ -1119,6 +1218,12 @@ def main():
                   "推不上來的時候它自己叫不出聲（實例：2026-08-05 被 git proxy 擋，"
                   "commit 建了、跟拋棄式容器一起沒了）。先確認那個排程 session "
                   "有沒有這個 repo 的授權，再看排程本身", file=sys.stderr)
+            rc = 1
+    if args.alert_unmerged_branches:
+        _line, _bad = unmerged_branches_line(*branches, today=r["date"],
+                                             stale_after_days=h["unmerged_branch_days"])
+        if _bad:
+            print(f"[alert] {_line}", file=sys.stderr)
             rc = 1
     if args.alert_digest_stale:
         _line, _bad = digest_chain_line(*digest, today=r["date"],

@@ -467,6 +467,77 @@ atom / json-api / github-releases 都還沒有。**誠實印出「分不出來�
   而那是我們的設定問題。要分得更細，得比對站方 robots.txt 宣告的 Sitemap 清單，
   那超出這一節。
 
+## 修好了但沒有人收：origin 上的分支
+
+排程 runbook 給夜班的規矩是「**碼的問題自己開分支，不要直推 main**」，然後
+「把分支名寫進摘要讓人去開 PR」。前半段夜班做得很好，後半段沒有人在做。
+
+2026-08-21 量的：
+
+```
+fix/selftest-crash-missing-ruamel          08-13   selftest 缺 ruamel 從 KeyError 改成紅
+fix/gitignore-digest-scratch-file          08-14   .gitignore + runbook + selftest
+fix/gitignore-digest-json-2026-08-15       08-15   .gitignore
+fix/nightly-runbook-deps-2026-08-17        08-17   .gitignore + runbook + selftest
+fix/gitignore-digest-input                 08-20   .gitignore
+fix/nightly-enrich-env-and-gitignore-gaps  08-21   三件一起
+```
+
+**同一組問題，九天內開了六支分支，前五支一支都沒被收。** 所以夜班每隔一兩晚
+重新發現一次、重新修一次、重新寫一次 commit message——那是六個晚上的工，
+產出躺在 origin 上沒有人讀。
+
+這跟這個 repo 修過的其他病是同一個形狀：**產出沒有消費端**。分支名寫進摘要，
+而摘要是一份沒有人固定去讀的自述——`references/digest-observability.md` 為
+digest 那一步講過同一句話。
+
+### 判準：不是 `main` 的祖先
+
+```
+git branch -r                          列出所有遠端分支
+git merge-base --is-ancestor <b> main  它的 tip 在 main 裡嗎
+```
+
+不在的就是「有東西沒收」。實測 2026-08-21：42 支遠端分支裡 36 支已在 main
+（含 9 支 `claude/*` 的夜間資料分支——那些是平台命名的殘留 ref，資料早就進去了），
+6 支不在，全部是夜班開的 `fix/*`。
+
+### 這條判準依賴一件事，而那件事可能會變
+
+**它假設 merge 用的是 merge commit，不是 squash。** squash-merge 會產生一顆
+新 commit，原分支的 tip 永遠不會變成 `main` 的祖先——那一天起，**每一支歷史
+分支都會看起來沒被收**，這個警報會一次報 40 支，然後兩週內被關掉。
+
+所以判準要自己防這件事：**不在 main 的分支超過總數一半時，不報「有 N 支沒收」，
+報「這個判準可能失效了」。** 一個判準能說出自己什麼時候不該被相信，比它多抓幾支
+分支重要。
+
+### 量不到不是 0 支
+
+`git branch -r` 只看得到 `origin/main` 的時候（單分支 clone、或沒有 fetch 全部
+refspec），這條規則會算出「0 支沒收」——而那是這條規則最容易變成永遠綠燈的方式。
+
+所以 reason 有四種，跟 `last_enrich_commit()` 同一個形狀：
+
+```
+ok           量到了
+no-git       這裡不是 git 工作區
+no-remotes   只看得到 main（或一支都沒有）→ **量不到**，不是 0
+suspect      不在 main 的超過一半 → 判準可能失效（見上）
+```
+
+夜班那一邊的 clone 多半只有 main，所以它會回 `no-remotes`——那正確：
+**這條判準要長在 Actions 那一邊**（`fetch-depth: 0`，看得到全部分支），
+跟 `enrich_chain_line` 同一個理由。
+
+### 門檻與它擋不住什麼
+
+`monitor.unmerged_branch_days`，預設 3。一支昨天剛開的分支不該叫；
+一支開了三天沒人看的，夜班已經有機會重新發現同一件事了。
+
+**擋不住「分支被收了但改壞了」**——這一層只問「有沒有人收」，不問收得對不對。
+那是 code review 的事，沒有規則抓得到。
+
 ## 這一層不保證什麼
 
 - **不保證語料是對的。** 一行 `{"title": ""}` 也算一行。這一層只回答
