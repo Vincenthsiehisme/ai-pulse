@@ -64,6 +64,11 @@
     "src_hash": "a1ba0a8f169a",
     "zh": "何必用很多 token，少少就夠：用穴居人口吻說話，幫 Claude Code 省 65% token"
   },
+  "LMCache/LMCache": {
+    "at": "2026-08-21T19:12:31+00:00",
+    "src_hash": "4426ad662c17",
+    "zh": "LMCache：用目前最快的 KV Cache 層，加速你的 LLM 推論"
+  },
   "Leonxlnx/taste-skill": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "685042ad8a5f",
@@ -383,6 +388,11 @@
     "at": "2026-08-19T19:13:25+00:00",
     "src_hash": "2a393b6e36ab",
     "zh": "給正式環境的 AI 系統用的檢索層，不靠向量資料庫也能做到 10 毫秒內搜尋，瀏覽器、邊緣、裝置端到雲端都能跑"
+  },
+  "vllm-project/semantic-router": {
+    "at": "2026-08-21T19:12:31+00:00",
+    "src_hash": "97f20f8ee54d",
+    "zh": "可程式化的 Mixture-of-Models 路由器，把請求依情況分流給不同的 LLM 做推論"
   },
   "volcengine/OpenViking": {
     "at": "2026-07-27T19:23:58+00:00",

@@ -1,18 +1,30 @@
-# 已發布事件（135）
+# 已發布事件（140）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-08-21
+- **[[Events/evt-2026-08-21-1140ad|From Atari to EVE Online: Building on 15 Years of AI Research in Games]]** — Google DeepMind · research · conf 73 · heat 未量測
+  DeepMind 回顧 15 年遊戲 AI 研究，並談與遊戲工作室合作打造新玩法的計畫。
+
 ## 2026-08-20
+- **[[Events/evt-2026-08-20-3eb48c|Up to 3.2x Faster Inference with LFM2.5-DSpark]]** — Liquid AI · model-capability · conf 73 · heat 未量測
+  Liquid AI 發布 LFM2.5-DSpark，宣稱推論速度最高快上 3.2 倍。
 - **[[Events/evt-2026-08-20-439e3e|Bring the Fire: Play Games on GeForce NOW With New Firefox Browser Support]]** — NVIDIA · product · conf 73 · heat 未量測
   NVIDIA把雲端遊戲平台GeForce NOW開放給Firefox瀏覽器，玩家不用下載用戶端也能直接跑遊戲。
 - **[[Events/evt-2026-08-20-7e5889|How ChatGPT Work helps Stampli move ideas to market]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI發布案例研究：企業軟體公司Stampli用Codex與ChatGPT Work，把原本要花數週的產品上線流程壓縮到幾天內完成。
+- **[[Events/evt-2026-08-20-830f93|Stampli cuts launch hours by 68% using ChatGPT Work]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 客戶案例：Stampli 用 Codex 與 ChatGPT Work 把新產品上線工時砍 68%。
+- **[[Events/evt-2026-08-20-e21d08|Introducing AI Futures]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 開了新部落格系列「AI Futures」，主題是 AI 對權力、治理、經濟與個人自由的影響。
 
 ## 2026-08-19
 - **[[Events/evt-2026-08-19-04d5a6|Offering Zero Data Retention for frontier models]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI重申對符合資格的API客戶提供零資料留存，並預告用Private Safety Processing在不留存資料的前提下做進階安全審查。
 - **[[Events/evt-2026-08-19-6fb84b|Replit expands access to software creation with GPT-5.6 Luna]]** — OpenAI · product · conf 83 · heat 未量測
   OpenAI 同步擴大 GPT-5.6 Luna 的免費使用範圍，Replit 也推出以它為底層、不限 token 用量的免費模式。
+- **[[Events/evt-2026-08-19-e403b3|Grok Build For Everyone]]** — xAI · product · conf 73 · heat 未量測
+  xAI 把「Grok Build」功能開放給所有使用者，但站方擋下轉述、正文只能看原文。
 - **[[Events/evt-2026-08-19-ea74db|Grok 4.6 Amazon Bedrock]]** — xAI · product · conf 73 · heat 未量測
   xAI 在官網發布「Grok 4.6 Amazon Bedrock」公告，站方不開放內容被 AI 引用，這裡只留標題與連結。
 
