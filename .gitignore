@@ -20,14 +20,21 @@ _git_lock_trash/
 # 見 references/atomic-writes.md。
 .*.tmp.*
 
-# 潤稿往返的中繼檔：Cowork 每跑一次 enrich／verify 就在 repo 根長出一份，
-# 沒有任何腳本讀它們（讀的是 _probe/ 底下的 worklist）。2026-07-27 清根目錄時
-# 刪掉三份，但**只刪不擋，下次跑完又會回來**——所以擋在這裡。
+# 潤稿往返的中繼檔：Cowork 每跑一次 enrich／verify／digest 就在 repo 根長出一份，
+# 沒有任何腳本讀它們（讀的是 _probe/ 底下的 worklist；digest 的真正產物是
+# Digests/<date>.md）。2026-07-27 清根目錄時刪掉三份，但**只刪不擋，下次跑完
+# 又會回來**——所以擋在這裡。
 #
-# 三條都用 `/` 開頭釘死在根目錄。少了那個斜線，gitignore 會**每一層都比對**，
+# 四條都用 `/` 開頭釘死在根目錄。少了那個斜線，gitignore 會**每一層都比對**，
 # 於是 `enrich-*.json` 連 `_probe/enrich-worklist.json` 一起蓋掉——那份是真的要
 # 入庫的。已追蹤的檔案不受 gitignore 影響，所以今天不會壞，但哪天它被刪掉重建
 # 就會安靜地不見。這種「今天沒事、將來某一天才發作」正是這個 repo 在防的病。
+#
+# `digest.json` 是 2026-08-21 補的第四條：enrich-runbook.md 第 7.6 步指名
+# `python scripts/pulse-digest-apply.py --in digest.json`，這份檔跟前三份
+# 同一種病，只是名字不落在 `/*-result.json` 這個 glob 裡——沒擋到，所以每晚
+# 跑完 digest 那一步都會在根目錄留下一份沒人讀的檔案，等 `git add -A` 撿走。
 /enrich-*.json
 /*-result.json
 /verify-report.json
+/digest.json

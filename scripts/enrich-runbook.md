@@ -115,7 +115,16 @@
 
 你依序做：
 
-1. 環境：`pip install pyyaml --quiet`。
+1. 環境：`pip install -r requirements.txt --quiet`。
+   **不要只裝 `pyyaml`。** 這條鏈其餘四支腳本（`pulse-probe.py`、
+   `pulse-robots-recheck.py`、`pulse-source-health.py`、`scripts/selftest.py`
+   的 `--apply` 測項）還要 `requests`、`feedparser`、`ruamel.yaml`——步驟 0
+   的補跑分支已經在裝這三個，這裡只裝 `pyyaml` 等於把同一份依賴拆成兩份，
+   而且 `selftest.py` 少了 `ruamel.yaml` 不會印「缺套件」，是在一個看起來
+   無關的斷言上直接 crash（見 `BACKLOG.md`〈新容器要先 `pip install
+   ruamel.yaml`〉一節，2026-07-26 與 2026-08-21 兩次複量都踩到）。
+   `requirements.txt` 是這條鏈唯一的依賴清單，CI 五個 workflow 也是照它裝，
+   跟著它裝就不會漏。
 2. git 身份：`git config user.name "ai-pulse-enrich" && git config user.email "ai-pulse-enrich@users.noreply.github.com"`
 3. `export VAULT_DIR="$PWD"`
 
