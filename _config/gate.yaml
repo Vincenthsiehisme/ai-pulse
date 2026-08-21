@@ -353,3 +353,14 @@ digest:
   # 事件都用過），所以連兩天沒有不是淡季，是壞了。近 30 天實測 14 天是空日（47%），
   # 這條規則本來就是為那 47% 設計的。經過見 references/digest-observability.md。
   digest_stale_after_days: 2
+
+  # 消費者：scripts/pulse-monitor.py 的 --alert-unmerged-branches / --write-health。
+  #
+  # 判的是「夜班開的修碼分支推上去之後，最久的一支放了幾天沒人收」。
+  # runbook 要夜班「碼的問題自己開分支、把分支名寫進摘要讓人去開 PR」——
+  # 前半段它做得很好，後半段沒有人在做。2026-08-21 量到同一組問題在九天內
+  # 開了六支分支，前五支一支都沒被收，於是它每隔一兩晚重新發現同一件事。
+  #
+  # 3：一支昨天剛開的不該叫；放三天的，夜班已經有機會重新開第二支了。
+  # 經過與判準的失效條件（merge 改成 squash）見 references/health-alarms.md。
+  unmerged_branch_days: 3
