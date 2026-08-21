@@ -1624,8 +1624,12 @@ with _tf2.TemporaryDirectory() as _td5:
     _rc, _out, _err = _run_sh(_vr, "--apply")
     _sh_ran(_rc, _err, "source-health --apply（吸收態那一組）")
     _snap5_p = _vr / "_probe" / "source-health.json"
+    # 子行程沒跑起來時（例如缺 ruamel.yaml）這個檔案不會存在，上面的 _sh_ran()
+    # 已經把那個情況記成一條紅的 acase。這裡的 fallback 只是不讓下面兩條斷言
+    # 對著不存在的檔案丟 KeyError——fallback 的 "s1" 一定要帶 "degraded_by"，
+    # 不然 crash 蓋掉的正是 _sh_ran() 剛留下的那條紅（2026-08-21 複量踩到）。
     _snap5 = _json.loads(_snap5_p.read_text("utf-8")) if _snap5_p.exists() else {
-        "sources": {"s1": {}}, "prior_source": None}
+        "sources": {"s1": {"degraded_by": None}}, "prior_source": None}
     # 判準看的是 sources.yaml 真的被寫成什麼，不是 degraded_by 變成 None——
     # 沒重建成功時 degraded_by 本來就是 None，拿它當判準的話這條測試測不到東西。
     acase("吸收態：重建之後那條來源真的自己回到降級前的那個狀態（active）",
