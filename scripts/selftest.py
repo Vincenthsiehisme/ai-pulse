@@ -6219,7 +6219,13 @@ acase("lib/sources.REASONS ＝ CAPABILITIES + other（衍生不抄寫）"
       "——PRD 給的是兩份不同的清單（11 vs 14），而 §19 的矩陣要求兩邊能直接比較；"
       "用兩份清單 join，對不到的列是詞彙表的洞不是量出來的洞",
       [sorted(_smod.REASONS - _smod.CAPABILITIES), len(_smod.REASONS)],
-      [["other"], 16])
+      [["other"], 17])
+# oss_release 進詞彙表的當下就要能當裁決理由，而且**不能是另外抄一份**。
+# 這一條釘的是「衍生」這件事本身：REASONS 若哪天被改成手寫清單，
+# 上面那條只會抓到長度對不上，抓不到「新增的能力沒跟著變成合法 reason」。
+acase("裁決理由：新增一個能力就自動是一個合法的 reason（oss_release 當場可用）",
+      ["oss_release" in _smod.REASONS, "oss_release" in _smod.CAPABILITIES],
+      [True, True])
 # append-only 的帳本記錯了刪不掉，所以 sid 對不上就要拒寫並回非零。
 acase("待答清單：對不上任何問題的 sid 要拒寫並回非零"
       "（帳本是 append-only，一筆打錯字的裁決會永遠留在裡面當雜訊）",
@@ -8193,18 +8199,85 @@ acase("scripts/: 可跑 lifecycle 只准有一份"
                                                      recursive=True)
              if os.path.basename(p) not in ("sources.py", "selftest.py")
              and '"degraded", "probing"' in open(p, encoding="utf-8").read()), [])
-acase("lib/sources.CAPABILITIES: 15 個值，且 procurement 在裡面"
+acase("lib/sources.CAPABILITIES: 16 個值，且 procurement 在裡面"
       "（0 條來源宣稱它，正是它必須留在表上的理由——把沒有人做的那一格從表上拿掉，"
       "盲區就從清單裡消失了）",
       (len(_smod.CAPABILITIES), "procurement" in _smod.CAPABILITIES),
-      (15, True))
+      (16, True))
+# ── oss_release（2026-08-22，references/incidents/2026-08-22-the-surface-nobody-watched.md）──
+# 這一格的存在理由是「沒人在看某家的開源線」在覆蓋率矩陣上連一格都不會出現。
+# 供給拆兩欄釘死，是因為燈號只看獨立那一欄——只釘總數的話，
+# 官方線自己標一標就能把這一格從紅推到黃，而那正是 P0-a 量到不成立的那個推論。
+acase("lib/sources: oss_release 在詞彙表裡，供給是「官方 7／獨立 3」"
+      "（開源釋出是 research_replication 的前提；沒有這一格，"
+      "「有人試著重現」那一列的需求永遠對不到它真正缺的東西）",
+      ["oss_release" in _smod.CAPABILITIES,
+       len(_smod.capability_claims(_SC_RAW, _smod.OFFICIAL_TRACKS).get("oss_release") or []),
+       len(_smod.capability_claims(_SC_RAW, _smod.INDEPENDENT_TRACKS).get("oss_release") or [])],
+      [True, 7, 3])
+# **這一條是這個 PR 最重要的測試。**
+# OpenAI 確實會開源，所以「順手把 src-openai-blog 也標上 oss_release」看起來完全合理。
+# 但 2026-08-19 那則開源公告發在 developers.openai.com，把整份 200 則 news feed
+# 拉下來對過，**那則不在裡面**。標上去等於把一次量到的失敗寫成一個宣稱，
+# 而 coverage_watch 會因此把 OpenAI 的開源線算成有人在看。
+# 沒有這一條，這個判斷會在三個月後被某個「補完整」的 PR 安靜地抹掉。
+acase("sources.yaml: src-openai-blog 不得宣稱 oss_release"
+      "（實測 08-19 的開源公告不在 openai.com/news/rss.xml 裡；"
+      "標上去 = 把量到的失敗寫成宣稱，而覆蓋率會因此虛胖成綠燈）",
+      sorted(sid for sid, caps in
+             ((str(s.get("id")), s.get("capabilities") or [])
+              for s in _smod.iter_sources(_SC_RAW))
+             if sid in ("src-openai-blog", "src-anthropic-news") and "oss_release" in caps),
+      [])
+# 有來源、有能力，但**沒有關上缺口**——這件事只有寫下來才留得住（紅線 8）。
+# 一份沒有人引用的事故紀錄跟沒寫是一樣的，所以把引用釘在設定檔上。
+_SC_TEXT = open(os.path.join(_HERE, "..", "_config", "sources.yaml"), encoding="utf-8").read()
+acase("sources.yaml: developers.openai.com 的退件理由要留在檔案裡"
+      "（那張 sitemap 沒有 lastmod、而且實測漏掉 08-19 那則；"
+      "沒有這段字，下一個人只會看到「OpenAI 有兩條來源」然後把它當補完了）",
+      ["developers.openai.com" in _SC_TEXT, "lastmod" in _SC_TEXT,
+       os.path.exists(os.path.join(_HERE, "..", "references", "incidents",
+                                   "2026-08-22-the-surface-nobody-watched.md"))],
+      [True, True, True])
+# 新來源不是新機制：整條路驗過（vllm 的 release 進得了 Event）。
+# 釘 adapter 而不只釘 id，是因為打錯 adapter 的後果是靜默的——
+# 這條來源會照常出現在來源狀態表上，只是永遠 0 筆。
+_SC_CODEX = _smod.source_index(_SC_RAW).get("src-gh-openai-codex") or {}
+acase("sources.yaml: src-gh-openai-codex 用現成的 github-releases，且會被抓",
+      [_SC_CODEX.get("adapter"), _SC_CODEX.get("endpoint"),
+       _smod.is_running(_SC_CODEX), _SC_CODEX.get("media_group")],
+      ["github-releases", "openai/codex", True, "OpenAI"])
 # 消費者。一個沒有人讀的欄位等於不存在，所以這一行在落地當天就要有人印。
-_CAP_LINE = _mm.capability_claims_line(_SC_RAW, {"src-openai-blog": 3})
+# 第三個參數是「這條跑過幾班」：這裡給 src-mistral-news 一個非零值，
+# 因為那一條的重點正是「跑了很多班卻一筆都沒有」。
+_CAP_RUNS = {"src-mistral-news": 25, "src-kol-thezvi": 25, "src-media-theregister": 25}
+_CAP_LINE = _mm.capability_claims_line(_SC_RAW, {"src-openai-blog": 3}, _CAP_RUNS)
 acase("pulse-monitor: 宣稱／觀察對照行，零產出的來源要被點名（不是只給一個總數）",
       ("src-mistral-news" in _CAP_LINE, "procurement" in _CAP_LINE), (True, True))
 acase("pulse-monitor: 對照行不回 bool（永遠是 False 的旗標就是假旋鈕；"
       "不觸警的理由見 references/source-capabilities.md）",
       isinstance(_CAP_LINE, str), True)
+# ── 「跑了很多班一筆都沒有」vs「一班都還沒跑」（2026-08-22）──
+# 加 src-gh-openai-codex 的當下，這一行從 3 條變 4 條，而第 4 條的成因完全不同。
+# 混在一起的話，每一次補來源都會先製造一筆假的壞消息。
+acase("pulse-monitor: 還沒跑過第一班的來源不算「宣稱兌不了現」，另外點名",
+      ["src-gh-openai-codex" in _CAP_LINE.split("；")[2],       # 不在「從來沒有過」那一格
+       "src-gh-openai-codex" in _CAP_LINE,                      # 但也沒有被吞掉
+       "還沒跑過第一班" in _CAP_LINE],
+      [False, True, True])
+# 沒有人在等第一班的時候不印那一格：恆常印一個 0 只會讓這一行變長而不變得
+# 更有訊息，而每一格都是拿讀者的注意力換來的。
+acase("pulse-monitor: 沒有待跑來源時不印第四格（永遠印的 0 是雜訊不是資訊）",
+      "還沒跑過第一班" in _mm.capability_claims_line(
+          _SC_RAW, {str(s.get("id")): 1 for s in _smod.iter_sources(_SC_RAW)}, _CAP_RUNS),
+      False)
+# **這一條釘的是簽章，不是輸出。** runs 若哪天被加上 `=None` 預設，忘了傳的
+# 呼叫端會靜靜退回舊行為（把還沒跑過的算成兌不了現），而上面三條測試照樣全綠，
+# 因為它們都有傳。同 pulse-gate.evaluate 的理由。
+acase("pulse-monitor: capability_claims_line 的 runs 必填（有預設值＝忘了傳會靜靜退回舊行為）",
+      [p.default is _inspect.Parameter.empty
+       for p in _inspect.signature(_mm.capability_claims_line).parameters.values()],
+      [True, True, True])
 acase("lib/sources.capability_claims: 只算 running 的"
       "（把停用來源算進覆蓋率，盲區會看起來比實際小，而這一層存在就是為了指出盲區）",
       "src-arxiv-cs-cl" in sum(_smod.capability_claims(_SC_RAW).values(), []), False)
