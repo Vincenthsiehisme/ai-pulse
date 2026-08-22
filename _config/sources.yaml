@@ -364,9 +364,18 @@ official_sources:
   # 所以沒有 robots 可驗（pulse-robots-recheck 會跳過），而且這條路整條驗過——
   # vllm 的 release 進得了 Event（evt-2026-07-25-74ed64、evt-2026-08-11-dc5cff）。
   #
-  # 已知代價：GitHub release 的標題是版本號（"v0.27.1"），entity_hits 恆為空。
-  # vllm 那兩則就是這樣過的，title_zh 由潤稿層補（「vLLM 釋出 v0.27.1」）。
-  # 這不是缺陷，是這種來源的形狀；但它代表 company 欄位靠的是 repo 網址不是標題。
+  # 已知代價與**一個沒驗到的假設**：GitHub release 的標題是版本號，
+  # 所以實體命中只能來自 release notes 內文。vllm 那則正是這樣過的——
+  # v0.27.1 的 summary 太短、entity_hits 是空的，是同一群裡的 v0.27.0
+  # （內文有「vLLM v0.27.0 Release Notes」）把公司帶出來的。
+  #
+  # 對 openai/codex：`codex` 在 entities.yaml 是 product、company: openai，
+  # 所以**只要內文出現 Codex**，infer_company 第二段就解得到 OpenAI。
+  # 但 openai/codex 的 tag 長得像 `rust-vX.Y.Z`，內文寫不寫 Codex
+  # **本機沒有驗到**（api.github.com 回 403）。
+  # 內文若不提，infer_company 回 "industry" 並觸發 generic_entity blocker——
+  # 那不是靜默失敗，事件會出現在 _dashboards/blocked.md 上等人處理。
+  # 第一班之後回頭看那一頁就知道，不用現在猜。
   #
   # **本機沒有驗到 endpoint。** api.github.com 從這個容器回 403（同 anthropic.com
   # 那條的容器 IP 問題）。掛 probing 讓它在 Actions 上自證；跑不起來會照常出現在
