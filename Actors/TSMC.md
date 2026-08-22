@@ -3,7 +3,7 @@ id: actor-tsmc
 kind: company
 in_dictionary: true
 aliases: ["台積電", "台積", "台湾积体电路"]
-generated_day: '2026-08-21'
+generated_day: '2026-08-22'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

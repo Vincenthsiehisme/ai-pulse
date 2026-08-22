@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-08-21"
+generated_day: "2026-08-22"
 ---
 
 # 覆蓋缺口：我們看不到什麼
@@ -23,11 +23,12 @@ generated_day: "2026-08-21"
 | `third_party_validation` | 1 | 0 | 10 | 🟢 | 獨立供給跟得上 |
 | `developer_feedback` | 1 | 1 | 3 | 🟢 | 獨立供給跟得上 |
 | `financial_impact` | 1 | 1 | 2 | 🟢 | 獨立供給跟得上 |
-| `product_release` | 1 | 11 | 2 | 🟢 | 獨立供給跟得上 |
+| `product_release` | 1 | 12 | 2 | 🟢 | 獨立供給跟得上 |
 | `procurement` | 1 | 0 | 0 | 🔴 | 沒有任何來源在看 |
 | `social_signal` | 0 | 0 | 8 | ⚪ | 這一輪沒有人問到這一類 |
 | `research_replication` | 0 | 0 | 5 | ⚪ | 這一輪沒有人問到這一類 |
 | `legal_proceeding` | 0 | 0 | 3 | ⚪ | 這一輪沒有人問到這一類 |
+| `oss_release` | 0 | 7 | 3 | ⚪ | 這一輪沒有人問到這一類 |
 | `infrastructure` | 0 | 1 | 1 | ⚪ | 這一輪沒有人問到這一類 |
 | `supply_chain` | 0 | 2 | 1 | ⚪ | 這一輪沒有人問到這一類 |
 | `official_announcement` | 0 | 9 | 0 | ⚪ | 只有當事人自己在說 |

@@ -3,19 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-21'
+generated_day: '2026-08-22'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **55** 則：`published` 52、`review` 3
+事件 **55** 則：`published` 54、`review` 1
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-20 | [[Events/evt-2026-08-20-e21d08\|Introducing AI Futures]] | review |
-| 2026-08-20 | [[Events/evt-2026-08-20-830f93\|Stampli cuts launch hours by 68% using ChatGPT Work]] | review |
+| 2026-08-20 | [[Events/evt-2026-08-20-e21d08\|Introducing AI Futures]] | published |
+| 2026-08-20 | [[Events/evt-2026-08-20-830f93\|Stampli cuts launch hours by 68% using ChatGPT Work]] | published |
 | 2026-08-20 | [[Events/evt-2026-08-20-7e5889\|How ChatGPT Work helps Stampli move ideas to market]] | published |
 | 2026-08-19 | [[Events/evt-2026-08-19-6fb84b\|Replit expands access to software creation with GPT-5.6 Luna]] | published |
 | 2026-08-19 | [[Events/evt-2026-08-19-04d5a6\|Offering Zero Data Retention for frontier models]] | published |

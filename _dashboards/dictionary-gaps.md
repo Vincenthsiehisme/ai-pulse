@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-21'
+generated_day: '2026-08-22'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**25 天**（2026-07-24 … 2026-08-21），去重後 **1918** 列。
+語料範圍：**26 天**（2026-07-24 … 2026-08-22），去重後 **1965** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,23 +17,23 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| LLMs | 30 | 11 |
-| Apple | 30 | 5 |
-| Amazon | 25 | 5 |
-| July | 23 | 9 |
-| LLM | 22 | 9 |
+| LLMs | 31 | 11 |
+| Apple | 31 | 5 |
+| Amazon | 26 | 5 |
+| July | 24 | 9 |
+| LLM | 24 | 9 |
 | Research | 21 | 5 |
+| There | 20 | 7 |
 | June | 19 | 7 |
 | U.S | 19 | 7 |
-| There | 19 | 6 |
+| They | 18 | 8 |
 | Here | 18 | 8 |
 | Pixel | 18 | 3 |
-| They | 17 | 8 |
 | One | 17 | 9 |
+| August | 17 | 5 |
 | Industry | 16 | 2 |
 | Building | 16 | 10 |
 | When | 16 | 6 |
-| August | 15 | 5 |
 | European Union | 13 | 2 |
 | Pro | 13 | 4 |
 | Wednesday | 12 | 4 |
@@ -44,39 +44,39 @@ generator: scripts/pulse-dictionary-gaps.py
 | Rust | 11 | 3 |
 | Linux | 11 | 4 |
 | Elon Musk | 11 | 5 |
+| RAM | 11 | 2 |
 | After | 11 | 5 |
 | Android | 11 | 3 |
 | AI-powered | 10 | 5 |
 | Union | 10 | 2 |
+| Thursday | 10 | 3 |
 | Tuesday | 10 | 4 |
 | Learn | 10 | 3 |
 | San Francisco | 10 | 7 |
 | SpaceX | 10 | 4 |
 | Samsung | 10 | 2 |
 | Energy | 9 | 2 |
-| Thursday | 9 | 3 |
 | Monday | 9 | 4 |
 | China | 9 | 5 |
 | These | 9 | 5 |
 | Last | 9 | 5 |
-| RAM | 9 | 2 |
 | CEO | 9 | 4 |
 | Texas | 8 | 5 |
 | Flock | 8 | 3 |
+| Opus | 8 | 4 |
 | AI-native | 8 | 3 |
 | Mark Zuckerberg | 8 | 3 |
+| Over | 8 | 3 |
 | Flash | 7 | 3 |
 | Built | 7 | 5 |
 | GPUs | 7 | 4 |
+| Models | 7 | 6 |
 | From | 7 | 6 |
 | January | 7 | 5 |
-| Opus | 7 | 4 |
 | Fable | 7 | 3 |
 | SQLite | 7 | 2 |
 | API | 7 | 4 |
 | AI-generated | 7 | 2 |
-| Over | 7 | 3 |
-| Chrome | 7 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 52 | src-hn-frontpage |
+| Show HN | 54 | src-hn-frontpage |
 | The Download | 24 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Highlights | 15 | src-gh-vllm-releases |
@@ -104,7 +104,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | GeForce NOW | 6 | src-nvidia-blog |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Marvel | 5 | src-media-theverge |
+| FCC | 5 | src-media-theverge |
 | YC S26 | 5 | src-hn-frontpage |
+| TechCrunch | 5 | src-media-techcrunch |
+| Best Buy | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
@@ -112,18 +115,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | Nancy Grace Roman | 4 | src-media-mit-techreview |
 | Equity | 4 | src-media-techcrunch |
 | TechCrunch Disrupt | 4 | src-media-techcrunch |
-| FCC | 4 | src-media-theverge |
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
 | Galaxy Z Fold | 4 | src-media-theverge |
-| TechCrunch | 4 | src-media-techcrunch |
-| Best Buy | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
 | Disney | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
-| Only | 3 | src-ep-itre |
 | Fix | 3 | src-gh-vllm-releases |
 | CEO Jensen Huang | 3 | src-nvidia-blog |
 | Latest | 3 | src-kol-interconnects |
@@ -136,17 +135,18 @@ generator: scripts/pulse-dictionary-gaps.py
 | Qwen2.5 | 3 | src-qwen-blog |
 | GrapheneOS | 3 | src-hn-frontpage |
 | Space Telescope | 3 | src-media-mit-techreview |
+| According | 3 | src-media-theverge |
 | The Stepback | 3 | src-media-theverge |
 | Opt | 3 | src-media-theverge |
 | Peacock | 3 | src-media-theverge |
 | RAMageddon | 3 | src-media-theverge |
 | Lean | 3 | src-hn-frontpage |
+| Zig | 3 | src-hn-frontpage |
 | Apple Silicon | 3 | src-hn-frontpage |
 | Rippling | 3 | src-media-techcrunch |
 | APIs | 3 | src-media-techcrunch |
 | Montana | 3 | src-media-mit-techreview |
 | Star Wars | 3 | src-media-theverge |
-| The Pixel | 3 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-08-21'
+generated_day: '2026-08-22'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -17,8 +17,8 @@ generator: scripts/pulse-backlog-status.py
 | 量到什麼 | 值 |
 |---|---|
 | 總數 | 168 |
-| `published` | 135 |
-| `review` | 31 |
+| `published` | 140 |
+| `review` | 26 |
 | `dropped` | 2 |
 | 帶 `stale_backfill` | 12 |
 
@@ -26,25 +26,25 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 25 |
-| 起訖 | 2026-07-24 … 2026-08-21 |
+| `_corpus/` 天數 | 26 |
+| 起訖 | 2026-07-24 … 2026-08-22 |
 
 ## 來源
 
 | 量到什麼 | 值 |
 |---|---|
-| 來源總數 | 32 |
-| lifecycle 分佈 | dormant 5、probing 27 |
-| language 分佈 | en 32 |
+| 來源總數 | 33 |
+| lifecycle 分佈 | dormant 5、probing 28 |
+| language 分佈 | en 33 |
 | `coverage_watch.must_watch` | 32 條，其中 20 條 `pending` |
 
 ## `gate.yaml` 接線
 
 | 量到什麼 | 值 |
 |---|---|
-| leaf key 總數 | 74 |
+| leaf key 總數 | 75 |
 | 標成 ⚠ 未接線 | 31 |
-| 有指名消費者 | 43 |
+| 有指名消費者 | 44 |
 
 判準在 `scripts/lib/gate_keys.py`，它**不保證**什麼寫在
 `references/gate-config-status.md` 最後一節。
@@ -53,9 +53,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-08-21T16:17:08+00:00 |
-| 條目 / 來源 | 465 items / 32 sources |
-| status 分佈 | 200 23、304 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
+| 時間 | 2026-08-22T16:08:59+00:00 |
+| 條目 / 來源 | 425 items / 33 sources |
+| status 分佈 | 200 21、304 3、error 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |
 
 零產出那一格屬於哪一種 0，看那一天的 `_probe/<日>/report.md`

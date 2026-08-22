@@ -1,5 +1,5 @@
 {
-  "generated_day": "2026-08-21",
+  "generated_day": "2026-08-22",
   "answered": 26,
   "unanswerable": 22,
   "other_ratio": 0.13636363636363635,
@@ -32,6 +32,7 @@
       "product_release": [
         "src-anthropic-news",
         "src-deepmind-blog",
+        "src-gh-openai-codex",
         "src-gh-vllm-releases",
         "src-hf-blog",
         "src-media-theverge",
@@ -74,6 +75,18 @@
         "src-media-ieee-spectrum",
         "src-media-mit-techreview",
         "src-openai-blog"
+      ],
+      "oss_release": [
+        "src-gh-openai-codex",
+        "src-gh-vllm-releases",
+        "src-hf-blog",
+        "src-kol-interconnects",
+        "src-kol-simonwillison",
+        "src-media-venturebeat",
+        "src-meta-research",
+        "src-nvidia-blog",
+        "src-qwen-blog",
+        "src-xai-news"
       ],
       "developer_feedback": [
         "src-hf-blog",
@@ -147,6 +160,7 @@
       "product_release": [
         "src-anthropic-news",
         "src-deepmind-blog",
+        "src-gh-openai-codex",
         "src-gh-vllm-releases",
         "src-hf-blog",
         "src-meta-research",
@@ -178,6 +192,15 @@
       ],
       "policy_execution": [
         "src-openai-blog"
+      ],
+      "oss_release": [
+        "src-gh-openai-codex",
+        "src-gh-vllm-releases",
+        "src-hf-blog",
+        "src-meta-research",
+        "src-nvidia-blog",
+        "src-qwen-blog",
+        "src-xai-news"
       ],
       "developer_feedback": [
         "src-hf-blog"
@@ -219,6 +242,11 @@
       ],
       "product_release": [
         "src-media-theverge",
+        "src-media-venturebeat"
+      ],
+      "oss_release": [
+        "src-kol-interconnects",
+        "src-kol-simonwillison",
         "src-media-venturebeat"
       ],
       "supply_chain": [
