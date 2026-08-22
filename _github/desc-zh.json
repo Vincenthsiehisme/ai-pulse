@@ -329,6 +329,11 @@
     "src_hash": "cd3a264f173e",
     "zh": "可直接跑的雲端範本，用於 RAG、AI pipeline 與企業搜尋，可與 S3、Kafka 等即時同步"
   },
+  "pipecat-ai/pipecat": {
+    "at": "2026-08-22T19:07:20+00:00",
+    "src_hash": "a973bc939d92",
+    "zh": "開源框架，用於語音代理、多模態應用與即時 AI，由 Daily 與社群維護"
+  },
   "rasbt/LLMs-from-scratch": {
     "at": "2026-08-10T00:35:39+00:00",
     "src_hash": "e970d5b0569c",
@@ -348,6 +353,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "608dd39676e2",
     "zh": "CLI proxy，在常見開發指令上省下 60–90% 的 LLM token，單一 Rust binary、零相依"
+  },
+  "ruvnet/ruflo": {
+    "at": "2026-08-22T19:07:20+00:00",
+    "src_hash": "ea1ea0bc35f9",
+    "zh": "agent meta-harness：部署多代理群、協調自動化工作流，整合 Claude Code、Codex 等工具"
   },
   "scrypster/muninndb": {
     "at": "2026-08-02T19:12:08+00:00",
