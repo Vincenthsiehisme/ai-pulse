@@ -54,6 +54,16 @@ RUN_LIFECYCLES = frozenset({"active", "degraded", "probing"})
 CAPABILITIES = frozenset({
     "official_announcement",   # 官方承認某件事發生了
     "product_release",         # 有東西可以用了
+    # 2026-08-22 補。OpenAI 08-19 把 Codex harness 開源，三班都沒抓到，而三個守衛
+    # 全是綠的——其中一個的成因就是這張表沒有這一格：「沒人在看某家的開源線」
+    # 在覆蓋率矩陣上連一格都不會出現，它不是紅的，是不存在。
+    # 完整追查見 references/incidents/2026-08-22-the-surface-nobody-watched.md。
+    #
+    # 不併進 product_release，因為兩者**被驗證的方式不同**：
+    # product_release 是「你能用，但你不能檢查」，oss_release 是「第三方可以自己跑」。
+    # 這個軸表上本來就有另一半——research_replication（有人試著重現）——
+    # 而開源釋出正是重現的前提。
+    "oss_release",             # 原始碼／權重公開了，第三方可以自己跑
     "research_release",        # 方法／模型／論文本身
     "benchmark",               # 有人跑了數字
     "third_party_validation",  # 不是發布方的人說了話

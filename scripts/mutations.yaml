@@ -3042,3 +3042,27 @@ mutations:
     replace: "    return None\n"
     survives: false
     why: ""
+
+  - id: M351
+    title: "「還沒跑過第一班」被算成「宣稱兌不了現」（每一次補來源都會先製造一筆假的壞消息，而讀的人學會忽略它之後，真的該追的那三條也一起沒人看）"
+    file: pulse-monitor.py
+    find: "    silent = sorted(x for x in empty if (runs or {}).get(x))\n"
+    replace: "    silent = sorted(empty)\n"
+    survives: false
+    why: ""
+
+  - id: M352
+    title: "待跑來源那一格不印（它被從第三格拆出來的唯一理由就是要被單獨看到；不印等於拆了但沒人知道）"
+    file: pulse-monitor.py
+    find: "    if unrun:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M353
+    title: "runs 補上 None 預設（忘了傳的呼叫端會靜靜退回舊行為——把還沒跑過的算成兌不了現——而所有測試照樣全綠，因為它們都有傳。同 pulse-gate.evaluate 那一條）"
+    file: pulse-monitor.py
+    find: "def capability_claims_line(raw_sources, counts, runs):\n"
+    replace: "def capability_claims_line(raw_sources, counts, runs=None):\n"
+    survives: false
+    why: ""

@@ -36,8 +36,8 @@
 # ---------------------------------------------------------------------------
 
 meta:
-  version: "2.7.0"
-  updated: "2026-07-26"
+  version: "2.8.0"
+  updated: "2026-08-22"
   note: >
     v2 引入 track 雙軌與 person_id 關聯。KOL 線的 author 必須能解析到
     people.yaml 的條目，否則獨立性求值退回 media_group 層級（見
@@ -93,6 +93,19 @@ meta:
     所以媒體線再多也不會讓它長出數字——要等社群線 M3）；中文媒體暫緩，
     因為 evidence.translation_chain 還沒有消費者，
     現在接等於讓「英文原文 + 中文編譯」被算成兩個獨立聲音。
+    v2.8 開源線：新增能力 oss_release（CAPABILITIES 15 → 16）並標給 10 條實測有
+    這個職責的來源（官方 7、獨立 3），新增 src-gh-openai-codex（github-releases，
+    與 src-gh-vllm-releases 同型）。起因是 2026-08-19 OpenAI 把 Codex harness 開源、
+    三班都沒抓到而三個守衛全綠，追查見
+    references/incidents/2026-08-22-the-surface-nobody-watched.md。
+    **這一版沒有關上那個缺口，只是讓它看得見（紅線 8）**：那則公告發在
+    developers.openai.com，而該站 sitemap 沒有任何 lastmod、且實測就是漏掉那一則，
+    所以那條來源退件，理由寫在官方線 src-gh-openai-codex 後面那段。
+    src-openai-blog 刻意**不**標 oss_release——實測那則公告不在它的 feed 裡，
+    標上去等於把量到的失敗寫成一個宣稱。
+    仍然沒有的東西：面向層的守衛。coverage_watch 盯的是實體，而 OpenAI 這一格
+    永遠不會沉默（news feed 每天三則企業案例），所以「某家的某個發布面沒人在看」
+    今天依然沒有任何東西量得到。
 
 # ---------------------------------------------------------------------------
 # coverage_watch —— v2.4 新增。給 pulse-monitor 的覆蓋率看門狗吃。
@@ -324,6 +337,7 @@ official_sources:
   corpus_type: oss_release
   capabilities:
   - product_release
+  - oss_release                  # 2026-08-22：這條來源的職責從頭到尾就是開源釋出
   adapter: github-releases
   endpoint: "vllm-project/vllm"                    # owner/repo
   region: global
@@ -334,6 +348,77 @@ official_sources:
   frequency: daily
   quota_per_run: 20
     # author 是發版者 login，常為 bot。checklist 5b 應計為 0。
+
+  # ── 2026-08-22 新增：OpenAI 開源線 ──
+  # 起因：08-19 OpenAI 在 developers.openai.com/blog 發「Codex as a platform:
+  # build on the open agent harness」，把 Codex CLI / app-server / SDK 當開源元件
+  # 發布，而我們三班都沒抓到、看板全綠。完整追查見
+  # references/incidents/2026-08-22-the-surface-nobody-watched.md。
+  #
+  # **這一條接不住那一則，要先講清楚（紅線 8）。** 它抓的是版本釋出，那則是公告文。
+  # 補的是「OpenAI 的開源專案在動」這個面向，不是「OpenAI 宣布開源」那一則。
+  # 之所以還是加：release 是持續訊號、公告是一次性的，而這是 OpenAI 開源線上
+  # 唯一一個能合規走到、且驗證過會產出的機器可讀入口。
+  #
+  # 為什麼低風險：跟 src-gh-vllm-releases 同型，adapter 現成、endpoint 不是 URL
+  # 所以沒有 robots 可驗（pulse-robots-recheck 會跳過），而且這條路整條驗過——
+  # vllm 的 release 進得了 Event（evt-2026-07-25-74ed64、evt-2026-08-11-dc5cff）。
+  #
+  # 已知代價與**一個沒驗到的假設**：GitHub release 的標題是版本號，
+  # 所以實體命中只能來自 release notes 內文。vllm 那則正是這樣過的——
+  # v0.27.1 的 summary 太短、entity_hits 是空的，是同一群裡的 v0.27.0
+  # （內文有「vLLM v0.27.0 Release Notes」）把公司帶出來的。
+  #
+  # 對 openai/codex：`codex` 在 entities.yaml 是 product、company: openai，
+  # 所以**只要內文出現 Codex**，infer_company 第二段就解得到 OpenAI。
+  # 但 openai/codex 的 tag 長得像 `rust-vX.Y.Z`，內文寫不寫 Codex
+  # **本機沒有驗到**（api.github.com 回 403）。
+  # 內文若不提，infer_company 回 "industry" 並觸發 generic_entity blocker——
+  # 那不是靜默失敗，事件會出現在 _dashboards/blocked.md 上等人處理。
+  # 第一班之後回頭看那一頁就知道，不用現在猜。
+  #
+  # **本機沒有驗到 endpoint。** api.github.com 從這個容器回 403（同 anthropic.com
+  # 那條的容器 IP 問題）。掛 probing 讓它在 Actions 上自證；跑不起來會照常出現在
+  # 來源狀態表，不會被吞掉。
+- id: src-gh-openai-codex
+  track: official
+  owner: OpenAI
+  media_group: OpenAI            # 與 src-openai-blog 同組：兩者不互為獨立佐證
+  author:
+  person_id:
+  tier: 1
+  role: official
+  source_category: framework
+  corpus_type: oss_release
+  capabilities:
+  - product_release
+  - oss_release
+  adapter: github-releases
+  endpoint: "openai/codex"                         # owner/repo
+  region: US
+  language: en
+  lifecycle: probing
+  robots_ok: true
+  license_note: "release notes + link"
+  frequency: daily
+  quota_per_run: 20
+    # author 是發版者 login，常為 bot。checklist 5b 應計為 0。
+
+  # ── 2026-08-22 退件紀錄：developers.openai.com（**沒有**接）──
+  # 這是 08-19 那則公告真正的所在地，而它沒有被接上。理由是實測不是判斷：
+  #
+  #   robots.txt   Allow: /，並自報 Sitemap: /sitemap-index.xml（合規入口存在）
+  #   sitemap      展開後 /blog/ 有 24 個 URL
+  #   lastmod      **全檔 0 個**。排不出時間序，「今天發生什麼」它答不了。
+  #   內容         **那 24 個裡面沒有 codex-as-a-platform**（08-22 取，08-19 發的文）
+  #
+  # 最後一條是決定性的：一張**證明過會漏掉新文**的 sitemap，接上去之後
+  # coverage_watch 會因為它有到貨而維持綠燈，而它漏掉的東西沒有人會知道。
+  # 那正是這次事故本身的形狀，再做一次。
+  #
+  # 比照 DeepSeek 的前例（本節末尾）：退件，把理由寫下來，**讓這一格紅著**，
+  # 直到有一個帶時間、且內容完整的機器可讀入口。
+  # 不要因為「有總比沒有好」就接上去——這個 repo 已經量到相反的結論。
 
   # ── v2.1 新增：公司發布類 ──
 - id: src-deepmind-blog
@@ -380,6 +465,7 @@ official_sources:
   - research_release
   - benchmark
   - developer_feedback
+  - oss_release                  # 2026-08-22：開放模型／權重是它的主線
   adapter: rss
   endpoint: "https://huggingface.co/blog/feed.xml"
   region: US
@@ -415,6 +501,7 @@ official_sources:
   - product_release
   - infrastructure
   - supply_chain
+  - oss_release                  # 2026-08-22：Nemotron 等開放模型是它的常態發布
   adapter: rss
   endpoint: "https://blogs.nvidia.com/feed/"
   region: US
@@ -469,6 +556,7 @@ official_sources:
   capabilities:
   - research_release
   - product_release
+  - oss_release                  # 2026-08-22：Llama 與 Buck2 一路都是開源釋出
   adapter: rss
   endpoint: "https://research.facebook.com/feed/"     # [待驗證] 可能已改址
   region: US
@@ -619,6 +707,7 @@ official_sources:
   capabilities:
   - official_announcement
   - product_release
+  - oss_release                  # 2026-08-22：Grok 權重開源是它發過的東西
   adapter: sitemap
   endpoint: "https://x.ai/sitemap.xml"
   url_prefix: "/news/"
@@ -686,6 +775,7 @@ official_sources:
   - official_announcement
   - product_release
   - research_release
+  - oss_release                  # 2026-08-22：Qwen 系列本身就是開放權重
   adapter: rss
   endpoint: "https://qwenlm.github.io/blog/index.xml"
   region: CN
@@ -939,6 +1029,7 @@ media_sources:
   - enterprise_adoption
   - financial_impact
   - product_release
+  - oss_release                  # 2026-08-22：常態報導開源模型釋出（獨立供給）
   adapter: rss
   endpoint: "https://venturebeat.com/category/ai/feed/"
   region: US
@@ -1170,6 +1261,7 @@ kol_sources:
   - social_signal
   - developer_feedback
   - third_party_validation
+  - oss_release                  # 2026-08-22：每一次開放權重釋出他都寫（獨立供給）
   adapter: atom
   endpoint: "https://simonwillison.net/atom/everything/"
   region: US
@@ -1198,6 +1290,7 @@ kol_sources:
   - social_signal
   - benchmark
   - third_party_validation
+  - oss_release                  # 2026-08-22：開放模型就是他的主題（獨立供給）
   adapter: rss
   endpoint: "https://www.interconnects.ai/feed"
   region: US

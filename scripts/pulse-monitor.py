@@ -655,7 +655,7 @@ def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=No
     return "\n".join(out)
 
 
-def capability_claims_line(raw_sources, counts):
+def capability_claims_line(raw_sources, counts, runs):
     """來源能力的宣稱／觀察對照。回**一個字串**，沒有 bool。
 
     規格見 references/source-capabilities.md〈宣稱 vs 觀察〉。
@@ -671,11 +671,23 @@ def capability_claims_line(raw_sources, counts):
     一直維持的狀態（同 TERMINAL_BLOCKERS）。一個第一天紅、之後每天都紅的
     警報，兩週內就會被人加旗標關掉，連真的該追的那一條也一起靜音。
 
-    三個數字各自回答不同的問題，所以分開印，不擠成一個「健康度」：
+    四個數字各自回答不同的問題，所以分開印，不擠成一個「健康度」：
 
         已標幾條      判準有沒有被繞過
         幾種沒人宣稱  **盲區在哪**（P0-d 覆蓋率矩陣的雛形）
         幾條零產出    宣稱是不是空頭支票
+        幾條還沒跑過  **這一條不是壞消息**，是「還沒到第一班」
+
+    `runs`：`{source_id: 這條跑過幾班}`，來自 `_probe/source-health.json`。
+    **故意沒有預設值。** 給了 `None` 預設，忘了傳的呼叫端會靜靜退回舊行為
+    ——也就是退回「把還沒跑過的算成兌不了現」——而沒有任何測試會紅。
+    必填參數讓「忘了傳」變成 TypeError。（同 `pulse-gate.evaluate` 的理由。）
+
+    為什麼要拆第四格（2026-08-22）：加 `src-gh-openai-codex` 的那一刻，
+    這一行從「3 條宣稱了但從來沒有過」變成 4 條，而第 4 條的成因完全不同——
+    前三條是跑了 25 班一筆都沒有，第四條是**一班都還沒跑**。
+    把「沒有」跟「還不知道」寫成同一個數字，正是這個 repo 一直在修的病，
+    而它出現在一個專門用來抓「宣稱兌不了現」的指標上。
     """
     running = [s for s in _srcmod.iter_sources(raw_sources or {}) if _srcmod.is_running(s)]
     claimed = _srcmod.capability_claims(raw_sources or {})
@@ -684,9 +696,15 @@ def capability_claims_line(raw_sources, counts):
     # 零產出＝**累計**相異項目數為 0。用累計不用當期：一條這一窗沒發文是正常的，
     # 一條從來沒有過才是宣稱兌不了現。當期的那個數字上面「本窗口零產出」
     # 已經在講了，這裡刻意問另一個問題。
-    silent = sorted(str(s.get("id")) for s in running
-                    if (s.get("capabilities") or [])
-                    and not (counts or {}).get(str(s.get("id"))))
+    #
+    # 但「累計 0 筆」有兩種成因，分開算：跑過而一直空手（宣稱兌不了現），
+    # 跟一班都還沒跑（新加的，還沒輪到它）。後者混進前者會讓每一次補來源
+    # 都先製造一筆假的壞消息，而讀的人學會忽略它之後，真的那幾條也一起沒人看。
+    empty = [str(s.get("id")) for s in running
+             if (s.get("capabilities") or [])
+             and not (counts or {}).get(str(s.get("id")))]
+    silent = sorted(x for x in empty if (runs or {}).get(x))
+    unrun = sorted(x for x in empty if not (runs or {}).get(x))
     parts = [f"running {len(running)} 條，"
              + ("全數已標" if not unlabelled
                 else f"**{len(unlabelled)} 條沒標**：" + "、".join(f"`{x}`" for x in unlabelled))]
@@ -695,6 +713,11 @@ def capability_claims_line(raw_sources, counts):
                     + "、".join(f"`{g}`" for g in gaps) + "）" if gaps else "每一種都有來源"))
     parts.append(f"**{len(silent)} 條宣稱了但語料裡從來沒有過**"
                  + ("（" + "、".join(f"`{x}`" for x in silent) + "）" if silent else ""))
+    # 只有真的有人在等第一班的時候才印這一格。恆常印一個 0 會讓這一行變長
+    # 而不變得更有訊息，而這一行的每一格都是拿讀者的注意力換來的。
+    if unrun:
+        parts.append(f"{len(unrun)} 條還沒跑過第一班（"
+                     + "、".join(f"`{x}`" for x in unrun) + "），先不算它兌不了現")
     return "來源能力：" + "；".join(parts)
 
 
@@ -1082,12 +1105,18 @@ def main():
 
     if args.write_health:
         _caps_counts, _ = _corpus.observed(vault)
+        # 「跑過幾班」的真相源是 source-health.json。一條從來沒被抓過的來源
+        # 在那份檔案裡是**缺席**，不是 runs: 0——所以用 .get 取，缺席自然落成 0。
+        _hp = vault / "_probe" / "source-health.json"
+        _hj = json.loads(_hp.read_text("utf-8")) if _hp.exists() else {}
+        _caps_runs = {sid: (v or {}).get("runs") or 0
+                      for sid, v in (_hj.get("sources") or {}).items()}
         body = render_health(r, h, ghdesc.load_coverage(vault),
                              history.read(vault / "_probe" / "narrative-history.jsonl"),
                              enrich,
                              capability_claims_line(
                                  yaml.safe_load((cfg / "sources.yaml").read_text("utf-8")) or {},
-                                 _caps_counts),
+                                 _caps_counts, _caps_runs),
                              digest, branches)
         p = vault / "_dashboards" / "health.md"
         # 一天 12 班：同一天內內容不變就不重寫，真正的變化才不會被淹掉。
