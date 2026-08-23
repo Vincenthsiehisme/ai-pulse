@@ -10,7 +10,7 @@ source_category: "framework"
 corpus_type: "oss_release"
 region: "US"
 language: "en"
-lifecycle: "probing"
+lifecycle: "degraded"
 robots_ok: true
 license_note: "release notes + link"
 endpoint: "openai/codex"
@@ -20,8 +20,8 @@ last_observed_day:
 items_observed:
 events_bound: 0
 events_published: 0
-health_score: 85
-consecutive_failures: 1
+health_score: 70
+consecutive_failures: 2
 last_status: "error"
 ---
 
@@ -33,7 +33,7 @@ last_status: "error"
 
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
-| 收錄 | `probing` | 會被抓 |
+| 收錄 | `degraded` | 會被抓 |
 | 已觀測 | **尚未抓取過** | 我們對它的產出量一無所知 |
 | 有效產出 | 0 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 0 則 | 綁上了但門禁擋著——那是設計，不是故障 |

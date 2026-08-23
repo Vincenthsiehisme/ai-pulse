@@ -17,7 +17,7 @@ can_satisfy_primary: false
 endpoint: "https://arstechnica.com/ai/feed/"
 robots_checked_day: "2026-08-19"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-08-22"
+last_observed_day: "2026-08-23"
 items_observed: 82
 events_bound: 2
 events_published: 2

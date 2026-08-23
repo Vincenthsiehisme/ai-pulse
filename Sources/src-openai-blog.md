@@ -16,7 +16,7 @@ license_note: "titles + links only"
 endpoint: "https://openai.com/news/rss.xml"
 robots_checked_day: "2026-08-19"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-22"
+last_observed_day: "2026-08-23"
 items_observed: 101
 events_bound: 59
 events_published: 58

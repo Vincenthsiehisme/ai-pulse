@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-22'
+generated_day: '2026-08-23'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**26 天**（2026-07-24 … 2026-08-22），去重後 **1965** 列。
+語料範圍：**27 天**（2026-07-24 … 2026-08-23），去重後 **2003** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -20,8 +20,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | LLMs | 31 | 11 |
 | Apple | 31 | 5 |
 | Amazon | 26 | 5 |
+| LLM | 25 | 9 |
 | July | 24 | 9 |
-| LLM | 24 | 9 |
 | Research | 21 | 5 |
 | There | 20 | 7 |
 | June | 19 | 7 |
@@ -37,11 +37,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | European Union | 13 | 2 |
 | Pro | 13 | 4 |
 | Wednesday | 12 | 4 |
+| Python | 12 | 3 |
 | With | 12 | 8 |
+| Rust | 12 | 3 |
 | Trump | 12 | 4 |
 | Draft | 11 | 2 |
-| Python | 11 | 3 |
-| Rust | 11 | 3 |
 | Linux | 11 | 4 |
 | Elon Musk | 11 | 5 |
 | RAM | 11 | 2 |
@@ -57,18 +57,18 @@ generator: scripts/pulse-dictionary-gaps.py
 | Samsung | 10 | 2 |
 | Energy | 9 | 2 |
 | Monday | 9 | 4 |
+| Texas | 9 | 6 |
 | China | 9 | 5 |
 | These | 9 | 5 |
 | Last | 9 | 5 |
 | CEO | 9 | 4 |
-| Texas | 8 | 5 |
+| Built | 8 | 5 |
 | Flock | 8 | 3 |
 | Opus | 8 | 4 |
 | AI-native | 8 | 3 |
 | Mark Zuckerberg | 8 | 3 |
 | Over | 8 | 3 |
 | Flash | 7 | 3 |
-| Built | 7 | 5 |
 | GPUs | 7 | 4 |
 | Models | 7 | 6 |
 | From | 7 | 6 |
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 54 | src-hn-frontpage |
+| Show HN | 55 | src-hn-frontpage |
 | The Download | 24 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Highlights | 15 | src-gh-vllm-releases |
@@ -114,6 +114,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | Consumer Protection | 4 | src-ep-itre |
 | Nancy Grace Roman | 4 | src-media-mit-techreview |
 | Equity | 4 | src-media-techcrunch |
+| The Stepback | 4 | src-media-theverge |
+| Opt | 4 | src-media-theverge |
 | TechCrunch Disrupt | 4 | src-media-techcrunch |
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
@@ -136,8 +138,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | GrapheneOS | 3 | src-hn-frontpage |
 | Space Telescope | 3 | src-media-mit-techreview |
 | According | 3 | src-media-theverge |
-| The Stepback | 3 | src-media-theverge |
-| Opt | 3 | src-media-theverge |
 | Peacock | 3 | src-media-theverge |
 | RAMageddon | 3 | src-media-theverge |
 | Lean | 3 | src-hn-frontpage |

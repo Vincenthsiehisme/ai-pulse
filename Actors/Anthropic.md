@@ -3,7 +3,7 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-08-22'
+generated_day: '2026-08-23'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

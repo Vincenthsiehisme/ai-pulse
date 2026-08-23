@@ -397,7 +397,7 @@ official_sources:
   endpoint: "openai/codex"                         # owner/repo
   region: US
   language: en
-  lifecycle: probing
+  lifecycle: degraded
   robots_ok: true
   license_note: "release notes + link"
   frequency: daily

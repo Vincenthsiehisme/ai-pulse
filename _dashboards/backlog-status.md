@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-08-22'
+generated_day: '2026-08-23'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -26,15 +26,15 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 26 |
-| 起訖 | 2026-07-24 … 2026-08-22 |
+| `_corpus/` 天數 | 27 |
+| 起訖 | 2026-07-24 … 2026-08-23 |
 
 ## 來源
 
 | 量到什麼 | 值 |
 |---|---|
 | 來源總數 | 33 |
-| lifecycle 分佈 | dormant 5、probing 28 |
+| lifecycle 分佈 | degraded 1、dormant 5、probing 27 |
 | language 分佈 | en 33 |
 | `coverage_watch.must_watch` | 32 條，其中 20 條 `pending` |
 
@@ -53,9 +53,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-08-22T16:08:59+00:00 |
-| 條目 / 來源 | 425 items / 33 sources |
-| status 分佈 | 200 21、304 3、error 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
+| 時間 | 2026-08-23T16:10:14+00:00 |
+| 條目 / 來源 | 445 items / 33 sources |
+| status 分佈 | 200 22、304 2、error 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |
 
 零產出那一格屬於哪一種 0，看那一天的 `_probe/<日>/report.md`
