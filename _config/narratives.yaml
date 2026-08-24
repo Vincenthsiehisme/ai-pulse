@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-08-21'
+updated: '2026-08-24'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 這條線今天再加一則：Hugging Face 部落格作者 Dharma-AI 發文稱同一批 GPU 叢集只靠調整工作排程順序，就把使用率拉高了 33 個百分點；官方稿只有標題一句話，沒有給出方法細節、測試環境或可重現的數據，是這條線裡罕見的非 NVIDIA／OpenAI 來源，也是目前最缺乏佐證的一則。這則跟前兩天新增的兩則放在一起看——NVIDIA 把「AI 工廠的基礎設施安全」講成 AI 經濟核心議題，主張運算力等於營收、供應鏈安全防護是基礎設施能不能撐住的前提，但沒有列出具體防護機制；OpenAI 同一天宣布加入 PORTS-Pike 專案，稱會擴大對俄亥俄州南部社區的投資、支持數千個工作機會，專案內容與金額同樣沒有交代——延續這條線本週的既有走向：訊號幾乎全來自 NVIDIA 一家，主軸是把 agent 與後訓練時代的「每一塊錢算力」壓低，並從資料中心往機器人、邊緣、實體模擬延伸，同時 OpenAI 持續在美國多州把資料中心投資跟社區關係、地方政策綁在一起發布。
-    next: Dharma-AI 那則看是否補上方法細節、測試環境或可重現的資料，讓 33 個百分點這個數字站得住腳；NVIDIA 那篇看是否後續釋出具體的安全產品、認證或客戶案例，或有獨立資安機構回應；PORTS-Pike 看專案具體內容公布，以及俄亥俄州當地媒體或官方是否有獨立報導佐證就業數字，跟 Effingham County、德州那兩起同類案例放在一起看，能不能看出 OpenAI 這套「基礎設施＋社區投資」組合動作的實際落地速度與規模差異；NVIDIA 供電架構那篇看是否有實際部署案例採用新架構。
+    now: 這條線今天一口氣新增三則，全部來自 NVIDIA，圍繞同一個故事：agent 工作負載比一般查詢貴，所以要換更省電、更開放的基礎設施。一則引用 OpenRouter 的數據稱 agent 型工作負載消耗的 token 量是一般對話的 15 倍，並主張 Vera Rubin NVL72 每瓦工作量比前代最多提升 30 倍；一則宣布擴充 Vera Rubin NVL72 加入針對 agent 最佳化的快速 token 生成能力，標題同時提到 Groq 3 LPX 已全面量產，但沒有說明兩者怎麼整合；一則談 NVLink Fusion，讓第三方 XPU（非 NVIDIA 自家 GPU）也能透過 NVLink 接進 NVIDIA 的系統。三則的效率倍數與整合細節目前都只有官方說法。延續這條線既有走向：訊號幾乎全來自 NVIDIA 一家，主軸是把 agent 與後訓練時代的每一塊錢算力壓低，並從資料中心往機器人、邊緣、實體模擬延伸，同時 OpenAI 持續在美國多州把資料中心投資跟社區關係、地方政策綁在一起發布。
+    next: 今天這三則看 NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合，以及有沒有實際的第三方 XPU 廠商透過 NVLink Fusion 出貨。Dharma-AI 那則看是否補上方法細節、測試環境或可重現的資料，讓 33 個百分點這個數字站得住腳；NVIDIA 安全那篇看是否後續釋出具體的安全產品、認證或客戶案例；PORTS-Pike 看專案具體內容公布、俄亥俄州當地媒體或官方是否有獨立報導佐證就業數字。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這條線這一輪新增兩則，都跟今天以前的訊號沒有直接關係，只是把清單往前推。Google DeepMind 發部落格回顧十五年遊戲 AI 研究，並提到跟遊戲工作室合作做原型玩法，屬於階段性整理，不是新成果發布。Liquid AI 發布 LFM2.5-DSpark，標題宣稱推論速度最高快上 3.2 倍，但抓到的內文只有 Hugging Face 制式簡介，沒有技術細節能佐證這個倍數是在什麼條件下量出來的。上一輪新增的《Pacing model development in an era of cyber-critical capabilities》（8/18）：官方稱會依前沿模型的資安風險調整開發節奏，強化監控與對齊，但沒有寫節奏怎麼調、由誰認定風險等級。加上前幾則同類型公告——《The Defender's Window》（8/17）談攻防兩端、《Responding to the next frontier of critical cyber capabilities》（8/7）談 Astra 模型的初步資安評估、《Third-party cyber evaluations involving OpenAI models》（8/4）——OpenAI 這一個月內至少四次用同樣的句型講自己在加強資安防護，四則都停在自我陳述，沒有一則附上可驗證的評估標準或第三方稽核。另一則是 Hugging Face 的 Sentence Transformers 發文，介紹多向量（late interaction）嵌入模型支援，同樣只有標題與通用簡介，沒有效能數據。既有主軸不變：模型往小而專走（Gemini 3.7 Flash、Nemotron 3.5 Lightning、LFM2.5 系列端側模型）、效率端敘事（GPT-5.6 把賣點從更強移到更省）。
-    next: LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試或跑分驗證、是在什麼硬體上量的。DeepMind 跟遊戲工作室的合作有沒有具體玩法或技術細節公開。OpenAI 這一串資安、對齊公告會不會有任何一則補上具體的評估標準、稽核方由誰擔任，或是否真的因此延後過模型發布時程，目前四則全部只有敘述，這是這條線最值得盯的空白。Sentence Transformers 官方文件是否補上多向量嵌入的效能數據與使用範例，或有下游檢索框架採用。其餘沿用既有訊號：Gemini 3.7 Flash 看第三方跑分；SL2T、MindTopo 看社群與同業採用；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
+    now: 這條線這一輪新增兩則，都是 Anthropic 官方新聞頁的公告，而且都只留得住標題，Anthropic 這個來源的授權範圍是「標題加連結」，我們沒有進一步摘錄內文。一則《Improving Fable 5's Biology Safeguards》，看標題是在講強化 Fable 5 的生物安全防護；另一則《Claude Text Watermark》，看標題是在講為 Claude 生成的文字加上浮水印。兩則都各自獨立發布，不是包在某次模型更新裡順帶提的，這點跟 OpenAI 這個月連續四次發資安、對齊公告的做法（同樣停在自我陳述、沒有可驗證的評估標準）放在一起看，是同一種把安全當成獨立溝通項目的訊號，只是這次換 Anthropic 做。既有主軸不變：模型往小而專走（Gemini 3.7 Flash、Nemotron 3.5 Lightning、LFM2.5 系列端側模型）、效率端敘事（GPT-5.6 把賣點從更強移到更省）。
+    next: Anthropic 這兩則的正文我們選擇不轉述，只能盯原文連結有沒有被第三方引用、或 Anthropic 之後有沒有在其他管道補上具體技術細節。LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試或跑分驗證。OpenAI 這一串資安、對齊公告會不會有任何一則補上具體的評估標準、稽核方由誰擔任，把 Anthropic 這兩則加進來看，目前還是全部只有敘述，這是這條線最值得盯的空白。其餘沿用既有訊號：Gemini 3.7 Flash 看第三方跑分；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？

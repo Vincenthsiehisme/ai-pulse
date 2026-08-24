@@ -1,6 +1,18 @@
-# 已發布事件（140）
+# 已發布事件（145）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-08-24
+- **[[Events/evt-2026-08-24-7ee4a1|Improving Fable 5 S Biology Safeguards]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布強化 Fable 5 生物安全防護的公告，正文我們選擇不轉述
+- **[[Events/evt-2026-08-24-a8db16|With Groq 3 LPX in Full Production, NVIDIA Extends Vera Rubin Inference for Agents]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 擴充 Vera Rubin NVL72 的 agent 推論能力，同篇公告也提到 Groq 3 LPX 全面量產
+- **[[Events/evt-2026-08-24-c5f2a2|Claude Text Watermark]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 公告為 Claude 生成的文字加上浮水印，正文我們選擇不轉述
+- **[[Events/evt-2026-08-24-de02fd|Up to 30x More Work Per Watt: NVIDIA Vera Rubin NVL72 Sets a New Efficiency Standard for AI Agents]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 稱 Vera Rubin NVL72 每瓦工作量提升 30 倍，理由是 agent 工作負載吃 token 更凶
+- **[[Events/evt-2026-08-24-e6c7e4|How XPUs Meet a World-Class AI Factory]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 談 NVLink Fusion：讓第三方 XPU 也能接進自家的 AI 工廠架構
 
 ## 2026-08-21
 - **[[Events/evt-2026-08-21-1140ad|From Atari to EVE Online: Building on 15 Years of AI Research in Games]]** — Google DeepMind · research · conf 73 · heat 未量測

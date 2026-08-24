@@ -1,1 +1,92 @@
-[]
+[
+  {
+    "id": "evt-2026-08-24-7ee4a1",
+    "path": "evt-2026-08-24-7ee4a1.md",
+    "title": "Improving Fable 5 S Biology Safeguards",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards",
+        "title": "Improving Fable 5 S Biology Safeguards",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-24-a8db16",
+    "path": "evt-2026-08-24-a8db16.md",
+    "title": "With Groq 3 LPX in Full Production, NVIDIA Extends Vera Rubin Inference for Agents",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/vera-rubin-lpx-spectrum-x-nvlink-fusion/",
+        "title": "With Groq 3 LPX in Full Production, NVIDIA Extends Vera Rubin Inference for Agents",
+        "summary": "The next era of AI inference won’t be defined by a single breakthrough chip, network or system. It’ll be defined by how every layer of the AI factory works together. That’s why NVIDIA is extending Vera Rubin NVL72 with fast token generation for agentic systems. Announced today, the NVIDIA Vera Rubin"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-24-c5f2a2",
+    "path": "evt-2026-08-24-c5f2a2.md",
+    "title": "Claude Text Watermark",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-text-watermark",
+        "title": "Claude Text Watermark",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-24-de02fd",
+    "path": "evt-2026-08-24-de02fd.md",
+    "title": "Up to 30x More Work Per Watt: NVIDIA Vera Rubin NVL72 Sets a New Efficiency Standard for AI Agents",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/vera-rubin-nvl72-efficiency-ai-agents/",
+        "title": "Up to 30x More Work Per Watt: NVIDIA Vera Rubin NVL72 Sets a New Efficiency Standard for AI Agents",
+        "summary": "According to OpenRouter data, agentic AI workloads consume 15x more tokens than a simple chat request. Why?  Consider what happens when an AI agent researches a company for an investment decision. The agent queries financial databases, searches news and filings, invokes a sub-agent to run peer compa"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-24-e6c7e4",
+    "path": "evt-2026-08-24-e6c7e4.md",
+    "title": "How XPUs Meet a World-Class AI Factory",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Scale AI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/nvlink-fusion-xpu-ai-factory/",
+        "title": "How XPUs Meet a World-Class AI Factory",
+        "summary": "To generate intelligence at scale, AI factories run continuously, and their economics are defined by delivered output: tokens per second, tokens per watt, cost per token, utilization and uptime.  That requires AI infrastructure designed and built as a full factory, not a collection of individual acc"
+      }
+    ]
+  }
+]
