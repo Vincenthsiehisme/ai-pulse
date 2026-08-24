@@ -3,7 +3,7 @@ id: actor-minimax
 kind: company
 in_dictionary: true
 aliases: ["稀宇科技"]
-generated_day: '2026-08-23'
+generated_day: '2026-08-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

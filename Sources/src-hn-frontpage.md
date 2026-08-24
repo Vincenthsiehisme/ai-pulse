@@ -17,7 +17,7 @@ can_satisfy_primary: false
 endpoint: "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=30"
 robots_checked_day: "2026-08-19"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-23"
+last_observed_day: "2026-08-24"
 items_observed: 703
 events_bound: 8
 events_published: 6

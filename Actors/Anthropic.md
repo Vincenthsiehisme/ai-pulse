@@ -3,17 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-08-23'
+generated_day: '2026-08-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **19** 則：`published` 17、`review` 2
+事件 **20** 則：`published` 17、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-24 | [[Events/evt-2026-08-24-c5f2a2\|Claude Text Watermark]] | review |
 | 2026-08-15 | [[Events/evt-2026-08-15-c5f2a2\|Claude Text Watermark]] | published |
 | 2026-08-04 | [[Events/evt-2026-08-04-b30acc\|Tino Cuellar]] | published |
 | 2026-08-03 | [[Events/evt-2026-08-03-ca9363\|Claude For Nonprofits]] | published |

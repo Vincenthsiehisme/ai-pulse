@@ -20,8 +20,8 @@ last_observed_day:
 items_observed:
 events_bound: 0
 events_published: 0
-health_score: 70
-consecutive_failures: 2
+health_score: 55
+consecutive_failures: 3
 last_status: "error"
 ---
 

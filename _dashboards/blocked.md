@@ -1,7 +1,11 @@
-# 被門禁擋下（26）
+# 被門禁擋下（31）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-08-24-a8db16|With Groq 3 LPX in Full Production, NVIDIA Extends Vera Rubin Inferenc]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-24-c5f2a2|Claude Text Watermark]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-08-24-de02fd|Up to 30x More Work Per Watt: NVIDIA Vera Rubin NVL72 Sets a New Effic]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-24-e6c7e4|How XPUs Meet a World-Class AI Factory]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-19-5773cb|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-18-6f88db|How Much Memory Does Your Agent Actually Need?]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-14-63e703|State of Open Models: Summer 2026 Observations]]** — Hugging Face — blockers: thin_research_analysis
@@ -26,5 +30,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-08-24-7ee4a1|Improving Fable 5 S Biology Safeguards]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-08-21-1534c7|Measuring benchmark optimization in speech recognition]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity

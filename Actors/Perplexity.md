@@ -3,7 +3,7 @@ id: actor-perplexity
 kind: company
 in_dictionary: true
 aliases: ["Perplexity AI"]
-generated_day: '2026-08-23'
+generated_day: '2026-08-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

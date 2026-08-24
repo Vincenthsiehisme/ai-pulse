@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-23'
+generated_day: '2026-08-24'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**27 天**（2026-07-24 … 2026-08-23），去重後 **2003** 列。
+語料範圍：**28 天**（2026-07-24 … 2026-08-24），去重後 **2027** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,11 +17,11 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| LLMs | 31 | 11 |
-| Apple | 31 | 5 |
-| Amazon | 26 | 5 |
+| LLMs | 32 | 11 |
+| Apple | 32 | 5 |
+| Amazon | 27 | 5 |
+| July | 25 | 9 |
 | LLM | 25 | 9 |
-| July | 24 | 9 |
 | Research | 21 | 5 |
 | There | 20 | 7 |
 | June | 19 | 7 |
@@ -40,13 +40,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Python | 12 | 3 |
 | With | 12 | 8 |
 | Rust | 12 | 3 |
+| Linux | 12 | 4 |
 | Trump | 12 | 4 |
+| Android | 12 | 3 |
 | Draft | 11 | 2 |
-| Linux | 11 | 4 |
 | Elon Musk | 11 | 5 |
 | RAM | 11 | 2 |
 | After | 11 | 5 |
-| Android | 11 | 3 |
 | AI-powered | 10 | 5 |
 | Union | 10 | 2 |
 | Thursday | 10 | 3 |
@@ -54,17 +54,20 @@ generator: scripts/pulse-dictionary-gaps.py
 | Learn | 10 | 3 |
 | San Francisco | 10 | 7 |
 | SpaceX | 10 | 4 |
+| CEO | 10 | 4 |
 | Samsung | 10 | 2 |
 | Energy | 9 | 2 |
 | Monday | 9 | 4 |
 | Texas | 9 | 6 |
 | China | 9 | 5 |
+| Opus | 9 | 4 |
 | These | 9 | 5 |
 | Last | 9 | 5 |
-| CEO | 9 | 4 |
 | Built | 8 | 5 |
 | Flock | 8 | 3 |
-| Opus | 8 | 4 |
+| May | 8 | 5 |
+| Fable | 8 | 3 |
+| SQLite | 8 | 2 |
 | AI-native | 8 | 3 |
 | Mark Zuckerberg | 8 | 3 |
 | Over | 8 | 3 |
@@ -73,10 +76,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Models | 7 | 6 |
 | From | 7 | 6 |
 | January | 7 | 5 |
-| Fable | 7 | 3 |
-| SQLite | 7 | 2 |
-| API | 7 | 4 |
-| AI-generated | 7 | 2 |
+| Chinese | 7 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -88,7 +88,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
 | Show HN | 55 | src-hn-frontpage |
-| The Download | 24 | src-media-mit-techreview |
+| The Download | 25 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Highlights | 15 | src-gh-vllm-releases |
 | Hi HN | 10 | src-hn-frontpage |
@@ -117,11 +117,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | The Stepback | 4 | src-media-theverge |
 | Opt | 4 | src-media-theverge |
 | TechCrunch Disrupt | 4 | src-media-techcrunch |
+| Peacock | 4 | src-media-theverge |
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
 | Galaxy Z Fold | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
 | Disney | 4 | src-media-theverge |
+| MIT Technology Review | 4 | src-media-mit-techreview |
+| Decoder | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
@@ -135,18 +138,15 @@ generator: scripts/pulse-dictionary-gaps.py
 | MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
-| GrapheneOS | 3 | src-hn-frontpage |
 | Space Telescope | 3 | src-media-mit-techreview |
 | According | 3 | src-media-theverge |
-| Peacock | 3 | src-media-theverge |
+| Saturday | 3 | src-media-theverge |
 | RAMageddon | 3 | src-media-theverge |
 | Lean | 3 | src-hn-frontpage |
 | Zig | 3 | src-hn-frontpage |
+| Netflix | 3 | src-media-theverge |
+| Disney Plus | 3 | src-media-theverge |
 | Apple Silicon | 3 | src-hn-frontpage |
-| Rippling | 3 | src-media-techcrunch |
-| APIs | 3 | src-media-techcrunch |
-| Montana | 3 | src-media-mit-techreview |
-| Star Wars | 3 | src-media-theverge |
 
 ## 這一頁不保證什麼
 
