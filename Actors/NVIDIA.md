@@ -3,19 +3,21 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-24'
+generated_day: '2026-08-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **38** 則：`dropped` 1、`published` 32、`review` 5
+事件 **40** 則：`dropped` 1、`published` 35、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-24 | [[Events/evt-2026-08-24-de02fd\|Up to 30x More Work Per Watt: NVIDIA Vera Rubin NVL72 Sets a New Efficiency Standard for AI Agents]] | review |
-| 2026-08-24 | [[Events/evt-2026-08-24-a8db16\|With Groq 3 LPX in Full Production, NVIDIA Extends Vera Rubin Inference for Agents]] | review |
+| 2026-08-25 | [[Events/evt-2026-08-25-727a6f\|Leading Publishers Bring Blockbuster PC Games and Technology to NVIDIA RTX Spark]] | review |
+| 2026-08-24 | [[Events/evt-2026-08-24-e6c7e4\|How XPUs Meet a World-Class AI Factory]] | published |
+| 2026-08-24 | [[Events/evt-2026-08-24-de02fd\|Up to 30x More Work Per Watt: NVIDIA Vera Rubin NVL72 Sets a New Efficiency Standard for AI Agents]] | published |
+| 2026-08-24 | [[Events/evt-2026-08-24-a8db16\|With Groq 3 LPX in Full Production, NVIDIA Extends Vera Rubin Inference for Agents]] | published |
 | 2026-08-20 | [[Events/evt-2026-08-20-439e3e\|Bring the Fire: Play Games on GeForce NOW With New Firefox Browser Support]] | published |
 | 2026-08-18 | [[Events/evt-2026-08-18-e68d9a\|How NVIDIA scales expertise with ChatGPT Work]] | published |
 | 2026-08-17 | [[Events/evt-2026-08-17-2212ad\|Securing the Infrastructure of Intelligence]] | published |

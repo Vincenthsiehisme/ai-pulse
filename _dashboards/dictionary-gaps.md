@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-24'
+generated_day: '2026-08-25'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**28 天**（2026-07-24 … 2026-08-24），去重後 **2027** 列。
+語料範圍：**29 天**（2026-07-24 … 2026-08-25），去重後 **2099** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,66 +17,66 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| LLMs | 32 | 11 |
-| Apple | 32 | 5 |
+| Apple | 40 | 5 |
+| LLMs | 33 | 12 |
 | Amazon | 27 | 5 |
+| LLM | 26 | 9 |
 | July | 25 | 9 |
-| LLM | 25 | 9 |
 | Research | 21 | 5 |
 | There | 20 | 7 |
 | June | 19 | 7 |
+| They | 19 | 9 |
 | U.S | 19 | 7 |
-| They | 18 | 8 |
-| Here | 18 | 8 |
+| Here | 19 | 8 |
+| August | 19 | 5 |
 | Pixel | 18 | 3 |
+| Building | 17 | 10 |
 | One | 17 | 9 |
-| August | 17 | 5 |
+| When | 17 | 6 |
 | Industry | 16 | 2 |
-| Building | 16 | 10 |
-| When | 16 | 6 |
+| Trump | 14 | 4 |
 | European Union | 13 | 2 |
+| Python | 13 | 3 |
 | Pro | 13 | 4 |
 | Wednesday | 12 | 4 |
-| Python | 12 | 3 |
 | With | 12 | 8 |
 | Rust | 12 | 3 |
 | Linux | 12 | 4 |
-| Trump | 12 | 4 |
 | Android | 12 | 3 |
 | Draft | 11 | 2 |
+| Tuesday | 11 | 4 |
+| San Francisco | 11 | 8 |
+| China | 11 | 5 |
 | Elon Musk | 11 | 5 |
+| SpaceX | 11 | 4 |
 | RAM | 11 | 2 |
 | After | 11 | 5 |
+| CEO | 11 | 4 |
 | AI-powered | 10 | 5 |
 | Union | 10 | 2 |
 | Thursday | 10 | 3 |
-| Tuesday | 10 | 4 |
+| Monday | 10 | 4 |
 | Learn | 10 | 3 |
-| San Francisco | 10 | 7 |
-| SpaceX | 10 | 4 |
-| CEO | 10 | 4 |
+| These | 10 | 5 |
 | Samsung | 10 | 2 |
 | Energy | 9 | 2 |
-| Monday | 9 | 4 |
 | Texas | 9 | 6 |
-| China | 9 | 5 |
 | Opus | 9 | 4 |
-| These | 9 | 5 |
 | Last | 9 | 5 |
 | Built | 8 | 5 |
 | Flock | 8 | 3 |
 | May | 8 | 5 |
+| From | 8 | 6 |
 | Fable | 8 | 3 |
 | SQLite | 8 | 2 |
 | AI-native | 8 | 3 |
 | Mark Zuckerberg | 8 | 3 |
 | Over | 8 | 3 |
 | Flash | 7 | 3 |
+| Europe | 7 | 6 |
 | GPUs | 7 | 4 |
 | Models | 7 | 6 |
-| From | 7 | 6 |
 | January | 7 | 5 |
-| Chinese | 7 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,8 +87,8 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 55 | src-hn-frontpage |
-| The Download | 25 | src-media-mit-techreview |
+| Show HN | 56 | src-hn-frontpage |
+| The Download | 26 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Highlights | 15 | src-gh-vllm-releases |
 | Hi HN | 10 | src-hn-frontpage |
@@ -98,12 +98,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | European Biotech Act | 9 | src-ep-itre |
 | Tags | 9 | src-kol-simonwillison |
 | Qwen | 8 | src-qwen-blog |
+| The Verge | 8 | src-media-theverge |
 | Minutes | 7 | src-ep-itre |
 | Launch HN | 7 | src-hn-frontpage |
-| The Verge | 7 | src-media-theverge |
 | GeForce NOW | 6 | src-nvidia-blog |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Marvel | 5 | src-media-theverge |
+| TechCrunch Disrupt | 5 | src-media-techcrunch |
 | FCC | 5 | src-media-theverge |
 | YC S26 | 5 | src-hn-frontpage |
 | TechCrunch | 5 | src-media-techcrunch |
@@ -116,7 +117,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Equity | 4 | src-media-techcrunch |
 | The Stepback | 4 | src-media-theverge |
 | Opt | 4 | src-media-theverge |
-| TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Peacock | 4 | src-media-theverge |
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
@@ -139,14 +139,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
 | Space Telescope | 3 | src-media-mit-techreview |
+| Wall Street | 3 | src-media-techcrunch |
 | According | 3 | src-media-theverge |
+| At TechCrunch Disrupt | 3 | src-media-techcrunch |
 | Saturday | 3 | src-media-theverge |
 | RAMageddon | 3 | src-media-theverge |
 | Lean | 3 | src-hn-frontpage |
 | Zig | 3 | src-hn-frontpage |
-| Netflix | 3 | src-media-theverge |
-| Disney Plus | 3 | src-media-theverge |
-| Apple Silicon | 3 | src-hn-frontpage |
+| Code | 3 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

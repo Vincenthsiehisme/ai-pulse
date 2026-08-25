@@ -1,31 +1,11 @@
 [
   {
-    "full_name": "1weiho/open-slide",
-    "desc": "A slide framework built for agents.",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "react",
-      "slides"
-    ],
-    "stars": 6873,
-    "url": "https://github.com/1weiho/open-slide",
-    "stale_zh": null
-  },
-  {
-    "full_name": "superlinked/sie",
-    "desc": "Open-source inference server and production cluster for all the models your agent needs.",
-    "language": "Python",
-    "topics": [
-      "bge",
-      "colbert",
-      "data-pipeline",
-      "deep-learning",
-      "embeddings",
-      "inference"
-    ],
-    "stars": 2819,
-    "url": "https://github.com/superlinked/sie",
+    "full_name": "multica-ai/multica",
+    "desc": "Make humans and AI agents work as one team — open-source and self-hostable.",
+    "language": "Go",
+    "topics": [],
+    "stars": 47652,
+    "url": "https://github.com/multica-ai/multica",
     "stale_zh": null
   }
 ]
