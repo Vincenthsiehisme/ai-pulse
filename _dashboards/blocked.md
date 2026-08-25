@@ -1,16 +1,8 @@
-# 被門禁擋下（39）
+# 被門禁擋下（27）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-08-25-08b323|The full stack behind abundant intelligence]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-25-4dff38|Granite 4.2 LLMs: How They're Built]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-25-562719|Quantization-Aware Healing: a compressed, 4-bit model that outperforms]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-25-6b3071|Disrupting a new covert influence campaign from Russia]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-25-727a6f|Leading Publishers Bring Blockbuster PC Games and Technology to NVIDIA]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-25-bfec0b|Jalapeño’s first results show industry-leading speed and efficiency in]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-24-6ef4c6|Advancing price-performance for developers with GPT‑5.6 in Kiro]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-21-b1e2e7|How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search o]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-19-5773cb|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-18-6f88db|How Much Memory Does Your Agent Actually Need?]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-14-63e703|State of Open Models: Summer 2026 Observations]]** — Hugging Face — blockers: thin_research_analysis
@@ -35,9 +27,5 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-08-25-4e5d45|Wire It, Run It, Deploy It: AI Workflows in Gradio]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-25-4f2f9f|Economic Futures Research Fund Agenda]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-25-7902a7|Economic Futures Uk Europe]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-25-d7f401|Wellbeing Research Grants]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-08-21-1534c7|Measuring benchmark optimization in speech recognition]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity

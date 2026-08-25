@@ -1,8 +1,32 @@
-# 已發布事件（145）
+# 已發布事件（157）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-08-25
+- **[[Events/evt-2026-08-25-08b323|The full stack behind abundant intelligence]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 財務長 Sarah Friar 說明晶片、算力、模型與產品四層進展如何疊加，讓智慧的規模擴大、成本下降。
+- **[[Events/evt-2026-08-25-4dff38|Granite 4.2 LLMs: How They're Built]]** — IBM · model-capability · conf 73 · heat 未量測
+  IBM 在 Hugging Face 部落格發文介紹 Granite 4.2 系列語言模型的建構方式。
+- **[[Events/evt-2026-08-25-4e5d45|Wire It, Run It, Deploy It: AI Workflows in Gradio]]** — Hugging Face · product · conf 73 · heat 未量測
+  Hugging Face 發文介紹 Gradio 的 AI 工作流功能，說明如何串接、執行並部署 AI 工作流程。
+- **[[Events/evt-2026-08-25-4f2f9f|Economic Futures Research Fund Agenda]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布一則跟「Economic Futures Research Fund」議程有關的公告，我們的來源政策只留標題與連結，沒有轉述內文。
+- **[[Events/evt-2026-08-25-562719|Quantization-Aware Healing: a compressed, 4-bit model that outperforms its full-precision original]]** — Multiverse Computing · model-capability · conf 73 · heat 未量測
+  Multiverse Computing 發表量化方法 Quantization-Aware Healing，宣稱把模型壓到 4-bit 之後效果反而超越原本的全精度模型。
+- **[[Events/evt-2026-08-25-6b3071|Disrupting a new covert influence campaign from Russia]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 表示已封鎖一批源自俄羅斯的帳號，這些帳號用 AI 生成內容冒充以色列智庫身分，並推廣吹捧俄羅斯、批評西方的「主權指數」。
+- **[[Events/evt-2026-08-25-727a6f|Leading Publishers Bring Blockbuster PC Games and Technology to NVIDIA RTX Spark]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 在 Gamescom 遊戲展上宣布新一波支援 RTX 的遊戲陣容，包括 Electronic Arts、Embark 與 Ubisoft 等發行商。
+- **[[Events/evt-2026-08-25-7902a7|Economic Futures Uk Europe]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布一則跟「Economic Futures」在英國、歐洲落地有關的公告，我們的來源政策只留標題與連結，沒有轉述內文。
+- **[[Events/evt-2026-08-25-bfec0b|Jalapeño’s first results show industry-leading speed and efficiency in AI inference]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 公布自研推論晶片 Jalapeño 的第一批結果，宣稱吞吐量更高、延遲更低、更省電。
+- **[[Events/evt-2026-08-25-d7f401|Wellbeing Research Grants]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布一則跟「Wellbeing Research Grants」有關的公告，我們的來源政策只留標題與連結，沒有轉述內文。
+
 ## 2026-08-24
+- **[[Events/evt-2026-08-24-6ef4c6|Advancing price-performance for developers with GPT‑5.6 in Kiro]]** — OpenAI · product · conf 73 · heat 未量測
+  GPT-5.6 上架 AI 開發工具 Kiro，官方主打比前代更好的價格效能比。
 - **[[Events/evt-2026-08-24-7ee4a1|Improving Fable 5 S Biology Safeguards]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 發布強化 Fable 5 生物安全防護的公告，正文我們選擇不轉述
 - **[[Events/evt-2026-08-24-a8db16|With Groq 3 LPX in Full Production, NVIDIA Extends Vera Rubin Inference for Agents]]** — NVIDIA · infra · conf 73 · heat 未量測
@@ -17,6 +41,8 @@
 ## 2026-08-21
 - **[[Events/evt-2026-08-21-1140ad|From Atari to EVE Online: Building on 15 Years of AI Research in Games]]** — Google DeepMind · research · conf 73 · heat 未量測
   DeepMind 回顧 15 年遊戲 AI 研究，並談與遊戲工作室合作打造新玩法的計畫。
+- **[[Events/evt-2026-08-21-b1e2e7|How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 用自家 Inference Endpoints、Jobs 與 Buckets 三項雲端服務，架起 Papers with Code 的論文搜尋功能。
 
 ## 2026-08-20
 - **[[Events/evt-2026-08-20-3eb48c|Up to 3.2x Faster Inference with LFM2.5-DSpark]]** — Liquid AI · model-capability · conf 73 · heat 未量測

@@ -294,6 +294,11 @@
     "src_hash": "5329e3096f48",
     "zh": "817 個資安技能，對應 MITRE、NIST 等六套框架，支援 Claude Code 等 20 多個平台使用"
   },
+  "multica-ai/multica": {
+    "at": "2026-08-25T19:15:13+00:00",
+    "src_hash": "78779d3ccea1",
+    "zh": "讓人類和 AI agent 像同一個團隊一樣工作，開源、可自架"
+  },
   "mvanhorn/last30days-skill": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "43525ace4b73",
