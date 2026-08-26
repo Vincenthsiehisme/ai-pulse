@@ -1,8 +1,44 @@
 [
   {
-    "id": "evt-2026-08-21-b1e2e7",
-    "path": "evt-2026-08-21-b1e2e7.md",
-    "title": "How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code",
+    "id": "evt-2026-08-25-b6389f",
+    "path": "evt-2026-08-25-b6389f.md",
+    "title": "Introducing the Admin plugin for ChatGPT Work and Codex",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/introducing-admin-plugin",
+        "title": "Introducing the Admin plugin for ChatGPT Work and Codex",
+        "summary": "Use the Admin plugin for ChatGPT Work and Codex to analyze workspace usage, manage members and permissions, adjust limits, and act on admin requests."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-26-27f332",
+    "path": "evt-2026-08-26-27f332.md",
+    "title": "v0.28.0",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Moonshot AI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-gh-vllm-releases",
+        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.28.0",
+        "title": "v0.28.0",
+        "summary": "# v0.28.0\r\n\r\n## Highlights\r\n\r\nThis release features 584 commits from 270 contributors (76 new)!\r\n\r\n* **Kimi-K3 performance push**: a major optimization effort for Kimi-K3 across the stack — Decode Context Parallel (DCP) support (#50484), fused FlashKDA decode and prefill kernels (#50654, #51311, #52"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-26-41a80d",
+    "path": "evt-2026-08-26-41a80d.md",
+    "title": "Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "Hugging Face",
@@ -11,34 +47,16 @@
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/pwc-search",
-        "title": "How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code",
+        "url": "https://huggingface.co/blog/train-multi-vector-encoder",
+        "title": "Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers",
         "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
       }
     ]
   },
   {
-    "id": "evt-2026-08-24-6ef4c6",
-    "path": "evt-2026-08-24-6ef4c6.md",
-    "title": "Advancing price-performance for developers with GPT‑5.6 in Kiro",
-    "fingerprint": null,
-    "facet": "pricing",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/gpt-5-6-in-kiro",
-        "title": "Advancing price-performance for developers with GPT‑5.6 in Kiro",
-        "summary": "GPT‑5.6 is now available in Kiro, helping developers plan, build, review, and test software with better price-performance."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-08b323",
-    "path": "evt-2026-08-25-08b323.md",
-    "title": "The full stack behind abundant intelligence",
+    "id": "evt-2026-08-26-f09b0b",
+    "path": "evt-2026-08-26-f09b0b.md",
+    "title": "How loveholidays is making everyone a builder with Codex",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -47,201 +65,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/the-full-stack-behind-abundant-intelligence",
-        "title": "The full stack behind abundant intelligence",
-        "summary": "OpenAI CFO Sarah Friar explains how advances across chips, compute, models, and products compound to deliver more useful intelligence at greater scale and lower cost."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-4dff38",
-    "path": "evt-2026-08-25-4dff38.md",
-    "title": "Granite 4.2 LLMs: How They're Built",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/ibm-granite/granite-4-2",
-        "title": "Granite 4.2 LLMs: How They're Built",
-        "summary": "A Blog post by IBM Granite on Hugging Face"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-4e5d45",
-    "path": "evt-2026-08-25-4e5d45.md",
-    "title": "Wire It, Run It, Deploy It: AI Workflows in Gradio",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/gradio-workflow-guide",
-        "title": "Wire It, Run It, Deploy It: AI Workflows in Gradio",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-4f2f9f",
-    "path": "evt-2026-08-25-4f2f9f.md",
-    "title": "Economic Futures Research Fund Agenda",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/economic-futures-research-fund-agenda",
-        "title": "Economic Futures Research Fund Agenda",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-562719",
-    "path": "evt-2026-08-25-562719.md",
-    "title": "Quantization-Aware Healing: a compressed, 4-bit model that outperforms its full-precision original",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/MultiverseComputingCAI/quantization-aware-healing",
-        "title": "Quantization-Aware Healing: a compressed, 4-bit model that outperforms its full-precision original",
-        "summary": "A Blog post by Multiverse Computing on Hugging Face"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-6b3071",
-    "path": "evt-2026-08-25-6b3071.md",
-    "title": "Disrupting a new covert influence campaign from Russia",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/disrupting-malicious-uses-of-ai-influence-campaign-russia",
-        "title": "Disrupting a new covert influence campaign from Russia",
-        "summary": "OpenAI banned Russia-origin accounts using AI to promote a fake Israel-based think tank and a “sovereignty” index praising Russia and criticizing the West."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-727a6f",
-    "path": "evt-2026-08-25-727a6f.md",
-    "title": "Leading Publishers Bring Blockbuster PC Games and Technology to NVIDIA RTX Spark",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/gamescom-rtx-spark-pc-games-technology/",
-        "title": "Leading Publishers Bring Blockbuster PC Games and Technology to NVIDIA RTX Spark",
-        "summary": "NVIDIA is bringing the next wave of RTX gaming to the Gamescom conference running this week in Cologne, Germany, with support for new games, anti-cheat technologies and increased visual quality.  Electronic Arts, Embark and Ubisoft are among the latest game publishers and developers bringing their b"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-7902a7",
-    "path": "evt-2026-08-25-7902a7.md",
-    "title": "Economic Futures Uk Europe",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/economic-futures-uk-europe",
-        "title": "Economic Futures Uk Europe",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-bfec0b",
-    "path": "evt-2026-08-25-bfec0b.md",
-    "title": "Jalapeño’s first results show industry-leading speed and efficiency in AI inference",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/jalapeno-first-results",
-        "title": "Jalapeño’s first results show industry-leading speed and efficiency in AI inference",
-        "summary": "Jalapeño is a custom inference chip from OpenAI that delivers faster, more power-efficient AI inference, with higher throughput and lower latency for modern models."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-d7f401",
-    "path": "evt-2026-08-25-d7f401.md",
-    "title": "Wellbeing Research Grants",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/wellbeing-research-grants",
-        "title": "Wellbeing Research Grants",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-08-25-de6254",
-    "path": "evt-2026-08-25-de6254.md",
-    "title": "Anthropic Economic Index Insights From Claude Sonnet 3.7",
-    "fingerprint": "anthropic:claude:sonnet:3.7",
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/anthropic-economic-index-insights-from-claude-sonnet-3-7",
-        "title": "Anthropic Economic Index Insights From Claude Sonnet 3.7",
-        "summary": ""
-      },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/anthropic-economic-index-connector",
-        "title": "Anthropic Economic Index Connector",
-        "summary": ""
-      },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/the-anthropic-economic-index",
-        "title": "The Anthropic Economic Index",
-        "summary": ""
+        "url": "https://openai.com/index/loveholidays",
+        "title": "How loveholidays is making everyone a builder with Codex",
+        "summary": "Discover how loveholidays uses OpenAI Codex to make software development accessible across the business, helping teams turn ideas into products faster."
       }
     ]
   }

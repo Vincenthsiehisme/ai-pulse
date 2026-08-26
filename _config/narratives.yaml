@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-08-25'
+updated: '2026-08-26'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 這條線這一輪新增一則：OpenAI 公布自研推論晶片 Jalapeño 的第一批結果，宣稱吞吐量更高、延遲更低、更省電，但沒有跟現有商用晶片的直接效能對比，也沒有量產或部署時程。這是這條線第一次出現 OpenAI 自研晶片的訊號，跟既有的 NVIDIA 系列敘事（把每一塊錢算力壓低）站在同一個問題上，但這次是換供應鏈自己動手做，而不是靠 NVIDIA 的新硬體。既有主軸不變：訊號幾乎全來自 NVIDIA 一家，圍繞 agent 工作負載比一般查詢貴、要換更省電更開放的基礎設施；Vera Rubin NVL72 每瓦工作量提升 30 倍、Groq 3 LPX 全面量產、NVLink Fusion 接第三方 XPU 這三則的效率倍數與整合細節都還只有官方說法；OpenAI 持續在美國多州把資料中心投資跟社區關係、地方政策綁在一起發布。
-    next: OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比，或量產與部署時程。其餘沿用既有訊號：NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨；Dharma-AI 那則 33 個百分點的數字是否補上方法細節；PORTS-Pike 專案是否有俄亥俄州當地媒體或官方獨立報導佐證就業數字。
+    now: 這條線這一輪新增一則：vLLM 發布 v0.28.0，收錄 584 次提交、270 位貢獻者，重點是針對 Kimi-K3 的效能優化，包含 Decode Context Parallel 支援與融合 FlashKDA kernel。這是例行版本更新，跟這條線既有的「把每一塊錢算力壓低」主軸關聯不大，但持續顯示 vLLM 生態圈的開發動能與新模型的跟進速度。既有主軸不變：OpenAI 公布自研推論晶片 Jalapeño 的第一批結果，宣稱吞吐量更高、延遲更低、更省電，但沒有跟現有商用晶片的直接效能對比；訊號幾乎全來自 NVIDIA 一家，圍繞 agent 工作負載比一般查詢貴、要換更省電更開放的基礎設施；Vera Rubin NVL72 每瓦工作量提升 30 倍、Groq 3 LPX 全面量產、NVLink Fusion 接第三方 XPU 這三則的效率倍數與整合細節都還只有官方說法；OpenAI 持續在美國多州把資料中心投資跟社區關係、地方政策綁在一起發布。
+    next: Kimi-K3 在 vLLM 上的實測效能數字，或下一個 minor 版本是否有更大幅度的架構調整。其餘沿用既有訊號：OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比，或量產與部署時程；NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨；Dharma-AI 那則 33 個百分點的數字是否補上方法細節；PORTS-Pike 專案是否有俄亥俄州當地媒體或官方獨立報導佐證就業數字。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這條線這一輪新增兩則。IBM 在 Hugging Face 部落格發文介紹 Granite 4.2 系列語言模型的建構方式，但只有標題與作者資訊，技術細節沒有摘要可看；另一則是 Multiverse Computing 發表的量化方法《Quantization-Aware Healing》，宣稱把模型壓縮到 4-bit 之後，表現反而超越原本的全精度模型。兩則放在一起看都是壓縮或降規模端的訊號，跟這條線既有的「小而專、成本導向」走向同一個方向，只是這次換一個做模型壓縮、一個做端側架構說明，都還停在廠商自己的一句話宣稱，沒有第三方或跨模型的驗證。既有主軸不變：模型往小而專走（Gemini 3.7 Flash、Nemotron 3.5 Lightning、LFM2.5 系列端側模型），效率端敘事持續累積（GPT-5.6 把賣點從更強移到更省），Anthropic 那兩則安全公告仍只留標題。
-    next: Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文。其餘沿用既有訊號：Anthropic 那兩則安全公告的正文我們選擇不轉述，只能盯原文連結有沒有被第三方引用；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
+    now: 這條線這一輪新增一則。Hugging Face 發部落格教學，講怎麼用 Sentence Transformers 訓練與微調多向量（multi-vector）嵌入模型；不過來源摘要只帶到 Hugging Face 官方部落格的固定簡介文字，沒有文章本身的技術內容可看，跟這條線既有的「小而專、成本導向」走向沒有直接關聯，比較像是嵌入模型訓練工具鏈的補齊。既有主軸不變：IBM Granite 4.2 與 Multiverse Computing 的量化方法都還停在廠商自己的一句話宣稱，沒有第三方或跨模型驗證；模型往小而專走（Gemini 3.7 Flash、Nemotron 3.5 Lightning、LFM2.5 系列端側模型），效率端敘事持續累積（GPT-5.6 把賣點從更強移到更省），Anthropic 那兩則安全公告仍只留標題。
+    next: 這篇教學實際涵蓋的訓練細節與效能比較要看原文才知道，值不值得放進主線敘事還得看內容補上來之後。其餘沿用既有訊號：Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文；Anthropic 那兩則安全公告的正文我們選擇不轉述，只能盯原文連結有沒有被第三方引用；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這條線這一輪新增兩則。GPT-5.6 上架 AI 輔助開發工具 Kiro，官方主打比前代更好的價格效能比，沒有給出具體定價數字；NVIDIA 在 Gamescom 遊戲展宣布新一波支援 RTX 的遊戲陣容，包括 Electronic Arts、Embark 與 Ubisoft 等發行商，這則屬於消費顯卡業務的例行合作宣傳，跟 AI 產業核心進展關聯不大。GPT-5.6 進 Kiro 延續這條線既有的「能力已經做得到，看怎麼真的用上」走向，只是這次把價格效能比當賣點，而不是新功能。既有主軸不變：Stampli 那兩篇官方案例（68% 工時、Codex 排工作流）仍沒有第三方驗證；GeForce NOW 開放 Firefox 補的是安裝權限這道門檻；OpenAI 重申零資料留存並預告 Private Safety Processing，技術細節未交代；xAI 的《Grok 4.6 Amazon Bedrock》站方政策不開放內文。
-    next: Kiro 或 OpenAI 是否公布 GPT-5.6 相較前代的具體定價或 token 成本差異，讓「價格效能比更好」這句話有數字可查。NVIDIA RTX Spark 這批遊戲上市後的實測評價，或有沒有新的 AI 渲染功能隨之公布。其餘沿用既有訊號：Stampli 案例有沒有客戶方自己或第三方獨立證實六十八個百分點；Private Safety Processing 有沒有公布技術細節；GeForce NOW 的 Firefox 支援有沒有帶動可查證的使用量變化；ChatGPT Ads 擴到歐洲後歐盟監理機關是否展開審查；Grok 4.6 Amazon Bedrock 等原文能取用時再確認實際形式。
+    now: 這條線這一輪新增兩則，都是 OpenAI 同一天發的稿：Admin plugin 幫 ChatGPT Work 與 Codex 補後台管理，讓管理者能分析工作區使用量、管理成員與權限、調整額度；同一天的客戶案例則說旅遊業者 loveholidays 靠 Codex 讓非工程背景的員工也能參與軟體開發。兩則放在一起看，是「擴大誰能用」跟「管理者管不管得住」同時出現，跟這條線既有的「能力已經做得到，看怎麼真的用上」走向同一個方向，只是這次兩件事同一天一起發。既有主軸不變：GPT-5.6 進 Kiro 主打價格效能比，沒有具體定價數字；NVIDIA 在 Gamescom 的 RTX 遊戲陣容宣傳屬消費顯卡業務，跟 AI 產業核心進展關聯不大；Stampli 那兩篇官方案例仍沒有第三方驗證；GeForce NOW 開放 Firefox 補的是安裝權限這道門檻；OpenAI 重申零資料留存並預告 Private Safety Processing，技術細節未交代；xAI 的《Grok 4.6 Amazon Bedrock》站方政策不開放內文。
+    next: OpenAI 是否會把 Admin plugin 這類管理功能擴展到更多產品線，或揭露企業客戶的實際採用數字；loveholidays 或其他企業是否公開具體的採用數字，或有獨立媒體報導佐證「非工程師也能用 Codex」的說法。其餘沿用既有訊號：Kiro 或 OpenAI 是否公布 GPT-5.6 相較前代的具體定價或 token 成本差異；NVIDIA RTX Spark 這批遊戲上市後的實測評價；Stampli 案例有沒有客戶方自己或第三方獨立證實六十八個百分點；Private Safety Processing 有沒有公布技術細節；ChatGPT Ads 擴到歐洲後歐盟監理機關是否展開審查；Grok 4.6 Amazon Bedrock 等原文能取用時再確認實際形式。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？

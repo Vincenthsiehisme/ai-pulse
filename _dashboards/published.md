@@ -1,6 +1,14 @@
-# 已發布事件（157）
+# 已發布事件（161）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-08-26
+- **[[Events/evt-2026-08-26-27f332|v0.28.0]]** — vLLM · infra · conf 73 · heat 未量測
+  vLLM 發布 v0.28.0，這版對 Kimi-K3 做了一輪效能優化。
+- **[[Events/evt-2026-08-26-41a80d|Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers]]** — Hugging Face · research · conf 73 · heat 未量測
+  Hugging Face 出了一篇教學，講怎麼用 Sentence Transformers 訓練多向量嵌入模型。
+- **[[Events/evt-2026-08-26-f09b0b|How loveholidays is making everyone a builder with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 秀了一個客戶案例，說旅遊業者 loveholidays 怎麼用 Codex 讓一般人也能寫程式。
 
 ## 2026-08-25
 - **[[Events/evt-2026-08-25-08b323|The full stack behind abundant intelligence]]** — OpenAI · capital · conf 73 · heat 未量測
@@ -19,6 +27,8 @@
   NVIDIA 在 Gamescom 遊戲展上宣布新一波支援 RTX 的遊戲陣容，包括 Electronic Arts、Embark 與 Ubisoft 等發行商。
 - **[[Events/evt-2026-08-25-7902a7|Economic Futures Uk Europe]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 發布一則跟「Economic Futures」在英國、歐洲落地有關的公告，我們的來源政策只留標題與連結，沒有轉述內文。
+- **[[Events/evt-2026-08-25-b6389f|Introducing the Admin plugin for ChatGPT Work and Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 幫 ChatGPT Work 與 Codex 推出後台管理工具 Admin plugin。
 - **[[Events/evt-2026-08-25-bfec0b|Jalapeño’s first results show industry-leading speed and efficiency in AI inference]]** — OpenAI · infra · conf 73 · heat 未量測
   OpenAI 公布自研推論晶片 Jalapeño 的第一批結果，宣稱吞吐量更高、延遲更低、更省電。
 - **[[Events/evt-2026-08-25-d7f401|Wellbeing Research Grants]]** — Anthropic · policy · conf 73 · heat 未量測

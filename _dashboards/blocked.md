@@ -1,11 +1,7 @@
-# 被門禁擋下（31）
+# 被門禁擋下（27）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-08-26-27f332|v0.28.0]]** — Moonshot AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-26-41a80d|Training and Finetuning Multi-Vector Embedding Models with Sentence Tr]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-26-f09b0b|How loveholidays is making everyone a builder with Codex]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-25-b6389f|Introducing the Admin plugin for ChatGPT Work and Codex]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-19-5773cb|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-18-6f88db|How Much Memory Does Your Agent Actually Need?]]** — Hugging Face — blockers: thin_research_analysis
