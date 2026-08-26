@@ -14,9 +14,9 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "abstract + link"
 endpoint: "https://www.microsoft.com/en-us/research/feed/"
-robots_checked_day: "2026-08-19"
+robots_checked_day: "2026-08-26"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-08-25"
+last_observed_day: "2026-08-26"
 items_observed: 16
 events_bound: 2
 events_published: 2

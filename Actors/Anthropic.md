@@ -3,18 +3,21 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-08-25'
+generated_day: '2026-08-26'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **22** 則：`published` 19、`review` 3
+事件 **25** 則：`published` 22、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
 | 2026-08-25 | [[Events/evt-2026-08-25-de6254\|Anthropic Economic Index Insights From Claude Sonnet 3.7]] | review |
+| 2026-08-25 | [[Events/evt-2026-08-25-d7f401\|Wellbeing Research Grants]] | published |
+| 2026-08-25 | [[Events/evt-2026-08-25-7902a7\|Economic Futures Uk Europe]] | published |
+| 2026-08-25 | [[Events/evt-2026-08-25-4f2f9f\|Economic Futures Research Fund Agenda]] | published |
 | 2026-08-24 | [[Events/evt-2026-08-24-c5f2a2\|Claude Text Watermark]] | published |
 | 2026-08-24 | [[Events/evt-2026-08-24-7ee4a1\|Improving Fable 5 S Biology Safeguards]] | published |
 | 2026-08-15 | [[Events/evt-2026-08-15-c5f2a2\|Claude Text Watermark]] | published |

@@ -1,11 +1,18 @@
 [
   {
-    "full_name": "multica-ai/multica",
-    "desc": "Make humans and AI agents work as one team — open-source and self-hostable.",
-    "language": "Go",
-    "topics": [],
-    "stars": 47652,
-    "url": "https://github.com/multica-ai/multica",
+    "full_name": "shanraisshan/claude-code-best-practice",
+    "desc": "from vibe coding to agentic engineering - practice makes claude perfect",
+    "language": "HTML",
+    "topics": [
+      "agentic-ai",
+      "agentic-coding",
+      "agentic-engineering",
+      "agentic-workflow",
+      "ai",
+      "ai-agents"
+    ],
+    "stars": 65172,
+    "url": "https://github.com/shanraisshan/claude-code-best-practice",
     "stale_zh": null
   }
 ]

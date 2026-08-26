@@ -3,20 +3,20 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-08-25'
+generated_day: '2026-08-26'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **9** 則：`published` 2、`review` 7
+事件 **9** 則：`published` 4、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-25 | [[Events/evt-2026-08-25-562719\|Quantization-Aware Healing: a compressed, 4-bit model that outperforms its full-precision original]] | review |
-| 2026-08-25 | [[Events/evt-2026-08-25-4dff38\|Granite 4.2 LLMs: How They're Built]] | review |
-| 2026-08-21 | [[Events/evt-2026-08-21-b1e2e7\|How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code]] | review |
+| 2026-08-26 | [[Events/evt-2026-08-26-41a80d\|Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers]] | review |
+| 2026-08-25 | [[Events/evt-2026-08-25-4e5d45\|Wire It, Run It, Deploy It: AI Workflows in Gradio]] | published |
+| 2026-08-21 | [[Events/evt-2026-08-21-b1e2e7\|How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code]] | published |
 | 2026-08-19 | [[Events/evt-2026-08-19-5773cb\|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]] | review |
 | 2026-08-18 | [[Events/evt-2026-08-18-f10f20\|Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers]] | published |
 | 2026-08-18 | [[Events/evt-2026-08-18-6f88db\|How Much Memory Does Your Agent Actually Need?]] | review |

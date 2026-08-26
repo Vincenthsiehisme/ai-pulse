@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-08-25"
+generated_day: "2026-08-26"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-08-25"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **131** 則／已裁決 **26** 則。
+待回答 **143** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#6c7d420d`** — infra-cost
-  > 今天這三則看 NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合，以及有沒有實際的第三方 XPU 廠商透過 NVLink Fusion 出貨。Dharma-AI 那則看是否補上方法細節、測試環境或可重現的資料，讓 33 個百分點這個數字站得住腳；NVIDIA 安全那篇看是否後續釋出具體的安全產品、認證或客戶案例；PORTS-Pike 看專案具體內容公布、俄亥俄州當地媒體或官方是否有獨立報導佐證就業數字。
+- **`infra-cost#51e2f6a6`** — infra-cost
+  > OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比，或量產與部署時程。其餘沿用既有訊號：NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨；Dharma-AI 那則 33 個百分點的數字是否補上方法細節；PORTS-Pike 專案是否有俄亥俄州當地媒體或官方獨立報導佐證就業數字。
 
-- **`model-research#59b2dab3`** — model-research
-  > Anthropic 這兩則的正文我們選擇不轉述，只能盯原文連結有沒有被第三方引用、或 Anthropic 之後有沒有在其他管道補上具體技術細節。LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試或跑分驗證。OpenAI 這一串資安、對齊公告會不會有任何一則補上具體的評估標準、稽核方由誰擔任，把 Anthropic 這兩則加進來看，目前還是全部只有敘述，這是這條線最值得盯的空白。其餘沿用既有訊號：Gemini 3.7 Flash 看第三方跑分；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
+- **`model-research#9d40e407`** — model-research
+  > Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文。其餘沿用既有訊號：Anthropic 那兩則安全公告的正文我們選擇不轉述，只能盯原文連結有沒有被第三方引用；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
 
-- **`product-market#789e7e1a`** — product-market
-  > 看 Stampli 案例有沒有客戶方自己或第三方獨立證實那個六十八個百分點，這一整批企業案例目前沒有任何一則做到。看 Private Safety Processing 有沒有公布技術細節或架構說明，以及有沒有企業客戶把它當成採購理由講出來。看 GeForce NOW 的 Firefox 支援有沒有帶動可查證的使用量變化，或 NVIDIA 把同樣的瀏覽器優先策略延伸到其他服務。ChatGPT Ads 擴到歐洲後，歐盟監理機關是否對資料使用或廣告揭露展開審查。ChatGPT for Teens 的家長管控與內容限制細則是否公開。Grok 4.6 Amazon Bedrock 因站方政策我們只留標題連結，等原文能取用時再確認實際是上架、整合還是其他形式。
+- **`product-market#0951ae0d`** — product-market
+  > Kiro 或 OpenAI 是否公布 GPT-5.6 相較前代的具體定價或 token 成本差異，讓「價格效能比更好」這句話有數字可查。NVIDIA RTX Spark 這批遊戲上市後的實測評價，或有沒有新的 AI 渲染功能隨之公布。其餘沿用既有訊號：Stampli 案例有沒有客戶方自己或第三方獨立證實六十八個百分點；Private Safety Processing 有沒有公布技術細節；GeForce NOW 的 Firefox 支援有沒有帶動可查證的使用量變化；ChatGPT Ads 擴到歐洲後歐盟監理機關是否展開審查；Grok 4.6 Amazon Bedrock 等原文能取用時再確認實際形式。
 
-- **`capital-evolution#6621cf87`** — capital-evolution
-  > 看 Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整。看 NVIDIA 的融資平台有沒有第一筆實際資金到位、動員規模是否對得上 5,000 億美元的說法。廣告測試看擴大速度與是否影響回答中立性，以及跟訂閱營收的比重變化。看有沒有第二筆「算力當資本」的同類案例，判斷 Google 那招是模式還是個案；OpenAI 董事變動後有沒有大型融資、重組或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。
+- **`capital-evolution#42364cac`** — capital-evolution
+  > OpenAI 後續是否用具體定價下修或財報數字佐證這篇談的成本下降。其餘沿用既有訊號：Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整；NVIDIA 的融資平台有沒有第一筆實際資金到位；廣告測試看擴大速度與是否影響回答中立性；有沒有第二筆「算力當資本」的同類案例；OpenAI 董事變動後有沒有大型融資或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。
 
-- **`agent-refactor#83e8190e`** — agent-refactor
-  > xAI 這次的 Grok Build 開放，有沒有第三方或使用者實測貼出具體功能範圍，跟七月底的 Build Mode 是不是同一個東西改名重推。Replit Free Mode 是否設有隱藏的速率限制或每日用量上限，以及 Luna 免費開放後的實際使用規模數據是否被公布。Asana 案例是否有第三方或 Asana 自己揭露這次重構的實際範圍、程式碼行數或測試涵蓋率變化。Grok 4.6 Github Copilot 看 GitHub Copilot 官方文件或 changelog 有沒有列出 Grok 4.6 為可選模型。Amazon 的 Strands Agents 整合看有沒有實際機器人團隊公開採用並公布效能或成本數字。GPT-5.6 建構者指南看有沒有第三方新創公布用 Responses API 前後的實際成本或延遲對比。NVIDIA 那篇開場文看後續是否點名具體模型與合作夥伴。部署端看 Orchard 有沒有微軟以外的採用、Presence 有沒有具名客戶。治理端看 SAFE 準則會不會收斂成正式規範、有多少家真的照做而非只是簽名。
+- **`agent-refactor#d3eea02e`** — agent-refactor
+  > Gradio 這篇看官方文件有沒有補上對應的版本號或 API，判斷是新功能還是既有能力的重新包裝。其餘沿用既有訊號：xAI 的 Grok Build 開放有沒有第三方或使用者實測貼出具體功能範圍；Replit Free Mode 是否設有隱藏的速率限制；Asana 案例是否有第三方或 Asana 自己揭露這次重構的實際範圍；GitHub Copilot 官方文件有沒有列出 Grok 4.6 為可選模型；Amazon 的 Strands Agents 整合有沒有實際機器人團隊公開採用；部署端看 Orchard 有沒有微軟以外的採用、Presence 有沒有具名客戶；治理端看 SAFE 準則會不會收斂成正式規範。
 
-- **`global-map#4e83f98b`** — global-map
-  > AI Futures 系列接下來會放出哪些具體文章，論述的具體立場是什麼。國安民主監督計畫是否有政府機構具名參與，或 OpenAI 是否公布實際交付的工具與訓練內容。CodeAI 合作的具體課程內容、覆蓋的學校或學生規模是否公布。OpenAI 資助的十四個政策研究專案看具體名單與研究成果何時公布。印尼 AI 中心看課程規劃、GPU 規模與招生細節是否公開。NSF AI 中心計畫看實際撥給哪些機構、NVIDIA 投入的算力或資金規模。APA 合作案看是否有具體安全功能上線。這幾則放在一起，下一步要看的是有沒有更多同類型公共領域佈局公告在近期集中出現，還是這幾週只是巧合。
+- **`global-map#1dd6b6f5`** — global-map
+  > OpenAI 封鎖的這批帳號規模、觸及人數，是否有獨立研究單位交叉驗證。Anthropic 這三則的研究基金規模、資助對象或審核標準是否在原文或後續公告中補上。其餘沿用既有訊號：AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布；印尼 AI 中心、NSF AI 中心計畫、APA 合作案這幾則是否有更具體的執行細節公布。
 
-## 事件層（125）
+## 事件層（137）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -404,6 +404,12 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-08-21-1140ad#90c0f887`** — evt-2026-08-21-1140ad
   > 跟遊戲工作室的具體合作案有沒有後續、有沒有玩法或技術細節公開。
 
+- **`evt-2026-08-21-b1e2e7#80d8fb40`** — evt-2026-08-21-b1e2e7
+  > Hugging Face 是否公開這套搜尋架構的效能數字，或把同樣做法延伸到其他資料集
+
+- **`evt-2026-08-24-6ef4c6#f2d7462f`** — evt-2026-08-24-6ef4c6
+  > Kiro 或 OpenAI 是否公布 GPT-5.6 相較前代的具體定價或 token 成本差異
+
 - **`evt-2026-08-24-7ee4a1#45e55742`** — evt-2026-08-24-7ee4a1
   > Anthropic 是否公開這次防護具體變動了什麼、或哪個模型版本、事故觸發了這次更新
 
@@ -418,3 +424,33 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-08-24-e6c7e4#83788cff`** — evt-2026-08-24-e6c7e4
   > 有哪些實際的第三方 XPU 廠商透過 NVLink Fusion 出貨，這個模式在客戶端的實際採用率如何
+
+- **`evt-2026-08-25-08b323#da75cd5b`** — evt-2026-08-25-08b323
+  > OpenAI 後續是否用具體定價下修或財報數字佐證這篇談的成本下降
+
+- **`evt-2026-08-25-4dff38#9b4afbf8`** — evt-2026-08-25-4dff38
+  > Granite 4.2 是否公布可對照的 benchmark 分數或架構論文
+
+- **`evt-2026-08-25-4e5d45#065652e3`** — evt-2026-08-25-4e5d45
+  > Gradio 官方文件是否列出這套工作流功能對應的版本號或 API
+
+- **`evt-2026-08-25-4f2f9f#49557c8f`** — evt-2026-08-25-4f2f9f
+  > 這個研究基金是否公布具體的資助項目或金額
+
+- **`evt-2026-08-25-562719#27525d4e`** — evt-2026-08-25-562719
+  > 是否有第三方在其他模型或任務上重現同樣的量化後表現提升
+
+- **`evt-2026-08-25-6b3071#7db570df`** — evt-2026-08-25-6b3071
+  > 是否有獨立研究單位交叉驗證這起活動的規模與擴散範圍
+
+- **`evt-2026-08-25-727a6f#6b8d1e43`** — evt-2026-08-25-727a6f
+  > 這些遊戲上市後的 RTX 實測評價，或是否有新的 AI 渲染功能隨之公布
+
+- **`evt-2026-08-25-7902a7#90c414ae`** — evt-2026-08-25-7902a7
+  > Anthropic 是否公布這項計畫在英國、歐洲的具體合作對象或時程
+
+- **`evt-2026-08-25-bfec0b#e8995f9f`** — evt-2026-08-25-bfec0b
+  > OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比，或量產與部署時程
+
+- **`evt-2026-08-25-d7f401#fdb7a5b9`** — evt-2026-08-25-d7f401
+  > 這批福祉研究補助的入選名單或研究方向是否公布
