@@ -1,33 +1,8 @@
-# 被門禁擋下（62）
+# 被門禁擋下（28）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-08-27-49fd14|Anthropic Teach For All]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-593f40|Claude For Small Business]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-638a48|GeForce NOW Gives Gamers More Ways to Play at Gamescom 2026]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-27-6de828|Anthropic Rwanda Mou]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-786c9c|Anthropic And Iceland Announce One Of The World S First National Ai Ed]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-8bf995|Better answers, broader thinking: What students gain from ChatGPT and ]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-27-a3f0c8|Anthropic Partners With Allen Institute And Howard Hughes Medical Inst]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-ac14f8|Expanding OpenAI’s presence in Brazil]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-27-af2d41|Gemini Omni 1.1 Flash lets you build with more control]]** — Google DeepMind — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-be3fd3|Claude Corps]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-c82b7a|Anthropic Codepath Partnership]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-dc33f8|Advancing Claude For Education]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-27-e4376e|Delivering Vera: NVIDIA’s First CPU Built for Agents Is Shipping Now]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-27-fe7ceb|Claude For Life Sciences]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-26-083a2e|Lawrence Livermore National Laboratory Expands Claude For Enterprise T]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-26-23ba64|Bringing ChatGPT for Teachers to more U.S. school districts]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-26-523595|Grok Bot More Plans]]** — xAI — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-26-855285|Grok 4.6 Microsoft Foundry]]** — Microsoft — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-26-bf0aa0|NVIDIA NVLink Fusion Expands With NVHBM Custom High-Bandwidth Memory]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-26-c154a5|Detecting And Countering Malicious Uses Of Claude March 2025]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-26-c2ee32|Learning never stops: How AI makes learning continuous]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-26-d149e7|Accenture Aws Anthropic]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-26-decef1|Intelligent transcription with Gemini 3.5 Transcribe]]** — Google DeepMind — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-26-e99853|Anthropic Partners With Google Cloud]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-08-26-eabed0|The Hugging Face incident and the road ahead]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-26-f4f749|Anthropic Signs Pledge To Americas Youth Investing In Ai Education]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-08-27-c92259|Piloting the world's first double-blind AI evaluations]]** — Google DeepMind — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-19-5773cb|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-18-6f88db|How Much Memory Does Your Agent Actually Need?]]** — Hugging Face — blockers: thin_research_analysis
@@ -53,14 +28,5 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-08-27-0e0f3b|Rwandan Government Partnership Ai Education]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-27-299640|Accelerating Scientific Research]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-27-3df3e3|Gates Foundation Partnership]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-27-a8a09e|Model Hardware Standard Research Preview]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-27-c92259|Piloting the world's first double-blind AI evaluations]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-27-de73d6|Expanding Support For Scientists]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-27-f862fb|Ai For Science Program]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-26-8c3bc7|Usage Policy Update]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-08-26-a7cdb5|Skt Partnership Announcement]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-08-21-1534c7|Measuring benchmark optimization in speech recognition]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity

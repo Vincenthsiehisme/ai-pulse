@@ -144,6 +144,11 @@
     "src_hash": "259f1d28b8fc",
     "zh": "AI agent 沙箱：瀏覽器、Shell、檔案、MCP、VSCode Server 收在單一 Docker 容器"
   },
+  "apify/apify-mcp-server": {
+    "at": "2026-08-28T19:24:01+00:00",
+    "src_hash": "6598a7af3ad0",
+    "zh": "Apify MCP server讓AI代理用Apify Store的工具，從社群媒體、搜尋引擎、地圖等站台擷取資料"
+  },
   "asgeirtj/system_prompts_leaks": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "9686abc957db",
@@ -238,6 +243,11 @@
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "9611f41a21e8",
     "zh": "開源系統加範本，把 Obsidian vault 變成 AI 的持久記憶，不用向量資料庫，只靠 markdown"
+  },
+  "jeffhajewski/latticedb": {
+    "at": "2026-08-28T19:24:01+00:00",
+    "src_hash": "ab579914c613",
+    "zh": "嵌入式單檔知識圖譜資料庫，支援向量搜尋與全文搜尋，用於AI/RAG應用"
   },
   "jundot/omlx": {
     "at": "2026-08-17T19:10:59+00:00",
@@ -418,6 +428,11 @@
     "at": "2026-08-19T19:13:25+00:00",
     "src_hash": "2a393b6e36ab",
     "zh": "給正式環境的 AI 系統用的檢索層，不靠向量資料庫也能做到 10 毫秒內搜尋，瀏覽器、邊緣、裝置端到雲端都能跑"
+  },
+  "virgiliojr94/book-to-skill": {
+    "at": "2026-08-28T19:24:01+00:00",
+    "src_hash": "df7edf5152c8",
+    "zh": "把任何技術書PDF轉成Claude Code skill，工作時可以直接查閱與使用"
   },
   "vllm-project/semantic-router": {
     "at": "2026-08-21T19:12:31+00:00",

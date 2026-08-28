@@ -1,14 +1,84 @@
-# 已發布事件（161）
+# 已發布事件（195）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-08-27
+- **[[Events/evt-2026-08-27-0e0f3b|Rwandan Government Partnership Ai Education]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic發布與盧安達政府的AI教育合作公告，具體合作內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-299640|Accelerating Scientific Research]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic發布加速科學研究的公告，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-3df3e3|Gates Foundation Partnership]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic發布與蓋茲基金會的合作公告，具體合作內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-49fd14|Anthropic Teach For All]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic發布與全球教育非營利組織Teach For All的合作公告，具體合作內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-593f40|Claude For Small Business]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic發布面向中小企業的Claude方案公告，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-638a48|GeForce NOW Gives Gamers More Ways to Play at Gamescom 2026]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA在Gamescom 2026公布GeForce NOW新進展，包括DLSS 4.5技術控制選項與更多支援裝置、更多雲端遊戲陣容。
+- **[[Events/evt-2026-08-27-6de828|Anthropic Rwanda Mou]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic與盧安達簽署合作備忘錄（MOU），具體條款未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-786c9c|Anthropic And Iceland Announce One Of The World S First National Ai Education Pilots]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic與冰島宣布全球首批國家級AI教育試點計畫之一，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-8bf995|Better answers, broader thinking: What students gain from ChatGPT and critical-thinking training]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI公布逾千名學生參與的隨機對照研究，探討ChatGPT與批判性思考訓練對學生表現的影響。
+- **[[Events/evt-2026-08-27-a3f0c8|Anthropic Partners With Allen Institute And Howard Hughes Medical Institute]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic發布與艾倫研究所（Allen Institute）及霍華休斯醫學研究所（HHMI）的合作公告，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-a8a09e|Model Hardware Standard Research Preview]]** — Anthropic · infra · conf 80 · heat 未量測
+  Anthropic預覽一項名為Model Hardware Standard的新標準，具體規格內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-ac14f8|Expanding OpenAI’s presence in Brazil]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI宣布擴大在巴西的市場布局，加深與當地開發者、企業及社群的合作，支援AI在該國的普及。
+- **[[Events/evt-2026-08-27-af2d41|Gemini Omni 1.1 Flash lets you build with more control]]** — Google DeepMind · model-capability · conf 80 · heat 未量測
+  Google DeepMind發布Gemini Omni 1.1 Flash，標題強調開發者能取得更多建構控制權，具體功能內容未轉載。
+- **[[Events/evt-2026-08-27-be3fd3|Claude Corps]]** — Anthropic · product · conf 83 · heat 未量測
+  Anthropic發布Claude Corps公告，同時提及Claude For Teachers，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-c82b7a|Anthropic Codepath Partnership]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic發布與軟體工程教育非營利組織CodePath的合作公告，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-dc33f8|Advancing Claude For Education]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic發布Claude for Education最新進展公告，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-de73d6|Expanding Support For Scientists]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic發布擴大對科學家支援的公告，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-e4376e|Delivering Vera: NVIDIA’s First CPU Built for Agents Is Shipping Now]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA首款專為AI代理打造的Vera CPU開始大規模出貨，副總裁Ian Buck親自將系統交付到AI生態圈各處。
+- **[[Events/evt-2026-08-27-f862fb|Ai For Science Program]]** — Anthropic · product · conf 83 · heat 未量測
+  Anthropic發布AI for Science計畫，同時提及Claude Science AI Workbench，具體內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-27-fe7ceb|Claude For Life Sciences]]** — Anthropic · product · conf 83 · heat 未量測
+  Anthropic發布Claude for Life Sciences公告，同時提及Healthcare Life Sciences，具體內容未轉載，僅留標題與連結。
+
 ## 2026-08-26
+- **[[Events/evt-2026-08-26-083a2e|Lawrence Livermore National Laboratory Expands Claude For Enterprise To Empower Scientists And]]** — Anthropic · product · conf 73 · heat 未量測
+  勞倫斯利佛摩國家實驗室擴大導入Claude for Enterprise供科學家使用，公告原文未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-26-23ba64|Bringing ChatGPT for Teachers to more U.S. school districts]]** — OpenAI · product · conf 73 · heat 未量測
+  ChatGPT for Teachers擴大到美國55個學區，逾10萬名教育工作者將取得安全版AI工具與培訓支援。
 - **[[Events/evt-2026-08-26-27f332|v0.28.0]]** — vLLM · infra · conf 73 · heat 未量測
   vLLM 發布 v0.28.0，這版對 Kimi-K3 做了一輪效能優化。
 - **[[Events/evt-2026-08-26-41a80d|Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers]]** — Hugging Face · research · conf 73 · heat 未量測
   Hugging Face 出了一篇教學，講怎麼用 Sentence Transformers 訓練多向量嵌入模型。
+- **[[Events/evt-2026-08-26-523595|Grok Bot More Plans]]** — xAI · product · conf 73 · heat 未量測
+  xAI發布Grok Bot新方案公告，但站方聲明內容不作為AI輸入來源，我們只留標題與連結。
+- **[[Events/evt-2026-08-26-855285|Grok 4.6 Microsoft Foundry]]** — xAI · product · conf 73 · heat 未量測
+  xAI宣布Grok 4.6上架Microsoft Foundry，但站方聲明內容不作為AI輸入來源，全文未轉載。
+- **[[Events/evt-2026-08-26-8c3bc7|Usage Policy Update]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic發布使用政策更新公告，具體異動內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-26-a7cdb5|Skt Partnership Announcement]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic發布與SK電訊（SKT）的合作公告，具體合作內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-26-bf0aa0|NVIDIA NVLink Fusion Expands With NVHBM Custom High-Bandwidth Memory]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA擴大NVLink Fusion支援自訂高頻寬記憶體NVHBM，回應AI代理與兆參數工作負載對基礎設施整合設計的需求。
+- **[[Events/evt-2026-08-26-c154a5|Detecting And Countering Malicious Uses Of Claude March 2025]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic發布偵測與反制Claude遭惡意使用的報告，具體案例內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-26-c2ee32|Learning never stops: How AI makes learning continuous]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI發布報告，探討學生與教育工作者如何用ChatGPT讓學習延伸到課堂之外。
+- **[[Events/evt-2026-08-26-d149e7|Accenture Aws Anthropic]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic發布與埃森哲（Accenture）及AWS的三方合作公告，具體合作內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-26-decef1|Intelligent transcription with Gemini 3.5 Transcribe]]** — Google DeepMind · model-capability · conf 87 · heat 未量測
+  Google推出Gemini 3.5 Transcribe，提供更智慧的語音轉文字能力，將導入更多Google產品線。
+- **[[Events/evt-2026-08-26-e99853|Anthropic Partners With Google Cloud]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic發布與Google Cloud的合作公告，具體合作內容未轉載，僅留標題與連結。
+- **[[Events/evt-2026-08-26-eabed0|The Hugging Face incident and the road ahead]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI公布Hugging Face資安事件的調查發現，以及強化AI模型安全、監控與對齊的因應措施。
 - **[[Events/evt-2026-08-26-f09b0b|How loveholidays is making everyone a builder with Codex]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 秀了一個客戶案例，說旅遊業者 loveholidays 怎麼用 Codex 讓一般人也能寫程式。
+- **[[Events/evt-2026-08-26-f4f749|Anthropic Signs Pledge To Americas Youth Investing In Ai Education]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic簽署投資美國青年AI教育的承諾書，具體投入內容未轉載，僅留標題與連結。
 
 ## 2026-08-25
 - **[[Events/evt-2026-08-25-08b323|The full stack behind abundant intelligence]]** — OpenAI · capital · conf 73 · heat 未量測
