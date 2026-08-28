@@ -3,20 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-26'
+generated_day: '2026-08-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **61** 則：`published` 58、`review` 3
+事件 **65** 則：`published` 60、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-26 | [[Events/evt-2026-08-26-f09b0b\|How loveholidays is making everyone a builder with Codex]] | review |
+| 2026-08-27 | [[Events/evt-2026-08-27-ac14f8\|Expanding OpenAI’s presence in Brazil]] | review |
+| 2026-08-27 | [[Events/evt-2026-08-27-8bf995\|Better answers, broader thinking: What students gain from ChatGPT and critical-thinking training]] | review |
+| 2026-08-26 | [[Events/evt-2026-08-26-f09b0b\|How loveholidays is making everyone a builder with Codex]] | published |
+| 2026-08-26 | [[Events/evt-2026-08-26-c2ee32\|Learning never stops: How AI makes learning continuous]] | review |
+| 2026-08-26 | [[Events/evt-2026-08-26-23ba64\|Bringing ChatGPT for Teachers to more U.S. school districts]] | review |
 | 2026-08-25 | [[Events/evt-2026-08-25-bfec0b\|Jalapeño’s first results show industry-leading speed and efficiency in AI inference]] | published |
-| 2026-08-25 | [[Events/evt-2026-08-25-b6389f\|Introducing the Admin plugin for ChatGPT Work and Codex]] | review |
+| 2026-08-25 | [[Events/evt-2026-08-25-b6389f\|Introducing the Admin plugin for ChatGPT Work and Codex]] | published |
 | 2026-08-25 | [[Events/evt-2026-08-25-6b3071\|Disrupting a new covert influence campaign from Russia]] | published |
 | 2026-08-25 | [[Events/evt-2026-08-25-08b323\|The full stack behind abundant intelligence]] | published |
 | 2026-08-24 | [[Events/evt-2026-08-24-6ef4c6\|Advancing price-performance for developers with GPT‑5.6 in Kiro]] | published |

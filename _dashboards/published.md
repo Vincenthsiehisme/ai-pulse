@@ -97,7 +97,7 @@
 ## 2026-08-17
 - **[[Events/evt-2026-08-17-2212ad|Securing the Infrastructure of Intelligence]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 發部落格文，把「AI 工廠」的基礎設施安全定位成 AI 經濟的核心議題。
-- **[[Events/evt-2026-08-17-318eff|New policy ideas for the Intelligence Age]]** — OpenAI · policy · conf 73 · heat 未量測
+- **[[Events/evt-2026-08-17-318eff|New policy ideas for the Intelligence Age]]** — OpenAI · policy · conf 83 · heat 未量測
   OpenAI 宣布資助 14 個獨立專案，探索「智慧時代」的新政策構想。
 - **[[Events/evt-2026-08-17-a21909|Same Cluster, 33 Points More Utilization: What Changed Was the Order]]** — Dharma-AI · infra · conf 73 · heat 未量測
   Hugging Face 部落格作者 Dharma-AI 發文稱同一批 GPU 叢集只靠調整工作排程順序，就把使用率拉高了 33 個百分點。

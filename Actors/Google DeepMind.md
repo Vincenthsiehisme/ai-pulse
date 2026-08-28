@@ -3,17 +3,19 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-08-26'
+generated_day: '2026-08-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **11** 則：`published` 7、`review` 4
+事件 **13** 則：`published` 7、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-27 | [[Events/evt-2026-08-27-af2d41\|Gemini Omni 1.1 Flash lets you build with more control]] | review |
+| 2026-08-26 | [[Events/evt-2026-08-26-decef1\|Intelligent transcription with Gemini 3.5 Transcribe]] | review |
 | 2026-08-21 | [[Events/evt-2026-08-21-1140ad\|From Atari to EVE Online: Building on 15 Years of AI Research in Games]] | published |
 | 2026-08-13 | [[Events/evt-2026-08-13-c970d1\|Introducing Gemini 3.7 Flash]] | published |
 | 2026-08-12 | [[Events/evt-2026-08-12-b76d3a\|Putting sign language AI into users’ hands]] | published |

@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-26'
+generated_day: '2026-08-28'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**30 天**（2026-07-24 … 2026-08-26），去重後 **2173** 列。
+語料範圍：**32 天**（2026-07-24 … 2026-08-28），去重後 **2287** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,66 +17,66 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 41 | 5 |
-| LLMs | 34 | 12 |
-| Amazon | 28 | 5 |
-| LLM | 28 | 9 |
+| Apple | 42 | 5 |
+| LLMs | 35 | 12 |
+| Amazon | 29 | 5 |
+| LLM | 29 | 9 |
 | July | 25 | 9 |
+| There | 23 | 7 |
+| They | 22 | 9 |
 | Research | 21 | 5 |
-| There | 21 | 7 |
-| They | 20 | 9 |
+| Here | 21 | 8 |
+| June | 20 | 7 |
+| U.S | 20 | 7 |
 | August | 20 | 5 |
-| June | 19 | 7 |
-| U.S | 19 | 7 |
-| Here | 19 | 8 |
+| One | 18 | 9 |
+| When | 18 | 7 |
 | Pixel | 18 | 3 |
 | Building | 17 | 10 |
-| One | 17 | 9 |
-| When | 17 | 6 |
 | Industry | 16 | 2 |
+| Trump | 15 | 4 |
+| Wednesday | 14 | 4 |
 | Python | 14 | 3 |
-| Trump | 14 | 4 |
-| Wednesday | 13 | 4 |
+| Android | 14 | 3 |
+| AI-powered | 13 | 7 |
 | European Union | 13 | 2 |
 | Pro | 13 | 4 |
 | With | 12 | 8 |
 | Rust | 12 | 3 |
 | Linux | 12 | 4 |
-| Android | 12 | 3 |
-| AI-powered | 11 | 6 |
+| Elon Musk | 12 | 5 |
+| RAM | 12 | 2 |
+| CEO | 12 | 4 |
 | Draft | 11 | 2 |
 | Tuesday | 11 | 4 |
 | San Francisco | 11 | 8 |
 | China | 11 | 5 |
-| Elon Musk | 11 | 5 |
 | SpaceX | 11 | 4 |
-| RAM | 11 | 2 |
 | After | 11 | 5 |
-| CEO | 11 | 4 |
+| Samsung | 11 | 2 |
 | Union | 10 | 2 |
 | Thursday | 10 | 3 |
 | Monday | 10 | 4 |
 | Learn | 10 | 3 |
+| Opus | 10 | 4 |
 | These | 10 | 5 |
-| Samsung | 10 | 2 |
+| Flash | 9 | 4 |
 | Energy | 9 | 2 |
 | Texas | 9 | 6 |
-| Opus | 9 | 4 |
+| Flock | 9 | 3 |
+| From | 9 | 7 |
+| Qwen | 9 | 2 |
 | Last | 9 | 5 |
 | Built | 8 | 5 |
-| Flock | 8 | 3 |
+| India | 8 | 3 |
 | May | 8 | 5 |
-| From | 8 | 6 |
 | Fable | 8 | 3 |
 | SQLite | 8 | 2 |
 | AI-native | 8 | 3 |
 | API | 8 | 4 |
 | Mark Zuckerberg | 8 | 3 |
+| AI-generated | 8 | 2 |
 | Over | 8 | 3 |
-| Flash | 7 | 3 |
-| Europe | 7 | 6 |
-| September | 7 | 4 |
-| GPUs | 7 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,36 +87,37 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 58 | src-hn-frontpage |
-| The Download | 27 | src-media-mit-techreview |
+| Show HN | 62 | src-hn-frontpage |
+| The Download | 28 | src-media-mit-techreview |
 | Highlights | 16 | src-gh-vllm-releases |
 | Committee | 15 | src-ep-itre |
-| Hi HN | 11 | src-hn-frontpage |
+| Hi HN | 13 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | Tags | 9 | src-kol-simonwillison |
+| Launch HN | 9 | src-hn-frontpage |
 | The Verge | 9 | src-media-theverge |
-| Qwen | 8 | src-qwen-blog |
-| Launch HN | 8 | src-hn-frontpage |
 | Minutes | 7 | src-ep-itre |
-| GeForce NOW | 6 | src-nvidia-blog |
-| YC S26 | 6 | src-hn-frontpage |
-| TechCrunch | 6 | src-media-techcrunch |
+| GeForce NOW | 7 | src-nvidia-blog |
+| YC S26 | 7 | src-hn-frontpage |
+| TechCrunch Disrupt | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Marvel | 5 | src-media-theverge |
 | Opt | 5 | src-media-theverge |
-| TechCrunch Disrupt | 5 | src-media-techcrunch |
 | FCC | 5 | src-media-theverge |
+| Netflix | 5 | src-media-theverge |
 | Best Buy | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
+| Grand Theft Auto | 5 | src-media-theverge |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
 | Nancy Grace Roman | 4 | src-media-mit-techreview |
 | Equity | 4 | src-media-techcrunch |
 | The Stepback | 4 | src-media-theverge |
+| At TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Peacock | 4 | src-media-theverge |
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
@@ -126,11 +127,12 @@ generator: scripts/pulse-dictionary-gaps.py
 | Disney | 4 | src-media-theverge |
 | MIT Technology Review | 4 | src-media-mit-techreview |
 | Decoder | 4 | src-media-theverge |
+| GTA VI | 4 | src-media-theverge |
+| Rockstar Games | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
 | Fix | 3 | src-gh-vllm-releases |
-| CEO Jensen Huang | 3 | src-nvidia-blog |
 | Latest | 3 | src-kol-interconnects |
 | Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
@@ -142,11 +144,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | Space Telescope | 3 | src-media-mit-techreview |
 | Wall Street | 3 | src-media-techcrunch |
 | According | 3 | src-media-theverge |
-| At TechCrunch Disrupt | 3 | src-media-techcrunch |
 | Saturday | 3 | src-media-theverge |
 | RAMageddon | 3 | src-media-theverge |
 | Lean | 3 | src-hn-frontpage |
-| Zig | 3 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

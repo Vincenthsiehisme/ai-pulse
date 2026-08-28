@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-08-26"
+generated_day: "2026-08-28"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-08-26"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **143** 則／已裁決 **26** 則。
+待回答 **147** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,14 +24,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#51e2f6a6`** — infra-cost
-  > OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比，或量產與部署時程。其餘沿用既有訊號：NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨；Dharma-AI 那則 33 個百分點的數字是否補上方法細節；PORTS-Pike 專案是否有俄亥俄州當地媒體或官方獨立報導佐證就業數字。
+- **`infra-cost#b4066c45`** — infra-cost
+  > Kimi-K3 在 vLLM 上的實測效能數字，或下一個 minor 版本是否有更大幅度的架構調整。其餘沿用既有訊號：OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比，或量產與部署時程；NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨；Dharma-AI 那則 33 個百分點的數字是否補上方法細節；PORTS-Pike 專案是否有俄亥俄州當地媒體或官方獨立報導佐證就業數字。
 
-- **`model-research#9d40e407`** — model-research
-  > Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文。其餘沿用既有訊號：Anthropic 那兩則安全公告的正文我們選擇不轉述，只能盯原文連結有沒有被第三方引用；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
+- **`model-research#631a3341`** — model-research
+  > 這篇教學實際涵蓋的訓練細節與效能比較要看原文才知道，值不值得放進主線敘事還得看內容補上來之後。其餘沿用既有訊號：Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文；Anthropic 那兩則安全公告的正文我們選擇不轉述，只能盯原文連結有沒有被第三方引用；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
 
-- **`product-market#0951ae0d`** — product-market
-  > Kiro 或 OpenAI 是否公布 GPT-5.6 相較前代的具體定價或 token 成本差異，讓「價格效能比更好」這句話有數字可查。NVIDIA RTX Spark 這批遊戲上市後的實測評價，或有沒有新的 AI 渲染功能隨之公布。其餘沿用既有訊號：Stampli 案例有沒有客戶方自己或第三方獨立證實六十八個百分點；Private Safety Processing 有沒有公布技術細節；GeForce NOW 的 Firefox 支援有沒有帶動可查證的使用量變化；ChatGPT Ads 擴到歐洲後歐盟監理機關是否展開審查；Grok 4.6 Amazon Bedrock 等原文能取用時再確認實際形式。
+- **`product-market#60fc4816`** — product-market
+  > OpenAI 是否會把 Admin plugin 這類管理功能擴展到更多產品線，或揭露企業客戶的實際採用數字；loveholidays 或其他企業是否公開具體的採用數字，或有獨立媒體報導佐證「非工程師也能用 Codex」的說法。其餘沿用既有訊號：Kiro 或 OpenAI 是否公布 GPT-5.6 相較前代的具體定價或 token 成本差異；NVIDIA RTX Spark 這批遊戲上市後的實測評價；Stampli 案例有沒有客戶方自己或第三方獨立證實六十八個百分點；Private Safety Processing 有沒有公布技術細節；ChatGPT Ads 擴到歐洲後歐盟監理機關是否展開審查；Grok 4.6 Amazon Bedrock 等原文能取用時再確認實際形式。
 
 - **`capital-evolution#42364cac`** — capital-evolution
   > OpenAI 後續是否用具體定價下修或財報數字佐證這篇談的成本下降。其餘沿用既有訊號：Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整；NVIDIA 的融資平台有沒有第一筆實際資金到位；廣告測試看擴大速度與是否影響回答中立性；有沒有第二筆「算力當資本」的同類案例；OpenAI 董事變動後有沒有大型融資或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#1dd6b6f5`** — global-map
   > OpenAI 封鎖的這批帳號規模、觸及人數，是否有獨立研究單位交叉驗證。Anthropic 這三則的研究基金規模、資助對象或審核標準是否在原文或後續公告中補上。其餘沿用既有訊號：AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布；印尼 AI 中心、NSF AI 中心計畫、APA 合作案這幾則是否有更具體的執行細節公布。
 
-## 事件層（137）
+## 事件層（141）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -449,8 +449,20 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-08-25-7902a7#90c414ae`** — evt-2026-08-25-7902a7
   > Anthropic 是否公布這項計畫在英國、歐洲的具體合作對象或時程
 
+- **`evt-2026-08-25-b6389f#cb098ea2`** — evt-2026-08-25-b6389f
+  > OpenAI 是否會把類似的管理功能擴展到更多產品線（例如 API 平台），或是否揭露企業客戶的實際採用數字。
+
 - **`evt-2026-08-25-bfec0b#e8995f9f`** — evt-2026-08-25-bfec0b
   > OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比，或量產與部署時程
 
 - **`evt-2026-08-25-d7f401#fdb7a5b9`** — evt-2026-08-25-d7f401
   > 這批福祉研究補助的入選名單或研究方向是否公布
+
+- **`evt-2026-08-26-27f332#77a0b27d`** — evt-2026-08-26-27f332
+  > Kimi-K3 在 vLLM 上的實測效能數字，或下一個 minor 版本是否有更大幅度的架構調整。
+
+- **`evt-2026-08-26-41a80d#c1956960`** — evt-2026-08-26-41a80d
+  > 這篇教學實際涵蓋哪些訓練細節、與單向量嵌入的效能比較，直接看原文：https://huggingface.co/blog/train-multi-vector-encoder
+
+- **`evt-2026-08-26-f09b0b#caf0e746`** — evt-2026-08-26-f09b0b
+  > loveholidays 或其他企業是否公開具體的採用數字，或是否有獨立媒體報導佐證。

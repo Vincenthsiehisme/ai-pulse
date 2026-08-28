@@ -3,17 +3,20 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-08-26'
+generated_day: '2026-08-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **40** 則：`dropped` 1、`published` 36、`review` 3
+事件 **43** 則：`dropped` 1、`published` 36、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-08-27 | [[Events/evt-2026-08-27-e4376e\|Delivering Vera: NVIDIA’s First CPU Built for Agents Is Shipping Now]] | review |
+| 2026-08-27 | [[Events/evt-2026-08-27-638a48\|GeForce NOW Gives Gamers More Ways to Play at Gamescom 2026]] | review |
+| 2026-08-26 | [[Events/evt-2026-08-26-bf0aa0\|NVIDIA NVLink Fusion Expands With NVHBM Custom High-Bandwidth Memory]] | review |
 | 2026-08-25 | [[Events/evt-2026-08-25-727a6f\|Leading Publishers Bring Blockbuster PC Games and Technology to NVIDIA RTX Spark]] | published |
 | 2026-08-24 | [[Events/evt-2026-08-24-e6c7e4\|How XPUs Meet a World-Class AI Factory]] | published |
 | 2026-08-24 | [[Events/evt-2026-08-24-de02fd\|Up to 30x More Work Per Watt: NVIDIA Vera Rubin NVL72 Sets a New Efficiency Standard for AI Agents]] | published |

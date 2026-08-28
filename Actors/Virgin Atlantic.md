@@ -3,7 +3,7 @@ id: actor-virgin-atlantic
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-08-26'
+generated_day: '2026-08-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
