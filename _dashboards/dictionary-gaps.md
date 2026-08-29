@@ -5,7 +5,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**33 天**（2026-07-24 … 2026-08-29），去重後 **2339** 列。
+語料範圍：**33 天**（2026-07-24 … 2026-08-29），去重後 **2343** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,43 +17,43 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 45 | 5 |
+| Apple | 43 | 5 |
 | LLMs | 35 | 12 |
 | Amazon | 30 | 5 |
-| LLM | 29 | 9 |
+| LLM | 30 | 9 |
 | July | 25 | 9 |
 | There | 24 | 7 |
-| They | 23 | 9 |
-| Research | 22 | 5 |
-| U.S | 21 | 7 |
+| They | 22 | 9 |
+| Research | 21 | 5 |
 | Here | 21 | 8 |
 | June | 20 | 7 |
-| Trump | 20 | 5 |
+| U.S | 20 | 7 |
 | August | 20 | 5 |
 | One | 18 | 9 |
 | When | 18 | 7 |
+| Trump | 18 | 4 |
 | Pixel | 18 | 3 |
 | Building | 17 | 10 |
 | Industry | 16 | 2 |
+| Python | 16 | 3 |
+| Android | 15 | 3 |
 | Wednesday | 14 | 4 |
-| Python | 14 | 3 |
-| Android | 14 | 3 |
 | AI-powered | 13 | 7 |
 | European Union | 13 | 2 |
+| Rust | 13 | 3 |
+| Linux | 13 | 4 |
 | Pro | 13 | 4 |
+| Samsung | 13 | 3 |
 | With | 12 | 8 |
-| Rust | 12 | 3 |
-| Linux | 12 | 4 |
 | Elon Musk | 12 | 5 |
+| SpaceX | 12 | 5 |
 | RAM | 12 | 2 |
+| After | 12 | 6 |
 | CEO | 12 | 4 |
 | Draft | 11 | 2 |
 | Tuesday | 11 | 4 |
 | San Francisco | 11 | 8 |
 | China | 11 | 5 |
-| SpaceX | 11 | 4 |
-| After | 11 | 5 |
-| Samsung | 11 | 2 |
 | Union | 10 | 2 |
 | Thursday | 10 | 3 |
 | Monday | 10 | 4 |
@@ -65,18 +65,18 @@ generator: scripts/pulse-dictionary-gaps.py
 | Texas | 9 | 6 |
 | Flock | 9 | 3 |
 | From | 9 | 7 |
+| SQLite | 9 | 2 |
 | Qwen | 9 | 2 |
 | Last | 9 | 5 |
+| AI-generated | 9 | 3 |
+| Europe | 8 | 6 |
 | Built | 8 | 5 |
 | India | 8 | 3 |
-| Some | 8 | 7 |
 | May | 8 | 5 |
 | Fable | 8 | 3 |
-| SQLite | 8 | 2 |
 | AI-native | 8 | 3 |
 | API | 8 | 4 |
 | Mark Zuckerberg | 8 | 3 |
-| AI-generated | 8 | 2 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 63 | src-hn-frontpage |
+| Show HN | 64 | src-hn-frontpage |
 | The Download | 29 | src-media-mit-techreview |
 | Highlights | 16 | src-gh-vllm-releases |
 | Committee | 15 | src-ep-itre |
@@ -103,25 +103,23 @@ generator: scripts/pulse-dictionary-gaps.py
 | GeForce NOW | 7 | src-nvidia-blog |
 | YC S26 | 7 | src-hn-frontpage |
 | TechCrunch Disrupt | 6 | src-media-techcrunch |
-| Netflix | 6 | src-media-theverge |
 | Best Buy | 6 | src-media-theverge |
-| Grand Theft Auto | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Marvel | 5 | src-media-theverge |
 | Opt | 5 | src-media-theverge |
 | FCC | 5 | src-media-theverge |
+| Netflix | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
 | MIT Technology Review | 5 | src-media-mit-techreview |
+| Grand Theft Auto | 5 | src-media-theverge |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
-| Nancy Grace Roman | 4 | src-media-mit-techreview |
 | Equity | 4 | src-media-techcrunch |
 | According | 4 | src-media-theverge |
 | The Stepback | 4 | src-media-theverge |
 | At TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Peacock | 4 | src-media-theverge |
-| Code | 4 | src-hn-frontpage |
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
 | Galaxy Z Fold | 4 | src-media-theverge |
@@ -131,7 +129,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Decoder | 4 | src-media-theverge |
 | GTA VI | 4 | src-media-theverge |
 | Rockstar Games | 4 | src-media-theverge |
-| Mac Mini | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
@@ -145,8 +142,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
 | Htmx | 3 | src-hn-frontpage |
-| Space Telescope | 3 | src-media-mit-techreview |
 | Wall Street | 3 | src-media-techcrunch |
+| Saturday | 3 | src-media-theverge |
+| RAMageddon | 3 | src-media-theverge |
+| Lean | 3 | src-hn-frontpage |
+| Zig | 3 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

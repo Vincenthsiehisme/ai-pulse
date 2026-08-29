@@ -1,8 +1,9 @@
-# 被門禁擋下（30）
+# 被門禁擋下（31）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
 - **[[Events/evt-2026-08-28-763f5e|Supporting Thailand’s next generation of AI startups]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-08-28-7a426a|Our decision on Cursor following its acquisition by SpaceX]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-27-c92259|Piloting the world's first double-blind AI evaluations]]** — Google DeepMind — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-19-5773cb|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]]** — Hugging Face — blockers: thin_research_analysis

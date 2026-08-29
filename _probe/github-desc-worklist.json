@@ -4,24 +4,8 @@
     "desc": "GitNexus: The Zero-Server Code Intelligence Engine -       GitNexus is a client-side knowledge graph creator that runs entirely in your browser. Drop in a git repository (Github, Gitlab, Azure, Local) or ZIP file, and get an interactive knowledge graph with a built in Graph RAG Agent. Perfect for code exploration",
     "language": "TypeScript",
     "topics": [],
-    "stars": 46154,
+    "stars": 46366,
     "url": "https://github.com/abhigyanpatwari/GitNexus",
-    "stale_zh": null
-  },
-  {
-    "full_name": "OpenHands/OpenHands",
-    "desc": "🙌 OpenHands: AI-Driven Development",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "artificial-intelligence",
-      "chatgpt",
-      "claude-ai",
-      "cli",
-      "developer-tools"
-    ],
-    "stars": 85472,
-    "url": "https://github.com/OpenHands/OpenHands",
     "stale_zh": null
   }
 ]
