@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-28'
+generated_day: '2026-08-29'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**32 天**（2026-07-24 … 2026-08-28），去重後 **2287** 列。
+語料範圍：**33 天**（2026-07-24 … 2026-08-29），去重後 **2339** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,24 +17,24 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 42 | 5 |
+| Apple | 45 | 5 |
 | LLMs | 35 | 12 |
-| Amazon | 29 | 5 |
+| Amazon | 30 | 5 |
 | LLM | 29 | 9 |
 | July | 25 | 9 |
-| There | 23 | 7 |
-| They | 22 | 9 |
-| Research | 21 | 5 |
+| There | 24 | 7 |
+| They | 23 | 9 |
+| Research | 22 | 5 |
+| U.S | 21 | 7 |
 | Here | 21 | 8 |
 | June | 20 | 7 |
-| U.S | 20 | 7 |
+| Trump | 20 | 5 |
 | August | 20 | 5 |
 | One | 18 | 9 |
 | When | 18 | 7 |
 | Pixel | 18 | 3 |
 | Building | 17 | 10 |
 | Industry | 16 | 2 |
-| Trump | 15 | 4 |
 | Wednesday | 14 | 4 |
 | Python | 14 | 3 |
 | Android | 14 | 3 |
@@ -69,6 +69,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Last | 9 | 5 |
 | Built | 8 | 5 |
 | India | 8 | 3 |
+| Some | 8 | 7 |
 | May | 8 | 5 |
 | Fable | 8 | 3 |
 | SQLite | 8 | 2 |
@@ -76,7 +77,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | API | 8 | 4 |
 | Mark Zuckerberg | 8 | 3 |
 | AI-generated | 8 | 2 |
-| Over | 8 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,8 +87,8 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 62 | src-hn-frontpage |
-| The Download | 28 | src-media-mit-techreview |
+| Show HN | 63 | src-hn-frontpage |
+| The Download | 29 | src-media-mit-techreview |
 | Highlights | 16 | src-gh-vllm-releases |
 | Committee | 15 | src-ep-itre |
 | Hi HN | 13 | src-hn-frontpage |
@@ -103,32 +103,35 @@ generator: scripts/pulse-dictionary-gaps.py
 | GeForce NOW | 7 | src-nvidia-blog |
 | YC S26 | 7 | src-hn-frontpage |
 | TechCrunch Disrupt | 6 | src-media-techcrunch |
+| Netflix | 6 | src-media-theverge |
+| Best Buy | 6 | src-media-theverge |
+| Grand Theft Auto | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Marvel | 5 | src-media-theverge |
 | Opt | 5 | src-media-theverge |
 | FCC | 5 | src-media-theverge |
-| Netflix | 5 | src-media-theverge |
-| Best Buy | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
-| Grand Theft Auto | 5 | src-media-theverge |
+| MIT Technology Review | 5 | src-media-mit-techreview |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
 | Nancy Grace Roman | 4 | src-media-mit-techreview |
 | Equity | 4 | src-media-techcrunch |
+| According | 4 | src-media-theverge |
 | The Stepback | 4 | src-media-theverge |
 | At TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Peacock | 4 | src-media-theverge |
+| Code | 4 | src-hn-frontpage |
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
 | Galaxy Z Fold | 4 | src-media-theverge |
 | Switch | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
 | Disney | 4 | src-media-theverge |
-| MIT Technology Review | 4 | src-media-mit-techreview |
 | Decoder | 4 | src-media-theverge |
 | GTA VI | 4 | src-media-theverge |
 | Rockstar Games | 4 | src-media-theverge |
+| Mac Mini | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
@@ -141,12 +144,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
+| Htmx | 3 | src-hn-frontpage |
 | Space Telescope | 3 | src-media-mit-techreview |
 | Wall Street | 3 | src-media-techcrunch |
-| According | 3 | src-media-theverge |
-| Saturday | 3 | src-media-theverge |
-| RAMageddon | 3 | src-media-theverge |
-| Lean | 3 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

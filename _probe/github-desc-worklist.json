@@ -1,41 +1,27 @@
 [
   {
-    "full_name": "jeffhajewski/latticedb",
-    "desc": "Embedded single-file knowledge graph database with vector search and full-text search for AI/RAG apps",
-    "language": "Zig",
+    "full_name": "abhigyanpatwari/GitNexus",
+    "desc": "GitNexus: The Zero-Server Code Intelligence Engine -       GitNexus is a client-side knowledge graph creator that runs entirely in your browser. Drop in a git repository (Github, Gitlab, Azure, Local) or ZIP file, and get an interactive knowledge graph with a built in Graph RAG Agent. Perfect for code exploration",
+    "language": "TypeScript",
     "topics": [],
-    "stars": 539,
-    "url": "https://github.com/jeffhajewski/latticedb",
+    "stars": 46154,
+    "url": "https://github.com/abhigyanpatwari/GitNexus",
     "stale_zh": null
   },
   {
-    "full_name": "apify/apify-mcp-server",
-    "desc": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using thousands of ready-made scrapers, crawlers, and automation tools available on the Apify Store.",
+    "full_name": "OpenHands/OpenHands",
+    "desc": "🙌 OpenHands: AI-Driven Development",
     "language": "TypeScript",
     "topics": [
-      "agents",
-      "ai",
-      "mcp",
-      "mcp-server"
+      "agent",
+      "artificial-intelligence",
+      "chatgpt",
+      "claude-ai",
+      "cli",
+      "developer-tools"
     ],
-    "stars": 5178,
-    "url": "https://github.com/apify/apify-mcp-server",
-    "stale_zh": null
-  },
-  {
-    "full_name": "virgiliojr94/book-to-skill",
-    "desc": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
-    "language": "Python",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "book-to-skill",
-      "context-engineering",
-      "document-processing",
-      "edtech"
-    ],
-    "stars": 26209,
-    "url": "https://github.com/virgiliojr94/book-to-skill",
+    "stars": 85472,
+    "url": "https://github.com/OpenHands/OpenHands",
     "stale_zh": null
   }
 ]

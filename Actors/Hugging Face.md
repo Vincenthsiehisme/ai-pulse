@@ -3,18 +3,17 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-08-28'
+generated_day: '2026-08-29'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **10** 則：`published` 5、`review` 5
+事件 **9** 則：`published` 5、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-26 | [[Events/evt-2026-08-26-eabed0\|The Hugging Face incident and the road ahead]] | review |
 | 2026-08-26 | [[Events/evt-2026-08-26-41a80d\|Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers]] | published |
 | 2026-08-25 | [[Events/evt-2026-08-25-4e5d45\|Wire It, Run It, Deploy It: AI Workflows in Gradio]] | published |
 | 2026-08-21 | [[Events/evt-2026-08-21-b1e2e7\|How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code]] | published |
