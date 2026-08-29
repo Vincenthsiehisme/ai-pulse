@@ -1,6 +1,14 @@
-# 已發布事件（195）
+# 已發布事件（198）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-08-28
+- **[[Events/evt-2026-08-28-763f5e|Supporting Thailand’s next generation of AI startups]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 與泰國政府合辦八週加速器，扶植 10 家健康、康養、教育新創把 AI 原型做成產品。
+- **[[Events/evt-2026-08-28-7a426a|Our decision on Cursor following its acquisition by SpaceX]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 因 Cursor 被 SpaceX 收購，宣布終止提供模型給 Cursor 的合約。
+- **[[Events/evt-2026-08-28-ef9143|The Open ASR Leaderboard Adds Its First Global South Language]]** — Hugging Face · research · conf 73 · heat 未量測
+  Open ASR Leaderboard 新增第一個「全球南方」語言，但證據沒寫是哪一個。（證據不足，待補）
 
 ## 2026-08-27
 - **[[Events/evt-2026-08-27-0e0f3b|Rwandan Government Partnership Ai Education]]** — Anthropic · policy · conf 73 · heat 未量測

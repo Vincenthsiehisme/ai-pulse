@@ -129,6 +129,11 @@
     "src_hash": "8f35b4a2144f",
     "zh": "LLM 驅動的多市場股票分析系統：多源行情、即時新聞、決策看板與自動推送，可零成本定時執行"
   },
+  "abhigyanpatwari/GitNexus": {
+    "at": "2026-08-29T19:09:37+00:00",
+    "src_hash": "47941375e293",
+    "zh": "零伺服器的程式碼智慧引擎，在瀏覽器端把 repo 轉成互動知識圖譜，內建 Graph RAG agent"
+  },
   "addyosmani/agent-skills": {
     "at": "2026-08-04T19:21:24+00:00",
     "src_hash": "f28264181fbb",

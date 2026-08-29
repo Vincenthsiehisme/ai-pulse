@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-08-28'
+updated: '2026-08-29'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這條線這一輪新增一則：Google DeepMind發布Gemini Omni 1.1 Flash，標題強調開發者能取得更多建構控制權，但我們的來源只留標題與連結，具體新增了哪些控制項看不到。跟這條線既有的「小而專、成本導向」走向沒有直接證據上的關聯，比較像是既有Omni系列的又一次介面調整，實際內容要等原文才能判斷。既有主軸不變：Hugging Face那篇多向量嵌入模型教學的技術內容仍未補上；IBM Granite 4.2與Multiverse Computing的量化方法都還停在廠商自己的一句話宣稱；模型往小而專走的訊號持續累積（Gemini 3.7 Flash、Nemotron 3.5 Lightning、LFM2.5系列端側模型），GPT-5.6把賣點從更強移到更省；Anthropic那兩則安全公告仍只留標題。
-    next: Gemini Omni 1.1 Flash實際新增的控制項與功能清單是否公開，會不會有開發者文件或範例程式碼佐證。其餘沿用既有訊號：Hugging Face那篇教學實際涵蓋的訓練細節與效能比較；Multiverse Computing「4-bit打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2是否補上可對照的benchmark分數或架構論文；LFM2.5-DSpark宣稱的3.2倍推論加速有沒有獨立測試；GPT-5.6每token成本要對前代與對手；ARC-AGI-3三倍分數看是否有第三方複現。
+    now: 這條線這一輪新增一則：Hugging Face 部落格公布 Open ASR（開放語音辨識）排行榜新增了它上線以來第一個「全球南方」語言，但我們的來源只留標題和一句通用簡介，沒有寫是哪個語言、也沒有列出新上榜的模型分數，內容比公告本身還單薄。跟這條線既有的「小而專、成本導向」走向沒有直接關聯，單純是評測基準本身在擴充語言涵蓋範圍。既有主軸不變：Gemini Omni 1.1 Flash 強調更多建構控制權，但具體新增了哪些控制項仍看不到；Hugging Face 那篇多向量嵌入模型教學的技術內容仍未補上；IBM Granite 4.2 與 Multiverse Computing 的量化方法都還停在廠商自己的一句話宣稱；模型往小而專走的訊號持續累積（Gemini 3.7 Flash、Nemotron 3.5 Lightning、LFM2.5 系列端側模型），GPT-5.6 把賣點從更強移到更省；Anthropic 那兩則安全公告仍只留標題。
+    next: Open ASR Leaderboard 新增的語言到底是哪一個、有沒有模型跑出分數，要等原文或後續報導補上。其餘沿用既有訊號：Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；Hugging Face 那篇教學實際涵蓋的訓練細節與效能比較；Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -50,8 +50,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 這條線這一輪新增五則，全部是Anthropic的夥伴關係公告：跟蓋茲基金會、跟生命科學重量級機構艾倫研究所與霍華休斯醫學研究所、跟南韓電信商SK電訊、跟埃森哲與AWS的三方合作、以及跟Google Cloud的合作。五則有志一同地只留標題與連結，合作規模、金額或具體項目都看不到，只能確認Anthropic正在同時跟教育、生命科學、電信、顧問服務、雲端這幾個不同領域的機構建立關係。跟這條線既有的「找金融背景的人補強公司架構」走向不完全同方向，比較像是同一時間點的多線布局，但因為每一則都只有標題，看不出彼此之間有沒有共同的策略主軸。既有主軸不變：OpenAI財務長談晶片、運算、模型、產品四層進展彼此疊加，沒有具體成本曲線；OpenAI任命Dali Rajic為首席營收長；NVIDIA找六家資產管理與投行建融資平台，目標動員逾5,000億美元第三方資本；OpenAI在ChatGPT測試廣告；Google的Genesis Mission用4,000萬美元的token與額度綁科研；OpenAI董事會補進David Vélez與Robin Vince；OpenAI公開反駁Apple的訴訟；Anthropic那則以Tino Cuellar為題的消息內容仍證據不足。
-    next: 這五則夥伴關係公告是否會補上合作金額、具體項目或執行時程，讓讀者判斷是實質的資本或業務動作，還是關係層面的公關發布。其餘沿用既有訊號：OpenAI後續是否用具體定價下修或財報數字佐證成本下降；Dali Rajic上任後OpenAI的營收策略有沒有具體調整；NVIDIA的融資平台有沒有第一筆實際資金到位；廣告測試看擴大速度與是否影響回答中立性；OpenAI董事變動後有沒有大型融資或財務揭露對得上；Apple訴訟看Apple回應與法院動作；Tino Cuellar那則等抓到內文再判斷是不是治理或人事訊號。
+    now: 這條線這一輪新增一則：OpenAI 宣布因為 Cursor 遭 SpaceX 收購，決定終止原本提供 OpenAI 模型給 Cursor 使用的合約，這是這條線目前唯一一則寫得出明確因果（收購觸發合約終止）的資本／公司邊界動作，不像同一時段 Anthropic 那五則夥伴關係公告只留標題。跟這條線既有的「找金融背景的人補強公司架構」走向不完全同方向，更像是 OpenAI 主動劃出誰能繼續存取模型的紅線。既有主軸不變：Anthropic 跟蓋茲基金會、艾倫研究所與霍華休斯醫學研究所、SK 電訊、埃森哲與 AWS、Google Cloud 的五則合作公告全部只留標題；OpenAI 財務長談晶片、算力、模型、產品四層進展彼此疊加，沒有具體成本曲線；OpenAI 任命 Dali Rajic 為首席營收長；NVIDIA 找六家資產管理與投行建融資平台，目標動員逾 5,000 億美元第三方資本；OpenAI 在 ChatGPT 測試廣告；Google 的 Genesis Mission 用 4,000 萬美元的 token 與額度綁科研；OpenAI 董事會補進 David Vélez 與 Robin Vince；OpenAI 公開反駁 Apple 的訴訟；Anthropic 那則以 Tino Cuellar 為題的消息內容仍證據不足。
+    next: Cursor 後續是否公開說明替代的模型供應方案，以及其他仰賴 OpenAI 模型的編碼工具是否也重新檢視合約條款，能檢驗這是不是 OpenAI 往後常態化的作法。其餘沿用既有訊號：這五則夥伴關係公告是否會補上合作金額、具體項目或執行時程；OpenAI 後續是否用具體定價下修或財報數字佐證成本下降；Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整；NVIDIA 的融資平台有沒有第一筆實際資金到位；廣告測試看擴大速度與是否影響回答中立性；OpenAI 董事變動後有沒有大型融資或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
@@ -64,6 +64,6 @@ tracks:
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這條線這一輪新增一大批，全部集中在Anthropic：跟盧安達政府的AI教育合作與正式簽署的MOU、跟全球教師培訓網路Teach For All的合作、跟冰島宣布的國家級AI教育試點、跟軟體工程教育非營利組織CodePath的合作，加上使用政策更新、偵測反制Claude遭惡意使用的報告、簽署投資美國青年AI教育的承諾書。這幾則加上前一輪的三則，這條線在過去三天內至少有十一則Anthropic公告，但沒有一則附上原文，盧安達、冰島這兩則國家層級的合作連合作範圍、涵蓋學校數都看不到。同一時間OpenAI則發布Hugging Face資安事件的調查說明與擴大巴西市場布局，內容都附上具體說明。跟這條線既有的「把影響力擴散到非產品面公共領域」走向一致，只是這一輪的量遠高於前幾輪，而且集中在教育與治理兩個主題。
-    next: 盧安達與冰島這兩則國家級教育合作的具體規模（涵蓋學校數、資助金額、執行時程）是否會補上；Detecting And Countering Malicious Uses Of Claude這篇報告的具體案例內容是否釋出。其餘沿用既有訊號：OpenAI封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI合作的具體課程內容或覆蓋規模；OpenAI資助的十四個政策研究專案具體名單與成果何時公布。
+    now: 這條線這一輪新增一則：OpenAI 與泰國高等教育科學研究創新部（MHESI）合作推出八週加速器，篩選 10 家健康、康養與教育領域的新創，協助它們把 AI 原型做成可信賴的產品，這是 OpenAI 在東南亞少見以新創（而非大型企業或政府機構）為對象的扶植動作，規模寫得出來是 10 家、8 週，比同一批 Anthropic 在教育與治理領域的公告更具體。跟這條線既有的「把影響力擴散到非產品面公共領域」走向一致，只是這次的對象是市場端的新創生態系，而不是政府或非營利夥伴。既有主軸不變：Anthropic 過去三天內至少十一則公告集中在教育與治理兩個主題——跟盧安達政府的 AI 教育合作與 MOU、跟 Teach For All 的合作、跟冰島的國家級 AI 教育試點、跟 CodePath 的合作，加上使用政策更新、偵測反制 Claude 遭惡意使用的報告、簽署投資美國青年 AI 教育的承諾書，沒有一則附上原文，盧安達、冰島這兩則國家層級合作連合作範圍、涵蓋學校數都看不到；同一時間 OpenAI 發布 Hugging Face 資安事件的調查說明與擴大巴西市場布局，內容都附上具體說明。
+    next: 泰國加速器結業後這 10 家新創是否公開產品成果或拿到後續融資，能檢驗這是實質扶植還是單純公關動作。其餘沿用既有訊號：盧安達與冰島這兩則國家級教育合作的具體規模（涵蓋學校數、資助金額、執行時程）是否會補上；Detecting And Countering Malicious Uses Of Claude 這篇報告的具體案例內容是否釋出；OpenAI 封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic 那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布。
     lenses: []
