@@ -2261,6 +2261,48 @@ acase("clock.misanchored_daily：16:00Z 放行（反方向，確認上一條不�
 acase("clock.cron_unannotated：沒有註解的 cron 要被抓出來",
       _clk.cron_unannotated("    - cron: '0 16 * * *'\n"), ["0 16 * * *"])
 
+# ── 抓取禮貌（references/crawl-politeness.md）──
+# 我們抓的每一個站都是別人的。一天一班、robots 七天重驗一次，兩個都是禮貌
+# 不是效能取捨——429 是唯一一種「錯在我們自己」的狀態碼。
+#
+# 這一組判準在此之前**住在一個每週的 Cowork 排程任務裡**，而那支任務為了能
+# 自動收班、卻沒有平台注入的 repo 授權，prompt 裡塞了一個明文 PAT 躺了 35 天。
+# 一個為了守「禮貌」而存在的檢查，代價是一個長期外洩的憑證，外加最多七天的
+# 偵測延遲。設定檔常數的判準本來就該住在這裡：每次 push 都跑、零憑證、零 LLM、
+# **改壞的當下就紅**。
+from lib import politeness as _pol  # noqa: E402
+_POL_DR = _crons.get("data-refresh.yml", "")
+acase("抓取禮貌：寫 _corpus/ 的那條鏈不得超過一天一班，兩處 --stale-days 同值且 ≥ 7"
+      "（2026-07-25~27 曾臨時調成一天 12 班 + stale-days 1，收班靠一個單次觸發的"
+      "排程任務——那正是這個 repo 一直在修的「警報自己把自己關掉」）",
+      _pol.problems(_POL_DR), [])
+# 防恆綠：上面那條的輸入若變成空字串（檔案改名、regex 被改壞、workflow 搬家），
+# 它會安靜地永遠通過。這一條把「有讀到東西」跟「讀到的東西合格」分開問。
+acase("抓取禮貌：判準真的讀到 data-refresh 的 --stale-days"
+      "（讀不到的話上面那條會恆綠，而恆綠的判準比沒有判準糟）",
+      len(_pol.robots_stale_days(_POL_DR)), 2)
+# 反方向：把 2026-07-25 那個形狀原樣塞回去，三條都要抓到。
+_POL_BAD = ("    - cron: '0 */2 * * *'   # 台北每兩小時\n"
+            "      run: python scripts/pulse-robots-recheck.py --stale-days 1 --apply\n"
+            "      run: python scripts/pulse-robots-recheck.py --stale-days 7\n")
+acase("抓取禮貌：加密期那個形狀要被抓到三條（頻率、兩處不同值、值太小）",
+      len(_pol.problems(_POL_BAD)), 3)
+acase("clock.runs_per_day：算得出一天幾班；不是每日班或看不懂一律 None"
+      "（看不懂猜一個數字的話，猜低了會放行一條在狂打人家站的設定，"
+      "而猜這件事本身不會有任何東西紅）",
+      [_clk.runs_per_day(_e) for _e in
+       ("0 16 * * *", "0 */2 * * *", "*/30 * * * *", "0 3,15 * * *",
+        "0 0-23/2 * * *", "0 3 * * 1", "0 25 * * *", "garbage")],
+      [1, 12, 48, 2, 12, None, None, None])
+# 兩支對 `*/N` 的判斷**刻意不同**，這一條把那個不對稱釘下來。
+# daily_utc_hour 放行 */N 是在 2026-07-25 加密期間寫下的豁免、然後留了下來，
+# 於是「一天 12 班」變成既有規則寫明放行的那一個形狀。
+# 哪天有人覺得兩支不一致而去「統一」它們，這一條會紅。
+acase("clock：daily_utc_hour 放行 */N（只管錨點），runs_per_day 管它（管班次）"
+      "——這個不對稱是刻意的，不是漏改",
+      [_clk.daily_utc_hour("0 */2 * * *"), _clk.runs_per_day("0 */2 * * *")],
+      [None, 12])
+
 acase("對照：date.today() 在那兩個時區下必然不同日"
       "（沒有這一條，上面那條可能只是「這台機器剛好是 UTC」）",
       _under_tz(_TZ_EAST, lambda: _dt_m.date.today().isoformat())

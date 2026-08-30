@@ -750,8 +750,8 @@ mutations:
   - id: M84
     title: "週班也被當成每日班（`0 3 * * 1` 會被逼成 16:00Z，而那條規則對它沒有意義）"
     file: lib/clock.py
-    find: "    if (dom, mon, dow) != (\"*\", \"*\", \"*\"):\n        return None"
-    replace: "    if False:\n        return None"
+    find: "    if (dom, mon, dow) != (\"*\", \"*\", \"*\"):\n        return None\n    if not (minute.isdigit() and hour.isdigit()):"
+    replace: "    if False:\n        return None\n    if not (minute.isdigit() and hour.isdigit()):"
     survives: false
     why: ""
 
@@ -3064,5 +3064,37 @@ mutations:
     file: pulse-monitor.py
     find: "def capability_claims_line(raw_sources, counts, runs):\n"
     replace: "def capability_claims_line(raw_sources, counts, runs=None):\n"
+    survives: false
+    why: ""
+
+  - id: M354
+    title: "runs_per_day 的週班守衛失效（`0 3 * * 1` 會被算成一天 1 班，而週班本來就不歸抓取頻率這條管——那條規則對它沒有意義）"
+    file: lib/clock.py
+    find: "    if (dom, mon, dow) != (\"*\", \"*\", \"*\"):\n        return None\n\n    def _count(field: str, span: int):\n"
+    replace: "    if False:\n        return None\n\n    def _count(field: str, span: int):\n"
+    survives: false
+    why: ""
+
+  - id: M355
+    title: "抓取頻率那一格永遠不叫（cron 調成一天 12 班照樣全綠，而那正是 2026-07-25 那次唯一要抓的形狀）"
+    file: lib/politeness.py
+    find: "        if n is not None and n > MAX_RUNS_PER_DAY:\n"
+    replace: "        if False:\n"
+    survives: false
+    why: ""
+
+  - id: M356
+    title: "robots_stale_days 回去重過的值（「兩處同值」是判準的一部分，去重會把它消掉——而消掉之後那條判準看起來還在）"
+    file: lib/politeness.py
+    find: "    return [int(m.group(1)) for m in _STALE_RE.finditer(text)]\n"
+    replace: "    return sorted({int(m.group(1)) for m in _STALE_RE.finditer(text)})\n"
+    survives: false
+    why: ""
+
+  - id: M357
+    title: "robots 重驗間隔的門檻被調成 1（2026-07-25 就是調成 1；門檻自己被改掉的話，守它的判準會安靜地放行）"
+    file: lib/politeness.py
+    find: "MIN_ROBOTS_STALE_DAYS = 7\n"
+    replace: "MIN_ROBOTS_STALE_DAYS = 1\n"
     survives: false
     why: ""
