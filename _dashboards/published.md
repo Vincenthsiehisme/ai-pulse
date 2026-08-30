@@ -61,7 +61,7 @@
   vLLM 發布 v0.28.0，這版對 Kimi-K3 做了一輪效能優化。
 - **[[Events/evt-2026-08-26-41a80d|Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers]]** — Hugging Face · research · conf 73 · heat 未量測
   Hugging Face 出了一篇教學，講怎麼用 Sentence Transformers 訓練多向量嵌入模型。
-- **[[Events/evt-2026-08-26-523595|Grok Bot More Plans]]** — xAI · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-08-26-523595|Grok Bot More Plans]]** — xAI · product · conf 83 · heat 未量測
   xAI發布Grok Bot新方案公告，但站方聲明內容不作為AI輸入來源，我們只留標題與連結。
 - **[[Events/evt-2026-08-26-855285|Grok 4.6 Microsoft Foundry]]** — xAI · product · conf 73 · heat 未量測
   xAI宣布Grok 4.6上架Microsoft Foundry，但站方聲明內容不作為AI輸入來源，全文未轉載。

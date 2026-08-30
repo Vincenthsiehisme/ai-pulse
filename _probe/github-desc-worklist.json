@@ -1,11 +1,18 @@
 [
   {
-    "full_name": "abhigyanpatwari/GitNexus",
-    "desc": "GitNexus: The Zero-Server Code Intelligence Engine -       GitNexus is a client-side knowledge graph creator that runs entirely in your browser. Drop in a git repository (Github, Gitlab, Azure, Local) or ZIP file, and get an interactive knowledge graph with a built in Graph RAG Agent. Perfect for code exploration",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 46366,
-    "url": "https://github.com/abhigyanpatwari/GitNexus",
+    "full_name": "sgl-project/sglang",
+    "desc": "SGLang is a high-performance serving framework for large language models and multimodal models.",
+    "language": "Python",
+    "topics": [
+      "attention",
+      "blackwell",
+      "cuda",
+      "deepseek",
+      "diffusion",
+      "glm"
+    ],
+    "stars": 32931,
+    "url": "https://github.com/sgl-project/sglang",
     "stale_zh": null
   }
 ]

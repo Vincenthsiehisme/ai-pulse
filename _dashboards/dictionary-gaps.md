@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-29'
+generated_day: '2026-08-30'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**33 天**（2026-07-24 … 2026-08-29），去重後 **2343** 列。
+語料範圍：**34 天**（2026-07-24 … 2026-08-30），去重後 **2385** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -19,9 +19,9 @@ generator: scripts/pulse-dictionary-gaps.py
 |---|---|---|
 | Apple | 43 | 5 |
 | LLMs | 35 | 12 |
+| LLM | 31 | 9 |
 | Amazon | 30 | 5 |
-| LLM | 30 | 9 |
-| July | 25 | 9 |
+| July | 26 | 9 |
 | There | 24 | 7 |
 | They | 22 | 9 |
 | Research | 21 | 5 |
@@ -29,54 +29,54 @@ generator: scripts/pulse-dictionary-gaps.py
 | June | 20 | 7 |
 | U.S | 20 | 7 |
 | August | 20 | 5 |
+| When | 19 | 7 |
+| Building | 18 | 10 |
 | One | 18 | 9 |
-| When | 18 | 7 |
 | Trump | 18 | 4 |
 | Pixel | 18 | 3 |
-| Building | 17 | 10 |
 | Industry | 16 | 2 |
 | Python | 16 | 3 |
 | Android | 15 | 3 |
 | Wednesday | 14 | 4 |
+| After | 14 | 6 |
 | AI-powered | 13 | 7 |
 | European Union | 13 | 2 |
 | Rust | 13 | 3 |
 | Linux | 13 | 4 |
 | Pro | 13 | 4 |
+| Elon Musk | 13 | 5 |
+| SpaceX | 13 | 5 |
 | Samsung | 13 | 3 |
+| China | 12 | 5 |
 | With | 12 | 8 |
-| Elon Musk | 12 | 5 |
-| SpaceX | 12 | 5 |
 | RAM | 12 | 2 |
-| After | 12 | 6 |
 | CEO | 12 | 4 |
 | Draft | 11 | 2 |
+| Thursday | 11 | 3 |
 | Tuesday | 11 | 4 |
 | San Francisco | 11 | 8 |
-| China | 11 | 5 |
 | Union | 10 | 2 |
-| Thursday | 10 | 3 |
 | Monday | 10 | 4 |
 | Learn | 10 | 3 |
+| Flock | 10 | 3 |
+| From | 10 | 8 |
 | Opus | 10 | 4 |
 | These | 10 | 5 |
 | Flash | 9 | 4 |
+| Europe | 9 | 6 |
 | Energy | 9 | 2 |
 | Texas | 9 | 6 |
-| Flock | 9 | 3 |
-| From | 9 | 7 |
+| May | 9 | 5 |
 | SQLite | 9 | 2 |
 | Qwen | 9 | 2 |
 | Last | 9 | 5 |
 | AI-generated | 9 | 3 |
-| Europe | 8 | 6 |
+| September | 8 | 4 |
 | Built | 8 | 5 |
 | India | 8 | 3 |
-| May | 8 | 5 |
+| Welcome | 8 | 3 |
 | Fable | 8 | 3 |
-| AI-native | 8 | 3 |
-| API | 8 | 4 |
-| Mark Zuckerberg | 8 | 3 |
+| Chinese | 8 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -102,11 +102,12 @@ generator: scripts/pulse-dictionary-gaps.py
 | Minutes | 7 | src-ep-itre |
 | GeForce NOW | 7 | src-nvidia-blog |
 | YC S26 | 7 | src-hn-frontpage |
+| Opt | 6 | src-media-theverge |
 | TechCrunch Disrupt | 6 | src-media-techcrunch |
 | Best Buy | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Marvel | 5 | src-media-theverge |
-| Opt | 5 | src-media-theverge |
+| The Stepback | 5 | src-media-theverge |
 | FCC | 5 | src-media-theverge |
 | Netflix | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
@@ -117,14 +118,17 @@ generator: scripts/pulse-dictionary-gaps.py
 | Consumer Protection | 4 | src-ep-itre |
 | Equity | 4 | src-media-techcrunch |
 | According | 4 | src-media-theverge |
-| The Stepback | 4 | src-media-theverge |
 | At TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Peacock | 4 | src-media-theverge |
+| Zig | 4 | src-hn-frontpage |
 | The Algorithm | 4 | src-media-mit-techreview |
 | Ask HN | 4 | src-hn-frontpage |
 | Galaxy Z Fold | 4 | src-media-theverge |
 | Switch | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
+| Installer No | 4 | src-media-theverge |
+| Verge-iest | 4 | src-media-theverge |
+| Installer | 4 | src-media-theverge |
 | Disney | 4 | src-media-theverge |
 | Decoder | 4 | src-media-theverge |
 | GTA VI | 4 | src-media-theverge |
@@ -133,6 +137,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
 | Fix | 3 | src-gh-vllm-releases |
+| Kubernetes | 3 | src-hn-frontpage |
 | Latest | 3 | src-kol-interconnects |
 | Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
@@ -142,11 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
 | Htmx | 3 | src-hn-frontpage |
-| Wall Street | 3 | src-media-techcrunch |
-| Saturday | 3 | src-media-theverge |
-| RAMageddon | 3 | src-media-theverge |
-| Lean | 3 | src-hn-frontpage |
-| Zig | 3 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

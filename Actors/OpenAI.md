@@ -3,19 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-08-29'
+generated_day: '2026-08-30'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **68** 則：`published` 65、`review` 3
+事件 **68** 則：`published` 67、`review` 1
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-08-28 | [[Events/evt-2026-08-28-7a426a\|Our decision on Cursor following its acquisition by SpaceX]] | review |
-| 2026-08-28 | [[Events/evt-2026-08-28-763f5e\|Supporting Thailand’s next generation of AI startups]] | review |
+| 2026-08-28 | [[Events/evt-2026-08-28-7a426a\|Our decision on Cursor following its acquisition by SpaceX]] | published |
+| 2026-08-28 | [[Events/evt-2026-08-28-763f5e\|Supporting Thailand’s next generation of AI startups]] | published |
 | 2026-08-27 | [[Events/evt-2026-08-27-ac14f8\|Expanding OpenAI’s presence in Brazil]] | published |
 | 2026-08-27 | [[Events/evt-2026-08-27-8bf995\|Better answers, broader thinking: What students gain from ChatGPT and critical-thinking training]] | published |
 | 2026-08-26 | [[Events/evt-2026-08-26-f09b0b\|How loveholidays is making everyone a builder with Codex]] | published |

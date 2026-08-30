@@ -16,10 +16,10 @@ license_note: "titles + links only"
 endpoint: "https://openai.com/news/rss.xml"
 robots_checked_day: "2026-08-26"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-29"
+last_observed_day: "2026-08-30"
 items_observed: 115
 events_bound: 72
-events_published: 69
+events_published: 71
 health_score: 100
 consecutive_failures: 0
 last_status: 200
@@ -36,7 +36,7 @@ last_status: 200
 | 收錄 | `probing` | 會被抓 |
 | 已觀測 | 115 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 72 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 69 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 已發布 | 71 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**OpenAI**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 
