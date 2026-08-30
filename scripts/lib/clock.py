@@ -181,6 +181,13 @@ def daily_utc_hour(expr: str):
 
     `0 16 * * *` → 16。`0 */2 * * *`（一天 12 班）、`0 16 * * 1`（每週）都回 None
     ——前者是暫時加密期，後者是週班，兩種都不該被這條規則管。
+
+    **注意這支放行 `*/N` 是刻意的，而那道門後來被 `runs_per_day()` 補上了。**
+    週班那一半的豁免是對的（把 `0 3 * * 1` 逼成 16:00Z 沒有意義）；
+    「暫時加密期」那一半是**在加密期間寫下的豁免，然後留了下來**——於是
+    `0 */2 * * *`（正是抓取禮貌唯一要抓的形狀）變成既有規則寫明放行的那一個。
+    這支繼續只管「錨點對不對」，「一天幾班」歸 `runs_per_day()`。
+    見 references/crawl-politeness.md。
     """
     parts = expr.split()
     if len(parts) != 5:
@@ -197,3 +204,62 @@ def misanchored_daily(text: str) -> list[str]:
     """→ 每天一班、但沒跑在 UTC 16:00 的 cron（＝收班窗口跟台北日對不上）。"""
     return [e["expr"] for e in cron_entries(text)
             if (h := daily_utc_hour(e["expr"])) is not None and h != DAILY_UTC_HOUR]
+
+
+def runs_per_day(expr: str):
+    """→ 這條 cron 一天跑幾班；**不是每日班就回 None**（週班、月班都是）。
+
+    規格 references/crawl-politeness.md。判準的消費端是 `lib/politeness.py`。
+
+    `None` 跟 `0` 是兩件事，不要合併：前者是「這條不歸這條規則管」，
+    後者不存在（一條 cron 不可能一天跑 0 班）。回 0 的話，politeness 那一側
+    `<= 1` 會把每一條週班都判成合格，看起來像有在管，其實一條都沒管到。
+
+        0 16 * * *      → 1     每天一班
+        0 */2 * * *     → 12    暫時加密期那個形狀
+        */30 * * * *    → 48    半小時一班
+        0 3,15 * * *    → 2     列兩個時段
+        0 3 * * 1       → None  週班，不歸這裡管
+        garbage         → None  看不懂就說看不懂（紅線 8）
+
+    **看不懂一律回 None，不要猜一個數字。** 猜低了會放行一條在狂打人家站的
+    設定，而猜這件事本身不會有任何東西紅。
+    """
+    parts = expr.split()
+    if len(parts) != 5:
+        return None
+    minute, hour, dom, mon, dow = parts
+    if (dom, mon, dow) != ("*", "*", "*"):
+        return None
+
+    def _count(field: str, span: int):
+        """一個 cron 欄位在它的值域裡命中幾次。看不懂回 None。"""
+        total = 0
+        for chunk in field.split(","):
+            step = 1
+            if "/" in chunk:
+                chunk, _, s = chunk.partition("/")
+                if not s.isdigit() or int(s) < 1:
+                    return None
+                step = int(s)
+            if chunk == "*":
+                lo, hi = 0, span - 1
+            elif "-" in chunk:
+                a, _, b = chunk.partition("-")
+                if not (a.isdigit() and b.isdigit()):
+                    return None
+                lo, hi = int(a), int(b)
+            elif chunk.isdigit():
+                lo = hi = int(chunk)
+            else:
+                return None
+            if not (0 <= lo <= hi < span):
+                return None
+            total += (hi - lo) // step + 1
+        return total or None
+
+    m = _count(minute, 60)
+    h = _count(hour, 24)
+    if m is None or h is None:
+        return None
+    return m * h
