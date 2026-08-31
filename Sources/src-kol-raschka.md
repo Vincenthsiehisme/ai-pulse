@@ -18,7 +18,7 @@ can_satisfy_primary: false
 endpoint: "https://magazine.sebastianraschka.com/feed"
 robots_checked_day: "2026-08-26"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-08-30"
+last_observed_day: "2026-08-31"
 items_observed: 22
 events_bound: 0
 events_published: 0

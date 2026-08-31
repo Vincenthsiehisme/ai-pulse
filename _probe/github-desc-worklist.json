@@ -1,18 +1,1 @@
-[
-  {
-    "full_name": "sgl-project/sglang",
-    "desc": "SGLang is a high-performance serving framework for large language models and multimodal models.",
-    "language": "Python",
-    "topics": [
-      "attention",
-      "blackwell",
-      "cuda",
-      "deepseek",
-      "diffusion",
-      "glm"
-    ],
-    "stars": 32931,
-    "url": "https://github.com/sgl-project/sglang",
-    "stale_zh": null
-  }
-]
+[]

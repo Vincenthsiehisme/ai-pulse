@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-30'
+generated_day: '2026-08-31'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**34 天**（2026-07-24 … 2026-08-30），去重後 **2385** 列。
+語料範圍：**35 天**（2026-07-24 … 2026-08-31），去重後 **2438** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,15 +17,15 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 43 | 5 |
+| Apple | 47 | 5 |
 | LLMs | 35 | 12 |
 | LLM | 31 | 9 |
 | Amazon | 30 | 5 |
-| July | 26 | 9 |
+| July | 27 | 9 |
 | There | 24 | 7 |
 | They | 22 | 9 |
+| Here | 22 | 8 |
 | Research | 21 | 5 |
-| Here | 21 | 8 |
 | June | 20 | 7 |
 | U.S | 20 | 7 |
 | August | 20 | 5 |
@@ -38,32 +38,32 @@ generator: scripts/pulse-dictionary-gaps.py
 | Python | 16 | 3 |
 | Android | 15 | 3 |
 | Wednesday | 14 | 4 |
+| European Union | 14 | 2 |
+| Linux | 14 | 5 |
 | After | 14 | 6 |
 | AI-powered | 13 | 7 |
-| European Union | 13 | 2 |
+| China | 13 | 5 |
 | Rust | 13 | 3 |
-| Linux | 13 | 4 |
 | Pro | 13 | 4 |
 | Elon Musk | 13 | 5 |
 | SpaceX | 13 | 5 |
+| CEO | 13 | 4 |
 | Samsung | 13 | 3 |
-| China | 12 | 5 |
 | With | 12 | 8 |
 | RAM | 12 | 2 |
-| CEO | 12 | 4 |
 | Draft | 11 | 2 |
 | Thursday | 11 | 3 |
 | Tuesday | 11 | 4 |
 | San Francisco | 11 | 8 |
+| Opus | 11 | 4 |
+| Europe | 10 | 7 |
 | Union | 10 | 2 |
 | Monday | 10 | 4 |
 | Learn | 10 | 3 |
 | Flock | 10 | 3 |
 | From | 10 | 8 |
-| Opus | 10 | 4 |
 | These | 10 | 5 |
 | Flash | 9 | 4 |
-| Europe | 9 | 6 |
 | Energy | 9 | 2 |
 | Texas | 9 | 6 |
 | May | 9 | 5 |
@@ -87,21 +87,21 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 64 | src-hn-frontpage |
+| Show HN | 67 | src-hn-frontpage |
 | The Download | 29 | src-media-mit-techreview |
 | Highlights | 16 | src-gh-vllm-releases |
 | Committee | 15 | src-ep-itre |
-| Hi HN | 13 | src-hn-frontpage |
+| Hi HN | 15 | src-hn-frontpage |
+| Launch HN | 11 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | Tags | 9 | src-kol-simonwillison |
-| Launch HN | 9 | src-hn-frontpage |
+| YC S26 | 9 | src-hn-frontpage |
 | The Verge | 9 | src-media-theverge |
 | Minutes | 7 | src-ep-itre |
 | GeForce NOW | 7 | src-nvidia-blog |
-| YC S26 | 7 | src-hn-frontpage |
 | Opt | 6 | src-media-theverge |
 | TechCrunch Disrupt | 6 | src-media-techcrunch |
 | Best Buy | 6 | src-media-theverge |
@@ -109,9 +109,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | Marvel | 5 | src-media-theverge |
 | The Stepback | 5 | src-media-theverge |
 | FCC | 5 | src-media-theverge |
+| The Algorithm | 5 | src-media-mit-techreview |
 | Netflix | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
 | MIT Technology Review | 5 | src-media-mit-techreview |
+| Decoder | 5 | src-media-theverge |
 | Grand Theft Auto | 5 | src-media-theverge |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
@@ -121,16 +123,16 @@ generator: scripts/pulse-dictionary-gaps.py
 | At TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Peacock | 4 | src-media-theverge |
 | Zig | 4 | src-hn-frontpage |
-| The Algorithm | 4 | src-media-mit-techreview |
+| Bloomberg | 4 | src-media-theverge |
 | Ask HN | 4 | src-hn-frontpage |
 | Galaxy Z Fold | 4 | src-media-theverge |
 | Switch | 4 | src-media-theverge |
+| Sony | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
 | Installer No | 4 | src-media-theverge |
 | Verge-iest | 4 | src-media-theverge |
 | Installer | 4 | src-media-theverge |
 | Disney | 4 | src-media-theverge |
-| Decoder | 4 | src-media-theverge |
 | GTA VI | 4 | src-media-theverge |
 | Rockstar Games | 4 | src-media-theverge |
 | Flash Cyber | 3 | src-deepmind-blog |
@@ -145,8 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Qwen3 | 3 | src-qwen-blog |
 | MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
-| Qwen2.5 | 3 | src-qwen-blog |
-| Htmx | 3 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

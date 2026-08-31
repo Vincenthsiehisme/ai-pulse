@@ -23,7 +23,7 @@ events_bound: 3
 events_published: 3
 health_score: 100
 consecutive_failures: 0
-last_status: 200
+last_status: "robots_unknown"
 ---
 
 # Ars Technica（src-media-arstechnica）
@@ -34,7 +34,7 @@ last_status: 200
 
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
-| 收錄 | `probing` | 會被抓 |
+| 收錄 | `probing` | **每班都被跳過**：robots.txt 取不到，保守跳過（不是站方拒絕） |
 | 已觀測 | 100 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 3 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 3 則 | 綁上了但門禁擋著——那是設計，不是故障 |
