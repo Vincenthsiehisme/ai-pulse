@@ -390,9 +390,9 @@
     "zh": "認知資料庫，非 vector／graph DB 或 RAG 包裝，記憶遺忘、自行演化。MCP 原生，單一 binary"
   },
   "sgl-project/sglang": {
-    "at": "2026-08-30T19:07:17+00:00",
+    "at": "2026-08-31T19:11:07+00:00",
     "src_hash": "34d9064f6249",
-    "zh": "SGLang 是一套給大型語言模型與多模態模型用的高效能推論服務框架"
+    "zh": "SGLang 是大語言模型與多模態模型的高效能推論服務框架"
   },
   "shanraisshan/claude-code-best-practice": {
     "at": "2026-08-27T19:10:49+00:00",
