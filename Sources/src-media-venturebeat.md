@@ -17,7 +17,7 @@ can_satisfy_primary: false
 endpoint: "https://venturebeat.com/category/ai/feed/"
 robots_checked_day: "2026-08-26"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-08-31"
+last_observed_day: "2026-09-01"
 items_observed: 11
 events_bound: 0
 events_published: 0

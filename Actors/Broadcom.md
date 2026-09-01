@@ -3,7 +3,7 @@ id: actor-broadcom
 kind: company
 in_dictionary: true
 aliases: ["博通"]
-generated_day: '2026-08-31'
+generated_day: '2026-09-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-08-31'
+generated_day: '2026-09-01'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**35 天**（2026-07-24 … 2026-08-31），去重後 **2438** 列。
+語料範圍：**36 天**（2026-07-24 … 2026-09-01），去重後 **2501** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,66 +17,66 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 47 | 5 |
-| LLMs | 35 | 12 |
+| Apple | 51 | 5 |
+| LLMs | 36 | 12 |
+| Amazon | 31 | 5 |
 | LLM | 31 | 9 |
-| Amazon | 30 | 5 |
 | July | 27 | 9 |
 | There | 24 | 7 |
-| They | 22 | 9 |
+| They | 23 | 9 |
 | Here | 22 | 8 |
 | Research | 21 | 5 |
 | June | 20 | 7 |
 | U.S | 20 | 7 |
 | August | 20 | 5 |
+| One | 19 | 9 |
 | When | 19 | 7 |
 | Building | 18 | 10 |
-| One | 18 | 9 |
+| Python | 18 | 3 |
 | Trump | 18 | 4 |
 | Pixel | 18 | 3 |
 | Industry | 16 | 2 |
-| Python | 16 | 3 |
-| Android | 15 | 3 |
+| Android | 16 | 3 |
+| European Union | 15 | 3 |
+| After | 15 | 6 |
+| AI-powered | 14 | 8 |
 | Wednesday | 14 | 4 |
-| European Union | 14 | 2 |
 | Linux | 14 | 5 |
-| After | 14 | 6 |
-| AI-powered | 13 | 7 |
+| Samsung | 14 | 3 |
 | China | 13 | 5 |
 | Rust | 13 | 3 |
 | Pro | 13 | 4 |
 | Elon Musk | 13 | 5 |
 | SpaceX | 13 | 5 |
+| RAM | 13 | 2 |
 | CEO | 13 | 4 |
-| Samsung | 13 | 3 |
+| San Francisco | 12 | 8 |
 | With | 12 | 8 |
-| RAM | 12 | 2 |
 | Draft | 11 | 2 |
 | Thursday | 11 | 3 |
 | Tuesday | 11 | 4 |
-| San Francisco | 11 | 8 |
+| Monday | 11 | 4 |
 | Opus | 11 | 4 |
 | Europe | 10 | 7 |
 | Union | 10 | 2 |
-| Monday | 10 | 4 |
 | Learn | 10 | 3 |
 | Flock | 10 | 3 |
 | From | 10 | 8 |
 | These | 10 | 5 |
 | Flash | 9 | 4 |
 | Energy | 9 | 2 |
+| September | 9 | 5 |
+| Built | 9 | 6 |
 | Texas | 9 | 6 |
 | May | 9 | 5 |
 | SQLite | 9 | 2 |
 | Qwen | 9 | 2 |
 | Last | 9 | 5 |
 | AI-generated | 9 | 3 |
-| September | 8 | 4 |
-| Built | 8 | 5 |
 | India | 8 | 3 |
 | Welcome | 8 | 3 |
-| Fable | 8 | 3 |
-| Chinese | 8 | 4 |
+| Some | 8 | 7 |
+| Mac | 8 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,30 +87,33 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 67 | src-hn-frontpage |
-| The Download | 29 | src-media-mit-techreview |
+| Show HN | 68 | src-hn-frontpage |
+| The Download | 30 | src-media-mit-techreview |
 | Highlights | 16 | src-gh-vllm-releases |
 | Committee | 15 | src-ep-itre |
 | Hi HN | 15 | src-hn-frontpage |
-| Launch HN | 11 | src-hn-frontpage |
+| Launch HN | 12 | src-hn-frontpage |
+| Tags | 10 | src-kol-simonwillison |
+| YC S26 | 10 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
-| Tags | 9 | src-kol-simonwillison |
-| YC S26 | 9 | src-hn-frontpage |
 | The Verge | 9 | src-media-theverge |
 | Minutes | 7 | src-ep-itre |
 | GeForce NOW | 7 | src-nvidia-blog |
+| Best Buy | 7 | src-media-theverge |
 | Opt | 6 | src-media-theverge |
 | TechCrunch Disrupt | 6 | src-media-techcrunch |
-| Best Buy | 6 | src-media-theverge |
+| Bloomberg | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Marvel | 5 | src-media-theverge |
 | The Stepback | 5 | src-media-theverge |
 | FCC | 5 | src-media-theverge |
 | The Algorithm | 5 | src-media-mit-techreview |
 | Netflix | 5 | src-media-theverge |
+| Ask HN | 5 | src-hn-frontpage |
+| Galaxy Z Fold | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
 | MIT Technology Review | 5 | src-media-mit-techreview |
 | Decoder | 5 | src-media-theverge |
@@ -123,11 +126,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | At TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Peacock | 4 | src-media-theverge |
 | Zig | 4 | src-hn-frontpage |
-| Bloomberg | 4 | src-media-theverge |
-| Ask HN | 4 | src-hn-frontpage |
-| Galaxy Z Fold | 4 | src-media-theverge |
 | Switch | 4 | src-media-theverge |
-| Sony | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
 | Installer No | 4 | src-media-theverge |
 | Verge-iest | 4 | src-media-theverge |
@@ -147,6 +146,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Qwen3 | 3 | src-qwen-blog |
 | MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
+| Qwen2.5 | 3 | src-qwen-blog |
 
 ## 這一頁不保證什麼
 

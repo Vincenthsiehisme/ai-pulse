@@ -3,17 +3,18 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-08-31'
+generated_day: '2026-09-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **10** 則：`published` 6、`review` 4
+事件 **11** 則：`published` 6、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-01 | [[Events/evt-2026-09-01-0b7af6\|Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI]] | review |
 | 2026-08-28 | [[Events/evt-2026-08-28-ef9143\|The Open ASR Leaderboard Adds Its First Global South Language]] | published |
 | 2026-08-26 | [[Events/evt-2026-08-26-41a80d\|Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers]] | published |
 | 2026-08-25 | [[Events/evt-2026-08-25-4e5d45\|Wire It, Run It, Deploy It: AI Workflows in Gradio]] | published |
