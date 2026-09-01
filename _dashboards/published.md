@@ -1,6 +1,32 @@
-# 已發布事件（198）
+# 已發布事件（209）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-01
+- **[[Events/evt-2026-09-01-073ecd|Improving Alignment Security Efforts]]** — Anthropic · research · conf 73 · heat 未量測
+  Anthropic 發布一篇談 alignment 安全工作進展的公告，內容僅標題可用。
+- **[[Events/evt-2026-09-01-0b7af6|Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 推出 @huggingface/kernels，內建超過 200 個 WebGPU 運算核心，主打瀏覽器端在地推論。
+- **[[Events/evt-2026-09-01-2f6ed3|Enterprise Frontier Safeguards]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發布名為《Enterprise Frontier Safeguards》的公告，內容僅標題可用。
+- **[[Events/evt-2026-09-01-8d2984|Biosafety At The Frontier]]** — xAI · policy · conf 73 · heat 未量測
+  xAI 發布談生物安全風險的公告，站方公告只留標題與連結，內容需自行查閱原文。
+- **[[Events/evt-2026-09-01-bb448b|Introducing agentic video understanding with Gemini]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
+  Google DeepMind 發布 Gemini 的「主動式影片理解」功能，內容僅標題可用。
+- **[[Events/evt-2026-09-01-c5f2a2|Claude Text Watermark]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發布《Claude Text Watermark》公告，內容僅標題可用。
+- **[[Events/evt-2026-09-01-cf0761|How AI-native companies turn workflows into operating capability]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 整理 Basis、Clay、Exa Labs 三家公司用 AI agent 改造內部流程的案例。
+- **[[Events/evt-2026-09-01-e650e0|Healthcare organizations can now connect EHR and additional industry data to ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+  ChatGPT 現在能串接醫療機構的電子病歷與產業資料。
+
+## 2026-08-31
+- **[[Events/evt-2026-08-31-2738b1|A milestone in expanding access to AI]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 的 ChatGPT 廣告年化營收站上十億美元，同步擴大海外覆蓋。
+- **[[Events/evt-2026-08-31-371bf0|OpenAI supports California’s bill to advance youth AI safety]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 公開表態支持加州 SB 1119，主張為青少年設計分齡的 AI 防護措施。
+- **[[Events/evt-2026-08-31-87b636|Polimill builds Japan's next-generation public AI infrastructure]]** — OpenAI · product · conf 73 · heat 未量測
+  日本新創 Polimill 用 OpenAI 的模型幫地方政府檢索行政知識、加快系統開發。
 
 ## 2026-08-28
 - **[[Events/evt-2026-08-28-763f5e|Supporting Thailand’s next generation of AI startups]]** — OpenAI · product · conf 73 · heat 未量測

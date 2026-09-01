@@ -1,14 +1,7 @@
-# 被門禁擋下（39）
+# 被門禁擋下（28）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-09-01-0b7af6|Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-01-bb448b|Introducing agentic video understanding with Gemini]]** — Google DeepMind — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-01-c5f2a2|Claude Text Watermark]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-01-e650e0|Healthcare organizations can now connect EHR and additional industry d]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-31-2738b1|A milestone in expanding access to AI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-31-371bf0|OpenAI supports California’s bill to advance youth AI safety]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-08-31-87b636|Polimill builds Japan's next-generation public AI infrastructure]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-27-c92259|Piloting the world's first double-blind AI evaluations]]** — Google DeepMind — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-19-5773cb|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]]** — Hugging Face — blockers: thin_research_analysis
@@ -35,9 +28,5 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-09-01-073ecd|Improving Alignment Security Efforts]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-01-2f6ed3|Enterprise Frontier Safeguards]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-01-8d2984|Biosafety At The Frontier]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-01-cf0761|How AI-native companies turn workflows into operating capability]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-08-21-1534c7|Measuring benchmark optimization in speech recognition]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity

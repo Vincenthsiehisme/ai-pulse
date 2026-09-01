@@ -1,1 +1,200 @@
-[]
+[
+  {
+    "id": "evt-2026-08-31-2738b1",
+    "path": "evt-2026-08-31-2738b1.md",
+    "title": "A milestone in expanding access to AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/expanding-access-to-ai-with-chatgpt-ads",
+        "title": "A milestone in expanding access to AI",
+        "summary": "ChatGPT Ads reaches $1 billion in annualized revenue run rate and expands globally, supporting broader access to AI through free and affordable options."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-31-371bf0",
+    "path": "evt-2026-08-31-371bf0.md",
+    "title": "OpenAI supports California’s bill to advance youth AI safety",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/supporting-california-bill-advance-ai-youth-safety",
+        "title": "OpenAI supports California’s bill to advance youth AI safety",
+        "summary": "OpenAI supports California SB 1119, advancing strong, age-appropriate AI safeguards for teens while preserving opportunities to learn, create, and explore."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-08-31-87b636",
+    "path": "evt-2026-08-31-87b636.md",
+    "title": "Polimill builds Japan's next-generation public AI infrastructure",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/polimill",
+        "title": "Polimill builds Japan's next-generation public AI infrastructure",
+        "summary": "Polimill uses OpenAI GPT models and Codex to help municipalities search and use administrative knowledge while accelerating development."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-01-073ecd",
+    "path": "evt-2026-09-01-073ecd.md",
+    "title": "Improving Alignment Security Efforts",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/improving-alignment-security-efforts",
+        "title": "Improving Alignment Security Efforts",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-01-0b7af6",
+    "path": "evt-2026-09-01-0b7af6.md",
+    "title": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/webgpu-kernels",
+        "title": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-01-2f6ed3",
+    "path": "evt-2026-09-01-2f6ed3.md",
+    "title": "Enterprise Frontier Safeguards",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/enterprise-frontier-safeguards",
+        "title": "Enterprise Frontier Safeguards",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-01-8d2984",
+    "path": "evt-2026-09-01-8d2984.md",
+    "title": "Biosafety At The Frontier",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-xai-news",
+        "url": "https://x.ai/news/biosafety-at-the-frontier",
+        "title": "Biosafety At The Frontier",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-01-bb448b",
+    "path": "evt-2026-09-01-bb448b.md",
+    "title": "Introducing agentic video understanding with Gemini",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "Google DeepMind",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/introducing-agentic-video-in-gemini/",
+        "title": "Introducing agentic video understanding with Gemini",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-01-c5f2a2",
+    "path": "evt-2026-09-01-c5f2a2.md",
+    "title": "Claude Text Watermark",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-text-watermark",
+        "title": "Claude Text Watermark",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-01-cf0761",
+    "path": "evt-2026-09-01-cf0761.md",
+    "title": "How AI-native companies turn workflows into operating capability",
+    "fingerprint": null,
+    "facet": "capability",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/ai-native-company-workflows",
+        "title": "How AI-native companies turn workflows into operating capability",
+        "summary": "Basis, Clay, and Exa Labs use AI agents to improve onboarding, account management, and developer integrations. See what enterprise leaders can apply."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-01-e650e0",
+    "path": "evt-2026-09-01-e650e0.md",
+    "title": "Healthcare organizations can now connect EHR and additional industry data to ChatGPT",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/chatgpt-connects-health-records-and-healthcare-sources",
+        "title": "Healthcare organizations can now connect EHR and additional industry data to ChatGPT",
+        "summary": "ChatGPT can now connect to trusted healthcare data, helping clinicians securely access patient context, medical research, and more."
+      }
+    ]
+  }
+]
