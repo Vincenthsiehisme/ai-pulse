@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-09-01'
+updated: '2026-09-02'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 這條線這一輪新增一則：Hugging Face 發布 @huggingface/kernels，提供超過兩百個 WebGPU 運算核心，目標是讓模型能在瀏覽器等本地端環境跑推論，但來源摘要本身只是網站通用標語，沒有更多技術細節，只能靠標題確認核心規模與定位。這是這條線第一次出現瀏覽器端本地推論的訊號，跟既有「把每一塊錢算力壓低」的主軸方向一致，只是切入點從資料中心的晶片效率換成了終端裝置的推論成本。既有主軸不變：Model Hardware Standard 的規格範圍仍看不到；NVIDIA Vera CPU 出貨沒有出貨量或客戶名單這類可查證的數字；vLLM v0.28.0 針對 Kimi-K3 的效能優化屬例行版本更新；OpenAI 自研推論晶片 Jalapeño 的第一批結果沒有跟現有商用晶片的直接效能對比；Vera Rubin NVL72 每瓦工作量提升 30 倍、Groq 3 LPX 全面量產、NVLink Fusion 接第三方 XPU 這三則的效率倍數與整合細節都還只有官方說法。
-    next: '@huggingface/kernels 是否被 transformers.js 或其他瀏覽器推論框架採用為預設後端，能檢驗它是不是真的補上開發者要自己寫 WebGPU shader 的成本。其餘沿用既有訊號：Model Hardware Standard 的技術規格是否公開，以及是否有硬體廠商公開表態採用；Vera CPU 首批客戶名單與實際出貨量是否公布；Kimi-K3 在 vLLM 上的實測效能數字；OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比；NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨。'
+    now: 這條線這一輪新增一則：IBM Research 在 Hugging Face 部落格發布文章，把 IBM 的時間序列模型接進 Confluent 的即時串流平台做「即時智慧」，但這條來源只給了標題，沒有更多內容可轉述，具體是新模型、既有模型整合案例還是效能評測都看不出來。跟這條線「把每一塊錢算力壓低」的主軸關聯不大，比較像是資料基礎設施廠商之間的常規整合案例。既有主軸不變：@huggingface/kernels 是否被瀏覽器推論框架採用仍待觀察；Model Hardware Standard 的規格範圍仍看不到；NVIDIA Vera CPU 出貨沒有出貨量或客戶名單這類可查證的數字；vLLM v0.28.0 針對 Kimi-K3 的效能優化屬例行版本更新；OpenAI 自研推論晶片 Jalapeño 的第一批結果沒有跟現有商用晶片的直接效能對比；Vera Rubin NVL72 每瓦工作量提升 30 倍、Groq 3 LPX 全面量產、NVLink Fusion 接第三方 XPU 這三則的效率倍數與整合細節都還只有官方說法。
+    next: IBM 是否公開這次整合的具體效能數字或客戶案例，或 Confluent 端是否有對應的產品公告。其餘沿用既有訊號：@huggingface/kernels 是否被 transformers.js 或其他瀏覽器推論框架採用為預設後端；Model Hardware Standard 的技術規格是否公開；Vera CPU 首批客戶名單與實際出貨量是否公布；Kimi-K3 在 vLLM 上的實測效能數字；OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比；NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這條線這一輪新增兩則，都只留標題：Anthropic《Improving Alignment Security Efforts》談對齊安全工作的改善，xAI《Biosafety At The Frontier》談生物安全防護，兩份來源都只開放標題與連結，實際做了什麼、有沒有具體測試數字看不到。這兩則都是既有安全工作的迭代說明，不是新模型或新能力發表，跟這條線「小而專、成本導向」的模型迭代主軸沒有直接關聯，單純是安全揭露這條支線又多了兩筆。既有主軸不變：Open ASR Leaderboard 新增的語言與分數仍未公布；Gemini Omni 1.1 Flash 強調更多建構控制權，具體新增了哪些控制項仍看不到；Hugging Face 那篇多向量嵌入模型教學的技術內容仍未補上；IBM Granite 4.2 與 Multiverse Computing 的量化方法都還停在廠商自己的一句話宣稱；模型往小而專走的訊號持續累積（Gemini 3.7 Flash、Nemotron 3.5 Lightning、LFM2.5 系列端側模型），GPT-5.6 把賣點從更強移到更省。
-    next: Anthropic 與 xAI 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核，而不只是政策聲明。其餘沿用既有訊號：Open ASR Leaderboard 新增的語言到底是哪一個、有沒有模型跑出分數；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；Hugging Face 那篇教學實際涵蓋的訓練細節與效能比較；Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
+    now: 這條線這一輪新增一則：Google 發布 Gemini 3.8 Flash 與 Gemini 3.8 Flash Cyber，是 Google 六週內第三款 Flash 模型，Ars Technica 觀察到同一時間 Pro 系列的更新看起來暫停了；DeepMind 官方原文我們只留標題與連結。這跟這條線「小而專、成本導向」的模型迭代主軸一致，只是這次多了一個資安變體，呼應同一天 OpenAI Astra 跨過資安能力 Critical 門檻、NVIDIA×CrowdStrike SafeMind 這波資安敘事。既有主軸不變：Anthropic《Improving Alignment Security Efforts》與 xAI《Biosafety At The Frontier》兩則安全公告仍只留標題；Open ASR Leaderboard 新增的語言與分數仍未公布；Gemini Omni 1.1 Flash 具體新增了哪些控制項仍看不到；Hugging Face 多向量嵌入模型教學的技術內容仍未補上；IBM Granite 4.2 與 Multiverse Computing 的量化方法都還停在廠商自己的一句話宣稱；模型往小而專走的訊號持續累積（Nemotron 3.5 Lightning、LFM2.5 系列端側模型），GPT-5.6 把賣點從更強移到更省。
+    next: Gemini Pro 系列是否在近期釋出更新，藉此判斷 Google 是不是刻意把疊代優先放在 Flash 線；Flash Cyber 具體鎖定哪些資安應用場景。其餘沿用既有訊號：Anthropic 與 xAI 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核；Open ASR Leaderboard 新增的語言到底是哪一個、有沒有模型跑出分數；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數是否有第三方複現。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這條線這一輪新增三則：Anthropic 又發了兩則產品公告——《Enterprise Frontier Safeguards》與《Claude Text Watermark》，同樣只留標題與連結，延續這批公告內容密度低的模式；OpenAI 則宣布 ChatGPT 現在可以串接醫療機構的電子病歷與其他產業資料，讓臨床人員能在對話中存取病患背景資訊，這篇有具體內容，但沒有講清楚誰簽署合規協議、資料留存規則怎麼定。跟這條線既有的「能力已經做得到，看怎麼真的用上」走向一致，只是 Anthropic 那批只留標題的公告又多了兩筆，OpenAI 這次選的垂直領域換成了醫療。既有主軸不變：Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；ChatGPT for Teachers 擴大到 55 個美國學區、批判性思考隨機對照研究、學習持續性報告這三篇都附上具體數字或研究設計；NVIDIA 在 Gamescom 公布 GeForce NOW 新增 DLSS 4.5；xAI 的 Grok Bot 與 Grok 4.6 上架 Microsoft Foundry 兩則同樣只留標題。
-    next: Anthropic 這兩則新公告是否會補上具體功能規格；ChatGPT 醫療資料串接是否補上合規細節說明，以及是否有具名醫療機構公開宣布已經串接使用。其餘沿用既有訊號：Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字，讓讀者判斷這是真的產品擴張還是批次公關發布；OpenAI 是否會把 Admin plugin 這類管理功能擴展到更多產品線，或揭露企業客戶的實際採用數字；loveholidays 或其他企業是否公開具體的採用數字；GPT-5.6 進 Kiro 是否補上具體定價；Stampli 案例有沒有客戶方自己或第三方獨立證實；Grok 4.6 Amazon Bedrock 與 Microsoft Foundry 這兩則原文能取用時再確認實際形式。
+    now: 這條線這一輪新增三則：NVIDIA 與 CrowdStrike 在 Fal.Con 2026 大會上發表新資安產品 SafeMind，把資安防禦自動化；OpenAI 發布客戶案例，澳洲律師事務所 Gilbert + Tobin 全面導入 ChatGPT Enterprise 與 Codex；Google DeepMind 也發布一篇談政府與企業「主動式資安防禦」的文章，但原文我們只留標題與連結。前兩則呼應本站近幾週持續在追的資安敘事，同一天模型能力線也記了 OpenAI Astra 跨過資安能力 Critical 門檻，顯示資安正在變成多家廠商同步在推的產品切角，不只是模型能力的附帶說明，跟這條線既有的「能力已經做得到，看怎麼真的用上」走向一致。既有主軸不變：Anthropic 這兩則公告（Enterprise Frontier Safeguards、Claude Text Watermark）仍只留標題；ChatGPT 醫療資料串接沒有講清楚誰簽署合規協議、資料留存規則怎麼定；Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；ChatGPT for Teachers 擴大到 55 個美國學區、批判性思考隨機對照研究、學習持續性報告這三篇都附上具體數字或研究設計；NVIDIA 在 Gamescom 公布 GeForce NOW 新增 DLSS 4.5；xAI 的 Grok Bot 與 Grok 4.6 上架 Microsoft Foundry 兩則同樣只留標題。
+    next: SafeMind 是否公布具體技術規格或客戶部署案例；Gilbert + Tobin 或其他律所是否公開更具體的採用數據；DeepMind 那篇原文公布的技術或政策內容，以及是否點名具體的政府或企業合作對象。其餘沿用既有訊號：Anthropic 這兩則公告是否會補上具體功能規格；ChatGPT 醫療資料串接是否補上合規細節說明，以及是否有具名醫療機構公開宣布已經串接使用；Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；OpenAI 是否會把 Admin plugin 這類管理功能擴展到更多產品線；loveholidays 或其他企業是否公開具體的採用數字；GPT-5.6 進 Kiro 是否補上具體定價；Stampli 案例有沒有客戶方自己或第三方獨立證實；Grok 4.6 Amazon Bedrock 與 Microsoft Foundry 這兩則原文能取用時再確認實際形式。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？

@@ -1,6 +1,14 @@
-# 已發布事件（209）
+# 已發布事件（215）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-02
+- **[[Events/evt-2026-09-02-51e55a|Proactive cyber defense for governments and enterprises]]** — Google DeepMind · policy · conf 73 · heat 未量測
+  DeepMind 談政府與企業的主動式資安防禦，原文我們只留標題連結。
+- **[[Events/evt-2026-09-02-d8edec|Introducing Gemini 3.8 Flash and 3.8 Flash Cyber]]** — Google DeepMind · model-capability · conf 87 · heat 未量測
+  Google 六週內第三款 Flash 模型上線，還多了資安款 Flash Cyber。
+- **[[Events/evt-2026-09-02-eebb36|Real-Time Intelligence with IBM Time Series Models on Confluent]]** — IBM Research · infra · conf 73 · heat 未量測
+  IBM 時間序列模型接上 Confluent 做即時智慧，細節待補。
 
 ## 2026-09-01
 - **[[Events/evt-2026-09-01-073ecd|Improving Alignment Security Efforts]]** — Anthropic · research · conf 73 · heat 未量測
@@ -9,6 +17,10 @@
   Hugging Face 推出 @huggingface/kernels，內建超過 200 個 WebGPU 運算核心，主打瀏覽器端在地推論。
 - **[[Events/evt-2026-09-01-2f6ed3|Enterprise Frontier Safeguards]]** — Anthropic · product · conf 73 · heat 未量測
   Anthropic 發布名為《Enterprise Frontier Safeguards》的公告，內容僅標題可用。
+- **[[Events/evt-2026-09-01-57be81|NVIDIA and CrowdStrike Strengthen Agentic Cybersecurity Frontier]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 與 CrowdStrike 聯手推出 agentic 資安新品 SafeMind。
+- **[[Events/evt-2026-09-01-7bcc0b|Path to Astra: critical capabilities and frontier safeguards]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 首度承認有模型跨過資安能力的 Critical 風險門檻。
 - **[[Events/evt-2026-09-01-8d2984|Biosafety At The Frontier]]** — xAI · policy · conf 73 · heat 未量測
   xAI 發布談生物安全風險的公告，站方公告只留標題與連結，內容需自行查閱原文。
 - **[[Events/evt-2026-09-01-bb448b|Introducing agentic video understanding with Gemini]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
@@ -19,6 +31,8 @@
   OpenAI 整理 Basis、Clay、Exa Labs 三家公司用 AI agent 改造內部流程的案例。
 - **[[Events/evt-2026-09-01-e650e0|Healthcare organizations can now connect EHR and additional industry data to ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
   ChatGPT 現在能串接醫療機構的電子病歷與產業資料。
+- **[[Events/evt-2026-09-01-f0d616|How law firm Gilbert + Tobin governs and scales AI with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布法律業客戶案例，律所全面導入 ChatGPT 與 Codex。
 
 ## 2026-08-31
 - **[[Events/evt-2026-08-31-2738b1|A milestone in expanding access to AI]]** — OpenAI · capital · conf 73 · heat 未量測

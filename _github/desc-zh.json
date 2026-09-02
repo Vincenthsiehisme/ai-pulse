@@ -9,6 +9,11 @@
     "src_hash": "e3d27a2e28bd",
     "zh": "一個給 agent 使用的投影片框架"
   },
+  "Agents365-ai/drawio-skill": {
+    "at": "2026-09-02T19:14:09+00:00",
+    "src_hash": "6be7dcaf63df",
+    "zh": "把文字與真實來源轉成可維護的 .drawio 架構圖，支援增量同步、多視角投影，並內建 MCP server"
+  },
   "Andyyyy64/whichllm": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "47e983421d6e",
@@ -264,6 +269,16 @@
     "src_hash": "4fd40cb6ef54",
     "zh": "即時全球情報儀表板：AI 新聞彙整、地緣政治與基礎設施監看"
   },
+  "kucherenko/jscpd": {
+    "at": "2026-09-02T19:14:09+00:00",
+    "src_hash": "496200e77889",
+    "zh": "程式碼複製貼上偵測器，支援 220+ 種語言、Rust 引擎，並內建 MCP server"
+  },
+  "langgenius/dify": {
+    "at": "2026-09-02T19:14:09+00:00",
+    "src_hash": "caea6695fbfe",
+    "zh": "在同一個工作區裡建 Agentic workflow 與 RAG pipeline，可部署雲端、VPC 或自架環境"
+  },
   "lightonai/next-plaid": {
     "at": "2026-08-14T19:13:10+00:00",
     "src_hash": "064db50fe87f",
@@ -293,6 +308,11 @@
     "at": "2026-08-20T19:08:38+00:00",
     "src_hash": "b96fba42819c",
     "zh": "18 堂課帶你從零開始寫 AI Agent"
+  },
+  "mlc-ai/web-llm": {
+    "at": "2026-09-02T19:14:09+00:00",
+    "src_hash": "94f704baaa2b",
+    "zh": "In-browser 高效能 LLM 推論引擎"
   },
   "mobile-next/mobile-mcp": {
     "at": "2026-08-02T19:12:08+00:00",
