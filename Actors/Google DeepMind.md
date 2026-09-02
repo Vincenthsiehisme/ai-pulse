@@ -3,18 +3,19 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-09-01'
+generated_day: '2026-09-02'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **15** 則：`published` 9、`review` 6
+事件 **16** 則：`published` 10、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-01 | [[Events/evt-2026-09-01-bb448b\|Introducing agentic video understanding with Gemini]] | review |
+| 2026-09-02 | [[Events/evt-2026-09-02-d8edec\|Introducing Gemini 3.8 Flash and 3.8 Flash Cyber]] | review |
+| 2026-09-01 | [[Events/evt-2026-09-01-bb448b\|Introducing agentic video understanding with Gemini]] | published |
 | 2026-08-27 | [[Events/evt-2026-08-27-c92259\|Piloting the world's first double-blind AI evaluations]] | review |
 | 2026-08-27 | [[Events/evt-2026-08-27-af2d41\|Gemini Omni 1.1 Flash lets you build with more control]] | published |
 | 2026-08-26 | [[Events/evt-2026-08-26-decef1\|Intelligent transcription with Gemini 3.5 Transcribe]] | published |

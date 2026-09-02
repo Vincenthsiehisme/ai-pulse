@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-01'
+generated_day: '2026-09-02'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**36 天**（2026-07-24 … 2026-09-01），去重後 **2501** 列。
+語料範圍：**37 天**（2026-07-24 … 2026-09-02），去重後 **2574** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,66 +17,66 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 51 | 5 |
-| LLMs | 36 | 12 |
-| Amazon | 31 | 5 |
-| LLM | 31 | 9 |
+| Apple | 52 | 5 |
+| LLMs | 38 | 12 |
+| LLM | 34 | 11 |
+| Amazon | 33 | 5 |
 | July | 27 | 9 |
-| There | 24 | 7 |
-| They | 23 | 9 |
-| Here | 22 | 8 |
+| They | 25 | 9 |
+| There | 25 | 7 |
+| Here | 23 | 8 |
 | Research | 21 | 5 |
+| U.S | 21 | 7 |
 | June | 20 | 7 |
-| U.S | 20 | 7 |
 | August | 20 | 5 |
+| Python | 19 | 3 |
 | One | 19 | 9 |
 | When | 19 | 7 |
+| Trump | 19 | 4 |
+| Pixel | 19 | 3 |
 | Building | 18 | 10 |
-| Python | 18 | 3 |
-| Trump | 18 | 4 |
-| Pixel | 18 | 3 |
+| Android | 17 | 3 |
 | Industry | 16 | 2 |
-| Android | 16 | 3 |
+| Linux | 16 | 5 |
 | European Union | 15 | 3 |
 | After | 15 | 6 |
 | AI-powered | 14 | 8 |
 | Wednesday | 14 | 4 |
-| Linux | 14 | 5 |
+| Pro | 14 | 4 |
+| CEO | 14 | 5 |
 | Samsung | 14 | 3 |
+| Flash | 13 | 4 |
+| Europe | 13 | 7 |
 | China | 13 | 5 |
+| With | 13 | 8 |
 | Rust | 13 | 3 |
-| Pro | 13 | 4 |
 | Elon Musk | 13 | 5 |
 | SpaceX | 13 | 5 |
 | RAM | 13 | 2 |
-| CEO | 13 | 4 |
 | San Francisco | 12 | 8 |
-| With | 12 | 8 |
 | Draft | 11 | 2 |
 | Thursday | 11 | 3 |
 | Tuesday | 11 | 4 |
+| September | 11 | 5 |
 | Monday | 11 | 4 |
 | Opus | 11 | 4 |
-| Europe | 10 | 7 |
+| AI-generated | 11 | 3 |
 | Union | 10 | 2 |
 | Learn | 10 | 3 |
+| India | 10 | 3 |
 | Flock | 10 | 3 |
 | From | 10 | 8 |
+| Fable | 10 | 3 |
 | These | 10 | 5 |
-| Flash | 9 | 4 |
 | Energy | 9 | 2 |
-| September | 9 | 5 |
 | Built | 9 | 6 |
 | Texas | 9 | 6 |
 | May | 9 | 5 |
 | SQLite | 9 | 2 |
 | Qwen | 9 | 2 |
 | Last | 9 | 5 |
-| AI-generated | 9 | 3 |
-| India | 8 | 3 |
 | Welcome | 8 | 3 |
 | Some | 8 | 7 |
-| Mac | 8 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,13 +87,13 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 68 | src-hn-frontpage |
-| The Download | 30 | src-media-mit-techreview |
+| Show HN | 69 | src-hn-frontpage |
+| The Download | 31 | src-media-mit-techreview |
 | Highlights | 16 | src-gh-vllm-releases |
 | Committee | 15 | src-ep-itre |
 | Hi HN | 15 | src-hn-frontpage |
 | Launch HN | 12 | src-hn-frontpage |
-| Tags | 10 | src-kol-simonwillison |
+| Tags | 11 | src-kol-simonwillison |
 | YC S26 | 10 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
@@ -102,8 +102,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | The Verge | 9 | src-media-theverge |
 | Minutes | 7 | src-ep-itre |
 | GeForce NOW | 7 | src-nvidia-blog |
+| Opt | 7 | src-media-theverge |
 | Best Buy | 7 | src-media-theverge |
-| Opt | 6 | src-media-theverge |
 | TechCrunch Disrupt | 6 | src-media-techcrunch |
 | Bloomberg | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
@@ -121,6 +121,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
+| Tool | 4 | src-kol-simonwillison |
 | Equity | 4 | src-media-techcrunch |
 | According | 4 | src-media-theverge |
 | At TechCrunch Disrupt | 4 | src-media-techcrunch |
@@ -134,7 +135,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Disney | 4 | src-media-theverge |
 | GTA VI | 4 | src-media-theverge |
 | Rockstar Games | 4 | src-media-theverge |
-| Flash Cyber | 3 | src-deepmind-blog |
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
 | Fix | 3 | src-gh-vllm-releases |
@@ -142,11 +142,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | Latest | 3 | src-kol-interconnects |
 | Enough Data Part | 3 | src-kol-lilianweng |
 | LLM Research Papers | 3 | src-kol-raschka |
-| Tool | 3 | src-kol-simonwillison |
 | Qwen3 | 3 | src-qwen-blog |
 | MODELSCOPE DEMO DISCORD | 3 | src-qwen-blog |
 | FACE MODELSCOPE DISCORD | 3 | src-qwen-blog |
 | Qwen2.5 | 3 | src-qwen-blog |
+| Htmx | 3 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

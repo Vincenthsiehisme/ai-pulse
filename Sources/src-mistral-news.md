@@ -14,7 +14,7 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "titles + links only"
 endpoint: "https://mistral.ai/sitemap-index.xml"
-robots_checked_day: "2026-08-26"
+robots_checked_day: "2026-09-02"
 first_fetch_at: "2026-07-25"
 last_observed_day:
 items_observed: 0

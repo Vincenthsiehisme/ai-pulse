@@ -15,11 +15,11 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://arstechnica.com/ai/feed/"
-robots_checked_day: "2026-08-26"
+robots_checked_day: "2026-09-02"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-09-01"
-items_observed: 103
-events_bound: 3
+last_observed_day: "2026-09-02"
+items_observed: 105
+events_bound: 4
 events_published: 3
 health_score: 100
 consecutive_failures: 0
@@ -35,8 +35,8 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 103 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 3 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已觀測 | 105 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 4 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 3 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 這條來源不能單獨作為一手證據（`can_satisfy_primary: false`）。它的角色是佐證與獨立性，不是「事情發生了」的來源。

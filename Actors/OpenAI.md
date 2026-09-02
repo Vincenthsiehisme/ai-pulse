@@ -3,21 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-01'
+generated_day: '2026-09-02'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **72** 則：`published` 67、`review` 5
+事件 **75** 則：`published` 72、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-01 | [[Events/evt-2026-09-01-e650e0\|Healthcare organizations can now connect EHR and additional industry data to ChatGPT]] | review |
-| 2026-08-31 | [[Events/evt-2026-08-31-87b636\|Polimill builds Japan's next-generation public AI infrastructure]] | review |
-| 2026-08-31 | [[Events/evt-2026-08-31-371bf0\|OpenAI supports California’s bill to advance youth AI safety]] | review |
-| 2026-08-31 | [[Events/evt-2026-08-31-2738b1\|A milestone in expanding access to AI]] | review |
+| 2026-09-01 | [[Events/evt-2026-09-01-f0d616\|How law firm Gilbert + Tobin governs and scales AI with OpenAI]] | review |
+| 2026-09-01 | [[Events/evt-2026-09-01-e650e0\|Healthcare organizations can now connect EHR and additional industry data to ChatGPT]] | published |
+| 2026-09-01 | [[Events/evt-2026-09-01-cf0761\|How AI-native companies turn workflows into operating capability]] | published |
+| 2026-09-01 | [[Events/evt-2026-09-01-7bcc0b\|Path to Astra: critical capabilities and frontier safeguards]] | review |
+| 2026-08-31 | [[Events/evt-2026-08-31-87b636\|Polimill builds Japan's next-generation public AI infrastructure]] | published |
+| 2026-08-31 | [[Events/evt-2026-08-31-371bf0\|OpenAI supports California’s bill to advance youth AI safety]] | published |
+| 2026-08-31 | [[Events/evt-2026-08-31-2738b1\|A milestone in expanding access to AI]] | published |
 | 2026-08-28 | [[Events/evt-2026-08-28-7a426a\|Our decision on Cursor following its acquisition by SpaceX]] | published |
 | 2026-08-28 | [[Events/evt-2026-08-28-763f5e\|Supporting Thailand’s next generation of AI startups]] | published |
 | 2026-08-27 | [[Events/evt-2026-08-27-ac14f8\|Expanding OpenAI’s presence in Brazil]] | published |

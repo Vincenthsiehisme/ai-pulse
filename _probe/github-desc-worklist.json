@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "full_name": "Agents365-ai/drawio-skill",
+    "desc": "From text & real sources to maintainable .drawio architecture models: Diagram IR with source-kind profiles, incremental sync preserving manual layout, multi-view projection, architecture-as-test with a CI action, query/review, what-if, accessible Story Mode, and a built-in MCP server",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "architecture",
+      "architecture-diagram",
+      "bpmn",
+      "c4-model",
+      "claude-code"
+    ],
+    "stars": 8973,
+    "url": "https://github.com/Agents365-ai/drawio-skill",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mlc-ai/web-llm",
+    "desc": "High-performance In-browser LLM Inference Engine",
+    "language": "TypeScript",
+    "topics": [
+      "chatgpt",
+      "deep-learning",
+      "language-model",
+      "llm",
+      "tvm",
+      "webgpu"
+    ],
+    "stars": 18776,
+    "url": "https://github.com/mlc-ai/web-llm",
+    "stale_zh": null
+  },
+  {
+    "full_name": "kucherenko/jscpd",
+    "desc": "Copy/paste detector for source code. 220+ languages, Rust engine, SARIF/HTML/badge reporters, GitHub Action, MCP server for AI agents.",
+    "language": "Rust",
+    "topics": [
+      "ai",
+      "cli",
+      "clones-detection",
+      "code-duplication",
+      "code-quality",
+      "coding-agents"
+    ],
+    "stars": 6125,
+    "url": "https://github.com/kucherenko/jscpd",
+    "stale_zh": null
+  },
+  {
+    "full_name": "langgenius/dify",
+    "desc": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-framework",
+      "agentic-workflow",
+      "ai",
+      "automation"
+    ],
+    "stars": 154242,
+    "url": "https://github.com/langgenius/dify",
+    "stale_zh": null
+  }
+]

@@ -1,7 +1,13 @@
-# 被門禁擋下（28）
+# 被門禁擋下（35）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-02-d8edec|Introducing Gemini 3.8 Flash and 3.8 Flash Cyber]]** — Google DeepMind — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-02-eebb36|Real-Time Intelligence with IBM Time Series Models on Confluent]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-01-3da724|BenchMIRT: What are LLM benchmarks actually measuring?]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-01-57be81|NVIDIA and CrowdStrike Strengthen Agentic Cybersecurity Frontier]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-01-7bcc0b|Path to Astra: critical capabilities and frontier safeguards]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-01-f0d616|How law firm Gilbert + Tobin governs and scales AI with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-08-27-c92259|Piloting the world's first double-blind AI evaluations]]** — Google DeepMind — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-19-5773cb|LFM2.5 Q4\_0 Checkpoints from Quantization-Aware Distillation]]** — Hugging Face — blockers: thin_research_analysis
@@ -28,5 +34,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-09-02-51e55a|Proactive cyber defense for governments and enterprises]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-08-21-1534c7|Measuring benchmark optimization in speech recognition]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity

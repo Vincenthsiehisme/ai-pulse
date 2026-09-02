@@ -3,7 +3,7 @@ id: actor-thinking-machines
 kind: company
 in_dictionary: true
 aliases: []
-generated_day: '2026-09-01'
+generated_day: '2026-09-02'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

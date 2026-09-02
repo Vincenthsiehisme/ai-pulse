@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-01"
+generated_day: "2026-09-02"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-01"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **184** 則／已裁決 **26** 則。
+待回答 **195** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#6cca7133`** — infra-cost
-  > Model Hardware Standard的技術規格是否公開，以及是否有硬體廠商公開表態採用；Vera CPU首批客戶名單與實際出貨量是否公布。其餘沿用既有訊號：Kimi-K3在vLLM上的實測效能數字；OpenAI是否公布Jalapeño與現有商用晶片的直接效能或成本對比；NVIDIA有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX與Vera Rubin具體怎麼整合、有沒有實際第三方XPU廠商透過NVLink Fusion出貨。
+- **`infra-cost#d8d71d46`** — infra-cost
+  > @huggingface/kernels 是否被 transformers.js 或其他瀏覽器推論框架採用為預設後端，能檢驗它是不是真的補上開發者要自己寫 WebGPU shader 的成本。其餘沿用既有訊號：Model Hardware Standard 的技術規格是否公開，以及是否有硬體廠商公開表態採用；Vera CPU 首批客戶名單與實際出貨量是否公布；Kimi-K3 在 vLLM 上的實測效能數字；OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比；NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨。
 
-- **`model-research#e7b643ed`** — model-research
-  > Open ASR Leaderboard 新增的語言到底是哪一個、有沒有模型跑出分數，要等原文或後續報導補上。其餘沿用既有訊號：Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；Hugging Face 那篇教學實際涵蓋的訓練細節與效能比較；Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
+- **`model-research#83713b73`** — model-research
+  > Anthropic 與 xAI 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核，而不只是政策聲明。其餘沿用既有訊號：Open ASR Leaderboard 新增的語言到底是哪一個、有沒有模型跑出分數；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；Hugging Face 那篇教學實際涵蓋的訓練細節與效能比較；Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
 
-- **`product-market#b447083a`** — product-market
-  > Anthropic這批教育與科學產品公告是否會補上具體功能、定價或客戶採用數字，讓讀者判斷這是真的產品擴張還是批次公關發布。其餘沿用既有訊號：OpenAI是否會把Admin plugin這類管理功能擴展到更多產品線，或揭露企業客戶的實際採用數字；loveholidays或其他企業是否公開具體的採用數字；GPT-5.6進Kiro是否補上具體定價；Stampli案例有沒有客戶方自己或第三方獨立證實；Grok 4.6 Amazon Bedrock與Microsoft Foundry這兩則原文能取用時再確認實際形式。
+- **`product-market#6f5aeb9f`** — product-market
+  > Anthropic 這兩則新公告是否會補上具體功能規格；ChatGPT 醫療資料串接是否補上合規細節說明，以及是否有具名醫療機構公開宣布已經串接使用。其餘沿用既有訊號：Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字，讓讀者判斷這是真的產品擴張還是批次公關發布；OpenAI 是否會把 Admin plugin 這類管理功能擴展到更多產品線，或揭露企業客戶的實際採用數字；loveholidays 或其他企業是否公開具體的採用數字；GPT-5.6 進 Kiro 是否補上具體定價；Stampli 案例有沒有客戶方自己或第三方獨立證實；Grok 4.6 Amazon Bedrock 與 Microsoft Foundry 這兩則原文能取用時再確認實際形式。
 
-- **`capital-evolution#4a4cfbb7`** — capital-evolution
-  > Cursor 後續是否公開說明替代的模型供應方案，以及其他仰賴 OpenAI 模型的編碼工具是否也重新檢視合約條款，能檢驗這是不是 OpenAI 往後常態化的作法。其餘沿用既有訊號：這五則夥伴關係公告是否會補上合作金額、具體項目或執行時程；OpenAI 後續是否用具體定價下修或財報數字佐證成本下降；Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整；NVIDIA 的融資平台有沒有第一筆實際資金到位；廣告測試看擴大速度與是否影響回答中立性；OpenAI 董事變動後有沒有大型融資或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作；Tino Cuellar 那則等抓到內文再判斷是不是治理或人事訊號。
+- **`capital-evolution#4af073d2`** — capital-evolution
+  > OpenAI 是否揭露廣告在總營收裡的占比、以及是否有用戶回報廣告內容影響到 ChatGPT 的回答傾向。其餘沿用既有訊號：Cursor 後續是否公開說明替代的模型供應方案，以及其他仰賴 OpenAI 模型的編碼工具是否也重新檢視合約條款；這五則夥伴關係公告是否會補上合作金額、具體項目或執行時程；Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整；NVIDIA 的融資平台有沒有第一筆實際資金到位；OpenAI 董事變動後有沒有大型融資或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作。
 
-- **`agent-refactor#d3eea02e`** — agent-refactor
-  > Gradio 這篇看官方文件有沒有補上對應的版本號或 API，判斷是新功能還是既有能力的重新包裝。其餘沿用既有訊號：xAI 的 Grok Build 開放有沒有第三方或使用者實測貼出具體功能範圍；Replit Free Mode 是否設有隱藏的速率限制；Asana 案例是否有第三方或 Asana 自己揭露這次重構的實際範圍；GitHub Copilot 官方文件有沒有列出 Grok 4.6 為可選模型；Amazon 的 Strands Agents 整合有沒有實際機器人團隊公開採用；部署端看 Orchard 有沒有微軟以外的採用、Presence 有沒有具名客戶；治理端看 SAFE 準則會不會收斂成正式規範。
+- **`agent-refactor#25077ee4`** — agent-refactor
+  > DeepMind 這則 agentic video 公告的原文是否附上具體評測數據或使用案例，能否驗證「主動式」不是行銷用詞；OpenAI 這三家案例公司是否自己發布更詳細的技術落地細節或量化成效數字。其餘沿用既有訊號：Gradio 這篇看官方文件有沒有補上對應的版本號或 API；xAI 的 Grok Build 開放有沒有第三方或使用者實測貼出具體功能範圍；Replit Free Mode 是否設有隱藏的速率限制；Asana 案例是否有第三方或 Asana 自己揭露這次重構的實際範圍；GitHub Copilot 官方文件有沒有列出 Grok 4.6 為可選模型；Amazon 的 Strands Agents 整合有沒有實際機器人團隊公開採用；部署端看 Orchard 有沒有微軟以外的採用、Presence 有沒有具名客戶；治理端看 SAFE 準則會不會收斂成正式規範。
 
-- **`global-map#65d0501e`** — global-map
-  > 泰國加速器結業後這 10 家新創是否公開產品成果或拿到後續融資，能檢驗這是實質扶植還是單純公關動作。其餘沿用既有訊號：盧安達與冰島這兩則國家級教育合作的具體規模（涵蓋學校數、資助金額、執行時程）是否會補上；Detecting And Countering Malicious Uses Of Claude 這篇報告的具體案例內容是否釋出；OpenAI 封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic 那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布。
+- **`global-map#dc739c54`** — global-map
+  > SB 1119 是否通過表決、以及 OpenAI 屆時公布的年齡驗證機制長什麼樣子；Polimill 是否公布實際採用的地方政府數量、或使用後的效率提升數據。其餘沿用既有訊號：泰國加速器結業後這 10 家新創是否公開產品成果或拿到後續融資；盧安達與冰島這兩則國家級教育合作的具體規模是否會補上；Detecting And Countering Malicious Uses Of Claude 這篇報告的具體案例內容是否釋出；OpenAI 封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic 那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布。
 
-## 事件層（178）
+## 事件層（189）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -577,3 +577,36 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-08-28-ef9143#67ebee00`** — evt-2026-08-28-ef9143
   > 查證官方部落格全文或排行榜頁面，確認新增的語言名稱以及哪些模型跑出了分數。
+
+- **`evt-2026-08-31-2738b1#fa1ef5f6`** — evt-2026-08-31-2738b1
+  > OpenAI 是否揭露廣告在總營收裡的占比、以及是否有用戶回報廣告內容影響到 ChatGPT 的回答傾向。
+
+- **`evt-2026-08-31-371bf0#37f97d25`** — evt-2026-08-31-371bf0
+  > SB 1119 是否通過表決、以及 OpenAI 屆時公布的年齡驗證機制長什麼樣子。
+
+- **`evt-2026-08-31-87b636#c01174b0`** — evt-2026-08-31-87b636
+  > Polimill 是否公布實際採用的地方政府數量、或使用後的效率提升數據。
+
+- **`evt-2026-09-01-073ecd#d3fea974`** — evt-2026-09-01-073ecd
+  > 原文釋出後是否有第三方研究者或媒體引用其中的具體技術細節。
+
+- **`evt-2026-09-01-0b7af6#9c131236`** — evt-2026-09-01-0b7af6
+  > 這個套件是否被 transformers.js 或其他瀏覽器推論框架採用為預設後端。
+
+- **`evt-2026-09-01-2f6ed3#aaf0cbae`** — evt-2026-09-01-2f6ed3
+  > 原文內容是否對應到既有 Claude for Enterprise 產品線的更新，或是全新的獨立功能。
+
+- **`evt-2026-09-01-8d2984#403f157c`** — evt-2026-09-01-8d2984
+  > 原文是否包含具體的紅隊測試結果或第三方稽核數據，而非僅是政策聲明。
+
+- **`evt-2026-09-01-bb448b#249ea3c5`** — evt-2026-09-01-bb448b
+  > 原文是否附上具體的評測數據或使用案例，能否驗證「主動式」不是行銷用詞。
+
+- **`evt-2026-09-01-c5f2a2#bcf2a4f6`** — evt-2026-09-01-c5f2a2
+  > 原文是否公布浮水印的技術細節與可能被繞過的已知限制。
+
+- **`evt-2026-09-01-cf0761#90e2d9cb`** — evt-2026-09-01-cf0761
+  > 是否有這三家公司自己發布更詳細的技術落地細節或量化成效數字。
+
+- **`evt-2026-09-01-e650e0#e85069fd`** — evt-2026-09-01-e650e0
+  > 是否有具名醫療機構公開宣布已經串接使用，以及 OpenAI 是否補上合規細節說明。

@@ -1,88 +1,56 @@
 [
   {
-    "id": "evt-2026-08-31-2738b1",
-    "title": "A milestone in expanding access to AI",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-08-31-371bf0",
-    "title": "OpenAI supports California’s bill to advance youth AI safety",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-08-31-87b636",
-    "title": "Polimill builds Japan's next-generation public AI infrastructure",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-01-073ecd",
-    "title": "Improving Alignment Security Efforts",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-01-0b7af6",
-    "title": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
+    "id": "evt-2026-09-01-3da724",
+    "title": "BenchMIRT: What are LLM benchmarks actually measuring?",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-01-2f6ed3",
-    "title": "Enterprise Frontier Safeguards",
+    "id": "evt-2026-09-01-57be81",
+    "title": "NVIDIA and CrowdStrike Strengthen Agentic Cybersecurity Frontier",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-01-7bcc0b",
+    "title": "Path to Astra: critical capabilities and frontier safeguards",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-01-f0d616",
+    "title": "How law firm Gilbert + Tobin governs and scales AI with OpenAI",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-02-51e55a",
+    "title": "Proactive cyber defense for governments and enterprises",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-01-8d2984",
-    "title": "Biosafety At The Frontier",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-01-bb448b",
-    "title": "Introducing agentic video understanding with Gemini",
+    "id": "evt-2026-09-02-d8edec",
+    "title": "Introducing Gemini 3.8 Flash and 3.8 Flash Cyber",
     "company": "Google DeepMind",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-01-c5f2a2",
-    "title": "Claude Text Watermark",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-01-cf0761",
-    "title": "How AI-native companies turn workflows into operating capability",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-01-e650e0",
-    "title": "Healthcare organizations can now connect EHR and additional industry data to ChatGPT",
-    "company": "OpenAI",
+    "id": "evt-2026-09-02-eebb36",
+    "title": "Real-Time Intelligence with IBM Time Series Models on Confluent",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
