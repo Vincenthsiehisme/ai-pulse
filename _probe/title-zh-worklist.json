@@ -1,56 +1,80 @@
 [
   {
-    "id": "evt-2026-09-01-3da724",
-    "title": "BenchMIRT: What are LLM benchmarks actually measuring?",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-01-57be81",
-    "title": "NVIDIA and CrowdStrike Strengthen Agentic Cybersecurity Frontier",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-01-7bcc0b",
-    "title": "Path to Astra: critical capabilities and frontier safeguards",
+    "id": "evt-2026-09-02-e09ff0",
+    "title": "ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-01-f0d616",
-    "title": "How law firm Gilbert + Tobin governs and scales AI with OpenAI",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-02-51e55a",
-    "title": "Proactive cyber defense for governments and enterprises",
+    "id": "evt-2026-09-03-442128",
+    "title": "Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-02-d8edec",
-    "title": "Introducing Gemini 3.8 Flash and 3.8 Flash Cyber",
-    "company": "Google DeepMind",
+    "id": "evt-2026-09-03-4edf31",
+    "title": "NVIDIA to Acquire Hugging Face",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-02-eebb36",
-    "title": "Real-Time Intelligence with IBM Time Series Models on Confluent",
+    "id": "evt-2026-09-03-700829",
+    "title": "‘NBA 2K27’ With NVIDIA DLSS 5 Leads 28 New Games Coming to GeForce NOW",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-03-a2c6fd",
+    "title": "Sparks Fly: NVIDIA Accelerates Local AI at IFA 2026",
+    "company": "Microsoft",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-03-a32000",
+    "title": "Training a coding model to paint watercolours with TRL and OpenEnv",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-03-adf248",
+    "title": "Give Your Coding Agents a Memory You Own",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-03-d04a3e",
+    "title": "NeoMME: an efficient Multimodal-native and Multilingual Encoder",
     "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-03-e06f47",
+    "title": "Introducing WeatherNext 3, our most advanced and accurate global weather AI model",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-03-fff626",
+    "title": "Designing Grok Bot",
+    "company": "xAI",
     "track": null,
     "summary": "",
     "stale_zh": null

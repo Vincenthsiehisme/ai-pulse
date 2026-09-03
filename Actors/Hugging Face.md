@@ -3,7 +3,7 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-09-02'
+generated_day: '2026-09-03'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -14,8 +14,8 @@ tags: [actor, company]
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-02 | [[Events/evt-2026-09-02-eebb36\|Real-Time Intelligence with IBM Time Series Models on Confluent]] | review |
-| 2026-09-01 | [[Events/evt-2026-09-01-3da724\|BenchMIRT: What are LLM benchmarks actually measuring?]] | review |
+| 2026-09-03 | [[Events/evt-2026-09-03-d04a3e\|NeoMME: an efficient Multimodal-native and Multilingual Encoder]] | review |
+| 2026-09-03 | [[Events/evt-2026-09-03-4edf31\|NVIDIA to Acquire Hugging Face]] | review |
 | 2026-09-01 | [[Events/evt-2026-09-01-0b7af6\|Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI]] | published |
 | 2026-08-28 | [[Events/evt-2026-08-28-ef9143\|The Open ASR Leaderboard Adds Its First Global South Language]] | published |
 | 2026-08-26 | [[Events/evt-2026-08-26-41a80d\|Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers]] | published |

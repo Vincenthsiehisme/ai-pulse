@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-02"
+generated_day: "2026-09-03"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-02"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **195** 則／已裁決 **26** 則。
+待回答 **201** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,14 +24,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#d8d71d46`** — infra-cost
-  > @huggingface/kernels 是否被 transformers.js 或其他瀏覽器推論框架採用為預設後端，能檢驗它是不是真的補上開發者要自己寫 WebGPU shader 的成本。其餘沿用既有訊號：Model Hardware Standard 的技術規格是否公開，以及是否有硬體廠商公開表態採用；Vera CPU 首批客戶名單與實際出貨量是否公布；Kimi-K3 在 vLLM 上的實測效能數字；OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比；NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨。
+- **`infra-cost#5af86117`** — infra-cost
+  > IBM 是否公開這次整合的具體效能數字或客戶案例，或 Confluent 端是否有對應的產品公告。其餘沿用既有訊號：@huggingface/kernels 是否被 transformers.js 或其他瀏覽器推論框架採用為預設後端；Model Hardware Standard 的技術規格是否公開；Vera CPU 首批客戶名單與實際出貨量是否公布；Kimi-K3 在 vLLM 上的實測效能數字；OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比；NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、Groq 3 LPX 與 Vera Rubin 具體怎麼整合、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨。
 
-- **`model-research#83713b73`** — model-research
-  > Anthropic 與 xAI 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核，而不只是政策聲明。其餘沿用既有訊號：Open ASR Leaderboard 新增的語言到底是哪一個、有沒有模型跑出分數；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；Hugging Face 那篇教學實際涵蓋的訓練細節與效能比較；Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方在其他模型或任務上重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數或架構論文；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數看是否有第三方複現。
+- **`model-research#c9a5f926`** — model-research
+  > Gemini Pro 系列是否在近期釋出更新，藉此判斷 Google 是不是刻意把疊代優先放在 Flash 線；Flash Cyber 具體鎖定哪些資安應用場景。其餘沿用既有訊號：Anthropic 與 xAI 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核；Open ASR Leaderboard 新增的語言到底是哪一個、有沒有模型跑出分數；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；Multiverse Computing「4-bit 打贏全精度」的宣稱有沒有第三方重現；IBM Granite 4.2 是否補上可對照的 benchmark 分數；LFM2.5-DSpark 宣稱的 3.2 倍推論加速有沒有獨立測試；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數是否有第三方複現。
 
-- **`product-market#6f5aeb9f`** — product-market
-  > Anthropic 這兩則新公告是否會補上具體功能規格；ChatGPT 醫療資料串接是否補上合規細節說明，以及是否有具名醫療機構公開宣布已經串接使用。其餘沿用既有訊號：Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字，讓讀者判斷這是真的產品擴張還是批次公關發布；OpenAI 是否會把 Admin plugin 這類管理功能擴展到更多產品線，或揭露企業客戶的實際採用數字；loveholidays 或其他企業是否公開具體的採用數字；GPT-5.6 進 Kiro 是否補上具體定價；Stampli 案例有沒有客戶方自己或第三方獨立證實；Grok 4.6 Amazon Bedrock 與 Microsoft Foundry 這兩則原文能取用時再確認實際形式。
+- **`product-market#78b0a62c`** — product-market
+  > SafeMind 是否公布具體技術規格或客戶部署案例；Gilbert + Tobin 或其他律所是否公開更具體的採用數據；DeepMind 那篇原文公布的技術或政策內容，以及是否點名具體的政府或企業合作對象。其餘沿用既有訊號：Anthropic 這兩則公告是否會補上具體功能規格；ChatGPT 醫療資料串接是否補上合規細節說明，以及是否有具名醫療機構公開宣布已經串接使用；Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；OpenAI 是否會把 Admin plugin 這類管理功能擴展到更多產品線；loveholidays 或其他企業是否公開具體的採用數字；GPT-5.6 進 Kiro 是否補上具體定價；Stampli 案例有沒有客戶方自己或第三方獨立證實；Grok 4.6 Amazon Bedrock 與 Microsoft Foundry 這兩則原文能取用時再確認實際形式。
 
 - **`capital-evolution#4af073d2`** — capital-evolution
   > OpenAI 是否揭露廣告在總營收裡的占比、以及是否有用戶回報廣告內容影響到 ChatGPT 的回答傾向。其餘沿用既有訊號：Cursor 後續是否公開說明替代的模型供應方案，以及其他仰賴 OpenAI 模型的編碼工具是否也重新檢視合約條款；這五則夥伴關係公告是否會補上合作金額、具體項目或執行時程；Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整；NVIDIA 的融資平台有沒有第一筆實際資金到位；OpenAI 董事變動後有沒有大型融資或財務揭露對得上；Apple 訴訟看 Apple 回應與法院動作。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#dc739c54`** — global-map
   > SB 1119 是否通過表決、以及 OpenAI 屆時公布的年齡驗證機制長什麼樣子；Polimill 是否公布實際採用的地方政府數量、或使用後的效率提升數據。其餘沿用既有訊號：泰國加速器結業後這 10 家新創是否公開產品成果或拿到後續融資；盧安達與冰島這兩則國家級教育合作的具體規模是否會補上；Detecting And Countering Malicious Uses Of Claude 這篇報告的具體案例內容是否釋出；OpenAI 封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic 那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布。
 
-## 事件層（189）
+## 事件層（195）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -596,6 +596,12 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-01-2f6ed3#aaf0cbae`** — evt-2026-09-01-2f6ed3
   > 原文內容是否對應到既有 Claude for Enterprise 產品線的更新，或是全新的獨立功能。
 
+- **`evt-2026-09-01-57be81#0cf1296c`** — evt-2026-09-01-57be81
+  > SafeMind 是否公布具體的技術規格、客戶部署案例，或第三方資安測試機構的評測結果。
+
+- **`evt-2026-09-01-7bcc0b#03ff636f`** — evt-2026-09-01-7bcc0b
+  > OpenAI 是否公開 Astra 具體的安全措施內容，或是否有外部紅隊、監管單位介入驗證這個 Critical 判定。
+
 - **`evt-2026-09-01-8d2984#403f157c`** — evt-2026-09-01-8d2984
   > 原文是否包含具體的紅隊測試結果或第三方稽核數據，而非僅是政策聲明。
 
@@ -610,3 +616,15 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-09-01-e650e0#e85069fd`** — evt-2026-09-01-e650e0
   > 是否有具名醫療機構公開宣布已經串接使用，以及 OpenAI 是否補上合規細節說明。
+
+- **`evt-2026-09-01-f0d616#31b5f0a5`** — evt-2026-09-01-f0d616
+  > Gilbert + Tobin 或其他律所是否公開更具體的採用數據，或有無出現因 AI 使用不當造成的爭議事件反證。
+
+- **`evt-2026-09-02-51e55a#05a0d467`** — evt-2026-09-02-51e55a
+  > 原文公布的技術或政策內容，以及是否點名具體的政府或企業合作對象。
+
+- **`evt-2026-09-02-d8edec#99be5cfc`** — evt-2026-09-02-d8edec
+  > Google 是否在近期釋出 Gemini Pro 系列的更新，藉此判斷 Flash 優先是不是有意為之的策略；以及 Flash Cyber 具體鎖定哪些資安應用場景。
+
+- **`evt-2026-09-02-eebb36#207eaa1d`** — evt-2026-09-02-eebb36
+  > IBM 是否公開這次整合的具體效能數字或客戶案例，或 Confluent 端是否有對應的產品公告。

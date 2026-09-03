@@ -3,21 +3,22 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-02'
+generated_day: '2026-09-03'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **75** 則：`published` 72、`review` 3
+事件 **76** 則：`published` 74、`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-01 | [[Events/evt-2026-09-01-f0d616\|How law firm Gilbert + Tobin governs and scales AI with OpenAI]] | review |
+| 2026-09-02 | [[Events/evt-2026-09-02-e09ff0\|ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT]] | review |
+| 2026-09-01 | [[Events/evt-2026-09-01-f0d616\|How law firm Gilbert + Tobin governs and scales AI with OpenAI]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-e650e0\|Healthcare organizations can now connect EHR and additional industry data to ChatGPT]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-cf0761\|How AI-native companies turn workflows into operating capability]] | published |
-| 2026-09-01 | [[Events/evt-2026-09-01-7bcc0b\|Path to Astra: critical capabilities and frontier safeguards]] | review |
+| 2026-09-01 | [[Events/evt-2026-09-01-7bcc0b\|Path to Astra: critical capabilities and frontier safeguards]] | published |
 | 2026-08-31 | [[Events/evt-2026-08-31-87b636\|Polimill builds Japan's next-generation public AI infrastructure]] | published |
 | 2026-08-31 | [[Events/evt-2026-08-31-371bf0\|OpenAI supports California’s bill to advance youth AI safety]] | published |
 | 2026-08-31 | [[Events/evt-2026-08-31-2738b1\|A milestone in expanding access to AI]] | published |
