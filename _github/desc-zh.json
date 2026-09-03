@@ -154,6 +154,11 @@
     "src_hash": "259f1d28b8fc",
     "zh": "AI agent 沙箱：瀏覽器、Shell、檔案、MCP、VSCode Server 收在單一 Docker 容器"
   },
+  "alibaba/zvec": {
+    "at": "2026-09-03T19:13:59+00:00",
+    "src_hash": "fb9576c6c0bd",
+    "zh": "輕量、極快的 in-process 向量資料庫"
+  },
   "apify/apify-mcp-server": {
     "at": "2026-08-28T19:24:01+00:00",
     "src_hash": "6598a7af3ad0",

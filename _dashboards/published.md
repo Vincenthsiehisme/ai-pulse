@@ -1,12 +1,28 @@
-# 已發布事件（215）
+# 已發布事件（222）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-03
+- **[[Events/evt-2026-09-03-4edf31|NVIDIA to Acquire Hugging Face]]** — Hugging Face · capital · conf 87 · heat 未量測
+  NVIDIA 宣布以近 130 億美元收購 Hugging Face，承諾維持平台開放
+- **[[Events/evt-2026-09-03-700829|‘NBA 2K27’ With NVIDIA DLSS 5 Leads 28 New Games Coming to GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA GeForce NOW 九月新增 28 款遊戲，NBA 2K27 首發搭載 DLSS 5 神經渲染
+- **[[Events/evt-2026-09-03-a2c6fd|Sparks Fly: NVIDIA Accelerates Local AI at IFA 2026]]** — Microsoft · infra · conf 73 · heat 未量測
+  NVIDIA 與微軟在 IFA 2026 聯手推本地 AI 推論工具，10 月推出迷你電腦 RTX Spark
+- **[[Events/evt-2026-09-03-d04a3e|NeoMME: an efficient Multimodal-native and Multilingual Encoder]]** — Hugging Face · model-capability · conf 73 · heat 未量測
+  H company 在 Hugging Face 發布 NeoMME，一款強調高效率的多模態多語言編碼器
+- **[[Events/evt-2026-09-03-e06f47|Introducing WeatherNext 3, our most advanced and accurate global weather AI model]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
+  Google DeepMind 發布 WeatherNext 3，宣稱是目前最先進準確的全球天氣 AI 模型
+- **[[Events/evt-2026-09-03-fff626|Designing Grok Bot]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發布「設計 Grok Bot」文章，站方政策不允許內容被當 AI 輸入，這裡只給連結
 
 ## 2026-09-02
 - **[[Events/evt-2026-09-02-51e55a|Proactive cyber defense for governments and enterprises]]** — Google DeepMind · policy · conf 73 · heat 未量測
   DeepMind 談政府與企業的主動式資安防禦，原文我們只留標題連結。
 - **[[Events/evt-2026-09-02-d8edec|Introducing Gemini 3.8 Flash and 3.8 Flash Cyber]]** — Google DeepMind · model-capability · conf 87 · heat 未量測
   Google 六週內第三款 Flash 模型上線，還多了資安款 Flash Cyber。
+- **[[Events/evt-2026-09-02-e09ff0|ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布客戶案例：ATV Big Air Tour 用 ChatGPT Work 把 3 天工作壓成 3 小時
 - **[[Events/evt-2026-09-02-eebb36|Real-Time Intelligence with IBM Time Series Models on Confluent]]** — IBM Research · infra · conf 73 · heat 未量測
   IBM 時間序列模型接上 Confluent 做即時智慧，細節待補。
 

@@ -1,13 +1,7 @@
-# 被門禁擋下（39）
+# 被門禁擋下（32）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-09-03-4edf31|NVIDIA to Acquire Hugging Face]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-03-700829|‘NBA 2K27’ With NVIDIA DLSS 5 Leads 28 New Games Coming to GeForce NOW]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-03-a2c6fd|Sparks Fly: NVIDIA Accelerates Local AI at IFA 2026]]** — Microsoft — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-03-d04a3e|NeoMME: an efficient Multimodal-native and Multilingual Encoder]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-03-fff626|Designing Grok Bot]]** — xAI — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-02-e09ff0|ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-01-3da724|BenchMIRT: What are LLM benchmarks actually measuring?]]** — Allen Institute for AI — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-27-c92259|Piloting the world's first double-blind AI evaluations]]** — Google DeepMind — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: thin_research_analysis
@@ -35,9 +29,8 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-03-e06f47|Introducing WeatherNext 3, our most advanced and accurate global weath]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
+- **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
+- **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-08-21-1534c7|Measuring benchmark optimization in speech recognition]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-07-30-d4ddda|GPU Management: Why Idle GPUs Are the New Grounded Aircraft]]** — industry — blockers: generic_entity
