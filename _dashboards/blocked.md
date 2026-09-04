@@ -1,9 +1,7 @@
-# 被門禁擋下（35）
+# 被門禁擋下（32）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-09-03-065414|Legora reviewed 41 documents in minutes with GPT-6 Astra]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-03-f6b63c|Daybreak for Frontline Defenders: $1B to protect essential services]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-01-3da724|BenchMIRT: What are LLM benchmarks actually measuring?]]** — Allen Institute for AI — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-27-c92259|Piloting the world's first double-blind AI evaluations]]** — Google DeepMind — blockers: thin_research_analysis
 - **[[Events/evt-2026-08-25-de6254|Anthropic Economic Index Insights From Claude Sonnet 3.7]]** — Anthropic — blockers: thin_research_analysis
@@ -31,7 +29,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-09-04-54f43a|Investigating Incidents Cybersecurity Evals]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: generic_entity

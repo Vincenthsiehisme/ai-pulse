@@ -1,8 +1,44 @@
 [
   {
-    "id": "evt-2026-09-02-e09ff0",
-    "path": "evt-2026-09-02-e09ff0.md",
-    "title": "ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT",
+    "id": "evt-2026-09-03-065414",
+    "path": "evt-2026-09-03-065414.md",
+    "title": "Legora reviewed 41 documents in minutes with GPT-6 Astra",
+    "fingerprint": "openai:gpt:6",
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/legora-financial-statement-review-with-astra",
+        "title": "Legora reviewed 41 documents in minutes with GPT-6 Astra",
+        "summary": "Legora used GPT-6 Astra to review 41 documents in minutes, find all four planted errors, and improve performance by nearly 40% in this financial-review workflow."
+      },
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/playco-game-prototyping-with-astra",
+        "title": "Playco cut manual fixes 50% prototyping games with GPT-6 Astra",
+        "summary": "Using GPT-6 Astra, Playco built three themed game prototypes from one grey box foundation and reported 50% fewer manual fixes than with the previous model."
+      },
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/safety-overview-gpt-6-astra",
+        "title": "Safety overview: GPT-6 Astra",
+        "summary": "GPT-6 Astra is our most capable broadly deployed model and our first to reach the Critical level of cybersecurity capability under our Preparedness Framework."
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/gpt-6-astra/",
+        "title": "GPT-6 Astra",
+        "summary": "System Card:  https:&#x2F;&#x2F;deploymentsafety.openai.com&#x2F;gpt-6-astra  Related ongoing threads:  OpenAI&#x27;s GPT-6 Astra on ARC-AGI-3  -  https:&#x2F;&#x2F;news.ycombinator.com&#x2F;item?id=49555691   GPT-6 Astra makes major gains in the Artificial Analysis Coding Agent Index  -  https:&#x2"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-03-f6b63c",
+    "path": "evt-2026-09-03-f6b63c.md",
+    "title": "Daybreak for Frontline Defenders: $1B to protect essential services",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -11,188 +47,26 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/atv-big-air-tour",
-        "title": "ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT",
-        "summary": "ATV Big Air Tour uses ChatGPT Work to speed up marketing, merchandising, and more. It even turned merchandise photos into an inventory website in 15 minutes."
+        "url": "https://openai.com/index/daybreak-for-frontline-defenders",
+        "title": "Daybreak for Frontline Defenders: $1B to protect essential services",
+        "summary": "OpenAI introduces Daybreak for Frontline Defenders. A $1 billion commitment expands access to frontier cyber AI, training, and support for essential services."
       }
     ]
   },
   {
-    "id": "evt-2026-09-03-442128",
-    "path": "evt-2026-09-03-442128.md",
-    "title": "Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps",
+    "id": "evt-2026-09-04-54f43a",
+    "path": "evt-2026-09-04-54f43a.md",
+    "title": "Investigating Incidents Cybersecurity Evals",
     "fingerprint": null,
-    "facet": "update",
+    "facet": "incident",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/grpo-with-trl-ifstruct",
-        "title": "Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-03-4edf31",
-    "path": "evt-2026-09-03-4edf31.md",
-    "title": "NVIDIA to Acquire Hugging Face",
-    "fingerprint": null,
-    "facet": "capital",
-    "company_guess": "Hugging Face",
-    "independent_sources": 3,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
-        "title": "NVIDIA to Acquire Hugging Face",
-        "summary": "I’m excited to announce that NVIDIA has agreed to acquire Hugging Face for $12,930,300,000. Together, we will scale Hugging Face’s platform, strengthen its infrastructure and expand access to AI for developers and institutions worldwide. Over the past decade, Clem, Julien, Thomas and the team at Hug"
-      },
-      {
-        "source_id": "src-media-arstechnica",
-        "url": "https://arstechnica.com/ai/2026/09/nvidia-buys-hugging-face-the-github-of-ai-for-13-billion/",
-        "title": "Nvidia buys Hugging Face, the GitHub of AI, for $13 billion",
-        "summary": "Nvidia says Hugging Face will stay open even as the chipmaker takes control of a key AI hub."
-      },
-      {
-        "source_id": "src-media-techcrunch",
-        "url": "https://techcrunch.com/2026/09/03/nvidia-confirms-it-will-buy-hugging-face-for-12-9-billion/",
-        "title": "Nvidia confirms it will buy Hugging Face for $12.9 billion",
-        "summary": "Nvidia said Hugging Face hosts over 3 million models and is used by over 18 million developers."
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://www.cnbc.com/2026/09/03/nvidia-agrees-to-buy-hugging-face-for-almost-13-billion-ai-expansion.html",
-        "title": "Nvidia to acquire Hugging Face",
-        "summary": " https:&#x2F;&#x2F;blogs.nvidia.com&#x2F;blog&#x2F;nvidia-to-acquire-hugging-face... "
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-03-700829",
-    "path": "evt-2026-09-03-700829.md",
-    "title": "‘NBA 2K27’ With NVIDIA DLSS 5 Leads 28 New Games Coming to GeForce NOW",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-september-2026-games-list/",
-        "title": "‘NBA 2K27’ With NVIDIA DLSS 5 Leads 28 New Games Coming to GeForce NOW",
-        "summary": "September is here with 28 more games streaming on GeForce NOW this month, led by a slam dunk: NBA 2K27 with the NVIDIA DLSS 5 3D-Guided Neural Rendering feature. Through NVIDIA’s close collaboration with Visual Concepts and 2K, DLSS 5 brings a new level of lifelike lighting and material detail to th"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-03-a2c6fd",
-    "path": "evt-2026-09-03-a2c6fd.md",
-    "title": "Sparks Fly: NVIDIA Accelerates Local AI at IFA 2026",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Microsoft",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/local-ai-ifa-next-gen-agents-nv-pair-rtx-spark/",
-        "title": "Sparks Fly: NVIDIA Accelerates Local AI at IFA 2026",
-        "summary": "Frontier intelligence is going local. At IFA 2026, NVIDIA, Microsoft and its partners are teaming up to provide faster inference and new tools that make agents easier to set up and run locally on NVIDIA hardware. New compact NVIDIA RTX Spark Windows PCs are also coming in October to give AI enthusia"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-03-a32000",
-    "path": "evt-2026-09-03-a32000.md",
-    "title": "Training a coding model to paint watercolours with TRL and OpenEnv",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/train-to-paint-with-code",
-        "title": "Training a coding model to paint watercolours with TRL and OpenEnv",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-03-adf248",
-    "path": "evt-2026-09-03-adf248.md",
-    "title": "Give Your Coding Agents a Memory You Own",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/funes",
-        "title": "Give Your Coding Agents a Memory You Own",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-03-d04a3e",
-    "path": "evt-2026-09-03-d04a3e.md",
-    "title": "NeoMME: an efficient Multimodal-native and Multilingual Encoder",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/Hcompany/neomme",
-        "title": "NeoMME: an efficient Multimodal-native and Multilingual Encoder",
-        "summary": "A Blog post by H company on Hugging Face"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-03-e06f47",
-    "path": "evt-2026-09-03-e06f47.md",
-    "title": "Introducing WeatherNext 3, our most advanced and accurate global weather AI model",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/introducing-weathernext-3-our-most-advanced-and-accurate-global-weather-ai-model/",
-        "title": "Introducing WeatherNext 3, our most advanced and accurate global weather AI model",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-03-fff626",
-    "path": "evt-2026-09-03-fff626.md",
-    "title": "Designing Grok Bot",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "xAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/designing-grok-bot",
-        "title": "Designing Grok Bot",
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals",
+        "title": "Investigating Incidents Cybersecurity Evals",
         "summary": ""
       }
     ]
