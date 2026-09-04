@@ -362,3 +362,76 @@ n=1、差距 0，任何大於 0 的門檻值都接得住它——這份語料選
 `Claude Sonnet 5` 上那筆 `rel=33` 的「Claude For Teachers」是舊帳，
 新規則不會回頭把它拿掉——它沒有 fingerprint，沒有任何規則能自動判它是錯的。
 **那一筆要人看**（`status` 已經是 published，移除要走人工複審）。
+
+## 2026-09-04：同一顆 URL 二次進站——21 天窗口攔到了不該攔的東西
+
+### 觸發這一則
+
+`src-anthropic-news`（sitemap adapter）在 `evt-2026-07-30-54f43a`
+（Investigating Incidents Cybersecurity Evals）進站 35 天後，同一顆 URL
+又出現在當天的語料裡——**`url` 與 `url_canonical` 逐字元相同**，只有 sitemap
+回報的 `published`（lastmod）從 `2026-07-30T23:14:55Z` 跳到
+`2026-09-04T03:24:16Z`。`first_observed_at` 沒有動（合約是「寫入一次永不重寫」，
+見 `references/event-timestamps.md`），`is_new` 也正確判成 `false`——
+`pulse-probe.py` 那一層沒有壞。
+
+壞在下游：`pulse-score.py` 不看 `is_new`，只看新鮮度閘
+（`first_observed_at − published`），而這筆的 `lead_days` 是 **-35**
+（觀測晚於「發布」——因為「發布」其實是站方後補的 lastmod，不是真的重新發布）。
+新鮮度閘只擋 `lead_days > 門檻` 的正方向（觀測太晚），沒有擋負方向，
+於是這筆訊號照樣進了 `signals-scored.jsonl`，當成一則要聚類的新聞。
+
+到了 `attach_target()`，兩個候選的 `published` 相差 840 小時，超過
+〈規則本體〉的 21 天硬上限，四條路徑全部不 attach。`fingerprint` 是
+`None`（`Investigating Incidents Cybersecurity Evals` 不在 `_FP_PATTERNS`
+的 11 個家族白名單裡），所以連身分否決都不適用——就是單純的「太久沒看到，
+當新的處理」。結果開出 `evt-2026-09-04-54f43a`，跟 07-30 那則**除了檔名，
+逐欄位相同**：同標題、同 URL、同來源、同一句空摘要。
+
+### 這不是「窗口設太短」
+
+〈規則本體〉的 21 天窗口回答的問題是「兩篇報導講不講同一件事」——那個問題
+本來就該有一個上限，91 天前的舊聞跟今天的新聞標題像也不該黏在一起。
+這一則問的是另一個問題：**「這兩筆訊號是不是同一個資源」**，而這個問題
+不需要問時間，因為 `url_canonical` 已經回答了——一模一樣的 URL 不是
+「很像」，是同一個東西被觀測了兩次。拿一把回答「像不像」的尺去量
+「是不是同一個」，量出來的數字自然不對。
+
+### 規則本體要多一條，排在最前面
+
+```
+url_canonical 與既有 Event 任一證據相同   → attach（不看時間窗、不看相似度）
+時間差 > 21 天                            → 不 attach（硬上限）
+fingerprint 兩邊都有 且 不相同            → 不 attach（身分否決）
+fingerprint 相同 且 facet bucket 相同     → attach（窗口 21 天，incident 7 天）
+其餘                                       → 96 小時內 且 標題相似度 ≥ 門檻
+```
+
+這條不經過 `belongs_to_event()`（那支函式的簽名是標題與時間，不帶 URL，
+選擇不改簽名是為了不動它現有的呼叫端與測試），而是 `pulse-cluster.py`
+自己在 `attach_target()` 判不出來之後多問一句：`sig["url"]` 正規化後
+（去 `www.`、去結尾斜線）跟不跟既有 Event 任何一筆證據的 URL 相同。
+相同就直接 attach——不需要 `eventability ≥ 70` 的門檻，因為這條路徑
+不是「這則訊號夠不夠格開一個新故事」，是「這則訊號根本不是新故事」。
+
+`Event.add_evidence()` 本來就用 `(source_id, url)` 去重（見
+`references/evidence-tiers.md`），所以 attach 到既有 Event 之後，
+這筆證據會被原地吞掉、不留痕跡（`ev.dirty` 不會被設成 `True`）——
+這正是我們要的結果：同一顆 URL 第二次出現，不該讓任何東西動。
+
+### 這一輪不做的事
+
+**不回頭合併 `evt-2026-07-30-54f43a` 跟 `evt-2026-09-04-54f43a`。**
+同〈2026-08-12 下午〉那筆「Claude For Teachers」的先例——`pulse-cluster.py`
+每班只對新進 signal 跑判定，既有 Event 不會重新聚類，這兩則已經在磁碟上、
+其中一則已經潤過稿（`enriched: true`），合併是內容決定，要人看。
+
+**不把 `url_canonical` 寫進 `evidence` frontmatter。** 正規化只在
+`attach_target()` 這一步內部算，算完即丟，不進 schema——避免動到
+`_EVIDENCE_FIELDS` 這個白名單牽動 frontmatter 欄位順序與既有測試。
+之後如果同一種正規化在別處也要用，再考慮升成共用函式。
+
+**不修新鮮度閘的負值 `lead_days`。** 那是另一個問題（`pulse-score.py`
+為什麼會把「站方後補 lastmod」算成「訊號」），這裡只堵住它流到聚類層
+之後會造成的傷害——多一顆同 URL 訊號被擋在源頭之外，比只在下游補洞更好，
+但那是下一輪的題目，不假裝這裡順手解決了。

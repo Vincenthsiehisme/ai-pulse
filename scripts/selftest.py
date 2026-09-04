@@ -4335,6 +4335,53 @@ acase("attach 門檻：設定檔讀不到要退回**舊的 0.46**，不是退回
        _cl.DEFAULT_TITLE_SIMILARITY_MIN],
       [0.46, 0.46])
 
+# ── 同一顆 URL 二次進站：21 天窗口攔到了不該攔的東西（2026-09-04，references/attach-rule.md）──
+#
+# 觸發：src-anthropic-news 的 sitemap lastmod 被站方後補更新，
+# evt-2026-07-30-54f43a（Investigating Incidents Cybersecurity Evals）的 URL
+# 35 天後又出現在語料裡，published 因此跳到 35 天後，撞穿 attach_target 的
+# 21 天硬上限，被誤判成新故事——即使 url_canonical 逐字元相同，開出重複的
+# evt-2026-09-04-54f43a。
+acase("normalize_url_loose：去 www、去結尾斜線，兩種寫法正規化後相同",
+      [_cm.normalize_url_loose("https://www.anthropic.com/news/x/"),
+       _cm.normalize_url_loose("https://anthropic.com/news/x")],
+      ["anthropic.com/news/x", "anthropic.com/news/x"])
+
+acase("normalize_url_loose：空字串回空字串，不拋例外",
+      _cm.normalize_url_loose(""), "")
+
+_URLDUP_URL = "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals"
+_URLDUP_EV = _cm.Event("evt-2026-07-30-54f43a", "s",
+                        "Investigating Incidents Cybersecurity Evals",
+                        "2026-07-30T23:14:55+00:00")
+_URLDUP_EV.add_evidence("src-anthropic-news", _URLDUP_URL,
+                         "Investigating Incidents Cybersecurity Evals", 100,
+                         "2026-07-30T23:14:55+00:00")
+
+acase("attach_by_url 的前提：attach_target 對這組真的判不出來"
+      "（不然下面那條在測一個假前提——35 天差距撞穿 21 天硬上限，且兩邊都沒有 fingerprint）",
+      _cm.attach_target("Investigating Incidents Cybersecurity Evals",
+                         "2026-09-04T03:24:16+00:00", [_URLDUP_EV], 0.30),
+      None)
+
+acase("attach_by_url：時間差 35 天也照樣掛上，因為 URL 是同一顆"
+      "（實測案例：evt-2026-07-30-54f43a 與 09-04 那筆同 URL、同標題，"
+      "只有 published 因站方後補 lastmod 跳了 35 天，attach_target 判不出來，"
+      "這條路徑不看時間窗、只看 URL 是不是同一個資源）",
+      getattr(_cm.attach_by_url(_URLDUP_URL, [_URLDUP_EV]), "id", None),
+      "evt-2026-07-30-54f43a")
+
+acase("attach_by_url：URL 不同就是 None，不是逢 URL 必掛",
+      _cm.attach_by_url("https://www.anthropic.com/news/some-other-post",
+                         [_URLDUP_EV]),
+      None)
+
+acase("attach_by_url：URL 相同但套 www／結尾斜線的寫法也認得出來",
+      getattr(_cm.attach_by_url(
+          "https://anthropic.com/news/investigating-incidents-cybersecurity-evals/",
+          [_URLDUP_EV]), "id", None),
+      "evt-2026-07-30-54f43a")
+
 # ── 身分否決：結構化事實不准被模糊相似覆寫（2026-08-12）──
 #
 # 這一組全部用**真實發生過的污染案例**，不是造的。

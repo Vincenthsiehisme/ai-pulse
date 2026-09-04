@@ -22,6 +22,7 @@ import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import cluster, entities as entities_lib, scoring  # noqa: E402
@@ -183,6 +184,46 @@ def attach_target(title, published, events, sim_min):
     best = max(attach_rank(title, c) for c in cands)
     tied = [c for c in cands if attach_rank(title, c) == best]
     return tied[0] if len(tied) == 1 else None
+
+
+def normalize_url_loose(u):
+    """粗略正規化，只用來判斷「是不是同一顆 URL」——不進 frontmatter，不做完整 canonical。
+
+    去 `www.`、去結尾斜線。跟 `pulse-probe.py` 的 `canonical_url()` 不是同一支
+    （那支還處理 tracking query string），這裡只需要判斷兩個 URL 是不是同一個
+    資源，用不到那麼多。
+    """
+    if not u:
+        return ""
+    s = urlsplit(u)
+    host = s.netloc.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    path = s.path.rstrip("/") or "/"
+    return f"{host}{path}"
+
+
+def attach_by_url(sig_url, events):
+    """訊號的 URL 跟哪個既有 Event 的證據是同一顆。回那個 Event 或 None。
+
+    規格見 `references/attach-rule.md`〈同一顆 URL 二次進站〉：這條刻意排在
+    `attach_target()` 判不出來之後才問，而且**不受 21 天窗口或標題相似度門檻
+    限制**——URL 相同不是「像」，是同一個資源被觀測了兩次。典型觸發：來源的
+    sitemap lastmod 被站方後補更新，同一篇文章隔了一個多月又跑進當天語料，
+    `published` 因此跳到 35 天後，撞穿 21 天硬上限，被誤判成新故事。
+
+    `Event.add_evidence()` 本來就用 `(source_id, url)` 去重，所以這裡 attach
+    之後那筆證據會被原地吞掉、`ev.dirty` 不會被設成 True——同一顆 URL 第二次
+    出現，不該讓任何東西動。
+    """
+    key = normalize_url_loose(sig_url)
+    if not key:
+        return None
+    for ev in events:
+        for e in ev.evidence:
+            if normalize_url_loose(e.get("url", "")) == key:
+                return ev
+    return None
 
 
 def load_title_similarity_min(cfg):
@@ -654,6 +695,8 @@ def main():
         title = sig["title"]
         published = sig.get("published") or sig.get("first_observed_at") or ""
         ev = attach_target(title, published, events, sim_min)
+        if ev is None:
+            ev = attach_by_url(sig.get("url", ""), events)
         if ev is None:
             score = eventability(sig, sources)
             if score < 70:
