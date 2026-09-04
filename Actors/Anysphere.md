@@ -3,7 +3,7 @@ id: actor-anysphere
 kind: company
 in_dictionary: true
 aliases: ["Cursor Inc"]
-generated_day: '2026-09-03'
+generated_day: '2026-09-04'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

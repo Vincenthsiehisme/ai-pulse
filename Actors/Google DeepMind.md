@@ -3,17 +3,18 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-09-03'
+generated_day: '2026-09-04'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **17** 則：`published` 12、`review` 5
+事件 **18** 則：`published` 13、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-03 | [[Events/evt-2026-09-03-e06f47\|Introducing WeatherNext 3, our most advanced and accurate global weather AI model]] | published |
 | 2026-09-02 | [[Events/evt-2026-09-02-d8edec\|Introducing Gemini 3.8 Flash and 3.8 Flash Cyber]] | published |
 | 2026-09-02 | [[Events/evt-2026-09-02-51e55a\|Proactive cyber defense for governments and enterprises]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-bb448b\|Introducing agentic video understanding with Gemini]] | published |

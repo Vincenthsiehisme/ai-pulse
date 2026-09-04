@@ -13,7 +13,7 @@
   H company 在 Hugging Face 發布 NeoMME，一款強調高效率的多模態多語言編碼器
 - **[[Events/evt-2026-09-03-e06f47|Introducing WeatherNext 3, our most advanced and accurate global weather AI model]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
   Google DeepMind 發布 WeatherNext 3，宣稱是目前最先進準確的全球天氣 AI 模型
-- **[[Events/evt-2026-09-03-fff626|Designing Grok Bot]]** — xAI · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-03-fff626|Designing Grok Bot]]** — xAI · product · conf 83 · heat 未量測
   xAI 發布「設計 Grok Bot」文章，站方政策不允許內容被當 AI 輸入，這裡只給連結
 
 ## 2026-09-02

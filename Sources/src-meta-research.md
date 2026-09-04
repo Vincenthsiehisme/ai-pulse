@@ -16,7 +16,7 @@ license_note: "abstract + link"
 endpoint: "https://research.facebook.com/feed/"
 robots_checked_day: "2026-09-02"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-09-03"
+last_observed_day: "2026-09-04"
 items_observed: 10
 events_bound: 0
 events_published: 0

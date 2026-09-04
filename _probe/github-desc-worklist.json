@@ -1,18 +1,1 @@
-[
-  {
-    "full_name": "alibaba/zvec",
-    "desc": "A lightweight, lightning-fast, in-process vector database",
-    "language": "C++",
-    "topics": [
-      "agent-skills",
-      "db",
-      "embedded",
-      "faiss",
-      "fts",
-      "fulltext-search"
-    ],
-    "stars": 15709,
-    "url": "https://github.com/alibaba/zvec",
-    "stale_zh": null
-  }
-]
+[]
