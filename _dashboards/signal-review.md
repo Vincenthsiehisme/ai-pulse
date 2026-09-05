@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-04"
+generated_day: "2026-09-05"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-04"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **208** 則／已裁決 **26** 則。
+待回答 **211** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -27,8 +27,8 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`infra-cost#5949670a`** — infra-cost
   > RTX Spark 上市後的實測效能與定價、開發者對本地 agent 工具鏈的實際採用情況。其餘沿用既有訊號：IBM 是否公開這次整合的具體效能數字或客戶案例；@huggingface/kernels 是否被 transformers.js 或其他瀏覽器推論框架採用為預設後端；Model Hardware Standard 的技術規格是否公開；Vera CPU 首批客戶名單與實際出貨量是否公布；OpenAI 是否公布 Jalapeño 與現有商用晶片的直接效能或成本對比；NVIDIA 有沒有補上可驗證的每瓦效能第三方基準測試、有沒有實際第三方 XPU 廠商透過 NVLink Fusion 出貨。
 
-- **`model-research#50e88507`** — model-research
-  > NeoMME 是否公開跑分（如跨語言檢索基準）或釋出模型權重；WeatherNext 3 官方是否公開對比前代或其他天氣預報系統（如 ECMWF）的具體準確度數字。其餘沿用既有訊號：Gemini Pro 系列是否在近期釋出更新；Flash Cyber 具體鎖定哪些資安應用場景；Anthropic 與 xAI 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核；Open ASR Leaderboard 新增的語言到底是哪一個；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；IBM Granite 4.2 是否補上可對照的 benchmark 分數；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數是否有第三方複現。
+- **`model-research#c7184a90`** — model-research
+  > GPT-6 Astra 的 Critical 等級認定，是否有第三方稽核結果可比對；Anthropic 這篇 cybersecurity evals 文章是否有第二個獨立來源轉述具體內容。其餘沿用既有訊號：NeoMME 是否公開跑分或釋出模型權重；WeatherNext 3 官方是否公開對比前代或其他天氣預報系統的具體準確度數字；Gemini Pro 系列是否在近期釋出更新；Flash Cyber 具體鎖定哪些資安應用場景；Anthropic 與 xAI 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核；Open ASR Leaderboard 新增的語言到底是哪一個；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；IBM Granite 4.2 是否補上可對照的 benchmark 分數；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數是否有第三方複現。
 
 - **`product-market#01b1de54`** — product-market
   > DLSS 5 神經渲染技術是否擴散到遊戲以外的即時渲染應用；OpenAI 是否釋出 Work 方案更大規模的採用數字，或是否有其他獨立案例佐證類似的效率提升幅度。其餘沿用既有訊號：SafeMind 是否公布具體技術規格或客戶部署案例；Gilbert + Tobin 或其他律所是否公開更具體的採用數據；DeepMind 那篇原文公布的技術或政策內容；Anthropic 這兩則公告是否會補上具體功能規格；ChatGPT 醫療資料串接是否補上合規細節說明；Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；Grok 4.6 Amazon Bedrock 與 Microsoft Foundry 這兩則原文能取用時再確認實際形式。
@@ -39,10 +39,10 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`agent-refactor#006f8417`** — agent-refactor
   > xAI 是否在其他管道（如官方社群貼文、開發者文件）對 Grok Bot 的設計理念有進一步說明。其餘沿用既有訊號：DeepMind 這則 agentic video 公告的原文是否附上具體評測數據或使用案例；OpenAI 這三家案例公司是否自己發布更詳細的技術落地細節或量化成效數字；Gradio 這篇看官方文件有沒有補上對應的版本號或 API；xAI 的 Grok Build 開放有沒有第三方或使用者實測貼出具體功能範圍；Asana 案例是否有第三方或 Asana 自己揭露這次重構的實際範圍；部署端看 Orchard 有沒有微軟以外的採用、Presence 有沒有具名客戶；治理端看 SAFE 準則會不會收斂成正式規範。
 
-- **`global-map#dc739c54`** — global-map
-  > SB 1119 是否通過表決、以及 OpenAI 屆時公布的年齡驗證機制長什麼樣子；Polimill 是否公布實際採用的地方政府數量、或使用後的效率提升數據。其餘沿用既有訊號：泰國加速器結業後這 10 家新創是否公開產品成果或拿到後續融資；盧安達與冰島這兩則國家級教育合作的具體規模是否會補上；Detecting And Countering Malicious Uses Of Claude 這篇報告的具體案例內容是否釋出；OpenAI 封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic 那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布。
+- **`global-map#155699b5`** — global-map
+  > Daybreak 計畫是否公布首批受益機構名單、資金撥付進度，或是否有其他 AI 大廠跟進類似的關鍵基礎設施防禦計畫。其餘沿用既有訊號：SB 1119 是否通過表決、以及 OpenAI 屆時公布的年齡驗證機制長什麼樣子；Polimill 是否公布實際採用的地方政府數量、或使用後的效率提升數據；泰國加速器結業後這 10 家新創是否公開產品成果或拿到後續融資；盧安達與冰島這兩則國家級教育合作的具體規模是否會補上；Detecting And Countering Malicious Uses Of Claude 這篇報告的具體案例內容是否釋出；OpenAI 封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic 那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布。
 
-## 事件層（202）
+## 事件層（205）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -632,6 +632,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-02-eebb36#207eaa1d`** — evt-2026-09-02-eebb36
   > IBM 是否公開這次整合的具體效能數字或客戶案例，或 Confluent 端是否有對應的產品公告。
 
+- **`evt-2026-09-03-065414#afcb014b`** — evt-2026-09-03-065414
+  > 觀察是否有第三方獨立評測機構對 GPT-6 Astra 的網路安全能力做覆核評測，或是否有其他企業案例研究佐證同等幅度的效率提升。
+
 - **`evt-2026-09-03-4edf31#d802b742`** — evt-2026-09-03-4edf31
   > 交易正式簽約與監管審查（尤其是反壟斷審查）進度、Hugging Face 治理架構是否變動、是否有其他晶片廠跟進類似收購
 
@@ -647,5 +650,11 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-03-e06f47#ab1ecf36`** — evt-2026-09-03-e06f47
   > 官方是否公開 WeatherNext 3 對比前代模型或其他天氣預報系統（如 ECMWF）的具體準確度數字
 
+- **`evt-2026-09-03-f6b63c#9e655240`** — evt-2026-09-03-f6b63c
+  > 觀察 Daybreak 計畫是否公布首批受益機構名單、資金撥付進度，或是否有其他 AI 大廠跟進類似的關鍵基礎設施防禦計畫。
+
 - **`evt-2026-09-03-fff626#73e40943`** — evt-2026-09-03-fff626
   > xAI 是否在其他管道（如官方社群貼文、開發者文件）對 Grok Bot 的設計理念有進一步說明
+
+- **`evt-2026-09-04-54f43a#f0834fdc`** — evt-2026-09-04-54f43a
+  > 留意是否有第二個獨立來源轉述或引用這篇文章的具體內容，屆時可以補上實際內容而不是只有標題。

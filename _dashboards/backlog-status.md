@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-09-04'
+generated_day: '2026-09-05'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -17,17 +17,25 @@ generator: scripts/pulse-backlog-status.py
 | 量到什麼 | 值 |
 |---|---|
 | 總數 | 259 |
-| `published` | 222 |
-| `review` | 35 |
+| `published` | 225 |
+| `review` | 32 |
 | `dropped` | 2 |
 | 帶 `stale_backfill` | 12 |
+| 同一顆 URL 落在 ≥2 則 Event 的顆數 | 10 |
+| 　被牽涉的 Event 則數 | 22 |
+
+同一顆 URL 那兩格是 `references/attach-rule.md`〈同一顆 URL 二次進站〉留給人
+合併的進度表：規則只擋新的，磁碟上已經開出來的要人看。哪幾組、怎麼判，在
+`BACKLOG.md`；這裡只數。**「同一顆」的判準是 `lib/urlkey.loose_key`，跟聚類
+那一步同一份**——這一格要是跟 `pulse-cluster` 用不同的尺，就會量出一個聚類
+永遠修不掉的數字。
 
 ## 語料
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 39 |
-| 起訖 | 2026-07-24 … 2026-09-04 |
+| `_corpus/` 天數 | 40 |
+| 起訖 | 2026-07-24 … 2026-09-05 |
 
 ## 來源
 
@@ -53,7 +61,7 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-09-04T18:36:48+00:00 |
+| 時間 | 2026-09-05T17:45:28+00:00 |
 | 條目 / 來源 | 437 items / 33 sources |
 | status 分佈 | 200 21、304 2、429 1、error 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |

@@ -3,19 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-04'
+generated_day: '2026-09-05'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **78** 則：`published` 75、`review` 3
+事件 **78** 則：`published` 77、`review` 1
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-03 | [[Events/evt-2026-09-03-f6b63c\|Daybreak for Frontline Defenders: $1B to protect essential services]] | review |
-| 2026-09-03 | [[Events/evt-2026-09-03-065414\|Legora reviewed 41 documents in minutes with GPT-6 Astra]] | review |
+| 2026-09-03 | [[Events/evt-2026-09-03-f6b63c\|Daybreak for Frontline Defenders: $1B to protect essential services]] | published |
+| 2026-09-03 | [[Events/evt-2026-09-03-065414\|Legora reviewed 41 documents in minutes with GPT-6 Astra]] | published |
 | 2026-09-02 | [[Events/evt-2026-09-02-e09ff0\|ATV Big Air Tour turned 3 days of work into 3 hours with ChatGPT]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-f0d616\|How law firm Gilbert + Tobin governs and scales AI with OpenAI]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-e650e0\|Healthcare organizations can now connect EHR and additional industry data to ChatGPT]] | published |

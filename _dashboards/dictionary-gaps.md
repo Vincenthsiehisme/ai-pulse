@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-04'
+generated_day: '2026-09-05'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**39 天**（2026-07-24 … 2026-09-04），去重後 **2696** 列。
+語料範圍：**40 天**（2026-07-24 … 2026-09-05），去重後 **2740** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -22,16 +22,16 @@ generator: scripts/pulse-dictionary-gaps.py
 | LLM | 35 | 11 |
 | Amazon | 34 | 5 |
 | July | 28 | 9 |
+| Here | 26 | 8 |
 | They | 25 | 9 |
-| Here | 25 | 8 |
 | There | 25 | 7 |
 | Research | 21 | 5 |
 | U.S | 21 | 7 |
 | August | 21 | 5 |
 | June | 20 | 7 |
 | One | 20 | 9 |
+| When | 20 | 7 |
 | Python | 19 | 3 |
-| When | 19 | 7 |
 | Trump | 19 | 4 |
 | Pixel | 19 | 3 |
 | Building | 18 | 10 |
@@ -44,39 +44,39 @@ generator: scripts/pulse-dictionary-gaps.py
 | European Union | 15 | 3 |
 | Samsung | 15 | 3 |
 | AI-powered | 14 | 8 |
+| Europe | 14 | 7 |
 | Wednesday | 14 | 4 |
 | China | 14 | 5 |
 | With | 14 | 9 |
 | Elon Musk | 14 | 5 |
 | Flash | 13 | 4 |
-| Europe | 13 | 7 |
 | September | 13 | 5 |
+| San Francisco | 13 | 8 |
 | Rust | 13 | 3 |
 | SpaceX | 13 | 5 |
 | RAM | 13 | 2 |
-| San Francisco | 12 | 8 |
+| Astra | 13 | 5 |
 | Fable | 12 | 4 |
+| These | 12 | 6 |
 | AI-generated | 12 | 3 |
 | Draft | 11 | 2 |
 | Thursday | 11 | 3 |
 | Tuesday | 11 | 4 |
 | Monday | 11 | 4 |
+| Flock | 11 | 3 |
 | Opus | 11 | 4 |
-| These | 11 | 6 |
-| Astra | 11 | 5 |
 | Union | 10 | 2 |
 | Learn | 10 | 3 |
 | India | 10 | 3 |
-| Flock | 10 | 3 |
 | From | 10 | 8 |
 | While | 10 | 4 |
 | Energy | 9 | 2 |
 | Built | 9 | 6 |
 | Texas | 9 | 6 |
 | May | 9 | 5 |
+| Mac | 9 | 4 |
 | SQLite | 9 | 2 |
 | Qwen | 9 | 2 |
-| API | 9 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -105,10 +105,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | Best Buy | 8 | src-media-theverge |
 | Minutes | 7 | src-ep-itre |
 | Opt | 7 | src-media-theverge |
+| Ask HN | 7 | src-hn-frontpage |
 | Bloomberg | 6 | src-media-theverge |
-| Ask HN | 6 | src-hn-frontpage |
 | November | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
+| According | 5 | src-media-theverge |
 | Marvel | 5 | src-media-theverge |
 | The Stepback | 5 | src-media-theverge |
 | FCC | 5 | src-media-theverge |
@@ -124,7 +125,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Consumer Protection | 4 | src-ep-itre |
 | Tool | 4 | src-kol-simonwillison |
 | Equity | 4 | src-media-techcrunch |
-| According | 4 | src-media-theverge |
 | At TechCrunch Disrupt | 4 | src-media-techcrunch |
 | Peacock | 4 | src-media-theverge |
 | RAMageddon | 4 | src-media-theverge |

@@ -3,17 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-09-04'
+generated_day: '2026-09-05'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **50** 則：`published` 47、`review` 3
+事件 **51** 則：`published` 48、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-04 | [[Events/evt-2026-09-04-54f43a\|Investigating Incidents Cybersecurity Evals]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-c5f2a2\|Claude Text Watermark]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-2f6ed3\|Enterprise Frontier Safeguards]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-073ecd\|Improving Alignment Security Efforts]] | published |

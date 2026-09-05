@@ -3,7 +3,7 @@ id: actor-zhipu
 kind: company
 in_dictionary: true
 aliases: ["智譜", "智譜AI", "Zhipu", "Zhipu AI"]
-generated_day: '2026-09-04'
+generated_day: '2026-09-05'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
