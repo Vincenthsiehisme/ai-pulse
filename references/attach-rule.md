@@ -7,6 +7,7 @@
 ## 規則本體
 
 ```
+URL 與既有 Event 任一證據是同一顆        → attach（不看時間窗、不看相似度，2026-09-04 加）
 時間差 > 21 天                         → 不 attach（硬上限）
 fingerprint 兩邊都有 且 不相同         → 不 attach（身分否決，2026-08-12 加）
 fingerprint 相同 且 facet bucket 相同  → attach（窗口 21 天，incident 7 天）
@@ -14,6 +15,10 @@ fingerprint 相同 且 facet bucket 相同  → attach（窗口 21 天，inciden
 ```
 
 相似度是標題 token 的 Jaccard（`title_similarity`），停用詞已剔除。
+
+第一行不在 `belongs_to_event()` 裡，在 `pulse-cluster.resolve_attach()`——它先問
+`attach_by_url()`，沒命中才把下面四行交給 `attach_target()`。**順序是規則的一部分**，
+理由見〈2026-09-04〉那一節。「同一顆」的判準是 `lib/urlkey.loose_key`。
 
 ## 2026-08-12：身分否決 —— 結構化事實不准被模糊相似覆寫
 
@@ -362,3 +367,135 @@ n=1、差距 0，任何大於 0 的門檻值都接得住它——這份語料選
 `Claude Sonnet 5` 上那筆 `rel=33` 的「Claude For Teachers」是舊帳，
 新規則不會回頭把它拿掉——它沒有 fingerprint，沒有任何規則能自動判它是錯的。
 **那一筆要人看**（`status` 已經是 published，移除要走人工複審）。
+
+## 2026-09-04：同一顆 URL 二次進站——時間窗攔到了不該攔的東西
+
+### 觸發這一則
+
+`src-anthropic-news`（sitemap adapter）在 `evt-2026-07-30-54f43a`
+（Investigating Incidents Cybersecurity Evals）進站 35 天後，同一顆 URL
+又出現在當天的語料裡——**`url` 與 `url_canonical` 逐字元相同**，只有 sitemap
+回報的 `published`（lastmod）從 `2026-07-30T23:14:55Z` 跳到
+`2026-09-04T03:24:16Z`。`first_observed_at` 沒有動（合約是「寫入一次永不重寫」，
+見 `references/event-timestamps.md`），`is_new` 也正確判成 `false`——
+`pulse-probe.py` 那一層沒有壞。
+
+壞在下游：`pulse-score.py` 不看 `is_new`，只看新鮮度閘
+（`first_observed_at − published`），而這筆的 `lead_days` 是 **-35**
+（觀測早於「發布」——因為「發布」其實是站方後補的 lastmod，不是真的重新發布）。
+新鮮度閘只擋 `lead_days > 門檻` 的正方向（觀測太晚），沒有擋負方向，
+於是這筆訊號照樣進了 `signals-scored.jsonl`，當成一則要聚類的新聞。
+
+到了 `attach_target()`，它沒有 fingerprint（`Investigating Incidents Cybersecurity
+Evals` 不在 `_FP_PATTERNS` 的 11 個家族白名單裡），所以走的是規則本體最後一行
+「其餘 → 96 小時內」——35 天當然不在 96 小時內；就算它有 fingerprint，35 天也撞穿
+21 天硬上限。四條路徑全部不 attach，開出 `evt-2026-09-04-54f43a`，跟 07-30 那則
+**除了檔名，逐欄位相同**：同標題、同 URL、同來源、同一句空摘要。
+
+### 這不是「窗口設太短」，而且它不是第一次
+
+規則本體那四行回答的問題是「兩篇報導講不講同一件事」——那個問題本來就該有
+上限，91 天前的舊聞跟今天的新聞標題像也不該黏在一起。這一則問的是另一個問題：
+**「這兩筆訊號是不是同一個資源」**，而這個問題不需要問時間，因為 URL 已經回答了
+——一模一樣的 URL 不是「很像」，是同一個東西被觀測了兩次。拿一把回答「像不像」
+的尺去量「是不是同一個」，量出來的數字自然不對。
+
+而且要講清楚：**沒有 fingerprint 的標題，實際的窗口是 96 小時，不是 21 天。**
+所以同一顆 URL 只要隔 4 天以上再被 lastmod 後補一次，就會開重複。2026-09-04
+掃全庫（判準見下），同一種病已經開過四組：
+
+```
+anthropic.com/news/claude-text-watermark                 08-15 原件 → 08-24、09-01 各開一則（隔 9 天、8 天）
+blogs.nvidia.com/blog/nvidia-and-partners-build-in-…     07-21 原件 → 08-05 開一則（隔 15 天）
+anthropic.com/news/economic-futures-research-fund-agenda 07-24 原件 → 08-25 開一則
+anthropic.com/news/investigating-incidents-cybersecurity-evals  07-30 原件 → 09-04 開一則（這一次）
+```
+
+九則 Event、五則重複；五則重複裡四則已經 `published`、八則裡八則潤過稿（只有
+09-04 這則還是佔位殼）——也就是說有四則重複在對外站台上，而這一則只是第一個
+被人在潤稿時看見的。
+
+同一種 lastmod 後補還有**另一種**結局，跟排序有關，下一節講。
+
+### 規則本體多一行，而且排在最前面——順序是規則的一部分
+
+第一版把 URL 判定放在 `attach_target()` **判不出來之後**才問，理由是「不動既有
+四行的行為」。真實資料證明那個位置會漏。2026-08-28 那班：
+
+```
+訊號   Claude For Teachers   url=…/news/claude-for-teachers   published=08-27T15:07:49   lead_days=-34
+```
+
+這顆 URL 從 08-12 那班起就躺在 `Claude Sonnet 4.6`（evt-2026-07-21-9089cf）的證據裡
+（前一天先掛上 Sonnet 5——同一顆 URL 兩次搭便車，rel 都是 33，〈2026-08-12 下午〉有記）。站方後補 lastmod 讓它以
+08-27 的 published 重新進站；而 `Claude Corps`（evt-2026-08-27-be3fd3）在
+96 小時內、標題相似度 0.33 剛過 `gate.yaml` 的 0.30——`attach_target()` 先回答，
+答案是 Claude Corps。於是 `main` 上那則 Event 的 frontmatter 真的多了一條
+`relevance: 33` 的 Teachers 證據。**同一種 lastmod 後補，這次沒開重複 Event，
+而是讓一顆舊 URL 搭上第三則不相干的 Event**——而且什麼都不會變紅。
+
+URL 先問就攔得住：它回到原本的家（Sonnet 4.6）→ `Event.add_evidence()` 用
+`(source_id, url)` 逐字元去重吃掉 → `dirty` 不動 → 什麼都不寫。這正是
+「同一顆 URL 第二次出現，不該讓任何東西動」那句話的意思，只是排在後面做不到。
+
+所以實作是 `pulse-cluster.resolve_attach(sig, events, sim_min)`：先 `attach_by_url()`，
+沒命中才 `attach_target()`；`main()` 只呼叫這一支，selftest 釘住它不直接碰那兩支。
+回傳值帶著走了哪條路（`"url"` / `"rule"` / `None`），夜間 log 把 URL 路徑吸收的
+筆數單獨印出來、0 也印——混進 `attached` 裡的話，這條規則有沒有動過看不出來。
+
+這條不經過 `belongs_to_event()`（那支函式的簽名是標題與時間，不帶 URL，
+選擇不改簽名是為了不動它現有的呼叫端與測試）。不需要 `eventability ≥ 70`，
+因為這條路徑不是「這則訊號夠不夠格開一個新故事」，是「這則訊號根本不是新故事」。
+
+### 多則 Event 都有這顆 URL 時，掛 `happened_at` 最早的那則
+
+這不是理論狀況：09-04 量到 **10 顆 URL 落在兩則以上的 Event 上**（上面四組重複、
+加上六組搭便車），規則上線第一晚就會碰到。第一版是 `for ev in events` 回第一個
+命中——`events` 來自 `sorted(Events/*.md)`，所以實際上等於最舊的那則，但那是靠
+檔名排序順便得到的，跟 08-12 把 `attach_target()` 從「第一個符合的」改掉時抓的
+是同一種病。現在寫成規則：`happened_at` 最早的優先（最舊的通常就是原件），再平手
+依 id；`happened_at` 解析不出來的排最後。selftest 用「把較新那則排在 list 前面」
+釘住它不是靠順序。
+
+### 「同一顆」怎麼判——`lib/urlkey.loose_key`
+
+去 scheme、`www.`、fragment、結尾斜線；host 轉小寫；**query string 留著**。
+留 query 是實測逼出來的：語料裡帶 query 的 66 筆，最多的是 HN 的 `item?id=`、
+YouTube 的 `watch?v=`、`qwen.ai/blog?id=`——query 就是資源本身，去掉之後兩篇
+不同的 HN 討論串會變成「同一顆」，然後被這條規則直接 attach、不看標題。
+第一版去掉了 query；庫裡的證據 URL 今天恰好一顆帶 query 的都沒有，所以沒炸，
+但 HN 是活的來源。fragment 去掉有實例：simonwillison 的 feed 同一篇文章
+有 `…/` 與 `…/#atom-everything` 兩種寫法。
+
+判準放進 `lib/` 是因為它有第二個消費者：`_dashboards/backlog-status.md` 每班量
+「同一顆 URL 落在 ≥2 則 Event 的顆數」，那是人合併重複 Event 的進度表——修完
+歸零，不用靠人記得（`BACKLOG.md` 的〈同URL重複-event-待合併〉）。**那一格要是跟
+聚類用不同的尺，就會量出一個聚類永遠修不掉的數字**，所以兩邊必須是同一份。
+
+### 邊界：寬鬆比對，逐字元去重
+
+`attach_by_url()` 的比對比 `add_evidence()` 的去重寬。同來源、同一篇文章、兩種
+寫法（例如 `…/` 與 `…/#atom-everything`）會 attach 到同一則，然後**多寫一條證據**、
+`dirty = True`、整份重寫重算——「不該讓任何東西動」只在逐字元相同時成立。
+這跟今天走標題相似度 attach 的結果一樣（庫裡那兩對 simonwillison 證據就是這樣來的），
+不是這條規則帶來的新行為；不把 `add_evidence()` 的去重也放寬，是因為那一支的
+語意是「證據記錄的身分」，動它會牽動 `independent_sources` 的計算，超出這一輪。
+
+### 這一輪不做的事
+
+**不回頭合併磁碟上那四組重複、也不拆那三組搭便車。** `pulse-cluster.py` 每班只對
+新進 signal 跑判定，既有 Event 不會重新聚類；那九則裡八則已經潤過稿、四則重複已經
+published，合併是內容決定，要人看（同〈2026-08-12 下午〉「Claude For Teachers」的
+先例）。清單與判斷在 `BACKLOG.md`〈同URL重複-event-待合併〉，數字在
+`backlog-status.md`。
+
+**不把 `url_canonical` 寫進 `evidence` frontmatter。** 正規化只在 attach 這一步
+內部算，算完即丟，不進 schema——避免動到 `_EVIDENCE_FIELDS` 白名單牽動 frontmatter
+欄位順序與既有測試。
+
+**不修新鮮度閘的負值 `lead_days`。** 那是另一個問題（`pulse-score.py` 為什麼會把
+「站方後補 lastmod」算成「訊號」），這裡只堵住它流到聚類層之後會造成的傷害。
+而且「負就擋」是錯的修法：09-04 那班 13 筆負值裡，-1、-2 那幾筆是正常時間差
+（sitemap 的 lastmod 本來就常比我們首次觀測晚幾小時），-18 到 -35 才是後補；
+一個沒資料支撐的門檻旋鈕會把正常的也擋掉。方向記在 `BACKLOG.md`
+〈負lead_days-進聚類〉。

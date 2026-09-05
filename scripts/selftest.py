@@ -2718,6 +2718,35 @@ acase("backlog-status：第一輪真的寫得出檔案，第二輪內容沒變�
       "（只釘「沒重寫」的話，一支根本不寫檔的腳本也會通過）",
       [_bs_existed, _bs_untouched], [True, True])
 
+# 「同一顆 URL 落在幾則 Event」：references/attach-rule.md〈同一顆 URL 二次進站〉
+# 留給人合併重複 Event 的進度表。用合成的四則 Event 釘判準（www／尾斜線／fragment
+# 算同一顆，query 不算），不釘真 vault 的數字——那個數字人合併完就會變。
+with tempfile.TemporaryDirectory() as _bstd2:
+    _bsv2 = Path(_bstd2)
+    (_bsv2 / "Events").mkdir()
+    for _eid, _url in (
+        ("evt-2026-07-30-aaaaaa", "https://www.anthropic.com/news/same-post"),
+        ("evt-2026-09-04-aaaaaa", "https://anthropic.com/news/same-post/#atom-everything"),
+        ("evt-2026-08-01-bbbbbb", "https://news.ycombinator.com/item?id=1"),
+        ("evt-2026-08-02-cccccc", "https://news.ycombinator.com/item?id=2"),
+    ):
+        (_bsv2 / "Events" / f"{_eid}.md").write_text(
+            f"---\nid: {_eid}\nstatus: review\nevidence:\n- source_id: s\n  url: {_url}\n"
+            f"  title: t\n  relevance: 100\n---\n", encoding="utf-8")
+    _bs_ev2 = _bs.events_facts(_bsv2)
+acase("backlog-status：同一顆 URL 的判準跟聚類同一份——www／尾斜線／fragment 算同一顆（1 顆、2 則），"
+      "HN 的 item?id=1 與 id=2 不算（不然這一格會量出一個聚類永遠修不掉的數字）",
+      [_bs_ev2["url_multi_home"], _bs_ev2["url_multi_home_events"]], [1, 2])
+acase("backlog-status：同一顆 URL 那兩格真的印在頁面上，而且缺席印「量不到」不印 0",
+      ["同一顆 URL 落在 ≥2 則 Event 的顆數" in _bs_text,
+       "| 同一顆 URL 落在 ≥2 則 Event 的顆數 | 量不到 |" in _bs.render(
+           {"events": {}, "corpus": {}, "sources": {}, "gate": {}, "last_run": {}}, "2026-09-04")],
+      [True, True])
+from lib import urlkey as _urlkey_bs  # noqa: E402
+acase("backlog-status：這一格讀的是 lib/urlkey，不是自己再寫一份正規化"
+      "（兩份判準遲早給出不同的答案）",
+      getattr(getattr(_bs, "urlkey", None), "loose_key", None) is _urlkey_bs.loose_key, True)
+
 # 真正的重點：BACKLOG.md 裡不可以再有手寫的現況表。
 _backlog_txt = open(os.path.join(_HERE, "..", "BACKLOG.md"), encoding="utf-8").read()
 _backlog_status_head = _backlog_txt.split("## 為什麼這裡沒有編號")[0]
@@ -4334,6 +4363,159 @@ acase("attach 門檻：設定檔讀不到要退回**舊的 0.46**，不是退回
       [_cm.load_title_similarity_min(_P2("/nonexistent-cfg-dir")),
        _cl.DEFAULT_TITLE_SIMILARITY_MIN],
       [0.46, 0.46])
+
+# ── 同一顆 URL 二次進站：時間窗攔到了不該攔的東西（2026-09-04，references/attach-rule.md）──
+#
+# 觸發：src-anthropic-news 的 sitemap lastmod 被站方後補更新，
+# evt-2026-07-30-54f43a（Investigating Incidents Cybersecurity Evals）的 URL
+# 35 天後又出現在語料裡，published 因此跳到 35 天後。這則沒有 fingerprint，
+# 所以擋它的其實是「其餘 → 96 小時」那條，不用等 21 天——即使 url_canonical
+# 逐字元相同，照樣開出重複的 evt-2026-09-04-54f43a。
+from lib import urlkey as _urlkey  # noqa: E402
+
+acase("「同一顆 URL」判準只有一份：pulse-cluster 用的就是 lib/urlkey.loose_key"
+      "（backlog-status 量「同一顆 URL 落在幾則 Event」也讀它；兩份判準遲早給出不同答案）",
+      _cm.normalize_url_loose is _urlkey.loose_key, True)
+
+acase("normalize_url_loose：去 www、去結尾斜線，兩種寫法正規化後相同",
+      [_cm.normalize_url_loose("https://www.anthropic.com/news/x/"),
+       _cm.normalize_url_loose("https://anthropic.com/news/x")],
+      ["anthropic.com/news/x", "anthropic.com/news/x"])
+
+acase("normalize_url_loose：空字串回空字串，不拋例外",
+      _cm.normalize_url_loose(""), "")
+
+acase("normalize_url_loose：query string 留著——HN 的 item?id= 是資源本身，"
+      "去掉之後兩篇不同的討論串會變成「同一顆 URL」、然後被直接 attach 不看標題"
+      "（實測語料帶 query 的 66 筆裡最多的就是 HN item?id=、YouTube watch?v=）",
+      [_cm.normalize_url_loose("https://news.ycombinator.com/item?id=47613622")
+       == _cm.normalize_url_loose("https://news.ycombinator.com/item?id=47613623"),
+       _cm.normalize_url_loose("https://news.ycombinator.com/item?id=47613622")],
+      [False, "news.ycombinator.com/item?id=47613622"])
+
+acase("normalize_url_loose：fragment 去掉——simonwillison 的 feed 同一篇有 …/ 與 …/#atom-everything 兩種寫法，"
+      "庫裡 evt-2026-07-29-6fb84b 就躺著這樣一對",
+      _cm.normalize_url_loose("https://simonwillison.net/2026/Aug/7/moonlight-mayhem/#atom-everything"),
+      _cm.normalize_url_loose("https://simonwillison.net/2026/Aug/7/moonlight-mayhem/"))
+
+_URLDUP_URL = "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals"
+_URLDUP_EV = _cm.Event("evt-2026-07-30-54f43a", "s",
+                        "Investigating Incidents Cybersecurity Evals",
+                        "2026-07-30T23:14:55+00:00")
+_URLDUP_EV.add_evidence("src-anthropic-news", _URLDUP_URL,
+                         "Investigating Incidents Cybersecurity Evals", 100,
+                         "2026-07-30T23:14:55+00:00")
+
+acase("attach_by_url 的前提：attach_target 對這組真的判不出來"
+      "（不然下面那條在測一個假前提——35 天差距撞穿 21 天硬上限，且兩邊都沒有 fingerprint）",
+      _cm.attach_target("Investigating Incidents Cybersecurity Evals",
+                         "2026-09-04T03:24:16+00:00", [_URLDUP_EV], 0.30),
+      None)
+
+acase("attach_by_url：時間差 35 天也照樣掛上，因為 URL 是同一顆"
+      "（實測案例：evt-2026-07-30-54f43a 與 09-04 那筆同 URL、同標題，"
+      "只有 published 因站方後補 lastmod 跳了 35 天，attach_target 判不出來，"
+      "這條路徑不看時間窗、只看 URL 是不是同一個資源）",
+      getattr(_cm.attach_by_url(_URLDUP_URL, [_URLDUP_EV]), "id", None),
+      "evt-2026-07-30-54f43a")
+
+acase("attach_by_url：URL 不同就是 None，不是逢 URL 必掛",
+      _cm.attach_by_url("https://www.anthropic.com/news/some-other-post",
+                         [_URLDUP_EV]),
+      None)
+
+acase("attach_by_url：URL 相同但套 www／結尾斜線的寫法也認得出來",
+      getattr(_cm.attach_by_url(
+          "https://anthropic.com/news/investigating-incidents-cybersecurity-evals/",
+          [_URLDUP_EV]), "id", None),
+      "evt-2026-07-30-54f43a")
+
+# 多則 Event 都有這顆 URL：2026-09-04 量到庫裡有 10 顆這樣的 URL（已經開過的重複、
+# 加上舊的搭便車證據），所以規則上線第一晚就會碰到。掛 happened_at 最早的那則，
+# **而且不能靠 list 順序**——第一版的 `for ev in events` 回第一個命中，等於靠
+# `sorted(Events/*.md)` 順便得到「最舊」，跟 08-12 改掉的 first-match 是同一種病。
+_URLDUP_EV2 = _cm.Event("evt-2026-09-04-54f43a", "s",
+                         "Investigating Incidents Cybersecurity Evals",
+                         "2026-09-04T03:24:16+00:00")
+_URLDUP_EV2.add_evidence("src-anthropic-news", _URLDUP_URL,
+                          "Investigating Incidents Cybersecurity Evals", 100,
+                          "2026-09-04T03:24:16+00:00")
+acase("attach_by_url：兩則 Event 都有這顆 URL，掛 happened_at 最早的那則，"
+      "而且把較新的那則排在 list 前面也一樣（實例：07-30 原件 vs 09-04 重複）",
+      [getattr(_cm.attach_by_url(_URLDUP_URL, [_URLDUP_EV2, _URLDUP_EV]), "id", None),
+       getattr(_cm.attach_by_url(_URLDUP_URL, [_URLDUP_EV, _URLDUP_EV2]), "id", None)],
+      ["evt-2026-07-30-54f43a", "evt-2026-07-30-54f43a"])
+
+_URLDUP_EV_NODATE = _cm.Event("evt-0000-00-00-000000", "s",
+                               "Investigating Incidents Cybersecurity Evals", "")
+_URLDUP_EV_NODATE.add_evidence("src-anthropic-news", _URLDUP_URL,
+                                "Investigating Incidents Cybersecurity Evals", 100, None)
+acase("attach_by_url：happened_at 解析不出來的 Event 排最後，不會贏過一則有日期的"
+      "（id 排序上它會排最前面——這條就是在釘「不是靠 id 排」）",
+      getattr(_cm.attach_by_url(_URLDUP_URL, [_URLDUP_EV_NODATE, _URLDUP_EV]), "id", None),
+      "evt-2026-07-30-54f43a")
+
+# 順序是規則的一部分：URL 先問，再輪到 fingerprint / 時間窗 / 標題相似度。
+# 這一組用 2026-08-28 那班的真實案例：Claude For Teachers 那顆 URL 已經躺在
+# Sonnet 4.6 那則的證據裡（08-12 那次抓到的搭便車，rel=33），站方後補 lastmod
+# 讓它以 published=08-27 重新進站；Claude Corps（08-27）在 96 小時內、標題相似度
+# 0.33 剛過 gate.yaml 的 0.3——先問 attach_target 就會掛到 Claude Corps，
+# 而 main 上的 evt-2026-08-27-be3fd3 frontmatter 裡真的多了那條證據。
+_TEACH_URL = "https://www.anthropic.com/news/claude-for-teachers"
+_TEACH_HOME = _cm.Event("evt-2026-07-21-9089cf", "s", "Claude Sonnet 4.6",
+                        "2026-07-21T23:52:43+00:00", "anthropic:claude:sonnet:4.6", "update")
+_TEACH_HOME.add_evidence("src-anthropic-news", "https://www.anthropic.com/news/claude-sonnet-4-6",
+                         "Claude Sonnet 4.6", 100, "2026-07-21T23:52:43+00:00")
+_TEACH_HOME.add_evidence("src-anthropic-news", _TEACH_URL, "Claude For Teachers", 33,
+                         "2026-07-21T23:52:00+00:00")
+_TEACH_CORPS = _cm.Event("evt-2026-08-27-be3fd3", "s", "Claude Corps",
+                         "2026-08-27T15:08:34+00:00", None, "update")
+_TEACH_CORPS.add_evidence("src-anthropic-news", "https://www.anthropic.com/news/claude-corps",
+                          "Claude Corps", 100, "2026-08-27T15:08:34+00:00")
+_TEACH_SIG = {"title": "Claude For Teachers", "url": _TEACH_URL,
+              "published": "2026-08-27T15:07:49+00:00", "source_id": "src-anthropic-news"}
+
+acase("resolve_attach 的前提：先問 attach_target 真的會掛到 Claude Corps"
+      "（不然下面那條在測一個假前提——96 小時內、相似度 0.33 過 0.30 門檻）",
+      getattr(_cm.attach_target("Claude For Teachers", "2026-08-27T15:07:49+00:00",
+                                [_TEACH_HOME, _TEACH_CORPS], 0.30), "id", None),
+      "evt-2026-08-27-be3fd3")
+
+_ra = _cm.resolve_attach(_TEACH_SIG, [_TEACH_HOME, _TEACH_CORPS], 0.30)
+acase("resolve_attach：URL 先問——同一顆 URL 回到它原本的家（Sonnet 4.6），"
+      "不掛 96 小時內標題剛好相似的 Claude Corps；回傳標明走的是 url 路徑",
+      [getattr(_ra[0], "id", None), _ra[1]],
+      ["evt-2026-07-21-9089cf", "url"])
+
+_before = len(_TEACH_CORPS.evidence), _TEACH_CORPS.dirty
+_TEACH_CORPS.dirty = False
+_TEACH_HOME.dirty = False
+_ra[0].add_evidence(_TEACH_SIG["source_id"], _TEACH_SIG["url"], _TEACH_SIG["title"], 33,
+                    _TEACH_SIG["published"])
+acase("resolve_attach 之後 add_evidence 逐字元去重：同來源同寫法的 URL 第二次出現，"
+      "證據不增加、dirty 不動——「不該讓任何東西動」這句話在這裡兌現",
+      [len(_TEACH_HOME.evidence), _TEACH_HOME.dirty, len(_TEACH_CORPS.evidence), _TEACH_CORPS.dirty],
+      [2, False, 1, False])
+
+_ra_rule = _cm.resolve_attach({"title": "Claude Corps", "url": "https://www.anthropic.com/news/claude-corps-2",
+                               "published": "2026-08-27T16:00:00+00:00", "source_id": "src-x"},
+                              [_TEACH_HOME, _TEACH_CORPS], 0.30)
+acase("resolve_attach：URL 沒命中才輪到規則路徑，回傳標明 rule",
+      [getattr(_ra_rule[0], "id", None), _ra_rule[1]], ["evt-2026-08-27-be3fd3", "rule"])
+
+acase("resolve_attach：兩條路都沒命中回 (None, None)，不是 (None, 'rule')",
+      _cm.resolve_attach({"title": "Something Entirely Different Happened Today",
+                          "url": "https://example.org/x", "published": "2026-01-01T00:00:00+00:00",
+                          "source_id": "src-x"}, [_TEACH_HOME, _TEACH_CORPS], 0.30),
+      (None, None))
+
+_cm_main_src = open(os.path.join(_HERE, "pulse-cluster.py"), encoding="utf-8").read()
+_cm_main_src = _cm_main_src[_cm_main_src.index("\ndef main():"):]
+acase("resolve_attach：main() 只走這一支，不直接呼叫 attach_target / attach_by_url"
+      "（順序寫在 resolve_attach 裡；main 自己再排一次就會有兩份順序）",
+      [len(_re.findall(r"resolve_attach\(", _cm_main_src)),
+       len(_re.findall(r"attach_target\(|attach_by_url\(", _cm_main_src))],
+      [1, 0])
 
 # ── 身分否決：結構化事實不准被模糊相似覆寫（2026-08-12）──
 #

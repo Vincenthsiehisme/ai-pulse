@@ -188,6 +188,64 @@ apply 這半還在讀 `dist/`。**同一條路徑上的兩端，只搬了一端�
 
 階段 A 不必等任何人，是這條裡最該先動的一段。
 
+## `同URL重複-event-待合併`
+
+**正在對外輸出錯的東西，而且不會紅。** 同一篇文章、同一顆 URL、同一個來源，
+在庫裡是兩到三則 Event，其中有幾則已經 `published` 在對外站台上。
+
+怎麼來的在 `references/attach-rule.md`〈2026-09-04：同一顆 URL 二次進站〉：
+sitemap 來源的 lastmod 被站方後補，同一顆 URL 以新的 `published` 重新進站，
+撞穿聚類的時間窗（沒有 fingerprint 的標題實際上只有 96 小時），開出一則除了
+檔名逐欄位相同的 Event。`fix/republished-url-duplicate-event` 之後**新的不會再開**
+——規則先問 URL 是不是同一顆。但 `pulse-cluster.py` 每班只對新進 signal 跑判定，
+既有 Event 不會重新聚類，**磁碟上已經開出來的要人看**：合併是內容決定，其中一則
+可能潤過稿、可能已經被 Digest 引用，機器不該替人挑哪一則留。
+
+**數字不在這裡。** `_dashboards/backlog-status.md` 每班量「同一顆 URL 落在 ≥2 則
+Event 的顆數」與「被牽涉的 Event 則數」，判準是 `lib/urlkey.loose_key`、跟聚類
+同一份；人合併完它就歸零，這條就搬去〈已經修掉的〉。
+
+要人判的分兩類，判法不同：
+
+**一、同標題、同來源、只差日期——留原件，移除重複。** 2026-09-04 盤到四組：
+`claude-text-watermark`（原件 08-15 有 anthropic + HN 兩個來源，重複兩則）、
+`nvidia-and-partners-build-in-america-for-america`、`economic-futures-research-fund-agenda`、
+`investigating-incidents-cybersecurity-evals`（這次被看見的那組）。移除前先查
+`Digests/` 有沒有引用重複的那則。順手要修的：`investigating-incidents` 的 07-30
+原件把 `withheld` 寫成「證據不足，待補」——`src-anthropic-news` 是政策不取摘要，
+不是證據缺口，正確寫法在 `references/evidence-availability.md`〈三種寫法〉。
+
+**二、搭便車——URL 掛在標題不相干的 Event 上（`relevance` 33 或更低）。** 三組：
+`claude-for-teachers` 掛在 Sonnet 4.6、Sonnet 5、Claude Corps 三則上，它自己從來
+沒有一則；`claude-for-small-business` 掛在 OpenAI 的「ChatGPT for small business」
+上（跨公司）；`introducing-ai-futures` 掛在「New policy ideas for the Intelligence Age」
+上。這三組要**拆**不是合：把那條證據從錯的 Event 拿掉，看要不要給它自己一則。
+拆掉之後 `independent_sources` 會跟著變，所以要重跑 rescore。
+另外三組同 URL 多 Event 的（GPT-5.6、GPT-6 Astra、Economic Index）是 fingerprint
+規則正常聚合，不算錯，不動。
+
+排在這裡的理由：它是這份清單〈排序準則〉第二問的那一格——正在輸出一個錯的東西
+（對外站台同一篇文章兩張卡），而沒有任何東西會因此變紅。上一版清單說這一格是空的。
+
+## `負lead_days-進聚類`
+
+`pulse-score.py` 的新鮮度閘只擋 `lead_days`（`first_observed_at − published`）
+的正方向——觀測太晚。負方向（「發布」晚於我們首次觀測）**沒有擋**，於是站方後補
+lastmod 的舊文章每班都以「新訊號」的身分進 `signals-scored.jsonl`。上面那條的
+重複 Event 是這個洞流到聚類層之後的傷害；`fix/republished-url-duplicate-event`
+在下游堵住了，**源頭還開著**。
+
+不會紅：每班 log 只有 `signals=N`，分不出裡面幾筆是後補的舊文章。
+
+**「負就擋」是錯的修法。** 2026-09-04 那班 13 筆負值裡，-1、-2 那幾筆是正常
+時間差（sitemap 的 lastmod 本來就常比我們首次觀測晚幾小時），-18 到 -35 才是後補。
+一個門檻旋鈕會把正常的也擋掉，而且 n=13 校準不出 -3 跟 -10 哪個對。
+比較對的方向：`is_new == false` 且 URL 已經在庫裡某則 Event 的證據上的訊號，
+在評分那一步就不該當成新訊號——那跟聚類層的 URL 規則是同一個判準
+（`lib/urlkey.loose_key`），只是搬到源頭。但那會讓 `signals-scored.jsonl` 的筆數
+變少，`pulse-score` 的測試與 `_probe/<日>/report.md` 的統計都要跟著改，
+屬於紅線 9 要先改文件的那一類。
+
 ## `gate-未接線`
 
 `gate.yaml` 有一批 key 沒有任何程式碼讀它。它們**已經被標成 `⚠ 未接線`**，所以
