@@ -243,6 +243,7 @@ VAULT_DIR=... python scripts/pulse-monitor.py --alert-stale   # 過期 → exit 
 | 區塊 | 來源 |
 |---|---|
 | Events 總數與 `published` / `review` / `dropped` / `stale_backfill` | `Events/*.md` |
+| 同一顆 URL 落在 ≥2 則 Event 的顆數、被牽涉的 Event 則數（判準 `lib/urlkey.loose_key`，跟聚類同一份） | `Events/*.md` 的 `evidence[].url` |
 | `_corpus/` 天數與起訖 | `_corpus/` |
 | 來源總數、`lifecycle` 與 `language` 分佈、`coverage_watch` 的 pending 數 | `_config/sources.yaml` |
 | `gate.yaml` 的 leaf 總數 / 標未接線 / 有消費者 | `lib/gate_keys.parse()` |

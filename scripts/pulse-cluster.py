@@ -22,7 +22,6 @@ import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlsplit
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import cluster, entities as entities_lib, scoring  # noqa: E402
@@ -32,6 +31,7 @@ from lib.notes import PLACEHOLDER  # noqa: E402  單一來源，見 lib/notes.py
 from lib import notes  # noqa: E402  外科式改單一 frontmatter 欄位（patch_coverage）
 from lib.quality import authority_score_from_tier, parse_dt  # noqa: E402
 from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
+from lib import urlkey  # noqa: E402  「同一顆 URL」判準單一真相源，見 lib/urlkey.py
 
 import yaml  # noqa: E402
 
@@ -186,44 +186,83 @@ def attach_target(title, published, events, sim_min):
     return tied[0] if len(tied) == 1 else None
 
 
-def normalize_url_loose(u):
-    """粗略正規化，只用來判斷「是不是同一顆 URL」——不進 frontmatter，不做完整 canonical。
-
-    去 `www.`、去結尾斜線。跟 `pulse-probe.py` 的 `canonical_url()` 不是同一支
-    （那支還處理 tracking query string），這裡只需要判斷兩個 URL 是不是同一個
-    資源，用不到那麼多。
-    """
-    if not u:
-        return ""
-    s = urlsplit(u)
-    host = s.netloc.lower()
-    if host.startswith("www."):
-        host = host[4:]
-    path = s.path.rstrip("/") or "/"
-    return f"{host}{path}"
+# 「是不是同一顆 URL」的判準住在 lib/urlkey.py——pulse-backlog-status 量
+# 「同一顆 URL 落在幾則 Event」也用它，兩邊必須是同一份。這裡留一個別名是為了
+# 讓「正規化」這個動作在這支腳本裡有名字，不是第二份實作。
+normalize_url_loose = urlkey.loose_key
 
 
 def attach_by_url(sig_url, events):
     """訊號的 URL 跟哪個既有 Event 的證據是同一顆。回那個 Event 或 None。
 
-    規格見 `references/attach-rule.md`〈同一顆 URL 二次進站〉：這條刻意排在
-    `attach_target()` 判不出來之後才問，而且**不受 21 天窗口或標題相似度門檻
-    限制**——URL 相同不是「像」，是同一個資源被觀測了兩次。典型觸發：來源的
-    sitemap lastmod 被站方後補更新，同一篇文章隔了一個多月又跑進當天語料，
-    `published` 因此跳到 35 天後，撞穿 21 天硬上限，被誤判成新故事。
+    規格見 `references/attach-rule.md`〈同一顆 URL 二次進站〉。這條**不受 21 天
+    窗口或標題相似度門檻限制**——URL 相同不是「像」，是同一個資源被觀測了兩次。
+    典型觸發：來源的 sitemap lastmod 被站方後補更新，同一篇文章隔了幾天到一個
+    多月又跑進當天語料，`published` 因此跳到後面，撞穿時間窗，被誤判成新故事。
 
-    `Event.add_evidence()` 本來就用 `(source_id, url)` 去重，所以這裡 attach
-    之後那筆證據會被原地吞掉、`ev.dirty` 不會被設成 True——同一顆 URL 第二次
-    出現，不該讓任何東西動。
+    ## 多則 Event 都有這顆 URL 時，掛 `happened_at` 最早的那則
+
+    這不是理論狀況：2026-09-04 量到庫裡有 10 顆 URL 落在兩則以上的 Event 上
+    （同一種 lastmod 後補已經開過的重複、加上舊的搭便車證據）。第一版是
+    `for ev in events` 回第一個命中——`events` 來自 `sorted(Events/*.md)`，
+    所以實際上等於「最舊的那則」，但那是靠檔名排序順便得到的，跟 2026-08-12
+    把 `attach_target()` 從「第一個符合的」改掉時抓的是同一種病。這裡把它寫成
+    規則：最早的 `happened_at` 優先（最舊的通常就是原件），再平手依 id。
+    `happened_at` 解析不出來的排最後——那種 Event 不該贏過一則有日期的。
+
+    `Event.add_evidence()` 用 `(source_id, url)` 逐字元去重，所以同來源、
+    同寫法的 URL attach 之後會被原地吞掉、`ev.dirty` 不會被設成 True——
+    同一顆 URL 第二次出現，不該讓任何東西動。**這個保證只在逐字元相同時
+    成立**：這裡的比對比 add_evidence 寬（去 www、去尾斜線、去 fragment），
+    所以 `…/` 與 `…/#atom-everything` 這種同來源兩種寫法會 attach 到同一則、
+    然後多寫一條證據——那跟今天走標題相似度 attach 的結果一樣，不是這條規則
+    帶來的新行為。
     """
     key = normalize_url_loose(sig_url)
     if not key:
         return None
-    for ev in events:
-        for e in ev.evidence:
-            if normalize_url_loose(e.get("url", "")) == key:
-                return ev
-    return None
+    homes = [ev for ev in events
+             if any(normalize_url_loose(e.get("url", "")) == key for e in ev.evidence)]
+    if not homes:
+        return None
+
+    def _order(ev):
+        # 比 timestamp 不比字串：happened_at 有 +00:00 也有 +08:00 的寫法，
+        # isoformat 字串排序會把時區偏移當成時間差。
+        dt = parse_dt(ev.happened_at)
+        return (0, dt.timestamp(), ev.id) if dt else (1, 0.0, ev.id)
+
+    return min(homes, key=_order)
+
+
+def resolve_attach(sig, events, sim_min):
+    """這則 signal 該掛到哪個既有 Event。回 `(Event 或 None, 走哪條路)`。
+
+    第二個值是 `"url"`（同一顆 URL）、`"rule"`（fingerprint / 時間窗 / 標題
+    相似度）或 `None`（沒掛上）。回傳它不是為了好看：main() 要把 URL 路徑
+    單獨計數印出來，而「有沒有真的走到這條路」不該靠事後再算一次來猜。
+    純函式；main() 只呼叫這一支，不直接碰下面兩支。
+
+    順序是規則的一部分，所以抽出來讓 selftest 釘得住：
+
+        1. attach_by_url()   — 同一顆 URL 就是同一個資源，先問這個
+        2. attach_target()   — 才輪到 fingerprint / 時間窗 / 標題相似度
+
+    第一版是反過來的（先 attach_target，判不出來才問 URL），而真實資料證明
+    那會漏：2026-08-28 那班，`Claude For Teachers` 那顆 URL 被站方後補 lastmod
+    重新推進語料（lead_days = -34），它已經躺在 Sonnet 4.6 那則的證據裡；但
+    `attach_target()` 先找到 96 小時內、標題相似度 0.33 剛過門檻的 `Claude Corps`
+    （evt-2026-08-27-be3fd3），於是那則 Event 多了一條 `relevance: 33` 的
+    Teachers 證據——同一種 lastmod 後補，這次沒開重複 Event，而是讓一顆舊 URL
+    搭上第三則不相干的 Event。URL 先問，它就回到原本的家、被逐字元去重吃掉、
+    什麼都不寫。
+    """
+    ev = attach_by_url(sig.get("url", ""), events)
+    if ev is not None:
+        return ev, "url"
+    published = sig.get("published") or sig.get("first_observed_at") or ""
+    ev = attach_target(sig["title"], published, events, sim_min)
+    return ev, ("rule" if ev is not None else None)
 
 
 def load_title_similarity_min(cfg):
@@ -691,12 +730,17 @@ def main():
     signals.sort(key=lambda s: (eventability(s, sources), s.get("published") or ""), reverse=True)
 
     created = attached = deferred = 0
+    # 走 URL 路徑掛回既有 Event 的筆數（URL 已經在庫裡某則 Event 的證據上）。
+    # 正常的一班裡這會是 attached 的大宗——sitemap / feed 每班都回同一批舊網址，
+    # 以前它們靠標題相似度掛回同一則，現在先問 URL。單獨數、0 也印：混進
+    # attached 裡的話，「同一顆 URL 二次進站」那條規則有沒有真的動過看不出來。
+    url_attached = 0
     for sig in signals:
         title = sig["title"]
         published = sig.get("published") or sig.get("first_observed_at") or ""
-        ev = attach_target(title, published, events, sim_min)
-        if ev is None:
-            ev = attach_by_url(sig.get("url", ""), events)
+        ev, how = resolve_attach(sig, events, sim_min)
+        if how == "url":
+            url_attached += 1
         if ev is None:
             score = eventability(sig, sources)
             if score < 70:
@@ -749,6 +793,7 @@ def main():
     conf = [e.scores["confidence"] for e in changed if e.scores]
     print(f"pulse-cluster  day={day}  signals={len(signals)}")
     print(f"  created={created}  attached={attached}  deferred(eventability<70)={deferred}")
+    print(f"  其中 URL 已在庫裡、走 URL 路徑掛回原 Event 的: {url_attached}")
     print(f"  events changed={len(changed)}  (total in vault={len(events)})")
     # 印出來給人看：0 也要印。一個只在有東西時才出現的數字，看不見的時候有兩種
     # 意思（沒有變／這段沒跑），而這一格上線那天正好就是「沒跑」。

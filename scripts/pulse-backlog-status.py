@@ -40,6 +40,7 @@ from lib import clock  # noqa: E402  取日期的唯一入口，見 references/t
 from lib.atomicwrite import atomic_write_text  # noqa: E402
 from lib.sources import SECTIONS  # noqa: E402
 from lib import gate_keys  # noqa: E402
+from lib import urlkey  # noqa: E402  「同一顆 URL」判準單一真相源，與 pulse-cluster 同一份
 
 import yaml  # noqa: E402
 
@@ -57,6 +58,11 @@ def events_facts(vault: Path) -> dict:
     """
     out = Counter()
     stale = 0
+    # 同一顆 URL（lib/urlkey.loose_key）落在哪幾則 Event 的證據裡。證據的 url
+    # 行是 event_markdown() 寫的、格式固定（兩格縮排 + `url: `），跟上面數
+    # status 一樣走字串不走 YAML。規格見 references/attach-rule.md〈同一顆 URL
+    # 二次進站〉：這一格是人合併重複 Event 的進度表——修完會歸零，不用靠人記得。
+    homes = {}
     files = sorted((vault / "Events").glob("*.md")) if (vault / "Events").is_dir() else []
     for p in files:
         text = p.read_text("utf-8")
@@ -66,7 +72,15 @@ def events_facts(vault: Path) -> dict:
                 break
         if "stale_backfill" in text:
             stale += 1
-    return {"total": len(files), "by_status": dict(out), "stale_backfill": stale}
+        for line in text.splitlines():
+            if line.startswith("  url: "):
+                key = urlkey.loose_key(line[7:].strip().strip("'\""))
+                if key:
+                    homes.setdefault(key, set()).add(p.stem)
+    multi = {k: sorted(v) for k, v in homes.items() if len(v) > 1}
+    return {"total": len(files), "by_status": dict(out), "stale_backfill": stale,
+            "url_multi_home": len(multi),
+            "url_multi_home_events": len({e for v in multi.values() for e in v})}
 
 
 def corpus_facts(vault: Path) -> dict:
@@ -164,6 +178,14 @@ def render(facts: dict, day: str) -> str:
         f"| `review` | {_n(by.get('review', 0))} |",
         f"| `dropped` | {_n(by.get('dropped', 0))} |",
         f"| 帶 `stale_backfill` | {_n(ev.get('stale_backfill'))} |",
+        f"| 同一顆 URL 落在 ≥2 則 Event 的顆數 | {_n(ev.get('url_multi_home'))} |",
+        f"| 　被牽涉的 Event 則數 | {_n(ev.get('url_multi_home_events'))} |",
+        "",
+        "同一顆 URL 那兩格是 `references/attach-rule.md`〈同一顆 URL 二次進站〉留給人",
+        "合併的進度表：規則只擋新的，磁碟上已經開出來的要人看。哪幾組、怎麼判，在",
+        "`BACKLOG.md`；這裡只數。**「同一顆」的判準是 `lib/urlkey.loose_key`，跟聚類",
+        "那一步同一份**——這一格要是跟 `pulse-cluster` 用不同的尺，就會量出一個聚類",
+        "永遠修不掉的數字。",
         "",
         "## 語料",
         "",
