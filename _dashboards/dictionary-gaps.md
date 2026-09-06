@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-05'
+generated_day: '2026-09-06'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**40 天**（2026-07-24 … 2026-09-05），去重後 **2740** 列。
+語料範圍：**41 天**（2026-07-24 … 2026-09-06），去重後 **2784** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -21,41 +21,41 @@ generator: scripts/pulse-dictionary-gaps.py
 | LLMs | 38 | 12 |
 | LLM | 35 | 11 |
 | Amazon | 34 | 5 |
-| July | 28 | 9 |
+| July | 29 | 9 |
+| They | 26 | 9 |
 | Here | 26 | 8 |
-| They | 25 | 9 |
-| There | 25 | 7 |
-| Research | 21 | 5 |
+| There | 26 | 7 |
+| Research | 24 | 6 |
+| When | 22 | 7 |
+| June | 21 | 7 |
 | U.S | 21 | 7 |
 | August | 21 | 5 |
-| June | 20 | 7 |
 | One | 20 | 9 |
-| When | 20 | 7 |
 | Python | 19 | 3 |
 | Trump | 19 | 4 |
 | Pixel | 19 | 3 |
 | Building | 18 | 10 |
+| Android | 18 | 3 |
 | CEO | 17 | 5 |
-| Android | 17 | 3 |
 | Industry | 16 | 2 |
 | Linux | 16 | 5 |
 | Pro | 16 | 4 |
 | After | 16 | 6 |
 | European Union | 15 | 3 |
+| With | 15 | 9 |
 | Samsung | 15 | 3 |
 | AI-powered | 14 | 8 |
 | Europe | 14 | 7 |
 | Wednesday | 14 | 4 |
 | China | 14 | 5 |
-| With | 14 | 9 |
 | Elon Musk | 14 | 5 |
+| Astra | 14 | 5 |
 | Flash | 13 | 4 |
 | September | 13 | 5 |
 | San Francisco | 13 | 8 |
 | Rust | 13 | 3 |
 | SpaceX | 13 | 5 |
 | RAM | 13 | 2 |
-| Astra | 13 | 5 |
 | Fable | 12 | 4 |
 | These | 12 | 6 |
 | AI-generated | 12 | 3 |
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 71 | src-hn-frontpage |
+| Show HN | 72 | src-hn-frontpage |
 | The Download | 33 | src-media-mit-techreview |
 | Highlights | 16 | src-gh-vllm-releases |
 | Committee | 15 | src-ep-itre |
@@ -102,24 +102,26 @@ generator: scripts/pulse-dictionary-gaps.py
 | TechCrunch Disrupt | 9 | src-media-techcrunch |
 | The Verge | 9 | src-media-theverge |
 | GeForce NOW | 8 | src-nvidia-blog |
+| Opt | 8 | src-media-theverge |
 | Best Buy | 8 | src-media-theverge |
 | Minutes | 7 | src-ep-itre |
-| Opt | 7 | src-media-theverge |
 | Ask HN | 7 | src-hn-frontpage |
+| The Stepback | 6 | src-media-theverge |
 | Bloomberg | 6 | src-media-theverge |
 | November | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
 | According | 5 | src-media-theverge |
 | Marvel | 5 | src-media-theverge |
-| The Stepback | 5 | src-media-theverge |
 | FCC | 5 | src-media-theverge |
 | The Algorithm | 5 | src-media-mit-techreview |
 | Netflix | 5 | src-media-theverge |
 | Galaxy Z Fold | 5 | src-media-theverge |
+| Switch | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
 | MIT Technology Review | 5 | src-media-mit-techreview |
 | Decoder | 5 | src-media-theverge |
 | Grand Theft Auto | 5 | src-media-theverge |
+| Is Hiring | 5 | src-hn-frontpage |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
@@ -129,7 +131,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Peacock | 4 | src-media-theverge |
 | RAMageddon | 4 | src-media-theverge |
 | Zig | 4 | src-hn-frontpage |
-| Switch | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
 | Installer No | 4 | src-media-theverge |
 | Verge-iest | 4 | src-media-theverge |
@@ -138,7 +139,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | TikTok | 4 | src-media-theverge |
 | GTA VI | 4 | src-media-theverge |
 | Rockstar Games | 4 | src-media-theverge |
-| Is Hiring | 4 | src-hn-frontpage |
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
 | Fix | 3 | src-gh-vllm-releases |

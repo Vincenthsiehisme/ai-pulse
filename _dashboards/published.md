@@ -7,7 +7,7 @@
   Anthropic 發文談資安事件調查與 cybersecurity evals，我們選擇不轉述內文，原文連結見下。
 
 ## 2026-09-03
-- **[[Events/evt-2026-09-03-065414|Legora reviewed 41 documents in minutes with GPT-6 Astra]]** — OpenAI · model-capability · conf 90 · heat 未量測
+- **[[Events/evt-2026-09-03-065414|Legora reviewed 41 documents in minutes with GPT-6 Astra]]** — OpenAI · model-capability · conf 97 · heat 未量測
   OpenAI 發布 GPT-6 Astra，官方案例秀出審查與遊戲原型的效率跳升，安全卡首度列進網路安全「Critical」等級。
 - **[[Events/evt-2026-09-03-4edf31|NVIDIA to Acquire Hugging Face]]** — Hugging Face · capital · conf 87 · heat 未量測
   NVIDIA 宣布以近 130 億美元收購 Hugging Face，承諾維持平台開放
