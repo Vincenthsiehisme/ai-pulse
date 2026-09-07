@@ -54,11 +54,34 @@ def split_note(text: str):
 def overwrite_verdict(fm: dict, src: str, force: bool = False):
     """要不要讓這一則既有的 title_zh 被覆寫。回 None＝可以寫；回字串＝拒絕的理由。
 
-    2026-09-07 那晚踩到的：`_probe/title-zh-worklist.json` 是 Actions 那班在
-    當晚 enrich 之前產生的快照；enrich 那一步把兩則新事件的 `title_zh` 補上之後，
-    沒有人重新跑過 prep，快照就照舊留在 repo 裡。若照 runbook 字面「讀清單、
-    逐條翻」，會把兩則已經有效的譯文重新翻一次、覆蓋掉——這一支原本沒有任何
-    守衛擋著，靜靜地就寫過去了。
+    2026-09-07 那晚踩到的：`_probe/title-zh-worklist.json` 是 Actions 那班寫的
+    快照，潤稿端讀它決定要翻哪幾則。若照 runbook 字面「讀清單、逐條翻」，
+    會把已經有效的譯文重新翻一次、覆蓋掉——這一支原本沒有任何守衛擋著，
+    靜靜地就寫過去了。
+
+    ## 那份快照為什麼會過期：兩條夜間鏈換了順序，不是「當晚沒重跑 prep」
+
+    第一版的說法是「Actions 在當晚 enrich 之前拍快照，enrich 補完之後沒人重跑
+    prep」。逐 commit 查過，實際不是這樣——那晚讀到的是**前一天**的清單：
+
+        09-06 17:49  bot      chore: nightly refresh   ← 寫下清單，列 2 則未翻
+        09-06 19:09  enrich   nightly: enrich + digest ← 兩則都翻好了，清單沒跟著重生
+        09-07 19:11  enrich   nightly: enrich + digest ← 讀到的還是 09-06 17:49 那份
+        09-07 19:27  bot      chore: nightly refresh   ← 會重生清單的那一班，**晚了 16 分**
+
+    `data-refresh.yml` 每天重生一次這份清單，所以正常情況下潤稿端讀到的是當天的；
+    但兩條鏈之間只有時鐘耦合、沒有交握（`BACKLOG.md`〈兩條夜間鏈只靠時鐘耦合，
+    而餘裕沒有人在量〉）。Actions 一遲到，順序就翻過來，潤稿端讀到的是昨天那份
+    ——而昨天那份列的，正好就是昨晚剛翻完的那幾則。
+
+    差別不只是措辭：照第一版的說法，風險是「同一晚跑第二次 apply」；照實際的
+    機制，**只要 Actions 比潤稿端晚，當晚清單上的每一則都是昨晚剛翻好的**，
+    全部會被重翻覆蓋。近 13 晚量到兩晚為負（08-31 −118 分、09-07 −16 分），
+    所以這不是理論值。
+
+    runbook 步驟 0 的前置檢查擋不住它：那道檢查看的是 `_corpus/<今天>/` 在不在
+    （08-27、09-07 兩晚都真的觸發了，潤稿端自己補跑 probe），而待譯清單不在
+    它的視野裡——同一個成因的第二個後果。
 
     跟 `pulse-enrich-apply.overwrite_verdict()`、
     `pulse-digest-apply.overwrite_verdict()` 是同一個形狀：冪等不能只靠
@@ -76,8 +99,8 @@ def overwrite_verdict(fm: dict, src: str, force: bool = False):
     if zh is None:
         return None
     return (f"已經有效的譯文「{zh}」，跟目前原文的雜湊對得上。收到這一則代表清單是"
-            "舊的——先確認這一輪有沒有真的重跑過 pulse-title-prep.py；"
-            "確定要覆寫再加 --force。")
+            "舊的——多半是 Actions 那班比這一班晚，讀到了昨天的清單；"
+            "先重跑一次 pulse-title-prep.py 再翻。確定要覆寫再加 --force。")
 
 
 def rewrite(text: str, zh: str, src: str):
