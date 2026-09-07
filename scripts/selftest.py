@@ -2841,6 +2841,68 @@ acase("標題寫回：既有欄位順序不變"
       "（順序一洗，每則 Event 的 diff 都像被整份改寫過，真正的變化就埋掉了）",
       list(_ta_fm)[:4], ["id", "title", "status", "keywords"])
 
+# ── 標題翻譯冪等的執行點（2026-09-07：title-zh-worklist.json 是 Actions 那班在
+# 當晚 enrich 之前拍的快照，enrich 補完 title_zh 之後沒有人重跑 prep，快照
+# 照舊留在 repo 裡；照 runbook 字面逐條翻，會把已經有效的譯文覆蓋掉。這一支
+# 原本沒有任何守衛擋著）── 跟 enrich-apply / digest-apply 同一個形狀。
+acase("標題寫回：既有譯文對得上當下原文的雜湊 → 拒寫（基準線）",
+      bool(_ta.overwrite_verdict(
+          {"title_zh": "舊譯文", "title_zh_src": _zt.src_hash("English Title")},
+          "English Title")),
+      True)
+acase("標題寫回：--force 時放行（逃生口給「人在追已知故障」的場合）",
+      _ta.overwrite_verdict(
+          {"title_zh": "舊譯文", "title_zh_src": _zt.src_hash("English Title")},
+          "English Title", force=True),
+      None)
+acase("標題寫回：原文雜湊對不上（原文真的改了）→ 放行，不是拒寫的理由",
+      _ta.overwrite_verdict(
+          {"title_zh": "舊譯文", "title_zh_src": _zt.src_hash("舊原文")},
+          "New Title"),
+      None)
+acase("標題寫回：從來沒翻過（沒有 title_zh）→ 放行",
+      _ta.overwrite_verdict({}, "English Title"), None)
+
+_TA_FM = ("---\nid: {i}\ntitle: {t}\ntitle_zh: {zh}\ntitle_zh_src: {h}\nstatus: review\n"
+          "---\n\nbody\n")
+
+
+def _ta_run(force=False):
+    """臨時 vault：一則已經有效譯文、一則從沒翻過。回傳 (離開碼, 已翻那則有沒有被改)。"""
+    with _tf8.TemporaryDirectory() as _ta_v:
+        _ta_ev = os.path.join(_ta_v, "Events")
+        os.makedirs(_ta_ev)
+        open(os.path.join(_ta_ev, "evt-done.md"), "w", encoding="utf-8").write(
+            _TA_FM.format(i="evt-done", t="Done Title", zh="舊譯文",
+                          h=_zt.src_hash("Done Title")))
+        open(os.path.join(_ta_ev, "evt-todo.md"), "w", encoding="utf-8").write(
+            _TA_FM.format(i="evt-todo", t="Todo Title", zh="null", h="null"))
+        _ta_payload = {"evt-done": "新譯文（不該寫進去）", "evt-todo": "新譯文"}
+        _ta_rf = os.path.join(_ta_v, "r.json")
+        open(_ta_rf, "w", encoding="utf-8").write(_json.dumps(_ta_payload))
+        _ta_argv, _ta_old = sys.argv, os.environ.get("VAULT_DIR")
+        sys.argv = ["pulse-title-apply.py", "--in", _ta_rf] + (["--force"] if force else [])
+        os.environ["VAULT_DIR"] = _ta_v
+        try:
+            with _c2.redirect_stdout(io.StringIO()), _c2.redirect_stderr(io.StringIO()):
+                _ta_rc = _ta.main()
+        finally:
+            sys.argv = _ta_argv
+            if _ta_old is None:
+                os.environ.pop("VAULT_DIR", None)
+            else:
+                os.environ["VAULT_DIR"] = _ta_old
+        _ta_txt = open(os.path.join(_ta_ev, "evt-done.md"), encoding="utf-8").read()
+        return _ta_rc, "新譯文（不該寫進去）" in _ta_txt
+
+
+acase("標題寫回 main()：已經有效譯文的那則沒被動，而且離開碼是 1"
+      "（收到這一則代表清單是舊的；非零讓呼叫端看得到）",
+      list(_ta_run()), [1, False])
+acase("標題寫回 main()：--force 時照寫、離開碼 0（反方向；"
+      "只釘「會拒」的話，一個永遠拒寫的版本也會全綠）",
+      list(_ta_run(force=True)), [0, True])
+
 # 顯示層：中文在上、原文在下；沒有中文就只有原文。
 _rs2 = importlib.util.spec_from_file_location(
     "pulse_render_t", os.path.join(_HERE, "pulse-render.py"))
