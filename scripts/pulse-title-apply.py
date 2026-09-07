@@ -51,6 +51,35 @@ def split_note(text: str):
     return fm, text[3:end], text[end + 4:]
 
 
+def overwrite_verdict(fm: dict, src: str, force: bool = False):
+    """要不要讓這一則既有的 title_zh 被覆寫。回 None＝可以寫；回字串＝拒絕的理由。
+
+    2026-09-07 那晚踩到的：`_probe/title-zh-worklist.json` 是 Actions 那班在
+    當晚 enrich 之前產生的快照；enrich 那一步把兩則新事件的 `title_zh` 補上之後，
+    沒有人重新跑過 prep，快照就照舊留在 repo 裡。若照 runbook 字面「讀清單、
+    逐條翻」，會把兩則已經有效的譯文重新翻一次、覆蓋掉——這一支原本沒有任何
+    守衛擋著，靜靜地就寫過去了。
+
+    跟 `pulse-enrich-apply.overwrite_verdict()`、
+    `pulse-digest-apply.overwrite_verdict()` 是同一個形狀：冪等不能只靠
+    「呼叫端有沒有重跑 prep」，因為那是一份給模型讀的文件在指揮；守衛要掛在
+    寫入的那一刻，不是掛在流程說明上。
+
+    判準跟 `pulse-title-prep.pending()` 完全同一份（`zhtext.valid_for`）：
+    現有譯文對得上當下原文的雜湊，就代表它還算數，不需要再翻——即使呼叫端
+    傳了新譯文進來也一樣。
+    """
+    if force:
+        return None
+    zh = zhtext.valid_for(
+        {"zh": fm.get("title_zh"), "src_hash": fm.get("title_zh_src")}, src)
+    if zh is None:
+        return None
+    return (f"已經有效的譯文「{zh}」，跟目前原文的雜湊對得上。收到這一則代表清單是"
+            "舊的——先確認這一輪有沒有真的重跑過 pulse-title-prep.py；"
+            "確定要覆寫再加 --force。")
+
+
 def rewrite(text: str, zh: str, src: str):
     """把 title_zh / title_zh_src 寫進 frontmatter，body 一個字不動。
 
@@ -72,6 +101,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="infile", required=True)
     ap.add_argument("--dry-run", action="store_true")
+    # 逃生口，給「人在追一個已知故障、知道自己在覆蓋什麼」的場合，跟
+    # enrich-apply / digest-apply 同一個逃生口。**不要寫進 enrich-runbook 的
+    # 自動化模式那一節**——半夜那一端照做的話，這道守衛就等於不存在。
+    # selftest 有一條釘住 runbook 裡（從「## 自動化模式」開始整節）不准出現
+    # --force，涵蓋這一支。
+    ap.add_argument("--force", action="store_true")
     args = ap.parse_args()
 
     vault = Path(os.environ["VAULT_DIR"])
@@ -91,9 +126,16 @@ def main():
     for eid, raw in result.items():
         path = by_id.get(eid)
         src = ""
+        fm = {}
         if path is not None:
             fm, _, _ = split_note(path.read_text("utf-8"))
-            src = (fm or {}).get("title") or ""
+            fm = fm or {}
+            src = fm.get("title") or ""
+        refuse = overwrite_verdict(fm, src, args.force)
+        if refuse:
+            rejected.append((eid, refuse, raw))
+            print(f"  [拒寫] {eid}\n         {refuse}")
+            continue
         zh, why, changes = zhtext.validate(
             raw, MAX_LEN, src_present=path is not None,
             len_note="（標題要跟原文並排，兩行都得看得完）",
