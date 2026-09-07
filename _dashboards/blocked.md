@@ -1,7 +1,8 @@
-# 被門禁擋下（34）
+# 被門禁擋下（35）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-07-68d102|Supporting independent journalism in Ukraine]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-06-4cf79d|Research acceleration: The view inside OpenAI]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-06-b0c5ae|An Alien Mind]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-01-3da724|BenchMIRT: What are LLM benchmarks actually measuring?]]** — Allen Institute for AI — blockers: thin_research_analysis

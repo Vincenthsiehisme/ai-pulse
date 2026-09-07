@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "full_name": "Gentleman-Programming/gentle-ai",
+    "desc": "Gentle-AI configures the AI coding agents you already use: Claude Code, Cursor, OpenCode, Codex, Pi, and more. Choose persistent memory, Spec-Driven Development, curated skills, MCP servers, personas, and optional bounded review. Open source, no agent lock-in.",
+    "language": "Go",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "ai-coding",
+      "claude-code",
+      "code-review",
+      "codex"
+    ],
+    "stars": 6348,
+    "url": "https://github.com/Gentleman-Programming/gentle-ai",
+    "stale_zh": null
+  },
+  {
+    "full_name": "jingyaogong/minimind",
+    "desc": "🧠 Train a 64M-parameter LLM from scratch in just 2h!",
+    "language": "Python",
+    "topics": [
+      "artificial-intelligence",
+      "large-language-model"
+    ],
+    "stars": 59448,
+    "url": "https://github.com/jingyaogong/minimind",
+    "stale_zh": null
+  },
+  {
+    "full_name": "OpenHands/OpenHands",
+    "desc": "🙌 OpenHands: AI-Driven Development",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "artificial-intelligence",
+      "chatgpt",
+      "claude-ai",
+      "cli",
+      "developer-tools"
+    ],
+    "stars": 86533,
+    "url": "https://github.com/OpenHands/OpenHands",
+    "stale_zh": null
+  }
+]
