@@ -6,7 +6,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
-| official | 10 | 10/10 = 100% | 10/10 = 100% | 6/10 = 60% |
+| aggregator | 29 | 29/29 = 100% | 0/29 = 0% | 1/29 = 3% |
+| kol | 110 | 70/110 = 64% | 60/110 = 55% | 47/110 = 43% |
+| media | 80 | 80/80 = 100% | 73/80 = 91% | 36/80 = 45% |
+| official | 218 | 48/218 = 22% | 20/218 = 9% | 162/218 = 74% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
 - **5b（可解析自然人）才決定人物層與獨立性升級有沒有用。**官方線若過低，people.yaml 只在 KOL 線生效。
@@ -16,7 +19,11 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | kind | 筆數 | 計入 5b |
 |---|---|---|
-| multi_person | 10 | ✓ |
+| none | 210 |  |
+| person | 136 | ✓ |
+| handle | 69 |  |
+| multi_person | 17 | ✓ |
+| org | 5 |  |
 
 分類全為字面規則，無推論。判不出來一律 unknown 且不計入 5b（保守預設）。
 `multi_person` 是共同作者串，本專案判定為可解析到自然人；
@@ -26,13 +33,34 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | author 原值 | 判定 | 來源 |
 |---|---|---|
+| khluu | handle | src-gh-vllm-releases |
+| Gerardo Delgado | person | src-nvidia-blog |
+| GeForce NOW Community | org | src-nvidia-blog |
+| 黄仁勋 | handle | src-nvidia-blog |
 | Naoto Usuyama, Jeya Maria Jose Valanarasu, Tristan Naumann | multi_person | src-msr-blog |
+| Natasha Lomas, Romain Dillet, Kyle Wiggers, Lucas Ropek | multi_person | src-media-techcrunch |
+| Anthony Ha | person | src-media-techcrunch |
+| Richard Mitchell | person | src-media-ieee-spectrum |
+| benjamin_skuse | handle | src-media-ieee-spectrum |
+| Thomas Macaulay | person | src-media-mit-techreview |
+| Petala Ironcloud | person | src-media-arstechnica |
+| Madhumita Murgia, Financial Times | multi_person | src-media-arstechnica |
+| John.Higgins | handle | src-media-theverge |
+| Thomas Ricker | person | src-media-theverge |
+| karpathy (hidden) | handle | src-kol-karpathy |
+| Nathan Lambert | person | src-kol-interconnects |
+| Ethan Mollick | person | src-kol-oneusefulthing |
+| Sebastian Raschka, PhD | person | src-kol-raschka |
+| sonicrocketman | handle | src-hn-frontpage |
 
 ## 命中的實體型別分佈
 
-- company: 4
-- framework: 1
-- technology: 1
+- company: 132
+- product_line: 100
+- product: 30
+- technology: 25
+- framework: 19
+- infrastructure: 6
 
 ## 字典補漏候選（未命中且跨來源出現）
 
@@ -42,16 +70,48 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| （本輪無達標候選） | | |
+| Astra | 7 | 3 |
+| Flash | 7 | 3 |
+| LLMs | 7 | 4 |
+| LLM | 7 | 4 |
+| They | 7 | 5 |
+| Python | 6 | 3 |
+| Learn | 5 | 3 |
+| Learning | 4 | 2 |
+| U.S | 4 | 2 |
+| Building | 4 | 4 |
+| List | 4 | 2 |
+| Here | 4 | 3 |
+| When | 4 | 3 |
+| Critical | 3 | 2 |
+| How AI | 3 | 2 |
+| From | 3 | 3 |
+| Europe | 3 | 3 |
+| Gemma | 3 | 2 |
+| Frontier | 3 | 3 |
+| CEO | 3 | 2 |
+| July | 3 | 3 |
+| There | 3 | 2 |
+| Fable | 3 | 2 |
 
 ### 單來源高頻（觀察用，不列入晉升）
 
-目前活躍來源 1 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
+目前活躍來源 20 條。來源數少時「跨 ≥2 來源」門檻結構上難以成立，
 上表為空不代表收割機制壞掉。此區僅供觀察，不得直接寫進字典。
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| （無） | | |
+| Highlights | 13 | src-gh-vllm-releases |
+| Release Notes | 5 | src-gh-vllm-releases |
+| GeForce NOW | 4 | src-nvidia-blog |
+| The Download | 4 | src-media-mit-techreview |
+| See | 3 | src-openai-blog |
+| Fix | 3 | src-gh-vllm-releases |
+| Flash Cyber | 3 | src-deepmind-blog |
+| Trump | 3 | src-media-arstechnica |
+| Updated | 3 | src-kol-lilianweng |
+| Enough Data Part | 3 | src-kol-lilianweng |
+| LLM Research Papers | 3 | src-kol-raschka |
 
 ## 來源狀態
 
@@ -62,34 +122,34 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-consilium-press | official | skipped_lifecycle | 0 | 0 |  | None | dormant |
 | src-ep-itre | official | skipped_lifecycle | 0 | 0 |  | None | dormant |
 | src-kol-importai | kol | skipped_lifecycle | 0 | 0 |  | None | dormant |
-| src-openai-blog | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-anthropic-news | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-gh-vllm-releases | official | 403 | 0 | 0 |  | None | http 403（adapter 自己抓的） |
-| src-gh-openai-codex | official | 403 | 0 | 0 |  | None | http 403（adapter 自己抓的） |
-| src-deepmind-blog | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-hf-blog | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-nvidia-blog | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
+| src-openai-blog | official | 200 | 50 | 1 |  | True |  |
+| src-anthropic-news | official | 200 | 40 | 0 |  | True |  |
+| src-gh-vllm-releases | official | 200 | 20 | 0 |  | None |  |
+| src-gh-openai-codex | official | error | 0 | 0 |  | None | ValueError: upstream: body too large |
+| src-deepmind-blog | official | 200 | 30 | 0 |  | True |  |
+| src-hf-blog | official | 304 | 0 | 0 |  | True |  |
+| src-nvidia-blog | official | 200 | 18 | 0 |  | True |  |
 | src-msr-blog | official | 200 | 10 | 0 |  | True |  |
-| src-meta-research | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-xai-news | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-mistral-news | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-qwen-blog | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
+| src-meta-research | official | 200 | 10 | 0 |  | True |  |
+| src-xai-news | official | 200 | 40 | 0 |  | True |  |
+| src-mistral-news | official | 200 | 0 | 0 |  | True |  |
+| src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
 | src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-media-venturebeat | media | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-media-techcrunch | media | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-media-ieee-spectrum | media | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-media-mit-techreview | media | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-media-theregister | media | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-media-arstechnica | media | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-media-theverge | media | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-kol-karpathy | kol | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-kol-simonwillison | kol | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-kol-interconnects | kol | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-kol-thezvi | kol | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-kol-oneusefulthing | kol | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-kol-lilianweng | kol | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-kol-raschka | kol | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
-| src-hn-frontpage | aggregator | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
+| src-media-venturebeat | media | 429 | 0 | 0 |  | True |  |
+| src-media-techcrunch | media | 200 | 20 | 2 |  | True |  |
+| src-media-ieee-spectrum | media | 200 | 20 | 0 |  | True |  |
+| src-media-mit-techreview | media | 200 | 10 | 1 |  | True |  |
+| src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
+| src-media-arstechnica | media | 200 | 20 | 1 |  | True |  |
+| src-media-theverge | media | 200 | 10 | 8 |  | True |  |
+| src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
+| src-kol-simonwillison | kol | 200 | 20 | 2 |  | True |  |
+| src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-thezvi | kol | robots_unknown | 0 | 0 |  | False | robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕） |
+| src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-lilianweng | kol | 200 | 20 | 0 |  | True |  |
+| src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 29 | 29 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
@@ -102,7 +162,16 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 來源只能靠人翻語料去猜。這張表把它們分開；判準是
 `pulse-probe.zero_yield_reason()`，規格見 `references/health-alarms.md`〈零產出不是沉默〉。
 
-（本輪沒有 status 200 而 0 筆的來源。）
+| source | 判定 | 是誰那邊 | 說明 |
+|---|---|---|---|
+| src-mistral-news | `hints_matched_nothing` | 我們 | index 有 1 張子 sitemap，hints ['news', 'blog'] 一張都沒命中——**是我們的設定對不上，不是站上沒東西**；候選：https://mistral.ai/sitemap-0.xml |
+
+### 中途數字（過濾前後各剩幾條）
+
+- `src-mistral-news`：kind=sitemapindex；index 1 張、hints ['news', 'blog'] 命中 0 張（上限 3）、展開 0 張、抓成功 0 張；index 候選 https://mistral.ai/sitemap-0.xml；過濾前 0 條 URL、url_prefix `/news/`、過濾後 0 條
+
+樣本只印過濾**前**的前三條 URL——過濾後的樣本回答不了「為什麼被濾掉」。
+只有連結，不抓內文（紅線 7 的合規邊界沒有變）。
 
 
 ## 本輪已知缺口（勿當成已實現）
