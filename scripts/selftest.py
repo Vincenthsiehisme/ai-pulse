@@ -2692,6 +2692,37 @@ acase("backlog-status：零產出那一格印的真的是 source id"
                            encoding="utf-8").read().splitlines() if l.strip()][-1]
       )["sources"] if s.get("status") == 200 and not s.get("items")))
 
+# 上面那一條**看那一班有沒有零產出來源才算得了數**：沒有的日子，函式回 []、
+# 期望值也回 []，兩邊都空——它當天不是綠的，是**恆真的**，而恆真的測試守不住
+# 任何東西。2026-09-08 就這樣現形：M50（把 zero_yield 從印 id 改成印 status）
+# 在 0bd835c 上存活，變異盤點紅燈，而 selftest 1013/1013 全綠。那一版 vault
+# 的最後一班是潤稿端自己補跑的 probe（10 筆、沒有任何 200/0 筆的來源），
+# 而同一條在隔天 19:27 那班（`src-mistral-news` 零產出）上就殺得掉——
+# 也就是說這個保護在不在，取決於當天的資料長什麼樣。
+#
+# 所以真正的守衛在下面：自己造一班有零產出的資料，跟今天的 vault 無關。
+# 上面那一條留著，它問的是另一件事（這一頁量的真的是這個 vault）。
+with tempfile.TemporaryDirectory() as _bszy:
+    _bszy_v = Path(_bszy)
+    (_bszy_v / "_probe").mkdir()
+    (_bszy_v / "_probe" / "source-runs.jsonl").write_text(
+        # 第一行是舊班：只取最後一行的規則也一起釘住，不然把 last 改成 first 也會綠。
+        _json.dumps({"at": "2026-09-07T00:00:00+00:00", "day": "2026-09-07",
+                     "sources": [{"id": "src-old-zero", "status": 200, "items": 0}]}) + "\n"
+        + _json.dumps({"at": "2026-09-08T00:00:00+00:00", "day": "2026-09-08", "sources": [
+            {"id": "src-has-items", "status": 200, "items": 7},
+            {"id": "src-zero", "status": 200, "items": 0},
+            {"id": "src-also-zero", "status": 200, "items": 0},
+            {"id": "src-not-200", "status": 429, "items": 0},
+            {"id": "src-skipped", "status": "skipped_lifecycle", "items": 0},
+        ]}) + "\n", encoding="utf-8")
+    _bs_zy = _bs.last_run_facts(_bszy_v)
+acase("backlog-status：零產出那一格是 source id，而且不看當天 vault 有沒有零產出來源"
+      "（合成一班：200/0 筆的兩條要進、200/有筆數不進、429 與 skipped_lifecycle 不進；"
+      "只取最後一行也一起釘）",
+      [_bs_zy["zero_yield"], _bs_zy["day"], _bs_zy["items"], _bs_zy["sources"]],
+      [["src-also-zero", "src-zero"], "2026-09-08", 7, 5])
+
 # 「內容沒變就不重寫」是共同規則（一天 12 班，12 個沒有資訊量的 diff 會把真正的
 # 變化埋掉）。這條走真的 main()：只跑 render() 測不到寫檔那條路徑。
 with tempfile.TemporaryDirectory() as _bstd:
