@@ -3233,11 +3233,11 @@ acase("排程：entity notes 也排在 Source health 之後、Commit 之前",
       (max(_step_with("pulse-source-health.py"))
        < min(_step_with("pulse-entity-notes.py"))
        < min(_step_with("git push"))), True)
-acase("Tracks/ 與 Actors/ 要在資料 commit 白名單裡"
+acase("Tracks/、Actors/ 與 Digests/ 要在資料 commit 白名單裡"
       "（不在的話，鏈每班寫出來、每班被 git add -A 之外的規矩擋掉，"
       "或更糟：寫了但沒人知道該不該推）",
       [d in _read_repo_file("AGENTS.md") and d in _read_repo_file("CONTRIBUTING.md")
-       for d in ("Tracks/", "Actors/")], [True, True])
+       for d in ("Tracks/", "Actors/", "Digests/")], [True, True, True])
 
 # 主線對照表只有一份：抄第二份的失敗形態這個 repo 量過四次。
 acase("主線對照表：六條線，slug / 顯示名 / 顏色都在 lib/tracks.py",
