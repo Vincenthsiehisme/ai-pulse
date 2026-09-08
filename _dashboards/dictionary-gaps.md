@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-07'
+generated_day: '2026-09-08'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**42 天**（2026-07-24 … 2026-09-07），去重後 **2828** 列。
+語料範圍：**43 天**（2026-07-24 … 2026-09-08），去重後 **2901** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -21,44 +21,44 @@ generator: scripts/pulse-dictionary-gaps.py
 | LLMs | 38 | 12 |
 | Amazon | 35 | 5 |
 | LLM | 35 | 11 |
+| There | 30 | 7 |
 | July | 29 | 9 |
 | They | 29 | 9 |
-| There | 28 | 7 |
 | Here | 27 | 8 |
 | Research | 25 | 6 |
 | When | 23 | 8 |
 | June | 21 | 7 |
 | U.S | 21 | 7 |
+| One | 21 | 9 |
 | August | 21 | 5 |
 | Python | 20 | 3 |
-| One | 20 | 9 |
 | Trump | 19 | 4 |
 | Pixel | 19 | 3 |
 | Building | 18 | 10 |
 | Android | 18 | 3 |
+| Linux | 17 | 5 |
 | CEO | 17 | 5 |
+| Samsung | 17 | 4 |
 | Industry | 16 | 2 |
-| Linux | 16 | 5 |
+| China | 16 | 5 |
 | Pro | 16 | 4 |
 | After | 16 | 6 |
-| Samsung | 16 | 3 |
 | Europe | 15 | 7 |
 | European Union | 15 | 3 |
-| China | 15 | 5 |
 | With | 15 | 9 |
 | AI-powered | 14 | 8 |
 | Wednesday | 14 | 4 |
+| San Francisco | 14 | 8 |
 | Elon Musk | 14 | 5 |
+| AI-generated | 14 | 5 |
 | Astra | 14 | 5 |
 | Flash | 13 | 4 |
 | September | 13 | 5 |
-| San Francisco | 13 | 8 |
 | Fable | 13 | 4 |
 | Rust | 13 | 3 |
 | SpaceX | 13 | 5 |
 | RAM | 13 | 2 |
 | These | 12 | 6 |
-| AI-generated | 12 | 3 |
 | Draft | 11 | 2 |
 | Thursday | 11 | 3 |
 | Tuesday | 11 | 4 |
@@ -67,16 +67,16 @@ generator: scripts/pulse-dictionary-gaps.py
 | Opus | 11 | 4 |
 | Union | 10 | 2 |
 | Learn | 10 | 3 |
+| Texas | 10 | 6 |
 | India | 10 | 3 |
 | From | 10 | 8 |
 | Last | 10 | 5 |
 | While | 10 | 4 |
 | Energy | 9 | 2 |
 | Built | 9 | 6 |
-| Texas | 9 | 6 |
+| Some | 9 | 7 |
 | May | 9 | 5 |
 | Mac | 9 | 4 |
-| SQLite | 9 | 2 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,13 +87,13 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 74 | src-hn-frontpage |
-| The Download | 34 | src-media-mit-techreview |
+| Show HN | 76 | src-hn-frontpage |
+| The Download | 35 | src-media-mit-techreview |
 | Highlights | 16 | src-gh-vllm-releases |
 | Committee | 15 | src-ep-itre |
 | Hi HN | 15 | src-hn-frontpage |
+| Tags | 15 | src-kol-simonwillison |
 | Launch HN | 13 | src-hn-frontpage |
-| Tags | 11 | src-kol-simonwillison |
 | YC S26 | 11 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
@@ -106,9 +106,12 @@ generator: scripts/pulse-dictionary-gaps.py
 | Opt | 8 | src-media-theverge |
 | Best Buy | 8 | src-media-theverge |
 | Minutes | 7 | src-ep-itre |
+| November | 7 | src-media-theverge |
+| Tool | 6 | src-kol-simonwillison |
 | The Stepback | 6 | src-media-theverge |
 | Bloomberg | 6 | src-media-theverge |
-| November | 6 | src-media-theverge |
+| Switch | 6 | src-media-theverge |
+| Grand Theft Auto | 6 | src-media-theverge |
 | Co-Scientist | 5 | src-deepmind-blog |
 | According | 5 | src-media-theverge |
 | Marvel | 5 | src-media-theverge |
@@ -116,16 +119,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | The Algorithm | 5 | src-media-mit-techreview |
 | Netflix | 5 | src-media-theverge |
 | Galaxy Z Fold | 5 | src-media-theverge |
-| Switch | 5 | src-media-theverge |
 | Spider-Man | 5 | src-media-theverge |
 | MIT Technology Review | 5 | src-media-mit-techreview |
 | Decoder | 5 | src-media-theverge |
-| Grand Theft Auto | 5 | src-media-theverge |
 | Is Hiring | 5 | src-hn-frontpage |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
-| Tool | 4 | src-kol-simonwillison |
+| Latest | 4 | src-kol-interconnects |
 | Equity | 4 | src-media-techcrunch |
 | Sunday | 4 | src-media-theverge |
 | At TechCrunch Disrupt | 4 | src-media-techcrunch |
@@ -145,7 +146,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Disclaimer | 3 | src-ep-itre |
 | Fix | 3 | src-gh-vllm-releases |
 | Kubernetes | 3 | src-hn-frontpage |
-| Latest | 3 | src-kol-interconnects |
 | Enough Data Part | 3 | src-kol-lilianweng |
 
 ## 這一頁不保證什麼

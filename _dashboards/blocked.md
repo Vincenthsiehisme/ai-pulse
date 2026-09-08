@@ -1,7 +1,11 @@
-# 被門禁擋下（35）
+# 被門禁擋下（46）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-08-72388b|Funding grants for new research into AI and teen development]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-08-9c9e7f|OpenAI expands initiatives to support journalism from classrooms to ne]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-08-ca216d|Introducing ChatGPT Images 2.5]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-07-68d102|Supporting independent journalism in Ukraine]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-06-4cf79d|Research acceleration: The view inside OpenAI]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-06-b0c5ae|An Alien Mind]]** — OpenAI — blockers: thin_research_analysis
@@ -32,6 +36,13 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-09-08-0c18f7|On the Navier–Stokes Millennium Prize Problem]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-08-3d81b5|Detecting And Preventing Distillation Attacks]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-08-4e6b7e|AlphaGenome Atlas: A predictive map of every possible DNA letter chang]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-08-776b3e|Disrupting AI Espionage]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-08-802f16|The Work Now Within Reach]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-08-c7ad58|AI Enabled Cyber Threats Mitre Attack]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: generic_entity

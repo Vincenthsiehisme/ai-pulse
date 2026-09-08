@@ -3,17 +3,20 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-07'
+generated_day: '2026-09-08'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **81** 則：`published` 77、`review` 4
+事件 **84** 則：`published` 77、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-08 | [[Events/evt-2026-09-08-ca216d\|Introducing ChatGPT Images 2.5]] | review |
+| 2026-09-08 | [[Events/evt-2026-09-08-9c9e7f\|OpenAI expands initiatives to support journalism from classrooms to newsrooms]] | review |
+| 2026-09-08 | [[Events/evt-2026-09-08-72388b\|Funding grants for new research into AI and teen development]] | review |
 | 2026-09-07 | [[Events/evt-2026-09-07-68d102\|Supporting independent journalism in Ukraine]] | review |
 | 2026-09-06 | [[Events/evt-2026-09-06-b0c5ae\|An Alien Mind]] | review |
 | 2026-09-06 | [[Events/evt-2026-09-06-4cf79d\|Research acceleration: The view inside OpenAI]] | review |

@@ -11,8 +11,21 @@
       "code-review",
       "codex"
     ],
-    "stars": 6348,
+    "stars": 6446,
     "url": "https://github.com/Gentleman-Programming/gentle-ai",
+    "stale_zh": null
+  },
+  {
+    "full_name": "coreyhaines31/marketingskills",
+    "desc": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+    "language": "JavaScript",
+    "topics": [
+      "claude",
+      "codex",
+      "marketing"
+    ],
+    "stars": 48684,
+    "url": "https://github.com/coreyhaines31/marketingskills",
     "stale_zh": null
   },
   {
@@ -23,7 +36,7 @@
       "artificial-intelligence",
       "large-language-model"
     ],
-    "stars": 59448,
+    "stars": 59856,
     "url": "https://github.com/jingyaogong/minimind",
     "stale_zh": null
   },
@@ -39,7 +52,7 @@
       "cli",
       "developer-tools"
     ],
-    "stars": 86533,
+    "stars": 86888,
     "url": "https://github.com/OpenHands/OpenHands",
     "stale_zh": null
   }
