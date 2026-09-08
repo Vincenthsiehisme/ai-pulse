@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-09-04'
+updated: '2026-09-08'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,9 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這條線這一輪新增兩則：Anthropic 發一篇談資安事件調查與 cybersecurity evals 方法論的文章，我們的取用政策只留標題與連結，內容我們選擇不轉述；OpenAI 發布 GPT-6 Astra，官方案例秀出審查文件與遊戲原型的效率跳升，安全卡首度把它列進 Preparedness Framework 的網路安全「Critical」等級。兩則都圍繞資安評測方法論與能力分級，跟這條線既有的「模型資安風險分級」支線相關，但跟主軸「小而專、成本導向」的模型迭代關聯較弱，比較像是能力上限被推高的訊號，不是效率或成本的訊號。既有主軸不變：Gemini 3.8 Flash 與 Flash Cyber 是 Google 六週內第三款 Flash 模型，Pro 系列疑似暫停更新；NeoMME 與 WeatherNext 3 兩則我們仍只取得到標題；Anthropic《Improving Alignment Security Efforts》與 xAI《Biosafety At The Frontier》兩則安全公告仍只留標題；Open ASR Leaderboard 新增的語言與分數仍未公布；Gemini Omni 1.1 Flash 具體新增了哪些控制項仍看不到；IBM Granite 4.2 與 Multiverse Computing 的量化方法都還停在廠商自己的一句話宣稱；模型往小而專走的訊號持續累積（Nemotron 3.5 Lightning、LFM2.5 系列端側模型），GPT-5.6 把賣點從更強移到更省。
-    next: GPT-6 Astra 的 Critical 等級認定，是否有第三方稽核結果可比對；Anthropic 這篇 cybersecurity evals 文章是否有第二個獨立來源轉述具體內容。其餘沿用既有訊號：NeoMME 是否公開跑分或釋出模型權重；WeatherNext 3 官方是否公開對比前代或其他天氣預報系統的具體準確度數字；Gemini Pro 系列是否在近期釋出更新；Flash Cyber 具體鎖定哪些資安應用場景；Anthropic 與 xAI 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核；Open ASR Leaderboard 新增的語言到底是哪一個；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；IBM Granite 4.2 是否補上可對照的 benchmark 分數；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數是否有第三方複現。
+    now: 這條線這一輪新增四則，全部發生在 2026-09-08 同一天：OpenAI 發文談 Navier–Stokes 千禧年難題，我們只留標題與連結，未轉錄正文；Google DeepMind 發布 AlphaGenome Atlas，預測人類基因組近 90 億種單點變異的分子效應，是四則裡少數附有完整摘要可查證的一則；Anthropic 同一天也發布兩則安全公告——《Detecting And Preventing Distillation Attacks》談防範模型蒸餾攻擊、《Disrupting AI Espionage》談攔阻 AI 間諜活動，這兩則同樣只留標題與連結。四則裡三則只有標題，跟這條線既有的「模型資安風險分級」支線相關的是蒸餾攻擊與間諜活動這兩則，Navier-Stokes 屬於數學能力宣稱、AlphaGenome Atlas 屬於生物研究應用，都跟主軸「小而專、成本導向」的模型迭代關聯較弱。既有主軸不變：這條線上一輪新增兩則：Anthropic 發一篇談資安事件調查與 cybersecurity evals 方法論的文章，我們的取用政策只留標題與連結，內容我們選擇不轉述；OpenAI 發布 GPT-6 Astra，官方案例秀出審查文件與遊戲原型的效率跳升，安全卡首度把它列進 Preparedness Framework 的網路安全「Critical」等級。這兩則都圍繞資安評測方法論與能力分級，跟這條線既有的「模型資安風險分級」支線相關，但跟主軸「小而專、成本導向」的模型迭代關聯較弱，比較像是能力上限被推高的訊號，不是效率或成本的訊號。再往前：Gemini 3.8 Flash 與 Flash Cyber 是 Google 六週內第三款 Flash 模型，Pro 系列疑似暫停更新；NeoMME 與 WeatherNext 3 兩則我們仍只取得到標題；Anthropic《Improving Alignment Security Efforts》與 xAI《Biosafety At The Frontier》兩則安全公告仍只留標題；Open ASR Leaderboard 新增的語言與分數仍未公布；Gemini Omni 1.1 Flash 具體新增了哪些控制項仍看不到；IBM Granite 4.2 與 Multiverse Computing
+      的量化方法都還停在廠商自己的一句話宣稱；模型往小而專走的訊號持續累積（Nemotron 3.5 Lightning、LFM2.5 系列端側模型），GPT-5.6 把賣點從更強移到更省。
+    next: 這四則裡，Navier-Stokes 那篇原文釋出後是否附帶可驗證的證明稿或第三方數學家的覆核意見；AlphaGenome Atlas 是否有獨立實驗室拿真實變異資料驗證預測準確率；Anthropic 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核。其餘沿用既有訊號：GPT-6 Astra 的 Critical 等級認定，是否有第三方稽核結果可比對；Anthropic 那篇 cybersecurity evals 文章是否有第二個獨立來源轉述具體內容；NeoMME 是否公開跑分或釋出模型權重；WeatherNext 3 官方是否公開對比前代或其他天氣預報系統的具體準確度數字；Gemini Pro 系列是否在近期釋出更新；Flash Cyber 具體鎖定哪些資安應用場景；Improving Alignment Security Efforts 與 Biosafety At The Frontier 這兩則安全公告的原文是否公布具體的紅隊測試方法、量化結果或第三方稽核；Open ASR Leaderboard 新增的語言到底是哪一個；Gemini Omni 1.1 Flash 實際新增的控制項與功能清單是否公開；IBM Granite 4.2 是否補上可對照的 benchmark 分數；GPT-5.6 每 token 成本要對前代與對手；ARC-AGI-3 三倍分數是否有第三方複現。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +38,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這條線這一輪新增兩則：NVIDIA 公布 GeForce NOW 九月新增 28 款遊戲，NBA 2K27 首發搭載 DLSS 5 神經渲染，屬消費級平台的例行月度更新；OpenAI 發布客戶案例，越野機車賽事主辦方 ATV Big Air Tour 用 ChatGPT Work 把 3 天工作壓成 3 小時、15 分鐘做出商品庫存網站。兩則都延續既有子線：前者是 NVIDIA 消費顯卡 AI 功能持續落地的又一個例子，後者是 OpenAI 官方案例研究系列的最新一則，效率數字來自客戶自述、非第三方評測。既有主軸不變：NVIDIA 與 CrowdStrike 的 SafeMind、OpenAI 的 Gilbert + Tobin 案例、DeepMind 主動式資安防禦文章，三則呼應近幾週持續在追的資安敘事，資安正在變成多家廠商同步在推的產品切角；Anthropic 這兩則公告（Enterprise Frontier Safeguards、Claude Text Watermark）仍只留標題；ChatGPT 醫療資料串接沒有講清楚誰簽署合規協議、資料留存規則怎麼定；Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；ChatGPT for Teachers 擴大到 55 個美國學區、批判性思考隨機對照研究、學習持續性報告這三篇都附上具體數字或研究設計；xAI 的 Grok Bot 與 Grok 4.6 上架 Microsoft Foundry 兩則同樣只留標題。
-    next: DLSS 5 神經渲染技術是否擴散到遊戲以外的即時渲染應用；OpenAI 是否釋出 Work 方案更大規模的採用數字，或是否有其他獨立案例佐證類似的效率提升幅度。其餘沿用既有訊號：SafeMind 是否公布具體技術規格或客戶部署案例；Gilbert + Tobin 或其他律所是否公開更具體的採用數據；DeepMind 那篇原文公布的技術或政策內容；Anthropic 這兩則公告是否會補上具體功能規格；ChatGPT 醫療資料串接是否補上合規細節說明；Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；Grok 4.6 Amazon Bedrock 與 Microsoft Foundry 這兩則原文能取用時再確認實際形式。
+    now: 這條線這一輪新增一則：OpenAI 發布《Introducing ChatGPT Images 2.5》，宣布 ChatGPT 影像功能推出 2.5 版更新，我們只留標題與連結，未轉錄正文，看不出這次更新具體改了生成品質、速度還是新增編輯功能。這是純產品迭代的訊號，方向上跟既有主軸「能力落地成可用功能」一致，但同樣只有版本號可查，沒有功能細節。既有主軸不變：這條線上一輪新增兩則：NVIDIA 公布 GeForce NOW 九月新增 28 款遊戲，NBA 2K27 首發搭載 DLSS 5 神經渲染，屬消費級平台的例行月度更新；OpenAI 發布客戶案例，越野機車賽事主辦方 ATV Big Air Tour 用 ChatGPT Work 把 3 天工作壓成 3 小時、15 分鐘做出商品庫存網站，效率數字來自客戶自述、非第三方評測。再往前：NVIDIA 與 CrowdStrike 的 SafeMind、OpenAI 的 Gilbert + Tobin 案例、DeepMind 主動式資安防禦文章，三則呼應近幾週持續在追的資安敘事，資安正在變成多家廠商同步在推的產品切角；Anthropic 這兩則公告（Enterprise Frontier Safeguards、Claude Text Watermark）仍只留標題；ChatGPT 醫療資料串接沒有講清楚誰簽署合規協議、資料留存規則怎麼定；Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；ChatGPT for Teachers 擴大到 55 個美國學區、批判性思考隨機對照研究、學習持續性報告這三篇都附上具體數字或研究設計；xAI 的 Grok Bot 與 Grok 4.6 上架 Microsoft Foundry 兩則同樣只留標題。
+    next: 原文釋出後的功能細節，以及是否有第三方基準測試比較新舊版本差異。其餘沿用既有訊號：DLSS 5 神經渲染技術是否擴散到遊戲以外的即時渲染應用；OpenAI 是否釋出 Work 方案更大規模的採用數字，或是否有其他獨立案例佐證類似的效率提升幅度；SafeMind 是否公布具體技術規格或客戶部署案例；Gilbert + Tobin 或其他律所是否公開更具體的採用數據；DeepMind 那篇原文公布的技術或政策內容；Anthropic 這兩則公告是否會補上具體功能規格；ChatGPT 醫療資料串接是否補上合規細節說明；Anthropic 教育與科學那批公告是否會補上具體功能、定價或客戶採用數字；Grok 4.6 Amazon Bedrock 與 Microsoft Foundry 這兩則原文能取用時再確認實際形式。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -50,8 +51,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 這條線這一輪新增一則，是目前為止金額最大的一筆：NVIDIA 宣布以近 130 億美元收購 Hugging Face，四個獨立來源交叉確認同一筆交易且金額量級一致。這則直接改寫了這條線原本的主軸，先前這條線唯一的資本訊號是 Google 用「算力額度」而非現金投資 Genesis Mission，象徵意義大於金額；這次 NVIDIA 拿出真金白銀，一次性買下開源 AI 最大的託管平台，是公司邊界層級的整合，不只是額度或合作備忘錄。NVIDIA 說會維持 Hugging Face 開放，但決策權已經易手，能不能兌現要看後續治理安排。既有主軸不變：OpenAI 公布 ChatGPT 廣告年化營收站上十億美元，是這條線第一則附上具體營收數字的資本訊號；Cursor 遭 SpaceX 收購後 OpenAI 終止供模型合約，是這條線少數寫得出明確因果的資本／公司邊界動作；Anthropic 跟蓋茲基金會、艾倫研究所與霍華休斯醫學研究所、SK 電訊、埃森哲與 AWS、Google Cloud 的五則合作公告全部只留標題；OpenAI 任命 Dali Rajic 為首席營收長；NVIDIA 找六家資產管理與投行建融資平台，目標動員逾 5,000 億美元第三方資本；OpenAI 董事會補進 David Vélez 與 Robin Vince；OpenAI 公開反駁 Apple 的訴訟。
-    next: 交易正式簽約與監管審查（尤其是反壟斷審查）進度、Hugging Face 治理架構是否變動、是否有其他晶片廠跟進類似收購。其餘沿用既有訊號：OpenAI 是否揭露廣告在總營收裡的占比；Cursor 後續是否公開說明替代的模型供應方案；這五則夥伴關係公告是否會補上合作金額、具體項目或執行時程；Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整；NVIDIA 的融資平台有沒有第一筆實際資金到位；OpenAI 董事變動後有沒有大型融資或財務揭露對得上。
+    now: 這條線這一輪新增一則：OpenAI 推出一項 500 萬美元的研究資助計畫，資助獨立研究團隊探討生成式 AI 對青少年發展、身心健康與安全的影響，延續 OpenAI 因應青少年 AI 安全爭議以來的政策佈局。這則規模遠小於這條線目前最大的 NVIDIA 收購 Hugging Face 交易，屬於資助／公關性質的資本動作，不是公司邊界層級的整合。既有主軸不變：這條線上一輪新增一則，是目前為止金額最大的一筆：NVIDIA 宣布以近 130 億美元收購 Hugging Face，四個獨立來源交叉確認同一筆交易且金額量級一致。這則直接改寫了這條線原本的主軸，先前這條線唯一的資本訊號是 Google 用「算力額度」而非現金投資 Genesis Mission，象徵意義大於金額；這次 NVIDIA 拿出真金白銀，一次性買下開源 AI 最大的託管平台，是公司邊界層級的整合，不只是額度或合作備忘錄。NVIDIA 說會維持 Hugging Face 開放，但決策權已經易手，能不能兌現要看後續治理安排。再往前：OpenAI 公布 ChatGPT 廣告年化營收站上十億美元，是這條線第一則附上具體營收數字的資本訊號；Cursor 遭 SpaceX 收購後 OpenAI 終止供模型合約，是這條線少數寫得出明確因果的資本／公司邊界動作；Anthropic 跟蓋茲基金會、艾倫研究所與霍華休斯醫學研究所、SK 電訊、埃森哲與 AWS、Google Cloud 的五則合作公告全部只留標題；OpenAI 任命 Dali Rajic 為首席營收長；NVIDIA 找六家資產管理與投行建融資平台，目標動員逾 5,000 億美元第三方資本；OpenAI 董事會補進 David Vélez 與 Robin Vince；OpenAI 公開反駁 Apple 的訴訟。
+    next: 資助名單公布後，獲補助的研究團隊與 OpenAI 有無利益關聯、研究成果是否對外公開。其餘沿用既有訊號：交易正式簽約與監管審查（尤其是反壟斷審查）進度、Hugging Face 治理架構是否變動、是否有其他晶片廠跟進類似收購；OpenAI 是否揭露廣告在總營收裡的占比；Cursor 後續是否公開說明替代的模型供應方案；這五則夥伴關係公告是否會補上合作金額、具體項目或執行時程；Dali Rajic 上任後 OpenAI 的營收策略有沒有具體調整；NVIDIA 的融資平台有沒有第一筆實際資金到位；OpenAI 董事變動後有沒有大型融資或財務揭露對得上。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
@@ -64,6 +65,6 @@ tracks:
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這條線這一輪新增一則：OpenAI 發布 Daybreak for Frontline Defenders，承諾投入 10 億美元，擴大關鍵服務單位取得前沿網路安全 AI、訓練與支援的管道。這則延續這條線「把影響力擴散到非產品面公共領域」的走向，這次是資安防禦端的資源投放，不是政策表態或市場滲透。既有主軸不變：OpenAI 發表聲明支持加州 SB 1119，主張替青少年設計分齡的 AI 防護措施；日本新創 Polimill 用 OpenAI 的模型幫地方政府檢索行政知識、加快系統開發；泰國八週加速器結業後 10 家新創是否公開產品成果仍待確認；Anthropic 過去幾天內至少十一則公告集中在教育與治理兩個主題，跟盧安達政府的 AI 教育合作與 MOU、跟 Teach For All 的合作、跟冰島的國家級 AI 教育試點、跟 CodePath 的合作，加上使用政策更新、偵測反制 Claude 遭惡意使用的報告，沒有一則附上原文；OpenAI 發布 Hugging Face 資安事件的調查說明與擴大巴西市場布局，內容都附上具體說明。
-    next: Daybreak 計畫是否公布首批受益機構名單、資金撥付進度，或是否有其他 AI 大廠跟進類似的關鍵基礎設施防禦計畫。其餘沿用既有訊號：SB 1119 是否通過表決、以及 OpenAI 屆時公布的年齡驗證機制長什麼樣子；Polimill 是否公布實際採用的地方政府數量、或使用後的效率提升數據；泰國加速器結業後這 10 家新創是否公開產品成果或拿到後續融資；盧安達與冰島這兩則國家級教育合作的具體規模是否會補上；Detecting And Countering Malicious Uses Of Claude 這篇報告的具體案例內容是否釋出；OpenAI 封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic 那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布。
+    now: 這條線這一輪新增三則：OpenAI 發布《The Work Now Within Reach》，主張 AI 能力愈強、成本愈低，個人與企業能完成的工作範圍就愈大，經濟成長也跟著變得更划算，但只有一句話摘要，看不出具體產業案例佐證；OpenAI 也宣布擴大對新聞業的支持，涵蓋工具、教育訓練與夥伴合作，對象從學生、教育工作者到記者與新聞機構都包含在內；前一天，OpenAI 則與 AIRPPU、WAN-IFRA 合作，推出協助烏克蘭新聞機構強化韌性與獨立性的 AI 計畫。三則裡兩則都是新聞業相關的公關佈局，跟這條線既有「把影響力擴散到非產品面公共領域」的走向一致。既有主軸不變：這條線上一輪新增一則：OpenAI 發布 Daybreak for Frontline Defenders，承諾投入 10 億美元，擴大關鍵服務單位取得前沿網路安全 AI、訓練與支援的管道，延續這條線把影響力擴散到非產品面公共領域的走向，這次是資安防禦端的資源投放，不是政策表態或市場滲透。再往前：OpenAI 發表聲明支持加州 SB 1119，主張替青少年設計分齡的 AI 防護措施；日本新創 Polimill 用 OpenAI 的模型幫地方政府檢索行政知識、加快系統開發；泰國八週加速器結業後 10 家新創是否公開產品成果仍待確認；Anthropic 過去幾天內至少十一則公告集中在教育與治理兩個主題，跟盧安達政府的 AI 教育合作與 MOU、跟 Teach For All 的合作、跟冰島的國家級 AI 教育試點、跟 CodePath 的合作，加上使用政策更新、偵測反制 Claude 遭惡意使用的報告，沒有一則附上原文；OpenAI 發布 Hugging Face 資安事件的調查說明與擴大巴西市場布局，內容都附上具體說明。
+    next: 這兩則新聞業合作是否公布具體合作新聞機構名單、資助規模或工具細節；經濟敘事那篇是否附帶具體產業數據或案例研究，以及後續是否被引用進 OpenAI 對外的政策論述。其餘沿用既有訊號：Daybreak 計畫是否公布首批受益機構名單、資金撥付進度，或是否有其他 AI 大廠跟進類似的關鍵基礎設施防禦計畫；SB 1119 是否通過表決、以及 OpenAI 屆時公布的年齡驗證機制長什麼樣子；Polimill 是否公布實際採用的地方政府數量、或使用後的效率提升數據；泰國加速器結業後這 10 家新創是否公開產品成果或拿到後續融資；盧安達與冰島這兩則國家級教育合作的具體規模是否會補上；Detecting And Countering Malicious Uses Of Claude 這篇報告的具體案例內容是否釋出；OpenAI 封鎖的俄羅斯帳號規模、觸及人數，是否有獨立研究單位交叉驗證；Anthropic 那三則經濟未來與福祉研究補助的資助對象或審核標準是否補上；AI Futures 系列接下來會放哪些具體文章；國安民主監督計畫是否有政府機構具名參與；CodeAI 合作的具體課程內容或覆蓋規模；OpenAI 資助的十四個政策研究專案具體名單與成果何時公布。
     lenses: []

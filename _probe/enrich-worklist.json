@@ -1,1 +1,236 @@
-[]
+[
+  {
+    "id": "evt-2026-09-07-68d102",
+    "path": "evt-2026-09-07-68d102.md",
+    "title": "Supporting independent journalism in Ukraine",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/supporting-independent-journalism-in-ukraine",
+        "title": "Supporting independent journalism in Ukraine",
+        "summary": "OpenAI, AIRPPU and WAN-IFRA launch an AI program to help Ukrainian news organizations strengthen innovation, resilience, and independent journalism."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-0c18f7",
+    "path": "evt-2026-09-08-0c18f7.md",
+    "title": "On the Navier–Stokes Millennium Prize Problem",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/navier-stokes-solution",
+        "title": "On the Navier–Stokes Millennium Prize Problem",
+        "summary": ""
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/navier-stokes-solution/",
+        "title": "On the Navier–Stokes Millennium Prize Problem",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-261697",
+    "path": "evt-2026-09-08-261697.md",
+    "title": "Detecting Countering Misuse Aug 2025",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/detecting-countering-misuse-aug-2025",
+        "title": "Detecting Countering Misuse Aug 2025",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-3d81b5",
+    "path": "evt-2026-09-08-3d81b5.md",
+    "title": "Detecting And Preventing Distillation Attacks",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks",
+        "title": "Detecting And Preventing Distillation Attacks",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-4e6b7e",
+    "path": "evt-2026-09-08-4e6b7e.md",
+    "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/",
+        "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
+        "summary": "AlphaGenome Atlas maps the molecular effects of 9 billion single-letter DNA variants across the human genome."
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/",
+        "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
+        "summary": "AlphaGenome Atlas maps the molecular effects of 9 billion single-letter DNA variants across the human genome."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-72388b",
+    "path": "evt-2026-09-08-72388b.md",
+    "title": "Funding grants for new research into AI and teen development",
+    "fingerprint": null,
+    "facet": "capital",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/teen-development-research-grants",
+        "title": "Funding grants for new research into AI and teen development",
+        "summary": "Apply now for OpenAI’s $5 million grant program supporting independent research on how generative AI affects teen development, well-being, and safety."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-776b3e",
+    "path": "evt-2026-09-08-776b3e.md",
+    "title": "Disrupting AI Espionage",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/disrupting-AI-espionage",
+        "title": "Disrupting AI Espionage",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-802f16",
+    "path": "evt-2026-09-08-802f16.md",
+    "title": "The Work Now Within Reach",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/the-work-now-within-reach",
+        "title": "The Work Now Within Reach",
+        "summary": "Explore how more capable, affordable AI can expand the work people and businesses can accomplish—and make growth more economical."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-8e94b9",
+    "path": "evt-2026-09-08-8e94b9.md",
+    "title": "Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole Topic",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/MultiverseComputingCAI/safety-for-whom",
+        "title": "Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole Topic",
+        "summary": "A Blog post by Multiverse Computing on Hugging Face"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-9c9e7f",
+    "path": "evt-2026-09-08-9c9e7f.md",
+    "title": "OpenAI expands initiatives to support journalism from classrooms to newsrooms",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/supporting-journalism-from-classrooms-to-newsrooms",
+        "title": "OpenAI expands initiatives to support journalism from classrooms to newsrooms",
+        "summary": "OpenAI is expanding support for journalism with tools, training, and partnerships for students, educators, journalists, and news organizations."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-c7ad58",
+    "path": "evt-2026-09-08-c7ad58.md",
+    "title": "AI Enabled Cyber Threats Mitre Attack",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack",
+        "title": "AI Enabled Cyber Threats Mitre Attack",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-08-ca216d",
+    "path": "evt-2026-09-08-ca216d.md",
+    "title": "Introducing ChatGPT Images 2.5",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "OpenAI",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/introducing-chatgpt-images-2-5",
+        "title": "ChatGPT Images 2.5",
+        "summary": ""
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/introducing-chatgpt-images-2-5/",
+        "title": "ChatGPT Images 2.5",
+        "summary": ""
+      }
+    ]
+  }
+]

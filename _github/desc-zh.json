@@ -54,6 +54,11 @@
     "src_hash": "e79a45ac4ae9",
     "zh": "AI coding agent 的持久記憶系統，Go 執行檔，內建 SQLite+FTS5 與 MCP server"
   },
+  "Gentleman-Programming/gentle-ai": {
+    "at": "2026-09-08T19:19:22+00:00",
+    "src_hash": "edb43de3c1d0",
+    "zh": "幫 Claude Code 等 AI 編碼 agent 設定記憶、技能與規格驅動開發，開源不綁定單一工具"
+  },
   "Graphify-Labs/graphify": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "8e48530c1c58",
@@ -98,6 +103,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "6eb4d1ab3a37",
     "zh": "會跟著你一起成長的 agent"
+  },
+  "OpenHands/OpenHands": {
+    "at": "2026-09-08T19:19:22+00:00",
+    "src_hash": "270caa459fbb",
+    "zh": "OpenHands：AI 驅動的開發工具"
   },
   "Osmantic/ODS": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -199,6 +209,11 @@
     "src_hash": "b39be18886ec",
     "zh": "一份可透過 API 取用的免費 LLM 推論資源清單"
   },
+  "coreyhaines31/marketingskills": {
+    "at": "2026-09-08T19:19:22+00:00",
+    "src_hash": "9b4d064a6baf",
+    "zh": "給 Claude Code 與 AI agent 用的行銷技能：轉換率優化、文案、SEO 與成長工程分析"
+  },
   "datawhalechina/hello-agents": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "0f1350efa57d",
@@ -263,6 +278,11 @@
     "at": "2026-08-28T19:24:01+00:00",
     "src_hash": "ab579914c613",
     "zh": "嵌入式單檔知識圖譜資料庫，支援向量搜尋與全文搜尋，用於AI/RAG應用"
+  },
+  "jingyaogong/minimind": {
+    "at": "2026-09-08T19:19:22+00:00",
+    "src_hash": "394531d8c3b6",
+    "zh": "從零訓練一個 6,400 萬參數的 LLM，只要 2 小時"
   },
   "jundot/omlx": {
     "at": "2026-08-17T19:10:59+00:00",

@@ -1,6 +1,28 @@
-# 已發布事件（225）
+# 已發布事件（234）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-08
+- **[[Events/evt-2026-09-08-0c18f7|On the Navier–Stokes Millennium Prize Problem]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 發文談 Navier–Stokes 千禧年難題，正文未轉錄
+- **[[Events/evt-2026-09-08-3d81b5|Detecting And Preventing Distillation Attacks]]** — Anthropic · research · conf 73 · heat 未量測
+  Anthropic 公告防範模型蒸餾攻擊做法，正文未轉錄
+- **[[Events/evt-2026-09-08-4e6b7e|AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome]]** — Google DeepMind · research · conf 80 · heat 未量測
+  DeepMind 發布 AlphaGenome Atlas，涵蓋 90 億種基因變異預測
+- **[[Events/evt-2026-09-08-72388b|Funding grants for new research into AI and teen development]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 撥 500 萬美元資助青少年 AI 影響獨立研究
+- **[[Events/evt-2026-09-08-776b3e|Disrupting AI Espionage]]** — Anthropic · research · conf 73 · heat 未量測
+  Anthropic 公告攔阻 AI 間諜活動行動，正文未轉錄
+- **[[Events/evt-2026-09-08-802f16|The Work Now Within Reach]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發文：更強更便宜的 AI 讓經濟成長更划算
+- **[[Events/evt-2026-09-08-9c9e7f|OpenAI expands initiatives to support journalism from classrooms to newsrooms]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 擴大新聞業支持，從課堂到新聞編輯室
+- **[[Events/evt-2026-09-08-ca216d|Introducing ChatGPT Images 2.5]]** — OpenAI · product · conf 80 · heat 未量測
+  OpenAI 推出 ChatGPT Images 2.5，正文未轉錄
+
+## 2026-09-07
+- **[[Events/evt-2026-09-07-68d102|Supporting independent journalism in Ukraine]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 攜 WAN-IFRA、AIRPPU 推烏克蘭獨立新聞 AI 扶植計畫
 
 ## 2026-09-04
 - **[[Events/evt-2026-09-04-54f43a|Investigating Incidents Cybersecurity Evals]]** — Anthropic · research · conf 73 · heat 未量測
