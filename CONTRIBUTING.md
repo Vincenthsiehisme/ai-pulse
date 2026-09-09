@@ -21,6 +21,9 @@
 ```
 _corpus/**  _probe/**  Events/**  Sources/**  _dashboards/**  dist/**
 Tracks/**   Actors/**    ← 2026-07-27 新增，pulse-entity-notes.py 的維度節點頁
+Digests/**               ← 每日精選草稿，pulse-digest-apply.py / pulse-digest-gate.py 寫回
+_github/**               ← GitHub 榜的 star／名次快照與中文描述，pulse-github.py 與
+                           pulse-github-desc-apply.py 寫回（每班隨 chore: nightly refresh 直推）
 _config/sources.yaml     ← 只有兩個機器欄位，見下一段
 _config/narratives.yaml  ← 每夜 enrich 的主線敘事（now / next），見下一段
 ```

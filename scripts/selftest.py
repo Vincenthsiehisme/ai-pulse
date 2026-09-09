@@ -3233,11 +3233,19 @@ acase("排程：entity notes 也排在 Source health 之後、Commit 之前",
       (max(_step_with("pulse-source-health.py"))
        < min(_step_with("pulse-entity-notes.py"))
        < min(_step_with("git push"))), True)
-acase("Tracks/ 與 Actors/ 要在資料 commit 白名單裡"
+# 這份清單怎麼盤出來的（2026-09-08）：把 main 上機器直推的 commit（`chore: nightly
+# refresh` / `nightly: …` / `probe …`）動到的頂層路徑，逐個對兩份文件的白名單。
+# 最近 72 個機器 commit 掃出兩個沒被列到的：`Digests/`（23 次）與 `_github/`（63 次）。
+# 要重盤：
+#   git log --first-parent --format='%H|%an|%s' -80 origin/main
+#   git diff-tree --no-commit-id --name-only -r -z <commit>
+# 手寫清單住在三個地方（AGENTS.md、CONTRIBUTING.md、這一條），所以漏一個不會紅——
+# `_github/` 就是這樣漏了一個多月：它從 2026-08 起每班直推，兩份文件從沒提過它。
+acase("Tracks/、Actors/、Digests/ 與 _github/ 要在資料 commit 白名單裡"
       "（不在的話，鏈每班寫出來、每班被 git add -A 之外的規矩擋掉，"
       "或更糟：寫了但沒人知道該不該推）",
       [d in _read_repo_file("AGENTS.md") and d in _read_repo_file("CONTRIBUTING.md")
-       for d in ("Tracks/", "Actors/")], [True, True])
+       for d in ("Tracks/", "Actors/", "Digests/", "_github/")], [True] * 4)
 
 # 主線對照表只有一份：抄第二份的失敗形態這個 repo 量過四次。
 acase("主線對照表：六條線，slug / 顯示名 / 顏色都在 lib/tracks.py",
