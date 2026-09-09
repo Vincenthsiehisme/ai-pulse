@@ -3,7 +3,7 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-09-08'
+generated_day: '2026-09-09'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -14,7 +14,7 @@ tags: [actor, company]
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-08 | [[Events/evt-2026-09-08-8e94b9\|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole Topic]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-a08bae\|IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license]] | review |
 | 2026-09-03 | [[Events/evt-2026-09-03-d04a3e\|NeoMME: an efficient Multimodal-native and Multilingual Encoder]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-4edf31\|NVIDIA to Acquire Hugging Face]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-0b7af6\|Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI]] | published |

@@ -3,7 +3,7 @@ id: actor-meta
 kind: company
 in_dictionary: true
 aliases: ["Meta AI", "FAIR", "Facebook"]
-generated_day: '2026-09-08'
+generated_day: '2026-09-09'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

@@ -3,17 +3,19 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-08'
+generated_day: '2026-09-09'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **45** 則：`dropped` 1、`published` 41、`review` 3
+事件 **47** 則：`dropped` 1、`published` 41、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-09 | [[Events/evt-2026-09-09-d9468f\|NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-d85302\|v0.29.0]] | review |
 | 2026-09-03 | [[Events/evt-2026-09-03-700829\|‘NBA 2K27’ With NVIDIA DLSS 5 Leads 28 New Games Coming to GeForce NOW]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-57be81\|NVIDIA and CrowdStrike Strengthen Agentic Cybersecurity Frontier]] | published |
 | 2026-08-27 | [[Events/evt-2026-08-27-e4376e\|Delivering Vera: NVIDIA’s First CPU Built for Agents Is Shipping Now]] | published |

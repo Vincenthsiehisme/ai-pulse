@@ -1,96 +1,160 @@
 [
   {
-    "id": "evt-2026-09-07-68d102",
-    "title": "Supporting independent journalism in Ukraine",
+    "id": "evt-2026-09-08-87cc08",
+    "title": "1Password increases engineering productivity 21% with Codex",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-0c18f7",
-    "title": "On the Navier–Stokes Millennium Prize Problem",
+    "id": "evt-2026-09-09-21e6fe",
+    "title": "Fable Safeguards Jailbreak Framework",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-261697",
-    "title": "Detecting Countering Misuse Aug 2025",
+    "id": "evt-2026-09-09-22783a",
+    "title": "Services Track Partner Hub",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-3d81b5",
-    "title": "Detecting And Preventing Distillation Attacks",
+    "id": "evt-2026-09-09-3947d1",
+    "title": "Anthropic Acquires Stainless",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-3bb802",
+    "title": "Dxc Anthropic Alliance",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-68504c",
+    "title": "Chris Olah Pope Leo Encyclical",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-4e6b7e",
-    "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
+    "id": "evt-2026-09-09-6a5c84",
+    "title": "Fable Mythos Access",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-72388b",
-    "title": "Funding grants for new research into AI and teen development",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-08-776b3e",
-    "title": "Disrupting AI Espionage",
+    "id": "evt-2026-09-09-7541aa",
+    "title": "Confidential Draft s1 Sec",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-802f16",
-    "title": "The Work Now Within Reach",
+    "id": "evt-2026-09-09-7fac41",
+    "title": "Rare Disease Research Grants",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-8e94b9",
-    "title": "Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole Topic",
+    "id": "evt-2026-09-09-7fbbe5",
+    "title": "Anthropic Kpmg",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-95ff13",
+    "title": "Redeploying Fable 5",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-964d01",
+    "title": "Alberta Government Claude Cybersecurity",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-a08bae",
+    "title": "IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-9c9e7f",
-    "title": "OpenAI expands initiatives to support journalism from classrooms to newsrooms",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-08-c7ad58",
-    "title": "AI Enabled Cyber Threats Mitre Attack",
+    "id": "evt-2026-09-09-acc343",
+    "title": "Expanding Project Glasswing",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-08-ca216d",
-    "title": "Introducing ChatGPT Images 2.5",
+    "id": "evt-2026-09-09-b105e4",
+    "title": "Tcs Anthropic Partnership",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-c38ec4",
+    "title": "Ust Claude",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-cb0d0b",
+    "title": "Ben Bernanke",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-d85302",
+    "title": "v0.29.0",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-d89ddb",
+    "title": "Paul Christiano joins OpenAI Foundation Board",
     "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-d9468f",
+    "title": "NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC",
+    "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null

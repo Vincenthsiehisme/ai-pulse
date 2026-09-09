@@ -3,21 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-08'
+generated_day: '2026-09-09'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **84** 則：`published` 77、`review` 7
+事件 **88** 則：`published` 83、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-08 | [[Events/evt-2026-09-08-ca216d\|Introducing ChatGPT Images 2.5]] | review |
-| 2026-09-08 | [[Events/evt-2026-09-08-9c9e7f\|OpenAI expands initiatives to support journalism from classrooms to newsrooms]] | review |
-| 2026-09-08 | [[Events/evt-2026-09-08-72388b\|Funding grants for new research into AI and teen development]] | review |
-| 2026-09-07 | [[Events/evt-2026-09-07-68d102\|Supporting independent journalism in Ukraine]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-d89ddb\|Paul Christiano joins OpenAI Foundation Board]] | review |
+| 2026-09-08 | [[Events/evt-2026-09-08-ca216d\|Introducing ChatGPT Images 2.5]] | published |
+| 2026-09-08 | [[Events/evt-2026-09-08-9c9e7f\|OpenAI expands initiatives to support journalism from classrooms to newsrooms]] | published |
+| 2026-09-08 | [[Events/evt-2026-09-08-87cc08\|1Password increases engineering productivity 21% with Codex]] | review |
+| 2026-09-08 | [[Events/evt-2026-09-08-802f16\|The Work Now Within Reach]] | published |
+| 2026-09-08 | [[Events/evt-2026-09-08-72388b\|Funding grants for new research into AI and teen development]] | published |
+| 2026-09-08 | [[Events/evt-2026-09-08-0c18f7\|On the Navier–Stokes Millennium Prize Problem]] | published |
+| 2026-09-07 | [[Events/evt-2026-09-07-68d102\|Supporting independent journalism in Ukraine]] | published |
 | 2026-09-06 | [[Events/evt-2026-09-06-b0c5ae\|An Alien Mind]] | review |
 | 2026-09-06 | [[Events/evt-2026-09-06-4cf79d\|Research acceleration: The view inside OpenAI]] | review |
 | 2026-09-03 | [[Events/evt-2026-09-03-f6b63c\|Daybreak for Frontline Defenders: $1B to protect essential services]] | published |

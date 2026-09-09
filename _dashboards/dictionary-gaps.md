@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-08'
+generated_day: '2026-09-09'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**43 天**（2026-07-24 … 2026-09-08），去重後 **2901** 列。
+語料範圍：**44 天**（2026-07-24 … 2026-09-09），去重後 **2991** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,46 +17,46 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 55 | 5 |
+| Apple | 68 | 5 |
 | LLMs | 38 | 12 |
 | Amazon | 35 | 5 |
 | LLM | 35 | 11 |
+| July | 30 | 9 |
 | There | 30 | 7 |
-| July | 29 | 9 |
 | They | 29 | 9 |
-| Here | 27 | 8 |
+| Here | 28 | 8 |
 | Research | 25 | 6 |
-| When | 23 | 8 |
+| When | 24 | 9 |
+| August | 23 | 7 |
 | June | 21 | 7 |
 | U.S | 21 | 7 |
 | One | 21 | 9 |
-| August | 21 | 5 |
 | Python | 20 | 3 |
+| Pro | 19 | 5 |
 | Trump | 19 | 4 |
 | Pixel | 19 | 3 |
 | Building | 18 | 10 |
 | Android | 18 | 3 |
+| China | 17 | 6 |
 | Linux | 17 | 5 |
+| After | 17 | 6 |
 | CEO | 17 | 5 |
 | Samsung | 17 | 4 |
 | Industry | 16 | 2 |
-| China | 16 | 5 |
-| Pro | 16 | 4 |
-| After | 16 | 6 |
+| September | 16 | 5 |
+| AI-powered | 15 | 8 |
 | Europe | 15 | 7 |
 | European Union | 15 | 3 |
+| San Francisco | 15 | 8 |
 | With | 15 | 9 |
-| AI-powered | 14 | 8 |
+| SpaceX | 15 | 5 |
 | Wednesday | 14 | 4 |
-| San Francisco | 14 | 8 |
 | Elon Musk | 14 | 5 |
 | AI-generated | 14 | 5 |
 | Astra | 14 | 5 |
 | Flash | 13 | 4 |
-| September | 13 | 5 |
 | Fable | 13 | 4 |
 | Rust | 13 | 3 |
-| SpaceX | 13 | 5 |
 | RAM | 13 | 2 |
 | These | 12 | 6 |
 | Draft | 11 | 2 |
@@ -65,18 +65,18 @@ generator: scripts/pulse-dictionary-gaps.py
 | Monday | 11 | 4 |
 | Flock | 11 | 3 |
 | Opus | 11 | 4 |
+| Last | 11 | 6 |
 | Union | 10 | 2 |
 | Learn | 10 | 3 |
 | Texas | 10 | 6 |
 | India | 10 | 3 |
+| May | 10 | 5 |
 | From | 10 | 8 |
-| Last | 10 | 5 |
+| API | 10 | 4 |
 | While | 10 | 4 |
 | Energy | 9 | 2 |
 | Built | 9 | 6 |
 | Some | 9 | 7 |
-| May | 9 | 5 |
-| Mac | 9 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,11 +87,11 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 76 | src-hn-frontpage |
-| The Download | 35 | src-media-mit-techreview |
-| Highlights | 16 | src-gh-vllm-releases |
+| Show HN | 77 | src-hn-frontpage |
+| The Download | 36 | src-media-mit-techreview |
+| Highlights | 17 | src-gh-vllm-releases |
+| Hi HN | 16 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
-| Hi HN | 15 | src-hn-frontpage |
 | Tags | 15 | src-kol-simonwillison |
 | Launch HN | 13 | src-hn-frontpage |
 | YC S26 | 11 | src-hn-frontpage |
@@ -140,13 +140,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Disney | 4 | src-media-theverge |
 | Hey HN | 4 | src-hn-frontpage |
 | TikTok | 4 | src-media-theverge |
+| A Blog | 4 | src-hf-blog |
 | GTA VI | 4 | src-media-theverge |
 | Rockstar Games | 4 | src-media-theverge |
 | Defence Source | 3 | src-ep-itre |
 | Disclaimer | 3 | src-ep-itre |
 | Fix | 3 | src-gh-vllm-releases |
 | Kubernetes | 3 | src-hn-frontpage |
-| Enough Data Part | 3 | src-kol-lilianweng |
 
 ## 這一頁不保證什麼
 

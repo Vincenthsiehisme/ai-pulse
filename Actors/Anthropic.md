@@ -3,17 +3,28 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-09-08'
+generated_day: '2026-09-09'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **51** 則：`published` 48、`review` 3
+事件 **62** 則：`published` 50、`review` 12
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-09 | [[Events/evt-2026-09-09-f4d0b0\|Kiyoung Choi Representative Director Anthropic Korea]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-c38ec4\|Ust Claude]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-b105e4\|Tcs Anthropic Partnership]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-964d01\|Alberta Government Claude Cybersecurity]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-7fbbe5\|Anthropic Kpmg]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-3bb802\|Dxc Anthropic Alliance]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-3947d1\|Anthropic Acquires Stainless]] | review |
+| 2026-09-08 | [[Events/evt-2026-09-08-c7ad58\|AI Enabled Cyber Threats Mitre Attack]] | review |
+| 2026-09-08 | [[Events/evt-2026-09-08-776b3e\|Disrupting AI Espionage]] | published |
+| 2026-09-08 | [[Events/evt-2026-09-08-3d81b5\|Detecting And Preventing Distillation Attacks]] | published |
+| 2026-09-08 | [[Events/evt-2026-09-08-261697\|Detecting Countering Misuse Aug 2025]] | review |
 | 2026-09-04 | [[Events/evt-2026-09-04-54f43a\|Investigating Incidents Cybersecurity Evals]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-c5f2a2\|Claude Text Watermark]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-2f6ed3\|Enterprise Frontier Safeguards]] | published |

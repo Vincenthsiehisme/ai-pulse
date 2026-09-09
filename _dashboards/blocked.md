@@ -1,8 +1,20 @@
-# 被門禁擋下（37）
+# 被門禁擋下（60）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-09-3947d1|Anthropic Acquires Stainless]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-3bb802|Dxc Anthropic Alliance]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-7fbbe5|Anthropic Kpmg]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-964d01|Alberta Government Claude Cybersecurity]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-a08bae|IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commer]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-09-b105e4|Tcs Anthropic Partnership]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-c38ec4|Ust Claude]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-d85302|v0.29.0]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-09-d89ddb|Paul Christiano joins OpenAI Foundation Board]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-09-d9468f|NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming a]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-09-f4d0b0|Kiyoung Choi Representative Director Anthropic Korea]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — Anthropic — blockers: thin_research_analysis
+- **[[Events/evt-2026-09-08-87cc08|1Password increases engineering productivity 21% with Codex]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-c7ad58|AI Enabled Cyber Threats Mitre Attack]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-06-4cf79d|Research acceleration: The view inside OpenAI]]** — OpenAI — blockers: thin_research_analysis
@@ -34,6 +46,17 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-09-09-21e6fe|Fable Safeguards Jailbreak Framework]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-22783a|Services Track Partner Hub]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-68504c|Chris Olah Pope Leo Encyclical]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-6a5c84|Fable Mythos Access]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-7541aa|Confidential Draft s1 Sec]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-7fac41|Rare Disease Research Grants]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-95ff13|Redeploying Fable 5]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-acc343|Expanding Project Glasswing]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-cb0d0b|Ben Bernanke]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-e8e989|Milan Office Opening]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-fb15fe|Pwc Expanded Partnership]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: generic_entity
