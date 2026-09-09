@@ -185,9 +185,9 @@
     "zh": "《深入理解 AI Agent：設計原理與工程實踐》（李博杰 著）開源主倉庫：全書正文、PDF 與各章配套程式碼"
   },
   "browser-use/browser-use": {
-    "at": "2026-08-13T19:13:02+00:00",
-    "src_hash": "1a01351f0e17",
-    "zh": "讓 AI agent 能操作網站，輕鬆自動化線上任務"
+    "at": "2026-09-09T19:22:19+00:00",
+    "src_hash": "b8fdd6846628",
+    "zh": "能操作瀏覽器的 AI agent"
   },
   "bytedance/deer-flow": {
     "at": "2026-07-31T19:20:39+00:00",
@@ -243,6 +243,11 @@
     "at": "2026-08-12T19:14:16+00:00",
     "src_hash": "e66c50f0ba6c",
     "zh": "用 C/C++ 做 LLM 推論"
+  },
+  "gpustack/gpustack": {
+    "at": "2026-09-09T19:22:19+00:00",
+    "src_hash": "7ffd0b016014",
+    "zh": "GPU 叢集管理工具，服務 vLLM、SGLang 等高效能 AI 模型，並提供隨選的 SSH GPU 執行個體"
   },
   "harry0703/MoneyPrinterTurbo": {
     "at": "2026-07-29T19:13:52+00:00",

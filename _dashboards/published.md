@@ -1,6 +1,52 @@
-# 已發布事件（234）
+# 已發布事件（257）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-09
+- **[[Events/evt-2026-09-09-21e6fe|Fable Safeguards Jailbreak Framework]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布一套名為 Fable 的越獄防護框架，我們選擇不轉述內文。
+- **[[Events/evt-2026-09-09-22783a|Services Track Partner Hub]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 開出一個給服務型夥伴用的 Partner Hub，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-3947d1|Anthropic Acquires Stainless]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 併購一家名為 Stainless 的公司，交易細節我們選擇不轉述。
+- **[[Events/evt-2026-09-09-3bb802|Dxc Anthropic Alliance]]** — Anthropic · product · conf 73 · heat 未量測
+  DXC 與 Anthropic 結盟，合作內容我們選擇不轉述，只給連結。
+- **[[Events/evt-2026-09-09-68504c|Chris Olah Pope Leo Encyclical]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 研究員 Chris Olah 被提及與教宗良的通諭有關，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-6a5c84|Fable Mythos Access]]** — Anthropic · product · conf 73 · heat 未量測
+  一項名為 Fable Mythos 的服務開放存取，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-7541aa|Confidential Draft s1 Sec]]** — Anthropic · capital · conf 73 · heat 未量測
+  標題暗示 Anthropic 已遞交機密版 IPO 申報文件，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-7fac41|Rare Disease Research Grants]]** — Anthropic · research · conf 73 · heat 未量測
+  Anthropic 發布罕見疾病研究補助計畫，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-7fbbe5|Anthropic Kpmg]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 與 KPMG 有新的合作動作，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-95ff13|Redeploying Fable 5]]** — Anthropic · model-capability · conf 73 · heat 未量測
+  標題提到重新部署一個名為 Fable 5 的系統，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-964d01|Alberta Government Claude Cybersecurity]]** — Anthropic · product · conf 73 · heat 未量測
+  加拿大亞伯達省政府用 Claude 做資安相關工作，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-a08bae|IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license]]** — IBM · model-capability · conf 73 · heat 未量測
+  IBM Research 發布新一代 Granite 時間序列基礎模型，採用商用友善授權。
+- **[[Events/evt-2026-09-09-acc343|Expanding Project Glasswing]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 擴大一項名為 Project Glasswing 的計畫，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-b105e4|Tcs Anthropic Partnership]]** — Anthropic · product · conf 73 · heat 未量測
+  TCS 與 Anthropic 建立合作夥伴關係，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-c38ec4|Ust Claude]]** — Anthropic · product · conf 83 · heat 未量測
+  UST 與 Claude 有新合作，並附帶一個「與 Claude 反思」的相關功能，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-cb0d0b|Ben Bernanke]]** — Anthropic · capital · conf 73 · heat 未量測
+  前聯準會主席 Ben Bernanke 出現在 Anthropic 官網公告標題中，內容我們選擇不轉述。
+- **[[Events/evt-2026-09-09-d85302|v0.29.0]]** — vLLM · infra · conf 73 · heat 未量測
+  vLLM v0.29.0 發布，Model Runner V2 成為所有模型的預設執行路徑。
+- **[[Events/evt-2026-09-09-d89ddb|Paul Christiano joins OpenAI Foundation Board]]** — OpenAI · capital · conf 73 · heat 未量測
+  AI 對齊研究者 Paul Christiano 加入 OpenAI 基金會董事會與安全委員會。
+- **[[Events/evt-2026-09-09-d9468f|NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 在 IBC 廣播展主打即時 AI 應用於媒體與體育直播。
+- **[[Events/evt-2026-09-09-e8e989|Milan Office Opening]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 開設米蘭辦公室，具體規模我們選擇不轉述。
+- **[[Events/evt-2026-09-09-f4d0b0|Kiyoung Choi Representative Director Anthropic Korea]]** — Anthropic · capital · conf 73 · heat 未量測
+  Kiyoung Choi 出任 Anthropic 韓國代表理事，具體職責我們選擇不轉述。
+- **[[Events/evt-2026-09-09-fb15fe|Pwc Expanded Partnership]]** — Anthropic · product · conf 73 · heat 未量測
+  PwC 與 Anthropic 擴大既有合作，具體內容我們選擇不轉述。
 
 ## 2026-09-08
 - **[[Events/evt-2026-09-08-0c18f7|On the Navier–Stokes Millennium Prize Problem]]** — OpenAI · research · conf 73 · heat 未量測
@@ -15,6 +61,8 @@
   Anthropic 公告攔阻 AI 間諜活動行動，正文未轉錄
 - **[[Events/evt-2026-09-08-802f16|The Work Now Within Reach]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 發文：更強更便宜的 AI 讓經濟成長更划算
+- **[[Events/evt-2026-09-08-87cc08|1Password increases engineering productivity 21% with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  1Password 用 OpenAI Codex 把工程生產力拉高 21%，官方案例聚焦效率。
 - **[[Events/evt-2026-09-08-9c9e7f|OpenAI expands initiatives to support journalism from classrooms to newsrooms]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 擴大新聞業支持，從課堂到新聞編輯室
 - **[[Events/evt-2026-09-08-ca216d|Introducing ChatGPT Images 2.5]]** — OpenAI · product · conf 80 · heat 未量測

@@ -1,8 +1,8 @@
 [
   {
-    "id": "evt-2026-09-07-68d102",
-    "path": "evt-2026-09-07-68d102.md",
-    "title": "Supporting independent journalism in Ukraine",
+    "id": "evt-2026-09-08-87cc08",
+    "path": "evt-2026-09-08-87cc08.md",
+    "title": "1Password increases engineering productivity 21% with Codex",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -11,40 +11,16 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/supporting-independent-journalism-in-ukraine",
-        "title": "Supporting independent journalism in Ukraine",
-        "summary": "OpenAI, AIRPPU and WAN-IFRA launch an AI program to help Ukrainian news organizations strengthen innovation, resilience, and independent journalism."
+        "url": "https://openai.com/index/1password",
+        "title": "1Password increases engineering productivity 21% with Codex",
+        "summary": "Engineers at 1Password use Codex to rapidly build new features and internal tools, reaching production-readiness while maintaining rigorous security policies."
       }
     ]
   },
   {
-    "id": "evt-2026-09-08-0c18f7",
-    "path": "evt-2026-09-08-0c18f7.md",
-    "title": "On the Navier–Stokes Millennium Prize Problem",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/navier-stokes-solution",
-        "title": "On the Navier–Stokes Millennium Prize Problem",
-        "summary": ""
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/navier-stokes-solution/",
-        "title": "On the Navier–Stokes Millennium Prize Problem",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-08-261697",
-    "path": "evt-2026-09-08-261697.md",
-    "title": "Detecting Countering Misuse Aug 2025",
+    "id": "evt-2026-09-09-21e6fe",
+    "path": "evt-2026-09-09-21e6fe.md",
+    "title": "Fable Safeguards Jailbreak Framework",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -53,16 +29,16 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/detecting-countering-misuse-aug-2025",
-        "title": "Detecting Countering Misuse Aug 2025",
+        "url": "https://www.anthropic.com/news/fable-safeguards-jailbreak-framework",
+        "title": "Fable Safeguards Jailbreak Framework",
         "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-09-08-3d81b5",
-    "path": "evt-2026-09-08-3d81b5.md",
-    "title": "Detecting And Preventing Distillation Attacks",
+    "id": "evt-2026-09-09-22783a",
+    "path": "evt-2026-09-09-22783a.md",
+    "title": "Services Track Partner Hub",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -71,58 +47,52 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks",
-        "title": "Detecting And Preventing Distillation Attacks",
+        "url": "https://www.anthropic.com/news/services-track-partner-hub",
+        "title": "Services Track Partner Hub",
         "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-09-08-4e6b7e",
-    "path": "evt-2026-09-08-4e6b7e.md",
-    "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 2,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/",
-        "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
-        "summary": "AlphaGenome Atlas maps the molecular effects of 9 billion single-letter DNA variants across the human genome."
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/",
-        "title": "AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome",
-        "summary": "AlphaGenome Atlas maps the molecular effects of 9 billion single-letter DNA variants across the human genome."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-08-72388b",
-    "path": "evt-2026-09-08-72388b.md",
-    "title": "Funding grants for new research into AI and teen development",
+    "id": "evt-2026-09-09-3947d1",
+    "path": "evt-2026-09-09-3947d1.md",
+    "title": "Anthropic Acquires Stainless",
     "fingerprint": null,
     "facet": "capital",
-    "company_guess": "OpenAI",
+    "company_guess": "Anthropic",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/teen-development-research-grants",
-        "title": "Funding grants for new research into AI and teen development",
-        "summary": "Apply now for OpenAI’s $5 million grant program supporting independent research on how generative AI affects teen development, well-being, and safety."
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/anthropic-acquires-stainless",
+        "title": "Anthropic Acquires Stainless",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-09-08-776b3e",
-    "path": "evt-2026-09-08-776b3e.md",
-    "title": "Disrupting AI Espionage",
+    "id": "evt-2026-09-09-3bb802",
+    "path": "evt-2026-09-09-3bb802.md",
+    "title": "Dxc Anthropic Alliance",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/dxc-anthropic-alliance",
+        "title": "Dxc Anthropic Alliance",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-68504c",
+    "path": "evt-2026-09-09-68504c.md",
+    "title": "Chris Olah Pope Leo Encyclical",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -131,16 +101,16 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/disrupting-AI-espionage",
-        "title": "Disrupting AI Espionage",
+        "url": "https://www.anthropic.com/news/chris-olah-pope-leo-encyclical",
+        "title": "Chris Olah Pope Leo Encyclical",
         "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-09-08-802f16",
-    "path": "evt-2026-09-08-802f16.md",
-    "title": "The Work Now Within Reach",
+    "id": "evt-2026-09-09-6a5c84",
+    "path": "evt-2026-09-09-6a5c84.md",
+    "title": "Fable Mythos Access",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -148,53 +118,125 @@
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/the-work-now-within-reach",
-        "title": "The Work Now Within Reach",
-        "summary": "Explore how more capable, affordable AI can expand the work people and businesses can accomplish—and make growth more economical."
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/fable-mythos-access",
+        "title": "Fable Mythos Access",
+        "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-09-08-8e94b9",
-    "path": "evt-2026-09-08-8e94b9.md",
-    "title": "Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole Topic",
+    "id": "evt-2026-09-09-7541aa",
+    "path": "evt-2026-09-09-7541aa.md",
+    "title": "Confidential Draft s1 Sec",
     "fingerprint": null,
     "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/confidential-draft-s1-sec",
+        "title": "Confidential Draft s1 Sec",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-7fac41",
+    "path": "evt-2026-09-09-7fac41.md",
+    "title": "Rare Disease Research Grants",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/rare-disease-research-grants",
+        "title": "Rare Disease Research Grants",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-7fbbe5",
+    "path": "evt-2026-09-09-7fbbe5.md",
+    "title": "Anthropic Kpmg",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/anthropic-kpmg",
+        "title": "Anthropic Kpmg",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-95ff13",
+    "path": "evt-2026-09-09-95ff13.md",
+    "title": "Redeploying Fable 5",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/redeploying-fable-5",
+        "title": "Redeploying Fable 5",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-964d01",
+    "path": "evt-2026-09-09-964d01.md",
+    "title": "Alberta Government Claude Cybersecurity",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/alberta-government-claude-cybersecurity",
+        "title": "Alberta Government Claude Cybersecurity",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-a08bae",
+    "path": "evt-2026-09-09-a08bae.md",
+    "title": "IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license",
+    "fingerprint": null,
+    "facet": "capital",
     "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/MultiverseComputingCAI/safety-for-whom",
-        "title": "Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole Topic",
-        "summary": "A Blog post by Multiverse Computing on Hugging Face"
+        "url": "https://huggingface.co/blog/ibm-research/ibm-releases-sota-granite-time-series",
+        "title": "IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license",
+        "summary": "A Blog post by IBM Research on Hugging Face"
       }
     ]
   },
   {
-    "id": "evt-2026-09-08-9c9e7f",
-    "path": "evt-2026-09-08-9c9e7f.md",
-    "title": "OpenAI expands initiatives to support journalism from classrooms to newsrooms",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/supporting-journalism-from-classrooms-to-newsrooms",
-        "title": "OpenAI expands initiatives to support journalism from classrooms to newsrooms",
-        "summary": "OpenAI is expanding support for journalism with tools, training, and partnerships for students, educators, journalists, and news organizations."
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-08-c7ad58",
-    "path": "evt-2026-09-08-c7ad58.md",
-    "title": "AI Enabled Cyber Threats Mitre Attack",
+    "id": "evt-2026-09-09-acc343",
+    "path": "evt-2026-09-09-acc343.md",
+    "title": "Expanding Project Glasswing",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -203,32 +245,176 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack",
-        "title": "AI Enabled Cyber Threats Mitre Attack",
+        "url": "https://www.anthropic.com/news/expanding-project-glasswing",
+        "title": "Expanding Project Glasswing",
         "summary": ""
       }
     ]
   },
   {
-    "id": "evt-2026-09-08-ca216d",
-    "path": "evt-2026-09-08-ca216d.md",
-    "title": "Introducing ChatGPT Images 2.5",
+    "id": "evt-2026-09-09-b105e4",
+    "path": "evt-2026-09-09-b105e4.md",
+    "title": "Tcs Anthropic Partnership",
     "fingerprint": null,
-    "facet": "release",
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/tcs-anthropic-partnership",
+        "title": "Tcs Anthropic Partnership",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-c38ec4",
+    "path": "evt-2026-09-09-c38ec4.md",
+    "title": "Ust Claude",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/ust-claude",
+        "title": "Ust Claude",
+        "summary": ""
+      },
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/reflect-with-claude",
+        "title": "Reflect With Claude",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-cb0d0b",
+    "path": "evt-2026-09-09-cb0d0b.md",
+    "title": "Ben Bernanke",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/ben-bernanke",
+        "title": "Ben Bernanke",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-d85302",
+    "path": "evt-2026-09-09-d85302.md",
+    "title": "v0.29.0",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-gh-vllm-releases",
+        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.29.0",
+        "title": "v0.29.0",
+        "summary": "# v0.29.0\r\n\r\n## Highlights\r\n\r\nThis release features 594 commits from 277 contributors (91 new)!\r\n\r\n* **Model Runner V2 is now the default for all models** (#53183), completing the rollout that began with pooling models (#48290). MRV2 also gained CUDA graph memory profiling for KV cache auto-sizing ("
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-d89ddb",
+    "path": "evt-2026-09-09-d89ddb.md",
+    "title": "Paul Christiano joins OpenAI Foundation Board",
+    "fingerprint": null,
+    "facet": "update",
     "company_guess": "OpenAI",
-    "independent_sources": 2,
+    "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/introducing-chatgpt-images-2-5",
-        "title": "ChatGPT Images 2.5",
-        "summary": ""
-      },
+        "url": "https://openai.com/index/paul-christiano-joins-openai-foundation-board",
+        "title": "Paul Christiano joins OpenAI Foundation Board",
+        "summary": "Paul Christiano joins the OpenAI Foundation Board and its Safety and Security Committee, bringing experience in AI alignment, safety, and standards."
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-d9468f",
+    "path": "evt-2026-09-09-d9468f.md",
+    "title": "NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
       {
-        "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/introducing-chatgpt-images-2-5/",
-        "title": "ChatGPT Images 2.5",
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/ibc-news-2026/",
+        "title": "NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC",
+        "summary": "At the IBC conference, running Sept. 11-14 in Amsterdam, the creative, technology and business communities are coming together to turn ideas into action and discuss innovations across the media and entertainment industries. More than 44,000 attendees from 170+ countries are gathering to explore 1,30"
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-e8e989",
+    "path": "evt-2026-09-09-e8e989.md",
+    "title": "Milan Office Opening",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/milan-office-opening",
+        "title": "Milan Office Opening",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-f4d0b0",
+    "path": "evt-2026-09-09-f4d0b0.md",
+    "title": "Kiyoung Choi Representative Director Anthropic Korea",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/kiyoung-choi-representative-director-anthropic-korea",
+        "title": "Kiyoung Choi Representative Director Anthropic Korea",
+        "summary": ""
+      }
+    ]
+  },
+  {
+    "id": "evt-2026-09-09-fb15fe",
+    "path": "evt-2026-09-09-fb15fe.md",
+    "title": "Pwc Expanded Partnership",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/pwc-expanded-partnership",
+        "title": "Pwc Expanded Partnership",
         "summary": ""
       }
     ]
