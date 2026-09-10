@@ -1,302 +1,198 @@
 [
   {
-    "id": "evt-2026-09-08-87cc08",
-    "path": "evt-2026-09-08-87cc08.md",
-    "title": "1Password increases engineering productivity 21% with Codex",
+    "id": "evt-2026-09-09-2a164e",
+    "path": "evt-2026-09-09-2a164e.md",
+    "title": "The AI policy window is open. We need to act.",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/1password",
-        "title": "1Password increases engineering productivity 21% with Codex",
-        "summary": "Engineers at 1Password use Codex to rapidly build new features and internal tools, reaching production-readiness while maintaining rigorous security policies."
+        "url": "https://openai.com/index/ai-policy-window",
+        "title": "The AI policy window is open. We need to act.",
+        "summary": "Chris Lehane argues that stronger AI capabilities require stronger safety evidence, shared standards, and durable policy action while the policy window remains open.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
       }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-21e6fe",
-    "path": "evt-2026-09-09-21e6fe.md",
-    "title": "Fable Safeguards Jailbreak Framework",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/fable-safeguards-jailbreak-framework",
-        "title": "Fable Safeguards Jailbreak Framework",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-22783a",
-    "path": "evt-2026-09-09-22783a.md",
-    "title": "Services Track Partner Hub",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/services-track-partner-hub",
-        "title": "Services Track Partner Hub",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-3947d1",
-    "path": "evt-2026-09-09-3947d1.md",
-    "title": "Anthropic Acquires Stainless",
-    "fingerprint": null,
-    "facet": "capital",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/anthropic-acquires-stainless",
-        "title": "Anthropic Acquires Stainless",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-3bb802",
-    "path": "evt-2026-09-09-3bb802.md",
-    "title": "Dxc Anthropic Alliance",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/dxc-anthropic-alliance",
-        "title": "Dxc Anthropic Alliance",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-68504c",
-    "path": "evt-2026-09-09-68504c.md",
-    "title": "Chris Olah Pope Leo Encyclical",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/chris-olah-pope-leo-encyclical",
-        "title": "Chris Olah Pope Leo Encyclical",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-6a5c84",
-    "path": "evt-2026-09-09-6a5c84.md",
-    "title": "Fable Mythos Access",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/fable-mythos-access",
-        "title": "Fable Mythos Access",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-7541aa",
-    "path": "evt-2026-09-09-7541aa.md",
-    "title": "Confidential Draft s1 Sec",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/confidential-draft-s1-sec",
-        "title": "Confidential Draft s1 Sec",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-7fac41",
-    "path": "evt-2026-09-09-7fac41.md",
-    "title": "Rare Disease Research Grants",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/rare-disease-research-grants",
-        "title": "Rare Disease Research Grants",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-7fbbe5",
-    "path": "evt-2026-09-09-7fbbe5.md",
-    "title": "Anthropic Kpmg",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/anthropic-kpmg",
-        "title": "Anthropic Kpmg",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-95ff13",
-    "path": "evt-2026-09-09-95ff13.md",
-    "title": "Redeploying Fable 5",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/redeploying-fable-5",
-        "title": "Redeploying Fable 5",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-964d01",
-    "path": "evt-2026-09-09-964d01.md",
-    "title": "Alberta Government Claude Cybersecurity",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/alberta-government-claude-cybersecurity",
-        "title": "Alberta Government Claude Cybersecurity",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-a08bae",
-    "path": "evt-2026-09-09-a08bae.md",
-    "title": "IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license",
-    "fingerprint": null,
-    "facet": "capital",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/ibm-research/ibm-releases-sota-granite-time-series",
-        "title": "IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license",
-        "summary": "A Blog post by IBM Research on Hugging Face"
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-acc343",
-    "path": "evt-2026-09-09-acc343.md",
-    "title": "Expanding Project Glasswing",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/expanding-project-glasswing",
-        "title": "Expanding Project Glasswing",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-b105e4",
-    "path": "evt-2026-09-09-b105e4.md",
-    "title": "Tcs Anthropic Partnership",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/tcs-anthropic-partnership",
-        "title": "Tcs Anthropic Partnership",
-        "summary": ""
-      }
-    ]
-  },
-  {
-    "id": "evt-2026-09-09-c38ec4",
-    "path": "evt-2026-09-09-c38ec4.md",
-    "title": "Ust Claude",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/ust-claude",
-        "title": "Ust Claude",
-        "summary": ""
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
       },
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/reflect-with-claude",
-        "title": "Reflect With Claude",
-        "summary": ""
-      }
-    ]
+      "needs_source_link": false,
+      "reasons": []
+    }
   },
   {
-    "id": "evt-2026-09-09-cb0d0b",
-    "path": "evt-2026-09-09-cb0d0b.md",
-    "title": "Ben Bernanke",
+    "id": "evt-2026-09-09-308d13",
+    "path": "evt-2026-09-09-308d13.md",
+    "title": "Servicenow Anthropic Claude",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/servicenow-anthropic-claude",
+        "title": "Servicenow Anthropic Claude",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-09-6b229b",
+    "path": "evt-2026-09-09-6b229b.md",
+    "title": "Anthropic Appoints Irina Ghose As Managing Director Of India",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/anthropic-appoints-irina-ghose-as-managing-director-of-india",
+        "title": "Anthropic Appoints Irina Ghose As Managing Director Of India",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-09-9bd835",
+    "path": "evt-2026-09-09-9bd835.md",
+    "title": "Introducing Anthropic Labs",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/introducing-anthropic-labs",
+        "title": "Introducing Anthropic Labs",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-09-a97ae1",
+    "path": "evt-2026-09-09-a97ae1.md",
+    "title": "Covering Electricity Price Increases",
+    "fingerprint": null,
+    "facet": "pricing",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/covering-electricity-price-increases",
+        "title": "Covering Electricity Price Increases",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-09-c0840e",
+    "path": "evt-2026-09-09-c0840e.md",
+    "title": "Apple Xcode Claude Agent Sdk",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/apple-xcode-claude-agent-sdk",
+        "title": "Apple Xcode Claude Agent Sdk",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-09-ce33a8",
+    "path": "evt-2026-09-09-ce33a8.md",
+    "title": "Compliance Framework SB53",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -305,34 +201,158 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/ben-bernanke",
-        "title": "Ben Bernanke",
-        "summary": ""
+        "url": "https://www.anthropic.com/news/compliance-framework-SB53",
+        "title": "Compliance Framework SB53",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
       }
-    ]
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
   },
   {
-    "id": "evt-2026-09-09-d85302",
-    "path": "evt-2026-09-09-d85302.md",
-    "title": "v0.29.0",
+    "id": "evt-2026-09-09-e2c019",
+    "path": "evt-2026-09-09-e2c019.md",
+    "title": "Claude Is A Space To Think",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "NVIDIA",
+    "company_guess": "Anthropic",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-gh-vllm-releases",
-        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.29.0",
-        "title": "v0.29.0",
-        "summary": "# v0.29.0\r\n\r\n## Highlights\r\n\r\nThis release features 594 commits from 277 contributors (91 new)!\r\n\r\n* **Model Runner V2 is now the default for all models** (#53183), completing the rollout that began with pooling models (#48290). MRV2 also gained CUDA graph memory profiling for KV cache auto-sizing ("
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-is-a-space-to-think",
+        "title": "Claude Is A Space To Think",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
       }
-    ]
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
   },
   {
-    "id": "evt-2026-09-09-d89ddb",
-    "path": "evt-2026-09-09-d89ddb.md",
-    "title": "Paul Christiano joins OpenAI Foundation Board",
+    "id": "evt-2026-09-09-ebca1e",
+    "path": "evt-2026-09-09-ebca1e.md",
+    "title": "Mariano Florentino Long Term Benefit Trust",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/mariano-florentino-long-term-benefit-trust",
+        "title": "Mariano Florentino Long Term Benefit Trust",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-09-efeed7",
+    "path": "evt-2026-09-09-efeed7.md",
+    "title": "Donate Public First Action",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/donate-public-first-action",
+        "title": "Donate Public First Action",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-232901",
+    "path": "evt-2026-09-10-232901.md",
+    "title": "New Offices In Paris And Munich Expand European Presence",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/new-offices-in-paris-and-munich-expand-european-presence",
+        "title": "New Offices In Paris And Munich Expand European Presence",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-27f47a",
+    "path": "evt-2026-09-10-27f47a.md",
+    "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -341,16 +361,90 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/paul-christiano-joins-openai-foundation-board",
-        "title": "Paul Christiano joins OpenAI Foundation Board",
-        "summary": "Paul Christiano joins the OpenAI Foundation Board and its Safety and Security Committee, bringing experience in AI alignment, safety, and standards."
+        "url": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
+        "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+        "summary": "César de la Fuente’s lab uses Codex and ChatGPT to search living and extinct genomes for antimicrobial candidates to fight drug-resistant infections.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
       }
-    ]
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
   },
   {
-    "id": "evt-2026-09-09-d9468f",
-    "path": "evt-2026-09-09-d9468f.md",
-    "title": "NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC",
+    "id": "evt-2026-09-10-28124c",
+    "path": "evt-2026-09-10-28124c.md",
+    "title": "Now everyone can put data to work",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/put-data-to-work",
+        "title": "Now everyone can put data to work",
+        "summary": "Meet the Data agent in ChatGPT Work. Connect company data, uncover insights, and build interactive dashboards with AI using natural language.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-10-35f57b",
+    "path": "evt-2026-09-10-35f57b.md",
+    "title": "Statement Dario Amodei American Ai Leadership",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/statement-dario-amodei-american-ai-leadership",
+        "title": "Statement Dario Amodei American Ai Leadership",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-396d22",
+    "path": "evt-2026-09-10-396d22.md",
+    "title": "Skild AI Taps NVIDIA Physical AI to Teach Robots New Tasks From a Single Video",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "NVIDIA",
@@ -359,16 +453,58 @@
     "evidence": [
       {
         "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/ibc-news-2026/",
-        "title": "NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC",
-        "summary": "At the IBC conference, running Sept. 11-14 in Amsterdam, the creative, technology and business communities are coming together to turn ideas into action and discuss innovations across the media and entertainment industries. More than 44,000 attendees from 170+ countries are gathering to explore 1,30"
+        "url": "https://blogs.nvidia.com/blog/skild-ai-s1-physical-ai/",
+        "title": "Skild AI Taps NVIDIA Physical AI to Teach Robots New Tasks From a Single Video",
+        "summary": "Manufacturing floors, warehouses and production lines rarely stay fixed — tasks change, layouts shift and new products arrive, and most robots can’t keep up without significant reprogramming. Skild AI’s new S1 robot foundation model helps address this, designed to learn previously unseen, long-horiz",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
       }
-    ]
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
   },
   {
-    "id": "evt-2026-09-09-e8e989",
-    "path": "evt-2026-09-09-e8e989.md",
-    "title": "Milan Office Opening",
+    "id": "evt-2026-09-10-46a65a",
+    "path": "evt-2026-09-10-46a65a.md",
+    "title": "Build more natural voice experiences with GPT‑Live‑1 in the API",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/introducing-gpt-live-1-in-the-api",
+        "title": "Build more natural voice experiences with GPT‑Live‑1 in the API",
+        "summary": "GPT‑Live‑1 brings natural, full-duplex voice conversations to the API, with stronger instruction following, custom voices, and telephony support.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-10-4fdf77",
+    "path": "evt-2026-09-10-4fdf77.md",
+    "title": "Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -377,16 +513,30 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/milan-office-opening",
-        "title": "Milan Office Opening",
-        "summary": ""
+        "url": "https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation",
+        "title": "Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
       }
-    ]
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
   },
   {
-    "id": "evt-2026-09-09-f4d0b0",
-    "path": "evt-2026-09-09-f4d0b0.md",
-    "title": "Kiyoung Choi Representative Director Anthropic Korea",
+    "id": "evt-2026-09-10-5974fe",
+    "path": "evt-2026-09-10-5974fe.md",
+    "title": "Snowflake Anthropic Expanded Partnership",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "Anthropic",
@@ -395,16 +545,124 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/kiyoung-choi-representative-director-anthropic-korea",
-        "title": "Kiyoung Choi Representative Director Anthropic Korea",
-        "summary": ""
+        "url": "https://www.anthropic.com/news/snowflake-anthropic-expanded-partnership",
+        "title": "Snowflake Anthropic Expanded Partnership",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
       }
-    ]
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
   },
   {
-    "id": "evt-2026-09-09-fb15fe",
-    "path": "evt-2026-09-09-fb15fe.md",
-    "title": "Pwc Expanded Partnership",
+    "id": "evt-2026-09-10-5a8f4a",
+    "path": "evt-2026-09-10-5a8f4a.md",
+    "title": "Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Building With NVIDIA Technologies",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/robotaxi-leaders-full-stack-open-platform/",
+        "title": "Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Building With NVIDIA Technologies",
+        "summary": "The global robotaxi market — physical AI’s first commercial breakthrough — is projected to reach $400 billion by 2035, with over 6 million commercial vehicles in operation as driverless fleets are already moving people through some of the world’s busiest and most complex streets. Deploying a driverl",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-10-5b8aa1",
+    "path": "evt-2026-09-10-5b8aa1.md",
+    "title": "Microsoft Nvidia Anthropic Announce Strategic Partnerships",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+        "title": "Microsoft Nvidia Anthropic Announce Strategic Partnerships",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-5f183b",
+    "path": "evt-2026-09-10-5f183b.md",
+    "title": "Advancing Claude For Financial Services",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/advancing-claude-for-financial-services",
+        "title": "Advancing Claude For Financial Services",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-71db28",
+    "path": "evt-2026-09-10-71db28.md",
+    "title": "Protecting Well Being Of Users",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -413,10 +671,409 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/pwc-expanded-partnership",
-        "title": "Pwc Expanded Partnership",
-        "summary": ""
+        "url": "https://www.anthropic.com/news/protecting-well-being-of-users",
+        "title": "Protecting Well Being Of Users",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
       }
-    ]
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-8bfd47",
+    "path": "evt-2026-09-10-8bfd47.md",
+    "title": "Expanding AI access and cyber defense for federal, state, local, and tribal governments",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/expanding-ai-access-us-government",
+        "title": "Expanding AI access and cyber defense for federal, state, local, and tribal governments",
+        "summary": "OpenAI and GSA will offer eligible federal, state, local, and tribal governments $0 license fees, 50% off usage, and expanded cyber defense support.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-10-911846",
+    "path": "evt-2026-09-10-911846.md",
+    "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/gradio-workflow-1111",
+        "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-10-a02a85",
+    "path": "evt-2026-09-10-a02a85.md",
+    "title": "Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone",
+    "fingerprint": null,
+    "facet": "capital",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
+        "title": "Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-aab6d4",
+    "path": "evt-2026-09-10-aab6d4.md",
+    "title": "Expanding Our Use Of Google Cloud Tpus And Services",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Google",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services",
+        "title": "Expanding Our Use Of Google Cloud Tpus And Services",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-b16d8b",
+    "path": "evt-2026-09-10-b16d8b.md",
+    "title": "Seoul Becomes Third Anthropic Office In Asia Pacific",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/seoul-becomes-third-anthropic-office-in-asia-pacific",
+        "title": "Seoul Becomes Third Anthropic Office In Asia Pacific",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-b1e953",
+    "path": "evt-2026-09-10-b1e953.md",
+    "title": "Claude In Microsoft Foundry",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Microsoft",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/claude-in-microsoft-foundry",
+        "title": "Claude In Microsoft Foundry",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-db61ca",
+    "path": "evt-2026-09-10-db61ca.md",
+    "title": "Genesis Mission Partnership",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/genesis-mission-partnership",
+        "title": "Genesis Mission Partnership",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-dfb256",
+    "path": "evt-2026-09-10-dfb256.md",
+    "title": "Political Even Handedness",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/political-even-handedness",
+        "title": "Political Even Handedness",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-e25af3",
+    "path": "evt-2026-09-10-e25af3.md",
+    "title": "d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/d-matrix-nvlink-fusion/",
+        "title": "d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment",
+        "summary": "AI inference chipmaker d-Matrix today announced it will use NVIDIA NVLink Fusion to connect its next-generation Raptor XPUs to NVIDIA’s AI infrastructure platform — joining a growing roster of ecosystem partners. By connecting Raptor to NVIDIA NVLink scale-up and Spectrum-X scale-out networking, the",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-10-f0481d",
+    "path": "evt-2026-09-10-f0481d.md",
+    "title": "Cognizant Partnership",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/cognizant-partnership",
+        "title": "Cognizant Partnership",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/maryland-partnership",
+        "title": "Maryland Partnership",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 2
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-f6b8f9",
+    "path": "evt-2026-09-10-f6b8f9.md",
+    "title": "Anthropic Invests 50 Billion In American Ai Infrastructure",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/anthropic-invests-50-billion-in-american-ai-infrastructure",
+        "title": "Anthropic Invests 50 Billion In American Ai Infrastructure",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-10-f9152b",
+    "path": "evt-2026-09-10-f9152b.md",
+    "title": "Boots on the Ground: ‘WARDOGS’ Goes All Out on GeForce NOW at Early-Access Launch",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-wardogs/",
+        "title": "Boots on the Ground: ‘WARDOGS’ Goes All Out on GeForce NOW at Early-Access Launch",
+        "summary": "Gear up: The latest PC games and major updates are ready to play on GeForce NOW this week. WARDOGS drops onto the cloud at early-access launch, alongside the Valheim 1.0 Deep North update and Bus Simulator 27 — part of nine new titles joining the cloud. The newest PC releases can demand serious hard",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
   }
 ]
