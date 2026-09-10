@@ -1,7 +1,27 @@
-# 被門禁擋下（37）
+# 被門禁擋下（71）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-10-27f47a|How a researcher uses Codex and ChatGPT to search for new antimicrobia]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-10-28124c|Now everyone can put data to work]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-10-396d22|Skild AI Taps NVIDIA Physical AI to Teach Robots New Tasks From a Sing]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-10-46a65a|Build more natural voice experiences with GPT‑Live‑1 in the API]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-10-5974fe|Snowflake Anthropic Expanded Partnership]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-10-5a8f4a|Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Buil]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-10-5b8aa1|Microsoft Nvidia Anthropic Announce Strategic Partnerships]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-10-5f183b|Advancing Claude For Financial Services]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-10-8bfd47|Expanding AI access and cyber defense for federal, state, local, and t]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-10-a02a85|Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-10-aab6d4|Expanding Our Use Of Google Cloud Tpus And Services]]** — Google — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-10-b16d8b|Seoul Becomes Third Anthropic Office In Asia Pacific]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-10-b1e953|Claude In Microsoft Foundry]]** — Microsoft — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-10-e25af3|d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-10-f6b8f9|Anthropic Invests 50 Billion In American Ai Infrastructure]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-308d13|Servicenow Anthropic Claude]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-6b229b|Anthropic Appoints Irina Ghose As Managing Director Of India]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-9bd835|Introducing Anthropic Labs]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-c0840e|Apple Xcode Claude Agent Sdk]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-09-e2c019|Claude Is A Space To Think]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-c7ad58|AI Enabled Cyber Threats Mitre Attack]]** — Anthropic — blockers: thin_research_analysis
@@ -34,6 +54,20 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-09-10-232901|New Offices In Paris And Munich Expand European Presence]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-10-35f57b|Statement Dario Amodei American Ai Leadership]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-10-4fdf77|Donating The Model Context Protocol And Establishing Of The Agentic Ai]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-10-71db28|Protecting Well Being Of Users]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-10-911846|Rebuilding AUTOMATIC1111 with Gradio Workflow]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-10-db61ca|Genesis Mission Partnership]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-10-dfb256|Political Even Handedness]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-10-f0481d|Cognizant Partnership]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-10-f9152b|Boots on the Ground: ‘WARDOGS’ Goes All Out on GeForce NOW at Early-Ac]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-2a164e|The AI policy window is open. We need to act.]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-a97ae1|Covering Electricity Price Increases]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-ce33a8|Compliance Framework SB53]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-ebca1e|Mariano Florentino Long Term Benefit Trust]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-09-efeed7|Donate Public First Action]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: generic_entity

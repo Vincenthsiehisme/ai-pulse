@@ -14,9 +14,9 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, search=yes, ai-input=no"
 endpoint: "https://x.ai/sitemap.xml"
-robots_checked_day: "2026-09-02"
+robots_checked_day: "2026-09-10"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-09-09"
+last_observed_day: "2026-09-10"
 items_observed: 58
 events_bound: 13
 events_published: 12

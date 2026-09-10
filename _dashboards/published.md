@@ -29,7 +29,7 @@
   IBM Research 發布新一代 Granite 時間序列基礎模型，採用商用友善授權。
 - **[[Events/evt-2026-09-09-acc343|Expanding Project Glasswing]]** — Anthropic · product · conf 73 · heat 未量測
   Anthropic 擴大一項名為 Project Glasswing 的計畫，內容我們選擇不轉述。
-- **[[Events/evt-2026-09-09-b105e4|Tcs Anthropic Partnership]]** — Anthropic · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-09-b105e4|Tcs Anthropic Partnership]]** — Anthropic · product · conf 83 · heat 未量測
   TCS 與 Anthropic 建立合作夥伴關係，內容我們選擇不轉述。
 - **[[Events/evt-2026-09-09-c38ec4|Ust Claude]]** — Anthropic · product · conf 83 · heat 未量測
   UST 與 Claude 有新合作，並附帶一個「與 Claude 反思」的相關功能，內容我們選擇不轉述。
@@ -41,7 +41,7 @@
   AI 對齊研究者 Paul Christiano 加入 OpenAI 基金會董事會與安全委員會。
 - **[[Events/evt-2026-09-09-d9468f|NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC]]** — NVIDIA · product · conf 73 · heat 未量測
   NVIDIA 在 IBC 廣播展主打即時 AI 應用於媒體與體育直播。
-- **[[Events/evt-2026-09-09-e8e989|Milan Office Opening]]** — Anthropic · capital · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-09-e8e989|Milan Office Opening]]** — Anthropic · capital · conf 83 · heat 未量測
   Anthropic 開設米蘭辦公室，具體規模我們選擇不轉述。
 - **[[Events/evt-2026-09-09-f4d0b0|Kiyoung Choi Representative Director Anthropic Korea]]** — Anthropic · capital · conf 73 · heat 未量測
   Kiyoung Choi 出任 Anthropic 韓國代表理事，具體職責我們選擇不轉述。
@@ -65,7 +65,7 @@
   1Password 用 OpenAI Codex 把工程生產力拉高 21%，官方案例聚焦效率。
 - **[[Events/evt-2026-09-08-9c9e7f|OpenAI expands initiatives to support journalism from classrooms to newsrooms]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 擴大新聞業支持，從課堂到新聞編輯室
-- **[[Events/evt-2026-09-08-ca216d|Introducing ChatGPT Images 2.5]]** — OpenAI · product · conf 80 · heat 未量測
+- **[[Events/evt-2026-09-08-ca216d|Introducing ChatGPT Images 2.5]]** — OpenAI · product · conf 90 · heat 未量測
   OpenAI 推出 ChatGPT Images 2.5，正文未轉錄
 
 ## 2026-09-07

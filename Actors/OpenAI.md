@@ -3,21 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-09'
+generated_day: '2026-09-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **88** 則：`published` 83、`review` 5
+事件 **92** 則：`published` 85、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-09 | [[Events/evt-2026-09-09-d89ddb\|Paul Christiano joins OpenAI Foundation Board]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-8bfd47\|Expanding AI access and cyber defense for federal, state, local, and tribal governments]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-46a65a\|Build more natural voice experiences with GPT‑Live‑1 in the API]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-28124c\|Now everyone can put data to work]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-27f47a\|How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-d89ddb\|Paul Christiano joins OpenAI Foundation Board]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-ca216d\|Introducing ChatGPT Images 2.5]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-9c9e7f\|OpenAI expands initiatives to support journalism from classrooms to newsrooms]] | published |
-| 2026-09-08 | [[Events/evt-2026-09-08-87cc08\|1Password increases engineering productivity 21% with Codex]] | review |
+| 2026-09-08 | [[Events/evt-2026-09-08-87cc08\|1Password increases engineering productivity 21% with Codex]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-802f16\|The Work Now Within Reach]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-72388b\|Funding grants for new research into AI and teen development]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-0c18f7\|On the Navier–Stokes Millennium Prize Problem]] | published |

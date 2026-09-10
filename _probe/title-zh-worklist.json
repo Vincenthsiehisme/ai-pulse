@@ -1,160 +1,160 @@
 [
   {
-    "id": "evt-2026-09-08-87cc08",
-    "title": "1Password increases engineering productivity 21% with Codex",
+    "id": "evt-2026-09-09-2a164e",
+    "title": "The AI policy window is open. We need to act.",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-308d13",
+    "title": "Servicenow Anthropic Claude",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-6b229b",
+    "title": "Anthropic Appoints Irina Ghose As Managing Director Of India",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-9bd835",
+    "title": "Introducing Anthropic Labs",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-a97ae1",
+    "title": "Covering Electricity Price Increases",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-c0840e",
+    "title": "Apple Xcode Claude Agent Sdk",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-ce33a8",
+    "title": "Compliance Framework SB53",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-e2c019",
+    "title": "Claude Is A Space To Think",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-e8e989",
+    "title": "Milan Office Opening",
+    "company": "Anthropic",
+    "track": "全球創新版圖",
+    "summary": "Anthropic 開設米蘭辦公室，具體規模我們選擇不轉述。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-ebca1e",
+    "title": "Mariano Florentino Long Term Benefit Trust",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-efeed7",
+    "title": "Donate Public First Action",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-f4d0b0",
+    "title": "Kiyoung Choi Representative Director Anthropic Korea",
+    "company": "Anthropic",
+    "track": "全球創新版圖",
+    "summary": "Kiyoung Choi 出任 Anthropic 韓國代表理事，具體職責我們選擇不轉述。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-09-fb15fe",
+    "title": "Pwc Expanded Partnership",
+    "company": "Anthropic",
+    "track": "產品與商業驗證",
+    "summary": "PwC 與 Anthropic 擴大既有合作，具體內容我們選擇不轉述。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-10-232901",
+    "title": "New Offices In Paris And Munich Expand European Presence",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-10-27f47a",
+    "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-09-21e6fe",
-    "title": "Fable Safeguards Jailbreak Framework",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-22783a",
-    "title": "Services Track Partner Hub",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-3947d1",
-    "title": "Anthropic Acquires Stainless",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-3bb802",
-    "title": "Dxc Anthropic Alliance",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-68504c",
-    "title": "Chris Olah Pope Leo Encyclical",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-6a5c84",
-    "title": "Fable Mythos Access",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-7541aa",
-    "title": "Confidential Draft s1 Sec",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-7fac41",
-    "title": "Rare Disease Research Grants",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-7fbbe5",
-    "title": "Anthropic Kpmg",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-95ff13",
-    "title": "Redeploying Fable 5",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-964d01",
-    "title": "Alberta Government Claude Cybersecurity",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-a08bae",
-    "title": "IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-acc343",
-    "title": "Expanding Project Glasswing",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-b105e4",
-    "title": "Tcs Anthropic Partnership",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-c38ec4",
-    "title": "Ust Claude",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-cb0d0b",
-    "title": "Ben Bernanke",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-d85302",
-    "title": "v0.29.0",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-09-d89ddb",
-    "title": "Paul Christiano joins OpenAI Foundation Board",
+    "id": "evt-2026-09-10-28124c",
+    "title": "Now everyone can put data to work",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-09-d9468f",
-    "title": "NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC",
+    "id": "evt-2026-09-10-35f57b",
+    "title": "Statement Dario Amodei American Ai Leadership",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-10-396d22",
+    "title": "Skild AI Taps NVIDIA Physical AI to Teach Robots New Tasks From a Single Video",
     "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-10-46a65a",
+    "title": "Build more natural voice experiences with GPT‑Live‑1 in the API",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-10-4fdf77",
+    "title": "Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
