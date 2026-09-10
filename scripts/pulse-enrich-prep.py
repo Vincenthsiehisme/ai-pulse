@@ -18,7 +18,19 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import yaml  # noqa: E402
+
+from lib import availability as avail  # noqa: E402  規格見 references/evidence-availability.md
+from lib import sources as sources_lib  # noqa: E402  分節清單的單一真相源
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
+
+
+def load_source_index(vault):
+    """source_id → 該條來源的設定。跟 pulse-digest-prep.py 用同一份索引，見
+    `lib/sources.source_index()` 的說明：兩邊各自展開一次遲早會在邊角上分岔。
+    """
+    raw = yaml.safe_load((vault / "_config" / "sources.yaml").read_text("utf-8")) or {}
+    return sources_lib.source_index(raw)
 
 
 def build_corpus_index(vault):
@@ -53,6 +65,7 @@ def main():
         return 2
 
     corpus = build_corpus_index(vault)
+    srcs = load_source_index(vault)
     worklist = []
     skipped_enriched = 0
 
@@ -68,11 +81,18 @@ def main():
         for e in (fm.get("evidence") or []):
             url = e.get("url")
             c = corpus.get(url, {})
+            summary = c.get("summary") or ""
+            state, why = avail.evidence_availability(srcs.get(e.get("source_id")), summary)
             evidence.append({
                 "source_id": e.get("source_id"),
                 "url": url,
                 "title": c.get("title") or "",
-                "summary": c.get("summary") or "",
+                "summary": summary,
+                # 沒摘要有兩種原因（我們沒抓到 / 政策不取），潤稿端要分開寫。
+                # 見 references/evidence-availability.md，2026-08-13 Grok Bot 事故。
+                "availability": state,
+                "availability_reason": why,
+                "writing_hint": avail.writing_hint(state),
             })
         worklist.append({
             "id": fm.get("id"),
@@ -84,6 +104,9 @@ def main():
             "independent_sources": fm.get("independent_sources"),
             "tier_evidence": fm.get("tier_evidence"),
             "evidence": evidence,
+            "availability": avail.event_availability(
+                [(srcs.get(e.get("source_id")), (corpus.get(e.get("url")) or {}).get("summary", ""))
+                 for e in (fm.get("evidence") or [])]),
         })
 
     out = vault / "_probe" / "enrich-worklist.json"
