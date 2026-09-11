@@ -3,22 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-10'
+generated_day: '2026-09-11'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **92** 則：`published` 85、`review` 7
+事件 **95** 則：`published` 90、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-10 | [[Events/evt-2026-09-10-8bfd47\|Expanding AI access and cyber defense for federal, state, local, and tribal governments]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-46a65a\|Build more natural voice experiences with GPT‑Live‑1 in the API]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-28124c\|Now everyone can put data to work]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-27f47a\|How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules]] | review |
+| 2026-09-11 | [[Events/evt-2026-09-11-4bdd2c\|Rapidly scaling online storage to serve over 1 billion ChatGPT users]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-bd46b8\|Introducing the Agents API]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-8bfd47\|Expanding AI access and cyber defense for federal, state, local, and tribal governments]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-46a65a\|Build more natural voice experiences with GPT‑Live‑1 in the API]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-28124c\|Now everyone can put data to work]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-27f47a\|How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-d89ddb\|Paul Christiano joins OpenAI Foundation Board]] | published |
+| 2026-09-09 | [[Events/evt-2026-09-09-2a164e\|The AI policy window is open. We need to act.]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-ca216d\|Introducing ChatGPT Images 2.5]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-9c9e7f\|OpenAI expands initiatives to support journalism from classrooms to newsrooms]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-87cc08\|1Password increases engineering productivity 21% with Codex]] | published |

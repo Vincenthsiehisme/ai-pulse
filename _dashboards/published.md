@@ -17,7 +17,7 @@
   OpenAI在API推出GPT-Live-1，主打全雙工語音對話與電話語音支援。
 - **[[Events/evt-2026-09-10-4fdf77|Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation]]** — Anthropic · infra · conf 73 · heat 未量測
   Anthropic將MCP協定捐出並成立Agentic AI基金會，具體治理架構我們選擇不轉述。
-- **[[Events/evt-2026-09-10-5974fe|Snowflake Anthropic Expanded Partnership]]** — Anthropic · capital · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-10-5974fe|Snowflake Anthropic Expanded Partnership]]** — Anthropic · capital · conf 83 · heat 未量測
   Anthropic與Snowflake擴大合作，具體內容我們選擇不轉述。
 - **[[Events/evt-2026-09-10-5a8f4a|Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Building With NVIDIA Technologies]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA稱全球robotaxi市場2035年上看4000億美元，車隊業者正用其全端平台鋪路。

@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-09-10'
+generated_day: '2026-09-11'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,13 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **19** 則：`published` 16、`review` 3
+事件 **22** 則：`published` 19、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-10 | [[Events/evt-2026-09-10-911846\|Rebuilding AUTOMATIC1111 with Gradio Workflow]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-4fdf77\|Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation]] | published |
+| 2026-09-09 | [[Events/evt-2026-09-09-c0840e\|Apple Xcode Claude Agent Sdk]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-fff626\|Designing Grok Bot]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-adf248\|Give Your Coding Agents a Memory You Own]] | review |
 | 2026-09-01 | [[Events/evt-2026-09-01-cf0761\|How AI-native companies turn workflows into operating capability]] | published |

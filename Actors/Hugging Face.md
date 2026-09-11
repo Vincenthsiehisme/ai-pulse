@@ -3,17 +3,18 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-09-10'
+generated_day: '2026-09-11'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **13** 則：`published` 9、`review` 4
+事件 **14** 則：`published` 10、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-10 | [[Events/evt-2026-09-10-911846\|Rebuilding AUTOMATIC1111 with Gradio Workflow]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-d04a3e\|NeoMME: an efficient Multimodal-native and Multilingual Encoder]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-4edf31\|NVIDIA to Acquire Hugging Face]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-0b7af6\|Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI]] | published |

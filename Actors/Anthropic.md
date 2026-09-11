@@ -3,44 +3,60 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-09-10'
+generated_day: '2026-09-11'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **84** 則：`published` 68、`review` 16
+事件 **100** 則：`published` 90、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-10 | [[Events/evt-2026-09-10-f6b8f9\|Anthropic Invests 50 Billion In American Ai Infrastructure]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-b16d8b\|Seoul Becomes Third Anthropic Office In Asia Pacific]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-a02a85\|Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-5f183b\|Advancing Claude For Financial Services]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-5b8aa1\|Microsoft Nvidia Anthropic Announce Strategic Partnerships]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-5974fe\|Snowflake Anthropic Expanded Partnership]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-f6b8f9\|Anthropic Invests 50 Billion In American Ai Infrastructure]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-f0481d\|Cognizant Partnership]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-ec91cc\|Anthropic Higher Education Initiatives]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-dfb256\|Political Even Handedness]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-db61ca\|Genesis Mission Partnership]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-d90a80\|Introducing The Anthropic National Security And Public Sector Advisory Council]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-b16d8b\|Seoul Becomes Third Anthropic Office In Asia Pacific]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-a02a85\|Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-88a117\|Anthropic Raises Series F At usd183b Post Money Valuation]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-766c4c\|Anthropic Expands Global Leadership In Enterprise Ai Naming Chris Ciauri As Managing Director Of]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-71db28\|Protecting Well Being Of Users]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-5f183b\|Advancing Claude For Financial Services]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-5b8aa1\|Microsoft Nvidia Anthropic Announce Strategic Partnerships]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-5974fe\|Snowflake Anthropic Expanded Partnership]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-4fdf77\|Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-35f57b\|Statement Dario Amodei American Ai Leadership]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-232901\|New Offices In Paris And Munich Expand European Presence]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-073898\|Rahul Patil Joins Anthropic]] | review |
 | 2026-09-09 | [[Events/evt-2026-09-09-fb15fe\|Pwc Expanded Partnership]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-f4d0b0\|Kiyoung Choi Representative Director Anthropic Korea]] | published |
+| 2026-09-09 | [[Events/evt-2026-09-09-efeed7\|Donate Public First Action]] | published |
+| 2026-09-09 | [[Events/evt-2026-09-09-ebca1e\|Mariano Florentino Long Term Benefit Trust]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-e8e989\|Milan Office Opening]] | published |
-| 2026-09-09 | [[Events/evt-2026-09-09-e2c019\|Claude Is A Space To Think]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-e2c019\|Claude Is A Space To Think]] | published |
+| 2026-09-09 | [[Events/evt-2026-09-09-ce33a8\|Compliance Framework SB53]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-cb0d0b\|Ben Bernanke]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-c38ec4\|Ust Claude]] | published |
-| 2026-09-09 | [[Events/evt-2026-09-09-c0840e\|Apple Xcode Claude Agent Sdk]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-c0840e\|Apple Xcode Claude Agent Sdk]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-b105e4\|Tcs Anthropic Partnership]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-acc343\|Expanding Project Glasswing]] | published |
-| 2026-09-09 | [[Events/evt-2026-09-09-9bd835\|Introducing Anthropic Labs]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-a97ae1\|Covering Electricity Price Increases]] | published |
+| 2026-09-09 | [[Events/evt-2026-09-09-9bd835\|Introducing Anthropic Labs]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-964d01\|Alberta Government Claude Cybersecurity]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-95ff13\|Redeploying Fable 5]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-7fbbe5\|Anthropic Kpmg]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-7fac41\|Rare Disease Research Grants]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-7541aa\|Confidential Draft s1 Sec]] | published |
-| 2026-09-09 | [[Events/evt-2026-09-09-6b229b\|Anthropic Appoints Irina Ghose As Managing Director Of India]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-6b229b\|Anthropic Appoints Irina Ghose As Managing Director Of India]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-6a5c84\|Fable Mythos Access]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-68504c\|Chris Olah Pope Leo Encyclical]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-3bb802\|Dxc Anthropic Alliance]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-3947d1\|Anthropic Acquires Stainless]] | published |
-| 2026-09-09 | [[Events/evt-2026-09-09-308d13\|Servicenow Anthropic Claude]] | review |
+| 2026-09-09 | [[Events/evt-2026-09-09-308d13\|Servicenow Anthropic Claude]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-22783a\|Services Track Partner Hub]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-21e6fe\|Fable Safeguards Jailbreak Framework]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-c7ad58\|AI Enabled Cyber Threats Mitre Attack]] | review |

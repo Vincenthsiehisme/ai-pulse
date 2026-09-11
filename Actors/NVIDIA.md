@@ -3,20 +3,21 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-10'
+generated_day: '2026-09-11'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **49** 則：`dropped` 1、`published` 42、`review` 6
+事件 **50** 則：`dropped` 1、`published` 46、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-10 | [[Events/evt-2026-09-10-e25af3\|d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-5a8f4a\|Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Building With NVIDIA Technologies]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-396d22\|Skild AI Taps NVIDIA Physical AI to Teach Robots New Tasks From a Single Video]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-f9152b\|Boots on the Ground: ‘WARDOGS’ Goes All Out on GeForce NOW at Early-Access Launch]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-e25af3\|d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-5a8f4a\|Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Building With NVIDIA Technologies]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-396d22\|Skild AI Taps NVIDIA Physical AI to Teach Robots New Tasks From a Single Video]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-d9468f\|NVIDIA Brings Real-Time AI to Broadcast, Sports and Global Streaming at IBC]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-700829\|‘NBA 2K27’ With NVIDIA DLSS 5 Leads 28 New Games Coming to GeForce NOW]] | published |
 | 2026-09-01 | [[Events/evt-2026-09-01-57be81\|NVIDIA and CrowdStrike Strengthen Agentic Cybersecurity Frontier]] | published |
