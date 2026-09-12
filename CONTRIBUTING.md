@@ -98,6 +98,22 @@ git push -u origin fix/短描述
 routine 是照這份文件寫的——於是「改完碼要跑的測試」這句話，在整個系統裡指向的
 是覆蓋率最小的那一支。沒有人會發現，因為它永遠是綠的。
 
+**`codegraph affected` 要帶 `--filter`，否則它回傳空的。** 2026-09-12 起這個 repo
+用 CodeGraph 建索引（`codegraph init`；圖放在 `.codegraph/`，已 gitignore，不入庫）。
+它可以從 diff 反推哪些測試會被波及：
+
+```bash
+git diff --name-only HEAD | codegraph affected --stdin --quiet --filter "scripts/*test*.py"
+```
+
+那個 `--filter` **不是可選的**。auto-detect 只認慣例命名（`test_*.py`、`*_test.py`、
+`__tests__/`），而這個 repo 的門檻叫 `scripts/selftest.py`，一條都對不上。不帶 filter
+時它回傳**空清單**——而空清單讀起來跟「這次改動沒波及任何測試」一模一樣。實測過：
+把 `scripts/selftest.py` 自己放進去跑，auto-detect 一樣是空的。
+
+同一種病換個形狀：工具跑了、沒報錯、給一個空答案，所以沒有人會發現。`affected` 的
+輸出只是選測試的參考，`selftest.py` 不論它說什麼都要跑。
+
 ---
 
 ## PR 內容要求

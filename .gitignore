@@ -38,3 +38,9 @@ _git_lock_trash/
 /*-result.json
 /verify-report.json
 /digest.json
+
+# CodeGraph 的本機索引（2026-09-12 起用）。`codegraph init` 建的 SQLite 圖，
+# 5.8 MB 起跳，auto-sync 開著時每次存檔都在寫——commit 進去等於每天製造
+# 一批純噪音 diff，而且 WAL 檔跟建它的 OS 綁定，別台機器 clone 下來也用不了。
+# 圖是從碼重建出來的，刪掉跑一次 `codegraph init` 就回來，沒有任何東西會遺失。
+.codegraph/
