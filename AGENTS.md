@@ -13,8 +13,8 @@
 `_corpus/ _probe/ Events/ Sources/ _dashboards/ Tracks/ Actors/ Digests/ _github/ dist/`，外加 `_config/sources.yaml`
 的 `lifecycle` 與 `robots_ok` 兩欄（robots 重驗的實測結果，機器自己寫），以及
 `_config/narratives.yaml` 的 `now` / `next` 兩段（每夜 enrich 的主線敘事，
-`pulse-narrative-apply.py` 寫回）。這些是 `data-refresh.yml` 每兩小時一班、外加每夜
-enrich 的產物，改成走 PR 會讓鏈卡死——刻意保留的例外。
+`pulse-narrative-apply.py` 寫回）。這些是 `data-refresh.yml` 一天一班（`0 16 * * *` ＝台北隔日
+00:00）、外加每夜 enrich 的產物，改成走 PR 會讓鏈卡死——刻意保留的例外。
 
 **3. 碼、CI、`_config/`、文件一律走 PR。** 判斷邏輯與門禁門檻住在這裡；沒被審過
 的規則不該直接決定什麼上線。改門檻 / 排名 / schema 前先改說明文件（紅線 9）。
