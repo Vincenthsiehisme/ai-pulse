@@ -1,8 +1,9 @@
-# 被門禁擋下（48）
+# 被門禁擋下（49）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
 - **[[Events/evt-2026-09-11-4bdd2c|Rapidly scaling online storage to serve over 1 billion ChatGPT users]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-11-d17d90|Cognition helps Devin test its own work with GPT‑6 Astra]]** — Cognition — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-10-073898|Rahul Patil Joins Anthropic]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-09-10-766c4c|Anthropic Expands Global Leadership In Enterprise Ai Naming Chris Ciau]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-09-10-88a117|Anthropic Raises Series F At usd183b Post Money Valuation]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track

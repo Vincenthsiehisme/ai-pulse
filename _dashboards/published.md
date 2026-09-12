@@ -119,7 +119,7 @@
   PwC 與 Anthropic 擴大既有合作，具體內容我們選擇不轉述。
 
 ## 2026-09-08
-- **[[Events/evt-2026-09-08-0c18f7|On the Navier–Stokes Millennium Prize Problem]]** — OpenAI · research · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-08-0c18f7|On the Navier–Stokes Millennium Prize Problem]]** — OpenAI · research · conf 80 · heat 未量測
   OpenAI 發文談 Navier–Stokes 千禧年難題，正文未轉錄
 - **[[Events/evt-2026-09-08-3d81b5|Detecting And Preventing Distillation Attacks]]** — Anthropic · research · conf 73 · heat 未量測
   Anthropic 公告防範模型蒸餾攻擊做法，正文未轉錄
