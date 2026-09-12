@@ -114,8 +114,12 @@ routine 是照這份文件寫的——於是「改完碼要跑的測試」這句
 它可以從 diff 反推哪些測試會被波及：
 
 ```bash
-git diff --name-only HEAD | codegraph affected --stdin --quiet --filter "scripts/*test*.py"
+{ git diff --name-only "$(git merge-base origin/main HEAD)"; git ls-files --others --exclude-standard; } | sort -u | codegraph affected --stdin --quiet --filter "scripts/*test*.py"
 ```
+
+**diff 的基準是 `origin/main` 的 merge-base，不是 `HEAD`。** `git diff --name-only HEAD` 比的是
+工作樹對 HEAD：一 commit 就空了，已提交還沒 merge 的改動全部不在清單裡，untracked 的新檔
+也不會出現。這一段原本就是那樣寫的（2026-09-12 修），跟下面 filter 那個坑同一種病。
 
 那個 `--filter` **不是可選的**。auto-detect 只認慣例命名（`test_*.py`、`*_test.py`、
 `__tests__/`），而這個 repo 的門檻叫 `scripts/selftest.py`，一條都對不上。不帶 filter
