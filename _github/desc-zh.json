@@ -175,9 +175,9 @@
     "zh": "Apify MCP server讓AI代理用Apify Store的工具，從社群媒體、搜尋引擎、地圖等站台擷取資料"
   },
   "asgeirtj/system_prompts_leaks": {
-    "at": "2026-07-27T19:23:58+00:00",
-    "src_hash": "9686abc957db",
-    "zh": "蒐集各家外流的 system prompt：Anthropic、OpenAI、Google、xAI 等，定期更新"
+    "at": "2026-09-12T19:15:08+00:00",
+    "src_hash": "081f0cd29b0f",
+    "zh": "蒐集各家外流的 system prompt，涵蓋 Claude、GPT、Gemini、Grok，定期更新"
   },
   "bojieli/ai-agent-book": {
     "at": "2026-07-29T19:13:52+00:00",

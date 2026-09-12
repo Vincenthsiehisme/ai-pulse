@@ -1,8 +1,16 @@
-# 已發布事件（291）
+# 已發布事件（303）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-09-11
+- **[[Events/evt-2026-09-11-4bdd2c|Rapidly scaling online storage to serve over 1 billion ChatGPT users]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 把內部儲存系統 Habitat 演化成支撐 10 億用戶的全球分散式平台。
+- **[[Events/evt-2026-09-11-d17d90|Cognition helps Devin test its own work with GPT‑6 Astra]]** — Cognition · product · conf 73 · heat 未量測
+  Cognition 用 GPT-6 Astra 讓 Devin 具備自我測試能力，目標是讓工程師少審查、多出貨。
+
 ## 2026-09-10
+- **[[Events/evt-2026-09-10-073898|Rahul Patil Joins Anthropic]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 找來 Rahul Patil 加入公司，細節我們選擇不轉述。
 - **[[Events/evt-2026-09-10-232901|New Offices In Paris And Munich Expand European Presence]]** — Anthropic · capital · conf 73 · heat 未量測
   Anthropic新開巴黎與慕尼黑辦公室，具體規模我們選擇不轉述。
 - **[[Events/evt-2026-09-10-27f47a|How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules]]** — OpenAI · research · conf 73 · heat 未量測
@@ -13,8 +21,12 @@
   Anthropic執行長Dario Amodei就美國AI領先地位發表聲明，具體內容我們選擇不轉述。
 - **[[Events/evt-2026-09-10-396d22|Skild AI Taps NVIDIA Physical AI to Teach Robots New Tasks From a Single Video]]** — NVIDIA · infra · conf 73 · heat 未量測
   Skild AI用NVIDIA Physical AI技術，讓機器人看一支影片就學新任務。
+- **[[Events/evt-2026-09-10-3b0372|Updates To Our Consumer Terms]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 更新消費者服務條款，異動細節我們選擇不轉述。
 - **[[Events/evt-2026-09-10-46a65a|Build more natural voice experiences with GPT‑Live‑1 in the API]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI在API推出GPT-Live-1，主打全雙工語音對話與電話語音支援。
+- **[[Events/evt-2026-09-10-4db547|Strengthening Our Safeguards Through Collaboration With Us Caisi And Uk Aisi]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 與美國 CAISI、英國 AISI 合作強化安全防護，細節我們選擇不轉述。
 - **[[Events/evt-2026-09-10-4fdf77|Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation]]** — Anthropic · infra · conf 73 · heat 未量測
   Anthropic將MCP協定捐出並成立Agentic AI基金會，具體治理架構我們選擇不轉述。
 - **[[Events/evt-2026-09-10-5974fe|Snowflake Anthropic Expanded Partnership]]** — Anthropic · capital · conf 83 · heat 未量測
@@ -27,8 +39,14 @@
   Anthropic發布Claude金融服務產業進展，具體功能我們選擇不轉述。
 - **[[Events/evt-2026-09-10-71db28|Protecting Well Being Of Users]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic發布保護使用者身心健康的相關措施，具體內容我們選擇不轉述。
+- **[[Events/evt-2026-09-10-766c4c|Anthropic Expands Global Leadership In Enterprise Ai Naming Chris Ciauri As Managing Director Of]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 任命 Chris Ciauri 為企業業務 Managing Director，完整職稱我們手上的標題被截斷。
+- **[[Events/evt-2026-09-10-88a117|Anthropic Raises Series F At usd183b Post Money Valuation]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 完成 Series F 募資，投後估值達 1,830 億美元，細節我們選擇不轉述。
 - **[[Events/evt-2026-09-10-8bfd47|Expanding AI access and cyber defense for federal, state, local, and tribal governments]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI與GSA合作，對美國聯邦、州、地方與部落政府免收授權費並打五折。
+- **[[Events/evt-2026-09-10-8e3394|Updating Restrictions Of Sales To Unsupported Regions]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 調整未支援地區的銷售限制政策，異動細節我們選擇不轉述。
 - **[[Events/evt-2026-09-10-911846|Rebuilding AUTOMATIC1111 with Gradio Workflow]]** — Hugging Face · product · conf 73 · heat 未量測
   Hugging Face用Gradio Workflow重建知名Stable Diffusion介面AUTOMATIC1111。
 - **[[Events/evt-2026-09-10-a02a85|Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone]]** — Anthropic · capital · conf 73 · heat 未量測
@@ -39,12 +57,20 @@
   首爾成為Anthropic亞太第三個辦公室，具體規模我們選擇不轉述。
 - **[[Events/evt-2026-09-10-b1e953|Claude In Microsoft Foundry]]** — Microsoft · product · conf 73 · heat 未量測
   Claude登陸微軟Foundry平台，具體上架範圍我們選擇不轉述。
+- **[[Events/evt-2026-09-10-bd46b8|Introducing the Agents API]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出 Agents API，把 Codex harness 包成可直接呼叫的雲端 agent 服務。
+- **[[Events/evt-2026-09-10-cd2d59|Developing Nuclear Safeguards For Ai Through Public Private Partnership]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 與公部門合作發展 AI 核安全防護，細節我們選擇不轉述。
+- **[[Events/evt-2026-09-10-d90a80|Introducing The Anthropic National Security And Public Sector Advisory Council]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 成立國家安全與公部門諮詢委員會，細節我們選擇不轉述。
 - **[[Events/evt-2026-09-10-db61ca|Genesis Mission Partnership]]** — Anthropic · capital · conf 73 · heat 未量測
   Anthropic加入美國「創世紀任務」（Genesis Mission）合作，具體角色我們選擇不轉述。
 - **[[Events/evt-2026-09-10-dfb256|Political Even Handedness]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic發布關於Claude政治中立性的說明，具體措施我們選擇不轉述。
 - **[[Events/evt-2026-09-10-e25af3|d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment]]** — NVIDIA · infra · conf 73 · heat 未量測
   推論晶片商d-Matrix採用NVIDIA NVLink Fusion，串接次世代Raptor XPU。
+- **[[Events/evt-2026-09-10-ec91cc|Anthropic Higher Education Initiatives]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 推出高等教育計畫，具體內容我們選擇不轉述。
 - **[[Events/evt-2026-09-10-f0481d|Cognizant Partnership]]** — Anthropic · capital · conf 83 · heat 未量測
   Anthropic分別與Cognizant、馬里蘭州達成合作，具體內容我們選擇不轉述。
 - **[[Events/evt-2026-09-10-f6b8f9|Anthropic Invests 50 Billion In American Ai Infrastructure]]** — Anthropic · capital · conf 73 · heat 未量測

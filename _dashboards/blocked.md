@@ -1,15 +1,7 @@
-# 被門禁擋下（49）
+# 被門禁擋下（37）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-09-11-4bdd2c|Rapidly scaling online storage to serve over 1 billion ChatGPT users]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-11-d17d90|Cognition helps Devin test its own work with GPT‑6 Astra]]** — Cognition — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-10-073898|Rahul Patil Joins Anthropic]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-10-766c4c|Anthropic Expands Global Leadership In Enterprise Ai Naming Chris Ciau]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-10-88a117|Anthropic Raises Series F At usd183b Post Money Valuation]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-10-bd46b8|Introducing the Agents API]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-10-d90a80|Introducing The Anthropic National Security And Public Sector Advisory]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-10-ec91cc|Anthropic Higher Education Initiatives]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-c7ad58|AI Enabled Cyber Threats Mitre Attack]]** — Anthropic — blockers: thin_research_analysis
@@ -42,10 +34,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-09-10-3b0372|Updates To Our Consumer Terms]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-10-4db547|Strengthening Our Safeguards Through Collaboration With Us Caisi And U]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-10-8e3394|Updating Restrictions Of Sales To Unsupported Regions]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-09-10-cd2d59|Developing Nuclear Safeguards For Ai Through Public Private Partnershi]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: generic_entity
