@@ -1,18 +1,24 @@
 [
   {
-    "full_name": "asgeirtj/system_prompts_leaks",
-    "desc": "Extracted system prompts from Anthropic - Claude Fable 5.1, Opus 5, Claude Design, Claude Code. OpenAI - ChatGPT GPT-6-Astra, Codex. Google - Gemini 3.8 Flash, 3.1 Pro, Antigravity. xAI - Grok, Grok Bot, Cursor, Kimi and more! Updated regularly.",
-    "language": "JavaScript",
+    "full_name": "microsoft/Webwright",
+    "desc": "A simple SWE style browser agent framework that achieves SOTA results on long horizon web tasks.",
+    "language": "Python",
+    "topics": [],
+    "stars": 5980,
+    "url": "https://github.com/microsoft/Webwright",
+    "stale_zh": null
+  },
+  {
+    "full_name": "rryam/VecturaKit",
+    "desc": "Swift-based vector database for on-device RAG using MLTensor and MLX Embedders",
+    "language": "Swift",
     "topics": [
-      "ai",
-      "ai-agents",
-      "ai-prompts",
-      "anthropic",
-      "chatbot",
-      "chatgpt"
+      "mlx-swift",
+      "rag",
+      "swift"
     ],
-    "stars": 65240,
-    "url": "https://github.com/asgeirtj/system_prompts_leaks",
-    "stale_zh": "蒐集各家外流的 system prompt：Anthropic、OpenAI、Google、xAI 等，定期更新"
+    "stars": 320,
+    "url": "https://github.com/rryam/VecturaKit",
+    "stale_zh": null
   }
 ]

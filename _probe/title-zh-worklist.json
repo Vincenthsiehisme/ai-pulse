@@ -1,162 +1,74 @@
 [
   {
-    "id": "evt-2026-09-10-073898",
-    "title": "Rahul Patil Joins Anthropic",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-3b0372",
-    "title": "Updates To Our Consumer Terms",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-4db547",
-    "title": "Strengthening Our Safeguards Through Collaboration With Us Caisi And Uk Aisi",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-5974fe",
-    "title": "Snowflake Anthropic Expanded Partnership",
+    "id": "evt-2026-09-10-db61ca",
+    "title": "Genesis Mission Partnership",
     "company": "Anthropic",
     "track": "資本與公司演化",
-    "summary": "Anthropic與Snowflake擴大合作，具體內容我們選擇不轉述。",
+    "summary": "Anthropic加入美國「創世紀任務」（Genesis Mission）合作，具體角色我們選擇不轉述。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-10-5a8f4a",
-    "title": "Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Building With NVIDIA Technologies",
+    "id": "evt-2026-09-10-dfb256",
+    "title": "Political Even Handedness",
+    "company": "Anthropic",
+    "track": "全球創新版圖",
+    "summary": "Anthropic發布關於Claude政治中立性的說明，具體措施我們選擇不轉述。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-10-e25af3",
+    "title": "d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment",
     "company": "NVIDIA",
     "track": "基礎設施與成本",
-    "summary": "NVIDIA稱全球robotaxi市場2035年上看4000億美元，車隊業者正用其全端平台鋪路。",
+    "summary": "推論晶片商d-Matrix採用NVIDIA NVLink Fusion，串接次世代Raptor XPU。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-10-5b8aa1",
-    "title": "Microsoft Nvidia Anthropic Announce Strategic Partnerships",
+    "id": "evt-2026-09-10-ec91cc",
+    "title": "Anthropic Higher Education Initiatives",
+    "company": "Anthropic",
+    "track": "全球創新版圖",
+    "summary": "Anthropic 推出高等教育計畫，具體內容我們選擇不轉述。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-10-f0481d",
+    "title": "Cognizant Partnership",
     "company": "Anthropic",
     "track": "資本與公司演化",
-    "summary": "微軟、NVIDIA與Anthropic宣布策略合作，具體條款我們選擇不轉述。",
+    "summary": "Anthropic分別與Cognizant、馬里蘭州達成合作，具體內容我們選擇不轉述。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-10-5f183b",
-    "title": "Advancing Claude For Financial Services",
+    "id": "evt-2026-09-10-f6b8f9",
+    "title": "Anthropic Invests 50 Billion In American Ai Infrastructure",
     "company": "Anthropic",
+    "track": "資本與公司演化",
+    "summary": "Anthropic宣布在美國AI基礎設施投資500億美元，具體用途我們選擇不轉述。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-10-f9152b",
+    "title": "Boots on the Ground: ‘WARDOGS’ Goes All Out on GeForce NOW at Early-Access Launch",
+    "company": "NVIDIA",
     "track": "產品與商業驗證",
-    "summary": "Anthropic發布Claude金融服務產業進展，具體功能我們選擇不轉述。",
+    "summary": "NVIDIA GeForce NOW雲遊戲本週上新9款遊戲，含搶先體驗的WARDOGS。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-10-71db28",
-    "title": "Protecting Well Being Of Users",
-    "company": "Anthropic",
-    "track": "全球創新版圖",
-    "summary": "Anthropic發布保護使用者身心健康的相關措施，具體內容我們選擇不轉述。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-766c4c",
-    "title": "Anthropic Expands Global Leadership In Enterprise Ai Naming Chris Ciauri As Managing Director Of",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-88a117",
-    "title": "Anthropic Raises Series F At usd183b Post Money Valuation",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-8bfd47",
-    "title": "Expanding AI access and cyber defense for federal, state, local, and tribal governments",
+    "id": "evt-2026-09-11-4bdd2c",
+    "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users",
     "company": "OpenAI",
-    "track": "全球創新版圖",
-    "summary": "OpenAI與GSA合作，對美國聯邦、州、地方與部落政府免收授權費並打五折。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-8e3394",
-    "title": "Updating Restrictions Of Sales To Unsupported Regions",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-911846",
-    "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
-    "company": "Hugging Face",
-    "track": "Agent與軟體重構",
-    "summary": "Hugging Face用Gradio Workflow重建知名Stable Diffusion介面AUTOMATIC1111。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-a02a85",
-    "title": "Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone",
-    "company": "Anthropic",
-    "track": "資本與公司演化",
-    "summary": "Anthropic收購JS執行環境Bun，同時宣布Claude Code年化營收達10億美元。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-aab6d4",
-    "title": "Expanding Our Use Of Google Cloud Tpus And Services",
-    "company": "Google",
     "track": "基礎設施與成本",
-    "summary": "Anthropic擴大使用Google雲端TPU與相關服務，具體用量與合約我們選擇不轉述。",
+    "summary": "OpenAI 把內部儲存系統 Habitat 演化成支撐 10 億用戶的全球分散式平台。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-10-b16d8b",
-    "title": "Seoul Becomes Third Anthropic Office In Asia Pacific",
-    "company": "Anthropic",
-    "track": "全球創新版圖",
-    "summary": "首爾成為Anthropic亞太第三個辦公室，具體規模我們選擇不轉述。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-b1e953",
-    "title": "Claude In Microsoft Foundry",
-    "company": "Microsoft",
-    "track": "產品與商業驗證",
-    "summary": "Claude登陸微軟Foundry平台，具體上架範圍我們選擇不轉述。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-bd46b8",
-    "title": "Introducing the Agents API",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-cd2d59",
-    "title": "Developing Nuclear Safeguards For Ai Through Public Private Partnership",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-10-d90a80",
-    "title": "Introducing The Anthropic National Security And Public Sector Advisory Council",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
+    "id": "evt-2026-09-11-d17d90",
+    "title": "Cognition helps Devin test its own work with GPT‑6 Astra",
+    "company": "Cognition",
+    "track": "Agent與軟體重構",
+    "summary": "Cognition 用 GPT-6 Astra 讓 Devin 具備自我測試能力，目標是讓工程師少審查、多出貨。",
     "stale_zh": null
   }
 ]

@@ -3,35 +3,39 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-09-12'
+generated_day: '2026-09-13'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **100** 則：`published` 90、`review` 10
+事件 **104** 則：`published` 99、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
 | 2026-09-10 | [[Events/evt-2026-09-10-f6b8f9\|Anthropic Invests 50 Billion In American Ai Infrastructure]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-f0481d\|Cognizant Partnership]] | published |
-| 2026-09-10 | [[Events/evt-2026-09-10-ec91cc\|Anthropic Higher Education Initiatives]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-ec91cc\|Anthropic Higher Education Initiatives]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-dfb256\|Political Even Handedness]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-db61ca\|Genesis Mission Partnership]] | published |
-| 2026-09-10 | [[Events/evt-2026-09-10-d90a80\|Introducing The Anthropic National Security And Public Sector Advisory Council]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-d90a80\|Introducing The Anthropic National Security And Public Sector Advisory Council]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-cd2d59\|Developing Nuclear Safeguards For Ai Through Public Private Partnership]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-b16d8b\|Seoul Becomes Third Anthropic Office In Asia Pacific]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-a02a85\|Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone]] | published |
-| 2026-09-10 | [[Events/evt-2026-09-10-88a117\|Anthropic Raises Series F At usd183b Post Money Valuation]] | review |
-| 2026-09-10 | [[Events/evt-2026-09-10-766c4c\|Anthropic Expands Global Leadership In Enterprise Ai Naming Chris Ciauri As Managing Director Of]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-8e3394\|Updating Restrictions Of Sales To Unsupported Regions]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-88a117\|Anthropic Raises Series F At usd183b Post Money Valuation]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-766c4c\|Anthropic Expands Global Leadership In Enterprise Ai Naming Chris Ciauri As Managing Director Of]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-71db28\|Protecting Well Being Of Users]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-5f183b\|Advancing Claude For Financial Services]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-5b8aa1\|Microsoft Nvidia Anthropic Announce Strategic Partnerships]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-5974fe\|Snowflake Anthropic Expanded Partnership]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-4fdf77\|Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-4db547\|Strengthening Our Safeguards Through Collaboration With Us Caisi And Uk Aisi]] | published |
+| 2026-09-10 | [[Events/evt-2026-09-10-3b0372\|Updates To Our Consumer Terms]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-35f57b\|Statement Dario Amodei American Ai Leadership]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-232901\|New Offices In Paris And Munich Expand European Presence]] | published |
-| 2026-09-10 | [[Events/evt-2026-09-10-073898\|Rahul Patil Joins Anthropic]] | review |
+| 2026-09-10 | [[Events/evt-2026-09-10-073898\|Rahul Patil Joins Anthropic]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-fb15fe\|Pwc Expanded Partnership]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-f4d0b0\|Kiyoung Choi Representative Director Anthropic Korea]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-efeed7\|Donate Public First Action]] | published |
