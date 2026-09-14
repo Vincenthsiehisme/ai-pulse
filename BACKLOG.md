@@ -106,7 +106,6 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`value-沒人用`](#value-沒人用) | 每則都算 `value`，全站沒有一處讀它 | 不會 | 否（沒宣稱過什麼） |
 | [`stale-backfill-無出口`](#stale-backfill-無出口) | 12 則被擋著的 Event 沒有終態 | 不會 | 否 |
 | [`兩條夜間鏈只靠時鐘耦合`](#兩條夜間鏈只靠時鐘耦合而餘裕沒有人在量) | 抓取班遲到就會吃掉潤稿班的餘裕，而餘裕沒有人在量 | 不會 | 否 |
-| [`來源已死但每班照樣有貨`](#來源已死但每班照樣有貨) | 三條來源最新一筆落後 2 個月到 3 年，而沉默判準是「這班抓到幾筆」 | **不會** | **是（儀表顯示正常）** |
 | [`Meta-沒有來源`](#meta-沒有來源) | Meta 唯一的來源停更於 2023-05，這家公司在系統裡等於不存在 | 不會 | 是 |
 | [`版面沒有人量過真的幾何`](#版面沒有人量過真的幾何) | 站台只測「規則寫對了」，沒測「畫面對了」。兩次都是人眼在截圖上看到的，而測試全綠 | **不會** | 否（但它讓假綠燈成立） |
 | [`mutate-跑的時候可以改檔案`](#mutate-跑的時候可以改檔案) | 變異測試會把檔案改掉再改回來，中途編輯會落在那個窗口裡；已經發生三次，三次都是 `git status` 抓到的 | 不會 | 否 |
@@ -371,49 +370,9 @@ CI 一樣是綠的。不順手接上去是刻意的——接之前得先想清�
 
 ---
 
-## `來源已死但每班照樣有貨`
-
-`零產出來源` 的鏡像，而且更難看見：**那三條至少是 0 筆，會出現在儀表上。
-這一類每班穩定出貨，只是貨全是舊的。**
-
-2026-07-27 逐條量 `_corpus/` 裡每個 source 的**最新一筆 `published`**：
-
-| source | 每班筆數 | 最新一筆 | 落後 | 儀表上的樣子 |
-|---|---|---|---|---|
-| `src-meta-research` | 40 | **2023-05-17** | **3 年 2 個月** | 正常 |
-| `src-qwen-blog` | 30 | 2025-09-23 | 10 個月 | 正常 |
-| `src-media-venturebeat` | 14 | 2026-05-19 | 2 個月 | 正常 |
-| `src-kol-karpathy` | 30 | 2026-04-30 | 3 個月 | 正常 |
-
-（`src-kol-karpathy` 是 2026-07-28 fresh clone 複量時才掉出來的第四條——
-上一版只列三條，因為那次的門檻切在 2026-06 而它剛好在界線附近。
-**這說明門檻本身也要進設定，不是每次盤點的人自己挑一個。**）
-
-病灶在 `pulse-monitor.py:322`：`silent_sources` 的判準是 `r["items"] == 0`。
-**「這班抓回幾筆」被拿來代表「這條來源還在出東西嗎」**——正是這份清單開頭那句
-「用一個比事實寬鬆的代理指標去代表事實」。兩者在平常的日子裡一致，正好在來源
-死掉那天分岔，而不會有任何東西變紅。
-
-要補的判準是現成的、而且只需要已經有的資料：**每條來源的
-`max(published)` 與今天差幾天**，門檻沿用該來源的 `frequency`
-（daily / weekly 各自一個容忍值），逾期進 `stale_source`。
-
-`stale_source` 跟 `silent`（有來源、0 筆）必須是兩個名字。合成一個
-「這條來源怪怪的」，下一個人得再查一次才知道要修抓取端還是換端點。
-
-**另一半：`pulse-probe.py` 沒有 control probe，而它的一次性小弟有。**
-`verify-policy-sources.py:237` 的 `control_probe()` 先證明機器連得出去，
-連不出去就整份中止、不下任何判決。生產的 probe 沒有這一關：整條網路斷掉時
-它會寫出 27 條各自獨立的 `robots_unknown`，讀起來像 27 個來源同時出事。
-單條的處理是保守的、沒寫錯，缺的是**「問題在我們這邊」這個彙總訊號**。
-2026-07-27 的 C-4 誤讀就是這個缺口在人身上的版本
-（見 `docs/design/2026-07-27-published-is-a-proxy.md` 的 C-4′）。
-
----
-
 ## `Meta-沒有來源`
 
-上一條的第一個受害者，單獨列是因為它已經在**對外站上造成沉默**，不只是監控缺口。
+`來源已死但每班照樣有貨`（已修，見〈附：已經修掉的〉）的第一個受害者，單獨列是因為它已經在**對外站上造成沉默**，不只是監控缺口。
 
 `_config/sources.yaml` 裡 Meta 唯一的來源是 `src-meta-research`，端點
 `https://research.facebook.com/feed/`——一條**研究部落格**，而且最新一筆停在
@@ -850,6 +809,7 @@ GitHub 榜單待譯清單這些同樣是「Actions 產、潤稿端讀」的快�
 | `fix/c2-skips-in-silence` | 潤稿端 C2 段（榜單描述中文化）失敗時整段跳過，**而跳過跟「沒東西要翻」印起來一樣**——`desc-zh.json` 從沒進過版控也沒人發現。觀測改由一定會跑的 Actions 那班量，分得出「量不到 / 從來沒翻過 / 有過然後停了」 |
 | `fix/dictionary-gaps-report-to-nowhere` | `clustering.unknown_entity.report_to` 指的那一頁以前不存在，現在每班產生；晉升門檻搬進 `gate.yaml`，`_probe` 當班區塊與累積頁讀同一份 |
 | `fix/backlog-status-is-hand-written` | 現況表從手寫改成每班重生成（`_dashboards/backlog-status.md`）。**這是第 9 條實例的第二次修法**——第一次（把量測時間寫進標題、請下一個人複量）三小時就失效了 |
+| `fix/dead-source-still-ships` | 沉默判準只看「這班抓到幾筆」，來源死了照樣每班出舊貨（`src-meta-research` 停在 2023-05 而儀表全綠）。`pulse-monitor` 加 `stale_source`：最新一筆 `published` 距今幾天，門檻按 `frequency` 放 `gate.yaml` 的 `monitor.stale_source_days`，六種狀態各有名字、`stale` 跟 `silent` 分開；`--alert-stale-source` 有旗標但**刻意沒接進 workflow**。`pulse-probe` 加 control probe：機器連不出去整班中止、exit 4、heartbeat `network_blocked`，不再寫出 27 條各自獨立的 `robots_unknown`；egress 簽名的單一真相源搬進 `pulse-probe.py`。規格 `references/health-alarms.md` 末兩節 |
 
 共同主題是**警報自己把自己關掉**：用一個比事實寬鬆的代理指標去代表事實。代理在
 順利的日子跟事實重合，所以平常測不出來；它只在你最需要它準的那一天分岔。規格寫在

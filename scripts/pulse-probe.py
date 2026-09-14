@@ -24,6 +24,13 @@ lifecycle 語意（v2.1）：
   VAULT_DIR=... python scripts/pulse-probe.py --dry-run                # 不寫檔不 commit
   VAULT_DIR=... python scripts/pulse-probe.py --only src-openai-blog   # 單源除錯
 
+離開碼（非零全部是致命的；單條來源抓失敗只寫進 stats，仍回 0）：
+  2  VAULT_DIR 或 _config/ 不存在（磁碟未掛載、路徑打錯）
+  3  0 個可跑來源（硬防護，刻意大聲）
+  4  control probe 失敗：機器連不出去，問題在我們這邊，不是 N 條來源同時出事。
+     抓任何來源之前先驗，所以不寫 _corpus/、不動 state / seen、不 append
+     source-runs.jsonl、不 commit。`--dry-run` 與 `--only` 都不跳過這關。
+
 紅線：0 LLM / 0 Claude。全部規則，結果可重現。
 依賴：requests, PyYAML, feedparser
 """
@@ -267,6 +274,55 @@ def safe_fetch(url: str, etag: str | None = None) -> tuple[int, str | None, dict
         if not redirected:
             break
     raise ValueError("upstream: too many redirects")
+
+
+# --------------------------------------------------------------- egress 偵測
+# 本地 egress proxy 攔截的簽名。它回 403 + 一小段 text/plain，跟站方的 403
+# 在狀態碼上完全無法區分。2026-07-27 verify-article-metadata.py 把這種 403
+# 讀成 Anthropic 的 WAF，差一點寫進設計；簽名原本住在那支裡，這裡是唯一正本，
+# verify-article-metadata.py 從這個模組取。
+EGRESS_HEADER = "x-deny-reason"
+EGRESS_BODY_MARKERS = (
+    "not in allowlist",
+    "network egress settings",
+)
+
+
+def is_egress_intercept(status, body, headers) -> str | None:
+    """回攔截原因字串，或 None。只認簽名，不猜。"""
+    hdr = {str(k).lower(): v for k, v in (headers or {}).items()}
+    if EGRESS_HEADER in hdr:
+        return f"{EGRESS_HEADER}: {hdr[EGRESS_HEADER]}"
+    if status == 403 and body:
+        low = body.lower()
+        for m in EGRESS_BODY_MARKERS:
+            if m in low:
+                return body.strip()[:160]
+    return None
+
+
+# 跟 verify-policy-sources.py 同一個：已知可達、不看 UA 臉色的 URL。
+CONTROL_URL = "https://github.com/robots.txt"
+
+
+def control_probe(url: str) -> tuple[bool, str]:
+    """證明這台機器連得出去。不通過就整班中止，一條來源都不抓。
+
+    沒有這一關，公司代理或 egress allowlist 對每個 host 回 403，看起來會跟
+    「每個站都拒絕我們」一模一樣：一班寫出 N 條各自獨立的 robots_unknown，
+    而根因只有一個、在我們這邊。
+
+    刻意不看狀態碼是不是 200——GitHub 對未認證請求回 403 也算「連到了」。
+    判準是「有沒有走到對方的伺服器」，不是「對方喜不喜歡我們」。
+    """
+    try:
+        status, body, headers = safe_fetch(url)
+    except Exception as exc:  # noqa: BLE001
+        return False, f"{type(exc).__name__}: {str(exc)[:160]}"
+    intercepted = is_egress_intercept(status, body, headers)
+    if intercepted:
+        return False, f"egress intercept -- {intercepted}"
+    return True, f"HTTP {status}"
 
 
 def robots_verdict(url: str) -> tuple[bool | None, str]:
@@ -1260,6 +1316,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--only", default=None)
+    ap.add_argument("--control-url", default=CONTROL_URL,
+                    help="已知可達的 URL，用來證明網路不是問題所在")
+    ap.add_argument("--skip-control", action="store_true",
+                    help="只給測試這支腳本本身用。絕不放進 CI。")
     args = ap.parse_args()
 
     vault = Path(os.environ["VAULT_DIR"])
@@ -1273,6 +1333,20 @@ def main() -> int:
         heartbeat("config_missing", vault, "_config/ 不存在")
         print(f"[fatal] 找不到 {vault / '_config'}", file=sys.stderr)
         return 2
+
+    # control probe：抓任何來源之前先證明機器連得出去。失敗時什麼都不寫——
+    # 這一班的 N 條 robots_unknown 會是同一個根因的 N 個影子，而 source-health
+    # 會把它們當成 N 條來源各自出事去扣分。--dry-run / --only 都不跳過。
+    if not args.skip_control:
+        reachable, why = control_probe(args.control_url)
+        if not reachable:
+            detail = f"control probe 失敗 via {args.control_url}: {why}"
+            heartbeat("network_blocked", vault, detail)
+            print(f"[fatal] {detail}——機器連不出去，問題在我們這邊，"
+                  "不是 N 條來源同時出事；本班不抓、不寫、不 commit。",
+                  file=sys.stderr)
+            return 4
+        print(f"control: OK via {args.control_url} ({why})")
 
     heartbeat("running", vault)
     entities, sources = load_config(vault)

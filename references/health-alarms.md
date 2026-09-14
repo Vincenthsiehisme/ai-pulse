@@ -550,3 +550,108 @@ suspect      不在 main 的超過一半 → 判準可能失效（見上）
   要更準，得記下「這條 watch entry 是哪天被加進 `sources.yaml` 的」，
   而那個日期現在沒有任何地方存著（git log 不算：設定檔重排一次就洗掉了）。
   這次先修到「用自己來源的時鐘」這一層，剩下的差距寫在這裡，免得下次又推導一遍。
+
+## 來源已死但每班照樣有貨：`stale_source`
+
+> 實作：`pulse-monitor.py` 的 `coverage()`（判準）、`render_health()` 與 CLI 報告（渲染）、
+> `--alert-stale-source`（exit code）。門檻在 `_config/gate.yaml` 的 `monitor.stale_source_days`。
+> 不一致時以本節為準（紅線 9）。
+
+`silent_sources` 的判準是 `items == 0`：**「這班抓回幾筆」被拿來代表「這條來源還在出東西嗎」。**
+一條死掉的來源每班照樣把舊貨吐回來，`items` 永遠不是 0，那一格永遠綠。2026-07-27 量到
+`src-meta-research` 最新一筆停在 2023-05-17 而儀表顯示正常；2026-09-13 複量，它落後 1215 天，
+`src-kol-karpathy` 136 天、`src-media-venturebeat` 17 天，三條都在「可跑來源」裡、都不在
+「零產出」裡。這是本檔開頭那隻病的又一個實例：代理指標在來源活著的日子跟事實重合，
+正好在它死掉那天分岔。
+
+### 判準：最新一筆 `published` 距今幾天，門檻按 `frequency` 分
+
+每條會跑的來源，在 `coverage()` 的窗口內取 `max(published)`，跟今天相減，
+門檻查 `gate.yaml` 的 `monitor.stale_source_days.<frequency>`。
+
+`published` 的解析走 `lib.quality.parse_dt`（吃 RFC 2822 與 ISO 8601），再 `clock.utc_date()`。
+**不用 `pulse-monitor._as_date()`**——它只吃 ISO，而 RSS 來源寫的是
+`Mon, 14 Sep 2026 00:00:00 GMT`，用它量會把二十幾條來源全部量成「沒有日期」。
+2026-09-13 第一次量就是這樣量錯的，門檻差點依一張全是 None 的表訂出來。
+
+### 六種狀態，每一種都有自己的名字
+
+| `stale_reason` | 什麼情況 | 進 `stale_sources`？ | 觸 `--alert-stale-source`？ |
+|---|---|---|---|
+| `ok` | 落後 < 門檻 | 否 | 否 |
+| `stale` | 落後 ≥ 門檻 | **是** | **是** |
+| `no_items` | 本窗口 0 筆。這條歸 `silent_sources`，這裡不重判 | 否 | 否 |
+| `no_published` | 有筆，但沒有一筆解析得出日期 | 否 | 否 |
+| `no_threshold` | `frequency` 缺、不在表裡、或整個 key 不存在 | 否 | 否 |
+| `future_published` | 落後是負數：來源自己標了未來日期（`src-openai-blog` 實測 −1） | 否 | 否 |
+
+判準的優先序照表的順序：`no_items` → `no_published` → `no_threshold` → `future_published` → `stale`／`ok`。
+唯一會重疊的是「日期在未來、而門檻又缺」，判 `no_threshold`：先說量不到門檻，再談日期。
+
+`stale` 跟 `silent`（有來源、0 筆）**必須是兩個名字**。合成一個「這條來源怪怪的」，
+下一個人得再查一次才知道要修抓取端還是換端點。
+
+後面四種不是「沒事」，是「量不到」或「不歸這裡」。health.md 與 CLI 各印兩行：一行點名 `stale`
+（附最新一筆日期、落後天數、門檻），一行列量不到的條數與名字、三種成因各自標名；零條印「無」，
+不是整行不印。`--json` 只有 `stale_sources` 這一個聚合清單，量不到的要逐列讀 `sources[].stale_reason`
+——機器讀的那一邊不需要第二份摘要，兩份遲早不同步。哪一種都不得靜靜落成 `ok`（紅線 8）。
+**門檻表缺 key 或缺這個 frequency 時不塞預設數字**：一個誰都沒決定過的數字，
+跟一個假數字沒有差別。
+
+### 門檻的起手值是量出來的，不是想出來的
+
+2026-09-13 拿 30 天語料量：正常出貨的來源裡最大落後 daily 13（`src-msr-blog`）、
+weekly 13（`src-kol-oneusefulthing`）、monthly 4（`src-kol-raschka`）、quarterly 71
+（`src-kol-lilianweng`）。起手值 daily 14／weekly 30／monthly 60／quarterly 120，
+讓上面三條被點到、其餘全部 `ok`。要調走 PR（CONTRIBUTING：改門檻先改文件）。
+
+### 這一節不保證什麼
+
+- **不保證 CI 會因此變紅。** `--alert-stale-source` 存在且有子行程的 exit code 測試，
+  但**沒有接進 `data-refresh.yml`**：讓整條鏈紅燈的條件是人的決定，不該隨一個修 bug 的 PR
+  一起上。要接的時候是一行 workflow 的改動。
+- **`future_published` 不觸警。** 一條來源要是永遠把最新一筆標成明天，它永遠不會被判 stale。
+  目前只有 `src-openai-blog` 這樣，而它同時是真的在出貨。這一格印出來給人看，判斷留給人。
+- **量的是 `published`，不是「這條來源涵蓋了什麼」。** 一條天天出貨但全是別的題目的來源，
+  這一層看不出來；那是 `coverage_watch` 的事。
+
+## 整條網路斷掉不是 N 條來源同時出事：control probe
+
+> 實作：`pulse-probe.py` 的 `control_probe()`、`main()` 的 `--control-url` / `--skip-control`、
+> 離開碼 4。egress 攔截簽名（`is_egress_intercept()`）的單一真相源也在 `pulse-probe.py`，
+> `verify-article-metadata.py` 從它取。不一致時以本節為準（紅線 9）。
+
+`verify-policy-sources.py` 與 `verify-article-metadata.py` 都有 control probe：先證明機器
+連得出去，連不出去就整份中止、不下任何判決。**生產的 probe 沒有這一關。** 整條網路斷掉
+（或跑在有 egress allowlist 的容器裡）時，它會寫出 27 條各自獨立的 `robots_unknown`，
+讀起來像 27 個來源同時出事。單條的處理是保守的、沒寫錯；缺的是**「問題在我們這邊」這個
+彙總訊號**。2026-07-27 的 C-4 誤讀就是這個缺口長在人身上的版本（`docs/design/2026-07-27-published-is-a-proxy.md` C-4′）。
+
+### 規則
+
+1. **抓任何來源之前先打一個已知連得到的 URL**（預設 `https://github.com/robots.txt`，
+   跟 `verify-policy-sources.py` 同一個）。判準是「有沒有走到對方的伺服器」，不是
+   「對方喜不喜歡我們」：任何 HTTP 狀態碼（含 403）都算連到了；連線層例外、或回應帶
+   egress 攔截簽名才算連不出去。簽名的正本是 `pulse-probe.py` 的 `EGRESS_HEADER`
+   （`x-deny-reason` 標頭）與 `EGRESS_BODY_MARKERS`（403 且 body 含 `not in allowlist` 或
+   `network egress settings`）；這裡只是複述，加新簽名改那裡。
+2. **連不出去就整班中止，離開碼 4。** 不寫 `_corpus/`、不寫 `state.json` / `seen.json`、
+   不 append `source-runs.jsonl`、不 commit。heartbeat 狀態 `network_blocked`，
+   stderr 一句話指向「問題在我們這邊」。離開碼 4 跟既有的 2（環境不見了）、3（0 個可跑來源）
+   一樣是致命的，`data-refresh.yml` 那一步不吞它。
+3. **`--dry-run` 與 `--only` 都不跳過 control probe。** 網路斷著的時候，單源除錯得到的
+   結果一樣是假的。
+4. **`--skip-control` 只給離線測試用，不得出現在 workflow。** selftest 釘住。
+
+### 為什麼中止而不是標記
+
+不中止、只在每條來源上多標一個「可能是我們的問題」，等於把一個彙總事實拆回 27 條散文，
+而 monitor 那一邊的 `stale_after_days` 會照樣在隔天叫——那才是對的：一班沒抓到任何東西，
+死人開關該叫。control probe 只負責讓那一班**不要留下一份看起來像資料的東西**。
+
+### 這一節不保證什麼
+
+- **不保證 control URL 永遠可用。** GitHub 掛掉的那天這一關會誤判成「我們連不出去」，
+  整班中止。代價是那一天不抓；比起寫出 27 條假的 `robots_unknown`，這是便宜的那一邊。
+  要換 URL 用 `--control-url`。
+- **不保證抓到「部分來源連不到」。** 那是單條來源的事，`robots_verdict` 的原因碼已經分得開。

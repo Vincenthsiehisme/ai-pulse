@@ -734,6 +734,99 @@ acase("sources.yaml: robots_ok 為 null 者必須明示 revive_when_allowed（�
       [s["id"] for s in _cfg["kol_sources"]
        if s.get("robots_ok") is None and not s.get("revive_when_allowed")], [])
 
+# ------------------------------------------------- control probe（整班的第一關）
+# 「來源已死但每班照樣有貨」：機器連不出去時，每一條來源的 robots.txt 都拿不到，
+# 一班寫出 N 條各自獨立的 robots_unknown，source-health 當成 N 條來源各自出事去扣分。
+# 根因只有一個、在我們這邊。所以抓任何來源之前先打一個已知可達的 URL；不通過就
+# 整班中止（exit 4）、heartbeat 有名字、什麼都不寫。egress 簽名的正本也從
+# verify-article-metadata.py 搬進 probe 本人，兩邊認同一組。
+import contextlib as _cp_ctx  # noqa: E402
+
+_pp.safe_fetch = lambda u: (403, "rate limit", {})
+acase("control probe：對方回 403 但**有走到伺服器** → 算連得出去"
+      "（GitHub 對未認證請求就回 403；要求 200 會讓這一關自己變成偽陽性，"
+      "然後每一班都中止在第一關）",
+      _pp.control_probe("u"), (True, "HTTP 403"))
+_pp.safe_fetch = lambda u: (403, "Host not in allowlist: x.", {})
+acase("control probe：403 + allowlist body 簽名 → 連不出去（整班中止）",
+      _pp.control_probe("u"), (False, "egress intercept -- Host not in allowlist: x."))
+_pp.safe_fetch = lambda u: (200, "", {"X-Deny-Reason": "host_not_allowed"})
+acase("control probe：x-deny-reason 標頭 → 連不出去（標頭那條分支不看狀態碼）",
+      _pp.control_probe("u"),
+      (False, "egress intercept -- x-deny-reason: host_not_allowed"))
+_pp.safe_fetch = lambda u: (_ for _ in ()).throw(OSError("Tunnel connection failed"))
+acase("control probe：連不上（ProxyError 之類）→ 連不出去，而且不得讓例外炸穿"
+      "（炸穿＝沒有 heartbeat，看起來像排程沒跑）",
+      _pp.control_probe("u"), (False, "OSError: Tunnel connection failed"))
+_pp.safe_fetch = _REAL_SAFE_FETCH
+
+# main() 的接法：失敗 → 4、heartbeat network_blocked、vault 裡一個字都沒寫；
+# --skip-control → 不打 control，照舊走到 exit 3（0 個可跑來源）。
+# heartbeat 一定要換掉：它會寫 ~/ai-pulse/heartbeat.json，那是正式班次的死人開關。
+_cp_calls: list = []
+_cp_real = (_pp.control_probe, _pp.heartbeat, _pp.load_config)
+_cp_argv, _cp_env = _sysmod.argv, os.environ.get("VAULT_DIR")
+try:
+    _pp.heartbeat = lambda status, vault, detail="": _cp_calls.append(("hb", status))
+    _pp.load_config = lambda vault: ({}, [])
+    with _tempfile.TemporaryDirectory() as _cp_tmp:
+        os.makedirs(os.path.join(_cp_tmp, "_config"))
+        os.environ["VAULT_DIR"] = _cp_tmp
+
+        _pp.control_probe = lambda url: (
+            _cp_calls.append(("probe", url)) or (False, "OSError: Tunnel connection failed"))
+        _sysmod.argv = ["pulse-probe.py", "--dry-run"]
+        _cp_err = io.StringIO()
+        with _cp_ctx.redirect_stdout(io.StringIO()), _cp_ctx.redirect_stderr(_cp_err):
+            _cp_rc = _pp.main()
+        acase("control probe 失敗 → main() 回 4（--dry-run 也不跳過這關）", _cp_rc, 4)
+        acase("control probe 失敗 → heartbeat 收到 network_blocked"
+              "（有名字的紅燈，不是 N 條 robots_unknown；也不得先寫一次 running）",
+              [c[1] for c in _cp_calls if c[0] == "hb"], ["network_blocked"])
+        acase("control probe 失敗 → 打的是預設 CONTROL_URL（與 verify-policy-sources 同一個）",
+              [c[1] for c in _cp_calls if c[0] == "probe"], ["https://github.com/robots.txt"])
+        acase("control probe 失敗 → stderr 指向我們這邊，不是來源",
+              "問題在我們這邊" in _cp_err.getvalue(), True)
+        acase("control probe 失敗 → vault 裡一個字都沒寫（沒有 _corpus / _probe）",
+              sorted(os.listdir(_cp_tmp)), ["_config"])
+
+        _cp_calls.clear()
+        _pp.control_probe = lambda url: _cp_calls.append(("probe", url)) or (True, "HTTP 200")
+        _sysmod.argv = ["pulse-probe.py", "--skip-control"]
+        with _cp_ctx.redirect_stdout(io.StringIO()), _cp_ctx.redirect_stderr(io.StringIO()):
+            _cp_rc = _pp.main()
+        acase("--skip-control → 不打 control，走到既有的 exit 3（0 個可跑來源）",
+              (_cp_rc, [c for c in _cp_calls if c[0] == "probe"]), (3, []))
+        acase("--skip-control → heartbeat 序列照舊 running → no_runnable_sources",
+              [c[1] for c in _cp_calls if c[0] == "hb"], ["running", "no_runnable_sources"])
+finally:
+    _pp.control_probe, _pp.heartbeat, _pp.load_config = _cp_real
+    _sysmod.argv = _cp_argv
+    if _cp_env is None:
+        os.environ.pop("VAULT_DIR", None)
+    else:
+        os.environ["VAULT_DIR"] = _cp_env
+
+# workflow：probe 那幾行命令列不得帶 --skip-control。一開，這一關就退回成
+# 「N 條 robots_unknown」的舊世界——而且 job 照樣綠。
+_cp_wfdoc = _yaml.safe_load(open(os.path.join(_HERE, "..", ".github", "workflows",
+                                              "data-refresh.yml"), encoding="utf-8"))
+_cp_probe_lines = [ln.strip() for st in _cp_wfdoc["jobs"]["refresh"]["steps"]
+                   for ln in str(st.get("run") or "").splitlines()
+                   if "pulse-probe.py" in ln and not ln.strip().startswith("#")]
+acase("排程：pulse-probe.py 的命令列不得帶 --skip-control（而且那幾行要真的存在）",
+      (len(_cp_probe_lines) > 0, [ln for ln in _cp_probe_lines if "--skip-control" in ln]),
+      (True, []))
+
+# 單一真相源：verify-article-metadata.py 認的簽名必須就是 probe 那一份，不是抄本。
+_cp_vs = importlib.util.spec_from_file_location(
+    "verify_article_metadata_cp", os.path.join(_HERE, "verify-article-metadata.py"))
+_cp_vam = importlib.util.module_from_spec(_cp_vs)
+_cp_vs.loader.exec_module(_cp_vam)
+acase("egress 簽名：verify-article-metadata 的 is_egress_intercept 就是 probe 模組的那個物件"
+      "（兩邊各抄一份，proxy 換一種回法時會有一邊安靜地失效）",
+      _cp_vam.is_egress_intercept is _cp_vam._PROBE.is_egress_intercept, True)
+
 # ------------------------------------------------------------ 媒體線（2026-07-26 開）
 # 開線的理由是量出來的：48 個 Event，其中 47 個 independent_sources: 1。
 # 因為 25 條來源裡 0 條媒體，而官方線在結構上不可能產生第二個獨立聲音——
@@ -3496,12 +3589,17 @@ _MSRC = [{"id": "s-oa", "owner": "OpenAI", "lifecycle": "active", "track": "t"}]
 
 
 def _mvault(corpus=(0,), rows=None, watch=(), sources=(), events=(),
-            stale_after=2, max_silent=2, first_fetch=None):
+            stale_after=2, max_silent=2, first_fetch=None,
+            per_source=None, stale_source_days=None):
     """組一個 `pulse-monitor.py` 真的跑得動的 vault，回傳路徑。
 
     corpus:      幾天前有語料（0＝今天；負數＝未來日期的目錄）。() ＝一天都沒有。
     events:      [(進庫幾天前 or None, 是否未潤稿)]，一律 status: review。
     first_fetch: {sid: 幾天前第一次抓到} → `_probe/state.json`（觀察期的起算點）。
+    per_source:  {sid: rows} → 每個有語料的日子多寫一份 `<sid>.jsonl`。stale_source
+                 是 per-source 判的，檔名要對上來源 id（`src-x.jsonl` 對不上 `s-oa`）。
+    stale_source_days: 寫進 gate.yaml 的 `monitor.stale_source_days`；None＝不寫這個 key
+                 （＝「量不到」那一路，不是門檻 0）。
 
     每個有語料的日子同時寫一份 `_probe/<day>/report.md`——那是「這班跑過了」的
     判準，跟「這班抓到東西」是兩件事，健康頁兩個都要。
@@ -3517,6 +3615,9 @@ def _mvault(corpus=(0,), rows=None, watch=(), sources=(), events=(),
         (d / "src-x.jsonl").write_text(
             "".join(_json.dumps(r, ensure_ascii=False) + "\n"
                     for r in (rows if rows is not None else _MUNSEEN)), "utf-8")
+        for sid, srows in (per_source or {}).items():
+            (d / f"{sid}.jsonl").write_text(
+                "".join(_json.dumps(r, ensure_ascii=False) + "\n" for r in srows), "utf-8")
         p = v / "_probe" / _mday(n)
         p.mkdir(parents=True, exist_ok=True)
         (p / "report.md").write_text("# run\n", "utf-8")
@@ -3527,8 +3628,10 @@ def _mvault(corpus=(0,), rows=None, watch=(), sources=(), events=(),
     (v / "_config" / "entities.yaml").write_text(_yaml.safe_dump(
         {"companies": [{"id": "openai", "canonical": "OpenAI", "aliases": []}]},
         allow_unicode=True), "utf-8")
-    (v / "_config" / "gate.yaml").write_text(_yaml.safe_dump(
-        {"monitor": {"stale_after_days": stale_after}}), "utf-8")
+    _mon = {"stale_after_days": stale_after}
+    if stale_source_days is not None:
+        _mon["stale_source_days"] = dict(stale_source_days)
+    (v / "_config" / "gate.yaml").write_text(_yaml.safe_dump({"monitor": _mon}), "utf-8")
     if first_fetch:
         (v / "_probe" / "state.json").write_text(_json.dumps(
             {k: {"first_fetch_at": _mday(n) + "T00:00:00+00:00"}
@@ -3645,6 +3748,167 @@ _cs = importlib.util.spec_from_file_location(
     "pulse_cluster", os.path.join(_HERE, "pulse-cluster.py"))
 _cm = importlib.util.module_from_spec(_cs)
 _cs.loader.exec_module(_cm)
+
+# ─────────────── 來源已死但每班照樣有貨（規格 references/health-alarms.md）───────────────
+#
+# silent_sources 只看 items == 0。一條死掉的來源每班照樣把舊貨吐回來，items 永遠
+# 不是 0——2026-07-27 量到 src-meta-research 停在 2023-05 而儀表全綠。這一層量的是
+# 「最新一筆 published 距今幾天」，門檻按來源 frequency 查 gate.yaml 的
+# monitor.stale_source_days。
+#
+# 判準是純函式 stale_source_row()，六種 reason 每一種各釘一條；量不到的三種
+# （no_published / no_threshold / future_published）跟 stale 要分得開——合併的話
+# 「adapter 沒給 published」會被印成「來源死了」，人會往錯的方向找。
+from email.utils import format_datetime as _rfc2822  # noqa: E402
+
+_SS_TABLE = {"daily": 14, "weekly": 30}
+_SS_D = _date(2026, 9, 13)
+
+
+def _ss(items, lag, freq, table=_SS_TABLE):
+    """lag：最新一筆 published 是幾天前（None＝沒有一筆解析得出）。"""
+    last = (_SS_D - _timedelta(days=lag)) if lag is not None else None
+    return _mm.stale_source_row(_SS_D, items, last, freq, table)
+
+
+acase("stale_source：lag < 門檻 → ok",
+      _ss(5, 13, "daily")["stale_reason"], "ok")
+acase("stale_source：lag ≥ 門檻 → stale（踩線那一天就算，不是超過才算）",
+      _ss(5, 14, "daily")["stale_reason"], "stale")
+acase("stale_source：本窗口 0 筆 → no_items，歸 silent_sources，這裡不重判"
+      "（有沒有 published 都一樣）",
+      [_ss(0, None, "daily")["stale_reason"], _ss(0, 99, "daily")["stale_reason"]],
+      ["no_items", "no_items"])
+acase("stale_source：有筆但沒一筆解析得出 published → no_published，不是 stale 也不是 ok"
+      "（量不到不等於 0 天，紅線 8）",
+      _ss(5, None, "daily")["stale_reason"], "no_published")
+acase("stale_source：frequency 不在表裡 → no_threshold，不猜一個數字",
+      _ss(5, 3, "hourly")["stale_reason"], "no_threshold")
+acase("stale_source：frequency 缺 → no_threshold",
+      _ss(5, 3, None)["stale_reason"], "no_threshold")
+acase("stale_source：整個 key 不存在（None）→ no_threshold，即使 lag 大到離譜"
+      "（None 的語意是「量不到」，不是門檻 0 也不是無限大）",
+      _ss(5, 999, "daily", table=None)["stale_reason"], "no_threshold")
+acase("stale_source：lag < 0 → future_published，不算 stale 也不算 ok"
+      "（`lag >= 門檻` 對負數沉默，同 health() 的 clock_skew 那個洞）",
+      _ss(5, -1, "daily")["stale_reason"], "future_published")
+acase("stale_source：門檻按 frequency 查表，weekly 的 20 天是 ok、daily 的 20 天是 stale",
+      [_ss(5, 20, "weekly")["stale_reason"], _ss(5, 20, "daily")["stale_reason"]],
+      ["ok", "stale"])
+acase("stale_source：五個欄位齊全，量得到的都填、量不到的填 None",
+      _ss(5, 20, "daily"),
+      {"frequency": "daily", "last_published": "2026-08-24", "published_lag_days": 20,
+       "stale_after_days": 14, "stale_reason": "stale"})
+acase("stale_source：no_threshold 那一路 lag 照樣填（那是事實），只有門檻是 None",
+      [(k, v) for k, v in _ss(5, 20, "hourly").items()
+       if k in ("published_lag_days", "stale_after_days")],
+      [("published_lag_days", 20), ("stale_after_days", None)])
+acase("stale_source：reason 是封閉集，六種",
+      sorted(_mm.STALE_REASONS),
+      sorted(["ok", "stale", "no_items", "no_published", "no_threshold", "future_published"]))
+
+
+# ---- 接到 coverage()：max(published) 看窗口內語料、per-source、stale_sources 有序 ----
+def _ss_cov(per_source, sources, table, corpus=(0,)):
+    v = _mvault(corpus=corpus, sources=sources, per_source=per_source,
+                stale_source_days=table)
+    scfg = _yaml.safe_load((v / "_config" / "sources.yaml").read_text("utf-8"))
+    return _mm.coverage(v, _MTODAY, scfg, {"companies": []}, stale_source_days=table)
+
+
+def _ss_rows(*lags, rfc=False):
+    """每個 lag 一筆語料；rfc=True 用 RSS 的 RFC 2822 寫法（live 語料大多長這樣）。"""
+    out = []
+    for n in lags:
+        dt = _dtmod.combine(_MTODAY - _timedelta(days=n), _dtmod.min.time(), tzinfo=_tzmod.utc)
+        out.append({"title": f"t{n}", "summary": "",
+                    "published": _rfc2822(dt) if rfc else dt.isoformat()})
+    return out
+
+
+_SS_SRC = [{"id": "s-old", "owner": "Old", "lifecycle": "active", "frequency": "daily"},
+           {"id": "s-new", "owner": "New", "lifecycle": "active", "frequency": "daily"},
+           {"id": "s-none", "owner": "None", "lifecycle": "active", "frequency": "daily"}]
+_ss_c = _ss_cov({"s-old": _ss_rows(30, 20, 40), "s-new": _ss_rows(30, 1),
+                 "s-none": [{"title": "x", "summary": ""}]},
+                _SS_SRC, _SS_TABLE)
+_ss_by = {r["id"]: r for r in _ss_c["sources"]}
+acase("stale_source：取的是 max(published)（s-old 三筆最新的 20 天前 → stale，"
+      "s-new 三十天前那筆被 1 天前那筆蓋掉 → ok）",
+      [(_ss_by["s-old"]["published_lag_days"], _ss_by["s-old"]["stale_reason"]),
+       (_ss_by["s-new"]["published_lag_days"], _ss_by["s-new"]["stale_reason"])],
+      [(20, "stale"), (1, "ok")])
+acase("stale_source：有筆但沒 published 的來源是 no_published，跟隔壁的 stale 分得開",
+      (_ss_by["s-none"]["items"], _ss_by["s-none"]["stale_reason"]), (1, "no_published"))
+acase("stale_source：stale_sources 只收 stale，不收 no_published（量不到不是死了）",
+      _ss_c["stale_sources"], ["s-old"])
+acase("stale_source：silent_sources 不動（三條都有 items）",
+      _ss_c["silent_sources"], [])
+
+_ss_c2 = _ss_cov({"s-old": _ss_rows(20), "s-new": _ss_rows(0)}, _SS_SRC[:2], None)
+acase("stale_source：gate.yaml 沒有 stale_source_days（None）→ 每一條都 no_threshold，"
+      "stale_sources 是空的——不是拿一個 DEFAULT 悄悄接上",
+      ([r["stale_reason"] for r in _ss_c2["sources"]], _ss_c2["stale_sources"]),
+      (["no_threshold", "no_threshold"], []))
+
+_ss_c3 = _ss_cov({"s-old": _ss_rows(20), "s-new": _ss_rows(-3)}, _SS_SRC[:2], _SS_TABLE)
+acase("stale_source：日期在未來的來源是 future_published，不進 stale_sources",
+      ([(r["id"], r["stale_reason"]) for r in _ss_c3["sources"]], _ss_c3["stale_sources"]),
+      ([("s-new", "future_published"), ("s-old", "stale")], ["s-old"]))
+
+_ss_c4 = _ss_cov({"s-old": _ss_rows(20, rfc=True), "s-new": _ss_rows(1, rfc=True)},
+                 _SS_SRC[:2], _SS_TABLE)
+acase("stale_source：RSS 的 RFC 2822 寫法（`Mon, 14 Sep 2026 00:00:00 +0000`）要解得出來"
+      "——用 _as_date 量會整排 no_published，live 語料的 RSS 來源全是這種寫法",
+      [(r["id"], r["published_lag_days"], r["stale_reason"]) for r in _ss_c4["sources"]],
+      [("s-new", 1, "ok"), ("s-old", 20, "stale")])
+
+_SS_MANY = [{"id": f"s-{k}", "owner": k, "lifecycle": "active", "frequency": "daily"}
+            for k in ("c", "a", "b")]
+_ss_c5 = _ss_cov({f"s-{k}": _ss_rows(20) for k in ("c", "a", "b")}, _SS_MANY, _SS_TABLE)
+acase("stale_source：stale_sources 照 id 排，跟設定檔的順序無關（紅線 1）",
+      _ss_c5["stale_sources"], ["s-a", "s-b", "s-c"])
+
+# 兩行摘要：零條要印「無」，不是整行不印；量不到的三種各自標名。
+_ss_l1, _ss_l2, _ss_bad = _mm.stale_source_lines(_ss_c3)
+acase("stale_source：點名行帶最新日期、落後天數與門檻；量不到行把 future_published 標名；"
+      "第三個值是 stale 的 id（給 ⚠ 用）",
+      ["s-old（最新" in _ss_l1 and "落後 20 天，門檻 14" in _ss_l1,
+       "future_published 1 條：s-new" in _ss_l2, _ss_bad], [True, True, ["s-old"]])
+_ss_ok = _ss_cov({"s-old": _ss_rows(1), "s-new": _ss_rows(0)}, _SS_SRC[:2], _SS_TABLE)
+acase("stale_source：零條時兩行都印「無」（沒出現的行分不出「沒有」跟「沒在量」）",
+      [x.endswith("：無") for x in _mm.stale_source_lines(_ss_ok)[:2]]
+      + [_mm.stale_source_lines(_ss_ok)[2]], [True, True, []])
+_ss_hm = _mm.render_health(
+    {"coverage": _ss_c3, "date": _MTODAY.isoformat(), "published_total": 0, "review_total": 0,
+     "dropped_total": 0, "review_actionable": 0, "review_terminal": 0, "review_unenriched": 0,
+     "oldest_unenriched_days": 0, "oldest_stuck_days": 0, "blocker_hist": {}},
+    {"status": "green", "last_success": None, "probe_lag_days": None, "last_run_day": None,
+     "run_lag_days": None, "stale_after_days": 2, "items_total": 0, "sources_with_items": 0,
+     "degraded_by_health": [], "quarantine_candidates": []})
+acase("stale_source：health.md 真的印了那兩行（在「零產出」那一行之後）",
+      [_ss_hm.find("本窗口零產出") < _ss_hm.find("來源已死但每班照樣有貨 1 條：`s-old`"),
+       "future_published 1 條：`s-new`" in _ss_hm], [True, True])
+
+# ---- 死人開關 exit code：跟上面同一個理由，走真的子行程 ----
+_SS_ONE = [{"id": "s-oa", "owner": "OpenAI", "lifecycle": "active", "frequency": "daily"}]
+_mv_ss_bad = _mvault(sources=_SS_ONE, per_source={"s-oa": _ss_rows(20)},
+                     stale_source_days=_SS_TABLE)
+_rc_ss, _err_ss = _mrc(_mv_ss_bad, "--alert-stale-source")
+acase("死人開關 exit code：最新一筆 published 20 天前、門檻 14 → --alert-stale-source exit 1，"
+      "訊息點名到來源 id",
+      [_rc_ss, "[alert]" in _err_ss and "s-oa" in _err_ss], [1, True])
+acase("死人開關 exit code：同一個壞掉的 vault，沒開旗標就不准叫",
+      _mrc(_mv_ss_bad)[0], 0)
+acase("死人開關 exit code：最新一筆是今天 → exit 0（反方向，rc 寫死成 1 也會被抓到）",
+      _mrc(_mvault(sources=_SS_ONE, per_source={"s-oa": _ss_rows(0)},
+                   stale_source_days=_SS_TABLE), "--alert-stale-source")[0], 0)
+acase("死人開關 exit code：--json 一樣要回非零（輸出模式不准吞掉警報）",
+      _mrc(_mv_ss_bad, "--json", "--alert-stale-source")[0], 1)
+acase("死人開關 exit code：gate.yaml 沒有 stale_source_days → 量不到 → 不叫"
+      "（量不到是 no_threshold 那一格，不是靠一個假門檻判綠）",
+      _mrc(_mvault(sources=_SS_ONE, per_source={"s-oa": _ss_rows(999)}),
+           "--alert-stale-source")[0], 0)
 
 # ── 實體字典：讀的人要拿對鑰匙（pulse-cluster.load_entities）──
 #

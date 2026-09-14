@@ -129,6 +129,13 @@ routine 是照這份文件寫的——於是「改完碼要跑的測試」這句
 同一種病換個形狀：工具跑了、沒報錯、給一個空答案，所以沒有人會發現。`affected` 的
 輸出只是選測試的參考，`selftest.py` 不論它說什麼都要跑。
 
+**帶了 `--filter` 也會回空的情況：改的是 `scripts/pulse-*.py` 本人。** selftest 對這幾支是
+`importlib.util.spec_from_file_location` 動態載入（檔名有連字號，`import` 不了），圖裡沒有
+import 邊，而 `affected` 遞移的是 import 依賴——所以 `pulse-monitor.py`、`pulse-probe.py`
+餵進去一律空清單（2026-09-14 實測，`lib/sources.py` 同一條命令會吐 `selftest.py`）。
+它只對 `lib/*.py` 有答案。這裡的空清單同樣不代表沒有測試受影響：selftest 對那兩支各有
+幾十條判準。
+
 ---
 
 ## PR 內容要求

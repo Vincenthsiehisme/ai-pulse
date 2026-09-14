@@ -958,7 +958,7 @@ mutations:
 
   - id: M107
     title: "egress 攔截不再認 x-deny-reason 標頭（proxy 的 403 重新長得像站方拒絕）"
-    file: verify-article-metadata.py
+    file: pulse-probe.py
     find: "    if EGRESS_HEADER in hdr:\n        return f\"{EGRESS_HEADER}: {hdr[EGRESS_HEADER]}\""
     replace: "    if False:\n        return \"\""
     survives: false
@@ -966,7 +966,7 @@ mutations:
 
   - id: M108
     title: "egress 攔截不再認 body 簽名（沒有標頭的 proxy 就整條漏掉）"
-    file: verify-article-metadata.py
+    file: pulse-probe.py
     find: "        for m in EGRESS_BODY_MARKERS:\n            if m in low:\n                return body.strip()[:160]"
     replace: "        for m in EGRESS_BODY_MARKERS:\n            if m in low:\n                pass"
     survives: false
@@ -974,7 +974,7 @@ mutations:
 
   - id: M109
     title: "攔截判斷不看狀態碼（反方向的病：站方真正的拒絕被洗成「沒有判決」，確定的壞消息就此消失）"
-    file: verify-article-metadata.py
+    file: pulse-probe.py
     find: "    if status == 403 and body:"
     replace: "    if body:"
     survives: false

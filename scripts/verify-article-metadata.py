@@ -88,27 +88,16 @@ def _load_probe():
     return mod
 
 
+_PROBE = _load_probe()
+
 # --------------------------------------------------------------- egress 偵測
 # 本地 egress proxy 攔截的簽名。它回 403 + 一小段 text/plain，跟站方的 403
 # 在狀態碼上完全無法區分——區分它們是這支腳本存在的理由。
-EGRESS_HEADER = "x-deny-reason"
-EGRESS_BODY_MARKERS = (
-    "not in allowlist",
-    "network egress settings",
-)
-
-
-def is_egress_intercept(status, body, headers) -> str | None:
-    """回攔截原因字串，或 None。只認簽名，不猜。"""
-    hdr = {str(k).lower(): v for k, v in (headers or {}).items()}
-    if EGRESS_HEADER in hdr:
-        return f"{EGRESS_HEADER}: {hdr[EGRESS_HEADER]}"
-    if status == 403 and body:
-        low = body.lower()
-        for m in EGRESS_BODY_MARKERS:
-            if m in low:
-                return body.strip()[:160]
-    return None
+# 簽名的正本住在 pulse-probe.py（它的 control probe 也認同一組）；這裡只綁名字，
+# 兩邊各抄一份的話，proxy 換一種回法時會有一邊安靜地失效。
+EGRESS_HEADER = _PROBE.EGRESS_HEADER
+EGRESS_BODY_MARKERS = _PROBE.EGRESS_BODY_MARKERS
+is_egress_intercept = _PROBE.is_egress_intercept
 
 
 def _is_proxy_error(exc: Exception) -> bool:
@@ -410,7 +399,7 @@ def main() -> int:
     if not urls:
         ap.error("give --url or --preset")
 
-    pp = _load_probe()
+    pp = _PROBE
     print("verify-article-metadata.py")
     print("  run at : " + datetime.now(timezone.utc).isoformat(timespec="seconds"))
     print("  UA     : " + pp.UA)

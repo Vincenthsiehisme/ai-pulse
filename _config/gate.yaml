@@ -320,6 +320,23 @@ monitor:
   # 實測 2026-07-25 ~ 08-04 連續 11 天每天至少一個 enrich commit，零空窗。
   enrich_stale_after_days: 2
 
+  # 消費者：scripts/pulse-monitor.py 的 coverage() / --alert-stale-source。
+  #
+  # 判的是「這條來源**最新一筆** published 距今幾天」，不是「這班抓到幾筆」。
+  # 一條死掉的來源每班照樣把舊貨吐回來，items 永遠不是 0，silent_sources
+  # 永遠不會點到它——2026-07-27 量到 src-meta-research 停在 2023-05 而儀表全綠。
+  # 規格 references/health-alarms.md〈來源已死但每班照樣有貨〉。
+  #
+  # 起手值是 2026-09-13 拿 30 天語料量出來的：正常出貨的來源裡最大落後
+  # daily 13、weekly 13、monthly 4、quarterly 71；venturebeat 17、karpathy 136、
+  # meta-research 1215 是要被點到的三條。不在這張表裡的 frequency 一律判
+  # 「量不到」，不猜一個數字。要調走 PR。
+  stale_source_days:
+    daily: 14
+    weekly: 30
+    monthly: 60
+    quarterly: 120
+
 # ---------------------------------------------------------------------------
 # 每日精選（digest）的機檢門檻。
 # 消費者：scripts/pulse-digest-apply.py。規格 references/digest-apply.md〈三、退件規則〉。
