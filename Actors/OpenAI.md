@@ -3,17 +3,18 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-13'
+generated_day: '2026-09-14'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **95** 則：`published` 92、`review` 3
+事件 **96** 則：`published` 92、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-14 | [[Events/evt-2026-09-14-0dc682\|How Fyxer built an AI executive assistant people trust]] | review |
 | 2026-09-11 | [[Events/evt-2026-09-11-4bdd2c\|Rapidly scaling online storage to serve over 1 billion ChatGPT users]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-bd46b8\|Introducing the Agents API]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-8bfd47\|Expanding AI access and cyber defense for federal, state, local, and tribal governments]] | published |

@@ -1,7 +1,10 @@
-# 被門禁擋下（37）
+# 被門禁擋下（40）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-14-0dc682|How Fyxer built an AI executive assistant people trust]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-14-c2c5ef|Perplexity Portable Computer Is Now Available on Windows, Powered by N]]** — Perplexity — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-10-a2b717|Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-c7ad58|AI Enabled Cyber Threats Mitre Attack]]** — Anthropic — blockers: thin_research_analysis

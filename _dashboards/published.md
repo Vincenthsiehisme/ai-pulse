@@ -69,7 +69,7 @@
   Anthropic發布關於Claude政治中立性的說明，具體措施我們選擇不轉述。
 - **[[Events/evt-2026-09-10-e25af3|d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment]]** — NVIDIA · infra · conf 73 · heat 未量測
   推論晶片商d-Matrix採用NVIDIA NVLink Fusion，串接次世代Raptor XPU。
-- **[[Events/evt-2026-09-10-ec91cc|Anthropic Higher Education Initiatives]]** — Anthropic · policy · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-10-ec91cc|Anthropic Higher Education Initiatives]]** — Anthropic · policy · conf 80 · heat 未量測
   Anthropic 推出高等教育計畫，具體內容我們選擇不轉述。
 - **[[Events/evt-2026-09-10-f0481d|Cognizant Partnership]]** — Anthropic · capital · conf 83 · heat 未量測
   Anthropic分別與Cognizant、馬里蘭州達成合作，具體內容我們選擇不轉述。
