@@ -87,6 +87,7 @@ jobs:
           # 那句註解描述的情況 probe 根本不會用非零表示：單條來源抓失敗只寫進 stats，
           # main() 照樣 return 0。probe 的非零**全部**是致命的：
           #   2 = VAULT_DIR / _config 不見了     3 = 0 個可跑來源（硬防護，刻意大聲）
+          #   4 = control probe 失敗（機器連不出去，問題在我們這邊）
           # 於是 `|| echo` 沒有接住任何「部分失敗」，只接住了兩種必須紅燈的狀況。
           # 實測：把所有 lifecycle 改成 draft（0 可跑來源）→ probe 印 [fatal] 回 3 →
           # 被吞掉 → score/cluster/gate 拿舊資料照跑 → dist/index.html 生得出來 →

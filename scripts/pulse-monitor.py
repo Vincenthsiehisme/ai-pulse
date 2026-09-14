@@ -13,6 +13,8 @@
      理由與 2026-07-26 的誤報事故見 references/event-timestamps.md。
   4. 敘事鮮度：_probe/narrative-state.json 的簽章數
   5. **覆蓋範圍**：必盯實體多久沒被看見、可跑來源多久沒產出（見下）
+  6. **來源已死但每班照樣有貨**：每條可跑來源**最新一筆** `published` 距今幾天，
+     門檻按來源 `frequency` 查 gate.yaml 的 `monitor.stale_source_days`（見 coverage()）
 
 第 5 項是 2026-07-24 漏抓 Claude Opus 5 之後補的。前四項回答的都是同一個問題——
 「這條鏈有沒有在動」——那晚它們全綠，`probe_lag_days: 0`，因為鏈確實在動。
@@ -31,6 +33,7 @@
   VAULT_DIR=... python scripts/pulse-monitor.py --json                   # 機器讀
   VAULT_DIR=... python scripts/pulse-monitor.py --alert-days 2           # 卡超過 2 天 → exit 1
   VAULT_DIR=... python scripts/pulse-monitor.py --alert-coverage         # 必盯實體沉默太久 → exit 1
+  VAULT_DIR=... python scripts/pulse-monitor.py --alert-stale-source     # 來源最新一筆太舊 → exit 1
 依賴：PyYAML。**刻意不 import pulse-probe**——死人開關不該因為 requests 沒裝就叫不出聲。
 """
 import argparse
@@ -52,6 +55,7 @@ from lib.sources import RUN_LIFECYCLES  # noqa: E402  單一真相源，見 lib/
 from lib import ghdesc  # noqa: E402  榜單中文描述的覆蓋率，見 lib/ghdesc.py
 from lib import history  # noqa: E402  狀態帳本讀寫，見 lib/history.py
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
+from lib.quality import parse_dt  # noqa: E402  published 的解析：RFC 2822 與 ISO 8601 都吃
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 
 # 這些 blocker 是「設計上就該永遠擋著」的，不是漏跑、也修不好——算警報會天天
@@ -181,8 +185,62 @@ def source_clocks(vault: Path, today):
     return out
 
 
-def coverage(vault, today, sources_cfg, entities_cfg):
-    """→ 覆蓋範圍快照。純計數，不判斷、不寫檔。"""
+# stale_reason 的封閉集。每一個值要人做的事不同，所以不合併：
+#
+#   ok                最新一筆 published 距今 < 門檻
+#   stale             ≥ 門檻——來源死了、改版了、或 feed 換了網址而舊網址還在吐存檔
+#   no_items          本窗口 0 筆。歸 silent_sources 管，這裡不重判
+#   no_published      有筆，但沒有一筆解析得出 published——adapter 的問題，不是來源的
+#   no_threshold      frequency 缺或不在 stale_source_days 表裡，或整個 key 不存在。
+#                     **量不到，不猜一個數字**（紅線 8）
+#   future_published  最新一筆的日期在未來。不算 stale、不算 ok、不觸警，單獨列——
+#                     `lag >= 門檻` 對負數是沉默的，跟 health() 那條 clock_skew 同一個洞
+STALE_REASONS = ("ok", "stale", "no_items", "no_published", "no_threshold", "future_published")
+
+
+def stale_source_row(today, items, last_published, frequency, stale_source_days):
+    """單條來源的「最新一筆 published 距今幾天」判準。純函式，可離線單測。
+
+    `last_published`：本窗口內 max(published) 的 **UTC 日期**（date）或 None。
+    `stale_source_days`：gate.yaml 的 `monitor.stale_source_days`（{frequency: 天數}）；
+    None ＝整個 key 不存在。
+
+    為什麼量 published 不量 items：一條死掉的來源每班照樣把舊貨吐回來，items 永遠
+    不是 0，silent_sources 永遠不會點到它。2026-07-27 量到 src-meta-research 停在
+    2023-05 而儀表全綠——那一格在此之前沒有任何人在看。規格 references/health-alarms.md。
+    """
+    table = stale_source_days if isinstance(stale_source_days, dict) else None
+    threshold = table.get(frequency) if table and frequency in table else None
+    threshold = int(threshold) if threshold is not None else None
+    lag = (today - last_published).days if last_published else None
+    if not items:
+        reason = "no_items"
+    elif lag is None:
+        reason = "no_published"
+    elif threshold is None:
+        reason = "no_threshold"
+    elif lag < 0:
+        reason = "future_published"
+    elif lag >= threshold:
+        reason = "stale"
+    else:
+        reason = "ok"
+    return {
+        "frequency": frequency,
+        "last_published": last_published.isoformat() if last_published else None,
+        "published_lag_days": lag,
+        "stale_after_days": threshold,
+        "stale_reason": reason,
+    }
+
+
+def coverage(vault, today, sources_cfg, entities_cfg, stale_source_days=None):
+    """→ 覆蓋範圍快照。純計數，不判斷、不寫檔。
+
+    `stale_source_days`：gate.yaml 的 `monitor.stale_source_days`。預設 None 的語意是
+    「整個 key 不存在」→ 每條來源的 stale_reason 一律 `no_threshold`（量不到），
+    **不是**一個假門檻。這是這支函式唯一允許的預設值，因為 None 就是「量不到」。
+    """
     watch_cfg = sources_cfg.get("coverage_watch") or {}
     window = int(watch_cfg.get("window_days", 30))
     default_silent = int(watch_cfg.get("max_silent_days", 14))
@@ -226,9 +284,15 @@ def coverage(vault, today, sources_cfg, entities_cfg):
                     row = json.loads(line)
                 except ValueError:
                     continue
-                s = per_source.setdefault(sid, {"items": 0, "last": None})
+                s = per_source.setdefault(sid, {"items": 0, "last": None, "last_published": None})
                 s["items"] += 1
                 s["last"] = max(s["last"], d) if s["last"] else d
+                # published 走 lib.quality.parse_dt，不走 _as_date：後者只吃 ISO，
+                # 而 RSS 來源的 published 是 RFC 2822（`Mon, 14 Sep 2026 00:00:00 GMT`），
+                # 用 _as_date 會把它們全部量成 None——整排 no_published，看起來像 adapter 壞了。
+                pub = clock.utc_date(parse_dt(row.get("published")))
+                if pub and (s["last_published"] is None or pub > s["last_published"]):
+                    s["last_published"] = pub
                 # 優先用 probe 寫下的 entity_hits——那是 entities.yaml 字典的實際判定，
                 # 跟聚類用的是同一把尺。這裡自己再 regex 一次只是舊語料的退路，
                 # 兩把尺量出不同數字的話，該信的是聚類那把。
@@ -318,12 +382,16 @@ def coverage(vault, today, sources_cfg, entities_cfg):
 
     src_rows = []
     for s in sorted(runnable, key=lambda s: s["id"]):
-        st = per_source.get(s["id"]) or {"items": 0, "last": None}
+        st = per_source.get(s["id"]) or {"items": 0, "last": None, "last_published": None}
         src_rows.append({
             "id": s["id"], "track": s.get("track"), "owner": s.get("owner"),
             "lifecycle": s.get("lifecycle"), "items": st["items"],
             "last_item": st["last"].isoformat() if st["last"] else None,
             "silent_days": (today - st["last"]).days if st["last"] else None,
+            # 「最新一筆 published 距今幾天」——跟上面 items / silent_days 量的是兩件事：
+            # 那兩格量「這班抓到幾筆」，這五格量「抓到的東西有多舊」。
+            **stale_source_row(today, st["items"], st["last_published"],
+                               s.get("frequency"), stale_source_days),
         })
 
     return {
@@ -332,6 +400,8 @@ def coverage(vault, today, sources_cfg, entities_cfg):
         "corpus_days_in_window": len(in_window),
         "runnable_sources": len(runnable),
         "silent_sources": [r["id"] for r in src_rows if r["items"] == 0],
+        # src_rows 已照 id 排，所以這張清單天生有序（紅線 1：同輸入同輸出）。
+        "stale_sources": [r["id"] for r in src_rows if r["stale_reason"] == "stale"],
         "sources": src_rows,
         "must_watch": watched,
         "no_source": [w["label"] for w in watched if w["reason"] == "no_source"],
@@ -488,6 +558,41 @@ def health(vault: Path, today, r, stale_after_days: int):
     }
 
 
+def stale_source_lines(c, code=lambda s: s):
+    """「來源已死但每班照樣有貨」的兩行摘要。回 (點名行, 量不到行, stale 的 id 清單)。純函式。
+
+    第三個值給呼叫端決定要不要掛 ⚠。從 rows 推、不讀 `c["stale_sources"]`：
+    render_health 的既有測試拿手組的 coverage dict 進來，那張表只有 `sources`。
+
+    health.md 與 CLI 報告共用這一支，不各自重推一次——判準只寫在一處，
+    兩個 renderer 各推各的遲早推歪。`code` 是 id 的外框（health.md 給反引號）。
+
+    零條時印「無」，不是整行不印：一個沒有出現的行，讀的人分不出是「沒有」
+    還是「這版沒在量」（紅線 8）。量不到的三種成因各自標名、不合併——
+    no_published 要修 adapter，no_threshold 要補設定，future_published 要查時鐘，
+    三件事要人做的動作不同。
+    """
+    rows = c["sources"]
+    stale = [r for r in rows if r["stale_reason"] == "stale"]
+    if stale:
+        line1 = (f"來源已死但每班照樣有貨 {len(stale)} 條："
+                 + "、".join(f"{code(r['id'])}（最新 {r['last_published']}，"
+                             f"落後 {r['published_lag_days']} 天，門檻 {r['stale_after_days']}）"
+                             for r in stale))
+    else:
+        line1 = "來源已死但每班照樣有貨：無"
+    parts = []
+    for reason in ("no_published", "no_threshold", "future_published"):
+        ids = [r["id"] for r in rows if r["stale_reason"] == reason]
+        if ids:
+            parts.append(f"{reason} {len(ids)} 條：" + "、".join(code(i) for i in ids))
+    n = sum(1 for r in rows if r["stale_reason"] in ("no_published", "no_threshold",
+                                                     "future_published"))
+    line2 = (f"最新一筆 published 量不到 {n} 條——" + "；".join(parts) if parts
+             else "最新一筆 published 量不到：無")
+    return line1, line2, [r["id"] for r in stale]
+
+
 def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=None,
                   digest=None, branches=None):
     """健康頁的 markdown。**不寫任何比「日」更細的時間**——見 pulse-source-notes
@@ -592,7 +697,10 @@ def render_health(r, h, desc_cov=None, narr_hist=None, enrich=None, caps_line=No
 
     dead = [s["id"] for s in c["sources"] if s["items"] == 0]
     out += [f"- 可跑來源 {c['runnable_sources']} 條，本窗口零產出 {len(dead)} 條"
-            + ("：" + "、".join(f"`{d}`" for d in dead) if dead else ""), ""]
+            + ("：" + "、".join(f"`{d}`" for d in dead) if dead else "")]
+    # 零產出點不到的那一種死法：每班照樣有貨，只是貨是舊的。
+    _s1, _s2, _sbad = stale_source_lines(c, code=lambda i: f"`{i}`")
+    out += [("- ⚠ " if _sbad else "- ") + _s1, "- " + _s2, ""]
 
     out += ["## 來源層", ""]
     if h["degraded_by_health"]:
@@ -1060,6 +1168,9 @@ def main():
                     help="連 pending（已知未覆蓋）的也算失敗——要把待辦逼到零時才開")
     ap.add_argument("--alert-stale", action="store_true",
                     help="資料新鮮度超過 gate.yaml 的 monitor.stale_after_days → exit 1")
+    ap.add_argument("--alert-stale-source", action="store_true",
+                    help="有可跑來源的最新一筆 published 落後超過門檻 → exit 1"
+                         "（門檻按 frequency 查 gate.yaml 的 monitor.stale_source_days）")
     ap.add_argument("--alert-enrich-stale", action="store_true",
                     help="半夜潤稿那條鏈太久沒推回 main → exit 1"
                          "（門檻 gate.yaml 的 monitor.enrich_stale_after_days）")
@@ -1080,12 +1191,14 @@ def main():
 
     import yaml
     cfg = vault / "_config"
+    gate = yaml.safe_load((cfg / "gate.yaml").read_text("utf-8")) or {}
     r["coverage"] = coverage(
         vault, today,
         yaml.safe_load((cfg / "sources.yaml").read_text("utf-8")) or {},
-        yaml.safe_load((cfg / "entities.yaml").read_text("utf-8")) or {})
+        yaml.safe_load((cfg / "entities.yaml").read_text("utf-8")) or {},
+        # 沒有這個 key 就是 None → 全部 no_threshold（量不到），不補預設數字。
+        stale_source_days=(gate.get("monitor") or {}).get("stale_source_days"))
 
-    gate = yaml.safe_load((cfg / "gate.yaml").read_text("utf-8")) or {}
     stale_after = ((gate.get("monitor") or {}).get("stale_after_days")
                    or DEFAULT_STALE_AFTER_DAYS)
     r["health"] = h = health(vault, today, r, stale_after)
@@ -1190,6 +1303,9 @@ def main():
         dead = [s for s in c["sources"] if s["items"] == 0]
         print(f"     可跑來源 {c['runnable_sources']} 條，其中 {len(dead)} 條本窗口零產出"
               + ("：" + ", ".join(s["id"] for s in dead) if dead else ""))
+        _s1, _s2, _sbad = stale_source_lines(c)
+        print(("     ⚠ " if _sbad else "     ") + _s1)
+        print("     " + _s2)
 
     rc = 0
     cv = r["coverage"]
@@ -1218,6 +1334,18 @@ def main():
             print(f"[alert] 必盯實體沉默超過門檻：{'、'.join(cv['silent'])}"
                   "——來源可能已死或改版，鏈在跑但看不見這幾條線", file=sys.stderr)
             rc = 1
+    if args.alert_stale_source and cv["stale_sources"]:
+        # 點名時附最新一筆的日期：訊息要指向「這條來源的貨是舊的」，
+        # 不是「這條來源沒貨」——後者是 silent_sources 的事，兩者要人查的方向不同。
+        _rows = {s["id"]: s for s in cv["sources"]}
+        print("[alert] 來源已死但每班照樣有貨："
+              + "、".join(f"{i}（最新 {_rows[i]['last_published']}，"
+                          f"落後 {_rows[i]['published_lag_days']} 天，"
+                          f"門檻 {_rows[i]['stale_after_days']}）"
+                          for i in cv["stale_sources"])
+              + "——items 不是 0 所以 silent_sources 點不到它，去看 feed 是不是換了網址"
+                "、或站方停更了", file=sys.stderr)
+        rc = 1
     if args.alert_no_source and cv["no_source"]:
         print(f"[alert] 尚無來源的必盯實體（含 pending）：{'、'.join(cv['no_source'])}",
               file=sys.stderr)
