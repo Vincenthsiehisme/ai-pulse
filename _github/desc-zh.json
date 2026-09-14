@@ -330,7 +330,7 @@
     "zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
   },
   "microsoft/Webwright": {
-    "at": "2026-09-13T19:08:54+00:00",
+    "at": "2026-09-14T19:12:31+00:00",
     "src_hash": "d10d381bd422",
     "zh": "簡單的 SWE 風格瀏覽器 agent 框架，在長時程網頁任務上做到 SOTA 成績"
   },
@@ -430,9 +430,9 @@
     "zh": "C++ 核心的高效能 AI pipeline 引擎，數十個 Python 擴充節點，IDE 內建構 LLM 工作流"
   },
   "rryam/VecturaKit": {
-    "at": "2026-09-13T19:08:54+00:00",
+    "at": "2026-09-14T19:12:31+00:00",
     "src_hash": "4b1724582abf",
-    "zh": "用 Swift 寫的向量資料庫，透過 MLTensor 與 MLX Embedders 做裝置端 RAG"
+    "zh": "用 Swift 寫的向量資料庫，靠 MLTensor 和 MLX Embedders 做裝置端 RAG"
   },
   "rtk-ai/rtk": {
     "at": "2026-07-27T19:23:58+00:00",
