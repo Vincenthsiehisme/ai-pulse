@@ -881,6 +881,13 @@ def last_enrich_commit(vault):
     return (out, "ok") if out else (None, "none")
 
 
+# 「超過一半沒收」這種判斷要有樣本才成立。squash 的症狀是**每一支歷史分支**同時
+# 看起來沒收，一兩支分支上看不出那個形狀：2026-09-15 把四支夜班分支刪掉之後，
+# origin 上只剩一支進行中的 PR 分支，1 支沒收就是 100%，判準當場宣告自己失效，
+# 而沒有任何東西改變過。這個數字是起手值（分辨力，不是實測分布），要調走 PR。
+SUSPECT_MIN_BRANCHES = 4
+
+
 def unmerged_branches(vault, main_ref="origin/main"):
     """origin 上「tip 不是 main 祖先」的分支。回 (rows, reason)。
 
@@ -890,7 +897,7 @@ def unmerged_branches(vault, main_ref="origin/main"):
 
         ok           量到了
         no-git       這裡不是 git 工作區
-        no-remotes   只看得到 main（或一支都沒有）→ **量不到，不是 0 支**
+        no-remotes   單分支 clone（refspec 只抓一條）→ **量不到，不是 0 支**
         suspect      不在 main 的超過一半 → 判準可能失效（見下）
 
     **`no-remotes` 是這條規則最容易變成永遠綠燈的地方。** 單分支 clone 裡
@@ -908,7 +915,8 @@ def unmerged_branches(vault, main_ref="origin/main"):
     **`suspect` 防的是 merge 策略改變。** 這條判準假設用 merge commit：squash-merge
     會生一顆新 commit，原分支 tip 永遠不會變成 main 的祖先，於是**每一支歷史分支
     都會看起來沒被收**，一次報 40 支，然後兩週內被人關掉。一個判準能說出自己
-    什麼時候不該被相信，比多抓幾支分支重要。規格 references/health-alarms.md。
+    什麼時候不該被相信，比多抓幾支分支重要。它自己也要有樣本才成立，見
+    `SUSPECT_MIN_BRANCHES`。規格 references/health-alarms.md。
     """
     def git(*args):
         return subprocess.run(["git", "-C", str(vault), *args],
@@ -925,14 +933,21 @@ def unmerged_branches(vault, main_ref="origin/main"):
                 if b.startswith(_pfx) and not b.endswith("/HEAD")]
     branches = [b for b in branches if b != main_ref]
     if not branches:
-        return [], "no-remotes"
+        # 一支都看不到有兩種成因，要做的事相反：refspec 是萬用字元的時候，
+        # 這個工作區**看得到全部分支**，那就是真的 0 支（分支都收乾淨了）；
+        # 單分支 clone 的 refspec 只抓一條（`+refs/heads/main:...`），那才是量不到。
+        # 原本的 `origin/HEAD` 濾漏遮住了這個歧義：那條路從來沒走到過，
+        # 所以「都收乾淨了」跟「看不到」在此之前長得一樣（反過來的紅線 8）。
+        specs = git("config", "--get-all",
+                    f"remote.{main_ref.split('/', 1)[0]}.fetch").stdout
+        return [], ("ok" if "refs/heads/*" in specs else "no-remotes")
     rows = []
     for b in branches:
         if git("merge-base", "--is-ancestor", b, main_ref).returncode == 0:
             continue
         day = git("log", "-1", "--format=%cd", "--date=short", b).stdout.strip()
         rows.append((b, day))
-    if len(rows) * 2 > len(branches):
+    if len(branches) >= SUSPECT_MIN_BRANCHES and len(rows) * 2 > len(branches):
         return sorted(rows, key=lambda r: (r[1], r[0])), "suspect"
     return sorted(rows, key=lambda r: (r[1], r[0])), "ok"
 

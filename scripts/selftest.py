@@ -5741,8 +5741,14 @@ with _tf2.TemporaryDirectory() as _td_ub:
     # 少了這一行，fixture 比現場乾淨，`origin/HEAD` 那個 bug 在測試裡不存在
     # （2026-09-15：`no-remotes` 因此從沒在真實 clone 觸發過，一路回 ok / 0 支）。
     _g("remote", "set-head", "origin", "main")
+    # 完整 clone（refspec 是萬用字元）而 origin 上只有 main：那是**真的 0 支**。
     _ub_only_main = _dob.unmerged_branches(_ubr / "work")[1]
     _ub_only_main_rows = _dob.unmerged_branches(_ubr / "work")[0]
+    # 單分支 clone（refspec 只抓一條）：同樣算出空清單，但那是**量不到**。
+    _subprocess.run(["git", "clone", "-q", "--single-branch", "--branch", "main",
+                     str(_ubr / "origin.git"), str(_ubr / "single")],
+                    capture_output=True)
+    _ub_single = _dob.unmerged_branches(_ubr / "single")[1]
     for name, merge_it in (("fix/收了的", True), ("fix/沒收的", False)):
         _g("checkout", "-q", "-b", name, "main")
         (_ubr / "work" / f"{name.split('/')[1]}.txt").write_text("x", "utf-8")
@@ -5754,19 +5760,31 @@ with _tf2.TemporaryDirectory() as _td_ub:
             _g("push", "-q", "origin", "main")
     _g("fetch", "-q", "origin")
     _ub_rows, _ub_reason = _dob.unmerged_branches(_ubr / "work")
-    # 再推一支沒 merge 的：2/3 不是 main 祖先 → 超過一半 → suspect。
+    # 再推沒 merge 的分支，把「超過一半」推過去。**分兩段量**：三支的時候樣本
+    # 還太小（2/3 過半，但 squash 的症狀是每一支歷史分支同時看起來沒收，
+    # 一兩支上看不出那個形狀），四支才做這個判斷。
     # 只用「傳 reason='suspect' 進純函式」釘的話，算出 suspect 的那幾行沒有人守。
-    _g("checkout", "-q", "-b", "fix/也沒收", "main")
-    (_ubr / "work" / "c.txt").write_text("x", "utf-8")
-    _g("add", "-A"); _g("commit", "-qm", "c"); _g("push", "-q", "origin", "fix/也沒收")
-    _g("checkout", "-q", "main"); _g("fetch", "-q", "origin")
+    for _extra in ("fix/也沒收", "fix/還是沒收"):
+        _g("checkout", "-q", "-b", _extra, "main")
+        (_ubr / "work" / f"{_extra.split('/')[1]}.txt").write_text("x", "utf-8")
+        _g("add", "-A"); _g("commit", "-qm", _extra); _g("push", "-q", "origin", _extra)
+        _g("checkout", "-q", "main"); _g("fetch", "-q", "origin")
+        if _extra == "fix/也沒收":
+            # branches=3、rows=2：過半，但樣本不夠。
+            _ub_small_sample = _dob.unmerged_branches(_ubr / "work")[1]
+    # branches=4、rows=3。
     _ub_suspect = _dob.unmerged_branches(_ubr / "work")[1]
     _g("remote", "set-head", "origin", "fix/沒收的")
     _ub_head_elsewhere = [b for b, _d in _dob.unmerged_branches(_ubr / "work")[0]]
     _g("remote", "set-head", "origin", "main")
-acase("unmerged_branches：只有 main 的 clone 回 no-remotes（不是 0 支）"
-      "——fixture 帶 origin/HEAD，跟真實 clone 一樣",
-      _ub_only_main, "no-remotes")
+acase("unmerged_branches：**單分支** clone 回 no-remotes（不是 0 支）"
+      "——refspec 只抓一條，這個工作區看不到別的分支",
+      _ub_single, "no-remotes")
+acase("unmerged_branches：完整 clone 而 origin 上只有 main → 真的 0 支，不是量不到"
+      "（反方向。兩種都算出空清單，要做的事相反：一個不用做任何事，"
+      "一個要去補 fetch-depth: 0。2026-09-15 把夜班分支全刪掉之後，"
+      "Actions 那一邊走的就是這條）",
+      _ub_only_main, "ok")
 acase("unmerged_branches：`origin/HEAD` 不算一支分支"
       "（它的 %(refname:short) 是 `origin`，不是 `origin/HEAD`，按 ref 名尾巴濾"
       "會漏掉它。這一格把 HEAD 指到一支**不是 main 祖先**的分支：濾漏的版本會把"
@@ -5781,6 +5799,11 @@ acase("unmerged_branches：真的跑 git，只挑出沒 merge 的那一支"
 acase("unmerged_branches：超過一半不是 main 祖先時，算出來的 reason 是 suspect"
       "（squash 的自保要在算的那一端就成立，不是只在印的那一端）",
       _ub_suspect, "suspect")
+acase("unmerged_branches：樣本太小的時候不做「超過一半」這個判斷"
+      "（3 支裡 2 支沒收也是過半。2026-09-15 把夜班分支刪光之後 origin 上只剩"
+      "一支進行中的 PR 分支，那一支還沒合併是正常狀態，而 1/1 就是 100%——"
+      "判準會每晚宣告自己失效，而沒有任何東西改變過）",
+      _ub_small_sample, "ok")
 acase("references/health-alarms.md 有〈修好了但沒有人收〉那一節（紅線 9 先文件後碼）",
       "修好了但沒有人收" in open(
           os.path.join(_HERE, "..", "references", "health-alarms.md"),
