@@ -1,6 +1,12 @@
-# 已發布事件（303）
+# 已發布事件（306）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-14
+- **[[Events/evt-2026-09-14-0dc682|How Fyxer built an AI executive assistant people trust]]** — Fyxer · product · conf 73 · heat 未量測
+  OpenAI 發客戶案例：Fyxer 用其模型加微調、記憶與用戶回饋做出會模仿個人口吻的收件匣助理。
+- **[[Events/evt-2026-09-14-c2c5ef|Perplexity Portable Computer Is Now Available on Windows, Powered by NVIDIA RTX]]** — Perplexity · product · conf 73 · heat 未量測
+  Perplexity 的本機 agent「Portable Computer」上線 Windows，靠 NVIDIA RTX 加速跑本機模型。
 
 ## 2026-09-11
 - **[[Events/evt-2026-09-11-4bdd2c|Rapidly scaling online storage to serve over 1 billion ChatGPT users]]** — OpenAI · infra · conf 73 · heat 未量測
@@ -51,6 +57,8 @@
   Hugging Face用Gradio Workflow重建知名Stable Diffusion介面AUTOMATIC1111。
 - **[[Events/evt-2026-09-10-a02a85|Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone]]** — Anthropic · capital · conf 73 · heat 未量測
   Anthropic收購JS執行環境Bun，同時宣布Claude Code年化營收達10億美元。
+- **[[Events/evt-2026-09-10-a2b717|Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 公開不靠 NCCL、靠 bucket 加 proxy 跨 HF Jobs 跑非同步 LoRA GRPO 訓練的做法。
 - **[[Events/evt-2026-09-10-aab6d4|Expanding Our Use Of Google Cloud Tpus And Services]]** — Google · infra · conf 73 · heat 未量測
   Anthropic擴大使用Google雲端TPU與相關服務，具體用量與合約我們選擇不轉述。
 - **[[Events/evt-2026-09-10-b16d8b|Seoul Becomes Third Anthropic Office In Asia Pacific]]** — Anthropic · capital · conf 73 · heat 未量測
