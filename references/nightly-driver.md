@@ -1,7 +1,8 @@
 # 夜班的階段機器：把十七步從散文變成碼
 
-> 這份是**規格**，`scripts/pulse-nightly.py` 是它的實作，`scripts/enrich-runbook.md`
-> 是寫的人那一邊的規則。三者不一致時以本檔為準，**先改本檔再改碼**（紅線 9）。
+> 這份是**規格**，`scripts/pulse-nightly.py`（階段機器）與 `scripts/nightly-shell.sh`
+> （外殼）是它的實作，`scripts/enrich-runbook.md` 是寫的人那一邊的規則。
+> 不一致時以本檔為準，**先改本檔再改碼**（紅線 9）。
 
 ## 為什麼要有這一層
 
@@ -68,7 +69,7 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 | 15 | `title-write` | narrative | Event 中文標題。清單同樣由 Actions 準備 | 無（worklist 存在且非空） |
 | 16 | `title-apply` | run | `--dry-run` 再正式 | **needs** title-write |
 | 17 | `render` | run | `pulse-render.py` | 無（前面 stop 會直接終止整輪） |
-| 18 | `commit` | commit | 先擋白名單外的改動，再 `git add -A` ＋ 有變更才 commit ＋ push | after render |
+| 18 | `commit` | commit | **先確認站在 `main`**，再擋白名單外的改動，然後 `git add -A` ＋ 有變更才 commit ＋ push | after render |
 | 19 | `monitor` | run | `pulse-monitor.py --top 5`，**不准帶警報旗標** | 無（排在 commit 之後：摘要要帶推上去之後的狀態） |
 
 `monitor` 那一條的禁令不是這裡新增的：判準讀本地 `git log`，在 push 之前它會讀到
@@ -181,6 +182,73 @@ runbook 步驟 18 列了六七行必須貼進摘要的輸出，漏掉 prep 那�
 
 摘要寫進 `_probe/nightly-run.json` 之外，也印到 stdout 供呼叫端轉發。**它要落在一個
 人看得到的地方**，那是呼叫端的責任，不是這一層的。
+
+## 外殼：迴圈是 shell 的
+
+`scripts/nightly-shell.sh` 是呼叫端。它做的事只有一件：driver 回 10 就把那份交棒訊息
+原樣餵給一個**獨立的** `claude -p`，寫完再叫 driver 接回去。
+
+```
+driver 回 10 ──► claude -p（只有 Read/Write/Glob/Grep）──► 寫出 result 檔 ──► driver 接回
+```
+
+**一棒一個 session，不是一個 session 裡開 subagent。** headless 開得了 subagent
+（2026-09-15 實測 `spawned: 1, completed: 1`），但用不到，而且一棒一個 session 更好：
+
+```
+context 最小   每一棒只看到自己那一段的清單，看不到別段的
+成本可預測     五段各自獨立，一段爆掉不會把整晚的 context 拖著
+失敗隔離       某一棒寫壞了，driver 在對帳時擋下來，其餘的狀態還在
+```
+
+**寫作端的工具白名單是它能造成的傷害上限**：`Read Write Glob Grep`，沒有 Bash。
+拿不到 Bash 就跑不了 apply、commit、push，所以「判斷不由你決定」那條紅線不只是
+寫在 prompt 裡的一句話，是它辦不到的事。selftest 有一條擋 `bypassPermissions`
+與 `--dangerously-skip-permissions`：那兩個旗標會讓白名單失效，而失效的時候
+畫面上什麼都看不出來。
+
+**派工第一行是身分句**（「你是 ai-pulse 夜班的寫作端，不要跑任何啟動序列」）。
+少了它，全域 `CLAUDE.md` 的啟動序列會讓寫作端去讀 vault 的 profile 與日誌，
+而那一段工作一個字都用不到。
+
+**交棒次數有上限**（`NIGHTLY_MAX_HANDOFF`，預設 8）。沒有上限的迴圈會在 driver
+因為某個沒想到的狀態一直回 10 的時候，整晚反覆叫 claude。那是會燒錢的失敗模式，
+而且它不會報錯。
+
+所以整條鏈的分工是：**迴圈是 shell 的、判斷是 driver 的、寫作才是 LLM 的**。
+這個 repo 對外的承諾（runtime 0 LLM 判斷）在這裡照樣成立：LLM 一個判斷都不做，只寫字。
+
+### commit 前的兩道關，順序不能換
+
+**一、站在哪一支。** 排程跑的是本機工作樹，而工作樹會停在人上次切過去的地方：
+某支 feature 分支、某次 review 留下的 detached HEAD 都算。不是 `main` 就 stop，
+並說出實際在哪一支。
+
+這擋的是 2026-09-11 那次事故的**另一半**。那一晚活做完了、commit 也建了，而它落在
+一支 session 自己的分支上、沒有到 `main`，三天沒有人知道。那次的原因在 Cowork 那一邊，
+搬到本機之後同一個形狀換一個入口回來：只要工作樹剛好停在別的分支，夜班就會把一整晚
+的資料 commit 推到那裡去。夜班沒有能力判斷那支分支該不該收，所以不猜，停下來。
+
+**二、改動的路徑。** 白名單外的東西一律不推（碼、CI、`_config` 的判斷邏輯走 PR）。
+
+順序不能換：先確認地點，再確認內容。地點錯了的話，內容再乾淨也是推到錯的地方。
+
+### 一晚花多少錢，要是一個被記錄的量
+
+外殼用 `--output-format json` 叫寫作端，把 `total_cost_usd` 記回狀態檔那一段的
+`cost_usd`，摘要印總額。
+
+**量不到跟 0 不一樣。** 一晚每一段都跳過是真的 0；外殼沒把數字傳回來是量不到。
+兩者長得一樣的話，「這條鏈很便宜」跟「沒有人在量」就分不出來，而那是這份文件
+從第一行講到現在的同一個形狀。所以摘要那一格在沒量到的時候印的是
+「**量不到**（外殼沒有把數字傳回來）」，不是 `USD 0.0000`。
+
+2026-09-15 實測（sonnet，一份 40 則 Event 的 vault）：`title-write` 那一棒
+3 筆標題翻譯花 `USD 0.2708`。整晚的量級隨當晚事件數走，`enrich-write` 與
+`digest-write` 是兩段大的。
+
+**這一層只負責記，不負責省。** 要不要設上限、超過就只跑 A 與 B3，那是人的決定，
+而人要先看得到數字才決定得了。
 
 ## 這一層不保證什麼
 

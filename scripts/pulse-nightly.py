@@ -187,6 +187,52 @@ def check_result(obj, keys, mode):
     return True, ""
 
 
+def total_cost(state):
+    """這一輪到目前為止花了多少錢（USD）。回 (總額, 有沒有量到)。
+
+    **量不到跟 0 不一樣。** 一晚沒叫過寫作端（每一段都跳過）是真的 0；外殼沒把數字
+    傳回來是量不到。兩者在摘要上要看得出差別，否則「這條鏈很便宜」跟「沒有人在量」
+    長得一模一樣——那是這個 repo 記過很多次的形狀。
+    """
+    vals = [st.get("cost_usd") for st in state.get("stages", [])
+            if st.get("cost_usd") is not None]
+    asked = [st for st in state.get("stages", []) if st.get("status") == "ok"
+             and st.get("id", "").endswith("-write")]
+    if not vals:
+        return 0.0, not asked
+    return round(sum(vals), 4), True
+
+
+def calls_in(source, func_name, inside):
+    """`inside` 這個函式裡有沒有呼叫 `func_name`。走 ast，不走字串比對。
+
+    **純函式測得再好，呼叫端沒接上照樣全綠。** 這個 repo 記過六次同一個形狀：
+    規矩寫在一個地方，新接上來的消費者沒有一起接到，而兩邊在規則沒動過的日子裡
+    給一模一樣的答案。2026-09-15 寫這支的時候當場又踩到一次：把 `advance()` 裡的
+    `keeps_output(...)` 換成寫死的條件，`keeps_output` 自己的測試一條都沒紅。
+    """
+    import ast as _ast
+    for node in _ast.walk(_ast.parse(source)):
+        if isinstance(node, _ast.FunctionDef) and node.name == inside:
+            for sub in _ast.walk(node):
+                if (isinstance(sub, _ast.Call) and isinstance(sub.func, _ast.Name)
+                        and sub.func.id == func_name):
+                    return True
+            return False
+    return False
+
+
+def keeps_output(spec, status):
+    """這一段跑完之後，完整輸出要不要留在狀態檔裡。純函式。
+
+    `noted` ＝「跑了，有事要人看」。只記一句 `rc=1` 的話，人看摘要知道有事、**不知道
+    是什麼事**——而 runbook 步驟 18 要的是「各退件幾條、為什麼」。2026-09-15 第一次
+    實跑就踩到：`title-apply` 回 1，摘要上只有 `rc=1`，退件理由（一則超過 40 字、
+    一則清單是舊的）全部不見了。
+    """
+    return bool(spec.get("summary_full") or status == "noted")
+
+
 def summary_lines(state):
     """從狀態檔組收尾摘要。
 
@@ -197,6 +243,8 @@ def summary_lines(state):
     for st in state.get("stages", []):
         note = (st.get("note") or "").strip()
         out.append(f"  {st['id']:<19} {st['status']:<8} {note}".rstrip())
+    cost, measured = total_cost(state)
+    out.append(f"  {'寫作端成本':<19} {'USD ' + format(cost, '.4f') if measured else '**量不到**（外殼沒有把數字傳回來）'}")
     tail = [st.get("full_output") for st in state.get("stages", []) if st.get("full_output")]
     for t in tail:
         out.append("")
@@ -352,8 +400,12 @@ def do_narrative(vault, spec, recorded):
     ok, why = check_result(obj, keys, spec["check"])
     if not ok:
         return "stop", f"{spec['result']} {why}", {}
-    n = len(obj) if isinstance(obj, dict) else 0
-    return "ok", f"收到 {spec['result']}（{n} 筆，清單 {count} 筆）", {"worklist": meta}
+    if spec["check"] == "single":
+        # 這一段的產物是一篇文章，不是 dict keyed by id。印它的頂層欄位數會讓人
+        # 以為寫了 N 則，那是個看起來像資料的假數字。
+        return "ok", f"收到 {spec['result']}（素材 {count} 則）", {"worklist": meta}
+    return ("ok", f"收到 {spec['result']}（{len(obj)} 筆，清單 {count} 筆）",
+            {"worklist": meta})
 
 
 def narrative_handoff(spec, count):
@@ -369,12 +421,32 @@ def narrative_handoff(spec, count):
     ])
 
 
+def on_target_branch(vault, target="main"):
+    """現在站在目標分支上嗎。回 (是不是, 實際在哪一支)。
+
+    **這條擋的是 2026-09-11 那次事故的另一半。** 那一晚夜班把活做完、commit 也建了，
+    但它落在一支 session 自己的分支上，沒有到 main，三天沒有人知道。排程跑的是本機
+    工作樹，而工作樹會停在人上次切過去的地方——某支 feature 分支、某次 review 的
+    detached HEAD 都算。夜班沒有能力判斷那支分支該不該收，所以不猜，停下來。
+    """
+    r = subprocess.run(["git", "-C", str(vault), "rev-parse", "--abbrev-ref", "HEAD"],
+                       capture_output=True, text=True, timeout=20)
+    cur = (r.stdout or "").strip()
+    return cur == target, (cur or "量不到")
+
+
 def do_commit(vault, spec, no_push):
     """git add -A ＋ 有變更才 commit ＋ push。
 
-    **先擋白名單以外的改動。** 夜班的授權只到資料產物；碼、CI、_config 的判斷邏輯
-    走 PR，那條規矩不因為現在是半夜就改變。`git add -A` 不看這件事，所以看在這裡。
+    兩道關，順序不能換：**先確認站在哪一支**，再擋白名單以外的改動。夜班的授權只到
+    資料產物、只到 `main`；碼、CI、_config 的判斷邏輯走 PR，那條規矩不因為現在是
+    半夜就改變。`git add -A` 這兩件事都不看，所以看在這裡。
     """
+    ok, cur = on_target_branch(vault)
+    if not ok:
+        return "stop", (f"工作樹停在 `{cur}`，不是 `main`，夜班不推"
+                        "——2026-09-11 那次成果落在 session 分支上三天沒人知道，"
+                        "就是這個形狀"), ""
     rc, out = run(vault, ["git", "status", "--porcelain"])
     if rc != 0:
         return "stop", f"git status 失敗 rc={rc}", out
@@ -459,7 +531,7 @@ def advance(vault, state, date_str, no_push):
                     return 2
             status, note, full = do_run_stage(vault, spec)
 
-        extra = {"full_output": full} if (spec.get("summary_full") and full) else {}
+        extra = {"full_output": full} if (full and keeps_output(spec, status)) else {}
         set_stage(state, spec["id"], status, note, **extra)
         save_state(vault, state)
         if status == "stop":
@@ -477,6 +549,9 @@ def main():
     r = sub.add_parser("run", help="推進到下一個交棒點或跑完")
     r.add_argument("--no-push", action="store_true", help="commit 但不 push")
     r.add_argument("--reset", action="store_true", help="丟掉今天的狀態重跑")
+    c = sub.add_parser("cost", help="記一筆寫作端的花費（外殼呼叫）")
+    c.add_argument("--stage", required=True)
+    c.add_argument("--usd", required=True, type=float)
     sub.add_parser("status", help="現在到哪")
     sub.add_parser("summary", help="印收尾摘要")
     args = ap.parse_args()
@@ -490,6 +565,18 @@ def main():
             print("還沒有任何一輪的紀錄", file=sys.stderr)
             return 2
         print("\n".join(summary_lines(state)))
+        return 0
+
+    if args.cmd == "cost":
+        if state is None:
+            print("還沒有任何一輪的紀錄，無處可記", file=sys.stderr)
+            return 2
+        st = stage_record(state, args.stage)
+        if st is None:
+            print(f"狀態檔裡沒有 {args.stage} 這一段", file=sys.stderr)
+            return 2
+        st["cost_usd"] = round((st.get("cost_usd") or 0) + args.usd, 6)
+        save_state(vault, state)
         return 0
 
     if state is None or state.get("date") != date_str or args.reset:

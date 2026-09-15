@@ -6020,6 +6020,122 @@ acase("夜班：摘要帶得出 prep 那一行"
                        "note": "pulse-enrich-prep  待 enrich=3  已 enrich 跳過=37"}]})),
       True)
 
+# 外殼那一層。迴圈是 shell 的、判斷是 driver 的、寫作才是 LLM 的——**這幾條釘的是
+# 那個分界線有沒有被守住**，因為它同時是安全邊界：寫作端拿到的工具就是它能造成的
+# 傷害上限。
+_NS = open(os.path.join(_HERE, "nightly-shell.sh"), encoding="utf-8").read()
+
+acase("夜班外殼：寫作端的工具白名單只有讀寫與搜尋"
+      "（拿不到 Bash 就跑不了 apply、commit、push；這一格是它能造成的傷害上限）",
+      '--allowedTools "Read Write Glob Grep"' in _NS, True)
+acase("夜班外殼：不准出現跳過權限檢查的旗標"
+      "（`--dangerously-skip-permissions` / `bypassPermissions` 會讓上面那條白名單失效，"
+      "而失效的時候畫面上什麼都看不出來）",
+      [f for f in ("--dangerously-skip-permissions", "bypassPermissions",
+                   "--allow-dangerously-skip-permissions") if f in _NS],
+      [])
+acase("夜班外殼：派工第一行是身分句"
+      "（那是它判斷自己是誰的唯一線索。少了它，全域 CLAUDE.md 的啟動序列會讓寫作端"
+      "去讀 vault 的 profile 與日誌，而那一段工作一個字都用不到）",
+      "你是 ai-pulse 夜班的**寫作端**" in _NS
+      and "不要跑任何啟動序列" in _NS, True)
+acase("夜班外殼：派工明講不准自己跑 driver／apply／commit／push"
+      "（白名單已經擋住了，但寫下來的理由是：擋住的時候它會去想繞路，"
+      "而想繞路的那幾輪是白花的）",
+      all(k in _NS for k in ("不要**自己跑 pulse-nightly.py", "不要 commit", "不要 push")),
+      True)
+acase("夜班外殼：交棒次數有上限"
+      "（沒有上限的迴圈會在 driver 因為某個沒想到的狀態一直回 10 的時候，"
+      "整晚反覆叫 claude——那是會燒錢的失敗模式）",
+      "MAX_HANDOFF" in _NS and "seq 1" in _NS, True)
+acase("夜班外殼：exit 10 以外一律照原樣往外傳"
+      "（10 是「等你」，而這支腳本就是那個「你」；它自己不該回 10）",
+      '[ "$rc" -eq 10 ] || exit "$rc"' in _NS, True)
+
+acase("夜班：digest 那一段的 note 不報「筆數」"
+      "（它的產物是一篇文章，不是 dict keyed by id。印頂層欄位數會讓人以為寫了 N 則，"
+      "那是個看起來像資料的假數字）",
+      [_nl_stages["digest-write"]["check"], _nl_stages["enrich-write"]["check"]],
+      ["single", "keyed"])
+acase("夜班：noted 的那一段要把輸出留下來"
+      "（noted ＝「跑了，有事要人看」。只記一句 rc=1 的話，人看摘要知道有事、不知道"
+      "是什麼事。2026-09-15 第一次實跑就踩到：title-apply 回 1，退件理由全部不見了。"
+      "**釘的是「要不要留」那個決定本身，不是 summary_lines 會不會印**——"
+      "只釘後者的話，把留輸出那一行刪掉，這一格照樣是綠的）",
+      [_nl.keeps_output({}, "noted"), _nl.keeps_output({}, "ok"),
+       _nl.keeps_output({"summary_full": True}, "ok"),
+       any("退件" in ln for ln in _nl.summary_lines(
+           {"date": "d", "stages": [
+               {"id": "title-apply", "status": "noted", "note": "rc=1",
+                "full_output": "  [退件] evt-x\n         超過 40 字"}]}))],
+      [True, False, True, True])
+
+_nl_src = open(os.path.join(_HERE, "pulse-nightly.py"), encoding="utf-8").read()
+acase("夜班：五條接線真的接上了（**接線也要有人守**）"
+      "（純函式測得再好，呼叫端把它換成寫死的條件，那幾條判準一條都不會紅。"
+      "寫這支的時候當場踩到一次：advance() 裡的 keeps_output 被換掉，全綠）",
+      [_nl.calls_in(_nl_src, "keeps_output", "advance"),
+       _nl.calls_in(_nl_src, "requires_ok", "advance"),
+       _nl.calls_in(_nl_src, "code_action", "do_run_stage"),
+       _nl.calls_in(_nl_src, "dirty_outside_data", "do_commit"),
+       _nl.calls_in(_nl_src, "on_target_branch", "do_commit"),
+       _nl.calls_in(_nl_src, "check_result", "do_narrative")],
+      [True, True, True, True, True, True])
+acase("夜班：calls_in 走 ast 不走字串"
+      "（註解與 docstring 裡提到名字不算接上——這個 repo 的說明文字裡到處都是"
+      "函式名，用字串比對會把解釋讀成接線，然後這條檢查就永遠是綠的）",
+      [_nl.calls_in('def a():\n    """叫 b() 一下"""\n    return 1\n', 'b', 'a'),
+       _nl.calls_in("def a():\n    return b()\n", "b", "a"),
+       _nl.calls_in("def a():\n    return 1\n", "b", "zzz")],
+      [False, True, False])
+
+acase("夜班：一晚花多少錢，量不到跟 0 要分得開"
+      "（每一段都跳過是真的 0；外殼沒把數字傳回來是量不到。"
+      "兩者長得一樣的話，「這條鏈很便宜」跟「沒有人在量」就分不出來）",
+      [_nl.total_cost({"stages": [{"id": "enrich-write", "status": "skipped"}]}),
+       _nl.total_cost({"stages": [{"id": "enrich-write", "status": "ok"}]}),
+       _nl.total_cost({"stages": [{"id": "enrich-write", "status": "ok",
+                                   "cost_usd": 0.42}]})],
+      [(0.0, True), (0.0, False), (0.42, True)])
+acase("夜班：摘要一定帶成本那一行（量不到就寫量不到）",
+      ["量不到" in "\n".join(_nl.summary_lines(
+           {"date": "d", "stages": [{"id": "enrich-write", "status": "ok", "note": ""}]})),
+       "USD 0.4200" in "\n".join(_nl.summary_lines(
+           {"date": "d", "stages": [{"id": "enrich-write", "status": "ok",
+                                     "note": "", "cost_usd": 0.42}]}))],
+      [True, True])
+acase("夜班外殼：把每一棒的花費記回狀態檔（`cost` 子命令有被呼叫）",
+      "pulse-nightly.py cost --stage" in _NS, True)
+
+# 端到端：commit 前那兩道關真的跑 git。純函式測得再好，這一格是它實際會不會擋。
+with _tf2.TemporaryDirectory() as _td_br:
+    _brr = Path(_td_br)
+
+    def _bg(*a):
+        return _subprocess.run(["git", "-C", str(_brr), *a], capture_output=True, text=True)
+
+    _subprocess.run(["git", "init", "-q", str(_brr)], capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _bg("config", k, v)
+    (_brr / "a.txt").write_text("1", "utf-8")
+    _bg("add", "-A"); _bg("commit", "-qm", "base"); _bg("branch", "-M", "main")
+    _br_on_main = _nl.on_target_branch(_brr)
+    _bg("checkout", "-q", "-b", "fix/somewhere-else")
+    _br_elsewhere = _nl.on_target_branch(_brr)
+    (_brr / "Events").mkdir()
+    (_brr / "Events" / "e.md").write_text("x", "utf-8")
+    _br_commit = _nl.do_commit(_brr, {"message": "nightly: x"}, True)[:2]
+
+acase("夜班：commit 前先確認站在 main 上"
+      "（排程跑的是本機工作樹，而工作樹會停在人上次切過去的地方。"
+      "2026-09-11 那次成果落在 session 分支上三天沒人知道，就是這個形狀）",
+      [_br_on_main, _br_elsewhere],
+      [(True, "main"), (False, "fix/somewhere-else")])
+acase("夜班：不在 main 上就 stop，而且說出實際在哪一支"
+      "（只說「分支不對」的話，人還要自己去查是哪一支）",
+      [_br_commit[0], "fix/somewhere-else" in _br_commit[1]],
+      ["stop", True])
+
 acase("references/nightly-driver.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "nightly-driver.md")),
       True)
