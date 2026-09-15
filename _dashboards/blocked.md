@@ -1,7 +1,12 @@
-# 被門禁擋下（37）
+# 被門禁擋下（42）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-15-0fe6d3|From Megawatts to Tokens: How NVIDIA Maximizes AI Factory Production]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-15-1766a6|Your Agent Aced the Task. Will It Do It Again?]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-15-18b24e|AI Infra Summit: NVIDIA Vera Rubin and DSX Platform Advancements Showc]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-15-8d5244|Heart of the Matter: How a Major Children’s Hospital Uses Open Source ]]** — NVIDIA — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-15-a7dafa|Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking]]** — Google DeepMind — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-c7ad58|AI Enabled Cyber Threats Mitre Attack]]** — Anthropic — blockers: thin_research_analysis

@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-14"
+generated_day: "2026-09-15"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-14"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **289** 則／已裁決 **26** 則。
+待回答 **292** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,14 +24,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#dc0a0632`** — infra-cost
-  > 留意這套新儲存架構是否有具體的成本或延遲數字公布，那會比「支撐 10 億用戶」這個規模數字更能看出實際效益；也持續追蹤 NVIDIA 系列訊號（d-Matrix、Skild AI、robotaxi 生態系）的後續案例是否兌現。
+- **`infra-cost#392c90b6`** — infra-cost
+  > 留意這套 HF 非同步訓練做法是否有具體的吞吐或成本數字被引用。同時持續追蹤 OpenAI Habitat 儲存架構、NVIDIA 系列訊號（d-Matrix、Skild AI、robotaxi 生態系）的後續案例是否兌現。
 
 - **`model-research#072cead6`** — model-research
   > 留意 Anthropic 是否進一步說明 Fable 5 重新部署的原因，以及 IBM 的 SOTA 宣稱有沒有第三方基準測試跟進驗證；『小而專』模型迭代這條主軸則要看下一輪有沒有新的模型發布訊號。
 
-- **`product-market#d7c764f4`** — product-market
-  > 留意這批顧問夥伴公告是否有具體客戶導入案例或成效數字跟進公布，目前全部停在宣布合作的層級，看不出實際落地規模；也留意 Google DeepMind 這條產品化主軸下一輪還有沒有新進展。
+- **`product-market#da6ad562`** — product-market
+  > 留意 Anthropic 這批顧問夥伴公告是否有具體客戶導入案例或成效數字跟進公布，目前全部停在宣布合作的層級。同時觀察 Fyxer 這類記憶與個人化助理是否有更多同類案例，以及 Perplexity Portable Computer 在 Windows 上的實際採用情況。
 
 - **`capital-evolution#848ecbe1`** — capital-evolution
   > 留意 Series F 的投資人名單是否揭露、這輪估值與 OpenAI 等競爭對手最新估值的相對位置；也留意《Confidential Draft S1 SEC》這則先前提到的疑似機密 IPO 申報，原文內容是否進一步被證實或澄清。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#13f4cdd7`** — global-map
   > 留意這批只留標題的政策與安全公告（CAISI／UK AISI 合作、核安全防護、國家安全諮詢委員會、政治中立性、SB53 合規框架）是否有第三方媒體或監管機關的後續回應；也留意 Chris Olah 與教宗通諭的公告原文究竟在講什麼、以及各區域新據點的實際團隊規模。
 
-## 事件層（283）
+## 事件層（286）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -848,6 +848,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-10-a02a85#fff280eb`** — evt-2026-09-10-a02a85
   > 官方是否明確定義這10億美元的統計口徑（ARR或其他），以及Bun原有的開源專案治理與授權方式是否會因收購而改變。
 
+- **`evt-2026-09-10-a2b717#d2be58ce`** — evt-2026-09-10-a2b717
+  > 留意是否有人拿這套 pipeline 實際訓練出可用的模型，或 Hugging Face 後續公布具體的吞吐量與成本數字。
+
 - **`evt-2026-09-10-aab6d4#9362302f`** — evt-2026-09-10-aab6d4
   > 留意是否有具體的算力規模數字（如TPU晶片數量或合約金額）隨後被揭露，那會比「擴大使用」這個籠統說法更能看出實質份量。
 
@@ -892,3 +895,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-09-11-d17d90#dc6e6d5c`** — evt-2026-09-11-d17d90
   > 留意 Devin 的自我測試通過率或誤判率是否有第三方或使用者端的具體數字，那會比「幫助測試」這個定性描述更能驗證實際可靠度。
+
+- **`evt-2026-09-14-0dc682#64cb3f7e`** — evt-2026-09-14-0dc682
+  > 留意 Fyxer 是否公布具體採用數字，例如用戶數、企業客戶或滿意度指標，用來檢驗「人們信任」這句話站不站得住。
+
+- **`evt-2026-09-14-c2c5ef#1d3b2e5e`** — evt-2026-09-14-c2c5ef
+  > 留意本機版實際跑的是哪顆模型，以及跟雲端版 Perplexity Computer 在任務完成率上差多少，這會決定本機版是閹割版還是真正堪用的替代品。

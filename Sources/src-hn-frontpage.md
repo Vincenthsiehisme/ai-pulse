@@ -17,9 +17,9 @@ can_satisfy_primary: false
 endpoint: "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=30"
 robots_checked_day: "2026-09-10"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-09-14"
-items_observed: 1287
-events_bound: 19
+last_observed_day: "2026-09-15"
+items_observed: 1317
+events_bound: 20
 events_published: 15
 health_score: 100
 consecutive_failures: 0
@@ -35,8 +35,8 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 1287 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 19 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已觀測 | 1317 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 20 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 15 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 這條來源不能單獨作為一手證據（`can_satisfy_primary: false`）。它的角色是佐證與獨立性，不是「事情發生了」的來源。

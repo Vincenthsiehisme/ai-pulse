@@ -3,17 +3,20 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-14'
+generated_day: '2026-09-15'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **50** 則：`dropped` 1、`published` 46、`review` 3
+事件 **53** 則：`dropped` 1、`published` 46、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-15 | [[Events/evt-2026-09-15-8d5244\|Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care]] | review |
+| 2026-09-15 | [[Events/evt-2026-09-15-18b24e\|AI Infra Summit: NVIDIA Vera Rubin and DSX Platform Advancements Showcase Energy Efficiencies of Optimizing Tokens Per Watt for AI Factories]] | review |
+| 2026-09-15 | [[Events/evt-2026-09-15-0fe6d3\|From Megawatts to Tokens: How NVIDIA Maximizes AI Factory Production]] | review |
 | 2026-09-10 | [[Events/evt-2026-09-10-f9152b\|Boots on the Ground: ‘WARDOGS’ Goes All Out on GeForce NOW at Early-Access Launch]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-e25af3\|d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-5a8f4a\|Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Building With NVIDIA Technologies]] | published |

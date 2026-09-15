@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "full_name": "JuliusBrussee/caveman",
+    "desc": "🪨 why use many token when few token do trick. Viral skill + proxy for coding agents that cuts 65% of tokens by talking like a caveman.",
+    "language": "Go",
+    "topics": [
+      "ai",
+      "anthropic",
+      "caveman",
+      "claude",
+      "claude-code",
+      "llm"
+    ],
+    "stars": 105758,
+    "url": "https://github.com/JuliusBrussee/caveman",
+    "stale_zh": "何必用很多 token，少少就夠：用穴居人口吻說話，幫 Claude Code 省 65% token"
+  }
+]
