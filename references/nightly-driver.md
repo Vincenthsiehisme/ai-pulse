@@ -95,6 +95,22 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 | `pulse-dashboard` | ok | 壞了 → stop | | |
 | `pulse-render` | ok | | | |
 
+`precheck` 補跑抓取鏈時另外一張表（**它們的容忍規則跟上面不一樣**）：
+
+| 腳本 | 容忍 | 不容忍 |
+|---|---|---|
+| `pulse-robots-recheck` | 任何非零 | 無 |
+| `pulse-probe` | 其他 | **2**（環境沒設對）、**3**（0 個可跑來源）、**4**（control probe 失敗） |
+| `pulse-score` | 無 | 任何非零 |
+| `pulse-cluster` | 無 | 任何非零 |
+
+**`pulse-probe` 的 4 是 2026-09-14 才長出來的**（control probe）。它的意思是「機器連
+不出去，問題在我們這邊，不是 N 條來源同時出事；本班不抓、不寫、不 commit」。而
+runbook 步驟 0 那句 `python scripts/pulse-probe.py || echo "[warn] …續跑"` 是在 control
+probe 存在之前寫的。照抄過來就等於把「今晚一筆新資料都沒有」容忍掉，然後整條鏈在
+沒有新料的情況下跑完、commit、摘要全綠。2026-09-15 第一次真實執行當場踩到：
+probe 回 4，而那一輪照樣跑到底並推上 main。
+
 digest 那兩條的「不擋 push」是 runbook 寫明的過渡期豁免：`Digests/` 目前還沒有下游
 消費者，寫不出來不影響當天的潤稿與發布。**豁免不等於靜音**，結果照樣進摘要與狀態檔。
 等 `/daily/` 那條線接上之後這個豁免要拿掉，那天要同時改本檔與 runbook。

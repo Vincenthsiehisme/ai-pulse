@@ -1,5 +1,10 @@
 ﻿_evidence_raw/
 .obsidian/workspace*
+# graph.json 跟 workspace 同一種東西：Obsidian 自己寫的本機 UI 狀態，開過一次就變。
+# 少了這一行，只要有人用 Obsidian 開過這個 repo，夜班的 commit 那一關就會擋下來
+# （工作樹有資料白名單以外的改動），而那個擋是對的——錯的是這個檔本來就不該入庫。
+# 2026-09-15 第一次真實執行前當場踩到。
+.obsidian/graph.json
 __pycache__/
 *.pyc
 .venv/

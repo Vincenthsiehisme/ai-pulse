@@ -345,6 +345,43 @@ def requires_ok(state, spec):
     return True, ""
 
 
+# 補跑抓取鏈的每一步，加上「哪些離開碼不可以容忍」。
+#     ()    任何非零都容忍
+#     (n,)  只有這幾個不容忍
+#     None  任何非零都不容忍
+#
+# **probe 的 4 是 2026-09-14 才長出來的**（control probe，PR #91）：它的意思是
+# 「機器連不出去，問題在我們這邊，不是 N 條來源同時出事；本班不抓、不寫、不 commit」。
+# 而 runbook 步驟 0 那句 `python scripts/pulse-probe.py || echo "[warn] …續跑"` 是在
+# control probe 存在之前寫的，照抄過來就等於把「今晚一筆新資料都沒有」容忍掉，然後
+# 整條鏈在沒有新料的情況下跑完、commit、摘要全綠。**規矩寫在一個地方，新接上來的
+# 消費者沒有一起接到**——這個 repo 記過六次的同一個形狀，2026-09-15 第一次真實執行
+# 當場又踩到一次。
+CATCHUP_STEPS = (
+    (["python3", "scripts/pulse-robots-recheck.py",
+      "--stale-days", "7", "--apply", "--revive"], ()),
+    (["python3", "scripts/pulse-probe.py"], (2, 3, 4)),
+    (["python3", "scripts/pulse-score.py"], None),
+    (["python3", "scripts/pulse-cluster.py"], None),
+)
+
+CATCHUP_CODES = {
+    2: "VAULT_DIR 或 _config/ 不存在（環境沒設對）",
+    3: "0 個可跑來源（lifecycle 全被關掉了？）",
+    4: "**control probe 失敗：機器連不出去**，不是 N 條來源同時出事。"
+       "本班不該抓、不該寫、不該 commit",
+}
+
+
+def catchup_fatal(rc, fatal):
+    """這個離開碼該不該讓補跑停住。純函式。"""
+    if rc == 0:
+        return False
+    if fatal is None:
+        return True
+    return rc in fatal
+
+
 def do_precheck(vault, date_str):
     """runbook 步驟 0：今晚的資料到底進來了沒。
 
@@ -355,15 +392,13 @@ def do_precheck(vault, date_str):
     if (vault / "_corpus" / date_str).is_dir():
         return "ok", f"今日 corpus 已就緒（_corpus/{date_str}）", ""
     log = []
-    for cmd, tolerate in ((["python3", "scripts/pulse-robots-recheck.py",
-                            "--stale-days", "7", "--apply", "--revive"], True),
-                          (["python3", "scripts/pulse-probe.py"], True),
-                          (["python3", "scripts/pulse-score.py"], False),
-                          (["python3", "scripts/pulse-cluster.py"], False)):
+    for cmd, fatal in CATCHUP_STEPS:
         rc, out = run(vault, cmd)
         log.append(f"$ {' '.join(cmd)} → rc={rc}")
-        if rc != 0 and not tolerate:
-            return "stop", f"補跑抓取鏈失敗：{' '.join(cmd)} rc={rc}", "\n".join(log) + "\n" + out
+        if catchup_fatal(rc, fatal):
+            why = CATCHUP_CODES.get(rc, "")
+            return "stop", (f"補跑抓取鏈停住：{' '.join(cmd)} rc={rc}"
+                            + (f"——{why}" if why else "")), "\n".join(log) + "\n" + out
     # 這是要被看見的異常，不是可以吞掉的細節。
     return "noted", "**今晚由潤稿端補跑抓取**（Actions 那班還沒跑到或誤點）", "\n".join(log)
 
@@ -461,7 +496,13 @@ def do_commit(vault, spec, no_push):
     rc, _ = run(vault, ["git", "diff", "--cached", "--quiet"])
     if rc == 0:
         return "ok", "無變更，沒有東西要推", ""
-    rc, out = run(vault, ["git", "commit", "-m", spec["message"]])
+    # 用夜班自己的身份，不吃工作樹的 local config。本機那份是 `ai-pulse-bot`，
+    # 跟 Actions 那班同名——兩條鏈在作者欄上分不出來，而 night_shift_commit_days()
+    # 的其中一個判準正是作者。`-c` 只影響這一次，不改工作樹的設定。
+    rc, out = run(vault, ["git",
+                          "-c", f"user.name={NIGHT_SHIFT_AUTHOR}",
+                          "-c", f"user.email={NIGHT_SHIFT_AUTHOR}@users.noreply.github.com",
+                          "commit", "-m", spec["message"]])
     if rc != 0:
         return "stop", f"git commit 失敗 rc={rc}", out
     sha_rc, sha = run(vault, ["git", "rev-parse", "--short", "HEAD"])
