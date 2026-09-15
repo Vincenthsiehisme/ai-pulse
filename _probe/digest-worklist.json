@@ -7,7 +7,7 @@
       "id": "evt-2026-09-10-a2b717",
       "path": "evt-2026-09-10-a2b717.md",
       "title": "Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL",
-      "title_zh": null,
+      "title_zh": "HF Jobs上非同步GRPO+LoRA：bucket、proxy，沒有NCCL",
       "date": "2026-09-10",
       "published_at": "2026-09-15T03:26:43.204341+00:00",
       "company": "Hugging Face",
@@ -65,7 +65,7 @@
       "id": "evt-2026-09-14-0dc682",
       "path": "evt-2026-09-14-0dc682.md",
       "title": "How Fyxer built an AI executive assistant people trust",
-      "title_zh": null,
+      "title_zh": "Fyxer 如何做出讓人信賴的 AI 行政助理",
       "date": "2026-09-14",
       "published_at": "2026-09-15T03:26:43.204341+00:00",
       "company": "Fyxer",
@@ -123,7 +123,7 @@
       "id": "evt-2026-09-14-c2c5ef",
       "path": "evt-2026-09-14-c2c5ef.md",
       "title": "Perplexity Portable Computer Is Now Available on Windows, Powered by NVIDIA RTX",
-      "title_zh": null,
+      "title_zh": "Perplexity 隨身電腦登陸 Windows，搭載 NVIDIA RTX",
       "date": "2026-09-14",
       "published_at": "2026-09-15T03:26:43.204341+00:00",
       "company": "Perplexity",
@@ -2088,7 +2088,7 @@
     },
     {
       "id": "evt-2026-09-10-a2b717",
-      "title": "Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL",
+      "title": "HF Jobs上非同步GRPO+LoRA：bucket、proxy，沒有NCCL",
       "date": "2026-09-10",
       "days_since": 5,
       "next_signal": "留意是否有人拿這套 pipeline 實際訓練出可用的模型，或 Hugging Face 後續公布具體的吞吐量與成本數字。"
@@ -2286,10 +2286,12 @@
     "evt-2026-09-09-fb15fe",
     "evt-2026-09-10-4fdf77",
     "evt-2026-09-10-5b8aa1",
+    "evt-2026-09-10-a2b717",
     "evt-2026-09-10-bd46b8",
     "evt-2026-09-10-f6b8f9",
     "evt-2026-09-11-4bdd2c",
-    "evt-2026-09-11-d17d90"
+    "evt-2026-09-11-d17d90",
+    "evt-2026-09-14-c2c5ef"
   ],
   "edition_orphans": [],
   "note": "距離大不是缺點：實測 8/12 那篇的骨幹是一組距離 ≥4 的配對，而唯一一組距離 2 的在文章裡最沒話講。距離 1 代表同一件事、該合併成一段。規格見 references/digest-framework.md。"
