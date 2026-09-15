@@ -6136,6 +6136,34 @@ acase("夜班：不在 main 上就 stop，而且說出實際在哪一支"
       [_br_commit[0], "fix/somewhere-else" in _br_commit[1]],
       ["stop", True])
 
+acase("夜班：補跑抓取時 probe 回 4 要停住，不是續跑"
+      "（4 ＝ control probe 失敗＝機器連不出去，本班不該抓、不該寫、不該 commit。"
+      "runbook 那句 `|| echo 續跑` 是在 control probe 存在之前寫的，照抄過來就等於"
+      "把「今晚一筆新資料都沒有」容忍掉，然後整條鏈跑完、commit、摘要全綠——"
+      "2026-09-15 第一次真實執行當場踩到）",
+      [_nl.catchup_fatal(4, (2, 3, 4)), _nl.catchup_fatal(1, (2, 3, 4)),
+       _nl.catchup_fatal(0, (2, 3, 4))],
+      [True, False, False])
+acase("夜班：robots 重驗失敗照樣往下（它不擋抓取），score 與 cluster 任何非零都停",
+      [_nl.catchup_fatal(1, ()), _nl.catchup_fatal(1, None), _nl.catchup_fatal(0, None)],
+      [False, True, False])
+acase("夜班：probe 的不容忍清單真的含 4（表寫對了，接線也要對）",
+      [c for cmd, c in _nl.CATCHUP_STEPS if "pulse-probe.py" in " ".join(cmd)],
+      [(2, 3, 4)])
+acase("夜班：每個不容忍的離開碼都說得出它是什麼"
+      "（只印 rc=4 的話，人還要自己去翻 pulse-probe.py 才知道那是網路斷）",
+      sorted(_nl.CATCHUP_CODES), [2, 3, 4])
+acase("夜班：commit 用夜班自己的身份，不吃工作樹的 local config"
+      "（本機那份是 ai-pulse-bot，跟 Actions 那班同名，兩條鏈在作者欄上分不出來——"
+      "而 night_shift_commit_days() 的其中一個判準正是作者）",
+      "user.name={NIGHT_SHIFT_AUTHOR}" in _nl_src, True)
+acase(".gitignore 擋掉 Obsidian 的 graph.json"
+      "（跟 workspace 同一種東西：本機 UI 狀態，開過一次就變。少了它，只要有人用"
+      "Obsidian 開過這個 repo，夜班 commit 那一關就會擋下來）",
+      ".obsidian/graph.json" in open(
+          os.path.join(_HERE, "..", ".gitignore"), encoding="utf-8").read(),
+      True)
+
 acase("references/nightly-driver.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "nightly-driver.md")),
       True)
