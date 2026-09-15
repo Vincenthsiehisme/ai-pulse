@@ -5922,6 +5922,108 @@ acase("_config/gate.yaml 有 chain_gap_window_days（門檻不寫死在碼裡）
           encoding="utf-8").read(),
       True)
 
+# ── 夜班的階段機器（2026-09-15）─────────────────────────────────────────
+# enrich-runbook.md 是 356 行散文，它要求執行的那一方照著跑十七步，而其中十幾步是
+# 純腳本。夜班每晚都在讀那份散文、判斷該跑哪一支、讀 exit code、決定那個數字是
+# 「沒事」「沒東西」還是「出事了」——把確定性工作交給模型，而這個 repo 記錄過的
+# 夜班事故幾乎全長在這一層。規格 references/nightly-driver.md。
+_nl_spec = importlib.util.spec_from_file_location(
+    "pulse_nightly", os.path.join(_HERE, "pulse-nightly.py"))
+_nl = importlib.util.module_from_spec(_nl_spec)
+_nl_spec.loader.exec_module(_nl)
+
+acase("夜班：exit code 表裡沒有的一律 stop"
+      "（沒有預設的「當成 ok」——一個沒被寫進表的離開碼，意思是這支腳本長出了一種"
+      "規格還不認得的結局。當成沒事就是 2026-07-28「25 條全退被寫成今晚沒東西要翻」）",
+      [_nl.code_action(7, {0: "ok"}), _nl.code_action(0, {0: "ok", 1: "noted"}),
+       _nl.code_action(1, {0: "ok", 1: "noted"})],
+      ["stop", "ok", "noted"])
+
+acase("夜班：worklist 三種形狀都讀得出筆數與 key",
+      [_nl.worklist_keys([{"id": "a"}, {"id": "b"}], None, "id")[0],
+       _nl.worklist_keys({"items": [{"id": "x"}]}, "items", "id")[0],
+       _nl.worklist_keys({"items": "壞掉的形狀"}, "items", "id")],
+      [2, 1, (0, set())])
+
+acase("夜班：result 有 worklist 以外的 key → 擋"
+      "（2026-08-12：拿上一班留在 repo 裡的清單，把昨天已潤好的 10 則整批重寫，"
+      "當天該潤的 7 則一則沒碰，而 commit 訊息看起來很正常）",
+      [_nl.check_result({"a": 1, "zz": 2}, {"a"}, "keyed")[0],
+       "上一班" in _nl.check_result({"a": 1, "zz": 2}, {"a"}, "keyed")[1]],
+      [False, True])
+acase("夜班：result 是 worklist 的子集 → 放行（反方向；只釘會擋的話，"
+      "一個永遠擋的版本也會全綠）",
+      _nl.check_result({"a": 1}, {"a", "b"}, "keyed")[0], True)
+acase("夜班：worklist 非空而 result 是空的 → 擋",
+      _nl.check_result({}, {"a"}, "keyed")[0], False)
+acase("夜班：digest 那種單一物件的 result 不做 key 比對（它不是 dict keyed by id）",
+      [_nl.check_result({"sections": []}, set(), "single")[0],
+       _nl.check_result({}, set(), "single")[0]],
+      [True, False])
+
+acase("夜班：commit 前擋掉資料白名單以外的改動"
+      "（夜班的授權只到資料產物；碼、CI、_config 的判斷邏輯走 PR，"
+      "那條規矩不因為現在是半夜就改變。`git add -A` 不看這件事）",
+      [_nl.dirty_outside_data(" M Events/x.md\n?? _probe/y.json\n"),
+       _nl.dirty_outside_data(" M scripts/pulse-gate.py\n M Events/x.md\n"),
+       _nl.dirty_outside_data('R  "a.py" -> "scripts/b.py"\n')],
+      [[], ["scripts/pulse-gate.py"], ["scripts/b.py"]])
+
+# 依賴有兩種，混成一種會讓整條鏈在最平常的夜晚停掉。
+_nl_skipped = {"stages": [{"id": "enrich-apply", "status": "skipped", "note": ""},
+                          {"id": "gate", "status": "skipped", "note": ""}]}
+acase("夜班：after 是順序依賴，前面被跳過照樣往下走"
+      "（多數夜晚 enrich-worklist 是空的，那一晚 enrich-write 與 enrich-apply 都會 "
+      "skipped；若 gate 也跟著跳，dashboard／digest／narrative／render 會一路連帶跳掉，"
+      "**整條鏈在最平常的一晚等於沒跑**，而狀態檔每一格都寫著 skipped，看起來像一切正常）",
+      _nl.requires_ok(_nl_skipped, {"after": ["enrich-apply"]})[0], True)
+acase("夜班：needs 是產出依賴，前面沒產出就不跑"
+      "（digest-prep 挑的是「今晚通過門禁上線」的事件，gate 沒真的跑過就挑不到，"
+      "而且不會報錯，只會安靜產出空清單——2026-08-16）",
+      _nl.requires_ok(_nl_skipped, {"needs": ["gate"]})[0], False)
+acase("夜班：needs 的前置還沒跑過也不放行（`None` 不等於 ok）",
+      _nl.requires_ok({"stages": []}, {"needs": ["gate"]})[0], False)
+
+_nl_stages = {x["id"]: x for x in _nl.stages("2026-09-15")}
+acase("夜班：digest-prep 對 gate 是 **needs** 不是 after"
+      "（這一格就是 2026-08-16 那次事故的本體；寫成 after 的話 gate 被跳過時 "
+      "digest-prep 照跑，挑不到東西而且不報錯）",
+      [_nl_stages["digest-prep"].get("needs"), _nl_stages["digest-prep"].get("after")],
+      [["gate"], None])
+acase("夜班：每個 apply 都對它自己那一段 narrative 是 needs"
+      "（narrative 被跳過就沒有 result 檔可寫回）",
+      [_nl_stages["enrich-apply"]["needs"], _nl_stages["digest-apply"]["needs"],
+       _nl_stages["narrative-apply"]["needs"], _nl_stages["github-desc-apply"]["needs"],
+       _nl_stages["title-apply"]["needs"]],
+      [["enrich-write"], ["digest-write"], ["narrative-write"],
+       ["github-desc-write"], ["title-write"]])
+acase("夜班：monitor 那一步不准帶警報旗標"
+      "（判準讀本地 git log，在 push 之前它會讀到自己剛建、還沒推出去的那顆然後回一盞綠燈）",
+      [a for a in _nl_stages["monitor"]["cmd"] if a.startswith("--alert")], [])
+acase("夜班：commit 排在 render 之後，而且 monitor 排在 commit 之後"
+      "（摘要要帶推上去之後的狀態，不是推之前的）",
+      [x["id"] for x in _nl.stages("2026-09-15")][-3:],
+      ["render", "commit", "monitor"])
+
+acase("夜班：交棒訊息指到 runbook，不複製規則過來"
+      "（同一句規則兩份，改一處忘一處，而讀的人不知道哪份是真的）",
+      ["enrich-runbook.md" in _nl.narrative_handoff(_nl_stages["enrich-write"], 3),
+       "speak-human" in _nl.narrative_handoff(_nl_stages["enrich-write"], 3).replace(
+           _nl_stages["enrich-write"]["rules"], "")],
+      [True, False])
+
+acase("夜班：摘要帶得出 prep 那一行"
+      "（runbook 步驟 18：漏掉它就證明不了清單是今晚產的）",
+      any("待 enrich=3" in ln for ln in _nl.summary_lines(
+          {"date": "2026-09-15", "finished": False,
+           "stages": [{"id": "enrich-prep", "status": "ok",
+                       "note": "pulse-enrich-prep  待 enrich=3  已 enrich 跳過=37"}]})),
+      True)
+
+acase("references/nightly-driver.md 存在（紅線 9 先文件後碼）",
+      os.path.isfile(os.path.join(_HERE, "..", "references", "nightly-driver.md")),
+      True)
+
 acase("references/digest-observability.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "digest-observability.md")),
       True)
