@@ -530,6 +530,21 @@ def do_run_stage(vault, spec):
     return action, note, out
 
 
+def already_done(state, date_str):
+    """這一輪是不是早就跑完了。純函式。
+
+    **一個 UTC 日只跑一輪**（冪等，enrich 與敘事刷新本來就是）。問題在於台北 04:47
+    等於 **UTC 前一天 20:47**，所以同一個 UTC 日會被兩個不同的台北日碰到：白天手動
+    跑一次、當晚排程再跑一次，第二次會看到「今天已經跑完」。
+
+    那個判斷是對的，**安靜地結束不對**。2026-09-15 差點這樣過去：手動 kickstart 跑了
+    一輪（UTC 03:32），當晚 04:47 那班（UTC 20:47，同一個 UTC 日）會什麼都不做、
+    一個字都不印，log 上只有一片空白。而「今晚沒事做」跟「今晚沒跑到」在一片空白
+    上長得一模一樣——這份文件從第一行講到現在的同一件事。
+    """
+    return bool(state.get("finished")) and state.get("date") == date_str
+
+
 def advance(vault, state, date_str, no_push):
     """推進到下一個交棒點或跑完。回 exit code。"""
     for spec in stages(date_str):
@@ -621,7 +636,15 @@ def main():
         return 0
 
     if state is None or state.get("date") != date_str or args.reset:
-        state = {"date": date_str, "started_at": clock.utc_stamp(), "finished": False, "stages": []}
+        state = {"date": date_str, "started_at": clock.utc_stamp(), "finished": False,
+                 "stages": []}
+    elif already_done(state, date_str):
+        # 說出來，不要留一片空白。
+        print("\n".join(summary_lines(state)))
+        print(f"\n這一輪（UTC {date_str}）稍早已經跑完，沒有事情要做。"
+              "台北 04:47 等於 UTC 前一天 20:47，所以同一個 UTC 日會被白天與當晚各碰一次。"
+              "要重跑用 `run --reset`。")
+        return 1 if any(st["status"] == "noted" for st in state["stages"]) else 0
     return advance(vault, state, date_str, args.no_push)
 
 
