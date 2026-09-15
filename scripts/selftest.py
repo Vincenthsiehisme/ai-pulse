@@ -6164,6 +6164,18 @@ acase(".gitignore 擋掉 Obsidian 的 graph.json"
           os.path.join(_HERE, "..", ".gitignore"), encoding="utf-8").read(),
       True)
 
+acase("夜班：同一個 UTC 日被碰第二次時，要說出來而不是留一片空白"
+      "（台北 04:47 ＝ UTC 前一天 20:47，所以同一個 UTC 日會被白天手動跑與當晚排程"
+      "各碰一次。判斷「已經跑完」是對的，安靜結束不對——「今晚沒事做」跟"
+      "「今晚沒跑到」在一片空白上長得一模一樣）",
+      [_nl.already_done({"finished": True, "date": "2026-09-15"}, "2026-09-15"),
+       _nl.already_done({"finished": False, "date": "2026-09-15"}, "2026-09-15"),
+       _nl.already_done({"finished": True, "date": "2026-09-14"}, "2026-09-15"),
+       _nl.already_done({}, "2026-09-15")],
+      [True, False, False, False])
+acase("夜班：main() 真的問過 already_done（接線）",
+      _nl.calls_in(_nl_src, "already_done", "main"), True)
+
 acase("references/nightly-driver.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "nightly-driver.md")),
       True)
