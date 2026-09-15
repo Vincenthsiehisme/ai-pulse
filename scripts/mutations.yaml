@@ -1773,8 +1773,21 @@ mutations:
   - id: M202
     title: "夜班不開 --alert-enrich-stale（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）"
     file: ../.github/workflows/data-refresh.yml
-    find: "            --alert-enrich-stale --alert-digest-stale \\\n            --alert-unmerged-branches > /dev/null"
-    replace: "            --alert-digest-stale \\\n            --alert-unmerged-branches > /dev/null"
+    find: "            --alert-enrich-stale --alert-digest-stale \\\n            --alert-unmerged-branches --alert-chain-gap > /dev/null"
+    replace: "            --alert-digest-stale \\\n            --alert-unmerged-branches --alert-chain-gap > /dev/null"
+    survives: false
+    why: ""
+
+  # ── 最後一次遮不住中間的洞（2026-09-15）──
+  # --alert-enrich-stale 與 --alert-digest-stale 量的都是「最後一次是哪一天」，
+  # 中間掉一晚、隔天又好了的話兩條 lag 都回 0、全綠。2026-09-11 就是那樣掉的。
+  # 缺日那一層跟它們一樣，判準寫得再好，沒有人開那個旗標就只是一段不會執行的碼。
+
+  - id: M358
+    title: "夜班不開 --alert-chain-gap（缺日那一層沒有人開，2026-09-11 那種洞就照樣看不見）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "            --alert-unmerged-branches --alert-chain-gap > /dev/null"
+    replace: "            --alert-unmerged-branches > /dev/null"
     survives: false
     why: ""
 
@@ -2990,15 +3003,15 @@ mutations:
   - id: M344
     title: "單分支 clone 算成「0 支沒收」（量不到跟真的都收了長得一模一樣，而夜班那一邊的 clone 正是這種——這條規則會靜靜變成永遠綠燈）"
     file: pulse-monitor.py
-    find: "    if not branches:\n        return [], \"no-remotes\"\n"
-    replace: "    if not branches:\n        return [], \"ok\"\n"
+    find: "        return [], (\"ok\" if \"refs/heads/*\" in specs else \"no-remotes\")\n"
+    replace: "        return [], \"ok\"\n"
     survives: false
     why: ""
 
   - id: M345
     title: "拿掉 squash 的自保（merge 改成 squash 的那天，每一支歷史分支都會被報成沒收，一次 40 支，兩週內這個警報就被關掉）"
     file: pulse-monitor.py
-    find: "    if len(rows) * 2 > len(branches):\n        return sorted(rows, key=lambda r: (r[1], r[0])), \"suspect\"\n"
+    find: "    if len(branches) >= SUSPECT_MIN_BRANCHES and len(rows) * 2 > len(branches):\n        return sorted(rows, key=lambda r: (r[1], r[0])), \"suspect\"\n"
     replace: ""
     survives: false
     why: ""

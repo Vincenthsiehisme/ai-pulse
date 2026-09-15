@@ -308,7 +308,13 @@ jobs:
           # Actions 跑的時候（16:09Z）夜班還沒開始，repo 裡的 worklist 還是昨天
           # 那一份，所以「今晚有素材而沒寫」在這裡永遠不會觸發。同一晚要被看見
           # 靠的是夜班摘要裡那一行（runbook 第 17 步）。兩邊各抓一半，是刻意的。
+          # --alert-chain-gap：上面 --alert-enrich-stale 與 --alert-digest-stale 量的
+          # 都是「最後一次是哪一天」，那個形狀抓不到「中間掉了一晚，隔天又好了」。
+          # 2026-09-11 那晚的 commit 只落在 Cowork session 自己的分支上，隔天正常
+          # 推回，兩條 lag 都回 0、全綠，9/11 那一篇每日精選就此不存在。
+          # 這一條量的是日期集合的洞。窗口 1 天＝只看昨天，所以它只叫一次：
+          # 缺口不會自癒，窗口長就是連紅到被人關掉。規格 references/health-alarms.md。
           python scripts/pulse-monitor.py \
             --alert-unenriched-days 2 --alert-coverage --alert-stale \
             --alert-enrich-stale --alert-digest-stale \
-            --alert-unmerged-branches > /dev/null
+            --alert-unmerged-branches --alert-chain-gap > /dev/null

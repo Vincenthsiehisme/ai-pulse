@@ -43,7 +43,7 @@ import re
 import subprocess
 import sys
 import unicodedata
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -881,6 +881,13 @@ def last_enrich_commit(vault):
     return (out, "ok") if out else (None, "none")
 
 
+# 「超過一半沒收」這種判斷要有樣本才成立。squash 的症狀是**每一支歷史分支**同時
+# 看起來沒收，一兩支分支上看不出那個形狀：2026-09-15 把四支夜班分支刪掉之後，
+# origin 上只剩一支進行中的 PR 分支，1 支沒收就是 100%，判準當場宣告自己失效，
+# 而沒有任何東西改變過。這個數字是起手值（分辨力，不是實測分布），要調走 PR。
+SUSPECT_MIN_BRANCHES = 4
+
+
 def unmerged_branches(vault, main_ref="origin/main"):
     """origin 上「tip 不是 main 祖先」的分支。回 (rows, reason)。
 
@@ -890,7 +897,7 @@ def unmerged_branches(vault, main_ref="origin/main"):
 
         ok           量到了
         no-git       這裡不是 git 工作區
-        no-remotes   只看得到 main（或一支都沒有）→ **量不到，不是 0 支**
+        no-remotes   單分支 clone（refspec 只抓一條）→ **量不到，不是 0 支**
         suspect      不在 main 的超過一半 → 判準可能失效（見下）
 
     **`no-remotes` 是這條規則最容易變成永遠綠燈的地方。** 單分支 clone 裡
@@ -898,10 +905,18 @@ def unmerged_branches(vault, main_ref="origin/main"):
     「真的都收了」在畫面上長得一模一樣（紅線 8）。夜班那一邊的 clone 正是這種，
     所以這條判準要長在 Actions 那一邊（`fetch-depth: 0`）。
 
+    **列分支用 `for-each-ref`，不用 `git branch -r --format=%(refname:short)`。**
+    後者對 `refs/remotes/origin/HEAD` 輸出的是 `origin`（remote 自己的名字），
+    不是 `origin/HEAD`——`b.endswith("/HEAD")` 濾不掉它，於是 `branches` 永遠至少
+    有一個元素，上面那條 `no-remotes` 從接上的那天起在任何真實 clone 裡都沒走到過，
+    單分支 clone 一律算成 `ok / 0 支`（2026-09-15 查出，紅線 8 的假綠燈）。
+    完整的 ref 名沒有這個歧義，`refs/remotes/origin/HEAD` 就是以 `/HEAD` 結尾。
+
     **`suspect` 防的是 merge 策略改變。** 這條判準假設用 merge commit：squash-merge
     會生一顆新 commit，原分支 tip 永遠不會變成 main 的祖先，於是**每一支歷史分支
     都會看起來沒被收**，一次報 40 支，然後兩週內被人關掉。一個判準能說出自己
-    什麼時候不該被相信，比多抓幾支分支重要。規格 references/health-alarms.md。
+    什麼時候不該被相信，比多抓幾支分支重要。它自己也要有樣本才成立，見
+    `SUSPECT_MIN_BRANCHES`。規格 references/health-alarms.md。
     """
     def git(*args):
         return subprocess.run(["git", "-C", str(vault), *args],
@@ -909,20 +924,30 @@ def unmerged_branches(vault, main_ref="origin/main"):
     try:
         if git("rev-parse", "--git-dir").returncode != 0:
             return [], "no-git"
-        listed = git("branch", "-r", "--format=%(refname:short)").stdout.split()
+        listed = git("for-each-ref", "--format=%(refname)",
+                     "refs/remotes/").stdout.split()
     except (OSError, subprocess.SubprocessError):
         return [], "no-git"
-    branches = [b for b in listed
-                if b != main_ref and not b.endswith("/HEAD") and "->" not in b]
+    _pfx = "refs/remotes/"
+    branches = [b[len(_pfx):] for b in listed
+                if b.startswith(_pfx) and not b.endswith("/HEAD")]
+    branches = [b for b in branches if b != main_ref]
     if not branches:
-        return [], "no-remotes"
+        # 一支都看不到有兩種成因，要做的事相反：refspec 是萬用字元的時候，
+        # 這個工作區**看得到全部分支**，那就是真的 0 支（分支都收乾淨了）；
+        # 單分支 clone 的 refspec 只抓一條（`+refs/heads/main:...`），那才是量不到。
+        # 原本的 `origin/HEAD` 濾漏遮住了這個歧義：那條路從來沒走到過，
+        # 所以「都收乾淨了」跟「看不到」在此之前長得一樣（反過來的紅線 8）。
+        specs = git("config", "--get-all",
+                    f"remote.{main_ref.split('/', 1)[0]}.fetch").stdout
+        return [], ("ok" if "refs/heads/*" in specs else "no-remotes")
     rows = []
     for b in branches:
         if git("merge-base", "--is-ancestor", b, main_ref).returncode == 0:
             continue
         day = git("log", "-1", "--format=%cd", "--date=short", b).stdout.strip()
         rows.append((b, day))
-    if len(rows) * 2 > len(branches):
+    if len(branches) >= SUSPECT_MIN_BRANCHES and len(rows) * 2 > len(branches):
         return sorted(rows, key=lambda r: (r[1], r[0])), "suspect"
     return sorted(rows, key=lambda r: (r[1], r[0])), "ok"
 
@@ -959,6 +984,105 @@ def unmerged_branches_line(rows, reason, today, stale_after_days):
         return (body + f"（門檻 {stale_after_days} 天）——夜班修好了推上去而沒有人收，"
                 "它會每隔一兩晚重新發現同一件事，再開一支新的"), True
     return body, False
+
+
+NIGHT_SHIFT_AUTHOR = "ai-pulse-enrich"
+
+
+def missing_days(days, today, window_days):
+    """窗內（**不含今天**）缺的日期，由舊到新。純函式，可離線單測。
+
+    上面那幾條判準量的都是「最後一次是哪一天」。那個形狀抓得到「鏈斷了以後一直
+    沒回來」，抓不到「中間掉了一晚，隔天又好了」——2026-09-11 就是那樣掉的：夜班
+    的 commit 只落在 Cowork session 自己的分支上，隔天的夜班從 `main` 起頭、正常
+    推回，於是潤稿鏈與每日精選兩條的 lag 都是 0，全綠。規格
+    references/health-alarms.md〈最後一次遮不住中間的洞：缺日〉。
+
+    **窗口不含今天。** 今晚的夜班還沒跑，今天缺是正常的；算進去的話這條每天早上
+    都會叫一次。
+
+    **今天的日期讀不出來時回空清單，不是「全部都缺」。** 量不到的東西不准長成一個
+    看起來像資料的值（紅線 8）。
+    """
+    t = _as_date(today)
+    if t is None or window_days <= 0:
+        return []
+    have = {str(d) for d in (days or ())}
+    return [d for d in ((t - timedelta(days=i)).isoformat()
+                        for i in range(window_days, 0, -1))
+            if d not in have]
+
+
+def night_shift_commit_days(vault, window_days, today):
+    """窗內有夜班 commit 的日期集合。回 (days, reason)。
+
+    reason ∈ {"ok", "shallow", "no-git"}，跟 `last_enrich_commit()` 同一個形狀，
+    理由也一樣：淺 checkout 看不到歷史，那是環境沒設對，不是鏈壞了。
+
+    **認夜班用兩個條件的聯集：message 前綴，或 commit 的作者。** 夜班的 commit
+    message 不是固定的——2026-09-08 那一晚的成果確實進了 `main`
+    （`Digests/2026-09-08.md` 在），但 message 是 `chore: nightly refresh 2026-09-08`，
+    只看 `ENRICH_COMMIT_GREP` 會把那一天算成缺口，而那是假警報。作者是 commit
+    本身的屬性，不是〈量什麼：commit 本身，不要代理欄位〉那節說的代理欄位；資料鏈的
+    bot 是另一個帳號，兩邊分得開。
+
+    **跟 `last_enrich_commit()` 同一個限制：它讀 `git log`，分不出「commit 了」與
+    「推上去了」。** 所以 `--alert-chain-gap` 只准掛在推得上去的那一邊；夜班那一邊
+    跑它會讀到自己剛建、還沒推出去的那顆，綠燈，而那正好是它要抓的故障。selftest
+    那條「潤稿 runbook 不准帶警報旗標」是通用的，這支旗標自動被它守著。
+
+    **它問的是「昨天夜班有沒有往 main 推東西」，不是「有沒有潤稿」。** 夜班推了
+    補跑的 probe、而潤稿那一段沒推上去的話，這一格是綠的。這個缺口寫在規格的
+    〈這一節不保證什麼〉，不在這裡用一層猜測補起來。
+    """
+    def git(*args):
+        return subprocess.run(["git", "-C", str(vault), *args],
+                              capture_output=True, text=True, timeout=20)
+    try:
+        if git("rev-parse", "--git-dir").returncode != 0:
+            return set(), "no-git"
+        if git("rev-parse", "--is-shallow-repository").stdout.strip() == "true":
+            return set(), "shallow"
+        t = _as_date(today)
+        since = ((t - timedelta(days=window_days + 1)).isoformat() if t
+                 else f"{window_days + 2}.days.ago")
+        out = git("log", f"--since={since}", "--date=short",
+                  "--format=%cd\t%an\t%s").stdout
+    except (OSError, subprocess.SubprocessError):
+        return set(), "no-git"
+    days = set()
+    for line in out.splitlines():
+        parts = line.split("\t", 2)
+        if len(parts) < 3:
+            continue
+        day, author, subject = (x.strip() for x in parts)
+        if author == NIGHT_SHIFT_AUTHOR or re.match(ENRICH_COMMIT_GREP, subject):
+            days.add(day)
+    return days, "ok"
+
+
+def chain_gap_line(label, missing, reason, today, window_days):
+    """缺日的一行摘要。回 (文字, 要不要叫)。純函式，可離線單測。
+
+    兩個消費者（潤稿鏈、每日精選）共用這一支。這份 repo 已經記過六次
+    「規矩寫在一個地方，新接上來的消費者沒有一起接到」，所以缺日這一層從第一天
+    就只有一個實作。
+    """
+    if reason == "shallow":
+        return (f"{label}缺日：**量不到**——這是淺 checkout（`fetch-depth: 1`），"
+                "看不到 commit 歷史。`data-refresh.yml` 要設 `fetch-depth: 0`"), False
+    if reason == "no-git":
+        return f"{label}缺日：**量不到**——這裡不是一個 git 工作區", False
+    if reason == "none":
+        return (f"{label}缺日：**量不到**——一天的紀錄都沒有，"
+                "沒有東西可以比對出缺口"), False
+    if not missing:
+        return f"{label}缺日：窗內 {window_days} 天沒有缺口", False
+    return (f"{label}缺日：**{'、'.join(missing)} 這 {len(missing)} 天沒有產出**"
+            f"（窗內 {window_days} 天），而前後有——"
+            "「最後一次是哪一天」那個形狀看不見這種洞。先去 origin 上找那幾天的分支："
+            "最可能是那一晚做完了、push 只落在 session 自己的分支上。"
+            "每日精選只寫當天、不回頭補，所以補不補是人的決定"), True
 
 
 def digest_facts(vault):
@@ -1177,6 +1301,9 @@ def main():
     ap.add_argument("--alert-unmerged-branches", action="store_true",
                     help="夜班修的碼推上去而沒有人收 → exit 1"
                          "（門檻 gate.yaml 的 monitor.unmerged_branch_days）")
+    ap.add_argument("--alert-chain-gap", action="store_true",
+                    help="窗內有哪一天完全沒有夜班 commit / 沒有每日精選就 exit 1"
+                         "（門檻 gate.yaml 的 monitor.chain_gap_window_days）")
     ap.add_argument("--alert-digest-stale", action="store_true",
                     help="每日精選太久沒產出、或最後一次 apply 是退件 → exit 1"
                          "（門檻 gate.yaml 的 monitor.digest_stale_after_days）")
@@ -1215,6 +1342,19 @@ def main():
     r["unmerged_branches_reason"] = branches[1]
     digest = digest_facts(vault)
     r["digest_days"], r["digest_last_apply"] = sorted(digest[1]), digest[2]
+    # 缺日那一層：量的是日期集合的洞，不是集合裡最後一個元素。兩條鏈共用同一支
+    # 純函式，規格 references/health-alarms.md〈最後一次遮不住中間的洞：缺日〉。
+    h["chain_gap_window_days"] = ((gate.get("monitor") or {})
+                                  .get("chain_gap_window_days") or 1)
+    _ns_days, _ns_reason = night_shift_commit_days(vault, h["chain_gap_window_days"],
+                                                   r["date"])
+    r["night_shift_days"], r["night_shift_reason"] = sorted(_ns_days), _ns_reason
+    # 一天的 digest 都沒有 → 交給 digest_chain_line 的「從來沒有產出過」那條，
+    # 這一層回「量不到」不重複判一次。
+    chain_gaps = [
+        ("潤稿鏈", _ns_days, _ns_reason),
+        ("每日精選", digest[1], "ok" if digest[1] else "none"),
+    ]
 
     if args.write_health:
         _caps_counts, _ = _corpus.observed(vault)
@@ -1271,6 +1411,11 @@ def main():
         _dl, _db = digest_chain_line(*digest, today=r["date"],
                                      stale_after_days=h["digest_stale_after_days"])
         print(("  ⚠ " if _db else "  ") + _dl)
+        for _gl, _gd, _gr in chain_gaps:
+            _cl, _cb = chain_gap_line(
+                _gl, missing_days(_gd, r["date"], h["chain_gap_window_days"]),
+                _gr, today=r["date"], window_days=h["chain_gap_window_days"])
+            print(("  ⚠ " if _cb else "  ") + _cl)
         if r["blocker_hist"]:
             print("  ── blocker 分佈 ──")
             for b, n in r["blocker_hist"].items():
@@ -1391,6 +1536,17 @@ def main():
             # 2026-08-16 那晚就是這兩者分不出來（那一步只有成功才留痕跡）。
             print(f"[alert] {_line}", file=sys.stderr)
             rc = 1
+    if args.alert_chain_gap:
+        for _gl, _gd, _gr in chain_gaps:
+            _line, _bad = chain_gap_line(
+                _gl, missing_days(_gd, r["date"], h["chain_gap_window_days"]),
+                _gr, today=r["date"], window_days=h["chain_gap_window_days"])
+            if _bad:
+                # 訊息要指向「去 origin 找那一晚的分支」，不是「那一邊沒跑」。
+                # 2026-09-11 那次活做完了、commit 也建了，只是沒落到 main，
+                # 而三條既有判準沒有一條看得見（隔天就好了，lag 回 0）。
+                print(f"[alert] {_line}", file=sys.stderr)
+                rc = 1
     if args.alert_days and r["oldest_stuck_days"] >= args.alert_days:
         print(f"[alert] 有事件卡在 review 已在庫裡放 {r['oldest_stuck_days']} 天"
               f"（門檻 {args.alert_days}）",

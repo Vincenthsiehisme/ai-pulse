@@ -5737,7 +5737,18 @@ with _tf2.TemporaryDirectory() as _td_ub:
     (_ubr / "work" / "a.txt").write_text("1", "utf-8")
     _g("add", "-A"); _g("commit", "-qm", "base")
     _g("branch", "-M", "main"); _g("push", "-q", "-u", "origin", "main")
+    # 真實 clone 有 refs/remotes/origin/HEAD，clone 一個**空**的 bare repo 沒有。
+    # 少了這一行，fixture 比現場乾淨，`origin/HEAD` 那個 bug 在測試裡不存在
+    # （2026-09-15：`no-remotes` 因此從沒在真實 clone 觸發過，一路回 ok / 0 支）。
+    _g("remote", "set-head", "origin", "main")
+    # 完整 clone（refspec 是萬用字元）而 origin 上只有 main：那是**真的 0 支**。
     _ub_only_main = _dob.unmerged_branches(_ubr / "work")[1]
+    _ub_only_main_rows = _dob.unmerged_branches(_ubr / "work")[0]
+    # 單分支 clone（refspec 只抓一條）：同樣算出空清單，但那是**量不到**。
+    _subprocess.run(["git", "clone", "-q", "--single-branch", "--branch", "main",
+                     str(_ubr / "origin.git"), str(_ubr / "single")],
+                    capture_output=True)
+    _ub_single = _dob.unmerged_branches(_ubr / "single")[1]
     for name, merge_it in (("fix/收了的", True), ("fix/沒收的", False)):
         _g("checkout", "-q", "-b", name, "main")
         (_ubr / "work" / f"{name.split('/')[1]}.txt").write_text("x", "utf-8")
@@ -5749,15 +5760,38 @@ with _tf2.TemporaryDirectory() as _td_ub:
             _g("push", "-q", "origin", "main")
     _g("fetch", "-q", "origin")
     _ub_rows, _ub_reason = _dob.unmerged_branches(_ubr / "work")
-    # 再推一支沒 merge 的：2/3 不是 main 祖先 → 超過一半 → suspect。
+    # 再推沒 merge 的分支，把「超過一半」推過去。**分兩段量**：三支的時候樣本
+    # 還太小（2/3 過半，但 squash 的症狀是每一支歷史分支同時看起來沒收，
+    # 一兩支上看不出那個形狀），四支才做這個判斷。
     # 只用「傳 reason='suspect' 進純函式」釘的話，算出 suspect 的那幾行沒有人守。
-    _g("checkout", "-q", "-b", "fix/也沒收", "main")
-    (_ubr / "work" / "c.txt").write_text("x", "utf-8")
-    _g("add", "-A"); _g("commit", "-qm", "c"); _g("push", "-q", "origin", "fix/也沒收")
-    _g("checkout", "-q", "main"); _g("fetch", "-q", "origin")
+    for _extra in ("fix/也沒收", "fix/還是沒收"):
+        _g("checkout", "-q", "-b", _extra, "main")
+        (_ubr / "work" / f"{_extra.split('/')[1]}.txt").write_text("x", "utf-8")
+        _g("add", "-A"); _g("commit", "-qm", _extra); _g("push", "-q", "origin", _extra)
+        _g("checkout", "-q", "main"); _g("fetch", "-q", "origin")
+        if _extra == "fix/也沒收":
+            # branches=3、rows=2：過半，但樣本不夠。
+            _ub_small_sample = _dob.unmerged_branches(_ubr / "work")[1]
+    # branches=4、rows=3。
     _ub_suspect = _dob.unmerged_branches(_ubr / "work")[1]
-acase("unmerged_branches：只有 main 的 clone 回 no-remotes（不是 0 支）",
-      _ub_only_main, "no-remotes")
+    _g("remote", "set-head", "origin", "fix/沒收的")
+    _ub_head_elsewhere = [b for b, _d in _dob.unmerged_branches(_ubr / "work")[0]]
+    _g("remote", "set-head", "origin", "main")
+acase("unmerged_branches：**單分支** clone 回 no-remotes（不是 0 支）"
+      "——refspec 只抓一條，這個工作區看不到別的分支",
+      _ub_single, "no-remotes")
+acase("unmerged_branches：完整 clone 而 origin 上只有 main → 真的 0 支，不是量不到"
+      "（反方向。兩種都算出空清單，要做的事相反：一個不用做任何事，"
+      "一個要去補 fetch-depth: 0。2026-09-15 把夜班分支全刪掉之後，"
+      "Actions 那一邊走的就是這條）",
+      _ub_only_main, "ok")
+acase("unmerged_branches：`origin/HEAD` 不算一支分支"
+      "（它的 %(refname:short) 是 `origin`，不是 `origin/HEAD`，按 ref 名尾巴濾"
+      "會漏掉它。這一格把 HEAD 指到一支**不是 main 祖先**的分支：濾漏的版本會把"
+      "`origin` 當成一支沒收的分支報出來——HEAD 指著 main 的時候它剛好會被"
+      "「是祖先」那條跳過，只斷言正常情況的話，壞掉的版本照樣全綠）",
+      ["origin" in _ub_only_main_rows, "origin" in _ub_head_elsewhere],
+      [False, False])
 acase("unmerged_branches：真的跑 git，只挑出沒 merge 的那一支"
       "（判準對而 `git branch -r` 那幾行寫錯的話，這一格等於不存在——M296 那條線）",
       [[b for b, _d in _ub_rows], _ub_reason],
@@ -5765,6 +5799,11 @@ acase("unmerged_branches：真的跑 git，只挑出沒 merge 的那一支"
 acase("unmerged_branches：超過一半不是 main 祖先時，算出來的 reason 是 suspect"
       "（squash 的自保要在算的那一端就成立，不是只在印的那一端）",
       _ub_suspect, "suspect")
+acase("unmerged_branches：樣本太小的時候不做「超過一半」這個判斷"
+      "（3 支裡 2 支沒收也是過半。2026-09-15 把夜班分支刪光之後 origin 上只剩"
+      "一支進行中的 PR 分支，那一支還沒合併是正常狀態，而 1/1 就是 100%——"
+      "判準會每晚宣告自己失效，而沒有任何東西改變過）",
+      _ub_small_sample, "ok")
 acase("references/health-alarms.md 有〈修好了但沒有人收〉那一節（紅線 9 先文件後碼）",
       "修好了但沒有人收" in open(
           os.path.join(_HERE, "..", "references", "health-alarms.md"),
@@ -5775,6 +5814,113 @@ _UB_WF = open(os.path.join(_HERE, "..", ".github", "workflows", "data-refresh.ym
 acase("data-refresh.yml 真的開了 --alert-unmerged-branches"
       "（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）",
       "--alert-unmerged-branches" in _UB_WF, True)
+
+# ── 最後一次遮不住中間的洞：缺日（2026-09-15）──────────────────────────
+# 潤稿鏈與每日精選量的都是「最後一次是哪一天」，那個形狀抓不到「中間掉了一晚，
+# 隔天又好了」。2026-09-11 就是那樣掉的：夜班 commit 只落在 Cowork session 自己的
+# 分支上，隔天正常推回，兩條 lag 都是 0、全綠，而 9/11 那一篇每日精選就此不存在
+# （它只寫當天，不回頭補）。規格 references/health-alarms.md〈最後一次遮不住
+# 中間的洞：缺日〉。
+_MD = _dob.missing_days
+
+acase("缺日：窗內每天都有 → 沒有缺口",
+      _MD({"2026-09-13", "2026-09-14"}, "2026-09-15", 2), [])
+acase("缺日：窗內掉了一天 → 點名那一天（「最後一篇是昨天」那個形狀看不見它）",
+      _MD({"2026-09-10", "2026-09-12", "2026-09-13", "2026-09-14"}, "2026-09-15", 4),
+      ["2026-09-11"])
+acase("缺日：窗口不含今天（今晚的夜班還沒跑，今天缺是正常的；"
+      "把今天算進去的話這條會每天早上叫一次）",
+      _MD(set(), "2026-09-15", 1), ["2026-09-14"])
+acase("缺日：window=1 只看昨天（起手值；缺口不會自癒，窗口長就是連紅到被關掉）",
+      _MD({"2026-09-14"}, "2026-09-15", 1), [])
+acase("缺日：回傳由舊到新，寫死順序（排序靠「反正看起來是穩定的」就是紅線 1）",
+      _MD({"2026-09-14"}, "2026-09-15", 4),
+      ["2026-09-11", "2026-09-12", "2026-09-13"])
+acase("缺日：今天的日期讀不出來 → 空清單，不是「全部都缺」"
+      "（型別對但語意空的值不准往下傳）",
+      _MD({"2026-09-14"}, "not-a-date", 3), [])
+
+_CG = _dob.chain_gap_line
+
+
+def _cg(missing=(), reason="ok", label="潤稿鏈", today="2026-09-15", win=1):
+    return _CG(label, list(missing), reason, today=today, window_days=win)
+
+
+acase("缺日看板：昨天有 → 不叫（反方向；只釘會叫的話，一個永遠叫的版本也全綠）",
+      _cg()[1], False)
+acase("缺日看板：昨天沒有 → 叫，並點名是哪一天與哪一條鏈",
+      [_cg(["2026-09-14"])[1],
+       "2026-09-14" in _cg(["2026-09-14"])[0],
+       "潤稿鏈" in _cg(["2026-09-14"])[0]],
+      [True, True, True])
+acase("缺日看板：量不到不叫，而且要說「量不到」"
+      "（淺 checkout 與非 git 工作區，同 last_enrich_commit 那四種 reason）",
+      [_cg(reason="shallow")[1], "量不到" in _cg(reason="shallow")[0],
+       _cg(reason="no-git")[1], "量不到" in _cg(reason="no-git")[0]],
+      [False, True, False, True])
+acase("缺日看板：沒有任何資料可判 → 不叫"
+      "（空的 Digests/ 交給既有的「從來沒有產出過」那條，不在這一層重複判一次）",
+      _cg(reason="none")[1], False)
+
+# 端到端：判準走 git 子行程。夜班的 commit message 不是固定的——2026-09-08 那一晚
+# 的成果進了 main，但 message 是 `chore: nightly refresh 2026-09-08`，只看
+# `--grep=^nightly: enrich` 會把它算成缺口，而那是假警報。
+with _tf2.TemporaryDirectory() as _td_cg:
+    _cgr = Path(_td_cg)
+
+    def _cgg(*a):
+        return _subprocess.run(["git", "-C", str(_cgr / "work"), *a],
+                               capture_output=True, text=True)
+
+    _subprocess.run(["git", "init", "-q", str(_cgr / "work")], capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _cgg("config", k, v)
+    _cgg("checkout", "-q", "-b", "main")
+
+    def _mk(msg, author, day):
+        # `%cd` 讀的是 **committer** date，而 `git commit --date` 只改 author date。
+        # 用 --date 寫的 fixture 會全部落在「今天」，這一格等於沒有在測日期。
+        stamp = f"{day}T12:00:00+00:00"
+        env = dict(os.environ,
+                   GIT_AUTHOR_NAME=author, GIT_AUTHOR_EMAIL=f"{author}@x",
+                   GIT_COMMITTER_NAME=author, GIT_COMMITTER_EMAIL=f"{author}@x",
+                   GIT_AUTHOR_DATE=stamp, GIT_COMMITTER_DATE=stamp)
+        (_cgr / "work" / f"{day}-{len(msg)}.txt").write_text(day, "utf-8")
+        _cgg("add", "-A")
+        _subprocess.run(["git", "-C", str(_cgr / "work"), "commit", "-qm", msg],
+                        capture_output=True, text=True, env=env)
+
+    _mk("nightly: enrich + narrative 2026-09-12", "ai-pulse-enrich", "2026-09-12")
+    _mk("chore: nightly refresh 2026-09-08", "ai-pulse-enrich", "2026-09-13")
+    _mk("chore: nightly refresh", "ai-pulse-bot", "2026-09-14")
+    _cg_days, _cg_reason = _dob.night_shift_commit_days(_cgr / "work", 7,
+                                                        today="2026-09-15")
+
+acase("夜班 commit：message 前綴命中的算一天",
+      "2026-09-12" in _cg_days, True)
+acase("夜班 commit：message 不同但作者是夜班那個帳號的也算"
+      "（2026-09-08 實測：成果進了 main，message 是 chore: nightly refresh，"
+      "只看前綴會把它算成缺口）",
+      "2026-09-13" in _cg_days, True)
+acase("夜班 commit：資料鏈 bot 推的不算夜班"
+      "（兩個帳號分得開；算進去的話這條判準等於永遠綠）",
+      ["2026-09-14" in _cg_days, _cg_reason], [False, "ok"])
+
+acase("references/health-alarms.md 有〈最後一次遮不住中間的洞〉那一節"
+      "（紅線 9 先文件後碼）",
+      "最後一次遮不住中間的洞" in open(
+          os.path.join(_HERE, "..", "references", "health-alarms.md"),
+          encoding="utf-8").read(),
+      True)
+acase("data-refresh.yml 真的開了 --alert-chain-gap"
+      "（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）",
+      "--alert-chain-gap" in _UB_WF, True)
+acase("_config/gate.yaml 有 chain_gap_window_days（門檻不寫死在碼裡）",
+      "chain_gap_window_days" in open(
+          os.path.join(_HERE, "..", "_config", "gate.yaml"),
+          encoding="utf-8").read(),
+      True)
 
 acase("references/digest-observability.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "digest-observability.md")),
