@@ -530,6 +530,31 @@ suspect      不在 main 的超過一半 → 判準可能失效（見上）
 **這條判準要長在 Actions 那一邊**（`fetch-depth: 0`，看得到全部分支），
 跟 `enrich_chain_line` 同一個理由。
 
+### `origin/HEAD` 不是一支分支，但它的 short name 長得像
+
+（2026-09-15 補）上面那條 `no-remotes` 從接上的那天起，在任何一個真實 clone 裡
+都沒有觸發過。
+
+`git branch -r --format=%(refname:short)` 對 `refs/remotes/origin/HEAD` 輸出的是
+**`origin`**，不是 `origin/HEAD`。實作原本用 `b.endswith("/HEAD")` 濾掉它，濾不到，
+於是 `branches` 永遠至少有一個元素，`if not branches` 那條路走不到，單分支 clone
+一律算出 `ok / 0 支`。
+
+這正是上一段要防的那件事本身，而守衛自己壞了。**「量不到」跟「0 支」在畫面上
+長得一模一樣**（紅線 8），差別只在一個會讓人去補 `fetch-depth: 0`，另一個讓人
+以為分支都收乾淨了。附帶的第二個後果：`suspect` 的分母多算一個，那條自保的門檻
+跟著被稀釋。
+
+過濾要按 **remote 名**判，不是按 ref 名的尾巴。`origin/HEAD` 的 short name 就是
+remote 自己的名字，而 remote 名可以從 `main_ref` 的第一段拿到。
+
+**測試的 fixture 也要有 `origin/HEAD`。** selftest 端到端那一格 clone 的是一個
+空的 bare repo，而 clone 一個空 repo 不會建立 `origin/HEAD` symref。所以 fixture
+裡從來沒有這個 ref，這個 bug 在測試那一邊根本不存在。fixture 要在 push 完 main
+之後補一行 `git remote set-head origin main`，讓它跟真實 clone 一樣。
+
+同一種病這份文件記過好幾次：**驗證環境比現場乾淨，於是測試量不到現場會發生的事。**
+
 ### 門檻與它擋不住什麼
 
 `monitor.unmerged_branch_days`，預設 3。一支昨天剛開的分支不該叫；
@@ -550,6 +575,83 @@ suspect      不在 main 的超過一半 → 判準可能失效（見上）
   要更準，得記下「這條 watch entry 是哪天被加進 `sources.yaml` 的」，
   而那個日期現在沒有任何地方存著（git log 不算：設定檔重排一次就洗掉了）。
   這次先修到「用自己來源的時鐘」這一層，剩下的差距寫在這裡，免得下次又推導一遍。
+
+## 最後一次遮不住中間的洞：缺日
+
+潤稿鏈、每日精選、health 新鮮度這三條判準量的都是「**最後一次**是哪一天」。
+那個形狀抓得到「鏈斷了以後一直沒回來」，抓不到「中間掉了一晚，隔天又好了」。
+
+2026-09-11 實測：那一晚夜班把活做完了，`nightly: enrich + narrative 2026-09-11`
+這顆 commit 也建了，但它只落在 Cowork session 自己的分支上，沒有落到 `main`。
+那顆 commit 的 parent 就是當時的 `main` tip，fast-forward 就進得去，所以不是被
+non-fast-forward 拒絕。隔天 9/12 的夜班從 `main` 起頭、正常推回，於是：
+
+| 判準 | 9/12 當天看到的 | 叫了嗎 |
+|---|---|---|
+| 潤稿鏈 | 最後一次推回 09-12，lag 0 | 沒有 |
+| 每日精選 | 最後一篇 09-12，lag 0 | 沒有 |
+| 沒收的修碼分支 | 門檻 3 天，09-14 才到 | 三天後才叫，而且字面說「修碼分支」，指向另一件事 |
+
+那一晚的產出躺在 origin 的一支分支上三天沒有人知道。Event 那一批被 9/12 的夜班
+重做掉了，沒有損失；每日精選那一篇沒有，因為**它只寫當天，不回頭補**。所以 9/11 這一天在站上永遠是空的，而那天的素材（四則 Anthropic 公告）在
+9/10 與 9/12 的 digest 裡都沒有出現過。掉的不是一天的版面，是一組主線。
+
+### 判準：窗內哪幾天沒有
+
+量的是**日期集合的缺口**，不是集合裡最後一個元素。兩個消費者共用同一支純函式，
+因為這份文件已經記過六次「規矩寫在一個地方，新接上來的消費者沒有一起接到」。
+
+```
+missing_days(days, today, window_days)   → 窗內缺的日期，由舊到新
+```
+
+窗口不含今天：今晚的夜班還沒跑，今天缺是正常的。
+
+### 窗口起手 1 天，刻意不設更長
+
+**缺口不會自癒。** 9/11 這一天永遠不會再有 enrich commit，所以窗口設 7 天的話，
+這條警報會連紅七天，然後在第三天被人關掉。這個 repo 對這件事有前科：
+`data-refresh.yml` 自己的註解寫過「標了 pending 的已知缺口不觸警，否則 CI 天天紅，
+人只會學會忽略 CI，連帶忽略真正的回歸」。
+
+代價要寫清楚：**窗口 1 天等於只叫一次。** 那天的 CI 紅是唯一的痕跡，沒有人看就
+過去了。要它再叫，得把那一天補進來，或把窗口調大，兩件事都是人的決定，不是判準
+自己該做的。門檻在 `_config/gate.yaml` 的 `monitor.chain_gap_window_days`。
+
+### 「沒有夜班 commit」不等於「夜班沒跑」
+
+夜班的 commit message 不是固定的。2026-09-08 那一晚的成果確實進了 `main`
+（那天的每日精選在 `Digests/` 裡），但 commit message 是
+`chore: nightly refresh 2026-09-08`，`--grep=^nightly: enrich` 抓不到它。
+只看 message 的話，9/08 會被算成一個缺口，而那是假警報。
+
+所以 enrich 這一條的缺口判準取兩個條件的**聯集**：message 前綴命中，或 commit
+的作者是夜班那個帳號（`ai-pulse-enrich`；資料鏈的 bot 是 `ai-pulse-bot`，兩個
+帳號分得開）。作者是 commit 本身的屬性，不是〈量什麼：commit 本身，不要代理欄位〉
+那節說的代理欄位。
+
+### 這支旗標一樣只准掛在推得上去的那一邊
+
+`night_shift_commit_days()` 讀的是 `git log`，跟 `last_enrich_commit()` 同一個
+限制：它分不出「commit 了」與「推上去了」。夜班那一邊跑它，會讀到自己剛建、
+還沒推出去的那顆，算出「昨天有」、綠燈，而那正好是它要抓的那個故障。
+
+所以 `--alert-chain-gap` 跟 `--alert-enrich-stale` 一樣，只准長在
+`.github/workflows/data-refresh.yml`。selftest 那條「潤稿 runbook 的步驟 17
+不准帶警報旗標」判的是任何一行同時含 `pulse-monitor` 與 `--alert` 的命令，
+所以這支旗標一接上就自動被它守著，不必另寫一條。
+
+### 這一節不保證什麼
+
+- **不保證那一晚真的潤了稿。** 判準問的是「昨天夜班有沒有往 `main` 推東西」。
+  夜班推了補跑的 probe、而潤稿那一段沒推上去的話，這一格是綠的。要抓得更準，
+  得再問那顆 commit 有沒有動到 `Events/` 或 `Digests/`，那一層還沒做。
+- **不保證缺的那一天會被補回來。** 這一層只負責讓人在隔天看見它。補不補、怎麼補，
+  是人的決定：`Digests/` 是資料產物，手改它會被下一班的規則覆蓋（見 `CONTRIBUTING.md`
+  〈兩條路，別走錯〉）。2026-09-15 對 9/11 的決定就是不補。
+- **量不到的時候不算缺口。** 淺 checkout 與非 git 工作區回「量不到」、不觸警，
+  跟 `last_enrich_commit()` 同一個形狀。空的 `Digests/` 目錄交給既有的
+  「從來沒有產出過」那條，不在這一層重複判一次。
 
 ## 來源已死但每班照樣有貨：`stale_source`
 

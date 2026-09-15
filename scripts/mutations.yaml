@@ -1773,8 +1773,21 @@ mutations:
   - id: M202
     title: "夜班不開 --alert-enrich-stale（判準寫得再好，沒有人開那個旗標它就只是一段不會執行的碼）"
     file: ../.github/workflows/data-refresh.yml
-    find: "            --alert-enrich-stale --alert-digest-stale \\\n            --alert-unmerged-branches > /dev/null"
-    replace: "            --alert-digest-stale \\\n            --alert-unmerged-branches > /dev/null"
+    find: "            --alert-enrich-stale --alert-digest-stale \\\n            --alert-unmerged-branches --alert-chain-gap > /dev/null"
+    replace: "            --alert-digest-stale \\\n            --alert-unmerged-branches --alert-chain-gap > /dev/null"
+    survives: false
+    why: ""
+
+  # ── 最後一次遮不住中間的洞（2026-09-15）──
+  # --alert-enrich-stale 與 --alert-digest-stale 量的都是「最後一次是哪一天」，
+  # 中間掉一晚、隔天又好了的話兩條 lag 都回 0、全綠。2026-09-11 就是那樣掉的。
+  # 缺日那一層跟它們一樣，判準寫得再好，沒有人開那個旗標就只是一段不會執行的碼。
+
+  - id: M358
+    title: "夜班不開 --alert-chain-gap（缺日那一層沒有人開，2026-09-11 那種洞就照樣看不見）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "            --alert-unmerged-branches --alert-chain-gap > /dev/null"
+    replace: "            --alert-unmerged-branches > /dev/null"
     survives: false
     why: ""
 

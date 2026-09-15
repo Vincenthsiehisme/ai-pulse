@@ -320,6 +320,24 @@ monitor:
   # 實測 2026-07-25 ~ 08-04 連續 11 天每天至少一個 enrich commit，零空窗。
   enrich_stale_after_days: 2
 
+  # 消費者：scripts/pulse-monitor.py 的 --alert-chain-gap（2026-09-15 接上）。
+  #
+  # 判的是「窗內哪幾天**沒有**夜班 commit、哪幾天沒有每日精選」，量的是日期集合
+  # 的缺口，不是集合裡最後一個元素。上面兩條 *_stale_after_days 量的都是「最後
+  # 一次是哪一天」，那個形狀抓不到「中間掉了一晚，隔天又好了」。
+  #
+  # 2026-09-11 就是那樣掉的：夜班 commit 建好了、只落在 Cowork session 自己的分支
+  # 上，隔天的夜班正常推回，於是潤稿鏈與每日精選兩條 lag 都是 0，全綠；而
+  # unmerged_branch_days 要三天後才叫、字面又指向「修碼分支」。9/11 那一篇每日精選
+  # 就此不存在，因為它只寫當天、不回頭補。規格 references/health-alarms.md
+  # 〈最後一次遮不住中間的洞：缺日〉。
+  #
+  # 1：只看昨天，刻意不設更長。**缺口不會自癒**——9/11 永遠不會再有 commit，
+  # 窗口設七天就是連紅七天，然後在第三天被人關掉（同 --alert-coverage 那段註解
+  # 講的「CI 天天紅，人只會學會忽略 CI」）。代價是它只叫一次，那天的 CI 紅是
+  # 唯一的痕跡，寫在規格的〈窗口起手 1 天〉那一節。
+  chain_gap_window_days: 1
+
   # 消費者：scripts/pulse-monitor.py 的 coverage() / --alert-stale-source。
   #
   # 判的是「這條來源**最新一筆** published 距今幾天」，不是「這班抓到幾筆」。
