@@ -6078,8 +6078,9 @@ acase("夜班：五條接線真的接上了（**接線也要有人守**）"
        _nl.calls_in(_nl_src, "requires_ok", "advance"),
        _nl.calls_in(_nl_src, "code_action", "do_run_stage"),
        _nl.calls_in(_nl_src, "dirty_outside_data", "do_commit"),
+       _nl.calls_in(_nl_src, "on_target_branch", "do_commit"),
        _nl.calls_in(_nl_src, "check_result", "do_narrative")],
-      [True, True, True, True, True])
+      [True, True, True, True, True, True])
 acase("夜班：calls_in 走 ast 不走字串"
       "（註解與 docstring 裡提到名字不算接上——這個 repo 的說明文字裡到處都是"
       "函式名，用字串比對會把解釋讀成接線，然後這條檢查就永遠是綠的）",
@@ -6105,6 +6106,35 @@ acase("夜班：摘要一定帶成本那一行（量不到就寫量不到）",
       [True, True])
 acase("夜班外殼：把每一棒的花費記回狀態檔（`cost` 子命令有被呼叫）",
       "pulse-nightly.py cost --stage" in _NS, True)
+
+# 端到端：commit 前那兩道關真的跑 git。純函式測得再好，這一格是它實際會不會擋。
+with _tf2.TemporaryDirectory() as _td_br:
+    _brr = Path(_td_br)
+
+    def _bg(*a):
+        return _subprocess.run(["git", "-C", str(_brr), *a], capture_output=True, text=True)
+
+    _subprocess.run(["git", "init", "-q", str(_brr)], capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _bg("config", k, v)
+    (_brr / "a.txt").write_text("1", "utf-8")
+    _bg("add", "-A"); _bg("commit", "-qm", "base"); _bg("branch", "-M", "main")
+    _br_on_main = _nl.on_target_branch(_brr)
+    _bg("checkout", "-q", "-b", "fix/somewhere-else")
+    _br_elsewhere = _nl.on_target_branch(_brr)
+    (_brr / "Events").mkdir()
+    (_brr / "Events" / "e.md").write_text("x", "utf-8")
+    _br_commit = _nl.do_commit(_brr, {"message": "nightly: x"}, True)[:2]
+
+acase("夜班：commit 前先確認站在 main 上"
+      "（排程跑的是本機工作樹，而工作樹會停在人上次切過去的地方。"
+      "2026-09-11 那次成果落在 session 分支上三天沒人知道，就是這個形狀）",
+      [_br_on_main, _br_elsewhere],
+      [(True, "main"), (False, "fix/somewhere-else")])
+acase("夜班：不在 main 上就 stop，而且說出實際在哪一支"
+      "（只說「分支不對」的話，人還要自己去查是哪一支）",
+      [_br_commit[0], "fix/somewhere-else" in _br_commit[1]],
+      ["stop", True])
 
 acase("references/nightly-driver.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "nightly-driver.md")),

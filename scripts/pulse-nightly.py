@@ -421,12 +421,32 @@ def narrative_handoff(spec, count):
     ])
 
 
+def on_target_branch(vault, target="main"):
+    """現在站在目標分支上嗎。回 (是不是, 實際在哪一支)。
+
+    **這條擋的是 2026-09-11 那次事故的另一半。** 那一晚夜班把活做完、commit 也建了，
+    但它落在一支 session 自己的分支上，沒有到 main，三天沒有人知道。排程跑的是本機
+    工作樹，而工作樹會停在人上次切過去的地方——某支 feature 分支、某次 review 的
+    detached HEAD 都算。夜班沒有能力判斷那支分支該不該收，所以不猜，停下來。
+    """
+    r = subprocess.run(["git", "-C", str(vault), "rev-parse", "--abbrev-ref", "HEAD"],
+                       capture_output=True, text=True, timeout=20)
+    cur = (r.stdout or "").strip()
+    return cur == target, (cur or "量不到")
+
+
 def do_commit(vault, spec, no_push):
     """git add -A ＋ 有變更才 commit ＋ push。
 
-    **先擋白名單以外的改動。** 夜班的授權只到資料產物；碼、CI、_config 的判斷邏輯
-    走 PR，那條規矩不因為現在是半夜就改變。`git add -A` 不看這件事，所以看在這裡。
+    兩道關，順序不能換：**先確認站在哪一支**，再擋白名單以外的改動。夜班的授權只到
+    資料產物、只到 `main`；碼、CI、_config 的判斷邏輯走 PR，那條規矩不因為現在是
+    半夜就改變。`git add -A` 這兩件事都不看，所以看在這裡。
     """
+    ok, cur = on_target_branch(vault)
+    if not ok:
+        return "stop", (f"工作樹停在 `{cur}`，不是 `main`，夜班不推"
+                        "——2026-09-11 那次成果落在 session 分支上三天沒人知道，"
+                        "就是這個形狀"), ""
     rc, out = run(vault, ["git", "status", "--porcelain"])
     if rc != 0:
         return "stop", f"git status 失敗 rc={rc}", out
