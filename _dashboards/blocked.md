@@ -1,12 +1,20 @@
-# 被門禁擋下（42）
+# 被門禁擋下（50）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-16-0793a2|NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inferen]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-16-27b2e8|Reimagining advertising with AI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-16-330f5e|University of Manchester Uses NVIDIA Earth-2 to Forecast Air Pollution]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-16-47d690|Grok Build Memory]]** — xAI — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-16-53f462|Emerald AI, Google and NVIDIA Launch Alliance to Advance Flexible AI D]]** — Google — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-16-634079|How workers are unlocking new ways of working]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-16-ed19d1|Helping older adults use AI in everyday life]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-15-0fe6d3|From Megawatts to Tokens: How NVIDIA Maximizes AI Factory Production]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-15-1766a6|Your Agent Aced the Task. Will It Do It Again?]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-15-18b24e|AI Infra Summit: NVIDIA Vera Rubin and DSX Platform Advancements Showc]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-15-5ab3de|‘Now We Can Know Everything and Do Anything,’ Jensen Huang Says at Dre]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-15-8d5244|Heart of the Matter: How a Major Children’s Hospital Uses Open Source ]]** — NVIDIA — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-15-a7dafa|Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking]]** — Google DeepMind — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-15-a7dafa|Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking]]** — Google DeepMind — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-c7ad58|AI Enabled Cyber Threats Mitre Attack]]** — Anthropic — blockers: thin_research_analysis

@@ -22,7 +22,7 @@ events_bound: 39
 events_published: 25
 health_score: 100
 consecutive_failures: 0
-last_status: 200
+last_status: 304
 ---
 
 # Hugging Face（src-hf-blog）

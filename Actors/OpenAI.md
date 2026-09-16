@@ -3,17 +3,20 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-15'
+generated_day: '2026-09-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **95** 則：`published` 92、`review` 3
+事件 **98** 則：`published` 92、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-16 | [[Events/evt-2026-09-16-ed19d1\|Helping older adults use AI in everyday life]] | review |
+| 2026-09-16 | [[Events/evt-2026-09-16-634079\|How workers are unlocking new ways of working]] | review |
+| 2026-09-16 | [[Events/evt-2026-09-16-27b2e8\|Reimagining advertising with AI]] | review |
 | 2026-09-11 | [[Events/evt-2026-09-11-4bdd2c\|Rapidly scaling online storage to serve over 1 billion ChatGPT users]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-bd46b8\|Introducing the Agents API]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-8bfd47\|Expanding AI access and cyber defense for federal, state, local, and tribal governments]] | published |

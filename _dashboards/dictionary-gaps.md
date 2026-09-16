@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-15'
+generated_day: '2026-09-16'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**50 天**（2026-07-24 … 2026-09-15），去重後 **3392** 列。
+語料範圍：**51 天**（2026-07-24 … 2026-09-16），去重後 **3458** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,32 +17,32 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 83 | 5 |
-| LLMs | 40 | 12 |
-| Amazon | 37 | 5 |
+| Apple | 84 | 5 |
+| LLMs | 41 | 12 |
+| Amazon | 39 | 5 |
 | LLM | 36 | 11 |
-| There | 35 | 7 |
-| They | 32 | 9 |
+| There | 36 | 7 |
+| They | 33 | 9 |
 | July | 30 | 9 |
 | Here | 30 | 8 |
-| One | 26 | 9 |
+| September | 27 | 6 |
+| One | 27 | 9 |
+| Research | 26 | 6 |
 | August | 26 | 8 |
-| Research | 25 | 6 |
-| September | 24 | 6 |
 | Python | 24 | 4 |
+| U.S | 24 | 7 |
 | When | 24 | 9 |
-| U.S | 23 | 7 |
-| Pro | 23 | 6 |
+| Pro | 24 | 6 |
 | Trump | 23 | 4 |
+| AI-powered | 22 | 9 |
 | June | 22 | 7 |
 | Android | 21 | 4 |
-| AI-powered | 20 | 9 |
 | Pixel | 20 | 3 |
 | CEO | 20 | 5 |
+| Building | 19 | 10 |
 | China | 19 | 6 |
 | Linux | 19 | 5 |
 | Astra | 19 | 5 |
-| Building | 18 | 10 |
 | With | 18 | 9 |
 | Rust | 18 | 3 |
 | After | 18 | 6 |
@@ -55,27 +55,27 @@ generator: scripts/pulse-dictionary-gaps.py
 | Some | 15 | 8 |
 | Elon Musk | 15 | 5 |
 | SpaceX | 15 | 5 |
+| Last | 15 | 6 |
 | Flash | 14 | 4 |
 | Fable | 14 | 4 |
 | These | 14 | 6 |
-| Last | 14 | 6 |
 | RAM | 14 | 2 |
 | AI-generated | 14 | 5 |
+| The AI | 14 | 5 |
 | Thursday | 13 | 4 |
 | API | 13 | 5 |
 | While | 13 | 4 |
-| The AI | 13 | 5 |
+| Over | 13 | 4 |
 | Tuesday | 12 | 5 |
 | Monday | 12 | 4 |
 | Learn | 12 | 4 |
+| India | 12 | 3 |
 | May | 12 | 5 |
 | Opus | 12 | 4 |
-| Over | 12 | 4 |
 | OpenRouter | 12 | 4 |
 | Duo | 12 | 3 |
 | Draft | 11 | 2 |
 | Texas | 11 | 6 |
-| India | 11 | 3 |
 | Flock | 11 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
@@ -87,15 +87,16 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 92 | src-hn-frontpage |
-| The Download | 40 | src-media-mit-techreview |
+| Show HN | 95 | src-hn-frontpage |
+| The Download | 41 | src-media-mit-techreview |
 | Tags | 20 | src-kol-simonwillison |
+| TechCrunch Disrupt | 19 | src-media-techcrunch |
 | Highlights | 17 | src-gh-vllm-releases |
-| TechCrunch Disrupt | 17 | src-media-techcrunch |
 | Hi HN | 16 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
 | Launch HN | 13 | src-hn-frontpage |
 | YC S26 | 11 | src-hn-frontpage |
+| Opt | 10 | src-media-theverge |
 | Ask HN | 10 | src-hn-frontpage |
 | The Verge | 10 | src-media-theverge |
 | AMENDMENTS | 9 | src-ep-itre |
@@ -103,15 +104,15 @@ generator: scripts/pulse-dictionary-gaps.py
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | GeForce NOW | 9 | src-nvidia-blog |
-| Opt | 9 | src-media-theverge |
 | Best Buy | 9 | src-media-theverge |
+| Tool | 8 | src-kol-simonwillison |
+| Switch | 8 | src-media-theverge |
 | MIT Technology Review | 8 | src-media-mit-techreview |
-| Tool | 7 | src-kol-simonwillison |
+| Is Hiring | 8 | src-hn-frontpage |
+| According | 7 | src-media-theverge |
 | Marvel | 7 | src-media-theverge |
 | The Stepback | 7 | src-media-theverge |
-| Switch | 7 | src-media-theverge |
 | November | 7 | src-media-theverge |
-| Is Hiring | 7 | src-hn-frontpage |
 | FCC | 6 | src-media-theverge |
 | The Algorithm | 6 | src-media-mit-techreview |
 | Bloomberg | 6 | src-media-theverge |
@@ -123,7 +124,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Grand Theft Auto | 6 | src-media-theverge |
 | Series A | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
-| According | 5 | src-media-theverge |
 | Netflix | 5 | src-media-theverge |
 | Installer No | 5 | src-media-theverge |
 | Verge-iest | 5 | src-media-theverge |
@@ -145,8 +145,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | Woot | 4 | src-media-theverge |
 | Sure | 4 | src-media-theverge |
 | Disney | 4 | src-media-theverge |
+| Self-hosted | 4 | src-hn-frontpage |
 | Roundtables | 4 | src-media-mit-techreview |
-| TikTok | 4 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

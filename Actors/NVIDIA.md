@@ -3,18 +3,21 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-15'
+generated_day: '2026-09-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **53** 則：`dropped` 1、`published` 46、`review` 6
+事件 **56** 則：`dropped` 1、`published` 46、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-16 | [[Events/evt-2026-09-16-330f5e\|University of Manchester Uses NVIDIA Earth-2 to Forecast Air Pollution Across the UK]] | review |
+| 2026-09-16 | [[Events/evt-2026-09-16-0793a2\|NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut]] | review |
 | 2026-09-15 | [[Events/evt-2026-09-15-8d5244\|Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care]] | review |
+| 2026-09-15 | [[Events/evt-2026-09-15-5ab3de\|‘Now We Can Know Everything and Do Anything,’ Jensen Huang Says at Dreamforce]] | review |
 | 2026-09-15 | [[Events/evt-2026-09-15-18b24e\|AI Infra Summit: NVIDIA Vera Rubin and DSX Platform Advancements Showcase Energy Efficiencies of Optimizing Tokens Per Watt for AI Factories]] | review |
 | 2026-09-15 | [[Events/evt-2026-09-15-0fe6d3\|From Megawatts to Tokens: How NVIDIA Maximizes AI Factory Production]] | review |
 | 2026-09-10 | [[Events/evt-2026-09-10-f9152b\|Boots on the Ground: ‘WARDOGS’ Goes All Out on GeForce NOW at Early-Access Launch]] | published |
