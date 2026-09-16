@@ -1,6 +1,34 @@
-# 已發布事件（306）
+# 已發布事件（318）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-16
+- **[[Events/evt-2026-09-16-0793a2|NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA Vera Rubin NVL72 在 MLPerf Inference v6.1 首次亮相就拿下領先成績。
+- **[[Events/evt-2026-09-16-27b2e8|Reimagining advertising with AI]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出廣告新玩法 Sponsored Agents，並與 HubSpot、Shopify 做整合。
+- **[[Events/evt-2026-09-16-330f5e|University of Manchester Uses NVIDIA Earth-2 to Forecast Air Pollution Across the UK]]** — NVIDIA · research · conf 73 · heat 未量測
+  曼徹斯特大學用 NVIDIA Earth-2 模擬英國空氣污染。
+- **[[Events/evt-2026-09-16-47d690|Grok Build Memory]]** — xAI · product · conf 73 · heat 未量測
+  xAI 這則公告站方宣告不給 AI 讀取，我們只留標題與連結。
+- **[[Events/evt-2026-09-16-53f462|Emerald AI, Google and NVIDIA Launch Alliance to Advance Flexible AI Data Centers]]** — NVIDIA、Google、Emerald AI · infra · conf 73 · heat 未量測
+  Emerald AI、Google、NVIDIA 聯手成立 AI Energy Management Alliance，推動 AI 資料中心彈性用電。
+- **[[Events/evt-2026-09-16-634079|How workers are unlocking new ways of working]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 公布最新經濟研究，看員工怎麼用 AI 做原本工作範圍外的事。
+- **[[Events/evt-2026-09-16-ed19d1|Helping older adults use AI in everyday life]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 與 AARP 合作，在美國 10 個城市辦免費 ChatGPT 工作坊教銀髮族用 AI。
+
+## 2026-09-15
+- **[[Events/evt-2026-09-15-0fe6d3|From Megawatts to Tokens: How NVIDIA Maximizes AI Factory Production]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 部落格用一次電網調度案例，帶出 AI 工廠配合電網做需量反應的新做法。
+- **[[Events/evt-2026-09-15-18b24e|AI Infra Summit: NVIDIA Vera Rubin and DSX Platform Advancements Showcase Energy Efficiencies of Optimizing Tokens Per Watt for AI Factories]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 在 AI Infra Summit 上談 Vera Rubin 與 DSX 平台如何拉高「每瓦 token 數」。
+- **[[Events/evt-2026-09-15-5ab3de|‘Now We Can Know Everything and Do Anything,’ Jensen Huang Says at Dreamforce]]** — NVIDIA · product · conf 73 · heat 未量測
+  Jensen Huang 在 Salesforce Dreamforce 與 Marc Benioff 同台，搭配 Salesforce 發布用 NVIDIA Nemotron 3 Super 打造的 CRM 推理模型 Koa。
+- **[[Events/evt-2026-09-15-8d5244|Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care]]** — NVIDIA · product · conf 73 · heat 未量測
+  這一則我們照授權政策只留標題與連結，不轉述內文。
+- **[[Events/evt-2026-09-15-a7dafa|Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking]]** — Google DeepMind · model-capability · conf 87 · heat 未量測
+  Google 推出 Gemini 3.8 Live 與 Extended Thinking 兩款語音對語音模型，形態跟 OpenAI GPT-Live 系列相近。
 
 ## 2026-09-14
 - **[[Events/evt-2026-09-14-0dc682|How Fyxer built an AI executive assistant people trust]]** — Fyxer · product · conf 73 · heat 未量測

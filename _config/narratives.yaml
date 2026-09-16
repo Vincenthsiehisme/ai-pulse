@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-09-15'
+updated: '2026-09-16'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 上一輪這條線的新訊號是 OpenAI 公開儲存系統 Habitat，從一個 Python 函式庫演化成支撐超過 10 億名 ChatGPT 用戶、尖峰每秒處理 2,200 萬次請求的全球分散式平台，角度跟 NVIDIA 主導的晶片與電力敘事不同，談的是應用層業者自己撐用戶規模時儲存架構重寫的必要性。這一輪新增一則，Hugging Face 公開一套不靠 NCCL、只用 bucket 加 proxy 跨 HF Jobs 跑非同步 LoRA GRPO 訓練的做法。這跟 OpenAI Habitat 那篇性質接近，都是用架構設計換效率、不涉及晶片採購的案例，跟 NVIDIA 把算力堆起來的主軸形成對照。
-    next: 留意這套 HF 非同步訓練做法是否有具體的吞吐或成本數字被引用。同時持續追蹤 OpenAI Habitat 儲存架構、NVIDIA 系列訊號（d-Matrix、Skild AI、robotaxi 生態系）的後續案例是否兌現。
+    now: 這一輪新增四則，全部來自 NVIDIA，兩天內連成一條線。9/15 先是電網需量反應示範（Silicon Valley Power 對一座 AI 工廠發出調整用電訊號，Emerald AI 團隊在場觀看）與副總裁 Ian Buck 在 AI Infra Summit 上談 Vera Rubin／DSX 平台的每瓦 token 效率；9/16 這則示範升級成正式聯盟——Emerald AI、Google、NVIDIA 三方宣布成立 AI Energy Management Alliance（AEMA），部落格原文明白把聯盟接續在前一天的示範案例之後；同一天 Vera Rubin NVL72 在 MLPerf Inference v6.1 首度亮相就拿下領先成績。四則合起來，NVIDIA 這週把「把每一塊錢算力壓低」的主軸，具體拆成電網協調與效能基準兩條腿走路，跟先前機器人、邊緣、實體模擬的延伸方向並列。
+    next: 觀察 AEMA 是否公布具體成員擴張或量化的用電協調目標，以及 MLPerf Inference v6.1 完整榜單與其他廠商的對比成績；同時持續追蹤 HF 非同步訓練做法、OpenAI Habitat 儲存架構、d-Matrix／Skild AI／robotaxi 生態系後續案例是否兌現。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這條線這一輪新增五則，跟既有『小而專、成本導向模型迭代』主軸關聯都不算直接。IBM Research 在 Hugging Face 發布新一代時間序列基礎模型 Granite Time Series PatchTST-FM-r2，採用商用友善授權，官方稱達到 SOTA，但沒有第三方基準數字佐證，是這五則裡唯一有實質技術描述可查的一則。Anthropic 同一時段另外發了三則公告：《Fable Safeguards Jailbreak Framework》從標題看是防範模型被越獄攻擊的防護框架、《Redeploying Fable 5》從標題看是把代號 Fable 5 的系統重新部署、以及一項罕見疾病研究補助計畫，三則都只留標題與連結，具體內容看不到。OpenAI 則分享了一個應用案例：賓大實驗室用 Codex 與 ChatGPT 篩選抗藥性感染的候選抗菌分子，屬於既有模型的應用展示，不是新模型發布。這一輪沒有新的『小而專』模型迭代訊號進來，主軸判斷不變。
-    next: 留意 Anthropic 是否進一步說明 Fable 5 重新部署的原因，以及 IBM 的 SOTA 宣稱有沒有第三方基準測試跟進驗證；『小而專』模型迭代這條主軸則要看下一輪有沒有新的模型發布訊號。
+    now: 這一輪新增一則：Google DeepMind／Google 官方部落格發布 Gemini 3.8 Live 與 Gemini 3.8 Live Extended Thinking。獨立來源 Simon Willison 記錄了實測心得：這是兩款「語音對語音」模型，形態跟 OpenAI 的 GPT-Live 系列類似，他還拿 GPT-6 Astra Extra High 讀官方文件，做了一個測試用的網頁介面；官方原文我們只留標題與連結（自己的保守授權約束）。這則跟既有「小而專、成本導向」主軸關聯不大，它談的是能力分流（即時互動與延伸推理），不是把模型做小做便宜；主軸判斷維持不變。
+    next: 觀察 Gemini 3.8 Live／Extended Thinking 是否有第三方延遲、準確度基準測試；「小而專」模型迭代這條主軸則要看下一輪有沒有新的模型發布訊號進來。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 上一輪這條線的訊號集中在 Anthropic 一批企業顧問夥伴公告，DXC、KPMG、TCS、UST、PwC 等公司同時間具名出現，把企業導入通路從直接銷售延伸到顧問業者的間接管道。這一輪新增兩則。OpenAI 發布客戶案例 Fyxer，用其模型加微調、記憶與用戶回饋做出會模仿個人口吻的收件匣助理。Perplexity 的本機 agent「Portable Computer」上線 Windows，靠 NVIDIA RTX 加速跑本機模型。這兩則各自是產品線的例行進展，彼此關聯不強，沒有改變上一輪 Anthropic 顧問通路與 Google DeepMind 產品化兩條主軸的格局。
-    next: 留意 Anthropic 這批顧問夥伴公告是否有具體客戶導入案例或成效數字跟進公布，目前全部停在宣布合作的層級。同時觀察 Fyxer 這類記憶與個人化助理是否有更多同類案例，以及 Perplexity Portable Computer 在 Windows 上的實際採用情況。
+    now: 這一輪新增六則，橫跨三家公司。NVIDIA 這邊兩則：Jensen Huang 在 Salesforce Dreamforce 與執行長 Marc Benioff 同台，搭配 Salesforce 發布用 NVIDIA Nemotron 3 Super 打造的 CRM 推理模型 Koa；另一則是兒童醫院用開源 NVIDIA AI 做心臟照護的案例，這則我們只留標題與連結。OpenAI 這邊三則：「Sponsored Agents」把廣告正式做成 ChatGPT 的產品功能，並與 HubSpot、Shopify 整合；一份新的 OpenAI Economic Research 談員工如何用 AI 做職務外的事；以及與 AARP 合作在美國 10 個城市辦銀髮族 ChatGPT 工作坊。xAI 發了一則「Grok Build Memory」，站方宣告不給 AI 讀取，我們只留標題與連結。六則各自是不同公司的例行產品動態，彼此關聯不強，沒有改變上一輪 Anthropic 顧問通路與 Google DeepMind 產品化兩條主軸的格局；比較值得注意的是 OpenAI 把「廣告」正式做成產品線一環，這是它先前不曾用這麼直白的用詞談過的商業化方向。
+    next: 留意 OpenAI Sponsored Agents 上線後的使用者體驗與廣告主導入情況；持續觀察 Anthropic 顧問夥伴公告是否有具體客戶導入案例，以及 Salesforce Koa、Fyxer、Perplexity Portable Computer 這類產品案例的後續採用情況。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -64,6 +64,6 @@ tracks:
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這條線先前的判斷是尚無足夠已發布事件可支撐判斷，這一輪隨著一批先前只掛著標題待處理的公告完成處理，事件數已足夠支撐初步判斷，訊號集中在 Anthropic 密集的區域擴張與政策定位。辦公室同時在巴黎、慕尼黑開設，首爾與米蘭稍早也才開；印度與南韓分別任命了董事總經理與代表理事，區域布局正從單一人事任命，往實體據點同步鋪開。政策與立場層面，Anthropic 執行長 Dario Amodei 就美國 AI 領先地位發表聲明，同時發布政治中立性說明、保護使用者身心健康的公告、與美國 CAISI／英國 AISI 合作強化安全防護、與公部門合作發展 AI 核安全防護、成立國家安全與公部門諮詢委員會、推出高等教育計畫，還有一則因應加州 SB53 的合規框架與一則對外捐款公告——這批全部只留標題與連結，具體主張與措施內容看不到。OpenAI 這邊除了呼籲政策窗口正在開啟的表態文章，也宣布擴大聯邦、州、地方與部落政府的 AI 存取優惠。較特別的一則是 Anthropic 把可解釋性研究員 Chris Olah 與教宗良的一份通諭連結在一起的公告，具體關聯同樣只留標題看不出來。整體上，這條線的訊號量已經足夠支撐一個初步主軸：AI 業者正同時在區域據點、安全信任建設與政策論述三條戰線上加速布局。
-    next: 留意這批只留標題的政策與安全公告（CAISI／UK AISI 合作、核安全防護、國家安全諮詢委員會、政治中立性、SB53 合規框架）是否有第三方媒體或監管機關的後續回應；也留意 Chris Olah 與教宗通諭的公告原文究竟在講什麼、以及各區域新據點的實際團隊規模。
+    now: 這一輪新增一則：曼徹斯特大學採用 NVIDIA Earth-2 預測英國各地空氣污染，NVIDIA 部落格以英國去年約 3 萬人死於空氣污染的公衛數字帶出這個案例，但沒有給出這套模型的準確度或與傳統化學模型的對比數字。這則跟上一輪 Anthropic 密集的區域據點與政策布局性質不同，是單一學術／公衛應用案例，不改變「業者同時在據點、信任建設、政策論述三條戰線加速布局」的主軸判斷。
+    next: 觀察曼徹斯特大學這套模型是否有論文發表，或跟官方監測數據的對比結果；同時留意上一輪那批只留標題的政策與安全公告是否有第三方回應。
     lenses: []

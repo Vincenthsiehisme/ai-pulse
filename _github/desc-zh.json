@@ -75,9 +75,9 @@
     "zh": "跑在 Object Storage 上、用 Rust 寫成的 OLTP 圖形＋向量資料庫"
   },
   "JuliusBrussee/caveman": {
-    "at": "2026-07-27T19:23:58+00:00",
-    "src_hash": "a1ba0a8f169a",
-    "zh": "何必用很多 token，少少就夠：用穴居人口吻說話，幫 Claude Code 省 65% token"
+    "at": "2026-09-16T19:22:05+00:00",
+    "src_hash": "efce92ae3e5e",
+    "zh": "少廢話省 token：讓 coding agent 用穴居人口吻對話，砍 65% token 用量的技能＋proxy"
   },
   "LMCache/LMCache": {
     "at": "2026-08-21T19:12:31+00:00",
