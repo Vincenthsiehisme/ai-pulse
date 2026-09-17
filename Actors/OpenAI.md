@@ -3,20 +3,22 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-16'
+generated_day: '2026-09-17'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **98** 則：`published` 92、`review` 6
+事件 **100** 則：`published` 95、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-16 | [[Events/evt-2026-09-16-ed19d1\|Helping older adults use AI in everyday life]] | review |
-| 2026-09-16 | [[Events/evt-2026-09-16-634079\|How workers are unlocking new ways of working]] | review |
-| 2026-09-16 | [[Events/evt-2026-09-16-27b2e8\|Reimagining advertising with AI]] | review |
+| 2026-09-16 | [[Events/evt-2026-09-16-ed19d1\|Helping older adults use AI in everyday life]] | published |
+| 2026-09-16 | [[Events/evt-2026-09-16-a8fefc\|How to connect AI usage to business value]] | review |
+| 2026-09-16 | [[Events/evt-2026-09-16-80242e\|Our framework for reporting model misalignment]] | review |
+| 2026-09-16 | [[Events/evt-2026-09-16-634079\|How workers are unlocking new ways of working]] | published |
+| 2026-09-16 | [[Events/evt-2026-09-16-27b2e8\|Reimagining advertising with AI]] | published |
 | 2026-09-11 | [[Events/evt-2026-09-11-4bdd2c\|Rapidly scaling online storage to serve over 1 billion ChatGPT users]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-bd46b8\|Introducing the Agents API]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-8bfd47\|Expanding AI access and cyber defense for federal, state, local, and tribal governments]] | published |

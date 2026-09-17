@@ -11,7 +11,7 @@
   曼徹斯特大學用 NVIDIA Earth-2 模擬英國空氣污染。
 - **[[Events/evt-2026-09-16-47d690|Grok Build Memory]]** — xAI · product · conf 73 · heat 未量測
   xAI 這則公告站方宣告不給 AI 讀取，我們只留標題與連結。
-- **[[Events/evt-2026-09-16-53f462|Emerald AI, Google and NVIDIA Launch Alliance to Advance Flexible AI Data Centers]]** — NVIDIA、Google、Emerald AI · infra · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-16-53f462|Emerald AI, Google and NVIDIA Launch Alliance to Advance Flexible AI Data Centers]]** — NVIDIA、Google、Emerald AI · infra · conf 80 · heat 未量測
   Emerald AI、Google、NVIDIA 聯手成立 AI Energy Management Alliance，推動 AI 資料中心彈性用電。
 - **[[Events/evt-2026-09-16-634079|How workers are unlocking new ways of working]]** — OpenAI · research · conf 73 · heat 未量測
   OpenAI 公布最新經濟研究，看員工怎麼用 AI 做原本工作範圍外的事。

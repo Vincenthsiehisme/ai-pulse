@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-16"
+generated_day: "2026-09-17"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-16"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **292** 則／已裁決 **26** 則。
+待回答 **304** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,14 +24,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#392c90b6`** — infra-cost
-  > 留意這套 HF 非同步訓練做法是否有具體的吞吐或成本數字被引用。同時持續追蹤 OpenAI Habitat 儲存架構、NVIDIA 系列訊號（d-Matrix、Skild AI、robotaxi 生態系）的後續案例是否兌現。
+- **`infra-cost#6c20b80b`** — infra-cost
+  > 觀察 AEMA 是否公布具體成員擴張或量化的用電協調目標，以及 MLPerf Inference v6.1 完整榜單與其他廠商的對比成績；同時持續追蹤 HF 非同步訓練做法、OpenAI Habitat 儲存架構、d-Matrix／Skild AI／robotaxi 生態系後續案例是否兌現。
 
-- **`model-research#072cead6`** — model-research
-  > 留意 Anthropic 是否進一步說明 Fable 5 重新部署的原因，以及 IBM 的 SOTA 宣稱有沒有第三方基準測試跟進驗證；『小而專』模型迭代這條主軸則要看下一輪有沒有新的模型發布訊號。
+- **`model-research#780696e4`** — model-research
+  > 觀察 Gemini 3.8 Live／Extended Thinking 是否有第三方延遲、準確度基準測試；「小而專」模型迭代這條主軸則要看下一輪有沒有新的模型發布訊號進來。
 
-- **`product-market#da6ad562`** — product-market
-  > 留意 Anthropic 這批顧問夥伴公告是否有具體客戶導入案例或成效數字跟進公布，目前全部停在宣布合作的層級。同時觀察 Fyxer 這類記憶與個人化助理是否有更多同類案例，以及 Perplexity Portable Computer 在 Windows 上的實際採用情況。
+- **`product-market#92549f1f`** — product-market
+  > 留意 OpenAI Sponsored Agents 上線後的使用者體驗與廣告主導入情況；持續觀察 Anthropic 顧問夥伴公告是否有具體客戶導入案例，以及 Salesforce Koa、Fyxer、Perplexity Portable Computer 這類產品案例的後續採用情況。
 
 - **`capital-evolution#848ecbe1`** — capital-evolution
   > 留意 Series F 的投資人名單是否揭露、這輪估值與 OpenAI 等競爭對手最新估值的相對位置；也留意《Confidential Draft S1 SEC》這則先前提到的疑似機密 IPO 申報，原文內容是否進一步被證實或澄清。
@@ -39,10 +39,10 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`agent-refactor#6671b646`** — agent-refactor
   > 留意 Agents API 的定價與計費模式公布後，是否進一步壓低中小型開發者建置 agent 的門檻；也留意 Devin 的自我測試通過率或誤判率是否有第三方或使用者端的具體數字佐證，那會比案例文章本身更能驗證這項能力的實際可靠度。
 
-- **`global-map#13f4cdd7`** — global-map
-  > 留意這批只留標題的政策與安全公告（CAISI／UK AISI 合作、核安全防護、國家安全諮詢委員會、政治中立性、SB53 合規框架）是否有第三方媒體或監管機關的後續回應；也留意 Chris Olah 與教宗通諭的公告原文究竟在講什麼、以及各區域新據點的實際團隊規模。
+- **`global-map#7606507c`** — global-map
+  > 觀察曼徹斯特大學這套模型是否有論文發表，或跟官方監測數據的對比結果；同時留意上一輪那批只留標題的政策與安全公告是否有第三方回應。
 
-## 事件層（286）
+## 事件層（298）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -901,3 +901,39 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-09-14-c2c5ef#1d3b2e5e`** — evt-2026-09-14-c2c5ef
   > 留意本機版實際跑的是哪顆模型，以及跟雲端版 Perplexity Computer 在任務完成率上差多少，這會決定本機版是閹割版還是真正堪用的替代品。
+
+- **`evt-2026-09-15-0fe6d3#be123a7c`** — evt-2026-09-15-0fe6d3
+  > 隔天（9/16）NVIDIA 已經跟 Emerald AI、Google 一起把這類案例升級成正式聯盟 AI Energy Management Alliance（見 evt-2026-09-16-53f462），接下來觀察這個聯盟有沒有公布具體的用電協調數字。
+
+- **`evt-2026-09-15-18b24e#5cffea08`** — evt-2026-09-15-18b24e
+  > 觀察 Vera Rubin／DSX 平台是否公布具體的 tokens-per-watt 數字或第三方測試結果。
+
+- **`evt-2026-09-15-5ab3de#e6695837`** — evt-2026-09-15-5ab3de
+  > 觀察 Koa 上市後的實際客戶採用情況，以及是否有第三方對其推理品質做評測。
+
+- **`evt-2026-09-15-8d5244#02bba70c`** — evt-2026-09-15-8d5244
+  > 觀察 NVIDIA 是否在其他管道（論文、案例研究）釋出可轉述的技術細節。
+
+- **`evt-2026-09-15-a7dafa#d3aafb9e`** — evt-2026-09-15-a7dafa
+  > 觀察 Gemini 3.8 Live／Extended Thinking 是否有第三方延遲、準確度基準測試，以及開發者社群（如 Willison 這類獨立評測者）後續的實測心得。
+
+- **`evt-2026-09-16-0793a2#c0bcd9a4`** — evt-2026-09-16-0793a2
+  > 觀察 MLPerf Inference v6.1 的完整榜單與具體分數，以及其他廠商平台的對比成績。
+
+- **`evt-2026-09-16-27b2e8#06690686`** — evt-2026-09-16-27b2e8
+  > 觀察 Sponsored Agents 實際上線後的使用者體驗、廣告主導入情況，以及 OpenAI 是否公布廣告營收數字。
+
+- **`evt-2026-09-16-330f5e#7c404461`** — evt-2026-09-16-330f5e
+  > 觀察曼徹斯特大學這套空氣污染預測模型是否有論文發表，或跟官方監測數據的對比結果。
+
+- **`evt-2026-09-16-47d690#784cb7de`** — evt-2026-09-16-47d690
+  > 觀察 xAI 是否在其他管道（例如第三方媒體報導、開發者文件）釋出可轉述的細節。
+
+- **`evt-2026-09-16-53f462#9a530086`** — evt-2026-09-16-53f462
+  > 觀察 AEMA 是否有具體成員名單擴張、量化的用電協調目標，或第一個公開案例的成效數字。
+
+- **`evt-2026-09-16-634079#241a42b3`** — evt-2026-09-16-634079
+  > 觀察這份研究的完整報告內容與具體數據是否公布。
+
+- **`evt-2026-09-16-ed19d1#275122af`** — evt-2026-09-16-ed19d1
+  > 觀察這批工作坊辦完後有沒有具體的參與人數、滿意度或後續使用率數據公布。

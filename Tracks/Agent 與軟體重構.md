@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-09-16'
+generated_day: '2026-09-17'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,11 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **24** 則：`published` 21、`review` 3
+事件 **25** 則：`published` 21、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-15 | [[Events/evt-2026-09-15-1766a6\|Your Agent Aced the Task. Will It Do It Again?]] | review |
 | 2026-09-11 | [[Events/evt-2026-09-11-d17d90\|Cognition helps Devin test its own work with GPT‑6 Astra]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-bd46b8\|Introducing the Agents API]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-911846\|Rebuilding AUTOMATIC1111 with Gradio Workflow]] | published |

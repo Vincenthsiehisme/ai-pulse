@@ -1,18 +1,18 @@
 [
   {
-    "full_name": "JuliusBrussee/caveman",
-    "desc": "🪨 why use many token when few token do trick. Viral skill + proxy for coding agents that cuts 65% of tokens by talking like a caveman.",
-    "language": "Go",
+    "full_name": "firecrawl/firecrawl",
+    "desc": "The web data API to search, scrape, and interact at scale. 🔥",
+    "language": "TypeScript",
     "topics": [
       "ai",
-      "anthropic",
-      "caveman",
-      "claude",
-      "claude-code",
-      "llm"
+      "ai-agents",
+      "ai-crawler",
+      "ai-scraping",
+      "ai-search",
+      "crawler"
     ],
-    "stars": 105971,
-    "url": "https://github.com/JuliusBrussee/caveman",
-    "stale_zh": "何必用很多 token，少少就夠：用穴居人口吻說話，幫 Claude Code 省 65% token"
+    "stars": 181619,
+    "url": "https://github.com/firecrawl/firecrawl",
+    "stale_zh": "大規模搜尋、抓取並操作網頁的 context API"
   }
 ]
