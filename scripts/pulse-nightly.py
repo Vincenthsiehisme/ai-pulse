@@ -63,16 +63,22 @@ def stages(date_str):
     """整條夜班鏈。順序就是 runbook 的順序，依賴寫在 requires。
 
     分開成函式而不是模組常數，因為 commit 訊息要帶當天日期，而日期是跑的時候才知道的。
+
+    子行程一律用 sys.executable，不寫死 "python3"：2026-09-18 發現外殼與這支
+    driver 各自解析一次 PATH 上的 python3，兩邊可能解析到不同直譯器（互動 shell
+    裝了套件的那支 vs. launchd 環境找到的系統 3.9）。子行程改成沿用啟動 driver
+    那支直譯器，PATH 换成哪一支都只有一個地方要對，不必兩邊同步維護。見
+    nightly-shell.sh 的 PY= 那行與 references/nightly-driver.md。
     """
     def apply_stage(sid, script, infile, codes, needs):
         # apply 一定是「產出依賴」：它的 narrative 那一段被跳過，就沒有 result 檔可寫回。
         return {"id": sid, "kind": "run", "needs": needs, "dry_first": True,
-                "cmd": ["python3", f"scripts/{script}", "--in", infile], "codes": codes}
+                "cmd": [sys.executable, f"scripts/{script}", "--in", infile], "codes": codes}
 
     return [
         {"id": "precheck", "kind": "precheck"},
         {"id": "enrich-prep", "kind": "run", "after": ["precheck"],
-         "cmd": ["python3", "scripts/pulse-enrich-prep.py"],
+         "cmd": [sys.executable, "scripts/pulse-enrich-prep.py"],
          "codes": {0: "ok", 2: "stop"}, "summary_grep": "pulse-enrich-prep"},
         {"id": "enrich-write", "kind": "narrative", "needs": ["enrich-prep"],
          "worklist": "_probe/enrich-worklist.json", "items": None, "key": "id",
@@ -82,13 +88,13 @@ def stages(date_str):
         apply_stage("enrich-apply", "pulse-enrich-apply.py", "enrich-result.json",
                     {0: "ok", 1: "noted"}, ["enrich-write"]),
         {"id": "gate", "kind": "run", "after": ["enrich-apply"],
-         "cmd": ["python3", "scripts/pulse-gate.py"], "codes": {0: "ok", 2: "stop"}},
+         "cmd": [sys.executable, "scripts/pulse-gate.py"], "codes": {0: "ok", 2: "stop"}},
         {"id": "dashboard", "kind": "run", "needs": ["gate"],
-         "cmd": ["python3", "scripts/pulse-dashboard.py"], "codes": {0: "ok", 1: "stop"}},
+         "cmd": [sys.executable, "scripts/pulse-dashboard.py"], "codes": {0: "ok", 1: "stop"}},
         # 這一條的 requires 是 2026-08-16 那次事故的本體：digest-prep 挑的是「今晚
         # 通過門禁上線」的事件，gate 沒跑就挑不到，而它不會報錯，只會安靜產出空清單。
         {"id": "digest-prep", "kind": "run", "needs": ["gate"],
-         "cmd": ["python3", "scripts/pulse-digest-prep.py"],
+         "cmd": [sys.executable, "scripts/pulse-digest-prep.py"],
          "codes": {0: "ok"}, "summary_grep": "素材="},
         {"id": "digest-write", "kind": "narrative", "needs": ["digest-prep"],
          "worklist": "_probe/digest-worklist.json", "items": "items", "key": "id",
@@ -102,10 +108,10 @@ def stages(date_str):
         apply_stage("digest-apply", "pulse-digest-apply.py", "digest.json",
                     {0: "ok", 1: "noted", 2: "noted"}, ["digest-write"]),
         {"id": "digest-gate", "kind": "run", "after": ["digest-apply"],
-         "cmd": ["python3", "scripts/pulse-digest-gate.py"],
+         "cmd": [sys.executable, "scripts/pulse-digest-gate.py"],
          "codes": {0: "ok", 1: "noted"}, "summary_grep": "draft="},
         {"id": "narrative-prep", "kind": "run", "needs": ["gate"],
-         "cmd": ["python3", "scripts/pulse-narrative-prep.py"],
+         "cmd": [sys.executable, "scripts/pulse-narrative-prep.py"],
          "codes": {0: "ok", 2: "stop"}, "summary_grep": "pulse-narrative-prep"},
         {"id": "narrative-write", "kind": "narrative", "needs": ["narrative-prep"],
          "worklist": "_probe/narrative-worklist.json", "items": None, "key": "slug",
@@ -135,13 +141,13 @@ def stages(date_str):
         apply_stage("title-apply", "pulse-title-apply.py", "title-zh-result.json",
                     {0: "ok", 1: "noted", 2: "stop"}, ["title-write"]),
         {"id": "render", "kind": "run",
-         "cmd": ["python3", "scripts/pulse-render.py"], "codes": {0: "ok"}},
+         "cmd": [sys.executable, "scripts/pulse-render.py"], "codes": {0: "ok"}},
         {"id": "commit", "kind": "commit", "after": ["render"],
          "message": f"nightly: enrich + narrative {date_str}"},
         # --top 5，**不准帶警報旗標**：判準讀本地 git log，在 push 之前它會讀到自己
         # 剛建、還沒推出去的那顆然後回一盞綠燈。理由全文見 references/health-alarms.md。
         {"id": "monitor", "kind": "run",
-         "cmd": ["python3", "scripts/pulse-monitor.py", "--top", "5"],
+         "cmd": [sys.executable, "scripts/pulse-monitor.py", "--top", "5"],
          "codes": {0: "ok"}, "summary_full": True},
     ]
 
@@ -358,11 +364,11 @@ def requires_ok(state, spec):
 # 消費者沒有一起接到**——這個 repo 記過六次的同一個形狀，2026-09-15 第一次真實執行
 # 當場又踩到一次。
 CATCHUP_STEPS = (
-    (["python3", "scripts/pulse-robots-recheck.py",
+    ([sys.executable, "scripts/pulse-robots-recheck.py",
       "--stale-days", "7", "--apply", "--revive"], ()),
-    (["python3", "scripts/pulse-probe.py"], (2, 3, 4)),
-    (["python3", "scripts/pulse-score.py"], None),
-    (["python3", "scripts/pulse-cluster.py"], None),
+    ([sys.executable, "scripts/pulse-probe.py"], (2, 3, 4)),
+    ([sys.executable, "scripts/pulse-score.py"], None),
+    ([sys.executable, "scripts/pulse-cluster.py"], None),
 )
 
 CATCHUP_CODES = {

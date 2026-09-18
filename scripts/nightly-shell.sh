@@ -19,6 +19,9 @@
 #   scripts/nightly-shell.sh              正常跑（會 commit 與 push）
 #   scripts/nightly-shell.sh --no-push    跑完 commit 但不推
 #   AI_PULSE_REPO=/path NIGHTLY_MODEL=opus scripts/nightly-shell.sh
+#   AI_PULSE_PYTHON=/path/to/python3 scripts/nightly-shell.sh   換一支直譯器
+#                    （預設 ~/.venvs/ai-pulse/bin/python3，裝的是 requirements.txt
+#                     那份版本，跟 CI 五個 workflow 一致；理由見上面 PY= 那行）
 #
 # 離開碼沿用 driver 的：0 跑完、1 有事要人看、2 壞了。**不會回 10**：
 # 10 是「等你」，而這支腳本就是那個「你」。
@@ -26,6 +29,11 @@ set -u
 
 REPO="${AI_PULSE_REPO:-$HOME/Developer/ai-pulse}"
 MODEL="${NIGHTLY_MODEL:-sonnet}"
+# 2026-09-18：系統 python3（/usr/bin/python3，3.9.6）裝不上 requirements.txt 釘的
+# requests==2.33.1（Requires-Python >=3.10），precheck 一碰到需要補抓取的夜晚就以
+# ModuleNotFoundError 死在 control probe，被誤判成「機器連不出去」。改用專屬 venv
+# （與 CI 五個 workflow 同一份 requirements.txt，版本一致）。
+PY="${AI_PULSE_PYTHON:-$HOME/.venvs/ai-pulse/bin/python3}"
 # 交棒次數上限。階段表目前有五個交棒點，留一點餘裕；**沒有上限的迴圈會在 driver
 # 因為某個沒想到的狀態一直回 10 的時候，整晚反覆叫 claude**，那是會燒錢的失敗模式。
 MAX_HANDOFF="${NIGHTLY_MAX_HANDOFF:-8}"
@@ -36,7 +44,7 @@ export VAULT_DIR="$PWD"
 command -v claude >/dev/null || { echo "[fatal] 找不到 claude CLI" >&2; exit 2; }
 
 for i in $(seq 1 "$MAX_HANDOFF"); do
-  out="$(python3 scripts/pulse-nightly.py run "$@" 2>&1)"
+  out="$("$PY" scripts/pulse-nightly.py run "$@" 2>&1)"
   rc=$?
   printf '%s\n' "$out"
   [ "$rc" -eq 10 ] || exit "$rc"
@@ -65,7 +73,7 @@ $out
   fi
   # 把回覆印出來給人看，順手把這一棒的花費記進狀態檔。**一晚花多少錢，在此之前
   # 沒有任何地方在記**——而「這條鏈很便宜」跟「沒有人在量」長得一模一樣。
-  usd="$(printf '%s' "$resp" | python3 -c "
+  usd="$(printf '%s' "$resp" | "$PY" -c "
 import json, sys
 try:
     d = json.load(sys.stdin)
@@ -75,7 +83,7 @@ sys.stderr.write((d.get('result') or '') + '\n')
 c = d.get('total_cost_usd')
 print('' if c is None else c, end='')
 ")"
-  [ -n "$usd" ] && python3 scripts/pulse-nightly.py cost --stage "$stage" --usd "$usd"
+  [ -n "$usd" ] && "$PY" scripts/pulse-nightly.py cost --stage "$stage" --usd "$usd"
 done
 
 echo "[fatal] 交棒 $MAX_HANDOFF 次還沒跑完——driver 可能卡在某個狀態一直回 10" >&2
