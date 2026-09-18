@@ -57,6 +57,7 @@ from lib import history  # noqa: E402  狀態帳本讀寫，見 lib/history.py
 from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
 from lib.quality import parse_dt  # noqa: E402  published 的解析：RFC 2822 與 ISO 8601 都吃
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
+from lib.identity import NIGHT_SHIFT_AUTHOR  # noqa: E402  夜班 commit 身份單一真相源
 
 # 這些 blocker 是「設計上就該永遠擋著」的，不是漏跑、也修不好——算警報會天天
 # 狼來了，所以只計數、不觸警。
@@ -984,9 +985,6 @@ def unmerged_branches_line(rows, reason, today, stale_after_days):
         return (body + f"（門檻 {stale_after_days} 天）——夜班修好了推上去而沒有人收，"
                 "它會每隔一兩晚重新發現同一件事，再開一支新的"), True
     return body, False
-
-
-NIGHT_SHIFT_AUTHOR = "ai-pulse-enrich"
 
 
 def missing_days(days, today, window_days):
