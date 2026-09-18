@@ -69,7 +69,7 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 | 15 | `title-write` | narrative | Event 中文標題。清單同樣由 Actions 準備 | 無（worklist 存在且非空） |
 | 16 | `title-apply` | run | `--dry-run` 再正式 | **needs** title-write |
 | 17 | `render` | run | `pulse-render.py` | 無（前面 stop 會直接終止整輪） |
-| 18 | `commit` | commit | **先確認站在 `main`**，再擋白名單外的改動，然後 `git add -A` ＋ 有變更才 commit ＋ push | after render |
+| 18 | `commit` | commit | **先確認站在 `main`**，再擋白名單外的改動，然後 `git add -A` ＋ 有變更才 commit ＋ push；main push 失敗改推 `nightly/<日期>-<sha>` 分支（見下方〈push main 失敗時的備援〉），回 `noted` 不是 `stop` | after render |
 | 19 | `monitor` | run | `pulse-monitor.py --top 5`，**不准帶警報旗標** | 無（排在 commit 之後：摘要要帶推上去之後的狀態） |
 
 `monitor` 那一條的禁令不是這裡新增的：判準讀本地 `git log`，在 push 之前它會讀到
@@ -248,6 +248,25 @@ context 最小   每一棒只看到自己那一段的清單，看不到別段的
 **二、改動的路徑。** 白名單外的東西一律不推（碼、CI、`_config` 的判斷邏輯走 PR）。
 
 順序不能換：先確認地點，再確認內容。地點錯了的話，內容再乾淨也是推到錯的地方。
+
+### push main 失敗時的備援：改推分支，不是 stop
+
+2026-09-18 加。這條鏈原本只在本機 launchd 跑，push 失敗的成本是「重試一次」；
+但雲端排程（`claude.ai/code/routines`）跑在拋棄式容器裡，**commit 建了、push
+不出去，資料就跟著容器一起永久消失**——2026-08-05、2026-09-11 兩次事故都是
+這個形狀，只是那時候活還沒做完就先斷在別的地方，這次要擋的是「活做完了、
+commit 也建了，最後一步失手」。
+
+所以 `main` push 失敗時不再直接 `stop`：改推 `nightly/<UTC 日期>-<short-sha>`，
+status 回 `noted`——資料沒丟，只是要人手動把這支分支併回 `main`。連備援分支
+都推不上去才是真的 `stop`。分支名**不沿用**舊 routine 用過的 `claude/` 前綴：
+上面〈狀態檔的最後一段不在同一顆 commit 裡〉附近的歷史裡，`references/
+health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分支」警報分
+不清哪些早就進了 `main`，這裡換一個新前綴，不要跟那批混在一起。
+
+推分支「成功」不等於遠端真的收到——這條鏈過去的失效模式就是「自己以為推上去
+了」，所以推完要 `git fetch origin` 再 `git branch -r --contains <sha>` 親眼
+確認一次，兩者都寫進這一階段的 note。
 
 ### 一晚花多少錢，要是一個被記錄的量
 

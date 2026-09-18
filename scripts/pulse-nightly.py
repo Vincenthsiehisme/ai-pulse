@@ -44,6 +44,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
+from lib.identity import NIGHT_SHIFT_AUTHOR  # noqa: E402  夜班 commit 身份單一真相源
 
 STATE_REL = ("_probe", "nightly-run.json")
 
@@ -143,7 +144,7 @@ def stages(date_str):
         {"id": "render", "kind": "run",
          "cmd": [sys.executable, "scripts/pulse-render.py"], "codes": {0: "ok"}},
         {"id": "commit", "kind": "commit", "after": ["render"],
-         "message": f"nightly: enrich + narrative {date_str}"},
+         "message": f"nightly: enrich + narrative {date_str}", "date": date_str},
         # --top 5，**不准帶警報旗標**：判準讀本地 git log，在 push 之前它會讀到自己
         # 剛建、還沒推出去的那顆然後回一盞綠燈。理由全文見 references/health-alarms.md。
         {"id": "monitor", "kind": "run",
@@ -477,11 +478,19 @@ def on_target_branch(vault, target="main"):
 
 
 def do_commit(vault, spec, no_push):
-    """git add -A ＋ 有變更才 commit ＋ push。
+    """git add -A ＋ 有變更才 commit ＋ push；push 失敗改推備援分支。
 
     兩道關，順序不能換：**先確認站在哪一支**，再擋白名單以外的改動。夜班的授權只到
     資料產物、只到 `main`；碼、CI、_config 的判斷邏輯走 PR，那條規矩不因為現在是
     半夜就改變。`git add -A` 這兩件事都不看，所以看在這裡。
+
+    push 到 main 失敗時改推 `nightly/<UTC日期>-<short-sha>`，status 回 noted
+    不是 stop——資料沒丟，只是要人手動併回 main。2026-09-18 加：雲端排程
+    （claude.ai/code/routines）跑在拋棄式容器裡，commit 建了但 push 不出去，
+    資料就跟著容器一起永久消失，2026-08-05、2026-09-11 兩次事故都是這個形狀。
+    不沿用查無依據的舊 `claude/` 前綴——references/health-alarms.md 記過
+    9 支同名殘留 ref 讓「未收分支」警報分不清哪些早就進了 main，這裡換一個
+    可辨識、不會跟歷史命名混在一起的新前綴。規格見 references/nightly-driver.md。
     """
     ok, cur = on_target_branch(vault)
     if not ok:
@@ -516,10 +525,27 @@ def do_commit(vault, spec, no_push):
     if no_push:
         return "noted", f"commit {sha}，**沒有 push**（--no-push）", out
     rc, pout = run(vault, ["git", "push"])
-    if rc != 0:
-        # 推不上去是這條鏈最貴的失效模式，不能只印在 stdout 就算了。
-        return "stop", f"git push 失敗 rc={rc}——commit {sha} 還在本機", out + pout
-    return "ok", f"commit {sha} 已推上 origin", out
+    if rc == 0:
+        return "ok", f"commit {sha} 已推上 origin", out
+
+    # main 推不上去，改推備援分支——不要讓資料跟著拋棄式容器一起消失。
+    branch = f"nightly/{spec['date']}-{sha}"
+    rc2, bout = run(vault, ["git", "push", "origin", f"HEAD:refs/heads/{branch}"])
+    if rc2 != 0:
+        return "stop", (f"git push 失敗 rc={rc}——commit {sha} 還在本機。"
+                        f"改推備援分支 {branch} 也失敗 rc={rc2}"), out + pout + bout
+
+    # push 分支「成功」不等於遠端真的收到——這條鏈過去的失效模式就是
+    # 「自己以為推上去了」，所以 fetch 回來親眼確認一次。
+    rc3, fout = run(vault, ["git", "fetch", "origin"])
+    rc4, cout = run(vault, ["git", "branch", "-r", "--contains", sha])
+    landed = rc3 == 0 and rc4 == 0 and f"origin/{branch}" in cout
+    verify = (f"fetch 後確認 origin/{branch} 已收到 {sha}" if landed
+              else f"fetch 驗證不到 origin/{branch}（rc3={rc3} rc4={rc4}），人工再查")
+    return "noted", (
+        f"main push 失敗 rc={rc}：{pout.strip()[:200]}｜"
+        f"已改推 {branch}（{sha}），{verify}，需要人手動併回 main"
+    ), out + pout + bout + fout + cout
 
 
 def do_run_stage(vault, spec):

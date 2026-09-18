@@ -6166,6 +6166,79 @@ acase("夜班：不在 main 上就 stop，而且說出實際在哪一支"
       [_br_commit[0], "fix/somewhere-else" in _br_commit[1]],
       ["stop", True])
 
+# 端到端：真的站在 main 上 commit。2026-09-18 發現 do_commit() 引用
+# NIGHT_SHIFT_AUTHOR，但這支檔案從沒 import 過它——上面那條測試刻意站在別的
+# 分支，在 git commit 那一行之前就先 return "stop"，NameError 完全沒被蓋到。
+# 只要真的在 main 上跑到有資料要 commit，這個名字才會被解析。
+with _tf2.TemporaryDirectory() as _td_br2:
+    _brr2 = Path(_td_br2)
+
+    def _bg2(*a):
+        return _subprocess.run(["git", "-C", str(_brr2), *a], capture_output=True, text=True)
+
+    _subprocess.run(["git", "init", "-q", str(_brr2)], capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _bg2("config", k, v)
+    (_brr2 / "a.txt").write_text("1", "utf-8")
+    _bg2("add", "-A"); _bg2("commit", "-qm", "base"); _bg2("branch", "-M", "main")
+    (_brr2 / "Events").mkdir()
+    (_brr2 / "Events" / "e.md").write_text("x", "utf-8")
+    _br_commit_ok = _nl.do_commit(_brr2, {"message": "nightly: x", "date": "2026-09-18"}, True)[:2]
+    _author_line = _bg2("log", "-1", "--format=%an <%ae>").stdout.strip()
+
+acase("夜班：站在 main 上、有資料改動，commit 真的成功（不是 NameError）",
+      _br_commit_ok[0], "noted")
+acase("夜班：commit 作者真的是 ai-pulse-enrich，不是崩潰也不是工作樹的 local config"
+      "（本機那份 local config 是 ai-pulse-bot，跟 Actions 那班同名——"
+      "night_shift_commit_days() 的判準之一正是作者，分不開就白做）",
+      _author_line, "ai-pulse-enrich <ai-pulse-enrich@users.noreply.github.com>")
+
+# 端到端：main push 被拒（分支保護），改推備援分支。真的建一個 bare repo 當 origin，
+# 裝 pre-receive hook 拒絕 refs/heads/main，逼 do_commit() 走到備援那條路徑。
+with _tf2.TemporaryDirectory() as _td_br3:
+    _brr3 = Path(_td_br3) / "work"
+    _bare3 = Path(_td_br3) / "origin.git"
+    _brr3.mkdir()
+
+    def _bg3(*a):
+        return _subprocess.run(["git", "-C", str(_brr3), *a], capture_output=True, text=True)
+
+    _subprocess.run(["git", "init", "--bare", "-q", str(_bare3)], capture_output=True)
+    _subprocess.run(["git", "init", "-q", str(_brr3)], capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _bg3("config", k, v)
+    (_brr3 / "a.txt").write_text("1", "utf-8")
+    _bg3("add", "-A"); _bg3("commit", "-qm", "base"); _bg3("branch", "-M", "main")
+    _bg3("remote", "add", "origin", str(_bare3))
+    _bg3("push", "-q", "-u", "origin", "main")   # 先讓 origin 有 main、建好 tracking
+
+    _hook3 = _bare3 / "hooks" / "pre-receive"
+    _hook3.write_text(
+        "#!/bin/sh\nwhile read old new ref; do\n"
+        '  case "$ref" in refs/heads/main) echo blocked >&2; exit 1;; esac\n'
+        "done\n", encoding="utf-8")
+    _hook3.chmod(0o755)
+
+    (_brr3 / "Events").mkdir()
+    (_brr3 / "Events" / "e.md").write_text("y", "utf-8")
+    _br_push_fallback = _nl.do_commit(_brr3, {"message": "nightly: y", "date": "2026-09-18"},
+                                      False)[:2]
+    _bg3("fetch", "-q", "origin")
+    _remote_branches = _bg3("branch", "-r").stdout
+
+acase("夜班：main push 被拒（分支保護）時改推備援分支，不是直接 stop"
+      "（雲端排程跑在拋棄式容器裡，commit 建了但 push 不出去，資料就跟著容器一起"
+      "永久消失——2026-08-05、2026-09-11 兩次事故都是這個形狀。noted 代表資料沒丟，"
+      "只是要人手動把它併回 main）",
+      _br_push_fallback[0], "noted")
+acase("夜班：備援分支帶著 UTC 日期與 short sha，不沿用查無依據的舊 claude/ 前綴"
+      "（references/health-alarms.md 記過 9 支 claude/* 殘留 ref 讓「未收分支」警報"
+      "分不清哪些早就進了 main，新前綴不要跟那批混在一起）",
+      "nightly/2026-09-18-" in _br_push_fallback[1], True)
+acase("夜班：備援分支真的推上遠端了——fetch 回來親眼確認，不是自己以為推上去了"
+      "（這條鏈過去的失效模式就是「自己以為推上去了」）",
+      "nightly/2026-09-18-" in _remote_branches, True)
+
 acase("夜班：補跑抓取時 probe 回 4 要停住，不是續跑"
       "（4 ＝ control probe 失敗＝機器連不出去，本班不該抓、不該寫、不該 commit。"
       "runbook 那句 `|| echo 續跑` 是在 control probe 存在之前寫的，照抄過來就等於"
