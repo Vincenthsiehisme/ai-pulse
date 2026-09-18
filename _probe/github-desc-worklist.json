@@ -1,5 +1,37 @@
 [
   {
+    "full_name": "Human-Agent-Society/reef",
+    "desc": "Continual learning infra for self-improving agents",
+    "language": "Python",
+    "topics": [
+      "agent-infrastructure",
+      "ai-agents",
+      "continual-learning",
+      "inference",
+      "llm",
+      "llm-training"
+    ],
+    "stars": 3550,
+    "url": "https://github.com/Human-Agent-Society/reef",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Tencent/WeKnora",
+    "desc": "Open-source LLM knowledge platform: turn raw documents into a queryable RAG, an autonomous reasoning agent, and a self-maintaining Wiki.",
+    "language": "Go",
+    "topics": [
+      "agent",
+      "agentic",
+      "ai",
+      "chatbot",
+      "dsh-plugin",
+      "embeddings"
+    ],
+    "stars": 26898,
+    "url": "https://github.com/Tencent/WeKnora",
+    "stale_zh": null
+  },
+  {
     "full_name": "firecrawl/firecrawl",
     "desc": "The web data API to search, scrape, and interact at scale. 🔥",
     "language": "TypeScript",
@@ -11,8 +43,24 @@
       "ai-search",
       "crawler"
     ],
-    "stars": 181619,
+    "stars": 181952,
     "url": "https://github.com/firecrawl/firecrawl",
     "stale_zh": "大規模搜尋、抓取並操作網頁的 context API"
+  },
+  {
+    "full_name": "algorithmicsuperintelligence/optillm",
+    "desc": "Optimizing inference proxy for LLMs",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-framework",
+      "agentic-workflow",
+      "agents",
+      "api-gateway"
+    ],
+    "stars": 4293,
+    "url": "https://github.com/algorithmicsuperintelligence/optillm",
+    "stale_zh": null
   }
 ]

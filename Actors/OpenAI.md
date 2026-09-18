@@ -3,17 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-17'
+generated_day: '2026-09-18'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **100** 則：`published` 95、`review` 5
+事件 **102** 則：`published` 95、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-17 | [[Events/evt-2026-09-17-967613\|Introducing Astra for Law]] | review |
+| 2026-09-17 | [[Events/evt-2026-09-17-572fd3\|How Cooley is accelerating IPO work with ChatGPT]] | review |
 | 2026-09-16 | [[Events/evt-2026-09-16-ed19d1\|Helping older adults use AI in everyday life]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-a8fefc\|How to connect AI usage to business value]] | review |
 | 2026-09-16 | [[Events/evt-2026-09-16-80242e\|Our framework for reporting model misalignment]] | review |
