@@ -1,146 +1,142 @@
 {
-  "date": "2026-09-15",
-  "started_at": "2026-09-15 03:24Z",
+  "date": "2026-09-18",
+  "started_at": "2026-09-18 19:07Z",
   "finished": false,
   "stages": [
     {
       "id": "precheck",
-      "status": "noted",
-      "note": "**今晚由潤稿端補跑抓取**（Actions 那班還沒跑到或誤點）",
-      "at": "2026-09-15 03:24Z",
-      "full_output": "$ python3 scripts/pulse-robots-recheck.py --stale-days 7 --apply --revive → rc=0\n$ python3 scripts/pulse-probe.py → rc=4\n$ python3 scripts/pulse-score.py → rc=0\n$ python3 scripts/pulse-cluster.py → rc=0"
+      "status": "ok",
+      "note": "今日 corpus 已就緒（_corpus/2026-09-18）",
+      "at": "2026-09-18 19:07Z"
     },
     {
       "id": "enrich-prep",
       "status": "ok",
-      "note": "pulse-enrich-prep  待 enrich=3  已 enrich 跳過=37",
-      "at": "2026-09-15 03:24Z"
+      "note": "pulse-enrich-prep  待 enrich=7  已 enrich 跳過=38",
+      "at": "2026-09-18 19:07Z"
     },
     {
       "id": "enrich-write",
       "status": "ok",
-      "note": "收到 enrich-result.json（3 筆，清單 3 筆）",
-      "at": "2026-09-15 03:26Z",
+      "note": "收到 enrich-result.json（7 筆，清單 7 筆）",
+      "at": "2026-09-18 19:09Z",
       "worklist": {
         "path": "_probe/enrich-worklist.json",
-        "count": 3,
-        "mtime": 1789442693
-      },
-      "cost_usd": 0.387224
+        "count": 7,
+        "mtime": 1789758449
+      }
     },
     {
       "id": "enrich-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-15 03:26Z"
+      "at": "2026-09-18 19:09Z"
     },
     {
       "id": "gate",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-15 03:26Z"
+      "at": "2026-09-18 19:09Z"
     },
     {
       "id": "dashboard",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-15 03:26Z"
+      "at": "2026-09-18 19:09Z"
     },
     {
       "id": "digest-prep",
       "status": "ok",
-      "note": "pulse-digest-prep  2026-09-15  mode=normal  素材=3 則  配對=3 組",
-      "at": "2026-09-15 03:26Z"
+      "note": "pulse-digest-prep  2026-09-18  mode=normal  素材=7 則  配對=21 組",
+      "at": "2026-09-18 19:09Z"
     },
     {
       "id": "digest-write",
       "status": "ok",
-      "note": "收到 digest.json（素材 3 則）",
-      "at": "2026-09-15 03:29Z",
+      "note": "收到 digest.json（素材 7 則）",
+      "at": "2026-09-18 19:11Z",
       "worklist": {
         "path": "_probe/digest-worklist.json",
-        "count": 3,
-        "mtime": 1789442805
-      },
-      "cost_usd": 0.446305
+        "count": 7,
+        "mtime": 1789758591
+      }
     },
     {
       "id": "digest-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-15 03:29Z"
+      "at": "2026-09-18 19:11Z"
     },
     {
       "id": "digest-gate",
       "status": "ok",
-      "note": "pulse-digest-gate  draft=32  reviewed=0  rejected=0  共 32 份  → _dashboards/digests.md",
-      "at": "2026-09-15 03:29Z"
+      "note": "pulse-digest-gate  draft=35  reviewed=0  rejected=0  共 35 份  → _dashboards/digests.md",
+      "at": "2026-09-18 19:11Z"
     },
     {
       "id": "narrative-prep",
       "status": "ok",
       "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=2",
-      "at": "2026-09-15 03:29Z"
+      "at": "2026-09-18 19:11Z"
     },
     {
       "id": "narrative-write",
       "status": "ok",
       "note": "收到 narrative-result.json（2 筆，清單 2 筆）",
-      "at": "2026-09-15 03:30Z",
+      "at": "2026-09-18 19:12Z",
       "worklist": {
         "path": "_probe/narrative-worklist.json",
         "count": 2,
-        "mtime": 1789442942
-      },
-      "cost_usd": 0.390553
+        "mtime": 1789758685
+      }
     },
     {
       "id": "narrative-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-15 03:30Z"
+      "at": "2026-09-18 19:12Z"
     },
     {
       "id": "github-desc-write",
-      "status": "skipped",
-      "note": "清單是空的（今晚沒有東西要做）",
-      "at": "2026-09-15 03:30Z",
+      "status": "ok",
+      "note": "收到 github-desc-result.json（4 筆，清單 4 筆）",
+      "at": "2026-09-18 19:12Z",
       "worklist": {
         "path": "_probe/github-desc-worklist.json",
-        "count": 0,
-        "mtime": 1789429606
+        "count": 4,
+        "mtime": 1789758428
       }
     },
     {
       "id": "github-desc-apply",
-      "status": "skipped",
-      "note": "前置 github-desc-write 沒有產出（skipped）",
-      "at": "2026-09-15 03:30Z"
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-18 19:12Z"
     },
     {
       "id": "title-write",
       "status": "ok",
-      "note": "收到 title-zh-result.json（3 筆，清單 3 筆）",
-      "at": "2026-09-15 03:32Z",
+      "note": "收到 title-zh-result.json（7 筆，清單 7 筆）",
+      "at": "2026-09-18 19:13Z",
       "worklist": {
         "path": "_probe/title-zh-worklist.json",
-        "count": 3,
-        "mtime": 1789429606
-      },
-      "cost_usd": 0.278071
+        "count": 7,
+        "mtime": 1789758428
+      }
     },
     {
       "id": "title-apply",
-      "status": "ok",
-      "note": "rc=0",
-      "at": "2026-09-15 03:32Z"
+      "status": "noted",
+      "note": "rc=1",
+      "at": "2026-09-18 19:13Z",
+      "full_output": "pulse-title-apply  收到 7 條譯文\n\n  [新增] evt-2026-09-16-80242e\n         「OpenAI 的模型失準通報框架」\n         原文：Our framework for reporting model misalignment\n  [新增] evt-2026-09-16-a8fefc\n         「如何把 AI 使用量連結到商業價值」\n         原文：How to connect AI usage to business value\n  [新增] evt-2026-09-17-572fd3\n         「Cooley 如何用 ChatGPT 加速 IPO 作業」\n         原文：How Cooley is accelerating IPO work with ChatGPT\n  [新增] evt-2026-09-17-7f64e9\n         「生命科學驗證計畫」\n         原文：Life Sciences Verification Program\n  [新增] evt-2026-09-17-967613\n         「推出 Astra for Law」\n         原文：Introducing Astra for Law\n  [新增] evt-2026-09-17-c35f5f\n         「可愛生物上雲：《Aniimo》登陸 GeForce NOW」\n         原文：Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW\n  [退件] evt-2026-09-18-463a0d\n         沒有任何中文字（英文原樣貼回來不算翻譯）\n         「xAI Grok Voice Transcribe 2」\n\n  寫入 6 則，退件 1 則\n"
     },
     {
       "id": "render",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-15 03:32Z"
+      "at": "2026-09-18 19:13Z"
     }
   ],
-  "updated_at": "2026-09-15 03:32Z"
+  "updated_at": "2026-09-18 19:13Z"
 }

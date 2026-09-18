@@ -1,6 +1,20 @@
-# 已發布事件（318）
+# 已發布事件（325）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-18
+- **[[Events/evt-2026-09-18-463a0d|Grok Voice Transcribe 2]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發布 Grok Voice Transcribe 2.0，正文因站方與授權限制我們不轉述，細節請見原文。
+
+## 2026-09-17
+- **[[Events/evt-2026-09-17-572fd3|How Cooley is accelerating IPO work with ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+  法律事務所 Cooley 用 ChatGPT Work 打造 GO Public，把智慧帶進 IPO 流程協助律師更早抓問題。
+- **[[Events/evt-2026-09-17-7f64e9|Life Sciences Verification Program]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布「生命科學驗證計畫」，正文因授權限制我們不轉述，細節請見原文。
+- **[[Events/evt-2026-09-17-967613|Introducing Astra for Law]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出「Astra for Law」，把前沿智慧、律所客製工作流與法律級控管包進同一套產品。
+- **[[Events/evt-2026-09-17-c35f5f|Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA GeForce NOW 週更公告：新遊戲《Aniimo》上雲，加上《007 First Light》的路徑追蹤更新。
 
 ## 2026-09-16
 - **[[Events/evt-2026-09-16-0793a2|NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut]]** — NVIDIA · infra · conf 73 · heat 未量測
@@ -15,6 +29,10 @@
   Emerald AI、Google、NVIDIA 聯手成立 AI Energy Management Alliance，推動 AI 資料中心彈性用電。
 - **[[Events/evt-2026-09-16-634079|How workers are unlocking new ways of working]]** — OpenAI · research · conf 73 · heat 未量測
   OpenAI 公布最新經濟研究，看員工怎麼用 AI 做原本工作範圍外的事。
+- **[[Events/evt-2026-09-16-80242e|Our framework for reporting model misalignment]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 公開一套追蹤、調查、揭露模型失準行為的框架，同時附上六份實際案例報告。
+- **[[Events/evt-2026-09-16-a8fefc|How to connect AI usage to business value]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 說明 ChatGPT Work 與 Codex 的用量分析功能如何幫企業把 AI 採用量連結到商業成效。
 - **[[Events/evt-2026-09-16-ed19d1|Helping older adults use AI in everyday life]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 與 AARP 合作，在美國 10 個城市辦免費 ChatGPT 工作坊教銀髮族用 AI。
 

@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-09-16'
+updated: '2026-09-18'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這一輪新增一則：Google DeepMind／Google 官方部落格發布 Gemini 3.8 Live 與 Gemini 3.8 Live Extended Thinking。獨立來源 Simon Willison 記錄了實測心得：這是兩款「語音對語音」模型，形態跟 OpenAI 的 GPT-Live 系列類似，他還拿 GPT-6 Astra Extra High 讀官方文件，做了一個測試用的網頁介面；官方原文我們只留標題與連結（自己的保守授權約束）。這則跟既有「小而專、成本導向」主軸關聯不大，它談的是能力分流（即時互動與延伸推理），不是把模型做小做便宜；主軸判斷維持不變。
-    next: 觀察 Gemini 3.8 Live／Extended Thinking 是否有第三方延遲、準確度基準測試；「小而專」模型迭代這條主軸則要看下一輪有沒有新的模型發布訊號進來。
+    now: 這一輪新增兩則，都不是模型發布本身。OpenAI 9/16 公開一套處理模型失準的通報框架，說明如何追蹤、調查、揭露非預期或令人擔憂的模型行為，並隨框架公開六份案例報告；隔天 Anthropic 發布「生命科學驗證計畫」，內容因授權限制我們只留標題與連結，無法判斷具體驗證機制。兩則談的都是治理與信任機制，不是模型能力本身的迭代，跟既有「小而專、成本導向」主軸關聯不大；主軸判斷維持不變。
+    next: 觀察 OpenAI 那套失準通報框架是否在後續事故中被實際引用、外界有沒有跟進查證六份案例報告；Anthropic 生命科學驗證計畫則要查原文才知道具體驗證的是什麼。「小而專」模型迭代這條主軸，要看下一輪有沒有新的模型發布訊號進來。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增六則，橫跨三家公司。NVIDIA 這邊兩則：Jensen Huang 在 Salesforce Dreamforce 與執行長 Marc Benioff 同台，搭配 Salesforce 發布用 NVIDIA Nemotron 3 Super 打造的 CRM 推理模型 Koa；另一則是兒童醫院用開源 NVIDIA AI 做心臟照護的案例，這則我們只留標題與連結。OpenAI 這邊三則：「Sponsored Agents」把廣告正式做成 ChatGPT 的產品功能，並與 HubSpot、Shopify 整合；一份新的 OpenAI Economic Research 談員工如何用 AI 做職務外的事；以及與 AARP 合作在美國 10 個城市辦銀髮族 ChatGPT 工作坊。xAI 發了一則「Grok Build Memory」，站方宣告不給 AI 讀取，我們只留標題與連結。六則各自是不同公司的例行產品動態，彼此關聯不強，沒有改變上一輪 Anthropic 顧問通路與 Google DeepMind 產品化兩條主軸的格局；比較值得注意的是 OpenAI 把「廣告」正式做成產品線一環，這是它先前不曾用這麼直白的用詞談過的商業化方向。
-    next: 留意 OpenAI Sponsored Agents 上線後的使用者體驗與廣告主導入情況；持續觀察 Anthropic 顧問夥伴公告是否有具體客戶導入案例，以及 Salesforce Koa、Fyxer、Perplexity Portable Computer 這類產品案例的後續採用情況。
+    now: 這一輪新增五則。OpenAI 三則圍繞企業與垂直產業推進：ChatGPT Work／Codex 新增用量分析功能，讓企業掌握 AI 支出與訓練缺口；同時發布「Astra for Law」，把前沿模型能力、客製化律所工作流程與法律級控管包成一套產品；並公布法律事務所 Cooley 用 ChatGPT Work 打造 IPO 準備工具 GO Public 的案例。NVIDIA 這邊是 GeForce NOW 的例行雲端遊戲週更公告（新遊戲《Aniimo》上線），屬於消費娛樂範疇，跟 AI 產品化主軸關聯不大。xAI 發布「Grok Voice Transcribe 2.0」，站方與授權雙重限制下我們只留標題與連結，無法評估實際改動。五則沒有改變上一輪 Google DeepMind 能力接產品入口的格局；比較值得注意的是 OpenAI 這週把法律與資本市場（IPO）這類高風險專業服務場域推得更深，跟同期公開的模型失準通報框架擺在一起看，形成一個「先立安全治理敘事、再往高風險場景擴張」的觀察角度。
+    next: 留意 Astra for Law 與 GO Public 上線後是否有具名客戶公開採用成效，以及是否有第三方對其「法律級控管」做安全或合規審視；持續觀察 Anthropic 顧問夥伴公告與 Google DeepMind 產品化案例的後續採用情況。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？

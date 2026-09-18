@@ -1,1 +1,226 @@
-[]
+[
+  {
+    "id": "evt-2026-09-16-80242e",
+    "path": "evt-2026-09-16-80242e.md",
+    "title": "Our framework for reporting model misalignment",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/model-misalignment-reporting-framework",
+        "title": "Our framework for reporting model misalignment",
+        "summary": "OpenAI shares a framework for tracking, investigating, and disclosing model misalignment, alongside six reports of unexpected or concerning model behavior.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-16-a8fefc",
+    "path": "evt-2026-09-16-a8fefc.md",
+    "title": "How to connect AI usage to business value",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/how-to-connect-ai-usage-to-business-value",
+        "title": "How to connect AI usage to business value",
+        "summary": "Learn how ChatGPT Work and Codex analytics help teams understand AI usage and spend, identify training needs, and connect adoption to business outcomes.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-17-572fd3",
+    "path": "evt-2026-09-17-572fd3.md",
+    "title": "How Cooley is accelerating IPO work with ChatGPT",
+    "fingerprint": null,
+    "facet": "capital",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/cooley-gopublic",
+        "title": "How Cooley is accelerating IPO work with ChatGPT",
+        "summary": "Cooley built GO Public with ChatGPT Work to bring intelligence to the IPO process, helping lawyers surface issues earlier and focus judgment where it matters most.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-17-7f64e9",
+    "path": "evt-2026-09-17-7f64e9.md",
+    "title": "Life Sciences Verification Program",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/life-sciences-verification-program",
+        "title": "Life Sciences Verification Program",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-17-967613",
+    "path": "evt-2026-09-17-967613.md",
+    "title": "Introducing Astra for Law",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/astra-for-law",
+        "title": "Introducing Astra for Law",
+        "summary": "OpenAI for Law brings frontier intelligence for law, custom firm workflows, connected legal data sources, and legal-grade controls for confidential client work.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-17-c35f5f",
+    "path": "evt-2026-09-17-c35f5f.md",
+    "title": "Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-aniimo/",
+        "title": "Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW",
+        "summary": "A new creature-catching adventure is ready to stream from the cloud this week. Pawprint Studio’s Aniimo arrives on GeForce NOW at launch, inviting gamers to explore the vibrant continent of Idyll across supported devices. Also this week, 007 First Light receives a path-tracing update on GeForce NOW,",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-18-463a0d",
+    "path": "evt-2026-09-18-463a0d.md",
+    "title": "Grok Voice Transcribe 2",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "xAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-xai-news",
+        "url": "https://x.ai/news/grok-voice-transcribe-2",
+        "title": "Grok Voice Transcribe 2.0",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "站方宣告 ai-input=no，不把內容當成 AI 的輸入",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://x.ai/news/grok-voice-transcribe-2",
+        "title": "Grok Voice Transcribe 2.0",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 2
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "站方宣告 ai-input=no，不把內容當成 AI 的輸入"
+      ]
+    }
+  }
+]

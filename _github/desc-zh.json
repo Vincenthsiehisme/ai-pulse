@@ -74,6 +74,11 @@
     "src_hash": "a79e7f8b877b",
     "zh": "跑在 Object Storage 上、用 Rust 寫成的 OLTP 圖形＋向量資料庫"
   },
+  "Human-Agent-Society/reef": {
+    "at": "2026-09-18T19:12:51+00:00",
+    "src_hash": "03449112b1b8",
+    "zh": "讓 agent 能持續學習、自我改進的基礎設施"
+  },
   "JuliusBrussee/caveman": {
     "at": "2026-09-17T19:14:47+00:00",
     "src_hash": "efce92ae3e5e",
@@ -129,6 +134,11 @@
     "src_hash": "07fb9f695eda",
     "zh": "TradingAgents：多 agent LLM 金融交易框架"
   },
+  "Tencent/WeKnora": {
+    "at": "2026-09-18T19:12:51+00:00",
+    "src_hash": "0cb7dedab815",
+    "zh": "開源 LLM 知識平台：把原始文件轉成可查詢的 RAG、自主推理 agent 與自我維護的 Wiki"
+  },
   "TencentCloud/TencentDB-Agent-Memory": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "1423652fa85e",
@@ -163,6 +173,11 @@
     "at": "2026-08-07T01:27:45+00:00",
     "src_hash": "259f1d28b8fc",
     "zh": "AI agent 沙箱：瀏覽器、Shell、檔案、MCP、VSCode Server 收在單一 Docker 容器"
+  },
+  "algorithmicsuperintelligence/optillm": {
+    "at": "2026-09-18T19:12:51+00:00",
+    "src_hash": "c71e99fdaf97",
+    "zh": "LLM 推論最佳化代理（inference proxy）"
   },
   "alibaba/zvec": {
     "at": "2026-09-03T19:13:59+00:00",
@@ -235,9 +250,9 @@
     "zh": "AI agent 工具包：統一 LLM API、agent loop、TUI 與寫程式用的 agent CLI"
   },
   "firecrawl/firecrawl": {
-    "at": "2026-08-03T19:17:58+00:00",
-    "src_hash": "d66dd05437be",
-    "zh": "大規模搜尋、抓取並操作網頁的 context API"
+    "at": "2026-09-18T19:12:51+00:00",
+    "src_hash": "d3a5f0fe32c3",
+    "zh": "可大規模搜尋、抓取並操作網頁資料的 API"
   },
   "ggml-org/llama.cpp": {
     "at": "2026-08-12T19:14:16+00:00",
