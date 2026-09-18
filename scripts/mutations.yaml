@@ -2435,7 +2435,7 @@ mutations:
   - id: M273
     title: "stdlib 判定不排除 site-packages（標準 Python 安裝把 site 放在 stdlib 底下，於是每一個第三方套件都被判成標準庫——2026-08-13 CI 上四片變異全部拒跑就是這個）"
     file: selftest.py
-    find: "    if any(d and origin.startswith(d) for d in site_dirs):\n        return False\n"
+    find: "    if any(origin.startswith(d) for d in site_dirs):\n        return False\n"
     replace: ""
     survives: false
     why: ""

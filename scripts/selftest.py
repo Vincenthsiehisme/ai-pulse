@@ -1844,12 +1844,24 @@ def _dep_origin_is_stdlib(origin, std_dir, site_dirs):
 
     這條之所以要抽成純函式吃 `std_dir` / `site_dirs`，就是為了讓兩種佈局
     都能在同一台機器上測——不然它永遠只驗得到自己這台的那一種。
+
+    2026-09-18 在 Homebrew 的 python@3.12 上又紅一次，第三種佈局：
+
+        Homebrew  stdlib 由 sysconfig 回報 /opt/homebrew/opt/python@3.12/...
+                  但模組真實檔案在  /opt/homebrew/Cellar/python@3.12/<版本>/...
+                  `opt/python@3.12` 只是指到 Cellar 的 symlink，兩條字串
+                  完全不同，`startswith` 永遠對不上，於是連 `json` 都被判成
+                  不是標準庫。venv 疊在 Homebrew base 上會放大這個洞：
+                  venv 自己的 `stdlib` 路徑一樣是那個 symlink 別名。
+    先各自 `realpath` 解開 symlink 再比對前綴，三種佈局都收斂到同一種judge。
     """
     if not origin:
         return False
-    if any(d and origin.startswith(d) for d in site_dirs):
+    origin = os.path.realpath(origin)
+    site_dirs = {os.path.realpath(d) for d in site_dirs if d}
+    if any(origin.startswith(d) for d in site_dirs):
         return False
-    return origin.startswith(std_dir)
+    return origin.startswith(os.path.realpath(std_dir))
 
 
 _DEP_LAYOUT_NESTED = ("/x/lib/python3.12", {"/x/lib/python3.12/site-packages"})
@@ -1866,6 +1878,24 @@ acase("相依檢查：site-packages 在 stdlib 底下時不得把第三方判成
                              *_DEP_LAYOUT_SPLIT),
        _dep_origin_is_stdlib("", *_DEP_LAYOUT_NESTED)],
       [True, False, True, False, False])
+
+# 上面兩種佈局都是假路徑（沒有真的 symlink 可解），測不到 realpath 那段。
+# Homebrew 的洞非解不可：真的建一層 opt→Cellar 的 symlink，逼函式走到
+# realpath 分支，不解開就會像 2026-09-18 那樣把 json 判成不是標準庫。
+_dep_symlink_root = _tempfile.mkdtemp()
+_dep_cellar = _pathlib.Path(_dep_symlink_root) / "Cellar" / "python@3.12" / "3.12.13_4" / "lib" / "python3.12"
+(_dep_cellar / "json").mkdir(parents=True)
+(_dep_cellar / "json" / "__init__.py").write_text("", encoding="utf-8")
+_dep_opt_alias = _pathlib.Path(_dep_symlink_root) / "opt" / "python@3.12"
+_dep_opt_alias.parent.mkdir(parents=True)
+_dep_opt_alias.symlink_to(_dep_cellar.parent.parent)  # opt/python@3.12 → Cellar/python@3.12/3.12.13_4
+acase("相依檢查：stdlib 路徑本身是 symlink（Homebrew opt→Cellar 別名）也要判對"
+      "（2026-09-18 夜班改走 python@3.12 之後才紅：sysconfig 回報的 stdlib 是"
+      "opt/python@3.12，模組真實檔案在 Cellar/python@3.12/<版本>，兩條字串對不上，"
+      "json 這種鐵定是標準庫的模組被判成不是——不 resolve 就永遠對不上）",
+      _dep_origin_is_stdlib(str(_dep_cellar / "json" / "__init__.py"),
+                            str(_dep_opt_alias / "lib" / "python3.12"), set()),
+      True)
 
 
 _DEP_AUTO = object()
