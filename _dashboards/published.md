@@ -1,10 +1,14 @@
-# 已發布事件（325）
+# 已發布事件（328）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-09-18
+- **[[Events/evt-2026-09-18-2647a3|Accenture Embedded Evaluation]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發布與 Accenture 的「Embedded Evaluation」合作公告，內容僅標題與連結可用。
 - **[[Events/evt-2026-09-18-463a0d|Grok Voice Transcribe 2]]** — xAI · product · conf 73 · heat 未量測
   xAI 發布 Grok Voice Transcribe 2.0，正文因站方與授權限制我們不轉述，細節請見原文。
+- **[[Events/evt-2026-09-18-dd201c|Introducing the Australian Youth Safety Blueprint]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 推出「澳洲青少年安全藍圖」，用六大支柱規劃更安全的 AI 使用環境。
 
 ## 2026-09-17
 - **[[Events/evt-2026-09-17-572fd3|How Cooley is accelerating IPO work with ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
@@ -17,6 +21,8 @@
   NVIDIA GeForce NOW 週更公告：新遊戲《Aniimo》上雲，加上《007 First Light》的路徑追蹤更新。
 
 ## 2026-09-16
+- **[[Events/evt-2026-09-16-06efd5|Hex turns complex analysis into visual reports with GPT‑6 Astra]]** — OpenAI · product · conf 73 · heat 未量測
+  資料分析平台 Hex 用 GPT-6 Astra，把複雜分析直接轉成員工願意分享的視覺化報告。
 - **[[Events/evt-2026-09-16-0793a2|NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA Vera Rubin NVL72 在 MLPerf Inference v6.1 首次亮相就拿下領先成績。
 - **[[Events/evt-2026-09-16-27b2e8|Reimagining advertising with AI]]** — OpenAI · product · conf 73 · heat 未量測

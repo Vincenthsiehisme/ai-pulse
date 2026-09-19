@@ -55,9 +55,9 @@
     "zh": "AI coding agent 的持久記憶系統，Go 執行檔，內建 SQLite+FTS5 與 MCP server"
   },
   "Gentleman-Programming/gentle-ai": {
-    "at": "2026-09-08T19:19:22+00:00",
-    "src_hash": "edb43de3c1d0",
-    "zh": "幫 Claude Code 等 AI 編碼 agent 設定記憶、技能與規格驅動開發，開源不綁定單一工具"
+    "at": "2026-09-19T19:11:14+00:00",
+    "src_hash": "361156a8b5a7",
+    "zh": "幫 Claude Code 等 agent 配記憶、技能、Organic-Driven Dev，開源不綁工具"
   },
   "Graphify-Labs/graphify": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -70,9 +70,9 @@
     "zh": "DeepTutor：終身個人化的家教"
   },
   "HelixDB/helix-db": {
-    "at": "2026-08-18T19:14:47+00:00",
-    "src_hash": "a79e7f8b877b",
-    "zh": "跑在 Object Storage 上、用 Rust 寫成的 OLTP 圖形＋向量資料庫"
+    "at": "2026-09-19T19:11:14+00:00",
+    "src_hash": "fdc2b620a80f",
+    "zh": "用 Rust 寫成、跑在 Object Storage 上的 OLTP 圖形資料庫，內建向量與全文搜尋"
   },
   "Human-Agent-Society/reef": {
     "at": "2026-09-18T19:12:51+00:00",
@@ -358,6 +358,11 @@
     "at": "2026-08-20T19:08:38+00:00",
     "src_hash": "b96fba42819c",
     "zh": "18 堂課帶你從零開始寫 AI Agent"
+  },
+  "microsoft/playwright-mcp": {
+    "at": "2026-09-19T19:11:14+00:00",
+    "src_hash": "1b1cb01471bc",
+    "zh": "Playwright 的 MCP server"
   },
   "mlc-ai/web-llm": {
     "at": "2026-09-02T19:14:09+00:00",
