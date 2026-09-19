@@ -1,66 +1,46 @@
 [
   {
-    "full_name": "Human-Agent-Society/reef",
-    "desc": "Continual learning infra for self-improving agents",
-    "language": "Python",
+    "full_name": "HelixDB/helix-db",
+    "desc": "HelixDB is an OLTP graph database with native vector and full-text search built in Rust on Object Storage.",
+    "language": "Rust",
     "topics": [
-      "agent-infrastructure",
-      "ai-agents",
-      "continual-learning",
-      "inference",
-      "llm",
-      "llm-training"
+      "ai",
+      "cli",
+      "database",
+      "databases",
+      "graph-database",
+      "helix"
     ],
-    "stars": 3550,
-    "url": "https://github.com/Human-Agent-Society/reef",
-    "stale_zh": null
+    "stars": 5948,
+    "url": "https://github.com/HelixDB/helix-db",
+    "stale_zh": "跑在 Object Storage 上、用 Rust 寫成的 OLTP 圖形＋向量資料庫"
   },
   {
-    "full_name": "Tencent/WeKnora",
-    "desc": "Open-source LLM knowledge platform: turn raw documents into a queryable RAG, an autonomous reasoning agent, and a self-maintaining Wiki.",
+    "full_name": "Gentleman-Programming/gentle-ai",
+    "desc": "Gentle-AI configures the AI coding agents you already use: Claude Code, Cursor, OpenCode, Codex, Pi, and more. Choose persistent memory, Organic-Driven Development, curated skills, MCP servers, personas, and optional bounded review. Open source, no agent lock-in.",
     "language": "Go",
     "topics": [
-      "agent",
-      "agentic",
-      "ai",
-      "chatbot",
-      "dsh-plugin",
-      "embeddings"
+      "agent-skills",
+      "ai-agents",
+      "ai-coding",
+      "claude-code",
+      "code-review",
+      "codex"
     ],
-    "stars": 26898,
-    "url": "https://github.com/Tencent/WeKnora",
-    "stale_zh": null
+    "stars": 7013,
+    "url": "https://github.com/Gentleman-Programming/gentle-ai",
+    "stale_zh": "幫 Claude Code 等 AI 編碼 agent 設定記憶、技能與規格驅動開發，開源不綁定單一工具"
   },
   {
-    "full_name": "firecrawl/firecrawl",
-    "desc": "The web data API to search, scrape, and interact at scale. 🔥",
+    "full_name": "microsoft/playwright-mcp",
+    "desc": "Playwright MCP server",
     "language": "TypeScript",
     "topics": [
-      "ai",
-      "ai-agents",
-      "ai-crawler",
-      "ai-scraping",
-      "ai-search",
-      "crawler"
+      "mcp",
+      "playwright"
     ],
-    "stars": 181952,
-    "url": "https://github.com/firecrawl/firecrawl",
-    "stale_zh": "大規模搜尋、抓取並操作網頁的 context API"
-  },
-  {
-    "full_name": "algorithmicsuperintelligence/optillm",
-    "desc": "Optimizing inference proxy for LLMs",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "agentic-ai",
-      "agentic-framework",
-      "agentic-workflow",
-      "agents",
-      "api-gateway"
-    ],
-    "stars": 4293,
-    "url": "https://github.com/algorithmicsuperintelligence/optillm",
+    "stars": 37343,
+    "url": "https://github.com/microsoft/playwright-mcp",
     "stale_zh": null
   }
 ]

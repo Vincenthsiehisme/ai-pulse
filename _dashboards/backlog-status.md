@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-09-18'
+generated_day: '2026-09-19'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -16,9 +16,9 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 總數 | 365 |
-| `published` | 318 |
-| `review` | 45 |
+| 總數 | 368 |
+| `published` | 325 |
+| `review` | 41 |
 | `dropped` | 2 |
 | 帶 `stale_backfill` | 12 |
 | 同一顆 URL 落在 ≥2 則 Event 的顆數 | 10 |
@@ -34,8 +34,8 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 53 |
-| 起訖 | 2026-07-24 … 2026-09-18 |
+| `_corpus/` 天數 | 54 |
+| 起訖 | 2026-07-24 … 2026-09-19 |
 
 ## 來源
 
@@ -61,7 +61,7 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-09-18T18:40:34+00:00 |
+| 時間 | 2026-09-19T18:15:16+00:00 |
 | 條目 / 來源 | 438 items / 33 sources |
 | status 分佈 | 200 21、304 2、429 1、error 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |

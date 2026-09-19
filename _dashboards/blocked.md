@@ -1,7 +1,9 @@
-# 被門禁擋下（38）
+# 被門禁擋下（41）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-18-dd201c|Introducing the Australian Youth Safety Blueprint]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-16-06efd5|Hex turns complex analysis into visual reports with GPT‑6 Astra]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-15-1766a6|Your Agent Aced the Task. Will It Do It Again?]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Multiverse Computing — blockers: thin_research_analysis
@@ -35,6 +37,7 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-09-18-2647a3|Accenture Embedded Evaluation]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: generic_entity

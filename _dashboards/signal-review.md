@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-18"
+generated_day: "2026-09-19"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-18"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **304** 則／已裁決 **26** 則。
+待回答 **311** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -27,11 +27,11 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`infra-cost#6c20b80b`** — infra-cost
   > 觀察 AEMA 是否公布具體成員擴張或量化的用電協調目標，以及 MLPerf Inference v6.1 完整榜單與其他廠商的對比成績；同時持續追蹤 HF 非同步訓練做法、OpenAI Habitat 儲存架構、d-Matrix／Skild AI／robotaxi 生態系後續案例是否兌現。
 
-- **`model-research#780696e4`** — model-research
-  > 觀察 Gemini 3.8 Live／Extended Thinking 是否有第三方延遲、準確度基準測試；「小而專」模型迭代這條主軸則要看下一輪有沒有新的模型發布訊號進來。
+- **`model-research#ceeb295b`** — model-research
+  > 觀察 OpenAI 那套失準通報框架是否在後續事故中被實際引用、外界有沒有跟進查證六份案例報告；Anthropic 生命科學驗證計畫則要查原文才知道具體驗證的是什麼。「小而專」模型迭代這條主軸，要看下一輪有沒有新的模型發布訊號進來。
 
-- **`product-market#92549f1f`** — product-market
-  > 留意 OpenAI Sponsored Agents 上線後的使用者體驗與廣告主導入情況；持續觀察 Anthropic 顧問夥伴公告是否有具體客戶導入案例，以及 Salesforce Koa、Fyxer、Perplexity Portable Computer 這類產品案例的後續採用情況。
+- **`product-market#87cfc440`** — product-market
+  > 留意 Astra for Law 與 GO Public 上線後是否有具名客戶公開採用成效，以及是否有第三方對其「法律級控管」做安全或合規審視；持續觀察 Anthropic 顧問夥伴公告與 Google DeepMind 產品化案例的後續採用情況。
 
 - **`capital-evolution#848ecbe1`** — capital-evolution
   > 留意 Series F 的投資人名單是否揭露、這輪估值與 OpenAI 等競爭對手最新估值的相對位置；也留意《Confidential Draft S1 SEC》這則先前提到的疑似機密 IPO 申報，原文內容是否進一步被證實或澄清。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#7606507c`** — global-map
   > 觀察曼徹斯特大學這套模型是否有論文發表，或跟官方監測數據的對比結果；同時留意上一輪那批只留標題的政策與安全公告是否有第三方回應。
 
-## 事件層（298）
+## 事件層（305）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -935,5 +935,26 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-16-634079#241a42b3`** — evt-2026-09-16-634079
   > 觀察這份研究的完整報告內容與具體數據是否公布。
 
+- **`evt-2026-09-16-80242e#093cf5c2`** — evt-2026-09-16-80242e
+  > 觀察是否有獨立研究者或媒體核對這六份報告的細節，以及框架是否在後續事故中被實際引用。
+
+- **`evt-2026-09-16-a8fefc#172dc82f`** — evt-2026-09-16-a8fefc
+  > 留意是否有企業客戶或案例研究引用這套分析工具，佐證它對留存或擴大採購的實際效果。
+
 - **`evt-2026-09-16-ed19d1#275122af`** — evt-2026-09-16-ed19d1
   > 觀察這批工作坊辦完後有沒有具體的參與人數、滿意度或後續使用率數據公布。
+
+- **`evt-2026-09-17-572fd3#09152ccf`** — evt-2026-09-17-572fd3
+  > 觀察 Cooley 或其他事務所是否公開更多 GO Public 上線後的實際成效數字，或是否有同業跟進採用類似工具。
+
+- **`evt-2026-09-17-7f64e9#6733be86`** — evt-2026-09-17-7f64e9
+  > 查閱原文全文，確認「驗證計畫」的具體機制與合作對象，並回頭補上事實與影響兩層。
+
+- **`evt-2026-09-17-967613#80b5d75e`** — evt-2026-09-17-967613
+  > 觀察 Astra for Law 上線後是否有具名律所或法務部門公開採用，以及是否有第三方對其「法律級控管」做安全或合規審視。
+
+- **`evt-2026-09-17-c35f5f#45a12235`** — evt-2026-09-17-c35f5f
+  > 非追蹤重點，暫不設定後續觀察訊號。
+
+- **`evt-2026-09-18-463a0d#fe528c1a`** — evt-2026-09-18-463a0d
+  > 查閱原文全文，確認 Voice Transcribe 2.0 相較前一版的具體改動，並回頭補上事實與影響兩層。

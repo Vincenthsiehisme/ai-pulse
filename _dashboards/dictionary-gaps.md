@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-18'
+generated_day: '2026-09-19'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**53 天**（2026-07-24 … 2026-09-18），去重後 **3598** 列。
+語料範圍：**54 天**（2026-07-24 … 2026-09-19），去重後 **3657** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -18,34 +18,34 @@ generator: scripts/pulse-dictionary-gaps.py
 | 候選 | 次數 | 來源數 |
 |---|---|---|
 | Apple | 86 | 5 |
-| LLMs | 43 | 13 |
+| LLMs | 45 | 13 |
 | Amazon | 40 | 5 |
-| LLM | 38 | 11 |
-| They | 36 | 9 |
+| LLM | 39 | 11 |
+| They | 37 | 9 |
 | There | 36 | 7 |
-| September | 33 | 6 |
+| September | 35 | 7 |
 | July | 30 | 9 |
 | Here | 30 | 8 |
 | One | 28 | 9 |
 | Research | 26 | 6 |
 | Pro | 26 | 6 |
 | August | 26 | 8 |
+| AI-powered | 25 | 9 |
 | U.S | 25 | 7 |
 | When | 25 | 9 |
-| AI-powered | 24 | 9 |
 | Python | 24 | 4 |
+| Trump | 24 | 4 |
 | June | 23 | 7 |
-| Trump | 23 | 4 |
 | CEO | 22 | 5 |
-| Android | 21 | 4 |
+| Android | 22 | 4 |
 | China | 20 | 6 |
 | Pixel | 20 | 3 |
+| Astra | 20 | 5 |
 | Building | 19 | 10 |
+| Rust | 19 | 3 |
 | Linux | 19 | 5 |
 | After | 19 | 6 |
-| Astra | 19 | 5 |
 | With | 18 | 9 |
-| Rust | 18 | 3 |
 | Last | 18 | 6 |
 | Samsung | 18 | 4 |
 | Europe | 17 | 7 |
@@ -56,22 +56,22 @@ generator: scripts/pulse-dictionary-gaps.py
 | Flash | 15 | 5 |
 | European Union | 15 | 3 |
 | Some | 15 | 8 |
+| Chinese | 15 | 7 |
+| These | 15 | 6 |
 | Elon Musk | 15 | 5 |
 | SpaceX | 15 | 5 |
+| RAM | 15 | 2 |
+| AI-generated | 15 | 6 |
+| The AI | 15 | 6 |
 | Thursday | 14 | 4 |
+| May | 14 | 5 |
 | Fable | 14 | 4 |
-| These | 14 | 6 |
-| RAM | 14 | 2 |
-| AI-generated | 14 | 5 |
-| The AI | 14 | 5 |
-| May | 13 | 5 |
-| Chinese | 13 | 7 |
+| Over | 14 | 4 |
+| India | 13 | 3 |
 | API | 13 | 5 |
 | While | 13 | 4 |
-| Over | 13 | 4 |
 | Tuesday | 12 | 5 |
 | Monday | 12 | 4 |
-| India | 12 | 3 |
 | Opus | 12 | 4 |
 | Windows | 12 | 3 |
 | OpenRouter | 12 | 4 |
@@ -90,7 +90,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Show HN | 100 | src-hn-frontpage |
 | The Download | 43 | src-media-mit-techreview |
 | TechCrunch Disrupt | 24 | src-media-techcrunch |
-| Tags | 21 | src-kol-simonwillison |
+| Tags | 22 | src-kol-simonwillison |
 | Highlights | 17 | src-gh-vllm-releases |
 | Hi HN | 16 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
@@ -102,31 +102,31 @@ generator: scripts/pulse-dictionary-gaps.py
 | GeForce NOW | 10 | src-nvidia-blog |
 | Opt | 10 | src-media-theverge |
 | Best Buy | 10 | src-media-theverge |
+| Is Hiring | 10 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
-| Is Hiring | 9 | src-hn-frontpage |
 | Tool | 8 | src-kol-simonwillison |
 | Switch | 8 | src-media-theverge |
 | According | 7 | src-media-theverge |
 | Marvel | 7 | src-media-theverge |
 | The Stepback | 7 | src-media-theverge |
 | FCC | 7 | src-media-theverge |
+| Decoder | 7 | src-media-theverge |
 | Hey HN | 7 | src-hn-frontpage |
 | Datasette | 7 | src-kol-simonwillison |
 | November | 7 | src-media-theverge |
+| Disrupt | 7 | src-media-techcrunch |
 | The Algorithm | 6 | src-media-mit-techreview |
 | Netflix | 6 | src-media-theverge |
 | Bloomberg | 6 | src-media-theverge |
 | Galaxy Z Fold | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
-| Decoder | 6 | src-media-theverge |
 | Valve | 6 | src-media-theverge |
 | Roundtables | 6 | src-media-mit-techreview |
 | Grand Theft Auto | 6 | src-media-theverge |
 | Series A | 6 | src-media-techcrunch |
-| Disrupt | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Installer No | 5 | src-media-theverge |
 | Verge-iest | 5 | src-media-theverge |
@@ -134,6 +134,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Innovators Under | 5 | src-media-mit-techreview |
 | A Blog | 5 | src-hf-blog |
 | Register | 5 | src-media-techcrunch |
+| Get | 5 | src-media-techcrunch |
 | Energy Source | 4 | src-ep-itre |
 | Internal Market | 4 | src-ep-itre |
 | Consumer Protection | 4 | src-ep-itre |
@@ -146,7 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | RAMageddon | 4 | src-media-theverge |
 | Zig | 4 | src-hn-frontpage |
 | Woot | 4 | src-media-theverge |
-| Sure | 4 | src-media-theverge |
 
 ## 這一頁不保證什麼
 
