@@ -19,8 +19,9 @@
 | 2026-07-28 | `github-desc-apply` 回 3（收到了但一條都沒過關）被寫成「今晚沒東西要翻」，連續好幾晚沒人發現 | exit code 的語意寫成表，判讀只寫一次 |
 | 2026-07-24 | Actions 誤點 96 分鐘，潤稿端 clone 到昨天的 repo，worklist 空，整晚「正常無事」 | 步驟 0 的前置檢查是階段之一，補跑與否記在狀態檔 |
 | 2026-08-16 | 「今晚沒素材」跟「今晚有素材而沒寫」在 git 裡長得一模一樣 | 每一段的結果都留痕，包含被跳過的那些 |
+| 2026-09-20 | 雲端排程把 session 的工作樹 checkout 在一支臨時分支上，不是 `main`；commit 那一關擋得住，但擋在 commit 才發現，敘述工作早就寫完、錢也花了 | `align-main` 排在最前面，在花任何一分錢寫敘述之前就把「跑在哪一支」定案（見下方〈對齊 main〉） |
 
-五條事故，一個形狀：**判斷的規則寫在散文裡，而散文每晚被重新讀一次。**
+六條事故，一個形狀：**判斷的規則寫在散文裡，而散文每晚被重新讀一次。**
 
 ## 兩種階段
 
@@ -51,26 +52,27 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 
 | # | id | 類型 | 做什麼 | 前置 |
 |---|---|---|---|---|
-| 0 | `precheck` | run | 今日 `_corpus/<date>/` 在不在；不在就補跑 robots-recheck → probe → score → cluster | 無 |
-| 1 | `enrich-prep` | run | `pulse-enrich-prep.py` | after precheck |
-| 2 | `enrich-write` | narrative | 事件潤稿（六層 prose） | needs enrich-prep；worklist 非空 |
-| 3 | `enrich-apply` | run | `--dry-run` 再正式 | **needs** enrich-write |
-| 4 | `gate` | run | `pulse-gate.py` | **after** enrich-apply（整段跳過照跑） |
-| 5 | `dashboard` | run | `pulse-dashboard.py` | needs gate |
-| 6 | `digest-prep` | run | `pulse-digest-prep.py` | **needs gate**（這一格是 2026-08-16 那次事故的本體） |
-| 7 | `digest-write` | narrative | 每日精選（空日寫 retrospective，一樣要寫） | needs digest-prep |
-| 8 | `digest-apply` | run | `--dry-run` 再正式 | **needs** digest-write |
-| 9 | `digest-gate` | run | `pulse-digest-gate.py` | after digest-apply |
-| 10 | `narrative-prep` | run | `pulse-narrative-prep.py` | needs gate |
-| 11 | `narrative-write` | narrative | 主線 `now`／`next` | needs narrative-prep；worklist 非空（多數夜晚是空的） |
-| 12 | `narrative-apply` | run | `--dry-run` 再正式 | **needs** narrative-write |
-| 13 | `github-desc-write` | narrative | 榜單中文描述。**清單由 Actions 那班準備**，driver 只讀 | 無（worklist 存在且非空） |
-| 14 | `github-desc-apply` | run | `--dry-run` 再正式 | **needs** github-desc-write |
-| 15 | `title-write` | narrative | Event 中文標題。清單同樣由 Actions 準備 | 無（worklist 存在且非空） |
-| 16 | `title-apply` | run | `--dry-run` 再正式 | **needs** title-write |
-| 17 | `render` | run | `pulse-render.py` | 無（前面 stop 會直接終止整輪） |
-| 18 | `commit` | commit | **先確認站在 `main`**，再擋白名單外的改動，然後 `git add -A` ＋ 有變更才 commit ＋ push；main push 失敗改推 `nightly/<日期>-<sha>` 分支（見下方〈push main 失敗時的備援〉），回 `noted` 不是 `stop` | after render |
-| 19 | `monitor` | run | `pulse-monitor.py --top 5`，**不准帶警報旗標** | 無（排在 commit 之後：摘要要帶推上去之後的狀態） |
+| 0 | `align-main` | align | **先確認站在 `main`、跟 origin 對齊**，再清掉根目錄殘留的敘述產物（見下方〈對齊 main〉） | 無（第一步，前面 stop 會直接終止整輪） |
+| 1 | `precheck` | run | 今日 `_corpus/<date>/` 在不在；不在就補跑 robots-recheck → probe → score → cluster | 無 |
+| 2 | `enrich-prep` | run | `pulse-enrich-prep.py` | after precheck |
+| 3 | `enrich-write` | narrative | 事件潤稿（六層 prose） | needs enrich-prep；worklist 非空 |
+| 4 | `enrich-apply` | run | `--dry-run` 再正式 | **needs** enrich-write |
+| 5 | `gate` | run | `pulse-gate.py` | **after** enrich-apply（整段跳過照跑） |
+| 6 | `dashboard` | run | `pulse-dashboard.py` | needs gate |
+| 7 | `digest-prep` | run | `pulse-digest-prep.py` | **needs gate**（這一格是 2026-08-16 那次事故的本體） |
+| 8 | `digest-write` | narrative | 每日精選（空日寫 retrospective，一樣要寫） | needs digest-prep |
+| 9 | `digest-apply` | run | `--dry-run` 再正式 | **needs** digest-write |
+| 10 | `digest-gate` | run | `pulse-digest-gate.py` | after digest-apply |
+| 11 | `narrative-prep` | run | `pulse-narrative-prep.py` | needs gate |
+| 12 | `narrative-write` | narrative | 主線 `now`／`next` | needs narrative-prep；worklist 非空（多數夜晚是空的） |
+| 13 | `narrative-apply` | run | `--dry-run` 再正式 | **needs** narrative-write |
+| 14 | `github-desc-write` | narrative | 榜單中文描述。**清單由 Actions 那班準備**，driver 只讀 | 無（worklist 存在且非空） |
+| 15 | `github-desc-apply` | run | `--dry-run` 再正式 | **needs** github-desc-write |
+| 16 | `title-write` | narrative | Event 中文標題。清單同樣由 Actions 準備 | 無（worklist 存在且非空） |
+| 17 | `title-apply` | run | `--dry-run` 再正式 | **needs** title-write |
+| 18 | `render` | run | `pulse-render.py` | 無（前面 stop 會直接終止整輪） |
+| 19 | `commit` | commit | **先確認站在 `main`**，再擋白名單外的改動，然後 `git add -A` ＋ 有變更才 commit ＋ push；main push 失敗改推 `nightly/<日期>-<sha>` 分支（見下方〈push main 失敗時的備援〉），回 `noted` 不是 `stop` | after render |
+| 20 | `monitor` | run | `pulse-monitor.py --top 5`，**不准帶警報旗標** | 無（排在 commit 之後：摘要要帶推上去之後的狀態） |
 
 `monitor` 那一條的禁令不是這裡新增的：判準讀本地 `git log`，在 push 之前它會讀到
 自己剛建、還沒推出去的那顆 commit 然後回一盞綠燈。理由全文在
@@ -233,6 +235,39 @@ context 最小   每一棒只看到自己那一段的清單，看不到別段的
 
 所以整條鏈的分工是：**迴圈是 shell 的、判斷是 driver 的、寫作才是 LLM 的**。
 這個 repo 對外的承諾（runtime 0 LLM 判斷）在這裡照樣成立：LLM 一個判斷都不做，只寫字。
+
+### 對齊 main：開跑前，不是 commit 前
+
+**這是 2026-09-20 才長出來的一關。** 雲端排程（`claude.ai/code/routines`）把 session
+的工作樹 checkout 在一支平台自建的臨時分支上（例如 `claude/gifted-faraday-nzxg63`），
+不是 `main`。`align-main` 加之前，這件事要等到 `commit` 那一關的
+`on_target_branch()` 才會被發現——但那時候敘述工作（`enrich-write` 到
+`title-write`）早就跑完、`claude -p` 的錢也花了，整晚的成果因為卡在 commit
+而全部推不上去。09-18、09-19 兩晚能推上 main，是那兩晚的寫作端自己讀了
+`pulse-nightly.py` 的碼、臨時做了 `git checkout main && git merge --ff-only
+origin/main` 才過的，**不是這支 driver 保證的**；09-20 沒有人做這件事，
+就整晚白跑。`align-main` 把同一個對齊挪到最前面，在花任何一分錢之前就把
+「跑在哪一支」定案。
+
+**只在工作樹乾淨時切分支。** 站在別的分支又有未提交改動，代表有人正在用這個
+工作樹做別的事，driver 沒有能力判斷那些改動該留還是該丟，不猜，停下來——跟
+下面〈commit 前的兩道關〉的「地點錯了，內容再乾淨也是推到錯的地方」是同一個
+判斷，只是這裡反過來：**內容不乾淨，連地點都不猜著換。**
+
+**對齊失敗（`git fetch`／`checkout`／`merge --ff-only` 任何一步非零）一律 stop**，
+不猜怎麼合併。`merge --ff-only` 理論上不該失敗——這支分支是這次 session 才剛從
+遠端建的，本地 `main` 應該是 `origin/main` 的祖先——但「理論上不該發生」正是這個
+repo 記過最多次的一句話，真的發生時交給人，不是找一種合併策略把它兜過去。
+
+**同一次順手清掉根目錄殘留的敘述產物**（`ROOT_RESULT_FILES`：`enrich-result.json`、
+`digest.json`、`narrative-result.json`、`title-zh-result.json`、
+`github-desc-result.json`）。這五個檔只該在同一輪的兩次 `run` 之間短暫存在——
+2026-09-15 一次手動實跑後忘了收，本機排程往後三晚都拿它們當成「這一輪的結果」
+對帳，一直卡在 `enrich-write`。清理跟分支對齊放進同一個階段，是因為兩者要的
+「只做一次」保證完全一樣：`align-main` 一旦記成 `ok`／`noted`，同一個 UTC 日
+之後每次 `run` 都會跳過它，天然不會清到正在交棒中的檔。**清掉的東西要留痕**：
+回傳被刪的檔名，寫進這一段的 note，不要默默刪掉——「今天特別乾淨」跟「有東西
+被默默清掉」在摘要上不能長得一樣。
 
 ### commit 前的兩道關，順序不能換
 
