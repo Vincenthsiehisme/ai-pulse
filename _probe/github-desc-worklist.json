@@ -1,46 +1,18 @@
 [
   {
-    "full_name": "HelixDB/helix-db",
-    "desc": "HelixDB is an OLTP graph database with native vector and full-text search built in Rust on Object Storage.",
+    "full_name": "t8y2/dbx",
+    "desc": "25 MB lightweight cross-platform database client for 90+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 90+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP Server。",
     "language": "Rust",
     "topics": [
       "ai",
       "cli",
+      "clickhouse",
       "database",
-      "databases",
-      "graph-database",
-      "helix"
+      "database-client",
+      "database-management"
     ],
-    "stars": 5948,
-    "url": "https://github.com/HelixDB/helix-db",
-    "stale_zh": "跑在 Object Storage 上、用 Rust 寫成的 OLTP 圖形＋向量資料庫"
-  },
-  {
-    "full_name": "Gentleman-Programming/gentle-ai",
-    "desc": "Gentle-AI configures the AI coding agents you already use: Claude Code, Cursor, OpenCode, Codex, Pi, and more. Choose persistent memory, Organic-Driven Development, curated skills, MCP servers, personas, and optional bounded review. Open source, no agent lock-in.",
-    "language": "Go",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "ai-coding",
-      "claude-code",
-      "code-review",
-      "codex"
-    ],
-    "stars": 7013,
-    "url": "https://github.com/Gentleman-Programming/gentle-ai",
-    "stale_zh": "幫 Claude Code 等 AI 編碼 agent 設定記憶、技能與規格驅動開發，開源不綁定單一工具"
-  },
-  {
-    "full_name": "microsoft/playwright-mcp",
-    "desc": "Playwright MCP server",
-    "language": "TypeScript",
-    "topics": [
-      "mcp",
-      "playwright"
-    ],
-    "stars": 37343,
-    "url": "https://github.com/microsoft/playwright-mcp",
-    "stale_zh": null
+    "stars": 20199,
+    "url": "https://github.com/t8y2/dbx",
+    "stale_zh": "20 MB 輕量跨平台資料庫客戶端，支援 90+ 種資料庫，內建 AI、MCP Server 與 CLI"
   }
 ]

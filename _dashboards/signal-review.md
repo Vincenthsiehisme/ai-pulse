@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-19"
+generated_day: "2026-09-20"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-19"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **311** 則／已裁決 **26** 則。
+待回答 **314** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -30,8 +30,8 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`model-research#ceeb295b`** — model-research
   > 觀察 OpenAI 那套失準通報框架是否在後續事故中被實際引用、外界有沒有跟進查證六份案例報告；Anthropic 生命科學驗證計畫則要查原文才知道具體驗證的是什麼。「小而專」模型迭代這條主軸，要看下一輪有沒有新的模型發布訊號進來。
 
-- **`product-market#87cfc440`** — product-market
-  > 留意 Astra for Law 與 GO Public 上線後是否有具名客戶公開採用成效，以及是否有第三方對其「法律級控管」做安全或合規審視；持續觀察 Anthropic 顧問夥伴公告與 Google DeepMind 產品化案例的後續採用情況。
+- **`product-market#aa3f8714`** — product-market
+  > 留意 Hex 案例是否有其他資料分析平台跟進、Accenture Embedded Evaluation 原文釋出後是否揭露具體評測範圍與客戶專案；同時持續觀察 Astra for Law、GO Public 上線後有沒有具名客戶公開採用成效。
 
 - **`capital-evolution#848ecbe1`** — capital-evolution
   > 留意 Series F 的投資人名單是否揭露、這輪估值與 OpenAI 等競爭對手最新估值的相對位置；也留意《Confidential Draft S1 SEC》這則先前提到的疑似機密 IPO 申報，原文內容是否進一步被證實或澄清。
@@ -39,10 +39,10 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`agent-refactor#6671b646`** — agent-refactor
   > 留意 Agents API 的定價與計費模式公布後，是否進一步壓低中小型開發者建置 agent 的門檻；也留意 Devin 的自我測試通過率或誤判率是否有第三方或使用者端的具體數字佐證，那會比案例文章本身更能驗證這項能力的實際可靠度。
 
-- **`global-map#7606507c`** — global-map
-  > 觀察曼徹斯特大學這套模型是否有論文發表，或跟官方監測數據的對比結果；同時留意上一輪那批只留標題的政策與安全公告是否有第三方回應。
+- **`global-map#e31b17ea`** — global-map
+  > 觀察澳洲監理機關是否對這份藍圖公開回應、六大支柱是否有具體可驗證的落地時程或第三方稽核安排；同時留意曼徹斯特大學這套 Earth-2 模型是否有論文發表，或跟官方監測數據的對比結果。
 
-## 事件層（305）
+## 事件層（308）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -917,6 +917,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-15-a7dafa#d3aafb9e`** — evt-2026-09-15-a7dafa
   > 觀察 Gemini 3.8 Live／Extended Thinking 是否有第三方延遲、準確度基準測試，以及開發者社群（如 Willison 這類獨立評測者）後續的實測心得。
 
+- **`evt-2026-09-16-06efd5#53a78def`** — evt-2026-09-16-06efd5
+  > 觀察是否有 Hex 以外的資料分析平台跟進類似整合，或是否有第三方（而非 OpenAI 自己）評價這類「AI 生成視覺化」的實際品質。
+
 - **`evt-2026-09-16-0793a2#c0bcd9a4`** — evt-2026-09-16-0793a2
   > 觀察 MLPerf Inference v6.1 的完整榜單與具體分數，以及其他廠商平台的對比成績。
 
@@ -956,5 +959,11 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-17-c35f5f#45a12235`** — evt-2026-09-17-c35f5f
   > 非追蹤重點，暫不設定後續觀察訊號。
 
+- **`evt-2026-09-18-2647a3#4fe70166`** — evt-2026-09-18-2647a3
+  > 原文釋出後，觀察 Accenture 是否公開這套 evaluation 機制實際套用在哪些客戶專案上，或是否有第三方對其評測方法給出獨立評價。
+
 - **`evt-2026-09-18-463a0d#fe528c1a`** — evt-2026-09-18-463a0d
   > 查閱原文全文，確認 Voice Transcribe 2.0 相較前一版的具體改動，並回頭補上事實與影響兩層。
+
+- **`evt-2026-09-18-dd201c#b9f78453`** — evt-2026-09-18-dd201c
+  > 觀察澳洲監理機關是否對這份藍圖公開回應，以及六大支柱是否有具體、可驗證的落地時程或第三方稽核安排。

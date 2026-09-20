@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-19'
+generated_day: '2026-09-20'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**54 天**（2026-07-24 … 2026-09-19），去重後 **3657** 列。
+語料範圍：**55 天**（2026-07-24 … 2026-09-20），去重後 **3699** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -29,25 +29,25 @@ generator: scripts/pulse-dictionary-gaps.py
 | One | 28 | 9 |
 | Research | 26 | 6 |
 | Pro | 26 | 6 |
+| Trump | 26 | 4 |
 | August | 26 | 8 |
 | AI-powered | 25 | 9 |
 | U.S | 25 | 7 |
 | When | 25 | 9 |
 | Python | 24 | 4 |
-| Trump | 24 | 4 |
 | June | 23 | 7 |
 | CEO | 22 | 5 |
 | Android | 22 | 4 |
 | China | 20 | 6 |
+| Linux | 20 | 5 |
 | Pixel | 20 | 3 |
+| After | 20 | 6 |
 | Astra | 20 | 5 |
 | Building | 19 | 10 |
 | Rust | 19 | 3 |
-| Linux | 19 | 5 |
-| After | 19 | 6 |
+| Samsung | 19 | 4 |
 | With | 18 | 9 |
 | Last | 18 | 6 |
-| Samsung | 18 | 4 |
 | Europe | 17 | 7 |
 | Wednesday | 17 | 4 |
 | San Francisco | 17 | 9 |
@@ -68,6 +68,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Fable | 14 | 4 |
 | Over | 14 | 4 |
 | India | 13 | 3 |
+| Flock | 13 | 4 |
 | API | 13 | 5 |
 | While | 13 | 4 |
 | Tuesday | 12 | 5 |
@@ -76,7 +77,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Windows | 12 | 3 |
 | OpenRouter | 12 | 4 |
 | Duo | 12 | 3 |
-| Draft | 11 | 2 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,20 +87,20 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 100 | src-hn-frontpage |
+| Show HN | 102 | src-hn-frontpage |
 | The Download | 43 | src-media-mit-techreview |
-| TechCrunch Disrupt | 24 | src-media-techcrunch |
+| TechCrunch Disrupt | 26 | src-media-techcrunch |
 | Tags | 22 | src-kol-simonwillison |
 | Highlights | 17 | src-gh-vllm-releases |
 | Hi HN | 16 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
 | Launch HN | 14 | src-hn-frontpage |
+| The Verge | 12 | src-media-theverge |
+| Opt | 11 | src-media-theverge |
 | Ask HN | 11 | src-hn-frontpage |
 | YC S26 | 11 | src-hn-frontpage |
-| The Verge | 11 | src-media-theverge |
 | MIT Technology Review | 11 | src-media-mit-techreview |
 | GeForce NOW | 10 | src-nvidia-blog |
-| Opt | 10 | src-media-theverge |
 | Best Buy | 10 | src-media-theverge |
 | Is Hiring | 10 | src-hn-frontpage |
 | AMENDMENTS | 9 | src-ep-itre |
@@ -108,30 +108,31 @@ generator: scripts/pulse-dictionary-gaps.py
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | Tool | 8 | src-kol-simonwillison |
+| The Stepback | 8 | src-media-theverge |
 | Switch | 8 | src-media-theverge |
+| Disrupt | 8 | src-media-techcrunch |
 | According | 7 | src-media-theverge |
 | Marvel | 7 | src-media-theverge |
-| The Stepback | 7 | src-media-theverge |
 | FCC | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
 | Hey HN | 7 | src-hn-frontpage |
 | Datasette | 7 | src-kol-simonwillison |
 | November | 7 | src-media-theverge |
-| Disrupt | 7 | src-media-techcrunch |
 | The Algorithm | 6 | src-media-mit-techreview |
 | Netflix | 6 | src-media-theverge |
 | Bloomberg | 6 | src-media-theverge |
 | Galaxy Z Fold | 6 | src-media-theverge |
+| Installer No | 6 | src-media-theverge |
+| Verge-iest | 6 | src-media-theverge |
+| Installer | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
 | Valve | 6 | src-media-theverge |
 | Roundtables | 6 | src-media-mit-techreview |
 | Grand Theft Auto | 6 | src-media-theverge |
 | Series A | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
-| Installer No | 5 | src-media-theverge |
-| Verge-iest | 5 | src-media-theverge |
-| Installer | 5 | src-media-theverge |
 | Innovators Under | 5 | src-media-mit-techreview |
+| Self-hosted | 5 | src-hn-frontpage |
 | A Blog | 5 | src-hf-blog |
 | Register | 5 | src-media-techcrunch |
 | Get | 5 | src-media-techcrunch |
@@ -146,7 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Peacock | 4 | src-media-theverge |
 | RAMageddon | 4 | src-media-theverge |
 | Zig | 4 | src-hn-frontpage |
-| Woot | 4 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

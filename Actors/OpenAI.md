@@ -3,18 +3,18 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-19'
+generated_day: '2026-09-20'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **104** 則：`published` 99、`review` 5
+事件 **104** 則：`published` 101、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-18 | [[Events/evt-2026-09-18-dd201c\|Introducing the Australian Youth Safety Blueprint]] | review |
+| 2026-09-18 | [[Events/evt-2026-09-18-dd201c\|Introducing the Australian Youth Safety Blueprint]] | published |
 | 2026-09-17 | [[Events/evt-2026-09-17-967613\|Introducing Astra for Law]] | published |
 | 2026-09-17 | [[Events/evt-2026-09-17-572fd3\|How Cooley is accelerating IPO work with ChatGPT]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-ed19d1\|Helping older adults use AI in everyday life]] | published |
@@ -22,7 +22,7 @@ tags: [actor, company]
 | 2026-09-16 | [[Events/evt-2026-09-16-80242e\|Our framework for reporting model misalignment]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-634079\|How workers are unlocking new ways of working]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-27b2e8\|Reimagining advertising with AI]] | published |
-| 2026-09-16 | [[Events/evt-2026-09-16-06efd5\|Hex turns complex analysis into visual reports with GPT‑6 Astra]] | review |
+| 2026-09-16 | [[Events/evt-2026-09-16-06efd5\|Hex turns complex analysis into visual reports with GPT‑6 Astra]] | published |
 | 2026-09-11 | [[Events/evt-2026-09-11-4bdd2c\|Rapidly scaling online storage to serve over 1 billion ChatGPT users]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-bd46b8\|Introducing the Agents API]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-8bfd47\|Expanding AI access and cyber defense for federal, state, local, and tribal governments]] | published |

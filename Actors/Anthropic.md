@@ -3,17 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-09-19'
+generated_day: '2026-09-20'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **105** 則：`published` 100、`review` 5
+事件 **106** 則：`published` 101、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-18 | [[Events/evt-2026-09-18-2647a3\|Accenture Embedded Evaluation]] | published |
 | 2026-09-17 | [[Events/evt-2026-09-17-7f64e9\|Life Sciences Verification Program]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-f6b8f9\|Anthropic Invests 50 Billion In American Ai Infrastructure]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-f0481d\|Cognizant Partnership]] | published |
