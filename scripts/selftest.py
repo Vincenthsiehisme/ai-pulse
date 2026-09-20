@@ -6279,6 +6279,185 @@ acase("夜班：同一個 UTC 日被碰第二次時，要說出來而不是留�
 acase("夜班：main() 真的問過 already_done（接線）",
       _nl.calls_in(_nl_src, "already_done", "main"), True)
 
+# ── 對齊 main（2026-09-20）─────────────────────────────────────────────
+# 雲端排程把 session 的工作樹 checkout 在一支臨時分支上，不是 main。commit 那一關
+# 擋得住，但擋在 commit 才發現時，敘述工作早就寫完、錢也花了。09-18、09-19 兩晚
+# 能推上 main 是寫作端自己讀了這支檔案的碼、臨時 checkout 才過的，不是機制保證的；
+# 09-20 沒做，整晚白跑。把對齊挪到最前面，花錢之前先定案。
+
+_nl_stages2 = {x["id"]: x for x in _nl.stages("2026-09-21")}
+acase("夜班：align-main 是第一步，precheck 排在它後面"
+      "（要在花任何一分錢寫敘述之前，就把跑在哪一支定案，不能等到 commit 才發現）",
+      [x["id"] for x in _nl.stages("2026-09-21")][:2],
+      ["align-main", "precheck"])
+acase("夜班：align-main 的 kind 是 align（advance() 要認得這個 kind）",
+      _nl_stages2["align-main"]["kind"], "align")
+acase("夜班：do_align 真的接上了（呼叫端、被呼叫的兩支都要對）",
+      [_nl.calls_in(_nl_src, "on_target_branch", "do_align"),
+       _nl.calls_in(_nl_src, "clean_stale_results", "do_align"),
+       _nl.calls_in(_nl_src, "do_align", "advance")],
+      [True, True, True])
+
+import subprocess as _subprocess  # noqa: E402
+
+
+def _al_repo(root):
+    """建一個只有一顆 commit、分支叫 main 的 repo。回傳 Path。"""
+    _subprocess.run(["git", "init", "-q", str(root)], capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _subprocess.run(["git", "-C", str(root), "config", k, v], capture_output=True)
+    (root / "a.txt").write_text("1", "utf-8")
+    _subprocess.run(["git", "-C", str(root), "add", "-A"], capture_output=True)
+    _subprocess.run(["git", "-C", str(root), "commit", "-qm", "base"], capture_output=True)
+    _subprocess.run(["git", "-C", str(root), "branch", "-M", "main"], capture_output=True)
+    return root
+
+
+with _tf2.TemporaryDirectory() as _td_crf:
+    _crfv = Path(_td_crf)
+    (_crfv / "enrich-result.json").write_text("{}", "utf-8")
+    (_crfv / "digest.json").write_text("{}", "utf-8")
+    _crf_removed = sorted(_nl.clean_stale_results(_crfv))
+    _crf_remaining = sorted(p.name for p in _crfv.iterdir())
+
+acase("夜班：清殘留敘述產物——只清 ROOT_RESULT_FILES 清單裡的，清完就不在了"
+      "（2026-09-15 手動實跑留下的四份檔，本機排程往後三晚都拿它們當成"
+      "「這一輪的結果」對帳，一直卡在 enrich-write）",
+      [_crf_removed, _crf_remaining],
+      [["digest.json", "enrich-result.json"], []])
+acase("夜班：清殘留敘述產物對「什麼都沒有」也安全（回空清單，不是報錯）",
+      _nl.clean_stale_results(Path(_tf2.mkdtemp())), [])
+
+with _tf2.TemporaryDirectory() as _td_al1:
+    _al1_result = _nl.do_align(_al_repo(Path(_td_al1)))
+
+acase("夜班：已經在 main 上、根目錄乾淨 → ok，不猜著切分支"
+      "（在 target 上什麼都不用做，也沒有殘留可清）",
+      _al1_result[0], "ok")
+
+with _tf2.TemporaryDirectory() as _td_al2:
+    _al2v = _al_repo(Path(_td_al2))
+    (_al2v / "digest.json").write_text("{}", "utf-8")
+    _al2_result = _nl.do_align(_al2v)
+    _al2_gone = not (_al2v / "digest.json").exists()
+
+acase("夜班：已在 main 但根目錄有殘留敘述產物 → noted，清掉並說出清了什麼"
+      "（清掉的東西也要留痕，不然「今天特別乾淨」跟「有東西被默默清掉」在摘要上"
+      "長得一樣）",
+      [_al2_result[0], "digest.json" in _al2_result[1], _al2_gone],
+      ["noted", True, True])
+
+with _tf2.TemporaryDirectory() as _td_al4:
+    _al4v = _al_repo(Path(_td_al4))
+    _subprocess.run(["git", "-C", str(_al4v), "checkout", "-q", "-b", "other"],
+                    capture_output=True)
+    (_al4v / "a.txt").write_text("2", "utf-8")   # 未提交改動
+    _al4_result = _nl.do_align(_al4v)
+
+acase("夜班：站在別的分支且工作樹髒 → stop，不猜要不要丟棄"
+      "（髒的是別人留下的東西，driver 沒有能力判斷該留還是該丟——跟 do_commit() "
+      "『地點錯了，內容再乾淨也是推到錯的地方』同一個判斷，這裡反過來：內容不"
+      "乾淨，連地點都不猜著換）",
+      [_al4_result[0], "未提交改動" in _al4_result[1]],
+      ["stop", True])
+
+# 端到端：站在臨時分支、工作樹乾淨、本地 main 落後 origin/main → 切回 main 並
+# ff 上去。這是 09-19 那晚寫作端自己做、09-20 沒人做的那個動作。
+with _tf2.TemporaryDirectory() as _td_al3:
+    _al3root = Path(_td_al3)
+    _origin3, _seed3, _work3 = (_al3root / "origin.git", _al3root / "seed",
+                                _al3root / "work")
+    _subprocess.run(["git", "init", "--bare", "-q", str(_origin3)], capture_output=True)
+    # `git init --bare` 預設 HEAD 指向 refs/heads/master，那支從沒建過——clone
+    # 出來會落在 detached HEAD，看不出 checkout -b 之後真的站在哪一支。先把
+    # HEAD 指到 main，clone 才會正確建出追蹤 origin/main 的本地 main 分支。
+    _subprocess.run(["git", "-C", str(_origin3), "symbolic-ref", "HEAD", "refs/heads/main"],
+                    capture_output=True)
+    _al_repo(_seed3)
+
+    def _sg3(*a):
+        return _subprocess.run(["git", "-C", str(_seed3), *a],
+                               capture_output=True, text=True)
+
+    _sg3("remote", "add", "origin", str(_origin3))
+    _sg3("push", "-q", "-u", "origin", "main")
+    _subprocess.run(["git", "clone", "-q", str(_origin3), str(_work3)],
+                    capture_output=True)
+
+    def _wg3(*a):
+        return _subprocess.run(["git", "-C", str(_work3), *a],
+                               capture_output=True, text=True)
+
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _wg3("config", k, v)
+
+    # origin 再進一顆，work 還沒 fetch 過——本地 main 落後 origin/main 一顆。
+    (_seed3 / "b.txt").write_text("2", "utf-8")
+    _sg3("add", "-A"); _sg3("commit", "-qm", "second"); _sg3("push", "-q", "origin", "main")
+    _seed3_head = _sg3("rev-parse", "HEAD").stdout.strip()
+
+    _wg3("checkout", "-q", "-b", "claude/session-branch")
+    _al3_before = _nl.on_target_branch(_work3)
+    _al3_result = _nl.do_align(_work3)
+    _al3_after = _nl.on_target_branch(_work3)
+    _work3_head = _wg3("rev-parse", "HEAD").stdout.strip()
+
+acase("夜班：站在別的分支且工作樹乾淨 → 切回 main 並 ff 到 origin/main"
+      "（09-19 那晚寫作端自己做了這件事才推上 main；09-20 沒做，卡在 commit 階段，"
+      "一整晚的敘述工作全部作廢）",
+      [_al3_before, _al3_result[0], _al3_after, _work3_head == _seed3_head],
+      [(False, "claude/session-branch"), "noted", (True, "main"), True])
+acase("夜班：切回 main 這件事寫進 note（人看得出來發生過什麼，不是默默換了地方）",
+      ["claude/session-branch" in _al3_result[1], "main" in _al3_result[1]],
+      [True, True])
+
+# 端到端：本地 main 長出一顆從沒推過的 commit，同時 origin/main 也進了不同的
+# 一顆——真的分歧，ff-only 合不了。理論上不該發生（這支分支是這次 session 才
+# 剛從遠端建的），但真的發生時不猜怎麼合併。
+with _tf2.TemporaryDirectory() as _td_al5:
+    _al5root = Path(_td_al5)
+    _origin5, _seed5, _work5 = (_al5root / "origin.git", _al5root / "seed",
+                                _al5root / "work")
+    _subprocess.run(["git", "init", "--bare", "-q", str(_origin5)], capture_output=True)
+    _subprocess.run(["git", "-C", str(_origin5), "symbolic-ref", "HEAD", "refs/heads/main"],
+                    capture_output=True)
+    _al_repo(_seed5)
+
+    def _sg5(*a):
+        return _subprocess.run(["git", "-C", str(_seed5), *a],
+                               capture_output=True, text=True)
+
+    _sg5("remote", "add", "origin", str(_origin5))
+    _sg5("push", "-q", "-u", "origin", "main")
+    _subprocess.run(["git", "clone", "-q", str(_origin5), str(_work5)],
+                    capture_output=True)
+
+    def _wg5(*a):
+        return _subprocess.run(["git", "-C", str(_work5), *a],
+                               capture_output=True, text=True)
+
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _wg5("config", k, v)
+
+    (_work5 / "local-only.txt").write_text("x", "utf-8")
+    _wg5("add", "-A"); _wg5("commit", "-qm", "local only, never pushed")
+
+    (_seed5 / "b.txt").write_text("2", "utf-8")
+    _sg5("add", "-A"); _sg5("commit", "-qm", "origin diverges")
+    _sg5("push", "-q", "origin", "main")
+
+    _wg5("checkout", "-q", "-b", "claude/session-branch")
+    _al5_result = _nl.do_align(_work5)
+
+acase("夜班：本地 main 落後或分歧到 fast-forward 不了 → stop，不硬合併",
+      [_al5_result[0], "落後或分歧" in _al5_result[1]],
+      ["stop", True])
+
+acase("references/nightly-driver.md 有〈對齊 main〉那一節（紅線 9 先文件後碼）",
+      "對齊 main" in open(os.path.join(_HERE, "..", "references", "nightly-driver.md"),
+                        encoding="utf-8").read(),
+      True)
+
 acase("references/nightly-driver.md 存在（紅線 9 先文件後碼）",
       os.path.isfile(os.path.join(_HERE, "..", "references", "nightly-driver.md")),
       True)

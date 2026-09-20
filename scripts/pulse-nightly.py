@@ -12,6 +12,10 @@
     2026-08-16  digest-prep 跑在 gate 之前，挑不到東西**而且不報錯**
     2026-07-28  github-desc-apply 回 3（收到了但一條都沒過關）被寫成「今晚沒東西要翻」
     2026-07-24  Actions 誤點 96 分，潤稿端 clone 到昨天的 repo，整晚「正常無事」
+    2026-09-20  雲端排程（claude.ai/code/routines）把 session 的工作樹 checkout 在
+                一支臨時分支上，不是 main。commit 那一關擋得住，但擋下來時敘述
+                工作早就寫完了，一整晚的成本全部作廢；前兩晚能推上 main 是寫作端
+                自己讀了這支檔案的碼、臨時 checkout 才過的，不是機制保證的
 
 這一支把順序、exit code 判讀、交棒對帳、摘要組裝拿回碼裡。**它不取代 runbook**：
 寫的那一方仍然照 runbook 寫六層 prose 與每日精選，這裡只拿走不該由模型每晚重做
@@ -59,6 +63,12 @@ DATA_PREFIXES = ("_corpus/", "_probe/", "Events/", "Sources/", "_dashboards/",
 # 腳本保證（它們只寫那幾欄）。
 DATA_FILES = ("_config/sources.yaml", "_config/narratives.yaml")
 
+# 五段敘述工作交棒時寫在 repo 根目錄的產物。這幾個檔只該在同一輪的兩次 `run`
+# 之間短暫存在——2026-09-15 一次手動實跑後忘了收，本機排程往後三晚（09-19～09-21）
+# 都拿它們當成「這一輪的結果」對帳，一直卡在 enrich-write。見 do_align()。
+ROOT_RESULT_FILES = ("enrich-result.json", "digest.json", "narrative-result.json",
+                      "title-zh-result.json", "github-desc-result.json")
+
 
 def stages(date_str):
     """整條夜班鏈。順序就是 runbook 的順序，依賴寫在 requires。
@@ -77,6 +87,12 @@ def stages(date_str):
                 "cmd": [sys.executable, f"scripts/{script}", "--in", infile], "codes": codes}
 
     return [
+        # 平台的雲端排程把 session checkout 在一支臨時分支上，不是 main（2026-09-20）；
+        # 排在最前面，讓「跑在哪一支」在花任何一分錢寫敘述之前就定案——不然要等到
+        # commit 那一關才發現，那時候敘述工作早就寫完了，整晚白做。前面沒有東西可以
+        # stop（它是第一步），不需要 after/needs，跟 render 靠「前面 stop 直接終止
+        # 整輪」是同一個道理。
+        {"id": "align-main", "kind": "align"},
         {"id": "precheck", "kind": "precheck"},
         {"id": "enrich-prep", "kind": "run", "after": ["precheck"],
          "cmd": [sys.executable, "scripts/pulse-enrich-prep.py"],
@@ -477,6 +493,81 @@ def on_target_branch(vault, target="main"):
     return cur == target, (cur or "量不到")
 
 
+def clean_stale_results(vault):
+    """開新的一輪之前，清掉根目錄殘留的敘述產物。回傳真的刪掉的檔名。
+
+    `ROOT_RESULT_FILES` 只該在同一輪的兩次 `run` 之間短暫存在。這支只在
+    `align-main` 裡被呼叫一次（見 main() 的一輪一次保證），不會刪到正在交棒中的
+    檔——那些檔在同一天稍晚的呼叫根本不會再走到這裡，align-main 已經被記成
+    ok／noted，直接跳過。**清掉的東西也要留痕**，回傳清單讓呼叫端寫進 note，
+    不要默默刪掉：「今天特別乾淨」跟「有東西被默默清掉」在摘要上不能長得一樣。
+    """
+    removed = []
+    for name in ROOT_RESULT_FILES:
+        p = vault / name
+        if p.exists():
+            p.unlink()
+            removed.append(name)
+    return removed
+
+
+def do_align(vault, target="main"):
+    """回到 target 分支、跟 origin 對齊，再清掉根目錄殘留的敘述產物。
+
+    回 (status, note, full_output)。
+
+    **這是 2026-09-20 才長出來的一關。** 雲端排程（claude.ai/code/routines）把
+    session 的工作樹 checkout 在一支臨時分支上，不是 `main`。`do_commit()` 的
+    `on_target_branch()` 檢查擋得住，但擋在 commit 那一步等於整晚白跑——敘述
+    工作早就寫完、錢也花了，最後才發現推不上去。09-18、09-19 兩晚能推上 main，
+    是那兩晚的寫作端自己讀了這支檔案的碼、臨時做了 `checkout main` 才過的，
+    不是這支 driver 保證的；09-20 沒有人做這件事，就整晚作廢。把對齊挪到最前面，
+    在花任何一分錢之前就把「跑在哪一支」定案。
+
+    只在工作樹乾淨時切分支：站在別的分支又有未提交改動，代表有人正在用這個
+    工作樹做別的事，driver 沒有能力判斷那些改動該留還是該丟，不猜，停下來——
+    跟 `do_commit()` 的「地點錯了，內容再乾淨也是推到錯的地方」同一個判斷，
+    只是這裡反過來：**內容不乾淨，連地點都不猜著換。**
+
+    跟 `do_commit()` 不同的是失敗時不指名「哪個檔」，因為這裡還沒有夜班自己的
+    改動可指——工作樹髒，代表髒的是**別人**留下的東西。
+    """
+    ok, cur = on_target_branch(vault, target)
+    full = ""
+    note_parts = []
+    if not ok:
+        rc, out = run(vault, ["git", "status", "--porcelain"])
+        full += out
+        if rc != 0:
+            return "stop", f"git status 失敗 rc={rc}", full
+        if out.strip():
+            return "stop", (f"工作樹停在 `{cur}`（不是 `{target}`）且有未提交改動，"
+                            "driver 不猜要不要丟棄，人工處理"), full
+        rc, fout = run(vault, ["git", "fetch", "origin", target])
+        full += fout
+        if rc != 0:
+            return "stop", f"git fetch origin {target} 失敗 rc={rc}", full
+        rc, cout = run(vault, ["git", "checkout", target])
+        full += cout
+        if rc != 0:
+            return "stop", f"git checkout {target} 失敗 rc={rc}", full
+        rc, mout = run(vault, ["git", "merge", "--ff-only", f"origin/{target}"])
+        full += mout
+        if rc != 0:
+            return "stop", (f"git merge --ff-only origin/{target} 失敗 rc={rc}"
+                            f"（本地 {target} 落後或分歧到 fast-forward 不了，"
+                            "人工處理）"), full
+        note_parts.append(f"從 `{cur}` 切回 `{target}` 並 ff 到 origin/{target}")
+
+    removed = clean_stale_results(vault)
+    if removed:
+        note_parts.append("清掉根目錄殘留的敘述產物：" + "、".join(removed))
+
+    if not note_parts:
+        return "ok", f"已在 `{target}`，根目錄沒有殘留的敘述產物", full
+    return "noted", "；".join(note_parts), full
+
+
 def do_commit(vault, spec, no_push):
     """git add -A ＋ 有變更才 commit ＋ push；push 失敗改推備援分支。
 
@@ -592,6 +683,8 @@ def advance(vault, state, date_str, no_push):
         kind = spec["kind"]
         if kind == "precheck":
             status, note, full = do_precheck(vault, date_str)
+        elif kind == "align":
+            status, note, full = do_align(vault)
         elif kind == "narrative":
             status, note, extra = do_narrative(vault, spec, rec)
             full = ""
