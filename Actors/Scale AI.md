@@ -3,17 +3,16 @@ id: actor-scale-ai
 kind: company
 in_dictionary: true
 aliases: ["Scale"]
-generated_day: '2026-09-20'
+generated_day: '2026-09-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Scale AI
 
-事件 **0** 則：（無）
-
-字典收了它，但這段期間**一則事件都沒有**。這不代表它沒新聞——也可能是沒有任何一條來源看得到它（對照 `_config/sources.yaml` 的`coverage_watch`）。四態分離：收錄 ≠ 已觀測 ≠ 有效產出 ≠ 已發布。
+事件 **2** 則：`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| （目前沒有） | | |
+| 2026-09-21 | [[Events/evt-2026-09-21-f8ec7e\|From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production Scale]] | review |
+| 2026-09-21 | [[Events/evt-2026-09-21-38e891\|Why Deploying Physical AI at Scale Demands Safety at Every Layer]] | review |

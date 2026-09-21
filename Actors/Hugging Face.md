@@ -3,17 +3,18 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-09-20'
+generated_day: '2026-09-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **15** 則：`published` 11、`review` 4
+事件 **16** 則：`published` 11、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-21 | [[Events/evt-2026-09-21-c316ae\|Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem]] | review |
 | 2026-09-10 | [[Events/evt-2026-09-10-a2b717\|Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-911846\|Rebuilding AUTOMATIC1111 with Gradio Workflow]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-d04a3e\|NeoMME: an efficient Multimodal-native and Multilingual Encoder]] | published |

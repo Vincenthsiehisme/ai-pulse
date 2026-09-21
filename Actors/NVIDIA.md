@@ -3,17 +3,19 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-20'
+generated_day: '2026-09-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **57** 則：`dropped` 1、`published` 53、`review` 3
+事件 **59** 則：`dropped` 1、`published` 53、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-21 | [[Events/evt-2026-09-21-833de1\|NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories]] | review |
+| 2026-09-21 | [[Events/evt-2026-09-21-7ba286\|5 Companies Using NVIDIA AI for Clean Energy]] | review |
 | 2026-09-17 | [[Events/evt-2026-09-17-c35f5f\|Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-330f5e\|University of Manchester Uses NVIDIA Earth-2 to Forecast Air Pollution Across the UK]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-0793a2\|NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut]] | published |

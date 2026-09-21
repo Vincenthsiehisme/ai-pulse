@@ -1,18 +1,34 @@
 [
   {
-    "full_name": "t8y2/dbx",
-    "desc": "25 MB lightweight cross-platform database client for 90+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 90+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP Server。",
-    "language": "Rust",
+    "full_name": "matrixorigin/matrixone",
+    "desc": "AI-native HTAP database with Git-for-Data and built-in vector search, serving as the data and memory backbone for intelligent agents and applications.",
+    "language": "Go",
     "topics": [
-      "ai",
-      "cli",
-      "clickhouse",
+      "agents",
+      "ai-native",
+      "cloud-native",
       "database",
-      "database-client",
-      "database-management"
+      "distributed-database",
+      "distributed-systems"
     ],
-    "stars": 20199,
-    "url": "https://github.com/t8y2/dbx",
-    "stale_zh": "20 MB 輕量跨平台資料庫客戶端，支援 90+ 種資料庫，內建 AI、MCP Server 與 CLI"
+    "stars": 1946,
+    "url": "https://github.com/matrixorigin/matrixone",
+    "stale_zh": null
+  },
+  {
+    "full_name": "skyzh/tiny-llm",
+    "desc": "learn LLM inference system on Apple Silicon for systems engineers: build a tiny vLLM + Qwen",
+    "language": "Python",
+    "topics": [
+      "course",
+      "large-language-model",
+      "llm",
+      "python",
+      "qwen",
+      "serving"
+    ],
+    "stars": 4614,
+    "url": "https://github.com/skyzh/tiny-llm",
+    "stale_zh": null
   }
 ]

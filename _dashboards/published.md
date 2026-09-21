@@ -5,7 +5,7 @@
 ## 2026-09-18
 - **[[Events/evt-2026-09-18-2647a3|Accenture Embedded Evaluation]]** — Anthropic · product · conf 73 · heat 未量測
   Anthropic 發布與 Accenture 的「Embedded Evaluation」合作公告，內容僅標題與連結可用。
-- **[[Events/evt-2026-09-18-463a0d|Grok Voice Transcribe 2]]** — xAI · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-18-463a0d|Grok Voice Transcribe 2]]** — xAI · product · conf 83 · heat 未量測
   xAI 發布 Grok Voice Transcribe 2.0，正文因站方與授權限制我們不轉述，細節請見原文。
 - **[[Events/evt-2026-09-18-dd201c|Introducing the Australian Youth Safety Blueprint]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 推出「澳洲青少年安全藍圖」，用六大支柱規劃更安全的 AI 使用環境。

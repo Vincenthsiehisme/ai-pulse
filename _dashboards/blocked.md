@@ -1,7 +1,16 @@
-# 被門禁擋下（38）
+# 被門禁擋下（49）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-21-2617c0|Advisory Group on Mathematics and Artificial Intelligence]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-21-38e891|Why Deploying Physical AI at Scale Demands Safety at Every Layer]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-21-7ba286|5 Companies Using NVIDIA AI for Clean Energy]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-21-833de1|NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-21-a9d5d7|Building standards for the next phase of AI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-21-c316ae|Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization ]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-21-d55483|Expanding OpenAI Academy with new learning paths]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-21-e087b2|How V7 gives AI agents institutional memory]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-21-f8ec7e|From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production ]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-15-1766a6|Your Agent Aced the Task. Will It Do It Again?]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-261697|Detecting Countering Misuse Aug 2025]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-08-8e94b9|Safety for Whom? Refusing the Right Subset of a Topic, Not the Whole T]]** — Multiverse Computing — blockers: thin_research_analysis
@@ -35,6 +44,8 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-09-21-01cf23|AI Security Is an Engineering Problem — How to Solve It at Every Layer]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-09-21-e1d69c|tokenizers v1: encode, decode and scaling, measured]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-adf248|Give Your Coding Agents a Memory You Own]]** — industry — blockers: generic_entity

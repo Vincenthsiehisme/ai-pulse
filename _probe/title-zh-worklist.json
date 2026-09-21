@@ -1,1 +1,90 @@
-[]
+[
+  {
+    "id": "evt-2026-09-21-01cf23",
+    "title": "AI Security Is an Engineering Problem — How to Solve It at Every Layer of the Agent Stack",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-2617c0",
+    "title": "Advisory Group on Mathematics and Artificial Intelligence",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-38e891",
+    "title": "Why Deploying Physical AI at Scale Demands Safety at Every Layer",
+    "company": "Scale AI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-7ba286",
+    "title": "5 Companies Using NVIDIA AI for Clean Energy",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-833de1",
+    "title": "NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-a9d5d7",
+    "title": "Building standards for the next phase of AI",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-c316ae",
+    "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-d55483",
+    "title": "Expanding OpenAI Academy with new learning paths",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-e087b2",
+    "title": "How V7 gives AI agents institutional memory",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-e1d69c",
+    "title": "tokenizers v1: encode, decode and scaling, measured",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-21-f8ec7e",
+    "title": "From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production Scale",
+    "company": "Scale AI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  }
+]
