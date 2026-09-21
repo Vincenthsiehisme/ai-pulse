@@ -1,7 +1,7 @@
 {
   "date": "2026-09-21",
   "started_at": "2026-09-21 19:05Z",
-  "finished": false,
+  "finished": true,
   "stages": [
     {
       "id": "align-main",
@@ -142,6 +142,19 @@
       "status": "ok",
       "note": "rc=0",
       "at": "2026-09-21 19:13Z"
+    },
+    {
+      "id": "commit",
+      "status": "ok",
+      "note": "commit c2a227d 已推上 origin",
+      "at": "2026-09-21 19:13Z"
+    },
+    {
+      "id": "monitor",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-21 19:13Z",
+      "full_output": "pulse-monitor  2026-09-21\n  最後一次 probe: 2026-09-21（0 天前）\n  已上線=328  review=38（待處理=23／設計上擋著=15）  未 enrich=0  待處理最久=53 天（進庫天數）\n  人工判定不追=2（理由見 _dashboards/dropped.md）\n  沒收的修碼分支：0 支\n  每日精選：最後一篇 2026-09-21（0 天前）\n  潤稿鏈缺日：**量不到**——這是淺 checkout（`fetch-depth: 1`），看不到 commit 歷史。`data-refresh.yml` 要設 `fetch-depth: 0`\n  ⚠ 每日精選缺日：**2026-09-20 這 1 天沒有產出**（窗內 1 天），而前後有——「最後一次是哪一天」那個形狀看不見這種洞。先去 origin 上找那幾天的分支：最可能是那一晚做完了、push 只落在 session 自己的分支上。每日精選只寫當天、不回頭補，所以補不補是人的決定\n  ── blocker 分佈 ──\n     18  thin_research_analysis\n     11  stale_backfill\n      5  generic_entity\n      4  thin_by_policy\n      1  thin_fact\n  ── 待處理卡最久的 5 則 ──\n    [53d/已enrich] Gemini Robotics 2 brings whole body intelligence to robots\n           thin_research_analysis\n    [53d/已enrich] GPU Management: Why Idle GPUs Are the New Grounded Aircraft\n           generic_entity\n    [52d/已enrich] Investigating Incidents Cybersecurity Evals\n           thin_research_analysis\n    [51d/已enrich] Ten advances in mathematics and theoretical computer science\n           thin_fact,thin_research_analysis\n    [41d/已enrich] Thinking of ACE? We Can Do It with Fewer Tokens\n           thin_research_analysis\n  ── 覆蓋範圍（近 30 天，實有語料 31 天）──\n     必盯實體                 來源   看見   事件   上線  最後看見\n     OpenAI                2 1196   49   47  1d 前\n     Anthropic             1  587   87   84  1d 前\n     Google DeepMind       1  182    9    8  1d 前\n     Google                1  425   11   10  1d 前\n     Meta                  1  235    0    0  1d 前\n     Microsoft             1  203    2    2  0d 前\n     NVIDIA                1  531   22   22  1d 前\n     Hugging Face          1  204    8    8  1d 前\n     xAI                   1   12    6    6  13d 前\n     Mistral AI            1    3    0    0  5d 前\n     Alibaba               1    6    0    0  8d 前\n     DeepSeek              0  243    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Safe Superintelligence    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Thinking Machines Lab    0    3    0    0  22d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cohere                0   29    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Perplexity            0   18    1    1  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Anysphere (Cursor)    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cognition             0   13    1    1  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Scale AI              0  236    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Z.ai                  0    3    0    0  24d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Moonshot AI           0    6    0    0  7d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     MiniMax               0   58    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     ByteDance             0   12    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Baidu                 0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Tencent               0    7    0    0  16d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AMD                   1   62    0    0  1d 前\n     TSMC                  0    1    0    0  4d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Broadcom              0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Groq                  0   21    0    0  7d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cerebras              0   19    0    0  13d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     CoreWeave             0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AWS                   0   73    0    0  5d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     可跑來源 28 條，其中 6 條本窗口零產出：src-amd-ir, src-gh-openai-codex, src-kol-thezvi, src-media-theregister, src-mistral-news, src-qwen-blog\n     ⚠ 來源已死但每班照樣有貨 3 條：src-kol-karpathy（最新 2026-04-30，落後 144 天，門檻 60）、src-media-venturebeat（最新 2026-08-27，落後 25 天，門檻 14）、src-meta-research（最新 2023-05-17，落後 1223 天，門檻 30）\n     最新一筆 published 量不到：無\n"
     }
   ],
   "updated_at": "2026-09-21 19:13Z"
