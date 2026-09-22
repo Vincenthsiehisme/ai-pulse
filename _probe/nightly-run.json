@@ -8,7 +8,141 @@
       "status": "ok",
       "note": "已在 `main`，根目錄沒有殘留的敘述產物",
       "at": "2026-09-22 19:09Z"
+    },
+    {
+      "id": "precheck",
+      "status": "noted",
+      "note": "**今晚由潤稿端補跑抓取**（Actions 那班還沒跑到或誤點）",
+      "at": "2026-09-22 19:12Z",
+      "full_output": "$ /usr/local/bin/python3 scripts/pulse-robots-recheck.py --stale-days 7 --apply --revive → rc=0\n$ /usr/local/bin/python3 scripts/pulse-probe.py → rc=0\n$ /usr/local/bin/python3 scripts/pulse-score.py → rc=0\n$ /usr/local/bin/python3 scripts/pulse-cluster.py → rc=0"
+    },
+    {
+      "id": "enrich-prep",
+      "status": "ok",
+      "note": "pulse-enrich-prep  待 enrich=11  已 enrich 跳過=38",
+      "at": "2026-09-22 19:12Z"
+    },
+    {
+      "id": "enrich-write",
+      "status": "ok",
+      "note": "收到 enrich-result.json（11 筆，清單 11 筆）",
+      "at": "2026-09-22 19:18Z",
+      "worklist": {
+        "path": "_probe/enrich-worklist.json",
+        "count": 11,
+        "mtime": 1790104349
+      }
+    },
+    {
+      "id": "enrich-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-22 19:18Z"
+    },
+    {
+      "id": "gate",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-22 19:18Z"
+    },
+    {
+      "id": "dashboard",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-22 19:18Z"
+    },
+    {
+      "id": "digest-prep",
+      "status": "ok",
+      "note": "pulse-digest-prep  2026-09-22  mode=normal  素材=11 則  配對=55 組",
+      "at": "2026-09-22 19:18Z"
+    },
+    {
+      "id": "digest-write",
+      "status": "ok",
+      "note": "收到 digest.json（素材 11 則）",
+      "at": "2026-09-22 19:20Z",
+      "worklist": {
+        "path": "_probe/digest-worklist.json",
+        "count": 11,
+        "mtime": 1790104718
+      }
+    },
+    {
+      "id": "digest-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-22 19:20Z"
+    },
+    {
+      "id": "digest-gate",
+      "status": "ok",
+      "note": "pulse-digest-gate  draft=38  reviewed=0  rejected=0  共 38 份  → _dashboards/digests.md",
+      "at": "2026-09-22 19:20Z"
+    },
+    {
+      "id": "narrative-prep",
+      "status": "ok",
+      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=5",
+      "at": "2026-09-22 19:21Z"
+    },
+    {
+      "id": "narrative-write",
+      "status": "ok",
+      "note": "收到 narrative-result.json（5 筆，清單 5 筆）",
+      "at": "2026-09-22 19:22Z",
+      "worklist": {
+        "path": "_probe/narrative-worklist.json",
+        "count": 5,
+        "mtime": 1790104860
+      }
+    },
+    {
+      "id": "narrative-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-22 19:22Z"
+    },
+    {
+      "id": "github-desc-write",
+      "status": "ok",
+      "note": "收到 github-desc-result.json（2 筆，清單 2 筆）",
+      "at": "2026-09-22 19:22Z",
+      "worklist": {
+        "path": "_probe/github-desc-worklist.json",
+        "count": 2,
+        "mtime": 1790104132
+      }
+    },
+    {
+      "id": "github-desc-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-22 19:22Z"
+    },
+    {
+      "id": "title-write",
+      "status": "ok",
+      "note": "收到 title-zh-result.json（11 筆，清單 11 筆）",
+      "at": "2026-09-22 19:23Z",
+      "worklist": {
+        "path": "_probe/title-zh-worklist.json",
+        "count": 11,
+        "mtime": 1790104132
+      }
+    },
+    {
+      "id": "title-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-22 19:23Z"
+    },
+    {
+      "id": "render",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-22 19:23Z"
     }
   ],
-  "updated_at": "2026-09-22 19:09Z"
+  "updated_at": "2026-09-22 19:23Z"
 }

@@ -344,6 +344,11 @@
     "src_hash": "d0d80379dd24",
     "zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
   },
+  "matrixorigin/matrixone": {
+    "at": "2026-09-22T19:22:58+00:00",
+    "src_hash": "bac52b59a288",
+    "zh": "AI 原生 HTAP 資料庫，內建 Git-for-Data 與向量搜尋，是 agent 的資料與記憶骨幹"
+  },
   "microsoft/Webwright": {
     "at": "2026-09-14T19:12:31+00:00",
     "src_hash": "d10d381bd422",
@@ -478,6 +483,11 @@
     "at": "2026-08-27T19:10:49+00:00",
     "src_hash": "676b1ecaa56d",
     "zh": "從 vibe coding 練到 agentic engineering，靠練習讓 Claude 更完美"
+  },
+  "skyzh/tiny-llm": {
+    "at": "2026-09-22T19:22:58+00:00",
+    "src_hash": "776da5bb1789",
+    "zh": "給系統工程師的教學，在 Apple Silicon 上學 LLM 推論系統：動手做一個迷你版 vLLM + Qwen"
   },
   "sqliteai/sqlite-vector": {
     "at": "2026-07-30T19:18:19+00:00",

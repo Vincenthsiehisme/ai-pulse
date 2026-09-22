@@ -1,6 +1,30 @@
-# 已發布事件（328）
+# 已發布事件（339）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-21
+- **[[Events/evt-2026-09-21-01cf23|AI Security Is an Engineering Problem — How to Solve It at Every Layer of the Agent Stack]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 主張把 AI 安全當工程問題處理，要求可執行的控制與究責。
+- **[[Events/evt-2026-09-21-2617c0|Advisory Group on Mathematics and Artificial Intelligence]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 成立「數學與人工智慧諮詢小組」，正文我們不轉述，原文連結在證據段。
+- **[[Events/evt-2026-09-21-38e891|Why Deploying Physical AI at Scale Demands Safety at Every Layer]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 引用產業預測數字，主張實體 AI 大規模部署必須把安全做進每一層。
+- **[[Events/evt-2026-09-21-7ba286|5 Companies Using NVIDIA AI for Clean Energy]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 在紐約氣候週點名五家用它的 AI 做清潔能源的公司。
+- **[[Events/evt-2026-09-21-833de1|NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 推出 DSX Ready 計畫，替 AI 工廠的電力與散熱產品做資格認證。
+- **[[Events/evt-2026-09-21-a9d5d7|Building standards for the next phase of AI]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 呼籲各國協調出一套共同的 AI 評測、通報與治理標準。
+- **[[Events/evt-2026-09-21-c316ae|Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem]]** — Multiverse Computing · research · conf 73 · heat 未量測
+  Multiverse Computing 把 LLM 剪枝重新表述成 Ising 最佳化問題。
+- **[[Events/evt-2026-09-21-d55483|Expanding OpenAI Academy with new learning paths]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI Academy 新增針對員工、開發者、教育者等不同身分的學習路徑。
+- **[[Events/evt-2026-09-21-e087b2|How V7 gives AI agents institutional memory]]** — V7 · product · conf 73 · heat 未量測
+  V7 用 GPT-5.6 把散落的公司文件變成 agent 可用的長期記憶。
+- **[[Events/evt-2026-09-21-e1d69c|tokenizers v1: encode, decode and scaling, measured]]** — Hugging Face · research · conf 73 · heat 未量測
+  Hugging Face 把 tokenizers 推上 v1，強調做過規模化量測。
+- **[[Events/evt-2026-09-21-f8ec7e|From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production Scale]]** — NVIDIA · infra · conf 73 · heat 未量測
+  埃及 AI 生態系在開羅一場活動上被 NVIDIA 點名已經走到「量產階段」。
 
 ## 2026-09-18
 - **[[Events/evt-2026-09-18-2647a3|Accenture Embedded Evaluation]]** — Anthropic · product · conf 73 · heat 未量測
