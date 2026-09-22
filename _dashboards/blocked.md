@@ -1,7 +1,13 @@
-# 被門禁擋下（49）
+# 被門禁擋下（56）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-22-986fe3|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Developmen]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-22-b6da13|Grok Bot Customer Support]]** — xAI — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-09-22-c77761|Jun Kim, oMLX creator and maintainer, joins Hugging Face to support th]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-22-cadfa8|Transformers now runs llama.cpp quants]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-22-d743ee|v0.30.0]]** — DeepSeek — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-22-fe53e5|Priorities and principles for effective third party assessments]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-21-2617c0|Advisory Group on Mathematics and Artificial Intelligence]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-21-38e891|Why Deploying Physical AI at Scale Demands Safety at Every Layer]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-21-7ba286|5 Companies Using NVIDIA AI for Clean Energy]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
@@ -44,6 +50,7 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-21-01cf23|AI Security Is an Engineering Problem — How to Solve It at Every Layer]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-21-e1d69c|tokenizers v1: encode, decode and scaling, measured]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity

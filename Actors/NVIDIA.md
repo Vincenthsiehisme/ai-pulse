@@ -3,17 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-21'
+generated_day: '2026-09-22'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **59** 則：`dropped` 1、`published` 53、`review` 5
+事件 **60** 則：`dropped` 1、`published` 53、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-22 | [[Events/evt-2026-09-22-986fe3\|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development]] | review |
 | 2026-09-21 | [[Events/evt-2026-09-21-833de1\|NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories]] | review |
 | 2026-09-21 | [[Events/evt-2026-09-21-7ba286\|5 Companies Using NVIDIA AI for Clean Energy]] | review |
 | 2026-09-17 | [[Events/evt-2026-09-17-c35f5f\|Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW]] | published |

@@ -1,5 +1,36 @@
 [
   {
+    "full_name": "BuilderIO/agent-native",
+    "desc": "A framework for building agentic apps",
+    "language": "TypeScript",
+    "topics": [
+      "agent-native",
+      "agents",
+      "ai",
+      "react",
+      "typescript"
+    ],
+    "stars": 6308,
+    "url": "https://github.com/BuilderIO/agent-native",
+    "stale_zh": null
+  },
+  {
+    "full_name": "oceanbase/seekdb",
+    "desc": "The AI-Native Search Database. Best for agent storage, it unifies vector, text, structured, and semi-structured data into a single engine. This all-in-one database makes agents smarter, easier to run, and more stable.",
+    "language": "C++",
+    "topics": [
+      "ai-agents",
+      "copy-on-write",
+      "embedded-database",
+      "full-text-search",
+      "hnsw",
+      "hybrid-search"
+    ],
+    "stars": 3009,
+    "url": "https://github.com/oceanbase/seekdb",
+    "stale_zh": null
+  },
+  {
     "full_name": "matrixorigin/matrixone",
     "desc": "AI-native HTAP database with Git-for-Data and built-in vector search, serving as the data and memory backbone for intelligent agents and applications.",
     "language": "Go",
@@ -11,7 +42,7 @@
       "distributed-database",
       "distributed-systems"
     ],
-    "stars": 1946,
+    "stars": 1982,
     "url": "https://github.com/matrixorigin/matrixone",
     "stale_zh": null
   },
@@ -27,8 +58,24 @@
       "qwen",
       "serving"
     ],
-    "stars": 4614,
+    "stars": 4673,
     "url": "https://github.com/skyzh/tiny-llm",
+    "stale_zh": null
+  },
+  {
+    "full_name": "blader/humanizer",
+    "desc": "Agent skill that removes signs of AI-generated writing from text",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "ai-writing",
+      "claude-code",
+      "codex",
+      "cursor",
+      "prompt-engineering"
+    ],
+    "stars": 51372,
+    "url": "https://github.com/blader/humanizer",
     "stale_zh": null
   }
 ]

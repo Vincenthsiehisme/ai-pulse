@@ -86,5 +86,61 @@
     "track": null,
     "summary": "",
     "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-22-4b1c67",
+    "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-22-986fe3",
+    "title": "NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-22-b6da13",
+    "title": "Grok Bot Customer Support",
+    "company": "xAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-22-c77761",
+    "title": "Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-22-cadfa8",
+    "title": "Transformers now runs llama.cpp quants",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-22-d743ee",
+    "title": "v0.30.0",
+    "company": "DeepSeek",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-22-fe53e5",
+    "title": "Priorities and principles for effective third party assessments",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
   }
 ]

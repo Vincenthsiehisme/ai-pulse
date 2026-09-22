@@ -3,17 +3,18 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-21'
+generated_day: '2026-09-22'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **108** 則：`published` 101、`review` 7
+事件 **109** 則：`published` 101、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-22 | [[Events/evt-2026-09-22-fe53e5\|Priorities and principles for effective third party assessments]] | review |
 | 2026-09-21 | [[Events/evt-2026-09-21-e087b2\|How V7 gives AI agents institutional memory]] | review |
 | 2026-09-21 | [[Events/evt-2026-09-21-d55483\|Expanding OpenAI Academy with new learning paths]] | review |
 | 2026-09-21 | [[Events/evt-2026-09-21-a9d5d7\|Building standards for the next phase of AI]] | review |
