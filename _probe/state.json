@@ -5,7 +5,7 @@
   },
   "src-gh-vllm-releases": {
     "etag": null,
-    "last_run": "2026-09-21T20:08:22+00:00",
+    "last_run": "2026-09-22T19:10:04+00:00",
     "first_fetch_at": "2026-07-23T23:52:35+00:00"
   },
   "src-deepmind-blog": {
@@ -24,8 +24,8 @@
     "first_fetch_at": "2026-07-23T23:52:42+00:00"
   },
   "src-msr-blog": {
-    "etag": "\"f92b51b932d9c4cc3893d44560258fac\"",
-    "last_run": "2026-09-21T20:08:41+00:00",
+    "etag": "\"d7f91d0321c432c18b6314c9a2054f59\"",
+    "last_run": "2026-09-22T19:10:30+00:00",
     "first_fetch_at": "2026-07-23T23:52:44+00:00"
   },
   "src-meta-research": {
@@ -45,7 +45,7 @@
   },
   "src-anthropic-news": {
     "etag": null,
-    "last_run": "2026-09-21T20:08:21+00:00",
+    "last_run": "2026-09-22T19:10:03+00:00",
     "first_fetch_at": "2026-07-25T05:21:18+00:00"
   },
   "src-xai-news": {
@@ -135,7 +135,7 @@
   },
   "src-gh-openai-codex": {
     "etag": null,
-    "last_run": "2026-09-21T19:06:06+00:00",
+    "last_run": "2026-09-22T19:10:05+00:00",
     "first_fetch_at": "2026-08-27T19:06:01+00:00"
   }
 }
