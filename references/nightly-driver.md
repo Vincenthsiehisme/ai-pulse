@@ -54,7 +54,7 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 | # | id | 類型 | 做什麼 | 前置 |
 |---|---|---|---|---|
 | 0 | `align-main` | align | **先確認站在 `main`、跟 origin 對齊**，再清掉根目錄殘留的敘述產物（見下方〈對齊 main〉） | 無（第一步，前面 stop 會直接終止整輪） |
-| 1 | `precheck` | precheck | 今日 `_corpus/<date>/` 在不在；**不在就 stop，不補跑抓取**（見下方〈precheck：語料沒到就停，不補抓〉） | 無 |
+| 1 | `precheck` | precheck | 今日 `_probe/<date>/report.md`（Actions 那班 probe 的產物）在不在；**不在就 stop，不補跑抓取**（見下方〈precheck：語料沒到就停，不補抓〉） | 無 |
 | 2 | `enrich-prep` | run | `pulse-enrich-prep.py` | after precheck |
 | 3 | `enrich-write` | narrative | 事件潤稿（六層 prose） | needs enrich-prep；worklist 非空 |
 | 4 | `enrich-apply` | run | `--dry-run` 再正式 | **needs** enrich-write |
@@ -246,7 +246,17 @@ context 最小   每一棒只看到自己那一段的清單，看不到別段的
   438、458 則）。
 
 補跑原本擋的是 2026-07-24 那種空轉：比 Actions 早到，拿昨天的 repo 整晚「正常無事」。那件事
-現在由停下來擋：**語料沒到就 stop**，note 指名缺哪一天，exit 2。stop 不寫 `finished`，同一個
+現在由停下來擋：**語料沒到就 stop**，note 指名缺哪一天，exit 2。
+
+「語料到了沒」看的是 `_probe/<date>/report.md`，不是 `_corpus/<date>/`。`pulse-probe.py` 只替有
+資料列的來源寫 `_corpus/<date>/<source>.jsonl`，整班都回 304 或 0 筆的時候那個目錄根本不會建，
+但報告、`source-runs.jsonl` 與 commit 照寫、exit 0。拿目錄當證據，會把合法的空班誤判成 Actions
+還沒到，整晚停掉（連空日該寫的 retrospective 都沒寫）。報告跟 corpus 是同一次執行寫的，有 corpus
+的日子一定有報告，所以換判準只在空班那一天換結局。
+
+已知不擋的一種：Actions 誤點到跨 UTC 午夜，報告寫的是前一天、夜班算的是後一天，會停住。
+近半個月最晚 20:10Z，離午夜還有近四小時；真的發生是大聲停住、隔天那一班照樣把待潤事件挑回來，
+不為它加判斷。stop 不寫 `finished`，同一個
 UTC 日之後再觸發一次，`precheck` 會重新判斷，不需要 `--reset`。**重新判斷不等於重新拉資料**：雲端排程每次觸發都是全新 clone，
 下一次拿得到 Actions 剛推上的語料；在同一個工作樹手動重跑則要先自己 `git pull --ff-only`，driver 不替你拉。
 `align-main` 在同一輪只跑一次，而且站在 `main` 上時本來就不 fetch，它不是用來拉新資料的。
@@ -372,7 +382,7 @@ health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分
   品質。那是 apply 的退件規則與人的事。
 - **不保證跑得完。** 中途 `stop` 就是停住，狀態檔留在那裡，明晚重跑。enrich 與敘事
   刷新都冪等，這是 runbook 原本就有的性質，driver 沒有改變它。
-- **不保證 Actions 那一班有跑。** `precheck` 只看今日 corpus 在不在，不在就停。
+- **不保證 Actions 那一班有跑。** `precheck` 只看今日 probe 報告在不在，不在就停。
   排程在 Actions 收工之後才觸發夜班，是觸發那一層的責任（見〈precheck：語料沒到就停，不補抓〉），
   這一層只負責「沒到就不做」。
 - **不取代 runbook。** 寫的那一方仍然照 runbook 寫。這一層拿走的是順序、exit code

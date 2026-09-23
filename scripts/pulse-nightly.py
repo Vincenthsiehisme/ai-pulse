@@ -385,9 +385,11 @@ def do_precheck(vault, date_str):
     （align-main 一輪只跑一次，站在 main 上也不 fetch）。什麼時候觸發是
     排程那一層的責任，規格見 references/nightly-driver.md〈precheck：語料沒到就停，不補抓〉。
     """
-    if (vault / "_corpus" / date_str).is_dir():
-        return "ok", f"今日 corpus 已就緒（_corpus/{date_str}）", ""
-    return "stop", (f"今日 corpus 還沒到（`_corpus/{date_str}/` 不存在）：Actions 那班還沒"
+    # 看 probe 報告，不看 _corpus/<date>/：整班 304／0 筆時 probe 不建 corpus 目錄，
+    # 但報告照寫、exit 0。拿目錄當證據會把合法的空班誤判成 Actions 還沒到（Codex review）。
+    if (vault / "_probe" / date_str / "report.md").is_file():
+        return "ok", f"今日 probe 已就緒（_probe/{date_str}/report.md）", ""
+    return "stop", (f"今日語料還沒到（`_probe/{date_str}/report.md` 不存在）：Actions 那班還沒"
                     "把語料推上 main，夜班不自己補抓——雲端補抓只連得到少數來源，而且跟"
                     "Actions 抓同一天，push 必然衝突（2026-09-22、09-23）。先查 data-refresh.yml"
                     "那一班有沒有跑完、有沒有推上去，再重新觸發夜班（同一個工作樹手動重跑要先"

@@ -6253,6 +6253,10 @@ try:
         _pcv = Path(_pcd)
         _pc_missing = _nl.do_precheck(_pcv, "2026-09-24")
         _pc_missing_calls = list(_pc_calls)
+        # 空班：Actions 收工了、整班 304／0 筆，probe 寫了報告但沒建 corpus 目錄。
+        (_pcv / "_probe" / "2026-09-24").mkdir(parents=True)
+        (_pcv / "_probe" / "2026-09-24" / "report.md").write_text("# probe report\n", "utf-8")
+        _pc_empty_day = _nl.do_precheck(_pcv, "2026-09-24")
         (_pcv / "_corpus" / "2026-09-24").mkdir(parents=True)
         _pc_ready = _nl.do_precheck(_pcv, "2026-09-24")
 finally:
@@ -6265,7 +6269,10 @@ acase("夜班：語料沒到時一支子行程都不叫"
       "（只驗 status 的話，先補跑再回 stop 也會過——那等於照樣把殘缺語料留在工作樹上）",
       _pc_missing_calls, [])
 acase("夜班：stop 的 note 指名缺的是哪一天的語料（只寫「沒到」的話，人還要自己去算 UTC 日）",
-      "_corpus/2026-09-24/" in _pc_missing[1], True)
+      "_probe/2026-09-24/report.md" in _pc_missing[1], True)
+acase("夜班：空班（有 probe 報告、沒有 corpus 目錄）照樣 ok"
+      "（整班 304／0 筆時 probe 不建 _corpus/<date>/，拿目錄當證據會把合法的空班當成 Actions 還沒到）",
+      _pc_empty_day[0], "ok")
 acase("夜班：今日語料到了就 ok", _pc_ready[0], "ok")
 acase("夜班：補抓那條後路整個拿掉了，不是留著不接"
       "（留著的常數與函式，下一個人會以為它還在用、順手又接回去）",

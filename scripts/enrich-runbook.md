@@ -135,10 +135,10 @@
 
 ```
 TODAY=$(date -u +%F)
-if [ -d "_corpus/$TODAY" ]; then
-  echo "[pre] 今日 corpus 已就緒：_corpus/$TODAY"
+if [ -f "_probe/$TODAY/report.md" ]; then
+  echo "[pre] 今日 probe 已就緒：_probe/$TODAY/report.md"
 else
-  echo "[pre] 今日 corpus 不存在——Actions 那班還沒推上來，今晚不跑，停在這裡" >&2
+  echo "[pre] 今日 probe 報告不存在——Actions 那班還沒推上來，今晚不跑，停在這裡" >&2
   exit 2
 fi
 ```
