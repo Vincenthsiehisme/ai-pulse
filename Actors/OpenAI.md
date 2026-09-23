@@ -3,18 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-22'
+generated_day: '2026-09-23'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **109** 則：`published` 101、`review` 8
+事件 **115** 則：`published` 101、`review` 14
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-23 | [[Events/evt-2026-09-23-785e65\|Grab and OpenAI bring practical AI skills to Southeast Asia]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-55bdc5\|How invideo improves color grading 3x with GPT‑6 Astra]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-407127\|Ringg’s AI agents resolve up to 65% of customer calls with OpenAI]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-3d4678\|OpenAI extends cyber access to Ukraine for civilian defense]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-093b3a\|Two years of OpenAI Academy]] | review |
 | 2026-09-22 | [[Events/evt-2026-09-22-fe53e5\|Priorities and principles for effective third party assessments]] | review |
+| 2026-09-22 | [[Events/evt-2026-09-22-ed8d84\|Parallel cut research time and cost in half with GPT‑6 Astra]] | review |
 | 2026-09-21 | [[Events/evt-2026-09-21-e087b2\|How V7 gives AI agents institutional memory]] | review |
 | 2026-09-21 | [[Events/evt-2026-09-21-d55483\|Expanding OpenAI Academy with new learning paths]] | review |
 | 2026-09-21 | [[Events/evt-2026-09-21-a9d5d7\|Building standards for the next phase of AI]] | review |

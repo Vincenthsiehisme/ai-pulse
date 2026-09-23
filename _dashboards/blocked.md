@@ -1,12 +1,22 @@
-# 被門禁擋下（56）
+# 被門禁擋下（67）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-09-23-075f85|Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-23-093b3a|Two years of OpenAI Academy]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-23-114238|At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Acro]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-23-3d4678|OpenAI extends cyber access to Ukraine for civilian defense]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-23-407127|Ringg’s AI agents resolve up to 65% of customer calls with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-23-55bdc5|How invideo improves color grading 3x with GPT‑6 Astra]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-23-5829b3|How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation an]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-23-785e65|Grab and OpenAI bring practical AI skills to Southeast Asia]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-23-825560|Claude Discovers Novel Enzyme System]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-09-22-986fe3|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Developmen]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-22-b6da13|Grok Bot Customer Support]]** — xAI — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-09-22-c77761|Jun Kim, oMLX creator and maintainer, joins Hugging Face to support th]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-22-cadfa8|Transformers now runs llama.cpp quants]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-22-d743ee|v0.30.0]]** — DeepSeek — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-22-ed8d84|Parallel cut research time and cost in half with GPT‑6 Astra]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-22-fe53e5|Priorities and principles for effective third party assessments]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-21-2617c0|Advisory Group on Mathematics and Artificial Intelligence]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-21-38e891|Why Deploying Physical AI at Scale Demands Safety at Every Layer]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
@@ -50,6 +60,7 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-09-23-101c8c|Advancing Private AI Compute with secure, server-side memory]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-21-01cf23|AI Security Is an Engineering Problem — How to Solve It at Every Layer]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-21-e1d69c|tokenizers v1: encode, decode and scaling, measured]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track

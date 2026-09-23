@@ -10,7 +10,7 @@
       "react",
       "typescript"
     ],
-    "stars": 6308,
+    "stars": 6470,
     "url": "https://github.com/BuilderIO/agent-native",
     "stale_zh": null
   },
@@ -26,24 +26,8 @@
       "hnsw",
       "hybrid-search"
     ],
-    "stars": 3009,
+    "stars": 3041,
     "url": "https://github.com/oceanbase/seekdb",
-    "stale_zh": null
-  },
-  {
-    "full_name": "matrixorigin/matrixone",
-    "desc": "AI-native HTAP database with Git-for-Data and built-in vector search, serving as the data and memory backbone for intelligent agents and applications.",
-    "language": "Go",
-    "topics": [
-      "agents",
-      "ai-native",
-      "cloud-native",
-      "database",
-      "distributed-database",
-      "distributed-systems"
-    ],
-    "stars": 1982,
-    "url": "https://github.com/matrixorigin/matrixone",
     "stale_zh": null
   },
   {
@@ -58,8 +42,24 @@
       "qwen",
       "serving"
     ],
-    "stars": 4673,
+    "stars": 4707,
     "url": "https://github.com/skyzh/tiny-llm",
+    "stale_zh": null
+  },
+  {
+    "full_name": "matrixorigin/matrixone",
+    "desc": "AI-native HTAP database with Git-for-Data and built-in vector search, serving as the data and memory backbone for intelligent agents and applications.",
+    "language": "Go",
+    "topics": [
+      "agents",
+      "ai-native",
+      "cloud-native",
+      "database",
+      "distributed-database",
+      "distributed-systems"
+    ],
+    "stars": 1995,
+    "url": "https://github.com/matrixorigin/matrixone",
     "stale_zh": null
   },
   {
@@ -74,8 +74,24 @@
       "cursor",
       "prompt-engineering"
     ],
-    "stars": 51372,
+    "stars": 51639,
     "url": "https://github.com/blader/humanizer",
+    "stale_zh": null
+  },
+  {
+    "full_name": "pinecone-io/python-sdk",
+    "desc": "Official Python SDK for the Pinecone vector database",
+    "language": "Python",
+    "topics": [
+      "pinecone",
+      "python",
+      "rag",
+      "sdk",
+      "vector-database",
+      "vector-search"
+    ],
+    "stars": 452,
+    "url": "https://github.com/pinecone-io/python-sdk",
     "stale_zh": null
   }
 ]

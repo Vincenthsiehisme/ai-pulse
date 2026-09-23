@@ -51,7 +51,7 @@
   Jensen Huang 在 Salesforce Dreamforce 與 Marc Benioff 同台，搭配 Salesforce 發布用 NVIDIA Nemotron 3 Super 打造的 CRM 推理模型 Koa。
 - **[[Events/evt-2026-09-15-8d5244|Heart of the Matter: How a Major Children’s Hospital Uses Open Source NVIDIA AI for Cardiac Care]]** — NVIDIA · product · conf 73 · heat 未量測
   這一則我們照授權政策只留標題與連結，不轉述內文。
-- **[[Events/evt-2026-09-15-a7dafa|Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking]]** — Google DeepMind · model-capability · conf 87 · heat 未量測
+- **[[Events/evt-2026-09-15-a7dafa|Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking]]** — Google DeepMind · model-capability · conf 97 · heat 未量測
   Google 推出 Gemini 3.8 Live 與 Extended Thinking 兩款語音對語音模型，形態跟 OpenAI GPT-Live 系列相近。
 
 ## 2026-09-14
