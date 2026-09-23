@@ -380,7 +380,9 @@ def do_precheck(vault, date_str):
     撞到 Actions 就 push 被拒（09-22、09-23），沒撞到就把殘缺語料推上 main
     （09-17、09-21）。所以補跑在雲端只要走到就是壞的，改成停下來指名缺哪一天。
 
-    stop 不寫 finished，同一個 UTC 日稍後再觸發一次會重新判斷。什麼時候觸發是
+    stop 不寫 finished，同一個 UTC 日稍後再觸發一次會重新判斷。重新判斷不等於重新拉
+    資料：雲端每次觸發是全新 clone；同一個工作樹手動重跑要先自己 git pull，這裡不拉
+    （align-main 一輪只跑一次，站在 main 上也不 fetch）。什麼時候觸發是
     排程那一層的責任，規格見 references/nightly-driver.md〈precheck：語料沒到就停，不補抓〉。
     """
     if (vault / "_corpus" / date_str).is_dir():
@@ -388,7 +390,8 @@ def do_precheck(vault, date_str):
     return "stop", (f"今日 corpus 還沒到（`_corpus/{date_str}/` 不存在）：Actions 那班還沒"
                     "把語料推上 main，夜班不自己補抓——雲端補抓只連得到少數來源，而且跟"
                     "Actions 抓同一天，push 必然衝突（2026-09-22、09-23）。先查 data-refresh.yml"
-                    "那一班有沒有跑完、有沒有推上去，再重新觸發夜班"), ""
+                    "那一班有沒有跑完、有沒有推上去，再重新觸發夜班（同一個工作樹手動重跑要先"
+                    "`git pull --ff-only`，driver 不替你拉）"), ""
 
 
 def do_narrative(vault, spec, recorded):

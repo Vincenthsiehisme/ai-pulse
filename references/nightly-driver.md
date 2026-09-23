@@ -247,7 +247,9 @@ context 最小   每一棒只看到自己那一段的清單，看不到別段的
 
 補跑原本擋的是 2026-07-24 那種空轉：比 Actions 早到，拿昨天的 repo 整晚「正常無事」。那件事
 現在由停下來擋：**語料沒到就 stop**，note 指名缺哪一天，exit 2。stop 不寫 `finished`，同一個
-UTC 日之後再觸發一次，`precheck` 會重新判斷，不需要 `--reset`。
+UTC 日之後再觸發一次，`precheck` 會重新判斷，不需要 `--reset`。**重新判斷不等於重新拉資料**：雲端排程每次觸發都是全新 clone，
+下一次拿得到 Actions 剛推上的語料；在同一個工作樹手動重跑則要先自己 `git pull --ff-only`，driver 不替你拉。
+`align-main` 在同一輪只跑一次，而且站在 `main` 上時本來就不 fetch，它不是用來拉新資料的。
 
 **什麼時候觸發是排程那一層的責任，不在這支 driver 裡。** 夜班要在 `data-refresh.yml` 那一班
 收工之後才開跑，而 Actions 的 cron 是「最早不早於」，近半個月實際開跑落在 17:53–20:10Z，
