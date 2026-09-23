@@ -5071,9 +5071,10 @@ acase("atomicwrite：暫存檔與目標同目錄（跨檔案系統的 rename 不
       [d[0] == d[1] for d in _seen_dirs], [True])
 _shutil_aw.rmtree(_awdir, ignore_errors=True)
 
-# 回歸釘：這六個檔是「下一班會讀回來」的狀態檔，任何一個退回直接寫都要紅。
+# 回歸釘：這七個檔是「下一班會讀回來」的狀態檔，任何一個退回直接寫都要紅。
 # 判準寫在 references/atomic-writes.md：不是重不重要，是壞掉之後會不會被當成
-# 事實讀回去。dist/ 與 _probe/<day>/report.md 刻意不在此列。
+# 事實讀回去。dist/ 刻意不在此列。_probe/<day>/report.md 2026-09-24 移進來：
+# 它的存在是 run_days() 與夜班 precheck 的判準。
 _aw_pins = [
     ("pulse-source-health.py", "atomic_write_with(spath", "_config/sources.yaml"),
     ("pulse-source-health.py", "atomic_write_text(hpath", "_probe/source-health.json"),
@@ -5081,6 +5082,7 @@ _aw_pins = [
     ("pulse-probe.py", "atomic_write_text(state_path", "_probe/state.json"),
     ("pulse-probe.py", "atomic_write_text(seen_path", "_probe/seen.json"),
     ("pulse-probe.py", "atomic_write_text(hb,", "heartbeat.json"),
+    ("pulse-probe.py", 'atomic_write_text(path, "\\n".join(lines))', "_probe/<day>/report.md"),
     ("pulse-monitor.py", "atomic_write_text(p, body)", "_dashboards/health.md"),
 ]
 for _fn, _needle, _target in _aw_pins:
