@@ -24,6 +24,11 @@
     "src_hash": "ac5e08fbccb4",
     "zh": "多模型資料庫，一套 DBMS 同時吃 SQL、Cypher、Gremlin、MongoDB 與 Redis，支援向量嵌入"
   },
+  "BuilderIO/agent-native": {
+    "at": "2026-09-23T19:28:14+00:00",
+    "src_hash": "1ba7b3291edd",
+    "zh": "一個用來開發 agentic 應用程式的框架"
+  },
   "CherryHQ/cherry-studio": {
     "at": "2026-08-07T01:27:45+00:00",
     "src_hash": "4d766d8331fc",
@@ -194,6 +199,11 @@
     "src_hash": "081f0cd29b0f",
     "zh": "蒐集各家外流的 system prompt，涵蓋 Claude、GPT、Gemini、Grok，定期更新"
   },
+  "blader/humanizer": {
+    "at": "2026-09-23T19:28:14+00:00",
+    "src_hash": "2d8e471f104f",
+    "zh": "一個把文字裡 AI 生成痕跡去掉的 agent skill"
+  },
   "bojieli/ai-agent-book": {
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "5e2cb29a04e7",
@@ -344,6 +354,11 @@
     "src_hash": "d0d80379dd24",
     "zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
   },
+  "matrixorigin/matrixone": {
+    "at": "2026-09-23T19:28:14+00:00",
+    "src_hash": "bac52b59a288",
+    "zh": "AI 原生 HTAP 資料庫，內建 Git-for-Data 與向量搜尋，是智慧 agent 與應用的資料與記憶骨幹"
+  },
   "microsoft/Webwright": {
     "at": "2026-09-14T19:12:31+00:00",
     "src_hash": "d10d381bd422",
@@ -403,6 +418,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "406416e89aff",
     "zh": "一套真的能用的 agentic skills 框架與軟體開發方法論"
+  },
+  "oceanbase/seekdb": {
+    "at": "2026-09-23T19:28:14+00:00",
+    "src_hash": "42ae5dc54124",
+    "zh": "AI 原生搜尋資料庫，整合向量、文字、結構化與半結構化資料，適合 agent 儲存"
   },
   "omnigent-ai/omnigent": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -478,6 +498,11 @@
     "at": "2026-08-27T19:10:49+00:00",
     "src_hash": "676b1ecaa56d",
     "zh": "從 vibe coding 練到 agentic engineering，靠練習讓 Claude 更完美"
+  },
+  "skyzh/tiny-llm": {
+    "at": "2026-09-23T19:28:14+00:00",
+    "src_hash": "776da5bb1789",
+    "zh": "教系統工程師在 Apple Silicon 上學 LLM 推論系統：動手做一個迷你版 vLLM + Qwen"
   },
   "sqliteai/sqlite-vector": {
     "at": "2026-07-30T19:18:19+00:00",

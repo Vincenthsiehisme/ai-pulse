@@ -1,6 +1,40 @@
-# 已發布事件（328）
+# 已發布事件（343）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-22
+- **[[Events/evt-2026-09-22-986fe3|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 發布 Isaac ROS 5.0，GPU 加速模組疊上開源 ROS 框架。
+- **[[Events/evt-2026-09-22-b6da13|Grok Bot Customer Support]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發布 Grok Bot 客服功能，站方不授權轉述內文。
+- **[[Events/evt-2026-09-22-c77761|Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community]]** — Hugging Face · capital · conf 73 · heat 未量測
+  oMLX 創建者 Jun Kim 加入 Hugging Face，支援 MLX 社群。
+- **[[Events/evt-2026-09-22-cadfa8|Transformers now runs llama.cpp quants]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face Transformers 現在支援執行 llama.cpp 的量化格式。
+- **[[Events/evt-2026-09-22-d743ee|v0.30.0]]** — vLLM · infra · conf 73 · heat 未量測
+  vLLM v0.30.0 上線，新增支援 DeepSeek-V4.1-Flash 等模型。
+- **[[Events/evt-2026-09-22-fe53e5|Priorities and principles for effective third party assessments]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 提出第三方安全評估應遵循的優先順序與原則。
+
+## 2026-09-21
+- **[[Events/evt-2026-09-21-2617c0|Advisory Group on Mathematics and Artificial Intelligence]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 成立獨立小組，審核並溝通 AI 在數學領域的產出。
+- **[[Events/evt-2026-09-21-38e891|Why Deploying Physical AI at Scale Demands Safety at Every Layer]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA：自駕車與工業機器人衝上千萬台規模，安全必須做在每一層。
+- **[[Events/evt-2026-09-21-7ba286|5 Companies Using NVIDIA AI for Clean Energy]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 在紐約氣候週點名五家用其 AI 技術投入乾淨能源的公司。
+- **[[Events/evt-2026-09-21-833de1|NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 推出 DSX Ready，認證電源散熱產品是否適配 AI 工廠。
+- **[[Events/evt-2026-09-21-a9d5d7|Building standards for the next phase of AI]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 呼籲協調全球 AI 評估與治理標準，改善安全性。
+- **[[Events/evt-2026-09-21-d55483|Expanding OpenAI Academy with new learning paths]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI Academy 擴大學習路徑，涵蓋員工、開發者、教育工作者與學生。
+- **[[Events/evt-2026-09-21-e087b2|How V7 gives AI agents institutional memory]]** — V7 · product · conf 73 · heat 未量測
+  新創 V7 用 GPT-5.6 把公司檔案變成 agent 可用的機構記憶。
+- **[[Events/evt-2026-09-21-e1d69c|tokenizers v1: encode, decode and scaling, measured]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 發布 tokenizers v1，主打 encode/decode 效能量測，內文尚未取得。
+- **[[Events/evt-2026-09-21-f8ec7e|From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production Scale]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 在開羅活動上，呈現埃及 AI 生態系走向量產規模。
 
 ## 2026-09-18
 - **[[Events/evt-2026-09-18-2647a3|Accenture Embedded Evaluation]]** — Anthropic · product · conf 73 · heat 未量測
