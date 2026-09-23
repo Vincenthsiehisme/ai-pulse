@@ -17,11 +17,12 @@
 | 2026-08-12 | prep 沒跑，拿**上一班留在 repo 裡的** worklist 把昨天已潤好的 10 則整批重寫，當天該潤的 7 則一則沒碰。commit 訊息看起來很正常 | worklist 的新鮮度由狀態檔記，交棒時對帳 |
 | 2026-08-16 | `digest-prep` 跑在 `gate` 之前，挑不到東西**而且不報錯**，只安靜產出一份空清單 | 順序寫死在階段表，前置沒過就不跑 |
 | 2026-07-28 | `github-desc-apply` 回 3（收到了但一條都沒過關）被寫成「今晚沒東西要翻」，連續好幾晚沒人發現 | exit code 的語意寫成表，判讀只寫一次 |
-| 2026-07-24 | Actions 誤點 96 分鐘，潤稿端 clone 到昨天的 repo，worklist 空，整晚「正常無事」 | 步驟 0 的前置檢查是階段之一，補跑與否記在狀態檔 |
+| 2026-07-24 | Actions 誤點 96 分鐘，潤稿端 clone 到昨天的 repo，worklist 空，整晚「正常無事」 | `precheck` 是階段之一，今日語料沒到就停（2026-09-24 起不補跑，見下方〈precheck：語料沒到就停，不補抓〉） |
 | 2026-08-16 | 「今晚沒素材」跟「今晚有素材而沒寫」在 git 裡長得一模一樣 | 每一段的結果都留痕，包含被跳過的那些 |
 | 2026-09-20 | 雲端排程把 session 的工作樹 checkout 在一支臨時分支上，不是 `main`；commit 那一關擋得住，但擋在 commit 才發現，敘述工作早就寫完、錢也花了 | `align-main` 排在最前面，在花任何一分錢寫敘述之前就把「跑在哪一支」定案（見下方〈對齊 main〉） |
+| 2026-09-22、09-23 | 雲端排程比誤點的 Actions 早到，`precheck` 自己補跑抓取；Actions 中途把同一天的語料推上 main，夜班最後 push 被拒，兩晚成果都落在 `nightly/` 備援分支 | `precheck` 不再補跑，語料沒到就停（見下方〈precheck：語料沒到就停，不補抓〉） |
 
-六條事故，一個形狀：**判斷的規則寫在散文裡，而散文每晚被重新讀一次。**
+七條事故，一個形狀：**判斷的規則寫在散文裡，而散文每晚被重新讀一次。**
 
 ## 兩種階段
 
@@ -53,7 +54,7 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 | # | id | 類型 | 做什麼 | 前置 |
 |---|---|---|---|---|
 | 0 | `align-main` | align | **先確認站在 `main`、跟 origin 對齊**，再清掉根目錄殘留的敘述產物（見下方〈對齊 main〉） | 無（第一步，前面 stop 會直接終止整輪） |
-| 1 | `precheck` | run | 今日 `_corpus/<date>/` 在不在；不在就補跑 robots-recheck → probe → score → cluster | 無 |
+| 1 | `precheck` | precheck | 今日 `_corpus/<date>/` 在不在；**不在就 stop，不補跑抓取**（見下方〈precheck：語料沒到就停，不補抓〉） | 無 |
 | 2 | `enrich-prep` | run | `pulse-enrich-prep.py` | after precheck |
 | 3 | `enrich-write` | narrative | 事件潤稿（六層 prose） | needs enrich-prep；worklist 非空 |
 | 4 | `enrich-apply` | run | `--dry-run` 再正式 | **needs** enrich-write |
@@ -96,22 +97,6 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 | `pulse-gate` | ok | | 壞了 → stop | |
 | `pulse-dashboard` | ok | 壞了 → stop | | |
 | `pulse-render` | ok | | | |
-
-`precheck` 補跑抓取鏈時另外一張表（**它們的容忍規則跟上面不一樣**）：
-
-| 腳本 | 容忍 | 不容忍 |
-|---|---|---|
-| `pulse-robots-recheck` | 任何非零 | 無 |
-| `pulse-probe` | 其他 | **2**（環境沒設對）、**3**（0 個可跑來源）、**4**（control probe 失敗） |
-| `pulse-score` | 無 | 任何非零 |
-| `pulse-cluster` | 無 | 任何非零 |
-
-**`pulse-probe` 的 4 是 2026-09-14 才長出來的**（control probe）。它的意思是「機器連
-不出去，問題在我們這邊，不是 N 條來源同時出事；本班不抓、不寫、不 commit」。而
-runbook 步驟 0 那句 `python scripts/pulse-probe.py || echo "[warn] …續跑"` 是在 control
-probe 存在之前寫的。照抄過來就等於把「今晚一筆新資料都沒有」容忍掉，然後整條鏈在
-沒有新料的情況下跑完、commit、摘要全綠。2026-09-15 第一次真實執行當場踩到：
-probe 回 4，而那一輪照樣跑到底並推上 main。
 
 digest 那兩條的「不擋 push」是 runbook 寫明的過渡期豁免：`Digests/` 目前還沒有下游
 消費者，寫不出來不影響當天的潤稿與發布。**豁免不等於靜音**，結果照樣進摘要與狀態檔。
@@ -236,6 +221,41 @@ context 最小   每一棒只看到自己那一段的清單，看不到別段的
 所以整條鏈的分工是：**迴圈是 shell 的、判斷是 driver 的、寫作才是 LLM 的**。
 這個 repo 對外的承諾（runtime 0 LLM 判斷）在這裡照樣成立：LLM 一個判斷都不做，只寫字。
 
+### precheck：語料沒到就停，不補抓
+
+**這是 2026-09-24 改的。** 在那之前，`precheck` 看到今日 `_corpus/<date>/` 不在，會自己
+補跑一次 robots-recheck → probe → score → cluster。那條後路是 2026-09-15 在本機 launchd
+上設計的，當時本機網路全通，補跑抓到的東西跟 Actions 一樣。搬到雲端排程
+（`claude.ai/code/routines`）之後，這個前提沒了，而沒有任何東西檢查到：
+
+```
+2026-09-23 雲端補跑   33 條來源  200 的只有 2 條（src-anthropic-news、src-msr-blog）
+                      24 條 robots.txt 取不到、2 條 GitHub http 403、5 條 dormant
+                      官方線 50 則
+同一天 Actions         438 則，四條線
+```
+
+所以補跑在雲端只要走到就是壞的，差別只在壞成哪一種：
+
+- **撞到 Actions。** Actions 誤點落在夜班執行窗裡，會把同一天的語料先推上 `main`，夜班最後
+  push 必然 non-fast-forward。2026-09-22、09-23 兩晚都是這樣，成果落在 `nightly/` 備援分支，
+  而備援分支併不回去：兩邊抓的是同一天，`_corpus/<date>/`、`_probe/state.json` 等檔一定衝突。
+  在 push 那一步加「fetch 後重推」救不了同一個衝突。
+- **沒撞到。** 夜班先推，main 上就多一份只有兩條來源的語料，當晚的潤稿與每日精選用它做，
+  摘要只多一行「今晚由潤稿端補跑抓取」。2026-09-17、09-21 兩晚是這樣（各 10 則，同一天 Actions
+  438、458 則）。
+
+補跑原本擋的是 2026-07-24 那種空轉：比 Actions 早到，拿昨天的 repo 整晚「正常無事」。那件事
+現在由停下來擋：**語料沒到就 stop**，note 指名缺哪一天，exit 2。stop 不寫 `finished`，同一個
+UTC 日之後再觸發一次，`precheck` 會重新判斷，不需要 `--reset`。
+
+**什麼時候觸發是排程那一層的責任，不在這支 driver 裡。** 夜班要在 `data-refresh.yml` 那一班
+收工之後才開跑，而 Actions 的 cron 是「最早不早於」，近半個月實際開跑落在 17:53–20:10Z，
+排在 16:00Z。固定時鐘挑哪個時間都是在賭誤點，所以雲端排程改成由 Actions 收工的事件觸發
+（GitHub `workflow_run` completed），只認 `schedule` 觸發的那一班：白天手動 `workflow_dispatch`
+一次也觸發夜班的話，那個 UTC 日的一輪會在晚上真正的那班之前就用掉。這一段 driver 驗不了，
+驗得到的只有「語料沒到就不做」。
+
 ### 對齊 main：開跑前，不是 commit 前
 
 **這是 2026-09-20 才長出來的一關。** 雲端排程（`claude.ai/code/routines`）把 session
@@ -350,7 +370,8 @@ health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分
   品質。那是 apply 的退件規則與人的事。
 - **不保證跑得完。** 中途 `stop` 就是停住，狀態檔留在那裡，明晚重跑。enrich 與敘事
   刷新都冪等，這是 runbook 原本就有的性質，driver 沒有改變它。
-- **不保證 Actions 那一班有跑。** `precheck` 只看今日 corpus 在不在，不在就補跑抓取。
-  補跑成功不代表 Actions 沒事，那是兩件事，摘要要分開寫。
+- **不保證 Actions 那一班有跑。** `precheck` 只看今日 corpus 在不在，不在就停。
+  排程在 Actions 收工之後才觸發夜班，是觸發那一層的責任（見〈precheck：語料沒到就停，不補抓〉），
+  這一層只負責「沒到就不做」。
 - **不取代 runbook。** 寫的那一方仍然照 runbook 寫。這一層拿走的是順序、exit code
   判讀、摘要組裝這些不該由模型每晚重做一次的東西。

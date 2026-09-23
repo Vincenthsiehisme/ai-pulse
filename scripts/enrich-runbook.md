@@ -118,8 +118,8 @@
 1. 環境：`pip install -r requirements.txt --quiet`。
    **不要只裝 `pyyaml`。** 這條鏈其餘四支腳本（`pulse-probe.py`、
    `pulse-robots-recheck.py`、`pulse-source-health.py`、`scripts/selftest.py`
-   的 `--apply` 測項）還要 `requests`、`feedparser`、`ruamel.yaml`——步驟 0
-   的補跑分支已經在裝這三個，這裡只裝 `pyyaml` 等於把同一份依賴拆成兩份，
+   的 `--apply` 測項）還要 `requests`、`feedparser`、`ruamel.yaml`，這裡只裝
+   `pyyaml` 等於把同一份依賴拆成兩份，
    而且 `selftest.py` 少了 `ruamel.yaml` 不會印「缺套件」，是在一個看起來
    無關的斷言上直接 crash（見 `BACKLOG.md`〈新容器要先 `pip install
    ruamel.yaml`〉一節，2026-07-26 與 2026-08-21 兩次複量都踩到）。
@@ -130,26 +130,23 @@
 
 **0. 前置檢查：今晚的資料到底進來了沒**（一定要做，這是 2026-07-24 那次空轉的補丁）
 
-這條鏈跟 GitHub Actions 只靠時鐘耦合：Actions 的 cron 是「最早不早於」，實測誤點過 96 分鐘。
-你比它早到 → clone 到的是昨天的 repo → worklist 空 → 整晚看起來「正常無事」，其實今天的事件沒人潤。
-所以先確認資料在不在，不在就自己補跑一次抓取（那條鏈本來就是純規則、零 LLM，你只是代跑，不是代判斷）：
+夜班要在 GitHub Actions 那班（`data-refresh.yml`）收工之後才開跑。比它早到 → clone 到的是昨天的 repo
+→ worklist 空 → 整晚看起來「正常無事」，其實今天的事件沒人潤。所以先確認資料在不在，**不在就停，不要自己補抓**：
 
 ```
 TODAY=$(date -u +%F)
 if [ -d "_corpus/$TODAY" ]; then
   echo "[pre] 今日 corpus 已就緒：_corpus/$TODAY"
 else
-  echo "[pre] 今日 corpus 不存在——Actions 還沒跑到或誤點，改由我補跑抓取鏈"
-  pip install requests feedparser ruamel.yaml --quiet
-  python scripts/pulse-robots-recheck.py --stale-days 7 --apply --revive || true
-  python scripts/pulse-probe.py || echo "[warn] probe 無新料或部分來源失敗，續跑"
-  python scripts/pulse-score.py
-  python scripts/pulse-cluster.py
+  echo "[pre] 今日 corpus 不存在——Actions 那班還沒推上來，今晚不跑，停在這裡" >&2
+  exit 2
 fi
 ```
 
-補跑不會撞車：`pulse-probe` 有 cursor、`pulse-cluster` 以 fingerprint 去重，Actions 之後再跑一次是冪等的。
-補跑過就在收尾摘要註明「今晚由潤稿端補跑抓取」——這是要被看見的異常，不是可以吞掉的細節。
+2026-09-24 以前這裡是「不在就自己補跑一次抓取」。那條後路在雲端排程上只要走到就是壞的：雲端補抓
+33 條來源只連得到 2 條，而且跟 Actions 抓的是同一天，撞到 Actions 就 push 被拒（09-22、09-23），
+沒撞到就把殘缺語料推上 main（09-17、09-21）。`scripts/pulse-nightly.py` 的 `precheck` 是這一步
+的可執行版本，理由全文在 `references/nightly-driver.md`〈precheck：語料沒到就停，不補抓〉。
 
 **A. 事件潤稿（敘述）**
 
@@ -346,7 +343,7 @@ repo 的 description 來自 GitHub API，是英文一行字。榜是給中文讀
     selftest 會擋：這份 runbook 裡不准出現帶警報旗標的 `pulse-monitor` 呼叫。
 18. 收尾摘要：**prep 那一行原樣照貼**（`待 enrich=N  已 enrich 跳過=M`——沒有這一行就證明不了清單是今晚產的）、潤了幾則事件、gate 讓幾則上線、重寫了哪幾條主線敘事、翻了幾條 repo 描述與幾則 Event 標題
     （各退件幾條、為什麼）、push 的 commit hash
-    （或「今晚無待潤事件、無主線變動」）、是否補跑過抓取、以及第 17 步的監看輸出。
+    （或「今晚無待潤事件、無主線變動」）、以及第 17 步的監看輸出。
     **C2 那一段要分開寫**，而且是四種不是兩種：「Actions 沒準備清單」（抓取鏈出事）／
     「清單是空的」（今晚沒東西要翻）／「apply 回 3」（收到了但一條都沒過關）／
     「apply 回 2」（榜與 worklist 都讀不到）。四件事要人做的動作完全不同，

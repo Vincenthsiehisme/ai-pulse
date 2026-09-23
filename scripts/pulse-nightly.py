@@ -368,62 +368,27 @@ def requires_ok(state, spec):
     return True, ""
 
 
-# 補跑抓取鏈的每一步，加上「哪些離開碼不可以容忍」。
-#     ()    任何非零都容忍
-#     (n,)  只有這幾個不容忍
-#     None  任何非零都不容忍
-#
-# **probe 的 4 是 2026-09-14 才長出來的**（control probe，PR #91）：它的意思是
-# 「機器連不出去，問題在我們這邊，不是 N 條來源同時出事；本班不抓、不寫、不 commit」。
-# 而 runbook 步驟 0 那句 `python scripts/pulse-probe.py || echo "[warn] …續跑"` 是在
-# control probe 存在之前寫的，照抄過來就等於把「今晚一筆新資料都沒有」容忍掉，然後
-# 整條鏈在沒有新料的情況下跑完、commit、摘要全綠。**規矩寫在一個地方，新接上來的
-# 消費者沒有一起接到**——這個 repo 記過六次的同一個形狀，2026-09-15 第一次真實執行
-# 當場又踩到一次。
-CATCHUP_STEPS = (
-    ([sys.executable, "scripts/pulse-robots-recheck.py",
-      "--stale-days", "7", "--apply", "--revive"], ()),
-    ([sys.executable, "scripts/pulse-probe.py"], (2, 3, 4)),
-    ([sys.executable, "scripts/pulse-score.py"], None),
-    ([sys.executable, "scripts/pulse-cluster.py"], None),
-)
-
-CATCHUP_CODES = {
-    2: "VAULT_DIR 或 _config/ 不存在（環境沒設對）",
-    3: "0 個可跑來源（lifecycle 全被關掉了？）",
-    4: "**control probe 失敗：機器連不出去**，不是 N 條來源同時出事。"
-       "本班不該抓、不該寫、不該 commit",
-}
-
-
-def catchup_fatal(rc, fatal):
-    """這個離開碼該不該讓補跑停住。純函式。"""
-    if rc == 0:
-        return False
-    if fatal is None:
-        return True
-    return rc in fatal
-
-
 def do_precheck(vault, date_str):
-    """runbook 步驟 0：今晚的資料到底進來了沒。
+    """runbook 步驟 0：今晚的資料到底進來了沒。**沒進來就停，不補抓。**
 
-    這條鏈跟 Actions 只靠時鐘耦合，實測誤點過 96 分鐘。比它早到就 clone 到昨天的
-    repo，worklist 空，整晚看起來「正常無事」。補跑是純規則、零 LLM 的那條鏈，
-    這裡只是代跑，不是代判斷。
+    這條鏈跟 Actions 靠觸發順序耦合：夜班要在 `data-refresh.yml` 收工之後才開跑。
+    比它早到就是拿昨天的 repo，worklist 空，整晚看起來「正常無事」（2026-07-24）。
+
+    2026-09-24 以前，這裡看到今日 corpus 不在會自己補跑 robots-recheck → probe →
+    score → cluster。那條後路是在本機設計的，本機網路全通；搬到雲端排程之後，
+    09-23 那次補跑 33 條來源只有 2 條回 200，而且跟 Actions 抓的是同一天：
+    撞到 Actions 就 push 被拒（09-22、09-23），沒撞到就把殘缺語料推上 main
+    （09-17、09-21）。所以補跑在雲端只要走到就是壞的，改成停下來指名缺哪一天。
+
+    stop 不寫 finished，同一個 UTC 日稍後再觸發一次會重新判斷。什麼時候觸發是
+    排程那一層的責任，規格見 references/nightly-driver.md〈precheck：語料沒到就停，不補抓〉。
     """
     if (vault / "_corpus" / date_str).is_dir():
         return "ok", f"今日 corpus 已就緒（_corpus/{date_str}）", ""
-    log = []
-    for cmd, fatal in CATCHUP_STEPS:
-        rc, out = run(vault, cmd)
-        log.append(f"$ {' '.join(cmd)} → rc={rc}")
-        if catchup_fatal(rc, fatal):
-            why = CATCHUP_CODES.get(rc, "")
-            return "stop", (f"補跑抓取鏈停住：{' '.join(cmd)} rc={rc}"
-                            + (f"——{why}" if why else "")), "\n".join(log) + "\n" + out
-    # 這是要被看見的異常，不是可以吞掉的細節。
-    return "noted", "**今晚由潤稿端補跑抓取**（Actions 那班還沒跑到或誤點）", "\n".join(log)
+    return "stop", (f"今日 corpus 還沒到（`_corpus/{date_str}/` 不存在）：Actions 那班還沒"
+                    "把語料推上 main，夜班不自己補抓——雲端補抓只連得到少數來源，而且跟"
+                    "Actions 抓同一天，push 必然衝突（2026-09-22、09-23）。先查 data-refresh.yml"
+                    "那一班有沒有跑完、有沒有推上去，再重新觸發夜班"), ""
 
 
 def do_narrative(vault, spec, recorded):
