@@ -3,18 +3,18 @@ id: actor-xai
 kind: company
 in_dictionary: true
 aliases: ["x.AI"]
-generated_day: '2026-09-23'
+generated_day: '2026-09-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # xAI
 
-事件 **16** 則：`published` 14、`review` 2
+事件 **16** 則：`published` 15、`review` 1
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-22 | [[Events/evt-2026-09-22-b6da13\|Grok Bot Customer Support]] | review |
+| 2026-09-22 | [[Events/evt-2026-09-22-b6da13\|Grok Bot Customer Support]] | published |
 | 2026-09-18 | [[Events/evt-2026-09-18-463a0d\|Grok Voice Transcribe 2]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-47d690\|Grok Build Memory]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-fff626\|Designing Grok Bot]] | published |

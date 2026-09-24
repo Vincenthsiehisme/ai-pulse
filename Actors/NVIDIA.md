@@ -3,22 +3,27 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-23'
+generated_day: '2026-09-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **62** 則：`dropped` 1、`published` 53、`review` 8
+事件 **67** 則：`dropped` 1、`published` 62、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-23 | [[Events/evt-2026-09-23-114238\|At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia]] | review |
-| 2026-09-23 | [[Events/evt-2026-09-23-075f85\|Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale]] | review |
-| 2026-09-22 | [[Events/evt-2026-09-22-986fe3\|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development]] | review |
-| 2026-09-21 | [[Events/evt-2026-09-21-833de1\|NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories]] | review |
-| 2026-09-21 | [[Events/evt-2026-09-21-7ba286\|5 Companies Using NVIDIA AI for Clean Energy]] | review |
+| 2026-09-24 | [[Events/evt-2026-09-24-d80197\|How Open Science Can Help Researchers Prepare for the Next Pandemic]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-5829b3\|How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows]] | published |
+| 2026-09-23 | [[Events/evt-2026-09-23-114238\|At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia]] | published |
+| 2026-09-23 | [[Events/evt-2026-09-23-075f85\|Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale]] | published |
+| 2026-09-22 | [[Events/evt-2026-09-22-986fe3\|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-f8ec7e\|From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production Scale]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-833de1\|NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-7ba286\|5 Companies Using NVIDIA AI for Clean Energy]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-38e891\|Why Deploying Physical AI at Scale Demands Safety at Every Layer]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-01cf23\|AI Security Is an Engineering Problem — How to Solve It at Every Layer of the Agent Stack]] | published |
 | 2026-09-17 | [[Events/evt-2026-09-17-c35f5f\|Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-330f5e\|University of Manchester Uses NVIDIA Earth-2 to Forecast Air Pollution Across the UK]] | published |
 | 2026-09-16 | [[Events/evt-2026-09-16-0793a2\|NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut]] | published |

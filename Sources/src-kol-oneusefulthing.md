@@ -16,9 +16,9 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://www.oneusefulthing.org/feed"
-robots_checked_day: "2026-09-17"
+robots_checked_day: "2026-09-24"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-09-23"
+last_observed_day: "2026-09-24"
 items_observed: 22
 events_bound: 0
 events_published: 0

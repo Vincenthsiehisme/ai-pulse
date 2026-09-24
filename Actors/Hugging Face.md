@@ -3,21 +3,21 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-09-23'
+generated_day: '2026-09-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **19** 則：`published` 11、`review` 8
+事件 **19** 則：`published` 13、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-23 | [[Events/evt-2026-09-23-5829b3\|How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows]] | review |
-| 2026-09-22 | [[Events/evt-2026-09-22-cadfa8\|Transformers now runs llama.cpp quants]] | review |
-| 2026-09-22 | [[Events/evt-2026-09-22-c77761\|Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community]] | review |
-| 2026-09-21 | [[Events/evt-2026-09-21-c316ae\|Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem]] | review |
+| 2026-09-24 | [[Events/evt-2026-09-24-e54c41\|Accelerating vision-language models with LFM2.5-VL-DSpark]] | review |
+| 2026-09-22 | [[Events/evt-2026-09-22-cadfa8\|Transformers now runs llama.cpp quants]] | published |
+| 2026-09-22 | [[Events/evt-2026-09-22-c77761\|Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-e1d69c\|tokenizers v1: encode, decode and scaling, measured]] | review |
 | 2026-09-10 | [[Events/evt-2026-09-10-a2b717\|Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-911846\|Rebuilding AUTOMATIC1111 with Gradio Workflow]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-d04a3e\|NeoMME: an efficient Multimodal-native and Multilingual Encoder]] | published |

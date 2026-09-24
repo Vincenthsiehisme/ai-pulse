@@ -3,28 +3,30 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-23'
+generated_day: '2026-09-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **115** 則：`published` 101、`review` 14
+事件 **117** 則：`published` 112、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-23 | [[Events/evt-2026-09-23-785e65\|Grab and OpenAI bring practical AI skills to Southeast Asia]] | review |
-| 2026-09-23 | [[Events/evt-2026-09-23-55bdc5\|How invideo improves color grading 3x with GPT‑6 Astra]] | review |
-| 2026-09-23 | [[Events/evt-2026-09-23-407127\|Ringg’s AI agents resolve up to 65% of customer calls with OpenAI]] | review |
-| 2026-09-23 | [[Events/evt-2026-09-23-3d4678\|OpenAI extends cyber access to Ukraine for civilian defense]] | review |
-| 2026-09-23 | [[Events/evt-2026-09-23-093b3a\|Two years of OpenAI Academy]] | review |
-| 2026-09-22 | [[Events/evt-2026-09-22-fe53e5\|Priorities and principles for effective third party assessments]] | review |
-| 2026-09-22 | [[Events/evt-2026-09-22-ed8d84\|Parallel cut research time and cost in half with GPT‑6 Astra]] | review |
-| 2026-09-21 | [[Events/evt-2026-09-21-e087b2\|How V7 gives AI agents institutional memory]] | review |
-| 2026-09-21 | [[Events/evt-2026-09-21-d55483\|Expanding OpenAI Academy with new learning paths]] | review |
-| 2026-09-21 | [[Events/evt-2026-09-21-a9d5d7\|Building standards for the next phase of AI]] | review |
-| 2026-09-21 | [[Events/evt-2026-09-21-2617c0\|Advisory Group on Mathematics and Artificial Intelligence]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-e55722\|ChatGPT Ads expands to Southeast Asia and Taiwan]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-785e65\|Grab and OpenAI bring practical AI skills to Southeast Asia]] | published |
+| 2026-09-23 | [[Events/evt-2026-09-23-6c7654\|Sam Altman’s remarks at the United Nations Security Council]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-55bdc5\|How invideo improves color grading 3x with GPT‑6 Astra]] | published |
+| 2026-09-23 | [[Events/evt-2026-09-23-407127\|Ringg’s AI agents resolve up to 65% of customer calls with OpenAI]] | published |
+| 2026-09-23 | [[Events/evt-2026-09-23-3d4678\|OpenAI extends cyber access to Ukraine for civilian defense]] | published |
+| 2026-09-23 | [[Events/evt-2026-09-23-093b3a\|Two years of OpenAI Academy]] | published |
+| 2026-09-22 | [[Events/evt-2026-09-22-fe53e5\|Priorities and principles for effective third party assessments]] | published |
+| 2026-09-22 | [[Events/evt-2026-09-22-ed8d84\|Parallel cut research time and cost in half with GPT‑6 Astra]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-e087b2\|How V7 gives AI agents institutional memory]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-d55483\|Expanding OpenAI Academy with new learning paths]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-a9d5d7\|Building standards for the next phase of AI]] | published |
+| 2026-09-21 | [[Events/evt-2026-09-21-2617c0\|Advisory Group on Mathematics and Artificial Intelligence]] | published |
 | 2026-09-18 | [[Events/evt-2026-09-18-dd201c\|Introducing the Australian Youth Safety Blueprint]] | published |
 | 2026-09-17 | [[Events/evt-2026-09-17-967613\|Introducing Astra for Law]] | published |
 | 2026-09-17 | [[Events/evt-2026-09-17-572fd3\|How Cooley is accelerating IPO work with ChatGPT]] | published |

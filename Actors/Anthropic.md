@@ -3,18 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-09-23'
+generated_day: '2026-09-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **107** 則：`published` 101、`review` 6
+事件 **107** 則：`published` 102、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-23 | [[Events/evt-2026-09-23-825560\|Claude Discovers Novel Enzyme System]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-825560\|Claude Discovers Novel Enzyme System]] | published |
 | 2026-09-18 | [[Events/evt-2026-09-18-2647a3\|Accenture Embedded Evaluation]] | published |
 | 2026-09-17 | [[Events/evt-2026-09-17-7f64e9\|Life Sciences Verification Program]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-f6b8f9\|Anthropic Invests 50 Billion In American Ai Infrastructure]] | published |

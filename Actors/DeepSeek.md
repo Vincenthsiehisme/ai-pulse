@@ -3,15 +3,17 @@ id: actor-deepseek
 kind: company
 in_dictionary: true
 aliases: ["深度求索"]
-generated_day: '2026-09-23'
+generated_day: '2026-09-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # DeepSeek
 
-事件 **1** 則：`review` 1
+事件 **0** 則：（無）
+
+字典收了它，但這段期間**一則事件都沒有**。這不代表它沒新聞——也可能是沒有任何一條來源看得到它（對照 `_config/sources.yaml` 的`coverage_watch`）。四態分離：收錄 ≠ 已觀測 ≠ 有效產出 ≠ 已發布。
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-22 | [[Events/evt-2026-09-22-d743ee\|v0.30.0]] | review |
+| （目前沒有） | | |
