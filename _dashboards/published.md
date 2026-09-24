@@ -1,6 +1,64 @@
-# 已發布事件（328）
+# 已發布事件（354）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-23
+- **[[Events/evt-2026-09-23-075f85|Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale]]** — NVIDIA · capital · conf 73 · heat 未量測
+  NVIDIA 人物專訪：驗證工程師 Sakeena Fiza 談硬體規模化背後的除錯工作。
+- **[[Events/evt-2026-09-23-093b3a|Two years of OpenAI Academy]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI Academy 屆滿兩年，宣布把 AI 技能教育計畫觸及更多社群。
+- **[[Events/evt-2026-09-23-101c8c|Advancing Private AI Compute with secure, server-side memory]]** — Google DeepMind · infra · conf 73 · heat 未量測
+  Google DeepMind 替 Private AI Compute 加入伺服器端安全記憶體，支援個人化 AI 需求。
+- **[[Events/evt-2026-09-23-114238|At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 與夥伴在新加坡 AI Day 展示東南亞區域的 AI 應用進展。
+- **[[Events/evt-2026-09-23-3d4678|OpenAI extends cyber access to Ukraine for civilian defense]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 把 Daybreak 網路防禦計畫開放給烏克蘭政府，用於保護民用基礎設施。
+- **[[Events/evt-2026-09-23-407127|Ringg’s AI agents resolve up to 65% of customer calls with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  Ringg 用 GPT-5.6 打造多語客服 agent，最多解決 65% 客服來電，成本比 GPT-4.1 低九成。
+- **[[Events/evt-2026-09-23-55bdc5|How invideo improves color grading 3x with GPT‑6 Astra]]** — OpenAI · product · conf 73 · heat 未量測
+  invideo 用 GPT-6 Astra 讓調色效率提升三倍，一天內產出 50 種客製特效。
+- **[[Events/evt-2026-09-23-5829b3|How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 在 Hugging Face 發文教學，示範用 Warp 與 MjWarp 加速機器人模擬與學習流程。
+- **[[Events/evt-2026-09-23-785e65|Grab and OpenAI bring practical AI skills to Southeast Asia]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 與 Grab 合推「GO Forward with AI」計畫，助三萬名東南亞夥伴建立實用 AI 技能。
+- **[[Events/evt-2026-09-23-825560|Claude Discovers Novel Enzyme System]]** — Anthropic · research · conf 80 · heat 未量測
+  Anthropic 宣布 Claude 協助發現新型酵素系統，因授權限制我們只留標題與連結。
+
+## 2026-09-22
+- **[[Events/evt-2026-09-22-986fe3|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 發布 Isaac ROS 5.0，替代理式開源機器人開發添加 GPU 加速套件。
+- **[[Events/evt-2026-09-22-b6da13|Grok Bot Customer Support]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發布 Grok Bot 客服功能，官方宣告不開放內容被當 AI 輸入，我們只留標題與連結。
+- **[[Events/evt-2026-09-22-c77761|Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community]]** — Hugging Face · capital · conf 73 · heat 未量測
+  oMLX 創建者暨維護者 Jun Kim 加入 Hugging Face，支援 MLX 生態系。
+- **[[Events/evt-2026-09-22-cadfa8|Transformers now runs llama.cpp quants]]** — Hugging Face · model-capability · conf 73 · heat 未量測
+  Hugging Face Transformers 函式庫現在可以直接執行 llama.cpp 的量化模型格式。
+- **[[Events/evt-2026-09-22-d743ee|v0.30.0]]** — vLLM · infra · conf 73 · heat 未量測
+  vLLM v0.30.0 加入 DeepSeek-V4.1-Flash 支援，KV cache 全面採用 MXFP8 儲存。
+- **[[Events/evt-2026-09-22-ed8d84|Parallel cut research time and cost in half with GPT‑6 Astra]]** — OpenAI · product · conf 73 · heat 未量測
+  Parallel 用 GPT-6 Astra，把 agent 研究勞動市場數據的時間與成本都砍半。
+- **[[Events/evt-2026-09-22-fe53e5|Priorities and principles for effective third party assessments]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 提出前沿模型第三方安全評估應遵循的優先事項與原則。
+
+## 2026-09-21
+- **[[Events/evt-2026-09-21-01cf23|AI Security Is an Engineering Problem — How to Solve It at Every Layer of the Agent Stack]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 主張 AI 安全該當工程問題處理：明確需求、可執行管控、指定負責人。
+- **[[Events/evt-2026-09-21-2617c0|Advisory Group on Mathematics and Artificial Intelligence]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 成立獨立數學顧問小組，負責審核與溝通 AI 產出的數學成果。
+- **[[Events/evt-2026-09-21-38e891|Why Deploying Physical AI at Scale Demands Safety at Every Layer]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 引用產業預測，主張物理 AI 規模化部署必須在每一層都做好安全。
+- **[[Events/evt-2026-09-21-7ba286|5 Companies Using NVIDIA AI for Clean Energy]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 在紐約氣候週點名五家用 AI 加速潔淨能源佈建的公司。
+- **[[Events/evt-2026-09-21-833de1|NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 推出 DSX Ready 認證計畫，替 AI 工廠篩選相容的電力與散熱產品。
+- **[[Events/evt-2026-09-21-a9d5d7|Building standards for the next phase of AI]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 倡議建立全球共通的 AI 標準，呼籲協調評估、通報與治理機制。
+- **[[Events/evt-2026-09-21-d55483|Expanding OpenAI Academy with new learning paths]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI Academy 新增學習路徑，鎖定員工、開發者、教育工作者與學生等不同對象。
+- **[[Events/evt-2026-09-21-e087b2|How V7 gives AI agents institutional memory]]** — OpenAI · product · conf 73 · heat 未量測
+  V7 用 GPT-5.6 把散落的公司檔案變成 agent 可用的脈絡記憶。
+- **[[Events/evt-2026-09-21-f8ec7e|From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production Scale]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 在開羅活動上，點出埃及 AI 生態系正從扶植階段走向量產應用規模。
 
 ## 2026-09-18
 - **[[Events/evt-2026-09-18-2647a3|Accenture Embedded Evaluation]]** — Anthropic · product · conf 73 · heat 未量測
