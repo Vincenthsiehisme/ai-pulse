@@ -542,7 +542,7 @@ official_sources:
   frequency: daily
   quota_per_run: 30
 
-  robots_checked_at: '2026-09-17T19:08:26+00:00'
+  robots_checked_at: '2026-09-24T19:10:33+00:00'
 - id: src-meta-research
   track: official
   owner: Meta
