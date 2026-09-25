@@ -8,7 +8,142 @@
       "status": "ok",
       "note": "已在 `main`，根目錄沒有殘留的敘述產物",
       "at": "2026-09-25 19:09Z"
+    },
+    {
+      "id": "precheck",
+      "status": "noted",
+      "note": "**今晚由潤稿端補跑抓取**（Actions 那班還沒跑到或誤點）",
+      "at": "2026-09-25 19:12Z",
+      "full_output": "$ /usr/local/bin/python3 scripts/pulse-robots-recheck.py --stale-days 7 --apply --revive → rc=0\n$ /usr/local/bin/python3 scripts/pulse-probe.py → rc=0\n$ /usr/local/bin/python3 scripts/pulse-score.py → rc=0\n$ /usr/local/bin/python3 scripts/pulse-cluster.py → rc=0"
+    },
+    {
+      "id": "enrich-prep",
+      "status": "ok",
+      "note": "pulse-enrich-prep  待 enrich=6  已 enrich 跳過=41",
+      "at": "2026-09-25 19:12Z"
+    },
+    {
+      "id": "enrich-write",
+      "status": "ok",
+      "note": "收到 enrich-result.json（6 筆，清單 6 筆）",
+      "at": "2026-09-25 19:13Z",
+      "worklist": {
+        "path": "_probe/enrich-worklist.json",
+        "count": 6,
+        "mtime": 1790363540
+      }
+    },
+    {
+      "id": "enrich-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-25 19:13Z"
+    },
+    {
+      "id": "gate",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-25 19:13Z"
+    },
+    {
+      "id": "dashboard",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-25 19:13Z"
+    },
+    {
+      "id": "digest-prep",
+      "status": "ok",
+      "note": "pulse-digest-prep  2026-09-25  mode=normal  素材=6 則  配對=15 組",
+      "at": "2026-09-25 19:13Z"
+    },
+    {
+      "id": "digest-write",
+      "status": "ok",
+      "note": "收到 digest.json（素材 6 則）",
+      "at": "2026-09-25 19:15Z",
+      "worklist": {
+        "path": "_probe/digest-worklist.json",
+        "count": 6,
+        "mtime": 1790363637
+      }
+    },
+    {
+      "id": "digest-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-25 19:15Z"
+    },
+    {
+      "id": "digest-gate",
+      "status": "ok",
+      "note": "pulse-digest-gate  draft=39  reviewed=0  rejected=0  共 39 份  → _dashboards/digests.md",
+      "at": "2026-09-25 19:15Z"
+    },
+    {
+      "id": "narrative-prep",
+      "status": "ok",
+      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=3",
+      "at": "2026-09-25 19:15Z"
+    },
+    {
+      "id": "narrative-write",
+      "status": "ok",
+      "note": "收到 narrative-result.json（3 筆，清單 3 筆）",
+      "at": "2026-09-25 19:16Z",
+      "worklist": {
+        "path": "_probe/narrative-worklist.json",
+        "count": 3,
+        "mtime": 1790363718
+      }
+    },
+    {
+      "id": "narrative-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-25 19:16Z"
+    },
+    {
+      "id": "github-desc-write",
+      "status": "ok",
+      "note": "收到 github-desc-result.json（2 筆，清單 2 筆）",
+      "at": "2026-09-25 19:17Z",
+      "worklist": {
+        "path": "_probe/github-desc-worklist.json",
+        "count": 2,
+        "mtime": 1790363346
+      }
+    },
+    {
+      "id": "github-desc-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-25 19:17Z"
+    },
+    {
+      "id": "title-write",
+      "status": "ok",
+      "note": "收到 title-zh-result.json（15 筆，清單 15 筆）",
+      "at": "2026-09-25 19:17Z",
+      "worklist": {
+        "path": "_probe/title-zh-worklist.json",
+        "count": 15,
+        "mtime": 1790363346
+      }
+    },
+    {
+      "id": "title-apply",
+      "status": "noted",
+      "note": "rc=1",
+      "at": "2026-09-25 19:17Z",
+      "full_output": "pulse-title-apply  收到 15 條譯文\n\n  [新增] evt-2026-09-23-093b3a\n         「OpenAI Academy屆滿兩年」\n         原文：Two years of OpenAI Academy\n  [新增] evt-2026-09-23-101c8c\n         「用安全伺服器端記憶體推進Private AI Compute」\n         原文：Advancing Private AI Compute with secure, server-side memory\n  [新增] evt-2026-09-23-114238\n         「新加坡AI Day：NVIDIA與夥伴展示東南亞AI進展」\n         原文：At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia\n  [新增] evt-2026-09-23-3d4678\n         「OpenAI將網路防禦存取權開放給烏克蘭民防」\n         原文：OpenAI extends cyber access to Ukraine for civilian defense\n  [退件] evt-2026-09-23-407127\n         含 AI 腔套話：打造\n         「Ringg用OpenAI打造的AI agent解決65%客服來電」\n  [新增] evt-2026-09-23-55bdc5\n         「invideo用GPT-6 Astra把調色效率提升三倍」\n         原文：How invideo improves color grading 3x with GPT‑6 Astra\n  [新增] evt-2026-09-23-5829b3\n         「用NVIDIA Warp與MjWarp加速機器人模擬與學習」\n         原文：How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows\n  [新增] evt-2026-09-23-6c7654\n         「Sam Altman在聯合國安理會的談話」\n         原文：Sam Altman’s remarks at the United Nations Security Council\n  [新增] evt-2026-09-23-785e65\n         「Grab與OpenAI把實用AI技能帶進東南亞」\n         原文：Grab and OpenAI bring practical AI skills to Southeast Asia\n  [新增] evt-2026-09-23-825560\n         「Claude發現新型酵素系統」\n         原文：Claude Discovers Novel Enzyme System\n  [新增] evt-2026-09-23-e55722\n         「ChatGPT Ads擴大至東南亞與台灣」\n         原文：ChatGPT Ads expands to Southeast Asia and Taiwan\n  [新增] evt-2026-09-23-fec20b\n         「推出MentalHealthBench」\n         原文：Introducing MentalHealthBench\n  [新增] evt-2026-09-24-d80197\n         「開放科學如何幫研究者為下一場疫情做準備」\n         原文：How Open Science Can Help Researchers Prepare for the Next Pandemic\n  [新增] evt-2026-09-24-e54c41\n         「用LFM2.5-VL-DSpark加速視覺語言模型」\n         原文：Accelerating vision-language models with LFM2.5-VL-DSpark\n  [新增] evt-2026-09-24-eab1f3\n         「《CONTROL Resonant》登陸GeForce NOW」\n         原文：Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW\n\n  寫入 14 則，退件 1 則\n"
+    },
+    {
+      "id": "render",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-25 19:17Z"
     }
   ],
-  "updated_at": "2026-09-25 19:09Z"
+  "updated_at": "2026-09-25 19:17Z"
 }

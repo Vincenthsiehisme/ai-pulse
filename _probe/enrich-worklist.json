@@ -1,38 +1,8 @@
 [
   {
-    "id": "evt-2026-09-21-01cf23",
-    "path": "evt-2026-09-21-01cf23.md",
-    "title": "AI Security Is an Engineering Problem — How to Solve It at Every Layer of the Agent Stack",
-    "fingerprint": null,
-    "facet": "capability",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/ai-security-agent-stack/",
-        "title": "AI Security Is an Engineering Problem — How to Solve It at Every Layer of the Agent Stack",
-        "summary": "AI security is an engineering problem. That means defined security requirements, enforceable controls, named owners and evidence that protections work.  As AI becomes more capable, the industry must accelerate security engineering, broaden access to defensive tools and share what works faster.  Tech",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-21-2617c0",
-    "path": "evt-2026-09-21-2617c0.md",
-    "title": "Advisory Group on Mathematics and Artificial Intelligence",
+    "id": "evt-2026-09-23-6c7654",
+    "path": "evt-2026-09-23-6c7654.md",
+    "title": "Sam Altman’s remarks at the United Nations Security Council",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -41,59 +11,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/advisory-group-on-mathematics-and-ai",
-        "title": "Advisory Group on Mathematics and Artificial Intelligence",
-        "summary": "OpenAI is working with an independent Advisory Group on Mathematics and Artificial Intelligence to guide the review and communication of emerging AI results.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://terrytao.wordpress.com/2026/09/21/advisory-group-on-mathematics-and-artificial-intelligence/",
-        "title": "The Advisory Group on Mathematics and Artificial Intelligence",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/advisory-group-on-mathematics-and-ai/",
-        "title": "Advisory Group on Mathematics and Artificial Intelligence",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 2
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-09-21-38e891",
-    "path": "evt-2026-09-21-38e891.md",
-    "title": "Why Deploying Physical AI at Scale Demands Safety at Every Layer",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Scale AI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/physical-ai-halos-safety/",
-        "title": "Why Deploying Physical AI at Scale Demands Safety at Every Layer",
-        "summary": "Physical AI is moving rapidly from research to large-scale deployment. By 2035, ABI Research projects an installed base of 49 million level 3-5 autonomous vehicles (AVs), while Omdia estimates that roughly 60 million industrial robots will be deployed between 2026 and 2035. As these machines enter r",
+        "url": "https://openai.com/index/sam-altman-un-security-council-remarks",
+        "title": "Sam Altman’s remarks at the United Nations Security Council",
+        "summary": "OpenAI CEO Sam Altman discusses AI safety, human control, and international cooperation in remarks to the United Nations Security Council.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -110,20 +30,20 @@
     }
   },
   {
-    "id": "evt-2026-09-21-7ba286",
-    "path": "evt-2026-09-21-7ba286.md",
-    "title": "5 Companies Using NVIDIA AI for Clean Energy",
+    "id": "evt-2026-09-23-e55722",
+    "path": "evt-2026-09-23-e55722.md",
+    "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "NVIDIA",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/clean-energy-nvidia-ai/",
-        "title": "5 Companies Using NVIDIA AI for Clean Energy",
-        "summary": "Clean energy isn’t hard to come by, but the pace of large-scale adoption has historically been slow due to bottlenecks — including out-of-date infrastructure, elongated research and development timelines, and upfront cost barriers.  At New York Climate Week, NVIDIA is highlighting five companies pio",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/chatgpt-ads-expands-southeast-asia-taiwan",
+        "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
+        "summary": "ChatGPT Ads is expanding to Southeast Asia and Taiwan, giving eligible businesses new ways to reach people across more than 60 countries.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -140,204 +60,20 @@
     }
   },
   {
-    "id": "evt-2026-09-21-833de1",
-    "path": "evt-2026-09-21-833de1.md",
-    "title": "NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories",
+    "id": "evt-2026-09-23-fec20b",
+    "path": "evt-2026-09-23-fec20b.md",
+    "title": "Introducing MentalHealthBench",
     "fingerprint": null,
     "facet": "release",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/dsx-ready-ai-factories-power-cooling/",
-        "title": "NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories",
-        "summary": "Every AI factory needs power and cooling that fit its computing architecture. As AI infrastructure expands, power, cooling, water, site and grid constraints are shaping what builders can deploy. Choosing products that fit the complete factory design helps builders turn computing capacity into useful",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-21-a9d5d7",
-    "path": "evt-2026-09-21-a9d5d7.md",
-    "title": "Building standards for the next phase of AI",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/building-standards-next-phase-ai",
-        "title": "Building standards for the next phase of AI",
-        "summary": "OpenAI outlines a path to shared global AI standards, calling for coordinated evaluation, reporting, and governance to improve safety.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-21-c316ae",
-    "path": "evt-2026-09-21-c316ae.md",
-    "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/MultiverseComputingCAI/pruning-llms-like-a-physicist-block-removal-as-an",
-        "title": "Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization Problem",
-        "summary": "",
-        "availability": "unfetched",
-        "availability_reason": "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口",
-        "writing_hint": "不要寫進文章。這是我們沒抓到，屬於故障不屬於證據狀態；文章裡就當這一則只有標題。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 1,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": [
-        "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-09-21-d55483",
-    "path": "evt-2026-09-21-d55483.md",
-    "title": "Expanding OpenAI Academy with new learning paths",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/expanding-openai-academy-with-new-learning-paths",
-        "title": "Expanding OpenAI Academy with new learning paths",
-        "summary": "Explore new OpenAI Academy learning paths for employees, developers, leaders, educators, and students to build and demonstrate practical AI skills.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-21-e087b2",
-    "path": "evt-2026-09-21-e087b2.md",
-    "title": "How V7 gives AI agents institutional memory",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/v7",
-        "title": "How V7 gives AI agents institutional memory",
-        "summary": "Using GPT-5.6, V7 turns scattered company files into context agents can use to complete complex, source-linked work.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-21-e1d69c",
-    "path": "evt-2026-09-21-e1d69c.md",
-    "title": "tokenizers v1: encode, decode and scaling, measured",
-    "fingerprint": null,
-    "facet": "update",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/tokenizers-v1",
-        "title": "tokenizers v1: encode, decode and scaling, measured",
-        "summary": "",
-        "availability": "unfetched",
-        "availability_reason": "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口",
-        "writing_hint": "不要寫進文章。這是我們沒抓到，屬於故障不屬於證據狀態；文章裡就當這一則只有標題。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 1,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": [
-        "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-09-21-f8ec7e",
-    "path": "evt-2026-09-21-f8ec7e.md",
-    "title": "From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production Scale",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Scale AI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/egypt-africa-ai-ecosystem/",
-        "title": "From Enablement to Execution, Egypt’s AI Ecosystem Reaches Production Scale",
-        "summary": "Today, Egypt’s AI builders gathered in the Grand Egyptian Museum for a reception that highlighted the nation’s rapidly growing AI ecosystem — spanning AI natives, developers, researchers, startups and enterprises — building applications across industries. The event included a keynote from Paolo Gugl",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/introducing-mentalhealthbench",
+        "title": "Introducing MentalHealthBench",
+        "summary": "MentalHealthBench is an expert-informed benchmark for evaluating helpful and safe AI responses across realistic mental health conversations.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -354,50 +90,80 @@
     }
   },
   {
-    "id": "evt-2026-09-22-4b1c67",
-    "path": "evt-2026-09-22-4b1c67.md",
-    "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
+    "id": "evt-2026-09-24-d80197",
+    "path": "evt-2026-09-24-d80197.md",
+    "title": "How Open Science Can Help Researchers Prepare for the Next Pandemic",
     "fingerprint": null,
-    "facet": "benchmark",
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/open-protein-dataset/",
+        "title": "How Open Science Can Help Researchers Prepare for the Next Pandemic",
+        "summary": "When COVID-19 emerged, scientists had a crucial advantage: Decades of prior research on coronaviruses meant they understood the virus’ key proteins well enough to design vaccines in record time. The next pandemic may not offer the same head start.  To help improve the odds, NVIDIA has joined a coali",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-24-e54c41",
+    "path": "evt-2026-09-24-e54c41.md",
+    "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/LiquidAI/lfm2-5-vl-dspark",
+        "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
+        "summary": "A Blog post by Liquid AI on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-24-eab1f3",
+    "path": "evt-2026-09-24-eab1f3.md",
+    "title": "Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW",
+    "fingerprint": null,
+    "facet": "release",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/evaleval-aisi",
-        "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-22-986fe3",
-    "path": "evt-2026-09-22-986fe3.md",
-    "title": "NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
         "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/",
-        "title": "NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development",
-        "summary": "To build and deploy sophisticated robotics applications that can perceive, reason and act in dynamic environments, developers need new physical AI models and tools. The ROS open framework is a project from Open Robotics that helps humans build robots. NVIDIA Isaac ROS 5.0 — a collection of GPU-accel",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-control-resonant/",
+        "title": "Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW",
+        "summary": "A warped Manhattan is waiting in the cloud this week. Remedy Entertainment’s CONTROL Resonant brings Dylan Faden’s extraordinary abilities and a paranatural crisis to GeForce NOW at launch. With the release comes the final days of the CONTROL Resonant Ultimate Membership Bundle. Purchase a 12-month ",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -411,499 +177,6 @@
       },
       "needs_source_link": false,
       "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-22-b6da13",
-    "path": "evt-2026-09-22-b6da13.md",
-    "title": "Grok Bot Customer Support",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "xAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/grok-bot-customer-support",
-        "title": "Grok Bot Customer Support",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "站方宣告 ai-input=no，不把內容當成 AI 的輸入",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "站方宣告 ai-input=no，不把內容當成 AI 的輸入"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-09-22-c77761",
-    "path": "evt-2026-09-22-c77761.md",
-    "title": "Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/omlx",
-        "title": "Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-22-cadfa8",
-    "path": "evt-2026-09-22-cadfa8.md",
-    "title": "Transformers now runs llama.cpp quants",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/transformers-llama-cpp-quants",
-        "title": "Transformers now runs llama.cpp quants",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-22-d743ee",
-    "path": "evt-2026-09-22-d743ee.md",
-    "title": "v0.30.0",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "DeepSeek",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-gh-vllm-releases",
-        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0",
-        "title": "v0.30.0",
-        "summary": "# v0.30.0\r\n\r\n## Highlights\r\n\r\nThis release features 762 commits from 315 contributors (104 new)!\r\n\r\n* **New models**: DeepSeek-V4.1-Flash (#56214, #56228, #56208) with the whole KV stored in MXFP8 through the FlashMLA V4.1 record on SM100 (#56893), DeepGEMM Mega-mHC (#56962), and async Engram prefet",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-22-ed8d84",
-    "path": "evt-2026-09-22-ed8d84.md",
-    "title": "Parallel cut research time and cost in half with GPT‑6 Astra",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/parallel-cuts-time-and-cost-with-astra",
-        "title": "Parallel cut research time and cost in half with GPT‑6 Astra",
-        "summary": "GPT‑6 Astra allowed Parallel’s agents to research and synthesize labor-market data in half the time and at half the cost vs. prior models.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-22-fe53e5",
-    "path": "evt-2026-09-22-fe53e5.md",
-    "title": "Priorities and principles for effective third party assessments",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/priorities-principles-third-party-assessments",
-        "title": "Priorities and principles for effective third party assessments",
-        "summary": "OpenAI outlines priorities and principles for rigorous, secure, and independent third-party AI safety assessments of frontier models and safeguards.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-075f85",
-    "path": "evt-2026-09-23-075f85.md",
-    "title": "Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/nvidia-life-sakeena-fiza/",
-        "title": "Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale",
-        "summary": "When Sakeena Fiza describes her work as a validation engineer at NVIDIA, she does so in terms more befitting a detective story than a world-class engineering lab. “Validation engineers look in the shadows and shine a light into every corner,” Fiza said. “Every time we get a system, our first thought",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-093b3a",
-    "path": "evt-2026-09-23-093b3a.md",
-    "title": "Two years of OpenAI Academy",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/two-years-of-openai-academy",
-        "title": "Two years of OpenAI Academy",
-        "summary": "Marking two years of OpenAI Academy and bringing AI skills to even more communities.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-101c8c",
-    "path": "evt-2026-09-23-101c8c.md",
-    "title": "Advancing Private AI Compute with secure, server-side memory",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/",
-        "title": "Advancing Private AI Compute with secure, server-side memory",
-        "summary": "Introducing private, server-side memory to Private AI Compute for personal AI.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-114238",
-    "path": "evt-2026-09-23-114238.md",
-    "title": "At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/ai-day-singapore/",
-        "title": "At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia",
-        "summary": "NVIDIA AI Day Singapore, which takes place Sept. 22-23 at the Raffles City Convention Centre, is offering attendees opportunities to explore the hands-on training, expert-led sessions and advanced tools to accelerate their work in AI and high-performance computing. At the event, NVIDIA and its partn",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-3d4678",
-    "path": "evt-2026-09-23-3d4678.md",
-    "title": "OpenAI extends cyber access to Ukraine for civilian defense",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/openai-extends-cyber-access-to-ukraine-for-civilian-defense",
-        "title": "OpenAI extends cyber access to Ukraine for civilian defense",
-        "summary": "OpenAI is extending access to its Daybreak program to the Government of Ukraine to support the cyber defense of civilian infrastructure.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-407127",
-    "path": "evt-2026-09-23-407127.md",
-    "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
-    "fingerprint": null,
-    "facet": "capability",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/ringg",
-        "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
-        "summary": "Using GPT-5.6, Ringg powers multilingual agents across voice, chat, WhatsApp, and web for 90% less cost vs. GPT-4.1.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-55bdc5",
-    "path": "evt-2026-09-23-55bdc5.md",
-    "title": "How invideo improves color grading 3x with GPT‑6 Astra",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/invideo-builds-with-gpt-6-astra",
-        "title": "How invideo improves color grading 3x with GPT‑6 Astra",
-        "summary": "With GPT‑6 Astra, invideo plans edits with greater precision, improves color correction and grading threefold, and produces 50 custom effects in one day.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-5829b3",
-    "path": "evt-2026-09-23-5829b3.md",
-    "title": "How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/nvidia/how-to-use-nvidia-warp-and-mjwarp",
-        "title": "How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows",
-        "summary": "A Blog post by NVIDIA on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-785e65",
-    "path": "evt-2026-09-23-785e65.md",
-    "title": "Grab and OpenAI bring practical AI skills to Southeast Asia",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/grab-openai-ai-skills-southeast-asia",
-        "title": "Grab and OpenAI bring practical AI skills to Southeast Asia",
-        "summary": "OpenAI and Grab launch GO Forward with AI, a regional programme helping 30,000 partners build practical AI skills across Southeast Asia.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-825560",
-    "path": "evt-2026-09-23-825560.md",
-    "title": "Claude Discovers Novel Enzyme System",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 2,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system",
-        "title": "Claude Discovers Novel Enzyme System",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system",
-        "title": "Claude Discovers Novel Enzyme System",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 2
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
     }
   }
 ]

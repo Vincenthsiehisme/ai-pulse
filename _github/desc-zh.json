@@ -259,6 +259,11 @@
     "src_hash": "c054e48f4763",
     "zh": "AI agent 工具包：統一 LLM API、agent loop、TUI 與寫程式用的 agent CLI"
   },
+  "elizaOS/eliza": {
+    "at": "2026-09-25T19:17:07+00:00",
+    "src_hash": "d678b6f74cbf",
+    "zh": "開源的 agentic 作業系統"
+  },
   "firecrawl/firecrawl": {
     "at": "2026-09-18T19:12:51+00:00",
     "src_hash": "d3a5f0fe32c3",

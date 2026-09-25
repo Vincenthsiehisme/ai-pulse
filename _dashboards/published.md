@@ -1,6 +1,14 @@
-# 已發布事件（354）
+# 已發布事件（360）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-24
+- **[[Events/evt-2026-09-24-d80197|How Open Science Can Help Researchers Prepare for the Next Pandemic]]** — NVIDIA · research · conf 73 · heat 未量測
+  NVIDIA加入聯盟推動開放蛋白質資料集，為下一場疫情預先備料。
+- **[[Events/evt-2026-09-24-e54c41|Accelerating vision-language models with LFM2.5-VL-DSpark]]** — Liquid AI · model-capability · conf 73 · heat 未量測
+  Liquid AI發布LFM2.5-VL-DSpark，訴求加速視覺語言模型（證據不足，待補：加速幅度與方法未揭露）。
+- **[[Events/evt-2026-09-24-eab1f3|Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  Remedy新作《CONTROL Resonant》上市即同步登陸NVIDIA GeForce NOW雲端遊戲。
 
 ## 2026-09-23
 - **[[Events/evt-2026-09-23-075f85|Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale]]** — NVIDIA · capital · conf 73 · heat 未量測
@@ -19,10 +27,16 @@
   invideo 用 GPT-6 Astra 讓調色效率提升三倍，一天內產出 50 種客製特效。
 - **[[Events/evt-2026-09-23-5829b3|How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 在 Hugging Face 發文教學，示範用 Warp 與 MjWarp 加速機器人模擬與學習流程。
+- **[[Events/evt-2026-09-23-6c7654|Sam Altman’s remarks at the United Nations Security Council]]** — OpenAI · policy · conf 73 · heat 未量測
+  Sam Altman在聯合國安理會談AI安全、人類控制與國際合作。
 - **[[Events/evt-2026-09-23-785e65|Grab and OpenAI bring practical AI skills to Southeast Asia]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 與 Grab 合推「GO Forward with AI」計畫，助三萬名東南亞夥伴建立實用 AI 技能。
 - **[[Events/evt-2026-09-23-825560|Claude Discovers Novel Enzyme System]]** — Anthropic · research · conf 80 · heat 未量測
   Anthropic 宣布 Claude 協助發現新型酵素系統，因授權限制我們只留標題與連結。
+- **[[Events/evt-2026-09-23-e55722|ChatGPT Ads expands to Southeast Asia and Taiwan]]** — OpenAI · product · conf 73 · heat 未量測
+  ChatGPT Ads擴大至東南亞與台灣，服務範圍達60餘國。
+- **[[Events/evt-2026-09-23-fec20b|Introducing MentalHealthBench]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI推出MentalHealthBench，評估AI心理健康對話回應品質的專家基準。
 
 ## 2026-09-22
 - **[[Events/evt-2026-09-22-986fe3|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development]]** — NVIDIA · product · conf 73 · heat 未量測
