@@ -1,34 +1,18 @@
 [
   {
-    "full_name": "Osmantic/ODS",
-    "desc": "ODS V3: Turn your PC, Mac, or Linux box into an AI server. LLM inference, chat UI, voice, agents, workflows, RAG, and image generation.",
+    "full_name": "Human-Agent-Society/reef",
+    "desc": "Infrastructure for continually self‑improving agents",
     "language": "Python",
     "topics": [
+      "agent-infrastructure",
       "ai-agents",
-      "amd",
-      "comfyui",
-      "docker",
-      "llama-cpp",
-      "llm"
+      "continual-learning",
+      "inference",
+      "llm",
+      "llm-training"
     ],
-    "stars": 6802,
-    "url": "https://github.com/Osmantic/ODS",
-    "stale_zh": "把 PC／Mac／Linux 變成 AI 伺服器：LLM 推論、聊天、語音、agent、工作流、RAG、生圖"
-  },
-  {
-    "full_name": "elizaOS/eliza",
-    "desc": "Open source agentic operating system",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "agentic",
-      "ai",
-      "autonomous",
-      "chatbot",
-      "crypto"
-    ],
-    "stars": 19495,
-    "url": "https://github.com/elizaOS/eliza",
-    "stale_zh": null
+    "stars": 5148,
+    "url": "https://github.com/Human-Agent-Society/reef",
+    "stale_zh": "讓 agent 能持續學習、自我改進的基礎設施"
   }
 ]

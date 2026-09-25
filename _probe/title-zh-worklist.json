@@ -1,37 +1,5 @@
 [
   {
-    "id": "evt-2026-09-23-093b3a",
-    "title": "Two years of OpenAI Academy",
-    "company": "OpenAI",
-    "track": "全球創新版圖",
-    "summary": "OpenAI Academy 屆滿兩年，宣布把 AI 技能教育計畫觸及更多社群。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-101c8c",
-    "title": "Advancing Private AI Compute with secure, server-side memory",
-    "company": "Google DeepMind",
-    "track": "基礎設施與成本",
-    "summary": "Google DeepMind 替 Private AI Compute 加入伺服器端安全記憶體，支援個人化 AI 需求。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-114238",
-    "title": "At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia",
-    "company": "NVIDIA",
-    "track": "全球創新版圖",
-    "summary": "NVIDIA 與夥伴在新加坡 AI Day 展示東南亞區域的 AI 應用進展。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-3d4678",
-    "title": "OpenAI extends cyber access to Ukraine for civilian defense",
-    "company": "OpenAI",
-    "track": "全球創新版圖",
-    "summary": "OpenAI 把 Daybreak 網路防禦計畫開放給烏克蘭政府，用於保護民用基礎設施。",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-09-23-407127",
     "title": "Ringg’s AI agents resolve up to 65% of customer calls with OpenAI",
     "company": "OpenAI",
@@ -40,81 +8,9 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-23-55bdc5",
-    "title": "How invideo improves color grading 3x with GPT‑6 Astra",
+    "id": "evt-2026-09-25-b5edd0",
+    "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
     "company": "OpenAI",
-    "track": "產品與商業驗證",
-    "summary": "invideo 用 GPT-6 Astra 讓調色效率提升三倍，一天內產出 50 種客製特效。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-5829b3",
-    "title": "How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows",
-    "company": "NVIDIA",
-    "track": "基礎設施與成本",
-    "summary": "NVIDIA 在 Hugging Face 發文教學，示範用 Warp 與 MjWarp 加速機器人模擬與學習流程。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-6c7654",
-    "title": "Sam Altman’s remarks at the United Nations Security Council",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-785e65",
-    "title": "Grab and OpenAI bring practical AI skills to Southeast Asia",
-    "company": "OpenAI",
-    "track": "全球創新版圖",
-    "summary": "OpenAI 與 Grab 合推「GO Forward with AI」計畫，助三萬名東南亞夥伴建立實用 AI 技能。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-825560",
-    "title": "Claude Discovers Novel Enzyme System",
-    "company": "Anthropic",
-    "track": "模型能力與研究",
-    "summary": "Anthropic 宣布 Claude 協助發現新型酵素系統，因授權限制我們只留標題與連結。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-e55722",
-    "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-23-fec20b",
-    "title": "Introducing MentalHealthBench",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-24-d80197",
-    "title": "How Open Science Can Help Researchers Prepare for the Next Pandemic",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-24-e54c41",
-    "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-24-eab1f3",
-    "title": "Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW",
-    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null

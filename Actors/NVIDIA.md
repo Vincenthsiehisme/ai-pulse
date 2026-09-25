@@ -3,18 +3,19 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-24'
+generated_day: '2026-09-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **67** 則：`dropped` 1、`published` 62、`review` 4
+事件 **68** 則：`dropped` 1、`published` 64、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-24 | [[Events/evt-2026-09-24-d80197\|How Open Science Can Help Researchers Prepare for the Next Pandemic]] | review |
+| 2026-09-24 | [[Events/evt-2026-09-24-eab1f3\|Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW]] | published |
+| 2026-09-24 | [[Events/evt-2026-09-24-d80197\|How Open Science Can Help Researchers Prepare for the Next Pandemic]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-5829b3\|How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-114238\|At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-075f85\|Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale]] | published |

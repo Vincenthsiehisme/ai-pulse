@@ -3,20 +3,22 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-24'
+generated_day: '2026-09-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **117** 則：`published` 112、`review` 5
+事件 **119** 則：`published` 115、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-23 | [[Events/evt-2026-09-23-e55722\|ChatGPT Ads expands to Southeast Asia and Taiwan]] | review |
+| 2026-09-25 | [[Events/evt-2026-09-25-b5edd0\|Proaction boosts sales 60% and saves 75+ hours with Codex]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-fec20b\|Introducing MentalHealthBench]] | published |
+| 2026-09-23 | [[Events/evt-2026-09-23-e55722\|ChatGPT Ads expands to Southeast Asia and Taiwan]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-785e65\|Grab and OpenAI bring practical AI skills to Southeast Asia]] | published |
-| 2026-09-23 | [[Events/evt-2026-09-23-6c7654\|Sam Altman’s remarks at the United Nations Security Council]] | review |
+| 2026-09-23 | [[Events/evt-2026-09-23-6c7654\|Sam Altman’s remarks at the United Nations Security Council]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-55bdc5\|How invideo improves color grading 3x with GPT‑6 Astra]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-407127\|Ringg’s AI agents resolve up to 65% of customer calls with OpenAI]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-3d4678\|OpenAI extends cyber access to Ukraine for civilian defense]] | published |

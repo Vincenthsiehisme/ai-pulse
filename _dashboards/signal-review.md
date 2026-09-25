@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-24"
+generated_day: "2026-09-25"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-24"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **340** 則／已裁決 **26** 則。
+待回答 **346** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -27,11 +27,11 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`infra-cost#019efb9e`** — infra-cost
   > 觀察 DSX Ready 計畫公布的合作廠商規模、vLLM v0.30.0 的 MXFP8 KV cache 在實際部署的精度表現，以及 Google DeepMind Private AI Compute 伺服器端記憶體的技術細節是否公開；同時持續追蹤 AEMA 成員擴張與 MLPerf Inference v6.1 完整榜單。
 
-- **`model-research#e7e3a8f1`** — model-research
-  > 觀察 Anthropic 的酵素發現是否有同行評審論文或第三方媒體報導佐證；OpenAI 的數學顧問小組是否公開成員與審核案例；第三方安全評估原則是否真的有機構依循並發布報告。若接下來幾輪都是這類治理與信任機制的訊號，可能要考慮這條主線的既有主軸描述需要更新，而不只是無新模型發布可歸類。
+- **`model-research#f33849e8`** — model-research
+  > 觀察MentalHealthBench是否開源、是否有其他實驗室的模型被拿上去比較評分；NVIDIA的開放蛋白質資料集是否公開釋出、規模多大；Liquid AI是否補上LFM2.5-VL-DSpark的加速幅度基準數據。若接下來幾輪持續是這類訊號而沒有新模型能力躍升，這條主線的既有主軸描述可能真的需要更新。
 
-- **`product-market#6af4c6a6`** — product-market
-  > 觀察是否有獨立第三方驗證這些倍數效率數字（Parallel 減半、invideo 三倍、Ringg 65% 解決率），或這些數字始終只停留在廠商自己測算的案例稿層級；同時留意 Grok Bot 客服功能的具體內容是否有其他管道可查證，以及 Google DeepMind 是否有新的能力接產品訊號補上目前的空缺。
+- **`product-market#0bf76ca8`** — product-market
+  > 觀察台灣本地廣告主對ChatGPT Ads的實際採用情況，以及OpenAI是否公布廣告營收數字；同時留意GPT-6 Astra客戶案例是否恢復先前的週更節奏，或這一輪的停頓只是單週波動。
 
 - **`capital-evolution#23cd6733`** — capital-evolution
   > 留意是否有新的估值、募資或併購訊號進來，補上這一輪缺席的資本規模動態；同時觀察 Hugging Face 收攏開源框架維護者的模式是否有具體整合成果，例如 oMLX／MLX 工具鏈是否被收進 Transformers 或 Hub。
@@ -39,10 +39,10 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`agent-refactor#18147ff3`** — agent-refactor
   > 觀察 NVIDIA 這套安全需求、管控、負責人、證據框架是否轉成具體工具或標準規格，以及 Isaac ROS 5.0 的實際開發者採用度；同時持續追蹤 Agents API 定價公布後的採用情況、Devin 自我測試的第三方驗證數字，看兩條路線之後是否開始互相引用。
 
-- **`global-map#ababe055`** — global-map
-  > 觀察 OpenAI 的全球標準倡議是否有具體內容或合作對象公布、烏克蘭政府使用 Daybreak 的實際成效、Grab 培訓計畫的完訓人數；同時留意 NVIDIA 埃及與新加坡這兩場活動是否有更完整的報導補上具體參與者與展示項目，以及澳洲監理機關對青少年安全藍圖的回應進度。
+- **`global-map#d825dfdf`** — global-map
+  > 觀察後續是否有具體政策文件、多邊協議、或聯合國層級的AI治理提案跟進，讓這次露出從表態變成可查證的政策動作；沿用上一輪對烏克蘭Daybreak成效與Grab完訓人數的觀察。
 
-## 事件層（334）
+## 事件層（340）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1040,8 +1040,26 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-23-5829b3#2ad1ebbc`** — evt-2026-09-23-5829b3
   > 觀察 Warp／MjWarp 這套工具鏈是否被具體的機器人研究團隊採用，以及是否有效能對比數據公布。
 
+- **`evt-2026-09-23-6c7654#6c9c8fdd`** — evt-2026-09-23-6c7654
+  > 後續是否有具體政策文件、多邊協議，或聯合國層級的AI治理提案跟進。
+
 - **`evt-2026-09-23-785e65#a8729a96`** — evt-2026-09-23-785e65
   > 觀察「GO Forward with AI」計畫後續是否公布實際完訓人數或使用者的技能提升成效。
 
 - **`evt-2026-09-23-825560#7a971df2`** — evt-2026-09-23-825560
   > 觀察是否有同行評審的論文、其他科學媒體的獨立報導，或 Anthropic 後續公布更多技術細節，藉此確認這個發現的驗證程度。
+
+- **`evt-2026-09-23-e55722#50586839`** — evt-2026-09-23-e55722
+  > 台灣本地廣告主的實際採用情況，以及OpenAI是否公布廣告營收數字。
+
+- **`evt-2026-09-23-fec20b#7ffedfab`** — evt-2026-09-23-fec20b
+  > 基準是否開源、是否有其他實驗室的模型被拿上去比較評分。
+
+- **`evt-2026-09-24-d80197#e2cc2152`** — evt-2026-09-24-d80197
+  > 資料集是否公開釋出、規模多大，以及是否已有機構用它做出實際研究成果。
+
+- **`evt-2026-09-24-e54c41#c6d0c599`** — evt-2026-09-24-e54c41
+  > 是否釋出加速幅度的基準數據、模型權重是否開源可驗證。
+
+- **`evt-2026-09-24-eab1f3#33d7ab34`** — evt-2026-09-24-eab1f3
+  > GeForce NOW後續是否持續維持3A新作首發雲端同步的節奏。
