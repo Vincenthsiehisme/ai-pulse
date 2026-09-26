@@ -114,8 +114,17 @@ routine 是照這份文件寫的——於是「改完碼要跑的測試」這句
 它可以從 diff 反推哪些測試會被波及：
 
 ```bash
-{ git diff --name-only "$(git merge-base origin/main HEAD)"; git ls-files --others --exclude-standard; } | sort -u | codegraph affected --stdin --quiet --filter "scripts/*test*.py"
+base=$(git merge-base origin/main HEAD) || { echo "merge-base 失敗：origin/main 不存在或與 HEAD 無共同祖先" >&2; exit 1; }
+tracked=$(git diff --name-only "$base") || { echo "git diff 失敗（base=$base）" >&2; exit 1; }
+untracked=$(git ls-files --others --exclude-standard) || { echo "git ls-files 失敗" >&2; exit 1; }
+changed=$(printf '%s\n%s\n' "$tracked" "$untracked" | sort -u | sed '/^$/d')
+[ -n "$changed" ] || { echo "變更清單是空的（base=$base）：先確認 diff 基準，不要拿空清單去餵 affected" >&2; exit 1; }
+printf '%s\n' "$changed" | codegraph affected --stdin --quiet --filter "scripts/*test*.py"
 ```
+
+**每一步各自驗證，不合成一條管線。** 2026-09-25 以前這裡是 `{ git diff …; git ls-files …; } | sort -u | codegraph affected …`
+一行：`origin/main` 不存在時 `merge-base` 失敗，`git diff` 拿到空字串當基準，整條只把 untracked 檔餵給
+`affected`，照樣 exit 0。又是「工具跑了、沒報錯、給一個縮水的答案」。
 
 **diff 的基準是 `origin/main` 的 merge-base，不是 `HEAD`。** `git diff --name-only HEAD` 比的是
 工作樹對 HEAD：一 commit 就空了，已提交還沒 merge 的改動全部不在清單裡，untracked 的新檔
