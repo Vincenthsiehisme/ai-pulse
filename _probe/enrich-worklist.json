@@ -1,8 +1,8 @@
 [
   {
-    "id": "evt-2026-09-23-6c7654",
-    "path": "evt-2026-09-23-6c7654.md",
-    "title": "Sam Altman’s remarks at the United Nations Security Council",
+    "id": "evt-2026-09-25-b5edd0",
+    "path": "evt-2026-09-25-b5edd0.md",
+    "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -11,159 +11,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/sam-altman-un-security-council-remarks",
-        "title": "Sam Altman’s remarks at the United Nations Security Council",
-        "summary": "OpenAI CEO Sam Altman discusses AI safety, human control, and international cooperation in remarks to the United Nations Security Council.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-e55722",
-    "path": "evt-2026-09-23-e55722.md",
-    "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/chatgpt-ads-expands-southeast-asia-taiwan",
-        "title": "ChatGPT Ads expands to Southeast Asia and Taiwan",
-        "summary": "ChatGPT Ads is expanding to Southeast Asia and Taiwan, giving eligible businesses new ways to reach people across more than 60 countries.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-23-fec20b",
-    "path": "evt-2026-09-23-fec20b.md",
-    "title": "Introducing MentalHealthBench",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/introducing-mentalhealthbench",
-        "title": "Introducing MentalHealthBench",
-        "summary": "MentalHealthBench is an expert-informed benchmark for evaluating helpful and safe AI responses across realistic mental health conversations.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-24-d80197",
-    "path": "evt-2026-09-24-d80197.md",
-    "title": "How Open Science Can Help Researchers Prepare for the Next Pandemic",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/open-protein-dataset/",
-        "title": "How Open Science Can Help Researchers Prepare for the Next Pandemic",
-        "summary": "When COVID-19 emerged, scientists had a crucial advantage: Decades of prior research on coronaviruses meant they understood the virus’ key proteins well enough to design vaccines in record time. The next pandemic may not offer the same head start.  To help improve the odds, NVIDIA has joined a coali",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-24-e54c41",
-    "path": "evt-2026-09-24-e54c41.md",
-    "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/LiquidAI/lfm2-5-vl-dspark",
-        "title": "Accelerating vision-language models with LFM2.5-VL-DSpark",
-        "summary": "A Blog post by Liquid AI on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-24-eab1f3",
-    "path": "evt-2026-09-24-eab1f3.md",
-    "title": "Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-control-resonant/",
-        "title": "Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW",
-        "summary": "A warped Manhattan is waiting in the cloud this week. Remedy Entertainment’s CONTROL Resonant brings Dylan Faden’s extraordinary abilities and a paranatural crisis to GeForce NOW at launch. With the release comes the final days of the CONTROL Resonant Ultimate Membership Bundle. Purchase a 12-month ",
+        "url": "https://openai.com/index/proaction",
+        "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
+        "summary": "With Codex, GPT-Live-1, and GPT-6 Astra, Proaction builds, operates, and sells modern fleet management faster.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"

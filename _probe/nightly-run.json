@@ -1,162 +1,147 @@
 {
-  "date": "2026-09-25",
-  "started_at": "2026-09-25 19:09Z",
-  "finished": true,
+  "date": "2026-09-26",
+  "started_at": "2026-09-26 19:09Z",
+  "finished": false,
   "stages": [
     {
       "id": "align-main",
       "status": "ok",
       "note": "已在 `main`，根目錄沒有殘留的敘述產物",
-      "at": "2026-09-25 19:09Z"
+      "at": "2026-09-26 19:09Z"
     },
     {
       "id": "precheck",
-      "status": "noted",
-      "note": "**今晚由潤稿端補跑抓取**（Actions 那班還沒跑到或誤點）",
-      "at": "2026-09-25 19:12Z",
-      "full_output": "$ /usr/local/bin/python3 scripts/pulse-robots-recheck.py --stale-days 7 --apply --revive → rc=0\n$ /usr/local/bin/python3 scripts/pulse-probe.py → rc=0\n$ /usr/local/bin/python3 scripts/pulse-score.py → rc=0\n$ /usr/local/bin/python3 scripts/pulse-cluster.py → rc=0"
+      "status": "ok",
+      "note": "今日 corpus 已就緒（_corpus/2026-09-26）",
+      "at": "2026-09-26 19:09Z"
     },
     {
       "id": "enrich-prep",
       "status": "ok",
-      "note": "pulse-enrich-prep  待 enrich=6  已 enrich 跳過=41",
-      "at": "2026-09-25 19:12Z"
+      "note": "pulse-enrich-prep  待 enrich=1  已 enrich 跳過=41",
+      "at": "2026-09-26 19:09Z"
     },
     {
       "id": "enrich-write",
       "status": "ok",
-      "note": "收到 enrich-result.json（6 筆，清單 6 筆）",
-      "at": "2026-09-25 19:13Z",
+      "note": "收到 enrich-result.json（1 筆，清單 1 筆）",
+      "at": "2026-09-26 19:10Z",
       "worklist": {
         "path": "_probe/enrich-worklist.json",
-        "count": 6,
-        "mtime": 1790363540
+        "count": 1,
+        "mtime": 1790449769
       }
     },
     {
       "id": "enrich-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-25 19:13Z"
+      "at": "2026-09-26 19:10Z"
     },
     {
       "id": "gate",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-25 19:13Z"
+      "at": "2026-09-26 19:10Z"
     },
     {
       "id": "dashboard",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-25 19:13Z"
+      "at": "2026-09-26 19:10Z"
     },
     {
       "id": "digest-prep",
       "status": "ok",
-      "note": "pulse-digest-prep  2026-09-25  mode=normal  素材=6 則  配對=15 組",
-      "at": "2026-09-25 19:13Z"
+      "note": "pulse-digest-prep  2026-09-26  mode=normal  素材=1 則  配對=0 組",
+      "at": "2026-09-26 19:10Z"
     },
     {
       "id": "digest-write",
       "status": "ok",
-      "note": "收到 digest.json（素材 6 則）",
-      "at": "2026-09-25 19:15Z",
+      "note": "收到 digest.json（素材 1 則）",
+      "at": "2026-09-26 19:11Z",
       "worklist": {
         "path": "_probe/digest-worklist.json",
-        "count": 6,
-        "mtime": 1790363637
+        "count": 1,
+        "mtime": 1790449846
       }
     },
     {
       "id": "digest-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-25 19:15Z"
+      "at": "2026-09-26 19:11Z"
     },
     {
       "id": "digest-gate",
       "status": "ok",
-      "note": "pulse-digest-gate  draft=39  reviewed=0  rejected=0  共 39 份  → _dashboards/digests.md",
-      "at": "2026-09-25 19:15Z"
+      "note": "pulse-digest-gate  draft=40  reviewed=0  rejected=0  共 40 份  → _dashboards/digests.md",
+      "at": "2026-09-26 19:11Z"
     },
     {
       "id": "narrative-prep",
       "status": "ok",
-      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=3",
-      "at": "2026-09-25 19:15Z"
+      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=1",
+      "at": "2026-09-26 19:11Z"
     },
     {
       "id": "narrative-write",
       "status": "ok",
-      "note": "收到 narrative-result.json（3 筆，清單 3 筆）",
-      "at": "2026-09-25 19:16Z",
+      "note": "收到 narrative-result.json（1 筆，清單 1 筆）",
+      "at": "2026-09-26 19:12Z",
       "worklist": {
         "path": "_probe/narrative-worklist.json",
-        "count": 3,
-        "mtime": 1790363718
+        "count": 1,
+        "mtime": 1790449919
       }
     },
     {
       "id": "narrative-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-25 19:16Z"
+      "at": "2026-09-26 19:12Z"
     },
     {
       "id": "github-desc-write",
       "status": "ok",
-      "note": "收到 github-desc-result.json（2 筆，清單 2 筆）",
-      "at": "2026-09-25 19:17Z",
+      "note": "收到 github-desc-result.json（3 筆，清單 3 筆）",
+      "at": "2026-09-26 19:13Z",
       "worklist": {
         "path": "_probe/github-desc-worklist.json",
-        "count": 2,
-        "mtime": 1790363346
+        "count": 3,
+        "mtime": 1790449736
       }
     },
     {
       "id": "github-desc-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-25 19:17Z"
+      "at": "2026-09-26 19:13Z"
     },
     {
       "id": "title-write",
       "status": "ok",
-      "note": "收到 title-zh-result.json（15 筆，清單 15 筆）",
-      "at": "2026-09-25 19:17Z",
+      "note": "收到 title-zh-result.json（2 筆，清單 2 筆）",
+      "at": "2026-09-26 19:13Z",
       "worklist": {
         "path": "_probe/title-zh-worklist.json",
-        "count": 15,
-        "mtime": 1790363346
+        "count": 2,
+        "mtime": 1790449736
       }
     },
     {
       "id": "title-apply",
-      "status": "noted",
-      "note": "rc=1",
-      "at": "2026-09-25 19:17Z",
-      "full_output": "pulse-title-apply  收到 15 條譯文\n\n  [新增] evt-2026-09-23-093b3a\n         「OpenAI Academy屆滿兩年」\n         原文：Two years of OpenAI Academy\n  [新增] evt-2026-09-23-101c8c\n         「用安全伺服器端記憶體推進Private AI Compute」\n         原文：Advancing Private AI Compute with secure, server-side memory\n  [新增] evt-2026-09-23-114238\n         「新加坡AI Day：NVIDIA與夥伴展示東南亞AI進展」\n         原文：At AI Day Singapore, NVIDIA and Partners Showcase AI Advancements Across Southeast Asia\n  [新增] evt-2026-09-23-3d4678\n         「OpenAI將網路防禦存取權開放給烏克蘭民防」\n         原文：OpenAI extends cyber access to Ukraine for civilian defense\n  [退件] evt-2026-09-23-407127\n         含 AI 腔套話：打造\n         「Ringg用OpenAI打造的AI agent解決65%客服來電」\n  [新增] evt-2026-09-23-55bdc5\n         「invideo用GPT-6 Astra把調色效率提升三倍」\n         原文：How invideo improves color grading 3x with GPT‑6 Astra\n  [新增] evt-2026-09-23-5829b3\n         「用NVIDIA Warp與MjWarp加速機器人模擬與學習」\n         原文：How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows\n  [新增] evt-2026-09-23-6c7654\n         「Sam Altman在聯合國安理會的談話」\n         原文：Sam Altman’s remarks at the United Nations Security Council\n  [新增] evt-2026-09-23-785e65\n         「Grab與OpenAI把實用AI技能帶進東南亞」\n         原文：Grab and OpenAI bring practical AI skills to Southeast Asia\n  [新增] evt-2026-09-23-825560\n         「Claude發現新型酵素系統」\n         原文：Claude Discovers Novel Enzyme System\n  [新增] evt-2026-09-23-e55722\n         「ChatGPT Ads擴大至東南亞與台灣」\n         原文：ChatGPT Ads expands to Southeast Asia and Taiwan\n  [新增] evt-2026-09-23-fec20b\n         「推出MentalHealthBench」\n         原文：Introducing MentalHealthBench\n  [新增] evt-2026-09-24-d80197\n         「開放科學如何幫研究者為下一場疫情做準備」\n         原文：How Open Science Can Help Researchers Prepare for the Next Pandemic\n  [新增] evt-2026-09-24-e54c41\n         「用LFM2.5-VL-DSpark加速視覺語言模型」\n         原文：Accelerating vision-language models with LFM2.5-VL-DSpark\n  [新增] evt-2026-09-24-eab1f3\n         「《CONTROL Resonant》登陸GeForce NOW」\n         原文：Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW\n\n  寫入 14 則，退件 1 則\n"
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-26 19:13Z"
     },
     {
       "id": "render",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-25 19:17Z"
-    },
-    {
-      "id": "commit",
-      "status": "ok",
-      "note": "commit aa58bf0 已推上 origin",
-      "at": "2026-09-25 19:17Z"
-    },
-    {
-      "id": "monitor",
-      "status": "ok",
-      "note": "rc=0",
-      "at": "2026-09-25 19:17Z",
-      "full_output": "pulse-monitor  2026-09-25\n  最後一次 probe: 2026-09-25（0 天前）\n  已上線=360  review=41（待處理=26／設計上擋著=15）  未 enrich=0  待處理最久=57 天（進庫天數）\n  人工判定不追=2（理由見 _dashboards/dropped.md）\n  沒收的修碼分支：0 支\n  每日精選：最後一篇 2026-09-25（0 天前）\n  潤稿鏈缺日：**量不到**——這是淺 checkout（`fetch-depth: 1`），看不到 commit 歷史。`data-refresh.yml` 要設 `fetch-depth: 0`\n  每日精選缺日：窗內 1 天沒有缺口\n  ── blocker 分佈 ──\n     20  thin_research_analysis\n     11  stale_backfill\n      6  generic_entity\n      4  thin_by_policy\n      1  thin_fact\n  ── 待處理卡最久的 5 則 ──\n    [57d/已enrich] Gemini Robotics 2 brings whole body intelligence to robots\n           thin_research_analysis\n    [57d/已enrich] GPU Management: Why Idle GPUs Are the New Grounded Aircraft\n           generic_entity\n    [56d/已enrich] Investigating Incidents Cybersecurity Evals\n           thin_research_analysis\n    [55d/已enrich] Ten advances in mathematics and theoretical computer science\n           thin_fact,thin_research_analysis\n    [45d/已enrich] Thinking of ACE? We Can Do It with Fewer Tokens\n           thin_research_analysis\n  ── 覆蓋範圍（近 30 天，實有語料 31 天）──\n     必盯實體                 來源   看見   事件   上線  最後看見\n     OpenAI                2 1181   58   56  1d 前\n     Anthropic             1  643   82   80  0d 前\n     Google DeepMind       1  178   10    9  1d 前\n     Google                1  432   12   11  0d 前\n     Meta                  1  246    0    0  1d 前\n     Microsoft             1  225    2    2  0d 前\n     NVIDIA                1  537   29   29  0d 前\n     Hugging Face          1  217   10    9  1d 前\n     xAI                   1   12    7    7  17d 前\n     Mistral AI            1    3    0    0  9d 前\n     Alibaba               1    3    0    0  12d 前\n     DeepSeek              0  242    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Safe Superintelligence    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Thinking Machines Lab    0    3    0    0  26d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cohere                0   29    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Perplexity            0   25    1    1  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Anysphere (Cursor)    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cognition             0   17    1    1  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Scale AI              0  238    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Z.ai                  0    3    0    0  28d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Moonshot AI           0    6    0    0  11d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     MiniMax               0   58    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     ByteDance             0   16    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Baidu                 0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Tencent               0    7    0    0  20d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AMD                   1   61    0    0  1d 前\n     TSMC                  0    1    0    0  8d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Broadcom              0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Groq                  0   19    0    0  11d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cerebras              0   15    0    0  17d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     CoreWeave             0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AWS                   0   63    0    0  2d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     可跑來源 28 條，其中 6 條本窗口零產出：src-amd-ir, src-gh-openai-codex, src-kol-thezvi, src-media-theregister, src-mistral-news, src-qwen-blog\n     ⚠ 來源已死但每班照樣有貨 3 條：src-kol-karpathy（最新 2026-04-30，落後 148 天，門檻 60）、src-media-venturebeat（最新 2026-08-27，落後 29 天，門檻 14）、src-meta-research（最新 2023-05-17，落後 1227 天，門檻 30）\n     最新一筆 published 量不到：無\n"
+      "at": "2026-09-26 19:13Z"
     }
   ],
-  "updated_at": "2026-09-25 19:17Z"
+  "updated_at": "2026-09-26 19:13Z"
 }

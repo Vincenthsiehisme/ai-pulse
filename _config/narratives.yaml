@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-09-25'
+updated: '2026-09-26'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增兩則，跟上一輪拿數字說話的客戶案例走向不同，這次是既有產品線的擴張動作。OpenAI 09-23宣布ChatGPT Ads服務擴大到東南亞與台灣，服務範圍達60餘國，讓當地企業能透過ChatGPT觸及用戶——是廣告版圖的地理擴張，不是新功能，商業意義大於技術意義。NVIDIA 09-24讓Remedy Entertainment新作《CONTROL Resonant》上市即同步登陸GeForce NOW雲端遊戲，屬於雲端遊戲內容陣容的常態性補強，跟AI能力或產業結構沒有直接關聯。這一輪沒有新的GPT-6 Astra客戶案例補上，上一輪拿數字說話的客戶案例密集度暫時停頓，Google DeepMind能力接產品入口的定位也依然沒有新訊號。
-    next: 觀察台灣本地廣告主對ChatGPT Ads的實際採用情況，以及OpenAI是否公布廣告營收數字；同時留意GPT-6 Astra客戶案例是否恢復先前的週更節奏，或這一輪的停頓只是單週波動。
+    now: 這一輪新增一則：OpenAI 09-25 發布 Proaction 案例，稱這家車隊管理軟體商導入 Codex、GPT-Live-1 與 GPT-6 Astra 後業績成長六成、省下 75 小時工時。這算是接回前幾輪『拿數字說話的客戶案例』那條線，但只有一則、只有 OpenAI 自己的說法，還看不出是恢復常態還是單一個案。09-23 的 ChatGPT Ads 東南亞與台灣擴張、09-24 的 NVIDIA GeForce NOW 遊戲上架，這兩則地理擴張與內容補強動作跟本輪主軸沒有直接關聯，狀態不變。Google DeepMind 能力接產品入口的定位這一輪依然沒有新訊號。
+    next: 看下一輪還有沒有新客戶案例接上，判斷 09-25 這則究竟是恢復週更節奏、還是單一個案；同時留意 Proaction 或 OpenAI 是否進一步揭露 60% 與 75 小時這兩個數字的計算方式。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？

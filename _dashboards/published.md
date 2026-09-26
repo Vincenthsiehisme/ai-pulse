@@ -1,6 +1,10 @@
-# 已發布事件（360）
+# 已發布事件（361）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-25
+- **[[Events/evt-2026-09-25-b5edd0|Proaction boosts sales 60% and saves 75+ hours with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  Proaction 用 Codex 等工具做車隊管理，OpenAI 稱業績成長 60%。
 
 ## 2026-09-24
 - **[[Events/evt-2026-09-24-d80197|How Open Science Can Help Researchers Prepare for the Next Pandemic]]** — NVIDIA · research · conf 73 · heat 未量測

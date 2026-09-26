@@ -80,9 +80,9 @@
     "zh": "用 Rust 寫成、跑在 Object Storage 上的 OLTP 圖形資料庫，內建向量與全文搜尋"
   },
   "Human-Agent-Society/reef": {
-    "at": "2026-09-18T19:12:51+00:00",
-    "src_hash": "03449112b1b8",
-    "zh": "讓 agent 能持續學習、自我改進的基礎設施"
+    "at": "2026-09-26T19:13:11+00:00",
+    "src_hash": "c88311d60fd8",
+    "zh": "讓 agent 能持續自我改進的基礎設施"
   },
   "JuliusBrussee/caveman": {
     "at": "2026-09-17T19:14:47+00:00",
@@ -434,6 +434,11 @@
     "src_hash": "a8a230ac5d63",
     "zh": "開源 AI agent 框架，統一調度 Claude Code、Codex 等，換 harness 不重寫"
   },
+  "open-slide/open-slide": {
+    "at": "2026-09-26T19:13:11+00:00",
+    "src_hash": "e3d27a2e28bd",
+    "zh": "給 agent 用的簡報框架"
+  },
   "open-webui/open-webui": {
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "de16d13e0c60",
@@ -525,9 +530,9 @@
     "zh": "開源推論伺服器與正式環境叢集，涵蓋 agent 需要的所有模型"
   },
   "t8y2/dbx": {
-    "at": "2026-09-21T19:13:18+00:00",
-    "src_hash": "21979b7050e2",
-    "zh": "25 MB 輕量跨平台資料庫客戶端，支援 90+ 種資料庫，內建 AI、MCP Server 與 CLI"
+    "at": "2026-09-26T19:13:11+00:00",
+    "src_hash": "7db02f43c54c",
+    "zh": "25 MB 輕量跨平台資料庫客戶端，支援 100+ 種資料庫，內建 AI 助手、MCP Server 與 CLI"
   },
   "thedotmack/claude-mem": {
     "at": "2026-08-07T01:27:45+00:00",
