@@ -41,10 +41,12 @@
 | `_probe/source-health.json` | source-health 的連續計數與 `degraded_by` | 機器降級的記號掉了 ⇒ 機器不再撤銷自己做過的降級 |
 | `_corpus/<day>/<id>.jsonl` | 同日下一班的 `load_day_flags`（sticky 欄位）、monitor 的 `last_success` | 當日快照缺一截，比率與 backfill 判定都跟著錯 |
 | `_dashboards/health.md` | 人 | 死人開關自己壞掉 |
+| `_probe/<day>/report.md` | `lib/corpus.run_days()`（死人開關的「這班跑過了」）、夜班的 `precheck`（「Actions 那班收工了」） | 截斷的報告照樣存在，被當成「這班跑完了」：死人開關不叫，夜班在 score／cluster 還沒跑完時就開工 |
 
 反過來，`dist/` 底下那些 render 產物**不在**這條規則裡：它們每班全量重生、
 不被任何後續步驟讀回、而且 `dist/` 根本沒進版控。壞了下一班就好了。
-`_probe/<day>/report.md` 同理，那是給人看的一次性報告。
+（`_probe/<day>/report.md` 原本也寫在這裡，理由是「給人看的一次性報告」。它的存在早就是
+`run_days()` 的判準，2026-09-24 又成了夜班 `precheck` 的判準，於是移進上表。）
 
 ## 實作
 

@@ -648,6 +648,12 @@ Use add_repo to request access.
 
 ## `兩條夜間鏈只靠時鐘耦合，而餘裕沒有人在量`
 
+> **2026-09-24 修法進行中。** 雲端排程 09-22、09-23 兩晚比 Actions 早到、自己補跑抓取，
+> Actions 中途推上同一天的語料，夜班 push 被拒。修法兩半：`precheck` 不再補抓，語料沒到就停
+> （`references/nightly-driver.md`〈precheck：語料沒到就停，不補抓〉）；雲端排程改由 Actions
+> 收工的 `workflow_run` 事件觸發，不再靠時鐘。後一半在 repo 外（claude.ai routine 設定），
+> 兩半都落地、真跑過一晚之後刪掉這一條。下面的量測留著當背景。
+
 `data-refresh.yml`（cron `0 16 * * *`，台北 00:00）與半夜潤稿那條 Cowork 排程
 （`0 19 * * *`，台北 03:00）之間**沒有任何交握**，只有三小時的時鐘間隔。
 `scripts/enrich-runbook.md` 步驟 0 的前置檢查是唯一的防線，而它防的是**後果**
