@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-09-25'
+generated_day: '2026-09-26'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**60 天**（2026-07-24 … 2026-09-25），去重後 **4065** 列。
+語料範圍：**61 天**（2026-07-24 … 2026-09-26），去重後 **4106** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,9 +17,9 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 93 | 5 |
+| Apple | 94 | 5 |
 | September | 52 | 7 |
-| LLMs | 46 | 13 |
+| LLMs | 47 | 13 |
 | LLM | 44 | 11 |
 | Amazon | 43 | 5 |
 | They | 42 | 9 |
@@ -36,17 +36,17 @@ generator: scripts/pulse-dictionary-gaps.py
 | August | 27 | 8 |
 | Research | 26 | 6 |
 | Astra | 26 | 5 |
+| Muse | 26 | 5 |
 | June | 25 | 7 |
-| Muse | 25 | 5 |
+| CEO | 24 | 5 |
 | Android | 24 | 4 |
 | China | 23 | 7 |
 | Last | 23 | 6 |
-| CEO | 23 | 5 |
 | Pixel | 22 | 3 |
+| After | 22 | 6 |
 | San Francisco | 21 | 9 |
 | With | 21 | 10 |
 | Linux | 21 | 5 |
-| After | 21 | 6 |
 | Building | 20 | 10 |
 | Samsung | 20 | 5 |
 | Wednesday | 19 | 4 |
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 112 | src-hn-frontpage |
+| Show HN | 114 | src-hn-frontpage |
 | The Download | 48 | src-media-mit-techreview |
 | TechCrunch Disrupt | 45 | src-media-techcrunch |
 | Tags | 29 | src-kol-simonwillison |
@@ -98,9 +98,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | MIT Technology Review | 14 | src-media-mit-techreview |
 | Register | 13 | src-media-techcrunch |
 | Opt | 12 | src-media-theverge |
+| Ask HN | 12 | src-hn-frontpage |
 | The Verge | 12 | src-media-theverge |
 | GeForce NOW | 11 | src-nvidia-blog |
-| Ask HN | 11 | src-hn-frontpage |
 | YC S26 | 11 | src-hn-frontpage |
 | Best Buy | 11 | src-media-theverge |
 | Is Hiring | 11 | src-hn-frontpage |

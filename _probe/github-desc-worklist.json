@@ -11,8 +11,37 @@
       "llm",
       "llm-training"
     ],
-    "stars": 5148,
+    "stars": 5690,
     "url": "https://github.com/Human-Agent-Society/reef",
     "stale_zh": "讓 agent 能持續學習、自我改進的基礎設施"
+  },
+  {
+    "full_name": "open-slide/open-slide",
+    "desc": "A slide framework built for agents.",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "react",
+      "slides"
+    ],
+    "stars": 7697,
+    "url": "https://github.com/open-slide/open-slide",
+    "stale_zh": null
+  },
+  {
+    "full_name": "t8y2/dbx",
+    "desc": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 100+ 数据库，提供桌面端、Docker、CLI、内置 AI 助手和 MCP。",
+    "language": "Rust",
+    "topics": [
+      "ai",
+      "cli",
+      "clickhouse",
+      "database",
+      "database-client",
+      "database-management"
+    ],
+    "stars": 20773,
+    "url": "https://github.com/t8y2/dbx",
+    "stale_zh": "25 MB 輕量跨平台資料庫客戶端，支援 90+ 種資料庫，內建 AI、MCP Server 與 CLI"
   }
 ]

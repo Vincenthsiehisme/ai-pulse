@@ -16,7 +16,7 @@ license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, s
 endpoint: "https://x.ai/sitemap.xml"
 robots_checked_day: "2026-09-24"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-09-25"
+last_observed_day: "2026-09-26"
 items_observed: 62
 events_bound: 16
 events_published: 15

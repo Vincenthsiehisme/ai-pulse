@@ -3,7 +3,7 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-25'
+generated_day: '2026-09-26'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
