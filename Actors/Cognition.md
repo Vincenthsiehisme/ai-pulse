@@ -3,7 +3,7 @@ id: actor-cognition
 kind: company
 in_dictionary: true
 aliases: ["Cognition AI", "Cognition Labs"]
-generated_day: '2026-09-26'
+generated_day: '2026-09-27'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

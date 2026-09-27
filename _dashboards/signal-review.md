@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-26"
+generated_day: "2026-09-27"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-26"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **346** 則／已裁決 **26** 則。
+待回答 **347** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -30,8 +30,8 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`model-research#f33849e8`** — model-research
   > 觀察MentalHealthBench是否開源、是否有其他實驗室的模型被拿上去比較評分；NVIDIA的開放蛋白質資料集是否公開釋出、規模多大；Liquid AI是否補上LFM2.5-VL-DSpark的加速幅度基準數據。若接下來幾輪持續是這類訊號而沒有新模型能力躍升，這條主線的既有主軸描述可能真的需要更新。
 
-- **`product-market#0bf76ca8`** — product-market
-  > 觀察台灣本地廣告主對ChatGPT Ads的實際採用情況，以及OpenAI是否公布廣告營收數字；同時留意GPT-6 Astra客戶案例是否恢復先前的週更節奏，或這一輪的停頓只是單週波動。
+- **`product-market#9d1c326d`** — product-market
+  > 看下一輪還有沒有新客戶案例接上，判斷 09-25 這則究竟是恢復週更節奏、還是單一個案；同時留意 Proaction 或 OpenAI 是否進一步揭露 60% 與 75 小時這兩個數字的計算方式。
 
 - **`capital-evolution#23cd6733`** — capital-evolution
   > 留意是否有新的估值、募資或併購訊號進來，補上這一輪缺席的資本規模動態；同時觀察 Hugging Face 收攏開源框架維護者的模式是否有具體整合成果，例如 oMLX／MLX 工具鏈是否被收進 Transformers 或 Hub。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#d825dfdf`** — global-map
   > 觀察後續是否有具體政策文件、多邊協議、或聯合國層級的AI治理提案跟進，讓這次露出從表態變成可查證的政策動作；沿用上一輪對烏克蘭Daybreak成效與Grab完訓人數的觀察。
 
-## 事件層（340）
+## 事件層（341）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1063,3 +1063,6 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-09-24-eab1f3#33d7ab34`** — evt-2026-09-24-eab1f3
   > GeForce NOW後續是否持續維持3A新作首發雲端同步的節奏。
+
+- **`evt-2026-09-25-b5edd0#ded73fdd`** — evt-2026-09-25-b5edd0
+  > 看 Proaction 或其他媒體是否進一步揭露計算方法或財報佐證，或是否有其他客戶案例接續佐證 Codex 在同類場景的效果。
