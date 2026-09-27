@@ -1225,7 +1225,9 @@ def write_report(vault: Path, day: str, rows: list[dict], stats: list[dict],
 
     path = vault / "_probe" / day / "report.md"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(lines), encoding="utf-8")
+    # 原子寫：它的「存在」被讀回去當事實（run_days 的跑過班、夜班 precheck 的
+    # Actions 收工了），截斷的報告會偽裝成跑完。見 references/atomic-writes.md。
+    atomic_write_text(path, "\n".join(lines))
     return path
 
 

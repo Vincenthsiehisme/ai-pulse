@@ -5071,9 +5071,10 @@ acase("atomicwrite：暫存檔與目標同目錄（跨檔案系統的 rename 不
       [d[0] == d[1] for d in _seen_dirs], [True])
 _shutil_aw.rmtree(_awdir, ignore_errors=True)
 
-# 回歸釘：這六個檔是「下一班會讀回來」的狀態檔，任何一個退回直接寫都要紅。
+# 回歸釘：這七個檔是「下一班會讀回來」的狀態檔，任何一個退回直接寫都要紅。
 # 判準寫在 references/atomic-writes.md：不是重不重要，是壞掉之後會不會被當成
-# 事實讀回去。dist/ 與 _probe/<day>/report.md 刻意不在此列。
+# 事實讀回去。dist/ 刻意不在此列。_probe/<day>/report.md 2026-09-24 移進來：
+# 它的存在是 run_days() 與夜班 precheck 的判準。
 _aw_pins = [
     ("pulse-source-health.py", "atomic_write_with(spath", "_config/sources.yaml"),
     ("pulse-source-health.py", "atomic_write_text(hpath", "_probe/source-health.json"),
@@ -5081,6 +5082,7 @@ _aw_pins = [
     ("pulse-probe.py", "atomic_write_text(state_path", "_probe/state.json"),
     ("pulse-probe.py", "atomic_write_text(seen_path", "_probe/seen.json"),
     ("pulse-probe.py", "atomic_write_text(hb,", "heartbeat.json"),
+    ("pulse-probe.py", 'atomic_write_text(path, "\\n".join(lines))', "_probe/<day>/report.md"),
     ("pulse-monitor.py", "atomic_write_text(p, body)", "_dashboards/health.md"),
 ]
 for _fn, _needle, _target in _aw_pins:
@@ -6239,23 +6241,64 @@ acase("夜班：備援分支真的推上遠端了——fetch 回來親眼確認�
       "（這條鏈過去的失效模式就是「自己以為推上去了」）",
       "nightly/2026-09-18-" in _remote_branches, True)
 
-acase("夜班：補跑抓取時 probe 回 4 要停住，不是續跑"
-      "（4 ＝ control probe 失敗＝機器連不出去，本班不該抓、不該寫、不該 commit。"
-      "runbook 那句 `|| echo 續跑` 是在 control probe 存在之前寫的，照抄過來就等於"
-      "把「今晚一筆新資料都沒有」容忍掉，然後整條鏈跑完、commit、摘要全綠——"
-      "2026-09-15 第一次真實執行當場踩到）",
-      [_nl.catchup_fatal(4, (2, 3, 4)), _nl.catchup_fatal(1, (2, 3, 4)),
-       _nl.catchup_fatal(0, (2, 3, 4))],
-      [True, False, False])
-acase("夜班：robots 重驗失敗照樣往下（它不擋抓取），score 與 cluster 任何非零都停",
-      [_nl.catchup_fatal(1, ()), _nl.catchup_fatal(1, None), _nl.catchup_fatal(0, None)],
-      [False, True, False])
-acase("夜班：probe 的不容忍清單真的含 4（表寫對了，接線也要對）",
-      [c for cmd, c in _nl.CATCHUP_STEPS if "pulse-probe.py" in " ".join(cmd)],
-      [(2, 3, 4)])
-acase("夜班：每個不容忍的離開碼都說得出它是什麼"
-      "（只印 rc=4 的話，人還要自己去翻 pulse-probe.py 才知道那是網路斷）",
-      sorted(_nl.CATCHUP_CODES), [2, 3, 4])
+# ── precheck：語料沒到就停，不補抓（2026-09-24）────────────────────────
+# 補跑抓取是本機時代的後路，本機網路全通。搬到雲端排程之後，09-23 那次補跑 33 條
+# 來源只有 2 條回 200，而且跟 Actions 抓的是同一天：撞到 Actions 就 push 被拒
+# （09-22、09-23 兩晚都落到 nightly/ 備援分支），沒撞到就把殘缺語料推上 main
+# （09-17、09-21 各 10 則，同一天 Actions 438／458 則）。規格 references/nightly-driver.md
+# 〈precheck：語料沒到就停，不補抓〉。
+_pc_calls = []
+_pc_run_orig = _nl.run
+_nl.run = lambda vault, cmd: (_pc_calls.append(cmd), (0, ""))[1]
+try:
+    with tempfile.TemporaryDirectory() as _pcd:
+        _pcv = Path(_pcd)
+        _pc_missing = _nl.do_precheck(_pcv, "2026-09-24")
+        _pc_missing_calls = list(_pc_calls)
+        # 空班：Actions 收工了、整班 304／0 筆，probe 寫了報告但沒建 corpus 目錄。
+        (_pcv / "_probe" / "2026-09-24").mkdir(parents=True)
+        (_pcv / "_probe" / "2026-09-24" / "report.md").write_text("# probe report\n", "utf-8")
+        _pc_empty_day = _nl.do_precheck(_pcv, "2026-09-24")
+        (_pcv / "_corpus" / "2026-09-24").mkdir(parents=True)
+        _pc_ready = _nl.do_precheck(_pcv, "2026-09-24")
+finally:
+    _nl.run = _pc_run_orig
+
+acase("夜班：今日語料沒到就 stop，不是補跑之後 noted"
+      "（補跑在雲端只要走到就是壞的：撞到 Actions 就 push 被拒，沒撞到就推殘缺語料）",
+      _pc_missing[0], "stop")
+acase("夜班：語料沒到時一支子行程都不叫"
+      "（只驗 status 的話，先補跑再回 stop 也會過——那等於照樣把殘缺語料留在工作樹上）",
+      _pc_missing_calls, [])
+acase("夜班：stop 的 note 指名缺的是哪一天的語料（只寫「沒到」的話，人還要自己去算 UTC 日）",
+      "_probe/2026-09-24/report.md" in _pc_missing[1], True)
+acase("夜班：空班（有 probe 報告、沒有 corpus 目錄）照樣 ok"
+      "（整班 304／0 筆時 probe 不建 _corpus/<date>/，拿目錄當證據會把合法的空班當成 Actions 還沒到）",
+      _pc_empty_day[0], "ok")
+acase("夜班：今日語料到了就 ok", _pc_ready[0], "ok")
+acase("夜班：補抓那條後路整個拿掉了，不是留著不接"
+      "（留著的常數與函式，下一個人會以為它還在用、順手又接回去）",
+      [hasattr(_nl, n) for n in ("CATCHUP_STEPS", "CATCHUP_CODES", "catchup_fatal")],
+      [False, False, False])
+
+# precheck stop 之後，同一個 UTC 日再觸發一次要重新判斷，不是被當成做過跳掉。
+# 事件驅動的觸發一晚可能不只一次（Actions 重跑、人手動補觸發），第一次語料還沒到、
+# 第二次到了，第二次必須真的往下走。
+_pc_seen = []
+_pc_pre_orig = _nl.do_precheck
+_nl.do_precheck = lambda vault, d: (_pc_seen.append(d), ("stop", "語料還沒到", ""))[1]
+try:
+    with tempfile.TemporaryDirectory() as _pcd2:
+        _pc_state = {"date": "2026-09-24", "started_at": "x", "finished": False,
+                     "stages": [{"id": "align-main", "status": "ok", "note": "", "at": "x"},
+                                {"id": "precheck", "status": "stop", "note": "", "at": "x"}]}
+        with _cp_ctx.redirect_stderr(io.StringIO()):
+            _pc_rc = _nl.advance(Path(_pcd2), _pc_state, "2026-09-24", True)
+finally:
+    _nl.do_precheck = _pc_pre_orig
+acase("夜班：precheck stop 過的同一天再跑，會重新判斷而不是跳過"
+      "（stop 不在「做過了」那一組裡；語料稍後到了，下一次觸發才接得上）",
+      [_pc_seen, _pc_rc, _pc_state["finished"]], [["2026-09-24"], 2, False])
 acase("夜班：commit 用夜班自己的身份，不吃工作樹的 local config"
       "（本機那份是 ai-pulse-bot，跟 Actions 那班同名，兩條鏈在作者欄上分不出來——"
       "而 night_shift_commit_days() 的其中一個判準正是作者）",
