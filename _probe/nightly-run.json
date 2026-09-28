@@ -1,20 +1,147 @@
 {
-  "date": "2026-09-27",
-  "started_at": "2026-09-27 19:09Z",
+  "date": "2026-09-28",
+  "started_at": "2026-09-28 21:27Z",
   "finished": false,
   "stages": [
     {
       "id": "align-main",
       "status": "ok",
       "note": "已在 `main`，根目錄沒有殘留的敘述產物",
-      "at": "2026-09-27 19:09Z"
+      "at": "2026-09-28 21:27Z"
     },
     {
       "id": "precheck",
-      "status": "stop",
-      "note": "今日語料還沒到（`_probe/2026-09-27/report.md` 不存在）：Actions 那班還沒把語料推上 main，夜班不自己補抓——雲端補抓只連得到少數來源，而且跟Actions 抓同一天，push 必然衝突（2026-09-22、09-23）。先查 data-refresh.yml那一班有沒有跑完、有沒有推上去，再重新觸發夜班（同一個工作樹手動重跑要先`git pull --ff-only`，driver 不替你拉）",
-      "at": "2026-09-27 19:09Z"
+      "status": "ok",
+      "note": "今日 probe 已就緒（_probe/2026-09-28/report.md）",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "enrich-prep",
+      "status": "ok",
+      "note": "pulse-enrich-prep  待 enrich=5  已 enrich 跳過=41",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "enrich-write",
+      "status": "ok",
+      "note": "收到 enrich-result.json（5 筆，清單 5 筆）",
+      "at": "2026-09-28 21:27Z",
+      "worklist": {
+        "path": "_probe/enrich-worklist.json",
+        "count": 5,
+        "mtime": 1790630831
+      }
+    },
+    {
+      "id": "enrich-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "gate",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "dashboard",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "digest-prep",
+      "status": "ok",
+      "note": "pulse-digest-prep  2026-09-28  mode=normal  素材=5 則  配對=10 組",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "digest-write",
+      "status": "ok",
+      "note": "收到 digest.json（素材 5 則）",
+      "at": "2026-09-28 21:27Z",
+      "worklist": {
+        "path": "_probe/digest-worklist.json",
+        "count": 5,
+        "mtime": 1790630861
+      }
+    },
+    {
+      "id": "digest-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "digest-gate",
+      "status": "ok",
+      "note": "pulse-digest-gate  draft=41  reviewed=0  rejected=0  共 41 份  → _dashboards/digests.md",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "narrative-prep",
+      "status": "ok",
+      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=3",
+      "at": "2026-09-28 21:27Z"
+    },
+    {
+      "id": "narrative-write",
+      "status": "ok",
+      "note": "收到 narrative-result.json（3 筆，清單 3 筆）",
+      "at": "2026-09-28 21:28Z",
+      "worklist": {
+        "path": "_probe/narrative-worklist.json",
+        "count": 3,
+        "mtime": 1790630879
+      }
+    },
+    {
+      "id": "narrative-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-28 21:28Z"
+    },
+    {
+      "id": "github-desc-write",
+      "status": "ok",
+      "note": "收到 github-desc-result.json（1 筆，清單 1 筆）",
+      "at": "2026-09-28 21:28Z",
+      "worklist": {
+        "path": "_probe/github-desc-worklist.json",
+        "count": 1,
+        "mtime": 1790630816
+      }
+    },
+    {
+      "id": "github-desc-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-28 21:28Z"
+    },
+    {
+      "id": "title-write",
+      "status": "ok",
+      "note": "收到 title-zh-result.json（5 筆，清單 5 筆）",
+      "at": "2026-09-28 21:28Z",
+      "worklist": {
+        "path": "_probe/title-zh-worklist.json",
+        "count": 5,
+        "mtime": 1790630816
+      }
+    },
+    {
+      "id": "title-apply",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-28 21:28Z"
+    },
+    {
+      "id": "render",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-09-28 21:28Z"
     }
   ],
-  "updated_at": "2026-09-27 19:09Z"
+  "updated_at": "2026-09-28 21:28Z"
 }

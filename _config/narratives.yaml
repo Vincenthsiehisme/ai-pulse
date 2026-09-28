@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-09-26'
+updated: '2026-09-28'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增一則：OpenAI 09-25 發布 Proaction 案例，稱這家車隊管理軟體商導入 Codex、GPT-Live-1 與 GPT-6 Astra 後業績成長六成、省下 75 小時工時。這算是接回前幾輪『拿數字說話的客戶案例』那條線，但只有一則、只有 OpenAI 自己的說法，還看不出是恢復常態還是單一個案。09-23 的 ChatGPT Ads 東南亞與台灣擴張、09-24 的 NVIDIA GeForce NOW 遊戲上架，這兩則地理擴張與內容補強動作跟本輪主軸沒有直接關聯，狀態不變。Google DeepMind 能力接產品入口的定位這一輪依然沒有新訊號。
-    next: 看下一輪還有沒有新客戶案例接上，判斷 09-25 這則究竟是恢復週更節奏、還是單一個案；同時留意 Proaction 或 OpenAI 是否進一步揭露 60% 與 75 小時這兩個數字的計算方式。
+    now: 這一輪新增兩則，都是 OpenAI 官方部落格。Basis 的案例說 GPT-6 Astra 完成一份 50 個分頁的稅務工作簿，速度是 GPT-5.6 Sol 的兩倍，這是繼 09-25 Proaction 之後又一則附數字的客戶案例，兩則連續出現，比上一輪「只有一則」的狀況更像是恢復週更節奏，但兩則都只有 OpenAI 自己的說法，Basis 這則沒有任務內容與準確率。另一則是 Codex Originals 的使用者故事徵集表單，沒有能力或價格資訊，屬於社群經營。Google DeepMind 能力接產品入口的定位這一輪依然沒有新訊號。
+    next: 看還有沒有新客戶案例接上，確認這是常態節奏還是短期集中；留意 Basis、Proaction 或 OpenAI 是否揭露數字的計算方式與比較基準；Codex Originals 下一批公開案例有沒有帶可驗證的使用量或成果。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -50,8 +50,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 這一輪新增兩則，規模跟上一輪的 Series F 募資、大額基礎設施投資完全不同量級。NVIDIA 09-23 刊出一篇驗證工程師 Sakeena Fiza 的人物專訪，性質是雇主品牌與企業文化內容；Hugging Face 09-22 則是 oMLX 創建者暨維護者 Jun Kim 加入公司、支援 MLX 社群，延續 Hugging Face 近幾個月持續延攬各開源框架關鍵維護者的模式。兩則都屬於人事與組織經營層級的小訊號，跟上一輪資本到位（估值墊高）與組織擴編同步發生的觀察比起來，這一輪沒有新的資本規模訊號進來，只有零星的人事動態。
-    next: 留意是否有新的估值、募資或併購訊號進來，補上這一輪缺席的資本規模動態；同時觀察 Hugging Face 收攏開源框架維護者的模式是否有具體整合成果，例如 oMLX／MLX 工具鏈是否被收進 Transformers 或 Hub。
+    now: 這一輪新增兩則。OpenAI 擴大 Lenfest AI Collaborative and Fellowship Program，出資 500 萬美元，另有最多 500 萬美元的軟體額度與工程支援，總額最高 1,000 萬美元，一半是現金、一半是額度與人力，對象是新聞業合作計畫，屬於關係經營型的投入。另一則是 Anthropic 與 Infosys 的公告，來源授權只允許標題與連結，內文我們沒取用，合作形式與金額不明，原文在 https://www.anthropic.com/news/anthropic-infosys 。兩則都沒有估值、募資或併購的訊號，這一輪仍然缺資本規模的動態。
+    next: 看 Lenfest 計畫的參與機構名單與資金分配方式；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金或承諾用量；同時留意新的估值、募資或併購訊號，以及 Hugging Face 收攏開源框架維護者的整合成果。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
@@ -59,8 +59,8 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這一輪新增兩則，都來自 NVIDIA，把主軸從「agent 怎麼被產品化」延伸到「agent 疊層本身要怎麼蓋」。NVIDIA 09-21 發文主張 AI 安全該當工程問題處理，要有明確的安全需求、可執行的管控機制、指定負責人與可驗證的防護證據，鎖定的正是 agent stack 這整條疊層；隔天 09-22 發布 Isaac ROS 5.0，一套建構在開放機器人框架 ROS 之上的 GPU 加速套件，把「agentic」這個詞從純軟體 agent 延伸套用到機器人身上。兩則合起來看，這條線除了先前 OpenAI／Cognition 那組把 agent 包裝成受管服務、讓 agent 自我測試的產品化路線之外，現在多了 NVIDIA 這組 agent 疊層的安全框架與硬體加速工具的基礎建設路線，兩條路線目前分頭並進，尚未看到交會的訊號。
-    next: 觀察 NVIDIA 這套安全需求、管控、負責人、證據框架是否轉成具體工具或標準規格，以及 Isaac ROS 5.0 的實際開發者採用度；同時持續追蹤 Agents API 定價公布後的採用情況、Devin 自我測試的第三方驗證數字，看兩條路線之後是否開始互相引用。
+    now: 這一輪新增一則：H company 在 Hugging Face 發表 Holo4，定位是通用型電腦操作 agent，我們手上只有「一篇部落格文章」這句摘要，規格與評測都沒看到。它是這條線第一個直接以「電腦操作」為題的發表，跟前面兩條路線不同：一條是 OpenAI 與 Cognition 把 agent 包成受管服務、讓 agent 自我測試的產品化路線，另一條是 NVIDIA 的 agent 疊層安全框架與 Isaac ROS 5.0 的基礎建設路線。Holo4 走的是模型本身，還沒有足夠資訊判斷它跟哪一條靠近。
+    next: 看 Holo4 有沒有公開模型卡、基準成績與授權，權重是否開放；同時延續前面的觀察點：NVIDIA 安全框架是否變成具體工具、Agents API 定價公布後的採用情況、Devin 自我測試的第三方驗證數字。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。

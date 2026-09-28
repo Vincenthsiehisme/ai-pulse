@@ -1,12 +1,7 @@
-# 被門禁擋下（46）
+# 被門禁擋下（41）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-09-28-065414|Basis completes a tax workbook 2x faster with GPT-6 Astra]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-28-08344a|Holo4: powering generalist computer-use agents]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-28-43179d|Anthropic Infosys]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-09-28-5136c9|The Lenfest Institute grows landmark program with expanded OpenAI supp]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-28-e77169|Are you a Codex Original?]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-21-c316ae|Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization ]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-21-e1d69c|tokenizers v1: encode, decode and scaling, measured]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-15-1766a6|Your Agent Aced the Task. Will It Do It Again?]]** — IBM Research — blockers: thin_research_analysis

@@ -149,6 +149,11 @@
     "src_hash": "1423652fa85e",
     "zh": "給 AI Agent 的團隊級記憶中樞，把對話、文件、程式碼變成四種可重用的記憶資產，跨 agent 與框架共用"
   },
+  "VectifyAI/PageIndex": {
+    "at": "2026-09-28T21:28:17+00:00",
+    "src_hash": "16a4bbfb8531",
+    "zh": "PageIndex：給不用向量、靠推理的 RAG 用的文件索引"
+  },
   "VexDB-THU/VexDB-Lite": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "01a1340495c2",

@@ -1,6 +1,18 @@
-# 已發布事件（361）
+# 已發布事件（366）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-28
+- **[[Events/evt-2026-09-28-065414|Basis completes a tax workbook 2x faster with GPT-6 Astra]]** — OpenAI · product · conf 73 · heat 未量測
+  Basis 用 GPT-6 Astra 跑 50 個分頁的稅務工作簿，速度是 GPT-5.6 Sol 的兩倍。
+- **[[Events/evt-2026-09-28-08344a|Holo4: powering generalist computer-use agents]]** — H company · model-capability · conf 73 · heat 未量測
+  H company 在 Hugging Face 發表 Holo4，定位是通用型電腦操作 agent。
+- **[[Events/evt-2026-09-28-43179d|Anthropic Infosys]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 發布與 Infosys 相關的公告，內文我們依授權限制不轉述。
+- **[[Events/evt-2026-09-28-5136c9|The Lenfest Institute grows landmark program with expanded OpenAI support]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 擴大 Lenfest AI 合作計畫，出資 500 萬美元，另加最多 500 萬美元的軟體額度與工程支援。
+- **[[Events/evt-2026-09-28-e77169|Are you a Codex Original?]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 開表單徵集 Codex Originals 計畫的下一批使用者故事。
 
 ## 2026-09-25
 - **[[Events/evt-2026-09-25-b5edd0|Proaction boosts sales 60% and saves 75+ hours with Codex]]** — OpenAI · product · conf 73 · heat 未量測
