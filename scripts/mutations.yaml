@@ -3111,3 +3111,89 @@ mutations:
     replace: "MIN_ROBOTS_STALE_DAYS = 1\n"
     survives: false
     why: ""
+
+  # ── 觸發：Actions 推完語料才叫夜班（2026-09-28）──
+  # routine 自己的 cron 跟 Actions 只靠時鐘耦合，09-27 夜班 19:08Z 到、語料 19:21Z 才到，
+  # 整晚停在 precheck。改成 data-refresh.yml push 成功之後叫 routine 的 /fire。
+  # 這一步壞掉的樣子是「夜班今晚沒跑」而 Actions 全綠，所以每一個「叫不到就紅」都要有人守。
+  # 規格 references/nightly-driver.md〈觸發：Actions 推完語料才叫夜班〉。
+
+  - id: M359
+    title: "觸發改成 always()（push 失敗、main 上沒有今天的語料也叫，夜班只會停在 precheck，而該紅的 push 被一個看起來有做事的觸發蓋過去）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "        if: github.event_name == 'schedule' || inputs.fire_nightly\n"
+    replace: "        if: always()\n"
+    survives: false
+    why: ""
+
+  - id: M360
+    title: "手動 Run 預設也叫夜班（白天補抓一次就把那個 UTC 日的一輪用掉，晚上真正那班叫起來時 driver 說已經跑完）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "        default: false\n"
+    replace: "        default: true\n"
+    survives: false
+    why: ""
+
+  - id: M361
+    title: "token 寫死在 workflow 裡（憑證進版控，紅線 6）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "          ROUTINE_FIRE_TOKEN: ${{ secrets.AI_PULSE_ROUTINE_TOKEN }}\n"
+    replace: "          ROUTINE_FIRE_TOKEN: sk-ant-oat01-hardcoded\n"
+    survives: false
+    why: ""
+
+  - id: M362
+    title: "/fire 加自動重試（逾時但伺服器其實收到時開出第二個夜班，兩個同時跑，後推的落到備援分支）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "          code=$(curl -sS --max-time 30 "
+    replace: "          code=$(curl -sS --retry 3 --max-time 30 "
+    survives: false
+    why: ""
+
+  - id: M363
+    title: "拿掉 token 沒設的檢查（空字串照樣打 API，錯誤訊息指向伺服器而不是 secret）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "          if [ -z \"$ROUTINE_FIRE_TOKEN\" ]; then\n"
+    replace: "          if false; then\n"
+    survives: false
+    why: ""
+
+  - id: M364
+    title: "5xx 當成叫到了（伺服器壞掉那晚夜班沒起來，而 Actions 全綠）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "            2??) ;;\n"
+    replace: "            2??|5??) ;;\n"
+    survives: false
+    why: ""
+
+  - id: M365
+    title: "回應裡沒有 session 也當成叫到了（2xx 但沒開出 session，印一個 None 就綠）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "print(u) if u else sys.exit(1)"
+    replace: "print(u)"
+    survives: false
+    why: ""
+
+  - id: M366
+    title: "curl 連不上時只剩一個 exit 7（bash -e 照樣會停，但 log 上分不出是網路還是 token）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "            echo \"[fatal] 連不上 routine 的 /fire（curl 失敗），今晚的夜班沒被叫起來\"\n"
+    replace: "            true\n"
+    survives: false
+    why: ""
+
+  - id: M367
+    title: "打錯 endpoint（/run 不是公開的觸發路徑，每晚 404）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "/routines/$ROUTINE_ID/fire"
+    replace: "/routines/$ROUTINE_ID/run"
+    survives: false
+    why: ""
+
+  - id: M368
+    title: "拿掉必填的 anthropic-version header（每晚 400）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "            -H \"anthropic-version: 2023-06-01\" \\\n"
+    replace: ""
+    survives: false
+    why: ""

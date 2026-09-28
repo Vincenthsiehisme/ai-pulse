@@ -263,14 +263,15 @@ UTC 日之後再觸發一次，`precheck` 會重新判斷，不需要 `--reset`�
 `align-main` 在同一輪只跑一次，而且站在 `main` 上時本來就不 fetch，它不是用來拉新資料的。
 
 **什麼時候觸發是排程那一層的責任，不在這支 driver 裡。** 夜班要在 `data-refresh.yml` 那一班
-收工之後才開跑，而 Actions 的 cron 是「最早不早於」，近半個月實際開跑落在 17:53–20:10Z，
+收工之後才開跑，而 Actions 的 cron 是「最早不早於」，近半個月實際開跑落在 17:53–20:08Z，
 排在 16:00Z。固定時鐘挑哪個時間都是在賭誤點。
 
 ### 觸發：Actions 推完語料才叫夜班
 
 **這是 2026-09-28 改的。** 雲端排程（routine）拿掉 cron，改由 `data-refresh.yml` 在
 `Commit & push data changes` 成功之後，POST 那個 routine 的 API trigger（`/fire`）。語料一定先在
-`main` 上，夜班才開始 clone，順序由因果決定，不由時鐘決定。
+`main` 上，夜班才開始 clone。同一個 UTC 日之內，順序由因果決定，不由時鐘決定；跨過 UTC 午夜的
+那一種見本節最後。
 
 為什麼要改：2026-09-24 這一段先改成「語料沒到就停」，觸發卻還是 `0 19 * * *`。四晚裡 Actions
 有三晚晚於 19:08Z 推語料，09-27 那晚就是 19:08Z 開跑、precheck 停下，Actions 19:21Z 才到，
@@ -295,10 +296,21 @@ events〉，2026-09-28 核對；`workflow_run` 送進去被拒）。所以改由
 - **token 放 GitHub Actions secret `AI_PULSE_ROUTINE_TOKEN`。** 它只能觸發這一個 routine。產生與撤銷
   在 `claude.ai/code/routines` 那個 routine 的 API trigger 頁，不寫進任何檔案。routine 的 id 不是
   憑證（沒有 token 叫不動），直接寫在 workflow 裡。
+- **停用觸發要刪掉 schedule，不要用 routine 頁的暫停開關。** 暫停中的 routine，`/fire` 回 400
+  （`platform.claude.com/docs/en/api/claude-code/routines-fire`，2026-09-28 核對），每晚這一步都會紅。
+  要整條夜班停掉時才用暫停，並且知道 Actions 會跟著紅。
 
-已知不擋的一種：在 Actions 頁對 `schedule` 那一班按 Re-run，`github.event_name` 仍然是 `schedule`，
-會再叫一次夜班。第一個跑完了，第二個會印「已經跑完」；第一個還在跑，就是上面那種兩個同時跑。
-Re-run 是人的動作，人知道自己在補什麼。
+已知不擋的兩種：
+
+- **Re-run。** 在 Actions 頁對 `schedule` 那一班按 Re-run，`github.event_name` 仍然是 `schedule`，
+  會再叫一次夜班。第一個跑完了，第二個會印「已經跑完」；第一個還在跑，就是上面那種兩個同時跑。
+  Re-run 是人的動作，人知道自己在補什麼。
+- **Actions 跨過 UTC 午夜。** probe 用開跑當下的 UTC 日寫 `_probe/<日>/`，driver 也用被叫起來當下的
+  UTC 日找報告。2026-08-27 那班 08-28 00:39Z 才收工、報告寫成 `2026-08-28`；08-28 那班又拖到
+  08-29 00:11Z。兩種壞法：整班都在午夜之後，夜班做的是 D+1，當晚 D+1 真正那班再叫起來時
+  driver 說「已經跑完」，那一班的語料沒潤；probe 在午夜前、push 在午夜後，夜班找不到 D+1 的報告，
+  停在 precheck。舊的 cron 觸發一樣會壞，不是這次改出來的。根治是讓 `/fire` 帶語料日期、driver
+  吃日期參數，這一版沒做，記在 `BACKLOG.md`〈兩條夜間鏈只靠時鐘耦合〉。近一個月（09-01 起）沒有再跨過。
 
 `/fire` 還在 research preview（beta header `experimental-cc-routine-2026-04-01`），格式可能會變。
 變了的樣子是這一步紅燈，不是夜班安靜地不跑。

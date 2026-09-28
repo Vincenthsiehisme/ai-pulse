@@ -3065,3 +3065,26 @@ selftest 有十一格純函式與端到端測試守著，改壞會紅。真正�
 ### 清單長度
 
 355 → 356。分片 4 片，每片 89 條。
+
+## 第六十九輪（2026-09-28，`fix/nightly-fired-by-refresh`）
+
+M359–M368，十條。守的是 `data-refresh.yml` 新加的 `Fire nightly routine`：push 成功之後叫
+半夜潤稿那個 routine 的 `/fire`。規格 `references/nightly-driver.md`〈觸發：Actions 推完語料才叫夜班〉。
+
+這一步壞掉的樣子跟這份文件記過的每一次都一樣：夜班今晚沒跑，而 Actions 全綠。所以十條裡有六條
+守的是「叫不到就紅」的各個出口（token 沒設、5xx、沒 session、curl 連不上、打錯 endpoint、
+少了必填 header），另外四條守觸發條件與憑證（`always()`、手動 Run 預設叫、token 寫死、自動重試）。
+
+### 行為那幾條是真的跑那段 shell
+
+selftest 從 yaml 取出那一步的 `run:`，墊一支假的 `curl` 與 `python`，用 `bash -e -c` 實跑。
+所以 M363–M368 改的是 shell 本身，紅的是實跑結果，不是字串比對。
+
+### 沒進清單的一種
+
+「整步搬到 push 之前」一樣會紅（selftest 比兩步的順序），但它不是一個 find／replace 做得出來的
+變異，要搬整個區塊。開 PR 時手動驗過一次，沒進清單。
+
+### 清單長度
+
+356 → 366。分片 4 片，每片 92 條。

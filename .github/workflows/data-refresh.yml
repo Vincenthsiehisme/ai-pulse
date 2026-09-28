@@ -253,7 +253,7 @@ jobs:
           echo "[fatal] 重試三次仍推不上去"
           exit 1
       # 叫半夜潤稿。它以前是 routine 自己的 cron `0 19 * * *`，跟這一班只靠時鐘耦合；
-      # 這一班實際開跑落在 17:53–20:10Z，2026-09-27 夜班 19:08Z 到、語料 19:21Z 才推上來，
+      # 這一班實際開跑落在 17:53–20:08Z，2026-09-27 夜班 19:08Z 到、語料 19:21Z 才推上來，
       # precheck 停下，那天沒有潤稿。改成語料推上 main 之後由這裡叫，順序由因果決定。
       # routine 的 GitHub trigger 不支援 workflow_run，所以由這一邊主動叫它的 /fire。
       # 規格 references/nightly-driver.md〈觸發：Actions 推完語料才叫夜班〉。

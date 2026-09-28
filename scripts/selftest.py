@@ -6356,6 +6356,9 @@ acase("觸發：token 從 secret 拿、不自動重試、不吞非零"
 
 # 行為：用一支假的 curl 真的跑那段 shell。假 curl 照 -o 寫回應、照 -w 印狀態碼，
 # 並把收到的參數記下來。`python` 另外墊一支指向目前直譯器（macOS 沒有 `python`）。
+# 寫進 stub 的路徑一律 shlex.quote：TMPDIR 帶空白時，沒引號的 `>` 寫不進去，
+# 「沒 token 不打 API」那條會拿空檔案比空字串、假綠（Fable review F4）。
+import shlex as _shlex  # noqa: E402
 def _fr_exec(token, code="200", body="", curl_rc=0):
     with tempfile.TemporaryDirectory() as _frd:
         _frp = Path(_frd)
@@ -6363,14 +6366,14 @@ def _fr_exec(token, code="200", body="", curl_rc=0):
         _stub = _frp / "bin" / "curl"
         _stub.write_text(
             "#!/usr/bin/env bash\n"
-            f"printf '%s\\n' \"$@\" > {_frp / 'curl-args'}\n"
+            f"printf '%s\\n' \"$@\" > {_shlex.quote(str(_frp / 'curl-args'))}\n"
             "out=''; prev=''\n"
             "for a in \"$@\"; do [ \"$prev\" = -o ] && out=\"$a\"; prev=\"$a\"; done\n"
             f"[ {curl_rc} -ne 0 ] && exit {curl_rc}\n"
             "printf '%s' \"$FR_BODY\" > \"$out\"\n"
             "printf '%s' \"$FR_CODE\"\n", "utf-8")
         _py = _frp / "bin" / "python"
-        _py.write_text(f"#!/usr/bin/env bash\nexec {sys.executable} \"$@\"\n", "utf-8")
+        _py.write_text(f"#!/usr/bin/env bash\nexec {_shlex.quote(sys.executable)} \"$@\"\n", "utf-8")
         for f in (_stub, _py):
             f.chmod(0o755)
         (_frp / "curl-args").write_text("", "utf-8")
@@ -6388,12 +6391,14 @@ _fr_ok = _fr_exec("tok", "200", _fr_ok_body) if _fr_run else (None, "", "")
 acase("觸發：叫到了就 exit 0，並印出那一班的 session 網址"
       "（網址進 step summary，隔天查夜班不用去翻 routine 頁）",
       [_fr_ok[0], "https://claude.ai/code/session_x" in _fr_ok[1]], [0, True])
-acase("觸發：打的是這個 routine 的 /fire，帶 beta header 與 token"
-      "（header 掉了，伺服器回 4xx，這一步會紅；這一條先在本地擋）",
+acase("觸發：打的是這個 routine 的 /fire，帶 token、必填的 anthropic-version 與 beta header"
+      "（anthropic-version 缺了伺服器回 400；beta header 文件說可省，帶著是為了把格式版本釘在"
+      "寫這段時核對過的那一版，格式換代時紅在這一步而不是安靜地換一種回應）",
       ["https://api.anthropic.com/v1/claude_code/routines/trig_test/fire" in _fr_ok[2],
-       "anthropic-beta: experimental-cc-routine-2026-04-01" in _fr_ok[2],
-       "Authorization: Bearer tok" in _fr_ok[2]],
-      [True, True, True])
+       "Authorization: Bearer tok" in _fr_ok[2],
+       "anthropic-version: 2023-06-01" in _fr_ok[2],
+       "anthropic-beta: experimental-cc-routine-2026-04-01" in _fr_ok[2]],
+      [True, True, True, True])
 _fr_bad = [_fr_exec("", "200", _fr_ok_body),
            _fr_exec("tok", "500", _fr_ok_body),
            _fr_exec("tok", "200", '{"type": "routine_fire"}'),
