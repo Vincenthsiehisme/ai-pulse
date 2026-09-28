@@ -9600,6 +9600,258 @@ acase("lib/sources.capability_claims: 只算 running 的"
       "（把停用來源算進覆蓋率，盲區會看起來比實際小，而這一層存在就是為了指出盲區）",
       "src-arxiv-cs-cl" in sum(_smod.capability_claims(_SC_RAW).values(), []), False)
 
+# ── 雲端夜班的守門（references/nightly-guard.md，2026-09-28）────────────────
+# 雲端排程裡寫作端跟迴圈是同一個 agent，手上有 Bash。五晚（09-18、09-19、09-20、09-23、
+# 09-27）的即興是同一個形狀：不准做的事寫在 prompt 裡，而平台的 Stop hook 每晚逼它重新
+# 詮釋一次。下面的指令多數是從那幾晚的 run log 原樣抄來的。
+_ng_spec = importlib.util.spec_from_file_location(
+    "nightly_guard", os.path.join(_HERE, "nightly-guard.py"))
+_ng = importlib.util.module_from_spec(_ng_spec)
+_ng_spec.loader.exec_module(_ng)
+from lib import clock as _ng_clock  # noqa: E402
+_NG_TODAY = _ng_clock.utc_today().isoformat()
+
+
+class _NGFacts:
+    def __init__(self, dirty=(), branch="main", nightly=False):
+        self.d, self.b, self.n = set(dirty), branch, nightly
+
+    def dirty_paths(self):
+        return self.d
+
+    def current_branch(self):
+        return self.b
+
+    def head_on_remote_nightly(self):
+        return self.n
+
+
+def _ng_denied(cmd, **facts):
+    return bool(_ng.bash_violations(cmd, _NGFacts(**facts), _NG_TODAY))
+
+
+_NG_STATE_MSG = ("git add _probe/nightly-run.json && git commit -m \"$(cat <<'EOF'\n"
+                 "chore: nightly run state " + _NG_TODAY + " (precheck stop)\n\n"
+                 "Co-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\" && git push")
+acase("夜班守門：routine prompt 第 1 步的對齊與主迴圈照放"
+      "（2026-09-27 run log 原樣；`2>&1` 不拿掉會留一個 2 當參數，checkout main 就對不上）",
+      [_ng_denied("git fetch origin main 2>&1 && git checkout main 2>&1 && "
+                  "git merge --ff-only origin/main 2>&1"),
+       _ng_denied('pip install -r requirements.txt --quiet 2>&1 | tail -20 && '
+                  'export VAULT_DIR="$PWD" && echo "VAULT_DIR=$VAULT_DIR"'),
+       _ng_denied('export VAULT_DIR="$PWD" && python3 scripts/pulse-nightly.py run 2>&1; '
+                  'echo "EXIT_CODE=$?"'),
+       _ng_denied("python3 scripts/pulse-nightly.py summary")],
+      [False, False, False, False])
+acase("夜班守門：讀檔、看狀態照放（讀 apply 的原始碼不算跑它）",
+      [_ng_denied('find . -iname "pulse-github-desc-apply.py" -exec cat {} \;'),
+       _ng_denied("sed -n '1,120p' scripts/pulse-narrative-apply.py 2>/dev/null | head -150"),
+       _ng_denied("git branch -a | grep -i nightly"),
+       _ng_denied("git merge-base --is-ancestor 7c42c79 origin/nightly/2026-09-23-e0626f2"),
+       _ng_denied("cat <<EOF > notes.txt\ngit push --force\nEOF\necho done")],
+      [False, False, False, False, False])
+acase("夜班守門：agent 直接跑 apply 一律擋，含 --dry-run"
+      "（2026-09-23 自己先跑三支 apply，driver 再跑時 19 筆拒寫、18 筆退件全被判成做過）",
+      [_ng_denied('export VAULT_DIR="$PWD" && python3 scripts/pulse-narrative-apply.py '
+                  '--in narrative-result.json'),
+       _ng_denied("python3 scripts/pulse-title-apply.py --in title-zh-result.json --dry-run"),
+       _ng_denied("./scripts/pulse-gate.py")],
+      [True, True, True])
+acase("夜班守門：pulse-nightly 只准 run／summary／status，run 不准 --reset／--no-push"
+      "（要不要重跑是人的決定，nightly-driver.md〈一個 UTC 日一輪〉）",
+      [_ng_denied("python3 scripts/pulse-nightly.py run --reset"),
+       _ng_denied("python3 scripts/pulse-nightly.py run --no-push"),
+       _ng_denied("python3 scripts/pulse-nightly.py cost --stage x --usd 1")],
+      [True, True, True])
+acase("夜班守門：授權格式外的 commit 擋"
+      "（09-27 冒用資料鏈前綴的 `chore: nightly refresh`、09-23 的 `nightly: record run outcome`）",
+      [_ng_denied("git add _probe/nightly-run.json && git commit -m \"$(cat <<'EOF'\n"
+                  "chore: nightly refresh 2026-09-27 (run state: precheck stop)\nEOF\n)\"",
+                  dirty={"_probe/nightly-run.json"}),
+       _ng_denied('git commit -m "nightly: record run outcome for 2026-09-23"',
+                  dirty={"_probe/nightly-run.json"})],
+      [True, True])
+acase("夜班守門：平台 Stop hook 的合法出口照放"
+      "（平台那支不看 stop_hook_active，一律擋 commit 會卡在收尾燒 token，anthropics/claude-code#69201）",
+      [_ng_denied(_NG_STATE_MSG, dirty={"_probe/nightly-run.json"}),
+       _ng_denied("git push origin HEAD:nightly/" + _NG_TODAY + "-e0626f2 2>&1"),
+       _ng_denied("git reset --hard origin/main && git status", nightly=True)],
+      [False, False, False])
+acase("夜班守門：出口只給狀態檔（工作樹有別的改動、日期不是今天、推到別的分支都擋）",
+      [_ng_denied(_NG_STATE_MSG, dirty={"_probe/nightly-run.json", "scripts/x.py"}),
+       _ng_denied('git commit -m "chore: nightly run state ' + _NG_TODAY + '"',
+                  dirty={"_probe/nightly-run.json", "scripts/x.py"}),
+       _ng_denied('git commit -m "chore: nightly run state 1999-01-01"',
+                  dirty={"_probe/nightly-run.json"}),
+       _ng_denied("git push origin HEAD:nightly/1999-01-01-e0626f2"),
+       _ng_denied("git push origin HEAD:fix/x"),
+       _ng_denied("git push", branch="claude/gifted-faraday-x44bi9")],
+      [True, True, True, True, True, True])
+acase("夜班守門：reset --hard 只在成果已經在 origin/nightly/* 上時放"
+      "（09-23 agent 自己驗過才 reset；守門改成當下驗，沒推出去的 commit 不准丟）",
+      [_ng_denied("git reset --hard origin/main", nightly=False),
+       _ng_denied("git reset --hard origin/main", nightly=True, dirty={"_probe/nightly-run.json"})],
+      [True, True])
+acase("夜班守門：stash、強推、開分支擋（09-20 用 git stash 把產物收掉）",
+      [_ng_denied("git stash"), _ng_denied("git push --force origin main"),
+       _ng_denied("git push origin +main"), _ng_denied("git checkout -b fix/x"),
+       _ng_denied("git branch fix/x"), _ng_denied("git restore _probe/nightly-run.json")],
+      [True, True, True, True, True, True])
+acase("夜班守門：包在 bash -c、eval、$(…)、換行後面的指令一樣拆出來判"
+      "（shlex 把換行當空白，不先換掉的話 `git status\\ngit commit` 會被讀成一個 git status）",
+      [_ng_denied('bash -c "git push --force"'), _ng_denied('eval "git stash"'),
+       _ng_denied('echo "$(git stash)"'), _ng_denied("git status\ngit commit -am x"),
+       _ng_denied("ls | xargs git add")],
+      [True, True, True, True, True])
+acase("夜班守門：拆不開的指令擋（判不了就不放）", _ng_denied('echo "unbalanced'), True)
+
+_ng_repo = tempfile.mkdtemp(prefix="ng-")
+acase("夜班守門：寫檔只准 repo 根目錄的交棒檔（清單從 pulse-nightly 讀，不另抄一份）",
+      [_ng.write_violation(os.path.join(_ng_repo, "narrative-result.json"), _ng_repo,
+                           _nl.ROOT_RESULT_FILES) is None,
+       _ng.write_violation("digest.json", _ng_repo, _nl.ROOT_RESULT_FILES) is None,
+       _ng.write_violation("/tmp/x/scratchpad/build_narrative.py", _ng_repo,
+                           _nl.ROOT_RESULT_FILES) is None,
+       _ng.write_violation(os.path.join(_ng_repo, "_probe", "nightly-run.json"), _ng_repo,
+                           _nl.ROOT_RESULT_FILES) is None,
+       _ng.write_violation(os.path.join(_ng_repo, "_probe", "digest.json"), _ng_repo,
+                           _nl.ROOT_RESULT_FILES) is None],
+      [True, True, False, False, False])
+acase("夜班守門：交棒檔清單只有 pulse-nightly 一份（守門裡不准硬寫任何一個檔名）",
+      [n for n in _nl.ROOT_RESULT_FILES
+       if n in open(os.path.join(_HERE, "nightly-guard.py"), encoding="utf-8").read()], [])
+
+
+def _ng_transcript(first, assistant=()):
+    p = os.path.join(_ng_repo, f"t{len(os.listdir(_ng_repo))}.jsonl")
+    rows = [{"type": "queue-operation"},
+            {"type": "user", "message": {"role": "user", "content": first}}]
+    rows += [{"type": "assistant", "message": {"role": "assistant",
+                                               "content": [{"type": "text", "text": t}]}}
+             for t in assistant]
+    with open(p, "w", encoding="utf-8") as f:
+        f.write("\n".join(_json.dumps(r, ensure_ascii=False) for r in rows) + "\n")
+    return p
+
+
+_NG_ROUTINE = _ng_transcript(_ng.ROUTINE_MARKER + "。無人值守，沒有人會回答你的問題。")
+_NG_OTHER = _ng_transcript("幫我看一下 ai-pulse 的 selftest 為什麼紅")
+_NG_REMOTE = {"CLAUDE_CODE_REMOTE": "true", "CLAUDE_PROJECT_DIR": _ng_repo}
+
+
+def _ng_main(mode, payload, env=_NG_REMOTE):
+    return _ng.main([mode], io.StringIO(_json.dumps(payload)), env)
+
+
+class _NGNoRead:
+    def read(self, *a):
+        raise AssertionError("本機 session 不該讀 stdin")
+
+
+acase("夜班守門：本機 session（沒有 CLAUDE_CODE_REMOTE）連 stdin 都不讀就放行",
+      [_ng.main(["pre"], _NGNoRead(), {}), _ng.main(["stop"], _NGNoRead(), {})], [0, 0])
+acase("夜班守門：只管夜班那個 routine（雲端的互動 session 與另外兩個 routine 放行）",
+      [_ng_main("pre", {"tool_name": "Bash", "tool_input": {"command": "git stash"},
+                        "transcript_path": _NG_ROUTINE}),
+       _ng_main("pre", {"tool_name": "Bash", "tool_input": {"command": "git stash"},
+                        "transcript_path": _NG_OTHER}),
+       _ng_main("pre", {"tool_name": "Bash", "tool_input": {"command": "git status"},
+                        "transcript_path": _NG_ROUTINE})],
+      [2, 0, 0])
+acase("夜班守門：判不出是不是夜班時，本來會被擋的呼叫擋下（不猜「大概不是」）",
+      [_ng_main("pre", {"tool_name": "Bash", "tool_input": {"command": "git stash"},
+                        "transcript_path": os.path.join(_ng_repo, "nope.jsonl")}),
+       _ng_main("pre", {"tool_name": "Bash", "tool_input": {"command": "git status"},
+                        "transcript_path": os.path.join(_ng_repo, "nope.jsonl")})],
+      [2, 0])
+acase("夜班守門：hook payload 壞掉回 1（非阻擋，但會出現在 transcript 上，不安靜吞掉）",
+      _ng.main(["pre"], io.StringIO("not json"), _NG_REMOTE), 1)
+
+# Stop：收尾要原樣帶 driver 的摘要。
+os.makedirs(os.path.join(_ng_repo, "_probe"), exist_ok=True)
+_NG_STATE = {"date": _NG_TODAY, "started_at": "x", "finished": True, "stages": [
+    {"id": "align-main", "status": "ok", "note": "已在 `main`，根目錄沒有殘留的敘述產物"},
+    {"id": "precheck", "status": "noted", "note": "**今晚由潤稿端補跑抓取**"},
+    {"id": "enrich-apply", "status": "noted", "note": "rc=1"},
+    {"id": "monitor", "status": "ok", "note": "rc=0", "full_output": "尾端的完整輸出"}]}
+with open(os.path.join(_ng_repo, "_probe", "nightly-run.json"), "w", encoding="utf-8") as _f:
+    _json.dump(_NG_STATE, _f, ensure_ascii=False)
+_NG_SUMMARY = "\n".join(_nl.summary_lines(_NG_STATE))
+_NG_EDITED = _NG_SUMMARY.replace("rc=1", "rc=1（第二輪重跑時正確拒寫，因為已經潤過）")
+acase("夜班守門 Stop：摘要原樣貼過就放行；拿掉 ** 與反引號、換縮排不算改寫",
+      [_ng_main("stop", {"transcript_path": _ng_transcript(
+           _ng.ROUTINE_MARKER, ["前面的話", _NG_SUMMARY, "收尾一句回顧"])}),
+       _ng_main("stop", {"transcript_path": _ng_transcript(
+           _ng.ROUTINE_MARKER, ["```\n" + _NG_SUMMARY.replace("**", "").replace("`", "")
+                                .replace("  ", "    ") + "\n```"])})],
+      [0, 0])
+acase("夜班守門 Stop：行尾加註就是改寫，擋"
+      "（09-23 把 19 筆拒寫加註成「第二輪重跑時正確拒寫」，收尾寫「沒有退件」）",
+      _ng_main("stop", {"transcript_path": _ng_transcript(_ng.ROUTINE_MARKER, [_NG_EDITED])}), 2)
+acase("夜班守門 Stop：沒貼摘要擋；stop_hook_active 為真只印不擋（不跟自己打架）",
+      [_ng_main("stop", {"transcript_path": _ng_transcript(_ng.ROUTINE_MARKER, ["跑完了，綠燈"])}),
+       _ng_main("stop", {"transcript_path": _ng_transcript(_ng.ROUTINE_MARKER, ["跑完了，綠燈"]),
+                         "stop_hook_active": True})],
+      [2, 0])
+acase("夜班守門 Stop：尾端的完整輸出不要求（只要標題、每段一行、成本）",
+      "尾端的完整輸出" in _ng.required_summary_lines(_nl.summary_lines(_NG_STATE)), False)
+acase("夜班守門 Stop：自己壞掉時也先看 stop_hook_active（平台那支不看，所以會擋不完）",
+      [_ng.stop_main({"transcript_path": _NG_ROUTINE, "stop_hook_active": True}, _ng_repo,
+                     driver_loader=lambda: 1 / 0)[0],
+       _ng.stop_main({"transcript_path": _NG_ROUTINE}, _ng_repo,
+                     driver_loader=lambda: 1 / 0)[0]],
+      [0, 2])
+_NG_WRAPPED = _ng_transcript("<routine-fire-payload>x</routine-fire-payload>\n\n" + _ng.ROUTINE_MARKER + "。無人值守")
+acase("夜班守門：標記看「含」不看「開頭是」（API 觸發時平台可能在 prompt 前面包一層）",
+      _ng_main("pre", {"tool_name": "Bash", "tool_input": {"command": "git stash"},
+                       "transcript_path": _NG_WRAPPED}), 2)
+_NG_NOMARK = _ng_transcript("你是 AI-Pulse 的夜班執行者（有人改過第一句）", [_NG_SUMMARY])
+acase("夜班守門 Stop：沒有標記但這個 session 今天跑過 driver（狀態檔是今天的、工作樹有改動），"
+      "擋一次要收尾講出守門整晚沒作用；active 時只印不擋；狀態檔沒改動就放行（不是這個 session 跑的）",
+      [_ng.marker_missing_check({"transcript_path": _NG_NOMARK}, _ng_repo, lambda: _nl,
+                                _NGFacts(dirty={"_probe/nightly-run.json"}))[0],
+       _ng.marker_missing_check({"transcript_path": _NG_NOMARK, "stop_hook_active": True}, _ng_repo,
+                                lambda: _nl, _NGFacts(dirty={"_probe/nightly-run.json"}))[0],
+       _ng.marker_missing_check({"transcript_path": _NG_NOMARK}, _ng_repo, lambda: _nl, _NGFacts())[0]],
+      [2, 0, 0])
+acase("夜班守門：沒有標記時 Stop 真的走到那一道（接線）",
+      _nl.calls_in(open(os.path.join(_HERE, "nightly-guard.py"), encoding="utf-8").read(),
+                   "marker_missing_check", "stop_main"), True)
+os.remove(os.path.join(_ng_repo, "_probe", "nightly-run.json"))
+acase("夜班守門 Stop：今天沒有狀態檔是明寫的放行（driver 沒跑到，沒有摘要可比）",
+      _ng_main("stop", {"transcript_path": _ng_transcript(_ng.ROUTINE_MARKER, ["沒跑"])}), 0)
+shutil.rmtree(_ng_repo)
+
+_ng_src = open(os.path.join(_HERE, "nightly-guard.py"), encoding="utf-8").read()
+acase("夜班守門：接線（純函式測得再好，呼叫端沒接上照樣全綠）",
+      [_nl.calls_in(_ng_src, "bash_violations", "pre_check"),
+       _nl.calls_in(_ng_src, "write_violation", "pre_check"),
+       _nl.calls_in(_ng_src, "is_nightly_routine", "pre_check"),
+       _nl.calls_in(_ng_src, "is_nightly_routine", "stop_main"),
+       _nl.calls_in(_ng_src, "stop_check", "stop_main"),
+       _nl.calls_in(_ng_src, "missing_summary_lines", "stop_check"),
+       _nl.calls_in(_ng_src, "pre_check", "main"),
+       _nl.calls_in(_ng_src, "stop_main", "main")],
+      [True] * 8)
+_ng_settings = _json.load(open(os.path.join(_HERE, "..", ".claude", "settings.json"),
+                               encoding="utf-8"))
+_ng_hooks = _ng_settings.get("hooks") or {}
+_ng_pre = [(g.get("matcher", ""), h.get("command", "")) for g in _ng_hooks.get("PreToolUse", [])
+           for h in g.get("hooks", [])]
+_ng_stop = [h.get("command", "") for g in _ng_hooks.get("Stop", []) for h in g.get("hooks", [])]
+acase("夜班守門：.claude/settings.json 真的接上兩條 hook，PreToolUse 蓋到 Bash 與四個寫檔工具"
+      "（接線掉了不會有任何錯誤，只是守門安靜消失）",
+      [any("nightly-guard.py\" pre" in c and all(t in m.split("|") for t in
+                                                 ("Bash",) + _ng.WRITE_TOOLS)
+           for m, c in _ng_pre),
+       any("nightly-guard.py\" stop" in c for c in _ng_stop)],
+      [True, True])
+acase("夜班守門：狀態檔 commit 不會讓潤稿鏈缺日的警報變綠"
+      "（monitor 認夜班看 `nightly: enrich` 前綴或作者，狀態檔 commit 兩樣都不能有）",
+      [bool(_re.match(_mm.ENRICH_COMMIT_GREP, "chore: nightly run state " + _NG_TODAY)),
+       bool(_ng.STATE_COMMIT_RE.match("nightly: enrich + narrative " + _NG_TODAY))],
+      [False, False])
+
 print("offline self-test\n" + "-" * 70)
 fails = 0
 for ok, name, detail, reason in results:
