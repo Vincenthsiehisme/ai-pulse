@@ -650,12 +650,17 @@ Use add_repo to request access.
 
 > **2026-09-24 修法進行中。** 雲端排程 09-22、09-23 兩晚比 Actions 早到、自己補跑抓取，
 > Actions 中途推上同一天的語料，夜班 push 被拒。修法兩半：`precheck` 不再補抓，語料沒到就停
-> （`references/nightly-driver.md`〈precheck：語料沒到就停，不補抓〉）；雲端排程改由 Actions
-> 收工的 `workflow_run` 事件觸發，不再靠時鐘。後一半在 repo 外（claude.ai routine 設定），
-> 兩半都落地、真跑過一晚之後刪掉這一條。下面的量測留著當背景。
+> （`references/nightly-driver.md`〈precheck：語料沒到就停，不補抓〉，PR #100 已 merge）；
+> 觸發不再靠時鐘。**2026-09-28 後一半改道**：routine 的 GitHub trigger 不支援 `workflow_run`，
+> 改由 `data-refresh.yml` push 成功之後叫 routine 的 `/fire`（〈觸發：Actions 推完語料才叫夜班〉）。
+> 只 merge 前一半的那晚（09-27）夜班 19:08Z 到、語料 19:21Z 才到，停在 precheck，那天沒有潤稿。
+> 落地要三件一起：這支 PR merge、secret `AI_PULSE_ROUTINE_TOKEN` 設好、routine 拿掉 cron。
+> 還沒解的一種：Actions 跨過 UTC 午夜時，probe 與 driver 各用自己當下的 UTC 日，觸發對了
+> 日期照樣錯開（2026-08-28、08-29 有前例）。根治要 `/fire` 帶語料日期、driver 吃日期參數，
+> 這一版沒做（〈觸發〉那一節最後）。這一件留在本條，其餘真跑過一晚之後刪掉。下面的量測留著當背景。
 
-`data-refresh.yml`（cron `0 16 * * *`，台北 00:00）與半夜潤稿那條 Cowork 排程
-（`0 19 * * *`，台北 03:00）之間**沒有任何交握**，只有三小時的時鐘間隔。
+以下是 2026-09-28 以前的狀況：`data-refresh.yml`（cron `0 16 * * *`，台北 00:00）與半夜潤稿
+那條排程（`0 19 * * *`，台北 03:00）之間**沒有任何交握**，只有三小時的時鐘間隔。
 `scripts/enrich-runbook.md` 步驟 0 的前置檢查是唯一的防線，而它防的是**後果**
 （clone 到昨天的 repo），不是**成因**（Actions 遲到）。
 

@@ -2,8 +2,9 @@
 # 部署由 pages.yml 接手（它本來就在任何 push 到 main 時跑）。這條鏈曾經自己也部署一次，
 # 而部署要進 `github-pages` 這個 environment——2026-08-09 就是那個閘門把整條資料鏈
 # 擋了四天。經過見 references/incidents/2026-08-09-the-gate-that-stopped-the-chain.md。
-# 全程 0 LLM（判斷走規則）。潤稿（enrich）不在這條鏈上，由排程 Cowork 任務另跑。
-# 也可在 Actions 頁手動 Run。
+# 全程 0 LLM（判斷走規則）。潤稿（enrich）不在這條鏈上，由雲端排程（routine）另跑；
+# 它沒有自己的時鐘，由這條鏈推完語料後的最後一步叫起來（見 Fire nightly routine）。
+# 也可在 Actions 頁手動 Run（預設不叫夜班，要勾 fire_nightly）。
 #
 # 而「那個任務沒跑到」這件事，本身沒有任何東西會讓它變紅——一個只靠單次觸發的
 # 收班安排，就是這個 repo 一直在修的那種「警報自己把自己關掉」。所以另外排了一個
@@ -28,6 +29,13 @@ on:
     # 這條 selftest 也會擋。規格：references/timezones.md〈排程〉。
     - cron: '0 16 * * *'   # 台北隔日 00:00
   workflow_dispatch:
+    inputs:
+      # 手動 Run 預設不叫夜班：白天補跑一次抓取就叫的話，那個 UTC 日的一輪會在
+      # 晚上真正那班之前用掉。要驗觸發這一步、或補叫一晚，才勾這個。
+      fire_nightly:
+        description: '推完語料後也叫半夜潤稿（預設不叫）'
+        type: boolean
+        default: false
 
 # 只留 contents: write。pages / id-token 是部署要的，而部署已經不在這條鏈上了——
 # 權限跟著責任一起搬走，不然下一個人看到 pages: write 會以為這裡還在部署。
@@ -244,6 +252,53 @@ jobs:
           done
           echo "[fatal] 重試三次仍推不上去"
           exit 1
+      # 叫半夜潤稿。它以前是 routine 自己的 cron `0 19 * * *`，跟這一班只靠時鐘耦合；
+      # 這一班實際開跑落在 17:53–20:08Z，2026-09-27 夜班 19:08Z 到、語料 19:21Z 才推上來，
+      # precheck 停下，那天沒有潤稿。改成語料推上 main 之後由這裡叫，順序由因果決定。
+      # routine 的 GitHub trigger 不支援 workflow_run，所以由這一邊主動叫它的 /fire。
+      # 規格 references/nightly-driver.md〈觸發：Actions 推完語料才叫夜班〉。
+      #
+      # 不掛 always()：push 失敗時 main 上沒有今天的語料，叫了只會停在 precheck，
+      # 那一晚該紅的是 push。叫不到就紅（token 沒設、非 2xx、回應沒有 session），
+      # 不然觸發斷掉的那一晚長得跟「夜班今晚沒事」一樣。
+      # 不加 --retry：逾時但伺服器其實收到的話，重試會開出第二個夜班，兩個同時跑，
+      # 後推的那個落到 nightly/ 備援分支。叫不到讓人到 routine 頁按 Run now。
+      - name: Fire nightly routine
+        if: github.event_name == 'schedule' || inputs.fire_nightly
+        env:
+          ROUTINE_FIRE_TOKEN: ${{ secrets.AI_PULSE_ROUTINE_TOKEN }}
+          # routine 的 id 不是憑證，沒有 token 叫不動。
+          ROUTINE_ID: trig_01Dd6bC1vd4ZWreNGMmnT7Dy
+        run: |
+          if [ -z "$ROUTINE_FIRE_TOKEN" ]; then
+            echo "[fatal] secret AI_PULSE_ROUTINE_TOKEN 沒設：今晚的夜班不會被叫起來"
+            exit 1
+          fi
+          resp="$RUNNER_TEMP/routine-fire.json"
+          code=$(curl -sS --max-time 30 -o "$resp" -w '%{http_code}' -X POST \
+            "https://api.anthropic.com/v1/claude_code/routines/$ROUTINE_ID/fire" \
+            -H "Authorization: Bearer $ROUTINE_FIRE_TOKEN" \
+            -H "anthropic-beta: experimental-cc-routine-2026-04-01" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "Content-Type: application/json" \
+            -d '{}') || {
+            echo "[fatal] 連不上 routine 的 /fire（curl 失敗），今晚的夜班沒被叫起來"
+            exit 1
+          }
+          case "$code" in
+            2??) ;;
+            *)
+              echo "[fatal] /fire 回 HTTP ${code}，今晚的夜班沒被叫起來："
+              cat "$resp"
+              exit 1
+              ;;
+          esac
+          url=$(python -c 'import json, sys; u = json.load(open(sys.argv[1])).get("claude_code_session_url"); print(u) if u else sys.exit(1)' "$resp") || {
+            echo "[fatal] /fire 回 HTTP ${code}，但回應裡沒有 session："
+            cat "$resp"
+            exit 1
+          }
+          echo "夜班已觸發：$url" | tee -a "$GITHUB_STEP_SUMMARY"
       # 這裡以前是 upload-pages-artifact + deploy-pages。搬去 pages.yml 了：
       # 那支本來就在 push 到 main 時跑，而這一步 push 完必然觸發它。
       # 兩支工作流同時宣告 `environment: github-pages` 是這次事故的形狀之一。

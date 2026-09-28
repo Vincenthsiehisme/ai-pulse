@@ -6322,6 +6322,97 @@ acase("夜班：同一個 UTC 日被碰第二次時，要說出來而不是留�
 acase("夜班：main() 真的問過 already_done（接線）",
       _nl.calls_in(_nl_src, "already_done", "main"), True)
 
+# ── 觸發：Actions 推完語料才叫夜班（2026-09-28）──────────────────────────
+# precheck 改成語料沒到就停之後，觸發還是 routine 自己的 cron 19:00Z，四晚有三晚比
+# Actions 早到。09-27 那晚 19:08Z 開跑、語料 19:21Z 才推上來，停在 precheck，那天沒有潤稿。
+# 改成 data-refresh.yml push 成功之後叫 routine 的 /fire。規格 references/nightly-driver.md
+# 〈觸發：Actions 推完語料才叫夜班〉。結構釘位置與條件，行為用假的 curl 真的跑那段 shell。
+import subprocess as _subprocess  # noqa: E402
+_fr_steps = _cp_wfdoc["jobs"]["refresh"]["steps"]
+_fr_names = [st.get("name") for st in _fr_steps]
+_fr_step = next((st for st in _fr_steps if "/fire" in str(st.get("run") or "")), {})
+_fr_run = str(_fr_step.get("run") or "")
+_fr_run_code = "\n".join(ln for ln in _fr_run.splitlines() if not ln.lstrip().startswith("#"))
+acase("觸發：data-refresh.yml 有一步叫 routine 的 /fire，而且排在 push 之後"
+      "（排在 push 之前，夜班 clone 到的 main 還沒有今天的語料）",
+      [bool(_fr_step),
+       _fr_names.index(_fr_step.get("name")) > _fr_names.index("Commit & push data changes")
+       if _fr_step else None],
+      [True, True])
+acase("觸發：只認 schedule 那一班，手動 Run 要勾 fire_nightly 才叫，而且勾選預設是關的"
+      "（白天手動補抓一次就叫的話，那個 UTC 日的一輪在晚上真正那班之前就用掉）",
+      [str(_fr_step.get("if") or ""),
+       _cp_wfdoc[True]["workflow_dispatch"]["inputs"]["fire_nightly"]["default"]],
+      ["github.event_name == 'schedule' || inputs.fire_nightly", False])
+acase("觸發：push 失敗就不叫、叫不到就紅（不掛 always()／continue-on-error）"
+      "（push 失敗時 main 上沒有語料，叫了只會停在 precheck；吞掉叫不到，觸發斷掉那晚 Actions 全綠）",
+      ["always()" in str(_fr_step.get("if") or ""), bool(_fr_step.get("continue-on-error"))],
+      [False, False])
+acase("觸發：token 從 secret 拿、不自動重試、不吞非零"
+      "（重試會在逾時但伺服器其實收到時開出第二個夜班，兩個同時跑，後推的落到備援分支）",
+      [str((_fr_step.get("env") or {}).get("ROUTINE_FIRE_TOKEN")),
+       "--retry" in _fr_run_code, "|| true" in _fr_run_code],
+      ["${{ secrets.AI_PULSE_ROUTINE_TOKEN }}", False, False])
+
+# 行為：用一支假的 curl 真的跑那段 shell。假 curl 照 -o 寫回應、照 -w 印狀態碼，
+# 並把收到的參數記下來。`python` 另外墊一支指向目前直譯器（macOS 沒有 `python`）。
+# 寫進 stub 的路徑一律 shlex.quote：TMPDIR 帶空白時，沒引號的 `>` 寫不進去，
+# 「沒 token 不打 API」那條會拿空檔案比空字串、假綠（Fable review F4）。
+import shlex as _shlex  # noqa: E402
+def _fr_exec(token, code="200", body="", curl_rc=0):
+    with tempfile.TemporaryDirectory() as _frd:
+        _frp = Path(_frd)
+        (_frp / "bin").mkdir()
+        _stub = _frp / "bin" / "curl"
+        _stub.write_text(
+            "#!/usr/bin/env bash\n"
+            f"printf '%s\\n' \"$@\" > {_shlex.quote(str(_frp / 'curl-args'))}\n"
+            "out=''; prev=''\n"
+            "for a in \"$@\"; do [ \"$prev\" = -o ] && out=\"$a\"; prev=\"$a\"; done\n"
+            f"[ {curl_rc} -ne 0 ] && exit {curl_rc}\n"
+            "printf '%s' \"$FR_BODY\" > \"$out\"\n"
+            "printf '%s' \"$FR_CODE\"\n", "utf-8")
+        _py = _frp / "bin" / "python"
+        _py.write_text(f"#!/usr/bin/env bash\nexec {_shlex.quote(sys.executable)} \"$@\"\n", "utf-8")
+        for f in (_stub, _py):
+            f.chmod(0o755)
+        (_frp / "curl-args").write_text("", "utf-8")
+        env = dict(os.environ, PATH=f"{_frp / 'bin'}:{os.environ.get('PATH', '')}",
+                   ROUTINE_FIRE_TOKEN=token, ROUTINE_ID="trig_test",
+                   RUNNER_TEMP=str(_frp), GITHUB_STEP_SUMMARY=str(_frp / "summary"),
+                   FR_CODE=code, FR_BODY=body)
+        p = _subprocess.run(["bash", "-e", "-c", _fr_run], env=env,
+                            capture_output=True, text=True, timeout=30)
+        return p.returncode, p.stdout + p.stderr, (_frp / "curl-args").read_text("utf-8")
+
+_fr_ok_body = '{"type": "routine_fire", "claude_code_session_id": "session_x", ' \
+              '"claude_code_session_url": "https://claude.ai/code/session_x"}'
+_fr_ok = _fr_exec("tok", "200", _fr_ok_body) if _fr_run else (None, "", "")
+acase("觸發：叫到了就 exit 0，並印出那一班的 session 網址"
+      "（網址進 step summary，隔天查夜班不用去翻 routine 頁）",
+      [_fr_ok[0], "https://claude.ai/code/session_x" in _fr_ok[1]], [0, True])
+acase("觸發：打的是這個 routine 的 /fire，帶 token、必填的 anthropic-version 與 beta header"
+      "（anthropic-version 缺了伺服器回 400；beta header 文件說可省，帶著是為了把格式版本釘在"
+      "寫這段時核對過的那一版，格式換代時紅在這一步而不是安靜地換一種回應）",
+      ["https://api.anthropic.com/v1/claude_code/routines/trig_test/fire" in _fr_ok[2],
+       "Authorization: Bearer tok" in _fr_ok[2],
+       "anthropic-version: 2023-06-01" in _fr_ok[2],
+       "anthropic-beta: experimental-cc-routine-2026-04-01" in _fr_ok[2]],
+      [True, True, True, True])
+_fr_bad = [_fr_exec("", "200", _fr_ok_body),
+           _fr_exec("tok", "500", _fr_ok_body),
+           _fr_exec("tok", "200", '{"type": "routine_fire"}'),
+           _fr_exec("tok", curl_rc=7)] if _fr_run else [(None, "", "")] * 4
+acase("觸發：token 沒設、HTTP 500、2xx 但沒有 session、curl 連不上，四種都紅"
+      "（任何一種被當成成功，那一晚夜班沒被叫起來，而 Actions 全綠；500 帶的是正常回應的 body，"
+      "只看 body 有沒有網址的話它會過）",
+      [r[0] != 0 for r in _fr_bad], [True, True, True, True])
+acase("觸發：curl 連不上時說的是連不上，不是只有一個非零"
+      "（bash -e 自己也會停，但 log 上只剩 exit 7，人要自己猜是網路還是 token）",
+      "連不上 routine 的 /fire" in _fr_bad[3][1], True)
+acase("觸發：token 沒設時一次都不打 /fire（空字串拿去打 API，錯誤訊息會指向伺服器而不是 secret）",
+      _fr_bad[0][2], "")
+
 # ── 對齊 main（2026-09-20）─────────────────────────────────────────────
 # 雲端排程把 session 的工作樹 checkout 在一支臨時分支上，不是 main。commit 那一關
 # 擋得住，但擋在 commit 才發現時，敘述工作早就寫完、錢也花了。09-18、09-19 兩晚
