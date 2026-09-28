@@ -23,3 +23,8 @@ quota、覆蓋門檻）也走這條；`_config/narratives.yaml` 除了 `now` / `
 `thesis` / `lenses`（編輯層）同理走 PR。
 
 **憑證**：token 只出現在 clone / push 指令裡，絕不寫進任何檔案、commit 或摘要。
+
+**雲端夜班有 hook 守門**：`.claude/settings.json` 接了 `scripts/nightly-guard.py`，只在雲端的
+半夜潤稿 routine 裡作用，擋 agent 自己跑 apply、自己 commit／push／stash、寫交棒檔以外的檔，
+收尾沒有原樣帶 driver 摘要也會被擋。被擋時理由寫在 stderr，規格在
+[references/nightly-guard.md](references/nightly-guard.md)；範圍外的事寫進摘要，不要換寫法繞過去。
