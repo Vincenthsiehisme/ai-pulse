@@ -1,18 +1,18 @@
 [
   {
-    "full_name": "rush-db/rushdb",
-    "desc": "RushDB is a graph + vector database and memory layer for AI agents. Push any JSON, get typed, searchable, relationship-aware records back — no schema, no migrations. Built on Neo4j.",
-    "language": "TypeScript",
+    "full_name": "VectifyAI/PageIndex",
+    "desc": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
+    "language": "Python",
     "topics": [
+      "agentic-ai",
+      "agents",
       "ai",
       "ai-agents",
-      "ai-memory",
-      "ai-tools",
-      "app-backend",
-      "cloud"
+      "context-engineering",
+      "information-retrieval"
     ],
-    "stars": 325,
-    "url": "https://github.com/rush-db/rushdb",
+    "stars": 36176,
+    "url": "https://github.com/VectifyAI/PageIndex",
     "stale_zh": null
   }
 ]

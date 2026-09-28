@@ -3,17 +3,20 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-27'
+generated_day: '2026-09-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **119** 則：`published` 116、`review` 3
+事件 **122** 則：`published` 116、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-28 | [[Events/evt-2026-09-28-e77169\|Are you a Codex Original?]] | review |
+| 2026-09-28 | [[Events/evt-2026-09-28-5136c9\|The Lenfest Institute grows landmark program with expanded OpenAI support]] | review |
+| 2026-09-28 | [[Events/evt-2026-09-28-065414\|Basis completes a tax workbook 2x faster with GPT-6 Astra]] | review |
 | 2026-09-25 | [[Events/evt-2026-09-25-b5edd0\|Proaction boosts sales 60% and saves 75+ hours with Codex]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-fec20b\|Introducing MentalHealthBench]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-e55722\|ChatGPT Ads expands to Southeast Asia and Taiwan]] | published |
