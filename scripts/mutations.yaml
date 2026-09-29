@@ -3197,3 +3197,125 @@ mutations:
     replace: ""
     survives: false
     why: ""
+
+  # ── 第七十一輪：雲端夜班的成本帳（references/nightly-driver.md〈一晚花多少錢〉）──
+
+  - id: M380
+    title: "成本帳不去重（一個 request 拆成好幾行，逐行加會把一晚算成兩三倍）"
+    file: lib/nightcost.py
+    find: "        key = obj.get(\"requestId\") or msg.get(\"id\") or f\"#line{n}\"\n"
+    replace: "        key = f\"#line{n}\"\n"
+    survives: false
+    why: ""
+
+  - id: M381
+    title: "cache 寫 5 分鐘的牌價抄錯（等價 USD 安靜地偏掉，沒有任何一格會紅）"
+    file: lib/nightcost.py
+    find: "\"cache_write_5m\": 2.50,"
+    replace: "\"cache_write_5m\": 2.00,"
+    survives: false
+    why: ""
+
+  - id: M382
+    title: "有 cache 寫卻沒有 5m／1h 拆分時當成 0（兩種寫入價差 1.6 倍，猜一種等於編一個數字）"
+    file: lib/nightcost.py
+    find: "    unsplit = max(0, written - counts[\"cache_write_5m\"] - counts[\"cache_write_1h\"])\n"
+    replace: "    unsplit = 0\n"
+    survives: false
+    why: ""
+
+  - id: M383
+    title: "表外 model 當成 0 元（量不到長成一個看起來很便宜的數字）"
+    file: lib/nightcost.py
+    find: "            m[\"usd_equiv\"] = 0.0 if tokens == 0 else None\n"
+    replace: "            m[\"usd_equiv\"] = 0.0\n"
+    survives: false
+    why: ""
+
+  - id: M384
+    title: "工作樹有帳本以外的改動照樣寫帳本（帳本跟狀態檔一起髒，守門給平台 Stop hook 的出口被堵死）"
+    file: nightly-cost.py
+    find: "    if extra:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M385
+    title: "不在 main 也照樣 commit、push（成本 commit 落在 session 分支上）"
+    file: nightly-cost.py
+    find: "    if branch != \"main\":\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M386
+    title: "成本 commit 用夜班的作者（每晚都有一顆，潤稿鏈缺日警報假綠）"
+    file: lib/nightcost.py
+    find: "COST_AUTHOR = \"ai-pulse-cost\"\n"
+    replace: "COST_AUTHOR = \"ai-pulse-enrich\"\n"
+    survives: false
+    why: ""
+
+  - id: M387
+    title: "commit 失敗後不還原帳本（hook 結束時帳本是 dirty，agent 卡在收尾）"
+    file: nightly-cost.py
+    find: "            still = restore_ledger(repo)\n            return \"commit-failed\", (f\"git add"
+    replace: "            still = False\n            return \"commit-failed\", (f\"git add"
+    survives: false
+    why: ""
+
+  - id: M388
+    title: "內容跟 HEAD 一樣也 commit（每一次 Stop 多一顆空轉的 commit）"
+    file: nightly-cost.py
+    find: "        if text == head_ledger(repo):\n"
+    replace: "        if False:\n"
+    survives: false
+    why: ""
+
+  - id: M389
+    title: "不看 CLAUDE_CODE_REMOTE（本機 session 收尾也寫帳本、commit、push）"
+    file: nightly-cost.py
+    find: "    if env.get(\"CLAUDE_CODE_REMOTE\") != \"true\":\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M390
+    title: "不看夜班標記（雲端的互動 session 與另外兩個 routine 收尾也記成夜班成本）"
+    file: nightly-cost.py
+    find: "        if not ng.is_nightly_routine(payload):\n"
+    replace: "        if False:\n"
+    survives: false
+    why: ""
+
+  - id: M391
+    title: "每一次 run 都重讀帳本（同一晚 Stop 之後再 run，今晚的部分金額被標成前一晚，摘要中途改字）"
+    file: pulse-nightly.py
+    find: "    \"\"\"推進到下一個交棒點或跑完。回 exit code。\"\"\"\n"
+    replace: "    \"\"\"推進到下一個交棒點或跑完。回 exit code。\"\"\"\n    state[\"cost_prev\"] = cost_prev_entry(vault, date_str)\n"
+    survives: false
+    why: ""
+
+  - id: M392
+    title: "前一晚量不到印成 USD 0（null 長成 0，「很便宜」跟「沒量到」分不出來）"
+    file: pulse-nightly.py
+    find: "        return (f\"前一晚**量不到**（{prev.get('date')}，\"\n"
+    replace: "        return (f\"前一晚 USD 0.0000（{prev.get('date')}，\"\n"
+    survives: false
+    why: ""
+
+  - id: M393
+    title: "監看的窗口把今天算進去（今晚的夜班還沒收尾，今天那一行是記到一半的數字）"
+    file: lib/nightcost.py
+    find: "for i in range(days, 0, -1)]"
+    replace: "for i in range(days - 1, -1, -1)]"
+    survives: false
+    why: ""
+
+  - id: M394
+    title: "帳本開始之前的日子也算成缺（上線第一個月每天都報 29 天沒有帳本行）"
+    file: lib/nightcost.py
+    find: "        \"missing\": sum(1 for d in window if first is not None and d >= first\n"
+    replace: "        \"missing\": sum(1 for d in window if first is not None\n"
+    survives: false
+    why: ""

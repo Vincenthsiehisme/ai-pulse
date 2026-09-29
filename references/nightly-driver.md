@@ -384,20 +384,83 @@ health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分
 
 ### 一晚花多少錢，要是一個被記錄的量
 
-外殼用 `--output-format json` 叫寫作端，把 `total_cost_usd` 記回狀態檔那一段的
-`cost_usd`，摘要印總額。
-
-**量不到跟 0 不一樣。** 一晚每一段都跳過是真的 0；外殼沒把數字傳回來是量不到。
+**量不到跟 0 不一樣。** 一晚每一段都跳過是真的 0；沒有人把數字傳回來是量不到。
 兩者長得一樣的話，「這條鏈很便宜」跟「沒有人在量」就分不出來，而那是這份文件
-從第一行講到現在的同一個形狀。所以摘要那一格在沒量到的時候印的是
-「**量不到**（外殼沒有把數字傳回來）」，不是 `USD 0.0000`。
+從第一行講到現在的同一個形狀。所以量不到的那一格寫 `null`、印原因，不寫 `0`。
 
-2026-09-15 實測（sonnet，一份 40 則 Event 的 vault）：`title-write` 那一棒
-3 筆標題翻譯花 `USD 0.2708`。整晚的量級隨當晚事件數走，`enrich-write` 與
-`digest-write` 是兩段大的。
+數字有兩個來源，看夜班跑在哪裡：
+
+- **本機外殼。** 外殼用 `--output-format json` 叫寫作端，把 `total_cost_usd` 記回
+  狀態檔那一段的 `cost_usd`，摘要印當晚總額。2026-09-15 實測（sonnet，一份 40 則
+  Event 的 vault）：`title-write` 那一棒 3 筆標題翻譯花 `USD 0.2708`。
+- **雲端排程。** 寫作端跟迴圈是同一個 agent，沒有外殼替它記。改由收尾的 Stop hook
+  `scripts/nightly-cost.py` 讀平台給的 transcript（hook stdin 的 `transcript_path`）
+  自己算，寫進 `_probe/nightly-cost.jsonl`，並自己 commit、push（條件與它為什麼不經過
+  守門，見 `references/nightly-guard.md`〈成本帳：守門之外唯一會 commit 的程式〉）。
+
+**雲端的算法**（純函式在 `scripts/lib/nightcost.py`）：
+
+- 只看 `type: assistant` 而且帶 `message.usage` 的行。同一個 request 在 transcript
+  裡會拆成好幾行（一個 content block 一行，`usage` 每行重複），所以**同一個
+  `requestId` 只算一次**，沒有 `requestId` 就看 `message.id`，兩個都沒有就一行算一個。
+  同一個 key 出現好幾次時取最後一行的 `usage`。
+- 分五類加總：`input_tokens`、`output_tokens`、`cache_read_input_tokens`、cache 寫 5 分鐘
+  （`usage.cache_creation.ephemeral_5m_input_tokens`）、cache 寫 1 小時
+  （`usage.cache_creation.ephemeral_1h_input_tokens`），依 `message.model` 分開算。
+- 等價 USD ＝ 各類 token ÷ 1,000,000 × 下表單價，加總後四捨五入到小數 6 位。
+  這是 **API 牌價的等價值**，不是帳單：雲端排程走訂閱額度，實際扣的不是這個數字。
+  它回答的是「這一晚如果照 API 計價值多少」，拿來比晚與晚之間的量級。
+- **算不出來就寫 `null`**，token 照記，`note` 寫原因：
+  - 表外的 model，而且那個 model 那一晚有非零的 token（token 全是 0 的列，例如
+    平台自己插的 `<synthetic>` 訊息，不管單價是多少都是 0，不讓整晚變成量不到）。
+  - 有 cache 寫（`cache_creation_input_tokens > 0`），卻沒有 5m／1h 的拆分，或拆分
+    加總對不上 `cache_creation_input_tokens`：兩種寫入價差 1.6 倍，猜一種等於編一個數字。
+
+**牌價表**（每百萬 token 美元；來源：claude-api skill 的模型表與 prompt-caching
+說明，2026-09-25 取）：
+
+| model | input | output | cache 讀 | cache 寫 5 分鐘 | cache 寫 1 小時 |
+|---|---|---|---|---|---|
+| `claude-sonnet-5-5` | 2.00 | 10.00 | 0.20 | 2.50 | 4.00 |
+
+表的版本記在每一行帳本的 `price_table`（`claude-api-2026-09-25`）。改牌價就換一個
+版本字串，舊的行不回頭重算：那一晚是照哪一版算的，要看得出來。
+
+**帳本**：`_probe/nightly-cost.jsonl`，進版控，一晚一行：
+
+```json
+{"date": "2026-09-30", "session_id": "…", "requests": 41,
+ "by_model": {"claude-sonnet-5-5": {"requests": 41, "input": 120, "output": 38000,
+              "cache_read": 5200000, "cache_write_5m": 0, "cache_write_1h": 310000,
+              "cache_write_unsplit": 0, "usd_equiv": 2.8}},
+ "input": 120, "output": 38000, "cache_read": 5200000, "cache_write_5m": 0,
+ "cache_write_1h": 310000, "usd_equiv": 2.8, "price_table": "claude-api-2026-09-25",
+ "note": null}
+```
+
+`date` 是 hook 跑的當下的 UTC 日（`lib/clock.utc_today()`）。Stop 每收尾一輪就觸發一次，
+同一天再被觸發就**取代**那一行，整檔原子寫；transcript 是整個 session 的，所以最後一次
+Stop 記到的就是量到最後一輪的數字。
+
+**誰讀它**：
+
+- 摘要「寫作端成本」那一行。driver **只在建立新一天的狀態檔時**讀帳本一次，取 `date`
+  早於今天的最後一行放進 `state["cost_prev"]`，同一天之後的 `run` 不再改它。不這樣
+  做的話，同一晚 Stop 之後再 `run` 一次，今天記到一半的金額會被標成「前一晚」，
+  摘要中途改字，守門的 Stop 比對就對不上（`summary_lines(state)` 只吃狀態檔，簽名不動）。
+  那一行有四種長相：本機外殼有 `cost_usd` 時照舊印當晚總額；否則有前一晚金額印
+  `前一晚 USD x（API 等價，<日期>，收尾 hook 記）`，前一晚量不到印原因，沒有帳本印
+  「帳本還沒有紀錄」。
+- `pulse-monitor.py` 人看的報告的「夜班成本」段：近 7 天與近 30 天的等價 USD 合計、
+  有金額的晚數、`usd_equiv` 為 `null` 的晚數、窗口內沒有帳本行的天數（從帳本第一行的
+  日期起算，窗口不含今天）。讀不到帳本就明說讀不到。
 
 **這一層只負責記，不負責省。** 要不要設上限、超過就只跑 A 與 B3，那是人的決定，
 而人要先看得到數字才決定得了。
+
+**已知的缺口。** 同一個 Stop 事件的多支 hook 是並行的，平台自己的 Stop 檢查可能在
+成本 hook commit／push 完成之前看到改動，多擋一輪。多一輪只會讓帳本在下一次 Stop 被
+取代成更完整的數字，不掉資料；上線第一晚看 run log 判讀有沒有多出來的那一輪。
 
 ### 一個 UTC 日一輪，而台北的凌晨屬於前一個 UTC 日
 

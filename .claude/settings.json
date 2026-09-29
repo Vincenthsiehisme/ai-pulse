@@ -17,6 +17,10 @@
           {
             "type": "command",
             "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/nightly-guard.py\" stop"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/nightly-cost.py\""
           }
         ]
       }

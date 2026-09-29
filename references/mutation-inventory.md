@@ -3088,3 +3088,35 @@ selftest 從 yaml 取出那一步的 `run:`，墊一支假的 `curl` 與 `python
 ### 清單長度
 
 356 → 366。分片 4 片，每片 92 條。
+
+## 第七十一輪（2026-09-30，`feat/nightly-cost-ledger`）
+
+M380–M394，十五條。守的是雲端夜班的成本帳：收尾的 Stop hook `scripts/nightly-cost.py` 讀
+transcript 記 token 與等價 USD，寫進 `_probe/nightly-cost.jsonl` 並自己 commit、push。規格
+`references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉與 `references/nightly-guard.md`〈成本帳〉。
+
+這一層壞掉的樣子有兩種，十五條照這兩種分：
+
+- **數字安靜地錯。** 不去重（M380）、牌價抄錯（M381）、缺拆分或表外 model 當成 0（M382、M383）、
+  前一晚量不到印成 USD 0（M392）、監看窗口把今天或帳本開始之前的日子算進去（M393、M394）。
+  這幾種都不會讓任何東西變紅，只會讓摘要上那個數字長得像真的。selftest 的算式測試寫死期望值
+  （112×2 + 2700×10 + 1.2M×0.2 + 10k×2.5 + 28k×4 ＝ USD 0.404224），不從同一支函式算期望值。
+- **收尾被堵住，或 commit 落到不該去的地方。** 工作樹有別的改動照樣寫（M384）、不在 main 照樣推
+  （M385）、commit 失敗不還原帳本（M387）、內容沒變也 commit（M388）、不看雲端與夜班標記（M389、M390）、
+  作者用夜班的名字讓缺日警報假綠（M386）、每一次 run 都重讀帳本讓摘要中途改字（M391）。
+
+### 行為那幾條是真的跑 git
+
+commit 條件的測試不用替身：selftest 開拋棄式 repo 加 bare remote，真的跑 hook。push 被拒是在
+bare remote 裝 `pre-receive` 拒絕，commit 失敗是在工作 repo 裝 `pre-commit` 拒絕，兩種都驗
+hook 結束時 `git status --porcelain` 是空的。M391 也是真的跑兩次 `pulse-nightly.py run`，比狀態檔裡的
+`cost_prev`。
+
+### 沒進清單的一種
+
+「push 失敗就重試或強推」不是一個 find／replace 做得出來的變異（要加一段碼）。push 被拒那一格斷言
+remote 沒動、本機 commit 留著，強推會讓前者變紅；沒進清單。
+
+### 清單長度
+
+366 → 381。分片 4 片，第一片 96 條、其餘三片各 95 條。

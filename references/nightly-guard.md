@@ -1,6 +1,7 @@
 # 雲端夜班的守門：把「不要自己跑 apply、不要 commit」從 prompt 變成做不到的事
 
 > 這份是**規格**，`scripts/nightly-guard.py` 是它的實作，接線在 `.claude/settings.json`。
+> 〈成本帳〉一節的實作是 `scripts/nightly-cost.py` 與 `scripts/lib/nightcost.py`。
 > 不一致時以本檔為準，**先改本檔再改碼**（紅線 9）。
 
 ## 為什麼要有這一層
@@ -99,6 +100,40 @@ commit 裡〉），所以每晚收尾都會被它攔。被攔之後 agent 怎麼
 - 少任何一行就 exit 2，stderr 列出缺的行並叫它跑 `python3 scripts/pulse-nightly.py summary` 原樣貼上。
   `stop_hook_active` 為真時只印不擋，不跟自己打架。
 - 今天（UTC）沒有狀態檔是明寫的放行分支：driver 一次都沒跑到，沒有摘要可以比，那晚要看的是 run log。
+
+## 成本帳：守門之外唯一會 commit 的程式
+
+`.claude/settings.json` 的 `Stop` 有兩條：這支守門（`nightly-guard.py stop`）與成本帳
+（`scripts/nightly-cost.py`）。成本帳讀 transcript 算這一晚的 token 與等價 USD，寫進
+`_probe/nightly-cost.jsonl`，**自己 commit、自己推上 main**。算法、牌價與帳本格式在
+`references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉，這裡只講它跟守門的關係。
+
+**它不經過守門，因為守門管的是 agent 的工具呼叫。** PreToolUse 只在 agent 用 Bash、Write、
+Edit 這些工具時觸發；hook 程式自己跑的 `git` 是平台叫起來的子行程，不是工具呼叫，守門看不到，
+也不該看到。成本帳要是交給 agent 去 commit，就又回到「不准做的事寫在 prompt 裡」那個形狀，
+而且得替它在守門上多開一個出口。所以把它做成一段確定性的程式，條件寫死在碼裡：
+
+- **只在雲端半夜潤稿 routine 作用。** 判斷跟守門同一套（`CLAUDE_CODE_REMOTE == "true"`、
+  transcript 第一則使用者訊息含 `ROUTINE_MARKER`），import 守門的函式與常數，不另抄一份。
+  不符合就 exit 0、不寫任何檔。transcript 路徑只取 hook stdin 的 `transcript_path`，不自己找；
+  讀不到就在 stderr 印原因、exit 0。
+- **先檢查、後寫檔。** `git status --porcelain` 有任何帳本以外的改動（最常見的是 driver 寫的
+  狀態檔還沒被 agent commit）就整個跳過：不寫帳本，stderr 印那份清單，等下一次 Stop 再記。
+  agent 照平台 hook 的要求 commit 完狀態檔之後，平台會再觸發一次 Stop。不在 `main` 也跳過。
+- **工作樹乾淨才寫帳本。** 內容跟 `HEAD` 一樣就不 commit；否則只 `git add _probe/nightly-cost.jsonl`，
+  用 `ai-pulse-cost` 這個作者 commit `chore: nightly cost <UTC 當天>`，再 `git push origin HEAD:main`。
+- **作者刻意不是 `ai-pulse-enrich`。** `pulse-monitor.py` 的 `night_shift_commit_days()` 認那個
+  作者當作「那天夜班有推」。成本 commit 每晚都會有，用同一個作者的話，潤稿鏈整晚沒推上 main，
+  缺日警報照樣是綠的。訊息也不用 `nightly: enrich` 開頭，理由同狀態檔 commit。
+- **失敗不重試、不強推。** commit 失敗就把帳本還原成 `HEAD` 那一版（`HEAD` 沒有這個檔就刪掉）；
+  push 失敗就留著本機那顆 commit，stderr 印原因，平台的 Stop hook 會要 agent 推，守門放行
+  站在 `main` 上的 `git push`。**hook 結束時工作樹上的帳本絕不能是 dirty**：守門給平台 Stop hook
+  的出口只准狀態檔，帳本一髒，`git add`／`git commit` 那兩個出口就被堵死，agent 會卡在收尾。
+- **所有失敗都 exit 0。** 成本帳記不到不擋 session 結束，但原因一定印在 stderr，不安靜吞掉。
+
+**已知的競態。** 同一個 Stop 事件的兩支 hook 並行，平台自己的 Stop 檢查可能在成本帳
+commit／push 完成前看到改動，多擋一輪。多一輪只會讓帳本在下一次 Stop 被取代成更完整的
+數字，不掉資料；上線第一晚看 run log 判讀有沒有多出來的那一輪。
 
 ## 這一層不保證什麼
 
