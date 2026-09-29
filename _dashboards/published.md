@@ -1,6 +1,14 @@
-# 已發布事件（366）
+# 已發布事件（371）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-29
+- **[[Events/evt-2026-09-29-01aea3|DevDay 2026 Recap]]** — OpenAI · product · conf 80 · heat 未量測
+  OpenAI DevDay 2026 開講，官方回顧文我們只收標題與連結。
+- **[[Events/evt-2026-09-29-119ae0|Introducing dots]]** — OpenAI · product · conf 80 · heat 未量測
+  OpenAI 發布 Dots，標題稱為「常駐型代理」，官方內文我們只收標題與連結。
+- **[[Events/evt-2026-09-29-686cda|Introducing GPT-6.1 Sol]]** — OpenAI · model-capability · conf 94 · heat 未量測
+  OpenAI 推出 GPT-6.1 Sol，自稱接近 GPT-6 Astra，價格約五分之一。
 
 ## 2026-09-28
 - **[[Events/evt-2026-09-28-065414|Basis completes a tax workbook 2x faster with GPT-6 Astra]]** — OpenAI · product · conf 73 · heat 未量測
@@ -11,8 +19,12 @@
   Anthropic 發布與 Infosys 相關的公告，內文我們依授權限制不轉述。
 - **[[Events/evt-2026-09-28-5136c9|The Lenfest Institute grows landmark program with expanded OpenAI support]]** — OpenAI · capital · conf 73 · heat 未量測
   OpenAI 擴大 Lenfest AI 合作計畫，出資 500 萬美元，另加最多 500 萬美元的軟體額度與工程支援。
+- **[[Events/evt-2026-09-28-b715d3|Towards safety cases for frontier AI training]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發布前沿模型訓練的安全論證（safety case）早期指引。
 - **[[Events/evt-2026-09-28-e77169|Are you a Codex Original?]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 開表單徵集 Codex Originals 計畫的下一批使用者故事。
+- **[[Events/evt-2026-09-28-fc5ea5|How we will do better for Australia]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 為澳洲政府網站相關事件道歉，並提出加強防護與支援。
 
 ## 2026-09-25
 - **[[Events/evt-2026-09-25-b5edd0|Proaction boosts sales 60% and saves 75+ hours with Codex]]** — OpenAI · product · conf 73 · heat 未量測

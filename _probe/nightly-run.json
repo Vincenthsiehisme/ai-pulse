@@ -1,147 +1,147 @@
 {
-  "date": "2026-09-28",
-  "started_at": "2026-09-28 21:27Z",
+  "date": "2026-09-29",
+  "started_at": "2026-09-29 20:18Z",
   "finished": false,
   "stages": [
     {
       "id": "align-main",
       "status": "ok",
       "note": "已在 `main`，根目錄沒有殘留的敘述產物",
-      "at": "2026-09-28 21:27Z"
+      "at": "2026-09-29 20:18Z"
     },
     {
       "id": "precheck",
       "status": "ok",
-      "note": "今日 probe 已就緒（_probe/2026-09-28/report.md）",
-      "at": "2026-09-28 21:27Z"
+      "note": "今日 probe 已就緒（_probe/2026-09-29/report.md）",
+      "at": "2026-09-29 20:18Z"
     },
     {
       "id": "enrich-prep",
       "status": "ok",
-      "note": "pulse-enrich-prep  待 enrich=5  已 enrich 跳過=41",
-      "at": "2026-09-28 21:27Z"
+      "note": "pulse-enrich-prep  待 enrich=7  已 enrich 跳過=41",
+      "at": "2026-09-29 20:18Z"
     },
     {
       "id": "enrich-write",
       "status": "ok",
-      "note": "收到 enrich-result.json（5 筆，清單 5 筆）",
-      "at": "2026-09-28 21:27Z",
+      "note": "收到 enrich-result.json（7 筆，清單 7 筆）",
+      "at": "2026-09-29 20:19Z",
       "worklist": {
         "path": "_probe/enrich-worklist.json",
-        "count": 5,
-        "mtime": 1790630831
+        "count": 7,
+        "mtime": 1790713123
       }
     },
     {
       "id": "enrich-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-28 21:27Z"
+      "at": "2026-09-29 20:19Z"
     },
     {
       "id": "gate",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-28 21:27Z"
+      "at": "2026-09-29 20:19Z"
     },
     {
       "id": "dashboard",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-28 21:27Z"
+      "at": "2026-09-29 20:19Z"
     },
     {
       "id": "digest-prep",
       "status": "ok",
-      "note": "pulse-digest-prep  2026-09-28  mode=normal  素材=5 則  配對=10 組",
-      "at": "2026-09-28 21:27Z"
+      "note": "pulse-digest-prep  2026-09-29  mode=normal  素材=5 則  配對=10 組",
+      "at": "2026-09-29 20:19Z"
     },
     {
       "id": "digest-write",
       "status": "ok",
       "note": "收到 digest.json（素材 5 則）",
-      "at": "2026-09-28 21:27Z",
+      "at": "2026-09-29 20:19Z",
       "worklist": {
         "path": "_probe/digest-worklist.json",
         "count": 5,
-        "mtime": 1790630861
+        "mtime": 1790713168
       }
     },
     {
       "id": "digest-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-28 21:27Z"
+      "at": "2026-09-29 20:19Z"
     },
     {
       "id": "digest-gate",
       "status": "ok",
-      "note": "pulse-digest-gate  draft=41  reviewed=0  rejected=0  共 41 份  → _dashboards/digests.md",
-      "at": "2026-09-28 21:27Z"
+      "note": "pulse-digest-gate  draft=42  reviewed=0  rejected=0  共 42 份  → _dashboards/digests.md",
+      "at": "2026-09-29 20:19Z"
     },
     {
       "id": "narrative-prep",
       "status": "ok",
       "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=3",
-      "at": "2026-09-28 21:27Z"
+      "at": "2026-09-29 20:19Z"
     },
     {
       "id": "narrative-write",
       "status": "ok",
       "note": "收到 narrative-result.json（3 筆，清單 3 筆）",
-      "at": "2026-09-28 21:28Z",
+      "at": "2026-09-29 20:20Z",
       "worklist": {
         "path": "_probe/narrative-worklist.json",
         "count": 3,
-        "mtime": 1790630879
+        "mtime": 1790713195
       }
     },
     {
       "id": "narrative-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-28 21:28Z"
+      "at": "2026-09-29 20:20Z"
     },
     {
       "id": "github-desc-write",
       "status": "ok",
       "note": "收到 github-desc-result.json（1 筆，清單 1 筆）",
-      "at": "2026-09-28 21:28Z",
+      "at": "2026-09-29 20:20Z",
       "worklist": {
         "path": "_probe/github-desc-worklist.json",
         "count": 1,
-        "mtime": 1790630816
+        "mtime": 1790713112
       }
     },
     {
       "id": "github-desc-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-28 21:28Z"
+      "at": "2026-09-29 20:20Z"
     },
     {
       "id": "title-write",
       "status": "ok",
-      "note": "收到 title-zh-result.json（5 筆，清單 5 筆）",
-      "at": "2026-09-28 21:28Z",
+      "note": "收到 title-zh-result.json（7 筆，清單 7 筆）",
+      "at": "2026-09-29 20:20Z",
       "worklist": {
         "path": "_probe/title-zh-worklist.json",
-        "count": 5,
-        "mtime": 1790630816
+        "count": 7,
+        "mtime": 1790713112
       }
     },
     {
       "id": "title-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-28 21:28Z"
+      "at": "2026-09-29 20:20Z"
     },
     {
       "id": "render",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-09-28 21:28Z"
+      "at": "2026-09-29 20:20Z"
     }
   ],
-  "updated_at": "2026-09-28 21:28Z"
+  "updated_at": "2026-09-29 20:20Z"
 }

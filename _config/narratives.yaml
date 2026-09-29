@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-09-28'
+updated: '2026-09-29'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這一輪新增三則，同樣沒有模型發布本身，延續上兩輪偏信任機制與基礎建設的走向。OpenAI 09-23 推出MentalHealthBench，一套由專家設計、評估AI心理健康對話回應是否安全的基準——跟上一輪的第三方安全評估原則、數學顧問小組一樣，是在補查核工具而不是新增能力。NVIDIA 09-24 加入一項聯盟推動開放蛋白質資料集，目標是讓研究人員在下一次疫情爆發前先備好研究基礎，屬於開放科學基礎建設而非模型迭代。Liquid AI 09-24 發布LFM2.5-VL-DSpark，訴求加速視覺語言模型，但證據只有一句行銷式描述，沒有基準數據或加速幅度佐證，暫時判斷不了實際能力。連續三輪，這條主線收到的訊號幾乎都在講信任機制與基礎建設，跟「小而專、成本導向」的既有主軸關聯持續薄弱，唯一有能力宣稱的Liquid AI這則證據又不足。
-    next: 觀察MentalHealthBench是否開源、是否有其他實驗室的模型被拿上去比較評分；NVIDIA的開放蛋白質資料集是否公開釋出、規模多大；Liquid AI是否補上LFM2.5-VL-DSpark的加速幅度基準數據。若接下來幾輪持續是這類訊號而沒有新模型能力躍升，這條主線的既有主軸描述可能真的需要更新。
+    now: 這一輪新增兩則，都是 OpenAI。GPT-6.1 Sol 是這條線久違的模型發布：TechCrunch 轉述 OpenAI 的說法，在寫程式、文件理解與多步驟商業流程上比 GPT-6 Sol 進步，並說接近 GPT-6 Astra 且成本更低，官方頁面標題寫的是約五分之一價格。這些比較目前全來自廠商，沒有獨立評測數字。Ars Technica 同日另有一篇談「規劃中的 GPT-6.1 太不安全而不發布」的報導，內文我們沒有，與 Sol 的關係不明。另一則是 09-28 的前沿模型訓練安全論證早期指引，只有一句摘要，看不出是原則還是可執行的檢查項目。
+    next: 看獨立基準測試對 Sol 與 Astra 的實測差距，以及官方公布的價格是否和「五分之一」的說法對得上；查 Ars Technica 那篇的內容跟 Sol 有沒有關係；訓練安全論證的全文有沒有列出可驗證的具體做法。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增兩則，都是 OpenAI 官方部落格。Basis 的案例說 GPT-6 Astra 完成一份 50 個分頁的稅務工作簿，速度是 GPT-5.6 Sol 的兩倍，這是繼 09-25 Proaction 之後又一則附數字的客戶案例，兩則連續出現，比上一輪「只有一則」的狀況更像是恢復週更節奏，但兩則都只有 OpenAI 自己的說法，Basis 這則沒有任務內容與準確率。另一則是 Codex Originals 的使用者故事徵集表單，沒有能力或價格資訊，屬於社群經營。Google DeepMind 能力接產品入口的定位這一輪依然沒有新訊號。
-    next: 看還有沒有新客戶案例接上，確認這是常態節奏還是短期集中；留意 Basis、Proaction 或 OpenAI 是否揭露數字的計算方式與比較基準；Codex Originals 下一批公開案例有沒有帶可驗證的使用量或成果。
+    now: 這一輪新增兩類。09-29 是 OpenAI DevDay 2026：官方回顧文只收標題與連結，Simon Willison 在現場寫了即時部落格（他自己說 OpenAI 給了免費票與創作者區座位），當天具體宣布什麼，我們手上沒有內文。09-28 OpenAI 為澳洲政府網站相關事件道歉，承諾加強防護與支援，事件經過與規模摘要沒交代。Basis、Codex Originals 兩則是上一輪已記的內容。
+    next: 看 DevDay 期間宣布的產品與 API 變更，是否在一兩天內有獨立媒體或官方文件交叉證實；澳洲政府或監管機關是否公開回應，OpenAI 承諾的防護措施有沒有具體時程。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -59,8 +59,8 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這一輪新增一則：H company 在 Hugging Face 發表 Holo4，定位是通用型電腦操作 agent，我們手上只有「一篇部落格文章」這句摘要，規格與評測都沒看到。它是這條線第一個直接以「電腦操作」為題的發表，跟前面兩條路線不同：一條是 OpenAI 與 Cognition 把 agent 包成受管服務、讓 agent 自我測試的產品化路線，另一條是 NVIDIA 的 agent 疊層安全框架與 Isaac ROS 5.0 的基礎建設路線。Holo4 走的是模型本身，還沒有足夠資訊判斷它跟哪一條靠近。
-    next: 看 Holo4 有沒有公開模型卡、基準成績與授權，權重是否開放；同時延續前面的觀察點：NVIDIA 安全框架是否變成具體工具、Agents API 定價公布後的採用情況、Devin 自我測試的第三方驗證數字。
+    now: '這一輪新增一則：OpenAI 09-29 發布 Dots，頁面標題是「Dots: Always-on agents」，主打常駐運行的代理。官方頁面授權限標題與連結，我們沒取內文，功能、價格、開放範圍都不知道，也沒有第二個來源可對照。放在這條線上，前面 Agents API 是把 Codex harness 包成雲端服務，Dots 從標題看是往「一直開著」走，但形態要看原文才能確認。'
+    next: 看 Dots 是否有官方文件公布可驗證的功能與使用限制，以及獨立開發者的實測；延續前面的觀察點：Agents API 定價公布後的採用情況、NVIDIA 安全框架是否變成具體工具。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。

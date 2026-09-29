@@ -1,13 +1,9 @@
-# 被門禁擋下（48）
+# 被門禁擋下（43）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-09-29-01aea3|DevDay 2026 Recap]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-29-119ae0|Introducing dots]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-29-686cda|Introducing GPT-6.1 Sol]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-29-96c618|Getting the Source Right, Not Just the Fact: Source-Aware Verification]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-09-28-fc5ea5|How we will do better for Australia]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — NVIDIA — blockers: thin_research_analysis
+- **[[Events/evt-2026-09-29-96c618|Getting the Source Right, Not Just the Fact: Source-Aware Verification]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-21-c316ae|Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization ]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-21-e1d69c|tokenizers v1: encode, decode and scaling, measured]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-15-1766a6|Your Agent Aced the Task. Will It Do It Again?]]** — IBM Research — blockers: thin_research_analysis
@@ -43,7 +39,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-09-28-b715d3|Towards safety cases for frontier AI training]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity

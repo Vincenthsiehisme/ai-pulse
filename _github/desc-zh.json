@@ -270,9 +270,9 @@
     "zh": "開源的 agentic 作業系統"
   },
   "firecrawl/firecrawl": {
-    "at": "2026-09-18T19:12:51+00:00",
-    "src_hash": "d3a5f0fe32c3",
-    "zh": "可大規模搜尋、抓取並操作網頁資料的 API"
+    "at": "2026-09-29T20:20:14+00:00",
+    "src_hash": "ae3e7aa383c4",
+    "zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
   },
   "ggml-org/llama.cpp": {
     "at": "2026-08-12T19:14:16+00:00",

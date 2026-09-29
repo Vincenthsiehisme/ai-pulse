@@ -1,9 +1,39 @@
 [
   {
-    "id": "evt-2026-09-28-065414",
-    "path": "evt-2026-09-28-065414.md",
-    "title": "Basis completes a tax workbook 2x faster with GPT-6 Astra",
-    "fingerprint": "openai:gpt:6",
+    "id": "evt-2026-09-28-b715d3",
+    "path": "evt-2026-09-28-b715d3.md",
+    "title": "Towards safety cases for frontier AI training",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/towards-safety-cases-for-frontier-ai-training",
+        "title": "Towards safety cases for frontier AI training",
+        "summary": "Our early guidelines for safety cases in frontier AI training cover technical safeguards, operational practices, and investigating misalignment incidents",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-28-fc5ea5",
+    "path": "evt-2026-09-28-fc5ea5.md",
+    "title": "How we will do better for Australia",
+    "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
     "independent_sources": 1,
@@ -11,9 +41,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/basis-tax-workbook-with-astra",
-        "title": "Basis completes a tax workbook 2x faster with GPT-6 Astra",
-        "summary": "GPT-6 Astra completed a 50-tab tax workbook twice as fast as GPT-5.6 Sol, and its stronger understanding of user intent gives Basis more confidence in real-world use.",
+        "url": "https://openai.com/index/how-we-will-do-better-for-australia",
+        "title": "How we will do better for Australia",
+        "summary": "OpenAI apologises for incidents involving Australian government websites and outlines stronger safeguards and support to strengthen Australia’s cyber defences.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,49 +60,78 @@
     }
   },
   {
-    "id": "evt-2026-09-28-08344a",
-    "path": "evt-2026-09-28-08344a.md",
-    "title": "Holo4: powering generalist computer-use agents",
+    "id": "evt-2026-09-29-01aea3",
+    "path": "evt-2026-09-29-01aea3.md",
+    "title": "DevDay 2026 Recap",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
+    "company_guess": "OpenAI",
+    "independent_sources": 2,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/Hcompany/holo4",
-        "title": "Holo4: powering generalist computer-use agents",
-        "summary": "A Blog post by H company on Hugging Face",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/devday-2026-recap",
+        "title": "DevDay 2026 Recap",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-kol-simonwillison",
+        "url": "https://simonwillison.net/2026/Sep/29/openai-devday-2026-live-blog/",
+        "title": "OpenAI DevDay 2026 live blog",
+        "summary": " I'm at  OpenAI DevDay  today, in Fort Mason, San Francisco. Same as  last year  I'll be live blogging the keynote and some other notes during the day. \n\n  OpenAI gave me a free ticket and a seat in the \"creator\" area for the keynote.  \n    \n         Tags:  ai ,  openai ,  generative-ai ,  llms ,  c",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/devday-2026-recap/",
+        "title": "DevDay 2026 Recap",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
       }
     ],
     "availability": {
       "counts": {
         "has_text": 1,
         "unfetched": 0,
-        "withheld": 0
+        "withheld": 2
       },
-      "needs_source_link": false,
-      "reasons": []
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
     }
   },
   {
-    "id": "evt-2026-09-28-43179d",
-    "path": "evt-2026-09-28-43179d.md",
-    "title": "Anthropic Infosys",
+    "id": "evt-2026-09-29-119ae0",
+    "path": "evt-2026-09-29-119ae0.md",
+    "title": "Introducing dots",
     "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
+    "facet": "release",
+    "company_guess": "OpenAI",
+    "independent_sources": 2,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/anthropic-infosys",
-        "title": "Anthropic Infosys",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/introducing-dots",
+        "title": "Dots: Always-on agents",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/introducing-dots/",
+        "title": "Dots: Always-on agents",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -83,7 +142,7 @@
       "counts": {
         "has_text": 0,
         "unfetched": 0,
-        "withheld": 1
+        "withheld": 2
       },
       "needs_source_link": true,
       "reasons": [
@@ -92,20 +151,20 @@
     }
   },
   {
-    "id": "evt-2026-09-28-5136c9",
-    "path": "evt-2026-09-28-5136c9.md",
-    "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
+    "id": "evt-2026-09-29-67e008",
+    "path": "evt-2026-09-29-67e008.md",
+    "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/lenfest-ai-collaborative-expansion",
-        "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
-        "summary": "OpenAI is expanding the Lenfest AI Collaborative and Fellowship Program with $5 million in funding and up to $5 million in software credits and engineering support.",
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nvidia/kumo-tabular",
+        "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
+        "summary": "A Blog post by NVIDIA on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -122,20 +181,79 @@
     }
   },
   {
-    "id": "evt-2026-09-28-e77169",
-    "path": "evt-2026-09-28-e77169.md",
-    "title": "Are you a Codex Original?",
-    "fingerprint": null,
-    "facet": "update",
+    "id": "evt-2026-09-29-686cda",
+    "path": "evt-2026-09-29-686cda.md",
+    "title": "Introducing GPT-6.1 Sol",
+    "fingerprint": "openai:gpt:6.1",
+    "facet": "release",
     "company_guess": "OpenAI",
-    "independent_sources": 1,
+    "independent_sources": 4,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/form/codex-originals",
-        "title": "Are you a Codex Original?",
-        "summary": "We’re collecting real stories of builders, tinkerers, researchers, and creators who are using Codex to do incredible things. If you want to be a part of the next chapter of the Codex Originals program, tell us more about your story and project below.",
+        "url": "https://openai.com/index/introducing-gpt-6-1-sol",
+        "title": "GPT 6.1 Sol: Near-Astra intelligence for a fifth of the price",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-media-techcrunch",
+        "url": "https://techcrunch.com/2026/09/29/openai-launches-gpt-6-1-sol-says-it-nearly-matches-gpt-6-astra-and-costs-less/",
+        "title": "OpenAI launches GPT-6.1 Sol, says it nearly matches GPT-6 Astra and costs less",
+        "summary": "OpenAI says GPT-6.1 Sol delivers significant improvements over GPT-6 Sol across complex professional tasks, including code writing and debugging, document understanding, and executing multi-step business workflows.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      },
+      {
+        "source_id": "src-media-arstechnica",
+        "url": "https://arstechnica.com/ai/2026/09/openai-says-planned-gpt-6-1-is-too-insecure-to-release/",
+        "title": "OpenAI says planned GPT-6.1 is too insecure to release",
+        "summary": "Similar performance, security trade-offs also seen in current public models.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/introducing-gpt-6-1-sol/",
+        "title": "GPT 6.1 Sol: Near-Astra intelligence for a fifth of the price",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 2,
+        "unfetched": 0,
+        "withheld": 2
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-09-29-96c618",
+    "path": "evt-2026-09-29-96c618.md",
+    "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source",
+        "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
+        "summary": "A Blog post by Multiverse Computing on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
