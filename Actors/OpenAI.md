@@ -3,20 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-28'
+generated_day: '2026-09-29'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **122** 則：`published` 116、`review` 6
+事件 **126** 則：`published` 119、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-28 | [[Events/evt-2026-09-28-e77169\|Are you a Codex Original?]] | review |
-| 2026-09-28 | [[Events/evt-2026-09-28-5136c9\|The Lenfest Institute grows landmark program with expanded OpenAI support]] | review |
-| 2026-09-28 | [[Events/evt-2026-09-28-065414\|Basis completes a tax workbook 2x faster with GPT-6 Astra]] | review |
+| 2026-09-29 | [[Events/evt-2026-09-29-686cda\|Introducing GPT-6.1 Sol]] | review |
+| 2026-09-29 | [[Events/evt-2026-09-29-119ae0\|Introducing dots]] | review |
+| 2026-09-29 | [[Events/evt-2026-09-29-01aea3\|DevDay 2026 Recap]] | review |
+| 2026-09-28 | [[Events/evt-2026-09-28-fc5ea5\|How we will do better for Australia]] | review |
+| 2026-09-28 | [[Events/evt-2026-09-28-e77169\|Are you a Codex Original?]] | published |
+| 2026-09-28 | [[Events/evt-2026-09-28-5136c9\|The Lenfest Institute grows landmark program with expanded OpenAI support]] | published |
+| 2026-09-28 | [[Events/evt-2026-09-28-065414\|Basis completes a tax workbook 2x faster with GPT-6 Astra]] | published |
 | 2026-09-25 | [[Events/evt-2026-09-25-b5edd0\|Proaction boosts sales 60% and saves 75+ hours with Codex]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-fec20b\|Introducing MentalHealthBench]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-e55722\|ChatGPT Ads expands to Southeast Asia and Taiwan]] | published |

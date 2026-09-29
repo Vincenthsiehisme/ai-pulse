@@ -1,40 +1,56 @@
 [
   {
-    "id": "evt-2026-09-28-065414",
-    "title": "Basis completes a tax workbook 2x faster with GPT-6 Astra",
+    "id": "evt-2026-09-28-b715d3",
+    "title": "Towards safety cases for frontier AI training",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-28-fc5ea5",
+    "title": "How we will do better for Australia",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-28-08344a",
-    "title": "Holo4: powering generalist computer-use agents",
+    "id": "evt-2026-09-29-01aea3",
+    "title": "DevDay 2026 Recap",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-29-119ae0",
+    "title": "Introducing dots",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-09-29-67e008",
+    "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-28-43179d",
-    "title": "Anthropic Infosys",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-28-5136c9",
-    "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
+    "id": "evt-2026-09-29-686cda",
+    "title": "Introducing GPT-6.1 Sol",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-28-e77169",
-    "title": "Are you a Codex Original?",
-    "company": "OpenAI",
+    "id": "evt-2026-09-29-96c618",
+    "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null

@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-28"
+generated_day: "2026-09-29"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-28"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **347** 則／已裁決 **26** 則。
+待回答 **352** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -30,19 +30,19 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`model-research#f33849e8`** — model-research
   > 觀察MentalHealthBench是否開源、是否有其他實驗室的模型被拿上去比較評分；NVIDIA的開放蛋白質資料集是否公開釋出、規模多大；Liquid AI是否補上LFM2.5-VL-DSpark的加速幅度基準數據。若接下來幾輪持續是這類訊號而沒有新模型能力躍升，這條主線的既有主軸描述可能真的需要更新。
 
-- **`product-market#9d1c326d`** — product-market
-  > 看下一輪還有沒有新客戶案例接上，判斷 09-25 這則究竟是恢復週更節奏、還是單一個案；同時留意 Proaction 或 OpenAI 是否進一步揭露 60% 與 75 小時這兩個數字的計算方式。
+- **`product-market#631dbe7e`** — product-market
+  > 看還有沒有新客戶案例接上，確認這是常態節奏還是短期集中；留意 Basis、Proaction 或 OpenAI 是否揭露數字的計算方式與比較基準；Codex Originals 下一批公開案例有沒有帶可驗證的使用量或成果。
 
-- **`capital-evolution#23cd6733`** — capital-evolution
-  > 留意是否有新的估值、募資或併購訊號進來，補上這一輪缺席的資本規模動態；同時觀察 Hugging Face 收攏開源框架維護者的模式是否有具體整合成果，例如 oMLX／MLX 工具鏈是否被收進 Transformers 或 Hub。
+- **`capital-evolution#726ace81`** — capital-evolution
+  > 看 Lenfest 計畫的參與機構名單與資金分配方式；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金或承諾用量；同時留意新的估值、募資或併購訊號，以及 Hugging Face 收攏開源框架維護者的整合成果。
 
-- **`agent-refactor#18147ff3`** — agent-refactor
-  > 觀察 NVIDIA 這套安全需求、管控、負責人、證據框架是否轉成具體工具或標準規格，以及 Isaac ROS 5.0 的實際開發者採用度；同時持續追蹤 Agents API 定價公布後的採用情況、Devin 自我測試的第三方驗證數字，看兩條路線之後是否開始互相引用。
+- **`agent-refactor#95d85861`** — agent-refactor
+  > 看 Holo4 有沒有公開模型卡、基準成績與授權，權重是否開放；同時延續前面的觀察點：NVIDIA 安全框架是否變成具體工具、Agents API 定價公布後的採用情況、Devin 自我測試的第三方驗證數字。
 
 - **`global-map#d825dfdf`** — global-map
   > 觀察後續是否有具體政策文件、多邊協議、或聯合國層級的AI治理提案跟進，讓這次露出從表態變成可查證的政策動作；沿用上一輪對烏克蘭Daybreak成效與Grab完訓人數的觀察。
 
-## 事件層（341）
+## 事件層（346）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1066,3 +1066,18 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-09-25-b5edd0#ded73fdd`** — evt-2026-09-25-b5edd0
   > 看 Proaction 或其他媒體是否進一步揭露計算方法或財報佐證，或是否有其他客戶案例接續佐證 Codex 在同類場景的效果。
+
+- **`evt-2026-09-28-065414#7c5d9ec1`** — evt-2026-09-28-065414
+  > 觀察是否有第三方或 Basis 以外的客戶公布同類工作簿任務的耗時與錯誤率，或 OpenAI 是否附上可重現的評測。
+
+- **`evt-2026-09-28-08344a#f29265ba`** — evt-2026-09-28-08344a
+  > 觀察 Holo4 的模型卡與評測數字是否公開、權重是否開放，以及是否有其他來源獨立報導。
+
+- **`evt-2026-09-28-43179d#0ba0ee41`** — evt-2026-09-28-43179d
+  > 看原文所列的合作內容，以及 Infosys 端是否另有對應公告可互相印證。
+
+- **`evt-2026-09-28-5136c9#1e94dc73`** — evt-2026-09-28-5136c9
+  > 觀察本次擴充的參與機構名單、資金分配方式，以及成果是否公開。
+
+- **`evt-2026-09-28-e77169#9e0f99e7`** — evt-2026-09-28-e77169
+  > 觀察下一批 Codex Originals 公開的案例內容，是否帶有可驗證的使用量或成果數字。

@@ -1,18 +1,18 @@
 [
   {
-    "full_name": "VectifyAI/PageIndex",
-    "desc": "📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG",
-    "language": "Python",
+    "full_name": "firecrawl/firecrawl",
+    "desc": "🔥 Supercharge your AI agents with data from the web and beyond. A web data API to search, scrape, and access more sources.",
+    "language": "TypeScript",
     "topics": [
-      "agentic-ai",
-      "agents",
       "ai",
       "ai-agents",
-      "context-engineering",
-      "information-retrieval"
+      "ai-crawler",
+      "ai-scraping",
+      "ai-search",
+      "crawler"
     ],
-    "stars": 36176,
-    "url": "https://github.com/VectifyAI/PageIndex",
-    "stale_zh": null
+    "stars": 186576,
+    "url": "https://github.com/firecrawl/firecrawl",
+    "stale_zh": "可大規模搜尋、抓取並操作網頁資料的 API"
   }
 ]

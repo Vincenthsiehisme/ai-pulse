@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-09-28'
+generated_day: '2026-09-29'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,11 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **27** 則：`published` 23、`review` 4
+事件 **28** 則：`published` 24、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-28 | [[Events/evt-2026-09-28-08344a\|Holo4: powering generalist computer-use agents]] | published |
 | 2026-09-22 | [[Events/evt-2026-09-22-986fe3\|NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development]] | published |
 | 2026-09-21 | [[Events/evt-2026-09-21-01cf23\|AI Security Is an Engineering Problem — How to Solve It at Every Layer of the Agent Stack]] | published |
 | 2026-09-15 | [[Events/evt-2026-09-15-1766a6\|Your Agent Aced the Task. Will It Do It Again?]] | review |
