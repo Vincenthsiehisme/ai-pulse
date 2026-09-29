@@ -3088,3 +3088,28 @@ selftest 從 yaml 取出那一步的 `run:`，墊一支假的 `curl` 與 `python
 ### 清單長度
 
 356 → 366。分片 4 片，每片 92 條。
+
+## 第七十輪（2026-09-30，`fix/github-board-from-committed-snapshot`）
+
+M369–M379，十一條。守的是 GitHub 榜「算一次、存進版控、pages 只讀」：`pulse-github.py` 的
+`board.json` 寫入與 `--render-only`，加上 `pages.yml` 那一步。規格 `references/github-board.md`。
+
+這一組壞掉的樣子是：pages 又自己重算榜，線上全列 `baseline_days` 0.0、星速是 2×delta，而每個
+數字看起來都正常，沒有東西會紅。所以十一條裡：
+
+- M369、M370 守寫入端：快照沒更新也寫（用太新的基線蓋掉好榜）、`board.json` 帶進譯文欄。
+- M371、M377、M378 守 `--render-only` 的邊界：又呼叫 `collect`、又寫 `desc-coverage.json`、
+  不掛譯文。
+- M372、M373、M374、M379 守出口：佔位檔的 `measured`、壞 JSON 與缺 `repos` 的 exit code、
+  旗標不能併用。
+- M375、M376 守 `pages.yml`：拿掉 `--render-only`、又帶 `GITHUB_TOKEN`。
+
+### 行為那幾條是真的跑 main()
+
+selftest 把 `collect` 換成會 raise 的替身（記呼叫次數、崩潰時也記下來，不讓 selftest 跟著崩），
+用拋棄式 vault 真的跑 `main()`。M371 這類「多呼叫一次」的變異紅在呼叫次數與輸出比對，不是紅在
+崩潰。
+
+### 清單長度
+
+366 → 377。分片 4 片，每片 95 條。
