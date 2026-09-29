@@ -3374,7 +3374,9 @@ def _bd_main(vault, argv, collect):
 
 
 def _bd_rd(vault, *rel):
-    return _json.loads(vault.joinpath(*rel).read_text("utf-8"))
+    """讀 JSON；檔案不在回 None（變異讓碼沒寫檔時要紅在比對上，不是崩在讀檔）。"""
+    p = vault.joinpath(*rel)
+    return _json.loads(p.read_text("utf-8")) if p.exists() else None
 
 
 def _bd_strip(doc):
@@ -3479,7 +3481,7 @@ with tempfile.TemporaryDirectory() as _bdtd:
     # board.json 不存在：measured false 佔位，stderr 一行，exit 0。
     _bd_bp.unlink()
     _bd_rc6, _, _bd_e6, _bd_calls6 = _bd_main(_bdv, ["--render-only"], None)
-    _bd_gj6 = _bd_rd(_bdv, "dist", "data", "github.json")
+    _bd_gj6 = _bd_rd(_bdv, "dist", "data", "github.json") or {}
     acase("GitHub 榜：board.json 不存在 → measured 是 false 的佔位、stderr 印一行、exit 0"
           "（少了 measured 這一格，0 條的榜單跟「今天真的沒有 repo 上榜」在下游眼裡一樣）",
           [_bd_rc6, _bd_gj6.get("measured"), _bd_gj6.get("count"), _bd_gj6.get("repos"),
