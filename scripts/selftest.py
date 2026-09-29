@@ -3309,7 +3309,7 @@ with tempfile.TemporaryDirectory() as _ghtd:
     _gh_collect, _gh_argv, _gh_envv = _ghm.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
         _ghm.collect = lambda *a, **k: {}
-        sys.argv = ["pulse-github.py"]
+        sys.argv = ["pulse-github.py", "--snapshot"]   # 走到抓取全失敗那條路要 do_snapshot 為真
         os.environ["VAULT_DIR"] = str(_ghv)
         _ghm.main()
     finally:
@@ -3435,8 +3435,8 @@ with tempfile.TemporaryDirectory() as _bdtd:
     # render-only：collect 換成會 raise 的替身、清掉 dist 與 coverage，輸出仍等於 board 加譯文。
     _bd_state_b = (_bdv / "_github" / "state.json").read_bytes()
     _bd_board_b = _bd_bp.read_bytes()
-    shutil.rmtree(_bdv / "dist")
-    (_bdv / "_github" / "desc-coverage.json").unlink()
+    shutil.rmtree(_bdv / "dist", ignore_errors=True)
+    (_bdv / "_github" / "desc-coverage.json").unlink(missing_ok=True)
     _bd_rc2, _, _, _bd_calls2 = _bd_main(_bdv, ["--render-only"], None, nonet=True)
     _bd_gj2 = _bd_rd(_bdv, "dist", "data", "github.json")
     acase("GitHub 榜：--render-only 不呼叫 collect，輸出等於 board 加譯文"
@@ -3501,7 +3501,7 @@ with tempfile.TemporaryDirectory() as _bdtd:
 
     # board.json 壞掉：exit 2、訊息帶路徑、不寫任何輸出。
     _bd_bp.write_text("{not json", encoding="utf-8")
-    shutil.rmtree(_bdv / "dist")
+    shutil.rmtree(_bdv / "dist", ignore_errors=True)
     _bd_rc4, _, _bd_e4, _ = _bd_main(_bdv, ["--render-only"], None)
     acase("GitHub 榜：board.json 不是合法 JSON → exit 2，訊息帶路徑，不寫輸出"
           "（壞檔被當成沒有榜，就是把「讀不到」印成「今天沒有 repo 上榜」）",
@@ -3516,7 +3516,7 @@ with tempfile.TemporaryDirectory() as _bdtd:
           [_bd_rc5, str(_bd_bp) in _bd_e5, (_bdv / "dist").exists()], [2, True, False])
 
     # board.json 不存在：measured false 佔位，stderr 一行，exit 0。
-    _bd_bp.unlink()
+    _bd_bp.unlink(missing_ok=True)
     _bd_rc6, _, _bd_e6, _bd_calls6 = _bd_main(_bdv, ["--render-only"], None)
     _bd_gj6 = _bd_rd(_bdv, "dist", "data", "github.json") or {}
     acase("GitHub 榜：board.json 不存在 → measured 是 false 的佔位、stderr 印一行、exit 0"
@@ -3528,8 +3528,8 @@ with tempfile.TemporaryDirectory() as _bdtd:
 
     # 快照沒更新、board.json 又不存在：佔位 measured:false，desc-coverage 兩格寫 null
     # （沿用抓取全失敗那條路的語意；量不到寫 null 不寫 0，紅線 8）。
-    shutil.rmtree(_bdv / "dist")
-    (_bdv / "_github" / "desc-coverage.json").unlink()
+    shutil.rmtree(_bdv / "dist", ignore_errors=True)
+    (_bdv / "_github" / "desc-coverage.json").unlink(missing_ok=True)
     _bd_rc7, _, _bd_e7, _ = _bd_main(_bdv, [], _bd_changed)
     _bd_gj7 = _bd_rd(_bdv, "dist", "data", "github.json") or {}
     _bd_cov7 = _bd_rd(_bdv, "_github", "desc-coverage.json") or {}
