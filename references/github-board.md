@@ -13,27 +13,41 @@
 
 | 角色 | 誰 | 讀什麼 | 寫什麼 |
 |---|---|---|---|
-| 算 | `data-refresh.yml` 跑 `pulse-github.py --snapshot-if-older-than 20`（抓取模式） | GitHub Search API、`_github/state.json` | `_github/state.json`、`_github/board.json`（只在快照有更新時）、`_github/desc-coverage.json`、`dist/data/github.json`、`dist/github/index.html` |
+| 算 | `data-refresh.yml` 跑 `pulse-github.py --snapshot-if-older-than 20`（抓取模式） | GitHub Search API、`_github/state.json`（快照沒更新時改讀 `board.json`，見下） | `_github/state.json`、`_github/board.json`（只在快照有更新時）、`_github/desc-coverage.json`、`dist/data/github.json`、`dist/github/index.html` |
 | 存 | `data-refresh.yml` 的 `git add -A`（不用改） | | 把 `_github/board.json` 一起 commit 進 `main` |
 | 出頁 | `pages.yml` 跑 `pulse-github.py --render-only` | `_github/board.json`、`_github/desc-zh.json` | `dist/data/github.json`、`dist/github/index.html` |
 
 抓取模式照舊寫 `dist/data/github.json`：data-refresh 後面的 `pulse-github-desc-prep.py` 讀的
-是它。那份 `dist` 不部署，部署的是 pages 自己出的那份。
+是它。那份 `dist` 不部署，部署的是 pages 自己出的那份，所以這一份的內容必須與 pages 出的是同一份榜
+（快照沒更新的班次取自 `board.json`，見〈抓取模式〉）。
 
 ## 兩個模式
 
 ### 抓取模式（預設）
 
-行為照舊（打 Search、算 `rank()`、`--snapshot` 或 `--snapshot-if-older-than` 決定要不要更新
-`state.json`），另外加一條：**這次快照有更新時**（`do_snapshot` 為真，也就是比對用的基線已達
-門檻年紀），把算好的榜原子寫進 `_github/board.json`。
+依 `do_snapshot`（比對的基線是否已達門檻年紀）分兩條路。
 
-- 快照沒更新：`board.json` 一個 byte 都不動，stdout 那行印「board.json 未更新」。
+**`do_snapshot` 為真**：行為照舊（打 Search、算 `rank()`、更新 `state.json`），另外把算好的榜原子寫進
+`_github/board.json`。
+
 - 抓取全失敗（`collect()` 回空）：不寫 `board.json`，保留上一份。
 - 內容與 `dist/data/github.json` 是同一個 dict，**不含 `desc_zh` 欄**。譯文屬於敘述，在出頁時
   才掛，掛在 `board.json` 裡會讓「榜的事實」與「當下有沒有譯文」綁成同一份檔案。
 - 寫檔順序：先 `board.json`、後 `state.json`。反過來的話，state 寫成功、board 沒寫成功，下一班
   的基線就太新，`--snapshot-if-older-than` 擋住，榜要等 20 小時才補得上。
+
+**`do_snapshot` 為假**（基線未達門檻，或沒帶任何快照旗標）：**不抓、不重排、不寫 `board.json`**
+（一個 byte 都不動），stdout 那行印「board.json 未更新」與「出頁取自 _github/board.json」。
+`dist/data/github.json`、頁面與 `_github/desc-coverage.json` 的榜一律取自現有 `board.json`，掛譯文
+的方式與 `--render-only` **是同一份碼**（`emit_board()`）。
+
+為什麼不能另排一份：同一班後面的 `pulse-github-desc-prep.py` 預設讀 `dist/data/github.json`，
+`write_desc_coverage()` 量的也是同一份榜。用年輕基線重排的榜線上不會顯示，desc-prep 與覆蓋率量到的
+就會是一份沒人看得到的榜。`desc-prep` 的讀取路徑不變，只是這一班內容換成線上那份。
+
+- `board.json` 不存在：`dist/data/github.json` 寫 `measured: false` 佔位、stderr 一行，
+  `desc-coverage.json` 的 `ranked`、`with_zh` 兩格寫 null（量不到寫 null，不寫 0）。
+- `board.json` 壞掉：與 `--render-only` 一樣 exit 2，訊息帶路徑。
 
 ### `--render-only`（pages 用）
 

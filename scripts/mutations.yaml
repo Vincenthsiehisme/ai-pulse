@@ -1594,16 +1594,16 @@ mutations:
   - id: M182
     title: "快照只寫星數不寫名次（下一班每一條都讀成「上一版沒記名次」，整欄的變動從此永遠空著——而畫面上那是一種合法狀態，不會有人發現它再也不會變）"
     file: pulse-github.py
-    find: "        state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp(),\n                             \"rank_velocity\": vel_rank.get(full),\n                             \"rank_surge\": sur_rank.get(full)}\n                      for full, r in current.items()})"
-    replace: "        state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp()}\n                      for full, r in current.items()})"
+    find: "    state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp(),\n                         \"rank_velocity\": vel_rank.get(full),\n                         \"rank_surge\": sur_rank.get(full)}\n                  for full, r in current.items()})"
+    replace: "    state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp()}\n                  for full, r in current.items()})"
     survives: false
     why: ""
 
   - id: M183
     title: "沒上榜的 repo 名次寫 0 不寫 null（0 是一個比第一名還前面的名次——榜外進榜會被標成「下降」，方向剛好相反，而且是個具體數字）"
     file: pulse-github.py
-    find: "                             \"rank_velocity\": vel_rank.get(full),\n                             \"rank_surge\": sur_rank.get(full)}"
-    replace: "                             \"rank_velocity\": vel_rank.get(full, 0),\n                             \"rank_surge\": sur_rank.get(full, 0)}"
+    find: "                         \"rank_velocity\": vel_rank.get(full),\n                         \"rank_surge\": sur_rank.get(full)}"
+    replace: "                         \"rank_velocity\": vel_rank.get(full, 0),\n                         \"rank_surge\": sur_rank.get(full, 0)}"
     survives: false
     why: ""
 
@@ -3201,10 +3201,10 @@ mutations:
   # ── 第七十輪：GitHub 榜算一次、存進版控，pages 只讀（references/github-board.md）──
 
   - id: M369
-    title: "快照沒更新也寫 board.json（data-refresh 20 小時內重跑，用太新的基線蓋掉好榜）"
+    title: "快照沒更新的班次照樣抓、重排、寫 board.json（data-refresh 20 小時內重跑，用太新的基線蓋掉好榜）"
     file: pulse-github.py
-    find: "    if do_snapshot:\n        # 先 board、後 state"
-    replace: "    if True:\n        # 先 board、後 state"
+    find: "    if not do_snapshot:\n        # 快照沒更新"
+    replace: "    if False:\n        # 快照沒更新"
     survives: false
     why: ""
 
@@ -3219,8 +3219,8 @@ mutations:
   - id: M371
     title: "--render-only 又呼叫 collect（pages 重算榜，baseline_days 0.0 回來）"
     file: pulse-github.py
-    find: "    out = Path(vault) / out_dir\n    if bp.exists():"
-    replace: "    out = Path(vault) / out_dir\n    collect({}, None, now)\n    if bp.exists():"
+    find: "    try:\n        doc, present = emit_board(vault, out_dir, datetime.now(timezone.utc))"
+    replace: "    collect({}, None, datetime.now(timezone.utc))\n    try:\n        doc, present = emit_board(vault, out_dir, datetime.now(timezone.utc))"
     survives: false
     why: ""
 
@@ -3233,18 +3233,18 @@ mutations:
     why: ""
 
   - id: M373
-    title: "board.json 壞 JSON 時 exit 0（壞檔被當成正常，網站照發舊頁）"
+    title: "board.json 壞 JSON 時當成不存在（壞檔被印成「沒量到」的佔位頁，網站照發、沒人紅）"
     file: pulse-github.py
-    find: "不是合法 JSON：{e}\", file=sys.stderr)\n            return 2"
-    replace: "不是合法 JSON：{e}\", file=sys.stderr)\n            return 0"
+    find: "raise BoardError(f\"{bp} 不是合法 JSON：{e}\")"
+    replace: "return None"
     survives: false
     why: ""
 
   - id: M374
-    title: "board.json 缺 repos 時 exit 0"
+    title: "board.json 缺 repos 不驗（後面才 KeyError，訊息不帶路徑）"
     file: pulse-github.py
-    find: "缺 repos（或不是 JSON object）\", file=sys.stderr)\n            return 2"
-    replace: "缺 repos（或不是 JSON object）\", file=sys.stderr)\n            return 0"
+    find: "    if not isinstance(board, dict) or not isinstance(board.get(\"repos\"), list):"
+    replace: "    if not isinstance(board, dict):"
     survives: false
     why: ""
 
@@ -3285,5 +3285,45 @@ mutations:
     file: pulse-github.py
     find: "    if args.render_only and (args.snapshot or args.snapshot_if_older_than is not None):"
     replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M431
+    title: "快照沒更新且 board.json 不存在時，desc-coverage 兩格寫 0（量不到印成「榜上一條中文都沒有」）"
+    file: pulse-github.py
+    find: "write_desc_coverage(vault, now, ranked_n=None, with_zh_n=None)"
+    replace: "write_desc_coverage(vault, now, ranked_n=0, with_zh_n=0)"
+    survives: false
+    why: ""
+
+  - id: M432
+    title: "快照沒更新時 desc-coverage 只算星速榜（分母比畫面窄，名字卻叫「中文描述」）"
+    file: pulse-github.py
+    find: "            write_desc_coverage(vault, now, len(listed), n_zh)\n"
+    replace: "            write_desc_coverage(vault, now, len(doc[\"repos\"]), n_zh)\n"
+    survives: false
+    why: ""
+
+  - id: M433
+    title: "快照沒更新的班次遇到壞 board.json 時 exit 0（同一班的 desc-prep 照跑，量的是佔位）"
+    file: pulse-github.py
+    find: "            print(f\"[error] {e}\", file=sys.stderr)\n            return 2"
+    replace: "            print(f\"[error] {e}\", file=sys.stderr)\n            return 0"
+    survives: false
+    why: ""
+
+  - id: M434
+    title: "--render-only 出頁前多連一次網（DNS 查 api.github.com；不打網路是「沒有東西連出去」，不只是 collect 沒被呼叫）"
+    file: pulse-github.py
+    find: "        return 2\n    if present:"
+    replace: "        return 2\n    import socket\n    socket.getaddrinfo(\"api.github.com\", 443)\n    if present:"
+    survives: false
+    why: ""
+
+  - id: M435
+    title: "快照沒更新的班次還去抓一次（用不到的 API 額度，而且抓到的榜不會被用）"
+    file: pulse-github.py
+    find: "        try:\n            doc, present = emit_board(vault, args.out, now)"
+    replace: "        collect(cfg, token, now)\n        try:\n            doc, present = emit_board(vault, args.out, now)"
     survives: false
     why: ""

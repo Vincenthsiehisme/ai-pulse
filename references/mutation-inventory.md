@@ -3091,25 +3091,30 @@ selftest 從 yaml 取出那一步的 `run:`，墊一支假的 `curl` 與 `python
 
 ## 第七十輪（2026-09-30，`fix/github-board-from-committed-snapshot`）
 
-M369–M379，十一條。守的是 GitHub 榜「算一次、存進版控、pages 只讀」：`pulse-github.py` 的
-`board.json` 寫入與 `--render-only`，加上 `pages.yml` 那一步。規格 `references/github-board.md`。
+M369–M379 與 M431–M435，十六條。守的是 GitHub 榜「算一次、存進版控、pages 只讀」：`pulse-github.py`
+的 `board.json` 寫入、`--render-only`、快照沒更新那一班的出頁來源，加上 `pages.yml` 那一步。規格
+`references/github-board.md`。M431–M435 是 verifier 第一輪返工補的，編號段是派工時另外保留給 T1 的。
 
 這一組壞掉的樣子是：pages 又自己重算榜，線上全列 `baseline_days` 0.0、星速是 2×delta，而每個
-數字看起來都正常，沒有東西會紅。所以十一條裡：
+數字看起來都正常，沒有東西會紅。所以十六條裡：
 
-- M369、M370 守寫入端：快照沒更新也寫（用太新的基線蓋掉好榜）、`board.json` 帶進譯文欄。
-- M371、M377、M378 守 `--render-only` 的邊界：又呼叫 `collect`、又寫 `desc-coverage.json`、
-  不掛譯文。
-- M372、M373、M374、M379 守出口：佔位檔的 `measured`、壞 JSON 與缺 `repos` 的 exit code、
-  旗標不能併用。
+- M369、M370、M435 守寫入端與抓取端：快照沒更新也抓、也重排、也寫 `board.json`（用太新的基線
+  蓋掉好榜）、`board.json` 帶進譯文欄。
+- M371、M377、M378、M434 守 `--render-only` 的邊界：又呼叫 `collect`、又寫
+  `desc-coverage.json`、不掛譯文、出頁前多連一次網。
+- M372、M373、M374、M379 守出口：佔位檔的 `measured`、壞 JSON 與缺 `repos` 的處理、旗標不能併用。
+- M431、M432、M433 守快照沒更新那一班：出頁與 `desc-coverage.json` 取自現有 `board.json`，
+  同一班的 desc-prep 讀到的才是線上那份。`board.json` 不存在時兩格寫 null，覆蓋率分母算兩個榜，
+  壞 board 一律 exit 2。
 - M375、M376 守 `pages.yml`：拿掉 `--render-only`、又帶 `GITHUB_TOKEN`。
 
 ### 行為那幾條是真的跑 main()
 
 selftest 把 `collect` 換成會 raise 的替身（記呼叫次數、崩潰時也記下來，不讓 selftest 跟著崩），
-用拋棄式 vault 真的跑 `main()`。M371 這類「多呼叫一次」的變異紅在呼叫次數與輸出比對，不是紅在
-崩潰。
+用拋棄式 vault 真的跑 `main()`。`--render-only` 那條另外把 `socket.connect`、
+`socket.create_connection`、`socket.getaddrinfo` 換成會 raise 的替身：不打網路是「沒有東西連出去」，
+不只是「`collect` 沒被呼叫」，M434 就是用這條抓。
 
 ### 清單長度
 
-366 → 377。分片 4 片，每片 95 條。
+366 → 382。分片 4 片，每片 96 條。

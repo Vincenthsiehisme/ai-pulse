@@ -3236,7 +3236,7 @@ with tempfile.TemporaryDirectory() as _u4td:
     _u4_collect, _u4_argv, _u4_env = _ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
         _ghm2.collect = lambda *a, **k: _U_REPOS
-        sys.argv = ["pulse-github.py"]
+        sys.argv = ["pulse-github.py", "--snapshot"]
         os.environ["VAULT_DIR"] = str(_u4v)
         _ghm2.main()
     finally:
@@ -3345,8 +3345,13 @@ acase("榜單中文描述：只有「有過然後停了」與「從來沒翻過�
 import contextlib as _bd_cl  # noqa: E402
 
 
-def _bd_main(vault, argv, collect):
-    """跑一次 pulse-github main()，回 (rc, stdout, stderr, collect 被呼叫幾次)。"""
+def _bd_main(vault, argv, collect, nonet=False):
+    """跑一次 pulse-github main()，回 (rc, stdout, stderr, collect 被呼叫幾次)。
+
+    nonet=True 時把 socket 連線那幾個入口換成會 raise 的替身：--render-only 不打網路
+    是「沒有東西連出去」，不是「collect 沒被呼叫」——後者擋不住別條路徑上的連線。
+    """
+    import socket as _sk
     calls = []
 
     def _stub(*a, **k):
@@ -3355,8 +3360,15 @@ def _bd_main(vault, argv, collect):
             raise RuntimeError("collect 被呼叫了")
         return collect
 
+    def _no_net(*a, **k):
+        raise RuntimeError("selftest：這個模式不准連網")
+
     _o, _e = io.StringIO(), io.StringIO()
     _sv = (_ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR"))
+    _sk_sv = (_sk.socket.connect, _sk.create_connection, _sk.getaddrinfo)
+    if nonet:
+        _sk.socket.connect, _sk.create_connection, _sk.getaddrinfo = (
+            _no_net, _no_net, _no_net)
     _ghm2.collect = _stub
     sys.argv = ["pulse-github.py"] + argv
     os.environ["VAULT_DIR"] = str(vault)
@@ -3368,6 +3380,7 @@ def _bd_main(vault, argv, collect):
                 rc = f"raised:{type(ex).__name__}"
     finally:
         _ghm2.collect, sys.argv = _sv[0], _sv[1]
+        _sk.socket.connect, _sk.create_connection, _sk.getaddrinfo = _sk_sv
         if _sv[2] is not None:
             os.environ["VAULT_DIR"] = _sv[2]
     return rc, _o.getvalue(), _e.getvalue(), len(calls)
@@ -3424,13 +3437,16 @@ with tempfile.TemporaryDirectory() as _bdtd:
     _bd_board_b = _bd_bp.read_bytes()
     shutil.rmtree(_bdv / "dist")
     (_bdv / "_github" / "desc-coverage.json").unlink()
-    _bd_rc2, _, _, _bd_calls2 = _bd_main(_bdv, ["--render-only"], None)
+    _bd_rc2, _, _, _bd_calls2 = _bd_main(_bdv, ["--render-only"], None, nonet=True)
     _bd_gj2 = _bd_rd(_bdv, "dist", "data", "github.json")
     acase("GitHub 榜：--render-only 不呼叫 collect，輸出等於 board 加譯文"
           "（呼叫了就是又抓又算，baseline_days 0.0 那個 bug 回來）",
           [_bd_rc2, _bd_calls2, _bd_gj2 == _bd_gj1,
            (_bdv / "dist" / "github" / "index.html").exists()],
           [0, 0, True, True])
+    acase("GitHub 榜：--render-only 執行期間 socket.connect／create_connection／getaddrinfo 都是會 raise 的替身，"
+          "照樣 exit 0 並出檔（不打網路是「沒有東西連出去」，不只是「collect 沒被呼叫」）",
+          [_bd_rc2, (_bdv / "dist" / "data" / "github.json").exists()], [0, True])
     acase("GitHub 榜：--render-only 不寫 state.json、desc-coverage.json，也不動 board.json"
           "（榜與基線都是 data-refresh 的事）",
           [(_bdv / "_github" / "state.json").read_bytes() == _bd_state_b,
@@ -3447,6 +3463,23 @@ with tempfile.TemporaryDirectory() as _bdtd:
           [_bd_rc3, _bd_bp.read_bytes() == _bd_board_b, "board.json 未更新" in _bd_o3,
            "board.json 已寫" in _bd_o3],
           [0, True, True, False])
+    # 快照沒更新時，這一班出的頁與 desc-coverage 要取自現有 board.json（線上顯示的那份），
+    # 不是另用年輕基線重排的一份：同一班的 desc-prep 讀 dist/data/github.json、
+    # write_desc_coverage 量的也是它，量的要是線上真的看得到的榜。
+    _bd_rc3d, _bd_o3d, _, _bd_calls3d = _bd_main(
+        _bdv, ["--snapshot-if-older-than", "20"], _bd_changed)
+    _bd_gj3 = _bd_rd(_bdv, "dist", "data", "github.json")
+    _bd_cov3 = _bd_rd(_bdv, "_github", "desc-coverage.json")
+    acase("GitHub 榜：快照沒更新時 dist/data/github.json 取自 board.json 加譯文，不是用年輕基線重排的一份"
+          "（collect 給了另一批星數，所以取錯來源會不等；desc-prep 讀的就是這個檔）",
+          [_bd_rc3d, _bd_gj3 == _bd_gj1, _bd_calls3d,
+           (_bdv / "dist" / "github" / "index.html").exists()],
+          [0, True, 0, True])
+    acase("GitHub 榜：快照沒更新時 desc-coverage 量的是 board.json 那份榜（去重 4 條、1 條有譯文），"
+          "stdout 看得出這班出的是 board.json 那一份",
+          [_bd_cov3.get("ranked"), _bd_cov3.get("with_zh"),
+           "取自 _github/board.json" in _bd_o3d],
+          [4, 1, True])
     # 沒帶任何快照旗標：同樣不寫。
     _bd_rc3b, _bd_o3b, _, _ = _bd_main(_bdv, [], _bd_changed)
     acase("GitHub 榜：沒帶快照旗標的抓取也不寫 board.json",
@@ -3473,6 +3506,10 @@ with tempfile.TemporaryDirectory() as _bdtd:
     acase("GitHub 榜：board.json 不是合法 JSON → exit 2，訊息帶路徑，不寫輸出"
           "（壞檔被當成沒有榜，就是把「讀不到」印成「今天沒有 repo 上榜」）",
           [_bd_rc4, str(_bd_bp) in _bd_e4, (_bdv / "dist").exists()], [2, True, False])
+    # 快照沒更新的班次也一樣：壞 board 不能被當成沒有榜，同一班的 desc-prep 會照著佔位跑。
+    _bd_rc4b, _, _bd_e4b, _ = _bd_main(_bdv, [], _bd_changed)
+    acase("GitHub 榜：快照沒更新的抓取班遇到壞 board.json → exit 2，訊息帶路徑，不寫輸出",
+          [_bd_rc4b, str(_bd_bp) in _bd_e4b, (_bdv / "dist").exists()], [2, True, False])
     _bd_bp.write_text(_json.dumps({"generated": "x", "count": 0}), encoding="utf-8")
     _bd_rc5, _, _bd_e5, _ = _bd_main(_bdv, ["--render-only"], None)
     acase("GitHub 榜：board.json 缺 repos → exit 2，訊息帶路徑",
@@ -3488,6 +3525,20 @@ with tempfile.TemporaryDirectory() as _bdtd:
            len(_bd_e6.strip().splitlines()), _bd_calls6,
            (_bdv / "dist" / "github" / "index.html").exists()],
           [0, False, 0, [], 1, 0, True])
+
+    # 快照沒更新、board.json 又不存在：佔位 measured:false，desc-coverage 兩格寫 null
+    # （沿用抓取全失敗那條路的語意；量不到寫 null 不寫 0，紅線 8）。
+    shutil.rmtree(_bdv / "dist")
+    (_bdv / "_github" / "desc-coverage.json").unlink()
+    _bd_rc7, _, _bd_e7, _ = _bd_main(_bdv, [], _bd_changed)
+    _bd_gj7 = _bd_rd(_bdv, "dist", "data", "github.json") or {}
+    _bd_cov7 = _bd_rd(_bdv, "_github", "desc-coverage.json") or {}
+    acase("GitHub 榜：快照沒更新且 board.json 不存在 → github.json 是 measured:false 佔位、"
+          "desc-coverage 的榜與譯文兩格是 null，不是用抓到的榜頂替",
+          [_bd_rc7, _bd_gj7.get("measured"), _bd_gj7.get("repos"),
+           _bd_cov7.get("ranked", "MISSING"), _bd_cov7.get("with_zh", "MISSING"),
+           _bd_bp.exists()],
+          [0, False, [], None, None, False])
 
 # pages.yml：GitHub 那一步帶 --render-only、env 沒有 GITHUB_TOKEN。
 _bd_pages = _yaml.safe_load(open(os.path.join(_HERE, "..", ".github", "workflows", "pages.yml"),
@@ -9645,7 +9696,7 @@ with tempfile.TemporaryDirectory() as _rmtd:
         _ghm2.main()
         _rm_board1 = _json.loads((_rmv / "dist" / "data" / "github.json").read_text("utf-8"))
         _rm_state = _json.loads((_rmv / "_github" / "state.json").read_text("utf-8"))
-        sys.argv = ["pulse-github.py"]      # 第二班：基線已經有名次了
+        sys.argv = ["pulse-github.py", "--snapshot"]      # 第二班：基線已經有名次了
         _ghm2.main()
         _rm_board2 = _json.loads((_rmv / "dist" / "data" / "github.json").read_text("utf-8"))
     finally:
