@@ -3337,6 +3337,168 @@ acase("榜單中文描述：只有「有過然後停了」與「從來沒翻過�
        _dz({"ranked": 25, "with_zh": 0, "last_with_zh_day": "2026-07-20"})[1]],
       [False, False, True, True])
 
+# ── GitHub 榜：算一次、存進版控，pages 只讀（references/github-board.md）──
+# pages 每次 push 都跑。它以前自己重算榜，基線是幾分鐘前 data-refresh 剛 commit 的快照，
+# 線上全列 baseline_days 0.0、星速是 2×delta（2026-09-30 量到）。所以榜只在 data-refresh
+# 快照有更新時算並存進 _github/board.json，pages 走 --render-only 只讀。
+# 這一組全走真的 main()：grep 原始碼只證明那段碼還在。
+import contextlib as _bd_cl  # noqa: E402
+
+
+def _bd_main(vault, argv, collect):
+    """跑一次 pulse-github main()，回 (rc, stdout, stderr, collect 被呼叫幾次)。"""
+    calls = []
+
+    def _stub(*a, **k):
+        calls.append(1)
+        if collect is None:
+            raise RuntimeError("collect 被呼叫了")
+        return collect
+
+    _o, _e = io.StringIO(), io.StringIO()
+    _sv = (_ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR"))
+    _ghm2.collect = _stub
+    sys.argv = ["pulse-github.py"] + argv
+    os.environ["VAULT_DIR"] = str(vault)
+    try:
+        with _bd_cl.redirect_stdout(_o), _bd_cl.redirect_stderr(_e):
+            try:
+                rc = _ghm2.main()
+            except Exception as ex:  # noqa: BLE001 — 變異讓碼崩潰時要記下來，不是讓 selftest 跟著崩
+                rc = f"raised:{type(ex).__name__}"
+    finally:
+        _ghm2.collect, sys.argv = _sv[0], _sv[1]
+        if _sv[2] is not None:
+            os.environ["VAULT_DIR"] = _sv[2]
+    return rc, _o.getvalue(), _e.getvalue(), len(calls)
+
+
+def _bd_rd(vault, *rel):
+    return _json.loads(vault.joinpath(*rel).read_text("utf-8"))
+
+
+def _bd_strip(doc):
+    """去掉每一列的 desc_zh 系列欄（board.json 不含譯文）。"""
+    out = dict(doc)
+    for k in ("repos", "surging"):
+        out[k] = [{f: v for f, v in r.items() if not f.startswith("desc_zh")}
+                  for r in doc[k]]
+    return out
+
+
+with tempfile.TemporaryDirectory() as _bdtd:
+    _bdv = Path(_bdtd)
+    (_bdv / "_config").mkdir()
+    (_bdv / "_github").mkdir()
+    (_bdv / "_config" / "github.yaml").write_text("top_n: 2\nsearches: []\n", encoding="utf-8")
+    _bd_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
+    (_bdv / "_github" / "state.json").write_text(_json.dumps({
+        "big/a": {"stars": 99000, "ts": _bd_ts}, "big/b": {"stars": 49500, "ts": _bd_ts},
+        "sml/x": {"stars": 500, "ts": _bd_ts}, "sml/y": {"stars": 210, "ts": _bd_ts}}),
+        encoding="utf-8")
+    (_bdv / "_github" / "desc-zh.json").write_text(_json.dumps(
+        {"sml/x": {"zh": "小專案", "src_hash": _gu.src_hash("X"), "at": "t"}}),
+        encoding="utf-8")
+    _bd_bp = _bdv / "_github" / "board.json"
+
+    # 抓取模式、快照有更新：寫 board.json，內容等於 github.json 去掉譯文欄。
+    _bd_rc1, _bd_o1, _, _ = _bd_main(_bdv, ["--snapshot-if-older-than", "20"], _U_REPOS)
+    _bd_board = _bd_rd(_bdv, "_github", "board.json")
+    _bd_gj1 = _bd_rd(_bdv, "dist", "data", "github.json")
+    _bd_nonnew = [r["baseline_days"] for r in _bd_board["repos"] if not r["is_new"]]
+    acase("GitHub 榜：抓取模式快照有更新時寫 board.json，而且等於 github.json 去掉譯文欄"
+          "（譯文屬於敘述，在出頁時才掛；github.json 真的帶譯文，所以「去掉」不是空轉）",
+          [_bd_rc1, _bd_board == _bd_strip(_bd_gj1),
+           any(r.get("desc_zh") for r in _bd_gj1["surging"]),
+           any("desc_zh" in r for r in _bd_board["repos"] + _bd_board["surging"]),
+           _bd_board["measured"]],
+          [0, True, True, False, True])
+    acase("GitHub 榜：board.json 裡非首次觀測的列 baseline_days 是快照的年紀（約 1 天），不是 0"
+          "（pages 重算那一版全列 0.0）",
+          [len(_bd_nonnew) > 0, all(0.8 <= d <= 1.2 for d in _bd_nonnew)], [True, True])
+
+    # render-only：collect 換成會 raise 的替身、清掉 dist 與 coverage，輸出仍等於 board 加譯文。
+    _bd_state_b = (_bdv / "_github" / "state.json").read_bytes()
+    _bd_board_b = _bd_bp.read_bytes()
+    shutil.rmtree(_bdv / "dist")
+    (_bdv / "_github" / "desc-coverage.json").unlink()
+    _bd_rc2, _, _, _bd_calls2 = _bd_main(_bdv, ["--render-only"], None)
+    _bd_gj2 = _bd_rd(_bdv, "dist", "data", "github.json")
+    acase("GitHub 榜：--render-only 不呼叫 collect，輸出等於 board 加譯文"
+          "（呼叫了就是又抓又算，baseline_days 0.0 那個 bug 回來）",
+          [_bd_rc2, _bd_calls2, _bd_gj2 == _bd_gj1,
+           (_bdv / "dist" / "github" / "index.html").exists()],
+          [0, 0, True, True])
+    acase("GitHub 榜：--render-only 不寫 state.json、desc-coverage.json，也不動 board.json"
+          "（榜與基線都是 data-refresh 的事）",
+          [(_bdv / "_github" / "state.json").read_bytes() == _bd_state_b,
+           (_bdv / "_github" / "desc-coverage.json").exists(),
+           _bd_bp.read_bytes() == _bd_board_b], [True, False, True])
+    _bd_state_dry = (_bdv / "_github" / "state.json").read_text("utf-8")
+
+    # 快照沒更新（基線才 0 小時大）：board.json 一個 byte 都不變。collect 換成另一批星數，
+    # 這樣「寫了」跟「沒寫」的 bytes 才不會碰巧一樣。
+    _bd_changed = {k: dict(v, stars=v["stars"] + 777) for k, v in _U_REPOS.items()}
+    _bd_rc3, _bd_o3, _, _ = _bd_main(_bdv, ["--snapshot-if-older-than", "20"], _bd_changed)
+    acase("GitHub 榜：快照沒更新（--snapshot-if-older-than 未達門檻）時 board.json 一個 byte 都不變，"
+          "stdout 印「board.json 未更新」（data-refresh 20 小時內重跑，不能拿太新的基線蓋掉它）",
+          [_bd_rc3, _bd_bp.read_bytes() == _bd_board_b, "board.json 未更新" in _bd_o3,
+           "board.json 已寫" in _bd_o3],
+          [0, True, True, False])
+    # 沒帶任何快照旗標：同樣不寫。
+    _bd_rc3b, _bd_o3b, _, _ = _bd_main(_bdv, [], _bd_changed)
+    acase("GitHub 榜：沒帶快照旗標的抓取也不寫 board.json",
+          [_bd_rc3b, _bd_bp.read_bytes() == _bd_board_b, "board.json 未更新" in _bd_o3b],
+          [0, True, True])
+    # 抓取全失敗：保留上一份（連 --snapshot 也一樣，collect 回空就沒有榜可存）。
+    _bd_rc3c, _, _, _ = _bd_main(_bdv, ["--snapshot"], {})
+    acase("GitHub 榜：抓取全失敗時不寫 board.json，保留上一份",
+          [_bd_rc3c, _bd_bp.read_bytes() == _bd_board_b], [0, True])
+
+    # render-only 與快照旗標不能併用。
+    try:
+        _bd_main(_bdv, ["--render-only", "--snapshot"], None)
+        _bd_conflict = "no-exit"
+    except SystemExit as _ex:
+        _bd_conflict = _ex.code
+    acase("GitHub 榜：--render-only 不能與 --snapshot 併用（argparse 直接拒，exit 2）",
+          _bd_conflict, 2)
+
+    # board.json 壞掉：exit 2、訊息帶路徑、不寫任何輸出。
+    _bd_bp.write_text("{not json", encoding="utf-8")
+    shutil.rmtree(_bdv / "dist")
+    _bd_rc4, _, _bd_e4, _ = _bd_main(_bdv, ["--render-only"], None)
+    acase("GitHub 榜：board.json 不是合法 JSON → exit 2，訊息帶路徑，不寫輸出"
+          "（壞檔被當成沒有榜，就是把「讀不到」印成「今天沒有 repo 上榜」）",
+          [_bd_rc4, str(_bd_bp) in _bd_e4, (_bdv / "dist").exists()], [2, True, False])
+    _bd_bp.write_text(_json.dumps({"generated": "x", "count": 0}), encoding="utf-8")
+    _bd_rc5, _, _bd_e5, _ = _bd_main(_bdv, ["--render-only"], None)
+    acase("GitHub 榜：board.json 缺 repos → exit 2，訊息帶路徑",
+          [_bd_rc5, str(_bd_bp) in _bd_e5, (_bdv / "dist").exists()], [2, True, False])
+
+    # board.json 不存在：measured false 佔位，stderr 一行，exit 0。
+    _bd_bp.unlink()
+    _bd_rc6, _, _bd_e6, _bd_calls6 = _bd_main(_bdv, ["--render-only"], None)
+    _bd_gj6 = _bd_rd(_bdv, "dist", "data", "github.json")
+    acase("GitHub 榜：board.json 不存在 → measured 是 false 的佔位、stderr 印一行、exit 0"
+          "（少了 measured 這一格，0 條的榜單跟「今天真的沒有 repo 上榜」在下游眼裡一樣）",
+          [_bd_rc6, _bd_gj6.get("measured"), _bd_gj6.get("count"), _bd_gj6.get("repos"),
+           len(_bd_e6.strip().splitlines()), _bd_calls6,
+           (_bdv / "dist" / "github" / "index.html").exists()],
+          [0, False, 0, [], 1, 0, True])
+
+# pages.yml：GitHub 那一步帶 --render-only、env 沒有 GITHUB_TOKEN。
+_bd_pages = _yaml.safe_load(open(os.path.join(_HERE, "..", ".github", "workflows", "pages.yml"),
+                                 encoding="utf-8"))
+_bd_steps = [st for st in _bd_pages["jobs"]["build-deploy"]["steps"]
+             if "pulse-github.py" in (st.get("run") or "")]
+acase("GitHub 榜：pages.yml 那一步只有一個、帶 --render-only、env 沒有 GITHUB_TOKEN"
+      "（pages 重算榜就是 baseline_days 0.0 的來源；也不需要 token）",
+      [len(_bd_steps), "--render-only" in _bd_steps[0]["run"],
+       "GITHUB_TOKEN" in (_bd_steps[0].get("env") or {}),
+       "GH_TOKEN" in (_bd_steps[0].get("env") or {})],
+      [1, True, False, False])
+
 # ── Tracks/ 與 Actors/：關聯圖的另外兩維（references/obsidian-schema.md）──
 from lib import tracks as _tk  # noqa: E402
 

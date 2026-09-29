@@ -3197,3 +3197,93 @@ mutations:
     replace: ""
     survives: false
     why: ""
+
+  # ── 第七十輪：GitHub 榜算一次、存進版控，pages 只讀（references/github-board.md）──
+
+  - id: M369
+    title: "快照沒更新也寫 board.json（data-refresh 20 小時內重跑，用太新的基線蓋掉好榜）"
+    file: pulse-github.py
+    find: "    if do_snapshot:\n        # 先 board、後 state"
+    replace: "    if True:\n        # 先 board、後 state"
+    survives: false
+    why: ""
+
+  - id: M370
+    title: "board.json 直接複製 github.json（帶進譯文欄，榜的事實與譯文綁成一份檔）"
+    file: pulse-github.py
+    find: "atomic_write_text(board_p, board_text + \"\\n\")"
+    replace: "atomic_write_text(board_p, (out / \"data\" / \"github.json\").read_text(\"utf-8\"))"
+    survives: false
+    why: ""
+
+  - id: M371
+    title: "--render-only 又呼叫 collect（pages 重算榜，baseline_days 0.0 回來）"
+    file: pulse-github.py
+    find: "    out = Path(vault) / out_dir\n    if bp.exists():"
+    replace: "    out = Path(vault) / out_dir\n    collect({}, None, now)\n    if bp.exists():"
+    survives: false
+    why: ""
+
+  - id: M372
+    title: "board.json 不存在時佔位檔標成 measured: true（沒量到印成有量到）"
+    file: pulse-github.py
+    find: "\"count\": 0, \"repos\": [],\n               \"measured\": False}"
+    replace: "\"count\": 0, \"repos\": [],\n               \"measured\": True}"
+    survives: false
+    why: ""
+
+  - id: M373
+    title: "board.json 壞 JSON 時 exit 0（壞檔被當成正常，網站照發舊頁）"
+    file: pulse-github.py
+    find: "不是合法 JSON：{e}\", file=sys.stderr)\n            return 2"
+    replace: "不是合法 JSON：{e}\", file=sys.stderr)\n            return 0"
+    survives: false
+    why: ""
+
+  - id: M374
+    title: "board.json 缺 repos 時 exit 0"
+    file: pulse-github.py
+    find: "缺 repos（或不是 JSON object）\", file=sys.stderr)\n            return 2"
+    replace: "缺 repos（或不是 JSON object）\", file=sys.stderr)\n            return 0"
+    survives: false
+    why: ""
+
+  - id: M375
+    title: "pages.yml 拿掉 --render-only（pages 又自己重算榜）"
+    file: ../.github/workflows/pages.yml
+    find: "run: python scripts/pulse-github.py --render-only"
+    replace: "run: python scripts/pulse-github.py"
+    survives: false
+    why: ""
+
+  - id: M376
+    title: "pages.yml 的 GitHub 那一步又帶 GITHUB_TOKEN"
+    file: ../.github/workflows/pages.yml
+    find: "--render-only\n        env:\n          VAULT_DIR: ${{ github.workspace }}\n"
+    replace: "--render-only\n        env:\n          VAULT_DIR: ${{ github.workspace }}\n          GITHUB_TOKEN: ${{ github.token }}\n"
+    survives: false
+    why: ""
+
+  - id: M377
+    title: "--render-only 也寫 desc-coverage.json（pages 蓋掉 data-refresh 量到的覆蓋率）"
+    file: pulse-github.py
+    find: "        doc = board\n"
+    replace: "        doc = board\n        write_desc_coverage(vault, now, len(board[\"repos\"]), 0)\n"
+    survives: false
+    why: ""
+
+  - id: M378
+    title: "--render-only 不掛星速榜的譯文（頁面全是英文，而 github.json 看起來正常）"
+    file: pulse-github.py
+    find: "        ghdesc.attach(board[\"repos\"], store)\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M379
+    title: "拿掉 --render-only 與快照旗標不能併用的檢查"
+    file: pulse-github.py
+    find: "    if args.render_only and (args.snapshot or args.snapshot_if_older_than is not None):"
+    replace: "    if False:"
+    survives: false
+    why: ""
