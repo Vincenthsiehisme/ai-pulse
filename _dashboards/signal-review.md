@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-29"
+generated_day: "2026-09-30"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-29"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **352** 則／已裁決 **26** 則。
+待回答 **357** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -27,22 +27,22 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`infra-cost#019efb9e`** — infra-cost
   > 觀察 DSX Ready 計畫公布的合作廠商規模、vLLM v0.30.0 的 MXFP8 KV cache 在實際部署的精度表現，以及 Google DeepMind Private AI Compute 伺服器端記憶體的技術細節是否公開；同時持續追蹤 AEMA 成員擴張與 MLPerf Inference v6.1 完整榜單。
 
-- **`model-research#f33849e8`** — model-research
-  > 觀察MentalHealthBench是否開源、是否有其他實驗室的模型被拿上去比較評分；NVIDIA的開放蛋白質資料集是否公開釋出、規模多大；Liquid AI是否補上LFM2.5-VL-DSpark的加速幅度基準數據。若接下來幾輪持續是這類訊號而沒有新模型能力躍升，這條主線的既有主軸描述可能真的需要更新。
+- **`model-research#e32da8b4`** — model-research
+  > 看獨立基準測試對 Sol 與 Astra 的實測差距，以及官方公布的價格是否和「五分之一」的說法對得上；查 Ars Technica 那篇的內容跟 Sol 有沒有關係；訓練安全論證的全文有沒有列出可驗證的具體做法。
 
-- **`product-market#631dbe7e`** — product-market
-  > 看還有沒有新客戶案例接上，確認這是常態節奏還是短期集中；留意 Basis、Proaction 或 OpenAI 是否揭露數字的計算方式與比較基準；Codex Originals 下一批公開案例有沒有帶可驗證的使用量或成果。
+- **`product-market#781c33ef`** — product-market
+  > 看 DevDay 期間宣布的產品與 API 變更，是否在一兩天內有獨立媒體或官方文件交叉證實；澳洲政府或監管機關是否公開回應，OpenAI 承諾的防護措施有沒有具體時程。
 
 - **`capital-evolution#726ace81`** — capital-evolution
   > 看 Lenfest 計畫的參與機構名單與資金分配方式；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金或承諾用量；同時留意新的估值、募資或併購訊號，以及 Hugging Face 收攏開源框架維護者的整合成果。
 
-- **`agent-refactor#95d85861`** — agent-refactor
-  > 看 Holo4 有沒有公開模型卡、基準成績與授權，權重是否開放；同時延續前面的觀察點：NVIDIA 安全框架是否變成具體工具、Agents API 定價公布後的採用情況、Devin 自我測試的第三方驗證數字。
+- **`agent-refactor#e8a3a435`** — agent-refactor
+  > 看 Dots 是否有官方文件公布可驗證的功能與使用限制，以及獨立開發者的實測；延續前面的觀察點：Agents API 定價公布後的採用情況、NVIDIA 安全框架是否變成具體工具。
 
 - **`global-map#d825dfdf`** — global-map
   > 觀察後續是否有具體政策文件、多邊協議、或聯合國層級的AI治理提案跟進，讓這次露出從表態變成可查證的政策動作；沿用上一輪對烏克蘭Daybreak成效與Grab完訓人數的觀察。
 
-## 事件層（346）
+## 事件層（351）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1079,5 +1079,20 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-09-28-5136c9#1e94dc73`** — evt-2026-09-28-5136c9
   > 觀察本次擴充的參與機構名單、資金分配方式，以及成果是否公開。
 
+- **`evt-2026-09-28-b715d3#42a0f1dd`** — evt-2026-09-28-b715d3
+  > 全文是否列出可驗證的具體做法，以及其他前沿實驗室是否跟進類似的訓練階段安全論證。
+
 - **`evt-2026-09-28-e77169#9e0f99e7`** — evt-2026-09-28-e77169
   > 觀察下一批 Codex Originals 公開的案例內容，是否帶有可驗證的使用量或成果數字。
+
+- **`evt-2026-09-28-fc5ea5#1683bfee`** — evt-2026-09-28-fc5ea5
+  > 澳洲政府或監管機關是否公開回應，以及 OpenAI 承諾的防護措施是否有具體時程。
+
+- **`evt-2026-09-29-01aea3#a8c6a744`** — evt-2026-09-29-01aea3
+  > DevDay 期間宣布的產品與 API 變更，是否在後續幾天有獨立媒體或官方文件交叉證實。
+
+- **`evt-2026-09-29-119ae0#5b94c021`** — evt-2026-09-29-119ae0
+  > 獨立媒體或開發者的實測、以及官方文件是否公布可驗證的功能與使用限制。
+
+- **`evt-2026-09-29-686cda#e7c76bd6`** — evt-2026-09-29-686cda
+  > 獨立基準測試對 Sol 與 Astra 的實測差距，以及 Ars Technica 所談安全取捨是否與 Sol 有關。

@@ -3,7 +3,7 @@ id: actor-microsoft
 kind: company
 in_dictionary: true
 aliases: ["微軟", "MSFT"]
-generated_day: '2026-09-29'
+generated_day: '2026-09-30'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
