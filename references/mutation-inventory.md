@@ -3137,6 +3137,11 @@ M446–M455 守四件事：subagent 的 transcript 有沒有一起讀、讀不�
 `chmod 0` 一層子目錄，`os.walk` 的 `onerror` 接得到；`pathlib.rglob` 會安靜吞掉權限錯誤
 （這台 Python 3.9.6 實測回空清單），所以不用它。
 
+M385 在這一輪第一次跑是 crashed：不在 main 也照樣推之後，成本 commit 從 session 分支推上了 origin/main，
+回到 main 的本機落後 origin，後面那一格被新的 origin 檢查擋下、帳本是空的，而那一格用 `[0]` 取帳本行，
+selftest 當場崩潰，印不出 `N/M passed`。改成不靠 `[0]` 之後是 killed（7 條紅）。崩潰不算被殺，這一條是
+被 mutate.py 分開標出來才看到的。
+
 ### 沒進清單的一種
 
 「push 失敗就重試或強推」不是一個 find／replace 做得出來的變異（要加一段碼）。push 被拒那一格斷言
