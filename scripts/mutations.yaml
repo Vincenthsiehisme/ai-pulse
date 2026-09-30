@@ -3328,3 +3328,46 @@ mutations:
     replace: "        collect(cfg, token, now)\n        try:\n            doc, present = emit_board(vault, args.out, now)"
     survives: false
     why: ""
+
+  # ── 第七十二輪（2026-09-30，T2）：GitHub 榜按體量切、六類分類、擴池 ──────────
+  # 規格 references/github-board.md〈體量切分〉〈分類〉〈候選池〉。
+
+  - id: M395
+    title: "星速榜不看門檻，小 repo 也收（兩榜又重疊，同一個 repo 兩邊都上）"
+    file: pulse-github.py
+    find: "    big = [x for x in rows if x[\"stars\"] >= tier_split]\n"
+    replace: "    big = list(rows)\n"
+    survives: false
+    why: ""
+
+  - id: M396
+    title: "竄升榜不看門檻，大 repo 也收（兩榜又重疊）"
+    file: pulse-github.py
+    find: "    small = [x for x in rows if x[\"stars\"] < tier_split]\n"
+    replace: "    small = list(rows)\n"
+    survives: false
+    why: ""
+
+  - id: M397
+    title: "門檻邊界改成嚴格大於（剛好等於 tier_split 的 repo 兩邊都不上）"
+    file: pulse-github.py
+    find: "    big = [x for x in rows if x[\"stars\"] >= tier_split]\n"
+    replace: "    big = [x for x in rows if x[\"stars\"] > tier_split]\n"
+    survives: false
+    why: ""
+
+  - id: M398
+    title: "門檻寫死 20000，不讀設定檔（設定改了，榜與頁面還是舊門檻）"
+    file: pulse-github.py
+    find: "    tier_split = cfg[\"tier_split\"]\n"
+    replace: "    tier_split = 20000\n"
+    survives: false
+    why: ""
+
+  - id: M399
+    title: "頁面不印切分門檻（兩個榜憑什麼切開，讀者看不到）"
+    file: pulse-github.py
+    find: "    el.textContent = d.tier_split!=null ? d.tier_split : \"—\"; });"
+    replace: "    el.textContent = \"\"; });"
+    survives: false
+    why: ""
