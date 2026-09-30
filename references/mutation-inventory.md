@@ -3180,6 +3180,12 @@ M476、M480）；Search 回 200 但 `items` 是空的或 `incomplete_results` �
 會補量出一份只有追蹤名單的榜（M477、M478）；星數是 null 的那一筆進池，`split_tiers` 丟 TypeError
 （M475、M479）。HTTP 那一層用塞進 `sys.modules` 的假 `requests` 驗，因為這台沒有 `requests`。
 
+### PR #106 重審回歸（M481）
+
+同一個 PR 返工後的重審挑出一個返工自己帶進來的回歸：`r.json()` 在 try 裡，判讀 `incomplete_results`
+與 `items` 搬到 try 外之後，HTTP 200 但 body 是 `null` 或 list 會丟 AttributeError，當晚整條鏈炸掉；返工
+前同樣的輸入會被 try 接住回 None。M481 拿掉型別檢查，selftest 用同一個假 `requests` 餵兩種 body 驗。
+
 ### 清單長度
 
-386 → 432。分片 4 片，每片 108 條。
+386 → 433。分片 4 片，第一片 109 條、其餘 108 條。

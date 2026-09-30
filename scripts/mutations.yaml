@@ -3733,3 +3733,11 @@ mutations:
     replace: "        if e.get(\"type\") == \"NOT_FOUND\":"
     survives: false
     why: ""
+
+  - id: M481
+    title: "Search 200 但 body 不是 JSON object 時照樣往下讀（null 或 list 丟 AttributeError，整條鏈炸掉）"
+    file: pulse-github.py
+    find: "    if not isinstance(body, dict):\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""

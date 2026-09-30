@@ -10266,6 +10266,24 @@ _f2_r, _f2_e = _f2_with_requests(
 acase("Search F-2：HTTP 200 但 items 為空或 incomplete_results 為真，那一次算失敗（回 None、stderr 印一行）",
       [_f2_r[0], _f2_r[1], [i["full_name"] for i in _f2_r[2] or []], _f2_e.count("[warn]")],
       [None, None, ["real/one"], 2])
+
+
+# PR #106 重審 R2-F-1：HTTP 200 但 body 不是 object（null、list），那一次算失敗，不丟 AttributeError 炸整條鏈。
+def _f2n_try(q):
+    try:
+        return _ghm2.search_repos(q, "tok")
+    except Exception as e:  # noqa: BLE001 — 要把「炸了」變成可比對的值
+        return type(e).__name__
+
+
+_f2n_r, _f2n_e = _f2_with_requests(
+    lambda url, params, headers, timeout: {
+        "null": _F2Resp(200, None),
+        "list": _F2Resp(200, [_F2_ITEM])}[params["q"]],
+    lambda: [_f2n_try(q) for q in ("null", "list")])
+acase("Search R2-F-1：HTTP 200 但 body 不是 JSON object（null、list），那一次算失敗（回 None、stderr 印一行），不炸",
+      [_f2n_r, _f2n_e.count("[warn]")],
+      [[None, None], 2])
 # 一次 incomplete 算進 collect 的失敗數（部分失敗照舊出榜）。
 _f2b_calls = []
 

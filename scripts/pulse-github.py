@@ -106,6 +106,10 @@ def search_repos(q, token):
     except Exception as e:  # noqa: BLE001 — 抓取層任何錯誤都不該炸整條鏈
         print(f"  [warn] search '{q}' 失敗：{e}", file=sys.stderr)
         return None
+    if not isinstance(body, dict):
+        print(f"  [warn] search '{q}' HTTP 200 但 body 不是 JSON object（{type(body).__name__}），這一次算失敗",
+              file=sys.stderr)
+        return None
     if body.get("incomplete_results"):
         print(f"  [warn] search '{q}' incomplete_results 為真，這一次算失敗", file=sys.stderr)
         return None
