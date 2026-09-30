@@ -9813,9 +9813,11 @@ acase("分類榜：不帶任何 rank_* 欄（state.json 只存全部榜的名次
       [sorted({k for r in _CL_CAT_ROWS for k in r if k.startswith("rank_")}),
        any("rank_move_velocity" in r for r in _CL_TOP)],
       [[], True])
+# 取不到就回 None，不讓 IndexError 把整份 selftest 打斷（崩潰只說「這裡爆了」，錯的答案才說哪裡錯）。
+_cl_first = lambda rows: rows[0]["full_name"] if rows else None
 acase("分類榜：分類頁的排序跟全部榜同一支（大 repo 照 Δ★/天、小 repo 照 Δ%/天）",
-      [_CL_BY["open-models"]["repos"][0]["full_name"],
-       _CL_BY["open-models"]["surging"][0]["full_name"]],
+      [_cl_first(_CL_BY["open-models"]["repos"]),
+       _cl_first(_CL_BY["open-models"]["surging"])],
       ["om-big/11", "om-sml/11"])
 
 # 頁面：「全部」加六類分頁，依設定順序；未分類的標籤是「未分類」。
@@ -9853,7 +9855,10 @@ with tempfile.TemporaryDirectory() as _cltd:
     _cl_gj = _bd_rd(_clv, "dist", "data", "github.json")
     _cl_bd = _bd_rd(_clv, "_github", "board.json")
     _cl_cov1 = _bd_rd(_clv, "_github", "desc-coverage.json")
-    _cl_mcp = [c for c in _cl_gj["categories"] if c["id"] == "mcp"][0]
+    # 找不到那一類就給空的一類：變異拿掉 categories 時要紅在比對上，不是崩在索引。
+    _cl_cat = lambda d: ([c for c in d.get("categories") or [] if c["id"] == "mcp"]
+                         or [{"repos": [], "surging": [{}, {}]}])[0]
+    _cl_mcp = _cl_cat(_cl_gj)
     acase("分類（實跑）：github.json 與 board.json 的 categories 依設定順序，分類榜收得到全部榜沒有的 repo",
           [_cl_rc1, [c["id"] for c in _cl_gj["categories"]], [c["id"] for c in _cl_bd["categories"]],
            [r["full_name"] for r in _cl_gj["repos"]], [r["full_name"] for r in _cl_gj["surging"]],
@@ -9861,17 +9866,17 @@ with tempfile.TemporaryDirectory() as _cltd:
           [0, ["open-models", "mcp"], ["open-models", "mcp"], ["big/a"], ["sml/x"], ["sml/x", "sml/y"]])
     acase("分類（實跑）：抓取模式把譯文掛到分類榜上，覆蓋率分母是全部榜與分類榜去重後的 repo 數"
           "（只數兩個全部榜的話分母是 2、分子是 0，而畫面上有 4 列、1 列有中文）",
-          [_cl_mcp["surging"][1].get("desc_zh"), _cl_cov1.get("ranked"), _cl_cov1.get("with_zh"),
+          [(_cl_mcp["surging"][1:2] or [{}])[0].get("desc_zh"), _cl_cov1.get("ranked"), _cl_cov1.get("with_zh"),
            "含分類榜去重 4" in _cl_o1],
           ["只在分類榜", 4, 1, True])
     # render-only：同一份 board 掛譯文，分類榜也要掛。
     shutil.rmtree(_clv / "dist", ignore_errors=True)
     _cl_rc2, _, _, _ = _bd_main(_clv, ["--render-only"], None, nonet=True)
     _cl_gj2 = _bd_rd(_clv, "dist", "data", "github.json")
-    _cl_mcp2 = [c for c in _cl_gj2["categories"] if c["id"] == "mcp"][0]
+    _cl_mcp2 = _cl_cat(_cl_gj2)
     _cl_html = (_clv / "dist" / "github" / "index.html").read_text("utf-8")
     acase("分類（實跑）：--render-only 掛譯文涵蓋分類榜，出頁的分頁取自 board.json 的 categories",
-          [_cl_rc2, _cl_mcp2["surging"][1].get("desc_zh"), _cl_gj2 == _cl_gj,
+          [_cl_rc2, (_cl_mcp2["surging"][1:2] or [{}])[0].get("desc_zh"), _cl_gj2 == _cl_gj,
            _re.findall(r'data-cat="([^"]+)"', _cl_html)],
           [0, "只在分類榜", True, ["all", "open-models", "mcp"]])
     # 快照沒更新的班次（emit_board 那條路）：覆蓋率分母同一份。
