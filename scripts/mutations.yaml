@@ -3483,3 +3483,139 @@ mutations:
     replace: "    boards = ghdesc.doc_boards(board)[:2] if origin == \"board\" else []"
     survives: false
     why: ""
+
+  - id: M414
+    title: "拿掉近 90 天新建的那一次 Search（新 repo 星數還小，永遠排不進依星數排的前 40）"
+    file: pulse-github.py
+    find: "            for q in (base, f\"{base} created:>{born}\"):"
+    replace: "            for q in (base,):"
+    survives: false
+    why: ""
+
+  - id: M415
+    title: "新建查詢的日期用 active_days 算（撈的是近 45 天不是近 90 天，設定檔那一格變假旋鈕）"
+    file: pulse-github.py
+    find: "    born = clock.utc_date_str(now - timedelta(days=cfg[\"new_repo_days\"]))"
+    replace: "    born = clock.utc_date_str(now - timedelta(days=cfg[\"active_days\"]))"
+    survives: false
+    why: ""
+
+  - id: M416
+    title: "Search 之間不 sleep（30 次連打，超過每分鐘 30 次的上限，整批 403）"
+    file: pulse-github.py
+    find: "                if calls:\n                    time.sleep(SEARCH_GAP_S)\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M417
+    title: "Search 間隔縮成 1 秒（一分鐘可以打到 60 次）"
+    file: pulse-github.py
+    find: "SEARCH_GAP_S = 2.1\n"
+    replace: "SEARCH_GAP_S = 1.0\n"
+    survives: false
+    why: ""
+
+  - id: M418
+    title: "Search 次數只數成功的（全部失敗那一晚 N 是 0，被當成「沒打」而照樣補量出一份只有追蹤名單的榜）"
+    file: pulse-github.py
+    find: "                calls += 1\n                items = search_repos(q, token)\n                if items is None:\n                    failed += 1\n                    continue\n"
+    replace: "                items = search_repos(q, token)\n                if items is None:\n                    failed += 1\n                    continue\n                calls += 1\n"
+    survives: false
+    why: ""
+
+  - id: M419
+    title: "不做 GraphQL 補量（掉出搜尋的已知 repo 那一晚量不到，基線一天一天變老）"
+    file: pulse-github.py
+    find: "    filled, drop = track_known(state, seen, cfg, token, cutoff)\n"
+    replace: "    filled, drop = {}, []\n"
+    survives: false
+    why: ""
+
+  - id: M420
+    title: "GraphQL 整批失敗時把那一批全剪掉（一次 502 就讓幾百個活著的 repo 失去基線）"
+    file: pulse-github.py
+    find: "        if got is None:\n            continue\n"
+    replace: "        if got is None:\n            drop.extend(batch)\n            continue\n"
+    survives: false
+    why: ""
+
+  - id: M421
+    title: "GraphQL 沒有明確結果的也剪（「這次不知道」被當成「確定查不到」）"
+    file: pulse-github.py
+    find: "            if full not in got:\n                continue\n"
+    replace: "            if full not in got:\n                drop.append(full)\n                continue\n"
+    survives: false
+    why: ""
+
+  - id: M422
+    title: "封存的 repo 照樣進池子、不剪"
+    file: pulse-github.py
+    find: "            if node.get(\"isArchived\") or (node.get(\"pushedAt\") or \"\")[:10] <= cutoff:"
+    replace: "            if (node.get(\"pushedAt\") or \"\")[:10] <= cutoff:"
+    survives: false
+    why: ""
+
+  - id: M423
+    title: "45 天沒 push 的 repo 照樣進池子、不剪（入池條件在兩條路上不一樣）"
+    file: pulse-github.py
+    find: "            if node.get(\"isArchived\") or (node.get(\"pushedAt\") or \"\")[:10] <= cutoff:"
+    replace: "            if node.get(\"isArchived\"):"
+    survives: false
+    why: ""
+
+  - id: M424
+    title: "改名的 repo 用舊名字進池子（GraphQL 跟著轉址回新 repo 的星數，掛在舊名字上）"
+    file: pulse-github.py
+    find: "            if node is None or str(node.get(\"nameWithOwner\") or \"\").lower() != full.lower():"
+    replace: "            if node is None:"
+    survives: false
+    why: ""
+
+  - id: M425
+    title: "GraphQL 一批塞 1000 個別名（超過一次最多 100 個）"
+    file: pulse-github.py
+    find: "GRAPHQL_BATCH = 100\n"
+    replace: "GRAPHQL_BATCH = 1000\n"
+    survives: false
+    why: ""
+
+  - id: M426
+    title: "快照寫回時不剪枝（封存、刪除的 repo 永遠留在 state.json 裡，每晚都再查一次）"
+    file: pulse-github.py
+    find: "    for full in info[\"drop\"]:\n        state.pop(full, None)\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M427
+    title: "GraphQL 任何錯誤都當成查不到（權限、逾時也剪）"
+    file: pulse-github.py
+    find: "                 if isinstance(e, dict) and e.get(\"type\") == \"NOT_FOUND\"}"
+    replace: "                 if isinstance(e, dict)}"
+    survives: false
+    why: ""
+
+  - id: M428
+    title: "Search 全部失敗照樣補量出一份榜（只剩追蹤名單，新 repo 一個都不在，蓋掉上一份好榜）"
+    file: pulse-github.py
+    find: "    if calls and failed == calls:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M429
+    title: "stdout 的 Search 次數印成池子大小（C4 拿這個數字驗限速，量的是別的東西）"
+    file: pulse-github.py
+    find: "    cost = (f\"Search {info['search_calls']} 次、"
+    replace: "    cost = (f\"Search {len(current)} 次、"
+    survives: false
+    why: ""
+
+  - id: M430
+    title: "GraphQL 只取前 6 個 topic（補量那條路的分類被截斷，第 7 個以後的 topic 失效）"
+    file: pulse-github.py
+    find: "repositoryTopics(first: 20)"
+    replace: "repositoryTopics(first: 6)"
+    survives: false
+    why: ""
