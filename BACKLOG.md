@@ -809,7 +809,8 @@ commit 的程式〉。
 
 - **R3-F-2：第一晚讀 HEAD 逾時，還原會判錯。** `restore_ledger` 讀 `HEAD` 的帳本逾時時當成 HEAD 有帳本，只做
   `checkout`；第一晚 HEAD 其實還沒有這個檔，`checkout` 失敗，帳本留著沒還原。可以改用
-  `git ls-files --error-unmatch` 判 HEAD 有沒有這個檔。
+  `git cat-file -e HEAD:_probe/nightly-cost.jsonl` 判 HEAD 有沒有這個檔（不能用 `ls-files`：它查 index，
+  `git add` 成功、commit 失敗時 index 已有帳本而 HEAD 沒有，會判錯）。
 - **T3-F4-2：還原後的 status 逾時被當成乾淨。** `restore_ledger` 最後的 `status --porcelain` 逾時回 rc 124、stdout
   空，被讀成乾淨，「還原後仍然是 dirty」那句警告不會印。跟 R3-F-2 碰在一起時，帳本留著、回報卻說乾淨。
 - **T3-F4-1：守門的 git 逾時算跳過，不算失敗。** `record` 裡守門 `GitFacts` 的 status 與 rev-parse 逾時（20 秒）
