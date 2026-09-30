@@ -10201,7 +10201,7 @@ acase("成本帳 hook：內容跟 HEAD 一樣就不 commit",
 # 同一天第二個 session 另起一行；跨 UTC 午夜的 session 只記在開始那天。
 _nc_run(_nc_w0, _NC_TR, session="s2")
 _NC_TR_MID = _nc_transcript("routine-midnight", _NC_MARK,
-                            [_nc_asst(_NC_U2, rid="req_m", ts="2026-10-01T00:20:00.000Z")],
+                            [_nc_asst(_NC_U2, rid="req_m", ts="2026-10-02T00:20:00.000Z")],
                             ts="2026-10-01T23:50:00.000Z")
 _nc_run(_nc_w0, _NC_TR_MID, session="s3")
 _nc_rows3 = _ncl.parse_ledger(_nc_ledger(_nc_w0))
