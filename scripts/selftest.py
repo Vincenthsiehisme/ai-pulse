@@ -3226,7 +3226,7 @@ def _gh_cfg(top_n, tier_split=20000, category_top_n=10):
 def _gh_pool(repos):
     """collect() 替身的回傳：(池子, info)。info 的量全是 0：替身沒有打任何 Search。"""
     return repos, {"search_calls": 0, "search_failed": 0, "elapsed_s": 0.0,
-                   "graphql_filled": 0, "drop": []}
+                   "graphql_filled": 0, "graphql_unknown": 0, "drop": []}
 
 
 _U_REPOS = {
@@ -10195,6 +10195,126 @@ for _gp_fail in (False, True):
         acase("候選池（實跑）：GraphQL 整批失敗時快照照寫、state 一個都不剪",
               [_gp_rc, sorted(_gp_st), _gp_m and _gp_m.group(3)],
               [0, ["known/active", "known/archived", "known/unknown", "srch/one"], "0"])
+
+# ── PR #106 審查返工（2026-09-30）：GraphQL 欄位級錯誤、Search 空 items／incomplete、星數 null ──
+# F-1：data.rN 是 dict 但某個欄位被置 null（errors[].path = ["rN", "pushedAt"]）。pushedAt 為 null
+# 不是「45 天沒 push」，nameWithOwner 為 null 不是「改名」——兩者都是「這次不知道」，不進池也不剪。
+acase("GraphQL F-1：errors 的 path 指到某個 rN 的欄位時，那個 repo 這次當不知道（不列在判讀結果裡）",
+      _ghm2.parse_graphql(["a/b", "c/d", "e/f"], {
+          "data": {"r0": {"nameWithOwner": "a/b", "pushedAt": None}, "r1": {"nameWithOwner": "c/d"},
+                   "r2": {"nameWithOwner": "e/f", "primaryLanguage": None}},
+          "errors": [{"type": "INTERNAL", "path": ["r0", "pushedAt"]},
+                     # NOT_FOUND 落在欄位上（path 兩段）不是「repo 查不到」，一樣是不知道。
+                     {"type": "NOT_FOUND", "path": ["r2", "primaryLanguage"]}]}),
+      {"c/d": {"nameWithOwner": "c/d"}})
+_F1_NODES = {"null/pushed": dict(_gp_node("null/pushed", 900, 2), pushedAt=None),
+             "null/name": dict(_gp_node("null/name", 900, 2), nameWithOwner=None),
+             "null/arch": dict(_gp_node("null/arch", 900, 2), isArchived=None),
+             "miss/pushed": {k: v for k, v in _gp_node("miss/pushed", 900, 2).items()
+                             if k != "pushedAt"},
+             "null/stars": dict(_gp_node("null/stars", 900, 2), stargazerCount=None),
+             "ok/one": _gp_node("ok/one", 900, 2)}
+_f1_pool, _f1_info, _, _f1_e = _gp_collect(
+    _GP_CFG, {k: {"stars": 800, "ts": _CL_TS} for k in _F1_NODES}, lambda q: [],
+    lambda names: {n: _F1_NODES[n] for n in names}, _CL_NOW)
+acase("GraphQL F-1／F-3：pushedAt、nameWithOwner、isArchived、stargazerCount 缺或是 null 的 repo 不進池也不剪，"
+      "計入「沒有明確結果」（null 被讀成 45 天沒 push 或改名，就把活著的 repo 從 state 剪掉）",
+      [sorted(_f1_pool), _f1_info["drop"], _f1_info.get("graphql_unknown"),
+       "stargazerCount" in _f1_e],
+      [["ok/one"], [], 5, True])
+# F-3：Search 那筆的 stargazers_count 是 null → 那一筆這次不進池，stderr 印一行；其他筆照收。
+_f3_pool, _f3_info, _, _f3_e = _gp_collect(
+    _GP_CFG, {}, lambda q: [dict(_gp_item("null/star", 0), stargazers_count=None),
+                            _gp_item("fine/star", 25000)],
+    lambda names: {}, _CL_NOW)
+acase("Search F-3：stargazers_count 是 null 的那一筆不進池（split_tiers 會丟 TypeError），stderr 說得出來",
+      [sorted(_f3_pool), "stargazers_count" in _f3_e, _f3_info["search_failed"]],
+      [["fine/star"], True, 0])
+
+
+# F-2：Search 回 HTTP 200 但 items 為空、或 incomplete_results 為真，那一次算失敗。
+# 這台沒有 requests：把一個假的 requests 模組塞進 sys.modules，search_repos 裡的 import 會拿到它。
+class _F2Resp:
+    def __init__(self, code, body):
+        self.status_code, self._b = code, body
+
+    def json(self):
+        return self._b
+
+
+def _f2_with_requests(get, fn):
+    sv = sys.modules.get("requests")
+    sys.modules["requests"] = _gp_types.SimpleNamespace(get=get, post=None)
+    _e = io.StringIO()
+    try:
+        with _bd_cl.redirect_stderr(_e):
+            return fn(), _e.getvalue()
+    finally:
+        if sv is None:
+            sys.modules.pop("requests", None)
+        else:
+            sys.modules["requests"] = sv
+
+
+_F2_ITEM = _gp_item("real/one", 25000)
+_f2_r, _f2_e = _f2_with_requests(
+    lambda url, params, headers, timeout: {
+        "empty": _F2Resp(200, {"items": [], "incomplete_results": False}),
+        "inc": _F2Resp(200, {"items": [_F2_ITEM], "incomplete_results": True}),
+        "ok": _F2Resp(200, {"items": [_F2_ITEM], "incomplete_results": False})}[params["q"]],
+    lambda: [_ghm2.search_repos(q, "tok") for q in ("empty", "inc", "ok")])
+acase("Search F-2：HTTP 200 但 items 為空或 incomplete_results 為真，那一次算失敗（回 None、stderr 印一行）",
+      [_f2_r[0], _f2_r[1], [i["full_name"] for i in _f2_r[2] or []], _f2_e.count("[warn]")],
+      [None, None, ["real/one"], 2])
+# 一次 incomplete 算進 collect 的失敗數（部分失敗照舊出榜）。
+_f2b_calls = []
+
+
+def _f2b_get(url, params, headers, timeout):
+    _f2b_calls.append(params["q"])
+    return _F2Resp(200, {"items": [_F2_ITEM], "incomplete_results": len(_f2b_calls) == 1})
+
+
+def _f2b_collect():
+    sv = _ghm2.time
+    _ghm2.time = _gp_types.SimpleNamespace(sleep=lambda x: None, monotonic=lambda: 0.0)
+    try:
+        return _ghm2.collect(_GP_CFG, None, _CL_NOW, {})
+    finally:
+        _ghm2.time = sv
+
+
+(_f2b_pool, _f2b_info), _ = _f2_with_requests(_f2b_get, _f2b_collect)
+acase("Search F-2：一次 incomplete_results 算進失敗數，其餘照常進池",
+      [_f2b_info["search_failed"], _f2b_info["search_calls"], sorted(_f2b_pool)],
+      [1, 30, ["real/one"]])
+# _gp_main 會把 search_repos 換成替身；這一條要的是真的 search_repos 判讀 HTTP 回應，所以先留一份。
+_GH_REAL_SEARCH = _ghm2.search_repos
+_ghm2_real_search = lambda q: _GH_REAL_SEARCH(q, "tok")
+# 全部 Search 都回 200 空 items：照抓取全失敗那條路——不補量、board.json 與 state.json 一個 byte 都不變。
+with tempfile.TemporaryDirectory() as _f2td:
+    _f2v = Path(_f2td)
+    (_f2v / "_config").mkdir()
+    (_f2v / "_github").mkdir()
+    (_f2v / "_config" / "github.yaml").write_text(
+        _yaml.safe_dump(_GH_CFG_REAL, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    (_f2v / "_github" / "state.json").write_text(_json.dumps({
+        "known/active": {"stars": 800, "ts": _gp_prev, "rank_velocity": None, "rank_surge": 1}}),
+        encoding="utf-8")
+    (_f2v / "_github" / "board.json").write_text(_json.dumps(
+        {"generated": "舊榜", "count": 0, "repos": [], "surging": [], "measured": True}),
+        encoding="utf-8")
+    _f2_state_b = (_f2v / "_github" / "state.json").read_bytes()
+    _f2_board_b = (_f2v / "_github" / "board.json").read_bytes()
+    _f2_gql = []
+    (_f2_rc, _f2_out, _f2_n), _ = _f2_with_requests(
+        lambda url, params, headers, timeout: _F2Resp(200, {"items": [], "incomplete_results": False}),
+        lambda: _gp_main(_f2v, ["--snapshot"], lambda q: _ghm2_real_search(q),
+                         lambda names: _f2_gql.append(names) or {}))
+    acase("Search F-2：全部 Search 都是 200 空 items → 抓取全失敗那條路：不打 GraphQL、board.json 與 state.json 不變",
+          [_f2_rc, _f2_gql, (_f2v / "_github" / "board.json").read_bytes() == _f2_board_b,
+           (_f2v / "_github" / "state.json").read_bytes() == _f2_state_b, "抓取全失敗" in _f2_out],
+          [0, [], True, True, True])
 
 # 上面幾條釘的是判準。真正會騙人的是**呼叫端有沒有照著寫**——所以這條走真的
 # main()：第一班寫基線，第二班讀回來。top_n=1 是為了讓「有量到但沒上榜」真的發生。

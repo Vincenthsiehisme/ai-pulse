@@ -179,10 +179,13 @@
   間隔 2.1 秒，任何 60 秒的窗口最多 29 次。六類共 15 個 query、30 次 Search，這一段約 61 秒加上
   請求本身的時間。
 - **失敗印得出來。** 單次 Search 失敗（HTTP 非 200、例外）stderr 印一行、那一次算失敗、`search_repos`
-  回 None（跟「0 筆」分得開）。**全部 Search 都失敗**時 `collect()` 回空池，不做 GraphQL：只有
+  回 None（跟「0 筆」分得開）。HTTP 200 但 `incomplete_results` 為真、或 `items` 是空的，也算那一次
+  失敗（2026-09-30 PR #106 審查 F-2，使用者裁定）：每個 query 都帶 `stars:>=` 與 `pushed:>`，正常的
+  一晚不會是 0 筆。**全部 Search 都失敗**時 `collect()` 回空池，不做 GraphQL：只有
   追蹤名單的池子不是這一晚的榜（新 repo 一個都不在），照「抓取全失敗」處理，保留上一份 `board.json`。
 - 抓取模式 stdout 那一行印 `Search N 次、耗時 S 秒、GraphQL 補量 M 個`（N 是實際呼叫次數、含失敗的，
-  S 是整個 `collect()` 的秒數），另印失敗次數與剪枝個數。C4 用 Actions log 的 N 與 S 驗每分鐘不超過 30 次。
+  S 是整個 `collect()` 的秒數），另印 Search 失敗次數、GraphQL 沒有明確結果的個數與剪枝個數。
+- Search 那筆的 `stargazers_count` 不是整數（null）：那一筆這次不進池，stderr 印一行（F-3）。C4 用 Actions log 的 N 與 S 驗每分鐘不超過 30 次。
 
 ### 二、GraphQL：追蹤已知 repo
 
@@ -198,9 +201,12 @@
 | `pushedAt` 超過 `active_days` | 不進 | 剪掉 |
 | 別名是 null 且錯誤是 `NOT_FOUND`（刪除），或 `nameWithOwner` 跟要的名字不同（改名） | 不進 | 剪掉 |
 | 別名是 null 但錯誤不是 `NOT_FOUND`、或根本沒回這個別名 | 不進 | **不動**（這次不知道） |
+| 別名是 dict，但 `errors[].path` 指到它底下的欄位（欄位級錯誤，例如 `["r3", "pushedAt"]`） | 不進 | **不動**（這次不知道） |
+| `nameWithOwner`、`pushedAt`、`isArchived` 任一缺或是 null，或 `stargazerCount` 不是整數 | 不進 | **不動**（這次不知道），stderr 印一行 |
 | 整批失敗（沒 token、HTTP 非 200、例外、回應沒有 `data`） | 那一批都不進 | **那一批都不動**，stderr 印一行 |
 
-- 只有 GraphQL 成功回來、而且明說了那個 repo 的狀態，才算「確定」。量不到的不剪：剪錯的代價是
+- 只有 GraphQL 成功回來、而且明說了那個 repo 的狀態，才算「確定」。null 的 `pushedAt` 不是
+  「45 天沒 push」，null 的 `nameWithOwner` 不是「改名」（PR #106 審查 F-1）。量不到的不剪：剪錯的代價是
   一個還活著的 repo 失去基線、下一晚變首次觀測，而那不會有任何東西變紅。
 - 補量的 repo 不套 `min_stars`：它們是已知的 repo，入池時已經過了門檻，AC-4 要的是「已知且
   45 天內有 push 的每晚都量到」。`exclude` 照套。

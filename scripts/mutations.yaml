@@ -3527,15 +3527,15 @@ mutations:
   - id: M419
     title: "不做 GraphQL 補量（掉出搜尋的已知 repo 那一晚量不到，基線一天一天變老）"
     file: pulse-github.py
-    find: "    filled, drop = track_known(state, seen, cfg, token, cutoff)\n"
-    replace: "    filled, drop = {}, []\n"
+    find: "    filled, drop, unknown = track_known(state, seen, cfg, token, cutoff)\n"
+    replace: "    filled, drop, unknown = {}, [], 0\n"
     survives: false
     why: ""
 
   - id: M420
     title: "GraphQL 整批失敗時把那一批全剪掉（一次 502 就讓幾百個活著的 repo 失去基線）"
     file: pulse-github.py
-    find: "        if got is None:\n            continue\n"
+    find: "        if got is None:\n            unknown += len(batch)\n            continue\n"
     replace: "        if got is None:\n            drop.extend(batch)\n            continue\n"
     survives: false
     why: ""
@@ -3543,7 +3543,7 @@ mutations:
   - id: M421
     title: "GraphQL 沒有明確結果的也剪（「這次不知道」被當成「確定查不到」）"
     file: pulse-github.py
-    find: "            if full not in got:\n                continue\n"
+    find: "            if full not in got:\n                unknown += 1\n                continue\n"
     replace: "            if full not in got:\n                drop.append(full)\n                continue\n"
     survives: false
     why: ""
@@ -3591,8 +3591,8 @@ mutations:
   - id: M427
     title: "GraphQL 任何錯誤都當成查不到（權限、逾時也剪）"
     file: pulse-github.py
-    find: "                 if isinstance(e, dict) and e.get(\"type\") == \"NOT_FOUND\"}"
-    replace: "                 if isinstance(e, dict)}"
+    find: "        if len(path) == 1 and e.get(\"type\") == \"NOT_FOUND\":"
+    replace: "        if True:"
     survives: false
     why: ""
 

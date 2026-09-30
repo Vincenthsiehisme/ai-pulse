@@ -72,6 +72,8 @@ from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atom
 SEARCH_GAP_S = 2.1
 GRAPHQL_URL = "https://api.github.com/graphql"
 GRAPHQL_BATCH = 100
+# 剪枝要看的欄位：任一缺或是 null，那個 repo 這次當「不知道」（見 track_known）。
+GRAPHQL_REQUIRED = ("nameWithOwner", "pushedAt", "isArchived")
 # GraphQL 補量要的欄位。topics 取 first: 20（GitHub 一個 repo 的上限），分類要完整清單。
 GRAPHQL_FIELDS = ("nameWithOwner stargazerCount description url primaryLanguage { name } "
                   "repositoryTopics(first: 20) { nodes { topic { name } } } "
@@ -83,6 +85,11 @@ def search_repos(q, token):
 
     失敗回 None 不回 []：collect() 要分得出「這一次搜不到東西」跟「這一次沒問到」，
     全部都沒問到的那一晚不能當成一份榜（見 references/github-board.md〈候選池〉）。
+
+    HTTP 200 也可能是失敗（PR #106 審查 F-2，使用者裁定）：`incomplete_results` 為真是
+    GitHub 自己說這一次沒搜完；`items` 為空也算失敗——每個 query 都帶 stars:>= 與 pushed:>，
+    正常的一晚不會是 0 筆，額度或索引出狀況時才會。算成功的話，30 次全空的那一晚會被當成
+    「今天沒有 repo」，照樣補量出一份只有追蹤名單的榜。
     """
     import requests
     headers = {"Accept": "application/vnd.github+json"}
@@ -95,10 +102,18 @@ def search_repos(q, token):
         if r.status_code != 200:
             print(f"  [warn] search '{q}' HTTP {r.status_code}", file=sys.stderr)
             return None
-        return r.json().get("items", [])
+        body = r.json()
     except Exception as e:  # noqa: BLE001 — 抓取層任何錯誤都不該炸整條鏈
         print(f"  [warn] search '{q}' 失敗：{e}", file=sys.stderr)
         return None
+    if body.get("incomplete_results"):
+        print(f"  [warn] search '{q}' incomplete_results 為真，這一次算失敗", file=sys.stderr)
+        return None
+    items = body.get("items") or []
+    if not items:
+        print(f"  [warn] search '{q}' HTTP 200 但 items 是空的，這一次算失敗", file=sys.stderr)
+        return None
+    return items
 
 
 def graphql_query(names):
@@ -121,18 +136,30 @@ def parse_graphql(names, body):
       不在回傳裡  別名是 null 但錯誤不是 NOT_FOUND，或根本沒回這個別名——這次不知道
 
     回應沒有 data（或不是 object）就是整批失敗，一個都不能當成「確定」。
+    errors 的 path 指到某個 rN 底下的欄位（例如 ["r3", "pushedAt"]，欄位級錯誤）時，rN 仍是
+    dict 但那個欄位被置 null——那個 repo 這次也是「不知道」，不列（PR #106 審查 F-1）。
     """
     if not isinstance(body, dict) or not isinstance(body.get("data"), dict):
         return None
     data = body["data"]
-    not_found = {str((e.get("path") or [None])[0]) for e in (body.get("errors") or [])
-                 if isinstance(e, dict) and e.get("type") == "NOT_FOUND"}
+    not_found, field_err = set(), set()
+    for e in body.get("errors") or []:
+        if not isinstance(e, dict) or not e.get("path"):
+            continue
+        path = [str(x) for x in e["path"]]
+        if len(path) == 1 and e.get("type") == "NOT_FOUND":
+            not_found.add(path[0])
+        else:
+            field_err.add(path[0])
     out = {}
     for i, full in enumerate(names):
-        node = data.get(f"r{i}")
+        alias = f"r{i}"
+        if alias in field_err:
+            continue
+        node = data.get(alias)
         if isinstance(node, dict):
             out[full] = node
-        elif f"r{i}" in not_found:
+        elif alias in not_found:
             out[full] = None
     return out
 
@@ -239,20 +266,27 @@ def collect(cfg, token, now, state):
                         continue
                     if excluded(full, it.get("description"), cfg):
                         continue
+                    if not isinstance(it.get("stargazers_count"), int):
+                        # 星數是 null 的那一筆無效：進池的話 split_tiers 會丟 TypeError（PR #106 F-3）。
+                        print(f"  [warn] search 結果 {full} 的 stargazers_count 是 "
+                              f"{it.get('stargazers_count')!r}，這一筆不進池", file=sys.stderr)
+                        continue
                     seen[full] = pool_row(
                         full, it.get("name"), it.get("html_url"), it.get("description"),
-                        it.get("stargazers_count", 0), it.get("language"), it.get("topics"),
+                        it["stargazers_count"], it.get("language"), it.get("topics"),
                         it.get("created_at"), it.get("pushed_at"), cats)
-    info = {"search_calls": calls, "search_failed": failed, "graphql_filled": 0, "drop": []}
+    info = {"search_calls": calls, "search_failed": failed, "graphql_filled": 0,
+            "graphql_unknown": 0, "drop": []}
     if calls and failed == calls:
         # 一次都沒問到：只剩追蹤名單的池子不是這一晚的榜（新 repo 一個都不在），
         # 當成抓取全失敗，保留上一份 board.json。
         print(f"  [warn] Search {calls} 次全部失敗，這一班不補量、不出新榜", file=sys.stderr)
         info["elapsed_s"] = time.monotonic() - t0
         return {}, info
-    filled, drop = track_known(state, seen, cfg, token, cutoff)
+    filled, drop, unknown = track_known(state, seen, cfg, token, cutoff)
     seen.update(filled)
     info["graphql_filled"] = len(filled)
+    info["graphql_unknown"] = unknown
     info["drop"] = drop
     info["elapsed_s"] = time.monotonic() - t0
     return seen, info
@@ -264,18 +298,35 @@ def track_known(state, seen, cfg, token, cutoff):
     只有 GraphQL 明說了狀態的才算確定：封存、pushedAt 超過 active_days、查不到（NOT_FOUND）或
     改名（nameWithOwner 對不上）→ 剪；整批失敗或沒有明確結果 → 不進池子也不剪。
     補量的列不套 min_stars（已知的 repo 入池時已經過了門檻），exclude 照套。
+
+    剪枝要看的欄位（nameWithOwner、pushedAt、isArchived）或 stargazerCount 缺或是 null：這個 repo
+    這次也當「不知道」，不進池也不剪（PR #106 審查 F-1、F-3）。null 的 pushedAt 不是「45 天沒 push」，
+    null 的 nameWithOwner 不是「改名」——讀成那樣，就是把一個活著的 repo 從 state 剪掉。
+
+    回 (filled, drop, unknown)：unknown 是這次沒有明確結果的個數（整批失敗那一批全算），印在 stdout。
     """
     todo = sorted(k for k in state if k not in seen)
-    filled, drop = {}, []
+    filled, drop, unknown = {}, [], 0
     for i in range(0, len(todo), GRAPHQL_BATCH):
         batch = todo[i:i + GRAPHQL_BATCH]
         got = graphql_repos(batch, token)
         if got is None:
+            unknown += len(batch)
             continue
         for full in batch:
             if full not in got:
+                unknown += 1
                 continue
             node = got[full]
+            if node is not None:
+                bad = [k for k in GRAPHQL_REQUIRED if node.get(k) is None]
+                if not isinstance(node.get("stargazerCount"), int):
+                    bad.append("stargazerCount")
+                if bad:
+                    print(f"  [warn] GraphQL {full} 的 {'、'.join(bad)} 缺或是 null，這次不知道（不進池、不剪）",
+                          file=sys.stderr)
+                    unknown += 1
+                    continue
             if node is None or str(node.get("nameWithOwner") or "").lower() != full.lower():
                 drop.append(full)
                 continue
@@ -288,10 +339,10 @@ def track_known(state, seen, cfg, token, cutoff):
                       for n in ((node.get("repositoryTopics") or {}).get("nodes") or [])]
             filled[full] = pool_row(
                 full, full.partition("/")[2], node.get("url"), node.get("description"),
-                node.get("stargazerCount", 0), (node.get("primaryLanguage") or {}).get("name"),
+                node["stargazerCount"], (node.get("primaryLanguage") or {}).get("name"),
                 [t for t in topics if t], node.get("createdAt"), node.get("pushedAt"),
                 cfg["categories"])
-    return filled, sorted(drop)
+    return filled, sorted(drop), unknown
 
 
 # 竄升榜的最低基數。相對成長率在低基數上會爆掉：10 顆星變 20 顆就是 +100%，
@@ -976,7 +1027,8 @@ def main():
     print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}＋竄升={len(surging)}"
           f"（含分類榜去重 {len(listed)}）  首次觀測={n_new}  "
           f"中文描述={n_zh}/{len(listed)}{snap}  {cost}"
-          f"（Search 失敗 {info['search_failed']} 次、剪枝 {len(info['drop'])} 個）"
+          f"（Search 失敗 {info['search_failed']} 次、GraphQL 沒有明確結果 {info['graphql_unknown']} 個、"
+          f"剪枝 {len(info['drop'])} 個）"
           "  → data/github.json + github/")
     return 0
 
