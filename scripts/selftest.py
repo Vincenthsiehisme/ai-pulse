@@ -3222,7 +3222,7 @@ with tempfile.TemporaryDirectory() as _u4td:
     _u4v = Path(_u4td)
     (_u4v / "_config").mkdir()
     (_u4v / "_github").mkdir()
-    (_u4v / "_config" / "github.yaml").write_text("top_n: 2\nsearches: []\n",
+    (_u4v / "_config" / "github.yaml").write_text("top_n: 2\ntier_split: 20000\nsearches: []\n",
                                                   encoding="utf-8")
     _u4_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     (_u4v / "_github" / "state.json").write_text(_json.dumps({
@@ -3304,7 +3304,7 @@ _gh_spec.loader.exec_module(_ghm)
 with tempfile.TemporaryDirectory() as _ghtd:
     _ghv = Path(_ghtd)
     (_ghv / "_config").mkdir()
-    (_ghv / "_config" / "github.yaml").write_text("top_n: 5\nsearches: []\n",
+    (_ghv / "_config" / "github.yaml").write_text("top_n: 5\ntier_split: 20000\nsearches: []\n",
                                                   encoding="utf-8")
     _gh_collect, _gh_argv, _gh_envv = _ghm.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
@@ -3405,7 +3405,8 @@ with tempfile.TemporaryDirectory() as _bdtd:
     _bdv = Path(_bdtd)
     (_bdv / "_config").mkdir()
     (_bdv / "_github").mkdir()
-    (_bdv / "_config" / "github.yaml").write_text("top_n: 2\nsearches: []\n", encoding="utf-8")
+    # tier_split 刻意不用正式設定的 20000：頁面與 github.json 讀的要是設定檔那個值，不是寫死的預設。
+    (_bdv / "_config" / "github.yaml").write_text("top_n: 2\ntier_split: 30000\nsearches: []\n", encoding="utf-8")
     _bd_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     (_bdv / "_github" / "state.json").write_text(_json.dumps({
         "big/a": {"stars": 99000, "ts": _bd_ts}, "big/b": {"stars": 49500, "ts": _bd_ts},
@@ -3428,6 +3429,9 @@ with tempfile.TemporaryDirectory() as _bdtd:
            any("desc_zh" in r for r in _bd_board["repos"] + _bd_board["surging"]),
            _bd_board["measured"]],
           [0, True, True, False, True])
+    acase("GitHub 榜：board.json 與 github.json 頂層帶 tier_split，值取自 _config/github.yaml"
+          "（頁面讀 d.tier_split 印門檻；寫死一個值的話設定檔改了頁面還是舊數字）",
+          [_bd_board.get("tier_split"), _bd_gj1.get("tier_split")], [30000, 30000])
     acase("GitHub 榜：board.json 裡非首次觀測的列 baseline_days 是快照的年紀（約 1 天），不是 0"
           "（pages 重算那一版全列 0.0）",
           [len(_bd_nonnew) > 0, all(0.8 <= d <= 1.2 for d in _bd_nonnew)], [True, True])
@@ -9569,33 +9573,54 @@ def _grepo(name, stars, created="2023-01-01"):
 
 
 # 大的漲 300（+0.3%/天），小的漲 200（+20%/天）——絕對輸、相對大贏。
+# fresh/repo 是 3 萬星的首次觀測：它在 tier_split 以上，所以落在星速榜的最後。
+_G_TIER = 20000
 _g_cur = {"big/repo": _grepo("big/repo", 100300),
           "small/repo": _grepo("small/repo", 1200),
           "tiny/repo": _grepo("tiny/repo", 150),
-          "fresh/repo": _grepo("fresh/repo", 9000)}
+          "fresh/repo": _grepo("fresh/repo", 30000)}
 _g_state = {"big/repo": {"stars": 100000, "ts": _g_prev_ts},
             "small/repo": {"stars": 1000, "ts": _g_prev_ts},
             "tiny/repo": {"stars": 100, "ts": _g_prev_ts}}
-_g_top, _g_surge = _ghmod.rank(_g_cur, _g_state, _g_now, 10)
+_g_top, _g_surge = _ghmod.rank(_g_cur, _g_state, _g_now, 10, _G_TIER)
 
-acase("GitHub：兩個榜的第一名不是同一個（絕對看量、相對看竄升——"
-      "合成一個分數就等於再造一個代理指標，而權重沒有人答得出來）",
-      [_g_top[0]["full_name"], _g_surge[0]["full_name"]],
-      ["big/repo", "small/repo"])
+acase("GitHub：兩個榜按體量切開——星數 >= tier_split 只在星速榜、< tier_split 只在竄升榜，交集為空"
+      "（兩個榜以前是同一批 repo 的兩種排序，大 repo 兩邊都上，讀者看到兩份大半重複的榜）",
+      [[x["full_name"] for x in _g_top], [x["full_name"] for x in _g_surge],
+       sorted({x["full_name"] for x in _g_top} & {x["full_name"] for x in _g_surge}),
+       all(x["stars"] >= _G_TIER for x in _g_top), all(x["stars"] < _G_TIER for x in _g_surge)],
+      [["big/repo", "fresh/repo"], ["small/repo"], [], True, True])
+# 門檻的邊界：剛好等於 tier_split 的算大 repo（>=），少一顆算小 repo。
+_g_edge = {"edge/eq": _grepo("edge/eq", 20000), "edge/lt": _grepo("edge/lt", 19999)}
+_g_edge_st = {"edge/eq": {"stars": 19000, "ts": _g_prev_ts},
+              "edge/lt": {"stars": 19000, "ts": _g_prev_ts}}
+_g_et, _g_es = _ghmod.rank(_g_edge, _g_edge_st, _g_now, 10, _G_TIER)
+acase("GitHub：剛好等於 tier_split 的進星速榜，少一顆的進竄升榜（切的是這一次的星數，不是上一版）",
+      [[x["full_name"] for x in _g_et], [x["full_name"] for x in _g_es]],
+      [["edge/eq"], ["edge/lt"]])
 acase("GitHub：首次觀測不給代理值——兩點才有斜率，一點沒有"
       "（舊版拿「星數÷建立至今天數」當動能，那是歷史平均不是現在的速度）",
       [_g_top[-1]["full_name"], _g_top[-1]["velocity"],
        "fresh/repo" in [x["full_name"] for x in _g_surge]],
       ["fresh/repo", None, False])
-# tiny/repo 上一次是 100 顆（低於門檻）→ 不進榜；big/repo 雖然相對只有
-# +0.3%/天，但它**有資格上這個榜**，只是排在後面——門檻擋的是低基數，不是大 repo。
+# tiny/repo 上一次是 100 顆（低於門檻）→ 不進榜。門檻擋的是低基數，不是大 repo：
+# 把 tier_split 拉到天上（所有 repo 都算小），big/repo 雖然相對只有 +0.3%/天，
+# 也**有資格上這個榜**，只是排在後面。
+_g_surge_all = _ghmod.rank(_g_cur, _g_state, _g_now, 10, 10 ** 9)[1]
 acase(f"GitHub：低於 {_ghmod.SURGE_FLOOR} 顆星不進竄升榜，其餘照相對增量排"
       "（10 顆變 20 顆就是 +100%，那讀起來比任何真的竄升都猛）",
-      [x["full_name"] for x in _g_surge], ["small/repo", "big/repo"])
-acase("GitHub：兩榜互相標名次（同一個 repo 兩邊都上，本身就是資訊）",
-      [_g_top[0].get("rank_velocity"), _g_surge[0].get("rank_surge"),
-       _g_surge[0].get("rank_velocity")],
-      [1, 1, 2])
+      [[x["full_name"] for x in _g_surge], [x["full_name"] for x in _g_surge_all]],
+      [["small/repo"], ["small/repo", "big/repo"]])
+acase("GitHub：兩榜不再互相標名次——星速榜的列沒有 rank_surge、竄升榜的列沒有 rank_velocity，"
+      "頁面也拿掉那一格 xref（兩榜不相交，那一格永遠是空的）",
+      [_g_top[0].get("rank_velocity"), "rank_surge" in _g_top[0],
+       _g_surge[0].get("rank_surge"), "rank_velocity" in _g_surge[0],
+       "gh-xref" in _GH_PAGE, "r.rank_velocity : r.rank_surge" in _GH_PAGE],
+      [1, False, 1, False, False, False])
+acase("GitHub：頁面讀 github.json 的 tier_split 把門檻印出來，不在頁面寫死"
+      "（一個沒有寫出來的門檻跟沒有門檻一樣會誤導；寫死的話設定檔改了頁面還是舊數字）",
+      ["d.tier_split" in _GH_PAGE, 'class="tier"' in _GH_PAGE, "20000" in _GH_PAGE],
+      [True, True, False])
 acase("GitHub：頁面把兩個軸各自偏袒誰寫出來，門檻也印得到"
       "（一個沒有寫出來的門檻，跟沒有門檻一樣會誤導）",
       [w for w in ("偏袒大 repo", "id=\"floor\"", "竄升榜", "星速榜")
@@ -9627,22 +9652,33 @@ acase("GitHub 名次變動：舊 schema（沒有名次欄位）判成「量不�
       ["no_baseline", "entered"])
 # 兩個榜共用同一批 dict 物件（rows 只建一次，by_velocity / by_surge 都指向它）。
 # 欄位不帶軸名後綴的話，後算的那個榜會蓋掉前一個，而畫面上兩邊會顯示同一個變動。
+# 兩榜按體量切開之後，同一列只在一個榜上；欄位照樣帶軸名後綴，這樣讀哪個榜的欄位
+# 永遠不會拿到另一個榜寫的值。small/repo 上一版在星速榜第 1 名、竄升榜第 3 名：
+# 這一版它只在竄升榜，名次變動只能是竄升榜那一格，星速榜那一格不存在。
 _g_state2 = {"big/repo": {"stars": 100000, "ts": _g_prev_ts,
                           "rank_velocity": 2, "rank_surge": None},
              "small/repo": {"stars": 1000, "ts": _g_prev_ts,
                             "rank_velocity": 1, "rank_surge": 3},
              "tiny/repo": {"stars": 100, "ts": _g_prev_ts,
                            "rank_velocity": 3, "rank_surge": 1}}
-_g_top2, _g_surge2 = _ghmod.rank(_g_cur, _g_state2, _g_now, 10)
-_g_by2 = {r["full_name"]: r for r in _g_top2}
-acase("GitHub 名次變動：兩個榜各算各的，欄位不互相覆蓋"
-      "（同一個 repo 在星速榜上升、在竄升榜是新進榜——共用一組欄位的話"
-      "兩邊會顯示後算的那一個）",
+_g_top2, _g_surge2 = _ghmod.rank(_g_cur, _g_state2, _g_now, 10, _G_TIER)
+_g_by2 = {r["full_name"]: r for r in _g_top2 + _g_surge2}
+acase("GitHub 名次變動：兩個榜各算各的，欄位帶軸名、不互相覆蓋"
+      "（每一列只在一個榜上，另一個榜的名次變動欄位不存在，不是被寫成別的值）",
       [_g_by2["big/repo"].get("rank_move_velocity"), _g_by2["big/repo"].get("rank_places_velocity"),
-       _g_by2["big/repo"].get("rank_move_surge"),
-       _g_by2["small/repo"].get("rank_move_velocity"), _g_by2["small/repo"].get("rank_places_velocity"),
+       "rank_move_surge" in _g_by2["big/repo"],
+       "rank_move_velocity" in _g_by2["small/repo"],
        _g_by2["small/repo"].get("rank_move_surge"), _g_by2["small/repo"].get("rank_places_surge")],
-      ["up", 1, "entered", "down", 1, "up", 2])
+      ["up", 1, False, False, "up", 2])
+# 跨過門檻換榜：上一版在星速榜、這一版掉到 tier_split 以下，在竄升榜上是「新進榜」——
+# state.json 記它上一次**不在竄升榜上**（null），跟 rank_move() 六態的定義一致。
+_g_cross = {"drop/repo": _grepo("drop/repo", 19900)}
+_g_cross_st = {"drop/repo": {"stars": 20100, "ts": _g_prev_ts,
+                             "rank_velocity": 4, "rank_surge": None}}
+_g_cross_s = _ghmod.rank(_g_cross, _g_cross_st, _g_now, 10, _G_TIER)[1]
+acase("GitHub 名次變動：跨過 tier_split 換榜的 repo 在新榜上是「新進榜」，不另立一態",
+      [[x["full_name"] for x in _g_cross_s], _g_cross_s[0].get("rank_move_surge")],
+      [["drop/repo"], "entered"])
 # ── 名次位移不是「每天」的量，所以每一列要帶自己的基線年紀 ──────────
 # 星速除以實際天數（days），名次位移沒有除以任何東西。兩者在每晚都抓得到的
 # repo 上看起來一樣，正好在基線舊掉的那幾條上分岔——而那不是理論值：
@@ -9654,7 +9690,8 @@ _g_state3 = {"big/repo": {"stars": 100000, "ts": (_g_now - _gdt.timedelta(days=6
              "small/repo": {"stars": 1000, "ts": (_g_now - _gdt.timedelta(hours=2)).timestamp(),
                             "rank_velocity": 2, "rank_surge": None},
              "tiny/repo": {"stars": 100, "ts": _g_prev_ts, "rank_velocity": 3, "rank_surge": None}}
-_g_by3 = {r["full_name"]: r for r in _ghmod.rank(_g_cur, _g_state3, _g_now, 10)[0]}
+# tier_split 給 0：四條全進星速榜，這幾條釘的是 baseline_days，不是切分。
+_g_by3 = {r["full_name"]: r for r in _ghmod.rank(_g_cur, _g_state3, _g_now, 10, 0)[0]}
 acase("GitHub 名次變動：每一列帶自己的基線年紀，六天前的基線不會被算成一天"
       "（名次位移沒有除以天數，所以「隔了幾天」只能一列一列說；"
       "寫死一個節奏就是把六天的位移講成昨天的）",
@@ -9680,7 +9717,7 @@ with tempfile.TemporaryDirectory() as _rmtd:
     _rmv = Path(_rmtd)
     (_rmv / "_config").mkdir()
     (_rmv / "_github").mkdir()
-    (_rmv / "_config" / "github.yaml").write_text("top_n: 1\nsearches: []\n",
+    (_rmv / "_config" / "github.yaml").write_text("top_n: 1\ntier_split: 20000\nsearches: []\n",
                                                   encoding="utf-8")
     _rm_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     # 舊 schema：只有 stars / ts，一個名次欄位都沒有。
@@ -9723,7 +9760,7 @@ acase("GitHub 名次變動：第一班（舊基線）整榜是「量不到」，
        _rm_board1["repos"][0].get("rank_places_velocity"),
        _rm_board2["repos"][0].get("rank_move_velocity"),
        _rm_board2["surging"][0].get("rank_move_surge")],
-      ["no_baseline", None, "flat", "entered"])
+      ["no_baseline", None, "flat", "flat"])
 acase("GitHub 名次變動：頁面把「跟哪一版比」與圖例印出來"
       "（沒寫出來的話，讀者會把 ▲3 讀成「跟昨天比」——而基線是上一次快照）",
       [w for w in ('id="legend"', "名次底下那一格", "隔了幾天每一列不一樣",

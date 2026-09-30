@@ -171,8 +171,13 @@ def attach_rank_move(board, state, axis):
         r[f"rank_prev_{axis}"] = prev_rank
 
 
-def rank(current, state, now, top_n):
-    """純函式：用 state 的上次快照算兩軸，各排一次。可離線單測。
+def rank(current, state, now, top_n, tier_split):
+    """純函式：用 state 的上次快照算兩軸，按體量切成兩個榜，各排一次。可離線單測。
+
+    **按體量切（2026-09-30）。** 星速榜只收這一次 `stars >= tier_split` 的 repo，
+    竄升榜只收 `stars < tier_split` 的（仍要上一版 >= SURGE_FLOOR）。兩榜因此不相交，
+    以前那一格「另一個榜的名次」就沒有東西可標了。規格與代價見
+    references/github-board.md〈體量切分〉。
 
     **為什麼是兩軸。** 只有絕對星速（Δ★/天）的時候，榜永遠是大 repo 的榜——
     同樣一天，10 萬星的專案漲 200 顆很平常，2 千星的漲 200 顆是暴動，而排序看
@@ -185,7 +190,7 @@ def rank(current, state, now, top_n):
       surge     Δ%/天       誰漲得最快（偏袒小 repo，所以設 SURGE_FLOOR）
 
     合成一個「動能分」等於再造一個代理指標，而權重要多少沒有人答得出來。
-    兩個榜並排，讀者自己看得到同一個 repo 在兩邊的位置。
+    兩個榜並排；2026-09-30 起按體量切開，大 repo 在星速榜、小 repo 在竄升榜，不再重疊。
 
     **首次觀測不再給代理值。** 舊版拿「星數 ÷ 自建立以來的天數」當動能，那是
     **歷史平均**不是現在的速度：三年前開的 5000 星專案會拿到 4.5★/天 排進前段，
@@ -214,6 +219,27 @@ def rank(current, state, now, top_n):
     「除以天數」的正規化：那會生出一個「每天位移 0.5 名」的東西，而名次是序數，
     序數的每日平均沒有意義。量到幾天就說幾天，不換算。
     """
+    rows = measure(current, state, now)
+    by_velocity, by_surge = split_tiers(rows, tier_split)
+    top = by_velocity[:top_n]
+    surge_top = by_surge[:top_n]
+    # 兩榜的名次寫進各自那一批 dict，前台不必再算一次。
+    for i, x in enumerate(top):
+        x["rank_velocity"] = i + 1
+    for i, x in enumerate(surge_top):
+        x["rank_surge"] = i + 1
+    # 名次變動要在名次寫完之後才算——attach 讀的是 r["rank_<axis>"]。
+    attach_rank_move(top, state, "velocity")
+    attach_rank_move(surge_top, state, "surge")
+    return top, surge_top
+
+
+def measure(current, state, now):
+    """純函式：每個 repo 對上一版快照算 delta／velocity／surge／baseline_days。回一批新的 dict。
+
+    每呼叫一次就是一批新的 dict：全部榜與分類榜各自呼叫，分類榜的列才不會帶到全部榜寫的
+    名次欄（分類榜不算名次變動，見 rank_categories()）。
+    """
     rows = []
     now_ts = now.timestamp()
     for full, r in current.items():
@@ -236,27 +262,26 @@ def rank(current, state, now, top_n):
         rows.append(dict(r, delta=delta, velocity=velocity, surge=surge,
                          prev_stars=prev_stars, is_new=is_new,
                          baseline_days=baseline_days))
+    return rows
 
+
+def split_tiers(rows, tier_split):
+    """純函式：按這一次的星數切兩個池、各自排序。回 (星速榜排序, 竄升榜排序)，都還沒截斷。
+
+    用**這一次**的 stars 切：同一列只有一個 stars，所以兩邊一定不相交。全部榜與每個分類榜
+    都走這一支，切法只有一份。
+    """
+    big = [x for x in rows if x["stars"] >= tier_split]
+    small = [x for x in rows if x["stars"] < tier_split]
     # 沒有速度的排最後（None 不參與比較），同分再看星數。
-    by_velocity = sorted(rows, key=lambda x: (x["velocity"] is not None,
-                                              x["velocity"] or 0, x["stars"]), reverse=True)
-    by_surge = [x for x in rows if x["surge"] is not None]
+    by_velocity = sorted(big, key=lambda x: (x["velocity"] is not None,
+                                             x["velocity"] or 0, x["stars"]), reverse=True)
+    by_surge = [x for x in small if x["surge"] is not None]
     # 同分用名字破，不用星數：相對增量打平的時候，拿星數破等於把絕對軸的
     # 偏袒偷渡回相對軸——而這個榜存在的理由就是不要那個偏袒。名字是任意的，
     # 但至少不偏袒任何一種 repo，而且重跑會得到同一個順序。
     by_surge.sort(key=lambda x: (-x["surge"], x["full_name"]))
-
-    top = by_velocity[:top_n]
-    surge_top = by_surge[:top_n]
-    # 兩榜的名次寫進同一批 dict，前台不必再算一次，也不會兩邊算出不同的名次。
-    for i, x in enumerate(top):
-        x["rank_velocity"] = i + 1
-    for i, x in enumerate(surge_top):
-        x["rank_surge"] = i + 1
-    # 名次變動要在兩個榜的名次都寫完之後才算——attach 讀的是 r["rank_<axis>"]。
-    attach_rank_move(top, state, "velocity")
-    attach_rank_move(surge_top, state, "surge")
-    return top, surge_top
+    return by_velocity, by_surge
 
 
 def _render():
@@ -300,14 +325,16 @@ GH_BODY = """<section class="gh-wrap shell">
 <div class="gh-two">
   <div>
     <div class="col-head">星速榜 · 誰吸走最多注意力</div>
-    <p class="gh-axis">絕對增量（★/天）。<b>這個軸偏袒大 repo</b>——同樣漲 200 顆，
-    在 10 萬星的專案是日常，在 2 千星的是暴動。那是它的定義，不是缺陷。</p>
+    <p class="gh-axis">絕對增量（★/天），只收 <b class="tier"></b> 顆星以上的 repo。
+    <b>這個軸偏袒大 repo</b>——同樣漲 200 顆，在 10 萬星的專案是日常，在 2 千星的是暴動。
+    那是它的定義，不是缺陷，所以小於門檻的 repo 改在竄升榜比。</p>
     <div id="list"></div>
   </div>
   <div>
     <div class="col-head">竄升榜 · 誰漲得最快</div>
-    <p class="gh-axis">相對增量（%/天），<b id="floor"></b> 顆星以下不列——
-    低基數的百分比會爆掉（10 顆變 20 顆就是 +100%），而那讀起來比任何真的竄升都猛。</p>
+    <p class="gh-axis">相對增量（%/天），只收 <b class="tier"></b> 顆星以下的 repo，
+    上一版 <b id="floor"></b> 顆星以下不列——低基數的百分比會爆掉（10 顆變 20 顆就是 +100%），
+    而那讀起來比任何真的竄升都猛。</p>
     <div id="surge"></div>
     <p class="gh-none" id="surge-none" style="display:none">還沒有第二次觀測，算不出相對增量。</p>
   </div>
@@ -380,11 +407,9 @@ function row(r,i,axis){
   var tags=[r.language?('<span class="gh-tag">'+esc(r.language)+'</span>'):""]
       .concat((r.topics||[]).slice(0,3).map(t=>'<span class="gh-tag">'+esc(t)+'</span>'))
       .concat(r.is_new?'<span class="gh-tag gh-new">首次觀測</span>':"").join("");
-  // 另一個榜的名次：同一個 repo 兩邊都上，本身就是資訊。
-  var other = axis==="surge" ? r.rank_velocity : r.rank_surge;
-  var xref = other ? '<span class="gh-xref">'+(axis==="surge"?"星速":"竄升")+' #'+other+'</span>' : "";
+  // 兩榜按體量切開、不再重疊（tier_split），所以不標「另一個榜的名次」。
   return '<div class="gh-row"><div class="gh-rank">'+(i+1)+moveCell(r,axis)+'</div>'
-    +'<div class="gh-main"><div class="n"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.full_name)+'</a>'+xref+'</div>'
+    +'<div class="gh-main"><div class="n"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.full_name)+'</a></div>'
     +(r.desc_zh?'<div class="d">'+esc(r.desc_zh)+'</div>':"")
     +(r.desc?'<div class="'+(r.desc_zh?"d-src":"d")+'">'+esc(r.desc)+'</div>':"")
     +'<div class="t">'+tags+'</div></div>'
@@ -400,6 +425,9 @@ function draw(d){
   document.getElementById("meta").textContent=listed+" 個 repo（兩個榜去重後）· 更新 "+(d.generated||"")
     +" · 中文描述 "+zh+"/"+listed+"（兩個榜都是純規則算的；描述由潤稿端翻寫，英文原文一併保留）";
   document.getElementById("floor").textContent = d.surge_floor!=null ? d.surge_floor : "—";
+  // 切分門檻從 github.json 讀，不在頁面寫死：設定檔改了，頁面上的字要跟著變。
+  document.querySelectorAll(".tier").forEach(function(el){
+    el.textContent = d.tier_split!=null ? d.tier_split : "—"; });
   document.getElementById("none").style.display=repos.length?"none":"block";
   document.getElementById("surge-none").style.display=surging.length?"none":"block";
   document.getElementById("list").innerHTML=repos.map((r,i)=>row(r,i,"velocity")).join("");
@@ -611,23 +639,21 @@ def main():
         write_desc_coverage(vault, now, None, None)
         return 0
 
-    ranked, surging = rank(current, state, now, cfg.get("top_n", 25))
+    tier_split = cfg["tier_split"]
+    ranked, surging = rank(current, state, now, cfg.get("top_n", 25), tier_split)
     # board.json 存的是「榜的事實」：譯文在下面 attach 才掛，所以在那之前先序列化。
     # attach 是就地改 dict，晚一步序列化會把 desc_zh 一起存進去。
-    board_text = json.dumps({"generated": generated, "count": len(ranked), "repos": ranked,
-                             "surging": surging, "surge_floor": SURGE_FLOOR,
-                             "measured": True},
-                            ensure_ascii=False, indent=2)
+    doc = {"generated": generated, "count": len(ranked), "repos": ranked,
+           "surging": surging, "surge_floor": SURGE_FLOOR, "tier_split": tier_split,
+           "measured": True}
+    board_text = json.dumps(doc, ensure_ascii=False, indent=2)
     # 掛上潤稿端翻好的中文描述。抓取鏈不等它、也不產生它——沒有就是英文原文，
     # 榜照樣出得來。中文晚一步到（潤稿任務比 Actions 晚三小時）是設計，不是缺陷。
     # 兩個榜都掛：同一個 repo 可能同時在兩邊，翻過的譯文要兩邊都看得到。
     ghdesc.attach(ranked, ghdesc.load(vault))
     ghdesc.attach(surging, ghdesc.load(vault))
     (out / "data" / "github.json").write_text(
-        json.dumps({"generated": generated, "count": len(ranked), "repos": ranked,
-                    "surging": surging, "surge_floor": SURGE_FLOOR,
-                    "measured": True},
-                   ensure_ascii=False, indent=2), encoding="utf-8")
+        json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
 
     # 更新快照（走到這裡就是 do_snapshot 為真，快照沒更新的班次在上面 emit_board 就回了）；進版控

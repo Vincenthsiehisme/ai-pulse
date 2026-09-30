@@ -61,6 +61,33 @@
 
 `--render-only` 不能與 `--snapshot`、`--snapshot-if-older-than` 併用（argparse 直接拒）。
 
+## 體量切分
+
+2026-09-30 起（plan〈GitHub 榜去重分類與成本觀測〉AC-2）。
+
+兩個榜以前是同一批 repo 的兩種排序，各自截前 `top_n`。大 repo 在星速榜上是日常，竄升榜又沒有
+星數上限，結果同一個 repo 常常兩邊都上，頁面得靠「另一個榜的名次」那一格（xref）把重疊標出來。
+讀者看到的是兩份大半重複的榜。
+
+改成**按體量切**，門檻是 `_config/github.yaml` 的 `tier_split`（20000）：
+
+| 榜 | 收哪些 repo | 排序 |
+|---|---|---|
+| 星速榜 `repos` | 這一次量到的 `stars >= tier_split` | Δ★/天，首次觀測排最後（同舊） |
+| 竄升榜 `surging` | 這一次量到的 `stars < tier_split`，且上一版 `>= SURGE_FLOOR` | Δ%/天，同分用名字破（同舊） |
+
+- 用**這一次**的星數切，不用上一版的。同一列的 `stars` 只有一個值，所以兩個榜一定不相交。
+- 門檻寫在設定檔、由 `rank()` 讀，同一個值也寫進 `github.json`／`board.json` 頂層的 `tier_split`，
+  頁面讀 `d.tier_split` 印出來。一個沒有寫出來的門檻跟沒有門檻一樣會誤導。
+- 每個分類頁的兩個榜**同樣套 `tier_split`**（見〈分類〉），分類頁的兩榜也不相交。
+- 頁面拿掉 xref：兩榜不再重疊，那一格永遠是空的。
+- 跨過門檻的 repo 會換榜。它在新榜上的名次變動是「新進榜」（`entered`）：`state.json` 記的是
+  它上一次**在那個榜上**的名次，上一次它不在那個榜上，所以是 null。這跟 `rank_move()` 六態的
+  定義一致，不另立一態。
+- 代價：`stars < tier_split` 的首次觀測 repo 兩邊都不上。星速榜以前會把它們排在最後、標「首次
+  觀測」；現在它們不在星速榜的範圍內，竄升榜又要上一版的星數，隔一晚有了基線才會出現。
+- `rank_move()` 的六態、`baseline_days` 的算法、`state.json` 的四欄 schema 都不變。
+
 ## `board.json` schema
 
 ```json
@@ -71,6 +98,7 @@
                "baseline_days": 1.0, "rank_velocity": 1, "rank_move_velocity": "up", "...": "..." } ],
   "surging": [ { "...": "同 repos，另有 rank_surge 等欄" } ],
   "surge_floor": 200,
+  "tier_split": 20000,
   "measured": true
 }
 ```
@@ -109,5 +137,8 @@ merge 後手動跑一次 data-refresh，線上 `github.json` 非首次觀測（`
 
 ## 不變的東西
 
-`rank()`、`rank_move()` 的算法、`state.json` schema、`desc-zh.json` 格式、
+`rank_move()` 的六態、`baseline_days` 的算法、`state.json` 的四欄 schema、`desc-zh.json` 格式、
 `pulse-github-desc-prep.py`／`pulse-github-desc-apply.py` 的讀取路徑都不動。
+
+T1 那一版（榜的資料流）寫的是 `rank()` 不動；2026-09-30 T2 那一版改了 `rank()` 的入池條件
+（〈體量切分〉），星速與竄升的算式、排序鍵、同分的破法照舊。
