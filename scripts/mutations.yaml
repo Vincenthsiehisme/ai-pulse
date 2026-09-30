@@ -3371,3 +3371,115 @@ mutations:
     replace: "    el.textContent = \"\"; });"
     survives: false
     why: ""
+
+  - id: M400
+    title: "分類取最後一個符合的類（優先序反過來，同時帶 mcp 與 rag 的 repo 跑去 rag-memory）"
+    file: pulse-github.py
+    find: "    for c in categories:\n        if have & "
+    replace: "    for c in reversed(categories):\n        if have & "
+    survives: false
+    why: ""
+
+  - id: M401
+    title: "分類比對分大小寫（topic 寫成大寫的 repo 變未分類）"
+    file: pulse-github.py
+    find: "    have = {str(t).lower() for t in (row.get(\"topics\") or [])}"
+    replace: "    have = {str(t) for t in (row.get(\"topics\") or [])}"
+    survives: false
+    why: ""
+
+  - id: M402
+    title: "先截成顯示用的前 6 個 topic 再分類（第 7 個以後才命中的 repo 無緣無故變未分類）"
+    file: pulse-github.py
+    find: "    row[\"category\"] = classify(row, categories)\n    row[\"topics\"] = topics[:6]\n"
+    replace: "    row[\"topics\"] = topics[:6]\n    row[\"category\"] = classify(row, categories)\n"
+    survives: false
+    why: ""
+
+  - id: M403
+    title: "判不出分類時塞第一類（未分類的 repo 被灌進「開源模型與推論」）"
+    file: pulse-github.py
+    find: "    return UNCLASSIFIED\n"
+    replace: "    return categories[0][\"id\"] if categories else UNCLASSIFIED\n"
+    survives: false
+    why: ""
+
+  - id: M404
+    title: "分類頁不套 tier_split（小 repo 全擠進分類頁的星速榜，竄升榜空掉）"
+    file: pulse-github.py
+    find: "        by_velocity, by_surge = split_tiers(mine, tier_split)"
+    replace: "        by_velocity, by_surge = split_tiers(mine, 0)"
+    survives: false
+    why: ""
+
+  - id: M405
+    title: "分類榜不截到 category_top_n（一類幾十列，分頁跟全部榜一樣長）"
+    file: pulse-github.py
+    find: "                    \"repos\": by_velocity[:top_n], \"surging\": by_surge[:top_n]})"
+    replace: "                    \"repos\": by_velocity, \"surging\": by_surge})"
+    survives: false
+    why: ""
+
+  - id: M406
+    title: "分類頁不過濾分類（每一頁都是全部榜）"
+    file: pulse-github.py
+    find: "        mine = [r for r in rows if r[\"category\"] == c[\"id\"]]"
+    replace: "        mine = list(rows)"
+    survives: false
+    why: ""
+
+  - id: M407
+    title: "github.json／board.json 不寫 categories（分頁點下去全空）"
+    file: pulse-github.py
+    find: "           \"categories\": categories, \"measured\": True}"
+    replace: "           \"categories\": [], \"measured\": True}"
+    survives: false
+    why: ""
+
+  - id: M408
+    title: "--render-only 只掛全部榜的譯文（分類榜獨有的 repo 在線上永遠是英文）"
+    file: pulse-github.py
+    find: "        for rows in ghdesc.doc_boards(board):\n            ghdesc.attach(rows, store)\n        doc = board\n"
+    replace: "        ghdesc.attach(board[\"repos\"], store)\n        ghdesc.attach(board.get(\"surging\") or [], store)\n        doc = board\n"
+    survives: false
+    why: ""
+
+  - id: M409
+    title: "doc_boards 不含分類榜（待譯清單、寫回、覆蓋率一起漏掉分類榜獨有的 repo）"
+    file: lib/ghdesc.py
+    find: "    for c in doc.get(\"categories\") or []:\n        boards.append"
+    replace: "    for c in []:\n        boards.append"
+    survives: false
+    why: ""
+
+  - id: M410
+    title: "頁面只有「全部」一個分頁（六類分頁不見）"
+    file: pulse-github.py
+    find: "    tabs = [(\"all\", \"全部\")] + [(c[\"id\"], c[\"name\"]) for c in categories]"
+    replace: "    tabs = [(\"all\", \"全部\")]"
+    survives: false
+    why: ""
+
+  - id: M411
+    title: "unclassified 的標籤直接印 id（讀者看到一串英文 unclassified）"
+    file: pulse-github.py
+    find: "  if(id===\"unclassified\") return \"未分類\";\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M412
+    title: "抓取模式只掛全部榜的譯文（data-refresh 那份 github.json 的分類榜是英文，desc-prep 照樣讀得到）"
+    file: pulse-github.py
+    find: "    store = ghdesc.load(vault)\n    for rows in ghdesc.doc_boards(doc):\n        ghdesc.attach(rows, store)\n"
+    replace: "    store = ghdesc.load(vault)\n    for rows in ghdesc.doc_boards(doc)[:2]:\n        ghdesc.attach(rows, store)\n"
+    survives: false
+    why: ""
+
+  - id: M413
+    title: "寫回端只把譯文掛到全部榜（分類榜那幾列就地更新漏掉）"
+    file: pulse-github-desc-apply.py
+    find: "    boards = ghdesc.doc_boards(board) if origin == \"board\" else []"
+    replace: "    boards = ghdesc.doc_boards(board)[:2] if origin == \"board\" else []"
+    survives: false
+    why: ""
