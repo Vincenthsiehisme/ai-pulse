@@ -1,14 +1,7 @@
 # GitHub 動能榜設定（星數＝注意力訊號，零 LLM）
-# 用 GitHub Search API 掃關鍵字，取近期活躍且有一定規模的 repo，
+# 用 GitHub Search API 依分類的查詢撈近期活躍且有一定規模的 repo，
 # 比對 _github/state.json 的歷史快照算 Δstars/day 與名次變動。
-keywords:
-  - ai agent
-  - llm
-  - rag
-  - mcp server
-  - agent framework
-  - llm inference
-  - vector database
+# 規格：references/github-board.md（〈體量切分〉〈分類〉〈候選池〉）。
 min_stars: 300        # 低於此星數不進榜（濾掉一日新秀噪音）
 active_days: 45       # 最近推送需在這天數內
 # 榜單長度。同時是「新進榜」那個圖示的邊界：上一次快照排在 top_n 以外的 repo，
@@ -19,7 +12,9 @@ top_n: 25
 # 只進星速榜，< tier_split 的只進竄升榜（仍要上一版 >= SURGE_FLOOR）。兩榜因此不相交，
 # 分類頁的兩榜同樣套這個門檻。頁面讀 github.json 的 tier_split 印出來。
 tier_split: 20000
-exclude:             # 標題含這些字樣直接排除（教材/清單類非產品動能）
+# 每個分類頁在自己的池子內各排兩榜幾名。分類榜不算名次變動（state.json 只存全部榜的名次）。
+category_top_n: 10
+exclude:              # 標題含這些字樣直接排除（教材/清單類非產品動能）
   - awesome
   - roadmap
   - tutorial
@@ -30,3 +25,42 @@ exclude:             # 標題含這些字樣直接排除（教材/清單類非�
   - 資料
   - 教學
   - learn-
+# 六類分類（2026-09-30 使用者裁定，見 references/github-board.md〈分類〉）。
+# **清單順序就是優先序**：每個 repo 依序比對 topics，第一個跟 repo 完整 topics（轉小寫）
+# 有交集的那一類就是它的分類，恰好一個；都沒有就是 unclassified（只在「全部」出現）。
+# ai-agents、agent、agents、llm、ai 這類泛用 topic 刻意不放進任何一類：放進去的話幾乎每個
+# repo 都會先命中那一類，優先序就等於沒有。只帶泛用 topic 的 repo 標 unclassified。
+# queries 是這一類拿去打 Search 的關鍵字（每個 query 打兩次，見〈候選池〉）；
+# 找到 repo 的是哪一類的 query 不影響它的分類，分類只看 topics。
+categories:
+  - id: open-models
+    name: 開源模型與推論
+    topics: [llm-inference, inference, inference-engine, local-llm, llama, llamacpp,
+             llama-cpp, ollama, vllm, gguf, quantization, open-weights, open-source-llm,
+             qwen, deepseek, gemma, mistral, mlx, model-serving]
+    queries: [llm inference, open source llm, local llm]
+  - id: automation
+    name: AI 自動化與工作流
+    topics: [workflow, workflow-automation, automation, agentic-workflow, low-code,
+             no-code, n8n, rpa, browser-automation, computer-use, playwright]
+    queries: [ai workflow automation, browser automation agent, low-code llm]
+  - id: coding-agents
+    name: Coding agent 與 skills
+    topics: [claude-code, codex, cursor, coding-agent, ai-coding, code-assistant,
+             agent-skills, skills, copilot, vibe-coding, gemini-cli]
+    queries: [coding agent, claude code, agent skills]
+  - id: agent-frameworks
+    name: Agent 框架
+    topics: [agent-framework, agentic-framework, multi-agent, multi-agent-systems,
+             agent-sdk, langchain, llamaindex, crewai, autogen]
+    queries: [agent framework, multi-agent]
+  - id: mcp
+    name: MCP 與工具整合
+    topics: [mcp, mcp-server, model-context-protocol, mcp-client]
+    queries: [mcp server]
+  - id: rag-memory
+    name: RAG、記憶與向量資料庫
+    topics: [rag, retrieval-augmented-generation, graphrag, vector-database, vector-search,
+             embeddings, semantic-search, similarity-search, hnsw, knowledge-graph,
+             agent-memory, memory]
+    queries: [rag, vector database, agent memory]

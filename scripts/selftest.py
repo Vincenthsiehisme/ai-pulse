@@ -3208,21 +3208,35 @@ _ghm2 = importlib.util.module_from_spec(_gh2_spec)
 _gh2_spec.loader.exec_module(_ghm2)
 # 兩個榜必須真的排出不同的前二名，否則這條測試會在「union 等於任一個榜」的
 # 情況下自動變綠——那正是它要抓的錯。
+# 測試用的兩類分類（collect 被換成替身，分類在替身給的列上已經標好；rank_categories 只看 id）。
+_GH_T_CATS = [{"id": "open-models", "name": "開源模型與推論", "topics": ["llm-inference"],
+               "queries": ["llm inference"]},
+              {"id": "mcp", "name": "MCP 與工具整合", "topics": ["mcp"], "queries": ["mcp server"]}]
+
+
+def _gh_cfg(top_n, tier_split=20000, category_top_n=10):
+    """拋棄式 vault 用的 _config/github.yaml 內容。"""
+    return _yaml.safe_dump({"top_n": top_n, "tier_split": tier_split,
+                            "category_top_n": category_top_n, "min_stars": 300,
+                            "active_days": 45, "categories": _GH_T_CATS},
+                           allow_unicode=True, sort_keys=False)
+
+
 _U_REPOS = {
     "big/a": {"full_name": "big/a", "desc": "A", "stars": 100000, "url": "u",
-              "language": "Go", "topics": [], "created": "2020-01-01"},
+              "language": "Go", "topics": [], "created": "2020-01-01", "category": "open-models"},
     "big/b": {"full_name": "big/b", "desc": "B", "stars": 50000, "url": "u",
-              "language": "Go", "topics": [], "created": "2020-01-01"},
+              "language": "Go", "topics": [], "created": "2020-01-01", "category": "mcp"},
     "sml/x": {"full_name": "sml/x", "desc": "X", "stars": 1000, "url": "u",
-              "language": "Go", "topics": [], "created": "2020-01-01"},
+              "language": "Go", "topics": [], "created": "2020-01-01", "category": "open-models"},
     "sml/y": {"full_name": "sml/y", "desc": "Y", "stars": 400, "url": "u",
-              "language": "Go", "topics": [], "created": "2020-01-01"},
+              "language": "Go", "topics": [], "created": "2020-01-01", "category": "unclassified"},
 }
 with tempfile.TemporaryDirectory() as _u4td:
     _u4v = Path(_u4td)
     (_u4v / "_config").mkdir()
     (_u4v / "_github").mkdir()
-    (_u4v / "_config" / "github.yaml").write_text("top_n: 2\ntier_split: 20000\nsearches: []\n",
+    (_u4v / "_config" / "github.yaml").write_text(_gh_cfg(2),
                                                   encoding="utf-8")
     _u4_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     (_u4v / "_github" / "state.json").write_text(_json.dumps({
@@ -3255,9 +3269,11 @@ acase("GitHub 動能：中文覆蓋率算整頁去重後的 repo 數，不是算
       [["big/a", "big/b"], ["sml/x", "sml/y"], 4, 1])
 # 頁上那一行是同一個分母的第二份說法（JS 自己算一次）。兩份要用同一個判準。
 _GH_JS = open(os.path.join(_HERE, "pulse-github.py"), encoding="utf-8").read()
-acase("GitHub 動能：頁上那行覆蓋率也數兩個榜（它是同一個分母的第二份說法）",
-      ["repos.concat(surging)" in _GH_JS, '/"+repos.length+"' in _GH_JS],
-      [True, False])
+acase("GitHub 動能：頁上那行覆蓋率數全部榜與分類榜（它是同一個分母的第二份說法）",
+      ["allBoards(d).forEach" in _GH_JS,
+       "(d.categories||[]).forEach(function(c){ b.push(c.repos||[], c.surging||[]); });" in _GH_JS,
+       '/"+repos.length+"' in _GH_JS],
+      [True, True, False])
 
 # ── 榜單中文描述：C2 段跳過不留痕跡（references/vault-pages.md）──
 from lib import ghdesc as _gd2  # noqa: E402
@@ -3304,7 +3320,7 @@ _gh_spec.loader.exec_module(_ghm)
 with tempfile.TemporaryDirectory() as _ghtd:
     _ghv = Path(_ghtd)
     (_ghv / "_config").mkdir()
-    (_ghv / "_config" / "github.yaml").write_text("top_n: 5\ntier_split: 20000\nsearches: []\n",
+    (_ghv / "_config" / "github.yaml").write_text(_gh_cfg(5),
                                                   encoding="utf-8")
     _gh_collect, _gh_argv, _gh_envv = _ghm.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
@@ -3393,11 +3409,14 @@ def _bd_rd(vault, *rel):
 
 
 def _bd_strip(doc):
-    """去掉每一列的 desc_zh 系列欄（board.json 不含譯文）。"""
+    """去掉每一列的 desc_zh 系列欄（board.json 不含譯文），全部榜與每一類的兩榜都去。"""
+    def rows(rs):
+        return [{f: v for f, v in r.items() if not f.startswith("desc_zh")} for r in rs]
     out = dict(doc)
     for k in ("repos", "surging"):
-        out[k] = [{f: v for f, v in r.items() if not f.startswith("desc_zh")}
-                  for r in doc[k]]
+        out[k] = rows(doc[k])
+    out["categories"] = [dict(c, repos=rows(c["repos"]), surging=rows(c["surging"]))
+                         for c in doc.get("categories") or []]
     return out
 
 
@@ -3406,7 +3425,7 @@ with tempfile.TemporaryDirectory() as _bdtd:
     (_bdv / "_config").mkdir()
     (_bdv / "_github").mkdir()
     # tier_split 刻意不用正式設定的 20000：頁面與 github.json 讀的要是設定檔那個值，不是寫死的預設。
-    (_bdv / "_config" / "github.yaml").write_text("top_n: 2\ntier_split: 30000\nsearches: []\n", encoding="utf-8")
+    (_bdv / "_config" / "github.yaml").write_text(_gh_cfg(2, 30000), encoding="utf-8")
     _bd_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     (_bdv / "_github" / "state.json").write_text(_json.dumps({
         "big/a": {"stars": 99000, "ts": _bd_ts}, "big/b": {"stars": 49500, "ts": _bd_ts},
@@ -9545,7 +9564,10 @@ _gh_spec = importlib.util.spec_from_file_location(
     "pulse_github", os.path.join(_HERE, "pulse-github.py"))
 _ghmod = importlib.util.module_from_spec(_gh_spec)
 _gh_spec.loader.exec_module(_ghmod)
-_GH_PAGE = _ghmod.gh_page("2026-07-28 08:00 台北時間")
+# 分頁用正式設定檔的六類產頁：頁面原始碼要有「全部」與六類分頁。
+_GH_CFG_REAL = _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "github.yaml"),
+                                    encoding="utf-8"))
+_GH_PAGE = _ghmod.gh_page("2026-07-28 08:00 台北時間", _GH_CFG_REAL["categories"])
 acase("GitHub 動能：產出的頁面裡沒有自己的 <style>，樣式全走共用樣式表"
       "（六個硬寫字級、零個級距 token，而收字級那一輪它整份被跳過）",
       "<style>" in _GH_PAGE, False)
@@ -9711,13 +9733,189 @@ acase("GitHub 名次變動：頁面把那一列的基線年紀印進說明"
       "沒有這一格，讀者只能假設是一天）",
       [w for w in ("上一版是 ", "baseline_days", "不是同一把尺") if w not in _GH_PAGE], [])
 
+# ── GitHub 榜：六類分類與分類頁（references/github-board.md〈分類〉，2026-09-30）──
+# 一個 repo 恰好一個分類：依設定順序、第一個 topics 有交集的類；零類是 unclassified。
+# 分類用完整 topics（截成顯示用的前 6 個之前做）；分類頁各排兩榜 category_top_n 名、
+# 同樣套 tier_split；翻譯鏈與覆蓋率涵蓋分類榜。
+_CL_CATS = [{"id": "first", "name": "一", "topics": ["shared", "only-a"], "queries": []},
+            {"id": "second", "name": "二", "topics": ["Shared", "only-b"], "queries": []}]
+acase("分類：多類符合取設定順序的第一類、零類符合是 unclassified、比對不分大小寫"
+      "（清單順序就是優先序；取最後一類或都取，一個 repo 就會出現在兩個分類頁）",
+      [_ghm2.classify({"topics": ["only-b", "shared"]}, _CL_CATS),
+       _ghm2.classify({"topics": ["only-b"]}, _CL_CATS),
+       _ghm2.classify({"topics": ["ONLY-B"]}, _CL_CATS),
+       _ghm2.classify({"topics": ["llm", "ai-agents"]}, _CL_CATS),
+       _ghm2.classify({"topics": []}, _CL_CATS),
+       _ghm2.UNCLASSIFIED],
+      ["first", "second", "second", "unclassified", "unclassified", "unclassified"])
+# 正式設定：六類、順序是使用者裁的那一份，泛用 topic 不在任何一類。
+_CL_REAL = _GH_CFG_REAL["categories"]
+_CL_ALL_TOPICS = {t for c in _CL_REAL for t in c["topics"]}
+acase("分類：_config/github.yaml 是六類、順序照裁定、每類都有 name／topics／queries，"
+      "全域 keywords 拿掉了（〈決策〉2026-09-30）",
+      [[c["id"] for c in _CL_REAL],
+       [c["id"] for c in _CL_REAL if not (c.get("name") and c.get("topics") and c.get("queries"))],
+       "keywords" in _GH_CFG_REAL,
+       [_GH_CFG_REAL.get(k) for k in ("tier_split", "category_top_n", "top_n")]],
+      [["open-models", "automation", "coding-agents", "agent-frameworks", "mcp", "rag-memory"],
+       [], False, [20000, 10, 25]])
+acase("分類：ai-agents、agent、agents、llm、ai 這類泛用 topic 不在任何一類"
+      "（放進去的話幾乎每個 repo 都先命中那一類，優先序就沒有意義）",
+      sorted(_CL_ALL_TOPICS & {"ai-agents", "agent", "agents", "llm", "ai"}), [])
+acase("分類：正式設定下，同時帶 mcp 與 rag 的 repo 算 mcp（第 5 類），只帶泛用 topic 的是 unclassified",
+      [_ghm2.classify({"topics": ["rag", "MCP"]}, _CL_REAL),
+       _ghm2.classify({"topics": ["llm", "ai", "agents"]}, _CL_REAL)],
+      ["mcp", "unclassified"])
+# 顯示只留前 6 個 topic；分類要在截斷之前做，第 7 個以後的 topic 也要命中。
+_CL_TOPICS8 = ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "mcp-server"]
+_CL_ROW = _ghm2.pool_row("deep/topic", "topic", "u", " d ", 500, None, _CL_TOPICS8,
+                         "2026-01-02T00:00:00Z", "2026-09-01T00:00:00Z", _CL_REAL)
+acase("分類：用完整 topics（第 8 個 topic 才命中也分得到類），分完才截成顯示用的前 6 個"
+      "（先截斷再分類的話，那個 repo 在畫面上會無緣無故變成未分類）",
+      [_CL_ROW["category"], _CL_ROW["topics"], _CL_ROW["desc"], _CL_ROW["created"]],
+      ["mcp", ["t1", "t2", "t3", "t4", "t5", "t6"], "d", "2026-01-02"])
+
+# 分類榜：依設定順序、每類兩榜各至多 category_top_n 名、同樣套 tier_split、不帶名次欄。
+_CL_NOW = _dt_m.datetime(2026, 9, 30, tzinfo=_dt_m.timezone.utc)
+_CL_TS = (_CL_NOW - _dt_m.timedelta(days=1)).timestamp()
+_CL_CUR, _CL_ST = {}, {}
+for _i in range(12):      # open-models：12 條大 repo、12 條小 repo，截到 10
+    for _pfx, _base in (("om-big", 30000), ("om-sml", 1000)):
+        _n = f"{_pfx}/{_i:02d}"
+        _CL_CUR[_n] = dict(_grepo(_n, _base + 10 * _i), category="open-models")
+        _CL_ST[_n] = {"stars": _base, "ts": _CL_TS}
+_CL_CUR["mcp/one"] = dict(_grepo("mcp/one", 500), category="mcp")
+_CL_ST["mcp/one"] = {"stars": 400, "ts": _CL_TS}
+_CL_CUR["un/one"] = dict(_grepo("un/one", 800), category="unclassified")
+_CL_ST["un/one"] = {"stars": 400, "ts": _CL_TS}
+_CL_BOARDS = _ghm2.rank_categories(_CL_CUR, _CL_ST, _CL_NOW, _CL_REAL, 20000, 10)
+_CL_BY = {c["id"]: c for c in _CL_BOARDS}
+acase("分類榜：categories 依設定順序、六類都在（空的也在）、unclassified 不是分類頁",
+      [[c["id"] for c in _CL_BOARDS], [c["name"] for c in _CL_BOARDS] == [c["name"] for c in _CL_REAL],
+       "unclassified" in _CL_BY, [len(_CL_BY["automation"]["repos"]), len(_CL_BY["automation"]["surging"])]],
+      [[c["id"] for c in _CL_REAL], True, False, [0, 0]])
+acase("分類榜：每類兩榜各至多 category_top_n 名，只收自己那一類",
+      [[len(c["repos"]), len(c["surging"])] for c in _CL_BOARDS],
+      [[10, 10], [0, 0], [0, 0], [0, 0], [0, 1], [0, 0]])
+acase("分類榜：每一類的兩榜也按 tier_split 切開，交集為空"
+      "（全部榜切開了、分類頁沒切，重疊就換到分類頁上再長一次）",
+      [[sorted({r["full_name"] for r in c["repos"]} & {r["full_name"] for r in c["surging"]})
+        for c in _CL_BOARDS],
+       all(r["stars"] >= 20000 for c in _CL_BOARDS for r in c["repos"]),
+       all(r["stars"] < 20000 for c in _CL_BOARDS for r in c["surging"]),
+       all(r["category"] == c["id"] for c in _CL_BOARDS for r in c["repos"] + c["surging"])],
+      [[[]] * 6, True, True, True])
+# 全部榜跟分類榜同一次算：全部榜寫的名次欄不得漏進分類榜（分類榜不算名次變動）。
+_CL_TOP, _CL_SUR = _ghm2.rank(_CL_CUR, _CL_ST, _CL_NOW, 25, 20000)
+_CL_CAT_ROWS = [r for c in _CL_BOARDS for r in c["repos"] + c["surging"]]
+acase("分類榜：不帶任何 rank_* 欄（state.json 只存全部榜的名次；共用同一批 dict 的話，"
+      "全部榜的箭頭會畫在分類頁上）",
+      [sorted({k for r in _CL_CAT_ROWS for k in r if k.startswith("rank_")}),
+       any("rank_move_velocity" in r for r in _CL_TOP)],
+      [[], True])
+acase("分類榜：分類頁的排序跟全部榜同一支（大 repo 照 Δ★/天、小 repo 照 Δ%/天）",
+      [_CL_BY["open-models"]["repos"][0]["full_name"],
+       _CL_BY["open-models"]["surging"][0]["full_name"]],
+      ["om-big/11", "om-sml/11"])
+
+# 頁面：「全部」加六類分頁，依設定順序；未分類的標籤是「未分類」。
+_CL_TABS = _re.findall(r'<button type="button" role="tab" data-cat="([^"]+)"[^>]*>([^<]+)</button>',
+                       _GH_PAGE)
+acase("分類頁面：頁面原始碼有「全部」與六類分頁，順序照設定，預設選「全部」",
+      [[t[0] for t in _CL_TABS], [t[1] for t in _CL_TABS][:2], len(_CL_TABS),
+       'data-cat="all" aria-selected="true" class="active"' in _GH_PAGE],
+      [["all"] + [c["id"] for c in _CL_REAL], ["全部", "開源模型與推論"], 7, True])
+acase("分類頁面：每列印分類標籤、unclassified 寫「未分類」、分類頁不畫名次變動那一格的說明印得出來",
+      ["catName(r.category)" in _GH_PAGE, 'if(id==="unclassified") return "未分類";' in _GH_PAGE,
+       'id="cat-note"' in _GH_PAGE, "<style>" in _GH_PAGE],
+      [True, True, True, False])
+
+# 走真的 main()：分類榜獨有的 repo 要進得了 github.json、譯文、覆蓋率、待譯清單與寫回。
+# top_n=1：全部榜只剩 big/a 與 sml/x；big/b 與 sml/y 只在分類榜上。
+with tempfile.TemporaryDirectory() as _cltd:
+    _clv = Path(_cltd)
+    (_clv / "_config").mkdir()
+    (_clv / "_github").mkdir()
+    (_clv / "_config" / "github.yaml").write_text(_gh_cfg(1), encoding="utf-8")
+    _cl_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
+    _cl_repos = {k: dict(v) for k, v in _U_REPOS.items()}
+    _cl_repos["sml/y"]["category"] = "mcp"
+    _cl_repos["sml/x"]["category"] = "mcp"
+    (_clv / "_github" / "state.json").write_text(_json.dumps({
+        "big/a": {"stars": 99000, "ts": _cl_ts}, "big/b": {"stars": 49500, "ts": _cl_ts},
+        "sml/x": {"stars": 500, "ts": _cl_ts}, "sml/y": {"stars": 210, "ts": _cl_ts}}),
+        encoding="utf-8")
+    # 一條中文，掛在**只在分類榜上**的 sml/y：只掛全部榜的話，這一條永遠不會出現。
+    (_clv / "_github" / "desc-zh.json").write_text(_json.dumps(
+        {"sml/y": {"zh": "只在分類榜", "src_hash": _gu.src_hash("Y"), "at": "t"}}),
+        encoding="utf-8")
+    _cl_rc1, _cl_o1, _, _ = _bd_main(_clv, ["--snapshot"], _cl_repos)
+    _cl_gj = _bd_rd(_clv, "dist", "data", "github.json")
+    _cl_bd = _bd_rd(_clv, "_github", "board.json")
+    _cl_cov1 = _bd_rd(_clv, "_github", "desc-coverage.json")
+    _cl_mcp = [c for c in _cl_gj["categories"] if c["id"] == "mcp"][0]
+    acase("分類（實跑）：github.json 與 board.json 的 categories 依設定順序，分類榜收得到全部榜沒有的 repo",
+          [_cl_rc1, [c["id"] for c in _cl_gj["categories"]], [c["id"] for c in _cl_bd["categories"]],
+           [r["full_name"] for r in _cl_gj["repos"]], [r["full_name"] for r in _cl_gj["surging"]],
+           [r["full_name"] for r in _cl_mcp["surging"]]],
+          [0, ["open-models", "mcp"], ["open-models", "mcp"], ["big/a"], ["sml/x"], ["sml/x", "sml/y"]])
+    acase("分類（實跑）：抓取模式把譯文掛到分類榜上，覆蓋率分母是全部榜與分類榜去重後的 repo 數"
+          "（只數兩個全部榜的話分母是 2、分子是 0，而畫面上有 4 列、1 列有中文）",
+          [_cl_mcp["surging"][1].get("desc_zh"), _cl_cov1.get("ranked"), _cl_cov1.get("with_zh"),
+           "含分類榜去重 4" in _cl_o1],
+          ["只在分類榜", 4, 1, True])
+    # render-only：同一份 board 掛譯文，分類榜也要掛。
+    shutil.rmtree(_clv / "dist", ignore_errors=True)
+    _cl_rc2, _, _, _ = _bd_main(_clv, ["--render-only"], None, nonet=True)
+    _cl_gj2 = _bd_rd(_clv, "dist", "data", "github.json")
+    _cl_mcp2 = [c for c in _cl_gj2["categories"] if c["id"] == "mcp"][0]
+    _cl_html = (_clv / "dist" / "github" / "index.html").read_text("utf-8")
+    acase("分類（實跑）：--render-only 掛譯文涵蓋分類榜，出頁的分頁取自 board.json 的 categories",
+          [_cl_rc2, _cl_mcp2["surging"][1].get("desc_zh"), _cl_gj2 == _cl_gj,
+           _re.findall(r'data-cat="([^"]+)"', _cl_html)],
+          [0, "只在分類榜", True, ["all", "open-models", "mcp"]])
+    # 快照沒更新的班次（emit_board 那條路）：覆蓋率分母同一份。
+    (_clv / "_github" / "desc-coverage.json").unlink()
+    _cl_rc3, _, _, _ = _bd_main(_clv, ["--snapshot-if-older-than", "20"], None)
+    _cl_cov3 = _bd_rd(_clv, "_github", "desc-coverage.json")
+    acase("分類（實跑）：快照沒更新那一班的 desc-coverage 分母也算分類榜（去重 4 條、1 條有中文）",
+          [_cl_rc3, _cl_cov3.get("ranked"), _cl_cov3.get("with_zh")], [0, 4, 1])
+    # 待譯清單：分類榜獨有而沒有中文的 big/b 要排得進來，有中文的 sml/y 不排。
+    _dp_run(_clv)
+    _cl_todo = [t["full_name"] for t in
+                _json.loads((_clv / "_probe" / "github-desc-worklist.json").read_text("utf-8"))]
+    acase("分類（實跑）：待譯清單涵蓋分類榜（只在分類榜上的 big/b 排得進來，已有中文的 sml/y 不排）",
+          [sorted(_cl_todo), "big/b" in _cl_todo], [["big/a", "big/b", "sml/x"], True])
+    _cl_src, _cl_origin = _dam.english_source(_cl_gj2, None)
+    acase("分類：寫回端的英文原文認得分類榜上的 repo（不然分類榜的譯文會被退件，理由是「不在目前榜單上」）",
+          [_cl_origin, sorted(_cl_src)], ["board", ["big/a", "big/b", "sml/x", "sml/y"]])
+acase("分類：doc_union 輪流取全部榜與每一類的兩榜、重複的只留一份；舊 doc 沒有 categories 照樣取得出來",
+      [[r["full_name"] for r in _gu.doc_union(
+          {"repos": [{"full_name": "a"}], "surging": [{"full_name": "b"}],
+           "categories": [{"repos": [{"full_name": "a"}, {"full_name": "c"}],
+                           "surging": [{"full_name": "d"}]}]})],
+       [r["full_name"] for r in _gu.doc_union({"repos": [{"full_name": "a"}]})],
+       len(_gu.doc_boards({"repos": [], "categories": [{"repos": [], "surging": []}] * 2}))],
+      [["a", "b", "d", "c"], ["a"], 6])
+# 寫回：分類榜獨有的 repo 翻回來，過關而且就地寫進 github.json 的分類榜。
+_CL_APPLY_BOARD = {"generated": "x", "count": 0, "measured": True, "repos": [], "surging": [],
+                   "categories": [{"id": "mcp", "name": "MCP", "repos": [],
+                                   "surging": [{"full_name": "acme/kit", "desc": _EN}]}]}
+with _tf8.TemporaryDirectory() as _clav:
+    _cl_code, _cl_out = _run_apply(_clav, {"acme/kit": _ZH}, board=_CL_APPLY_BOARD)
+    _cl_after = _json.loads((_P2(_clav) / "dist" / "data" / "github.json").read_text("utf-8"))
+    acase("分類（實跑）：寫回端讓分類榜獨有的 repo 過關，並把譯文寫進 github.json 的分類榜",
+          [_cl_code, "[退件]" in _cl_out,
+           _cl_after["categories"][0]["surging"][0].get("desc_zh"), "中文覆蓋 1/1" in _cl_out],
+          [0, False, _ZH, True])
+
 # 上面幾條釘的是判準。真正會騙人的是**呼叫端有沒有照著寫**——所以這條走真的
 # main()：第一班寫基線，第二班讀回來。top_n=1 是為了讓「有量到但沒上榜」真的發生。
 with tempfile.TemporaryDirectory() as _rmtd:
     _rmv = Path(_rmtd)
     (_rmv / "_config").mkdir()
     (_rmv / "_github").mkdir()
-    (_rmv / "_config" / "github.yaml").write_text("top_n: 1\ntier_split: 20000\nsearches: []\n",
+    (_rmv / "_config" / "github.yaml").write_text(_gh_cfg(1),
                                                   encoding="utf-8")
     _rm_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     # 舊 schema：只有 stars / ts，一個名次欄位都沒有。

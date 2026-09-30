@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 """pulse-github.py — GitHub 星速榜（開發者注意力的領先指標，純規則、零 LLM）。
 
-答「GitHub 竄起什麼」：打 GitHub Search API 撈 AI 主題白名單的活躍 repo，
-跨執行累積星數快照、算星速（Δstars / 天），排名輸出。星數是硬數字，不推斷。
+答「GitHub 竄起什麼」：依 _config/github.yaml 六類分類的查詢打 GitHub Search API，撈 AI 主題的
+活躍 repo，跨執行累積星數快照、算星速（Δstars / 天），排名輸出。星數是硬數字，不推斷。
+兩榜按 tier_split 切開、每個 repo 恰好一個分類、每類另排分類榜：規格見
+references/github-board.md〈體量切分〉〈分類〉。
 
   dist/data/github.json     竄起榜（repo / stars / 星速 / 名次變動 / 語言 / 主題 / 連結 / 中文描述）
   dist/github/index.html    自帶「動能」視圖（讀 ../data/github.json）
@@ -85,28 +87,63 @@ def search_repos(keyword, cfg, token, cutoff_date):
         return []
 
 
+UNCLASSIFIED = "unclassified"
+
+
+def classify(row, categories):
+    """純函式：依清單順序，第一個 topics 跟 repo 的**完整** topics 有交集的類。都沒有回 unclassified。
+
+    清單順序就是優先序（使用者裁定，見 references/github-board.md〈分類〉）：多類符合取第一類，
+    所以一個 repo 恰好一個分類、只出現在一個分類頁。比對前兩邊都轉小寫。
+    `row["topics"]` 必須是完整清單——呼叫端（pool_row）在截成顯示用的前 6 個**之前**呼叫。
+    """
+    have = {str(t).lower() for t in (row.get("topics") or [])}
+    for c in categories:
+        if have & {str(t).lower() for t in c["topics"]}:
+            return c["id"]
+    return UNCLASSIFIED
+
+
+def pool_row(full, name, url, desc, stars, language, topics, created, pushed, categories):
+    """候選池的一列（搜尋與 GraphQL 兩條路共用）。分類用完整 topics 做完，才截成顯示用的前 6 個。
+
+    兩條路各自組 dict 的話，遲早有一條先截斷再分類：topic 排在第 7 個以後的 repo 就會
+    在那一條路上變成 unclassified，而畫面上看不出它為什麼換了分類。
+    """
+    topics = list(topics or [])
+    row = {"full_name": full, "name": name, "url": url, "desc": (desc or "").strip(),
+           "stars": stars, "language": language or "", "topics": topics,
+           "created": (created or "")[:10], "pushed": (pushed or "")[:10]}
+    row["category"] = classify(row, categories)
+    row["topics"] = topics[:6]
+    return row
+
+
+def excluded(full, desc, cfg):
+    """標題或描述含 exclude 字樣（教材／清單類）就排除。"""
+    blob = f'{full} {desc or ""}'.lower()
+    return any(x.lower() in blob for x in (cfg.get("exclude") or []))
+
+
 def collect(cfg, token, now):
     from datetime import timedelta
     cutoff = clock.utc_date_str(now - timedelta(days=cfg["active_days"]))
-    excl = [x.lower() for x in (cfg.get("exclude") or [])]
+    cats = cfg["categories"]
     seen = {}
-    for kw in cfg["keywords"]:
-        for it in search_repos(kw, cfg, token, cutoff):
-            full = it.get("full_name")
-            if not full or full in seen:
-                continue
-            blob = f'{full} {it.get("description") or ""}'.lower()
-            if any(x in blob for x in excl):
-                continue
-            seen[full] = {
-                "full_name": full, "name": it.get("name"),
-                "url": it.get("html_url"), "desc": (it.get("description") or "").strip(),
-                "stars": it.get("stargazers_count", 0),
-                "language": it.get("language") or "",
-                "topics": (it.get("topics") or [])[:6],
-                "created": (it.get("created_at") or "")[:10],
-                "pushed": (it.get("pushed_at") or "")[:10],
-            }
+    # 依分類順序、每類依 query 順序打；同一個 repo 只留第一次出現的那筆。找到它的是哪一類的
+    # query 不影響它的分類（classify 只看 topics）。
+    for cat in cats:
+        for kw in cat["queries"]:
+            for it in search_repos(kw, cfg, token, cutoff):
+                full = it.get("full_name")
+                if not full or full in seen:
+                    continue
+                if excluded(full, it.get("description"), cfg):
+                    continue
+                seen[full] = pool_row(
+                    full, it.get("name"), it.get("html_url"), it.get("description"),
+                    it.get("stargazers_count", 0), it.get("language"), it.get("topics"),
+                    it.get("created_at"), it.get("pushed_at"), cats)
     return seen
 
 
@@ -265,6 +302,25 @@ def measure(current, state, now):
     return rows
 
 
+def rank_categories(current, state, now, categories, tier_split, top_n):
+    """純函式：每一類在自己的池子內各排兩榜 top_n 名，依設定順序。回 [{id, name, repos, surging}]。
+
+    **同樣套 tier_split**（split_tiers 同一支），所以分類頁的兩榜也不相交。
+    **分類榜不算名次變動**：state.json 只存全部榜的名次，分類榜的名次沒有上一版可比。
+    所以這裡用 measure() 另算一批 dict，不共用全部榜那一批——共用的話，全部榜寫進去的
+    rank_* 欄會跟著出現在分類榜上，前台會在分類頁畫出一個量的是別的榜的箭頭。
+    unclassified 不是分類頁，只在全部榜出現。
+    """
+    rows = measure(current, state, now)
+    out = []
+    for c in categories:
+        mine = [r for r in rows if r["category"] == c["id"]]
+        by_velocity, by_surge = split_tiers(mine, tier_split)
+        out.append({"id": c["id"], "name": c["name"],
+                    "repos": by_velocity[:top_n], "surging": by_surge[:top_n]})
+    return out
+
+
 def split_tiers(rows, tier_split):
     """純函式：按這一次的星數切兩個池、各自排序。回 (星速榜排序, 竄升榜排序)，都還沒截斷。
 
@@ -310,9 +366,28 @@ def _render():
     return mod
 
 
-def gh_page(generated: str) -> str:
+def gh_tabs(categories):
+    """上方分頁：「全部」加每一類（依 board 的 categories 順序）。出頁時寫進 HTML。
+
+    分頁從 board 來、不從設定檔來：--render-only 只讀 board.json，頁面上的分頁要跟那份資料
+    同一個來源，不然設定檔改了而 board 還沒重算的那幾個小時，會有點了沒有資料的分頁。
+    """
+    import html
+    tabs = [("all", "全部")] + [(c["id"], c["name"]) for c in categories]
+    out = []
+    for i, (cid, name) in enumerate(tabs):
+        sel = "true" if i == 0 else "false"
+        cls = ' class="active"' if i == 0 else ""
+        out.append(f'<button type="button" role="tab" data-cat="{html.escape(cid)}" '
+                   f'aria-selected="{sel}"{cls}>{html.escape(name)}</button>')
+    return ('<div class="chip-row" id="tabs" role="tablist" aria-label="分類">'
+            + "".join(out) + "</div>")
+
+
+def gh_page(generated: str, categories) -> str:
     r = _render()
-    body = r.hero("", "GitHub 竄起什麼", "", cls="compact") + GH_BODY
+    body = (r.hero("", "GitHub 竄起什麼", "", cls="compact")
+            + GH_BODY.replace("<!--gh-tabs-->", gh_tabs(categories), 1))
     return r.page_layout("github", "GitHub 動能 — AI Pulse",
                          "AI 主題 repo 星速榜：開發者最近在關注什麼的領先指標。"
                          "星數＝注意力，不必然等於採用。",
@@ -321,7 +396,11 @@ def gh_page(generated: str) -> str:
 
 GH_BODY = """<section class="gh-wrap shell">
 <p class="gh-note" id="meta"></p>
+<!--gh-tabs-->
 <p class="gh-legend" id="legend"></p>
+<p class="gh-axis" id="cat-note" style="display:none">分類頁：這一類自己的池子重排的兩榜，
+同樣按 <b class="tier"></b> 顆星切開。分類榜不算名次變動（只有「全部」有上一版名次可比），
+名次底下那一格不畫。</p>
 <div class="gh-two">
   <div>
     <div class="col-head">星速榜 · 誰吸走最多注意力</div>
@@ -404,7 +483,8 @@ function row(r,i,axis){
   if(axis==="surge"){ mv = (r.surge>=0?"+":"")+r.surge+"%/天"; if(r.surge<0)cls=" down"; }
   else if(r.velocity!=null){ mv = (r.velocity>=0?"+":"")+r.velocity+"★/天"; if(r.velocity<0)cls=" down"; }
   else { mv = "首次觀測"; cls=" muted"; }
-  var tags=[r.language?('<span class="gh-tag">'+esc(r.language)+'</span>'):""]
+  var tags=[r.category?('<span class="gh-tag">'+esc(catName(r.category))+'</span>'):"",
+            r.language?('<span class="gh-tag">'+esc(r.language)+'</span>'):""]
       .concat((r.topics||[]).slice(0,3).map(t=>'<span class="gh-tag">'+esc(t)+'</span>'))
       .concat(r.is_new?'<span class="gh-tag gh-new">首次觀測</span>':"").join("");
   // 兩榜按體量切開、不再重疊（tier_split），所以不標「另一個榜的名次」。
@@ -415,24 +495,58 @@ function row(r,i,axis){
     +'<div class="t">'+tags+'</div></div>'
     +'<div class="gh-metric"><span class="v'+cls+'">'+esc(mv)+'</span><span class="s">'+fmt(r.stars)+' ★</span></div></div>';
 }
+var D=null;
+// 分類標籤。unclassified 不是一個分類頁，只在「全部」出現，標籤寫「未分類」。
+function catName(id){
+  if(id==="unclassified") return "未分類";
+  var c=((D&&D.categories)||[]).filter(function(x){return x.id===id;})[0];
+  return c ? c.name : id;
+}
+// 整頁的每一個榜：全部榜的兩榜，加每一類的兩榜。跟 lib/ghdesc.doc_boards 同一個範圍。
+function allBoards(d){
+  var b=[d.repos||[], d.surging||[]];
+  (d.categories||[]).forEach(function(c){ b.push(c.repos||[], c.surging||[]); });
+  return b;
+}
+function emptyNote(t){ return '<p class="gh-none">'+esc(t)+'</p>'; }
+function view(id){
+  var cat=(D.categories||[]).filter(function(x){return x.id===id;})[0];
+  var isAll=(id==="all");
+  var repos=isAll ? (D.repos||[]) : (cat ? cat.repos||[] : []);
+  var surging=isAll ? (D.surging||[]) : (cat ? cat.surging||[] : []);
+  document.querySelectorAll("#tabs button").forEach(function(b){
+    var on=b.getAttribute("data-cat")===id;
+    b.classList.toggle("active",on); b.setAttribute("aria-selected",on?"true":"false"); });
+  document.getElementById("legend").style.display=isAll?"":"none";
+  document.getElementById("cat-note").style.display=isAll?"none":"block";
+  document.getElementById("none").style.display=(isAll&&!repos.length)?"block":"none";
+  document.getElementById("surge-none").style.display=(isAll&&!surging.length)?"block":"none";
+  var miss = cat ? "這一類這一版沒有夠格的 repo。" : "這一版的榜單沒有這一類的資料。";
+  document.getElementById("list").innerHTML = (!isAll&&!repos.length) ? emptyNote(miss)
+    : repos.map((r,i)=>row(r,i,"velocity")).join("");
+  document.getElementById("surge").innerHTML = (!isAll&&!surging.length) ? emptyNote(miss)
+    : surging.map((r,i)=>row(r,i,"surge")).join("");
+}
 function draw(d){
-  var repos=d.repos||[], surging=d.surging||[];
-  // 中文覆蓋率算**這一頁上有幾個不同的 repo**，不是算星速榜。只算星速榜的那一版，
-  // 分母會小於畫面上的列數——分母比畫面窄，名字卻叫「中文描述」。
+  D=d;
+  // 中文覆蓋率算**這一頁上有幾個不同的 repo**：全部榜與分類榜去重後。只算星速榜的那一版，
+  // 分母會小於畫面上的列數——分母比畫面窄，名字卻叫「中文描述」。分類榜也一樣：
+  // 某一類的第 3 名可能排不進全部榜，它也是畫面上的一列。
   var names={}, listed=0;
-  repos.concat(surging).forEach(function(r){ if(!names[r.full_name]){names[r.full_name]=r; listed++;} });
+  allBoards(d).forEach(function(b){ b.forEach(function(r){
+    if(!names[r.full_name]){names[r.full_name]=r; listed++;} }); });
   var zh=0; for(var k in names){ if(names[k].desc_zh) zh++; }
-  document.getElementById("meta").textContent=listed+" 個 repo（兩個榜去重後）· 更新 "+(d.generated||"")
-    +" · 中文描述 "+zh+"/"+listed+"（兩個榜都是純規則算的；描述由潤稿端翻寫，英文原文一併保留）";
+  document.getElementById("meta").textContent=listed+" 個 repo（全部榜與分類榜去重後）· 更新 "+(d.generated||"")
+    +" · 中文描述 "+zh+"/"+listed+"（榜都是純規則算的；描述由潤稿端翻寫，英文原文一併保留）";
   document.getElementById("floor").textContent = d.surge_floor!=null ? d.surge_floor : "—";
   // 切分門檻從 github.json 讀，不在頁面寫死：設定檔改了，頁面上的字要跟著變。
   document.querySelectorAll(".tier").forEach(function(el){
     el.textContent = d.tier_split!=null ? d.tier_split : "—"; });
-  document.getElementById("none").style.display=repos.length?"none":"block";
-  document.getElementById("surge-none").style.display=surging.length?"none":"block";
-  document.getElementById("list").innerHTML=repos.map((r,i)=>row(r,i,"velocity")).join("");
-  document.getElementById("surge").innerHTML=surging.map((r,i)=>row(r,i,"surge")).join("");
+  view("all");
 }
+document.querySelectorAll("#tabs button").forEach(function(b){
+  b.addEventListener("click", function(){ if(D) view(b.getAttribute("data-cat")); });
+});
 // 圖例。**跟榜單共用同一份 MOVE_ICON**——圖例自己抄一套圖示，就是「同一種東西
 // 長成兩套」的縮小版，而且圖例那一套不會有任何東西提醒你它已經跟榜上不一樣了。
 // 一個沒有寫出來的判準跟沒有判準一樣會誤導，所以「跟哪一版比」也印在這裡。
@@ -511,8 +625,9 @@ def emit_board(vault, out_dir, now):
     out = Path(vault) / out_dir
     if board is not None:
         store = ghdesc.load(vault)
-        ghdesc.attach(board["repos"], store)
-        ghdesc.attach(board.get("surging") or [], store)
+        # 全部榜與每一類的兩榜都掛：分類榜上有全部榜沒有的 repo（見 ghdesc.doc_boards）。
+        for rows in ghdesc.doc_boards(board):
+            ghdesc.attach(rows, store)
         doc = board
     else:
         print(f"[warn] {board_path(vault)} 不存在——寫 measured:false 佔位"
@@ -523,8 +638,9 @@ def emit_board(vault, out_dir, now):
     (out / "github").mkdir(parents=True, exist_ok=True)
     (out / "data" / "github.json").write_text(
         json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
+    # 舊版（T1 那一版）的 board.json 沒有 categories：分頁只剩「全部」，不是錯誤。
     (out / "github" / "index.html").write_text(
-        gh_page(clock.display_stamp(now)), encoding="utf-8")
+        gh_page(clock.display_stamp(now), doc.get("categories") or []), encoding="utf-8")
     return doc, board is not None
 
 
@@ -596,7 +712,7 @@ def main():
         why = (f"基線才 {age_h:.1f} 小時大，還沒到門檻" if age_h is not None
                else "沒有快照旗標")
         if present:
-            listed = ghdesc.board_union(doc["repos"], doc.get("surging") or [])
+            listed = ghdesc.doc_union(doc)
             n_zh = sum(1 for r in listed if r.get("desc_zh"))
             write_desc_coverage(vault, now, len(listed), n_zh)
             print(f"pulse-github  快照沒更新，不抓；出頁取自 _github/board.json"
@@ -632,7 +748,9 @@ def main():
                 json.dumps({"generated": generated, "count": 0, "repos": [],
                             "measured": False}, ensure_ascii=False, indent=2),
                 encoding="utf-8")
-        (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
+        # 這一班沒有新榜；分頁照設定檔的分類畫（這份 dist 不部署，pages 出的頁讀 board.json）。
+        (out / "github" / "index.html").write_text(gh_page(generated, cfg["categories"]),
+                                                   encoding="utf-8")
         # 這一班量不到榜單，但**中文有幾條照樣量得到**（那只是數檔案）。
         # 量不到的兩格寫 null，不寫 0（紅線 8）——寫 0 會讓「今天問不到 GitHub」
         # 看起來跟「今天榜上一條中文都沒有」一樣。
@@ -641,20 +759,24 @@ def main():
 
     tier_split = cfg["tier_split"]
     ranked, surging = rank(current, state, now, cfg.get("top_n", 25), tier_split)
+    categories = rank_categories(current, state, now, cfg["categories"], tier_split,
+                                 cfg["category_top_n"])
     # board.json 存的是「榜的事實」：譯文在下面 attach 才掛，所以在那之前先序列化。
     # attach 是就地改 dict，晚一步序列化會把 desc_zh 一起存進去。
     doc = {"generated": generated, "count": len(ranked), "repos": ranked,
            "surging": surging, "surge_floor": SURGE_FLOOR, "tier_split": tier_split,
-           "measured": True}
+           "categories": categories, "measured": True}
     board_text = json.dumps(doc, ensure_ascii=False, indent=2)
     # 掛上潤稿端翻好的中文描述。抓取鏈不等它、也不產生它——沒有就是英文原文，
     # 榜照樣出得來。中文晚一步到（潤稿任務比 Actions 晚三小時）是設計，不是缺陷。
-    # 兩個榜都掛：同一個 repo 可能同時在兩邊，翻過的譯文要兩邊都看得到。
-    ghdesc.attach(ranked, ghdesc.load(vault))
-    ghdesc.attach(surging, ghdesc.load(vault))
+    # 全部榜與每一類的兩榜都掛：分類榜的列是另一批 dict，同一個 repo 在兩邊都要看得到譯文。
+    store = ghdesc.load(vault)
+    for rows in ghdesc.doc_boards(doc):
+        ghdesc.attach(rows, store)
     (out / "data" / "github.json").write_text(
         json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
-    (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
+    (out / "github" / "index.html").write_text(gh_page(generated, categories),
+                                               encoding="utf-8")
 
     # 更新快照（走到這裡就是 do_snapshot 為真，快照沒更新的班次在上面 emit_board 就回了）；進版控
     #
@@ -678,8 +800,9 @@ def main():
 
     n_new = sum(1 for r in ranked if r["is_new"])
     # 覆蓋率算**整頁**不算單一個榜。只算 ranked 的那一版，分母是星速榜的條數，
-    # 而畫面上的列數是兩個榜去重後的——一個比事實窄的東西掛著事實的名字。
-    listed = ghdesc.board_union(ranked, surging)
+    # 而畫面上的列數是全部榜與分類榜去重後的——一個比事實窄的東西掛著事實的名字。
+    # 頁面「中文描述 x/y」用同一個範圍（JS 的 allBoards）。
+    listed = ghdesc.doc_union(doc)
     n_zh = sum(1 for r in listed if r.get("desc_zh"))
     # 這個數字以前只印在 CI 的 log 裡：人看得到、機器讀不到，於是「這個榜已經
     # 連續幾天沒有中文」沒有任何地方存著。潤稿端的 C2 段失敗時**寫不進 repo**，
@@ -687,7 +810,7 @@ def main():
     write_desc_coverage(vault, now, len(listed), n_zh)
     snap = " [snapshot 已更新，board.json 已寫]"
     print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}＋竄升={len(surging)}"
-          f"（去重 {len(listed)}）  首次觀測={n_new}  "
+          f"（含分類榜去重 {len(listed)}）  首次觀測={n_new}  "
           f"中文描述={n_zh}/{len(listed)}{snap}  → data/github.json + github/")
     return 0
 

@@ -91,10 +91,11 @@ def english_source(board, worklist):
     # `measured is False` 是 pulse-github.py 抓取全失敗時留下的佔位檔，跟 prep
     # 同一個判準：那一班沒量到，它的 repos 不能當「現在的榜」用。
     if isinstance(repos, list) and board.get("measured") is not False:
-        # **兩個榜都要**，跟 prep 同一份判準。只認 `repos` 的話，prep 排進清單的
-        # 竄升榜 repo 翻回來會被退件、理由是「不在目前榜單上」——而它就在榜上，
-        # 只是在另一個榜。退件訊息把人指向沒有問題的地方，跟 07-28 那次一樣。
-        rows = ghdesc.board_union(repos, board.get("surging") or [])
+        # **每一個榜都要**，跟 prep 同一份判準（ghdesc.doc_boards）。只認 `repos` 的話，
+        # prep 排進清單的竄升榜 repo 翻回來會被退件、理由是「不在目前榜單上」——而它就在
+        # 榜上，只是在另一個榜。分類榜獨有的 repo 同理。退件訊息把人指向沒有問題的地方，
+        # 跟 07-28 那次一樣。
+        rows = ghdesc.doc_union(board)
         return {r.get("full_name"): (r.get("desc") or "") for r in rows}, "board"
     if isinstance(worklist, list):
         return {w.get("full_name"): (w.get("desc") or "") for w in worklist}, "worklist"
@@ -144,8 +145,8 @@ def main():
     # 不寫 `board["repos"]`：那等於信任 english_source 回的 origin 跟 board 一定
     # 對得上。變異測試打這一層的時候，錯的 origin 會讓這裡丟 TypeError 而不是
     # 印出錯的結果——一個崩潰掩蓋掉一個判斷錯誤，測試就永遠看不到那個判斷錯誤。
-    repos = ((board or {}).get("repos") or []) if origin == "board" else []
-    surging = ((board or {}).get("surging") or []) if origin == "board" else []
+    # 每一個榜（全部榜的兩榜＋每一類的兩榜），就地掛譯文後整份寫回。
+    boards = ghdesc.doc_boards(board) if origin == "board" else []
 
     result = json.loads(Path(args.infile).read_text("utf-8"))
     if not isinstance(result, dict):
@@ -171,17 +172,17 @@ def main():
         tag = "重譯" if before else "新增"
         print(f"  [{tag}] {full_name}\n         「{zh}」{washed}")
 
-    ghdesc.attach(repos, store)
-    ghdesc.attach(surging, store)
-    # 覆蓋率算整頁去重後的 repo 數，跟 pulse-github.py 印的是同一個分母。
+    for rows in boards:
+        ghdesc.attach(rows, store)
+    # 覆蓋率算整頁去重後的 repo 數（全部榜與分類榜），跟 pulse-github.py 印的是同一個分母。
     # 只算 repos 會讓這一行比畫面窄，而它掛著「榜上中文覆蓋」這個名字。
     # 兩支要用同一個判準：分開算就是同一個數字兩份說法，遲早會分岔。
-    listed = ghdesc.board_union(repos, surging)
+    listed = ghdesc.board_union(*boards)
     n_zh = sum(1 for r in listed if r.get("desc_zh"))
     code = exit_code(len(result), len(ok))
 
     print(f"\n  過關 {len(ok)}／退件 {len(rejected)}；"
-          + (f"兩榜去重後中文覆蓋 {n_zh}/{len(listed)}" if origin == "board"
+          + (f"全部榜與分類榜去重後中文覆蓋 {n_zh}/{len(listed)}" if origin == "board"
              else "榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）"))
     if rejected:
         print("  退件的不會靜靜消失——下次 prep 會原樣排回待譯清單。")
@@ -195,7 +196,9 @@ def main():
 
     ghdesc.save(vault, store)
     if origin == "board":
-        board = dict(board or {}, repos=repos, surging=surging)
+        # 譯文是就地掛在 board 的各榜上的（doc_boards 回的是 board 裡的同一批 list），
+        # 所以整份寫回就帶著分類榜的譯文。
+        board = dict(board or {})
         board_path.parent.mkdir(parents=True, exist_ok=True)
         board_path.write_text(json.dumps(board, ensure_ascii=False, indent=2), encoding="utf-8")
         print("  已寫入 _github/desc-zh.json 並就地更新 dist/data/github.json")

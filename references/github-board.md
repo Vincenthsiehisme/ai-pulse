@@ -88,6 +88,69 @@
   觀測」；現在它們不在星速榜的範圍內，竄升榜又要上一版的星數，隔一晚有了基線才會出現。
 - `rank_move()` 的六態、`baseline_days` 的算法、`state.json` 的四欄 schema 都不變。
 
+## 分類
+
+2026-09-30 起（plan〈GitHub 榜去重分類與成本觀測〉AC-3，六類與順序由使用者裁定）。
+
+以前的設定是一份全域 `keywords`，所有 repo 混在一個池子裡排。改成 `_config/github.yaml` 的有序
+清單 `categories`，每項 `{id, name, topics, queries}`：
+
+| 順序 | id | name |
+|---|---|---|
+| 1 | `open-models` | 開源模型與推論 |
+| 2 | `automation` | AI 自動化與工作流 |
+| 3 | `coding-agents` | Coding agent 與 skills |
+| 4 | `agent-frameworks` | Agent 框架 |
+| 5 | `mcp` | MCP 與工具整合 |
+| 6 | `rag-memory` | RAG、記憶與向量資料庫 |
+
+每一類的 `topics` 與 `queries` 見設定檔本身，這裡不抄第二份。
+
+### 一個 repo 恰好一個分類
+
+`classify(row, categories)` 是純函式：依清單順序，第一個 `topics` 跟 repo 的**完整** topics
+有交集的類就是它；都沒有回 `unclassified`。
+
+- **清單順序就是優先序。** 一個 repo 同時帶 `mcp` 與 `rag` 兩個 topic，算 `mcp`（第 5 類），不算
+  `rag-memory`（第 6 類）。多類符合取第一類，所以一個 repo 只會出現在一個分類頁。
+- **比對前兩邊都轉小寫。**
+- **用完整 topics。** GitHub 一個 repo 最多 20 個 topic；搜尋回傳整份，GraphQL 用
+  `repositoryTopics(first: 20)`。榜上每列只顯示前 6 個，分類在截斷**之前**做：topic 排在第 7 個
+  以後的 repo 照樣分得到類，不會因為顯示截斷被判成 `unclassified`。
+- **泛用 topic 刻意不放。** `ai-agents`、`agent`、`agents`、`llm`、`ai` 不在任何一類：放進去的話
+  幾乎每個 repo 都會先命中那一類，優先序就沒有意義。只帶這些泛用 topic 的 repo 標 `unclassified`。
+- **找到 repo 的是哪一類的 query 不影響分類。** 分類只看 topics；query 只決定候選池（見〈候選池〉）。
+
+### 分類頁
+
+- `github.json`／`board.json` 頂層新增 `categories`，**依設定順序**，每項
+  `{id, name, repos, surging}`。
+- 每一類在自己的池子內（`category` 等於那一類的 id）各排兩榜 `category_top_n` 名（10），
+  **同樣套 `tier_split`**，排序與全部榜同一支 `split_tiers()`。分類頁的兩榜交集也必為空。
+- 分類榜**不算名次變動**：`state.json` 只存全部榜的名次，分類榜的列不帶 `rank_*` 欄位，前台
+  名次底下那一格不畫。分類榜的列是另一批 dict（`measure()` 重算一次），不共用全部榜那一批，
+  所以全部榜寫的名次欄不會漏進分類榜。
+- `unclassified` 不是一個分類頁，只在「全部」出現，標籤寫「未分類」。
+- 全部榜的每一列帶 `category`；頁面每一列印分類標籤。
+
+### 頁面
+
+上方一排分頁：「全部」加六類，分頁是出頁時依 `board.json` 的 `categories` 寫進 HTML 的
+（`--render-only` 讀的是 board，不讀設定檔）。預設「全部」：兩榜各 `top_n`（25）名、帶分類標籤、
+名次變動照舊。切到某一類：換成那一類的兩榜各 `category_top_n` 名，名次變動那一格不畫。沿用站上
+的 `.chip-row` 按鈕與既有 token，不加 `<style>`。
+
+### 中文描述涵蓋分類榜
+
+分類榜會列出全部榜沒有的 repo（某一類的第 3 名可能排不進全部榜的前 25）。翻譯鏈只認 `repos`
+與 `surging` 的話，那些 repo 永遠是英文，而頁面上印著「中文描述 x/y」。
+
+- `ghdesc.doc_boards(doc)` 取出整份榜單的所有榜（`repos`、`surging`、每一類的兩榜），
+  `ghdesc.doc_union(doc)` 把它們交給 `board_union` 輪流去重（語意不變）。
+- `pulse-github-desc-prep.py` 的待譯清單、`pulse-github-desc-apply.py` 的 `english_source` 與寫回、
+  `--render-only`／`emit_board()` 掛譯文，都走這兩支。
+- 頁面「中文描述 x/y」與 `write_desc_coverage()` 的分母是同一份：全部榜與分類榜去重後的 repo 數。
+
 ## `board.json` schema
 
 ```json
@@ -99,9 +162,14 @@
   "surging": [ { "...": "同 repos，另有 rank_surge 等欄" } ],
   "surge_floor": 200,
   "tier_split": 20000,
+  "categories": [ { "id": "open-models", "name": "開源模型與推論",
+                    "repos": [ { "...": "同 repos 的列，但沒有 rank_* 欄" } ],
+                    "surging": [ "..." ] } ],
   "measured": true
 }
 ```
+
+每一列另有 `category`（六類的 id 之一或 `unclassified`）。
 
 與 `dist/data/github.json` 的差別只有一個：每列少了 `desc_zh`。`board.json` 只在抓取成功且
 快照有更新時寫，所以檔案裡的 `measured` 永遠是 `true`；`measured: false` 只出現在 render-only
