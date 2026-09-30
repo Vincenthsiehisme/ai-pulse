@@ -1292,9 +1292,11 @@ def read_cost_ledger(vault):
 def nightly_cost_lines(rows, reason, today, windows=(7, 30)):
     """人看的報告裡「夜班成本」那一段。純函式。
 
-    量不到的晚上不算進合計，**另外數**：合計旁邊不寫它有幾晚是 null 的話，一個只量到
-    兩晚的 USD 3 跟一個量到七晚的 USD 3 長得一樣。窗口不含今天（今晚的夜班還沒收尾），
-    沒有帳本行的天數從帳本第一行的日期起算：帳本開始之前的日子不是缺，是還沒開始記。
+    帳本一個 session 一行，這裡依 `date` 把同一天的多行加總；任一行 null 那天就是
+    量不到，不當 0 加。量不到的天不算進合計，**另外數**，天數與行數都印：合計旁邊
+    不寫它有幾天是 null 的話，一個只量到兩天的 USD 3 跟一個量到七天的 USD 3 長得一樣。
+    窗口不含今天（今晚的夜班還沒收尾），沒有帳本行的天數從帳本第一行的日期起算：
+    帳本開始之前的日子不是缺，是還沒開始記。
     規格 references/nightly-driver.md〈一晚花多少錢，要是一個被記錄的量〉。
     """
     if rows is None:
@@ -1304,8 +1306,9 @@ def nightly_cost_lines(rows, reason, today, windows=(7, 30)):
     out = [f"夜班成本（API 等價，帳本從 {min(str(r['date']) for r in rows)} 起）"]
     for n in windows:
         w = nightcost.window_stats(rows, today, n)
-        total = "USD —（沒有一晚有金額）" if w["usd"] is None else f"USD {w['usd']:.4f}"
-        out.append(f"  近 {n} 天 {total}｜有金額 {w['priced']} 晚、量不到 {w['null']} 晚、"
+        total = "USD —（沒有一天有金額）" if w["usd"] is None else f"USD {w['usd']:.4f}"
+        out.append(f"  近 {n} 天 {total}｜有金額 {w['priced_days']} 天、"
+                   f"量不到 {w['null_days']} 天（null {w['null_rows']} 行）、"
                    f"沒有帳本行 {w['missing']} 天")
     return out
 

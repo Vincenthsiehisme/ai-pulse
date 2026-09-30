@@ -104,8 +104,8 @@ commit 裡〉），所以每晚收尾都會被它攔。被攔之後 agent 怎麼
 ## 成本帳：守門之外唯一會 commit 的程式
 
 `.claude/settings.json` 的 `Stop` 有兩條：這支守門（`nightly-guard.py stop`）與成本帳
-（`scripts/nightly-cost.py`）。成本帳讀 transcript 算這一晚的 token 與等價 USD，寫進
-`_probe/nightly-cost.jsonl`，**自己 commit、自己推上 main**。算法、牌價與帳本格式在
+（`scripts/nightly-cost.py`）。成本帳讀 transcript 算這個 session 的 token 與等價 USD，
+一個 session 一行寫進 `_probe/nightly-cost.jsonl`，**自己 commit、自己推上 main**。算法、牌價與帳本格式在
 `references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉，這裡只講它跟守門的關係。
 
 **它不經過守門，因為守門管的是 agent 的工具呼叫。** PreToolUse 只在 agent 用 Bash、Write、
@@ -120,8 +120,12 @@ Edit 這些工具時觸發；hook 程式自己跑的 `git` 是平台叫起來的
 - **先檢查、後寫檔。** `git status --porcelain` 有任何帳本以外的改動（最常見的是 driver 寫的
   狀態檔還沒被 agent commit）就整個跳過：不寫帳本，stderr 印那份清單，等下一次 Stop 再記。
   agent 照平台 hook 的要求 commit 完狀態檔之後，平台會再觸發一次 Stop。不在 `main` 也跳過。
+- **同一個 session 只 commit 一次。** `HEAD` 的帳本已經有這個 `session_id` 就整個跳過，不寫也
+  不 commit。所以帳本記的是「量到第一次工作樹乾淨的 Stop 為止」的數字，之後被多擋的那幾輪不記。
+  不這樣做的話，平台每多擋一輪帳本就變、又 commit、又 push、又製造下一輪的競態，可能循環。
 - **工作樹乾淨才寫帳本。** 內容跟 `HEAD` 一樣就不 commit；否則只 `git add _probe/nightly-cost.jsonl`，
-  用 `ai-pulse-cost` 這個作者 commit `chore: nightly cost <UTC 當天>`，再 `git push origin HEAD:main`。
+  用 `ai-pulse-cost` 這個作者 commit `chore: nightly cost <session 開始那天，UTC>`，再
+  `git push origin HEAD:main`。
 - **作者刻意不是 `ai-pulse-enrich`。** `pulse-monitor.py` 的 `night_shift_commit_days()` 認那個
   作者當作「那天夜班有推」。成本 commit 每晚都會有，用同一個作者的話，潤稿鏈整晚沒推上 main，
   缺日警報照樣是綠的。訊息也不用 `nightly: enrich` 開頭，理由同狀態檔 commit。
@@ -132,8 +136,9 @@ Edit 這些工具時觸發；hook 程式自己跑的 `git` 是平台叫起來的
 - **所有失敗都 exit 0。** 成本帳記不到不擋 session 結束，但原因一定印在 stderr，不安靜吞掉。
 
 **已知的競態。** 同一個 Stop 事件的兩支 hook 並行，平台自己的 Stop 檢查可能在成本帳
-commit／push 完成前看到改動，多擋一輪。多一輪只會讓帳本在下一次 Stop 被取代成更完整的
-數字，不掉資料；上線第一晚看 run log 判讀有沒有多出來的那一輪。
+commit 與 push 完成前看到改動，多擋一輪。因為同一個 session 只 commit 一次，多擋的那幾輪
+不再寫帳本、不再 commit，所以不會循環；代價是那幾輪的 token 不記。上線第一晚看 run log
+判讀有沒有多出來的輪、有幾輪。
 
 ## 這一層不保證什麼
 

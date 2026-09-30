@@ -411,10 +411,12 @@ health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分
   這是 **API 牌價的等價值**，不是帳單：雲端排程走訂閱額度，實際扣的不是這個數字。
   它回答的是「這一晚如果照 API 計價值多少」，拿來比晚與晚之間的量級。
 - **算不出來就寫 `null`**，token 照記，`note` 寫原因：
-  - 表外的 model，而且那個 model 那一晚有非零的 token（token 全是 0 的列，例如
-    平台自己插的 `<synthetic>` 訊息，不管單價是多少都是 0，不讓整晚變成量不到）。
-  - 有 cache 寫（`cache_creation_input_tokens > 0`），卻沒有 5m／1h 的拆分，或拆分
-    加總對不上 `cache_creation_input_tokens`：兩種寫入價差 1.6 倍，猜一種等於編一個數字。
+  - 表外的 model，而且那個 model 在這個 session 有非零的 token（token 全是 0 的列，例如
+    平台自己插的 `<synthetic>` 訊息，不管單價是多少都是 0，不讓那一行變成量不到）。
+  - 有 cache 寫卻沒有 5m／1h 的拆分，或 5m＋1h 加總跟 `cache_creation_input_tokens`
+    不相等，**大於、小於都算**：兩種寫入價差 1.6 倍，猜一種等於編一個數字。
+  - `usage.speed` 不是標準速度（`standard`），或 `usage.server_tool_use` 有非零用量
+    （例如 `web_search_requests`）：牌價表沒有這兩種的價，照標準價算就是少算。
 
 **牌價表**（每百萬 token 美元；來源：claude-api skill 的模型表與 prompt-caching
 說明，2026-09-25 取）：
@@ -426,7 +428,7 @@ health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分
 表的版本記在每一行帳本的 `price_table`（`claude-api-2026-09-25`）。改牌價就換一個
 版本字串，舊的行不回頭重算：那一晚是照哪一版算的，要看得出來。
 
-**帳本**：`_probe/nightly-cost.jsonl`，進版控，一晚一行：
+**帳本**：`_probe/nightly-cost.jsonl`，進版控，**一個 session 一行**，key 是 `session_id`：
 
 ```json
 {"date": "2026-09-30", "session_id": "…", "requests": 41,
@@ -438,29 +440,41 @@ health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分
  "note": null}
 ```
 
-`date` 是 hook 跑的當下的 UTC 日（`lib/clock.utc_today()`）。Stop 每收尾一輪就觸發一次，
-同一天再被觸發就**取代**那一行，整檔原子寫；transcript 是整個 session 的，所以最後一次
-Stop 記到的就是量到最後一輪的數字。
+`date` 是 transcript 第一筆帶時間戳的紀錄的 UTC 日期，也就是 session 開始那天；
+跨 UTC 午夜的 session 不換天。同一天可以有好幾行（例如白天手動觸發一次、當晚排程再一次），
+讀的那一方依 `date` 加總。整檔原子寫。
+
+**量到第一次工作樹乾淨的 Stop 為止，每個 session 只 commit 一次。** Stop 每收尾一輪就觸發
+一次；工作樹還有帳本以外的改動（通常是 driver 寫的狀態檔還沒被 agent commit）時 hook 整個
+跳過，第一次看到工作樹乾淨的那一輪才寫帳本、commit、push。之後 HEAD 的帳本已經有這個
+`session_id`，同一個 session 再觸發 Stop 就整個跳過，不寫也不 commit。代價是那一輪之後
+被多擋的幾輪不記：少記的是收尾那幾輪的 token，換來的是不會每擋一輪就又 commit、又 push、
+又製造下一輪的競態。
 
 **誰讀它**：
 
-- 摘要「寫作端成本」那一行。driver **只在建立新一天的狀態檔時**讀帳本一次，取 `date`
-  早於今天的最後一行放進 `state["cost_prev"]`，同一天之後的 `run` 不再改它。不這樣
-  做的話，同一晚 Stop 之後再 `run` 一次，今天記到一半的金額會被標成「前一晚」，
-  摘要中途改字，守門的 Stop 比對就對不上（`summary_lines(state)` 只吃狀態檔，簽名不動）。
-  那一行有四種長相：本機外殼有 `cost_usd` 時照舊印當晚總額；否則有前一晚金額印
-  `前一晚 USD x（API 等價，<日期>，收尾 hook 記）`，前一晚量不到印原因，沒有帳本印
-  「帳本還沒有紀錄」。
-- `pulse-monitor.py` 人看的報告的「夜班成本」段：近 7 天與近 30 天的等價 USD 合計、
-  有金額的晚數、`usd_equiv` 為 `null` 的晚數、窗口內沒有帳本行的天數（從帳本第一行的
-  日期起算，窗口不含今天）。讀不到帳本就明說讀不到。
+- 摘要「寫作端成本」那一行。driver **只在建立新一天的狀態檔時**讀帳本一次，把 `date`
+  等於昨天（UTC）的所有行加總放進 `state["cost_prev"]`，同一天之後的 `run` 不再改它。
+  不這樣做的話，同一晚 Stop 之後再 `run` 一次，今天記到的金額會混進來，摘要中途改字，
+  守門的 Stop 比對就對不上（`summary_lines(state)` 只吃狀態檔，簽名不動）。昨天任一行
+  `usd_equiv` 是 `null`，那天的金額就是 `null`，原因列出那幾行的 `note`，不把 `null` 當 0 加。
+  那一行有五種長相：本機外殼有 `cost_usd` 時照舊印當晚總額；否則
+  - 有前一晚金額：`前一晚 USD x（API 等價，<日期>，收尾 hook 記）`
+  - 前一晚量不到：`前一晚**量不到**（<日期>，<原因>）`
+  - 昨天沒有任何行：`前一晚沒有帳本紀錄（最近一筆 <日期>）`，**不把更早那晚標成前一晚**
+  - 帳本完全沒有早於今天的行：`帳本還沒有紀錄`
+- `pulse-monitor.py` 人看的報告的「夜班成本」段：依 `date` 把同一天的多行加總，任一行
+  `null` 那天就是量不到、不當 0 加。印近 7 天與近 30 天的等價 USD 合計、有金額的天數、
+  量不到的天數與 `null` 的行數（兩個都印：一天兩個 session 都量不到，天數是 1、行數是 2）、
+  窗口內沒有帳本行的天數（從帳本第一行的日期起算，窗口不含今天）。讀不到帳本就明說讀不到。
 
 **這一層只負責記，不負責省。** 要不要設上限、超過就只跑 A 與 B3，那是人的決定，
 而人要先看得到數字才決定得了。
 
-**已知的缺口。** 同一個 Stop 事件的多支 hook 是並行的，平台自己的 Stop 檢查可能在
-成本 hook commit／push 完成之前看到改動，多擋一輪。多一輪只會讓帳本在下一次 Stop 被
-取代成更完整的數字，不掉資料；上線第一晚看 run log 判讀有沒有多出來的那一輪。
+**已知的競態。** 同一個 Stop 事件的多支 hook 是並行的，平台自己的 Stop 檢查可能在
+成本 hook commit 與 push 完成之前看到改動，多擋一輪。因為同一個 session 只 commit 一次，
+多擋的那幾輪不再寫帳本、不再 commit，所以不會循環；代價是那幾輪的 token 不記。
+上線第一晚看 run log 判讀有沒有多出來的輪、有幾輪。
 
 ### 一個 UTC 日一輪，而台北的凌晨屬於前一個 UTC 日
 

@@ -262,8 +262,9 @@ def cost_text(state):
 
     本機外殼有把 `cost_usd` 記回來就照舊印當晚總額。雲端沒有外殼，數字在收尾的 Stop
     hook 才算得出來（`scripts/nightly-cost.py`），所以印的是 driver 開這一輪時從帳本
-    取的**前一晚**（`state["cost_prev"]`）。三種長相要分得開：有金額、那一晚量不到
-    （印帳本記的原因）、帳本還沒有任何一晚。規格 references/nightly-driver.md
+    取的**前一晚**（`state["cost_prev"]`，昨天那一天所有 session 的合計）。四種長相要分得開：
+    有金額、前一晚量不到（印帳本記的原因）、前一晚沒有帳本行（印最近一筆是哪天，不把
+    更早那晚說成前一晚）、帳本還沒有任何一晚。規格 references/nightly-driver.md
     〈一晚花多少錢，要是一個被記錄的量〉。
     """
     if any(st.get("cost_usd") is not None for st in state.get("stages", [])):
@@ -272,19 +273,23 @@ def cost_text(state):
     prev = state.get("cost_prev")
     if not prev:
         return "帳本還沒有紀錄（`_probe/nightly-cost.jsonl`）"
+    if prev.get("rows") == 0:
+        return f"前一晚沒有帳本紀錄（最近一筆 {prev.get('latest')}）"
     if prev.get("usd_equiv") is None:
-        return (f"前一晚**量不到**（{prev.get('date')}，"
+        return (f"前一晚**量不到**（{prev.get('date') or '日期量不到'}，"
                 f"{prev.get('note') or '帳本那一行沒有寫原因'}）")
     return f"前一晚 USD {prev['usd_equiv']:.4f}（API 等價，{prev.get('date')}，收尾 hook 記）"
 
 
 def cost_prev_entry(vault, date_str):
-    """開新的一天時從帳本取前一晚那一行要放進狀態檔的欄位。沒有帳本或沒有更早的行回 None。
+    """開新的一天時從帳本取前一晚（`date` 等於昨天）的合計，放進狀態檔。
 
-    **只在建立新一天的狀態檔時呼叫。** 帳本在一晚之內會被 Stop hook 取代好幾次，而摘要
-    每次都從狀態檔重組；把前一晚那一行固定在開這一輪的那一刻，同一天之後的 `run` 不再
+    沒有帳本、或帳本沒有早於今天的行回 None。形狀見 lib/nightcost.prev_night()。
+
+    **只在建立新一天的狀態檔時呼叫。** 帳本在一晚之內會被 Stop hook 加行，而摘要
+    每次都從狀態檔重組；把前一晚固定在開這一輪的那一刻，同一天之後的 `run` 不再
     改它，摘要才不會中途改字、守門的 Stop 比對才對得上。
-    帳本壞掉時回一行量不到並寫明讀不進來，不裝成沒有帳本。
+    帳本壞掉時回一個量不到並寫明讀不進來，不裝成沒有帳本。
     """
     p = vault.joinpath(*nightcost.LEDGER_REL)
     if not p.exists():
@@ -292,13 +297,9 @@ def cost_prev_entry(vault, date_str):
     try:
         rows = nightcost.parse_ledger(p.read_text("utf-8"))
     except (ValueError, OSError) as e:
-        return {"date": None, "usd_equiv": None,
-                "note": f"{nightcost.LEDGER_PATH} 讀不進來（{e}）"}
-    prev = nightcost.prev_night(rows, date_str)
-    if prev is None:
-        return None
-    return {"date": prev.get("date"), "usd_equiv": prev.get("usd_equiv"),
-            "note": prev.get("note")}
+        return {"date": None, "rows": None, "usd_equiv": None,
+                "note": f"{nightcost.LEDGER_PATH} 讀不進來（{e}）", "latest": None}
+    return nightcost.prev_night(rows, date_str)
 
 
 def summary_lines(state):

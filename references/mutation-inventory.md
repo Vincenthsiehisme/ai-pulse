@@ -3091,26 +3091,37 @@ selftest 從 yaml 取出那一步的 `run:`，墊一支假的 `curl` 與 `python
 
 ## 第七十一輪（2026-09-30，`feat/nightly-cost-ledger`）
 
-M380–M394，十五條。守的是雲端夜班的成本帳：收尾的 Stop hook `scripts/nightly-cost.py` 讀
-transcript 記 token 與等價 USD，寫進 `_probe/nightly-cost.jsonl` 並自己 commit、push。規格
+M380–M394、M436–M445，二十五條。守的是雲端夜班的成本帳：收尾的 Stop hook `scripts/nightly-cost.py` 讀
+transcript 記 token 與等價 USD，一個 session 一行寫進 `_probe/nightly-cost.jsonl` 並自己 commit、push。規格
 `references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉與 `references/nightly-guard.md`〈成本帳〉。
 
-這一層壞掉的樣子有兩種，十五條照這兩種分：
+這一層壞掉的樣子有三種，照這三種分：
 
 - **數字安靜地錯。** 不去重（M380）、牌價抄錯（M381）、缺拆分或表外 model 當成 0（M382、M383）、
-  前一晚量不到印成 USD 0（M392）、監看窗口把今天或帳本開始之前的日子算進去（M393、M394）。
-  這幾種都不會讓任何東西變紅，只會讓摘要上那個數字長得像真的。selftest 的算式測試寫死期望值
-  （112×2 + 2700×10 + 1.2M×0.2 + 10k×2.5 + 28k×4 ＝ USD 0.404224），不從同一支函式算期望值。
-- **收尾被堵住，或 commit 落到不該去的地方。** 工作樹有別的改動照樣寫（M384）、不在 main 照樣推
-  （M385）、commit 失敗不還原帳本（M387）、內容沒變也 commit（M388）、不看雲端與夜班標記（M389、M390）、
-  作者用夜班的名字讓缺日警報假綠（M386）、每一次 run 都重讀帳本讓摘要中途改字（M391）。
+  拆分只看少了的方向（M439）、不看 `speed` 與 `server_tool_use`（M440、M441）、
+  前一晚量不到印成 USD 0（M392）、同一天的 null 行當 0 加（M442）、昨天沒有行就拿更早那晚當前一晚
+  （M443）、摘要不分「前一晚沒有帳本行」（M444）、監看窗口把今天或帳本開始之前的日子算進去（M393、M394）、
+  null 行數改數天數（M445）。這幾種都不會讓任何東西變紅，只會讓摘要上那個數字長得像真的。selftest 的
+  算式測試寫死期望值（112×2 + 2700×10 + 1.2M×0.2 + 10k×2.5 + 28k×4 ＝ USD 0.404224），不從同一支函式算期望值。
+- **帳本的 key 錯。** 回到以 date 當 key，同一天第二個 session 蓋掉第一個（M437）；session 的日期取
+  最後一筆紀錄，跨午夜的 session 換到隔天（M438）。
+- **收尾被堵住、循環，或 commit 落到不該去的地方。** 同一個 session 每次 Stop 都記（M436）、工作樹有別的
+  改動照樣寫（M384）、不在 main 照樣推（M385）、commit 失敗不還原帳本（M387）、內容沒變也 commit（M388）、
+  不看雲端與夜班標記（M389、M390）、作者用夜班的名字讓缺日警報假綠（M386）、每一次 run 都重讀帳本
+  讓摘要中途改字（M391）。
 
 ### 行為那幾條是真的跑 git
 
 commit 條件的測試不用替身：selftest 開拋棄式 repo 加 bare remote，真的跑 hook。push 被拒是在
 bare remote 裝 `pre-receive` 拒絕，commit 失敗是在工作 repo 裝 `pre-commit` 拒絕，兩種都驗
-hook 結束時 `git status --porcelain` 是空的。M391 也是真的跑兩次 `pulse-nightly.py run`，比狀態檔裡的
-`cost_prev`。
+hook 結束時 `git status --porcelain` 是空的。同一個 session 第二次 Stop（transcript 多了 request 也一樣）
+驗的是 commit 數不變。M391 也是真的跑兩次 `pulse-nightly.py run`，比狀態檔裡的 `cost_prev`。
+
+### 返工改了三條的 find
+
+主軸改版（`b44d5cc1652c`）之後，M383 的判斷改成先看「表外而且有 token」、M392 的那一行多了日期量不到
+的寫法，兩條的 find 當場不再命中，selftest「每個 find 剛好出現一次」紅給我看；M445 照原本的測試資料
+推算，null 天數剛好等於 null 行數，改壞也不會紅，所以先補了一天兩行都 null 的資料才加這條。
 
 ### 沒進清單的一種
 
@@ -3119,4 +3130,4 @@ remote 沒動、本機 commit 留著，強推會讓前者變紅；沒進清單�
 
 ### 清單長度
 
-366 → 381。分片 4 片，第一片 96 條、其餘三片各 95 條。
+366 → 391。分片 4 片，前三片各 98 條、第四片 97 條。

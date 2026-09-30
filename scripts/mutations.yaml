@@ -3227,8 +3227,8 @@ mutations:
   - id: M383
     title: "表外 model 當成 0 元（量不到長成一個看起來很便宜的數字）"
     file: lib/nightcost.py
-    find: "            m[\"usd_equiv\"] = 0.0 if tokens == 0 else None\n"
-    replace: "            m[\"usd_equiv\"] = 0.0\n"
+    find: "        if model not in prices and tokens:\n"
+    replace: "        if False:\n"
     survives: false
     why: ""
 
@@ -3299,8 +3299,8 @@ mutations:
   - id: M392
     title: "前一晚量不到印成 USD 0（null 長成 0，「很便宜」跟「沒量到」分不出來）"
     file: pulse-nightly.py
-    find: "        return (f\"前一晚**量不到**（{prev.get('date')}，\"\n"
-    replace: "        return (f\"前一晚 USD 0.0000（{prev.get('date')}，\"\n"
+    find: "        return (f\"前一晚**量不到**（{prev.get('date') or '日期量不到'}，\"\n"
+    replace: "        return (f\"前一晚 USD 0.0000（{prev.get('date') or '日期量不到'}，\"\n"
     survives: false
     why: ""
 
@@ -3317,5 +3317,88 @@ mutations:
     file: lib/nightcost.py
     find: "        \"missing\": sum(1 for d in window if first is not None and d >= first\n"
     replace: "        \"missing\": sum(1 for d in window if first is not None\n"
+    survives: false
+    why: ""
+
+  # 第七十一輪返工（主軸 b44d5cc1652c）：一個 session 一行、同一個 session 只 commit 一次、
+  # 拆分兩個方向、speed／server_tool_use、前一晚與監看的同日加總。
+
+  - id: M436
+    title: "同一個 session 每次 Stop 都記（平台每多擋一輪就又 commit、push、又製造競態，可能循環）"
+    file: nightly-cost.py
+    find: "    if nightcost.has_session(head_rows, row[\"session_id\"]):\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M437
+    title: "帳本回到以 date 當 key（同一天第二個 session 蓋掉第一個）"
+    file: lib/nightcost.py
+    find: "        if r.get(\"session_id\") == row[\"session_id\"]:\n"
+    replace: "        if r.get(\"date\") == row[\"date\"]:\n"
+    survives: false
+    why: ""
+
+  - id: M438
+    title: "session 的日期取最後一筆紀錄（跨 UTC 午夜的 session 換到隔天）"
+    file: lib/nightcost.py
+    find: "    t.update({\"date\": session_date(entries), \"session_id\": session_id})\n"
+    replace: "    t.update({\"date\": session_date(list(reversed(entries))), \"session_id\": session_id})\n"
+    survives: false
+    why: ""
+
+  - id: M439
+    title: "拆分只看少了的方向（5m＋1h 多出來的那一截照價算進去）"
+    file: lib/nightcost.py
+    find: "        if split != written:\n"
+    replace: "        if split < written:\n"
+    survives: false
+    why: ""
+
+  - id: M440
+    title: "不看 usage.speed（非標準速度照標準價算）"
+    file: lib/nightcost.py
+    find: "    if speed not in (None, STANDARD_SPEED):\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M441
+    title: "不看 server_tool_use（web search 的費用牌價表沒有，卻照樣給一個金額）"
+    file: lib/nightcost.py
+    find: "        used = {k: v for k, v in sorted(stu.items()) if isinstance(v, (int, float)) and v}\n"
+    replace: "        used = {}\n"
+    survives: false
+    why: ""
+
+  - id: M442
+    title: "同一天的 null 行當 0 加（一行有金額一行量不到，那天看起來有金額）"
+    file: lib/nightcost.py
+    find: "    if nulls or not rows:\n        return None, nulls\n    return round(sum(r[\"usd_equiv\"] for r in rows), 6), []\n"
+    replace: "    if not rows:\n        return None, nulls\n    return round(sum(r[\"usd_equiv\"] or 0 for r in rows), 6), nulls\n"
+    survives: false
+    why: ""
+
+  - id: M443
+    title: "昨天沒有行就拿更早那晚當前一晚"
+    file: lib/nightcost.py
+    find: "    mine = [r for r in rows if str(r.get(\"date\")) == yday]\n"
+    replace: "    mine = [r for r in rows if str(r.get(\"date\")) == max(older)]\n"
+    survives: false
+    why: ""
+
+  - id: M444
+    title: "摘要不分「前一晚沒有帳本行」（沒記到的一晚印成量不到，看不出是哪天之後就沒記）"
+    file: pulse-nightly.py
+    find: "    if prev.get(\"rows\") == 0:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M445
+    title: "監看的 null 行數改數天數（一天兩個 session 都量不到，行數少算一行）"
+    file: lib/nightcost.py
+    find: "        \"null_rows\": sum(len(n) for _, n in totals.values()),\n"
+    replace: "        \"null_rows\": sum(1 for v, _ in totals.values() if v is None),\n"
     survives: false
     why: ""
