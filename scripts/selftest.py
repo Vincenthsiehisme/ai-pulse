@@ -9861,7 +9861,7 @@ with tempfile.TemporaryDirectory() as _cltd:
     _cl_rc1, _cl_o1, _, _ = _bd_main(_clv, ["--snapshot"], _cl_repos)
     _cl_gj = _bd_rd(_clv, "dist", "data", "github.json")
     _cl_bd = _bd_rd(_clv, "_github", "board.json")
-    _cl_cov1 = _bd_rd(_clv, "_github", "desc-coverage.json")
+    _cl_cov1 = _bd_rd(_clv, "_github", "desc-coverage.json") or {}
     # 找不到那一類就給空的一類：變異拿掉 categories 時要紅在比對上，不是崩在索引。
     _cl_cat = lambda d: ([c for c in d.get("categories") or [] if c["id"] == "mcp"]
                          or [{"repos": [], "surging": [{}, {}]}])[0]
@@ -9889,7 +9889,7 @@ with tempfile.TemporaryDirectory() as _cltd:
     # 快照沒更新的班次（emit_board 那條路）：覆蓋率分母同一份。
     (_clv / "_github" / "desc-coverage.json").unlink()
     _cl_rc3, _, _, _ = _bd_main(_clv, ["--snapshot-if-older-than", "20"], None)
-    _cl_cov3 = _bd_rd(_clv, "_github", "desc-coverage.json")
+    _cl_cov3 = _bd_rd(_clv, "_github", "desc-coverage.json") or {}
     acase("分類（實跑）：快照沒更新那一班的 desc-coverage 分母也算分類榜（去重 4 條、1 條有中文）",
           [_cl_rc3, _cl_cov3.get("ranked"), _cl_cov3.get("with_zh")], [0, 4, 1])
     # 待譯清單：分類榜獨有而沒有中文的 big/b 要排得進來，有中文的 sml/y 不排。
@@ -10010,19 +10010,21 @@ acase("候選池：每類每個 query 打兩次 Search，第二次帶 created:>�
 _gp_ts = [t for t, _ in _gp_rec["q"]]
 acase("候選池：Search 之間 sleep 至少 2.1 秒、第一次之前不睡，任何 60 秒窗口不超過 30 次"
       "（Search API 登入後上限每分鐘 30 次；超過就是整批 403，那一晚的池子是空的）",
-      [len(_gp_rec["sleep"]), min(_gp_rec["sleep"]) >= 2.1, _gp_ts[0],
+      [len(_gp_rec["sleep"]), min(_gp_rec["sleep"] or [0]) >= 2.1, _gp_ts[0],
        max(sum(1 for u in _gp_ts if 0 <= u - t < 60) for t in _gp_ts) <= 30],
       [29, True, 0.0, True])
 acase("候選池：近 90 天新建那一次撈到的 repo 進池子；搜尋那條路的分類用完整 topics（第 8 個才命中）",
-      ["new/born" in _gp_pool, _gp_pool["new/born"]["category"],
-       _gp_pool["deep/topic"]["category"], len(_gp_pool["deep/topic"]["topics"])],
+      ["new/born" in _gp_pool, _gp_pool.get("new/born", {}).get("category"),
+       _gp_pool.get("deep/topic", {}).get("category"),
+       len(_gp_pool.get("deep/topic", {}).get("topics") or [])],
       [True, "open-models", "mcp", 6])
 acase("候選池：state 裡這次沒搜到的 repo 交給 GraphQL 補量（搜到的不再查），補量那條路也用完整 topics 分類",
-      [_gp_rec["gql"], "known/active" in _gp_pool, _gp_pool["known/active"]["category"],
-       len(_gp_pool["known/active"]["topics"]), _gp_pool["known/active"]["stars"],
-       _gp_pool["known/active"]["desc"], _gp_info["graphql_filled"]],
+      [_gp_rec["gql"], "known/active" in _gp_pool] +
+      [_gp_pool.get("known/active", {}).get(k) for k in ("category", "topics", "stars", "desc")] +
+      [_gp_info["graphql_filled"]],
       [[["known/active", "known/archived", "known/gone", "known/renamed", "known/stale",
-         "known/unknown"]], True, "open-models", 6, 1200, "tracked", 1])
+         "known/unknown"]], True, "open-models", ["t1", "t2", "t3", "t4", "t5", "t6"], 1200,
+       "tracked", 1])
 acase("候選池：封存、45 天沒 push、查不到、改名的不進池子而且要剪；沒有明確結果的不進也不剪"
       "（量不到的剪掉，一個還活著的 repo 就失去基線，而那不會有任何東西變紅）",
       [sorted(k for k in _GP_STATE if k in _gp_pool), _gp_info["drop"]],
@@ -10130,7 +10132,7 @@ for _gp_fail in (False, True):
         _gp_gj = _json.loads((_gpv / "dist" / "data" / "github.json").read_text("utf-8"))
     _gp_m = _re.search(r"Search (\d+) 次、耗時 (\d+) 秒、GraphQL 補量 (\d+) 個", _gp_out)
     if not _gp_fail:
-        _gp_row = [r for r in _gp_gj["surging"] if r["full_name"] == "known/active"]
+        _gp_row = [r for r in _gp_gj.get("surging") or [] if r["full_name"] == "known/active"]
         acase("候選池（實跑）：stdout 印「Search N 次、耗時 S 秒、GraphQL 補量 M 個」，N 等於實際呼叫次數"
               "（C4 用 Actions log 的這一行驗每分鐘不超過 30 次；S 是假時鐘走過的 29×2.1 秒）",
               [_gp_rc, bool(_gp_m), _gp_m and int(_gp_m.group(1)) == _gp_n, _gp_n,
@@ -10138,7 +10140,7 @@ for _gp_fail in (False, True):
               [0, True, True, 30, "61", "1"])
         acase("候選池（實跑）：快照寫回時剪掉 GraphQL 確定封存的，留下沒有明確結果的；補量到的列基線是上一晚"
               "（非首次觀測的列 baseline_days < 1.5）",
-              [sorted(_gp_st), _gp_st["known/active"]["stars"],
+              [sorted(_gp_st), _gp_st.get("known/active", {}).get("stars"),
                [(r["is_new"], r["baseline_days"] < 1.5) for r in _gp_row]],
               [["known/active", "known/unknown", "srch/one"], 900, [(False, True)]])
     else:
