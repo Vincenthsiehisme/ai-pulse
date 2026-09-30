@@ -13,7 +13,7 @@
 
 | 角色 | 誰 | 讀什麼 | 寫什麼 |
 |---|---|---|---|
-| 算 | `data-refresh.yml` 跑 `pulse-github.py --snapshot-if-older-than 20`（抓取模式） | GitHub Search API、`_github/state.json`（快照沒更新時改讀 `board.json`，見下） | `_github/state.json`、`_github/board.json`（只在快照有更新時）、`_github/desc-coverage.json`、`dist/data/github.json`、`dist/github/index.html` |
+| 算 | `data-refresh.yml` 跑 `pulse-github.py --snapshot-if-older-than 20`（抓取模式） | GitHub Search API 與 GraphQL（〈候選池〉）、`_github/state.json`（快照沒更新時改讀 `board.json`，見下） | `_github/state.json`、`_github/board.json`（只在快照有更新時）、`_github/desc-coverage.json`、`dist/data/github.json`、`dist/github/index.html` |
 | 存 | `data-refresh.yml` 的 `git add -A`（不用改） | | 把 `_github/board.json` 一起 commit 進 `main` |
 | 出頁 | `pages.yml` 跑 `pulse-github.py --render-only` | `_github/board.json`、`_github/desc-zh.json` | `dist/data/github.json`、`dist/github/index.html` |
 
@@ -150,6 +150,65 @@
 - `pulse-github-desc-prep.py` 的待譯清單、`pulse-github-desc-apply.py` 的 `english_source` 與寫回、
   `--render-only`／`emit_board()` 掛譯文，都走這兩支。
 - 頁面「中文描述 x/y」與 `write_desc_coverage()` 的分母是同一份：全部榜與分類榜去重後的 repo 數。
+
+## 候選池
+
+2026-09-30 起（plan〈GitHub 榜去重分類與成本觀測〉AC-4）。
+
+榜只能從候選池裡排，池子裝不到的 repo 永遠不會上榜，而畫面上看不出來。以前的池子是七個全域
+關鍵字各打一次 Search、每次 40 筆，兩個洞：新建的 repo 在「依星數排」的搜尋裡排不進前 40；
+`state.json` 裡已知的 repo 某一晚沒被搜到，那一晚就量不到，它的基線一天一天變老（實測 07-26～31
+每班 1～6 條）。
+
+`collect()` 現在分兩段。
+
+### 一、Search：每類每個 query 兩次
+
+依 `categories` 順序、每類依 `queries` 順序，每個 query 打兩次，都依星數排、`per_page` 40：
+
+| 次 | q |
+|---|---|
+| 1 | `{query} stars:>={min_stars} pushed:>{今天−active_days}` |
+| 2 | `{query} stars:>={min_stars} pushed:>{今天−active_days} created:>{今天−new_repo_days}` |
+
+第二次專撈近 `new_repo_days`（90）天新建的 repo：它們星數還小，在第一次的前 40 名裡排不上。
+兩次都帶 `pushed:>`，入池條件（近 `active_days` 天有推送）只有一份。依 `full_name` 去重，第一次
+出現的那筆留下；`exclude` 照舊。
+
+- **限速。** 每次 Search 之間 `time.sleep(2.1)`，第一次之前不睡。Search API 登入後上限每分鐘 30 次；
+  間隔 2.1 秒，任何 60 秒的窗口最多 29 次。六類共 15 個 query、30 次 Search，這一段約 61 秒加上
+  請求本身的時間。
+- **失敗印得出來。** 單次 Search 失敗（HTTP 非 200、例外）stderr 印一行、那一次算失敗、`search_repos`
+  回 None（跟「0 筆」分得開）。**全部 Search 都失敗**時 `collect()` 回空池，不做 GraphQL：只有
+  追蹤名單的池子不是這一晚的榜（新 repo 一個都不在），照「抓取全失敗」處理，保留上一份 `board.json`。
+- 抓取模式 stdout 那一行印 `Search N 次、耗時 S 秒、GraphQL 補量 M 個`（N 是實際呼叫次數、含失敗的，
+  S 是整個 `collect()` 的秒數），另印失敗次數與剪枝個數。C4 用 Actions log 的 N 與 S 驗每分鐘不超過 30 次。
+
+### 二、GraphQL：追蹤已知 repo
+
+`state.json` 裡這次沒被搜到的 repo，用 GraphQL（`https://api.github.com/graphql`）補量：
+`repository(owner, name)` 別名批次，一次最多 100 個，取 `nameWithOwner`、`stargazerCount`、
+`description`、`url`、`primaryLanguage`、`repositoryTopics(first: 20)`、`createdAt`、`pushedAt`、
+`isArchived`。補量到的列跟搜尋的列走同一支 `pool_row()`（分類用完整 topics）。
+
+| GraphQL 回來的樣子 | 進這次的池子 | `state.json` |
+|---|---|---|
+| 有資料、未封存、`pushedAt` 在 `active_days` 內 | 進 | 照常更新 |
+| 已封存 | 不進 | 剪掉 |
+| `pushedAt` 超過 `active_days` | 不進 | 剪掉 |
+| 別名是 null 且錯誤是 `NOT_FOUND`（刪除），或 `nameWithOwner` 跟要的名字不同（改名） | 不進 | 剪掉 |
+| 別名是 null 但錯誤不是 `NOT_FOUND`、或根本沒回這個別名 | 不進 | **不動**（這次不知道） |
+| 整批失敗（沒 token、HTTP 非 200、例外、回應沒有 `data`） | 那一批都不進 | **那一批都不動**，stderr 印一行 |
+
+- 只有 GraphQL 成功回來、而且明說了那個 repo 的狀態，才算「確定」。量不到的不剪：剪錯的代價是
+  一個還活著的 repo 失去基線、下一晚變首次觀測，而那不會有任何東西變紅。
+- 補量的 repo 不套 `min_stars`：它們是已知的 repo，入池時已經過了門檻，AC-4 要的是「已知且
+  45 天內有 push 的每晚都量到」。`exclude` 照套。
+- 改名的 repo 不追新名字：新名字要是還活躍，Search 會找到它，當首次觀測重新累積。
+- 剪枝只在快照寫回時做（`do_snapshot` 為真），`state.json` 舊 schema 的四欄不變。
+
+效果：`state.json` 已知、45 天內有推送的 repo 每晚都量到，非首次觀測的列 `baseline_days` 是
+「上一晚到這一晚」（< 1.5），不再有掉出搜尋幾天、回來時帶著六天基線的列。
 
 ## `board.json` schema
 

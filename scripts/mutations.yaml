@@ -3325,7 +3325,7 @@ mutations:
     title: "快照沒更新的班次還去抓一次（用不到的 API 額度，而且抓到的榜不會被用）"
     file: pulse-github.py
     find: "        try:\n            doc, present = emit_board(vault, args.out, now)"
-    replace: "        collect(cfg, token, now)\n        try:\n            doc, present = emit_board(vault, args.out, now)"
+    replace: "        collect(cfg, token, now, state)\n        try:\n            doc, present = emit_board(vault, args.out, now)"
     survives: false
     why: ""
 

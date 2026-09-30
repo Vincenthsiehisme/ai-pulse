@@ -4,8 +4,8 @@
 
 答「GitHub 竄起什麼」：依 _config/github.yaml 六類分類的查詢打 GitHub Search API，撈 AI 主題的
 活躍 repo，跨執行累積星數快照、算星速（Δstars / 天），排名輸出。星數是硬數字，不推斷。
-兩榜按 tier_split 切開、每個 repo 恰好一個分類、每類另排分類榜：規格見
-references/github-board.md〈體量切分〉〈分類〉。
+兩榜按 tier_split 切開、每個 repo 恰好一個分類、每類另排分類榜；state.json 裡這次沒搜到的
+已知 repo 用 GraphQL 補量：規格見 references/github-board.md〈體量切分〉〈分類〉〈候選池〉。
 
   dist/data/github.json     竄起榜（repo / stars / 星速 / 名次變動 / 語言 / 主題 / 連結 / 中文描述）
   dist/github/index.html    自帶「動能」視圖（讀 ../data/github.json）
@@ -56,6 +56,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -67,10 +68,23 @@ from lib import ghdesc  # noqa: E402
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 
 
-def search_repos(keyword, cfg, token, cutoff_date):
-    """回傳 GitHub Search repositories 結果（list）；任何失敗回 []（不炸鏈）。"""
+# Search API 登入後上限每分鐘 30 次。每次之間至少隔這麼久，任何 60 秒的窗口最多 29 次。
+SEARCH_GAP_S = 2.1
+GRAPHQL_URL = "https://api.github.com/graphql"
+GRAPHQL_BATCH = 100
+# GraphQL 補量要的欄位。topics 取 first: 20（GitHub 一個 repo 的上限），分類要完整清單。
+GRAPHQL_FIELDS = ("nameWithOwner stargazerCount description url primaryLanguage { name } "
+                  "repositoryTopics(first: 20) { nodes { topic { name } } } "
+                  "createdAt pushedAt isArchived")
+
+
+def search_repos(q, token):
+    """打一次 GitHub Search repositories。回 items（list）；失敗回 None，stderr 印一行。
+
+    失敗回 None 不回 []：collect() 要分得出「這一次搜不到東西」跟「這一次沒問到」，
+    全部都沒問到的那一晚不能當成一份榜（見 references/github-board.md〈候選池〉）。
+    """
     import requests
-    q = f'{keyword} stars:>={cfg["min_stars"]} pushed:>{cutoff_date}'
     headers = {"Accept": "application/vnd.github+json"}
     if token:
         headers["Authorization"] = f"Bearer {token}"
@@ -79,12 +93,77 @@ def search_repos(keyword, cfg, token, cutoff_date):
                          params={"q": q, "sort": "stars", "order": "desc", "per_page": 40},
                          headers=headers, timeout=20)
         if r.status_code != 200:
-            print(f"  [warn] search '{keyword}' HTTP {r.status_code}", file=sys.stderr)
-            return []
+            print(f"  [warn] search '{q}' HTTP {r.status_code}", file=sys.stderr)
+            return None
         return r.json().get("items", [])
     except Exception as e:  # noqa: BLE001 — 抓取層任何錯誤都不該炸整條鏈
-        print(f"  [warn] search '{keyword}' 失敗：{e}", file=sys.stderr)
-        return []
+        print(f"  [warn] search '{q}' 失敗：{e}", file=sys.stderr)
+        return None
+
+
+def graphql_query(names):
+    """純函式：一批 owner/repo → 一份 GraphQL 查詢，每個 repo 一個別名 r0、r1……"""
+    parts = []
+    for i, full in enumerate(names):
+        owner, _, repo = full.partition("/")
+        parts.append(f"r{i}: repository(owner: {json.dumps(owner)}, name: {json.dumps(repo)}) "
+                     f"{{ {GRAPHQL_FIELDS} }}")
+    return "query { " + " ".join(parts) + " }"
+
+
+def parse_graphql(names, body):
+    """純函式：GraphQL 回應 → {full_name: node 或 None}；整批失敗回 None。
+
+    回傳裡的三種樣子意義不同，剪枝只認前兩種（見 references/github-board.md〈候選池〉）：
+
+      node   查到了
+      None   GitHub 明說查不到（別名是 null，錯誤型別 NOT_FOUND）——刪除或改名
+      不在回傳裡  別名是 null 但錯誤不是 NOT_FOUND，或根本沒回這個別名——這次不知道
+
+    回應沒有 data（或不是 object）就是整批失敗，一個都不能當成「確定」。
+    """
+    if not isinstance(body, dict) or not isinstance(body.get("data"), dict):
+        return None
+    data = body["data"]
+    not_found = {str((e.get("path") or [None])[0]) for e in (body.get("errors") or [])
+                 if isinstance(e, dict) and e.get("type") == "NOT_FOUND"}
+    out = {}
+    for i, full in enumerate(names):
+        node = data.get(f"r{i}")
+        if isinstance(node, dict):
+            out[full] = node
+        elif f"r{i}" in not_found:
+            out[full] = None
+    return out
+
+
+def graphql_repos(names, token):
+    """打一次 GraphQL 補量（一批最多 GRAPHQL_BATCH 個）。回 parse_graphql 的結果；整批失敗回 None。"""
+    if not token:
+        print("  [warn] GraphQL 補量需要 token，這一批跳過（不剪任何 state）", file=sys.stderr)
+        return None
+    import requests
+    try:
+        r = requests.post(GRAPHQL_URL, json={"query": graphql_query(names)},
+                          headers={"Authorization": f"Bearer {token}"}, timeout=30)
+        if r.status_code != 200:
+            print(f"  [warn] GraphQL HTTP {r.status_code}（{len(names)} 個，不剪任何 state）",
+                  file=sys.stderr)
+            return None
+        body = r.json()
+    except Exception as e:  # noqa: BLE001 — 抓取層任何錯誤都不該炸整條鏈
+        print(f"  [warn] GraphQL 失敗：{e}（{len(names)} 個，不剪任何 state）", file=sys.stderr)
+        return None
+    got = parse_graphql(names, body)
+    if got is None:
+        print(f"  [warn] GraphQL 回應沒有 data：{(body or {}).get('errors')}"
+              f"（{len(names)} 個，不剪任何 state）", file=sys.stderr)
+        return None
+    unknown = len(names) - len(got)
+    if unknown:
+        print(f"  [warn] GraphQL 有 {unknown} 個沒有明確結果（不是 NOT_FOUND），這次不動它們",
+              file=sys.stderr)
+    return got
 
 
 UNCLASSIFIED = "unclassified"
@@ -125,26 +204,94 @@ def excluded(full, desc, cfg):
     return any(x.lower() in blob for x in (cfg.get("exclude") or []))
 
 
-def collect(cfg, token, now):
+def collect(cfg, token, now, state):
+    """候選池：每類每個 query 打兩次 Search，再用 GraphQL 補量 state 裡這次沒搜到的 repo。
+
+    回 (池子 {full_name: row}, info)。info 是 stdout 那一行與剪枝要的量：
+    search_calls（實際呼叫次數，含失敗）、search_failed、elapsed_s、graphql_filled、
+    drop（GraphQL 確定不活躍、封存或查不到的 state repo，快照寫回時剪掉）。
+    規格見 references/github-board.md〈候選池〉。
+    """
     from datetime import timedelta
+    t0 = time.monotonic()
     cutoff = clock.utc_date_str(now - timedelta(days=cfg["active_days"]))
+    born = clock.utc_date_str(now - timedelta(days=cfg["new_repo_days"]))
     cats = cfg["categories"]
     seen = {}
+    calls = failed = 0
     # 依分類順序、每類依 query 順序打；同一個 repo 只留第一次出現的那筆。找到它的是哪一類的
-    # query 不影響它的分類（classify 只看 topics）。
+    # query 不影響它的分類（classify 只看 topics）。第二次專撈近 new_repo_days 天新建的：
+    # 它們星數還小，在依星數排的前 40 名裡排不上。
     for cat in cats:
         for kw in cat["queries"]:
-            for it in search_repos(kw, cfg, token, cutoff):
-                full = it.get("full_name")
-                if not full or full in seen:
+            base = f'{kw} stars:>={cfg["min_stars"]} pushed:>{cutoff}'
+            for q in (base, f"{base} created:>{born}"):
+                if calls:
+                    time.sleep(SEARCH_GAP_S)
+                calls += 1
+                items = search_repos(q, token)
+                if items is None:
+                    failed += 1
                     continue
-                if excluded(full, it.get("description"), cfg):
-                    continue
-                seen[full] = pool_row(
-                    full, it.get("name"), it.get("html_url"), it.get("description"),
-                    it.get("stargazers_count", 0), it.get("language"), it.get("topics"),
-                    it.get("created_at"), it.get("pushed_at"), cats)
-    return seen
+                for it in items:
+                    full = it.get("full_name")
+                    if not full or full in seen:
+                        continue
+                    if excluded(full, it.get("description"), cfg):
+                        continue
+                    seen[full] = pool_row(
+                        full, it.get("name"), it.get("html_url"), it.get("description"),
+                        it.get("stargazers_count", 0), it.get("language"), it.get("topics"),
+                        it.get("created_at"), it.get("pushed_at"), cats)
+    info = {"search_calls": calls, "search_failed": failed, "graphql_filled": 0, "drop": []}
+    if calls and failed == calls:
+        # 一次都沒問到：只剩追蹤名單的池子不是這一晚的榜（新 repo 一個都不在），
+        # 當成抓取全失敗，保留上一份 board.json。
+        print(f"  [warn] Search {calls} 次全部失敗，這一班不補量、不出新榜", file=sys.stderr)
+        info["elapsed_s"] = time.monotonic() - t0
+        return {}, info
+    filled, drop = track_known(state, seen, cfg, token, cutoff)
+    seen.update(filled)
+    info["graphql_filled"] = len(filled)
+    info["drop"] = drop
+    info["elapsed_s"] = time.monotonic() - t0
+    return seen, info
+
+
+def track_known(state, seen, cfg, token, cutoff):
+    """GraphQL 補量 state 裡這次沒被搜到的 repo。回 (補進池子的列 {full: row}, 要剪的名字 sorted list)。
+
+    只有 GraphQL 明說了狀態的才算確定：封存、pushedAt 超過 active_days、查不到（NOT_FOUND）或
+    改名（nameWithOwner 對不上）→ 剪；整批失敗或沒有明確結果 → 不進池子也不剪。
+    補量的列不套 min_stars（已知的 repo 入池時已經過了門檻），exclude 照套。
+    """
+    todo = sorted(k for k in state if k not in seen)
+    filled, drop = {}, []
+    for i in range(0, len(todo), GRAPHQL_BATCH):
+        batch = todo[i:i + GRAPHQL_BATCH]
+        got = graphql_repos(batch, token)
+        if got is None:
+            continue
+        for full in batch:
+            if full not in got:
+                continue
+            node = got[full]
+            if node is None or str(node.get("nameWithOwner") or "").lower() != full.lower():
+                drop.append(full)
+                continue
+            if node.get("isArchived") or (node.get("pushedAt") or "")[:10] <= cutoff:
+                drop.append(full)
+                continue
+            if excluded(full, node.get("description"), cfg):
+                continue
+            topics = [((n or {}).get("topic") or {}).get("name")
+                      for n in ((node.get("repositoryTopics") or {}).get("nodes") or [])]
+            filled[full] = pool_row(
+                full, full.partition("/")[2], node.get("url"), node.get("description"),
+                node.get("stargazerCount", 0), (node.get("primaryLanguage") or {}).get("name"),
+                [t for t in topics if t], node.get("createdAt"), node.get("pushedAt"),
+                cfg["categories"])
+    return filled, sorted(drop)
 
 
 # 竄升榜的最低基數。相對成長率在低基數上會爆掉：10 顆星變 20 顆就是 +100%，
@@ -727,7 +874,9 @@ def main():
                   f"  [snapshot 未更新：{why}，board.json 未更新]  → data/github.json + github/")
         return 0
 
-    current = collect(cfg, token, now)
+    current, info = collect(cfg, token, now, state)
+    cost = (f"Search {info['search_calls']} 次、耗時 {info['elapsed_s']:.0f} 秒、"
+            f"GraphQL 補量 {info['graphql_filled']} 個")
     # 榜單頁把這個字串直接印給讀者看（上面那段 JS 的 `d.generated`），
     # 所以它走顯示層的時鐘、帶「台北時間」四個字。見 references/timezones.md。
     generated = clock.display_stamp(now)
@@ -739,6 +888,8 @@ def main():
     if not current:
         # 抓取全失敗：沿用上次 github.json，不覆寫成空、不炸鏈
         print("[warn] 本次未取得任何 repo（API 失敗或額度）——保留上次榜單", file=sys.stderr)
+        print(f"pulse-github  抓取全失敗，board.json 未更新  {cost}"
+              f"（Search 失敗 {info['search_failed']} 次）")
         if not (out / "data" / "github.json").exists():
             # 佔位檔要標成「沒量到」。少了 measured 這一格，這份 0 條的榜單
             # 跟「今天真的沒有 repo 上榜」在下游眼裡一模一樣——
@@ -791,6 +942,9 @@ def main():
     atomic_write_text(board_p, board_text + "\n")
     vel_rank = {r["full_name"]: r["rank_velocity"] for r in ranked}
     sur_rank = {r["full_name"]: r["rank_surge"] for r in surging}
+    # 剪枝：GraphQL 確定不活躍、封存或查不到的 repo 拿掉（整批失敗那一批不在 drop 裡）。
+    for full in info["drop"]:
+        state.pop(full, None)
     state.update({full: {"stars": r["stars"], "ts": now.timestamp(),
                          "rank_velocity": vel_rank.get(full),
                          "rank_surge": sur_rank.get(full)}
@@ -811,7 +965,9 @@ def main():
     snap = " [snapshot 已更新，board.json 已寫]"
     print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}＋竄升={len(surging)}"
           f"（含分類榜去重 {len(listed)}）  首次觀測={n_new}  "
-          f"中文描述={n_zh}/{len(listed)}{snap}  → data/github.json + github/")
+          f"中文描述={n_zh}/{len(listed)}{snap}  {cost}"
+          f"（Search 失敗 {info['search_failed']} 次、剪枝 {len(info['drop'])} 個）"
+          "  → data/github.json + github/")
     return 0
 
 

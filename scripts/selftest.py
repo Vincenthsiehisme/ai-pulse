@@ -3218,8 +3218,15 @@ def _gh_cfg(top_n, tier_split=20000, category_top_n=10):
     """拋棄式 vault 用的 _config/github.yaml 內容。"""
     return _yaml.safe_dump({"top_n": top_n, "tier_split": tier_split,
                             "category_top_n": category_top_n, "min_stars": 300,
-                            "active_days": 45, "categories": _GH_T_CATS},
+                            "active_days": 45, "new_repo_days": 90,
+                            "categories": _GH_T_CATS},
                            allow_unicode=True, sort_keys=False)
+
+
+def _gh_pool(repos):
+    """collect() 替身的回傳：(池子, info)。info 的量全是 0：替身沒有打任何 Search。"""
+    return repos, {"search_calls": 0, "search_failed": 0, "elapsed_s": 0.0,
+                   "graphql_filled": 0, "drop": []}
 
 
 _U_REPOS = {
@@ -3249,7 +3256,7 @@ with tempfile.TemporaryDirectory() as _u4td:
         encoding="utf-8")
     _u4_collect, _u4_argv, _u4_env = _ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
-        _ghm2.collect = lambda *a, **k: _U_REPOS
+        _ghm2.collect = lambda *a, **k: _gh_pool(_U_REPOS)
         sys.argv = ["pulse-github.py", "--snapshot"]
         os.environ["VAULT_DIR"] = str(_u4v)
         _ghm2.main()
@@ -3324,7 +3331,7 @@ with tempfile.TemporaryDirectory() as _ghtd:
                                                   encoding="utf-8")
     _gh_collect, _gh_argv, _gh_envv = _ghm.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
-        _ghm.collect = lambda *a, **k: {}
+        _ghm.collect = lambda *a, **k: _gh_pool({})
         sys.argv = ["pulse-github.py", "--snapshot"]   # 走到抓取全失敗那條路要 do_snapshot 為真
         os.environ["VAULT_DIR"] = str(_ghv)
         _ghm.main()
@@ -3374,7 +3381,7 @@ def _bd_main(vault, argv, collect, nonet=False):
         calls.append(1)
         if collect is None:
             raise RuntimeError("collect 被呼叫了")
-        return collect
+        return _gh_pool(collect)
 
     def _no_net(*a, **k):
         raise RuntimeError("selftest：這個模式不准連網")
@@ -9756,9 +9763,9 @@ acase("分類：_config/github.yaml 是六類、順序照裁定、每類都有 n
       [[c["id"] for c in _CL_REAL],
        [c["id"] for c in _CL_REAL if not (c.get("name") and c.get("topics") and c.get("queries"))],
        "keywords" in _GH_CFG_REAL,
-       [_GH_CFG_REAL.get(k) for k in ("tier_split", "category_top_n", "top_n")]],
+       [_GH_CFG_REAL.get(k) for k in ("tier_split", "category_top_n", "top_n", "new_repo_days")]],
       [["open-models", "automation", "coding-agents", "agent-frameworks", "mcp", "rag-memory"],
-       [], False, [20000, 10, 25]])
+       [], False, [20000, 10, 25, 90]])
 acase("分類：ai-agents、agent、agents、llm、ai 這類泛用 topic 不在任何一類"
       "（放進去的話幾乎每個 repo 都先命中那一類，優先序就沒有意義）",
       sorted(_CL_ALL_TOPICS & {"ai-agents", "agent", "agents", "llm", "ai"}), [])
@@ -9914,6 +9921,231 @@ with _tf8.TemporaryDirectory() as _clav:
            _cl_after["categories"][0]["surging"][0].get("desc_zh"), "中文覆蓋 1/1" in _cl_out],
           [0, False, _ZH, True])
 
+# ── GitHub 榜：候選池（references/github-board.md〈候選池〉，2026-09-30）──────────
+# 每類每個 query 打兩次 Search（第二次帶 created:>），之間 sleep 2.1 秒；state 裡這次沒搜到的
+# repo 用 GraphQL 補量，確定不活躍、封存、查不到的才剪。Search 與 GraphQL 都換成替身
+# （這台沒有 requests，也不准連網），time 換成假時鐘：sleep 記下秒數、推進時鐘。
+import types as _gp_types  # noqa: E402
+
+
+def _gp_collect(cfg, state, search, graphql, now):
+    """用替身跑一次真的 collect()。回 (pool, info, rec, stderr)。"""
+    rec = {"q": [], "sleep": [], "gql": []}
+    clk = [0.0]
+
+    def _s(q, token):
+        rec["q"].append((clk[0], q))
+        return search(q)
+
+    def _g(names, token):
+        rec["gql"].append(list(names))
+        return graphql(names)
+
+    def _sl(x):
+        rec["sleep"].append(x)
+        clk[0] += x
+
+    sv = (_ghm2.search_repos, _ghm2.graphql_repos, _ghm2.time)
+    _ghm2.search_repos, _ghm2.graphql_repos = _s, _g
+    _ghm2.time = _gp_types.SimpleNamespace(sleep=_sl, monotonic=lambda: clk[0])
+    _e = io.StringIO()
+    try:
+        with _bd_cl.redirect_stderr(_e):
+            pool, info = _ghm2.collect(cfg, "tok", now, state)
+    finally:
+        _ghm2.search_repos, _ghm2.graphql_repos, _ghm2.time = sv
+    return pool, info, rec, _e.getvalue()
+
+
+def _gp_item(full, stars, topics=(), created="2025-01-01T00:00:00Z"):
+    return {"full_name": full, "name": full.split("/")[1], "html_url": "https://x/" + full,
+            "description": "d", "stargazers_count": stars, "language": "Go",
+            "topics": list(topics), "created_at": created, "pushed_at": "2026-09-29T00:00:00Z"}
+
+
+def _gp_node(full, stars, pushed_days_ago, archived=False, topics=(), name=None):
+    return {"nameWithOwner": name or full, "stargazerCount": stars, "description": "tracked",
+            "url": "https://x/" + full, "primaryLanguage": {"name": "Rust"},
+            "repositoryTopics": {"nodes": [{"topic": {"name": t}} for t in topics]},
+            "createdAt": "2024-01-01T00:00:00Z",
+            "pushedAt": (_CL_NOW - _dt_m.timedelta(days=pushed_days_ago)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "isArchived": archived}
+
+
+_GP_CFG = dict(_GH_CFG_REAL)
+_GP_T8 = ["t1", "t2", "t3", "t4", "t5", "t6", "t7"]
+
+
+def _gp_search(q):
+    if q.startswith("mcp server ") and "created:>" not in q:
+        return [_gp_item("deep/topic", 5000, _GP_T8 + ["mcp-server"])]
+    if q.startswith("llm inference ") and "created:>" in q:
+        return [_gp_item("new/born", 600, ["vllm"], created="2026-09-10T00:00:00Z")]
+    return []
+
+
+_GP_STATE = {k: {"stars": 1000, "ts": _CL_TS} for k in
+             ("deep/topic", "known/active", "known/archived", "known/stale", "known/gone",
+              "known/unknown", "known/renamed")}
+_GP_NODES = {"known/active": _gp_node("known/active", 1200, 2, topics=_GP_T8 + ["vllm"]),
+             "known/archived": _gp_node("known/archived", 900, 2, archived=True),
+             "known/stale": _gp_node("known/stale", 900, 60),
+             "known/gone": None,
+             "known/renamed": _gp_node("known/renamed", 900, 2, name="other/name")}
+_gp_pool, _gp_info, _gp_rec, _ = _gp_collect(
+    _GP_CFG, _GP_STATE, _gp_search, lambda names: {n: _GP_NODES[n] for n in names if n in _GP_NODES},
+    _CL_NOW)
+_gp_qs = [q for _, q in _gp_rec["q"]]
+_gp_nq = sum(len(c["queries"]) for c in _GP_CFG["categories"])
+_gp_born = (_CL_NOW - _dt_m.timedelta(days=90)).date().isoformat()
+_gp_act = (_CL_NOW - _dt_m.timedelta(days=45)).date().isoformat()
+acase("候選池：每類每個 query 打兩次 Search，第二次帶 created:>（今天−new_repo_days），兩次都帶 pushed:> 與 stars:>="
+      "（新建的 repo 星數還小，在依星數排的前 40 名裡排不上）",
+      [len(_gp_qs), 2 * _gp_nq, sum(1 for q in _gp_qs if f"created:>{_gp_born}" in q),
+       all(f"pushed:>{_gp_act}" in q and "stars:>=300" in q for q in _gp_qs),
+       _gp_qs[:2] == ["llm inference stars:>=300 pushed:>" + _gp_act,
+                      f"llm inference stars:>=300 pushed:>{_gp_act} created:>{_gp_born}"],
+       _GP_CFG.get("new_repo_days")],
+      [30, 30, 15, True, True, 90])
+_gp_ts = [t for t, _ in _gp_rec["q"]]
+acase("候選池：Search 之間 sleep 至少 2.1 秒、第一次之前不睡，任何 60 秒窗口不超過 30 次"
+      "（Search API 登入後上限每分鐘 30 次；超過就是整批 403，那一晚的池子是空的）",
+      [len(_gp_rec["sleep"]), min(_gp_rec["sleep"]) >= 2.1, _gp_ts[0],
+       max(sum(1 for u in _gp_ts if 0 <= u - t < 60) for t in _gp_ts) <= 30],
+      [29, True, 0.0, True])
+acase("候選池：近 90 天新建那一次撈到的 repo 進池子；搜尋那條路的分類用完整 topics（第 8 個才命中）",
+      ["new/born" in _gp_pool, _gp_pool["new/born"]["category"],
+       _gp_pool["deep/topic"]["category"], len(_gp_pool["deep/topic"]["topics"])],
+      [True, "open-models", "mcp", 6])
+acase("候選池：state 裡這次沒搜到的 repo 交給 GraphQL 補量（搜到的不再查），補量那條路也用完整 topics 分類",
+      [_gp_rec["gql"], "known/active" in _gp_pool, _gp_pool["known/active"]["category"],
+       len(_gp_pool["known/active"]["topics"]), _gp_pool["known/active"]["stars"],
+       _gp_pool["known/active"]["desc"], _gp_info["graphql_filled"]],
+      [[["known/active", "known/archived", "known/gone", "known/renamed", "known/stale",
+         "known/unknown"]], True, "open-models", 6, 1200, "tracked", 1])
+acase("候選池：封存、45 天沒 push、查不到、改名的不進池子而且要剪；沒有明確結果的不進也不剪"
+      "（量不到的剪掉，一個還活著的 repo 就失去基線，而那不會有任何東西變紅）",
+      [sorted(k for k in _GP_STATE if k in _gp_pool), _gp_info["drop"]],
+      [["deep/topic", "known/active"],
+       ["known/archived", "known/gone", "known/renamed", "known/stale"]])
+# GraphQL 一次最多 100 個別名。
+_gp_big = {f"o/r{i:03d}": {"stars": 1, "ts": 1} for i in range(250)}
+_, _gp_info2, _gp_rec2, _ = _gp_collect(_GP_CFG, _gp_big, _gp_search, lambda names: {}, _CL_NOW)
+acase("候選池：GraphQL 分批，一次最多 100 個",
+      [[len(b) for b in _gp_rec2["gql"]], _gp_info2["drop"]], [[100, 100, 50], []])
+# GraphQL 整批失敗：只用搜尋結果、不剪任何 state、stderr 看得到。
+_gp_pool3, _gp_info3, _, _ = _gp_collect(_GP_CFG, _GP_STATE, _gp_search, lambda names: None, _CL_NOW)
+acase("候選池：GraphQL 整批失敗時只用搜尋結果、一個都不剪（失敗不是「確定查不到」）",
+      [sorted(_gp_pool3), _gp_info3["drop"], _gp_info3["graphql_filled"]],
+      [["deep/topic", "new/born"], [], 0])
+# Search 全部失敗：回空池、不補量（只剩追蹤名單的池子不是這一晚的榜）。
+_gp_pool4, _gp_info4, _gp_rec4, _gp_e4 = _gp_collect(
+    _GP_CFG, _GP_STATE, lambda q: None, lambda names: _GP_NODES, _CL_NOW)
+acase("候選池：Search 全部失敗 → 空池、不打 GraphQL、stderr 說得出來（照抓取全失敗處理，保留上一份 board）",
+      [_gp_pool4, _gp_info4["search_calls"], _gp_info4["search_failed"], _gp_rec4["gql"],
+       "全部失敗" in _gp_e4],
+      [{}, 30, 30, [], True])
+# GraphQL 回應的判讀是純函式（這台沒有 requests，HTTP 那一層用替身；判讀這一層直接驗）。
+_gp_q = _ghm2.graphql_query(["a/b", "c/d"])
+acase("GraphQL：查詢每個 repo 一個別名、topics 取 first: 20（GitHub 上限），名字有跳脫",
+      ['r0: repository(owner: "a", name: "b")' in _gp_q, 'r1: repository(owner: "c", name: "d")' in _gp_q,
+       "repositoryTopics(first: 20)" in _gp_q, "isArchived" in _gp_q, "pushedAt" in _gp_q],
+      [True, True, True, True, True])
+acase("GraphQL：回應判讀——查到回 node、NOT_FOUND 回 None、其他錯誤不列（不知道）、沒有 data 是整批失敗",
+      [_ghm2.parse_graphql(["a/b", "c/d", "e/f"], {
+          "data": {"r0": {"nameWithOwner": "a/b"}, "r1": None, "r2": None},
+          "errors": [{"type": "NOT_FOUND", "path": ["r1"]}, {"type": "FORBIDDEN", "path": ["r2"]}]}),
+       _ghm2.parse_graphql(["a/b"], {"errors": [{"message": "rate limited"}]}),
+       _ghm2.parse_graphql(["a/b"], None)],
+      [{"a/b": {"nameWithOwner": "a/b"}, "c/d": None}, None, None])
+_gp_e5 = io.StringIO()
+with _bd_cl.redirect_stderr(_gp_e5):
+    _gp_notok = _ghm2.graphql_repos(["a/b"], None)
+acase("GraphQL：沒有 token 就整批失敗（回 None、stderr 印一行），不當成查不到",
+      [_gp_notok, "token" in _gp_e5.getvalue()], [None, True])
+
+# 走真的 main()：stdout 那一行印 Search 次數與 GraphQL 補量數，N 等於替身記到的實際呼叫次數；
+# 快照寫回時剪掉確定的、留下不知道的；補量到的 repo 基線是上一晚（baseline_days < 1.5）。
+def _gp_main(vault, argv, search, graphql):
+    rec = {"q": 0}
+    clk = [0.0]
+
+    def _s(q, token):
+        rec["q"] += 1
+        return search(q)
+
+    def _sl(x):
+        clk[0] += x
+
+    sv = (_ghm2.search_repos, _ghm2.graphql_repos, _ghm2.time, sys.argv[:],
+          os.environ.get("VAULT_DIR"), os.environ.get("GITHUB_TOKEN"))
+    _ghm2.search_repos, _ghm2.graphql_repos = _s, lambda names, token: graphql(names)
+    _ghm2.time = _gp_types.SimpleNamespace(sleep=_sl, monotonic=lambda: clk[0])
+    sys.argv = ["pulse-github.py"] + argv
+    os.environ["VAULT_DIR"] = str(vault)
+    os.environ["GITHUB_TOKEN"] = "selftest-fake"
+    _o, _e = io.StringIO(), io.StringIO()
+    try:
+        with _bd_cl.redirect_stdout(_o), _bd_cl.redirect_stderr(_e):
+            rc = _ghm2.main()
+    finally:
+        _ghm2.search_repos, _ghm2.graphql_repos, _ghm2.time, sys.argv = sv[:4]
+        for _k, _v in (("VAULT_DIR", sv[4]), ("GITHUB_TOKEN", sv[5])):
+            if _v is None:
+                os.environ.pop(_k, None)
+            else:
+                os.environ[_k] = _v
+    return rc, _o.getvalue(), rec["q"]
+
+
+_gp_now = _dt_m.datetime.now(_dt_m.timezone.utc)
+_gp_prev = _gp_now.timestamp() - 86400
+
+
+def _gp_node_now(full, stars, pushed_days_ago, archived=False):
+    n = _gp_node(full, stars, 0, archived=archived)
+    n["pushedAt"] = (_gp_now - _dt_m.timedelta(days=pushed_days_ago)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return n
+
+
+_GP_MAIN_NODES = {"known/active": _gp_node_now("known/active", 900, 1),
+                  "known/archived": _gp_node_now("known/archived", 900, 1, archived=True)}
+for _gp_fail in (False, True):
+    with tempfile.TemporaryDirectory() as _gptd:
+        _gpv = Path(_gptd)
+        (_gpv / "_config").mkdir()
+        (_gpv / "_github").mkdir()
+        (_gpv / "_config" / "github.yaml").write_text(
+            _yaml.safe_dump(_GH_CFG_REAL, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        (_gpv / "_github" / "state.json").write_text(_json.dumps({
+            "known/active": {"stars": 800, "ts": _gp_prev, "rank_velocity": None, "rank_surge": 3},
+            "known/archived": {"stars": 800, "ts": _gp_prev, "rank_velocity": None, "rank_surge": None},
+            "known/unknown": {"stars": 800, "ts": _gp_prev, "rank_velocity": None, "rank_surge": None}}),
+            encoding="utf-8")
+        _gp_rc, _gp_out, _gp_n = _gp_main(
+            _gpv, ["--snapshot"], lambda q: [_gp_item("srch/one", 30000)],
+            (lambda names: None) if _gp_fail else
+            (lambda names: {n: _GP_MAIN_NODES[n] for n in names if n in _GP_MAIN_NODES}))
+        _gp_st = _json.loads((_gpv / "_github" / "state.json").read_text("utf-8"))
+        _gp_gj = _json.loads((_gpv / "dist" / "data" / "github.json").read_text("utf-8"))
+    _gp_m = _re.search(r"Search (\d+) 次、耗時 (\d+) 秒、GraphQL 補量 (\d+) 個", _gp_out)
+    if not _gp_fail:
+        _gp_row = [r for r in _gp_gj["surging"] if r["full_name"] == "known/active"]
+        acase("候選池（實跑）：stdout 印「Search N 次、耗時 S 秒、GraphQL 補量 M 個」，N 等於實際呼叫次數"
+              "（C4 用 Actions log 的這一行驗每分鐘不超過 30 次；S 是假時鐘走過的 29×2.1 秒）",
+              [_gp_rc, bool(_gp_m), _gp_m and int(_gp_m.group(1)) == _gp_n, _gp_n,
+               _gp_m and _gp_m.group(2), _gp_m and _gp_m.group(3)],
+              [0, True, True, 30, "61", "1"])
+        acase("候選池（實跑）：快照寫回時剪掉 GraphQL 確定封存的，留下沒有明確結果的；補量到的列基線是上一晚"
+              "（非首次觀測的列 baseline_days < 1.5）",
+              [sorted(_gp_st), _gp_st["known/active"]["stars"],
+               [(r["is_new"], r["baseline_days"] < 1.5) for r in _gp_row]],
+              [["known/active", "known/unknown", "srch/one"], 900, [(False, True)]])
+    else:
+        acase("候選池（實跑）：GraphQL 整批失敗時快照照寫、state 一個都不剪",
+              [_gp_rc, sorted(_gp_st), _gp_m and _gp_m.group(3)],
+              [0, ["known/active", "known/archived", "known/unknown", "srch/one"], "0"])
+
 # 上面幾條釘的是判準。真正會騙人的是**呼叫端有沒有照著寫**——所以這條走真的
 # main()：第一班寫基線，第二班讀回來。top_n=1 是為了讓「有量到但沒上榜」真的發生。
 with tempfile.TemporaryDirectory() as _rmtd:
@@ -9930,7 +10162,7 @@ with tempfile.TemporaryDirectory() as _rmtd:
         encoding="utf-8")
     _rm_collect, _rm_argv, _rm_env = _ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
-        _ghm2.collect = lambda *a, **k: _U_REPOS
+        _ghm2.collect = lambda *a, **k: _gh_pool(_U_REPOS)
         os.environ["VAULT_DIR"] = str(_rmv)
         sys.argv = ["pulse-github.py", "--snapshot"]
         _ghm2.main()
