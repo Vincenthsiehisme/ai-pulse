@@ -58,6 +58,7 @@ from lib.notes import PLACEHOLDER_RE, parse_note  # noqa: E402
 from lib.quality import parse_dt  # noqa: E402  published 的解析：RFC 2822 與 ISO 8601 都吃
 from lib.sources import SECTIONS  # noqa: E402  分節清單單一真相源
 from lib.identity import NIGHT_SHIFT_AUTHOR  # noqa: E402  夜班 commit 身份單一真相源
+from lib import nightcost  # noqa: E402  雲端夜班成本帳，見 lib/nightcost.py
 
 # 這些 blocker 是「設計上就該永遠擋著」的，不是漏跑、也修不好——算警報會天天
 # 狼來了，所以只計數、不觸警。
@@ -1277,6 +1278,41 @@ def desc_zh_line(cov, today):
             f"{cov.get('last_with_zh_day')}（**{n} 天前**——翻譯鏈斷了）"), True
 
 
+def read_cost_ledger(vault):
+    """讀 `_probe/nightly-cost.jsonl`。回 (rows, 讀不到的原因)；讀得到時原因是 None。"""
+    p = vault.joinpath(*nightcost.LEDGER_REL)
+    if not p.exists():
+        return None, f"`{nightcost.LEDGER_PATH}` 不存在"
+    try:
+        return nightcost.parse_ledger(p.read_text("utf-8")), None
+    except (ValueError, OSError) as e:
+        return None, f"`{nightcost.LEDGER_PATH}` 讀不進來（{e}）"
+
+
+def nightly_cost_lines(rows, reason, today, windows=(7, 30)):
+    """人看的報告裡「夜班成本」那一段。純函式。
+
+    帳本一個 session 一行，這裡依 `date` 把同一天的多行加總；任一行 null 那天就是
+    量不到，不當 0 加。量不到的天不算進合計，**另外數**，天數與行數都印：合計旁邊
+    不寫它有幾天是 null 的話，一個只量到兩天的 USD 3 跟一個量到七天的 USD 3 長得一樣。
+    窗口不含今天（今晚的夜班還沒收尾），沒有帳本行的天數從帳本第一行的日期起算：
+    帳本開始之前的日子不是缺，是還沒開始記。
+    規格 references/nightly-driver.md〈一晚花多少錢，要是一個被記錄的量〉。
+    """
+    if rows is None:
+        return [f"夜班成本：**讀不到帳本**（{reason}）"]
+    if not rows:
+        return [f"夜班成本：帳本是空的（`{nightcost.LEDGER_PATH}` 還沒有任何一晚）"]
+    out = [f"夜班成本（API 等價，帳本從 {min(str(r['date']) for r in rows)} 起）"]
+    for n in windows:
+        w = nightcost.window_stats(rows, today, n)
+        total = "USD —（沒有一天有金額）" if w["usd"] is None else f"USD {w['usd']:.4f}"
+        out.append(f"  近 {n} 天 {total}｜有金額 {w['priced_days']} 天、"
+                   f"量不到 {w['null_days']} 天（null {w['null_rows']} 行）、"
+                   f"沒有帳本行 {w['missing']} 天")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true", help="輸出 JSON（給機器 / 給排程摘要引用）")
@@ -1414,6 +1450,8 @@ def main():
                 _gl, missing_days(_gd, r["date"], h["chain_gap_window_days"]),
                 _gr, today=r["date"], window_days=h["chain_gap_window_days"])
             print(("  ⚠ " if _cb else "  ") + _cl)
+        for _nc in nightly_cost_lines(*read_cost_ledger(vault), today=r["date"]):
+            print("  " + _nc)
         if r["blocker_hist"]:
             print("  ── blocker 分佈 ──")
             for b, n in r["blocker_hist"].items():

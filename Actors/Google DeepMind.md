@@ -3,17 +3,18 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-09-29'
+generated_day: '2026-09-30'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **21** 則：`published` 16、`review` 5
+事件 **22** 則：`published` 16、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-09-30 | [[Events/evt-2026-09-30-fa1a68\|Gemini 4 Argon: our next era of frontier intelligence]] | review |
 | 2026-09-23 | [[Events/evt-2026-09-23-101c8c\|Advancing Private AI Compute with secure, server-side memory]] | published |
 | 2026-09-15 | [[Events/evt-2026-09-15-a7dafa\|Introducing Gemini 3.8 Live and 3.8 Live Extended Thinking]] | published |
 | 2026-09-08 | [[Events/evt-2026-09-08-4e6b7e\|AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome]] | published |

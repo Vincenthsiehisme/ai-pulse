@@ -53,10 +53,14 @@ jobs:
     #
     # 為什麼不是單純把 timeout 調大：清單只會變長（今天 248），
     # 調大只是把同一道牆往後挪。分片是可以一直加的那一種解法。
+    #
+    # 2026-10-01 從 4 片加到 8 片：430 條分 4 片、每片約 108 條、一條約 10 秒，
+    # PR #105 的兩班 8 個 job 有 7 個撞 20 分鐘牆被砍（跑完的全是 killed／
+    # survived-as-recorded，沒有 regression），唯一跑完的一片 18 分 22 秒。
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, 4]
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -71,7 +75,7 @@ jobs:
       - name: Mutation inventory
         env:
           VAULT_DIR: ${{ github.workspace }}
-        run: python scripts/mutate.py --shard ${{ matrix.shard }}/4
+        run: python scripts/mutate.py --shard ${{ matrix.shard }}/8
       # 還原護欄的第四道：mutate.py 自己比對 sha256，這裡再讓 CI 說一次話。
       # 前面那步就算因為某種想不到的理由沒還原乾淨，這裡會紅，而且看得到 diff。
       - name: 工作區必須乾淨（還原失敗的最後一道欄杆）

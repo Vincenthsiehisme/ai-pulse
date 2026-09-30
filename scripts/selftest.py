@@ -6421,8 +6421,8 @@ acase("夜班：一晚花多少錢，量不到跟 0 要分得開"
        _nl.total_cost({"stages": [{"id": "enrich-write", "status": "ok",
                                    "cost_usd": 0.42}]})],
       [(0.0, True), (0.0, False), (0.42, True)])
-acase("夜班：摘要一定帶成本那一行（量不到就寫量不到）",
-      ["量不到" in "\n".join(_nl.summary_lines(
+acase("夜班：摘要一定帶成本那一行（外殼沒傳數字、也還沒有帳本時明說帳本還沒有紀錄，不印 USD 0）",
+      ["帳本還沒有紀錄" in "\n".join(_nl.summary_lines(
            {"date": "d", "stages": [{"id": "enrich-write", "status": "ok", "note": ""}]})),
        "USD 0.4200" in "\n".join(_nl.summary_lines(
            {"date": "d", "stages": [{"id": "enrich-write", "status": "ok",
@@ -10817,6 +10817,650 @@ acase("夜班守門：狀態檔 commit 不會讓潤稿鏈缺日的警報變綠"
       [bool(_re.match(_mm.ENRICH_COMMIT_GREP, "chore: nightly run state " + _NG_TODAY)),
        bool(_ng.STATE_COMMIT_RE.match("nightly: enrich + narrative " + _NG_TODAY))],
       [False, False])
+
+# ── 雲端夜班的成本帳（references/nightly-driver.md〈一晚花多少錢〉、nightly-guard.md〈成本帳〉，2026-09-30）──
+# 雲端排程沒有本機外殼替寫作端記 total_cost_usd，摘要那一格每晚都是「量不到」。改由收尾的
+# Stop hook 讀 transcript 自己算、自己 commit。這一段釘四件事：算式（寫死期望值）、
+# 什麼時候不准寫檔（不是夜班、工作樹有別的改動、這個 session 已經記過），**同一個 session
+# 只 commit 一次**（否則每被多擋一輪就又 commit、push、又製造競態，可能循環），以及
+# **hook 結束時帳本絕不能是 dirty**：守門給平台 Stop hook 的出口只准狀態檔。
+import contextlib as _nc_ctx  # noqa: E402
+from lib import nightcost as _ncl  # noqa: E402
+
+_nc_spec = importlib.util.spec_from_file_location(
+    "nightly_cost", os.path.join(_HERE, "nightly-cost.py"))
+_nc = importlib.util.module_from_spec(_nc_spec)
+_nc_spec.loader.exec_module(_nc)
+
+_NC_S55 = "claude-sonnet-5-5"
+_NC_U1 = {"input_tokens": 100, "output_tokens": 2000, "cache_read_input_tokens": 1_000_000,
+          "cache_creation_input_tokens": 30000,
+          "cache_creation": {"ephemeral_5m_input_tokens": 10000, "ephemeral_1h_input_tokens": 20000}}
+_NC_U2 = {"input_tokens": 10, "output_tokens": 500, "cache_read_input_tokens": 200_000,
+          "cache_creation_input_tokens": 0, "speed": "standard",
+          "server_tool_use": {"web_search_requests": 0, "web_fetch_requests": 0},
+          "cache_creation": {"ephemeral_5m_input_tokens": 0, "ephemeral_1h_input_tokens": 0}}
+_NC_U3 = {"input_tokens": 1, "output_tokens": 100, "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 4000,
+          "cache_creation": {"ephemeral_5m_input_tokens": 0, "ephemeral_1h_input_tokens": 4000}}
+
+
+def _nc_asst(usage, model=_NC_S55, rid=None, mid=None, ts=None):
+    msg = {"role": "assistant", "model": model, "usage": usage,
+           "content": [{"type": "text", "text": "x"}]}
+    if mid:
+        msg["id"] = mid
+    row = {"type": "assistant", "message": msg}
+    if rid:
+        row["requestId"] = rid
+    if ts:
+        row["timestamp"] = ts
+    return row
+
+
+# 一個 request 拆成兩行（requestId 相同）、一個只有 message.id 的兩行、兩行什麼 id 都沒有。
+_NC_ENTRIES = [
+    {"type": "user", "message": {"role": "user", "content": "夜班"},
+     "timestamp": "2026-09-30T20:47:10.123Z"},
+    _nc_asst(_NC_U1, rid="req_A", mid="msg_A"), _nc_asst(_NC_U1, rid="req_A", mid="msg_A"),
+    _nc_asst(_NC_U2, mid="msg_B"), _nc_asst(_NC_U2, mid="msg_B"),
+    _nc_asst(_NC_U3), _nc_asst(_NC_U3),
+    {"type": "user", "message": {"role": "user", "content": [{"type": "tool_result"}]}},
+]
+_NC_T = _ncl.tally(_NC_ENTRIES)
+acase("成本帳：同一個 request 只算一次（requestId 優先、沒有就 message.id、兩個都沒有一行算一個）"
+      "（transcript 一個 content block 一行、usage 每行重複，逐行加會把一晚算成兩三倍）",
+      [len(_ncl.request_usages(_NC_ENTRIES)), _NC_T["requests"]], [4, 4])
+acase("成本帳：五類分開加總（input／output／cache 讀／cache 寫 5 分鐘／cache 寫 1 小時）",
+      [_NC_T[f] for f in _ncl.FIELDS], [112, 2700, 1_200_000, 10000, 28000])
+acase("成本帳：牌價算式（寫死期望值：112×2 + 2700×10 + 1.2M×0.2 + 10k×2.5 + 28k×4 ＝ 404,224 ÷ 1M；"
+      "speed 是 standard、server_tool_use 全 0 不算非標準）",
+      [_NC_T["usd_equiv"], _NC_T["by_model"][_NC_S55]["usd_equiv"], _NC_T["note"],
+       _ncl.usd({"input": 1_000_000, "output": 1_000_000, "cache_read": 1_000_000,
+                 "cache_write_5m": 1_000_000, "cache_write_1h": 1_000_000},
+                _ncl.PRICES[_NC_S55])],
+      [0.404224, 0.404224, None, 18.7])
+
+
+def _nc_plus(usage, model=_NC_S55):
+    return _ncl.tally(_NC_ENTRIES + [_nc_asst(usage, model=model, rid="req_extra")])
+
+
+_NC_ALIEN = _nc_plus({"input_tokens": 5, "output_tokens": 1}, model="claude-opus-9")
+_NC_UNSPLIT = _nc_plus({"input_tokens": 1, "output_tokens": 1, "cache_creation_input_tokens": 500})
+_NC_SYN = _nc_plus({"input_tokens": 0, "output_tokens": 0}, model="<synthetic>")
+acase("成本帳：表外 model、有 cache 寫卻沒有 5m／1h 拆分 → 那一行 usd_equiv 是 None，token 照記、note 寫原因"
+      "（量不到寫 null 不寫 0；token 全是 0 的 `<synthetic>` 列不讓整行變成量不到）",
+      [_NC_ALIEN["usd_equiv"], _NC_ALIEN["input"], "claude-opus-9" in (_NC_ALIEN["note"] or ""),
+       _NC_UNSPLIT["usd_equiv"], "拆分" in (_NC_UNSPLIT["note"] or ""),
+       _NC_UNSPLIT["by_model"][_NC_S55]["cache_write_unsplit"],
+       _NC_SYN["usd_equiv"], _ncl.tally([])["usd_equiv"]],
+      [None, 117, True, None, True, 500, 0.404224, None])
+_NC_OVER = _nc_plus({"input_tokens": 1, "output_tokens": 1, "cache_creation_input_tokens": 100,
+                     "cache_creation": {"ephemeral_5m_input_tokens": 80,
+                                        "ephemeral_1h_input_tokens": 80}})
+_NC_UNDER = _nc_plus({"input_tokens": 1, "output_tokens": 1, "cache_creation_input_tokens": 300,
+                      "cache_creation": {"ephemeral_5m_input_tokens": 80,
+                                         "ephemeral_1h_input_tokens": 80}})
+acase("成本帳：5m＋1h 加總跟 cache_creation_input_tokens 不相等，大於或小於都是 None、note 寫出兩個數字"
+      "（兩種寫入價差 1.6 倍；只看「少了」的話，多出來的那一截會被照 5m／1h 的價算進去）",
+      [_NC_OVER["usd_equiv"], "160" in (_NC_OVER["note"] or "") and "100" in (_NC_OVER["note"] or ""),
+       _NC_UNDER["usd_equiv"], "300" in (_NC_UNDER["note"] or "")],
+      [None, True, None, True])
+_NC_FAST = _nc_plus({"input_tokens": 1, "output_tokens": 1, "speed": "fast"})
+_NC_WEB = _nc_plus({"input_tokens": 1, "output_tokens": 1,
+                    "server_tool_use": {"web_search_requests": 2, "web_fetch_requests": 0}})
+acase("成本帳：usage.speed 不是標準、server_tool_use 有非零用量 → None、note 寫原因"
+      "（牌價表沒有這兩種的價，照標準價算就是編一個數字）",
+      [_NC_FAST["usd_equiv"], "speed" in (_NC_FAST["note"] or ""),
+       _NC_WEB["usd_equiv"], "web_search_requests" in (_NC_WEB["note"] or "")],
+      [None, True, None, True])
+
+_NC_ROW = _ncl.ledger_row(_NC_ENTRIES, "s1")
+acase("成本帳：帳本一行的欄位與順序照規格，date 取 transcript 第一筆紀錄的 UTC 日期",
+      [list(_NC_ROW), _NC_ROW["date"], _NC_ROW["session_id"]],
+      [["date", "session_id", "requests", "by_model", "input", "output",
+        "cache_read", "cache_write_5m", "cache_write_1h", "usd_equiv",
+        "price_table", "note"], "2026-09-30", "s1"])
+acase("成本帳：跨 UTC 午夜的 session 只記在開始那天；帶時區的時間戳先換成 UTC；沒有時間戳回 None",
+      [_ncl.session_date([{"type": "queue-operation"},
+                          {"type": "user", "timestamp": "2026-09-30T23:50:00.000Z"},
+                          {"type": "assistant", "timestamp": "2026-10-01T00:20:00.000Z"}]),
+       _ncl.session_date([{"timestamp": "2026-10-01T02:00:00+08:00"}]),
+       _ncl.session_date([{"type": "user"}])],
+      ["2026-09-30", "2026-09-30", None])
+acase("成本帳：一個 session 一行，key 是 session_id（同一天另一個 session 另起一行，同一個 session 原地取代）",
+      [[r["session_id"] for r in _ncl.upsert([{"date": "2026-09-30", "session_id": "s0"}], _NC_ROW)],
+       [r.get("requests") for r in _ncl.upsert([_NC_ROW, {"date": "2026-09-30", "session_id": "s2"}],
+                                           dict(_NC_ROW, requests=9))]],
+      [["s0", "s1"], [9, None]])
+try:
+    _ncl.parse_ledger('{"date": "d"}\nnot json\n')
+    _nc_bad = None
+except ValueError as _e:
+    _nc_bad = str(_e)
+acase("成本帳：帳本壞行讀不進來就 raise、帶行號（不安靜少幾晚）",
+      [_ncl.parse_ledger('{"date": "2026-09-29"}\n\n'), "第 2 行" in (_nc_bad or "")],
+      [[{"date": "2026-09-29"}], True])
+
+# 端到端：真的跑 hook，對拋棄式 git repo 加 bare remote。
+_nc_root = Path(tempfile.mkdtemp(prefix="nc-"))
+
+
+def _nc_git(repo, *a):
+    return _subprocess.run(["git", "-C", str(repo), *a], capture_output=True, text=True)
+
+
+def _nc_repo(name, reject_push=False):
+    work, bare = _nc_root / name, _nc_root / f"{name}.git"
+    _subprocess.run(["git", "init", "-q", "--bare", str(bare)], capture_output=True)
+    _nc_git(bare, "symbolic-ref", "HEAD", "refs/heads/main")
+    _subprocess.run(["git", "init", "-q", str(work)], capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _nc_git(work, "config", k, v)
+    (work / "_probe").mkdir()
+    (work / "_probe" / "nightly-run.json").write_text("{}\n", "utf-8")
+    _nc_git(work, "add", "-A"); _nc_git(work, "commit", "-qm", "base")
+    _nc_git(work, "branch", "-M", "main")
+    _nc_git(work, "remote", "add", "origin", str(bare))
+    _nc_git(work, "push", "-q", "origin", "main")
+    if reject_push:
+        _hk = bare / "hooks" / "pre-receive"
+        _hk.write_text("#!/bin/sh\necho 'rejected by test' >&2\nexit 1\n", "utf-8")
+        _hk.chmod(0o755)
+    return work, bare
+
+
+def _nc_transcript(name, first, entries, ts="2026-09-30T20:47:10.123Z"):
+    p = _nc_root / f"{name}.jsonl"
+    rows = [{"type": "user", "message": {"role": "user", "content": first},
+             "timestamp": ts}] + list(entries)
+    p.write_text("".join(_json.dumps(r, ensure_ascii=False) + "\n" for r in rows), "utf-8")
+    return str(p)
+
+
+_NC_MARK = _ng.ROUTINE_MARKER + "。無人值守"
+_NC_TR = _nc_transcript("routine", _NC_MARK, _NC_ENTRIES[1:])
+_NC_TR_OTHER = _nc_transcript("other", "幫我看 selftest", _NC_ENTRIES[1:])
+
+
+def _nc_run(repo, transcript, remote="true", payload=None, session="s1"):
+    env = {"CLAUDE_PROJECT_DIR": str(repo)}
+    if remote:
+        env["CLAUDE_CODE_REMOTE"] = remote
+    body = payload if payload is not None else {"transcript_path": transcript,
+                                                 "session_id": session}
+    err = io.StringIO()
+    with _nc_ctx.redirect_stderr(err):
+        rc = _nc.main(stdin=io.StringIO(_json.dumps(body)), env=env)
+    return rc, err.getvalue()
+
+
+def _nc_ledger(repo):
+    p = Path(repo) / "_probe" / "nightly-cost.jsonl"
+    return p.read_text("utf-8") if p.exists() else None
+
+
+def _nc_count(repo):
+    return int(_nc_git(repo, "rev-list", "--count", "HEAD").stdout.strip() or 0)
+
+
+def _nc_clean(repo):
+    return _nc_git(repo, "status", "--porcelain").stdout
+
+
+# 不是夜班：本機、雲端但不是這個 routine、transcript 讀不到、payload 沒有 transcript_path／session_id。
+_nc_w0, _nc_b0 = _nc_repo("w0")
+_nc_quiet = [_nc_run(_nc_w0, _NC_TR, remote=None)[0], _nc_ledger(_nc_w0),
+             _nc_run(_nc_w0, _NC_TR_OTHER)[0], _nc_ledger(_nc_w0)]
+_nc_missing = _nc_run(_nc_w0, str(_nc_root / "nope.jsonl"))
+_nc_nopath = _nc_run(_nc_w0, None, payload={"session_id": "s1"})
+_nc_nosid = _nc_run(_nc_w0, None, payload={"transcript_path": _NC_TR})
+acase("成本帳 hook：本機、雲端的非夜班 session 都不寫任何檔、exit 0",
+      _nc_quiet, [0, None, 0, None])
+acase("成本帳 hook：transcript_path 讀不到、payload 沒帶 transcript_path 或 session_id → 不寫檔、exit 0、"
+      "stderr 講原因（成本帳失敗不擋收尾，但不安靜吞掉）",
+      [_nc_missing[0], _nc_ledger(_nc_w0), "transcript" in _nc_missing[1],
+       _nc_nopath[0], "transcript_path" in _nc_nopath[1],
+       _nc_nosid[0], "session_id" in _nc_nosid[1], _nc_count(_nc_w0)],
+      [0, None, True, 0, True, 0, True, 1])
+
+# 狀態檔還沒被 agent commit：整個跳過，帳本不存在，守門的狀態檔出口照樣放行。
+(_nc_w0 / "_probe" / "nightly-run.json").write_text('{"date": "x"}\n', "utf-8")
+_nc_dirty = _nc_run(_nc_w0, _NC_TR)
+acase("成本帳 hook：狀態檔 dirty 時整個跳過（帳本不存在、不 commit、stderr 列出清單），"
+      "而且守門對 `git add _probe/nightly-run.json` 仍然放行（帳本沒有堵住平台 Stop hook 的出口）",
+      [_nc_dirty[0], _nc_ledger(_nc_w0), _nc_count(_nc_w0), "nightly-run.json" in _nc_dirty[1],
+       _ng.bash_violations("git add _probe/nightly-run.json", _ng.GitFacts(_nc_w0), _NG_TODAY),
+       _ng.bash_violations('git commit -m "chore: nightly run state ' + _NG_TODAY + '"',
+                           _ng.GitFacts(_nc_w0), _NG_TODAY)],
+      [0, None, 1, True, [], []])
+_nc_git(_nc_w0, "checkout", "--", "_probe/nightly-run.json")
+(_nc_w0 / "scratch.txt").write_text("x", "utf-8")
+_nc_untracked = _nc_run(_nc_w0, _NC_TR)
+(_nc_w0 / "scratch.txt").unlink()
+_nc_git(_nc_w0, "checkout", "-q", "-b", "claude/tmp")
+_nc_offmain = _nc_run(_nc_w0, _NC_TR)
+_nc_git(_nc_w0, "checkout", "-q", "main")
+acase("成本帳 hook：工作樹有別的改動（含未追蹤檔）、不在 main → 都不寫帳本、不 commit",
+      [_nc_ledger(_nc_w0), _nc_count(_nc_w0), "scratch.txt" in _nc_untracked[1],
+       "claude/tmp" in _nc_offmain[1]],
+      [None, 1, True, True])
+
+# 工作樹乾淨：寫帳本、commit、push 上 bare remote。
+_nc_first = _nc_run(_nc_w0, _NC_TR)
+_nc_after1 = [_nc_count(_nc_w0), _nc_git(_nc_w0, "log", "-1", "--format=%an|%ae|%s").stdout.strip(),
+              _nc_clean(_nc_w0),
+              _nc_git(_nc_b0, "rev-parse", "main").stdout == _nc_git(_nc_w0, "rev-parse", "HEAD").stdout]
+_nc_rows1 = _ncl.parse_ledger(_nc_ledger(_nc_w0))
+acase("成本帳 hook：工作樹乾淨 → 寫帳本、用 ai-pulse-cost commit `chore: nightly cost <日>`、推上 origin/main，"
+      "工作樹乾淨",
+      [_nc_first[0], "pushed" in _nc_first[1]] + _nc_after1
+      + [[(r["date"], r["usd_equiv"], r["session_id"]) for r in _nc_rows1]],
+      [0, True, 2, "ai-pulse-cost|ai-pulse-cost@users.noreply.github.com|chore: nightly cost 2026-09-30",
+       "", True, [("2026-09-30", 0.404224, "s1")]])
+
+# 同一個 session 第二次 Stop（平台多擋了一輪）：不寫、不 commit，就算 transcript 多了幾個 request。
+_NC_TR_LATE = _nc_transcript("routine-late", _NC_MARK,
+                             _NC_ENTRIES[1:] + [_nc_asst(_NC_U2, rid="req_late")])
+_nc_again = [_nc_run(_nc_w0, _NC_TR), _nc_run(_nc_w0, _NC_TR_LATE)]
+acase("成本帳 hook：同一個 session 第二次 Stop 不再寫也不再 commit（HEAD 已經有這個 session_id）"
+      "（否則每被多擋一輪帳本就變、又 commit、push、又製造競態，可能循環；代價是那幾輪不記）",
+      [[x[0] for x in _nc_again], all("skipped" in x[1] for x in _nc_again), _nc_count(_nc_w0),
+       [r["requests"] for r in _ncl.parse_ledger(_nc_ledger(_nc_w0))], _nc_clean(_nc_w0)],
+      [[0, 0], True, 2, [4], ""])
+acase("成本帳 hook：內容跟 HEAD 一樣就不 commit",
+      [_nc.commit_ledger(_nc_w0, _nc_ledger(_nc_w0), "2026-09-30")[0], _nc_count(_nc_w0)],
+      ["unchanged", 2])
+
+# 同一天第二個 session 另起一行；跨 UTC 午夜的 session 只記在開始那天。
+_nc_run(_nc_w0, _NC_TR, session="s2")
+_NC_TR_MID = _nc_transcript("routine-midnight", _NC_MARK,
+                            [_nc_asst(_NC_U2, rid="req_m", ts="2026-10-02T00:20:00.000Z")],
+                            ts="2026-10-01T23:50:00.000Z")
+_nc_run(_nc_w0, _NC_TR_MID, session="s3")
+_nc_rows3 = _ncl.parse_ledger(_nc_ledger(_nc_w0))
+acase("成本帳 hook：同一天兩個 session 各自一行；跨午夜的 session 記在開始那天，commit 訊息也是那天",
+      [[(r["session_id"], r["date"]) for r in _nc_rows3], _nc_count(_nc_w0),
+       _nc_git(_nc_w0, "log", "-1", "--format=%s").stdout.strip(), _nc_clean(_nc_w0)],
+      [[("s1", "2026-09-30"), ("s2", "2026-09-30"), ("s3", "2026-10-01")], 4,
+       "chore: nightly cost 2026-10-01", ""])
+_nc_ns_days, _nc_ns_reason = _mm.night_shift_commit_days(_nc_w0, 3, _NG_TODAY)
+acase("成本帳 hook：成本 commit 的作者不是 ai-pulse-enrich，night_shift_commit_days() 不把它算成夜班"
+      "（成本 commit 每晚都有；認成夜班的話，潤稿鏈整晚沒推，缺日警報照樣綠）",
+      [_ncl.COST_AUTHOR != _mm.NIGHT_SHIFT_AUTHOR, sorted(_nc_ns_days), _nc_ns_reason,
+       bool(_re.match(_mm.ENRICH_COMMIT_GREP, "chore: nightly cost 2026-09-30"))],
+      [True, [], "ok", False])
+
+# commit 失敗（pre-commit hook 拒絕）：帳本還原成 HEAD 那一版，工作樹不能是 dirty。
+_nc_head_text = _nc_ledger(_nc_w0)
+_nc_pc = _nc_w0 / ".git" / "hooks" / "pre-commit"
+_nc_pc.write_text("#!/bin/sh\nexit 1\n", "utf-8")
+_nc_pc.chmod(0o755)
+_nc_cf = _nc_run(_nc_w0, _NC_TR, session="s4")
+_nc_w1, _ = _nc_repo("w1")
+_nc_pc1 = _nc_w1 / ".git" / "hooks" / "pre-commit"
+_nc_pc1.write_text("#!/bin/sh\nexit 1\n", "utf-8")
+_nc_pc1.chmod(0o755)
+_nc_cf1 = _nc_run(_nc_w1, _NC_TR)
+acase("成本帳 hook：commit 失敗時 exit 1、帳本還原成 HEAD 那一版（HEAD 沒有就刪掉），hook 結束時工作樹不是 dirty"
+      "（帳本一髒，守門給平台 Stop hook 的出口就被堵死）",
+      [_nc_cf[0], "commit-failed" in _nc_cf[1], _nc_ledger(_nc_w0) == _nc_head_text,
+       _nc_clean(_nc_w0), _nc_count(_nc_w0),
+       "commit-failed" in _nc_cf1[1], _nc_ledger(_nc_w1), _nc_clean(_nc_w1)],
+      [1, True, True, "", 4, True, None, ""])
+
+# push 被拒（bare remote 的 pre-receive 拒絕）：不重試、不強推，本機 commit 留著，工作樹乾淨。
+_nc_w2, _nc_b2 = _nc_repo("w2", reject_push=True)
+_nc_pf = _nc_run(_nc_w2, _NC_TR)
+acase("成本帳 hook：push 被拒 → exit 1、stderr 印原因、本機成本 commit 留著、工作樹乾淨、remote 沒動",
+      [_nc_pf[0], "push-failed" in _nc_pf[1], "rejected by test" in _nc_pf[1],
+       _nc_git(_nc_w2, "log", "-1", "--format=%an").stdout.strip(), _nc_clean(_nc_w2),
+       _nc_git(_nc_b2, "rev-parse", "main").stdout == _nc_git(_nc_w2, "rev-parse", "HEAD").stdout],
+      [1, True, True, "ai-pulse-cost", "", False])
+
+# HEAD 的帳本讀不進來：不覆寫、exit 1（非阻擋，但平台看得見）。
+_nc_w8, _ = _nc_repo("w8")
+(_nc_w8 / "_probe" / "nightly-cost.jsonl").write_text("not json\n", "utf-8")
+_nc_git(_nc_w8, "add", "-A"); _nc_git(_nc_w8, "commit", "-qm", "corrupt ledger")
+_nc_git(_nc_w8, "push", "-q", "origin", "main")
+_nc_hu = _nc_run(_nc_w8, _NC_TR)
+acase("成本帳 hook：commit 失敗、push 失敗、HEAD 帳本讀不進來 → exit 1（非阻擋但平台看得見）；"
+      "skipped／unchanged／pushed 維持 exit 0",
+      [_nc_cf[0], _nc_cf1[0], _nc_pf[0], _nc_hu[0], "讀不進來" in _nc_hu[1],
+       _nc_ledger(_nc_w8), _nc_count(_nc_w8), _nc_clean(_nc_w8),
+       _nc_first[0], _nc_again[0][0], _nc_dirty[0]],
+      [1, 1, 1, 1, True, "not json\n", 2, "", 0, 0, 0])
+
+# 成本 commit 必須是唯一被推的那一顆：寫帳本前先 fetch，HEAD 要等於 origin/main。
+_nc_w4, _nc_b4 = _nc_repo("w4")
+(_nc_w4 / "local.txt").write_text("x", "utf-8")
+_nc_git(_nc_w4, "add", "-A"); _nc_git(_nc_w4, "commit", "-qm", "local only")
+_nc_ahead = _nc_run(_nc_w4, _NC_TR)
+_nc_w5, _nc_b5 = _nc_repo("w5")
+(_nc_w5 / "later.txt").write_text("x", "utf-8")
+_nc_git(_nc_w5, "add", "-A"); _nc_git(_nc_w5, "commit", "-qm", "later")
+_nc_git(_nc_w5, "push", "-q", "origin", "main")
+_nc_git(_nc_w5, "reset", "-q", "--hard", "HEAD~1")
+_nc_behind = _nc_run(_nc_w5, _NC_TR)
+_nc_w6, _ = _nc_repo("w6")
+_nc_git(_nc_w6, "remote", "set-url", "origin", str(_nc_root / "no-such-remote.git"))
+_nc_nofetch = _nc_run(_nc_w6, _NC_TR)
+acase("成本帳 hook：本機領先或落後 origin/main → 不寫、不推、skipped、exit 0；fetch 失敗 → fetch-failed、"
+      "exit 1、不寫不推；stderr 都講原因"
+      "（`git push origin HEAD:main` 會把本機領先的 commit 一起推，成本 commit 必須是唯一被推的那一顆）",
+      [[x[0] for x in (_nc_ahead, _nc_behind, _nc_nofetch)],
+       [_nc_ledger(w) for w in (_nc_w4, _nc_w5, _nc_w6)],
+       [_nc_count(_nc_w4), _nc_git(_nc_b4, "rev-list", "--count", "main").stdout.strip()],
+       ["origin/main" in _nc_ahead[1], "origin/main" in _nc_behind[1],
+        "fetch-failed" in _nc_nofetch[1], "skipped" in _nc_ahead[1]]],
+      [[0, 0, 1], [None, None, None], [2, "1"], [True, True, True, True]])
+
+# 比對用 fetch 剛拿回來的 FETCH_HEAD，不靠 refs/remotes/origin/main：`--single-branch` 的 clone
+# 其 fetch refspec 沒涵蓋 main，`git fetch origin main` 不會建出 origin/main。
+def _nc_single_branch(name, ahead=False):
+    bare = _nc_root / f"{name}.git"
+    seed, _ = _nc_repo(f"{name}-seed")
+    _nc_git(seed, "remote", "set-url", "origin", str(bare))
+    _subprocess.run(["git", "init", "-q", "--bare", str(bare)], capture_output=True)
+    _nc_git(bare, "symbolic-ref", "HEAD", "refs/heads/main")
+    _nc_git(seed, "push", "-q", "origin", "main", "main:side")
+    work = _nc_root / name
+    _subprocess.run(["git", "clone", "-q", "--single-branch", "--branch", "side", str(bare), str(work)],
+                    capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _nc_git(work, "config", k, v)
+    _nc_git(work, "fetch", "-q", "origin", "main")
+    _nc_git(work, "checkout", "-q", "-b", "main", "FETCH_HEAD")
+    if ahead:
+        (work / "local.txt").write_text("x", "utf-8")
+        _nc_git(work, "add", "-A"); _nc_git(work, "commit", "-qm", "local only")
+    return work, bare
+
+
+_nc_w13, _nc_b13 = _nc_single_branch("w13")
+_nc_sb_has_origin_main = _nc_git(_nc_w13, "rev-parse", "--verify", "-q",
+                                 "refs/remotes/origin/main").returncode == 0
+_nc_sb = _nc_run(_nc_w13, _NC_TR)
+_nc_w14, _nc_b14 = _nc_single_branch("w14", ahead=True)
+_nc_sb_ahead = _nc_run(_nc_w14, _NC_TR)
+acase("成本帳 hook：`--single-branch` clone（fetch refspec 沒涵蓋 main、沒有 origin/main）照樣判得出 "
+      "HEAD 是否等於遠端 main：相等就推、本機領先就跳過（比對用 FETCH_HEAD）",
+      [_nc_sb_has_origin_main, _nc_sb[0], "pushed" in _nc_sb[1],
+       _nc_git(_nc_b13, "log", "-1", "--format=%an", "main").stdout.strip(),
+       _nc_sb_ahead[0], "skipped" in _nc_sb_ahead[1], _nc_ledger(_nc_w14)],
+      [False, 0, True, "ai-pulse-cost", 0, True, None])
+
+# git 逾時（subprocess.TimeoutExpired）也歸進失敗類：push 逾時 push-failed、commit 逾時 commit-failed
+# （照舊還原帳本）、fetch 逾時 fetch-failed，都 exit 1，stderr 照格式印原因、不印 traceback。
+import types as _nc_types  # noqa: E402
+
+
+def _nc_run_timeout(repo, transcript, word, session="s1"):
+    real = _subprocess.run
+
+    def _fake(cmd, *a, **k):
+        if word in cmd:
+            raise _subprocess.TimeoutExpired(cmd, k.get("timeout"))
+        return real(cmd, *a, **k)
+
+    saved = _nc.subprocess
+    _nc.subprocess = _nc_types.SimpleNamespace(
+        run=_fake, TimeoutExpired=_subprocess.TimeoutExpired,
+        SubprocessError=_subprocess.SubprocessError, CompletedProcess=_subprocess.CompletedProcess)
+    try:
+        return _nc_run(repo, transcript, session=session)
+    except Exception as e:  # 逾時穿出來也要變成一格紅，不是讓 selftest 崩潰
+        return "raised", repr(e)
+    finally:
+        _nc.subprocess = saved
+
+
+_nc_w10, _nc_b10 = _nc_repo("w10")
+_nc_to_push = _nc_run_timeout(_nc_w10, _NC_TR, "push")
+_nc_w11, _ = _nc_repo("w11")
+_nc_to_commit = _nc_run_timeout(_nc_w11, _NC_TR, "commit")
+_nc_w12, _ = _nc_repo("w12")
+_nc_to_fetch = _nc_run_timeout(_nc_w12, _NC_TR, "fetch")
+_nc_w16, _nc_b16 = _nc_repo("w16")
+_nc_to_show = _nc_run_timeout(_nc_w16, _NC_TR, "show")
+_NC_TO = (_nc_to_push, _nc_to_commit, _nc_to_fetch, _nc_to_show)
+acase("成本帳 hook：git 逾時歸進失敗類、exit 1、不印 traceback"
+      "（push 逾時留著本機 commit；commit 逾時照舊還原帳本；fetch 逾時 fetch-failed、不寫帳本；"
+      "讀 HEAD 帳本逾時是 head-unreadable，不當成 HEAD 沒有帳本）",
+      [[x[0] for x in _NC_TO],
+       ["push-failed" in _nc_to_push[1], "commit-failed" in _nc_to_commit[1],
+        "fetch-failed" in _nc_to_fetch[1], "head-unreadable" in _nc_to_show[1]],
+       ["逾時" in x[1] for x in _NC_TO],
+       ["Traceback" in x[1] for x in _NC_TO],
+       _nc_git(_nc_w10, "log", "-1", "--format=%an").stdout.strip(),
+       [_nc_ledger(_nc_w11), _nc_ledger(_nc_w12), _nc_ledger(_nc_w16), _nc_count(_nc_w16)],
+       [_nc_clean(w) for w in (_nc_w10, _nc_w11, _nc_w12, _nc_w16)]],
+      [[1, 1, 1, 1], [True, True, True, True], [True, True, True, True],
+       [False, False, False, False],
+       "ai-pulse-cost", [None, None, None, 1], ["", "", "", ""]])
+
+# 主 transcript 的壞行跟 subagent 同一套：那一行帳本 usd_equiv 是 None、note 寫檔名與行號，不安靜跳過。
+_NC_TR_MAINBAD = _nc_transcript("sess-mainbad", _NC_MARK, [_nc_asst(_NC_U1, rid="req_main")])
+with open(_NC_TR_MAINBAD, "a", encoding="utf-8") as _f:
+    _f.write("{broken\n" + _json.dumps(_nc_asst(_NC_U2, rid="req_after")) + "\n")
+_nc_w15, _ = _nc_repo("w15")
+_nc_mainbad = _nc_run(_nc_w15, _NC_TR_MAINBAD, session="s-mainbad")
+_nc_mainbad_row = (_ncl.parse_ledger(_nc_ledger(_nc_w15) or "") or [{}])[0]
+acase("成本帳 hook：主 transcript 任何一行不是合法 JSON → 那一行 usd_equiv 是 None、note 寫檔名與行號"
+      "（守門的讀法會安靜跳過壞行，照樣給一個金額）",
+      [_nc_mainbad[0], _nc_mainbad_row.get("usd_equiv", "缺"), _nc_mainbad_row.get("requests"),
+       "sess-mainbad.jsonl" in (_nc_mainbad_row.get("note") or ""),
+       "第 3 行" in (_nc_mainbad_row.get("note") or "")],
+      [0, None, 2, True, True])
+
+
+# 判夜班：第一則使用者訊息要以身分句開頭（去掉前導空白），中間引用不算。只在成本 hook 這一側收緊。
+_nc_w7, _ = _nc_repo("w7")
+_NC_TR_QUOTE = _nc_transcript("quote", "幫我看一下這句「" + _ng.ROUTINE_MARKER + "」為什麼沒作用",
+                              _NC_ENTRIES[1:])
+_nc_quote = _nc_run(_nc_w7, _NC_TR_QUOTE)
+_nc_quote_led = _nc_ledger(_nc_w7)
+_NC_TR_WS = _nc_transcript("leading-ws", "\n  " + _NC_MARK, _NC_ENTRIES[1:])
+_nc_ws = _nc_run(_nc_w7, _NC_TR_WS, session="s-ws")
+acase("成本帳 hook：第一句中間引用身分句的雲端 session 不寫檔（要以 ROUTINE_MARKER 開頭，前導空白可去）；"
+      "stderr 講它含身分句但不是開頭",
+      [_nc_quote[0], _nc_quote_led, "開頭" in _nc_quote[1],
+       [r["session_id"] for r in _ncl.parse_ledger(_nc_ledger(_nc_w7) or "")]],
+      [0, None, True, ["s-ws"]])
+
+# subagent 的 request 存在 `<transcript 去掉 .jsonl>/subagents/**/*.jsonl`，主檔只留 Agent 的 tool_use。
+_NC_TR_SA = _nc_transcript("sess-sa", _NC_MARK, [_nc_asst(_NC_U1, rid="req_main")])
+_nc_sa_dir = _nc_root / "sess-sa" / "subagents"
+(_nc_sa_dir / "workflows" / "wf_1").mkdir(parents=True)
+(_nc_sa_dir / "agent-a1.jsonl").write_text(
+    _json.dumps(_nc_asst(_NC_U2, rid="req_sub")) + "\n" + _json.dumps(_nc_asst(_NC_U2, rid="req_sub"))
+    + "\n", "utf-8")
+(_nc_sa_dir / "agent-a1.meta.json").write_text('{"agentType": "Explore"}', "utf-8")
+(_nc_sa_dir / "workflows" / "wf_1" / "agent-a2.jsonl").write_text(
+    _json.dumps(_nc_asst(_NC_U3, rid="req_wf")) + "\n", "utf-8")
+_nc_sa_entries, _nc_sa_problems = _nc.subagent_entries(_NC_TR_SA)
+_nc_w9, _ = _nc_repo("w9")
+_nc_sa = _nc_run(_nc_w9, _NC_TR_SA, session="s-sa")
+_nc_sa_row = (_ncl.parse_ledger(_nc_ledger(_nc_w9) or "") or [{}])[0]
+acase("成本帳 hook：連 subagent 的 transcript 一起讀（含巢狀目錄），依各自的 requestId 去重後加總"
+      "（主檔只留 Agent 的 tool_use；只讀主檔會安靜少算 subagent 那一截）",
+      [len(_nc_sa_entries), _nc_sa_problems, _nc_sa_row.get("requests"), _nc_sa_row.get("usd_equiv", "缺"),
+       _nc.subagent_entries(_NC_TR)],
+      [3, [], 3, 0.387222, ([], [])])
+_NC_TR_SABAD = _nc_transcript("sess-sabad", _NC_MARK, [_nc_asst(_NC_U1, rid="req_main")])
+(_nc_root / "sess-sabad" / "subagents").mkdir(parents=True)
+(_nc_root / "sess-sabad" / "subagents" / "agent-b.jsonl").write_text(
+    _json.dumps(_nc_asst(_NC_U2, rid="req_sub")) + "\n{broken\n", "utf-8")
+_nc_run(_nc_w9, _NC_TR_SABAD, session="s-sabad")
+_nc_sabad_row = next((r for r in _ncl.parse_ledger(_nc_ledger(_nc_w9) or "")
+                      if r["session_id"] == "s-sabad"), {})
+_NC_TR_SALOCK = _nc_transcript("sess-salock", _NC_MARK, [_nc_asst(_NC_U1, rid="req_main")])
+_nc_lock = _nc_root / "sess-salock" / "subagents" / "locked"
+_nc_lock.mkdir(parents=True)
+_nc_lock.chmod(0)
+_nc_salock = _nc.subagent_entries(_NC_TR_SALOCK)
+_nc_lock.chmod(0o755)
+acase("成本帳 hook：subagent 檔解析失敗、目錄讀不到 → 那一行 usd_equiv 是 None、note 寫原因（不安靜少算）",
+      [_nc_sabad_row.get("usd_equiv", "缺"), "subagent" in (_nc_sabad_row.get("note") or ""),
+       "agent-b.jsonl" in (_nc_sabad_row.get("note") or ""), bool(_nc_salock[1])],
+      [None, True, True, True])
+
+# driver 只在開新的一天時讀帳本：昨天（UTC）的所有行加總；同一天第二次 run 不改 cost_prev。
+# 真的跑 pulse-nightly 的 main（vault 不是 git repo，align-main 會停住，但狀態檔在那之前就建好了）。
+from datetime import timedelta as _nc_td  # noqa: E402
+_nc_v = _nc_root / "vault"
+(_nc_v / "_probe").mkdir(parents=True)
+_NC_UTODAY = _ng_clock.utc_today()
+_nc_yday = (_NC_UTODAY - _nc_td(days=1)).isoformat()
+_nc_2ago = (_NC_UTODAY - _nc_td(days=2)).isoformat()
+_nc_led = _nc_v / "_probe" / "nightly-cost.jsonl"
+_nc_led.write_text(_ncl.dump_ledger([
+    {"date": _nc_2ago, "session_id": "a", "usd_equiv": 0.3, "note": None},
+    {"date": _nc_yday, "session_id": "b", "usd_equiv": 1.25, "note": None},
+    {"date": _nc_yday, "session_id": "c", "usd_equiv": 0.5, "note": None}]), "utf-8")
+
+
+def _nc_drive():
+    _subprocess.run([sys.executable, os.path.join(_HERE, "pulse-nightly.py"), "run"],
+                    cwd=str(_nc_v), capture_output=True, text=True,
+                    env={**os.environ, "VAULT_DIR": str(_nc_v)})
+    return _json.loads((_nc_v / "_probe" / "nightly-run.json").read_text("utf-8")).get("cost_prev")
+
+
+_nc_cp1 = _nc_drive()
+# 同一晚的 Stop 記下今天的一行、也改了昨天那幾行：之後同一天的 run 都不能讓摘要改字。
+_nc_led.write_text(_ncl.dump_ledger([
+    {"date": _nc_yday, "session_id": "b", "usd_equiv": 9.99, "note": None},
+    {"date": _NC_UTODAY.isoformat(), "session_id": "d", "usd_equiv": 3.0, "note": None}]), "utf-8")
+_nc_cp2 = _nc_drive()
+_NC_CP_WANT = {"date": _nc_yday, "rows": 2, "usd_equiv": 1.75, "note": None, "latest": _nc_yday}
+acase("夜班：driver 開新的一天時把帳本裡 date 等於昨天的所有行加總放進 cost_prev，"
+      "同一天第二次 run 不再改它（否則今晚記到一半的金額會被標成前一晚，摘要中途改字、守門比對不上）",
+      [_nc_cp1, _nc_cp2], [_NC_CP_WANT, _NC_CP_WANT])
+
+
+def _nc_vault(name, rows=None, text=None):
+    d = _nc_root / name / "_probe"
+    d.mkdir(parents=True)
+    (d / "nightly-cost.jsonl").write_text(text if text is not None else _ncl.dump_ledger(rows),
+                                          "utf-8")
+    return _nc_root / name
+
+
+_nc_badprev = _nl.cost_prev_entry(_nc_vault("bad-vault", text="not json\n"), "2026-09-30")
+_nc_mixprev = _nl.cost_prev_entry(_nc_vault("mix-vault", [
+    {"date": "2026-09-29", "session_id": "p", "usd_equiv": 1.0, "note": None},
+    {"date": "2026-09-29", "session_id": "q", "usd_equiv": None, "note": "claude-opus-9 不在牌價表"}]),
+    "2026-09-30")
+_nc_gapprev = _nl.cost_prev_entry(_nc_vault("gap-vault", [
+    {"date": "2026-09-26", "session_id": "p", "usd_equiv": 1.0, "note": None},
+    {"date": "2026-09-27", "session_id": "q", "usd_equiv": 2.0, "note": None}]), "2026-09-30")
+acase("夜班：cost_prev_entry 沒有帳本回 None；帳本壞掉回量不到並寫明讀不進來；"
+      "昨天一行有金額一行 null → 那天是 null、原因列出那一行的 note（不把 null 當 0 加）；"
+      "昨天沒有任何行 → rows 0 與最近一行的日期（不把更早那晚標成前一晚）；只有今天的行 → None",
+      [_nl.cost_prev_entry(_nc_root / "no-vault", "2026-09-30"),
+       [_nc_badprev["usd_equiv"], "讀不進來" in (_nc_badprev["note"] or "")],
+       [_nc_mixprev["rows"], _nc_mixprev["usd_equiv"], _nc_mixprev["note"]],
+       [_nc_gapprev["rows"], _nc_gapprev["usd_equiv"], _nc_gapprev["latest"]],
+       _nl.cost_prev_entry(_nc_vault("today-vault", [
+           {"date": "2026-09-30", "session_id": "p", "usd_equiv": 1.0, "note": None}]),
+           "2026-09-30")],
+      [None, [None, True], [2, None, "claude-opus-9 不在牌價表"], [0, None, "2026-09-27"], None])
+
+# 摘要「寫作端成本」那一行：四種雲端狀態＋本機外殼照舊。summary_lines 只吃 state。
+_NC_SUM = {"date": "d", "stages": [{"id": "enrich-write", "status": "ok", "note": ""}]}
+
+
+def _nc_costline(state):
+    return next(l for l in _nl.summary_lines(state) if "寫作端成本" in l).split(None, 1)[1]
+
+
+acase("夜班：摘要成本那一行分得開（有金額／前一晚量不到印原因／前一晚沒有帳本行／帳本沒有任何行），"
+      "本機外殼有 cost_usd 照舊印當晚總額",
+      [_nc_costline(dict(_NC_SUM, cost_prev={"date": "2026-09-29", "rows": 2,
+                                             "usd_equiv": 1.23456, "note": None})),
+       _nc_costline(dict(_NC_SUM, cost_prev={"date": "2026-09-29", "rows": 2, "usd_equiv": None,
+                                             "note": "claude-opus-9 不在牌價表"})),
+       _nc_costline(dict(_NC_SUM, cost_prev={"date": "2026-09-29", "rows": 0, "usd_equiv": None,
+                                             "note": None, "latest": "2026-09-27"})),
+       _nc_costline(dict(_NC_SUM, cost_prev=None)),
+       _nc_costline({"date": "d", "cost_prev": {"date": "2026-09-29", "rows": 1, "usd_equiv": 1.0},
+                     "stages": [{"id": "enrich-write", "status": "ok", "note": "",
+                                 "cost_usd": 0.42}]})],
+      ["前一晚 USD 1.2346（API 等價，2026-09-29，收尾 hook 記）",
+       "前一晚**量不到**（2026-09-29，claude-opus-9 不在牌價表）",
+       "前一晚沒有帳本紀錄（最近一筆 2026-09-27）",
+       "帳本還沒有紀錄（`_probe/nightly-cost.jsonl`）",
+       "USD 0.4200"])
+acase("夜班：summary_lines 的簽名只吃 state（守門的 Stop 檢查靠它重算摘要）",
+      list(_inspect.signature(_nl.summary_lines).parameters), ["state"])
+
+# 監看：依 date 把同一天的多行加總，任一行 null 那天就是 null；近 7／30 天，窗口不含今天，
+# 缺的天數從帳本第一行起算。
+_NC_MROWS = [{"date": "2026-09-20", "usd_equiv": 1.0},
+             {"date": "2026-10-05", "usd_equiv": 2.0}, {"date": "2026-10-05", "usd_equiv": 0.25},
+             {"date": "2026-10-07", "usd_equiv": None}, {"date": "2026-10-07", "usd_equiv": None},
+             {"date": "2026-10-08", "usd_equiv": 1.0}, {"date": "2026-10-08", "usd_equiv": None},
+             {"date": "2026-10-09", "usd_equiv": 0.5},
+             {"date": "2026-10-10", "usd_equiv": 9.0}]
+acase("監看：夜班成本的 7／30 天窗口（同一天多行加總；一行有金額一行 null 那天是 null、不當 0 加；"
+      "不含今天；null 的天數與行數都數；缺日從帳本第一行起算）",
+      [_ncl.window_stats(_NC_MROWS, "2026-10-10", 7), _ncl.window_stats(_NC_MROWS, "2026-10-10", 30)],
+      [{"days": 7, "usd": 2.75, "priced_days": 2, "null_days": 2, "null_rows": 3, "missing": 3},
+       {"days": 30, "usd": 3.75, "priced_days": 3, "null_days": 2, "null_rows": 3, "missing": 15}])
+_NC_MLINES = _mm.nightly_cost_lines(_NC_MROWS, None, "2026-10-10")
+acase("監看：夜班成本那一段印近 7 天與近 30 天；讀不到帳本就明說讀不到；一天都沒金額不印成 USD 0",
+      [_NC_MLINES[1], _NC_MLINES[2],
+       "讀不到帳本" in _mm.nightly_cost_lines(None, "x 不存在", "2026-10-10")[0],
+       "USD 0" in "\n".join(_mm.nightly_cost_lines([{"date": "2026-10-09", "usd_equiv": None}],
+                                                    None, "2026-10-10"))],
+      ["  近 7 天 USD 2.7500｜有金額 2 天、量不到 2 天（null 3 行）、沒有帳本行 3 天",
+       "  近 30 天 USD 3.7500｜有金額 3 天、量不到 2 天（null 3 行）、沒有帳本行 15 天",
+       True, False])
+_nc_mon = _subprocess.run([sys.executable, os.path.join(_HERE, "pulse-monitor.py"), "--top", "1"],
+                          capture_output=True, text=True,
+                          env={**os.environ, "VAULT_DIR": os.path.join(_HERE, "..")})
+acase("監看：人看的報告真的印出夜班成本那一段（接線）",
+      [_nc_mon.returncode, "夜班成本" in _nc_mon.stdout], [0, True])
+
+_nc_src = open(os.path.join(_HERE, "nightly-cost.py"), encoding="utf-8").read()
+_nl_src2 = open(os.path.join(_HERE, "pulse-nightly.py"), encoding="utf-8").read()
+_mm_src = open(os.path.join(_HERE, "pulse-monitor.py"), encoding="utf-8").read()
+acase("成本帳：接線（hook 真的呼叫 record／commit_ledger／restore_ledger；driver 摘要走 cost_text、"
+      "開新一天走 cost_prev_entry；監看 main 走 nightly_cost_lines）",
+      [_nl.calls_in(_nc_src, "record", "main"), _nl.calls_in(_nc_src, "commit_ledger", "record"),
+       _nl.calls_in(_nc_src, "restore_ledger", "commit_ledger"),
+       _nl.calls_in(_nl_src2, "cost_text", "summary_lines"),
+       _nl.calls_in(_nl_src2, "cost_prev_entry", "main"),
+       _nl.calls_in(_nl_src2, "cost_prev_entry", "advance"),
+       _nl.calls_in(_mm_src, "nightly_cost_lines", "main")],
+      [True, True, True, True, True, False, True])
+acase("成本帳：身分句與讀 transcript 都從守門 import，不另抄一份標記；判夜班走 is_cost_routine（以身分句開頭）",
+      [_ng.ROUTINE_MARKER in _nc_src, "nightly-guard.py" in _nc_src,
+       "ng.first_user_text(" in _nc_src, "ng.ROUTINE_MARKER" in _nc_src,
+       _nl.calls_in(_nc_src, "is_cost_routine", "main"),
+       _nl.calls_in(_nc_src, "subagent_entries", "main"),
+       _nl.calls_in(_nc_src, "origin_in_sync", "record"),
+       [_nc.is_cost_routine(t, "身分句") for t in ("身分句。", "  \n身分句", "引用「身分句」", "", None)]],
+      [False, True, True, True, True, True, True, [True, True, False, False, False]])
+acase("成本帳：.claude/settings.json 的 Stop 同時有守門與成本帳兩條（接線掉了不會有任何錯誤）",
+      [any("nightly-guard.py\" stop" in c for c in _ng_stop),
+       any(c == 'python3 "$CLAUDE_PROJECT_DIR/scripts/nightly-cost.py"' for c in _ng_stop)],
+      [True, True])
+# PR #105 第三次審查 R3-F-1：平台預設的 hook timeout 跟 git 逾時一樣長，git 還沒逾時 hook 就先被殺，
+# 寫完帳本、`git add` 之後被殺，帳本留 dirty、堵死守門的狀態檔出口。hook timeout 要蓋得住最壞路徑。
+_nc_hook = [h for g in _ng_hooks.get("Stop", []) for h in g.get("hooks", [])
+            if h.get("command", "").endswith('scripts/nightly-cost.py"')]
+_nc_budget = (getattr(_nc, "MAX_GIT_CALLS", 0) * _nc.GIT_TIMEOUT
+              + getattr(_nc, "GUARD_GIT_SECONDS", 0))
+acase("成本帳：hook 的 timeout 蓋得住最壞路徑（git 指令數 × 逾時＋守門兩次 git），git 還沒逾時 hook 不會先被殺",
+      [len(_nc_hook), getattr(_nc, "MAX_GIT_CALLS", None), _nc.GIT_TIMEOUT,
+       getattr(_nc, "GUARD_GIT_SECONDS", None),
+       isinstance((_nc_hook or [{}])[0].get("timeout"), int)
+       and (_nc_hook or [{}])[0].get("timeout") > _nc_budget],
+      [1, 10, 30, 40, True])
+shutil.rmtree(_nc_root)
 
 print("offline self-test\n" + "-" * 70)
 fails = 0
