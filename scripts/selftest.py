@@ -10192,8 +10192,8 @@ _nc_again = [_nc_run(_nc_w0, _NC_TR), _nc_run(_nc_w0, _NC_TR_LATE)]
 acase("成本帳 hook：同一個 session 第二次 Stop 不再寫也不再 commit（HEAD 已經有這個 session_id）"
       "（否則每被多擋一輪帳本就變、又 commit、push、又製造競態，可能循環；代價是那幾輪不記）",
       [[x[0] for x in _nc_again], all("skipped" in x[1] for x in _nc_again), _nc_count(_nc_w0),
-       _ncl.parse_ledger(_nc_ledger(_nc_w0))[0]["requests"], _nc_clean(_nc_w0)],
-      [[0, 0], True, 2, 4, ""])
+       [r["requests"] for r in _ncl.parse_ledger(_nc_ledger(_nc_w0))], _nc_clean(_nc_w0)],
+      [[0, 0], True, 2, [4], ""])
 acase("成本帳 hook：內容跟 HEAD 一樣就不 commit",
       [_nc.commit_ledger(_nc_w0, _nc_ledger(_nc_w0), "2026-09-30")[0], _nc_count(_nc_w0)],
       ["unchanged", 2])
@@ -10306,10 +10306,10 @@ _nc_sa_dir = _nc_root / "sess-sa" / "subagents"
 _nc_sa_entries, _nc_sa_problems = _nc.subagent_entries(_NC_TR_SA)
 _nc_w9, _ = _nc_repo("w9")
 _nc_sa = _nc_run(_nc_w9, _NC_TR_SA, session="s-sa")
-_nc_sa_row = _ncl.parse_ledger(_nc_ledger(_nc_w9))[0]
+_nc_sa_row = (_ncl.parse_ledger(_nc_ledger(_nc_w9) or "") or [{}])[0]
 acase("成本帳 hook：連 subagent 的 transcript 一起讀（含巢狀目錄），依各自的 requestId 去重後加總"
       "（主檔只留 Agent 的 tool_use；只讀主檔會安靜少算 subagent 那一截）",
-      [len(_nc_sa_entries), _nc_sa_problems, _nc_sa_row["requests"], _nc_sa_row["usd_equiv"],
+      [len(_nc_sa_entries), _nc_sa_problems, _nc_sa_row.get("requests"), _nc_sa_row.get("usd_equiv", "缺"),
        _nc.subagent_entries(_NC_TR)],
       [3, [], 3, 0.387222, ([], [])])
 _NC_TR_SABAD = _nc_transcript("sess-sabad", _NC_MARK, [_nc_asst(_NC_U1, rid="req_main")])
@@ -10317,7 +10317,8 @@ _NC_TR_SABAD = _nc_transcript("sess-sabad", _NC_MARK, [_nc_asst(_NC_U1, rid="req
 (_nc_root / "sess-sabad" / "subagents" / "agent-b.jsonl").write_text(
     _json.dumps(_nc_asst(_NC_U2, rid="req_sub")) + "\n{broken\n", "utf-8")
 _nc_run(_nc_w9, _NC_TR_SABAD, session="s-sabad")
-_nc_sabad_row = [r for r in _ncl.parse_ledger(_nc_ledger(_nc_w9)) if r["session_id"] == "s-sabad"][0]
+_nc_sabad_row = next((r for r in _ncl.parse_ledger(_nc_ledger(_nc_w9) or "")
+                      if r["session_id"] == "s-sabad"), {})
 _NC_TR_SALOCK = _nc_transcript("sess-salock", _NC_MARK, [_nc_asst(_NC_U1, rid="req_main")])
 _nc_lock = _nc_root / "sess-salock" / "subagents" / "locked"
 _nc_lock.mkdir(parents=True)
@@ -10325,8 +10326,8 @@ _nc_lock.chmod(0)
 _nc_salock = _nc.subagent_entries(_NC_TR_SALOCK)
 _nc_lock.chmod(0o755)
 acase("成本帳 hook：subagent 檔解析失敗、目錄讀不到 → 那一行 usd_equiv 是 None、note 寫原因（不安靜少算）",
-      [_nc_sabad_row["usd_equiv"], "subagent" in (_nc_sabad_row["note"] or ""),
-       "agent-b.jsonl" in (_nc_sabad_row["note"] or ""), bool(_nc_salock[1])],
+      [_nc_sabad_row.get("usd_equiv", "缺"), "subagent" in (_nc_sabad_row.get("note") or ""),
+       "agent-b.jsonl" in (_nc_sabad_row.get("note") or ""), bool(_nc_salock[1])],
       [None, True, True, True])
 
 # driver 只在開新的一天時讀帳本：昨天（UTC）的所有行加總；同一天第二次 run 不改 cost_prev。
