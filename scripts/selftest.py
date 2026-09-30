@@ -3392,6 +3392,16 @@ def _bd_rd(vault, *rel):
     return _json.loads(p.read_text("utf-8")) if p.exists() else None
 
 
+def _bd_txt(vault, *rel):
+    """讀文字檔；不在回 None（同 _bd_rd：變異讓碼沒出檔時要紅在比對上，不是崩在讀檔）。"""
+    p = vault.joinpath(*rel)
+    return p.read_text("utf-8") if p.exists() else None
+
+
+def _bd_cnt(text, needle):
+    return None if text is None else text.count(needle)
+
+
 def _bd_strip(doc):
     """去掉每一列的 desc_zh 系列欄（board.json 不含譯文）。"""
     out = dict(doc)
@@ -3444,22 +3454,6 @@ with tempfile.TemporaryDirectory() as _bdtd:
           [_bd_rc2, _bd_calls2, _bd_gj2 == _bd_gj1,
            (_bdv / "dist" / "github" / "index.html").exists()],
           [0, 0, True, True])
-    # 頁首與頁尾的「更新」時間要等於 board 算榜那一刻，不是出頁當下：同一頁資料是舊的、
-    # 時間卻是新的，讀者會以為榜剛更新。用一個絕不可能等於 now 的字串，比對才不會碰巧。
-    _bd_fixed = "2020-01-01 00:00 台北時間（selftest 固定值）"
-    _bd_bp.write_text(_json.dumps(dict(_bd_board, generated=_bd_fixed),
-                                  ensure_ascii=False, indent=2), encoding="utf-8")
-    _bd_rc2t, _, _, _ = _bd_main(_bdv, ["--render-only"], None)
-    _bd_html2 = (_bdv / "dist" / "github" / "index.html").read_text("utf-8")
-    _bd_rc2u, _, _, _ = _bd_main(_bdv, [], _U_REPOS)     # 快照沒更新的抓取班，同一份 emit_board
-    _bd_html2u = (_bdv / "dist" / "github" / "index.html").read_text("utf-8")
-    acase("GitHub 榜：board 存在時頁面頁首與頁尾的「更新」時間等於 board 的 generated"
-          "（--render-only 與快照沒更新的抓取班都是；用出頁當下的時間，同一頁就有兩個時間）",
-          [_bd_rc2t, _bd_html2.count(f"更新 {_bd_fixed}"), _bd_html2.count(f"更新於 {_bd_fixed}"),
-           _bd_rc2u, _bd_html2u.count(f"更新 {_bd_fixed}"), _bd_html2u.count(f"更新於 {_bd_fixed}")],
-          [0, 1, 1, 0, 1, 1])
-    _bd_bp.write_bytes(_bd_board_b)
-    (_bdv / "_github" / "desc-coverage.json").unlink(missing_ok=True)
     acase("GitHub 榜：--render-only 執行期間 socket.connect／create_connection／getaddrinfo 都是會 raise 的替身，"
           "照樣 exit 0 並出檔（不打網路是「沒有東西連出去」，不只是「collect 沒被呼叫」）",
           [_bd_rc2, (_bdv / "dist" / "data" / "github.json").exists()], [0, True])
@@ -3468,7 +3462,23 @@ with tempfile.TemporaryDirectory() as _bdtd:
           [(_bdv / "_github" / "state.json").read_bytes() == _bd_state_b,
            (_bdv / "_github" / "desc-coverage.json").exists(),
            _bd_bp.read_bytes() == _bd_board_b], [True, False, True])
-    _bd_state_dry = (_bdv / "_github" / "state.json").read_text("utf-8")
+    _bd_state_dry = _bd_txt(_bdv, "_github", "state.json")
+    # 頁首與頁尾的「更新」時間要等於 board 算榜那一刻，不是出頁當下：同一頁資料是舊的、
+    # 時間卻是新的，讀者會以為榜剛更新。用一個絕不可能等於 now 的字串，比對才不會碰巧。
+    _bd_fixed = "2020-01-01 00:00 台北時間（selftest 固定值）"
+    _bd_bp.write_text(_json.dumps(dict(_bd_board, generated=_bd_fixed),
+                                  ensure_ascii=False, indent=2), encoding="utf-8")
+    _bd_rc2t, _, _, _ = _bd_main(_bdv, ["--render-only"], None)
+    _bd_html2 = _bd_txt(_bdv, "dist", "github", "index.html")
+    _bd_rc2u, _, _, _ = _bd_main(_bdv, [], _U_REPOS)     # 快照沒更新的抓取班，同一份 emit_board
+    _bd_html2u = _bd_txt(_bdv, "dist", "github", "index.html")
+    acase("GitHub 榜：board 存在時頁面頁首與頁尾的「更新」時間等於 board 的 generated"
+          "（--render-only 與快照沒更新的抓取班都是；用出頁當下的時間，同一頁就有兩個時間）",
+          [_bd_rc2t, _bd_cnt(_bd_html2, f"更新 {_bd_fixed}"), _bd_cnt(_bd_html2, f"更新於 {_bd_fixed}"),
+           _bd_rc2u, _bd_cnt(_bd_html2u, f"更新 {_bd_fixed}"), _bd_cnt(_bd_html2u, f"更新於 {_bd_fixed}")],
+          [0, 1, 1, 0, 1, 1])
+    _bd_bp.write_bytes(_bd_board_b)
+    (_bdv / "_github" / "desc-coverage.json").unlink(missing_ok=True)
 
     # 快照沒更新（基線才 0 小時大）：board.json 一個 byte 都不變。collect 換成另一批星數，
     # 這樣「寫了」跟「沒寫」的 bytes 才不會碰巧一樣。
@@ -3541,7 +3551,7 @@ with tempfile.TemporaryDirectory() as _bdtd:
     _bd_bp.unlink(missing_ok=True)
     _bd_rc6, _, _bd_e6, _bd_calls6 = _bd_main(_bdv, ["--render-only"], None)
     _bd_gj6 = _bd_rd(_bdv, "dist", "data", "github.json") or {}
-    _bd_html6 = (_bdv / "dist" / "github" / "index.html").read_text("utf-8")
+    _bd_html6 = _bd_txt(_bdv, "dist", "github", "index.html") or ""
     acase("GitHub 榜：board.json 不存在時頁面的更新時間寫明是佔位"
           "（佔位頁沒有榜的時間可沿用，用當下時間但不能讓讀者以為那是榜的時間）",
           [_bd_html6.count("（佔位頁：尚無榜單）") >= 2], [True])

@@ -456,7 +456,7 @@ PLACEHOLDER_MARK = "（佔位頁：尚無榜單）"
 
 
 class BoardError(Exception):
-    """board.json 存在但壞了（不是合法 JSON、不是 object、缺 repos）。訊息帶路徑。"""
+    """board.json 存在但壞了（不是合法 JSON、不是 object、缺 repos、缺 generated）。訊息帶路徑。"""
 
 
 def load_board(vault):
@@ -516,7 +516,7 @@ def render_only(vault, out_dir):
     不打網路、不讀 token、不寫 state.json 與 desc-coverage.json——榜在 data-refresh
     算過一次了，這裡再算就是 baseline_days 0.0 那個 bug（見 references/github-board.md）。
     board.json 不存在寫 measured:false 佔位（exit 0）；壞掉（不是 JSON、不是 object、
-    缺 repos）exit 2 並帶路徑，不寫任何輸出。
+    缺 repos、缺 generated）exit 2 並帶路徑，不寫任何輸出。
     """
     try:
         doc, present = emit_board(vault, out_dir, datetime.now(timezone.utc))
