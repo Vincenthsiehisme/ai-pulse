@@ -9862,7 +9862,7 @@ with tempfile.TemporaryDirectory() as _cltd:
     acase("分類（實跑）：github.json 與 board.json 的 categories 依設定順序，分類榜收得到全部榜沒有的 repo",
           [_cl_rc1, [c["id"] for c in _cl_gj["categories"]], [c["id"] for c in _cl_bd["categories"]],
            [r["full_name"] for r in _cl_gj["repos"]], [r["full_name"] for r in _cl_gj["surging"]],
-           [r["full_name"] for r in _cl_mcp["surging"]]],
+           [r.get("full_name") for r in _cl_mcp["surging"]]],
           [0, ["open-models", "mcp"], ["open-models", "mcp"], ["big/a"], ["sml/x"], ["sml/x", "sml/y"]])
     acase("分類（實跑）：抓取模式把譯文掛到分類榜上，覆蓋率分母是全部榜與分類榜去重後的 repo 數"
           "（只數兩個全部榜的話分母是 2、分子是 0，而畫面上有 4 列、1 列有中文）",
