@@ -49,6 +49,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lib import clock  # noqa: E402  取日期的唯一入口，見 references/timezones.md
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 from lib.identity import NIGHT_SHIFT_AUTHOR  # noqa: E402  夜班 commit 身份單一真相源
+from lib import nightcost  # noqa: E402  雲端成本帳的格式，見 lib/nightcost.py
 
 STATE_REL = ("_probe", "nightly-run.json")
 
@@ -256,6 +257,51 @@ def keeps_output(spec, status):
     return bool(spec.get("summary_full") or status == "noted")
 
 
+def cost_text(state):
+    """摘要「寫作端成本」那一格。只吃狀態檔，純函式。
+
+    本機外殼有把 `cost_usd` 記回來就照舊印當晚總額。雲端沒有外殼，數字在收尾的 Stop
+    hook 才算得出來（`scripts/nightly-cost.py`），所以印的是 driver 開這一輪時從帳本
+    取的**前一晚**（`state["cost_prev"]`，昨天那一天所有 session 的合計）。四種長相要分得開：
+    有金額、前一晚量不到（印帳本記的原因）、前一晚沒有帳本行（印最近一筆是哪天，不把
+    更早那晚說成前一晚）、帳本還沒有任何一晚。規格 references/nightly-driver.md
+    〈一晚花多少錢，要是一個被記錄的量〉。
+    """
+    if any(st.get("cost_usd") is not None for st in state.get("stages", [])):
+        cost, _ = total_cost(state)
+        return f"USD {cost:.4f}"
+    prev = state.get("cost_prev")
+    if not prev:
+        return "帳本還沒有紀錄（`_probe/nightly-cost.jsonl`）"
+    if prev.get("rows") == 0:
+        return f"前一晚沒有帳本紀錄（最近一筆 {prev.get('latest')}）"
+    if prev.get("usd_equiv") is None:
+        return (f"前一晚**量不到**（{prev.get('date') or '日期量不到'}，"
+                f"{prev.get('note') or '帳本那一行沒有寫原因'}）")
+    return f"前一晚 USD {prev['usd_equiv']:.4f}（API 等價，{prev.get('date')}，收尾 hook 記）"
+
+
+def cost_prev_entry(vault, date_str):
+    """開新的一天時從帳本取前一晚（`date` 等於昨天）的合計，放進狀態檔。
+
+    沒有帳本、或帳本沒有早於今天的行回 None。形狀見 lib/nightcost.prev_night()。
+
+    **只在建立新一天的狀態檔時呼叫。** 帳本在一晚之內會被 Stop hook 加行，而摘要
+    每次都從狀態檔重組；把前一晚固定在開這一輪的那一刻，同一天之後的 `run` 不再
+    改它，摘要才不會中途改字、守門的 Stop 比對才對得上。
+    帳本壞掉時回一個量不到並寫明讀不進來，不裝成沒有帳本。
+    """
+    p = vault.joinpath(*nightcost.LEDGER_REL)
+    if not p.exists():
+        return None
+    try:
+        rows = nightcost.parse_ledger(p.read_text("utf-8"))
+    except (ValueError, OSError) as e:
+        return {"date": None, "rows": None, "usd_equiv": None,
+                "note": f"{nightcost.LEDGER_PATH} 讀不進來（{e}）", "latest": None}
+    return nightcost.prev_night(rows, date_str)
+
+
 def summary_lines(state):
     """從狀態檔組收尾摘要。
 
@@ -266,8 +312,7 @@ def summary_lines(state):
     for st in state.get("stages", []):
         note = (st.get("note") or "").strip()
         out.append(f"  {st['id']:<19} {st['status']:<8} {note}".rstrip())
-    cost, measured = total_cost(state)
-    out.append(f"  {'寫作端成本':<19} {'USD ' + format(cost, '.4f') if measured else '**量不到**（外殼沒有把數字傳回來）'}")
+    out.append(f"  {'寫作端成本':<19} {cost_text(state)}")
     tail = [st.get("full_output") for st in state.get("stages", []) if st.get("full_output")]
     for t in tail:
         out.append("")
@@ -732,7 +777,7 @@ def main():
 
     if state is None or state.get("date") != date_str or args.reset:
         state = {"date": date_str, "started_at": clock.utc_stamp(), "finished": False,
-                 "stages": []}
+                 "cost_prev": cost_prev_entry(vault, date_str), "stages": []}
     elif already_done(state, date_str):
         # 說出來，不要留一片空白。
         print("\n".join(summary_lines(state)))

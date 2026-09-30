@@ -3121,3 +3121,85 @@ selftest 把 `collect` 換成會 raise 的替身（記呼叫次數、崩潰時�
 ### 清單長度
 
 366 → 386。分片 4 片，每片 97 條。
+
+## 第七十一輪（2026-09-30，`feat/nightly-cost-ledger`）
+
+M380–M394、M436–M455、M461–M468，四十三條。守的是雲端夜班的成本帳：收尾的 Stop hook `scripts/nightly-cost.py` 讀
+transcript 記 token 與等價 USD，一個 session 一行寫進 `_probe/nightly-cost.jsonl` 並自己 commit、push。規格
+`references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉與 `references/nightly-guard.md`〈成本帳〉。
+
+這一層壞掉的樣子有三種，照這三種分：
+
+- **數字安靜地錯。** 不去重（M380）、牌價抄錯（M381）、缺拆分或表外 model 當成 0（M382、M383）、
+  拆分只看少了的方向（M439）、不看 `speed` 與 `server_tool_use`（M440、M441）、
+  前一晚量不到印成 USD 0（M392）、同一天的 null 行當 0 加（M442）、昨天沒有行就拿更早那晚當前一晚
+  （M443）、摘要不分「前一晚沒有帳本行」（M444）、監看窗口把今天或帳本開始之前的日子算進去（M393、M394）、
+  null 行數改數天數（M445）。這幾種都不會讓任何東西變紅，只會讓摘要上那個數字長得像真的。selftest 的
+  算式測試寫死期望值（112×2 + 2700×10 + 1.2M×0.2 + 10k×2.5 + 28k×4 ＝ USD 0.404224），不從同一支函式算期望值。
+- **帳本的 key 錯。** 回到以 date 當 key，同一天第二個 session 蓋掉第一個（M437）；session 的日期取
+  最後一筆紀錄，跨午夜的 session 換到隔天（M438）。
+- **收尾被堵住、循環，或 commit 落到不該去的地方。** 同一個 session 每次 Stop 都記（M436）、工作樹有別的
+  改動照樣寫（M384）、不在 main 照樣推（M385）、commit 失敗不還原帳本（M387）、內容沒變也 commit（M388）、
+  不看雲端與夜班標記（M389、M390）、作者用夜班的名字讓缺日警報假綠（M386）、每一次 run 都重讀帳本
+  讓摘要中途改字（M391）。
+
+### 行為那幾條是真的跑 git
+
+commit 條件的測試不用替身：selftest 開拋棄式 repo 加 bare remote，真的跑 hook。push 被拒是在
+bare remote 裝 `pre-receive` 拒絕，commit 失敗是在工作 repo 裝 `pre-commit` 拒絕，兩種都驗
+hook 結束時 `git status --porcelain` 是空的。同一個 session 第二次 Stop（transcript 多了 request 也一樣）
+驗的是 commit 數不變。M391 也是真的跑兩次 `pulse-nightly.py run`，比狀態檔裡的 `cost_prev`。
+
+### 返工改了三條的 find
+
+主軸改版（`b44d5cc1652c`）之後，M383 的判斷改成先看「表外而且有 token」、M392 的那一行多了日期量不到
+的寫法，兩條的 find 當場不再命中，selftest「每個 find 剛好出現一次」紅給我看；M445 照原本的測試資料
+推算，null 天數剛好等於 null 行數，改壞也不會紅，所以先補了一天兩行都 null 的資料才加這條。
+
+M438 第一次跑是存活：跨午夜那一格的測試資料兩個時間戳寫成同一天（`10-01T23:50` 與 `10-01T00:20`），
+根本沒跨過午夜，取第一筆與取最後一筆給一樣的答案。改成 `10-02T00:20` 之後被殺。**那一格的名字寫著
+「跨午夜」，資料卻沒有跨**，是變異盤點抓到的，不是讀測試讀出來的。
+
+### 第二次返工（PR #105 Fable 審查）加的十條
+
+M446–M455 守四件事：subagent 的 transcript 有沒有一起讀、讀不全時是不是 null（M446–M450）；
+失敗的離開碼是不是 1（M451、M452）；成本 commit 是不是唯一被推的那一顆（M453、M454）；
+身分句是不是要在開頭（M455）。M390 與 M438 的 find 跟著改：判夜班改走 `is_cost_routine`，
+`date` 改從主檔取。本機領先與落後兩格都真的造出來（本機多一顆沒推的 commit；推上去之後
+`reset --hard HEAD~1`），fetch 失敗是把 origin 指到不存在的路徑。subagent 目錄讀不到是
+`chmod 0` 一層子目錄，`os.walk` 的 `onerror` 接得到；`pathlib.rglob` 會安靜吞掉權限錯誤
+（這台 Python 3.9.6 實測回空清單），所以不用它。
+
+M385 在這一輪第一次跑是 crashed：不在 main 也照樣推之後，成本 commit 從 session 分支推上了 origin/main，
+回到 main 的本機落後 origin，後面那一格被新的 origin 檢查擋下、帳本是空的，而那一格用 `[0]` 取帳本行，
+selftest 當場崩潰，印不出 `N/M passed`。改成不靠 `[0]` 之後是 killed（7 條紅）。崩潰不算被殺，這一條是
+被 mutate.py 分開標出來才看到的。
+
+### 第三次返工（verifier r3 與 Fable 重審）加的八條：失敗要看得見
+
+M461–M468 守的是同一件事：**失敗有沒有被歸成失敗**。git 逾時沒接住時 `TimeoutExpired` 穿到最外層，
+traceback 之後 exit 0，push 卡住的那一晚在平台上看不見（M461、M467）；fetch 失敗混成一般的跳過或
+不算失敗（M462、M463）；比對回到 `refs/remotes/origin/main`，single-branch clone 每晚都跳過（M464）；
+主 transcript 的壞行安靜跳過、照樣給金額（M465、M466）；讀 `HEAD` 帳本逾時被當成「HEAD 沒有帳本」
+（M468）。M448、M452、M453 的 find 跟著改。
+
+逾時的測試不真的等逾時：selftest 把 `nightly-cost` 模組裡的 `subprocess` 換成一個替身，只讓指定的
+那一種 git 子命令（push、commit、fetch、show）丟 `TimeoutExpired`，其餘照真的跑。替身呼叫外面再包一層
+`except`，逾時穿出來時變成一格紅，不讓 selftest 崩潰成 crashed。single-branch 那一格真的
+`git clone --single-branch --branch side`，驗過 clone 裡沒有 `refs/remotes/origin/main` 才往下。
+
+### 沒進清單的一種
+
+「push 失敗就重試或強推」不是一個 find／replace 做得出來的變異（要加一段碼）。push 被拒那一格斷言
+remote 沒動、本機 commit 留著，強推會讓前者變紅；沒進清單。
+
+### 第三次審查的 hook timeout（M482）
+
+PR #105 第三次 Fable 審查挑出：成本帳 hook 沒設 timeout，平台預設 60 秒跟 `GIT_TIMEOUT` 一樣長，git 還沒逾時
+hook 就先被殺，帳本可能留 dirty。修法是 hook 帶 `timeout: 420`、`GIT_TIMEOUT` 降到 30，selftest 驗 timeout 大於
+`MAX_GIT_CALLS × GIT_TIMEOUT + GUARD_GIT_SECONDS`。M482 把 `GIT_TIMEOUT` 調回 60，最壞路徑變 640 秒、超過 420，
+那一格紅。
+
+### 清單長度
+
+386 → 430。分片 4 片，前兩片 108 條、其餘兩片各 107 條（這一輪在第七十輪之後併進 `main`；分支上是 366 → 410）。
