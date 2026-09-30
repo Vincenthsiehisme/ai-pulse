@@ -145,10 +145,16 @@ Edit 這些工具時觸發；hook 程式自己跑的 `git` 是平台叫起來的
   的出口只准狀態檔，帳本一髒，`git add`／`git commit` 那兩個出口就被堵死，agent 會卡在收尾。
 - **離開碼。** 跳過、沒變、推上去都是 0。fetch 失敗、commit 失敗、push 失敗、`HEAD` 的帳本讀不進來
   是 1：Stop hook 只有 2 會擋，1 不擋 session 結束，但平台看得見，不會只躺在 stderr 裡。沒有任何一種
-  是 2。**git 逾時（60 秒）算進那一步的失敗**：push 逾時是 push-failed、commit 逾時是 commit-failed
+  是 2。**git 逾時（30 秒）算進那一步的失敗**：push 逾時是 push-failed、commit 逾時是 commit-failed
   （照舊還原帳本）、fetch 逾時是 fetch-failed、讀 `HEAD` 的帳本逾時是 head-unreadable（不當成 `HEAD`
   沒有帳本，否則 session 只記一次的檢查會放行、還原時會把帳本刪掉）。原因一律照格式印在 stderr，
   不印 traceback。
+- **hook 的 timeout 要蓋得住最壞路徑。** 平台預設的 hook timeout 是 60 秒，跟 git 逾時一樣長時，git 還沒逾時
+  hook 就先被殺，寫完帳本、`git add` 之後被殺，帳本留 dirty，上一條「絕不能 dirty」就破了（PR #105 R3-F-1）。
+  所以 `.claude/settings.json` 這條 hook 帶 `timeout`，而且要大於「一次 hook 最壞路徑的 git 指令數 × git 逾時
+  ＋守門 `GitFacts` 兩次 git 的逾時」：現在是 10 × 30 ＋ 2 × 20 ＝ 340 秒，timeout 設 420。三個數字是
+  `nightly-cost.py` 的 `MAX_GIT_CALLS`、`GIT_TIMEOUT`、`GUARD_GIT_SECONDS`，selftest 驗 timeout 大於它們算出來的
+  值；改了 git 呼叫的路徑，`MAX_GIT_CALLS` 要跟著重數。
 
 **已知的競態。** 同一個 Stop 事件的兩支 hook 並行，平台自己的 Stop 檢查可能在成本帳
 commit 與 push 完成前看到改動，多擋一輪。因為同一個 session 只 commit 一次，多擋的那幾輪

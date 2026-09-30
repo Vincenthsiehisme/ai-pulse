@@ -68,8 +68,15 @@ def guard():
     return _GUARD[0]
 
 
-GIT_TIMEOUT = 60
+GIT_TIMEOUT = 30
 TIMEOUT_RC = 124
+# 一次 hook 最壞路徑的 git 指令數：讀 HEAD 的帳本 1、fetch 加兩次 rev-parse 3、commit_ledger 讀 HEAD、
+# add、commit 3、失敗還原 3（讀 HEAD、checkout 或 rm、status）。成功路徑是 8（最後一個是 push）。
+MAX_GIT_CALLS = 10
+# 守門 GitFacts 的 status 與 rev-parse，各自逾時 20 秒（nightly-guard.py，這裡只記帳不改它）。
+GUARD_GIT_SECONDS = 2 * 20
+# .claude/settings.json 這條 hook 的 timeout 要大於 MAX_GIT_CALLS × GIT_TIMEOUT + GUARD_GIT_SECONDS：
+# 否則 git 還沒逾時、hook 就先被平台殺掉，寫完帳本、`git add` 之後被殺，帳本留 dirty（PR #105 R3-F-1）。
 
 
 def _git(repo, *args):

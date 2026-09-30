@@ -3150,7 +3150,7 @@ traceback 之後 exit 0，push 卡住的那一晚在平台上看不見（M461、
 主 transcript 的壞行安靜跳過、照樣給金額（M465、M466）；讀 `HEAD` 帳本逾時被當成「HEAD 沒有帳本」
 （M468）。M448、M452、M453 的 find 跟著改。
 
-逾時的測試不真的等 60 秒：selftest 把 `nightly-cost` 模組裡的 `subprocess` 換成一個替身，只讓指定的
+逾時的測試不真的等逾時：selftest 把 `nightly-cost` 模組裡的 `subprocess` 換成一個替身，只讓指定的
 那一種 git 子命令（push、commit、fetch、show）丟 `TimeoutExpired`，其餘照真的跑。替身呼叫外面再包一層
 `except`，逾時穿出來時變成一格紅，不讓 selftest 崩潰成 crashed。single-branch 那一格真的
 `git clone --single-branch --branch side`，驗過 clone 裡沒有 `refs/remotes/origin/main` 才往下。
@@ -3160,6 +3160,13 @@ traceback 之後 exit 0，push 卡住的那一晚在平台上看不見（M461、
 「push 失敗就重試或強推」不是一個 find／replace 做得出來的變異（要加一段碼）。push 被拒那一格斷言
 remote 沒動、本機 commit 留著，強推會讓前者變紅；沒進清單。
 
+### 第三次審查的 hook timeout（M482）
+
+PR #105 第三次 Fable 審查挑出：成本帳 hook 沒設 timeout，平台預設 60 秒跟 `GIT_TIMEOUT` 一樣長，git 還沒逾時
+hook 就先被殺，帳本可能留 dirty。修法是 hook 帶 `timeout: 420`、`GIT_TIMEOUT` 降到 30，selftest 驗 timeout 大於
+`MAX_GIT_CALLS × GIT_TIMEOUT + GUARD_GIT_SECONDS`。M482 把 `GIT_TIMEOUT` 調回 60，最壞路徑變 640 秒、超過 420，
+那一格紅。
+
 ### 清單長度
 
-366 → 409。分片 4 片，第一片 103 條、其餘三片各 102 條。
+366 → 410。分片 4 片，前兩片 103 條、其餘兩片各 102 條。

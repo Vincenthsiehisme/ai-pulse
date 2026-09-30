@@ -3550,3 +3550,11 @@ mutations:
     replace: "    if False:\n        raise GitTimeout(r.stderr)\n"
     survives: false
     why: ""
+
+  - id: M482
+    title: "成本帳的 git 逾時調回 60 秒（最壞路徑超過 hook timeout，git 還沒逾時 hook 就先被殺，帳本可能留 dirty）"
+    file: nightly-cost.py
+    find: "GIT_TIMEOUT = 30\n"
+    replace: "GIT_TIMEOUT = 60\n"
+    survives: false
+    why: ""

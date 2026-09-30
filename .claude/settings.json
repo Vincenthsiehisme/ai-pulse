@@ -20,7 +20,8 @@
           },
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/nightly-cost.py\""
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/nightly-cost.py\"",
+            "timeout": 420
           }
         ]
       }

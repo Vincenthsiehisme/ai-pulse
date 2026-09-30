@@ -10573,6 +10573,18 @@ acase("成本帳：.claude/settings.json 的 Stop 同時有守門與成本帳兩
       [any("nightly-guard.py\" stop" in c for c in _ng_stop),
        any(c == 'python3 "$CLAUDE_PROJECT_DIR/scripts/nightly-cost.py"' for c in _ng_stop)],
       [True, True])
+# PR #105 第三次審查 R3-F-1：平台預設的 hook timeout 跟 git 逾時一樣長，git 還沒逾時 hook 就先被殺，
+# 寫完帳本、`git add` 之後被殺，帳本留 dirty、堵死守門的狀態檔出口。hook timeout 要蓋得住最壞路徑。
+_nc_hook = [h for g in _ng_hooks.get("Stop", []) for h in g.get("hooks", [])
+            if h.get("command", "").endswith('scripts/nightly-cost.py"')]
+_nc_budget = (getattr(_nc, "MAX_GIT_CALLS", 0) * _nc.GIT_TIMEOUT
+              + getattr(_nc, "GUARD_GIT_SECONDS", 0))
+acase("成本帳：hook 的 timeout 蓋得住最壞路徑（git 指令數 × 逾時＋守門兩次 git），git 還沒逾時 hook 不會先被殺",
+      [len(_nc_hook), getattr(_nc, "MAX_GIT_CALLS", None), _nc.GIT_TIMEOUT,
+       getattr(_nc, "GUARD_GIT_SECONDS", None),
+       isinstance((_nc_hook or [{}])[0].get("timeout"), int)
+       and (_nc_hook or [{}])[0].get("timeout") > _nc_budget],
+      [1, 10, 30, 40, True])
 shutil.rmtree(_nc_root)
 
 print("offline self-test\n" + "-" * 70)

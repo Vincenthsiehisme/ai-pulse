@@ -110,6 +110,7 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`版面沒有人量過真的幾何`](#版面沒有人量過真的幾何) | 站台只測「規則寫對了」，沒測「畫面對了」。兩次都是人眼在截圖上看到的，而測試全綠 | **不會** | 否（但它讓假綠燈成立） |
 | [`mutate-跑的時候可以改檔案`](#mutate-跑的時候可以改檔案) | 變異測試會把檔案改掉再改回來，中途編輯會落在那個窗口裡；已經發生三次，三次都是 `git status` 抓到的 | 不會 | 否 |
 | [`成本帳不看-service_tier`](#成本帳不看-service_tier) | 夜班成本帳只看 `speed` 不看 `service_tier`，priority tier 的 request 會照標準價算出一個金額 | 不會 | 否（還沒查到走 priority 的一晚；走到的那天就是） |
+| [`成本帳-收尾打磨`](#成本帳-收尾打磨) | 成本帳 hook 在逾時與還原失敗時的幾個邊角：第一晚還原判錯、status 逾時當乾淨、守門 git 逾時算跳過、一段逾時處理沒有測試、routine 觸發文字被包一層時不記 | 不會 | 否 |
 | [`分支刪不掉`](#分支刪不掉) | 只剩「我做完你來合」這個交棒介面不會叫（刪分支與推分支都已證實可行） | — | — |
 
 ---
@@ -799,6 +800,25 @@ GitHub 榜單待譯清單這些同樣是「Actions 產、潤稿端讀」的快�
 要做的事跟 `speed` 那一條同一個形狀：`service_tier` 不是 `standard` 的 request，那一行
 `usd_equiv` 寫 null、`note` 寫原因；等牌價表有 priority 的價再改成照表算。規格在
 `references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉。
+
+## `成本帳-收尾打磨`
+
+2026-09-30～10-01 PR #105 第三次 Fable 審查與 verifier 第三、四輪挑出的。同一輪的 R3-F-1（hook timeout 跟 git
+逾時一樣長）已在同一個 PR 修掉；下面是打磨，都沒動碼。規格在 `references/nightly-guard.md`〈成本帳：守門之外唯一會
+commit 的程式〉。
+
+- **R3-F-2：第一晚讀 HEAD 逾時，還原會判錯。** `restore_ledger` 讀 `HEAD` 的帳本逾時時當成 HEAD 有帳本，只做
+  `checkout`；第一晚 HEAD 其實還沒有這個檔，`checkout` 失敗，帳本留著沒還原。可以改用
+  `git ls-files --error-unmatch` 判 HEAD 有沒有這個檔。
+- **T3-F4-2：還原後的 status 逾時被當成乾淨。** `restore_ledger` 最後的 `status --porcelain` 逾時回 rc 124、stdout
+  空，被讀成乾淨，「還原後仍然是 dirty」那句警告不會印。跟 R3-F-2 碰在一起時，帳本留著、回報卻說乾淨。
+- **T3-F4-1：守門的 git 逾時算跳過，不算失敗。** `record` 裡守門 `GitFacts` 的 status 與 rev-parse 逾時（20 秒）
+  或失敗時回 skipped、exit 0，跟 docstring「git 逾時一律當成那一步失敗」不符，那一晚在平台上看不見。
+- **T3-F4-3：`commit_ledger` 的 `except GitTimeout` 沒有測試走得到。** 替身讓所有 `show` 都逾時，`record` 那一步就先
+  出去了。拿掉這段會落到 `except Exception`，結果一樣是 commit-failed，但訊息帶 traceback，違反「不印
+  traceback」，卻沒有一格會紅。
+- **T3-F3-2：routine 觸發文字被包一層時不記。** `is_cost_routine` 要第一則使用者訊息以身分句開頭；`/fire` 帶的
+  text 要是被平台包在別的字前面，那一晚整個不記。上線後看 C3 那晚的 transcript 第一則訊息長什麼樣再決定。
 
 ---
 
