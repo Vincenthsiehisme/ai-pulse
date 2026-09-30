@@ -3651,3 +3651,85 @@ mutations:
     replace: "    if False:"
     survives: false
     why: ""
+
+  # ── 第七十二輪續（2026-09-30，PR #106 Fable 審查返工 F-1～F-3）─────────────
+
+  - id: M471
+    title: "GraphQL 欄位級錯誤不看（rN 是 dict、pushedAt 被置 null，照樣當成查到了）"
+    file: pulse-github.py
+    find: "        if alias in field_err:\n            continue\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M472
+    title: "剪枝要看的欄位缺或是 null 也照判（null 的 pushedAt 被讀成 45 天沒 push，活著的 repo 被剪）"
+    file: pulse-github.py
+    find: "                if bad:\n"
+    replace: "                if False:\n"
+    survives: false
+    why: ""
+
+  - id: M473
+    title: "pushedAt 不在必填欄位（null 的 pushedAt 被當成 45 天沒 push 而剪掉）"
+    file: pulse-github.py
+    find: "GRAPHQL_REQUIRED = (\"nameWithOwner\", \"pushedAt\", \"isArchived\")"
+    replace: "GRAPHQL_REQUIRED = (\"nameWithOwner\", \"isArchived\")"
+    survives: false
+    why: ""
+
+  - id: M474
+    title: "nameWithOwner 不在必填欄位（null 的 nameWithOwner 被當成改名而剪掉）"
+    file: pulse-github.py
+    find: "GRAPHQL_REQUIRED = (\"nameWithOwner\", \"pushedAt\", \"isArchived\")"
+    replace: "GRAPHQL_REQUIRED = (\"pushedAt\", \"isArchived\")"
+    survives: false
+    why: ""
+
+  - id: M475
+    title: "GraphQL 的 stargazerCount 是 null 照樣進池（split_tiers 丟 TypeError，整條鏈炸掉）"
+    file: pulse-github.py
+    find: "                if not isinstance(node.get(\"stargazerCount\"), int):\n                    bad.append(\"stargazerCount\")\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M476
+    title: "欄位 null 的 repo 不計入「沒有明確結果」（stdout 看不出這一晚有幾個沒量到）"
+    file: pulse-github.py
+    find: "                    unknown += 1\n                    continue\n"
+    replace: "                    continue\n"
+    survives: false
+    why: ""
+
+  - id: M477
+    title: "Search 的 incomplete_results 為真照樣算成功（GitHub 自己說沒搜完，池子少了一截沒人知道）"
+    file: pulse-github.py
+    find: "    if body.get(\"incomplete_results\"):"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M478
+    title: "Search 200 空 items 算成功（30 次全空的那一晚被當成「今天沒有 repo」，補量出一份只有追蹤名單的榜）"
+    file: pulse-github.py
+    find: "    if not items:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M479
+    title: "Search 那筆的 stargazers_count 是 null 照樣進池（split_tiers 丟 TypeError）"
+    file: pulse-github.py
+    find: "                    if not isinstance(it.get(\"stargazers_count\"), int):"
+    replace: "                    if False:"
+    survives: false
+    why: ""
+
+  - id: M480
+    title: "NOT_FOUND 落在欄位上也當成 repo 查不到（欄位級的 NOT_FOUND 不是刪除）"
+    file: pulse-github.py
+    find: "        if len(path) == 1 and e.get(\"type\") == \"NOT_FOUND\":"
+    replace: "        if e.get(\"type\") == \"NOT_FOUND\":"
+    survives: false
+    why: ""

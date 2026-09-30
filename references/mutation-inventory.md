@@ -3171,6 +3171,15 @@ GraphQL 回應的判讀（`parse_graphql`）是純函式，直接餵三種錯誤
 
 `collect()` 多了 `state` 參數，M435 塞進去的那一行改成 `collect(cfg, token, now, state)`，守的事不變。
 
+### PR #106 審查返工（M471–M480）
+
+2026-09-30 PR #106 Fable 審查挑出三個會壞的地方，同一輪補上。壞掉的樣子都是「這次不知道」被當成
+「確定」：GraphQL 的 `data.rN` 是 dict、某個欄位因欄位級錯誤被置 null，null 的 `pushedAt` 被讀成
+45 天沒 push、null 的 `nameWithOwner` 被讀成改名，活著的 repo 就從 `state.json` 剪掉（M471–M474、
+M476、M480）；Search 回 200 但 `items` 是空的或 `incomplete_results` 為真被算成功，30 次全空的那一晚
+會補量出一份只有追蹤名單的榜（M477、M478）；星數是 null 的那一筆進池，`split_tiers` 丟 TypeError
+（M475、M479）。HTTP 那一層用塞進 `sys.modules` 的假 `requests` 驗，因為這台沒有 `requests`。
+
 ### 清單長度
 
-386 → 422。分片 4 片，前兩片各 106 條、後兩片各 105 條。
+386 → 432。分片 4 片，每片 108 條。
