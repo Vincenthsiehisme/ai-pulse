@@ -55,9 +55,9 @@
 
 | 情況 | 行為 |
 |---|---|
-| `board.json` 存在且合法 | 用 `ghdesc.attach` 掛 `_github/desc-zh.json` 的譯文，寫 `dist/data/github.json` 與 `dist/github/index.html`；`generated` 沿用 board 的（榜是那一刻算的） |
-| `board.json` 不存在 | 寫 `measured: false` 佔位（格式同抓取全失敗那份），stderr 印一行，exit 0 |
-| 存在但不是合法 JSON、不是 object、或缺 `repos` | exit 2，訊息帶路徑；不寫任何輸出檔 |
+| `board.json` 存在且合法 | 用 `ghdesc.attach` 掛 `_github/desc-zh.json` 的譯文，寫 `dist/data/github.json` 與 `dist/github/index.html`；資料的 `generated` 與**頁面頁首、頁尾的「更新」時間**都用 board 的 `generated`（榜是那一刻算的，不是出頁當下） |
+| `board.json` 不存在 | 寫 `measured: false` 佔位（格式同抓取全失敗那份），stderr 印一行，exit 0；佔位頁沒有榜的時間可沿用，更新時間用當下，並在後面標「（佔位頁：尚無榜單）」 |
+| 存在但不是合法 JSON、不是 object、缺 `repos`、或缺 `generated` | exit 2，訊息帶路徑；不寫任何輸出檔 |
 
 `--render-only` 不能與 `--snapshot`、`--snapshot-if-older-than` 併用（argparse 直接拒）。
 
@@ -229,6 +229,7 @@
 ```
 
 每一列另有 `category`（六類的 id 之一或 `unclassified`）。
+`generated` 必填：頁面頁首、頁尾的「更新」時間用它。
 
 與 `dist/data/github.json` 的差別只有一個：每列少了 `desc_zh`。`board.json` 只在抓取成功且
 快照有更新時寫，所以檔案裡的 `measured` 永遠是 `true`；`measured: false` 只出現在 render-only

@@ -3415,6 +3415,16 @@ def _bd_rd(vault, *rel):
     return _json.loads(p.read_text("utf-8")) if p.exists() else None
 
 
+def _bd_txt(vault, *rel):
+    """讀文字檔；不在回 None（同 _bd_rd：變異讓碼沒出檔時要紅在比對上，不是崩在讀檔）。"""
+    p = vault.joinpath(*rel)
+    return p.read_text("utf-8") if p.exists() else None
+
+
+def _bd_cnt(text, needle):
+    return None if text is None else text.count(needle)
+
+
 def _bd_strip(doc):
     """去掉每一列的 desc_zh 系列欄（board.json 不含譯文），全部榜與每一類的兩榜都去。"""
     def rows(rs):
@@ -3482,7 +3492,23 @@ with tempfile.TemporaryDirectory() as _bdtd:
           [(_bdv / "_github" / "state.json").read_bytes() == _bd_state_b,
            (_bdv / "_github" / "desc-coverage.json").exists(),
            _bd_bp.read_bytes() == _bd_board_b], [True, False, True])
-    _bd_state_dry = (_bdv / "_github" / "state.json").read_text("utf-8")
+    _bd_state_dry = _bd_txt(_bdv, "_github", "state.json")
+    # 頁首與頁尾的「更新」時間要等於 board 算榜那一刻，不是出頁當下：同一頁資料是舊的、
+    # 時間卻是新的，讀者會以為榜剛更新。用一個絕不可能等於 now 的字串，比對才不會碰巧。
+    _bd_fixed = "2020-01-01 00:00 台北時間（selftest 固定值）"
+    _bd_bp.write_text(_json.dumps(dict(_bd_board, generated=_bd_fixed),
+                                  ensure_ascii=False, indent=2), encoding="utf-8")
+    _bd_rc2t, _, _, _ = _bd_main(_bdv, ["--render-only"], None)
+    _bd_html2 = _bd_txt(_bdv, "dist", "github", "index.html")
+    _bd_rc2u, _, _, _ = _bd_main(_bdv, [], _U_REPOS)     # 快照沒更新的抓取班，同一份 emit_board
+    _bd_html2u = _bd_txt(_bdv, "dist", "github", "index.html")
+    acase("GitHub 榜：board 存在時頁面頁首與頁尾的「更新」時間等於 board 的 generated"
+          "（--render-only 與快照沒更新的抓取班都是；用出頁當下的時間，同一頁就有兩個時間）",
+          [_bd_rc2t, _bd_cnt(_bd_html2, f"更新 {_bd_fixed}"), _bd_cnt(_bd_html2, f"更新於 {_bd_fixed}"),
+           _bd_rc2u, _bd_cnt(_bd_html2u, f"更新 {_bd_fixed}"), _bd_cnt(_bd_html2u, f"更新於 {_bd_fixed}")],
+          [0, 1, 1, 0, 1, 1])
+    _bd_bp.write_bytes(_bd_board_b)
+    (_bdv / "_github" / "desc-coverage.json").unlink(missing_ok=True)
 
     # 快照沒更新（基線才 0 小時大）：board.json 一個 byte 都不變。collect 換成另一批星數，
     # 這樣「寫了」跟「沒寫」的 bytes 才不會碰巧一樣。
@@ -3545,10 +3571,20 @@ with tempfile.TemporaryDirectory() as _bdtd:
     acase("GitHub 榜：board.json 缺 repos → exit 2，訊息帶路徑",
           [_bd_rc5, str(_bd_bp) in _bd_e5, (_bdv / "dist").exists()], [2, True, False])
 
+    _bd_bp.write_text(_json.dumps({"count": 0, "repos": []}), encoding="utf-8")
+    _bd_rc5g, _, _bd_e5g, _ = _bd_main(_bdv, ["--render-only"], None)
+    acase("GitHub 榜：board.json 缺 generated → exit 2，訊息帶路徑"
+          "（頁面的更新時間要用它；缺了就用當下時間頂替，等於又讓同一頁有兩個時間）",
+          [_bd_rc5g, str(_bd_bp) in _bd_e5g, (_bdv / "dist").exists()], [2, True, False])
+
     # board.json 不存在：measured false 佔位，stderr 一行，exit 0。
     _bd_bp.unlink(missing_ok=True)
     _bd_rc6, _, _bd_e6, _bd_calls6 = _bd_main(_bdv, ["--render-only"], None)
     _bd_gj6 = _bd_rd(_bdv, "dist", "data", "github.json") or {}
+    _bd_html6 = _bd_txt(_bdv, "dist", "github", "index.html") or ""
+    acase("GitHub 榜：board.json 不存在時頁面的更新時間寫明是佔位"
+          "（佔位頁沒有榜的時間可沿用，用當下時間但不能讓讀者以為那是榜的時間）",
+          [_bd_html6.count("（佔位頁：尚無榜單）") >= 2], [True])
     acase("GitHub 榜：board.json 不存在 → measured 是 false 的佔位、stderr 印一行、exit 0"
           "（少了 measured 這一格，0 條的榜單跟「今天真的沒有 repo 上榜」在下游眼裡一樣）",
           [_bd_rc6, _bd_gj6.get("measured"), _bd_gj6.get("count"), _bd_gj6.get("repos"),
@@ -3569,6 +3605,17 @@ with tempfile.TemporaryDirectory() as _bdtd:
            _bd_cov7.get("ranked", "MISSING"), _bd_cov7.get("with_zh", "MISSING"),
            _bd_bp.exists()],
           [0, False, [], None, None, False])
+
+# data-refresh.yml 的 pulse-github 那一步要帶快照旗標。少了它 do_snapshot 恆為假，
+# board.json 永遠不再寫、state.json 也不再更新，而 CI 全綠、網站停在舊榜。
+_bd_dr_lines = [ln.strip() for i in _step_with("scripts/pulse-github.py")
+                for ln in _step_run(i).splitlines()
+                if "scripts/pulse-github.py" in ln and not ln.strip().startswith("#")]
+acase("GitHub 榜：data-refresh.yml 的 pulse-github 那一步只有一行、帶 --snapshot-if-older-than "
+      "或 --snapshot（少了旗標 board.json 就永遠不再寫，而 CI 全綠）",
+      [len(_bd_dr_lines), any("--snapshot" in ln for ln in _bd_dr_lines),
+       any("--render-only" in ln for ln in _bd_dr_lines)],
+      [1, True, False])
 
 # pages.yml：GitHub 那一步帶 --render-only、env 沒有 GITHUB_TOKEN。
 _bd_pages = _yaml.safe_load(open(os.path.join(_HERE, "..", ".github", "workflows", "pages.yml"),

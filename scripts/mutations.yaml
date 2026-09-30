@@ -3619,3 +3619,35 @@ mutations:
     replace: "repositoryTopics(first: 6)"
     survives: false
     why: ""
+
+  - id: M456
+    title: "board 存在時頁面的更新時間用出頁當下（資料是算榜那一刻、時間是現在，同一頁兩個時間）"
+    file: pulse-github.py
+    find: "page_stamp = board[\"generated\"]"
+    replace: "page_stamp = clock.display_stamp(now)"
+    survives: false
+    why: ""
+
+  - id: M457
+    title: "佔位頁的更新時間不標佔位（當下時間被讀成榜的時間）"
+    file: pulse-github.py
+    find: "page_stamp = doc[\"generated\"] + PLACEHOLDER_MARK"
+    replace: "page_stamp = doc[\"generated\"]"
+    survives: false
+    why: ""
+
+  - id: M458
+    title: "data-refresh 的 pulse-github 那一步拿掉快照旗標（do_snapshot 恆為假，board.json 永遠不再寫，CI 全綠）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "python scripts/pulse-github.py --snapshot-if-older-than 20"
+    replace: "python scripts/pulse-github.py"
+    survives: false
+    why: ""
+
+  - id: M459
+    title: "load_board 不驗 generated（缺了才 KeyError，訊息不帶路徑）"
+    file: pulse-github.py
+    find: "    if not isinstance(board.get(\"generated\"), str):"
+    replace: "    if False:"
+    survives: false
+    why: ""
