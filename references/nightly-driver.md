@@ -405,6 +405,9 @@ health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分
   主檔只留 `Agent` 的 tool_use（2026-09-30 在本機 `~/.claude/projects/` 實查過這個結構）。
   只讀主檔會安靜少算 subagent 那一截。目錄不存在就是沒有 subagent；目錄或檔讀不到、任何一行
   不是合法 JSON，那一行的 `usd_equiv` 寫 `null`、`note` 寫哪個檔哪一行。`date` 只看主檔。
+  **主檔也是同一套**：主 transcript 任何一行不是合法 JSON，同樣寫 `null` 與檔名、行號。守門讀
+  transcript 的函式會安靜跳過壞行（它只要找第一則訊息），成本帳不能沿用：跳過的那一行可能正是
+  一個 request，少算了還照樣給金額。
 - 只看 `type: assistant` 而且帶 `message.usage` 的行。同一個 request 在 transcript
   裡會拆成好幾行（一個 content block 一行，`usage` 每行重複），所以**同一個
   `requestId` 只算一次**，沒有 `requestId` 就看 `message.id`，兩個都沒有就一行算一個。

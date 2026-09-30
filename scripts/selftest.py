@@ -10271,13 +10271,114 @@ _nc_behind = _nc_run(_nc_w5, _NC_TR)
 _nc_w6, _ = _nc_repo("w6")
 _nc_git(_nc_w6, "remote", "set-url", "origin", str(_nc_root / "no-such-remote.git"))
 _nc_nofetch = _nc_run(_nc_w6, _NC_TR)
-acase("成本帳 hook：本機領先或落後 origin/main、fetch 失敗 → 都不寫、不推、exit 0、stderr 講原因"
+acase("成本帳 hook：本機領先或落後 origin/main → 不寫、不推、skipped、exit 0；fetch 失敗 → fetch-failed、"
+      "exit 1、不寫不推；stderr 都講原因"
       "（`git push origin HEAD:main` 會把本機領先的 commit 一起推，成本 commit 必須是唯一被推的那一顆）",
       [[x[0] for x in (_nc_ahead, _nc_behind, _nc_nofetch)],
        [_nc_ledger(w) for w in (_nc_w4, _nc_w5, _nc_w6)],
        [_nc_count(_nc_w4), _nc_git(_nc_b4, "rev-list", "--count", "main").stdout.strip()],
-       ["origin/main" in _nc_ahead[1], "origin/main" in _nc_behind[1], "fetch" in _nc_nofetch[1]]],
-      [[0, 0, 0], [None, None, None], [2, "1"], [True, True, True]])
+       ["origin/main" in _nc_ahead[1], "origin/main" in _nc_behind[1],
+        "fetch-failed" in _nc_nofetch[1], "skipped" in _nc_ahead[1]]],
+      [[0, 0, 1], [None, None, None], [2, "1"], [True, True, True, True]])
+
+# 比對用 fetch 剛拿回來的 FETCH_HEAD，不靠 refs/remotes/origin/main：`--single-branch` 的 clone
+# 其 fetch refspec 沒涵蓋 main，`git fetch origin main` 不會建出 origin/main。
+def _nc_single_branch(name, ahead=False):
+    bare = _nc_root / f"{name}.git"
+    seed, _ = _nc_repo(f"{name}-seed")
+    _nc_git(seed, "remote", "set-url", "origin", str(bare))
+    _subprocess.run(["git", "init", "-q", "--bare", str(bare)], capture_output=True)
+    _nc_git(bare, "symbolic-ref", "HEAD", "refs/heads/main")
+    _nc_git(seed, "push", "-q", "origin", "main", "main:side")
+    work = _nc_root / name
+    _subprocess.run(["git", "clone", "-q", "--single-branch", "--branch", "side", str(bare), str(work)],
+                    capture_output=True)
+    for k, v in (("user.name", "t"), ("user.email", "t@t"), ("commit.gpgsign", "false")):
+        _nc_git(work, "config", k, v)
+    _nc_git(work, "fetch", "-q", "origin", "main")
+    _nc_git(work, "checkout", "-q", "-b", "main", "FETCH_HEAD")
+    if ahead:
+        (work / "local.txt").write_text("x", "utf-8")
+        _nc_git(work, "add", "-A"); _nc_git(work, "commit", "-qm", "local only")
+    return work, bare
+
+
+_nc_w13, _nc_b13 = _nc_single_branch("w13")
+_nc_sb_has_origin_main = _nc_git(_nc_w13, "rev-parse", "--verify", "-q",
+                                 "refs/remotes/origin/main").returncode == 0
+_nc_sb = _nc_run(_nc_w13, _NC_TR)
+_nc_w14, _nc_b14 = _nc_single_branch("w14", ahead=True)
+_nc_sb_ahead = _nc_run(_nc_w14, _NC_TR)
+acase("成本帳 hook：`--single-branch` clone（fetch refspec 沒涵蓋 main、沒有 origin/main）照樣判得出 "
+      "HEAD 是否等於遠端 main：相等就推、本機領先就跳過（比對用 FETCH_HEAD）",
+      [_nc_sb_has_origin_main, _nc_sb[0], "pushed" in _nc_sb[1],
+       _nc_git(_nc_b13, "log", "-1", "--format=%an", "main").stdout.strip(),
+       _nc_sb_ahead[0], "skipped" in _nc_sb_ahead[1], _nc_ledger(_nc_w14)],
+      [False, 0, True, "ai-pulse-cost", 0, True, None])
+
+# git 逾時（subprocess.TimeoutExpired）也歸進失敗類：push 逾時 push-failed、commit 逾時 commit-failed
+# （照舊還原帳本）、fetch 逾時 fetch-failed，都 exit 1，stderr 照格式印原因、不印 traceback。
+import types as _nc_types  # noqa: E402
+
+
+def _nc_run_timeout(repo, transcript, word, session="s1"):
+    real = _subprocess.run
+
+    def _fake(cmd, *a, **k):
+        if word in cmd:
+            raise _subprocess.TimeoutExpired(cmd, k.get("timeout"))
+        return real(cmd, *a, **k)
+
+    saved = _nc.subprocess
+    _nc.subprocess = _nc_types.SimpleNamespace(
+        run=_fake, TimeoutExpired=_subprocess.TimeoutExpired,
+        SubprocessError=_subprocess.SubprocessError, CompletedProcess=_subprocess.CompletedProcess)
+    try:
+        return _nc_run(repo, transcript, session=session)
+    except Exception as e:  # 逾時穿出來也要變成一格紅，不是讓 selftest 崩潰
+        return "raised", repr(e)
+    finally:
+        _nc.subprocess = saved
+
+
+_nc_w10, _nc_b10 = _nc_repo("w10")
+_nc_to_push = _nc_run_timeout(_nc_w10, _NC_TR, "push")
+_nc_w11, _ = _nc_repo("w11")
+_nc_to_commit = _nc_run_timeout(_nc_w11, _NC_TR, "commit")
+_nc_w12, _ = _nc_repo("w12")
+_nc_to_fetch = _nc_run_timeout(_nc_w12, _NC_TR, "fetch")
+_nc_w16, _nc_b16 = _nc_repo("w16")
+_nc_to_show = _nc_run_timeout(_nc_w16, _NC_TR, "show")
+_NC_TO = (_nc_to_push, _nc_to_commit, _nc_to_fetch, _nc_to_show)
+acase("成本帳 hook：git 逾時歸進失敗類、exit 1、不印 traceback"
+      "（push 逾時留著本機 commit；commit 逾時照舊還原帳本；fetch 逾時 fetch-failed、不寫帳本；"
+      "讀 HEAD 帳本逾時是 head-unreadable，不當成 HEAD 沒有帳本）",
+      [[x[0] for x in _NC_TO],
+       ["push-failed" in _nc_to_push[1], "commit-failed" in _nc_to_commit[1],
+        "fetch-failed" in _nc_to_fetch[1], "head-unreadable" in _nc_to_show[1]],
+       ["逾時" in x[1] for x in _NC_TO],
+       ["Traceback" in x[1] for x in _NC_TO],
+       _nc_git(_nc_w10, "log", "-1", "--format=%an").stdout.strip(),
+       [_nc_ledger(_nc_w11), _nc_ledger(_nc_w12), _nc_ledger(_nc_w16), _nc_count(_nc_w16)],
+       [_nc_clean(w) for w in (_nc_w10, _nc_w11, _nc_w12, _nc_w16)]],
+      [[1, 1, 1, 1], [True, True, True, True], [True, True, True, True],
+       [False, False, False, False],
+       "ai-pulse-cost", [None, None, None, 1], ["", "", "", ""]])
+
+# 主 transcript 的壞行跟 subagent 同一套：那一行帳本 usd_equiv 是 None、note 寫檔名與行號，不安靜跳過。
+_NC_TR_MAINBAD = _nc_transcript("sess-mainbad", _NC_MARK, [_nc_asst(_NC_U1, rid="req_main")])
+with open(_NC_TR_MAINBAD, "a", encoding="utf-8") as _f:
+    _f.write("{broken\n" + _json.dumps(_nc_asst(_NC_U2, rid="req_after")) + "\n")
+_nc_w15, _ = _nc_repo("w15")
+_nc_mainbad = _nc_run(_nc_w15, _NC_TR_MAINBAD, session="s-mainbad")
+_nc_mainbad_row = (_ncl.parse_ledger(_nc_ledger(_nc_w15) or "") or [{}])[0]
+acase("成本帳 hook：主 transcript 任何一行不是合法 JSON → 那一行 usd_equiv 是 None、note 寫檔名與行號"
+      "（守門的讀法會安靜跳過壞行，照樣給一個金額）",
+      [_nc_mainbad[0], _nc_mainbad_row.get("usd_equiv", "缺"), _nc_mainbad_row.get("requests"),
+       "sess-mainbad.jsonl" in (_nc_mainbad_row.get("note") or ""),
+       "第 3 行" in (_nc_mainbad_row.get("note") or "")],
+      [0, None, 2, True, True])
+
 
 # 判夜班：第一則使用者訊息要以身分句開頭（去掉前導空白），中間引用不算。只在成本 hook 這一側收緊。
 _nc_w7, _ = _nc_repo("w7")

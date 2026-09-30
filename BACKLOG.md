@@ -109,6 +109,7 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`Meta-沒有來源`](#meta-沒有來源) | Meta 唯一的來源停更於 2023-05，這家公司在系統裡等於不存在 | 不會 | 是 |
 | [`版面沒有人量過真的幾何`](#版面沒有人量過真的幾何) | 站台只測「規則寫對了」，沒測「畫面對了」。兩次都是人眼在截圖上看到的，而測試全綠 | **不會** | 否（但它讓假綠燈成立） |
 | [`mutate-跑的時候可以改檔案`](#mutate-跑的時候可以改檔案) | 變異測試會把檔案改掉再改回來，中途編輯會落在那個窗口裡；已經發生三次，三次都是 `git status` 抓到的 | 不會 | 否 |
+| [`成本帳不看-service_tier`](#成本帳不看-service_tier) | 夜班成本帳只看 `speed` 不看 `service_tier`，priority tier 的 request 會照標準價算出一個金額 | 不會 | 否（還沒查到走 priority 的一晚；走到的那天就是） |
 | [`分支刪不掉`](#分支刪不掉) | 只剩「我做完你來合」這個交棒介面不會叫（刪分支與推分支都已證實可行） | — | — |
 
 ---
@@ -789,9 +790,7 @@ GitHub 榜單待譯清單這些同樣是「Actions 產、潤稿端讀」的快�
 
 ## `成本帳不看-service_tier`
 
-來源：2026-09-30 PR #105 Fable 審查（F-5）。
-
-`scripts/nightly-cost.py` 記夜班的等價 USD 時，判「這個 request 能不能照牌價算」只看
+2026-09-30 PR #105 的 Fable 審查（F-5）抓到的。`scripts/nightly-cost.py` 記夜班的等價 USD 時，判「這個 request 能不能照牌價算」只看
 `usage.speed` 是不是 `standard`，**沒看 `usage.service_tier`**。`service_tier` 是 `priority`
 時牌價不同，而 `lib/nightcost.py` 的牌價表只有標準那一種價，碼照樣算出一個金額，**看起來像
 量到了，其實是用錯的價**。2026-09-30 在本機 transcript 看到的都是 `standard`，雲端夜班

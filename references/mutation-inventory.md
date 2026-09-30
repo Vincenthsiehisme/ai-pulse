@@ -3091,7 +3091,7 @@ selftest 從 yaml 取出那一步的 `run:`，墊一支假的 `curl` 與 `python
 
 ## 第七十一輪（2026-09-30，`feat/nightly-cost-ledger`）
 
-M380–M394、M436–M455，三十五條。守的是雲端夜班的成本帳：收尾的 Stop hook `scripts/nightly-cost.py` 讀
+M380–M394、M436–M455、M461–M468，四十三條。守的是雲端夜班的成本帳：收尾的 Stop hook `scripts/nightly-cost.py` 讀
 transcript 記 token 與等價 USD，一個 session 一行寫進 `_probe/nightly-cost.jsonl` 並自己 commit、push。規格
 `references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉與 `references/nightly-guard.md`〈成本帳〉。
 
@@ -3142,6 +3142,19 @@ M385 在這一輪第一次跑是 crashed：不在 main 也照樣推之後，成�
 selftest 當場崩潰，印不出 `N/M passed`。改成不靠 `[0]` 之後是 killed（7 條紅）。崩潰不算被殺，這一條是
 被 mutate.py 分開標出來才看到的。
 
+### 第三次返工（verifier r3 與 Fable 重審）加的八條：失敗要看得見
+
+M461–M468 守的是同一件事：**失敗有沒有被歸成失敗**。git 逾時沒接住時 `TimeoutExpired` 穿到最外層，
+traceback 之後 exit 0，push 卡住的那一晚在平台上看不見（M461、M467）；fetch 失敗混成一般的跳過或
+不算失敗（M462、M463）；比對回到 `refs/remotes/origin/main`，single-branch clone 每晚都跳過（M464）；
+主 transcript 的壞行安靜跳過、照樣給金額（M465、M466）；讀 `HEAD` 帳本逾時被當成「HEAD 沒有帳本」
+（M468）。M448、M452、M453 的 find 跟著改。
+
+逾時的測試不真的等 60 秒：selftest 把 `nightly-cost` 模組裡的 `subprocess` 換成一個替身，只讓指定的
+那一種 git 子命令（push、commit、fetch、show）丟 `TimeoutExpired`，其餘照真的跑。替身呼叫外面再包一層
+`except`，逾時穿出來時變成一格紅，不讓 selftest 崩潰成 crashed。single-branch 那一格真的
+`git clone --single-branch --branch side`，驗過 clone 裡沒有 `refs/remotes/origin/main` 才往下。
+
 ### 沒進清單的一種
 
 「push 失敗就重試或強推」不是一個 find／replace 做得出來的變異（要加一段碼）。push 被拒那一格斷言
@@ -3149,4 +3162,4 @@ remote 沒動、本機 commit 留著，強推會讓前者變紅；沒進清單�
 
 ### 清單長度
 
-366 → 401。分片 4 片，第一片 101 條、其餘三片各 100 條。
+366 → 409。分片 4 片，第一片 103 條、其餘三片各 102 條。

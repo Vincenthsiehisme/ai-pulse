@@ -174,13 +174,14 @@ def ledger_row(entries, session_id, prices=PRICES, problems=(), date_from=None):
     """帳本的一行，欄位順序固定（ROW_KEYS）。
 
     entries 是主檔加上 subagent 的所有紀錄；date 取 `date_from`（主檔，預設就是 entries）的
-    session_date()。problems 是讀 subagent 時讀不到的原因：有任何一條，那一行就算不了價。
+    session_date()。problems 是讀主檔或 subagent 時讀不到的原因（壞行、讀不到的檔或目錄）：
+    有任何一條，那一行就算不了價。
     """
     t = tally(entries, prices)
     if problems:
         t["usd_equiv"] = None
         t["note"] = "；".join([*([t["note"]] if t["note"] else []),
-                              "subagent 沒有讀全：" + "；".join(problems[:3])
+                              "transcript 沒有讀全：" + "；".join(problems[:3])
                               + ("…" if len(problems) > 3 else "")])
     src = entries if date_from is None else date_from
     t.update({"date": session_date(src), "session_id": session_id})

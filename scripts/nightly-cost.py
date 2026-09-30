@@ -27,10 +27,11 @@ session 不該被當成夜班去推 main。
 `HEAD == origin/main`，不相等或 fetch 失敗就跳過；否則 `git push origin HEAD:main` 會把本機
 領先的 commit 一起推上去。
 **subagent 也要算**：它們的 request 存在 `<transcript 去掉 .jsonl>/subagents/**/*.jsonl`，
-主檔只留 `Agent` 的 tool_use。讀不到或解析失敗時那一行 `usd_equiv` 是 null，不安靜少算。
+主檔只留 `Agent` 的 tool_use。主檔或 subagent 檔讀不到、任何一行解析失敗時，那一行
+`usd_equiv` 是 null、note 寫檔名與行號，不安靜少算。
 
-離開碼：跳過、沒變、推上去都是 0；commit 失敗、push 失敗、HEAD 的帳本讀不進來是 1
-（非阻擋，但平台看得見）。沒有任何一種是 2：成本帳記不到不擋 session 結束。
+離開碼：跳過、沒變、推上去都是 0；fetch 失敗、commit 失敗、push 失敗、HEAD 的帳本讀不進來
+是 1（非阻擋，但平台看得見），git 逾時算進那一步的失敗。沒有任何一種是 2：成本帳記不到不擋 session 結束。
 原因一定印在 stderr，不安靜吞掉。
 """
 import importlib.util
@@ -49,8 +50,8 @@ from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atom
 
 
 LEDGER = nightcost.LEDGER_PATH
-# 這三種 exit 1：非阻擋（Stop hook 只有 2 會擋），但平台看得見。其餘 exit 0。
-FAILED = ("head-unreadable", "commit-failed", "push-failed")
+# 這四種 exit 1：非阻擋（Stop hook 只有 2 會擋），但平台看得見。其餘 exit 0。
+FAILED = ("head-unreadable", "fetch-failed", "commit-failed", "push-failed")
 _GUARD = []
 
 
@@ -67,24 +68,50 @@ def guard():
     return _GUARD[0]
 
 
+GIT_TIMEOUT = 60
+TIMEOUT_RC = 124
+
+
 def _git(repo, *args):
-    return subprocess.run(["git", "-C", str(repo), *args], capture_output=True,
-                          text=True, timeout=60)
+    """跑一個 git 指令。**逾時也回一個失敗的結果**（rc 124、stderr 寫逾時），不讓
+    `subprocess.TimeoutExpired` 穿出去：穿出去就落到最外層的 traceback、exit 0，
+    push 或 commit 卡住的那一晚在平台上看不見（T3-F3-1）。"""
+    cmd = ["git", "-C", str(repo), *args]
+    try:
+        return subprocess.run(cmd, capture_output=True, text=True, timeout=GIT_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        return subprocess.CompletedProcess(cmd, TIMEOUT_RC, "",
+                                           f"git {' '.join(args[:2])} 逾時（{GIT_TIMEOUT} 秒）")
 
 
 def _why(r):
     return f"rc={r.returncode}：{(r.stderr or r.stdout or '').strip()[:300]}"
 
 
+class GitTimeout(Exception):
+    """git 逾時，而呼叫端不能把它當成「沒有」：例如 HEAD 讀不到不等於 HEAD 沒有帳本。"""
+
+
 def head_ledger(repo):
-    """HEAD 那一版帳本的內容；HEAD 裡沒有這個檔回 None。"""
+    """HEAD 那一版帳本的內容；HEAD 裡沒有這個檔回 None。逾時 raise GitTimeout。
+
+    逾時不能回 None：那會被讀成「HEAD 沒有帳本」，session 只記一次的檢查就放行了，
+    還原時還會把帳本刪掉。"""
     r = _git(repo, "show", f"HEAD:{LEDGER}")
+    if r.returncode == TIMEOUT_RC:
+        raise GitTimeout(r.stderr)
     return r.stdout if r.returncode == 0 else None
 
 
 def restore_ledger(repo):
-    """把帳本還原成 HEAD 那一版（HEAD 沒有就刪掉），index 一起還原。回還原後還髒不髒。"""
-    if head_ledger(repo) is None:
+    """把帳本還原成 HEAD 那一版（HEAD 沒有就刪掉），index 一起還原。回還原後還髒不髒。
+
+    讀 HEAD 逾時就不刪檔，只試 checkout：判不出 HEAD 有沒有這個檔時，刪掉比留著更糟。"""
+    try:
+        in_head = head_ledger(repo) is not None
+    except GitTimeout:
+        in_head = True
+    if not in_head:
         _git(repo, "rm", "-q", "--cached", "--ignore-unmatch", "--", LEDGER)
         p = Path(repo).joinpath(*nightcost.LEDGER_REL)
         if p.exists():
@@ -94,14 +121,31 @@ def restore_ledger(repo):
     return bool(_git(repo, "status", "--porcelain", "--", LEDGER).stdout.strip())
 
 
+def read_jsonl(path, label):
+    """一個 transcript 檔 → (紀錄, 讀不到的原因)。**任何一行不是合法 JSON 都記下來**，
+    不像守門的 `_transcript_entries` 安靜跳過：跳過的那一行可能正是一個 request，
+    少算了還照樣給金額（T3-F3-3）。讀不到整個檔時 raise OSError，由呼叫端決定。"""
+    entries, problems = [], []
+    for n, line in enumerate(Path(path).read_text("utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            obj = json.loads(line)
+        except ValueError:
+            problems.append(f"{label} {Path(path).name} 第 {n} 行不是合法 JSON")
+            continue
+        if isinstance(obj, dict):
+            entries.append(obj)
+    return entries, problems
+
+
 def subagent_entries(transcript_path):
     """這個 session 的 subagent transcript → (所有紀錄, 讀不到的原因清單)。
 
     路徑是 `<transcript 去掉 .jsonl>/subagents/` 底下所有 `*.jsonl`（含 workflows 之類的巢狀
     目錄），2026-09-30 在本機 `~/.claude/projects/` 實查過這個結構。目錄不存在是「沒有
     subagent」，不是錯。目錄或檔讀不到、任何一行不是合法 JSON，都記進原因清單：呼叫端
-    讓那一行的 `usd_equiv` 變成 null，不安靜少算。**不用守門的 `_transcript_entries`**：
-    它會跳過壞行，這裡要的正是看見壞行。
+    讓那一行的 `usd_equiv` 變成 null，不安靜少算。
     """
     root = Path(transcript_path).with_suffix("") / "subagents"
     if not root.exists():
@@ -115,36 +159,33 @@ def subagent_entries(transcript_path):
         files += [Path(dirpath) / n for n in names if n.endswith(".jsonl")]
     for f in sorted(files):
         try:
-            lines = f.read_text("utf-8").splitlines()
+            got, bad = read_jsonl(f, "subagent 檔")
         except (OSError, UnicodeDecodeError) as e:
             problems.append(f"subagent 檔 {f.name} 讀不到（{e}）")
             continue
-        for n, line in enumerate(lines, 1):
-            if not line.strip():
-                continue
-            try:
-                obj = json.loads(line)
-            except ValueError:
-                problems.append(f"subagent 檔 {f.name} 第 {n} 行不是合法 JSON")
-                continue
-            if isinstance(obj, dict):
-                entries.append(obj)
+        entries += got
+        problems += bad
     return entries, problems
 
 
 def origin_in_sync(repo):
-    """fetch origin main 之後 HEAD 是不是剛好等於 origin/main。回 (是不是, 不是的原因)。"""
+    """fetch origin main，再比 HEAD 跟剛拿回來的 FETCH_HEAD。回 (結果, 原因)。
+
+    結果 ∈ ok、fetch-failed（fetch 失敗或逾時，exit 1）、skipped（HEAD 不等於遠端 main）。
+    比 `FETCH_HEAD` 不比 `refs/remotes/origin/main`：`--single-branch` 之類 fetch refspec 沒涵蓋
+    main 的 clone，`git fetch origin main` 不會建出 origin/main（T3-F3-5）。
+    """
     r = _git(repo, "fetch", "-q", "origin", "main")
     if r.returncode != 0:
-        return False, f"git fetch origin main 失敗 {_why(r)}"
+        return "fetch-failed", f"git fetch origin main 失敗 {_why(r)}，這一次沒有記"
     head = _git(repo, "rev-parse", "HEAD")
-    remote = _git(repo, "rev-parse", "refs/remotes/origin/main")
+    remote = _git(repo, "rev-parse", "FETCH_HEAD")
     if head.returncode != 0 or remote.returncode != 0:
-        return False, f"查不到 HEAD 或 origin/main（{_why(head)}／{_why(remote)}）"
+        return "fetch-failed", f"查不到 HEAD 或 FETCH_HEAD（{_why(head)}／{_why(remote)}），這一次沒有記"
     if head.stdout.strip() != remote.stdout.strip():
-        return False, (f"HEAD（{head.stdout.strip()[:8]}）不等於 origin/main（{remote.stdout.strip()[:8]}），"
-                       "推上去會連帶推別的 commit 或被拒，這一次沒有記")
-    return True, ""
+        return "skipped", (f"HEAD（{head.stdout.strip()[:8]}）不等於剛 fetch 回來的 origin/main"
+                           f"（{remote.stdout.strip()[:8]}），推上去會連帶推別的 commit 或被拒，這一次沒有記")
+    return "ok", ""
 
 
 def commit_ledger(repo, text, day):
@@ -169,6 +210,10 @@ def commit_ledger(repo, text, day):
             still = restore_ledger(repo)
             return "commit-failed", (f"git add／commit 失敗 {_why(r)}；帳本已還原成 HEAD 那一版"
                                      + ("，**但還原後仍然是 dirty**" if still else ""))
+    except GitTimeout as e:
+        still = restore_ledger(repo)
+        return "commit-failed", (f"讀 HEAD 的帳本{e}；帳本已還原成 HEAD 那一版"
+                                 + ("，**但還原後仍然是 dirty**" if still else ""))
     except Exception:
         still = restore_ledger(repo)
         return "commit-failed", ("寫帳本或 commit 時出錯，帳本已還原成 HEAD 那一版"
@@ -181,8 +226,9 @@ def record(repo, row):
     """帳本那一行 → 檢查、寫檔、commit、push。回 (結果, 訊息)。
 
     結果 ∈ skipped（沒寫檔）、unchanged、pushed：exit 0；
-          head-unreadable（HEAD 的帳本讀不進來）、commit-failed（帳本已還原）、
-          push-failed（本機 commit 留著）：exit 1（見 FAILED）。
+          head-unreadable（HEAD 的帳本讀不進來）、fetch-failed（fetch 失敗或逾時）、
+          commit-failed（帳本已還原）、push-failed（本機 commit 留著）：exit 1（見 FAILED）。
+          git 逾時一律當成那一步失敗（見 _git）。
     """
     facts = guard().GitFacts(repo)
     try:
@@ -194,7 +240,7 @@ def record(repo, row):
         return "skipped", f"站在 `{branch}`，不是 `main`，這一次沒有記"
     try:
         head_rows = nightcost.parse_ledger(head_ledger(repo) or "")
-    except ValueError as e:
+    except (ValueError, GitTimeout) as e:
         return "head-unreadable", f"HEAD 的 {LEDGER} 讀不進來（{e}），不覆寫它，這一次沒有記"
     if nightcost.has_session(head_rows, row["session_id"]):
         return "skipped", (f"HEAD 的帳本已經有 session {row['session_id']}，同一個 session 只記一次"
@@ -204,8 +250,8 @@ def record(repo, row):
         return "skipped", ("工作樹還有帳本以外的改動，先不記（等下一次 Stop）："
                            + "、".join(extra[:8]))
     synced, why = origin_in_sync(repo)
-    if not synced:
-        return "skipped", why
+    if synced != "ok":
+        return synced, why
 
     p = Path(repo).joinpath(*nightcost.LEDGER_REL)
     try:
@@ -248,8 +294,8 @@ def main(argv=None, stdin=None, env=None):
     ng = guard()
     try:
         first = ng.first_user_text(path)
-        entries = list(ng._transcript_entries(path))
-    except OSError as e:
+        entries, main_problems = read_jsonl(path, "主 transcript")
+    except (OSError, UnicodeDecodeError) as e:
         print(f"nightly-cost：讀不到 transcript（{e}），這一次沒有記", file=sys.stderr)
         return 0
     if not is_cost_routine(first, ng.ROUTINE_MARKER):
@@ -263,7 +309,8 @@ def main(argv=None, stdin=None, env=None):
               file=sys.stderr)
         return 0
     sub, problems = subagent_entries(path)
-    row = nightcost.ledger_row(entries + sub, sid, problems=problems, date_from=entries)
+    row = nightcost.ledger_row(entries + sub, sid, problems=main_problems + problems,
+                               date_from=entries)
     if row["date"] is None:
         print("nightly-cost：transcript 裡沒有任何帶 timestamp 的紀錄，定不出 session 開始那天，"
               "這一次沒有記", file=sys.stderr)

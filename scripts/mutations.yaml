@@ -3422,10 +3422,10 @@ mutations:
     why: ""
 
   - id: M448
-    title: "subagent 檔的壞行安靜跳過（那一行的 request 不見，沒有人知道）"
+    title: "transcript（主檔或 subagent 檔）的壞行安靜跳過（那一行的 request 不見，沒有人知道）"
     file: nightly-cost.py
-    find: "                problems.append(f\"subagent 檔 {f.name} 第 {n} 行不是合法 JSON\")\n"
-    replace: "                pass\n"
+    find: "            problems.append(f\"{label} {Path(path).name} 第 {n} 行不是合法 JSON\")\n"
+    replace: "            pass\n"
     survives: false
     why: ""
 
@@ -3456,16 +3456,16 @@ mutations:
   - id: M452
     title: "HEAD 帳本讀不進來當成一般跳過（帳本壞了每晚都安靜不記）"
     file: nightly-cost.py
-    find: "FAILED = (\"head-unreadable\", \"commit-failed\", \"push-failed\")\n"
-    replace: "FAILED = (\"commit-failed\", \"push-failed\")\n"
+    find: "FAILED = (\"head-unreadable\", \"fetch-failed\", \"commit-failed\", \"push-failed\")\n"
+    replace: "FAILED = (\"fetch-failed\", \"commit-failed\", \"push-failed\")\n"
     survives: false
     why: ""
 
   - id: M453
     title: "不看 origin 同不同步就寫（push HEAD:main 連帶推本機領先的 commit）"
     file: nightly-cost.py
-    find: "    if not synced:\n        return \"skipped\", why\n"
-    replace: "    if False:\n        return \"skipped\", why\n"
+    find: "    if synced != \"ok\":\n        return synced, why\n"
+    replace: "    if False:\n        return synced, why\n"
     survives: false
     why: ""
 
@@ -3482,5 +3482,71 @@ mutations:
     file: nightly-cost.py
     find: "    return bool(first_text) and first_text.lstrip().startswith(marker)\n"
     replace: "    return bool(first_text) and marker in first_text\n"
+    survives: false
+    why: ""
+
+  # 第七十一輪第三次返工（verifier r3 與 Fable 重審）：失敗要看得見。
+
+  - id: M461
+    title: "git 逾時不接（TimeoutExpired 穿到最外層，traceback 之後 exit 0，push 卡住那晚看不見）"
+    file: nightly-cost.py
+    find: "    except subprocess.TimeoutExpired:\n        return subprocess.CompletedProcess("
+    replace: "    except ZeroDivisionError:\n        return subprocess.CompletedProcess("
+    survives: false
+    why: ""
+
+  - id: M462
+    title: "fetch 失敗不算失敗（exit 0，遠端連不上的那一晚平台上看不見）"
+    file: nightly-cost.py
+    find: "FAILED = (\"head-unreadable\", \"fetch-failed\", \"commit-failed\", \"push-failed\")\n"
+    replace: "FAILED = (\"head-unreadable\", \"commit-failed\", \"push-failed\")\n"
+    survives: false
+    why: ""
+
+  - id: M463
+    title: "fetch 失敗回成一般的跳過（跟「HEAD 不等於 origin」混成同一種，要人做的事完全不同）"
+    file: nightly-cost.py
+    find: "        return \"fetch-failed\", f\"git fetch origin main 失敗 {_why(r)}，這一次沒有記\"\n"
+    replace: "        return \"skipped\", f\"git fetch origin main 失敗 {_why(r)}，這一次沒有記\"\n"
+    survives: false
+    why: ""
+
+  - id: M464
+    title: "比對回到 refs/remotes/origin/main（single-branch clone 沒有這個 ref，每晚都跳過）"
+    file: nightly-cost.py
+    find: "    remote = _git(repo, \"rev-parse\", \"FETCH_HEAD\")\n"
+    replace: "    remote = _git(repo, \"rev-parse\", \"refs/remotes/origin/main\")\n"
+    survives: false
+    why: ""
+
+  - id: M465
+    title: "主 transcript 的壞行不進 problems（照樣給金額，少算那一截）"
+    file: nightly-cost.py
+    find: "    row = nightcost.ledger_row(entries + sub, sid, problems=main_problems + problems,\n"
+    replace: "    row = nightcost.ledger_row(entries + sub, sid, problems=problems,\n"
+    survives: false
+    why: ""
+
+  - id: M466
+    title: "主 transcript 回到守門的讀法（壞行安靜跳過）"
+    file: nightly-cost.py
+    find: "        entries, main_problems = read_jsonl(path, \"主 transcript\")\n"
+    replace: "        entries, main_problems = list(ng._transcript_entries(path)), []\n"
+    survives: false
+    why: ""
+
+  - id: M467
+    title: "逾時回成功的離開碼（push 逾時被當成已推上去）"
+    file: nightly-cost.py
+    find: "TIMEOUT_RC = 124\n"
+    replace: "TIMEOUT_RC = 0\n"
+    survives: false
+    why: ""
+
+  - id: M468
+    title: "讀 HEAD 帳本逾時當成 HEAD 沒有帳本（session 只記一次的檢查放行，還原時刪掉帳本）"
+    file: nightly-cost.py
+    find: "    if r.returncode == TIMEOUT_RC:\n        raise GitTimeout(r.stderr)\n"
+    replace: "    if False:\n        raise GitTimeout(r.stderr)\n"
     survives: false
     why: ""
