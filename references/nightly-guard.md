@@ -113,13 +113,21 @@ Edit 這些工具時觸發；hook 程式自己跑的 `git` 是平台叫起來的
 也不該看到。成本帳要是交給 agent 去 commit，就又回到「不准做的事寫在 prompt 裡」那個形狀，
 而且得替它在守門上多開一個出口。所以把它做成一段確定性的程式，條件寫死在碼裡：
 
-- **只在雲端半夜潤稿 routine 作用。** 判斷跟守門同一套（`CLAUDE_CODE_REMOTE == "true"`、
-  transcript 第一則使用者訊息含 `ROUTINE_MARKER`），import 守門的函式與常數，不另抄一份。
-  不符合就 exit 0、不寫任何檔。transcript 路徑只取 hook stdin 的 `transcript_path`，不自己找；
-  讀不到就在 stderr 印原因、exit 0。
+- **只在雲端半夜潤稿 routine 作用，而且比守門嚴。** `CLAUDE_CODE_REMOTE == "true"`，而且 transcript
+  第一則使用者訊息去掉前導空白後**以 `ROUTINE_MARKER` 開頭**；守門看的是「含」。成本帳會自己 commit、
+  推 main，中間引用那句身分句的雲端 session（例如人在 claude.ai/code 問「這句為什麼沒作用」）不能被
+  當成夜班。含身分句但不在開頭時 stderr 講一句，不安靜略過。`ROUTINE_MARKER` 與讀第一則訊息的函式
+  都 import 守門的，不另抄一份；`nightly-guard.py` 本身不改。不符合就 exit 0、不寫任何檔。
+  transcript 路徑只取 hook stdin 的 `transcript_path`，不自己找；讀不到就在 stderr 印原因、exit 0。
+  **這一側收緊的代價**：平台若在 routine prompt 前面包一層（守門〈什麼時候作用〉提過 `/fire` 帶
+  `text` 時的 `<routine-fire-payload>`），成本帳那一晚不記，stderr 會印「含身分句但不是開頭」。
 - **先檢查、後寫檔。** `git status --porcelain` 有任何帳本以外的改動（最常見的是 driver 寫的
   狀態檔還沒被 agent commit）就整個跳過：不寫帳本，stderr 印那份清單，等下一次 Stop 再記。
   agent 照平台 hook 的要求 commit 完狀態檔之後，平台會再觸發一次 Stop。不在 `main` 也跳過。
+- **成本 commit 必須是唯一被推的那一顆。** `git push origin HEAD:main` 會把本機 `main` 上所有領先
+  `origin` 的 commit 一起推，而成本帳的授權只到帳本那一顆。所以寫帳本前先 `git fetch origin main`，
+  要求 `HEAD == origin/main`；本機領先（例如 agent 自己 commit 了還沒推）、落後、或 fetch 失敗都跳過，
+  stderr 講原因。
 - **同一個 session 只 commit 一次。** `HEAD` 的帳本已經有這個 `session_id` 就整個跳過，不寫也
   不 commit。所以帳本記的是「量到第一次工作樹乾淨的 Stop 為止」的數字，之後被多擋的那幾輪不記。
   不這樣做的話，平台每多擋一輪帳本就變、又 commit、又 push、又製造下一輪的競態，可能循環。
@@ -133,7 +141,9 @@ Edit 這些工具時觸發；hook 程式自己跑的 `git` 是平台叫起來的
   push 失敗就留著本機那顆 commit，stderr 印原因，平台的 Stop hook 會要 agent 推，守門放行
   站在 `main` 上的 `git push`。**hook 結束時工作樹上的帳本絕不能是 dirty**：守門給平台 Stop hook
   的出口只准狀態檔，帳本一髒，`git add`／`git commit` 那兩個出口就被堵死，agent 會卡在收尾。
-- **所有失敗都 exit 0。** 成本帳記不到不擋 session 結束，但原因一定印在 stderr，不安靜吞掉。
+- **離開碼。** 跳過、沒變、推上去都是 0。commit 失敗、push 失敗、`HEAD` 的帳本讀不進來是 1：
+  Stop hook 只有 2 會擋，1 不擋 session 結束，但平台看得見，不會只躺在 stderr 裡。沒有任何一種是 2。
+  原因一律印在 stderr，不安靜吞掉。
 
 **已知的競態。** 同一個 Stop 事件的兩支 hook 並行，平台自己的 Stop 檢查可能在成本帳
 commit 與 push 完成前看到改動，多擋一輪。因為同一個 session 只 commit 一次，多擋的那幾輪

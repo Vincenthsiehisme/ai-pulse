@@ -400,6 +400,11 @@ health-alarms.md` 記過 9 支 `claude/*` 的舊命名殘留 ref 讓「未收分
 
 **雲端的算法**（純函式在 `scripts/lib/nightcost.py`）：
 
+- **主檔加上 subagent 的 transcript 一起讀。** subagent 的 request 不在主檔裡，存在
+  `<transcript 去掉 .jsonl>/subagents/` 底下（含 `workflows/` 之類的巢狀目錄）的 `*.jsonl`，
+  主檔只留 `Agent` 的 tool_use（2026-09-30 在本機 `~/.claude/projects/` 實查過這個結構）。
+  只讀主檔會安靜少算 subagent 那一截。目錄不存在就是沒有 subagent；目錄或檔讀不到、任何一行
+  不是合法 JSON，那一行的 `usd_equiv` 寫 `null`、`note` 寫哪個檔哪一行。`date` 只看主檔。
 - 只看 `type: assistant` 而且帶 `message.usage` 的行。同一個 request 在 transcript
   裡會拆成好幾行（一個 content block 一行，`usage` 每行重複），所以**同一個
   `requestId` 只算一次**，沒有 `requestId` 就看 `message.id`，兩個都沒有就一行算一個。

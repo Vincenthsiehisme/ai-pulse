@@ -3283,8 +3283,8 @@ mutations:
   - id: M390
     title: "不看夜班標記（雲端的互動 session 與另外兩個 routine 收尾也記成夜班成本）"
     file: nightly-cost.py
-    find: "        if not ng.is_nightly_routine(payload):\n"
-    replace: "        if False:\n"
+    find: "    if not is_cost_routine(first, ng.ROUTINE_MARKER):\n"
+    replace: "    if False:\n"
     survives: false
     why: ""
 
@@ -3342,8 +3342,8 @@ mutations:
   - id: M438
     title: "session 的日期取最後一筆紀錄（跨 UTC 午夜的 session 換到隔天）"
     file: lib/nightcost.py
-    find: "    t.update({\"date\": session_date(entries), \"session_id\": session_id})\n"
-    replace: "    t.update({\"date\": session_date(list(reversed(entries))), \"session_id\": session_id})\n"
+    find: "    src = entries if date_from is None else date_from\n"
+    replace: "    src = list(reversed(entries if date_from is None else date_from))\n"
     survives: false
     why: ""
 
@@ -3400,5 +3400,87 @@ mutations:
     file: lib/nightcost.py
     find: "        \"null_rows\": sum(len(n) for _, n in totals.values()),\n"
     replace: "        \"null_rows\": sum(1 for v, _ in totals.values() if v is None),\n"
+    survives: false
+    why: ""
+
+  # 第七十一輪第二次返工（PR #105 Fable 審查）：subagent、exit code、只推自己那一顆、身分句要在開頭。
+
+  - id: M446
+    title: "不讀 subagent 的 transcript（主檔只留 Agent 的 tool_use，subagent 那一截安靜少算）"
+    file: nightly-cost.py
+    find: "    sub, problems = subagent_entries(path)\n"
+    replace: "    sub, problems = [], []\n"
+    survives: false
+    why: ""
+
+  - id: M447
+    title: "subagent 讀不全時照樣給金額（少算的一晚看起來很便宜）"
+    file: lib/nightcost.py
+    find: "    if problems:\n        t[\"usd_equiv\"] = None\n"
+    replace: "    if False:\n        t[\"usd_equiv\"] = None\n"
+    survives: false
+    why: ""
+
+  - id: M448
+    title: "subagent 檔的壞行安靜跳過（那一行的 request 不見，沒有人知道）"
+    file: nightly-cost.py
+    find: "                problems.append(f\"subagent 檔 {f.name} 第 {n} 行不是合法 JSON\")\n"
+    replace: "                pass\n"
+    survives: false
+    why: ""
+
+  - id: M449
+    title: "subagent 目錄讀不到時安靜當成沒有 subagent"
+    file: nightly-cost.py
+    find: "        problems.append(f\"subagent 目錄讀不到（{e.filename}：{e.strerror}）\")\n"
+    replace: "        pass\n"
+    survives: false
+    why: ""
+
+  - id: M450
+    title: "只讀 subagents/ 第一層（workflows 之類巢狀目錄裡的 agent 少算）"
+    file: nightly-cost.py
+    find: "    for dirpath, _dirs, names in os.walk(root, onerror=_walk_error):\n"
+    replace: "    for dirpath, _dirs, names in [next(os.walk(root, onerror=_walk_error))]:\n"
+    survives: false
+    why: ""
+
+  - id: M451
+    title: "失敗也回 0（commit、push 失敗在平台上看不見）"
+    file: nightly-cost.py
+    find: "    return 1 if status in FAILED else 0\n"
+    replace: "    return 0\n"
+    survives: false
+    why: ""
+
+  - id: M452
+    title: "HEAD 帳本讀不進來當成一般跳過（帳本壞了每晚都安靜不記）"
+    file: nightly-cost.py
+    find: "FAILED = (\"head-unreadable\", \"commit-failed\", \"push-failed\")\n"
+    replace: "FAILED = (\"commit-failed\", \"push-failed\")\n"
+    survives: false
+    why: ""
+
+  - id: M453
+    title: "不看 origin 同不同步就寫（push HEAD:main 連帶推本機領先的 commit）"
+    file: nightly-cost.py
+    find: "    if not synced:\n        return \"skipped\", why\n"
+    replace: "    if False:\n        return \"skipped\", why\n"
+    survives: false
+    why: ""
+
+  - id: M454
+    title: "fetch 了但不比 HEAD 與 origin/main（本機領先或落後照樣寫、照樣推）"
+    file: nightly-cost.py
+    find: "    if head.stdout.strip() != remote.stdout.strip():\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M455
+    title: "身分句看「含」不看「開頭」（中間引用那句話的雲端 session 也會 commit、推 main）"
+    file: nightly-cost.py
+    find: "    return bool(first_text) and first_text.lstrip().startswith(marker)\n"
+    replace: "    return bool(first_text) and marker in first_text\n"
     survives: false
     why: ""

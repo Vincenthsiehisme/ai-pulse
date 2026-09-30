@@ -3091,7 +3091,7 @@ selftest 從 yaml 取出那一步的 `run:`，墊一支假的 `curl` 與 `python
 
 ## 第七十一輪（2026-09-30，`feat/nightly-cost-ledger`）
 
-M380–M394、M436–M445，二十五條。守的是雲端夜班的成本帳：收尾的 Stop hook `scripts/nightly-cost.py` 讀
+M380–M394、M436–M455，三十五條。守的是雲端夜班的成本帳：收尾的 Stop hook `scripts/nightly-cost.py` 讀
 transcript 記 token 與等價 USD，一個 session 一行寫進 `_probe/nightly-cost.jsonl` 並自己 commit、push。規格
 `references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉與 `references/nightly-guard.md`〈成本帳〉。
 
@@ -3127,6 +3127,16 @@ M438 第一次跑是存活：跨午夜那一格的測試資料兩個時間戳寫
 根本沒跨過午夜，取第一筆與取最後一筆給一樣的答案。改成 `10-02T00:20` 之後被殺。**那一格的名字寫著
 「跨午夜」，資料卻沒有跨**，是變異盤點抓到的，不是讀測試讀出來的。
 
+### 第二次返工（PR #105 Fable 審查）加的十條
+
+M446–M455 守四件事：subagent 的 transcript 有沒有一起讀、讀不全時是不是 null（M446–M450）；
+失敗的離開碼是不是 1（M451、M452）；成本 commit 是不是唯一被推的那一顆（M453、M454）；
+身分句是不是要在開頭（M455）。M390 與 M438 的 find 跟著改：判夜班改走 `is_cost_routine`，
+`date` 改從主檔取。本機領先與落後兩格都真的造出來（本機多一顆沒推的 commit；推上去之後
+`reset --hard HEAD~1`），fetch 失敗是把 origin 指到不存在的路徑。subagent 目錄讀不到是
+`chmod 0` 一層子目錄，`os.walk` 的 `onerror` 接得到；`pathlib.rglob` 會安靜吞掉權限錯誤
+（這台 Python 3.9.6 實測回空清單），所以不用它。
+
 ### 沒進清單的一種
 
 「push 失敗就重試或強推」不是一個 find／replace 做得出來的變異（要加一段碼）。push 被拒那一格斷言
@@ -3134,4 +3144,4 @@ remote 沒動、本機 commit 留著，強推會讓前者變紅；沒進清單�
 
 ### 清單長度
 
-366 → 391。分片 4 片，前三片各 98 條、第四片 97 條。
+366 → 401。分片 4 片，第一片 101 條、其餘三片各 100 條。

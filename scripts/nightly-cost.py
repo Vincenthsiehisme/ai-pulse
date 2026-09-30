@@ -20,7 +20,18 @@ commit、push，所以記到的是「量到第一次工作樹乾淨的 Stop 為�
 **hook 結束時帳本絕不能是 dirty**：守門給平台 Stop hook 的出口只准狀態檔，帳本一髒，
 那兩個出口就被堵死。
 
-離開碼一律 0：成本帳記不到不擋 session 結束。原因一定印在 stderr，不安靜吞掉。
+**只在雲端半夜潤稿 routine 作用**，而且這一側比守門嚴：第一則使用者訊息要以 `ROUTINE_MARKER`
+開頭（去掉前導空白），守門看的是「含」。成本帳會自己 commit、push，中間引用那句話的雲端
+session 不該被當成夜班去推 main。
+**成本 commit 必須是唯一被推的那一顆**：寫帳本前先 `git fetch origin main`，要求
+`HEAD == origin/main`，不相等或 fetch 失敗就跳過；否則 `git push origin HEAD:main` 會把本機
+領先的 commit 一起推上去。
+**subagent 也要算**：它們的 request 存在 `<transcript 去掉 .jsonl>/subagents/**/*.jsonl`，
+主檔只留 `Agent` 的 tool_use。讀不到或解析失敗時那一行 `usd_equiv` 是 null，不安靜少算。
+
+離開碼：跳過、沒變、推上去都是 0；commit 失敗、push 失敗、HEAD 的帳本讀不進來是 1
+（非阻擋，但平台看得見）。沒有任何一種是 2：成本帳記不到不擋 session 結束。
+原因一定印在 stderr，不安靜吞掉。
 """
 import importlib.util
 import json
@@ -38,6 +49,8 @@ from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atom
 
 
 LEDGER = nightcost.LEDGER_PATH
+# 這三種 exit 1：非阻擋（Stop hook 只有 2 會擋），但平台看得見。其餘 exit 0。
+FAILED = ("head-unreadable", "commit-failed", "push-failed")
 _GUARD = []
 
 
@@ -81,6 +94,59 @@ def restore_ledger(repo):
     return bool(_git(repo, "status", "--porcelain", "--", LEDGER).stdout.strip())
 
 
+def subagent_entries(transcript_path):
+    """這個 session 的 subagent transcript → (所有紀錄, 讀不到的原因清單)。
+
+    路徑是 `<transcript 去掉 .jsonl>/subagents/` 底下所有 `*.jsonl`（含 workflows 之類的巢狀
+    目錄），2026-09-30 在本機 `~/.claude/projects/` 實查過這個結構。目錄不存在是「沒有
+    subagent」，不是錯。目錄或檔讀不到、任何一行不是合法 JSON，都記進原因清單：呼叫端
+    讓那一行的 `usd_equiv` 變成 null，不安靜少算。**不用守門的 `_transcript_entries`**：
+    它會跳過壞行，這裡要的正是看見壞行。
+    """
+    root = Path(transcript_path).with_suffix("") / "subagents"
+    if not root.exists():
+        return [], []
+    entries, problems, files = [], [], []
+
+    def _walk_error(e):
+        problems.append(f"subagent 目錄讀不到（{e.filename}：{e.strerror}）")
+
+    for dirpath, _dirs, names in os.walk(root, onerror=_walk_error):
+        files += [Path(dirpath) / n for n in names if n.endswith(".jsonl")]
+    for f in sorted(files):
+        try:
+            lines = f.read_text("utf-8").splitlines()
+        except (OSError, UnicodeDecodeError) as e:
+            problems.append(f"subagent 檔 {f.name} 讀不到（{e}）")
+            continue
+        for n, line in enumerate(lines, 1):
+            if not line.strip():
+                continue
+            try:
+                obj = json.loads(line)
+            except ValueError:
+                problems.append(f"subagent 檔 {f.name} 第 {n} 行不是合法 JSON")
+                continue
+            if isinstance(obj, dict):
+                entries.append(obj)
+    return entries, problems
+
+
+def origin_in_sync(repo):
+    """fetch origin main 之後 HEAD 是不是剛好等於 origin/main。回 (是不是, 不是的原因)。"""
+    r = _git(repo, "fetch", "-q", "origin", "main")
+    if r.returncode != 0:
+        return False, f"git fetch origin main 失敗 {_why(r)}"
+    head = _git(repo, "rev-parse", "HEAD")
+    remote = _git(repo, "rev-parse", "refs/remotes/origin/main")
+    if head.returncode != 0 or remote.returncode != 0:
+        return False, f"查不到 HEAD 或 origin/main（{_why(head)}／{_why(remote)}）"
+    if head.stdout.strip() != remote.stdout.strip():
+        return False, (f"HEAD（{head.stdout.strip()[:8]}）不等於 origin/main（{remote.stdout.strip()[:8]}），"
+                       "推上去會連帶推別的 commit 或被拒，這一次沒有記")
+    return True, ""
+
+
 def commit_ledger(repo, text, day):
     """把帳本寫成 text 並 commit。回 (結果, 訊息)。
 
@@ -114,8 +180,9 @@ def commit_ledger(repo, text, day):
 def record(repo, row):
     """帳本那一行 → 檢查、寫檔、commit、push。回 (結果, 訊息)。
 
-    結果 ∈ skipped（沒寫檔）、unchanged、commit-failed（帳本已還原）、
-          push-failed（本機 commit 留著）、pushed。
+    結果 ∈ skipped（沒寫檔）、unchanged、pushed：exit 0；
+          head-unreadable（HEAD 的帳本讀不進來）、commit-failed（帳本已還原）、
+          push-failed（本機 commit 留著）：exit 1（見 FAILED）。
     """
     facts = guard().GitFacts(repo)
     try:
@@ -128,7 +195,7 @@ def record(repo, row):
     try:
         head_rows = nightcost.parse_ledger(head_ledger(repo) or "")
     except ValueError as e:
-        return "skipped", f"HEAD 的 {LEDGER} 讀不進來（{e}），不覆寫它，這一次沒有記"
+        return "head-unreadable", f"HEAD 的 {LEDGER} 讀不進來（{e}），不覆寫它，這一次沒有記"
     if nightcost.has_session(head_rows, row["session_id"]):
         return "skipped", (f"HEAD 的帳本已經有 session {row['session_id']}，同一個 session 只記一次"
                            "（之後被多擋的輪不記）")
@@ -136,6 +203,9 @@ def record(repo, row):
     if extra:
         return "skipped", ("工作樹還有帳本以外的改動，先不記（等下一次 Stop）："
                            + "、".join(extra[:8]))
+    synced, why = origin_in_sync(repo)
+    if not synced:
+        return "skipped", why
 
     p = Path(repo).joinpath(*nightcost.LEDGER_REL)
     try:
@@ -154,6 +224,14 @@ def record(repo, row):
     return "pushed", f"{msg} 已推上 origin/main"
 
 
+def is_cost_routine(first_text, marker):
+    """第一則使用者訊息（去掉前導空白）以身分句開頭才算夜班。純函式。
+
+    比守門嚴（守門看「含」）：成本帳會自己 commit、push，中間引用那句話的 session 不能算。
+    """
+    return bool(first_text) and first_text.lstrip().startswith(marker)
+
+
 def main(argv=None, stdin=None, env=None):
     env = os.environ if env is None else env
     if env.get("CLAUDE_CODE_REMOTE") != "true":
@@ -169,21 +247,23 @@ def main(argv=None, stdin=None, env=None):
         return 0
     ng = guard()
     try:
-        if not ng.is_nightly_routine(payload):
-            return 0
+        first = ng.first_user_text(path)
         entries = list(ng._transcript_entries(path))
-    except ng.RoutineUnknown as e:
-        print(f"nightly-cost：判不出這是不是夜班（{e}），這一次沒有記", file=sys.stderr)
-        return 0
     except OSError as e:
         print(f"nightly-cost：讀不到 transcript（{e}），這一次沒有記", file=sys.stderr)
+        return 0
+    if not is_cost_routine(first, ng.ROUTINE_MARKER):
+        if first and ng.ROUTINE_MARKER in first:
+            print("nightly-cost：第一則使用者訊息含夜班身分句但不是開頭，不當成夜班，這一次沒有記",
+                  file=sys.stderr)
         return 0
     sid = payload.get("session_id")
     if not sid:
         print("nightly-cost：hook payload 沒有 session_id，帳本的 key 對不上，這一次沒有記",
               file=sys.stderr)
         return 0
-    row = nightcost.ledger_row(entries, sid)
+    sub, problems = subagent_entries(path)
+    row = nightcost.ledger_row(entries + sub, sid, problems=problems, date_from=entries)
     if row["date"] is None:
         print("nightly-cost：transcript 裡沒有任何帶 timestamp 的紀錄，定不出 session 開始那天，"
               "這一次沒有記", file=sys.stderr)
@@ -193,7 +273,7 @@ def main(argv=None, stdin=None, env=None):
     usd = "量不到" if row["usd_equiv"] is None else f"USD {row['usd_equiv']:.4f}"
     print(f"nightly-cost：{status}｜{row['date']} session {sid} {row['requests']} 個 request，{usd}"
           + (f"（{row['note']}）" if row["note"] else "") + f"｜{msg}", file=sys.stderr)
-    return 0
+    return 1 if status in FAILED else 0
 
 
 if __name__ == "__main__":

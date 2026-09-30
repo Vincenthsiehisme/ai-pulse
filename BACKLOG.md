@@ -787,6 +787,20 @@ GitHub 榜單待譯清單這些同樣是「Actions 產、潤稿端讀」的快�
 東西會變紅。那一條的 `why` 就是這一節。**它會一直活著，直到 CI 裡有瀏覽器為止**，
 這樣至少「我們測不到版面」這件事本身是被記著的，不是靠人記得。
 
+## `成本帳不看-service_tier`
+
+來源：2026-09-30 PR #105 Fable 審查（F-5）。
+
+`scripts/nightly-cost.py` 記夜班的等價 USD 時，判「這個 request 能不能照牌價算」只看
+`usage.speed` 是不是 `standard`，**沒看 `usage.service_tier`**。`service_tier` 是 `priority`
+時牌價不同，而 `lib/nightcost.py` 的牌價表只有標準那一種價，碼照樣算出一個金額，**看起來像
+量到了，其實是用錯的價**。2026-09-30 在本機 transcript 看到的都是 `standard`，雲端夜班
+那幾晚的 transcript 沒有查過；它會在哪一晚走到 priority tier 的那天安靜地錯。
+
+要做的事跟 `speed` 那一條同一個形狀：`service_tier` 不是 `standard` 的 request，那一行
+`usd_equiv` 寫 null、`note` 寫原因；等牌價表有 priority 的價再改成照表算。規格在
+`references/nightly-driver.md`〈一晚花多少錢，要是一個被記錄的量〉。
+
 ---
 
 ## 附：已經修掉的
