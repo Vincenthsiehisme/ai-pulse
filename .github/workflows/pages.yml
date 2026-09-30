@@ -45,11 +45,13 @@ jobs:
         run: python scripts/pulse-render.py
         env:
           VAULT_DIR: ${{ github.workspace }}
-      - name: GitHub momentum board (0 LLM)
-        run: python scripts/pulse-github.py
+      # 只讀 _github/board.json（data-refresh 算好、進版控的那一份）掛上譯文出頁，
+      # 不打網路、不需要 token。這一步以前自己重算榜，基線是幾分鐘前的快照，
+      # 線上全列 baseline_days 0.0（2026-09-30）。見 references/github-board.md。
+      - name: GitHub momentum board (render only, 0 LLM)
+        run: python scripts/pulse-github.py --render-only
         env:
           VAULT_DIR: ${{ github.workspace }}
-          GITHUB_TOKEN: ${{ github.token }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

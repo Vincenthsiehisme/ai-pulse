@@ -1594,16 +1594,16 @@ mutations:
   - id: M182
     title: "快照只寫星數不寫名次（下一班每一條都讀成「上一版沒記名次」，整欄的變動從此永遠空著——而畫面上那是一種合法狀態，不會有人發現它再也不會變）"
     file: pulse-github.py
-    find: "        state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp(),\n                             \"rank_velocity\": vel_rank.get(full),\n                             \"rank_surge\": sur_rank.get(full)}\n                      for full, r in current.items()})"
-    replace: "        state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp()}\n                      for full, r in current.items()})"
+    find: "    state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp(),\n                         \"rank_velocity\": vel_rank.get(full),\n                         \"rank_surge\": sur_rank.get(full)}\n                  for full, r in current.items()})"
+    replace: "    state.update({full: {\"stars\": r[\"stars\"], \"ts\": now.timestamp()}\n                  for full, r in current.items()})"
     survives: false
     why: ""
 
   - id: M183
     title: "沒上榜的 repo 名次寫 0 不寫 null（0 是一個比第一名還前面的名次——榜外進榜會被標成「下降」，方向剛好相反，而且是個具體數字）"
     file: pulse-github.py
-    find: "                             \"rank_velocity\": vel_rank.get(full),\n                             \"rank_surge\": sur_rank.get(full)}"
-    replace: "                             \"rank_velocity\": vel_rank.get(full, 0),\n                             \"rank_surge\": sur_rank.get(full, 0)}"
+    find: "                         \"rank_velocity\": vel_rank.get(full),\n                         \"rank_surge\": sur_rank.get(full)}"
+    replace: "                         \"rank_velocity\": vel_rank.get(full, 0),\n                         \"rank_surge\": sur_rank.get(full, 0)}"
     survives: false
     why: ""
 
@@ -3195,5 +3195,167 @@ mutations:
     file: ../.github/workflows/data-refresh.yml
     find: "            -H \"anthropic-version: 2023-06-01\" \\\n"
     replace: ""
+    survives: false
+    why: ""
+
+  # ── 第七十輪：GitHub 榜算一次、存進版控，pages 只讀（references/github-board.md）──
+
+  - id: M369
+    title: "快照沒更新的班次照樣抓、重排、寫 board.json（data-refresh 20 小時內重跑，用太新的基線蓋掉好榜）"
+    file: pulse-github.py
+    find: "    if not do_snapshot:\n        # 快照沒更新"
+    replace: "    if False:\n        # 快照沒更新"
+    survives: false
+    why: ""
+
+  - id: M370
+    title: "board.json 直接複製 github.json（帶進譯文欄，榜的事實與譯文綁成一份檔）"
+    file: pulse-github.py
+    find: "atomic_write_text(board_p, board_text + \"\\n\")"
+    replace: "atomic_write_text(board_p, (out / \"data\" / \"github.json\").read_text(\"utf-8\"))"
+    survives: false
+    why: ""
+
+  - id: M371
+    title: "--render-only 又呼叫 collect（pages 重算榜，baseline_days 0.0 回來）"
+    file: pulse-github.py
+    find: "    try:\n        doc, present = emit_board(vault, out_dir, datetime.now(timezone.utc))"
+    replace: "    collect({}, None, datetime.now(timezone.utc))\n    try:\n        doc, present = emit_board(vault, out_dir, datetime.now(timezone.utc))"
+    survives: false
+    why: ""
+
+  - id: M372
+    title: "board.json 不存在時佔位檔標成 measured: true（沒量到印成有量到）"
+    file: pulse-github.py
+    find: "\"count\": 0, \"repos\": [],\n               \"measured\": False}"
+    replace: "\"count\": 0, \"repos\": [],\n               \"measured\": True}"
+    survives: false
+    why: ""
+
+  - id: M373
+    title: "board.json 壞 JSON 時當成不存在（壞檔被印成「沒量到」的佔位頁，網站照發、沒人紅）"
+    file: pulse-github.py
+    find: "raise BoardError(f\"{bp} 不是合法 JSON：{e}\")"
+    replace: "return None"
+    survives: false
+    why: ""
+
+  - id: M374
+    title: "board.json 缺 repos 不驗（後面才 KeyError，訊息不帶路徑）"
+    file: pulse-github.py
+    find: "    if not isinstance(board, dict) or not isinstance(board.get(\"repos\"), list):"
+    replace: "    if not isinstance(board, dict):"
+    survives: false
+    why: ""
+
+  - id: M375
+    title: "pages.yml 拿掉 --render-only（pages 又自己重算榜）"
+    file: ../.github/workflows/pages.yml
+    find: "run: python scripts/pulse-github.py --render-only"
+    replace: "run: python scripts/pulse-github.py"
+    survives: false
+    why: ""
+
+  - id: M376
+    title: "pages.yml 的 GitHub 那一步又帶 GITHUB_TOKEN"
+    file: ../.github/workflows/pages.yml
+    find: "--render-only\n        env:\n          VAULT_DIR: ${{ github.workspace }}\n"
+    replace: "--render-only\n        env:\n          VAULT_DIR: ${{ github.workspace }}\n          GITHUB_TOKEN: ${{ github.token }}\n"
+    survives: false
+    why: ""
+
+  - id: M377
+    title: "--render-only 也寫 desc-coverage.json（pages 蓋掉 data-refresh 量到的覆蓋率）"
+    file: pulse-github.py
+    find: "        doc = board\n"
+    replace: "        doc = board\n        write_desc_coverage(vault, now, len(board[\"repos\"]), 0)\n"
+    survives: false
+    why: ""
+
+  - id: M378
+    title: "--render-only 不掛星速榜的譯文（頁面全是英文，而 github.json 看起來正常）"
+    file: pulse-github.py
+    find: "        ghdesc.attach(board[\"repos\"], store)\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M379
+    title: "拿掉 --render-only 與快照旗標不能併用的檢查"
+    file: pulse-github.py
+    find: "    if args.render_only and (args.snapshot or args.snapshot_if_older_than is not None):"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M431
+    title: "快照沒更新且 board.json 不存在時，desc-coverage 兩格寫 0（量不到印成「榜上一條中文都沒有」）"
+    file: pulse-github.py
+    find: "write_desc_coverage(vault, now, ranked_n=None, with_zh_n=None)"
+    replace: "write_desc_coverage(vault, now, ranked_n=0, with_zh_n=0)"
+    survives: false
+    why: ""
+
+  - id: M432
+    title: "快照沒更新時 desc-coverage 只算星速榜（分母比畫面窄，名字卻叫「中文描述」）"
+    file: pulse-github.py
+    find: "            write_desc_coverage(vault, now, len(listed), n_zh)\n"
+    replace: "            write_desc_coverage(vault, now, len(doc[\"repos\"]), n_zh)\n"
+    survives: false
+    why: ""
+
+  - id: M433
+    title: "快照沒更新的班次遇到壞 board.json 時 exit 0（同一班的 desc-prep 照跑，量的是佔位）"
+    file: pulse-github.py
+    find: "            print(f\"[error] {e}\", file=sys.stderr)\n            return 2"
+    replace: "            print(f\"[error] {e}\", file=sys.stderr)\n            return 0"
+    survives: false
+    why: ""
+
+  - id: M434
+    title: "--render-only 出頁前多連一次網（DNS 查 api.github.com；不打網路是「沒有東西連出去」，不只是 collect 沒被呼叫）"
+    file: pulse-github.py
+    find: "        return 2\n    if present:"
+    replace: "        return 2\n    import socket\n    socket.getaddrinfo(\"api.github.com\", 443)\n    if present:"
+    survives: false
+    why: ""
+
+  - id: M435
+    title: "快照沒更新的班次還去抓一次（用不到的 API 額度，而且抓到的榜不會被用）"
+    file: pulse-github.py
+    find: "        try:\n            doc, present = emit_board(vault, args.out, now)"
+    replace: "        collect(cfg, token, now)\n        try:\n            doc, present = emit_board(vault, args.out, now)"
+    survives: false
+    why: ""
+
+  - id: M456
+    title: "board 存在時頁面的更新時間用出頁當下（資料是算榜那一刻、時間是現在，同一頁兩個時間）"
+    file: pulse-github.py
+    find: "page_stamp = board[\"generated\"]"
+    replace: "page_stamp = clock.display_stamp(now)"
+    survives: false
+    why: ""
+
+  - id: M457
+    title: "佔位頁的更新時間不標佔位（當下時間被讀成榜的時間）"
+    file: pulse-github.py
+    find: "page_stamp = doc[\"generated\"] + PLACEHOLDER_MARK"
+    replace: "page_stamp = doc[\"generated\"]"
+    survives: false
+    why: ""
+
+  - id: M458
+    title: "data-refresh 的 pulse-github 那一步拿掉快照旗標（do_snapshot 恆為假，board.json 永遠不再寫，CI 全綠）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "python scripts/pulse-github.py --snapshot-if-older-than 20"
+    replace: "python scripts/pulse-github.py"
+    survives: false
+    why: ""
+
+  - id: M459
+    title: "load_board 不驗 generated（缺了才 KeyError，訊息不帶路徑）"
+    file: pulse-github.py
+    find: "    if not isinstance(board.get(\"generated\"), str):"
+    replace: "    if False:"
     survives: false
     why: ""

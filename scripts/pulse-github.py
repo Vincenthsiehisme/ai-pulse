@@ -8,6 +8,7 @@
   dist/data/github.json     竄起榜（repo / stars / 星速 / 名次變動 / 語言 / 主題 / 連結 / 中文描述）
   dist/github/index.html    自帶「動能」視圖（讀 ../data/github.json）
   _github/state.json        star ＋名次快照歷史（跨次累積星速與名次變動用；進版控）
+  _github/board.json        算好的榜（同 github.json，不含 desc_zh；只在快照有更新時寫；進版控）
   _github/desc-zh.json      中文描述儲存（潤稿端寫，本檔只讀；見 lib/ghdesc.py）
 
 中文描述：repo 的 description 來自 API，是英文。翻譯屬於**敘述**不是判斷，所以由潤稿端
@@ -34,8 +35,19 @@ _github/state.json 的 schema（2026-08-01 起，每筆四個欄位）：
 就自己補齊，不需要 migration script。回滾：把這兩個欄位留在檔案裡無害——舊版
 碼只讀 stars / ts，多的欄位會在下一次 state.update() 被整筆覆蓋掉。
 
+兩個模式（規格與理由見 references/github-board.md）：
+
+  抓取模式（預設，data-refresh 用）  快照有更新：打 Search、算榜、把榜寫進 _github/board.json；
+                                     快照沒更新：不抓，出頁與 desc-coverage 取自現有 board.json
+  --render-only（pages 用）          不打網路、不讀 token、不寫 state／desc-coverage；
+                                     讀 board.json 掛譯文，出 github.json 與頁面
+
+榜只在 data-refresh 算一次。pages 每次 push 都跑，重算的話基線是幾分鐘前的快照，
+baseline_days 變 0.0、星速被 days 的 0.5 下限放大成 2×delta（2026-09-30 量到）。
+
 紅線：抓取＋度量全確定性；API 失敗不炸整條鏈（沿用上次 github.json）。
 用法：VAULT_DIR=/path/to/AI-Pulse GITHUB_TOKEN=... python scripts/pulse-github.py
+      VAULT_DIR=/path/to/AI-Pulse python scripts/pulse-github.py --render-only
 依賴：requests, PyYAML。
 """
 import argparse
@@ -433,6 +445,91 @@ def write_desc_coverage(vault, now, ranked_n, with_zh_n):
     return cov
 
 
+BOARD_REL = ("_github", "board.json")
+
+
+def board_path(vault):
+    return Path(vault).joinpath(*BOARD_REL)
+
+
+PLACEHOLDER_MARK = "（佔位頁：尚無榜單）"
+
+
+class BoardError(Exception):
+    """board.json 存在但壞了（不是合法 JSON、不是 object、缺 repos、缺 generated）。訊息帶路徑。"""
+
+
+def load_board(vault):
+    """讀 _github/board.json；不存在回 None，壞掉 raise BoardError。"""
+    bp = board_path(vault)
+    if not bp.exists():
+        return None
+    try:
+        board = json.loads(bp.read_text("utf-8"))
+    except ValueError as e:
+        raise BoardError(f"{bp} 不是合法 JSON：{e}")
+    if not isinstance(board, dict) or not isinstance(board.get("repos"), list):
+        raise BoardError(f"{bp} 缺 repos（或不是 JSON object）")
+    if not isinstance(board.get("generated"), str):
+        raise BoardError(f"{bp} 缺 generated（頁面的更新時間要用它）")
+    return board
+
+
+def emit_board(vault, out_dir, now):
+    """讀 board.json、掛譯文、寫 dist/data/github.json 與頁面。回 (doc, 有沒有 board)。
+
+    **--render-only 與「抓取模式但快照沒更新」共用這一份碼**：兩者出的頁都必須是線上
+    顯示的那份榜（board.json），desc-prep 讀的 dist/data/github.json 與 desc-coverage
+    量的也是它。分成兩份碼，就會各自漂成量不同的榜。
+    board.json 不存在寫 measured:false 佔位（stderr 印一行）；壞掉 raise BoardError，
+    不寫任何輸出。
+    """
+    board = load_board(vault)
+    out = Path(vault) / out_dir
+    if board is not None:
+        store = ghdesc.load(vault)
+        ghdesc.attach(board["repos"], store)
+        ghdesc.attach(board.get("surging") or [], store)
+        doc = board
+        # 頁面的「更新」時間是榜算出來的那一刻（board 的 generated），不是出頁當下：
+        # 資料是舊的、時間卻是新的，同一頁就有兩個時間，讀者會以為榜剛更新。
+        page_stamp = board["generated"]
+    else:
+        print(f"[warn] {board_path(vault)} 不存在——寫 measured:false 佔位"
+              "（等 data-refresh 寫出第一份）", file=sys.stderr)
+        doc = {"generated": clock.display_stamp(now), "count": 0, "repos": [],
+               "measured": False}
+        # 佔位頁沒有榜的時間可沿用，只能用當下；但要寫明那是佔位，不是榜的時間。
+        page_stamp = doc["generated"] + PLACEHOLDER_MARK
+    (out / "data").mkdir(parents=True, exist_ok=True)
+    (out / "github").mkdir(parents=True, exist_ok=True)
+    (out / "data" / "github.json").write_text(
+        json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
+    (out / "github" / "index.html").write_text(
+        gh_page(page_stamp), encoding="utf-8")
+    return doc, board is not None
+
+
+def render_only(vault, out_dir):
+    """pages 用：只讀 _github/board.json，掛譯文，出 github.json 與頁面。
+
+    不打網路、不讀 token、不寫 state.json 與 desc-coverage.json——榜在 data-refresh
+    算過一次了，這裡再算就是 baseline_days 0.0 那個 bug（見 references/github-board.md）。
+    board.json 不存在寫 measured:false 佔位（exit 0）；壞掉（不是 JSON、不是 object、
+    缺 repos、缺 generated）exit 2 並帶路徑，不寫任何輸出。
+    """
+    try:
+        doc, present = emit_board(vault, out_dir, datetime.now(timezone.utc))
+    except BoardError as e:
+        print(f"[error] {e}", file=sys.stderr)
+        return 2
+    if present:
+        print(f"pulse-github --render-only  榜={len(doc['repos'])}"
+              f"＋竄升={len(doc.get('surging') or [])}  "
+              f"generated={doc.get('generated')}  → data/github.json + github/")
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="dist")
@@ -440,8 +537,14 @@ def main():
                     help="更新 _github/state.json 星數快照（只在每晚跑一次，維持乾淨的 Δ/天）")
     ap.add_argument("--snapshot-if-older-than", type=float, default=None, metavar="HOURS",
                     help="只有當現有快照已舊過 N 小時才更新。給一天跑很多班的排程用。")
+    ap.add_argument("--render-only", action="store_true",
+                    help="不抓、不算：讀 _github/board.json 掛譯文後出頁（pages 用）。")
     args = ap.parse_args()
+    if args.render_only and (args.snapshot or args.snapshot_if_older_than is not None):
+        ap.error("--render-only 不能與 --snapshot／--snapshot-if-older-than 併用")
     vault = Path(os.environ["VAULT_DIR"])
+    if args.render_only:
+        return render_only(vault, args.out)
     cfg = yaml.safe_load((vault / "_config" / "github.yaml").read_text("utf-8"))
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
     now = datetime.now(timezone.utc)
@@ -462,6 +565,33 @@ def main():
         newest = max((v.get("ts") or 0) for v in state.values()) if state else 0
         age_h = (now.timestamp() - newest) / 3600.0 if newest else float("inf")
         do_snapshot = age_h >= args.snapshot_if_older_than
+
+    if not do_snapshot:
+        # 快照沒更新：這一班不重排榜。用年輕基線重排的那份榜線上不會顯示，而同一班的
+        # desc-prep 與 write_desc_coverage 都讀 dist/data/github.json——量到的會是一份
+        # 沒人看得到的榜。所以出頁與覆蓋率一律取自現有 board.json（線上那份），也不必抓。
+        try:
+            doc, present = emit_board(vault, args.out, now)
+        except BoardError as e:
+            print(f"[error] {e}", file=sys.stderr)
+            return 2
+        why = (f"基線才 {age_h:.1f} 小時大，還沒到門檻" if age_h is not None
+               else "沒有快照旗標")
+        if present:
+            listed = ghdesc.board_union(doc["repos"], doc.get("surging") or [])
+            n_zh = sum(1 for r in listed if r.get("desc_zh"))
+            write_desc_coverage(vault, now, len(listed), n_zh)
+            print(f"pulse-github  快照沒更新，不抓；出頁取自 _github/board.json"
+                  f"（generated={doc.get('generated')}，榜={len(doc['repos'])}"
+                  f"＋竄升={len(doc.get('surging') or [])}，去重 {len(listed)}）  "
+                  f"中文描述={n_zh}/{len(listed)}  [snapshot 未更新：{why}，board.json 未更新]"
+                  "  → data/github.json + github/")
+        else:
+            # 沒有 board 可取：兩格寫 null，不寫 0（沿用抓取全失敗那條路的語意）。
+            write_desc_coverage(vault, now, ranked_n=None, with_zh_n=None)
+            print(f"pulse-github  快照沒更新，不抓；_github/board.json 不存在，出 measured:false 佔位"
+                  f"  [snapshot 未更新：{why}，board.json 未更新]  → data/github.json + github/")
+        return 0
 
     current = collect(cfg, token, now)
     # 榜單頁把這個字串直接印給讀者看（上面那段 JS 的 `d.generated`），
@@ -492,6 +622,12 @@ def main():
         return 0
 
     ranked, surging = rank(current, state, now, cfg.get("top_n", 25))
+    # board.json 存的是「榜的事實」：譯文在下面 attach 才掛，所以在那之前先序列化。
+    # attach 是就地改 dict，晚一步序列化會把 desc_zh 一起存進去。
+    board_text = json.dumps({"generated": generated, "count": len(ranked), "repos": ranked,
+                             "surging": surging, "surge_floor": SURGE_FLOOR,
+                             "measured": True},
+                            ensure_ascii=False, indent=2)
     # 掛上潤稿端翻好的中文描述。抓取鏈不等它、也不產生它——沒有就是英文原文，
     # 榜照樣出得來。中文晚一步到（潤稿任務比 Actions 晚三小時）是設計，不是缺陷。
     # 兩個榜都掛：同一個 repo 可能同時在兩邊，翻過的譯文要兩邊都看得到。
@@ -504,21 +640,25 @@ def main():
                    ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
 
-    # 更新快照（一天一次，維持乾淨的 Δ/天基線）；進版控
+    # 更新快照（走到這裡就是 do_snapshot 為真，快照沒更新的班次在上面 emit_board 就回了）；進版控
     #
     # 名次跟星數同一次寫回，理由見模組 docstring 的 schema 段：兩個數字要回答
     # 同一個問句。**沒上榜的 repo 寫 null，不是不寫**——不寫的話下一班讀到的是
     # 「這個欄位不存在」，會被判成「舊 schema、量不到」，而事實是我們上次量過、
     # 它就是不在榜上。兩者在畫面上是不同的說法（見 rank_move()）。
-    if do_snapshot:
-        vel_rank = {r["full_name"]: r["rank_velocity"] for r in ranked}
-        sur_rank = {r["full_name"]: r["rank_surge"] for r in surging}
-        state.update({full: {"stars": r["stars"], "ts": now.timestamp(),
-                             "rank_velocity": vel_rank.get(full),
-                             "rank_surge": sur_rank.get(full)}
-                      for full, r in current.items()})
-        state_path.parent.mkdir(parents=True, exist_ok=True)
-        state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+    # 先 board、後 state：反過來的話 state 成功、board 失敗，下一班的基線就太新，
+    # --snapshot-if-older-than 擋住，榜要等 20 小時才補得上。
+    board_p = board_path(vault)
+    board_p.parent.mkdir(parents=True, exist_ok=True)
+    atomic_write_text(board_p, board_text + "\n")
+    vel_rank = {r["full_name"]: r["rank_velocity"] for r in ranked}
+    sur_rank = {r["full_name"]: r["rank_surge"] for r in surging}
+    state.update({full: {"stars": r["stars"], "ts": now.timestamp(),
+                         "rank_velocity": vel_rank.get(full),
+                         "rank_surge": sur_rank.get(full)}
+                  for full, r in current.items()})
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
     n_new = sum(1 for r in ranked if r["is_new"])
     # 覆蓋率算**整頁**不算單一個榜。只算 ranked 的那一版，分母是星速榜的條數，
@@ -529,12 +669,7 @@ def main():
     # 連續幾天沒有中文」沒有任何地方存著。潤稿端的 C2 段失敗時**寫不進 repo**，
     # 所以觀測要住在會跑的這一邊。見 lib/ghdesc.py 的〈覆蓋率〉。
     write_desc_coverage(vault, now, len(listed), n_zh)
-    if do_snapshot:
-        snap = " [snapshot 已更新]"
-    elif age_h is not None:
-        snap = f" [snapshot 未更新：基線才 {age_h:.1f} 小時大，還沒到門檻]"
-    else:
-        snap = ""
+    snap = " [snapshot 已更新，board.json 已寫]"
     print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}＋竄升={len(surging)}"
           f"（去重 {len(listed)}）  首次觀測={n_new}  "
           f"中文描述={n_zh}/{len(listed)}{snap}  → data/github.json + github/")
