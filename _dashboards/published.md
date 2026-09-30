@@ -1,6 +1,22 @@
-# 已發布事件（371）
+# 已發布事件（378）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-09-30
+- **[[Events/evt-2026-09-30-12d487|NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000]]** — NVIDIA · capital · conf 73 · heat 未量測
+  NVIDIA 開放 2027–2028 年度研究生獎學金申請，獎助最高 6 萬美元。
+- **[[Events/evt-2026-09-30-1c6239|Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning]]** — Hugging Face · research · conf 73 · heat 未量測
+  Hugging Face 推出 Open TTS Leaderboard，評測多語言語音合成與聲音複製。
+- **[[Events/evt-2026-09-30-4e52e2|Disrupting a coordinated model-distillation campaign]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 稱已中斷一起針對受保護推理內容的蒸餾行動，並強化防禦。
+- **[[Events/evt-2026-09-30-583eae|Introducing SynthID Bio]]** — Google DeepMind · research · conf 73 · heat 未量測
+  DeepMind 發表 SynthID Bio，概念驗證為 AI 生成蛋白質加上浮水印。
+- **[[Events/evt-2026-09-30-77e966|From Training to Production, NVIDIA and CoreWeave Close the Loop on Agentic AI]]** — CoreWeave · infra · conf 73 · heat 未量測
+  NVIDIA 與 CoreWeave 宣布把下一代 NVIDIA 基礎設施帶進 CoreWeave 雲端，主打代理式 AI。
+- **[[Events/evt-2026-09-30-eb348b|Helping small businesses put AI to work]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 與美國 SBDC 合作，為小型企業提供 AI 實作訓練與在地支援。
+- **[[Events/evt-2026-09-30-fa1a68|Gemini 4 Argon: our next era of frontier intelligence]]** — Google DeepMind · model-capability · conf 87 · heat 未量測
+  Google 宣布 Gemini 4 Argon，媒體報導目前還不能使用。
 
 ## 2026-09-29
 - **[[Events/evt-2026-09-29-01aea3|DevDay 2026 Recap]]** — OpenAI · product · conf 80 · heat 未量測

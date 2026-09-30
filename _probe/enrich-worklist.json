@@ -1,170 +1,49 @@
 [
   {
-    "id": "evt-2026-09-28-b715d3",
-    "path": "evt-2026-09-28-b715d3.md",
-    "title": "Towards safety cases for frontier AI training",
+    "id": "evt-2026-09-30-12d487",
+    "path": "evt-2026-09-30-12d487.md",
+    "title": "NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000",
     "fingerprint": null,
     "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/applications-open-graduate-fellowship-awards-2026/",
+        "title": "NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000",
+        "summary": "Bringing together the world’s brightest minds and the latest accelerated computing technology leads to powerful breakthroughs that help tackle some of the biggest research problems. To foster such innovation, the NVIDIA Graduate Fellowship Program provides grants, mentors and technical support to do",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-30-1c6239",
+    "path": "evt-2026-09-30-1c6239.md",
+    "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
+    "fingerprint": null,
+    "facet": "benchmark",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/towards-safety-cases-for-frontier-ai-training",
-        "title": "Towards safety cases for frontier AI training",
-        "summary": "Our early guidelines for safety cases in frontier AI training cover technical safeguards, operational practices, and investigating misalignment incidents",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-28-fc5ea5",
-    "path": "evt-2026-09-28-fc5ea5.md",
-    "title": "How we will do better for Australia",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/how-we-will-do-better-for-australia",
-        "title": "How we will do better for Australia",
-        "summary": "OpenAI apologises for incidents involving Australian government websites and outlines stronger safeguards and support to strengthen Australia’s cyber defences.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-29-01aea3",
-    "path": "evt-2026-09-29-01aea3.md",
-    "title": "DevDay 2026 Recap",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 2,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/devday-2026-recap",
-        "title": "DevDay 2026 Recap",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-kol-simonwillison",
-        "url": "https://simonwillison.net/2026/Sep/29/openai-devday-2026-live-blog/",
-        "title": "OpenAI DevDay 2026 live blog",
-        "summary": " I'm at  OpenAI DevDay  today, in Fort Mason, San Francisco. Same as  last year  I'll be live blogging the keynote and some other notes during the day. \n\n  OpenAI gave me a free ticket and a seat in the \"creator\" area for the keynote.  \n    \n         Tags:  ai ,  openai ,  generative-ai ,  llms ,  c",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/devday-2026-recap/",
-        "title": "DevDay 2026 Recap",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 2
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-09-29-119ae0",
-    "path": "evt-2026-09-29-119ae0.md",
-    "title": "Introducing dots",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "OpenAI",
-    "independent_sources": 2,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/introducing-dots",
-        "title": "Dots: Always-on agents",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/introducing-dots/",
-        "title": "Dots: Always-on agents",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 2
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-09-29-67e008",
-    "path": "evt-2026-09-29-67e008.md",
-    "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/nvidia/kumo-tabular",
-        "title": "NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction",
-        "summary": "A Blog post by NVIDIA on Hugging Face",
+        "url": "https://huggingface.co/blog/open-tts-leaderboard",
+        "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -181,46 +60,157 @@
     }
   },
   {
-    "id": "evt-2026-09-29-686cda",
-    "path": "evt-2026-09-29-686cda.md",
-    "title": "Introducing GPT-6.1 Sol",
-    "fingerprint": "openai:gpt:6.1",
-    "facet": "release",
+    "id": "evt-2026-09-30-4e52e2",
+    "path": "evt-2026-09-30-4e52e2.md",
+    "title": "Disrupting a coordinated model-distillation campaign",
+    "fingerprint": null,
+    "facet": "update",
     "company_guess": "OpenAI",
-    "independent_sources": 4,
+    "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/introducing-gpt-6-1-sol",
-        "title": "GPT 6.1 Sol: Near-Astra intelligence for a fifth of the price",
+        "url": "https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign",
+        "title": "Disrupting a coordinated model-distillation campaign",
+        "summary": "Learn how OpenAI disrupted a campaign to extract protected model reasoning and is strengthening defenses against adversarial distillation.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-30-583eae",
+    "path": "evt-2026-09-30-583eae.md",
+    "title": "Introducing SynthID Bio",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/introducing-synthid-bio/",
+        "title": "Introducing SynthID Bio",
+        "summary": "Proof of concept for watermarking AI-generated proteins while preserving biological function.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-30-77e966",
+    "path": "evt-2026-09-30-77e966.md",
+    "title": "From Training to Production, NVIDIA and CoreWeave Close the Loop on Agentic AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "CoreWeave",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/coreweave-agentic-ai-vera-rubin/",
+        "title": "From Training to Production, NVIDIA and CoreWeave Close the Loop on Agentic AI",
+        "summary": "Building on nearly a decade of co-engineering, CoreWeave has built NVIDIA compute, networking and software into a cloud purpose-built for AI that’s still returning on investment across multiple generations of deployment. Now, CoreWeave is bringing the next generation of NVIDIA infrastructure to prod",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-30-eb348b",
+    "path": "evt-2026-09-30-eb348b.md",
+    "title": "Helping small businesses put AI to work",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/helping-small-businesses-put-ai-to-work",
+        "title": "Helping small businesses put AI to work",
+        "summary": "OpenAI is partnering with America’s SBDC to expand hands-on AI training and local support for small businesses, alongside a new report on how small teams are using AI.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-09-30-fa1a68",
+    "path": "evt-2026-09-30-fa1a68.md",
+    "title": "Gemini 4 Argon: our next era of frontier intelligence",
+    "fingerprint": "google:gemini:4",
+    "facet": "update",
+    "company_guess": "Google DeepMind",
+    "independent_sources": 3,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/",
+        "title": "Gemini 4 Argon: our next era of frontier intelligence",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
         "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-media-techcrunch",
-        "url": "https://techcrunch.com/2026/09/29/openai-launches-gpt-6-1-sol-says-it-nearly-matches-gpt-6-astra-and-costs-less/",
-        "title": "OpenAI launches GPT-6.1 Sol, says it nearly matches GPT-6 Astra and costs less",
-        "summary": "OpenAI says GPT-6.1 Sol delivers significant improvements over GPT-6 Sol across complex professional tasks, including code writing and debugging, document understanding, and executing multi-step business workflows.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
       },
       {
         "source_id": "src-media-arstechnica",
-        "url": "https://arstechnica.com/ai/2026/09/openai-says-planned-gpt-6-1-is-too-insecure-to-release/",
-        "title": "OpenAI says planned GPT-6.1 is too insecure to release",
-        "summary": "Similar performance, security trade-offs also seen in current public models.",
+        "url": "https://arstechnica.com/google/2026/09/google-announces-gemini-4-argon-ai-model-but-you-cant-use-it-yet/",
+        "title": "Google announces Gemini 4 Argon AI model, but you can't use it yet",
+        "summary": "So much for Gemini 3.5 Pro.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
       },
       {
         "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/introducing-gpt-6-1-sol/",
-        "title": "GPT 6.1 Sol: Near-Astra intelligence for a fifth of the price",
+        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+        "title": "Gemini 4 Argon",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -229,7 +219,7 @@
     ],
     "availability": {
       "counts": {
-        "has_text": 2,
+        "has_text": 1,
         "unfetched": 0,
         "withheld": 2
       },
@@ -237,36 +227,6 @@
       "reasons": [
         "license_note 限「標題＋連結」，這是我們自己的保守約束"
       ]
-    }
-  },
-  {
-    "id": "evt-2026-09-29-96c618",
-    "path": "evt-2026-09-29-96c618.md",
-    "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source",
-        "title": "Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents",
-        "summary": "A Blog post by Multiverse Computing on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
     }
   }
 ]
