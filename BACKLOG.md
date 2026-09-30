@@ -109,6 +109,7 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`Meta-沒有來源`](#meta-沒有來源) | Meta 唯一的來源停更於 2023-05，這家公司在系統裡等於不存在 | 不會 | 是 |
 | [`版面沒有人量過真的幾何`](#版面沒有人量過真的幾何) | 站台只測「規則寫對了」，沒測「畫面對了」。兩次都是人眼在截圖上看到的，而測試全綠 | **不會** | 否（但它讓假綠燈成立） |
 | [`mutate-跑的時候可以改檔案`](#mutate-跑的時候可以改檔案) | 變異測試會把檔案改掉再改回來，中途編輯會落在那個窗口裡；已經發生三次，三次都是 `git status` 抓到的 | 不會 | 否 |
+| [`github-榜-打磨`](#github-榜-打磨) | `board.json` 上線後審查挑出的四個小洞：API 連續失敗時榜凍結而警報不叫、抓取全失敗班的 dist 是佔位、手動 `--snapshot` 會在年輕基線時寫 board、佔位 dict 手抄兩份 | 不會 | 否（榜凍結時頁面上的更新時間是舊的，沒有假新） |
 | [`分支刪不掉`](#分支刪不掉) | 只剩「我做完你來合」這個交棒介面不會叫（刪分支與推分支都已證實可行） | — | — |
 
 ---
@@ -589,6 +590,29 @@ token 交集趨近於零，而字典的 aliases 兩種語言都收。但**沒有
 這個狀態**——它們會永遠留在 review，而且數量只會單調增加。要嘛給一個 `archived`
 終態，要嘛定期清掉。現在只是靠 monitor 把它們跟真正的待處理分開印，不讓數字互相
 污染。
+
+---
+
+## `github-榜-打磨`
+
+發現來源：2026-09-30 PR #104 Fable 審查（`board.json` 算一次、pages 只讀）。四條都是打磨，不是壞掉，
+所以沒動碼；規格見 `references/github-board.md`。
+
+- **F-2：GitHub API 連續失敗時 `board.json` 凍結，健康警報不叫。** 抓取全失敗（`collect()` 回空）
+  那班保留上一份 board，pages 繼續出舊榜，頁面上的更新時間是舊的（誠實），但沒有東西會紅：
+  monitor 沒有看 board 的年紀。建議 `pulse-monitor.py` 加一條 board 年紀警報，超過幾天沒更新就叫，
+  門檻隨 `--snapshot-if-older-than 20` 的節奏定。
+- **F-3：抓取全失敗那班，`dist/data/github.json` 仍是佔位。** 快照沒更新的班次已改成取自 board，
+  但 `not current`（全失敗）那條路仍走舊的「沿用上次 github.json、沒有就寫佔位」。在 CI 上 `dist/`
+  是乾淨的，所以那班 desc-prep 讀到佔位。這與「`dist` 等於線上那一份」不一致，該路徑也該改走
+  `emit_board()`。
+- **F-5：手動 `--snapshot` 在年輕基線時會寫 board。** `--snapshot` 無條件讓 `do_snapshot` 為真，
+  基線才幾分鐘大時算出來的榜（`baseline_days` 接近 0、星速被 0.5 天下限放大）會覆蓋 board，
+  正是這一包要擋的 bug。目前只有手動才會發生，沒有 CI 路徑帶 `--snapshot`。可考慮 `--snapshot`
+  也套年紀下限，或在文件與 `--help` 明講它會蓋 board。
+- **F-6：佔位 dict 兩份手抄。** `main()` 抓取全失敗那條與 `emit_board()` 各寫一份
+  `{"generated", "count": 0, "repos": [], "measured": False}`。同一種東西長成兩套，改一邊另一邊會分岔。
+  應抽成一個函式。
 
 ---
 

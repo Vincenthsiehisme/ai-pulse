@@ -452,6 +452,9 @@ def board_path(vault):
     return Path(vault).joinpath(*BOARD_REL)
 
 
+PLACEHOLDER_MARK = "（佔位頁：尚無榜單）"
+
+
 class BoardError(Exception):
     """board.json 存在但壞了（不是合法 JSON、不是 object、缺 repos）。訊息帶路徑。"""
 
@@ -467,6 +470,8 @@ def load_board(vault):
         raise BoardError(f"{bp} 不是合法 JSON：{e}")
     if not isinstance(board, dict) or not isinstance(board.get("repos"), list):
         raise BoardError(f"{bp} 缺 repos（或不是 JSON object）")
+    if not isinstance(board.get("generated"), str):
+        raise BoardError(f"{bp} 缺 generated（頁面的更新時間要用它）")
     return board
 
 
@@ -486,17 +491,22 @@ def emit_board(vault, out_dir, now):
         ghdesc.attach(board["repos"], store)
         ghdesc.attach(board.get("surging") or [], store)
         doc = board
+        # 頁面的「更新」時間是榜算出來的那一刻（board 的 generated），不是出頁當下：
+        # 資料是舊的、時間卻是新的，同一頁就有兩個時間，讀者會以為榜剛更新。
+        page_stamp = board["generated"]
     else:
         print(f"[warn] {board_path(vault)} 不存在——寫 measured:false 佔位"
               "（等 data-refresh 寫出第一份）", file=sys.stderr)
         doc = {"generated": clock.display_stamp(now), "count": 0, "repos": [],
                "measured": False}
+        # 佔位頁沒有榜的時間可沿用，只能用當下；但要寫明那是佔位，不是榜的時間。
+        page_stamp = doc["generated"] + PLACEHOLDER_MARK
     (out / "data").mkdir(parents=True, exist_ok=True)
     (out / "github").mkdir(parents=True, exist_ok=True)
     (out / "data" / "github.json").write_text(
         json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "github" / "index.html").write_text(
-        gh_page(clock.display_stamp(now)), encoding="utf-8")
+        gh_page(page_stamp), encoding="utf-8")
     return doc, board is not None
 
 
