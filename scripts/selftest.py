@@ -9859,16 +9859,16 @@ with tempfile.TemporaryDirectory() as _cltd:
         {"sml/y": {"zh": "只在分類榜", "src_hash": _gu.src_hash("Y"), "at": "t"}}),
         encoding="utf-8")
     _cl_rc1, _cl_o1, _, _ = _bd_main(_clv, ["--snapshot"], _cl_repos)
-    _cl_gj = _bd_rd(_clv, "dist", "data", "github.json")
-    _cl_bd = _bd_rd(_clv, "_github", "board.json")
+    _cl_gj = _bd_rd(_clv, "dist", "data", "github.json") or {}
+    _cl_bd = _bd_rd(_clv, "_github", "board.json") or {}
     _cl_cov1 = _bd_rd(_clv, "_github", "desc-coverage.json") or {}
     # 找不到那一類就給空的一類：變異拿掉 categories 時要紅在比對上，不是崩在索引。
     _cl_cat = lambda d: ([c for c in d.get("categories") or [] if c["id"] == "mcp"]
                          or [{"repos": [], "surging": [{}, {}]}])[0]
     _cl_mcp = _cl_cat(_cl_gj)
     acase("分類（實跑）：github.json 與 board.json 的 categories 依設定順序，分類榜收得到全部榜沒有的 repo",
-          [_cl_rc1, [c["id"] for c in _cl_gj["categories"]], [c["id"] for c in _cl_bd["categories"]],
-           [r["full_name"] for r in _cl_gj["repos"]], [r["full_name"] for r in _cl_gj["surging"]],
+          [_cl_rc1, [c["id"] for c in _cl_gj.get("categories") or []], [c["id"] for c in _cl_bd.get("categories") or []],
+           [r["full_name"] for r in _cl_gj.get("repos") or []], [r["full_name"] for r in _cl_gj.get("surging") or []],
            [r.get("full_name") for r in _cl_mcp["surging"]]],
           [0, ["open-models", "mcp"], ["open-models", "mcp"], ["big/a"], ["sml/x"], ["sml/x", "sml/y"]])
     acase("分類（實跑）：抓取模式把譯文掛到分類榜上，覆蓋率分母是全部榜與分類榜去重後的 repo 數"
@@ -9879,9 +9879,10 @@ with tempfile.TemporaryDirectory() as _cltd:
     # render-only：同一份 board 掛譯文，分類榜也要掛。
     shutil.rmtree(_clv / "dist", ignore_errors=True)
     _cl_rc2, _, _, _ = _bd_main(_clv, ["--render-only"], None, nonet=True)
-    _cl_gj2 = _bd_rd(_clv, "dist", "data", "github.json")
+    _cl_gj2 = _bd_rd(_clv, "dist", "data", "github.json") or {}
     _cl_mcp2 = _cl_cat(_cl_gj2)
-    _cl_html = (_clv / "dist" / "github" / "index.html").read_text("utf-8")
+    _cl_hp = _clv / "dist" / "github" / "index.html"
+    _cl_html = _cl_hp.read_text("utf-8") if _cl_hp.exists() else ""
     acase("分類（實跑）：--render-only 掛譯文涵蓋分類榜，出頁的分頁取自 board.json 的 categories",
           [_cl_rc2, (_cl_mcp2["surging"][1:2] or [{}])[0].get("desc_zh"), _cl_gj2 == _cl_gj,
            _re.findall(r'data-cat="([^"]+)"', _cl_html)],
@@ -9900,7 +9901,7 @@ with tempfile.TemporaryDirectory() as _cltd:
           [sorted(_cl_todo), "big/b" in _cl_todo], [["big/a", "big/b", "sml/x"], True])
     _cl_src, _cl_origin = _dam.english_source(_cl_gj2, None)
     acase("分類：寫回端的英文原文認得分類榜上的 repo（不然分類榜的譯文會被退件，理由是「不在目前榜單上」）",
-          [_cl_origin, sorted(_cl_src)], ["board", ["big/a", "big/b", "sml/x", "sml/y"]])
+          [_cl_origin, sorted(_cl_src or [])], ["board", ["big/a", "big/b", "sml/x", "sml/y"]])
 acase("分類：doc_union 輪流取全部榜與每一類的兩榜、重複的只留一份；舊 doc 沒有 categories 照樣取得出來",
       [[r["full_name"] for r in _gu.doc_union(
           {"repos": [{"full_name": "a"}], "surging": [{"full_name": "b"}],
