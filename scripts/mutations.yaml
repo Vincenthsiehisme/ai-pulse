@@ -1383,8 +1383,8 @@ mutations:
   - id: M158
     title: "榜讀不到還是生一份出來（落一個 {repos: []} 的假榜單，prep 下次讀到它會印「今晚沒有東西要翻」——同一個病往下再傳染一層）"
     file: pulse-github-desc-apply.py
-    find: "    if origin == \"board\":\n        board = dict(board or {}, repos=repos, surging=surging)"
-    replace: "    if True:\n        board = dict(board or {}, repos=repos, surging=surging)"
+    find: "    if origin == \"board\":\n        # 譯文是就地掛在 board 的各榜上的"
+    replace: "    if True:\n        # 譯文是就地掛在 board 的各榜上的"
     survives: false
     why: ""
 
@@ -1474,8 +1474,9 @@ mutations:
   - id: M168
     title: "首次觀測用「星數÷建立至今天數」當速度（三年前開的 5000 星專案拿到 4.5★/天 排進前段，而它這週可能一顆都沒漲——歷史平均代理現在的速度）"
     file: pulse-github.py
-    find: "    by_velocity = sorted(rows, key=lambda x: (x[\"velocity\"] is not None,\n                                              x[\"velocity\"] or 0, x[\"stars\"]), reverse=True)"
-    replace: "    for _x in rows:\n        if _x[\"velocity\"] is None:\n            _age = max((now - datetime.fromisoformat((_x[\"created\"] or \"2020-01-01\") + \"T00:00:00+00:00\")).days, 1)\n            _x[\"velocity\"] = round(_x[\"stars\"] / _age, 1)\n    by_velocity = sorted(rows, key=lambda x: (x[\"velocity\"] or 0, x[\"stars\"]), reverse=True)"
+    # 2026-09-30 第七十二輪搬家：排序搬進 split_tiers()（那裡沒有 now），代理值改在 measure() 收尾時塞。
+    find: "                         baseline_days=baseline_days))\n    return rows\n"
+    replace: "                         baseline_days=baseline_days))\n    for _x in rows:\n        if _x[\"velocity\"] is None:\n            _age = max((now - datetime.fromisoformat((_x[\"created\"] or \"2020-01-01\") + \"T00:00:00+00:00\")).days, 1)\n            _x[\"velocity\"] = round(_x[\"stars\"] / _age, 1)\n    return rows\n"
     survives: false
     why: ""
 
@@ -1534,7 +1535,7 @@ mutations:
   - id: M175
     title: "待譯清單只掃星速榜（竄升榜獨有的 repo 永遠排不進來，那一整半永遠是英文；而每一班照樣印「待譯 N 條」，讀起來像清單是滿的）"
     file: pulse-github-desc-prep.py
-    find: "    repos = ghdesc.board_union((doc or {}).get(\"repos\") or [],\n                               (doc or {}).get(\"surging\") or [])"
+    find: "    repos = ghdesc.doc_union(doc)"
     replace: "    repos = (doc or {}).get(\"repos\") or []"
     survives: false
     why: ""
@@ -1550,7 +1551,7 @@ mutations:
   - id: M177
     title: "寫回端只認星速榜（prep 排進清單、潤稿端翻好的竄升榜 repo，回來會被退件、理由是「不在目前榜單上」——而它就在榜上，只是在另一個榜）"
     file: pulse-github-desc-apply.py
-    find: "        rows = ghdesc.board_union(repos, board.get(\"surging\") or [])"
+    find: "        rows = ghdesc.doc_union(board)"
     replace: "        rows = repos"
     survives: false
     why: ""
@@ -1558,16 +1559,16 @@ mutations:
   - id: M178
     title: "中文覆蓋率的分母只算星速榜（分母比畫面窄，而它掛著「中文描述」這個名字——榜上一半是英文的時候照樣印得出 8/8）"
     file: pulse-github.py
-    find: "    listed = ghdesc.board_union(ranked, surging)"
-    replace: "    listed = ranked"
+    find: "（JS 的 allBoards）。\n    listed = ghdesc.doc_union(doc)"
+    replace: "（JS 的 allBoards）。\n    listed = ranked"
     survives: false
     why: ""
 
   - id: M179
     title: "頁上那行覆蓋率只數星速榜（同一個分母的第二份說法自己分岔：機器讀的那一格數兩個榜，讀者看到的那一行數一個）"
     file: pulse-github.py
-    find: "  repos.concat(surging).forEach"
-    replace: "  repos.forEach"
+    find: "  allBoards(d).forEach"
+    replace: "  [d.repos||[]].forEach"
     survives: false
     why: ""
 
@@ -3275,8 +3276,8 @@ mutations:
   - id: M378
     title: "--render-only 不掛星速榜的譯文（頁面全是英文，而 github.json 看起來正常）"
     file: pulse-github.py
-    find: "        ghdesc.attach(board[\"repos\"], store)\n"
-    replace: ""
+    find: "        for rows in ghdesc.doc_boards(board):\n            ghdesc.attach(rows, store)\n        doc = board\n"
+    replace: "        ghdesc.attach(board.get(\"surging\") or [], store)\n        doc = board\n"
     survives: false
     why: ""
 
@@ -3324,7 +3325,298 @@ mutations:
     title: "快照沒更新的班次還去抓一次（用不到的 API 額度，而且抓到的榜不會被用）"
     file: pulse-github.py
     find: "        try:\n            doc, present = emit_board(vault, args.out, now)"
-    replace: "        collect(cfg, token, now)\n        try:\n            doc, present = emit_board(vault, args.out, now)"
+    replace: "        collect(cfg, token, now, state)\n        try:\n            doc, present = emit_board(vault, args.out, now)"
+    survives: false
+    why: ""
+
+  # ── 第七十二輪（2026-09-30，T2）：GitHub 榜按體量切、六類分類、擴池 ──────────
+  # 規格 references/github-board.md〈體量切分〉〈分類〉〈候選池〉。
+
+  - id: M395
+    title: "星速榜不看門檻，小 repo 也收（兩榜又重疊，同一個 repo 兩邊都上）"
+    file: pulse-github.py
+    find: "    big = [x for x in rows if x[\"stars\"] >= tier_split]\n"
+    replace: "    big = list(rows)\n"
+    survives: false
+    why: ""
+
+  - id: M396
+    title: "竄升榜不看門檻，大 repo 也收（兩榜又重疊）"
+    file: pulse-github.py
+    find: "    small = [x for x in rows if x[\"stars\"] < tier_split]\n"
+    replace: "    small = list(rows)\n"
+    survives: false
+    why: ""
+
+  - id: M397
+    title: "門檻邊界改成嚴格大於（剛好等於 tier_split 的 repo 兩邊都不上）"
+    file: pulse-github.py
+    find: "    big = [x for x in rows if x[\"stars\"] >= tier_split]\n"
+    replace: "    big = [x for x in rows if x[\"stars\"] > tier_split]\n"
+    survives: false
+    why: ""
+
+  - id: M398
+    title: "門檻寫死 20000，不讀設定檔（設定改了，榜與頁面還是舊門檻）"
+    file: pulse-github.py
+    find: "    tier_split = cfg[\"tier_split\"]\n"
+    replace: "    tier_split = 20000\n"
+    survives: false
+    why: ""
+
+  - id: M399
+    title: "頁面不印切分門檻（兩個榜憑什麼切開，讀者看不到）"
+    file: pulse-github.py
+    find: "    el.textContent = d.tier_split!=null ? d.tier_split : \"—\"; });"
+    replace: "    el.textContent = \"\"; });"
+    survives: false
+    why: ""
+
+  - id: M400
+    title: "分類取最後一個符合的類（優先序反過來，同時帶 mcp 與 rag 的 repo 跑去 rag-memory）"
+    file: pulse-github.py
+    find: "    for c in categories:\n        if have & "
+    replace: "    for c in reversed(categories):\n        if have & "
+    survives: false
+    why: ""
+
+  - id: M401
+    title: "分類比對分大小寫（topic 寫成大寫的 repo 變未分類）"
+    file: pulse-github.py
+    find: "    have = {str(t).lower() for t in (row.get(\"topics\") or [])}"
+    replace: "    have = {str(t) for t in (row.get(\"topics\") or [])}"
+    survives: false
+    why: ""
+
+  - id: M402
+    title: "先截成顯示用的前 6 個 topic 再分類（第 7 個以後才命中的 repo 無緣無故變未分類）"
+    file: pulse-github.py
+    find: "    row[\"category\"] = classify(row, categories)\n    row[\"topics\"] = topics[:6]\n"
+    replace: "    row[\"topics\"] = topics[:6]\n    row[\"category\"] = classify(row, categories)\n"
+    survives: false
+    why: ""
+
+  - id: M403
+    title: "判不出分類時塞第一類（未分類的 repo 被灌進「開源模型與推論」）"
+    file: pulse-github.py
+    find: "    return UNCLASSIFIED\n"
+    replace: "    return categories[0][\"id\"] if categories else UNCLASSIFIED\n"
+    survives: false
+    why: ""
+
+  - id: M404
+    title: "分類頁不套 tier_split（小 repo 全擠進分類頁的星速榜，竄升榜空掉）"
+    file: pulse-github.py
+    find: "        by_velocity, by_surge = split_tiers(mine, tier_split)"
+    replace: "        by_velocity, by_surge = split_tiers(mine, 0)"
+    survives: false
+    why: ""
+
+  - id: M405
+    title: "分類榜不截到 category_top_n（一類幾十列，分頁跟全部榜一樣長）"
+    file: pulse-github.py
+    find: "                    \"repos\": by_velocity[:top_n], \"surging\": by_surge[:top_n]})"
+    replace: "                    \"repos\": by_velocity, \"surging\": by_surge})"
+    survives: false
+    why: ""
+
+  - id: M406
+    title: "分類頁不過濾分類（每一頁都是全部榜）"
+    file: pulse-github.py
+    find: "        mine = [r for r in rows if r[\"category\"] == c[\"id\"]]"
+    replace: "        mine = list(rows)"
+    survives: false
+    why: ""
+
+  - id: M407
+    title: "github.json／board.json 不寫 categories（分頁點下去全空）"
+    file: pulse-github.py
+    find: "           \"categories\": categories, \"measured\": True}"
+    replace: "           \"categories\": [], \"measured\": True}"
+    survives: false
+    why: ""
+
+  - id: M408
+    title: "--render-only 只掛全部榜的譯文（分類榜獨有的 repo 在線上永遠是英文）"
+    file: pulse-github.py
+    find: "        for rows in ghdesc.doc_boards(board):\n            ghdesc.attach(rows, store)\n        doc = board\n"
+    replace: "        ghdesc.attach(board[\"repos\"], store)\n        ghdesc.attach(board.get(\"surging\") or [], store)\n        doc = board\n"
+    survives: false
+    why: ""
+
+  - id: M409
+    title: "doc_boards 不含分類榜（待譯清單、寫回、覆蓋率一起漏掉分類榜獨有的 repo）"
+    file: lib/ghdesc.py
+    find: "    for c in doc.get(\"categories\") or []:\n        boards.append"
+    replace: "    for c in []:\n        boards.append"
+    survives: false
+    why: ""
+
+  - id: M410
+    title: "頁面只有「全部」一個分頁（六類分頁不見）"
+    file: pulse-github.py
+    find: "    tabs = [(\"all\", \"全部\")] + [(c[\"id\"], c[\"name\"]) for c in categories]"
+    replace: "    tabs = [(\"all\", \"全部\")]"
+    survives: false
+    why: ""
+
+  - id: M411
+    title: "unclassified 的標籤直接印 id（讀者看到一串英文 unclassified）"
+    file: pulse-github.py
+    find: "  if(id===\"unclassified\") return \"未分類\";\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M412
+    title: "抓取模式只掛全部榜的譯文（data-refresh 那份 github.json 的分類榜是英文，desc-prep 照樣讀得到）"
+    file: pulse-github.py
+    find: "    store = ghdesc.load(vault)\n    for rows in ghdesc.doc_boards(doc):\n        ghdesc.attach(rows, store)\n"
+    replace: "    store = ghdesc.load(vault)\n    for rows in ghdesc.doc_boards(doc)[:2]:\n        ghdesc.attach(rows, store)\n"
+    survives: false
+    why: ""
+
+  - id: M413
+    title: "寫回端只把譯文掛到全部榜（分類榜那幾列就地更新漏掉）"
+    file: pulse-github-desc-apply.py
+    find: "    boards = ghdesc.doc_boards(board) if origin == \"board\" else []"
+    replace: "    boards = ghdesc.doc_boards(board)[:2] if origin == \"board\" else []"
+    survives: false
+    why: ""
+
+  - id: M414
+    title: "拿掉近 90 天新建的那一次 Search（新 repo 星數還小，永遠排不進依星數排的前 40）"
+    file: pulse-github.py
+    find: "            for q in (base, f\"{base} created:>{born}\"):"
+    replace: "            for q in (base,):"
+    survives: false
+    why: ""
+
+  - id: M415
+    title: "新建查詢的日期用 active_days 算（撈的是近 45 天不是近 90 天，設定檔那一格變假旋鈕）"
+    file: pulse-github.py
+    find: "    born = clock.utc_date_str(now - timedelta(days=cfg[\"new_repo_days\"]))"
+    replace: "    born = clock.utc_date_str(now - timedelta(days=cfg[\"active_days\"]))"
+    survives: false
+    why: ""
+
+  - id: M416
+    title: "Search 之間不 sleep（30 次連打，超過每分鐘 30 次的上限，整批 403）"
+    file: pulse-github.py
+    find: "                if calls:\n                    time.sleep(SEARCH_GAP_S)\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M417
+    title: "Search 間隔縮成 1 秒（一分鐘可以打到 60 次）"
+    file: pulse-github.py
+    find: "SEARCH_GAP_S = 2.1\n"
+    replace: "SEARCH_GAP_S = 1.0\n"
+    survives: false
+    why: ""
+
+  - id: M418
+    title: "Search 次數只數成功的（全部失敗那一晚 N 是 0，被當成「沒打」而照樣補量出一份只有追蹤名單的榜）"
+    file: pulse-github.py
+    find: "                calls += 1\n                items = search_repos(q, token)\n                if items is None:\n                    failed += 1\n                    continue\n"
+    replace: "                items = search_repos(q, token)\n                if items is None:\n                    failed += 1\n                    continue\n                calls += 1\n"
+    survives: false
+    why: ""
+
+  - id: M419
+    title: "不做 GraphQL 補量（掉出搜尋的已知 repo 那一晚量不到，基線一天一天變老）"
+    file: pulse-github.py
+    find: "    filled, drop, unknown = track_known(state, seen, cfg, token, cutoff)\n"
+    replace: "    filled, drop, unknown = {}, [], 0\n"
+    survives: false
+    why: ""
+
+  - id: M420
+    title: "GraphQL 整批失敗時把那一批全剪掉（一次 502 就讓幾百個活著的 repo 失去基線）"
+    file: pulse-github.py
+    find: "        if got is None:\n            unknown += len(batch)\n            continue\n"
+    replace: "        if got is None:\n            drop.extend(batch)\n            continue\n"
+    survives: false
+    why: ""
+
+  - id: M421
+    title: "GraphQL 沒有明確結果的也剪（「這次不知道」被當成「確定查不到」）"
+    file: pulse-github.py
+    find: "            if full not in got:\n                unknown += 1\n                continue\n"
+    replace: "            if full not in got:\n                drop.append(full)\n                continue\n"
+    survives: false
+    why: ""
+
+  - id: M422
+    title: "封存的 repo 照樣進池子、不剪"
+    file: pulse-github.py
+    find: "            if node.get(\"isArchived\") or (node.get(\"pushedAt\") or \"\")[:10] <= cutoff:"
+    replace: "            if (node.get(\"pushedAt\") or \"\")[:10] <= cutoff:"
+    survives: false
+    why: ""
+
+  - id: M423
+    title: "45 天沒 push 的 repo 照樣進池子、不剪（入池條件在兩條路上不一樣）"
+    file: pulse-github.py
+    find: "            if node.get(\"isArchived\") or (node.get(\"pushedAt\") or \"\")[:10] <= cutoff:"
+    replace: "            if node.get(\"isArchived\"):"
+    survives: false
+    why: ""
+
+  - id: M424
+    title: "改名的 repo 用舊名字進池子（GraphQL 跟著轉址回新 repo 的星數，掛在舊名字上）"
+    file: pulse-github.py
+    find: "            if node is None or str(node.get(\"nameWithOwner\") or \"\").lower() != full.lower():"
+    replace: "            if node is None:"
+    survives: false
+    why: ""
+
+  - id: M425
+    title: "GraphQL 一批塞 1000 個別名（超過一次最多 100 個）"
+    file: pulse-github.py
+    find: "GRAPHQL_BATCH = 100\n"
+    replace: "GRAPHQL_BATCH = 1000\n"
+    survives: false
+    why: ""
+
+  - id: M426
+    title: "快照寫回時不剪枝（封存、刪除的 repo 永遠留在 state.json 裡，每晚都再查一次）"
+    file: pulse-github.py
+    find: "    for full in info[\"drop\"]:\n        state.pop(full, None)\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M427
+    title: "GraphQL 任何錯誤都當成查不到（權限、逾時也剪）"
+    file: pulse-github.py
+    find: "        if len(path) == 1 and e.get(\"type\") == \"NOT_FOUND\":"
+    replace: "        if True:"
+    survives: false
+    why: ""
+
+  - id: M428
+    title: "Search 全部失敗照樣補量出一份榜（只剩追蹤名單，新 repo 一個都不在，蓋掉上一份好榜）"
+    file: pulse-github.py
+    find: "    if calls and failed == calls:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M429
+    title: "stdout 的 Search 次數印成池子大小（C4 拿這個數字驗限速，量的是別的東西）"
+    file: pulse-github.py
+    find: "    cost = (f\"Search {info['search_calls']} 次、"
+    replace: "    cost = (f\"Search {len(current)} 次、"
+    survives: false
+    why: ""
+
+  - id: M430
+    title: "GraphQL 只取前 6 個 topic（補量那條路的分類被截斷，第 7 個以後的 topic 失效）"
+    file: pulse-github.py
+    find: "repositoryTopics(first: 20)"
+    replace: "repositoryTopics(first: 6)"
     survives: false
     why: ""
 
@@ -3357,6 +3649,96 @@ mutations:
     file: pulse-github.py
     find: "    if not isinstance(board.get(\"generated\"), str):"
     replace: "    if False:"
+    survives: false
+    why: ""
+
+  # ── 第七十二輪續（2026-09-30，PR #106 Fable 審查返工 F-1～F-3）─────────────
+
+  - id: M471
+    title: "GraphQL 欄位級錯誤不看（rN 是 dict、pushedAt 被置 null，照樣當成查到了）"
+    file: pulse-github.py
+    find: "        if alias in field_err:\n            continue\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M472
+    title: "剪枝要看的欄位缺或是 null 也照判（null 的 pushedAt 被讀成 45 天沒 push，活著的 repo 被剪）"
+    file: pulse-github.py
+    find: "                if bad:\n"
+    replace: "                if False:\n"
+    survives: false
+    why: ""
+
+  - id: M473
+    title: "pushedAt 不在必填欄位（null 的 pushedAt 被當成 45 天沒 push 而剪掉）"
+    file: pulse-github.py
+    find: "GRAPHQL_REQUIRED = (\"nameWithOwner\", \"pushedAt\", \"isArchived\")"
+    replace: "GRAPHQL_REQUIRED = (\"nameWithOwner\", \"isArchived\")"
+    survives: false
+    why: ""
+
+  - id: M474
+    title: "nameWithOwner 不在必填欄位（null 的 nameWithOwner 被當成改名而剪掉）"
+    file: pulse-github.py
+    find: "GRAPHQL_REQUIRED = (\"nameWithOwner\", \"pushedAt\", \"isArchived\")"
+    replace: "GRAPHQL_REQUIRED = (\"pushedAt\", \"isArchived\")"
+    survives: false
+    why: ""
+
+  - id: M475
+    title: "GraphQL 的 stargazerCount 是 null 照樣進池（split_tiers 丟 TypeError，整條鏈炸掉）"
+    file: pulse-github.py
+    find: "                if not isinstance(node.get(\"stargazerCount\"), int):\n                    bad.append(\"stargazerCount\")\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M476
+    title: "欄位 null 的 repo 不計入「沒有明確結果」（stdout 看不出這一晚有幾個沒量到）"
+    file: pulse-github.py
+    find: "                    unknown += 1\n                    continue\n"
+    replace: "                    continue\n"
+    survives: false
+    why: ""
+
+  - id: M477
+    title: "Search 的 incomplete_results 為真照樣算成功（GitHub 自己說沒搜完，池子少了一截沒人知道）"
+    file: pulse-github.py
+    find: "    if body.get(\"incomplete_results\"):"
+    replace: "    if False:"
+    survives: false
+    why: ""
+
+  - id: M478
+    title: "Search 200 空 items 算成功（30 次全空的那一晚被當成「今天沒有 repo」，補量出一份只有追蹤名單的榜）"
+    file: pulse-github.py
+    find: "    if not items:\n"
+    replace: "    if False:\n"
+    survives: false
+    why: ""
+
+  - id: M479
+    title: "Search 那筆的 stargazers_count 是 null 照樣進池（split_tiers 丟 TypeError）"
+    file: pulse-github.py
+    find: "                    if not isinstance(it.get(\"stargazers_count\"), int):"
+    replace: "                    if False:"
+    survives: false
+    why: ""
+
+  - id: M480
+    title: "NOT_FOUND 落在欄位上也當成 repo 查不到（欄位級的 NOT_FOUND 不是刪除）"
+    file: pulse-github.py
+    find: "        if len(path) == 1 and e.get(\"type\") == \"NOT_FOUND\":"
+    replace: "        if e.get(\"type\") == \"NOT_FOUND\":"
+    survives: false
+    why: ""
+
+  - id: M481
+    title: "Search 200 但 body 不是 JSON object 時照樣往下讀（null 或 list 丟 AttributeError，整條鏈炸掉）"
+    file: pulse-github.py
+    find: "    if not isinstance(body, dict):\n"
+    replace: "    if False:\n"
     survives: false
     why: ""
 

@@ -104,6 +104,30 @@ def board_union(*boards):
     return rows
 
 
+def doc_boards(doc):
+    """整份榜單 doc 裡的每一個榜，依固定順序：repos、surging、每一類的 repos 與 surging。
+
+    2026-09-30 補的。GitHub 那一頁多了六個分類頁，分類榜上有全部榜沒有的 repo（某一類的
+    第 3 名可能排不進全部榜的前 25）。只認 repos 與 surging 的話，那些 repo 永遠排不進
+    待譯清單、翻回來會被退件，而頁上印的「中文描述 x/y」分母又比畫面窄——07-29 那隻病
+    換一個地方再長一次。所以「整頁有哪些榜」只寫在這裡一份：desc-prep、desc-apply、
+    pulse-github 掛譯文與算覆蓋率都走它（頁面 JS 的 allBoards 是同一個範圍的第二份說法）。
+
+    舊的 doc（沒有 categories、或是沒有 surging 的佔位檔）照樣取得出來，少的就是空榜。
+    """
+    doc = doc or {}
+    boards = [doc.get("repos") or [], doc.get("surging") or []]
+    for c in doc.get("categories") or []:
+        boards.append(c.get("repos") or [])
+        boards.append(c.get("surging") or [])
+    return boards
+
+
+def doc_union(doc):
+    """整份榜單去重後的所有列：doc_boards 交給 board_union 輪流取（語意不變）。"""
+    return board_union(*doc_boards(doc))
+
+
 def pending(repos, store):
     """→ 還沒有有效中文的 repo（待譯清單）。順序沿用榜單順序＝重要的先譯。"""
     out = []

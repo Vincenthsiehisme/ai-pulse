@@ -3203,3 +3203,71 @@ hook 就先被殺，帳本可能留 dirty。修法是 hook 帶 `timeout: 420`、
 ### 清單長度
 
 386 → 430。分片 4 片，前兩片 108 條、其餘兩片各 107 條（這一輪在第七十輪之後併進 `main`；分支上是 366 → 410）。
+
+## 第七十二輪（2026-09-30，`feat/github-tiers-and-categories`）
+
+M395 起。守的是 GitHub 榜的三件事：兩榜按 `tier_split` 切開、六類分類與分類頁、候選池（每類近 90 天
+新建的查詢、GraphQL 追蹤已知 repo、Search 限速）。規格 `references/github-board.md`〈體量切分〉
+〈分類〉〈候選池〉。編號段 M395–M430 是派工時保留給這一包的，避免跟同時開工的另外兩包撞號。
+
+### 體量切分（M395–M399）
+
+這一格壞掉的樣子是兩個榜又重疊：同一個 repo 兩邊都上，而頁面上已經沒有 xref 標出來。M395、M396
+各拿掉一邊的門檻，M397 動邊界（剛好等於門檻的那一顆），M398 把門檻寫死不讀設定檔，M399 讓頁面
+不印門檻。selftest 驗兩榜交集為空、邊界兩側各一條、`github.json` 的 `tier_split` 等於設定檔
+那個值（測試刻意給 30000，不是正式的 20000）。
+
+### 順手搬家的 M168
+
+`rank()` 拆成 `measure()`（算星速）與 `split_tiers()`（切池、排序）。M168 原本改排序那一行、
+在那裡塞「星數÷建立至今天數」的代理速度，排序搬進 `split_tiers()` 之後那裡沒有 `now`，所以
+改成在 `measure()` 收尾時塞，守的是同一件事。
+
+### 分類（M400–M413）
+
+壞掉的樣子有兩種。一種是分類本身錯：優先序反過來（M400）、分大小寫（M401）、先截斷再分類讓第 7 個
+以後的 topic 失效（M402）、判不出分類時塞第一類（M403）。另一種是分類頁或翻譯鏈漏掉分類榜：分類頁
+不套門檻、不截斷、不過濾（M404–M406），`categories` 沒寫進 doc（M407），render-only、抓取模式、
+寫回端只掛全部榜的譯文（M408、M412、M413），`doc_boards` 不含分類榜（M409），頁面只剩「全部」
+分頁或未分類印成 id（M410、M411）。分類榜獨有的 repo 由 selftest 的拋棄式 vault 真的跑 `main()`、
+desc-prep 與 desc-apply 驗。
+
+### 順手改 find 的六條
+
+M158、M175、M177、M178、M179、M378 守的碼改成走 `ghdesc.doc_boards`／`doc_union`（全部榜加分類榜），
+字面值不再命中，find 跟著改，守的事不變。M378 的替換改成「只掛竄升榜」，一樣讓星速榜沒有譯文。
+
+### 候選池（M414–M430）
+
+這一格壞掉的樣子有兩個方向。池子太窄：拿掉新建查詢或日期算錯（M414、M415）、不做 GraphQL 補量
+（M419）、GraphQL 只取前 6 個 topic（M430）。剪得太兇或太鬆：整批失敗或沒有明確結果也剪（M420、
+M421、M427）、封存／不活躍／改名的不剪（M422–M424）、快照寫回不剪（M426）、Search 全部失敗照樣
+出榜（M418、M428）。限速兩條（M416、M417）、批次上限一條（M425）、stdout 那個給 C4 驗限速的數字
+一條（M429）。
+
+Search 與 GraphQL 都換成替身：這台沒有 `requests`，selftest 也不准連網。`time` 換成假時鐘，sleep 記下
+秒數並推進時鐘，所以「任何 60 秒窗口不超過 30 次」是真的算出來的，selftest 不必真的睡一分鐘。
+GraphQL 回應的判讀（`parse_graphql`）是純函式，直接餵三種錯誤形狀驗。
+
+### M435 的 replace 跟著改
+
+`collect()` 多了 `state` 參數，M435 塞進去的那一行改成 `collect(cfg, token, now, state)`，守的事不變。
+
+### PR #106 審查返工（M471–M480）
+
+2026-09-30 PR #106 Fable 審查挑出三個會壞的地方，同一輪補上。壞掉的樣子都是「這次不知道」被當成
+「確定」：GraphQL 的 `data.rN` 是 dict、某個欄位因欄位級錯誤被置 null，null 的 `pushedAt` 被讀成
+45 天沒 push、null 的 `nameWithOwner` 被讀成改名，活著的 repo 就從 `state.json` 剪掉（M471–M474、
+M476、M480）；Search 回 200 但 `items` 是空的或 `incomplete_results` 為真被算成功，30 次全空的那一晚
+會補量出一份只有追蹤名單的榜（M477、M478）；星數是 null 的那一筆進池，`split_tiers` 丟 TypeError
+（M475、M479）。HTTP 那一層用塞進 `sys.modules` 的假 `requests` 驗，因為這台沒有 `requests`。
+
+### PR #106 重審回歸（M481）
+
+同一個 PR 返工後的重審挑出一個返工自己帶進來的回歸：`r.json()` 在 try 裡，判讀 `incomplete_results`
+與 `items` 搬到 try 外之後，HTTP 200 但 body 是 `null` 或 list 會丟 AttributeError，當晚整條鏈炸掉；返工
+前同樣的輸入會被 try 接住回 None。M481 拿掉型別檢查，selftest 用同一個假 `requests` 餵兩種 body 驗。
+
+### 清單長度
+
+430 → 477。分片 4 片，第一片 120 條、其餘三片各 119 條（這一輪在第七十一輪之後併進 `main`；分支上是 386 → 433）。

@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 """pulse-github.py — GitHub 星速榜（開發者注意力的領先指標，純規則、零 LLM）。
 
-答「GitHub 竄起什麼」：打 GitHub Search API 撈 AI 主題白名單的活躍 repo，
-跨執行累積星數快照、算星速（Δstars / 天），排名輸出。星數是硬數字，不推斷。
+答「GitHub 竄起什麼」：依 _config/github.yaml 六類分類的查詢打 GitHub Search API，撈 AI 主題的
+活躍 repo，跨執行累積星數快照、算星速（Δstars / 天），排名輸出。星數是硬數字，不推斷。
+兩榜按 tier_split 切開、每個 repo 恰好一個分類、每類另排分類榜；state.json 裡這次沒搜到的
+已知 repo 用 GraphQL 補量：規格見 references/github-board.md〈體量切分〉〈分類〉〈候選池〉。
 
   dist/data/github.json     竄起榜（repo / stars / 星速 / 名次變動 / 語言 / 主題 / 連結 / 中文描述）
   dist/github/index.html    自帶「動能」視圖（讀 ../data/github.json）
@@ -54,6 +56,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -65,10 +68,30 @@ from lib import ghdesc  # noqa: E402
 from lib.atomicwrite import atomic_write_text  # noqa: E402  見 references/atomic-writes.md
 
 
-def search_repos(keyword, cfg, token, cutoff_date):
-    """回傳 GitHub Search repositories 結果（list）；任何失敗回 []（不炸鏈）。"""
+# Search API 登入後上限每分鐘 30 次。每次之間至少隔這麼久，任何 60 秒的窗口最多 29 次。
+SEARCH_GAP_S = 2.1
+GRAPHQL_URL = "https://api.github.com/graphql"
+GRAPHQL_BATCH = 100
+# 剪枝要看的欄位：任一缺或是 null，那個 repo 這次當「不知道」（見 track_known）。
+GRAPHQL_REQUIRED = ("nameWithOwner", "pushedAt", "isArchived")
+# GraphQL 補量要的欄位。topics 取 first: 20（GitHub 一個 repo 的上限），分類要完整清單。
+GRAPHQL_FIELDS = ("nameWithOwner stargazerCount description url primaryLanguage { name } "
+                  "repositoryTopics(first: 20) { nodes { topic { name } } } "
+                  "createdAt pushedAt isArchived")
+
+
+def search_repos(q, token):
+    """打一次 GitHub Search repositories。回 items（list）；失敗回 None，stderr 印一行。
+
+    失敗回 None 不回 []：collect() 要分得出「這一次搜不到東西」跟「這一次沒問到」，
+    全部都沒問到的那一晚不能當成一份榜（見 references/github-board.md〈候選池〉）。
+
+    HTTP 200 也可能是失敗（PR #106 審查 F-2，使用者裁定）：`incomplete_results` 為真是
+    GitHub 自己說這一次沒搜完；`items` 為空也算失敗——每個 query 都帶 stars:>= 與 pushed:>，
+    正常的一晚不會是 0 筆，額度或索引出狀況時才會。算成功的話，30 次全空的那一晚會被當成
+    「今天沒有 repo」，照樣補量出一份只有追蹤名單的榜。
+    """
     import requests
-    q = f'{keyword} stars:>={cfg["min_stars"]} pushed:>{cutoff_date}'
     headers = {"Accept": "application/vnd.github+json"}
     if token:
         headers["Authorization"] = f"Bearer {token}"
@@ -77,37 +100,253 @@ def search_repos(keyword, cfg, token, cutoff_date):
                          params={"q": q, "sort": "stars", "order": "desc", "per_page": 40},
                          headers=headers, timeout=20)
         if r.status_code != 200:
-            print(f"  [warn] search '{keyword}' HTTP {r.status_code}", file=sys.stderr)
-            return []
-        return r.json().get("items", [])
+            print(f"  [warn] search '{q}' HTTP {r.status_code}", file=sys.stderr)
+            return None
+        body = r.json()
     except Exception as e:  # noqa: BLE001 — 抓取層任何錯誤都不該炸整條鏈
-        print(f"  [warn] search '{keyword}' 失敗：{e}", file=sys.stderr)
-        return []
+        print(f"  [warn] search '{q}' 失敗：{e}", file=sys.stderr)
+        return None
+    if not isinstance(body, dict):
+        print(f"  [warn] search '{q}' HTTP 200 但 body 不是 JSON object（{type(body).__name__}），這一次算失敗",
+              file=sys.stderr)
+        return None
+    if body.get("incomplete_results"):
+        print(f"  [warn] search '{q}' incomplete_results 為真，這一次算失敗", file=sys.stderr)
+        return None
+    items = body.get("items") or []
+    if not items:
+        print(f"  [warn] search '{q}' HTTP 200 但 items 是空的，這一次算失敗", file=sys.stderr)
+        return None
+    return items
 
 
-def collect(cfg, token, now):
+def graphql_query(names):
+    """純函式：一批 owner/repo → 一份 GraphQL 查詢，每個 repo 一個別名 r0、r1……"""
+    parts = []
+    for i, full in enumerate(names):
+        owner, _, repo = full.partition("/")
+        parts.append(f"r{i}: repository(owner: {json.dumps(owner)}, name: {json.dumps(repo)}) "
+                     f"{{ {GRAPHQL_FIELDS} }}")
+    return "query { " + " ".join(parts) + " }"
+
+
+def parse_graphql(names, body):
+    """純函式：GraphQL 回應 → {full_name: node 或 None}；整批失敗回 None。
+
+    回傳裡的三種樣子意義不同，剪枝只認前兩種（見 references/github-board.md〈候選池〉）：
+
+      node   查到了
+      None   GitHub 明說查不到（別名是 null，錯誤型別 NOT_FOUND）——刪除或改名
+      不在回傳裡  別名是 null 但錯誤不是 NOT_FOUND，或根本沒回這個別名——這次不知道
+
+    回應沒有 data（或不是 object）就是整批失敗，一個都不能當成「確定」。
+    errors 的 path 指到某個 rN 底下的欄位（例如 ["r3", "pushedAt"]，欄位級錯誤）時，rN 仍是
+    dict 但那個欄位被置 null——那個 repo 這次也是「不知道」，不列（PR #106 審查 F-1）。
+    """
+    if not isinstance(body, dict) or not isinstance(body.get("data"), dict):
+        return None
+    data = body["data"]
+    not_found, field_err = set(), set()
+    for e in body.get("errors") or []:
+        if not isinstance(e, dict) or not e.get("path"):
+            continue
+        path = [str(x) for x in e["path"]]
+        if len(path) == 1 and e.get("type") == "NOT_FOUND":
+            not_found.add(path[0])
+        else:
+            field_err.add(path[0])
+    out = {}
+    for i, full in enumerate(names):
+        alias = f"r{i}"
+        if alias in field_err:
+            continue
+        node = data.get(alias)
+        if isinstance(node, dict):
+            out[full] = node
+        elif alias in not_found:
+            out[full] = None
+    return out
+
+
+def graphql_repos(names, token):
+    """打一次 GraphQL 補量（一批最多 GRAPHQL_BATCH 個）。回 parse_graphql 的結果；整批失敗回 None。"""
+    if not token:
+        print("  [warn] GraphQL 補量需要 token，這一批跳過（不剪任何 state）", file=sys.stderr)
+        return None
+    import requests
+    try:
+        r = requests.post(GRAPHQL_URL, json={"query": graphql_query(names)},
+                          headers={"Authorization": f"Bearer {token}"}, timeout=30)
+        if r.status_code != 200:
+            print(f"  [warn] GraphQL HTTP {r.status_code}（{len(names)} 個，不剪任何 state）",
+                  file=sys.stderr)
+            return None
+        body = r.json()
+    except Exception as e:  # noqa: BLE001 — 抓取層任何錯誤都不該炸整條鏈
+        print(f"  [warn] GraphQL 失敗：{e}（{len(names)} 個，不剪任何 state）", file=sys.stderr)
+        return None
+    got = parse_graphql(names, body)
+    if got is None:
+        print(f"  [warn] GraphQL 回應沒有 data：{(body or {}).get('errors')}"
+              f"（{len(names)} 個，不剪任何 state）", file=sys.stderr)
+        return None
+    unknown = len(names) - len(got)
+    if unknown:
+        print(f"  [warn] GraphQL 有 {unknown} 個沒有明確結果（不是 NOT_FOUND），這次不動它們",
+              file=sys.stderr)
+    return got
+
+
+UNCLASSIFIED = "unclassified"
+
+
+def classify(row, categories):
+    """純函式：依清單順序，第一個 topics 跟 repo 的**完整** topics 有交集的類。都沒有回 unclassified。
+
+    清單順序就是優先序（使用者裁定，見 references/github-board.md〈分類〉）：多類符合取第一類，
+    所以一個 repo 恰好一個分類、只出現在一個分類頁。比對前兩邊都轉小寫。
+    `row["topics"]` 必須是完整清單——呼叫端（pool_row）在截成顯示用的前 6 個**之前**呼叫。
+    """
+    have = {str(t).lower() for t in (row.get("topics") or [])}
+    for c in categories:
+        if have & {str(t).lower() for t in c["topics"]}:
+            return c["id"]
+    return UNCLASSIFIED
+
+
+def pool_row(full, name, url, desc, stars, language, topics, created, pushed, categories):
+    """候選池的一列（搜尋與 GraphQL 兩條路共用）。分類用完整 topics 做完，才截成顯示用的前 6 個。
+
+    兩條路各自組 dict 的話，遲早有一條先截斷再分類：topic 排在第 7 個以後的 repo 就會
+    在那一條路上變成 unclassified，而畫面上看不出它為什麼換了分類。
+    """
+    topics = list(topics or [])
+    row = {"full_name": full, "name": name, "url": url, "desc": (desc or "").strip(),
+           "stars": stars, "language": language or "", "topics": topics,
+           "created": (created or "")[:10], "pushed": (pushed or "")[:10]}
+    row["category"] = classify(row, categories)
+    row["topics"] = topics[:6]
+    return row
+
+
+def excluded(full, desc, cfg):
+    """標題或描述含 exclude 字樣（教材／清單類）就排除。"""
+    blob = f'{full} {desc or ""}'.lower()
+    return any(x.lower() in blob for x in (cfg.get("exclude") or []))
+
+
+def collect(cfg, token, now, state):
+    """候選池：每類每個 query 打兩次 Search，再用 GraphQL 補量 state 裡這次沒搜到的 repo。
+
+    回 (池子 {full_name: row}, info)。info 是 stdout 那一行與剪枝要的量：
+    search_calls（實際呼叫次數，含失敗）、search_failed、elapsed_s、graphql_filled、
+    drop（GraphQL 確定不活躍、封存或查不到的 state repo，快照寫回時剪掉）。
+    規格見 references/github-board.md〈候選池〉。
+    """
     from datetime import timedelta
+    t0 = time.monotonic()
     cutoff = clock.utc_date_str(now - timedelta(days=cfg["active_days"]))
-    excl = [x.lower() for x in (cfg.get("exclude") or [])]
+    born = clock.utc_date_str(now - timedelta(days=cfg["new_repo_days"]))
+    cats = cfg["categories"]
     seen = {}
-    for kw in cfg["keywords"]:
-        for it in search_repos(kw, cfg, token, cutoff):
-            full = it.get("full_name")
-            if not full or full in seen:
+    calls = failed = 0
+    # 依分類順序、每類依 query 順序打；同一個 repo 只留第一次出現的那筆。找到它的是哪一類的
+    # query 不影響它的分類（classify 只看 topics）。第二次專撈近 new_repo_days 天新建的：
+    # 它們星數還小，在依星數排的前 40 名裡排不上。
+    for cat in cats:
+        for kw in cat["queries"]:
+            base = f'{kw} stars:>={cfg["min_stars"]} pushed:>{cutoff}'
+            for q in (base, f"{base} created:>{born}"):
+                if calls:
+                    time.sleep(SEARCH_GAP_S)
+                calls += 1
+                items = search_repos(q, token)
+                if items is None:
+                    failed += 1
+                    continue
+                for it in items:
+                    full = it.get("full_name")
+                    if not full or full in seen:
+                        continue
+                    if excluded(full, it.get("description"), cfg):
+                        continue
+                    if not isinstance(it.get("stargazers_count"), int):
+                        # 星數是 null 的那一筆無效：進池的話 split_tiers 會丟 TypeError（PR #106 F-3）。
+                        print(f"  [warn] search 結果 {full} 的 stargazers_count 是 "
+                              f"{it.get('stargazers_count')!r}，這一筆不進池", file=sys.stderr)
+                        continue
+                    seen[full] = pool_row(
+                        full, it.get("name"), it.get("html_url"), it.get("description"),
+                        it["stargazers_count"], it.get("language"), it.get("topics"),
+                        it.get("created_at"), it.get("pushed_at"), cats)
+    info = {"search_calls": calls, "search_failed": failed, "graphql_filled": 0,
+            "graphql_unknown": 0, "drop": []}
+    if calls and failed == calls:
+        # 一次都沒問到：只剩追蹤名單的池子不是這一晚的榜（新 repo 一個都不在），
+        # 當成抓取全失敗，保留上一份 board.json。
+        print(f"  [warn] Search {calls} 次全部失敗，這一班不補量、不出新榜", file=sys.stderr)
+        info["elapsed_s"] = time.monotonic() - t0
+        return {}, info
+    filled, drop, unknown = track_known(state, seen, cfg, token, cutoff)
+    seen.update(filled)
+    info["graphql_filled"] = len(filled)
+    info["graphql_unknown"] = unknown
+    info["drop"] = drop
+    info["elapsed_s"] = time.monotonic() - t0
+    return seen, info
+
+
+def track_known(state, seen, cfg, token, cutoff):
+    """GraphQL 補量 state 裡這次沒被搜到的 repo。回 (補進池子的列 {full: row}, 要剪的名字 sorted list)。
+
+    只有 GraphQL 明說了狀態的才算確定：封存、pushedAt 超過 active_days、查不到（NOT_FOUND）或
+    改名（nameWithOwner 對不上）→ 剪；整批失敗或沒有明確結果 → 不進池子也不剪。
+    補量的列不套 min_stars（已知的 repo 入池時已經過了門檻），exclude 照套。
+
+    剪枝要看的欄位（nameWithOwner、pushedAt、isArchived）或 stargazerCount 缺或是 null：這個 repo
+    這次也當「不知道」，不進池也不剪（PR #106 審查 F-1、F-3）。null 的 pushedAt 不是「45 天沒 push」，
+    null 的 nameWithOwner 不是「改名」——讀成那樣，就是把一個活著的 repo 從 state 剪掉。
+
+    回 (filled, drop, unknown)：unknown 是這次沒有明確結果的個數（整批失敗那一批全算），印在 stdout。
+    """
+    todo = sorted(k for k in state if k not in seen)
+    filled, drop, unknown = {}, [], 0
+    for i in range(0, len(todo), GRAPHQL_BATCH):
+        batch = todo[i:i + GRAPHQL_BATCH]
+        got = graphql_repos(batch, token)
+        if got is None:
+            unknown += len(batch)
+            continue
+        for full in batch:
+            if full not in got:
+                unknown += 1
                 continue
-            blob = f'{full} {it.get("description") or ""}'.lower()
-            if any(x in blob for x in excl):
+            node = got[full]
+            if node is not None:
+                bad = [k for k in GRAPHQL_REQUIRED if node.get(k) is None]
+                if not isinstance(node.get("stargazerCount"), int):
+                    bad.append("stargazerCount")
+                if bad:
+                    print(f"  [warn] GraphQL {full} 的 {'、'.join(bad)} 缺或是 null，這次不知道（不進池、不剪）",
+                          file=sys.stderr)
+                    unknown += 1
+                    continue
+            if node is None or str(node.get("nameWithOwner") or "").lower() != full.lower():
+                drop.append(full)
                 continue
-            seen[full] = {
-                "full_name": full, "name": it.get("name"),
-                "url": it.get("html_url"), "desc": (it.get("description") or "").strip(),
-                "stars": it.get("stargazers_count", 0),
-                "language": it.get("language") or "",
-                "topics": (it.get("topics") or [])[:6],
-                "created": (it.get("created_at") or "")[:10],
-                "pushed": (it.get("pushed_at") or "")[:10],
-            }
-    return seen
+            if node.get("isArchived") or (node.get("pushedAt") or "")[:10] <= cutoff:
+                drop.append(full)
+                continue
+            if excluded(full, node.get("description"), cfg):
+                continue
+            topics = [((n or {}).get("topic") or {}).get("name")
+                      for n in ((node.get("repositoryTopics") or {}).get("nodes") or [])]
+            filled[full] = pool_row(
+                full, full.partition("/")[2], node.get("url"), node.get("description"),
+                node["stargazerCount"], (node.get("primaryLanguage") or {}).get("name"),
+                [t for t in topics if t], node.get("createdAt"), node.get("pushedAt"),
+                cfg["categories"])
+    return filled, sorted(drop), unknown
 
 
 # 竄升榜的最低基數。相對成長率在低基數上會爆掉：10 顆星變 20 顆就是 +100%，
@@ -171,8 +410,13 @@ def attach_rank_move(board, state, axis):
         r[f"rank_prev_{axis}"] = prev_rank
 
 
-def rank(current, state, now, top_n):
-    """純函式：用 state 的上次快照算兩軸，各排一次。可離線單測。
+def rank(current, state, now, top_n, tier_split):
+    """純函式：用 state 的上次快照算兩軸，按體量切成兩個榜，各排一次。可離線單測。
+
+    **按體量切（2026-09-30）。** 星速榜只收這一次 `stars >= tier_split` 的 repo，
+    竄升榜只收 `stars < tier_split` 的（仍要上一版 >= SURGE_FLOOR）。兩榜因此不相交，
+    以前那一格「另一個榜的名次」就沒有東西可標了。規格與代價見
+    references/github-board.md〈體量切分〉。
 
     **為什麼是兩軸。** 只有絕對星速（Δ★/天）的時候，榜永遠是大 repo 的榜——
     同樣一天，10 萬星的專案漲 200 顆很平常，2 千星的漲 200 顆是暴動，而排序看
@@ -185,7 +429,7 @@ def rank(current, state, now, top_n):
       surge     Δ%/天       誰漲得最快（偏袒小 repo，所以設 SURGE_FLOOR）
 
     合成一個「動能分」等於再造一個代理指標，而權重要多少沒有人答得出來。
-    兩個榜並排，讀者自己看得到同一個 repo 在兩邊的位置。
+    兩個榜並排；2026-09-30 起按體量切開，大 repo 在星速榜、小 repo 在竄升榜，不再重疊。
 
     **首次觀測不再給代理值。** 舊版拿「星數 ÷ 自建立以來的天數」當動能，那是
     **歷史平均**不是現在的速度：三年前開的 5000 星專案會拿到 4.5★/天 排進前段，
@@ -214,6 +458,27 @@ def rank(current, state, now, top_n):
     「除以天數」的正規化：那會生出一個「每天位移 0.5 名」的東西，而名次是序數，
     序數的每日平均沒有意義。量到幾天就說幾天，不換算。
     """
+    rows = measure(current, state, now)
+    by_velocity, by_surge = split_tiers(rows, tier_split)
+    top = by_velocity[:top_n]
+    surge_top = by_surge[:top_n]
+    # 兩榜的名次寫進各自那一批 dict，前台不必再算一次。
+    for i, x in enumerate(top):
+        x["rank_velocity"] = i + 1
+    for i, x in enumerate(surge_top):
+        x["rank_surge"] = i + 1
+    # 名次變動要在名次寫完之後才算——attach 讀的是 r["rank_<axis>"]。
+    attach_rank_move(top, state, "velocity")
+    attach_rank_move(surge_top, state, "surge")
+    return top, surge_top
+
+
+def measure(current, state, now):
+    """純函式：每個 repo 對上一版快照算 delta／velocity／surge／baseline_days。回一批新的 dict。
+
+    每呼叫一次就是一批新的 dict：全部榜與分類榜各自呼叫，分類榜的列才不會帶到全部榜寫的
+    名次欄（分類榜不算名次變動，見 rank_categories()）。
+    """
     rows = []
     now_ts = now.timestamp()
     for full, r in current.items():
@@ -236,27 +501,45 @@ def rank(current, state, now, top_n):
         rows.append(dict(r, delta=delta, velocity=velocity, surge=surge,
                          prev_stars=prev_stars, is_new=is_new,
                          baseline_days=baseline_days))
+    return rows
 
+
+def rank_categories(current, state, now, categories, tier_split, top_n):
+    """純函式：每一類在自己的池子內各排兩榜 top_n 名，依設定順序。回 [{id, name, repos, surging}]。
+
+    **同樣套 tier_split**（split_tiers 同一支），所以分類頁的兩榜也不相交。
+    **分類榜不算名次變動**：state.json 只存全部榜的名次，分類榜的名次沒有上一版可比。
+    所以這裡用 measure() 另算一批 dict，不共用全部榜那一批——共用的話，全部榜寫進去的
+    rank_* 欄會跟著出現在分類榜上，前台會在分類頁畫出一個量的是別的榜的箭頭。
+    unclassified 不是分類頁，只在全部榜出現。
+    """
+    rows = measure(current, state, now)
+    out = []
+    for c in categories:
+        mine = [r for r in rows if r["category"] == c["id"]]
+        by_velocity, by_surge = split_tiers(mine, tier_split)
+        out.append({"id": c["id"], "name": c["name"],
+                    "repos": by_velocity[:top_n], "surging": by_surge[:top_n]})
+    return out
+
+
+def split_tiers(rows, tier_split):
+    """純函式：按這一次的星數切兩個池、各自排序。回 (星速榜排序, 竄升榜排序)，都還沒截斷。
+
+    用**這一次**的 stars 切：同一列只有一個 stars，所以兩邊一定不相交。全部榜與每個分類榜
+    都走這一支，切法只有一份。
+    """
+    big = [x for x in rows if x["stars"] >= tier_split]
+    small = [x for x in rows if x["stars"] < tier_split]
     # 沒有速度的排最後（None 不參與比較），同分再看星數。
-    by_velocity = sorted(rows, key=lambda x: (x["velocity"] is not None,
-                                              x["velocity"] or 0, x["stars"]), reverse=True)
-    by_surge = [x for x in rows if x["surge"] is not None]
+    by_velocity = sorted(big, key=lambda x: (x["velocity"] is not None,
+                                             x["velocity"] or 0, x["stars"]), reverse=True)
+    by_surge = [x for x in small if x["surge"] is not None]
     # 同分用名字破，不用星數：相對增量打平的時候，拿星數破等於把絕對軸的
     # 偏袒偷渡回相對軸——而這個榜存在的理由就是不要那個偏袒。名字是任意的，
     # 但至少不偏袒任何一種 repo，而且重跑會得到同一個順序。
     by_surge.sort(key=lambda x: (-x["surge"], x["full_name"]))
-
-    top = by_velocity[:top_n]
-    surge_top = by_surge[:top_n]
-    # 兩榜的名次寫進同一批 dict，前台不必再算一次，也不會兩邊算出不同的名次。
-    for i, x in enumerate(top):
-        x["rank_velocity"] = i + 1
-    for i, x in enumerate(surge_top):
-        x["rank_surge"] = i + 1
-    # 名次變動要在兩個榜的名次都寫完之後才算——attach 讀的是 r["rank_<axis>"]。
-    attach_rank_move(top, state, "velocity")
-    attach_rank_move(surge_top, state, "surge")
-    return top, surge_top
+    return by_velocity, by_surge
 
 
 def _render():
@@ -285,9 +568,28 @@ def _render():
     return mod
 
 
-def gh_page(generated: str) -> str:
+def gh_tabs(categories):
+    """上方分頁：「全部」加每一類（依 board 的 categories 順序）。出頁時寫進 HTML。
+
+    分頁從 board 來、不從設定檔來：--render-only 只讀 board.json，頁面上的分頁要跟那份資料
+    同一個來源，不然設定檔改了而 board 還沒重算的那幾個小時，會有點了沒有資料的分頁。
+    """
+    import html
+    tabs = [("all", "全部")] + [(c["id"], c["name"]) for c in categories]
+    out = []
+    for i, (cid, name) in enumerate(tabs):
+        sel = "true" if i == 0 else "false"
+        cls = ' class="active"' if i == 0 else ""
+        out.append(f'<button type="button" role="tab" data-cat="{html.escape(cid)}" '
+                   f'aria-selected="{sel}"{cls}>{html.escape(name)}</button>')
+    return ('<div class="chip-row" id="tabs" role="tablist" aria-label="分類">'
+            + "".join(out) + "</div>")
+
+
+def gh_page(generated: str, categories) -> str:
     r = _render()
-    body = r.hero("", "GitHub 竄起什麼", "", cls="compact") + GH_BODY
+    body = (r.hero("", "GitHub 竄起什麼", "", cls="compact")
+            + GH_BODY.replace("<!--gh-tabs-->", gh_tabs(categories), 1))
     return r.page_layout("github", "GitHub 動能 — AI Pulse",
                          "AI 主題 repo 星速榜：開發者最近在關注什麼的領先指標。"
                          "星數＝注意力，不必然等於採用。",
@@ -296,18 +598,24 @@ def gh_page(generated: str) -> str:
 
 GH_BODY = """<section class="gh-wrap shell">
 <p class="gh-note" id="meta"></p>
+<!--gh-tabs-->
 <p class="gh-legend" id="legend"></p>
+<p class="gh-axis" id="cat-note" style="display:none">分類頁：這一類自己的池子重排的兩榜，
+同樣按 <b class="tier"></b> 顆星切開。分類榜不算名次變動（只有「全部」有上一版名次可比），
+名次底下那一格不畫。</p>
 <div class="gh-two">
   <div>
     <div class="col-head">星速榜 · 誰吸走最多注意力</div>
-    <p class="gh-axis">絕對增量（★/天）。<b>這個軸偏袒大 repo</b>——同樣漲 200 顆，
-    在 10 萬星的專案是日常，在 2 千星的是暴動。那是它的定義，不是缺陷。</p>
+    <p class="gh-axis">絕對增量（★/天），只收 <b class="tier"></b> 顆星以上的 repo。
+    <b>這個軸偏袒大 repo</b>——同樣漲 200 顆，在 10 萬星的專案是日常，在 2 千星的是暴動。
+    那是它的定義，不是缺陷，所以小於門檻的 repo 改在竄升榜比。</p>
     <div id="list"></div>
   </div>
   <div>
     <div class="col-head">竄升榜 · 誰漲得最快</div>
-    <p class="gh-axis">相對增量（%/天），<b id="floor"></b> 顆星以下不列——
-    低基數的百分比會爆掉（10 顆變 20 顆就是 +100%），而那讀起來比任何真的竄升都猛。</p>
+    <p class="gh-axis">相對增量（%/天），只收 <b class="tier"></b> 顆星以下的 repo，
+    上一版 <b id="floor"></b> 顆星以下不列——低基數的百分比會爆掉（10 顆變 20 顆就是 +100%），
+    而那讀起來比任何真的竄升都猛。</p>
     <div id="surge"></div>
     <p class="gh-none" id="surge-none" style="display:none">還沒有第二次觀測，算不出相對增量。</p>
   </div>
@@ -377,34 +685,70 @@ function row(r,i,axis){
   if(axis==="surge"){ mv = (r.surge>=0?"+":"")+r.surge+"%/天"; if(r.surge<0)cls=" down"; }
   else if(r.velocity!=null){ mv = (r.velocity>=0?"+":"")+r.velocity+"★/天"; if(r.velocity<0)cls=" down"; }
   else { mv = "首次觀測"; cls=" muted"; }
-  var tags=[r.language?('<span class="gh-tag">'+esc(r.language)+'</span>'):""]
+  var tags=[r.category?('<span class="gh-tag">'+esc(catName(r.category))+'</span>'):"",
+            r.language?('<span class="gh-tag">'+esc(r.language)+'</span>'):""]
       .concat((r.topics||[]).slice(0,3).map(t=>'<span class="gh-tag">'+esc(t)+'</span>'))
       .concat(r.is_new?'<span class="gh-tag gh-new">首次觀測</span>':"").join("");
-  // 另一個榜的名次：同一個 repo 兩邊都上，本身就是資訊。
-  var other = axis==="surge" ? r.rank_velocity : r.rank_surge;
-  var xref = other ? '<span class="gh-xref">'+(axis==="surge"?"星速":"竄升")+' #'+other+'</span>' : "";
+  // 兩榜按體量切開、不再重疊（tier_split），所以不標「另一個榜的名次」。
   return '<div class="gh-row"><div class="gh-rank">'+(i+1)+moveCell(r,axis)+'</div>'
-    +'<div class="gh-main"><div class="n"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.full_name)+'</a>'+xref+'</div>'
+    +'<div class="gh-main"><div class="n"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.full_name)+'</a></div>'
     +(r.desc_zh?'<div class="d">'+esc(r.desc_zh)+'</div>':"")
     +(r.desc?'<div class="'+(r.desc_zh?"d-src":"d")+'">'+esc(r.desc)+'</div>':"")
     +'<div class="t">'+tags+'</div></div>'
     +'<div class="gh-metric"><span class="v'+cls+'">'+esc(mv)+'</span><span class="s">'+fmt(r.stars)+' ★</span></div></div>';
 }
-function draw(d){
-  var repos=d.repos||[], surging=d.surging||[];
-  // 中文覆蓋率算**這一頁上有幾個不同的 repo**，不是算星速榜。只算星速榜的那一版，
-  // 分母會小於畫面上的列數——分母比畫面窄，名字卻叫「中文描述」。
-  var names={}, listed=0;
-  repos.concat(surging).forEach(function(r){ if(!names[r.full_name]){names[r.full_name]=r; listed++;} });
-  var zh=0; for(var k in names){ if(names[k].desc_zh) zh++; }
-  document.getElementById("meta").textContent=listed+" 個 repo（兩個榜去重後）· 更新 "+(d.generated||"")
-    +" · 中文描述 "+zh+"/"+listed+"（兩個榜都是純規則算的；描述由潤稿端翻寫，英文原文一併保留）";
-  document.getElementById("floor").textContent = d.surge_floor!=null ? d.surge_floor : "—";
-  document.getElementById("none").style.display=repos.length?"none":"block";
-  document.getElementById("surge-none").style.display=surging.length?"none":"block";
-  document.getElementById("list").innerHTML=repos.map((r,i)=>row(r,i,"velocity")).join("");
-  document.getElementById("surge").innerHTML=surging.map((r,i)=>row(r,i,"surge")).join("");
+var D=null;
+// 分類標籤。unclassified 不是一個分類頁，只在「全部」出現，標籤寫「未分類」。
+function catName(id){
+  if(id==="unclassified") return "未分類";
+  var c=((D&&D.categories)||[]).filter(function(x){return x.id===id;})[0];
+  return c ? c.name : id;
 }
+// 整頁的每一個榜：全部榜的兩榜，加每一類的兩榜。跟 lib/ghdesc.doc_boards 同一個範圍。
+function allBoards(d){
+  var b=[d.repos||[], d.surging||[]];
+  (d.categories||[]).forEach(function(c){ b.push(c.repos||[], c.surging||[]); });
+  return b;
+}
+function emptyNote(t){ return '<p class="gh-none">'+esc(t)+'</p>'; }
+function view(id){
+  var cat=(D.categories||[]).filter(function(x){return x.id===id;})[0];
+  var isAll=(id==="all");
+  var repos=isAll ? (D.repos||[]) : (cat ? cat.repos||[] : []);
+  var surging=isAll ? (D.surging||[]) : (cat ? cat.surging||[] : []);
+  document.querySelectorAll("#tabs button").forEach(function(b){
+    var on=b.getAttribute("data-cat")===id;
+    b.classList.toggle("active",on); b.setAttribute("aria-selected",on?"true":"false"); });
+  document.getElementById("legend").style.display=isAll?"":"none";
+  document.getElementById("cat-note").style.display=isAll?"none":"block";
+  document.getElementById("none").style.display=(isAll&&!repos.length)?"block":"none";
+  document.getElementById("surge-none").style.display=(isAll&&!surging.length)?"block":"none";
+  var miss = cat ? "這一類這一版沒有夠格的 repo。" : "這一版的榜單沒有這一類的資料。";
+  document.getElementById("list").innerHTML = (!isAll&&!repos.length) ? emptyNote(miss)
+    : repos.map((r,i)=>row(r,i,"velocity")).join("");
+  document.getElementById("surge").innerHTML = (!isAll&&!surging.length) ? emptyNote(miss)
+    : surging.map((r,i)=>row(r,i,"surge")).join("");
+}
+function draw(d){
+  D=d;
+  // 中文覆蓋率算**這一頁上有幾個不同的 repo**：全部榜與分類榜去重後。只算星速榜的那一版，
+  // 分母會小於畫面上的列數——分母比畫面窄，名字卻叫「中文描述」。分類榜也一樣：
+  // 某一類的第 3 名可能排不進全部榜，它也是畫面上的一列。
+  var names={}, listed=0;
+  allBoards(d).forEach(function(b){ b.forEach(function(r){
+    if(!names[r.full_name]){names[r.full_name]=r; listed++;} }); });
+  var zh=0; for(var k in names){ if(names[k].desc_zh) zh++; }
+  document.getElementById("meta").textContent=listed+" 個 repo（全部榜與分類榜去重後）· 更新 "+(d.generated||"")
+    +" · 中文描述 "+zh+"/"+listed+"（榜都是純規則算的；描述由潤稿端翻寫，英文原文一併保留）";
+  document.getElementById("floor").textContent = d.surge_floor!=null ? d.surge_floor : "—";
+  // 切分門檻從 github.json 讀，不在頁面寫死：設定檔改了，頁面上的字要跟著變。
+  document.querySelectorAll(".tier").forEach(function(el){
+    el.textContent = d.tier_split!=null ? d.tier_split : "—"; });
+  view("all");
+}
+document.querySelectorAll("#tabs button").forEach(function(b){
+  b.addEventListener("click", function(){ if(D) view(b.getAttribute("data-cat")); });
+});
 // 圖例。**跟榜單共用同一份 MOVE_ICON**——圖例自己抄一套圖示，就是「同一種東西
 // 長成兩套」的縮小版，而且圖例那一套不會有任何東西提醒你它已經跟榜上不一樣了。
 // 一個沒有寫出來的判準跟沒有判準一樣會誤導，所以「跟哪一版比」也印在這裡。
@@ -488,8 +832,9 @@ def emit_board(vault, out_dir, now):
     out = Path(vault) / out_dir
     if board is not None:
         store = ghdesc.load(vault)
-        ghdesc.attach(board["repos"], store)
-        ghdesc.attach(board.get("surging") or [], store)
+        # 全部榜與每一類的兩榜都掛：分類榜上有全部榜沒有的 repo（見 ghdesc.doc_boards）。
+        for rows in ghdesc.doc_boards(board):
+            ghdesc.attach(rows, store)
         doc = board
         # 頁面的「更新」時間是榜算出來的那一刻（board 的 generated），不是出頁當下：
         # 資料是舊的、時間卻是新的，同一頁就有兩個時間，讀者會以為榜剛更新。
@@ -505,8 +850,9 @@ def emit_board(vault, out_dir, now):
     (out / "github").mkdir(parents=True, exist_ok=True)
     (out / "data" / "github.json").write_text(
         json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
+    # 舊版（T1 那一版）的 board.json 沒有 categories：分頁只剩「全部」，不是錯誤。
     (out / "github" / "index.html").write_text(
-        gh_page(page_stamp), encoding="utf-8")
+        gh_page(page_stamp, doc.get("categories") or []), encoding="utf-8")
     return doc, board is not None
 
 
@@ -578,7 +924,7 @@ def main():
         why = (f"基線才 {age_h:.1f} 小時大，還沒到門檻" if age_h is not None
                else "沒有快照旗標")
         if present:
-            listed = ghdesc.board_union(doc["repos"], doc.get("surging") or [])
+            listed = ghdesc.doc_union(doc)
             n_zh = sum(1 for r in listed if r.get("desc_zh"))
             write_desc_coverage(vault, now, len(listed), n_zh)
             print(f"pulse-github  快照沒更新，不抓；出頁取自 _github/board.json"
@@ -593,7 +939,9 @@ def main():
                   f"  [snapshot 未更新：{why}，board.json 未更新]  → data/github.json + github/")
         return 0
 
-    current = collect(cfg, token, now)
+    current, info = collect(cfg, token, now, state)
+    cost = (f"Search {info['search_calls']} 次、耗時 {info['elapsed_s']:.0f} 秒、"
+            f"GraphQL 補量 {info['graphql_filled']} 個")
     # 榜單頁把這個字串直接印給讀者看（上面那段 JS 的 `d.generated`），
     # 所以它走顯示層的時鐘、帶「台北時間」四個字。見 references/timezones.md。
     generated = clock.display_stamp(now)
@@ -605,6 +953,8 @@ def main():
     if not current:
         # 抓取全失敗：沿用上次 github.json，不覆寫成空、不炸鏈
         print("[warn] 本次未取得任何 repo（API 失敗或額度）——保留上次榜單", file=sys.stderr)
+        print(f"pulse-github  抓取全失敗，board.json 未更新  {cost}"
+              f"（Search 失敗 {info['search_failed']} 次）")
         if not (out / "data" / "github.json").exists():
             # 佔位檔要標成「沒量到」。少了 measured 這一格，這份 0 條的榜單
             # 跟「今天真的沒有 repo 上榜」在下游眼裡一模一樣——
@@ -614,31 +964,35 @@ def main():
                 json.dumps({"generated": generated, "count": 0, "repos": [],
                             "measured": False}, ensure_ascii=False, indent=2),
                 encoding="utf-8")
-        (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
+        # 這一班沒有新榜；分頁照設定檔的分類畫（這份 dist 不部署，pages 出的頁讀 board.json）。
+        (out / "github" / "index.html").write_text(gh_page(generated, cfg["categories"]),
+                                                   encoding="utf-8")
         # 這一班量不到榜單，但**中文有幾條照樣量得到**（那只是數檔案）。
         # 量不到的兩格寫 null，不寫 0（紅線 8）——寫 0 會讓「今天問不到 GitHub」
         # 看起來跟「今天榜上一條中文都沒有」一樣。
         write_desc_coverage(vault, now, None, None)
         return 0
 
-    ranked, surging = rank(current, state, now, cfg.get("top_n", 25))
+    tier_split = cfg["tier_split"]
+    ranked, surging = rank(current, state, now, cfg.get("top_n", 25), tier_split)
+    categories = rank_categories(current, state, now, cfg["categories"], tier_split,
+                                 cfg["category_top_n"])
     # board.json 存的是「榜的事實」：譯文在下面 attach 才掛，所以在那之前先序列化。
     # attach 是就地改 dict，晚一步序列化會把 desc_zh 一起存進去。
-    board_text = json.dumps({"generated": generated, "count": len(ranked), "repos": ranked,
-                             "surging": surging, "surge_floor": SURGE_FLOOR,
-                             "measured": True},
-                            ensure_ascii=False, indent=2)
+    doc = {"generated": generated, "count": len(ranked), "repos": ranked,
+           "surging": surging, "surge_floor": SURGE_FLOOR, "tier_split": tier_split,
+           "categories": categories, "measured": True}
+    board_text = json.dumps(doc, ensure_ascii=False, indent=2)
     # 掛上潤稿端翻好的中文描述。抓取鏈不等它、也不產生它——沒有就是英文原文，
     # 榜照樣出得來。中文晚一步到（潤稿任務比 Actions 晚三小時）是設計，不是缺陷。
-    # 兩個榜都掛：同一個 repo 可能同時在兩邊，翻過的譯文要兩邊都看得到。
-    ghdesc.attach(ranked, ghdesc.load(vault))
-    ghdesc.attach(surging, ghdesc.load(vault))
+    # 全部榜與每一類的兩榜都掛：分類榜的列是另一批 dict，同一個 repo 在兩邊都要看得到譯文。
+    store = ghdesc.load(vault)
+    for rows in ghdesc.doc_boards(doc):
+        ghdesc.attach(rows, store)
     (out / "data" / "github.json").write_text(
-        json.dumps({"generated": generated, "count": len(ranked), "repos": ranked,
-                    "surging": surging, "surge_floor": SURGE_FLOOR,
-                    "measured": True},
-                   ensure_ascii=False, indent=2), encoding="utf-8")
-    (out / "github" / "index.html").write_text(gh_page(generated), encoding="utf-8")
+        json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
+    (out / "github" / "index.html").write_text(gh_page(generated, categories),
+                                               encoding="utf-8")
 
     # 更新快照（走到這裡就是 do_snapshot 為真，快照沒更新的班次在上面 emit_board 就回了）；進版控
     #
@@ -653,6 +1007,9 @@ def main():
     atomic_write_text(board_p, board_text + "\n")
     vel_rank = {r["full_name"]: r["rank_velocity"] for r in ranked}
     sur_rank = {r["full_name"]: r["rank_surge"] for r in surging}
+    # 剪枝：GraphQL 確定不活躍、封存或查不到的 repo 拿掉（整批失敗那一批不在 drop 裡）。
+    for full in info["drop"]:
+        state.pop(full, None)
     state.update({full: {"stars": r["stars"], "ts": now.timestamp(),
                          "rank_velocity": vel_rank.get(full),
                          "rank_surge": sur_rank.get(full)}
@@ -662,8 +1019,9 @@ def main():
 
     n_new = sum(1 for r in ranked if r["is_new"])
     # 覆蓋率算**整頁**不算單一個榜。只算 ranked 的那一版，分母是星速榜的條數，
-    # 而畫面上的列數是兩個榜去重後的——一個比事實窄的東西掛著事實的名字。
-    listed = ghdesc.board_union(ranked, surging)
+    # 而畫面上的列數是全部榜與分類榜去重後的——一個比事實窄的東西掛著事實的名字。
+    # 頁面「中文描述 x/y」用同一個範圍（JS 的 allBoards）。
+    listed = ghdesc.doc_union(doc)
     n_zh = sum(1 for r in listed if r.get("desc_zh"))
     # 這個數字以前只印在 CI 的 log 裡：人看得到、機器讀不到，於是「這個榜已經
     # 連續幾天沒有中文」沒有任何地方存著。潤稿端的 C2 段失敗時**寫不進 repo**，
@@ -671,8 +1029,11 @@ def main():
     write_desc_coverage(vault, now, len(listed), n_zh)
     snap = " [snapshot 已更新，board.json 已寫]"
     print(f"pulse-github  抓到={len(current)}  上榜={len(ranked)}＋竄升={len(surging)}"
-          f"（去重 {len(listed)}）  首次觀測={n_new}  "
-          f"中文描述={n_zh}/{len(listed)}{snap}  → data/github.json + github/")
+          f"（含分類榜去重 {len(listed)}）  首次觀測={n_new}  "
+          f"中文描述={n_zh}/{len(listed)}{snap}  {cost}"
+          f"（Search 失敗 {info['search_failed']} 次、GraphQL 沒有明確結果 {info['graphql_unknown']} 個、"
+          f"剪枝 {len(info['drop'])} 個）"
+          "  → data/github.json + github/")
     return 0
 
 

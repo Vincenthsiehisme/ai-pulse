@@ -3208,21 +3208,42 @@ _ghm2 = importlib.util.module_from_spec(_gh2_spec)
 _gh2_spec.loader.exec_module(_ghm2)
 # 兩個榜必須真的排出不同的前二名，否則這條測試會在「union 等於任一個榜」的
 # 情況下自動變綠——那正是它要抓的錯。
+# 測試用的兩類分類（collect 被換成替身，分類在替身給的列上已經標好；rank_categories 只看 id）。
+_GH_T_CATS = [{"id": "open-models", "name": "開源模型與推論", "topics": ["llm-inference"],
+               "queries": ["llm inference"]},
+              {"id": "mcp", "name": "MCP 與工具整合", "topics": ["mcp"], "queries": ["mcp server"]}]
+
+
+def _gh_cfg(top_n, tier_split=20000, category_top_n=10):
+    """拋棄式 vault 用的 _config/github.yaml 內容。"""
+    return _yaml.safe_dump({"top_n": top_n, "tier_split": tier_split,
+                            "category_top_n": category_top_n, "min_stars": 300,
+                            "active_days": 45, "new_repo_days": 90,
+                            "categories": _GH_T_CATS},
+                           allow_unicode=True, sort_keys=False)
+
+
+def _gh_pool(repos):
+    """collect() 替身的回傳：(池子, info)。info 的量全是 0：替身沒有打任何 Search。"""
+    return repos, {"search_calls": 0, "search_failed": 0, "elapsed_s": 0.0,
+                   "graphql_filled": 0, "graphql_unknown": 0, "drop": []}
+
+
 _U_REPOS = {
     "big/a": {"full_name": "big/a", "desc": "A", "stars": 100000, "url": "u",
-              "language": "Go", "topics": [], "created": "2020-01-01"},
+              "language": "Go", "topics": [], "created": "2020-01-01", "category": "open-models"},
     "big/b": {"full_name": "big/b", "desc": "B", "stars": 50000, "url": "u",
-              "language": "Go", "topics": [], "created": "2020-01-01"},
+              "language": "Go", "topics": [], "created": "2020-01-01", "category": "mcp"},
     "sml/x": {"full_name": "sml/x", "desc": "X", "stars": 1000, "url": "u",
-              "language": "Go", "topics": [], "created": "2020-01-01"},
+              "language": "Go", "topics": [], "created": "2020-01-01", "category": "open-models"},
     "sml/y": {"full_name": "sml/y", "desc": "Y", "stars": 400, "url": "u",
-              "language": "Go", "topics": [], "created": "2020-01-01"},
+              "language": "Go", "topics": [], "created": "2020-01-01", "category": "unclassified"},
 }
 with tempfile.TemporaryDirectory() as _u4td:
     _u4v = Path(_u4td)
     (_u4v / "_config").mkdir()
     (_u4v / "_github").mkdir()
-    (_u4v / "_config" / "github.yaml").write_text("top_n: 2\nsearches: []\n",
+    (_u4v / "_config" / "github.yaml").write_text(_gh_cfg(2),
                                                   encoding="utf-8")
     _u4_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     (_u4v / "_github" / "state.json").write_text(_json.dumps({
@@ -3235,7 +3256,7 @@ with tempfile.TemporaryDirectory() as _u4td:
         encoding="utf-8")
     _u4_collect, _u4_argv, _u4_env = _ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
-        _ghm2.collect = lambda *a, **k: _U_REPOS
+        _ghm2.collect = lambda *a, **k: _gh_pool(_U_REPOS)
         sys.argv = ["pulse-github.py", "--snapshot"]
         os.environ["VAULT_DIR"] = str(_u4v)
         _ghm2.main()
@@ -3255,9 +3276,11 @@ acase("GitHub 動能：中文覆蓋率算整頁去重後的 repo 數，不是算
       [["big/a", "big/b"], ["sml/x", "sml/y"], 4, 1])
 # 頁上那一行是同一個分母的第二份說法（JS 自己算一次）。兩份要用同一個判準。
 _GH_JS = open(os.path.join(_HERE, "pulse-github.py"), encoding="utf-8").read()
-acase("GitHub 動能：頁上那行覆蓋率也數兩個榜（它是同一個分母的第二份說法）",
-      ["repos.concat(surging)" in _GH_JS, '/"+repos.length+"' in _GH_JS],
-      [True, False])
+acase("GitHub 動能：頁上那行覆蓋率數全部榜與分類榜（它是同一個分母的第二份說法）",
+      ["allBoards(d).forEach" in _GH_JS,
+       "(d.categories||[]).forEach(function(c){ b.push(c.repos||[], c.surging||[]); });" in _GH_JS,
+       '/"+repos.length+"' in _GH_JS],
+      [True, True, False])
 
 # ── 榜單中文描述：C2 段跳過不留痕跡（references/vault-pages.md）──
 from lib import ghdesc as _gd2  # noqa: E402
@@ -3304,11 +3327,11 @@ _gh_spec.loader.exec_module(_ghm)
 with tempfile.TemporaryDirectory() as _ghtd:
     _ghv = Path(_ghtd)
     (_ghv / "_config").mkdir()
-    (_ghv / "_config" / "github.yaml").write_text("top_n: 5\nsearches: []\n",
+    (_ghv / "_config" / "github.yaml").write_text(_gh_cfg(5),
                                                   encoding="utf-8")
     _gh_collect, _gh_argv, _gh_envv = _ghm.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
-        _ghm.collect = lambda *a, **k: {}
+        _ghm.collect = lambda *a, **k: _gh_pool({})
         sys.argv = ["pulse-github.py", "--snapshot"]   # 走到抓取全失敗那條路要 do_snapshot 為真
         os.environ["VAULT_DIR"] = str(_ghv)
         _ghm.main()
@@ -3358,7 +3381,7 @@ def _bd_main(vault, argv, collect, nonet=False):
         calls.append(1)
         if collect is None:
             raise RuntimeError("collect 被呼叫了")
-        return collect
+        return _gh_pool(collect)
 
     def _no_net(*a, **k):
         raise RuntimeError("selftest：這個模式不准連網")
@@ -3403,11 +3426,14 @@ def _bd_cnt(text, needle):
 
 
 def _bd_strip(doc):
-    """去掉每一列的 desc_zh 系列欄（board.json 不含譯文）。"""
+    """去掉每一列的 desc_zh 系列欄（board.json 不含譯文），全部榜與每一類的兩榜都去。"""
+    def rows(rs):
+        return [{f: v for f, v in r.items() if not f.startswith("desc_zh")} for r in rs]
     out = dict(doc)
     for k in ("repos", "surging"):
-        out[k] = [{f: v for f, v in r.items() if not f.startswith("desc_zh")}
-                  for r in doc[k]]
+        out[k] = rows(doc[k])
+    out["categories"] = [dict(c, repos=rows(c["repos"]), surging=rows(c["surging"]))
+                         for c in doc.get("categories") or []]
     return out
 
 
@@ -3415,7 +3441,8 @@ with tempfile.TemporaryDirectory() as _bdtd:
     _bdv = Path(_bdtd)
     (_bdv / "_config").mkdir()
     (_bdv / "_github").mkdir()
-    (_bdv / "_config" / "github.yaml").write_text("top_n: 2\nsearches: []\n", encoding="utf-8")
+    # tier_split 刻意不用正式設定的 20000：頁面與 github.json 讀的要是設定檔那個值，不是寫死的預設。
+    (_bdv / "_config" / "github.yaml").write_text(_gh_cfg(2, 30000), encoding="utf-8")
     _bd_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     (_bdv / "_github" / "state.json").write_text(_json.dumps({
         "big/a": {"stars": 99000, "ts": _bd_ts}, "big/b": {"stars": 49500, "ts": _bd_ts},
@@ -3438,6 +3465,9 @@ with tempfile.TemporaryDirectory() as _bdtd:
            any("desc_zh" in r for r in _bd_board["repos"] + _bd_board["surging"]),
            _bd_board["measured"]],
           [0, True, True, False, True])
+    acase("GitHub 榜：board.json 與 github.json 頂層帶 tier_split，值取自 _config/github.yaml"
+          "（頁面讀 d.tier_split 印門檻；寫死一個值的話設定檔改了頁面還是舊數字）",
+          [_bd_board.get("tier_split"), _bd_gj1.get("tier_split")], [30000, 30000])
     acase("GitHub 榜：board.json 裡非首次觀測的列 baseline_days 是快照的年紀（約 1 天），不是 0"
           "（pages 重算那一版全列 0.0）",
           [len(_bd_nonnew) > 0, all(0.8 <= d <= 1.2 for d in _bd_nonnew)], [True, True])
@@ -9588,7 +9618,10 @@ _gh_spec = importlib.util.spec_from_file_location(
     "pulse_github", os.path.join(_HERE, "pulse-github.py"))
 _ghmod = importlib.util.module_from_spec(_gh_spec)
 _gh_spec.loader.exec_module(_ghmod)
-_GH_PAGE = _ghmod.gh_page("2026-07-28 08:00 台北時間")
+# 分頁用正式設定檔的六類產頁：頁面原始碼要有「全部」與六類分頁。
+_GH_CFG_REAL = _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "github.yaml"),
+                                    encoding="utf-8"))
+_GH_PAGE = _ghmod.gh_page("2026-07-28 08:00 台北時間", _GH_CFG_REAL["categories"])
 acase("GitHub 動能：產出的頁面裡沒有自己的 <style>，樣式全走共用樣式表"
       "（六個硬寫字級、零個級距 token，而收字級那一輪它整份被跳過）",
       "<style>" in _GH_PAGE, False)
@@ -9616,33 +9649,54 @@ def _grepo(name, stars, created="2023-01-01"):
 
 
 # 大的漲 300（+0.3%/天），小的漲 200（+20%/天）——絕對輸、相對大贏。
+# fresh/repo 是 3 萬星的首次觀測：它在 tier_split 以上，所以落在星速榜的最後。
+_G_TIER = 20000
 _g_cur = {"big/repo": _grepo("big/repo", 100300),
           "small/repo": _grepo("small/repo", 1200),
           "tiny/repo": _grepo("tiny/repo", 150),
-          "fresh/repo": _grepo("fresh/repo", 9000)}
+          "fresh/repo": _grepo("fresh/repo", 30000)}
 _g_state = {"big/repo": {"stars": 100000, "ts": _g_prev_ts},
             "small/repo": {"stars": 1000, "ts": _g_prev_ts},
             "tiny/repo": {"stars": 100, "ts": _g_prev_ts}}
-_g_top, _g_surge = _ghmod.rank(_g_cur, _g_state, _g_now, 10)
+_g_top, _g_surge = _ghmod.rank(_g_cur, _g_state, _g_now, 10, _G_TIER)
 
-acase("GitHub：兩個榜的第一名不是同一個（絕對看量、相對看竄升——"
-      "合成一個分數就等於再造一個代理指標，而權重沒有人答得出來）",
-      [_g_top[0]["full_name"], _g_surge[0]["full_name"]],
-      ["big/repo", "small/repo"])
+acase("GitHub：兩個榜按體量切開——星數 >= tier_split 只在星速榜、< tier_split 只在竄升榜，交集為空"
+      "（兩個榜以前是同一批 repo 的兩種排序，大 repo 兩邊都上，讀者看到兩份大半重複的榜）",
+      [[x["full_name"] for x in _g_top], [x["full_name"] for x in _g_surge],
+       sorted({x["full_name"] for x in _g_top} & {x["full_name"] for x in _g_surge}),
+       all(x["stars"] >= _G_TIER for x in _g_top), all(x["stars"] < _G_TIER for x in _g_surge)],
+      [["big/repo", "fresh/repo"], ["small/repo"], [], True, True])
+# 門檻的邊界：剛好等於 tier_split 的算大 repo（>=），少一顆算小 repo。
+_g_edge = {"edge/eq": _grepo("edge/eq", 20000), "edge/lt": _grepo("edge/lt", 19999)}
+_g_edge_st = {"edge/eq": {"stars": 19000, "ts": _g_prev_ts},
+              "edge/lt": {"stars": 19000, "ts": _g_prev_ts}}
+_g_et, _g_es = _ghmod.rank(_g_edge, _g_edge_st, _g_now, 10, _G_TIER)
+acase("GitHub：剛好等於 tier_split 的進星速榜，少一顆的進竄升榜（切的是這一次的星數，不是上一版）",
+      [[x["full_name"] for x in _g_et], [x["full_name"] for x in _g_es]],
+      [["edge/eq"], ["edge/lt"]])
 acase("GitHub：首次觀測不給代理值——兩點才有斜率，一點沒有"
       "（舊版拿「星數÷建立至今天數」當動能，那是歷史平均不是現在的速度）",
       [_g_top[-1]["full_name"], _g_top[-1]["velocity"],
        "fresh/repo" in [x["full_name"] for x in _g_surge]],
       ["fresh/repo", None, False])
-# tiny/repo 上一次是 100 顆（低於門檻）→ 不進榜；big/repo 雖然相對只有
-# +0.3%/天，但它**有資格上這個榜**，只是排在後面——門檻擋的是低基數，不是大 repo。
+# tiny/repo 上一次是 100 顆（低於門檻）→ 不進榜。門檻擋的是低基數，不是大 repo：
+# 把 tier_split 拉到天上（所有 repo 都算小），big/repo 雖然相對只有 +0.3%/天，
+# 也**有資格上這個榜**，只是排在後面。
+_g_surge_all = _ghmod.rank(_g_cur, _g_state, _g_now, 10, 10 ** 9)[1]
 acase(f"GitHub：低於 {_ghmod.SURGE_FLOOR} 顆星不進竄升榜，其餘照相對增量排"
       "（10 顆變 20 顆就是 +100%，那讀起來比任何真的竄升都猛）",
-      [x["full_name"] for x in _g_surge], ["small/repo", "big/repo"])
-acase("GitHub：兩榜互相標名次（同一個 repo 兩邊都上，本身就是資訊）",
-      [_g_top[0].get("rank_velocity"), _g_surge[0].get("rank_surge"),
-       _g_surge[0].get("rank_velocity")],
-      [1, 1, 2])
+      [[x["full_name"] for x in _g_surge], [x["full_name"] for x in _g_surge_all]],
+      [["small/repo"], ["small/repo", "big/repo"]])
+acase("GitHub：兩榜不再互相標名次——星速榜的列沒有 rank_surge、竄升榜的列沒有 rank_velocity，"
+      "頁面也拿掉那一格 xref（兩榜不相交，那一格永遠是空的）",
+      [_g_top[0].get("rank_velocity"), "rank_surge" in _g_top[0],
+       _g_surge[0].get("rank_surge"), "rank_velocity" in _g_surge[0],
+       "gh-xref" in _GH_PAGE, "r.rank_velocity : r.rank_surge" in _GH_PAGE],
+      [1, False, 1, False, False, False])
+acase("GitHub：頁面讀 github.json 的 tier_split 把門檻印出來，不在頁面寫死"
+      "（一個沒有寫出來的門檻跟沒有門檻一樣會誤導；寫死的話設定檔改了頁面還是舊數字）",
+      ["d.tier_split" in _GH_PAGE, 'class="tier"' in _GH_PAGE, "20000" in _GH_PAGE],
+      [True, True, False])
 acase("GitHub：頁面把兩個軸各自偏袒誰寫出來，門檻也印得到"
       "（一個沒有寫出來的門檻，跟沒有門檻一樣會誤導）",
       [w for w in ("偏袒大 repo", "id=\"floor\"", "竄升榜", "星速榜")
@@ -9674,22 +9728,33 @@ acase("GitHub 名次變動：舊 schema（沒有名次欄位）判成「量不�
       ["no_baseline", "entered"])
 # 兩個榜共用同一批 dict 物件（rows 只建一次，by_velocity / by_surge 都指向它）。
 # 欄位不帶軸名後綴的話，後算的那個榜會蓋掉前一個，而畫面上兩邊會顯示同一個變動。
+# 兩榜按體量切開之後，同一列只在一個榜上；欄位照樣帶軸名後綴，這樣讀哪個榜的欄位
+# 永遠不會拿到另一個榜寫的值。small/repo 上一版在星速榜第 1 名、竄升榜第 3 名：
+# 這一版它只在竄升榜，名次變動只能是竄升榜那一格，星速榜那一格不存在。
 _g_state2 = {"big/repo": {"stars": 100000, "ts": _g_prev_ts,
                           "rank_velocity": 2, "rank_surge": None},
              "small/repo": {"stars": 1000, "ts": _g_prev_ts,
                             "rank_velocity": 1, "rank_surge": 3},
              "tiny/repo": {"stars": 100, "ts": _g_prev_ts,
                            "rank_velocity": 3, "rank_surge": 1}}
-_g_top2, _g_surge2 = _ghmod.rank(_g_cur, _g_state2, _g_now, 10)
-_g_by2 = {r["full_name"]: r for r in _g_top2}
-acase("GitHub 名次變動：兩個榜各算各的，欄位不互相覆蓋"
-      "（同一個 repo 在星速榜上升、在竄升榜是新進榜——共用一組欄位的話"
-      "兩邊會顯示後算的那一個）",
+_g_top2, _g_surge2 = _ghmod.rank(_g_cur, _g_state2, _g_now, 10, _G_TIER)
+_g_by2 = {r["full_name"]: r for r in _g_top2 + _g_surge2}
+acase("GitHub 名次變動：兩個榜各算各的，欄位帶軸名、不互相覆蓋"
+      "（每一列只在一個榜上，另一個榜的名次變動欄位不存在，不是被寫成別的值）",
       [_g_by2["big/repo"].get("rank_move_velocity"), _g_by2["big/repo"].get("rank_places_velocity"),
-       _g_by2["big/repo"].get("rank_move_surge"),
-       _g_by2["small/repo"].get("rank_move_velocity"), _g_by2["small/repo"].get("rank_places_velocity"),
+       "rank_move_surge" in _g_by2["big/repo"],
+       "rank_move_velocity" in _g_by2["small/repo"],
        _g_by2["small/repo"].get("rank_move_surge"), _g_by2["small/repo"].get("rank_places_surge")],
-      ["up", 1, "entered", "down", 1, "up", 2])
+      ["up", 1, False, False, "up", 2])
+# 跨過門檻換榜：上一版在星速榜、這一版掉到 tier_split 以下，在竄升榜上是「新進榜」——
+# state.json 記它上一次**不在竄升榜上**（null），跟 rank_move() 六態的定義一致。
+_g_cross = {"drop/repo": _grepo("drop/repo", 19900)}
+_g_cross_st = {"drop/repo": {"stars": 20100, "ts": _g_prev_ts,
+                             "rank_velocity": 4, "rank_surge": None}}
+_g_cross_s = _ghmod.rank(_g_cross, _g_cross_st, _g_now, 10, _G_TIER)[1]
+acase("GitHub 名次變動：跨過 tier_split 換榜的 repo 在新榜上是「新進榜」，不另立一態",
+      [[x["full_name"] for x in _g_cross_s], _g_cross_s[0].get("rank_move_surge")],
+      [["drop/repo"], "entered"])
 # ── 名次位移不是「每天」的量，所以每一列要帶自己的基線年紀 ──────────
 # 星速除以實際天數（days），名次位移沒有除以任何東西。兩者在每晚都抓得到的
 # repo 上看起來一樣，正好在基線舊掉的那幾條上分岔——而那不是理論值：
@@ -9701,7 +9766,8 @@ _g_state3 = {"big/repo": {"stars": 100000, "ts": (_g_now - _gdt.timedelta(days=6
              "small/repo": {"stars": 1000, "ts": (_g_now - _gdt.timedelta(hours=2)).timestamp(),
                             "rank_velocity": 2, "rank_surge": None},
              "tiny/repo": {"stars": 100, "ts": _g_prev_ts, "rank_velocity": 3, "rank_surge": None}}
-_g_by3 = {r["full_name"]: r for r in _ghmod.rank(_g_cur, _g_state3, _g_now, 10)[0]}
+# tier_split 給 0：四條全進星速榜，這幾條釘的是 baseline_days，不是切分。
+_g_by3 = {r["full_name"]: r for r in _ghmod.rank(_g_cur, _g_state3, _g_now, 10, 0)[0]}
 acase("GitHub 名次變動：每一列帶自己的基線年紀，六天前的基線不會被算成一天"
       "（名次位移沒有除以天數，所以「隔了幾天」只能一列一列說；"
       "寫死一個節奏就是把六天的位移講成昨天的）",
@@ -9721,13 +9787,560 @@ acase("GitHub 名次變動：頁面把那一列的基線年紀印進說明"
       "沒有這一格，讀者只能假設是一天）",
       [w for w in ("上一版是 ", "baseline_days", "不是同一把尺") if w not in _GH_PAGE], [])
 
+# ── GitHub 榜：六類分類與分類頁（references/github-board.md〈分類〉，2026-09-30）──
+# 一個 repo 恰好一個分類：依設定順序、第一個 topics 有交集的類；零類是 unclassified。
+# 分類用完整 topics（截成顯示用的前 6 個之前做）；分類頁各排兩榜 category_top_n 名、
+# 同樣套 tier_split；翻譯鏈與覆蓋率涵蓋分類榜。
+_CL_CATS = [{"id": "first", "name": "一", "topics": ["shared", "only-a"], "queries": []},
+            {"id": "second", "name": "二", "topics": ["Shared", "only-b"], "queries": []}]
+acase("分類：多類符合取設定順序的第一類、零類符合是 unclassified、比對不分大小寫"
+      "（清單順序就是優先序；取最後一類或都取，一個 repo 就會出現在兩個分類頁）",
+      [_ghm2.classify({"topics": ["only-b", "shared"]}, _CL_CATS),
+       _ghm2.classify({"topics": ["only-b"]}, _CL_CATS),
+       _ghm2.classify({"topics": ["ONLY-B"]}, _CL_CATS),
+       _ghm2.classify({"topics": ["llm", "ai-agents"]}, _CL_CATS),
+       _ghm2.classify({"topics": []}, _CL_CATS),
+       _ghm2.UNCLASSIFIED],
+      ["first", "second", "second", "unclassified", "unclassified", "unclassified"])
+# 正式設定：六類、順序是使用者裁的那一份，泛用 topic 不在任何一類。
+_CL_REAL = _GH_CFG_REAL["categories"]
+_CL_ALL_TOPICS = {t for c in _CL_REAL for t in c["topics"]}
+acase("分類：_config/github.yaml 是六類、順序照裁定、每類都有 name／topics／queries，"
+      "全域 keywords 拿掉了（〈決策〉2026-09-30）",
+      [[c["id"] for c in _CL_REAL],
+       [c["id"] for c in _CL_REAL if not (c.get("name") and c.get("topics") and c.get("queries"))],
+       "keywords" in _GH_CFG_REAL,
+       [_GH_CFG_REAL.get(k) for k in ("tier_split", "category_top_n", "top_n", "new_repo_days")]],
+      [["open-models", "automation", "coding-agents", "agent-frameworks", "mcp", "rag-memory"],
+       [], False, [20000, 10, 25, 90]])
+acase("分類：ai-agents、agent、agents、llm、ai 這類泛用 topic 不在任何一類"
+      "（放進去的話幾乎每個 repo 都先命中那一類，優先序就沒有意義）",
+      sorted(_CL_ALL_TOPICS & {"ai-agents", "agent", "agents", "llm", "ai"}), [])
+acase("分類：正式設定下，同時帶 mcp 與 rag 的 repo 算 mcp（第 5 類），只帶泛用 topic 的是 unclassified",
+      [_ghm2.classify({"topics": ["rag", "MCP"]}, _CL_REAL),
+       _ghm2.classify({"topics": ["llm", "ai", "agents"]}, _CL_REAL)],
+      ["mcp", "unclassified"])
+# 顯示只留前 6 個 topic；分類要在截斷之前做，第 7 個以後的 topic 也要命中。
+_CL_TOPICS8 = ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "mcp-server"]
+_CL_ROW = _ghm2.pool_row("deep/topic", "topic", "u", " d ", 500, None, _CL_TOPICS8,
+                         "2026-01-02T00:00:00Z", "2026-09-01T00:00:00Z", _CL_REAL)
+acase("分類：用完整 topics（第 8 個 topic 才命中也分得到類），分完才截成顯示用的前 6 個"
+      "（先截斷再分類的話，那個 repo 在畫面上會無緣無故變成未分類）",
+      [_CL_ROW["category"], _CL_ROW["topics"], _CL_ROW["desc"], _CL_ROW["created"]],
+      ["mcp", ["t1", "t2", "t3", "t4", "t5", "t6"], "d", "2026-01-02"])
+
+# 分類榜：依設定順序、每類兩榜各至多 category_top_n 名、同樣套 tier_split、不帶名次欄。
+_CL_NOW = _dt_m.datetime(2026, 9, 30, tzinfo=_dt_m.timezone.utc)
+_CL_TS = (_CL_NOW - _dt_m.timedelta(days=1)).timestamp()
+_CL_CUR, _CL_ST = {}, {}
+for _i in range(12):      # open-models：12 條大 repo、12 條小 repo，截到 10
+    for _pfx, _base in (("om-big", 30000), ("om-sml", 1000)):
+        _n = f"{_pfx}/{_i:02d}"
+        _CL_CUR[_n] = dict(_grepo(_n, _base + 10 * _i), category="open-models")
+        _CL_ST[_n] = {"stars": _base, "ts": _CL_TS}
+_CL_CUR["mcp/one"] = dict(_grepo("mcp/one", 500), category="mcp")
+_CL_ST["mcp/one"] = {"stars": 400, "ts": _CL_TS}
+_CL_CUR["un/one"] = dict(_grepo("un/one", 800), category="unclassified")
+_CL_ST["un/one"] = {"stars": 400, "ts": _CL_TS}
+_CL_BOARDS = _ghm2.rank_categories(_CL_CUR, _CL_ST, _CL_NOW, _CL_REAL, 20000, 10)
+_CL_BY = {c["id"]: c for c in _CL_BOARDS}
+acase("分類榜：categories 依設定順序、六類都在（空的也在）、unclassified 不是分類頁",
+      [[c["id"] for c in _CL_BOARDS], [c["name"] for c in _CL_BOARDS] == [c["name"] for c in _CL_REAL],
+       "unclassified" in _CL_BY, [len(_CL_BY["automation"]["repos"]), len(_CL_BY["automation"]["surging"])]],
+      [[c["id"] for c in _CL_REAL], True, False, [0, 0]])
+acase("分類榜：每類兩榜各至多 category_top_n 名，只收自己那一類",
+      [[len(c["repos"]), len(c["surging"])] for c in _CL_BOARDS],
+      [[10, 10], [0, 0], [0, 0], [0, 0], [0, 1], [0, 0]])
+acase("分類榜：每一類的兩榜也按 tier_split 切開，交集為空"
+      "（全部榜切開了、分類頁沒切，重疊就換到分類頁上再長一次）",
+      [[sorted({r["full_name"] for r in c["repos"]} & {r["full_name"] for r in c["surging"]})
+        for c in _CL_BOARDS],
+       all(r["stars"] >= 20000 for c in _CL_BOARDS for r in c["repos"]),
+       all(r["stars"] < 20000 for c in _CL_BOARDS for r in c["surging"]),
+       all(r["category"] == c["id"] for c in _CL_BOARDS for r in c["repos"] + c["surging"])],
+      [[[]] * 6, True, True, True])
+# 全部榜跟分類榜同一次算：全部榜寫的名次欄不得漏進分類榜（分類榜不算名次變動）。
+_CL_TOP, _CL_SUR = _ghm2.rank(_CL_CUR, _CL_ST, _CL_NOW, 25, 20000)
+_CL_CAT_ROWS = [r for c in _CL_BOARDS for r in c["repos"] + c["surging"]]
+acase("分類榜：不帶任何 rank_* 欄（state.json 只存全部榜的名次；共用同一批 dict 的話，"
+      "全部榜的箭頭會畫在分類頁上）",
+      [sorted({k for r in _CL_CAT_ROWS for k in r if k.startswith("rank_")}),
+       any("rank_move_velocity" in r for r in _CL_TOP)],
+      [[], True])
+# 取不到就回 None，不讓 IndexError 把整份 selftest 打斷（崩潰只說「這裡爆了」，錯的答案才說哪裡錯）。
+_cl_first = lambda rows: rows[0]["full_name"] if rows else None
+acase("分類榜：分類頁的排序跟全部榜同一支（大 repo 照 Δ★/天、小 repo 照 Δ%/天）",
+      [_cl_first(_CL_BY["open-models"]["repos"]),
+       _cl_first(_CL_BY["open-models"]["surging"])],
+      ["om-big/11", "om-sml/11"])
+
+# 頁面：「全部」加六類分頁，依設定順序；未分類的標籤是「未分類」。
+_CL_TABS = _re.findall(r'<button type="button" role="tab" data-cat="([^"]+)"[^>]*>([^<]+)</button>',
+                       _GH_PAGE)
+acase("分類頁面：頁面原始碼有「全部」與六類分頁，順序照設定，預設選「全部」",
+      [[t[0] for t in _CL_TABS], [t[1] for t in _CL_TABS][:2], len(_CL_TABS),
+       'data-cat="all" aria-selected="true" class="active"' in _GH_PAGE],
+      [["all"] + [c["id"] for c in _CL_REAL], ["全部", "開源模型與推論"], 7, True])
+acase("分類頁面：每列印分類標籤、unclassified 寫「未分類」、分類頁不畫名次變動那一格的說明印得出來",
+      ["catName(r.category)" in _GH_PAGE, 'if(id==="unclassified") return "未分類";' in _GH_PAGE,
+       'id="cat-note"' in _GH_PAGE, "<style>" in _GH_PAGE],
+      [True, True, True, False])
+
+# 走真的 main()：分類榜獨有的 repo 要進得了 github.json、譯文、覆蓋率、待譯清單與寫回。
+# top_n=1：全部榜只剩 big/a 與 sml/x；big/b 與 sml/y 只在分類榜上。
+with tempfile.TemporaryDirectory() as _cltd:
+    _clv = Path(_cltd)
+    (_clv / "_config").mkdir()
+    (_clv / "_github").mkdir()
+    (_clv / "_config" / "github.yaml").write_text(_gh_cfg(1), encoding="utf-8")
+    _cl_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
+    _cl_repos = {k: dict(v) for k, v in _U_REPOS.items()}
+    _cl_repos["sml/y"]["category"] = "mcp"
+    _cl_repos["sml/x"]["category"] = "mcp"
+    (_clv / "_github" / "state.json").write_text(_json.dumps({
+        "big/a": {"stars": 99000, "ts": _cl_ts}, "big/b": {"stars": 49500, "ts": _cl_ts},
+        "sml/x": {"stars": 500, "ts": _cl_ts}, "sml/y": {"stars": 210, "ts": _cl_ts}}),
+        encoding="utf-8")
+    # 一條中文，掛在**只在分類榜上**的 sml/y：只掛全部榜的話，這一條永遠不會出現。
+    (_clv / "_github" / "desc-zh.json").write_text(_json.dumps(
+        {"sml/y": {"zh": "只在分類榜", "src_hash": _gu.src_hash("Y"), "at": "t"}}),
+        encoding="utf-8")
+    _cl_rc1, _cl_o1, _, _ = _bd_main(_clv, ["--snapshot"], _cl_repos)
+    _cl_gj = _bd_rd(_clv, "dist", "data", "github.json") or {}
+    _cl_bd = _bd_rd(_clv, "_github", "board.json") or {}
+    _cl_cov1 = _bd_rd(_clv, "_github", "desc-coverage.json") or {}
+    # 找不到那一類就給空的一類：變異拿掉 categories 時要紅在比對上，不是崩在索引。
+    _cl_cat = lambda d: ([c for c in d.get("categories") or [] if c["id"] == "mcp"]
+                         or [{"repos": [], "surging": [{}, {}]}])[0]
+    _cl_mcp = _cl_cat(_cl_gj)
+    acase("分類（實跑）：github.json 與 board.json 的 categories 依設定順序，分類榜收得到全部榜沒有的 repo",
+          [_cl_rc1, [c["id"] for c in _cl_gj.get("categories") or []], [c["id"] for c in _cl_bd.get("categories") or []],
+           [r["full_name"] for r in _cl_gj.get("repos") or []], [r["full_name"] for r in _cl_gj.get("surging") or []],
+           [r.get("full_name") for r in _cl_mcp["surging"]]],
+          [0, ["open-models", "mcp"], ["open-models", "mcp"], ["big/a"], ["sml/x"], ["sml/x", "sml/y"]])
+    acase("分類（實跑）：抓取模式把譯文掛到分類榜上，覆蓋率分母是全部榜與分類榜去重後的 repo 數"
+          "（只數兩個全部榜的話分母是 2、分子是 0，而畫面上有 4 列、1 列有中文）",
+          [(_cl_mcp["surging"][1:2] or [{}])[0].get("desc_zh"), _cl_cov1.get("ranked"), _cl_cov1.get("with_zh"),
+           "含分類榜去重 4" in _cl_o1],
+          ["只在分類榜", 4, 1, True])
+    # render-only：同一份 board 掛譯文，分類榜也要掛。
+    shutil.rmtree(_clv / "dist", ignore_errors=True)
+    _cl_rc2, _, _, _ = _bd_main(_clv, ["--render-only"], None, nonet=True)
+    _cl_gj2 = _bd_rd(_clv, "dist", "data", "github.json") or {}
+    _cl_mcp2 = _cl_cat(_cl_gj2)
+    _cl_hp = _clv / "dist" / "github" / "index.html"
+    _cl_html = _cl_hp.read_text("utf-8") if _cl_hp.exists() else ""
+    acase("分類（實跑）：--render-only 掛譯文涵蓋分類榜，出頁的分頁取自 board.json 的 categories",
+          [_cl_rc2, (_cl_mcp2["surging"][1:2] or [{}])[0].get("desc_zh"), _cl_gj2 == _cl_gj,
+           _re.findall(r'data-cat="([^"]+)"', _cl_html)],
+          [0, "只在分類榜", True, ["all", "open-models", "mcp"]])
+    # 快照沒更新的班次（emit_board 那條路）：覆蓋率分母同一份。
+    (_clv / "_github" / "desc-coverage.json").unlink()
+    _cl_rc3, _, _, _ = _bd_main(_clv, ["--snapshot-if-older-than", "20"], None)
+    _cl_cov3 = _bd_rd(_clv, "_github", "desc-coverage.json") or {}
+    acase("分類（實跑）：快照沒更新那一班的 desc-coverage 分母也算分類榜（去重 4 條、1 條有中文）",
+          [_cl_rc3, _cl_cov3.get("ranked"), _cl_cov3.get("with_zh")], [0, 4, 1])
+    # 待譯清單：分類榜獨有而沒有中文的 big/b 要排得進來，有中文的 sml/y 不排。
+    _dp_run(_clv)
+    _cl_todo = [t["full_name"] for t in
+                _json.loads((_clv / "_probe" / "github-desc-worklist.json").read_text("utf-8"))]
+    acase("分類（實跑）：待譯清單涵蓋分類榜（只在分類榜上的 big/b 排得進來，已有中文的 sml/y 不排）",
+          [sorted(_cl_todo), "big/b" in _cl_todo], [["big/a", "big/b", "sml/x"], True])
+    _cl_src, _cl_origin = _dam.english_source(_cl_gj2, None)
+    acase("分類：寫回端的英文原文認得分類榜上的 repo（不然分類榜的譯文會被退件，理由是「不在目前榜單上」）",
+          [_cl_origin, sorted(_cl_src or [])], ["board", ["big/a", "big/b", "sml/x", "sml/y"]])
+acase("分類：doc_union 輪流取全部榜與每一類的兩榜、重複的只留一份；舊 doc 沒有 categories 照樣取得出來",
+      [[r["full_name"] for r in _gu.doc_union(
+          {"repos": [{"full_name": "a"}], "surging": [{"full_name": "b"}],
+           "categories": [{"repos": [{"full_name": "a"}, {"full_name": "c"}],
+                           "surging": [{"full_name": "d"}]}]})],
+       [r["full_name"] for r in _gu.doc_union({"repos": [{"full_name": "a"}]})],
+       len(_gu.doc_boards({"repos": [], "categories": [{"repos": [], "surging": []}] * 2}))],
+      [["a", "b", "d", "c"], ["a"], 6])
+# 寫回：分類榜獨有的 repo 翻回來，過關而且就地寫進 github.json 的分類榜。
+_CL_APPLY_BOARD = {"generated": "x", "count": 0, "measured": True, "repos": [], "surging": [],
+                   "categories": [{"id": "mcp", "name": "MCP", "repos": [],
+                                   "surging": [{"full_name": "acme/kit", "desc": _EN}]}]}
+with _tf8.TemporaryDirectory() as _clav:
+    _cl_code, _cl_out = _run_apply(_clav, {"acme/kit": _ZH}, board=_CL_APPLY_BOARD)
+    _cl_after = _json.loads((_P2(_clav) / "dist" / "data" / "github.json").read_text("utf-8"))
+    acase("分類（實跑）：寫回端讓分類榜獨有的 repo 過關，並把譯文寫進 github.json 的分類榜",
+          [_cl_code, "[退件]" in _cl_out,
+           _cl_after["categories"][0]["surging"][0].get("desc_zh"), "中文覆蓋 1/1" in _cl_out],
+          [0, False, _ZH, True])
+
+# ── GitHub 榜：候選池（references/github-board.md〈候選池〉，2026-09-30）──────────
+# 每類每個 query 打兩次 Search（第二次帶 created:>），之間 sleep 2.1 秒；state 裡這次沒搜到的
+# repo 用 GraphQL 補量，確定不活躍、封存、查不到的才剪。Search 與 GraphQL 都換成替身
+# （這台沒有 requests，也不准連網），time 換成假時鐘：sleep 記下秒數、推進時鐘。
+import types as _gp_types  # noqa: E402
+
+
+def _gp_collect(cfg, state, search, graphql, now):
+    """用替身跑一次真的 collect()。回 (pool, info, rec, stderr)。"""
+    rec = {"q": [], "sleep": [], "gql": []}
+    clk = [0.0]
+
+    def _s(q, token):
+        rec["q"].append((clk[0], q))
+        return search(q)
+
+    def _g(names, token):
+        rec["gql"].append(list(names))
+        return graphql(names)
+
+    def _sl(x):
+        rec["sleep"].append(x)
+        clk[0] += x
+
+    sv = (_ghm2.search_repos, _ghm2.graphql_repos, _ghm2.time)
+    _ghm2.search_repos, _ghm2.graphql_repos = _s, _g
+    _ghm2.time = _gp_types.SimpleNamespace(sleep=_sl, monotonic=lambda: clk[0])
+    _e = io.StringIO()
+    try:
+        with _bd_cl.redirect_stderr(_e):
+            pool, info = _ghm2.collect(cfg, "tok", now, state)
+    finally:
+        _ghm2.search_repos, _ghm2.graphql_repos, _ghm2.time = sv
+    return pool, info, rec, _e.getvalue()
+
+
+def _gp_item(full, stars, topics=(), created="2025-01-01T00:00:00Z"):
+    return {"full_name": full, "name": full.split("/")[1], "html_url": "https://x/" + full,
+            "description": "d", "stargazers_count": stars, "language": "Go",
+            "topics": list(topics), "created_at": created, "pushed_at": "2026-09-29T00:00:00Z"}
+
+
+def _gp_node(full, stars, pushed_days_ago, archived=False, topics=(), name=None):
+    return {"nameWithOwner": name or full, "stargazerCount": stars, "description": "tracked",
+            "url": "https://x/" + full, "primaryLanguage": {"name": "Rust"},
+            "repositoryTopics": {"nodes": [{"topic": {"name": t}} for t in topics]},
+            "createdAt": "2024-01-01T00:00:00Z",
+            "pushedAt": (_CL_NOW - _dt_m.timedelta(days=pushed_days_ago)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "isArchived": archived}
+
+
+_GP_CFG = dict(_GH_CFG_REAL)
+_GP_T8 = ["t1", "t2", "t3", "t4", "t5", "t6", "t7"]
+
+
+def _gp_search(q):
+    if q.startswith("mcp server ") and "created:>" not in q:
+        return [_gp_item("deep/topic", 5000, _GP_T8 + ["mcp-server"])]
+    if q.startswith("llm inference ") and "created:>" in q:
+        return [_gp_item("new/born", 600, ["vllm"], created="2026-09-10T00:00:00Z")]
+    return []
+
+
+_GP_STATE = {k: {"stars": 1000, "ts": _CL_TS} for k in
+             ("deep/topic", "known/active", "known/archived", "known/stale", "known/gone",
+              "known/unknown", "known/renamed")}
+_GP_NODES = {"known/active": _gp_node("known/active", 1200, 2, topics=_GP_T8 + ["vllm"]),
+             "known/archived": _gp_node("known/archived", 900, 2, archived=True),
+             "known/stale": _gp_node("known/stale", 900, 60),
+             "known/gone": None,
+             "known/renamed": _gp_node("known/renamed", 900, 2, name="other/name")}
+_gp_pool, _gp_info, _gp_rec, _ = _gp_collect(
+    _GP_CFG, _GP_STATE, _gp_search, lambda names: {n: _GP_NODES[n] for n in names if n in _GP_NODES},
+    _CL_NOW)
+_gp_qs = [q for _, q in _gp_rec["q"]]
+_gp_nq = sum(len(c["queries"]) for c in _GP_CFG["categories"])
+_gp_born = (_CL_NOW - _dt_m.timedelta(days=90)).date().isoformat()
+_gp_act = (_CL_NOW - _dt_m.timedelta(days=45)).date().isoformat()
+acase("候選池：每類每個 query 打兩次 Search，第二次帶 created:>（今天−new_repo_days），兩次都帶 pushed:> 與 stars:>="
+      "（新建的 repo 星數還小，在依星數排的前 40 名裡排不上）",
+      [len(_gp_qs), 2 * _gp_nq, sum(1 for q in _gp_qs if f"created:>{_gp_born}" in q),
+       all(f"pushed:>{_gp_act}" in q and "stars:>=300" in q for q in _gp_qs),
+       _gp_qs[:2] == ["llm inference stars:>=300 pushed:>" + _gp_act,
+                      f"llm inference stars:>=300 pushed:>{_gp_act} created:>{_gp_born}"],
+       _GP_CFG.get("new_repo_days")],
+      [30, 30, 15, True, True, 90])
+_gp_ts = [t for t, _ in _gp_rec["q"]]
+acase("候選池：Search 之間 sleep 至少 2.1 秒、第一次之前不睡，任何 60 秒窗口不超過 30 次"
+      "（Search API 登入後上限每分鐘 30 次；超過就是整批 403，那一晚的池子是空的）",
+      [len(_gp_rec["sleep"]), min(_gp_rec["sleep"] or [0]) >= 2.1, _gp_ts[0],
+       max(sum(1 for u in _gp_ts if 0 <= u - t < 60) for t in _gp_ts) <= 30],
+      [29, True, 0.0, True])
+acase("候選池：近 90 天新建那一次撈到的 repo 進池子；搜尋那條路的分類用完整 topics（第 8 個才命中）",
+      ["new/born" in _gp_pool, _gp_pool.get("new/born", {}).get("category"),
+       _gp_pool.get("deep/topic", {}).get("category"),
+       len(_gp_pool.get("deep/topic", {}).get("topics") or [])],
+      [True, "open-models", "mcp", 6])
+acase("候選池：state 裡這次沒搜到的 repo 交給 GraphQL 補量（搜到的不再查），補量那條路也用完整 topics 分類",
+      [_gp_rec["gql"], "known/active" in _gp_pool] +
+      [_gp_pool.get("known/active", {}).get(k) for k in ("category", "topics", "stars", "desc")] +
+      [_gp_info["graphql_filled"]],
+      [[["known/active", "known/archived", "known/gone", "known/renamed", "known/stale",
+         "known/unknown"]], True, "open-models", ["t1", "t2", "t3", "t4", "t5", "t6"], 1200,
+       "tracked", 1])
+acase("候選池：封存、45 天沒 push、查不到、改名的不進池子而且要剪；沒有明確結果的不進也不剪"
+      "（量不到的剪掉，一個還活著的 repo 就失去基線，而那不會有任何東西變紅）",
+      [sorted(k for k in _GP_STATE if k in _gp_pool), _gp_info["drop"]],
+      [["deep/topic", "known/active"],
+       ["known/archived", "known/gone", "known/renamed", "known/stale"]])
+# GraphQL 一次最多 100 個別名。
+_gp_big = {f"o/r{i:03d}": {"stars": 1, "ts": 1} for i in range(250)}
+_, _gp_info2, _gp_rec2, _ = _gp_collect(_GP_CFG, _gp_big, _gp_search, lambda names: {}, _CL_NOW)
+acase("候選池：GraphQL 分批，一次最多 100 個",
+      [[len(b) for b in _gp_rec2["gql"]], _gp_info2["drop"]], [[100, 100, 50], []])
+# GraphQL 整批失敗：只用搜尋結果、不剪任何 state、stderr 看得到。
+_gp_pool3, _gp_info3, _, _ = _gp_collect(_GP_CFG, _GP_STATE, _gp_search, lambda names: None, _CL_NOW)
+acase("候選池：GraphQL 整批失敗時只用搜尋結果、一個都不剪（失敗不是「確定查不到」）",
+      [sorted(_gp_pool3), _gp_info3["drop"], _gp_info3["graphql_filled"]],
+      [["deep/topic", "new/born"], [], 0])
+# Search 全部失敗：回空池、不補量（只剩追蹤名單的池子不是這一晚的榜）。
+_gp_pool4, _gp_info4, _gp_rec4, _gp_e4 = _gp_collect(
+    _GP_CFG, _GP_STATE, lambda q: None, lambda names: _GP_NODES, _CL_NOW)
+acase("候選池：Search 全部失敗 → 空池、不打 GraphQL、stderr 說得出來（照抓取全失敗處理，保留上一份 board）",
+      [_gp_pool4, _gp_info4["search_calls"], _gp_info4["search_failed"], _gp_rec4["gql"],
+       "全部失敗" in _gp_e4],
+      [{}, 30, 30, [], True])
+# GraphQL 回應的判讀是純函式（這台沒有 requests，HTTP 那一層用替身；判讀這一層直接驗）。
+_gp_q = _ghm2.graphql_query(["a/b", "c/d"])
+acase("GraphQL：查詢每個 repo 一個別名、topics 取 first: 20（GitHub 上限），名字有跳脫",
+      ['r0: repository(owner: "a", name: "b")' in _gp_q, 'r1: repository(owner: "c", name: "d")' in _gp_q,
+       "repositoryTopics(first: 20)" in _gp_q, "isArchived" in _gp_q, "pushedAt" in _gp_q],
+      [True, True, True, True, True])
+acase("GraphQL：回應判讀——查到回 node、NOT_FOUND 回 None、其他錯誤不列（不知道）、沒有 data 是整批失敗",
+      [_ghm2.parse_graphql(["a/b", "c/d", "e/f"], {
+          "data": {"r0": {"nameWithOwner": "a/b"}, "r1": None, "r2": None},
+          "errors": [{"type": "NOT_FOUND", "path": ["r1"]}, {"type": "FORBIDDEN", "path": ["r2"]}]}),
+       _ghm2.parse_graphql(["a/b"], {"errors": [{"message": "rate limited"}]}),
+       _ghm2.parse_graphql(["a/b"], None)],
+      [{"a/b": {"nameWithOwner": "a/b"}, "c/d": None}, None, None])
+_gp_e5 = io.StringIO()
+with _bd_cl.redirect_stderr(_gp_e5):
+    _gp_notok = _ghm2.graphql_repos(["a/b"], None)
+acase("GraphQL：沒有 token 就整批失敗（回 None、stderr 印一行），不當成查不到",
+      [_gp_notok, "token" in _gp_e5.getvalue()], [None, True])
+
+# 走真的 main()：stdout 那一行印 Search 次數與 GraphQL 補量數，N 等於替身記到的實際呼叫次數；
+# 快照寫回時剪掉確定的、留下不知道的；補量到的 repo 基線是上一晚（baseline_days < 1.5）。
+def _gp_main(vault, argv, search, graphql):
+    rec = {"q": 0}
+    clk = [0.0]
+
+    def _s(q, token):
+        rec["q"] += 1
+        return search(q)
+
+    def _sl(x):
+        clk[0] += x
+
+    sv = (_ghm2.search_repos, _ghm2.graphql_repos, _ghm2.time, sys.argv[:],
+          os.environ.get("VAULT_DIR"), os.environ.get("GITHUB_TOKEN"))
+    _ghm2.search_repos, _ghm2.graphql_repos = _s, lambda names, token: graphql(names)
+    _ghm2.time = _gp_types.SimpleNamespace(sleep=_sl, monotonic=lambda: clk[0])
+    sys.argv = ["pulse-github.py"] + argv
+    os.environ["VAULT_DIR"] = str(vault)
+    os.environ["GITHUB_TOKEN"] = "selftest-fake"
+    _o, _e = io.StringIO(), io.StringIO()
+    try:
+        with _bd_cl.redirect_stdout(_o), _bd_cl.redirect_stderr(_e):
+            rc = _ghm2.main()
+    finally:
+        _ghm2.search_repos, _ghm2.graphql_repos, _ghm2.time, sys.argv = sv[:4]
+        for _k, _v in (("VAULT_DIR", sv[4]), ("GITHUB_TOKEN", sv[5])):
+            if _v is None:
+                os.environ.pop(_k, None)
+            else:
+                os.environ[_k] = _v
+    return rc, _o.getvalue(), rec["q"]
+
+
+_gp_now = _dt_m.datetime.now(_dt_m.timezone.utc)
+_gp_prev = _gp_now.timestamp() - 86400
+
+
+def _gp_node_now(full, stars, pushed_days_ago, archived=False):
+    n = _gp_node(full, stars, 0, archived=archived)
+    n["pushedAt"] = (_gp_now - _dt_m.timedelta(days=pushed_days_ago)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return n
+
+
+_GP_MAIN_NODES = {"known/active": _gp_node_now("known/active", 900, 1),
+                  "known/archived": _gp_node_now("known/archived", 900, 1, archived=True)}
+for _gp_fail in (False, True):
+    with tempfile.TemporaryDirectory() as _gptd:
+        _gpv = Path(_gptd)
+        (_gpv / "_config").mkdir()
+        (_gpv / "_github").mkdir()
+        (_gpv / "_config" / "github.yaml").write_text(
+            _yaml.safe_dump(_GH_CFG_REAL, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        (_gpv / "_github" / "state.json").write_text(_json.dumps({
+            "known/active": {"stars": 800, "ts": _gp_prev, "rank_velocity": None, "rank_surge": 3},
+            "known/archived": {"stars": 800, "ts": _gp_prev, "rank_velocity": None, "rank_surge": None},
+            "known/unknown": {"stars": 800, "ts": _gp_prev, "rank_velocity": None, "rank_surge": None}}),
+            encoding="utf-8")
+        _gp_rc, _gp_out, _gp_n = _gp_main(
+            _gpv, ["--snapshot"], lambda q: [_gp_item("srch/one", 30000)],
+            (lambda names: None) if _gp_fail else
+            (lambda names: {n: _GP_MAIN_NODES[n] for n in names if n in _GP_MAIN_NODES}))
+        _gp_st = _json.loads((_gpv / "_github" / "state.json").read_text("utf-8"))
+        _gp_gj = _json.loads((_gpv / "dist" / "data" / "github.json").read_text("utf-8"))
+    _gp_m = _re.search(r"Search (\d+) 次、耗時 (\d+) 秒、GraphQL 補量 (\d+) 個", _gp_out)
+    if not _gp_fail:
+        _gp_row = [r for r in _gp_gj.get("surging") or [] if r["full_name"] == "known/active"]
+        acase("候選池（實跑）：stdout 印「Search N 次、耗時 S 秒、GraphQL 補量 M 個」，N 等於實際呼叫次數"
+              "（C4 用 Actions log 的這一行驗每分鐘不超過 30 次；S 是假時鐘走過的 29×2.1 秒）",
+              [_gp_rc, bool(_gp_m), _gp_m and int(_gp_m.group(1)) == _gp_n, _gp_n,
+               _gp_m and _gp_m.group(2), _gp_m and _gp_m.group(3)],
+              [0, True, True, 30, "61", "1"])
+        acase("候選池（實跑）：快照寫回時剪掉 GraphQL 確定封存的，留下沒有明確結果的；補量到的列基線是上一晚"
+              "（非首次觀測的列 baseline_days < 1.5）",
+              [sorted(_gp_st), _gp_st.get("known/active", {}).get("stars"),
+               [(r["is_new"], r["baseline_days"] < 1.5) for r in _gp_row]],
+              [["known/active", "known/unknown", "srch/one"], 900, [(False, True)]])
+    else:
+        acase("候選池（實跑）：GraphQL 整批失敗時快照照寫、state 一個都不剪",
+              [_gp_rc, sorted(_gp_st), _gp_m and _gp_m.group(3)],
+              [0, ["known/active", "known/archived", "known/unknown", "srch/one"], "0"])
+
+# ── PR #106 審查返工（2026-09-30）：GraphQL 欄位級錯誤、Search 空 items／incomplete、星數 null ──
+# F-1：data.rN 是 dict 但某個欄位被置 null（errors[].path = ["rN", "pushedAt"]）。pushedAt 為 null
+# 不是「45 天沒 push」，nameWithOwner 為 null 不是「改名」——兩者都是「這次不知道」，不進池也不剪。
+acase("GraphQL F-1：errors 的 path 指到某個 rN 的欄位時，那個 repo 這次當不知道（不列在判讀結果裡）",
+      _ghm2.parse_graphql(["a/b", "c/d", "e/f"], {
+          "data": {"r0": {"nameWithOwner": "a/b", "pushedAt": None}, "r1": {"nameWithOwner": "c/d"},
+                   "r2": {"nameWithOwner": "e/f", "primaryLanguage": None}},
+          "errors": [{"type": "INTERNAL", "path": ["r0", "pushedAt"]},
+                     # NOT_FOUND 落在欄位上（path 兩段）不是「repo 查不到」，一樣是不知道。
+                     {"type": "NOT_FOUND", "path": ["r2", "primaryLanguage"]}]}),
+      {"c/d": {"nameWithOwner": "c/d"}})
+_F1_NODES = {"null/pushed": dict(_gp_node("null/pushed", 900, 2), pushedAt=None),
+             "null/name": dict(_gp_node("null/name", 900, 2), nameWithOwner=None),
+             "null/arch": dict(_gp_node("null/arch", 900, 2), isArchived=None),
+             "miss/pushed": {k: v for k, v in _gp_node("miss/pushed", 900, 2).items()
+                             if k != "pushedAt"},
+             "null/stars": dict(_gp_node("null/stars", 900, 2), stargazerCount=None),
+             "ok/one": _gp_node("ok/one", 900, 2)}
+_f1_pool, _f1_info, _, _f1_e = _gp_collect(
+    _GP_CFG, {k: {"stars": 800, "ts": _CL_TS} for k in _F1_NODES}, lambda q: [],
+    lambda names: {n: _F1_NODES[n] for n in names}, _CL_NOW)
+acase("GraphQL F-1／F-3：pushedAt、nameWithOwner、isArchived、stargazerCount 缺或是 null 的 repo 不進池也不剪，"
+      "計入「沒有明確結果」（null 被讀成 45 天沒 push 或改名，就把活著的 repo 從 state 剪掉）",
+      [sorted(_f1_pool), _f1_info["drop"], _f1_info.get("graphql_unknown"),
+       "stargazerCount" in _f1_e],
+      [["ok/one"], [], 5, True])
+# F-3：Search 那筆的 stargazers_count 是 null → 那一筆這次不進池，stderr 印一行；其他筆照收。
+_f3_pool, _f3_info, _, _f3_e = _gp_collect(
+    _GP_CFG, {}, lambda q: [dict(_gp_item("null/star", 0), stargazers_count=None),
+                            _gp_item("fine/star", 25000)],
+    lambda names: {}, _CL_NOW)
+acase("Search F-3：stargazers_count 是 null 的那一筆不進池（split_tiers 會丟 TypeError），stderr 說得出來",
+      [sorted(_f3_pool), "stargazers_count" in _f3_e, _f3_info["search_failed"]],
+      [["fine/star"], True, 0])
+
+
+# F-2：Search 回 HTTP 200 但 items 為空、或 incomplete_results 為真，那一次算失敗。
+# 這台沒有 requests：把一個假的 requests 模組塞進 sys.modules，search_repos 裡的 import 會拿到它。
+class _F2Resp:
+    def __init__(self, code, body):
+        self.status_code, self._b = code, body
+
+    def json(self):
+        return self._b
+
+
+def _f2_with_requests(get, fn):
+    sv = sys.modules.get("requests")
+    sys.modules["requests"] = _gp_types.SimpleNamespace(get=get, post=None)
+    _e = io.StringIO()
+    try:
+        with _bd_cl.redirect_stderr(_e):
+            return fn(), _e.getvalue()
+    finally:
+        if sv is None:
+            sys.modules.pop("requests", None)
+        else:
+            sys.modules["requests"] = sv
+
+
+_F2_ITEM = _gp_item("real/one", 25000)
+_f2_r, _f2_e = _f2_with_requests(
+    lambda url, params, headers, timeout: {
+        "empty": _F2Resp(200, {"items": [], "incomplete_results": False}),
+        "inc": _F2Resp(200, {"items": [_F2_ITEM], "incomplete_results": True}),
+        "ok": _F2Resp(200, {"items": [_F2_ITEM], "incomplete_results": False})}[params["q"]],
+    lambda: [_ghm2.search_repos(q, "tok") for q in ("empty", "inc", "ok")])
+acase("Search F-2：HTTP 200 但 items 為空或 incomplete_results 為真，那一次算失敗（回 None、stderr 印一行）",
+      [_f2_r[0], _f2_r[1], [i["full_name"] for i in _f2_r[2] or []], _f2_e.count("[warn]")],
+      [None, None, ["real/one"], 2])
+
+
+# PR #106 重審 R2-F-1：HTTP 200 但 body 不是 object（null、list），那一次算失敗，不丟 AttributeError 炸整條鏈。
+def _f2n_try(q):
+    try:
+        return _ghm2.search_repos(q, "tok")
+    except Exception as e:  # noqa: BLE001 — 要把「炸了」變成可比對的值
+        return type(e).__name__
+
+
+_f2n_r, _f2n_e = _f2_with_requests(
+    lambda url, params, headers, timeout: {
+        "null": _F2Resp(200, None),
+        "list": _F2Resp(200, [_F2_ITEM])}[params["q"]],
+    lambda: [_f2n_try(q) for q in ("null", "list")])
+acase("Search R2-F-1：HTTP 200 但 body 不是 JSON object（null、list），那一次算失敗（回 None、stderr 印一行），不炸",
+      [_f2n_r, _f2n_e.count("[warn]")],
+      [[None, None], 2])
+# 一次 incomplete 算進 collect 的失敗數（部分失敗照舊出榜）。
+_f2b_calls = []
+
+
+def _f2b_get(url, params, headers, timeout):
+    _f2b_calls.append(params["q"])
+    return _F2Resp(200, {"items": [_F2_ITEM], "incomplete_results": len(_f2b_calls) == 1})
+
+
+def _f2b_collect():
+    sv = _ghm2.time
+    _ghm2.time = _gp_types.SimpleNamespace(sleep=lambda x: None, monotonic=lambda: 0.0)
+    try:
+        return _ghm2.collect(_GP_CFG, None, _CL_NOW, {})
+    finally:
+        _ghm2.time = sv
+
+
+(_f2b_pool, _f2b_info), _ = _f2_with_requests(_f2b_get, _f2b_collect)
+acase("Search F-2：一次 incomplete_results 算進失敗數，其餘照常進池",
+      [_f2b_info["search_failed"], _f2b_info["search_calls"], sorted(_f2b_pool)],
+      [1, 30, ["real/one"]])
+# _gp_main 會把 search_repos 換成替身；這一條要的是真的 search_repos 判讀 HTTP 回應，所以先留一份。
+_GH_REAL_SEARCH = _ghm2.search_repos
+_ghm2_real_search = lambda q: _GH_REAL_SEARCH(q, "tok")
+# 全部 Search 都回 200 空 items：照抓取全失敗那條路——不補量、board.json 與 state.json 一個 byte 都不變。
+with tempfile.TemporaryDirectory() as _f2td:
+    _f2v = Path(_f2td)
+    (_f2v / "_config").mkdir()
+    (_f2v / "_github").mkdir()
+    (_f2v / "_config" / "github.yaml").write_text(
+        _yaml.safe_dump(_GH_CFG_REAL, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    (_f2v / "_github" / "state.json").write_text(_json.dumps({
+        "known/active": {"stars": 800, "ts": _gp_prev, "rank_velocity": None, "rank_surge": 1}}),
+        encoding="utf-8")
+    (_f2v / "_github" / "board.json").write_text(_json.dumps(
+        {"generated": "舊榜", "count": 0, "repos": [], "surging": [], "measured": True}),
+        encoding="utf-8")
+    _f2_state_b = (_f2v / "_github" / "state.json").read_bytes()
+    _f2_board_b = (_f2v / "_github" / "board.json").read_bytes()
+    _f2_gql = []
+    (_f2_rc, _f2_out, _f2_n), _ = _f2_with_requests(
+        lambda url, params, headers, timeout: _F2Resp(200, {"items": [], "incomplete_results": False}),
+        lambda: _gp_main(_f2v, ["--snapshot"], lambda q: _ghm2_real_search(q),
+                         lambda names: _f2_gql.append(names) or {}))
+    acase("Search F-2：全部 Search 都是 200 空 items → 抓取全失敗那條路：不打 GraphQL、board.json 與 state.json 不變",
+          [_f2_rc, _f2_gql, (_f2v / "_github" / "board.json").read_bytes() == _f2_board_b,
+           (_f2v / "_github" / "state.json").read_bytes() == _f2_state_b, "抓取全失敗" in _f2_out],
+          [0, [], True, True, True])
+
 # 上面幾條釘的是判準。真正會騙人的是**呼叫端有沒有照著寫**——所以這條走真的
 # main()：第一班寫基線，第二班讀回來。top_n=1 是為了讓「有量到但沒上榜」真的發生。
 with tempfile.TemporaryDirectory() as _rmtd:
     _rmv = Path(_rmtd)
     (_rmv / "_config").mkdir()
     (_rmv / "_github").mkdir()
-    (_rmv / "_config" / "github.yaml").write_text("top_n: 1\nsearches: []\n",
+    (_rmv / "_config" / "github.yaml").write_text(_gh_cfg(1),
                                                   encoding="utf-8")
     _rm_ts = _dt_m.datetime.now(_dt_m.timezone.utc).timestamp() - 86400
     # 舊 schema：只有 stars / ts，一個名次欄位都沒有。
@@ -9737,7 +10350,7 @@ with tempfile.TemporaryDirectory() as _rmtd:
         encoding="utf-8")
     _rm_collect, _rm_argv, _rm_env = _ghm2.collect, sys.argv[:], os.environ.get("VAULT_DIR")
     try:
-        _ghm2.collect = lambda *a, **k: _U_REPOS
+        _ghm2.collect = lambda *a, **k: _gh_pool(_U_REPOS)
         os.environ["VAULT_DIR"] = str(_rmv)
         sys.argv = ["pulse-github.py", "--snapshot"]
         _ghm2.main()
@@ -9770,7 +10383,7 @@ acase("GitHub 名次變動：第一班（舊基線）整榜是「量不到」，
        _rm_board1["repos"][0].get("rank_places_velocity"),
        _rm_board2["repos"][0].get("rank_move_velocity"),
        _rm_board2["surging"][0].get("rank_move_surge")],
-      ["no_baseline", None, "flat", "entered"])
+      ["no_baseline", None, "flat", "flat"])
 acase("GitHub 名次變動：頁面把「跟哪一版比」與圖例印出來"
       "（沒寫出來的話，讀者會把 ▲3 讀成「跟昨天比」——而基線是上一次快照）",
       [w for w in ('id="legend"', "名次底下那一格", "隔了幾天每一列不一樣",

@@ -112,6 +112,7 @@ references/readiness-gate.md:112 負責人：BACKLOG P2 收在這裡
 | [`github-榜-打磨`](#github-榜-打磨) | `board.json` 上線後審查挑出的四個洞：API 連續失敗時榜凍結而警報不叫（原判會壞，暫不修）、抓取全失敗班的 dist 是佔位、手動 `--snapshot` 會在年輕基線時寫 board、佔位 dict 手抄兩份 | 不會 | 否（榜凍結時頁面上的更新時間是舊的，沒有假新） |
 | [`成本帳不看-service_tier`](#成本帳不看-service_tier) | 夜班成本帳只看 `speed` 不看 `service_tier`，priority tier 的 request 會照標準價算出一個金額 | 不會 | 否（還沒查到走 priority 的一晚；走到的那天就是） |
 | [`成本帳-收尾打磨`](#成本帳-收尾打磨) | 成本帳 hook 在逾時與還原失敗時的幾個邊角：第一晚還原判錯、status 逾時當乾淨、守門 git 逾時算跳過、一段逾時處理沒有測試、routine 觸發文字被包一層時不記 | 不會 | 否 |
+| [`github-池子-打磨`](#github-池子-打磨) | 分類與候選池審查挑出的打磨：stdout 看不到未分類數與各類池子大小、GraphQL 大批次失敗不對半重試、owner 大小寫不同時同一 repo 可能兩列、窄查詢 0 筆也算失敗、非必填欄位出錯的 repo 永遠量不到、幾處文件漂移 | 不會 | 否 |
 | [`分支刪不掉`](#分支刪不掉) | 只剩「我做完你來合」這個交棒介面不會叫（刪分支與推分支都已證實可行） | — | — |
 
 ---
@@ -618,6 +619,38 @@ token 交集趨近於零，而字典的 aliases 兩種語言都收。但**沒有
 - **F-6：佔位 dict 兩份手抄。** `main()` 抓取全失敗那條與 `emit_board()` 各寫一份
   `{"generated", "count": 0, "repos": [], "measured": False}`。同一種東西長成兩套，改一邊另一邊會分岔。
   應抽成一個函式。
+
+---
+
+## `github-池子-打磨`
+
+發現來源：2026-09-30 PR #106 Fable 審查（兩榜按體量切、六類分類、候選池）。同一次審查的 F-1～F-3
+（GraphQL 欄位級 null 誤剪、Search 200 空結果算成功、星數 null 丟 TypeError）已在同一個 PR 修掉；
+下面是打磨，都沒動碼（F-5～F-7 來自首審，R2-F-2 起來自同一個 PR 返工後的重審與 verifier 第三輪；
+重審挑出的回歸 R2-F-1 已在同一個 PR 修掉）。規格見 `references/github-board.md`〈分類〉〈候選池〉。
+
+- **F-5：stdout 不印未分類數與各類池子大小。** 抓取模式那一行只有全部池子的「抓到=N」。六類的
+  topics 是人裁的，哪一類池子太小、多少 repo 落在 `unclassified`，Actions log 上看不出來，要改分類
+  清單時沒有數字可依。可以在那一行後面加印各類池子大小與未分類數。
+- **F-6：GraphQL 大批次失敗沒有對半重試。** 一批 100 個別名，整批失敗（逾時、502、查詢太大）那一批
+  就全部「這次不知道」，不剪、也量不到，基線多老一天。連續幾晚失敗的話，那一批的基線一起變老，而
+  stdout 只多一個「沒有明確結果」的數字。可以在整批失敗時切成兩半各重試一次。
+- **F-7：owner 大小寫不同時同一 repo 可能兩列。** `seen` 與 `state.json` 用 `full_name` 原字串當 key。
+  GitHub 的 owner／repo 名不分大小寫，搜尋回來的大小寫跟 `state.json` 存的不一樣時，同一個 repo 會
+  被當成兩個：一個從搜尋進池、一個交給 GraphQL 補量，榜上可能出現兩列。`track_known` 比對改名時已經
+  轉小寫，去重那一層還沒有。可以在入池與查 state 時都用小寫的 key。
+- **R2-F-2：窄查詢真的 0 筆也算失敗，stdout 的失敗數分不出原因。** 每個 query 的第二次帶
+  `created:>` 近 90 天，冷門關鍵字某一晚真的 0 筆並不奇怪，但 `search_repos` 把空 `items` 一律算失敗，
+  「Search 失敗 N 次」可能每晚都不是 0，C4 看 log 分不出是額度出問題還是真的沒新 repo（stderr 的訊息
+  分得出）。只有全部都空才走抓取全失敗，不影響出榜。docstring「正常的一晚不會是 0 筆」對 `created:>`
+  那一版沒驗過。可以把空 `items` 另計一格，或只對不帶 `created:>` 的 query 把空算失敗。
+- **T2-F3-2：非必填欄位持續出錯的 repo 永遠量不到也不剪。** `parse_graphql` 把任何欄位級錯誤（含
+  `primaryLanguage`、`repositoryTopics` 這類剪枝用不到的欄位）都當成整個 repo「這次不知道」。某個 repo
+  的非必填欄位每晚都出錯，它就每晚量不到、一直留在 `state.json`，stdout 只多一個計數，看不出是哪個。
+- **R2-F-3／T2-F3-3／T2-F3-4：文件與碼漂移，不影響行為。** `track_known` docstring 第一行寫回傳兩個值，
+  實際三個；`collect` docstring 的 info 鍵漏 `graphql_unknown`；`references/github-board.md` 那句「C4 用
+  Actions log 的 N 與 S 驗每分鐘不超過 30 次」接到星數 null 那條尾巴，原本屬於 stdout 那條；
+  `references/mutation-inventory.md` 沒記 M419、M420、M421、M427 這輪改了 find。
 
 ---
 
