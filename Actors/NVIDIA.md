@@ -3,18 +3,19 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-09-30'
+generated_day: '2026-10-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **70** 則：`dropped` 1、`published` 64、`review` 5
+事件 **71** 則：`dropped` 1、`published` 65、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-30 | [[Events/evt-2026-09-30-12d487\|NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000]] | review |
+| 2026-10-01 | [[Events/evt-2026-10-01-7fcc7c\|Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment]] | review |
+| 2026-09-30 | [[Events/evt-2026-09-30-12d487\|NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000]] | published |
 | 2026-09-29 | [[Events/evt-2026-09-29-67e008\|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabular Prediction]] | review |
 | 2026-09-24 | [[Events/evt-2026-09-24-eab1f3\|Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW]] | published |
 | 2026-09-24 | [[Events/evt-2026-09-24-d80197\|How Open Science Can Help Researchers Prepare for the Next Pandemic]] | published |

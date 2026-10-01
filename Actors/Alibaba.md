@@ -3,7 +3,7 @@ id: actor-alibaba
 kind: company
 in_dictionary: true
 aliases: ["阿里巴巴", "阿里雲", "Alibaba Cloud"]
-generated_day: '2026-09-30'
+generated_day: '2026-10-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

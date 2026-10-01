@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-09-30"
+generated_day: "2026-10-01"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-09-30"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **357** 則／已裁決 **26** 則。
+待回答 **364** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,17 +24,17 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#019efb9e`** — infra-cost
-  > 觀察 DSX Ready 計畫公布的合作廠商規模、vLLM v0.30.0 的 MXFP8 KV cache 在實際部署的精度表現，以及 Google DeepMind Private AI Compute 伺服器端記憶體的技術細節是否公開；同時持續追蹤 AEMA 成員擴張與 MLPerf Inference v6.1 完整榜單。
+- **`infra-cost#81c39865`** — infra-cost
+  > 看 CoreWeave 公布新一代機型的上線日期與客戶名單；看後續財報裡的資本支出與折舊數字能否印證「多代部署仍有報酬」；DSX Ready 的合作廠商規模與 vLLM v0.30.0 MXFP8 KV cache 的實際精度表現，上一輪的待查項目仍然有效。
 
-- **`model-research#e32da8b4`** — model-research
-  > 看獨立基準測試對 Sol 與 Astra 的實測差距，以及官方公布的價格是否和「五分之一」的說法對得上；查 Ars Technica 那篇的內容跟 Sol 有沒有關係；訓練安全論證的全文有沒有列出可驗證的具體做法。
+- **`model-research#9c248846`** — model-research
+  > 看 Gemini 4 Argon 對外開放的日期，以及官方公布的基準測試與 API 定價；看 SynthID Bio 有沒有論文公布偵測率與對蛋白質功能的影響；看 Open TTS Leaderboard 的評測方法是人評還是自動指標；GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
 
-- **`product-market#781c33ef`** — product-market
-  > 看 DevDay 期間宣布的產品與 API 變更，是否在一兩天內有獨立媒體或官方文件交叉證實；澳洲政府或監管機關是否公開回應，OpenAI 承諾的防護措施有沒有具體時程。
+- **`product-market#893dad0d`** — product-market
+  > 看 OpenAI 是否公布蒸餾事件的涉事帳號數量，或調整 API 條款與用量偵測；看 SBDC 合作實際涵蓋的據點數與報告的樣本；DevDay 宣布的產品與 API 變更是否有獨立媒體或官方文件交叉證實。
 
-- **`capital-evolution#726ace81`** — capital-evolution
-  > 看 Lenfest 計畫的參與機構名單與資金分配方式；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金或承諾用量；同時留意新的估值、募資或併購訊號，以及 Hugging Face 收攏開源框架維護者的整合成果。
+- **`capital-evolution#33cb962c`** — capital-evolution
+  > 看 NVIDIA 獎學金官方頁面公布的截止日與得獎名單；Lenfest 計畫的參與機構與資金分配；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金；持續留意估值、募資或併購這類實際的資本動態。
 
 - **`agent-refactor#e8a3a435`** — agent-refactor
   > 看 Dots 是否有官方文件公布可驗證的功能與使用限制，以及獨立開發者的實測；延續前面的觀察點：Agents API 定價公布後的採用情況、NVIDIA 安全框架是否變成具體工具。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#d825dfdf`** — global-map
   > 觀察後續是否有具體政策文件、多邊協議、或聯合國層級的AI治理提案跟進，讓這次露出從表態變成可查證的政策動作；沿用上一輪對烏克蘭Daybreak成效與Grab完訓人數的觀察。
 
-## 事件層（351）
+## 事件層（358）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1096,3 +1096,24 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-09-29-686cda#e7c76bd6`** — evt-2026-09-29-686cda
   > 獨立基準測試對 Sol 與 Astra 的實測差距，以及 Ars Technica 所談安全取捨是否與 Sol 有關。
+
+- **`evt-2026-09-30-12d487#0a06b1a4`** — evt-2026-09-30-12d487
+  > 官方頁面公布的截止日與錄取名單，以及得獎者的研究方向是否集中在特定領域。
+
+- **`evt-2026-09-30-1c6239#648e206d`** — evt-2026-09-30-1c6239
+  > 榜單公開的評測方法、收錄模型名單，以及主要廠商是否提交成績。
+
+- **`evt-2026-09-30-4e52e2#d3a35c75`** — evt-2026-09-30-4e52e2
+  > OpenAI 是否公布涉事帳號數量、服務條款或 API 政策的調整，以及其他廠商是否跟進類似聲明。
+
+- **`evt-2026-09-30-583eae#52296cf2`** — evt-2026-09-30-583eae
+  > 是否有論文或數據公布偵測率與對蛋白質功能的影響，以及是否開放給外部研究者使用。
+
+- **`evt-2026-09-30-77e966#adfaf4ae`** — evt-2026-09-30-77e966
+  > CoreWeave 公布新一代機型的上線日期與客戶名單，以及後續財報裡的資本支出與折舊數字。
+
+- **`evt-2026-09-30-eb348b#2b5928c0`** — evt-2026-09-30-eb348b
+  > 報告公布的樣本數與主要發現，以及合作實際涵蓋的據點數量。
+
+- **`evt-2026-09-30-fa1a68#5138f770`** — evt-2026-09-30-fa1a68
+  > Gemini 4 Argon 對外開放的日期與管道，以及官方公布的基準測試和 API 定價。

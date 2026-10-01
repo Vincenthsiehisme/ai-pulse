@@ -3,17 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-09-30'
+generated_day: '2026-10-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **108** 則：`published` 103、`review` 5
+事件 **109** 則：`published` 103、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-01 | [[Events/evt-2026-10-01-5d1170\|Barclays Scales Claude]] | review |
 | 2026-09-28 | [[Events/evt-2026-09-28-43179d\|Anthropic Infosys]] | published |
 | 2026-09-23 | [[Events/evt-2026-09-23-825560\|Claude Discovers Novel Enzyme System]] | published |
 | 2026-09-18 | [[Events/evt-2026-09-18-2647a3\|Accenture Embedded Evaluation]] | published |

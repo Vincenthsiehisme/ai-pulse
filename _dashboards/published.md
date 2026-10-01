@@ -15,7 +15,7 @@
   NVIDIA 與 CoreWeave 宣布把下一代 NVIDIA 基礎設施帶進 CoreWeave 雲端，主打代理式 AI。
 - **[[Events/evt-2026-09-30-eb348b|Helping small businesses put AI to work]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 與美國 SBDC 合作，為小型企業提供 AI 實作訓練與在地支援。
-- **[[Events/evt-2026-09-30-fa1a68|Gemini 4 Argon: our next era of frontier intelligence]]** — Google DeepMind · model-capability · conf 87 · heat 未量測
+- **[[Events/evt-2026-09-30-fa1a68|Gemini 4 Argon: our next era of frontier intelligence]]** — Google DeepMind · model-capability · conf 94 · heat 未量測
   Google 宣布 Gemini 4 Argon，媒體報導目前還不能使用。
 
 ## 2026-09-29

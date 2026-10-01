@@ -3,19 +3,20 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-09-30'
+generated_day: '2026-10-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **129** 則：`published` 124、`review` 5
+事件 **130** 則：`published` 126、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-09-30 | [[Events/evt-2026-09-30-eb348b\|Helping small businesses put AI to work]] | review |
-| 2026-09-30 | [[Events/evt-2026-09-30-4e52e2\|Disrupting a coordinated model-distillation campaign]] | review |
+| 2026-10-01 | [[Events/evt-2026-10-01-6cffd3\|How Albertsons Companies is reimagining retail from the inside out]] | review |
+| 2026-09-30 | [[Events/evt-2026-09-30-eb348b\|Helping small businesses put AI to work]] | published |
+| 2026-09-30 | [[Events/evt-2026-09-30-4e52e2\|Disrupting a coordinated model-distillation campaign]] | published |
 | 2026-09-29 | [[Events/evt-2026-09-29-686cda\|Introducing GPT-6.1 Sol]] | published |
 | 2026-09-29 | [[Events/evt-2026-09-29-119ae0\|Introducing dots]] | published |
 | 2026-09-29 | [[Events/evt-2026-09-29-01aea3\|DevDay 2026 Recap]] | published |

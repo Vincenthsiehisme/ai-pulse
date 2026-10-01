@@ -1,56 +1,48 @@
 [
   {
-    "id": "evt-2026-09-30-12d487",
-    "title": "NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000",
+    "id": "evt-2026-10-01-36d72a",
+    "title": "The eternal complement",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-01-5d1170",
+    "title": "Barclays Scales Claude",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-01-68f20c",
+    "title": "Fall Into 25 New Games on GeForce NOW This October",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-01-6cffd3",
+    "title": "How Albertsons Companies is reimagining retail from the inside out",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-01-7fcc7c",
+    "title": "Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment",
     "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-09-30-1c6239",
-    "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-30-4e52e2",
-    "title": "Disrupting a coordinated model-distillation campaign",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-30-583eae",
-    "title": "Introducing SynthID Bio",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-30-77e966",
-    "title": "From Training to Production, NVIDIA and CoreWeave Close the Loop on Agentic AI",
-    "company": "CoreWeave",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-30-eb348b",
-    "title": "Helping small businesses put AI to work",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-09-30-fa1a68",
-    "title": "Gemini 4 Argon: our next era of frontier intelligence",
-    "company": "Google DeepMind",
+    "id": "evt-2026-10-01-ea3294",
+    "title": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
