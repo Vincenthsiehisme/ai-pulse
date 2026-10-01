@@ -120,9 +120,9 @@
     "zh": "OpenHands：AI 驅動的開發工具"
   },
   "Osmantic/ODS": {
-    "at": "2026-07-30T19:18:19+00:00",
-    "src_hash": "f012612c1d32",
-    "zh": "把 PC／Mac／Linux 變成 AI 伺服器：LLM 推論、聊天、語音、agent、工作流、RAG、生圖"
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "fb5aba90cef7",
+    "zh": "ODS V3 預發行版，公開測試中；把 PC、Mac 或 Linux 變成私有 AI 伺服器"
   },
   "Panniantong/Agent-Reach": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -164,6 +164,11 @@
     "src_hash": "8f35b4a2144f",
     "zh": "LLM 驅動的多市場股票分析系統：多源行情、即時新聞、決策看板與自動推送，可零成本定時執行"
   },
+  "aaif-goose/goose": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "79e2e12c4bed",
+    "zh": "開源、可擴充的 AI agent，不只給程式碼建議，還能安裝、執行、編輯與測試，可搭配任何 LLM"
+  },
   "abhigyanpatwari/GitNexus": {
     "at": "2026-08-29T19:09:37+00:00",
     "src_hash": "47941375e293",
@@ -188,6 +193,11 @@
     "at": "2026-09-18T19:12:51+00:00",
     "src_hash": "c71e99fdaf97",
     "zh": "LLM 推論最佳化代理（inference proxy）"
+  },
+  "alibaba/spring-ai-alibaba": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "8f5ad0ef6325",
+    "zh": "給 Java 開發者的 agentic AI 框架"
   },
   "alibaba/zvec": {
     "at": "2026-09-03T19:13:59+00:00",
@@ -234,6 +244,11 @@
     "src_hash": "e86b438611c0",
     "zh": "全球首個開源 agentic 影片製作系統，把 AI coding 助手變成完整影片工作室"
   },
+  "camel-ai/camel": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "a7bf689fcd49",
+    "zh": "CAMEL：多 agent 框架，探索 agent 的 Scaling Law"
+  },
   "cheahjs/free-llm-api-resources": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "b39be18886ec",
@@ -269,6 +284,11 @@
     "src_hash": "d678b6f74cbf",
     "zh": "開源的 agentic 作業系統"
   },
+  "exa-labs/exa-mcp-server": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "2557f3bff226",
+    "zh": "提供網頁搜尋與爬取的 Exa MCP"
+  },
   "firecrawl/firecrawl": {
     "at": "2026-09-29T20:20:14+00:00",
     "src_hash": "ae3e7aa383c4",
@@ -278,6 +298,11 @@
     "at": "2026-08-12T19:14:16+00:00",
     "src_hash": "e66c50f0ba6c",
     "zh": "用 C/C++ 做 LLM 推論"
+  },
+  "google-gemini/gemini-cli": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "aae307cecf19",
+    "zh": "把 Gemini 帶進終端機的開源 AI agent"
   },
   "gpustack/gpustack": {
     "at": "2026-09-09T19:22:19+00:00",
@@ -339,6 +364,16 @@
     "src_hash": "496200e77889",
     "zh": "程式碼複製貼上偵測器，支援 220+ 種語言、Rust 引擎，並內建 MCP server"
   },
+  "kyegomez/swarms": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "91a8fb6c3a0c",
+    "zh": "企業級多 agent 編排框架"
+  },
+  "langchain-ai/langchain": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "e3b42894c831",
+    "zh": "agent 工程平台"
+  },
   "langgenius/dify": {
     "at": "2026-09-02T19:14:09+00:00",
     "src_hash": "caea6695fbfe",
@@ -363,6 +398,11 @@
     "at": "2026-08-01T19:12:28+00:00",
     "src_hash": "d0d80379dd24",
     "zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
+  },
+  "mastra-ai/mastra": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "51ea8b68e90c",
+    "zh": "現代 TypeScript 框架，用於 AI 應用與 agent"
   },
   "matrixorigin/matrixone": {
     "at": "2026-09-24T19:28:45+00:00",
@@ -434,6 +474,11 @@
     "src_hash": "42ae5dc54124",
     "zh": "AI 原生搜尋資料庫，把向量、文字、結構化與半結構化資料整合進單一引擎，適合當 agent 的儲存層"
   },
+  "ollama/ollama": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "8cddcf426355",
+    "zh": "快速跑起 Kimi、GLM、MiniMax、DeepSeek、gpt-oss、Qwen、Gemma 等模型"
+  },
   "omnigent-ai/omnigent": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "a8a230ac5d63",
@@ -464,6 +509,11 @@
     "src_hash": "cd3a264f173e",
     "zh": "可直接跑的雲端範本，用於 RAG、AI pipeline 與企業搜尋，可與 S3、Kafka 等即時同步"
   },
+  "philippgille/chromem-go": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "c9b0f5a771e0",
+    "zh": "可嵌入的 Go 向量資料庫，介面近似 Chroma，無第三方相依，記憶體內運行並可選擇持久化"
+  },
   "pinecone-io/python-sdk": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "01abf8e637f5",
@@ -473,6 +523,11 @@
     "at": "2026-08-22T19:07:20+00:00",
     "src_hash": "a973bc939d92",
     "zh": "開源框架，用於語音代理、多模態應用與即時 AI，由 Daily 與社群維護"
+  },
+  "pydantic/pydantic-ai": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "041ad980eaa1",
+    "zh": "Python 的 AI 寫法：agent、即時語音、圖像生成、embedding，支援各模型，全程型別化"
   },
   "rasbt/LLMs-from-scratch": {
     "at": "2026-08-10T00:35:39+00:00",
@@ -499,6 +554,11 @@
     "src_hash": "608dd39676e2",
     "zh": "CLI proxy，在常見開發指令上省下 60–90% 的 LLM token，單一 Rust binary、零相依"
   },
+  "run-llama/llama_index": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "bd93fec2b4ce",
+    "zh": "AI 的文件處理平台"
+  },
   "ruvnet/ruflo": {
     "at": "2026-08-22T19:07:20+00:00",
     "src_hash": "ea1ea0bc35f9",
@@ -509,6 +569,11 @@
     "src_hash": "02be7fc4362a",
     "zh": "認知資料庫，非 vector／graph DB 或 RAG 包裝，記憶遺忘、自行演化。MCP 原生，單一 binary"
   },
+  "seleniumbase/SeleniumBase": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "423faf82cd96",
+    "zh": "瀏覽器自動化、測試與網頁爬取的 Python API；CDP 模式讓 Chrome 隱匿，並可搭配 Playwright"
+  },
   "sgl-project/sglang": {
     "at": "2026-08-31T19:11:07+00:00",
     "src_hash": "34d9064f6249",
@@ -518,6 +583,11 @@
     "at": "2026-08-27T19:10:49+00:00",
     "src_hash": "676b1ecaa56d",
     "zh": "從 vibe coding 練到 agentic engineering，靠練習讓 Claude 更完美"
+  },
+  "simular-ai/Agent-S": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "939428bc7fad",
+    "zh": "像人一樣操作電腦的開源 agent 框架"
   },
   "skyzh/tiny-llm": {
     "at": "2026-09-24T19:28:45+00:00",
@@ -573,6 +643,16 @@
     "at": "2026-08-21T19:12:31+00:00",
     "src_hash": "97f20f8ee54d",
     "zh": "可程式化的 Mixture-of-Models 路由器，把請求依情況分流給不同的 LLM 做推論"
+  },
+  "vllm-project/vllm": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "833a9f89cd06",
+    "zh": "高吞吐、省記憶體的 LLM 推論與服務引擎"
+  },
+  "vllm-project/vllm-ascend": {
+    "at": "2026-10-01T20:41:09+00:00",
+    "src_hash": "12e9173fc0af",
+    "zh": "社群維護的 vLLM 華為昇騰硬體外掛"
   },
   "volcengine/OpenViking": {
     "at": "2026-07-27T19:23:58+00:00",

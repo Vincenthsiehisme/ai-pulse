@@ -1,6 +1,20 @@
-# 已發布事件（378）
+# 已發布事件（384）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-01
+- **[[Events/evt-2026-10-01-36d72a|The eternal complement]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發文主張，先進 AI 最大的價值可能在突破性想法背後的例行工作。
+- **[[Events/evt-2026-10-01-5d1170|Barclays Scales Claude]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發布 Barclays 擴大使用 Claude 的新聞稿，我們只保留標題與連結。
+- **[[Events/evt-2026-10-01-68f20c|Fall Into 25 New Games on GeForce NOW This October]]** — NVIDIA · product · conf 73 · heat 未量測
+  GeForce NOW 十月有 25 款新遊戲上架，本週先開 6 款。
+- **[[Events/evt-2026-10-01-6cffd3|How Albertsons Companies is reimagining retail from the inside out]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 公布 Albertsons 以 ChatGPT Enterprise 與 API 加速內部作業、改善購物體驗。
+- **[[Events/evt-2026-10-01-7fcc7c|Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 用投資報酬率框架推銷 AI 工廠，並稱每兆瓦約 6,000 萬美元。
+- **[[Events/evt-2026-10-01-ea3294|Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs]]** — Ai2 · research · conf 73 · heat 未量測
+  Ai2 在 Hugging Face 部落格發表 Olmo-core 3，主打大型 MoE 的開放訓練基礎設施。
 
 ## 2026-09-30
 - **[[Events/evt-2026-09-30-12d487|NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000]]** — NVIDIA · capital · conf 73 · heat 未量測

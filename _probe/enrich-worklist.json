@@ -1,8 +1,130 @@
 [
   {
-    "id": "evt-2026-09-30-12d487",
-    "path": "evt-2026-09-30-12d487.md",
-    "title": "NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000",
+    "id": "evt-2026-10-01-36d72a",
+    "path": "evt-2026-10-01-36d72a.md",
+    "title": "The eternal complement",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/the-eternal-complement",
+        "title": "The eternal complement",
+        "summary": "Advanced AI may matter most for the routine work behind breakthrough ideas. Explore why execution could shape the next economy and the pace of progress.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-01-5d1170",
+    "path": "evt-2026-10-01-5d1170.md",
+    "title": "Barclays Scales Claude",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/barclays-scales-claude",
+        "title": "Barclays Scales Claude",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-10-01-68f20c",
+    "path": "evt-2026-10-01-68f20c.md",
+    "title": "Fall Into 25 New Games on GeForce NOW This October",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-october-2026-games-list/",
+        "title": "Fall Into 25 New Games on GeForce NOW This October",
+        "summary": "Spooky season is streaming in. Alongside falling leaves, pumpkin spice and everything nice, 25 new games are joining GeForce NOW throughout October, including six ready to play this week. From a new CONTROL Resonant reward for Performance and Ultimate members to The Witcher 3: Wild Hunt – Remastered",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-01-6cffd3",
+    "path": "evt-2026-10-01-6cffd3.md",
+    "title": "How Albertsons Companies is reimagining retail from the inside out",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/albertsons-reimagining-retail",
+        "title": "How Albertsons Companies is reimagining retail from the inside out",
+        "summary": "Albertsons Cos. is using ChatGPT Enterprise and the OpenAI API to help teams work faster and make grocery shopping easier for millions of customers.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-01-7fcc7c",
+    "path": "evt-2026-10-01-7fcc7c.md",
+    "title": "Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "NVIDIA",
@@ -11,9 +133,9 @@
     "evidence": [
       {
         "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/applications-open-graduate-fellowship-awards-2026/",
-        "title": "NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000",
-        "summary": "Bringing together the world’s brightest minds and the latest accelerated computing technology leads to powerful breakthroughs that help tackle some of the biggest research problems. To foster such innovation, the NVIDIA Graduate Fellowship Program provides grants, mentors and technical support to do",
+        "url": "https://blogs.nvidia.com/blog/productive-durable-fungible-ai-factories/",
+        "title": "Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment",
+        "summary": "AI factories are built by the megawatt, even by the gigawatt. Each megawatt factory costs roughly $60 million, and AI factory operators will only commit capital on that scale with a clear view of the return on investment. Three key things shape AI factory returns: Earning capacity: What the factory ",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,20 +152,20 @@
     }
   },
   {
-    "id": "evt-2026-09-30-1c6239",
-    "path": "evt-2026-09-30-1c6239.md",
-    "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
+    "id": "evt-2026-10-01-ea3294",
+    "path": "evt-2026-10-01-ea3294.md",
+    "title": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
     "fingerprint": null,
-    "facet": "benchmark",
-    "company_guess": "industry",
+    "facet": "release",
+    "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/open-tts-leaderboard",
-        "title": "Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "url": "https://huggingface.co/blog/allenai/olmocore3",
+        "title": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+        "summary": "A Blog post by Ai2 on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -57,176 +179,6 @@
       },
       "needs_source_link": false,
       "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-30-4e52e2",
-    "path": "evt-2026-09-30-4e52e2.md",
-    "title": "Disrupting a coordinated model-distillation campaign",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign",
-        "title": "Disrupting a coordinated model-distillation campaign",
-        "summary": "Learn how OpenAI disrupted a campaign to extract protected model reasoning and is strengthening defenses against adversarial distillation.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-30-583eae",
-    "path": "evt-2026-09-30-583eae.md",
-    "title": "Introducing SynthID Bio",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/introducing-synthid-bio/",
-        "title": "Introducing SynthID Bio",
-        "summary": "Proof of concept for watermarking AI-generated proteins while preserving biological function.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-30-77e966",
-    "path": "evt-2026-09-30-77e966.md",
-    "title": "From Training to Production, NVIDIA and CoreWeave Close the Loop on Agentic AI",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "CoreWeave",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/coreweave-agentic-ai-vera-rubin/",
-        "title": "From Training to Production, NVIDIA and CoreWeave Close the Loop on Agentic AI",
-        "summary": "Building on nearly a decade of co-engineering, CoreWeave has built NVIDIA compute, networking and software into a cloud purpose-built for AI that’s still returning on investment across multiple generations of deployment. Now, CoreWeave is bringing the next generation of NVIDIA infrastructure to prod",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-30-eb348b",
-    "path": "evt-2026-09-30-eb348b.md",
-    "title": "Helping small businesses put AI to work",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/helping-small-businesses-put-ai-to-work",
-        "title": "Helping small businesses put AI to work",
-        "summary": "OpenAI is partnering with America’s SBDC to expand hands-on AI training and local support for small businesses, alongside a new report on how small teams are using AI.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-09-30-fa1a68",
-    "path": "evt-2026-09-30-fa1a68.md",
-    "title": "Gemini 4 Argon: our next era of frontier intelligence",
-    "fingerprint": "google:gemini:4",
-    "facet": "update",
-    "company_guess": "Google DeepMind",
-    "independent_sources": 3,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/",
-        "title": "Gemini 4 Argon: our next era of frontier intelligence",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-media-arstechnica",
-        "url": "https://arstechnica.com/google/2026/09/google-announces-gemini-4-argon-ai-model-but-you-cant-use-it-yet/",
-        "title": "Google announces Gemini 4 Argon AI model, but you can't use it yet",
-        "summary": "So much for Gemini 3.5 Pro.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
-        "title": "Gemini 4 Argon",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 2
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
     }
   }
 ]
