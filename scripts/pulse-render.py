@@ -436,6 +436,10 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
    而且這一輪把字級收成級距時它整份被跳過（它不經過 pulse-render）。 */
 .gh-wrap{padding:clamp(30px,5vw,52px) 0 clamp(60px,9vw,110px)}
 .gh-note{color:var(--quiet);font:var(--fs-micro) var(--mono);margin:0 0 18px}
+/* 分頁列底下要自己留白：.chip-row 本身沒有 margin，而它底下接的是圖例（全部）
+   或 .gh-axis 的分類說明（分類頁）。圖例原本有 -6px 的上 margin，是寫來貼近
+   .gh-note 那 18px 的；分頁插進兩者中間之後，那 -6px 直接把圖例拉進按鈕底下。 */
+.gh-wrap .chip-row{margin-bottom:14px}
 /* 名次那一欄從 34px 加寬到 46px：底下多了一格名次變動，而「▲12」那種兩位數
    位移在 34px 裡會換行——換行的那一列會把整排名次的基線推歪一格。 */
 .gh-row{display:grid;grid-template-columns:46px 1fr auto;gap:14px;align-items:baseline;padding:15px 4px;border-bottom:1px solid var(--border-soft)}
@@ -481,7 +485,7 @@ p.lead{color:var(--muted);font-size:var(--fs-md);margin:0}
 .gh-move.down,.gh-move.flat{color:var(--muted)}
 .gh-move.entered{color:var(--forecast)}
 .gh-move.first_seen,.gh-move.no_baseline{color:var(--quiet)}
-.gh-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:-6px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--border-soft);color:var(--quiet);font:var(--fs-micro) var(--mono);line-height:1.9}
+.gh-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:0 0 20px;padding-bottom:16px;border-bottom:1px solid var(--border-soft);color:var(--quiet);font:var(--fs-micro) var(--mono);line-height:1.9}
 .gh-legend b{color:var(--muted);font-weight:600}
 .gh-leg{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 /* 窄螢幕上圖例會擠成一團、看不出哪個圖示配哪句話，所以那裡一行一個。 */
