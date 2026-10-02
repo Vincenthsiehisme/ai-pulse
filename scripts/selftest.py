@@ -3086,6 +3086,18 @@ acase("排程：待譯清單要排在 pulse-github.py 之後（榜單先生出�
       (max(_step_with("pulse-github.py"))
        < min(_step_with("pulse-github-desc-prep.py"))
        < min(_step_with("git push"))), True)
+# 單晚額度要蓋得住整頁。2026-10-03 量到的：分類上線後整頁從約 36 條變 140 條，--limit 25
+# 沒跟著改，14 個榜輪流分 25 條，預設頁的竄升榜一晚只分到約 2 條，79/140 條掛英文，而翻譯鏈
+# 每晚照樣 25/25 全過、看起來是綠的。天花板照設定檔算，設定改了這條跟著動，不寫死 170。
+_dq_cfg = _yaml.safe_load(open(os.path.join(_HERE, "..", "_config", "github.yaml"), encoding="utf-8"))
+_dq_ceiling = (2 * int(_dq_cfg["top_n"])
+               + len(_dq_cfg["categories"]) * 2 * int(_dq_cfg["category_top_n"]))
+_dq_steps = _step_with("pulse-github-desc-prep.py")
+_dq_m = _re.search(r"--limit[=\s]+(\d+)", _step_run(_dq_steps[0])) if _dq_steps else None
+acase("排程：GitHub 待譯清單的單晚額度蓋得住整頁（不帶 --limit、--limit 0，或不小於"
+      f" 2×top_n＋類數×2×category_top_n＝{_dq_ceiling}）",
+      [len(_dq_steps), _dq_m is None or int(_dq_m.group(1)) == 0 or int(_dq_m.group(1)) >= _dq_ceiling],
+      [1, True])
 acase("runbook：C2 已經不叫潤稿端自己重建榜單",
       "python scripts/pulse-github.py" in
       open(os.path.join(_HERE, "enrich-runbook.md"), encoding="utf-8").read()

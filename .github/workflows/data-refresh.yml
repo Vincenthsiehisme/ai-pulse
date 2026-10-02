@@ -213,13 +213,16 @@ jobs:
       # 這一班有 token、每班都跑得到榜單，順手把清單寫進版控就好。潤稿端 clone
       # 下來就有，C2 少一個會失敗的外部依賴。規格見 scripts/enrich-runbook.md。
       #
-      # --limit 25：單晚成本封頂。prep 量不到時回 2 且**不覆寫既有清單**，
+      # 不帶 --limit：整頁（全部榜＋六類分類榜去重，最多 170 條）一晚翻完。2026-10-03 前
+      # 是 --limit 25，分類上線後整頁變 140 條，額度沒跟上，新上榜的大多掛英文。
+      # 要再設上限不得小於整頁，selftest 照 _config/github.yaml 算（references/github-board.md
+      #〈中文描述涵蓋分類榜〉）。prep 量不到時回 2 且**不覆寫既有清單**，
       # 這一步 continue-on-error 所以不會擋鏈。
       - name: GitHub 榜單待譯清單（0 LLM）
         continue-on-error: true
         env:
           VAULT_DIR: ${{ github.workspace }}
-        run: python scripts/pulse-github-desc-prep.py --limit 25
+        run: python scripts/pulse-github-desc-prep.py
       # Event 標題的待譯清單。跟上面那條同一個形狀、同一個理由：判斷誰要翻是
       # 規則的事，翻成什麼字才是潤稿端的事。量不到時 prep 回 2 且不覆寫既有清單。
       - name: Event 標題待譯清單（0 LLM）
