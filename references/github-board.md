@@ -150,6 +150,11 @@
 - `pulse-github-desc-prep.py` 的待譯清單、`pulse-github-desc-apply.py` 的 `english_source` 與寫回、
   `--render-only`／`emit_board()` 掛譯文，都走這兩支。
 - 頁面「中文描述 x/y」與 `write_desc_coverage()` 的分母是同一份：全部榜與分類榜去重後的 repo 數。
+- 待譯清單**不設單晚上限**（`data-refresh.yml` 的 desc-prep 不帶 `--limit`）。天花板是整頁本身：
+  全部榜兩榜各 `top_n`、每一類兩榜各 `category_top_n`，去重後最多 `2×top_n + 類數×2×category_top_n`
+  條（現行 2×25 + 6×2×10 = 170）。2026-10-03 量到的：分類上線後整頁從約 36 條變 140 條，`--limit 25`
+  沒跟著改，14 個榜輪流分 25 條額度，預設頁的竄升榜一晚只分到約 2 條，線上 79/140 條是英文。
+  要重新設上限，`--limit` 不得小於這個天花板，selftest 照設定檔算、算不過就紅。
 
 ## 候選池
 

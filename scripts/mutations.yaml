@@ -4102,3 +4102,11 @@ mutations:
     replace: "GIT_TIMEOUT = 60\n"
     survives: false
     why: ""
+
+  - id: M483
+    title: "GitHub 待譯清單的單晚額度改回 25（整頁 140 條、14 個榜輪流分，新上榜的大多掛英文）"
+    file: ../.github/workflows/data-refresh.yml
+    find: "        run: python scripts/pulse-github-desc-prep.py\n"
+    replace: "        run: python scripts/pulse-github-desc-prep.py --limit 25\n"
+    survives: false
+    why: ""
