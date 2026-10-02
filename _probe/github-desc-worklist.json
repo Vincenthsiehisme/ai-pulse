@@ -1,67 +1,208 @@
 [
   {
-    "full_name": "simular-ai/Agent-S",
-    "desc": "Agent S: an open agentic framework that uses computers like a human",
-    "language": "Python",
+    "full_name": "edenfunf/reelmimic",
+    "desc": "Show it a video you love. Get a new video in the same style. An AI crew (Claude Code or Codex) plans, builds and reviews it with you.",
+    "language": "JavaScript",
     "topics": [
-      "agent-computer-interface",
+      "2d-animation",
       "ai-agents",
-      "computer-automation",
-      "computer-use",
-      "computer-use-agent",
-      "cua"
+      "ai-video",
+      "animation",
+      "claude-code",
+      "codex"
     ],
-    "stars": 12489,
-    "url": "https://github.com/simular-ai/Agent-S",
+    "stars": 952,
+    "url": "https://github.com/edenfunf/reelmimic",
     "stale_zh": null
   },
   {
-    "full_name": "Osmantic/ODS",
-    "desc": "ODS V3 Pre-Release: Public testing and refinement ahead of the official V3 launch. Turn your PC, Mac, or Linux box into a private AI server.",
-    "language": "Python",
+    "full_name": "diegosouzapw/OmniRoute",
+    "desc": "Never stop coding. Free MIT AI gateway: one endpoint, 359 providers (150+ free), 1200+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by hundreds of contributors",
+    "language": "TypeScript",
     "topics": [
+      "a2a",
       "ai-agents",
-      "llm",
-      "self-hosted",
-      "amd",
-      "comfyui",
-      "docker"
+      "ai-gateway",
+      "anthropic",
+      "claude",
+      "claude-code"
     ],
-    "stars": 6949,
-    "url": "https://github.com/Osmantic/ODS",
-    "stale_zh": "把 PC／Mac／Linux 變成 AI 伺服器：LLM 推論、聊天、語音、agent、工作流、RAG、生圖"
+    "stars": 72333,
+    "url": "https://github.com/diegosouzapw/OmniRoute",
+    "stale_zh": null
   },
   {
-    "full_name": "alibaba/spring-ai-alibaba",
-    "desc": "Agentic AI Framework for Java Developers",
-    "language": "Java",
+    "full_name": "yetone/magpie",
+    "desc": "Every agent's model. One place. Codex on DeepSeek, Claude Code on Kimi, from the menu bar.",
+    "language": "Go",
+    "topics": [
+      "claude-code",
+      "codex",
+      "deepseek",
+      "gemini-cli",
+      "llm",
+      "macos"
+    ],
+    "stars": 4263,
+    "url": "https://github.com/yetone/magpie",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ant-research/AntOmniEvo",
+    "desc": "An auto-evolution framework that optimizes anything — your 7×24 team of algorithm engineers.",
+    "language": "Python",
     "topics": [
       "agentic",
-      "artificial-intelligence",
-      "context-engineering",
-      "graph",
-      "java",
-      "multi-agent"
+      "automation",
+      "evolutionary-algorithms",
+      "llm-agent",
+      "multi-agent",
+      "rsi-ai"
     ],
-    "stars": 10957,
-    "url": "https://github.com/alibaba/spring-ai-alibaba",
+    "stars": 905,
+    "url": "https://github.com/ant-research/AntOmniEvo",
     "stale_zh": null
   },
   {
-    "full_name": "Agents365-ai/drawio-skill",
-    "desc": "Agent skill that turns natural language, code, Terraform/K8s, SQL, OpenAPI, AsyncAPI, Protobuf and GraphQL sources into editable, tested draw.io architecture diagrams: incremental sync, multi-view projection, drift diff, CI architecture tests, whiteboard derasterize, interactive HTML/PPTX/Mermaid exports.",
+    "full_name": "inclusionAI/Avernet",
+    "desc": "Distributed agent coordination platform where agents live, connect, coordinate, execute, and evolve together.",
     "language": "Python",
     "topics": [
-      "drawio",
-      "diagram",
-      "agent-skills",
-      "architecture-diagram",
-      "claude-code",
-      "flowchart"
+      "agent-coordination",
+      "agent-infrastructure",
+      "agent-orgnaization",
+      "dsh-plugin",
+      "multi-agent"
     ],
-    "stars": 9788,
-    "url": "https://github.com/Agents365-ai/drawio-skill",
-    "stale_zh": "把文字與真實來源轉成可維護的 .drawio 架構圖，支援增量同步、多視角投影，並內建 MCP server"
+    "stars": 625,
+    "url": "https://github.com/inclusionAI/Avernet",
+    "stale_zh": null
+  },
+  {
+    "full_name": "DuarteSantos8/openGym",
+    "desc": "Self-hosted gym & body-weight tracker — plan routines, log workouts (supersets, warm-ups, cardio), see which muscles are trained, fatigued or detrained, import from FitNotes/Strong/Hevy, passkey login. Your data, your server.",
+    "language": "JavaScript",
+    "topics": [
+      "bodyweight",
+      "docker",
+      "fitness",
+      "fitness-tracker",
+      "gym",
+      "health"
+    ],
+    "stars": 1610,
+    "url": "https://github.com/DuarteSantos8/openGym",
+    "stale_zh": null
+  },
+  {
+    "full_name": "vectorize-io/hindsight",
+    "desc": "Hindsight: Agent Memory That Learns",
+    "language": "Python",
+    "topics": [
+      "agentic-ai",
+      "agents",
+      "ai-memory",
+      "memory"
+    ],
+    "stars": 44626,
+    "url": "https://github.com/vectorize-io/hindsight",
+    "stale_zh": null
+  },
+  {
+    "full_name": "xzf-thu/VoiceMem",
+    "desc": "Infrastructure for the next generation of voice agents, designed to provide universal memory. It is divided into a left brain and a right brain, storing information and emotions respectively, while a fully streaming architecture eliminates latency at the fundamental level.",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-tools",
+      "application",
+      "audio-streaming",
+      "genai"
+    ],
+    "stars": 2303,
+    "url": "https://github.com/xzf-thu/VoiceMem",
+    "stale_zh": null
+  },
+  {
+    "full_name": "rehan-remade/universal-modder",
+    "desc": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod almost any PC game you own: recon, reverse engineering, fal-generated art/3D/audio, in-game testing, showcase videos.",
+    "language": "Python",
+    "topics": [
+      "age-of-empires",
+      "claude-code",
+      "claude-code-plugin",
+      "fal",
+      "game-assets",
+      "game-modding"
+    ],
+    "stars": 2008,
+    "url": "https://github.com/rehan-remade/universal-modder",
+    "stale_zh": null
+  },
+  {
+    "full_name": "nexu-io/open-design",
+    "desc": "🎨 Best DeepSeek Harness Design Plugin. The open-source Claude Design alternative. 🖥️ Local-first desktop app. 🖼️ Your coding agent becomes the design engine: prototypes, landing pages, dashboards, slides, images & video — real files, HTML/PDF/PPTX/MP4 export. 🤖 Claude Code / Codex / Cursor / DeepSeek Harness / OpenCode & 20+ CLIs via BYOK.",
+    "language": "TypeScript",
+    "topics": [
+      "agent-skills",
+      "ai-design",
+      "byok",
+      "claude-code-for-design",
+      "claude-design",
+      "codex-design"
+    ],
+    "stars": 99176,
+    "url": "https://github.com/nexu-io/open-design",
+    "stale_zh": null
+  },
+  {
+    "full_name": "oriveo/oriveo",
+    "desc": "Open-source, bring-your-own-key (BYOK) multi-model AI chat client for iOS, Android and the web. One LLM client for OpenAI, Anthropic, Google Gemini, OpenRouter, DeepSeek and ten more providers, plus any OpenAI-, Anthropic- or Gemini-compatible endpoint — Ollama, LM Studio, llama.cpp, vLLM. Local-first, self-hostable, no account. AGPL-3.0.",
+    "language": "Swift",
+    "topics": [
+      "ai-chat",
+      "ai-chat-client",
+      "ai-client",
+      "android",
+      "anthropic",
+      "bring-your-own-key"
+    ],
+    "stars": 391,
+    "url": "https://github.com/oriveo/oriveo",
+    "stale_zh": null
+  },
+  {
+    "full_name": "livecontext-ai/livecontext-ce",
+    "desc": "The AI automation platform, self-hosted. Describe the job in chat and LiveContext builds it: readable workflows, scoped AI agents, and small apps your team uses. Chat, Workflow, Agent and App on one canvas.",
+    "language": "Java",
+    "topics": [
+      "agent-framework",
+      "agents",
+      "ai",
+      "ai-agents",
+      "ai-automation",
+      "automation"
+    ],
+    "stars": 637,
+    "url": "https://github.com/livecontext-ai/livecontext-ce",
+    "stale_zh": null
+  },
+  {
+    "full_name": "stablyai/orca",
+    "desc": "Orca is the ADE for working with a fleet of parallel agents. Run any coding agent with your own subscription. Available on desktop, mobile and remote runtime.",
+    "language": "TypeScript",
+    "topics": [
+      "ade",
+      "agent-ide",
+      "ai-agents",
+      "claude-code",
+      "cli",
+      "codex"
+    ],
+    "stars": 83806,
+    "url": "https://github.com/stablyai/orca",
+    "stale_zh": null
   },
   {
     "full_name": "langchain-ai/langgraph",
@@ -75,166 +216,81 @@
       "deepagents",
       "enterprise"
     ],
-    "stars": 42579,
+    "stars": 42622,
     "url": "https://github.com/langchain-ai/langgraph",
     "stale_zh": null
   },
   {
-    "full_name": "vllm-project/vllm-ascend",
-    "desc": "Community maintained hardware plugin for vLLM on Huawei Ascend",
-    "language": "Python",
-    "topics": [
-      "inference",
-      "llm",
-      "llm-serving",
-      "llmops",
-      "mlops",
-      "model-serving"
-    ],
-    "stars": 2918,
-    "url": "https://github.com/vllm-project/vllm-ascend",
-    "stale_zh": null
-  },
-  {
-    "full_name": "seleniumbase/SeleniumBase",
-    "desc": "Python APIs for browser automation, testing, and web scraping. CDP Mode makes Chrome stealthy and works with Playwright.",
-    "language": "Python",
-    "topics": [
-      "python",
-      "selenium",
-      "webdriver",
-      "selenium-python",
-      "e2e-testing",
-      "seleniumbase"
-    ],
-    "stars": 13048,
-    "url": "https://github.com/seleniumbase/SeleniumBase",
-    "stale_zh": null
-  },
-  {
-    "full_name": "langchain-ai/langchain",
-    "desc": "The agent engineering platform.",
-    "language": "Python",
-    "topics": [
-      "agents",
-      "ai",
-      "ai-agents",
-      "anthropic",
-      "chatgpt",
-      "deepagents"
-    ],
-    "stars": 147365,
-    "url": "https://github.com/langchain-ai/langchain",
-    "stale_zh": null
-  },
-  {
-    "full_name": "aaif-goose/goose",
-    "desc": "an open source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM",
-    "language": "Rust",
-    "topics": [
-      "acp",
-      "ai",
-      "ai-agents",
-      "mcp"
-    ],
-    "stars": 54852,
-    "url": "https://github.com/aaif-goose/goose",
-    "stale_zh": null
-  },
-  {
-    "full_name": "mem0ai/mem0",
-    "desc": "The Memory Layer for AI Agents - Drop-in memory infrastructure for AI agents and apps. Context that persists. Built for production.",
-    "language": "Python",
-    "topics": [
-      "agentic-memory",
-      "agentic-memory-system",
-      "agents",
-      "ai",
-      "ai-agents",
-      "chatgpt"
-    ],
-    "stars": 66431,
-    "url": "https://github.com/mem0ai/mem0",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ollama/ollama",
-    "desc": "Get up and running with Kimi, GLM, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.",
-    "language": "Go",
-    "topics": [
-      "llama",
-      "llm",
-      "llms",
-      "go",
-      "golang",
-      "ollama"
-    ],
-    "stars": 182020,
-    "url": "https://github.com/ollama/ollama",
-    "stale_zh": null
-  },
-  {
-    "full_name": "kyegomez/swarms",
-    "desc": "The Enterprise-Grade Multi-Agent Orchestration Framework. Website: https://swarms.ai",
-    "language": "Python",
-    "topics": [
-      "agentic-ai",
-      "agentic-workflow",
-      "agents",
-      "ai",
-      "artificial-intelligence",
-      "chatgpt"
-    ],
-    "stars": 7227,
-    "url": "https://github.com/kyegomez/swarms",
-    "stale_zh": null
-  },
-  {
-    "full_name": "camel-ai/camel",
-    "desc": "🐫 CAMEL: The first and the best multi-agent framework. Finding the Scaling Law of Agents. https://www.camel-ai.org",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "ai-societies",
-      "artificial-intelligence",
-      "communicative-ai",
-      "cooperative-ai",
-      "deep-learning"
-    ],
-    "stars": 17800,
-    "url": "https://github.com/camel-ai/camel",
-    "stale_zh": null
-  },
-  {
-    "full_name": "exa-labs/exa-mcp-server",
-    "desc": "Exa MCP for web search and web crawling!",
+    "full_name": "jzjzzzzzzz/agent-me",
+    "desc": "Distill your knowledge, memories, and decisions into an open-source, inspectable AI Agent Twin.",
     "language": "TypeScript",
     "topics": [
-      "code-search",
-      "codesearch",
-      "crawling",
-      "mcp",
-      "mcp-server",
-      "model-context-protocol"
+      "agentic-ai",
+      "ai",
+      "ai-agent",
+      "ai-agents",
+      "digital-twin",
+      "knowledge-graph"
     ],
-    "stars": 5070,
-    "url": "https://github.com/exa-labs/exa-mcp-server",
+    "stars": 454,
+    "url": "https://github.com/jzjzzzzzzz/agent-me",
     "stale_zh": null
   },
   {
-    "full_name": "vllm-project/vllm",
-    "desc": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+    "full_name": "youngyangyang04/llm-master",
+    "desc": "大模型（LLM）全栈学习路线与中文教程🔥：覆盖 Prompt Engineering、RAG、AI Agent、MCP、微调、模型部署、Transformer、AI 编程与大厂面试，从入门到生产实践。",
+    "language": "",
+    "topics": [
+      "agent",
+      "large-language-models",
+      "llm",
+      "llm-learning",
+      "llm-tutorial",
+      "rag"
+    ],
+    "stars": 1063,
+    "url": "https://github.com/youngyangyang04/llm-master",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mattpocock/skills",
+    "desc": "Skills for Real Engineers. Straight from my .agents directory.",
+    "language": "Shell",
+    "topics": [],
+    "stars": 274613,
+    "url": "https://github.com/mattpocock/skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "nanaism/yomiyasu",
+    "desc": "AI生成の日本語を自然な日本語へ推敲するAgent Skill / Agent Skill for Refining AI-Generated Japanese into Natural Japanese",
     "language": "Python",
     "topics": [
-      "amd",
-      "blackwell",
-      "cuda",
-      "deepseek",
-      "deepseek-v3",
-      "gpt"
+      "agent-skills",
+      "ai-writing",
+      "antigravity",
+      "claude-code",
+      "codex",
+      "cursor"
     ],
-    "stars": 93039,
-    "url": "https://github.com/vllm-project/vllm",
+    "stars": 1169,
+    "url": "https://github.com/nanaism/yomiyasu",
+    "stale_zh": null
+  },
+  {
+    "full_name": "FuRongJun-1999/dsh-memory",
+    "desc": "白箱AGI架构探索：元认知（自我认知循环）、持续学习（知识飞轮）、世界模型（条件空间+语义时空图）、自我改进（自举纪律）、零LLM白箱管线与可审计信任护栏。",
+    "language": "Python",
+    "topics": [
+      "agent-safety",
+      "agentic-ai",
+      "agi",
+      "ai-agent-framework",
+      "deepseek",
+      "dsh-plugin"
+    ],
+    "stars": 308,
+    "url": "https://github.com/FuRongJun-1999/dsh-memory",
     "stale_zh": null
   },
   {
@@ -249,148 +305,88 @@
       "ai-agents",
       "ai-assistant"
     ],
-    "stars": 73655,
+    "stars": 73725,
     "url": "https://github.com/ruvnet/ruflo",
     "stale_zh": "agent meta-harness：部署多代理群、協調自動化工作流，整合 Claude Code、Codex 等工具"
   },
   {
-    "full_name": "prest/prest",
-    "desc": "PostgreSQL ➕ REST, low-code, simplify and accelerate development, ⚡ instant, realtime, high-performance on any Postgres application, existing or new, MCP server",
-    "language": "Go",
-    "topics": [
-      "postgresql",
-      "golang",
-      "postgres",
-      "rest-api",
-      "database",
-      "low-code"
-    ],
-    "stars": 4617,
-    "url": "https://github.com/prest/prest",
-    "stale_zh": null
-  },
-  {
-    "full_name": "FlorianBruniaux/claude-code-ultimate-guide",
-    "desc": "The most comprehensive Claude Code guide: agentic workflows, hooks, skills, MCP servers, quizzes, and production-ready templates. 430K+ lines.",
-    "language": "Python",
-    "topics": [
-      "agentic-coding",
-      "ai-assistant",
-      "ai-coding",
-      "ai-pair-programming",
-      "ai-security",
-      "anthropic"
-    ],
-    "stars": 6085,
-    "url": "https://github.com/FlorianBruniaux/claude-code-ultimate-guide",
-    "stale_zh": null
-  },
-  {
-    "full_name": "pydantic/pydantic-ai",
-    "desc": "How Python does AI. Agents, realtime voice, image generation, embeddings. Every model, every interface, typed end to end.",
-    "language": "Python",
-    "topics": [
-      "agent-framework",
-      "pydantic",
-      "python",
-      "genai",
-      "llm",
-      "harness"
-    ],
-    "stars": 20328,
-    "url": "https://github.com/pydantic/pydantic-ai",
-    "stale_zh": null
-  },
-  {
-    "full_name": "mastra-ai/mastra",
-    "desc": "Mastra is the modern TypeScript framework for AI-powered applications and agents.",
+    "full_name": "Hacker-Valley-Media/Interceptor",
+    "desc": "Browser automation and computer use for AI agents. One CLI and MCP server for your signed-in browser, native macOS apps, and real iPhones.",
     "language": "TypeScript",
     "topics": [
-      "agents",
-      "ai",
-      "chatbots",
-      "evals",
-      "javascript",
-      "llm"
-    ],
-    "stars": 28484,
-    "url": "https://github.com/mastra-ai/mastra",
-    "stale_zh": null
-  },
-  {
-    "full_name": "modelcontextprotocol/go-sdk",
-    "desc": "The official Go SDK for Model Context Protocol servers and clients. Maintained in collaboration with Google.",
-    "language": "Go",
-    "topics": [
-      "go",
-      "mcp"
-    ],
-    "stars": 5178,
-    "url": "https://github.com/modelcontextprotocol/go-sdk",
-    "stale_zh": null
-  },
-  {
-    "full_name": "philippgille/chromem-go",
-    "desc": "Embeddable vector database for Go with Chroma-like interface and zero third-party dependencies. In-memory with optional persistence.",
-    "language": "Go",
-    "topics": [
-      "chroma",
-      "chromadb",
-      "cosine-similarity",
-      "embedded",
-      "embeddings",
-      "go"
-    ],
-    "stars": 1060,
-    "url": "https://github.com/philippgille/chromem-go",
-    "stale_zh": null
-  },
-  {
-    "full_name": "raullenchai/Rapid-MLX",
-    "desc": "Rapid-MLX is an open-source (Apache 2.0) OpenAI- and Anthropic-compatible LLM inference server and Mac app for Apple Silicon, built on MLX, focused on reliable tool calling for coding agents. Release-gated with Claude Code, Codex CLI, Aider, Hermes and DeepSeek Harness.",
-    "language": "Python",
-    "topics": [
-      "anthropic-api",
-      "apple-silicon",
-      "claude-code",
-      "coding-agents",
-      "continuous-batching",
-      "inference-server"
-    ],
-    "stars": 3871,
-    "url": "https://github.com/raullenchai/Rapid-MLX",
-    "stale_zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
-  },
-  {
-    "full_name": "run-llama/llama_index",
-    "desc": "LlamaIndex is the document processing platform for AI",
-    "language": "Python",
-    "topics": [
-      "agents",
-      "application",
-      "data",
-      "fine-tuning",
-      "framework",
-      "llamaindex"
-    ],
-    "stars": 52381,
-    "url": "https://github.com/run-llama/llama_index",
-    "stale_zh": null
-  },
-  {
-    "full_name": "google-gemini/gemini-cli",
-    "desc": "An open-source AI agent that brings the power of Gemini directly into your terminal.",
-    "language": "TypeScript",
-    "topics": [
-      "gemini",
-      "gemini-api",
-      "ai",
+      "agent-skills",
       "ai-agents",
-      "cli",
-      "mcp-client"
+      "ai-tools",
+      "browser-automation",
+      "browser-extension",
+      "browser-use"
     ],
-    "stars": 107216,
-    "url": "https://github.com/google-gemini/gemini-cli",
+    "stars": 481,
+    "url": "https://github.com/Hacker-Valley-Media/Interceptor",
+    "stale_zh": null
+  },
+  {
+    "full_name": "kyky2347/ALTA",
+    "desc": "Autonomous LLM Trading Asterism — a research-only multi-agent trading platform with evidence-first research, an auditable console, Shadow simulation and explicitly authorized broker execution.",
+    "language": "Python",
+    "topics": [
+      "autonomous-agents",
+      "codex-app-server",
+      "event-driven-architecture",
+      "llm-agents",
+      "local-first",
+      "market-research"
+    ],
+    "stars": 978,
+    "url": "https://github.com/kyky2347/ALTA",
+    "stale_zh": null
+  },
+  {
+    "full_name": "can1357/oh-my-pi",
+    "desc": "⌥ Coding agent with the IDE wired in. Built by Stencil Labs.",
+    "language": "TypeScript",
+    "topics": [
+      "ai-agent",
+      "ai-coding-agent",
+      "anthropic",
+      "bun",
+      "claude",
+      "cli"
+    ],
+    "stars": 34107,
+    "url": "https://github.com/can1357/oh-my-pi",
+    "stale_zh": null
+  },
+  {
+    "full_name": "calmrocks/ai-engineer-notebooks",
+    "desc": "Hands-on, framework-free Colab notebooks for the AI Engineer / Forward Deployed Engineer (FDE) skill set — model APIs, structured output, tool calling, RAG, evals-as-the-spine, agents (loop from scratch, tool design, guardrails, MCP, Skills), fine-tuning vs LoRA, prompt-injection/security, LLMOps, and customer craft. Runs on the free Groq API.",
+    "language": "Jupyter Notebook",
+    "topics": [
+      "agents",
+      "ai-engineer",
+      "ai-engineering",
+      "colab",
+      "evals",
+      "fine-tuning"
+    ],
+    "stars": 678,
+    "url": "https://github.com/calmrocks/ai-engineer-notebooks",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Johnson-Durui/Companion-Space",
+    "desc": "本地优先的二次元陪伴学习应用 · Local-first anime companion and study app.",
+    "language": "Python",
+    "topics": [
+      "ai-companion",
+      "fastapi",
+      "local-first",
+      "nextjs",
+      "rag",
+      "self-hosted"
+    ],
+    "stars": 361,
+    "url": "https://github.com/Johnson-Durui/Companion-Space",
     "stale_zh": null
   }
 ]

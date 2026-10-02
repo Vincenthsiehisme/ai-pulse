@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-01"
+generated_day: "2026-10-02"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-01"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **364** 則／已裁決 **26** 則。
+待回答 **370** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,14 +24,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#81c39865`** — infra-cost
-  > 看 CoreWeave 公布新一代機型的上線日期與客戶名單；看後續財報裡的資本支出與折舊數字能否印證「多代部署仍有報酬」；DSX Ready 的合作廠商規模與 vLLM v0.30.0 MXFP8 KV cache 的實際精度表現，上一輪的待查項目仍然有效。
+- **`infra-cost#f01147bf`** — infra-cost
+  > 看其他雲端或晶片業者公布的每兆瓦成本是否落在同一量級；看 NVIDIA 後續是否給出具體的報酬率案例；看 CoreWeave 公布新一代機型的上線日期與客戶名單；看後續財報裡的資本支出與折舊數字能否印證「多代部署仍有報酬」；DSX Ready 與 vLLM v0.30.0 MXFP8 KV cache 的待查項目仍然有效。
 
-- **`model-research#9c248846`** — model-research
-  > 看 Gemini 4 Argon 對外開放的日期，以及官方公布的基準測試與 API 定價；看 SynthID Bio 有沒有論文公布偵測率與對蛋白質功能的影響；看 Open TTS Leaderboard 的評測方法是人評還是自動指標；GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
+- **`model-research#012a8693`** — model-research
+  > 看 Olmo-core 3 的原文或程式碼庫有沒有給出支援的 MoE 規模、訓練效率數據與授權；看 Gemini 4 Argon 對外開放的日期，以及官方公布的基準測試與 API 定價；看 SynthID Bio 有沒有論文公布偵測率；看 Open TTS Leaderboard 的評測方法是人評還是自動指標；GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
 
-- **`product-market#893dad0d`** — product-market
-  > 看 OpenAI 是否公布蒸餾事件的涉事帳號數量，或調整 API 條款與用量偵測；看 SBDC 合作實際涵蓋的據點數與報告的樣本；DevDay 宣布的產品與 API 變更是否有獨立媒體或官方文件交叉證實。
+- **`product-market#dbbfd985`** — product-market
+  > 看 Albertsons 或 OpenAI 是否補上量化成效，例如受影響的團隊規模與時程；看 Barclays 原文有沒有揭露部署範圍；看 OpenAI 是否公布蒸餾事件的涉事帳號數量，或調整 API 條款；看 SBDC 合作實際涵蓋的據點數；DevDay 宣布的產品與 API 變更有沒有獨立媒體或官方文件交叉證實。
 
 - **`capital-evolution#33cb962c`** — capital-evolution
   > 看 NVIDIA 獎學金官方頁面公布的截止日與得獎名單；Lenfest 計畫的參與機構與資金分配；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金；持續留意估值、募資或併購這類實際的資本動態。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#d825dfdf`** — global-map
   > 觀察後續是否有具體政策文件、多邊協議、或聯合國層級的AI治理提案跟進，讓這次露出從表態變成可查證的政策動作；沿用上一輪對烏克蘭Daybreak成效與Grab完訓人數的觀察。
 
-## 事件層（358）
+## 事件層（364）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1117,3 +1117,21 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-09-30-fa1a68#5138f770`** — evt-2026-09-30-fa1a68
   > Gemini 4 Argon 對外開放的日期與管道，以及官方公布的基準測試和 API 定價。
+
+- **`evt-2026-10-01-36d72a#b3f188b2`** — evt-2026-10-01-36d72a
+  > OpenAI 是否在後續產品或企業案例中，用具體的執行類工作量或時間節省數字支持這個說法。
+
+- **`evt-2026-10-01-5d1170#e5c4fcf8`** — evt-2026-10-01-5d1170
+  > 原文是否揭露部署人數或用途範圍，以及 Barclays 自己是否另有說明。
+
+- **`evt-2026-10-01-68f20c#9f4f5a17`** — evt-2026-10-01-68f20c
+  > 下一期 GeForce NOW 片單，以及會員層級權益是否有調整。
+
+- **`evt-2026-10-01-6cffd3#1e540af5`** — evt-2026-10-01-6cffd3
+  > Albertsons 或 OpenAI 是否補上量化成效，例如受影響的團隊規模或顧客端功能上線時程。
+
+- **`evt-2026-10-01-7fcc7c#2c4b861f`** — evt-2026-10-01-7fcc7c
+  > 其他雲端或晶片業者公布的每兆瓦成本是否落在同一量級，以及 NVIDIA 後續是否給出具體的報酬率案例。
+
+- **`evt-2026-10-01-ea3294#0d98e458`** — evt-2026-10-01-ea3294
+  > 原文或 GitHub 倉庫是否附上訓練效率數據、支援的 MoE 規模，以及外部團隊是否開始採用。

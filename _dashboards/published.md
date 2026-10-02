@@ -41,7 +41,7 @@
   OpenAI 推出 GPT-6.1 Sol，自稱接近 GPT-6 Astra，價格約五分之一。
 
 ## 2026-09-28
-- **[[Events/evt-2026-09-28-065414|Basis completes a tax workbook 2x faster with GPT-6 Astra]]** — OpenAI · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-09-28-065414|Basis completes a tax workbook 2x faster with GPT-6 Astra]]** — OpenAI · product · conf 90 · heat 未量測
   Basis 用 GPT-6 Astra 跑 50 個分頁的稅務工作簿，速度是 GPT-5.6 Sol 的兩倍。
 - **[[Events/evt-2026-09-28-08344a|Holo4: powering generalist computer-use agents]]** — H company · model-capability · conf 73 · heat 未量測
   H company 在 Hugging Face 發表 Holo4，定位是通用型電腦操作 agent。

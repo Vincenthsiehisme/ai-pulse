@@ -1,48 +1,64 @@
 [
   {
-    "id": "evt-2026-10-01-36d72a",
-    "title": "The eternal complement",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-10-01-5d1170",
     "title": "Barclays Scales Claude",
     "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-01-68f20c",
-    "title": "Fall Into 25 New Games on GeForce NOW This October",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-01-6cffd3",
-    "title": "How Albertsons Companies is reimagining retail from the inside out",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
+    "track": "產品與商業驗證",
+    "summary": "Anthropic 發布 Barclays 擴大使用 Claude 的新聞稿，我們只保留標題與連結。",
     "stale_zh": null
   },
   {
     "id": "evt-2026-10-01-7fcc7c",
     "title": "Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment",
     "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 用投資報酬率框架推銷 AI 工廠，並稱每兆瓦約 6,000 萬美元。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-01-9bfd23",
+    "title": "The Den frees up 10-15 hours a week to grow with ChatGPT Work",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-01-ea3294",
-    "title": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+    "id": "evt-2026-10-02-7699ed",
+    "title": "AutoSynthData: Generating Training Data for Enterprise Agents",
     "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-02-78ad16",
+    "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-02-96307e",
+    "title": "Claude Frontier Academy",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-02-f6eb80",
+    "title": "NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-02-fe6337",
+    "title": "Chatham scales its capital markets expertise with OpenAI",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null

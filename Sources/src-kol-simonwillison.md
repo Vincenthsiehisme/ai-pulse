@@ -18,7 +18,7 @@ can_satisfy_primary: false
 endpoint: "https://simonwillison.net/atom/everything/"
 robots_checked_day: "2026-10-01"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-10-01"
+last_observed_day: "2026-10-02"
 items_observed: 225
 events_bound: 11
 events_published: 9

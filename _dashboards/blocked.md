@@ -1,7 +1,13 @@
-# 被門禁擋下（43）
+# 被門禁擋下（49）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-02-7699ed|AutoSynthData: Generating Training Data for Enterprise Agents]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-02-78ad16|Open-sourcing AstaBrief, the fast report-generation model in Asta]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-02-96307e|Claude Frontier Academy]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-10-02-f6eb80|NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Lo]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-02-fe6337|Chatham scales its capital markets expertise with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-01-9bfd23|The Den frees up 10-15 hours a week to grow with ChatGPT Work]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-96c618|Getting the Source Right, Not Just the Fact: Source-Aware Verification]]** — Multiverse Computing — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-21-c316ae|Pruning LLMs Like a Physicist: Block Removal as an Ising Optimization ]]** — Multiverse Computing — blockers: thin_research_analysis

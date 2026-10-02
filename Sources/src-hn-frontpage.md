@@ -17,8 +17,8 @@ can_satisfy_primary: false
 endpoint: "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=30"
 robots_checked_day: "2026-10-01"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-10-01"
-items_observed: 1779
+last_observed_day: "2026-10-02"
+items_observed: 1809
 events_bound: 27
 events_published: 23
 health_score: 100
@@ -35,7 +35,7 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 1779 筆 | 抓到了，但站方那陣子沒發東西 |
+| 已觀測 | 1809 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 27 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 23 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
