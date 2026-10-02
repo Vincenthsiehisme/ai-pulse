@@ -54,6 +54,11 @@
     "src_hash": "0e143566f257",
     "zh": "讓2.78兆參數的Kimi K3在單顆CPU、8.24GB RAM上跑推論，純C99實作，不用BLAS、框架或GPU"
   },
+  "FuRongJun-1999/dsh-memory": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "6f6b0db29424",
+    "zh": "白箱 AGI 架構探索：後設認知、持續學習、世界模型、自我改進，以及不用 LLM 的可稽核管線與信任護欄"
+  },
   "Gentleman-Programming/engram": {
     "at": "2026-08-19T19:13:25+00:00",
     "src_hash": "e79a45ac4ae9",
@@ -83,6 +88,11 @@
     "at": "2026-09-26T19:13:11+00:00",
     "src_hash": "c88311d60fd8",
     "zh": "讓 agent 能持續自我改進的基礎設施"
+  },
+  "Johnson-Durui/Companion-Space": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "fb91a4bbdf8d",
+    "zh": "本機優先的二次元陪伴學習應用"
   },
   "JuliusBrussee/caveman": {
     "at": "2026-09-17T19:14:47+00:00",
@@ -204,6 +214,11 @@
     "src_hash": "fb9576c6c0bd",
     "zh": "輕量、極快的 in-process 向量資料庫"
   },
+  "ant-research/AntOmniEvo": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "60fb4b83e687",
+    "zh": "自動演化框架，能最佳化各種目標，像一支全天候運作的演算法工程師團隊"
+  },
   "apify/apify-mcp-server": {
     "at": "2026-08-28T19:24:01+00:00",
     "src_hash": "6598a7af3ad0",
@@ -248,6 +263,11 @@
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "a7bf689fcd49",
     "zh": "CAMEL：多 agent 框架，探索 agent 的 Scaling Law"
+  },
+  "can1357/oh-my-pi": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "f79205906053",
+    "zh": "整合 IDE 的程式 agent，由 Stencil Labs 開發"
   },
   "cheahjs/free-llm-api-resources": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -329,6 +349,11 @@
     "src_hash": "868d99d02cc8",
     "zh": "Transformers：文字、視覺、音訊與多模態最先進機器學習模型的定義框架，支援推論與訓練"
   },
+  "inclusionAI/Avernet": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "1e9884a6f1c6",
+    "zh": "分散式 agent 協調平台，讓 agent 在上面連線、協作、執行並持續演化"
+  },
   "infiniflow/ragflow": {
     "at": "2026-08-12T19:14:16+00:00",
     "src_hash": "f5b7e92297d4",
@@ -353,6 +378,11 @@
     "at": "2026-08-17T19:10:59+00:00",
     "src_hash": "967d0d1fd482",
     "zh": "Apple Silicon 上的 LLM 推論伺服器，支援連續批次處理與 SSD 快取，從 macOS 選單列管理"
+  },
+  "jzjzzzzzzz/agent-me": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "cd2efbfa8e03",
+    "zh": "把你的知識、記憶與決策提煉成開源、可檢視的 AI 分身 agent"
   },
   "koala73/worldmonitor": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -384,6 +414,11 @@
     "src_hash": "064db50fe87f",
     "zh": "NextPlaid、ColGREP：多向量搜尋工具，串接資料庫到 coding agent"
   },
+  "livecontext-ai/livecontext-ce": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "c02a09f323ff",
+    "zh": "可自架的 AI 自動化平台：在聊天中描述工作，自動建出工作流程、AI agent 與小型應用，全在同一個畫布"
+  },
   "livekit/agents": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "e499b8f91d00",
@@ -408,6 +443,11 @@
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "bac52b59a288",
     "zh": "AI 原生 HTAP 資料庫，內建 Git-for-Data 與向量搜尋，作為智慧 agent 與應用的資料骨幹"
+  },
+  "mattpocock/skills": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "be3c361f31f8",
+    "zh": "給真正的工程師的技能集，直接取自作者自己的 .agents 目錄"
   },
   "microsoft/Webwright": {
     "at": "2026-09-14T19:12:31+00:00",
@@ -458,6 +498,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "43525ace4b73",
     "zh": "跨 Reddit、X、YouTube、HN 等查任何主題，再整理成有依據摘要的 agent skill"
+  },
+  "nanaism/yomiyasu": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "f8f19b97651d",
+    "zh": "把 AI 生成的日文潤飾成自然日文的 Agent Skill"
   },
   "nanbingxyz/5ire": {
     "at": "2026-08-04T19:21:24+00:00",
@@ -539,6 +584,11 @@
     "src_hash": "191f84674864",
     "zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
   },
+  "rehan-remade/universal-modder": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "b49c140fb240",
+    "zh": "讓 Claude 改造任何你擁有的 PC 遊戲：含技能、工具與 fal MCP，涵蓋逆向工程、素材生成與遊戲內測試"
+  },
   "rocketride-org/rocketride-server": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "137c15108c22",
@@ -599,6 +649,11 @@
     "src_hash": "f119f30849a5",
     "zh": "跨平台、高效率的 SQLite 擴充，替嵌入式資料庫加上向量搜尋"
   },
+  "stablyai/orca": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "047f56869216",
+    "zh": "Orca 是管理多個平行 agent 的整合開發環境，可用自己的訂閱執行任何程式 agent，支援桌面、行動與遠端"
+  },
   "superlinked/sie": {
     "at": "2026-08-24T19:12:53+00:00",
     "src_hash": "b59774c79b1e",
@@ -633,6 +688,11 @@
     "at": "2026-08-19T19:13:25+00:00",
     "src_hash": "2a393b6e36ab",
     "zh": "給正式環境的 AI 系統用的檢索層，不靠向量資料庫也能做到 10 毫秒內搜尋，瀏覽器、邊緣、裝置端到雲端都能跑"
+  },
+  "vectorize-io/hindsight": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "9ca67cf52b52",
+    "zh": "Hindsight：會學習的 agent 記憶系統"
   },
   "virgiliojr94/book-to-skill": {
     "at": "2026-08-28T19:24:01+00:00",
@@ -683,5 +743,10 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "f236345e9932",
     "zh": "AI 時代的波克夏：基於 Claude Code／Codex 的價值投資研究框架，集四大師方法論與多 agent 研究"
+  },
+  "xzf-thu/VoiceMem": {
+    "at": "2026-10-02T20:16:53+00:00",
+    "src_hash": "ea43d89af93d",
+    "zh": "語音 agent 的通用記憶基礎設施，分左腦存資訊、右腦存情緒，採全串流架構以降低延遲"
   }
 }

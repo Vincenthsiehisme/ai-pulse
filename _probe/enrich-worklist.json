@@ -1,19 +1,19 @@
 [
   {
-    "id": "evt-2026-10-01-36d72a",
-    "path": "evt-2026-10-01-36d72a.md",
-    "title": "The eternal complement",
+    "id": "evt-2026-10-01-9bfd23",
+    "path": "evt-2026-10-01-9bfd23.md",
+    "title": "The Den frees up 10-15 hours a week to grow with ChatGPT Work",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "industry",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/the-eternal-complement",
-        "title": "The eternal complement",
-        "summary": "Advanced AI may matter most for the routine work behind breakthrough ideas. Explore why execution could shape the next economy and the pace of progress.",
+        "url": "https://openai.com/index/the-den-family-social",
+        "title": "The Den frees up 10-15 hours a week to grow with ChatGPT Work",
+        "summary": "As it opens a new location, the social club prepares grant applications in 2 hours instead of 3 days and liquor-license materials in 3 hours instead of 4 days.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,9 +30,69 @@
     }
   },
   {
-    "id": "evt-2026-10-01-5d1170",
-    "path": "evt-2026-10-01-5d1170.md",
-    "title": "Barclays Scales Claude",
+    "id": "evt-2026-10-02-7699ed",
+    "path": "evt-2026-10-02-7699ed.md",
+    "title": "AutoSynthData: Generating Training Data for Enterprise Agents",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/ServiceNow-AI/autosynthdata",
+        "title": "AutoSynthData: Generating Training Data for Enterprise Agents",
+        "summary": "A Blog post by ServiceNow-AI on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-02-78ad16",
+    "path": "evt-2026-10-02-78ad16.md",
+    "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/allenai/astabrief",
+        "title": "Open-sourcing AstaBrief, the fast report-generation model in Asta",
+        "summary": "A Blog post by Ai2 on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-02-96307e",
+    "path": "evt-2026-10-02-96307e.md",
+    "title": "Claude Frontier Academy",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "Anthropic",
@@ -41,8 +101,8 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/barclays-scales-claude",
-        "title": "Barclays Scales Claude",
+        "url": "https://www.anthropic.com/news/claude-frontier-academy",
+        "title": "Claude Frontier Academy",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -62,69 +122,9 @@
     }
   },
   {
-    "id": "evt-2026-10-01-68f20c",
-    "path": "evt-2026-10-01-68f20c.md",
-    "title": "Fall Into 25 New Games on GeForce NOW This October",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-october-2026-games-list/",
-        "title": "Fall Into 25 New Games on GeForce NOW This October",
-        "summary": "Spooky season is streaming in. Alongside falling leaves, pumpkin spice and everything nice, 25 new games are joining GeForce NOW throughout October, including six ready to play this week. From a new CONTROL Resonant reward for Performance and Ultimate members to The Witcher 3: Wild Hunt – Remastered",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-01-6cffd3",
-    "path": "evt-2026-10-01-6cffd3.md",
-    "title": "How Albertsons Companies is reimagining retail from the inside out",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/albertsons-reimagining-retail",
-        "title": "How Albertsons Companies is reimagining retail from the inside out",
-        "summary": "Albertsons Cos. is using ChatGPT Enterprise and the OpenAI API to help teams work faster and make grocery shopping easier for millions of customers.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-01-7fcc7c",
-    "path": "evt-2026-10-01-7fcc7c.md",
-    "title": "Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment",
+    "id": "evt-2026-10-02-f6eb80",
+    "path": "evt-2026-10-02-f6eb80.md",
+    "title": "NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "NVIDIA",
@@ -133,9 +133,9 @@
     "evidence": [
       {
         "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/productive-durable-fungible-ai-factories/",
-        "title": "Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment",
-        "summary": "AI factories are built by the megawatt, even by the gigawatt. Each megawatt factory costs roughly $60 million, and AI factory operators will only commit capital on that scale with a clear view of the return on investment. Three key things shape AI factory returns: Earning capacity: What the factory ",
+        "url": "https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/",
+        "title": "NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI",
+        "summary": "Local AI is becoming more useful by the token. As AI agents move from experiments into everyday development, increasingly capable open models are shrinking to fit on more devices, giving builders more to run locally.  Coming this month, NVIDIA DGX Spark will be available with 64GB of unified memory ",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -152,20 +152,20 @@
     }
   },
   {
-    "id": "evt-2026-10-01-ea3294",
-    "path": "evt-2026-10-01-ea3294.md",
-    "title": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
+    "id": "evt-2026-10-02-fe6337",
+    "path": "evt-2026-10-02-fe6337.md",
+    "title": "Chatham scales its capital markets expertise with OpenAI",
     "fingerprint": null,
-    "facet": "release",
-    "company_guess": "Hugging Face",
+    "facet": "update",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/allenai/olmocore3",
-        "title": "Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs",
-        "summary": "A Blog post by Ai2 on Hugging Face",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/chatham-financial",
+        "title": "Chatham scales its capital markets expertise with OpenAI",
+        "summary": "Chatham Financial uses Codex and GPT-5.6 to build technology and redesign workflows, cutting trade validation from 30 minutes to under 4.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"

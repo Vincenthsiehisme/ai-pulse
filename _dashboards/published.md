@@ -1,6 +1,18 @@
-# 已發布事件（384）
+# 已發布事件（390）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-02
+- **[[Events/evt-2026-10-02-7699ed|AutoSynthData: Generating Training Data for Enterprise Agents]]** — ServiceNow · research · conf 73 · heat 未量測
+  ServiceNow-AI 在 Hugging Face 發文，談替企業 agent 生成訓練資料的 AutoSynthData。
+- **[[Events/evt-2026-10-02-78ad16|Open-sourcing AstaBrief, the fast report-generation model in Asta]]** — Ai2 · research · conf 73 · heat 未量測
+  Ai2 在 Hugging Face 開源 AstaBrief，Asta 裡負責快速產生報告的模型。
+- **[[Events/evt-2026-10-02-96307e|Claude Frontier Academy]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發布「Claude Frontier Academy」，內容我們不轉述，請看原文。
+- **[[Events/evt-2026-10-02-f6eb80|NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA DGX Spark 本月推出 64GB 統一記憶體版本。
+- **[[Events/evt-2026-10-02-fe6337|Chatham scales its capital markets expertise with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  Chatham Financial 用 Codex 與 GPT-5.6，把交易驗證從 30 分鐘壓到 4 分鐘以內。
 
 ## 2026-10-01
 - **[[Events/evt-2026-10-01-36d72a|The eternal complement]]** — OpenAI · policy · conf 73 · heat 未量測
@@ -13,6 +25,8 @@
   OpenAI 公布 Albertsons 以 ChatGPT Enterprise 與 API 加速內部作業、改善購物體驗。
 - **[[Events/evt-2026-10-01-7fcc7c|Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 用投資報酬率框架推銷 AI 工廠，並稱每兆瓦約 6,000 萬美元。
+- **[[Events/evt-2026-10-01-9bfd23|The Den frees up 10-15 hours a week to grow with ChatGPT Work]]** — OpenAI · product · conf 73 · heat 未量測
+  社交俱樂部 The Den 用 ChatGPT Work，每週省下 10 到 15 小時。
 - **[[Events/evt-2026-10-01-ea3294|Introducing Olmo-core 3: Open, scalable training infrastructure for large MoEs]]** — Ai2 · research · conf 73 · heat 未量測
   Ai2 在 Hugging Face 部落格發表 Olmo-core 3，主打大型 MoE 的開放訓練基礎設施。
 
