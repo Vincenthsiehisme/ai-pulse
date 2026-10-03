@@ -6468,6 +6468,16 @@ acase("退回重寫：交棒訊息帶著 dry-run 的退件原文，規則照舊�
        "enrich-runbook.md" in _nl.bounce_handoff(_nl_stages["github-desc-write"], ""),
        "github-desc-result.json" in _nl.bounce_handoff(_nl_stages["github-desc-write"], "")],
       [True, True, True])
+acase("退回重寫：交棒訊息第一行只放 [narrative] <stage-id>，跟一般交棒同一個形狀"
+      "（nightly-shell.sh 拿那一行後面整串當 stage id 記成本；多一個字，那一棒的花費就記不到"
+      "——2026-10-04 Codex 審 #109 抓到）",
+      [_nl.bounce_handoff(_nl_stages["github-desc-write"], "x").splitlines()[0],
+       _nl.narrative_handoff(_nl_stages["github-desc-write"], 3).splitlines()[0],
+       "[narrative] github-desc-write" in [
+           ln for ln in _nl.bounce_handoff(_nl_stages["github-desc-write"],
+                                           "  [退件] a/b").splitlines()
+           if ln.startswith("[narrative] ")][:1]],
+      ["[narrative] github-desc-write", "[narrative] github-desc-write", True])
 acase("退回重寫：advance() 真的問過 bounce_due、印的是 bounce_handoff（接線）",
       [_nl.calls_in(_nl_src, "bounce_due", "advance"),
        _nl.calls_in(_nl_src, "bounce_handoff", "advance")],

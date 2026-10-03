@@ -528,10 +528,14 @@ def narrative_handoff(spec, count):
 
 
 def bounce_handoff(spec, dry_out):
-    """退回重寫時印什麼：dry-run 的退件原樣附上，規則照舊指到 runbook。"""
+    """退回重寫時印什麼：dry-run 的退件原樣附上，規則照舊指到 runbook。
+
+    第一行跟 `narrative_handoff()` 一樣只放 `[narrative] <stage-id>`：外殼
+    （nightly-shell.sh）拿那一行後面整串當 stage id 去記成本，多一個字就記不到。
+    """
     return "\n".join([
-        f"[narrative] {spec['id']}（退回重寫）",
-        f"  apply 的 --dry-run 退了下面幾條。只改 [退件] 那幾條、照理由改，"
+        f"[narrative] {spec['id']}",
+        f"  退回重寫：apply 的 --dry-run 退了下面幾條。只改 [退件] 那幾條、照理由改，"
         f"其他條原樣留著，存回 {spec['result']}。",
         "  [拒寫] 的不用動（清單舊了，不是寫錯）。一晚只退回一次，第二次還被退的照樣寫入並記進摘要。",
         f"  規則：{spec['rules']}",

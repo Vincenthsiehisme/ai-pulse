@@ -4174,3 +4174,11 @@ mutations:
     replace: "                    ),"
     survives: false
     why: ""
+
+  - id: M501
+    title: "退回重寫的交棒訊息第一行多帶字（外殼把整串當 stage id，那一棒的成本記不到）"
+    file: pulse-nightly.py
+    find: "        f\"[narrative] {spec['id']}\",\n        f\"  退回重寫："
+    replace: "        f\"[narrative] {spec['id']}（退回重寫）\",\n        f\"  退回重寫："
+    survives: false
+    why: ""
