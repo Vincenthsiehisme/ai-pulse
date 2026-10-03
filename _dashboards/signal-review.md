@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-02"
+generated_day: "2026-10-03"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-02"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **370** 則／已裁決 **26** 則。
+待回答 **376** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#f01147bf`** — infra-cost
-  > 看其他雲端或晶片業者公布的每兆瓦成本是否落在同一量級；看 NVIDIA 後續是否給出具體的報酬率案例；看 CoreWeave 公布新一代機型的上線日期與客戶名單；看後續財報裡的資本支出與折舊數字能否印證「多代部署仍有報酬」；DSX Ready 與 vLLM v0.30.0 MXFP8 KV cache 的待查項目仍然有效。
+- **`infra-cost#927e99f3`** — infra-cost
+  > 看 NVIDIA 公布 64GB 版的定價與正式開賣日，以及第三方的本機推論實測；看其他雲端或晶片業者公布的每兆瓦成本是否落在同一量級；看 CoreWeave 公布新一代機型的上線日期與客戶名單；看後續財報裡的資本支出與折舊數字能否印證多代部署仍有報酬；DSX Ready 與 vLLM v0.30.0 MXFP8 KV cache 的待查項目仍然有效。
 
-- **`model-research#012a8693`** — model-research
-  > 看 Olmo-core 3 的原文或程式碼庫有沒有給出支援的 MoE 規模、訓練效率數據與授權；看 Gemini 4 Argon 對外開放的日期，以及官方公布的基準測試與 API 定價；看 SynthID Bio 有沒有論文公布偵測率；看 Open TTS Leaderboard 的評測方法是人評還是自動指標；GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
+- **`model-research#66f46ad9`** — model-research
+  > 看 AstaBrief 的模型卡有沒有列出授權、參數量與評測數字；看 Olmo-core 3 的原文或程式碼庫有沒有給出支援的 MoE 規模與訓練效率；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 SynthID Bio 有沒有論文公布偵測率；GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
 
-- **`product-market#dbbfd985`** — product-market
-  > 看 Albertsons 或 OpenAI 是否補上量化成效，例如受影響的團隊規模與時程；看 Barclays 原文有沒有揭露部署範圍；看 OpenAI 是否公布蒸餾事件的涉事帳號數量，或調整 API 條款；看 SBDC 合作實際涵蓋的據點數；DevDay 宣布的產品與 API 變更有沒有獨立媒體或官方文件交叉證實。
+- **`product-market#58050dc1`** — product-market
+  > 看 Chatham 或 OpenAI 是否補上驗證準確率與人工覆核比例；看 The Den 之外有沒有第三方客戶給出同類數字；看 Claude Frontier Academy 原文的內容與是否有第二個來源；看 Albertsons 與 Barclays 是否揭露部署範圍；看 OpenAI 是否公布蒸餾事件的涉事帳號數量；DevDay 宣布的產品與 API 變更有沒有獨立媒體或官方文件交叉證實。
 
 - **`capital-evolution#33cb962c`** — capital-evolution
   > 看 NVIDIA 獎學金官方頁面公布的截止日與得獎名單；Lenfest 計畫的參與機構與資金分配；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金；持續留意估值、募資或併購這類實際的資本動態。
 
-- **`agent-refactor#e8a3a435`** — agent-refactor
-  > 看 Dots 是否有官方文件公布可驗證的功能與使用限制，以及獨立開發者的實測；延續前面的觀察點：Agents API 定價公布後的採用情況、NVIDIA 安全框架是否變成具體工具。
+- **`agent-refactor#6ea54da3`** — agent-refactor
+  > 看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試，並被其他團隊引用；看 Dots 是否有官方文件公布可驗證的功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測；延續前面的觀察點：Agents API 定價公布後的採用情況、NVIDIA 安全框架是否變成具體工具。
 
 - **`global-map#d825dfdf`** — global-map
   > 觀察後續是否有具體政策文件、多邊協議、或聯合國層級的AI治理提案跟進，讓這次露出從表態變成可查證的政策動作；沿用上一輪對烏克蘭Daybreak成效與Grab完訓人數的觀察。
 
-## 事件層（364）
+## 事件層（370）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1133,5 +1133,23 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-01-7fcc7c#2c4b861f`** — evt-2026-10-01-7fcc7c
   > 其他雲端或晶片業者公布的每兆瓦成本是否落在同一量級，以及 NVIDIA 後續是否給出具體的報酬率案例。
 
+- **`evt-2026-10-01-9bfd23#73172484`** — evt-2026-10-01-9bfd23
+  > OpenAI 是否公布 ChatGPT Work 的方案價格與企業用量數字，或出現第三方客戶的同類案例。
+
 - **`evt-2026-10-01-ea3294#0d98e458`** — evt-2026-10-01-ea3294
   > 原文或 GitHub 倉庫是否附上訓練效率數據、支援的 MoE 規模，以及外部團隊是否開始採用。
+
+- **`evt-2026-10-02-7699ed#973a099a`** — evt-2026-10-02-7699ed
+  > AutoSynthData 是否同步釋出資料集、程式碼或基準測試結果，並被其他團隊引用。
+
+- **`evt-2026-10-02-78ad16#268749de`** — evt-2026-10-02-78ad16
+  > Hugging Face 上的模型卡是否列出授權與評測數字，以及社群的復現與下載量。
+
+- **`evt-2026-10-02-96307e#a42d85d1`** — evt-2026-10-02-96307e
+  > 原文連結的內容是否有後續報導或第二個獨立來源可佐證。
+
+- **`evt-2026-10-02-f6eb80#5f32e0eb`** — evt-2026-10-02-f6eb80
+  > NVIDIA 公布 64GB 版的定價與正式開賣日，以及第三方的本機推論實測。
+
+- **`evt-2026-10-02-fe6337#e5c656b1`** — evt-2026-10-02-fe6337
+  > OpenAI 或 Chatham 是否公開驗證準確率與覆核機制，以及其他金融機構的 Codex 導入案例。

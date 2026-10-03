@@ -3,19 +3,17 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-10-02'
+generated_day: '2026-10-03'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **21** 則：`published` 14、`review` 7
+事件 **19** 則：`published` 14、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-02 | [[Events/evt-2026-10-02-78ad16\|Open-sourcing AstaBrief, the fast report-generation model in Asta]] | review |
-| 2026-10-02 | [[Events/evt-2026-10-02-7699ed\|AutoSynthData: Generating Training Data for Enterprise Agents]] | review |
 | 2026-09-30 | [[Events/evt-2026-09-30-1c6239\|Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning]] | published |
 | 2026-09-22 | [[Events/evt-2026-09-22-cadfa8\|Transformers now runs llama.cpp quants]] | published |
 | 2026-09-22 | [[Events/evt-2026-09-22-c77761\|Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community]] | published |

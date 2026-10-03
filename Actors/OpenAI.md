@@ -3,19 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-02'
+generated_day: '2026-10-03'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **133** 則：`published` 128、`review` 5
+事件 **133** 則：`published` 130、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-02 | [[Events/evt-2026-10-02-fe6337\|Chatham scales its capital markets expertise with OpenAI]] | review |
-| 2026-10-01 | [[Events/evt-2026-10-01-9bfd23\|The Den frees up 10-15 hours a week to grow with ChatGPT Work]] | review |
+| 2026-10-02 | [[Events/evt-2026-10-02-fe6337\|Chatham scales its capital markets expertise with OpenAI]] | published |
+| 2026-10-01 | [[Events/evt-2026-10-01-9bfd23\|The Den frees up 10-15 hours a week to grow with ChatGPT Work]] | published |
 | 2026-10-01 | [[Events/evt-2026-10-01-6cffd3\|How Albertsons Companies is reimagining retail from the inside out]] | published |
 | 2026-10-01 | [[Events/evt-2026-10-01-36d72a\|The eternal complement]] | published |
 | 2026-09-30 | [[Events/evt-2026-09-30-eb348b\|Helping small businesses put AI to work]] | published |

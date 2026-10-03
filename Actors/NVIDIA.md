@@ -3,18 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-02'
+generated_day: '2026-10-03'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **73** 則：`dropped` 1、`published` 67、`review` 5
+事件 **73** 則：`dropped` 1、`published` 68、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-02 | [[Events/evt-2026-10-02-f6eb80\|NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI]] | review |
+| 2026-10-02 | [[Events/evt-2026-10-02-f6eb80\|NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI]] | published |
 | 2026-10-01 | [[Events/evt-2026-10-01-7fcc7c\|Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment]] | published |
 | 2026-10-01 | [[Events/evt-2026-10-01-68f20c\|Fall Into 25 New Games on GeForce NOW This October]] | published |
 | 2026-09-30 | [[Events/evt-2026-09-30-12d487\|NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000]] | published |

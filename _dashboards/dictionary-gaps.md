@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-02'
+generated_day: '2026-10-03'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**67 天**（2026-07-24 … 2026-10-02），去重後 **4509** 列。
+語料範圍：**68 天**（2026-07-24 … 2026-10-03），去重後 **4544** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,21 +17,21 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 98 | 5 |
+| Apple | 99 | 5 |
 | September | 55 | 7 |
 | LLMs | 51 | 13 |
-| Amazon | 46 | 5 |
+| Amazon | 48 | 5 |
 | LLM | 46 | 11 |
 | They | 44 | 9 |
 | There | 44 | 7 |
 | One | 38 | 10 |
 | Trump | 37 | 4 |
+| Muse | 37 | 5 |
 | Here | 36 | 8 |
 | Pro | 34 | 6 |
-| Muse | 34 | 5 |
+| CEO | 32 | 5 |
 | July | 31 | 9 |
 | When | 31 | 9 |
-| CEO | 31 | 5 |
 | AI-powered | 30 | 9 |
 | U.S | 30 | 8 |
 | Python | 28 | 4 |
@@ -41,14 +41,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | June | 27 | 7 |
 | San Francisco | 27 | 9 |
 | Research | 26 | 6 |
+| October | 26 | 7 |
 | China | 25 | 8 |
 | Last | 25 | 6 |
-| October | 25 | 7 |
 | After | 25 | 6 |
 | With | 24 | 10 |
+| Linux | 24 | 5 |
 | Pixel | 23 | 3 |
 | Building | 22 | 10 |
-| Linux | 22 | 5 |
 | Learn | 21 | 5 |
 | Rust | 20 | 3 |
 | Samsung | 20 | 5 |
@@ -70,13 +70,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Chinese | 16 | 8 |
 | API | 16 | 5 |
 | RAM | 16 | 2 |
+| Windows | 16 | 3 |
 | Over | 16 | 4 |
 | Xbox | 16 | 2 |
 | The AI | 16 | 6 |
 | Security | 15 | 8 |
 | European Union | 15 | 3 |
 | Thursday | 15 | 4 |
-| Monday | 15 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,10 +87,10 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 127 | src-hn-frontpage |
+| Show HN | 130 | src-hn-frontpage |
 | TechCrunch Disrupt | 54 | src-media-techcrunch |
 | The Download | 53 | src-media-mit-techreview |
-| Tags | 30 | src-kol-simonwillison |
+| Tags | 31 | src-kol-simonwillison |
 | Hi HN | 20 | src-hn-frontpage |
 | Highlights | 18 | src-gh-vllm-releases |
 | Launch HN | 17 | src-hn-frontpage |
@@ -99,9 +99,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | Committee | 15 | src-ep-itre |
 | Ask HN | 15 | src-hn-frontpage |
 | Opt | 14 | src-media-theverge |
+| Is Hiring | 14 | src-hn-frontpage |
 | Tool | 13 | src-kol-simonwillison |
 | The Verge | 13 | src-media-theverge |
-| Is Hiring | 13 | src-hn-frontpage |
 | GeForce NOW | 12 | src-nvidia-blog |
 | Hey HN | 12 | src-hn-frontpage |
 | According | 11 | src-media-theverge |
@@ -119,6 +119,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | At TechCrunch Disrupt | 7 | src-media-techcrunch |
 | FCC | 7 | src-media-theverge |
 | The Algorithm | 7 | src-media-mit-techreview |
+| Netflix | 7 | src-media-theverge |
 | Installer No | 7 | src-media-theverge |
 | Verge-iest | 7 | src-media-theverge |
 | Installer | 7 | src-media-theverge |
@@ -126,7 +127,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Valve | 7 | src-media-theverge |
 | A Blog | 7 | src-hf-blog |
 | Code | 6 | src-hn-frontpage |
-| Netflix | 6 | src-media-theverge |
 | Open-source | 6 | src-hn-frontpage |
 | Galaxy Z Fold | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
