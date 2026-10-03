@@ -31,6 +31,35 @@ BANNED = [
 
 CJK = re.compile(r"[一-鿿]")
 
+# ── 整句是名字的標題可以原樣保留 ──────────────────────────────────────
+# 規格 references/obsidian-schema.md〈整句是名字的標題：原樣保留〉。`Claude Frontier
+# Academy` 這種標題沒有可翻的字，「產品名不要動」跟「至少一個中文字」兩條同時成立就
+# 沒有任何寫法過得了，那一則每晚重排、每晚退件（2026-10-03）。
+NAME_MAX_WORDS = 5
+# 功能詞與宣告動詞：出現任何一個就是一句話，不是名字。誤放時往這裡加字，不是拿掉放行。
+NAME_STOPWORDS = frozenset({
+    "a", "an", "the", "of", "for", "to", "in", "on", "at", "by", "with", "from",
+    "and", "or", "as", "into", "about", "via", "vs",
+    "how", "why", "what", "when", "where", "who", "which",
+    "is", "are", "was", "be", "it", "its", "we", "our", "you", "your", "this", "that",
+    "new", "now", "more", "meet", "inside",
+    "introducing", "introduces", "announcing", "announces", "announced",
+    "launching", "launches", "launched", "launch", "releasing", "releases", "released",
+    "unveils", "brings", "adds", "expands", "opens", "makes", "gets",
+    "acquires", "joins", "scales", "discovers", "partners", "invests", "signs",
+    "hires", "raises", "ships", "debuts", "wins", "reaches", "donate",
+    # 描述事件的普通名詞：標題是「誰跟誰合作」「某某更新」這種一句話，不是一個名字。
+    # 2026-10-04 拿全部 435 則 Event 標題掃過，slug 轉出來的 Title Case 標題最常見的就是這些。
+    "partnership", "partnerships", "announcement", "update", "updates", "recap",
+    "agenda", "grant", "grants", "alliance", "initiative", "initiatives", "policy",
+    "mou", "collaboration", "agreement", "acquisition", "investment", "funding",
+    "office", "opening", "program", "programs",
+})
+# 動名詞與過去分詞（Investigating、Expanded…）多半是一句話的動詞，不是名字的一部分。
+NAME_VERB_SUFFIX = re.compile(r"[a-z]{3,}(?:ing|ed)$")
+# 有句子結構的標點。版本號裡的點與連字號不算（GPT-5.2）。
+NAME_PUNCT = re.compile(r"[:?!,;\"“”'‘’()（）|/]")
+
 
 def src_hash(text: str) -> str:
     """原文 → 短雜湊。空字串也給得出穩定值。
@@ -56,8 +85,47 @@ def valid_for(entry: dict | None, src: str) -> str | None:
     return zh if entry.get("src_hash") == src_hash(src) else None
 
 
+def _squash(text) -> str:
+    return re.sub(r"\s+", " ", str(text or "")).strip()
+
+
+def is_name_only(text) -> bool:
+    """這句英文整句就是一個名字嗎。純函式，判準全部是機械的。
+
+    1～5 個字、每個字有大寫字母或數字、沒有功能詞或宣告動詞、沒有句子標點、
+    沒有中文。`Claude Frontier Academy` 是，`Introducing GPT-5`、
+    `Claude: A New Era` 不是。
+    """
+    t = _squash(text)
+    if not t or CJK.search(t) or NAME_PUNCT.search(t):
+        return False
+    words = t.split(" ")
+    if len(words) > NAME_MAX_WORDS:
+        return False
+    for w in words:
+        if w.lower().strip(".-") in NAME_STOPWORDS:
+            return False
+        if NAME_VERB_SUFFIX.search(w.lower()):
+            return False
+        if not re.search(r"[A-Z0-9]", w):
+            return False
+    return True
+
+
+def kept_original(zh, src) -> bool:
+    """這筆譯文是「整句是名字、原樣保留」嗎：跟原文一字不差，而且原文是名字。"""
+    return bool(src) and _squash(zh) == _squash(src) and is_name_only(src)
+
+
+def display_zh(zh, src):
+    """前台要不要另外印一行中文。原樣保留的那種等於原文，印出來只是同一句印兩次。"""
+    if not zh or _squash(zh) == _squash(src):
+        return None
+    return zh
+
+
 def validate(raw, max_len: int, src_present: bool = True,
-             len_note: str = "", missing_note: str = ""):
+             len_note: str = "", missing_note: str = "", keep_name_src=None):
     """→ (清理後的中文, 退件原因, 後洗紀錄)。過關時原因為 None。
 
     `voice_clean.clean` 回的是 (文字, 改動清單)——改動清單要一路帶回去印出來，
@@ -69,12 +137,16 @@ def validate(raw, max_len: int, src_present: bool = True,
     `len_note` / `missing_note` 讓呼叫端補上**它自己那一層的理由**——「超過 60 字」
     對榜單的意思是「版面是一行」，對 Event 標題的意思不一樣。判準共用，
     解釋不共用：一句解釋不到位的退件訊息，會讓下一個人以為是規則寫錯了。
+
+    `keep_name_src` 給了原文時，跟原文一字不差而且原文整句是名字的譯文放行
+    （`kept_original()`）。只有 Event 標題傳它；榜單描述是一句話，不會整句是名字。
     """
     zh, changes = voice_clean.clean(str(raw or "").strip())
     zh = re.sub(r"\s+", " ", zh).strip().rstrip("。")
     if not zh:
         return "", "空白", changes
-    if not CJK.search(zh):
+    if not CJK.search(zh) and not (keep_name_src is not None
+                                   and kept_original(zh, keep_name_src)):
         return zh, "沒有任何中文字（英文原樣貼回來不算翻譯）", changes
     if len(zh) > max_len:
         return zh, f"超過 {max_len} 字{len_note}", changes

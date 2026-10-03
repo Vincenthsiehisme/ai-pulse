@@ -145,6 +145,8 @@ def main():
             by_id[fm["id"]] = p
 
     ok, rejected = [], []
+    # 原樣保留的數字寫在總結行上：driver 把這一行抓進摘要，照抄的有幾則人看得到。
+    kept = 0
     print(f"pulse-title-apply  收到 {len(result)} 條譯文\n")
     for eid, raw in result.items():
         path = by_id.get(eid)
@@ -162,7 +164,9 @@ def main():
         zh, why, changes = zhtext.validate(
             raw, MAX_LEN, src_present=path is not None,
             len_note="（標題要跟原文並排，兩行都得看得完）",
-            missing_note="找不到這個 event id（下次 prep 會重新排）")
+            missing_note="找不到這個 event id（下次 prep 會重新排）",
+            # 整句是名字的標題原樣保留，見 references/obsidian-schema.md〈整句是名字的標題〉
+            keep_name_src=src)
         washed = ("；後洗：" + "、".join(f"{a}→{b}" for _, a, b in changes)) if changes else ""
         if why:
             rejected.append((eid, why, zh))
@@ -178,10 +182,14 @@ def main():
         if not args.dry_run:
             atomic_write_text(path, new)
         ok.append(eid)
-        print(f"  [{'重譯' if before else '新增'}] {eid}\n         「{zh}」{washed}\n"
+        is_kept = zhtext.kept_original(zh, src)
+        kept += is_kept
+        tag = "原樣保留" if is_kept else ("重譯" if before else "新增")
+        print(f"  [{tag}] {eid}\n         「{zh}」{washed}\n"
               f"         原文：{src}")
 
     print(f"\n  寫入 {len(ok)} 則，退件 {len(rejected)} 則"
+          + (f"（原樣保留 {kept} 則）" if kept else "")
           + ("　[dry-run] 沒有動任何檔案" if args.dry_run else ""))
     # 退件不讓整班紅：翻譯是加分項。但要回非零讓呼叫端**看得到**，
     # 收尾摘要才寫得出「退了幾條、為什麼」。

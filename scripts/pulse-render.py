@@ -1665,9 +1665,10 @@ def load_events(vault):
             "title": fm.get("title", ""), "date": str(fm.get("date") or ""),
             # 中文標題只有**綁得上當下這句原文**時才算數；對不上就是 None，
             # 前台退回原文。掛一句在講舊標題的中文，比沒有中文糟得多。
-            "title_zh": zhtext.valid_for(
+            # 整句是名字而原樣保留的那種，中文就是原文，當成沒有中文、只印一行。
+            "title_zh": zhtext.display_zh(zhtext.valid_for(
                 {"zh": fm.get("title_zh"), "src_hash": fm.get("title_zh_src")},
-                fm.get("title", "")),
+                fm.get("title", "")), fm.get("title", "")),
             "happened": str(fm.get("happened_at") or ""),
             # 儲存的 `date` 是 UTC 日（它進 id，不能動）；`date_display` 是同一個
             # 瞬間的台北日，畫面上只印這個。兩個都留著，才回答得出
