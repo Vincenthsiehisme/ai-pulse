@@ -24,6 +24,11 @@
     "src_hash": "ac5e08fbccb4",
     "zh": "多模型資料庫，一套 DBMS 同時吃 SQL、Cypher、Gremlin、MongoDB 與 Redis，支援向量嵌入"
   },
+  "AstrBotDevs/AstrBot": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "8eb3a7d4ad9d",
+    "zh": "AI Agent 助理與開發框架，整合多個 IM 平台、LLM、外掛與 AI 功能，定位為 openclaw 的替代品"
+  },
   "BuilderIO/agent-native": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "1ba7b3291edd",
@@ -33,6 +38,11 @@
     "at": "2026-08-07T01:27:45+00:00",
     "src_hash": "4d766d8331fc",
     "zh": "AI 生產力工作室：智慧對話、自主 agent，內建 300 多個助理，一個介面接各家前沿 LLM"
+  },
+  "ChromeDevTools/chrome-devtools-mcp": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "b9464618b539",
+    "zh": "給 coding agent 用的 Chrome DevTools"
   },
   "CursorTouch/Windows-MCP": {
     "at": "2026-08-07T01:27:45+00:00",
@@ -79,15 +89,30 @@
     "src_hash": "7bf25fcf4ee9",
     "zh": "DeepTutor：終身個人化的家教"
   },
+  "HKUDS/Vibe-Trading": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "f85ad7ad599b",
+    "zh": "你的個人交易 agent"
+  },
   "HelixDB/helix-db": {
     "at": "2026-09-19T19:11:14+00:00",
     "src_hash": "fdc2b620a80f",
     "zh": "用 Rust 寫成、跑在 Object Storage 上的 OLTP 圖形資料庫，內建向量與全文搜尋"
   },
+  "Helldez/BigMoeOnEdge": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "5f700f2f4caa",
+    "zh": "在標準 llama.cpp 上跑超過記憶體大小的 MoE 模型，12 GB 的手機也能跑前沿規模 MoE，無損"
+  },
   "Human-Agent-Society/reef": {
     "at": "2026-09-26T19:13:11+00:00",
     "src_hash": "c88311d60fd8",
     "zh": "讓 agent 能持續自我改進的基礎設施"
+  },
+  "JCodesMore/ai-website-cloner-template": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "6127e1554d28",
+    "zh": "用 AI coding agent 一個指令複製任何網站"
   },
   "Johnson-Durui/Companion-Space": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -109,6 +134,16 @@
     "src_hash": "685042ad8a5f",
     "zh": "Taste-Skill：給 AI 一點品味，別再生出無聊平庸的內容"
   },
+  "Loopera-ai/loopera": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "e665e1379f6f",
+    "zh": "面向基本面因子研究的 agent：假設驅動，附證據門檻驗證與研究記憶"
+  },
+  "MemPalace/mempalace": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "29a79ebcd2bd",
+    "zh": "自稱 benchmark 成績最好的開源 AI 記憶系統，而且免費"
+  },
   "MervinPraison/PraisonAI": {
     "at": "2026-08-10T00:35:39+00:00",
     "src_hash": "0db9ebf38607",
@@ -118,6 +153,11 @@
     "at": "2026-07-31T19:20:39+00:00",
     "src_hash": "8320033a1389",
     "zh": "整合量化、蒸餾、剪枝、推測解碼等技術的模型最佳化函式庫，壓縮模型以加速 TensorRT-LLM、vLLM 等框架推論"
+  },
+  "Nehanth/pooled": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "94cee3dcf729",
+    "zh": "在瀏覽器裡做點對點 LLM 推論，把多台裝置湊起來跑大型開源模型，供聊天與 coding agent 使用"
   },
   "NousResearch/hermes-agent": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -129,20 +169,45 @@
     "src_hash": "270caa459fbb",
     "zh": "OpenHands：AI 驅動的開發工具"
   },
+  "OpenLabs-so/openanalytics": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "73bec7a8a467",
+    "zh": "開源、重隱私、不用 cookie 的網站分析，含營收歸因與 MCP server"
+  },
   "Osmantic/ODS": {
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "fb5aba90cef7",
     "zh": "ODS V3 預發行版，公開測試中；把 PC、Mac 或 Linux 變成私有 AI 伺服器"
+  },
+  "PaddlePaddle/PaddleOCR": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "1ff6b0367f24",
+    "zh": "把 PDF 或圖片文件轉成給 AI 用的結構化資料，輕量的 OCR 工具包，支援 100 多種語言"
   },
   "Panniantong/Agent-Reach": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "b227ae1105fa",
     "zh": "給 AI agent 看遍網路的眼睛：讀取搜尋 Twitter、Reddit、YouTube 等，零 API 費用"
   },
+  "Pinvou/pinvou-agent": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "6b4c320f7ae8",
+    "zh": "開源桌面 AI agent，處理工具、檔案、知識、工作流程與實際交付物"
+  },
+  "Playa-Cyrene/Cyrene-Agent": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "57256537e19c",
+    "zh": "開源桌面 AI agent，以昔漣為基礎開發"
+  },
   "ScrapeGraphAI/Scrapegraph-ai": {
     "at": "2026-08-03T19:17:58+00:00",
     "src_hash": "3bb869c327f2",
     "zh": "基於 AI 的 Python 爬蟲工具"
+  },
+  "ShenSeanChen/waku-agent": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "94291621a3b8",
+    "zh": "本地優先、完全由你掌握的 AI agent harness，含迴圈、記憶、評測，程式碼設計成長大後仍好讀"
   },
   "TauricResearch/TradingAgents": {
     "at": "2026-08-10T00:35:39+00:00",
@@ -168,6 +233,11 @@
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "01a1340495c2",
     "zh": "跨平台的向量資料庫，能以外掛形式整合進現有資料庫"
+  },
+  "Yeachan-Heo/oh-my-claudecode": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "1465816ff206",
+    "zh": "以團隊為先的 Claude Code 多 agent 編排"
   },
   "ZhuLinsen/daily_stock_analysis": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -199,6 +269,16 @@
     "src_hash": "259f1d28b8fc",
     "zh": "AI agent 沙箱：瀏覽器、Shell、檔案、MCP、VSCode Server 收在單一 Docker 容器"
   },
+  "agentconnect-md/agentconnect": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "9c05c4aea9b6",
+    "zh": "開源的多 agent 版 Claude Tag 替代品，在團隊工作的地方 @ 任何 agent，與團隊一起做事並邊做邊學"
+  },
+  "agentscope-ai/agentscope": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "e8f3d861fbb7",
+    "zh": "建構並運行你看得見、看得懂、信得過的 agent"
+  },
   "algorithmicsuperintelligence/optillm": {
     "at": "2026-09-18T19:12:51+00:00",
     "src_hash": "c71e99fdaf97",
@@ -214,6 +294,11 @@
     "src_hash": "fb9576c6c0bd",
     "zh": "輕量、極快的 in-process 向量資料庫"
   },
+  "angusdevgo/Seep-Reverse-Lab": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "e546473ae54d",
+    "zh": "agent 原生的多平台逆向工程與 CWE-602 客戶端授權稽核工作台"
+  },
   "ant-research/AntOmniEvo": {
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "60fb4b83e687",
@@ -228,6 +313,11 @@
     "at": "2026-09-12T19:15:08+00:00",
     "src_hash": "081f0cd29b0f",
     "zh": "蒐集各家外流的 system prompt，涵蓋 Claude、GPT、Gemini、Grok，定期更新"
+  },
+  "ayghri/i-have-adhd": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "6be6744d183c",
+    "zh": "一個 skill，避免 coding agent 把答案埋在長篇輸出裡，輸出對 ADHD 友善"
   },
   "blader/humanizer": {
     "at": "2026-09-24T19:28:45+00:00",
@@ -274,6 +364,11 @@
     "src_hash": "b39be18886ec",
     "zh": "一份可透過 API 取用的免費 LLM 推論資源清單"
   },
+  "clavia-labs/tardigrade": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "d394cc6d149b",
+    "zh": "TypeScript 框架，圍繞不可變事件日誌建構模組化 agent"
+  },
   "coreyhaines31/marketingskills": {
     "at": "2026-09-08T19:19:22+00:00",
     "src_hash": "9b4d064a6baf",
@@ -289,10 +384,20 @@
     "src_hash": "e718a21e83eb",
     "zh": "產品管理技能框架，集結實戰驗證過的方法，供 Claude Code、Cowork、Codex 與 AI agent 使用"
   },
+  "deeplethe/utopia": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "ab6b0f1479f6",
+    "zh": "號稱全球第一個開源的企業 world model"
+  },
   "drumih/turbo-fieldfare": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "08aae20dce2c",
     "zh": "讓 Gemma 4 26B-A4B 在任何 M 系列 MacBook 上，用約 2 GB 記憶體跑推論"
+  },
+  "dzhng/jevgrep": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "1d7037235e0d",
+    "zh": "用「它在做什麼」找程式碼，給 coding agent 用的 CLI，靠 Jev 找出相關檔案與原始碼脈絡"
   },
   "earendil-works/pi": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -310,9 +415,14 @@
     "zh": "提供網頁搜尋與爬取的 Exa MCP"
   },
   "firecrawl/firecrawl": {
-    "at": "2026-09-29T20:20:14+00:00",
-    "src_hash": "ae3e7aa383c4",
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "97a2ec229740",
     "zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
+  },
+  "getzep/graphiti": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "d968ab43987a",
+    "zh": "替 AI agent 建立即時知識圖譜"
   },
   "ggml-org/llama.cpp": {
     "at": "2026-08-12T19:14:16+00:00",
@@ -348,6 +458,11 @@
     "at": "2026-08-12T19:14:16+00:00",
     "src_hash": "868d99d02cc8",
     "zh": "Transformers：文字、視覺、音訊與多模態最先進機器學習模型的定義框架，支援推論與訓練"
+  },
+  "iFurySt/open-browser-use": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "9ed7aa25db62",
+    "zh": "不綁平台的 AI agent 瀏覽器操作，用 CLI 加 SDK 控制真實 Chrome，簡單好上手"
   },
   "inclusionAI/Avernet": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -399,10 +514,25 @@
     "src_hash": "91a8fb6c3a0c",
     "zh": "企業級多 agent 編排框架"
   },
+  "kyky2347/ALTA": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "618f4bc28bb0",
+    "zh": "僅供研究的多 agent 交易平台，重證據研究、可稽核主控台、Shadow 模擬，實際下單需明確授權"
+  },
   "langchain-ai/langchain": {
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "e3b42894c831",
     "zh": "agent 工程平台"
+  },
+  "langchain-ai/langgraph": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "d6768ef79158",
+    "zh": "建構穩健的 agent"
+  },
+  "langfuse/langfuse": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "559b814b596a",
+    "zh": "開源的 agent 評測與可觀測平台，追蹤、評估並改進 LLM 應用"
   },
   "langgenius/dify": {
     "at": "2026-09-02T19:14:09+00:00",
@@ -449,6 +579,11 @@
     "src_hash": "be3c361f31f8",
     "zh": "給真正的工程師的技能集，直接取自作者自己的 .agents 目錄"
   },
+  "mem0ai/mem0": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "6f9c671048a4",
+    "zh": "AI agent 的記憶層，可直接套用的記憶基礎設施，讓上下文持續保留，為正式環境設計"
+  },
   "microsoft/Webwright": {
     "at": "2026-09-14T19:12:31+00:00",
     "src_hash": "d10d381bd422",
@@ -473,6 +608,11 @@
     "at": "2026-09-02T19:14:09+00:00",
     "src_hash": "94f704baaa2b",
     "zh": "In-browser 高效能 LLM 推論引擎"
+  },
+  "mlflow/mlflow": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "b231667e22ff",
+    "zh": "開源 AI 工程平台，供 agent、LLM 與 ML 模型的除錯、評估、監控與最佳化，同時控管成本與存取權限"
   },
   "mobile-next/mobile-mcp": {
     "at": "2026-08-02T19:12:08+00:00",
@@ -499,6 +639,11 @@
     "src_hash": "43525ace4b73",
     "zh": "跨 Reddit、X、YouTube、HN 等查任何主題，再整理成有依據摘要的 agent skill"
   },
+  "n8n-io/n8n": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "5930308b3e42",
+    "zh": "Fair-code 工作流程自動化平台，內建 AI 功能，可視覺化搭建也能寫程式，支援自架或雲端，400 多個整合"
+  },
   "nanaism/yomiyasu": {
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "f8f19b97651d",
@@ -508,6 +653,11 @@
     "at": "2026-08-04T19:21:24+00:00",
     "src_hash": "0144872fe000",
     "zh": "5ire：跨平台桌面 AI 助理兼 MCP client，透過 MCP server 接本機知識庫與工具"
+  },
+  "naw103/foremerge": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "85680981ef19",
+    "zh": "在程式碼衝突前先抓出意圖衝突，建在 Git 之上的 coding agent 開源協調協定"
   },
   "obra/superpowers": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -549,6 +699,11 @@
     "src_hash": "3bd04ccdeb4b",
     "zh": "分散式低延遲 Graph+Vector 資料庫，亞毫秒 HNSW 搜尋與圖遍歷，相容 Neo4j／qdrant"
   },
+  "paradedb/paradedb": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "9e1755f4e11a",
+    "zh": "一個 Postgres 搞定應用資料、全文檢索、向量檢索與聚合，pg_search 擴充的出處"
+  },
   "pathwaycom/llm-app": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "cd3a264f173e",
@@ -569,6 +724,11 @@
     "src_hash": "a973bc939d92",
     "zh": "開源框架，用於語音代理、多模態應用與即時 AI，由 Daily 與社群維護"
   },
+  "plastic-labs/honcho": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "9e28dd97f073",
+    "zh": "建構有狀態 agent 用的記憶函式庫"
+  },
   "pydantic/pydantic-ai": {
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "041ad980eaa1",
@@ -580,8 +740,8 @@
     "zh": "用 PyTorch 一步步從零實作一個類 ChatGPT 的 LLM"
   },
   "raullenchai/Rapid-MLX": {
-    "at": "2026-08-15T19:12:09+00:00",
-    "src_hash": "191f84674864",
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "4755f26ada89",
     "zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
   },
   "rehan-remade/universal-modder": {
@@ -593,6 +753,11 @@
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "137c15108c22",
     "zh": "C++ 核心的高效能 AI pipeline 引擎，數十個 Python 擴充節點，IDE 內建構 LLM 工作流"
+  },
+  "rome-os/rome": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "59f468913aa0",
+    "zh": "給遞迴 agent 的複利 agent OS，也是 Grok Bot 與 Meta Muse 的開源替代品"
   },
   "rryam/VecturaKit": {
     "at": "2026-09-14T19:12:31+00:00",
@@ -610,9 +775,14 @@
     "zh": "AI 的文件處理平台"
   },
   "ruvnet/ruflo": {
-    "at": "2026-08-22T19:07:20+00:00",
-    "src_hash": "ea1ea0bc35f9",
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "2db2cd973e1b",
     "zh": "agent meta-harness：部署多代理群、協調自動化工作流，整合 Claude Code、Codex 等工具"
+  },
+  "sandbox-quantum/switch": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "19f483f61e6d",
+    "zh": "把任何 AI agent 接進團隊的 Slack、Teams 與 Discord，開源且可自架"
   },
   "scrypster/muninndb": {
     "at": "2026-08-02T19:12:08+00:00",
@@ -633,6 +803,11 @@
     "at": "2026-08-27T19:10:49+00:00",
     "src_hash": "676b1ecaa56d",
     "zh": "從 vibe coding 練到 agentic engineering，靠練習讓 Claude 更完美"
+  },
+  "simonlin1212/vibe-astock": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "16dc11e259e0",
+    "zh": "A 股短線復盤看板：漲停池、連板梯隊、龍虎榜、板塊資金一屏看完，衍生指標純計算，AI 只負責把數據串成盤面研判"
   },
   "simular-ai/Agent-S": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -674,14 +849,29 @@
     "src_hash": "15b60b61c8f7",
     "zh": "OpenCode 外掛，用本地向量資料庫給編碼 agent 持久記憶"
   },
+  "tiliondev/fortress": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "6cbdc7ae9c33",
+    "zh": "隱身的 Chromium 引擎，只改一行程式碼就能讓爬蟲與瀏覽器 agent 不被封鎖"
+  },
+  "tinyhumansai/openhuman": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "72d22bba8d27",
+    "zh": "開源 agent harness，主打最快、最便宜、最省資源，用 Rust 寫成"
+  },
+  "tt-a1i/archify": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "3b424a6c9fc7",
+    "zh": "agent skill，產出架構、工作流程、時序、資料流與生命週期圖，輸出為含動態效果、可匯出的獨立 HTML"
+  },
   "unclecode/crawl4ai": {
-    "at": "2026-07-27T19:23:58+00:00",
-    "src_hash": "62c9f2d759db",
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "a47f6be22b69",
     "zh": "Crawl4AI：對 LLM 友善的開源網頁爬蟲與抓取工具"
   },
   "unslothai/unsloth": {
-    "at": "2026-08-12T19:14:16+00:00",
-    "src_hash": "1e937f5d8513",
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "d8f474d71ae1",
     "zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
   },
   "usemoss/moss": {
@@ -748,5 +938,20 @@
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "ea43d89af93d",
     "zh": "語音 agent 的通用記憶基礎設施，分左腦存資訊、右腦存情緒，採全串流架構以降低延遲"
+  },
+  "yetone/magpie": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "1145a2413afb",
+    "zh": "在選單列統一管理各 agent 用的模型，例如 Codex 跑 DeepSeek、Claude Code 跑 Kimi"
+  },
+  "zeronsh/zeron": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "d416d35139b4",
+    "zh": "原生的控制平面，統一管理 Claude Code、Codex、Cursor、Devin 等 coding agent"
+  },
+  "zj-unicom-ai/UniEmployee": {
+    "at": "2026-10-03T18:55:46+00:00",
+    "src_hash": "e34b53043674",
+    "zh": "企業用的數位員工建構與運行平台，把專業員工的經驗、流程與判斷標準固化成可配置、可審批、可觀測的 AI 數位員工"
   }
 }
