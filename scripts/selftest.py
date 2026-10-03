@@ -3103,6 +3103,21 @@ acase("譯文驗章：不是一字不差、或原文不是名字 → 照舊退�
                     keep_name_src="Claude Frontier Academy Live")[1] is not None,
        _zt.validate("Introducing GPT-5", 40, keep_name_src="Introducing GPT-5")[1] is not None],
       [True, True])
+acase("譯文驗章：原樣保留的值每次讀都重驗名字判準——原文不再算名字就失效、重排"
+      "（詞表收緊後，已經存下的照抄值要跟著失效；只在寫入時判一次，加字等於沒加。"
+      "2026-10-04 Codex 審 #110 抓到）",
+      [_zt.valid_for({"zh": "Claude Frontier Academy",
+                      "src_hash": _zt.src_hash("Claude Frontier Academy")},
+                     "Claude Frontier Academy"),
+       _zt.valid_for({"zh": "Introducing GPT-5", "src_hash": _zt.src_hash("Introducing GPT-5")},
+                     "Introducing GPT-5"),
+       [t["id"] for t in _tp.pending([
+           {"id": "e-kept", "title": "Claude Frontier Academy",
+            "title_zh": "Claude Frontier Academy",
+            "title_zh_src": _zt.src_hash("Claude Frontier Academy")},
+           {"id": "e-stale", "title": "Introducing GPT-5", "title_zh": "Introducing GPT-5",
+            "title_zh_src": _zt.src_hash("Introducing GPT-5")}])]],
+      ["Claude Frontier Academy", None, ["e-stale"]])
 acase("標題顯示：中文等於原文（原樣保留）就當成沒有中文，前台只印一行",
       [_zt.display_zh("Claude Frontier Academy", "Claude Frontier Academy"),
        _zt.display_zh("中文標題", "English"), _zt.display_zh(None, "English")],

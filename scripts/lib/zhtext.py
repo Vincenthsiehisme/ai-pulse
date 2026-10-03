@@ -76,13 +76,22 @@ def valid_for(entry: dict | None, src: str) -> str | None:
 
     三個條件都要：有這一筆、`zh` 非空、`src_hash` 對得上。任一不成立回 None，
     **呼叫端就退回原文**——退回原文是安全的，掛一句過期的中文不是。
+
+    第四個條件只管「原樣保留」的那種（存的就是原文）：原文要**現在**仍算名字。
+    名字判準收緊之後（往詞表加字），先前照抄放行的那則在這裡失效，prep 重排、
+    前台退回原文，不用人一則一則 `--force`。只在寫入那一刻判一次的話，加字對
+    已經存下的值沒有任何作用（2026-10-04 Codex 審 #110 抓到）。
     """
     if not entry:
         return None
     zh = (entry.get("zh") or "").strip()
     if not zh:
         return None
-    return zh if entry.get("src_hash") == src_hash(src) else None
+    if entry.get("src_hash") != src_hash(src):
+        return None
+    if _squash(zh) == _squash(src) and not is_name_only(src):
+        return None
+    return zh
 
 
 def _squash(text) -> str:

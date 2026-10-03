@@ -616,8 +616,8 @@ mutations:
   - id: M68
     title: "譯文不綁原文雜湊（原文改了，畫面上掛著一句在講舊標題的中文）"
     file: lib/zhtext.py
-    find: "    return zh if entry.get(\"src_hash\") == src_hash(src) else None"
-    replace: "    return zh"
+    find: "    if entry.get(\"src_hash\") != src_hash(src):\n        return None\n"
+    replace: ""
     survives: false
     why: ""
 
@@ -4179,6 +4179,14 @@ mutations:
     title: "title-apply 總結行不寫原樣保留幾則（照抄的有幾則，摘要看不到）"
     file: pulse-title-apply.py
     find: "          + (f\"（原樣保留 {kept} 則）\" if kept else \"\")\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M502
+    title: "原樣保留的值只在寫入時判一次（詞表收緊後，已經存下的照抄值不失效、不重排）"
+    file: lib/zhtext.py
+    find: "    if _squash(zh) == _squash(src) and not is_name_only(src):\n        return None\n"
     replace: ""
     survives: false
     why: ""
