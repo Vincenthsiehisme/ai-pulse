@@ -68,9 +68,9 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 | 12 | `narrative-write` | narrative | 主線 `now`／`next` | needs narrative-prep；worklist 非空（多數夜晚是空的） |
 | 13 | `narrative-apply` | run | `--dry-run` 再正式 | **needs** narrative-write |
 | 14 | `github-desc-write` | narrative | 榜單中文描述。**清單由 Actions 那班準備**，driver 只讀 | 無（worklist 存在且非空） |
-| 15 | `github-desc-apply` | run | `--dry-run` 再正式 | **needs** github-desc-write |
+| 15 | `github-desc-apply` | run | `--dry-run` 再正式；dry-run 有退件先**退回 github-desc-write 重寫一次**（見下方〈退件退回重寫一次〉） | **needs** github-desc-write |
 | 16 | `title-write` | narrative | Event 中文標題。清單同樣由 Actions 準備 | 無（worklist 存在且非空） |
-| 17 | `title-apply` | run | `--dry-run` 再正式 | **needs** title-write |
+| 17 | `title-apply` | run | `--dry-run` 再正式；dry-run 有退件先**退回 title-write 重寫一次** | **needs** title-write |
 | 18 | `render` | run | `pulse-render.py` | 無（前面 stop 會直接終止整輪） |
 | 19 | `commit` | commit | **先確認站在 `main`**，再擋白名單外的改動，然後 `git add -A` ＋ 有變更才 commit ＋ push；main push 失敗改推 `nightly/<日期>-<sha>` 分支（見下方〈push main 失敗時的備援〉），回 `noted` 不是 `stop` | after render |
 | 20 | `monitor` | run | `pulse-monitor.py --top 5`，**不准帶警報旗標** | 無（排在 commit 之後：摘要要帶推上去之後的狀態） |
@@ -92,7 +92,7 @@ gate 沒真的跑過就挑不到，而且不會報錯（2026-08-16）。每一�
 | `pulse-digest-gate` | ok | 有 digest 的 status 不屬三桶（檔案壞了）→ 記進摘要，繼續 | | |
 | `pulse-narrative-prep` | ok | | 壞了 → stop | |
 | `pulse-narrative-apply` | ok | 有退件 → 記進摘要，繼續 | 壞了 → stop | |
-| `pulse-github-desc-apply` | ok | | 榜與 worklist 都讀不到（**量不到**） | **收到了但一條都沒過關** |
+| `pulse-github-desc-apply` | ok | **有退件，也有過關的** → 記進摘要，繼續 | 榜與 worklist 都讀不到（**量不到**） | **收到了但一條都沒過關** |
 | `pulse-title-apply` | ok | 有退件 → 記進摘要，繼續 | 壞了 → stop | |
 | `pulse-gate` | ok | | 壞了 → stop | |
 | `pulse-dashboard` | ok | 壞了 → stop | | |
@@ -104,6 +104,12 @@ digest 那兩條的「不擋 push」是 runbook 寫明的過渡期豁免：`Dige
 
 `github-desc-apply` 的 2 與 3 **一定要分開**。2 是抓取鏈那邊出事，3 是這一段沒有成果。
 2026-07-28 之前這支一律回 0，於是「25 條全退」在摘要上長得跟「今晚沒東西要翻」一樣。
+
+1 是 2026-10-04 補的，跟 `pulse-title-apply` 的 1 同一個意思。在那之前部分退件也回 0：
+2026-10-03 那晚清單 79 筆、交回 79 筆、只寫入 46 筆，33 筆因為超過 60 字被退件，
+摘要上那一格是 `ok rc=0`，狀態檔也沒有留輸出（`keeps_output()` 只留 `noted` 的），
+退件理由只活在雲端 session 的 stdout 裡。10-01、10-02 兩晚清單各 25 筆、
+寫入只有 17 與 13 筆，差額去了哪裡同樣看不到。
 
 ## 交棒協定
 
@@ -140,6 +146,38 @@ single   單一物件。digest 那一段交的是一篇文章的 sections[]，�
 
 第 2 條是 2026-08-12 那次事故的補丁。那一晚的 worklist 是上一班留在 repo 裡的，
 而它躺在那裡是因為它進版控，不是因為它是今天的。
+
+## 退件退回重寫一次
+
+`github-desc-apply` 與 `title-apply` 這兩段，apply 的 `--dry-run` 回「有退件」的離開碼時，
+driver **先不正式寫入**，把對應的 `*-write` 那一段改回 `waiting`、把 dry-run 的輸出
+（每一條退件的理由與譯文）印給寫的那一方，以 exit 10 結束。寫的人只改被退的那幾條、
+存回同一個結果檔，再叫一次 driver；driver 重新對帳、再跑一次 dry-run，這一次不管
+結果如何都正式寫入，退件照樣記進摘要。
+
+```
+github-desc-write ok ─► apply --dry-run rc=1 ─► 退回 github-desc-write（waiting，exit 10）
+                                              └► 寫的人改被退的那幾條 ─► run
+github-desc-write ok ─► apply --dry-run rc=1 ─► 已退回過一次 ─► apply 正式寫入 rc=1 → noted
+```
+
+為什麼要有這一步：上限、黑名單這些退件規則是機械的，寫的人看得到理由就改得掉，
+但退件理由原本只在第二天的摘要裡，而寫的人第二天是另一個 session。2026-10-03
+那晚 33 筆退件幾乎全是「超過 60 字」，交棒訊息裡明寫了 ≤60 字也一樣——數中文字數
+不是模型可靠的事，看到「81 字，超過 60」再改才可靠。
+
+| 規則 | 理由 |
+|---|---|
+| **一晚只退回一次**（`MAX_BOUNCES = 1`） | 退回第二次還改不好的，多半是規則跟這一條本身合不來（例如整句是產品名），再退只是燒錢。第二次照樣正式寫入，退件進摘要，隔天 prep 會再排 |
+| **只有宣告了 `bounce` 的 apply 會退回** | 兩段翻譯的退件都是寫的人改得掉的；enrich、digest、narrative 的退件常是證據不足或清單過期，退回去也寫不出來 |
+| **哪些離開碼算「有退件」寫在階段表**（`bounce.codes`） | desc 是 1 與 3，title 是 1。title 的 1 也包含「拒寫」（譯文已經有效，清單是舊的），那種寫的人不用動，交棒訊息明寫只改 `[退件]` |
+| **退回過幾次記在 `*-write` 那一格**（`bounces`、`bounce_rc`） | 摘要那一行接一句「dry-run 退件後退回重寫過 1 次」。退回是一個被記錄的事件，不是安靜重試 |
+| **重新對帳照舊** | 第二次交回來一樣檢查 worklist 沒被換、key 是子集；退回不放寬任何一條 |
+| **兩段 apply 的摘要那一格抓總結行**（`summary_grep`） | `過關 46／退件 33；…`、`寫入 1 則，退件 0 則`，不是只有 `rc=0`。全部過關的晚上也看得到翻了幾條 |
+
+外殼（`nightly-shell.sh`）的 `NIGHTLY_MAX_HANDOFF` 預設 8：五段交棒加兩次退回是 7，
+還在上限內。雲端 routine 沒有這個外殼，迴圈由 prompt 第 2 步的「回 10 就照交棒訊息寫、
+再跑一次」驅動，退回的交棒訊息走同一條路，prompt 不用改。
 
 ## 狀態檔
 

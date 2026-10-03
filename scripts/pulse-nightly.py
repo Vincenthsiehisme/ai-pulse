@@ -82,10 +82,18 @@ def stages(date_str):
     那支直譯器，PATH 换成哪一支都只有一個地方要對，不必兩邊同步維護。見
     nightly-shell.sh 的 PY= 那行與 references/nightly-driver.md。
     """
-    def apply_stage(sid, script, infile, codes, needs):
+    def apply_stage(sid, script, infile, codes, needs, bounce=None, summary_grep=None):
         # apply 一定是「產出依賴」：它的 narrative 那一段被跳過，就沒有 result 檔可寫回。
-        return {"id": sid, "kind": "run", "needs": needs, "dry_first": True,
+        spec = {"id": sid, "kind": "run", "needs": needs, "dry_first": True,
                 "cmd": [sys.executable, f"scripts/{script}", "--in", infile], "codes": codes}
+        if bounce:
+            # dry-run 回這幾個離開碼＝有退件，先退回 `to` 那一段重寫一次再正式寫入。
+            # 規格 references/nightly-driver.md〈退件退回重寫一次〉。
+            spec["bounce"] = bounce
+        if summary_grep:
+            # 摘要那一格抓總結行（過關幾條、退件幾條），不是只寫 rc。
+            spec["summary_grep"] = summary_grep
+        return spec
 
     return [
         # 平台的雲端排程把 session checkout 在一支臨時分支上，不是 main（2026-09-20）；
@@ -149,7 +157,9 @@ def stages(date_str):
          "absent_note": "Actions 那班沒有準備清單（抓取鏈那邊出事，不是今晚沒東西要翻）"},
         apply_stage("github-desc-apply", "pulse-github-desc-apply.py",
                     "github-desc-result.json",
-                    {0: "ok", 2: "noted", 3: "noted"}, ["github-desc-write"]),
+                    {0: "ok", 1: "noted", 2: "noted", 3: "noted"}, ["github-desc-write"],
+                    bounce={"to": "github-desc-write", "codes": (1, 3)},
+                    summary_grep="／退件"),
         {"id": "title-write", "kind": "narrative",
          "worklist": "_probe/title-zh-worklist.json", "items": None, "key": "id",
          "result": "title-zh-result.json", "check": "keyed",
@@ -157,7 +167,9 @@ def stages(date_str):
          "produces": '{"<event_id>": "中文標題"}',
          "absent_note": "Actions 那班沒有準備清單（抓取鏈那邊出事，不是今晚沒東西要翻）"},
         apply_stage("title-apply", "pulse-title-apply.py", "title-zh-result.json",
-                    {0: "ok", 1: "noted", 2: "stop"}, ["title-write"]),
+                    {0: "ok", 1: "noted", 2: "stop"}, ["title-write"],
+                    bounce={"to": "title-write", "codes": (1,)},
+                    summary_grep="則，退件"),
         {"id": "render", "kind": "run",
          "cmd": [sys.executable, "scripts/pulse-render.py"], "codes": {0: "ok"}},
         {"id": "commit", "kind": "commit", "after": ["render"],
@@ -180,6 +192,27 @@ def code_action(code, codes):
     今晚沒東西要翻」的形狀。
     """
     return codes.get(code, "stop")
+
+
+# 一晚最多退回幾次。退回第二次還改不好的，多半是規則跟這一條本身合不來，再退只是燒錢。
+MAX_BOUNCES = 1
+
+
+def bounce_due(spec, dry_rc, write_rec, max_bounces=MAX_BOUNCES):
+    """apply 的 dry-run 回 `dry_rc` 時，要不要先退回寫的那一段重寫。純函式。
+
+    三個條件都要：這一段宣告了 `bounce`、dry-run 的離開碼在它的「有退件」清單裡、
+    寫的那一段還沒退回到上限。寫的那一段沒有紀錄（不該發生：apply 對它是 needs）
+    就不退，照常往下走，退件照樣進摘要。
+
+    為什麼要有這一步：2026-10-03 那晚 79 筆退了 33 筆，幾乎全是超過 60 字。交棒訊息
+    裡寫著 ≤60 字也一樣；退件理由只活在第二天的摘要裡，而寫的人第二天是另一個
+    session。規格 references/nightly-driver.md〈退件退回重寫一次〉。
+    """
+    b = spec.get("bounce")
+    if not b or dry_rc not in b["codes"] or write_rec is None:
+        return False
+    return (write_rec.get("bounces") or 0) < max_bounces
 
 
 def worklist_keys(doc, items_field, key_field):
@@ -494,6 +527,20 @@ def narrative_handoff(spec, count):
     ])
 
 
+def bounce_handoff(spec, dry_out):
+    """退回重寫時印什麼：dry-run 的退件原樣附上，規則照舊指到 runbook。"""
+    return "\n".join([
+        f"[narrative] {spec['id']}（退回重寫）",
+        f"  apply 的 --dry-run 退了下面幾條。只改 [退件] 那幾條、照理由改，"
+        f"其他條原樣留著，存回 {spec['result']}。",
+        "  [拒寫] 的不用動（清單舊了，不是寫錯）。一晚只退回一次，第二次還被退的照樣寫入並記進摘要。",
+        f"  規則：{spec['rules']}",
+        f"  改完再跑一次 `python3 scripts/pulse-nightly.py run`，它會從這裡接回去。",
+        "",
+        (dry_out or "").rstrip(),
+    ])
+
+
 def on_target_branch(vault, target="main"):
     """現在站在目標分支上嗎。回 (是不是, 實際在哪一支)。
 
@@ -708,6 +755,9 @@ def advance(vault, state, date_str, no_push):
                 save_state(vault, state)
                 print(narrative_handoff(spec, (extra.get("worklist") or {}).get("count", 0)))
                 return 10
+            if status == "ok" and rec and rec.get("bounces"):
+                note += (f"｜dry-run 退件（rc={rec.get('bounce_rc')}）後"
+                         f"退回重寫過 {rec['bounces']} 次")
             set_stage(state, spec["id"], status, note, **extra)
             save_state(vault, state)
             if status == "stop":
@@ -725,6 +775,17 @@ def advance(vault, state, date_str, no_push):
                     save_state(vault, state)
                     print(f"[stop] {spec['id']}：--dry-run rc={dry_rc}", file=sys.stderr)
                     return 2
+                b = spec.get("bounce")
+                wrec = stage_record(state, b["to"]) if b else None
+                if bounce_due(spec, dry_rc, wrec):
+                    n = (wrec.get("bounces") or 0) + 1
+                    set_stage(state, b["to"], "waiting",
+                              f"apply --dry-run 有退件（rc={dry_rc}），退回重寫第 {n} 次",
+                              bounces=n, bounce_rc=dry_rc)
+                    save_state(vault, state)
+                    wspec = next(x for x in stages(date_str) if x["id"] == b["to"])
+                    print(bounce_handoff(wspec, dry_out))
+                    return 10
             status, note, full = do_run_stage(vault, spec)
 
         extra = {"full_output": full} if (full and keeps_output(spec, status)) else {}

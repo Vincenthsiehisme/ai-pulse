@@ -1354,7 +1354,10 @@ acase("apply：兩邊都讀不到 → 回 None，讓呼叫端非零離開（量�
 acase("apply：榜是空的但真的量到了（0 條上榜）仍算榜讀得到",
       _dam.english_source({"repos": []}, _WORK)[1], "board")
 acase("apply：全數退件的離開碼跟「今晚沒東西要翻」分得開",
-      [_dam.exit_code(3, 0), _dam.exit_code(3, 1), _dam.exit_code(0, 0)], [3, 0, 0])
+      [_dam.exit_code(3, 0), _dam.exit_code(3, 3), _dam.exit_code(0, 0)], [3, 0, 0])
+acase("apply：部分退件回 1，不回 0"
+      "（2026-10-03：79 筆退 33 筆回 0，driver 記成 ok、不留輸出，摘要看不到那 33 筆）",
+      [_dam.exit_code(79, 46), _dam.exit_code(2, 1), _dam.exit_code(1, 1)], [1, 1, 0])
 
 
 def _run_apply(vault, result, board=None, worklist=None):
@@ -6424,6 +6427,121 @@ acase("夜班：calls_in 走 ast 不走字串"
        _nl.calls_in("def a():\n    return b()\n", "b", "a"),
        _nl.calls_in("def a():\n    return 1\n", "b", "zzz")],
       [False, True, False])
+
+# ── 退件退回重寫一次（2026-10-04）──────────────────────────────────────
+# 2026-10-03 那晚 github-desc 79 筆退了 33 筆，幾乎全是超過 60 字；交棒訊息寫了
+# ≤60 字也一樣。退件理由只活在第二天的摘要裡，而寫的人第二天是另一個 session。
+# 規格 references/nightly-driver.md〈退件退回重寫一次〉。
+_bc_desc = _nl_stages["github-desc-apply"]
+_bc_title = _nl_stages["title-apply"]
+acase("退回重寫：兩段翻譯的 apply 宣告退回到自己那一段 write，其餘 apply 不宣告"
+      "（enrich、digest、narrative 的退件常是證據不足或清單過期，退回去也寫不出來）",
+      [_bc_desc.get("bounce", {}).get("to"), _bc_title.get("bounce", {}).get("to"),
+       [k for k in ("enrich-apply", "digest-apply", "narrative-apply")
+        if _nl_stages[k].get("bounce")]],
+      ["github-desc-write", "title-write", []])
+acase("退回重寫：兩段 apply 的摘要抓總結行，不抓逐條的 [退件] 那幾行"
+      "（只寫 rc=0 的話，全部過關跟翻了幾條都看不出來）",
+      [_nl.grep_line("  [退件] c/d\n         超過 60 字\n\n  過關 46／退件 33；覆蓋 108/141\n",
+                     _bc_desc.get("summary_grep") or "∅"),
+       _nl.grep_line("  [退件] evt-x\n         沒有任何中文字\n\n  寫入 0 則，退件 1 則\n",
+                     _bc_title.get("summary_grep") or "∅")],
+      ["過關 46／退件 33；覆蓋 108/141", "寫入 0 則，退件 1 則"])
+acase("退回重寫：desc 的 1 是 noted 不是 stop（部分退件；沒進表的話 code_action 會整條停住）",
+      _nl.code_action(1, _bc_desc["codes"]), "noted")
+acase("退回重寫：dry-run 有退件、還沒退回過 → 退回",
+      _nl.bounce_due(_bc_desc, 1, {"id": "github-desc-write", "status": "ok"}), True)
+acase("退回重寫：已經退回過一次 → 不再退（一晚只退一次，再退只是燒錢）",
+      _nl.bounce_due(_bc_desc, 1, {"id": "github-desc-write", "status": "ok", "bounces": 1}),
+      False)
+acase("退回重寫：dry-run 全部過關、或離開碼不在「有退件」清單 → 不退"
+      "（只釘會退的話，一個永遠退的版本也會全綠）",
+      [_nl.bounce_due(_bc_desc, 0, {"id": "github-desc-write", "status": "ok"}),
+       _nl.bounce_due(_bc_desc, 2, {"id": "github-desc-write", "status": "ok"}),
+       _nl.bounce_due(_bc_title, 3, {"id": "title-write", "status": "ok"}),
+       _nl.bounce_due(_nl_stages["enrich-apply"], 1, {"id": "enrich-write", "status": "ok"}),
+       _nl.bounce_due(_bc_desc, 1, None)],
+      [False, False, False, False, False])
+acase("退回重寫：交棒訊息帶著 dry-run 的退件原文，規則照舊只指到 runbook",
+      [("超過 60 字" in _nl.bounce_handoff(_nl_stages["github-desc-write"],
+                                          "  [退件] a/b\n         超過 60 字")),
+       "enrich-runbook.md" in _nl.bounce_handoff(_nl_stages["github-desc-write"], ""),
+       "github-desc-result.json" in _nl.bounce_handoff(_nl_stages["github-desc-write"], "")],
+      [True, True, True])
+acase("退回重寫：advance() 真的問過 bounce_due、印的是 bounce_handoff（接線）",
+      [_nl.calls_in(_nl_src, "bounce_due", "advance"),
+       _nl.calls_in(_nl_src, "bounce_handoff", "advance")],
+      [True, True])
+
+# 端到端：真的跑 advance() 兩次。假的 run() 讓 dry-run 回 1（有退件），
+# 數它被叫了幾次、正式寫入是不是只跑一次、第二次之後退件有沒有進摘要。
+_bc_calls = []
+_bc_rcs = {"dry": 1, "real": 1}
+
+
+def _bc_fake_run(vault, cmd):
+    kind = "dry" if "--dry-run" in cmd else "real"
+    _bc_calls.append(kind)
+    return _bc_rcs[kind], "pulse-github-desc-apply  收到 2 條譯文\n\n  [退件] c/d\n         超過 60 字\n"
+
+
+_bc_stages_orig, _bc_run_orig = _nl.stages, _nl.run
+_nl.stages = lambda d: [x for x in _bc_stages_orig(d)
+                        if x["id"] in ("github-desc-write", "github-desc-apply")]
+_nl.run = _bc_fake_run
+try:
+    with tempfile.TemporaryDirectory() as _bcd:
+        _bcv = Path(_bcd)
+        (_bcv / "_probe").mkdir()
+        (_bcv / "_probe" / "github-desc-worklist.json").write_text(
+            _json.dumps([{"full_name": "a/b"}, {"full_name": "c/d"}]), "utf-8")
+        (_bcv / "github-desc-result.json").write_text(
+            _json.dumps({"a/b": "短的", "c/d": "長的"}), "utf-8")
+        _bc_state = {"date": "2026-10-04", "started_at": "x", "finished": False, "stages": []}
+        _bc_out1 = io.StringIO()
+        with _cp_ctx.redirect_stdout(_bc_out1):
+            _bc_rc1 = _nl.advance(_bcv, _bc_state, "2026-10-04", True)
+        _bc_w1 = dict(_nl.stage_record(_bc_state, "github-desc-write"))
+        _bc_a1 = _nl.stage_record(_bc_state, "github-desc-apply")
+        _bc_calls1 = list(_bc_calls)
+        with _cp_ctx.redirect_stdout(io.StringIO()):
+            _bc_rc2 = _nl.advance(_bcv, _bc_state, "2026-10-04", True)
+        _bc_calls2 = list(_bc_calls)
+        _bc_w2 = _nl.stage_record(_bc_state, "github-desc-write")
+        _bc_a2 = _nl.stage_record(_bc_state, "github-desc-apply")
+        _bc_sum = "\n".join(_nl.summary_lines(_bc_state))
+    # 對照組：dry-run 全部過關就不退回，一輪跑完。
+    _bc_calls.clear()
+    _bc_rcs.update(dry=0, real=0)
+    with tempfile.TemporaryDirectory() as _bcd0:
+        _bcv0 = Path(_bcd0)
+        (_bcv0 / "_probe").mkdir()
+        (_bcv0 / "_probe" / "github-desc-worklist.json").write_text(
+            _json.dumps([{"full_name": "a/b"}]), "utf-8")
+        (_bcv0 / "github-desc-result.json").write_text(_json.dumps({"a/b": "短的"}), "utf-8")
+        _bc_state0 = {"date": "2026-10-04", "started_at": "x", "finished": False, "stages": []}
+        with _cp_ctx.redirect_stdout(io.StringIO()):
+            _bc_rc0 = _nl.advance(_bcv0, _bc_state0, "2026-10-04", True)
+        _bc_calls0 = list(_bc_calls)
+finally:
+    _nl.stages, _nl.run = _bc_stages_orig, _bc_run_orig
+
+acase("退回重寫（實跑）：第一輪 dry-run 有退件 → exit 10、write 那一格回 waiting、"
+      "apply 還沒有紀錄、正式寫入一次都沒跑",
+      [_bc_rc1, _bc_w1["status"], _bc_w1.get("bounces"), _bc_a1, _bc_calls1],
+      [10, "waiting", 1, None, ["dry"]])
+acase("退回重寫（實跑）：交棒訊息印出退件原文（寫的人要看得到「超過 60 字」才改得掉）",
+      ["退回重寫" in _bc_out1.getvalue(), "超過 60 字" in _bc_out1.getvalue()], [True, True])
+acase("退回重寫（實跑）：第二輪不再退，正式寫入、退件記成 noted 並留輸出，整輪回 1",
+      [_bc_rc2, (_bc_a2 or {}).get("status"),
+       "超過 60 字" in ((_bc_a2 or {}).get("full_output") or ""),
+       _bc_calls2, _bc_state["finished"]],
+      [1, "noted", True, ["dry", "dry", "real"], True])
+acase("退回重寫（實跑）：摘要那一行寫明退回重寫過 1 次（退回是被記錄的事件，不是安靜重試）",
+      ["退回重寫過 1 次" in ((_bc_w2 or {}).get("note") or ""), "退回重寫過 1 次" in _bc_sum],
+      [True, True])
+acase("退回重寫（實跑）：dry-run 全部過關 → 不退回，一輪跑完回 0",
+      [_bc_rc0, _bc_calls0], [0, ["dry", "real"]])
 
 acase("夜班：一晚花多少錢，量不到跟 0 要分得開"
       "（每一段都跳過是真的 0；外殼沒把數字傳回來是量不到。"
