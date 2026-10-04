@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "evt-2026-10-03-623369",
+    "path": "evt-2026-10-03-623369.md",
+    "title": "The Agent Said It Was Done. The Database Disagreed.",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/microsoft/thinkingbox",
+        "title": "The Agent Said It Was Done. The Database Disagreed.",
+        "summary": "A Blog post by Microsoft on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  }
+]
