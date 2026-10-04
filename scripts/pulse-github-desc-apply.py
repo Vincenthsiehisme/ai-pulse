@@ -27,11 +27,14 @@
   VAULT_DIR=... python scripts/pulse-github-desc-apply.py --in github-desc-result.json
 依賴：無（voice_clean 是本地模組）。
 
-離開碼：0＝有東西過關（或結果檔本來就是空的）；2＝結果檔格式不對／量不到
-        （榜與 worklist 都讀不到）；3＝**收到了但一條都沒過關**。
+離開碼：0＝全部過關（或結果檔本來就是空的）；1＝**有退件，也有過關的**；
+        2＝結果檔格式不對／量不到（榜與 worklist 都讀不到）；3＝**收到了但一條都沒過關**。
         3 跟 0 一定要分得開：全數退件是這條鏈壞掉的樣子，而潤稿端的收尾摘要
         照離開碼寫。上一版一律回 0，所以 2026-07-28 那次 3/3 退件在摘要上長得
         跟「今晚沒有東西要翻」一模一樣。
+        1 跟 0 也要分開（2026-10-04 補）：部分退件回 0 的話，driver 把這一段記成
+        `ok`、不留輸出，2026-10-03 那晚 79 筆退了 33 筆，摘要上只有 `rc=0`。
+        跟 `pulse-title-apply.py` 的 1 同一個意思。
 """
 import argparse
 import json
@@ -103,12 +106,16 @@ def english_source(board, worklist):
 
 
 def exit_code(n_received: int, n_ok: int) -> int:
-    """→ 離開碼。3＝收到了但一條都沒過關；0＝有東西過關，或本來就沒東西要翻。
+    """→ 離開碼。3＝收到了但一條都沒過關；1＝有退件、也有過關的；
+    0＝全部過關，或本來就沒東西要翻。
 
     上一版一律回 0，於是「全數退件」跟「今晚沒有東西要翻」在離開碼上沒有差別
-    ——而潤稿端的收尾摘要正是照離開碼寫的。
+    ——而潤稿端的收尾摘要正是照離開碼寫的。部分退件回 0 是同一個病的小一號版本
+    （2026-10-03：79 筆退 33 筆，摘要上是 `ok rc=0`）。
     """
-    return 3 if n_received and not n_ok else 0
+    if n_received and not n_ok:
+        return 3
+    return 1 if n_ok < n_received else 0
 
 
 def validate(raw, src_desc, missing_note):
@@ -186,7 +193,7 @@ def main():
              else "榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）"))
     if rejected:
         print("  退件的不會靜靜消失——下次 prep 會原樣排回待譯清單。")
-    if code:
+    if code == 3:
         print(f"  [fail] 收到 {len(result)} 條、一條都沒過關。這跟「今晚沒有東西要翻」"
               f"不是同一件事，所以離開碼是 {code} 不是 0。")
 
