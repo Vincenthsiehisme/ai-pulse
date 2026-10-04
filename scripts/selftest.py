@@ -3074,6 +3074,107 @@ acase("標題顯示：沒有中文就只印原文一行（反方向，確認上�
       [_pr.title_html({"title": "English", "title_zh": None}).count("<div"),
        "English" in _pr.title_html({"title": "English"})], [1, True])
 
+# ── 整句是名字的標題：原樣保留（2026-10-04）───────────────────────────
+# `Claude Frontier Academy` 沒有可翻的字。「產品名不要動」跟「至少一個中文字」同時成立，
+# 就沒有任何寫法過得了，那一則每晚重排、每晚退件、每晚讓夜班回 1（2026-10-03）。
+# 規格 references/obsidian-schema.md〈整句是名字的標題：原樣保留〉。
+acase("名字判準：整句是名字的算（版本號、小寫開頭但有大寫的產品名也算）",
+      [_zt.is_name_only(t) for t in (
+          "Claude Frontier Academy", "OpenAI DevDay 2026", "vLLM", "GPT-5.2")],
+      [True, True, True, True])
+acase("名字判準：有動詞、功能詞、句子標點、超過五個字、或有中文的不算"
+      "（只釘「算」的話，一個恆真的版本也會全綠）",
+      [_zt.is_name_only(t) for t in (
+          "Introducing GPT-5", "The Claude Academy", "Claude: A New Era", "What's Next",
+          "Gemini Robotics 2 brings whole body intelligence to robots",
+          "One Two Three Four Five Six", "Claude 學院", "agents", "")],
+      [False] * 9)
+acase("名字判準：slug 轉出來的描述句不算——-ing／-ed 結尾的字、描述事件的普通名詞"
+      "（2026-10-04 拿全部 435 則標題掃過，只看字數與大寫時 86 則算名字，大半是這種）",
+      [_zt.is_name_only(t) for t in (
+          "Anthropic Acquires Stainless", "Covering Electricity Price Increases",
+          "Pwc Expanded Partnership", "Gates Foundation Partnership", "Usage Policy Update")],
+      [False] * 5)
+acase("譯文驗章：整句是名字、照抄原文 → 放行；沒傳原文時照舊退件（榜單描述不走這條）",
+      [_zt.validate("Claude Frontier Academy", 40,
+                    keep_name_src="Claude Frontier Academy")[1],
+       _zt.validate("Claude Frontier Academy", 40)[1] is not None],
+      [None, True])
+acase("譯文驗章：不是一字不差、或原文不是名字 → 照舊退件"
+      "（放行只給「照抄的名字」，不給「寫的人偷懶交英文」）",
+      [_zt.validate("Claude Frontier Academy", 40,
+                    keep_name_src="Claude Frontier Academy Live")[1] is not None,
+       _zt.validate("Introducing GPT-5", 40, keep_name_src="Introducing GPT-5")[1] is not None],
+      [True, True])
+acase("譯文驗章：原樣保留的值每次讀都重驗名字判準——原文不再算名字就失效、重排"
+      "（詞表收緊後，已經存下的照抄值要跟著失效；只在寫入時判一次，加字等於沒加。"
+      "2026-10-04 Codex 審 #110 抓到）",
+      [_zt.valid_for({"zh": "Claude Frontier Academy",
+                      "src_hash": _zt.src_hash("Claude Frontier Academy")},
+                     "Claude Frontier Academy"),
+       _zt.valid_for({"zh": "Introducing GPT-5", "src_hash": _zt.src_hash("Introducing GPT-5")},
+                     "Introducing GPT-5"),
+       [t["id"] for t in _tp.pending([
+           {"id": "e-kept", "title": "Claude Frontier Academy",
+            "title_zh": "Claude Frontier Academy",
+            "title_zh_src": _zt.src_hash("Claude Frontier Academy")},
+           {"id": "e-stale", "title": "Introducing GPT-5", "title_zh": "Introducing GPT-5",
+            "title_zh_src": _zt.src_hash("Introducing GPT-5")}])]],
+      ["Claude Frontier Academy", None, ["e-stale"]])
+acase("標題顯示：中文等於原文（原樣保留）就當成沒有中文，前台只印一行",
+      [_zt.display_zh("Claude Frontier Academy", "Claude Frontier Academy"),
+       _zt.display_zh("中文標題", "English"), _zt.display_zh(None, "English")],
+      [None, "中文標題", None])
+
+import ast as _ast_nm  # noqa: E402
+_nm_render_src = open(os.path.join(_HERE, "pulse-render.py"), encoding="utf-8").read()
+_nm_wired = any(
+    isinstance(sub, _ast_nm.Attribute) and sub.attr == "display_zh"
+    for node in _ast_nm.walk(_ast_nm.parse(_nm_render_src))
+    if isinstance(node, _ast_nm.FunctionDef) and node.name == "load_events"
+    for sub in _ast_nm.walk(node))
+acase("標題顯示：load_events() 真的過 display_zh（接線；判斷函式對、呼叫端沒接，"
+      "前台照樣同一句印兩行）", _nm_wired, True)
+
+
+def _nm_apply(title, payload_zh):
+    """臨時 vault 一則沒翻過的 Event，跑一次 title-apply main()。→ (離開碼, title_zh, stdout)"""
+    with _tf8.TemporaryDirectory() as _nm_v:
+        _nm_ev = os.path.join(_nm_v, "Events")
+        os.makedirs(_nm_ev)
+        open(os.path.join(_nm_ev, "evt-n.md"), "w", encoding="utf-8").write(
+            _TA_FM.format(i="evt-n", t=title, zh="null", h="null"))
+        _nm_rf = os.path.join(_nm_v, "r.json")
+        open(_nm_rf, "w", encoding="utf-8").write(_json.dumps({"evt-n": payload_zh}))
+        _nm_argv, _nm_old = sys.argv, os.environ.get("VAULT_DIR")
+        sys.argv = ["pulse-title-apply.py", "--in", _nm_rf]
+        os.environ["VAULT_DIR"] = _nm_v
+        _nm_buf = io.StringIO()
+        try:
+            with _c2.redirect_stdout(_nm_buf), _c2.redirect_stderr(io.StringIO()):
+                _nm_rc = _ta.main()
+        finally:
+            sys.argv = _nm_argv
+            if _nm_old is None:
+                os.environ.pop("VAULT_DIR", None)
+            else:
+                os.environ["VAULT_DIR"] = _nm_old
+        _nm_fm = _ta.split_note(open(os.path.join(_nm_ev, "evt-n.md"),
+                                     encoding="utf-8").read())[0]
+        return _nm_rc, _nm_fm.get("title_zh"), _nm_buf.getvalue()
+
+
+_nm_keep = _nm_apply("Claude Frontier Academy", "Claude Frontier Academy")
+_nm_head = _nm_apply("Introducing GPT-5", "Introducing GPT-5")
+acase("標題寫回 main()：整句是名字、照抄回來 → 寫入、離開碼 0、那一行標 [原樣保留]"
+      "（2026-10-03 evt-2026-10-02-96307e 那一則）",
+      [_nm_keep[0], _nm_keep[1], "[原樣保留]" in _nm_keep[2]],
+      [0, "Claude Frontier Academy", True])
+acase("標題寫回 main()：總結行寫出原樣保留幾則（driver 抓這一行進摘要，照抄的人看得到）",
+      ["原樣保留 1 則" in _nm_keep[2], "原樣保留" in _nm_head[2]], [True, False])
+acase("標題寫回 main()：有動詞的標題照抄回來 → 照舊退件、離開碼 1、不寫入",
+      [_nm_head[0], _nm_head[1]], [1, None])
+
 # ── 待譯清單由 Actions 準備（scripts/enrich-runbook.md 的 C2 段）──
 _dp_spec = importlib.util.spec_from_file_location(
     "pulse_github_desc_prep", os.path.join(_HERE, "pulse-github-desc-prep.py"))

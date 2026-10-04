@@ -616,8 +616,8 @@ mutations:
   - id: M68
     title: "譯文不綁原文雜湊（原文改了，畫面上掛著一句在講舊標題的中文）"
     file: lib/zhtext.py
-    find: "    return zh if entry.get(\"src_hash\") == src_hash(src) else None"
-    replace: "    return zh"
+    find: "    if entry.get(\"src_hash\") != src_hash(src):\n        return None\n"
+    replace: ""
     survives: false
     why: ""
 
@@ -4180,5 +4180,85 @@ mutations:
     file: pulse-nightly.py
     find: "        f\"[narrative] {spec['id']}\",\n        f\"  退回重寫："
     replace: "        f\"[narrative] {spec['id']}（退回重寫）\",\n        f\"  退回重寫："
+    survives: false
+    why: ""
+
+  - id: M492
+    title: "原樣保留不要求一字不差（原文是名字，寫的人交什麼英文都放行）"
+    file: lib/zhtext.py
+    find: "    return bool(src) and _squash(zh) == _squash(src) and is_name_only(src)"
+    replace: "    return bool(src) and is_name_only(src)"
+    survives: false
+    why: ""
+
+  - id: M493
+    title: "名字判準不看功能詞（Introducing GPT-5 照抄回來也放行）"
+    file: lib/zhtext.py
+    find: "        if w.lower().strip(\".-\") in NAME_STOPWORDS:\n            return False\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M494
+    title: "名字判準不看 -ing／-ed（Investigating Incidents… 照抄回來也放行）"
+    file: lib/zhtext.py
+    find: "        if NAME_VERB_SUFFIX.search(w.lower()):\n            return False\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M495
+    title: "名字判準不看字數（一整句 Title Case 標題也算名字）"
+    file: lib/zhtext.py
+    find: "    if len(words) > NAME_MAX_WORDS:\n        return False\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M496
+    title: "名字判準不看句子標點（Claude: A New Era 也算名字）"
+    file: lib/zhtext.py
+    find: "    if not t or CJK.search(t) or NAME_PUNCT.search(t):"
+    replace: "    if not t or CJK.search(t):"
+    survives: false
+    why: ""
+
+  - id: M497
+    title: "驗章忽略原樣保留（整句是名字的標題照舊每晚退件）"
+    file: lib/zhtext.py
+    find: "    if not CJK.search(zh) and not (keep_name_src is not None\n                                   and kept_original(zh, keep_name_src)):"
+    replace: "    if not CJK.search(zh):"
+    survives: false
+    why: ""
+
+  - id: M498
+    title: "title-apply 沒把原文傳給驗章（放行的判準對、呼叫端沒接上）"
+    file: pulse-title-apply.py
+    find: "            keep_name_src=src)"
+    replace: "            )"
+    survives: false
+    why: ""
+
+  - id: M499
+    title: "前台把原樣保留的中文當成另一行印（同一句標題印兩行）"
+    file: lib/zhtext.py
+    find: "    if not zh or _squash(zh) == _squash(src):\n        return None\n"
+    replace: "    if not zh:\n        return None\n"
+    survives: false
+    why: ""
+
+  - id: M500
+    title: "title-apply 總結行不寫原樣保留幾則（照抄的有幾則，摘要看不到）"
+    file: pulse-title-apply.py
+    find: "          + (f\"（原樣保留 {kept} 則）\" if kept else \"\")\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M502
+    title: "原樣保留的值只在寫入時判一次（詞表收緊後，已經存下的照抄值不失效、不重排）"
+    file: lib/zhtext.py
+    find: "    if _squash(zh) == _squash(src) and not is_name_only(src):\n        return None\n"
+    replace: ""
     survives: false
     why: ""

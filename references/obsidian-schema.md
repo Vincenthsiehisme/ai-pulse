@@ -129,6 +129,43 @@ frontmatter：`id`（`actor-<entity_id>` 或 `actor-<slug>`）、`kind: company`
 原文永遠一併顯示。這不是版面潔癖：**標題是最容易被翻歪的一句，而讀者無法從一句
 中文回推它翻自什麼。** 紅線 2 的延伸——譯文是二手的，讀者要能看到一手的那句。
 
+### 整句是名字的標題：原樣保留
+
+有些標題整句就是一個名字，沒有可翻的字，例如 `Claude Frontier Academy`（2026-10-02 的
+Anthropic 公告）。runbook 要求產品名一個字都不要動，`lib/zhtext.validate` 又要求至少一個
+中文字，兩條同時成立就沒有任何寫法過得了：2026-10-03 那晚寫的人照抄回來被退件
+「沒有任何中文字」，而那一則每晚都會重新排進清單、每晚退件、每晚讓夜班回 1。
+
+所以放行一種情況：**寫的人交回來的跟原文一字不差，而且原文看起來是名字**。看起來是名字的
+判準在 `zhtext.is_name_only()`，全部是機械的：
+
+| 條件 | 擋的是什麼 |
+|---|---|
+| 1～5 個字 | 一句話標題（`Gemini Robotics 2 brings whole body intelligence to robots`） |
+| 每個字都有大寫字母或數字 | 小寫開頭的一般英文字（`vLLM`、`GPT-5.2`、`o3` 照樣算） |
+| 沒有功能詞與宣告動詞（the、of、for、how、introducing、launches…，表在碼裡） | `Introducing GPT-5` 這種該翻成「推出 GPT-5」的標題 |
+| 沒有 -ing、-ed 結尾的字 | `Investigating Incidents Cybersecurity Evals`、`Pwc Expanded Partnership` |
+| 沒有描述事件的普通名詞（partnership、update、grants、agenda…，表在碼裡） | `Gates Foundation Partnership`、`Usage Policy Update` |
+| 沒有冒號、問號、驚嘆號、逗號、引號、括號 | `Claude: A New Era`、`What's Next?` 這種有句子結構的 |
+
+放行時 `title_zh` 存的就是原文、`title_zh_src` 照樣綁雜湊，所以 prep 不會再把它排進清單，
+原文改了照樣失效重排。前台在 `load_events()` 把「中文等於原文」當成沒有中文，標題只印一行，
+不會中英兩行印同一句。apply 那一行標 `[原樣保留]`，跟 `[新增]` 分得開。
+
+**機械判準分不出所有情況，寫的人的判斷是主要的那一道。** 2026-10-04 拿全部 435 則
+Event 標題掃過：只看字數、大寫、功能詞時有 86 則算名字，大半是 slug 轉出來的 Title Case
+描述句（`Anthropic Acquires Stainless`、`Covering Electricity Price Increases`）；加上
+-ing／-ed 與事件名詞兩條後剩 50 則。剩下的約一半是真的名字（`Claude Opus 4.7`、`v0.29.0`、
+`Ben Bernanke`），另一半是能翻的描述（`Claude Text Watermark`、`Enterprise Frontier Safeguards`），
+字面上跟 `Claude Frontier Academy` 分不開。這 50 則現在都已經有中文，只有原文改了重排時才會
+再走到這條。寫的人照抄一則能翻的，那一則就留英文；看得到的地方有兩個：apply 那一行標
+`[原樣保留]`，總結行寫「原樣保留 N 則」，driver 把總結行抓進摘要（`pulse-nightly.py` 的
+`summary_grep`，#109 加的；這條要在它之後併）。誤放時把那個字加進碼裡的詞表，不是拿掉這條放行。
+
+**加了字，已經存下的那則也要跟著失效。** `zhtext.valid_for()` 對「存的就是原文」的譯文多驗一條：
+原文**現在**仍算名字。詞表一收緊，先前照抄放行的那則在讀取時就不算數，prep 下一班重排、前台
+退回原文。只在寫入那一刻判一次的話，加字對已經存下的值沒有作用，得一則一則 `--force`。
+
 ### `title_zh` 是 sticky 欄位
 
 `event_markdown()` 會**整份重寫** frontmatter，沒被明確帶過去的欄位會被抹掉。
