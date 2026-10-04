@@ -1359,8 +1359,8 @@ mutations:
   - id: M155
     title: "全數退件照樣回 0（「一條都沒過」跟「今晚沒有東西要翻」在離開碼上長得一樣，而收尾摘要照離開碼寫）"
     file: pulse-github-desc-apply.py
-    find: "    return 3 if n_received and not n_ok else 0"
-    replace: "    return 0"
+    find: "    if n_received and not n_ok:\n        return 3\n"
+    replace: "    if False:\n        return 3\n"
     survives: false
     why: ""
 
@@ -4108,6 +4108,78 @@ mutations:
     file: ../.github/workflows/data-refresh.yml
     find: "        run: python scripts/pulse-github-desc-prep.py\n"
     replace: "        run: python scripts/pulse-github-desc-prep.py --limit 25\n"
+    survives: false
+    why: ""
+
+  - id: M484
+    title: "GitHub 描述部分退件照樣回 0（79 筆退 33 筆，driver 記成 ok、不留輸出，摘要看不到）"
+    file: pulse-github-desc-apply.py
+    find: "    return 1 if n_ok < n_received else 0"
+    replace: "    return 0"
+    survives: false
+    why: ""
+
+  - id: M485
+    title: "driver 的 github-desc-apply 離開碼表漏掉 1（部分退件被當成沒見過的離開碼，整條停住）"
+    file: pulse-nightly.py
+    find: "{0: \"ok\", 1: \"noted\", 2: \"noted\", 3: \"noted\"}"
+    replace: "{0: \"ok\", 2: \"noted\", 3: \"noted\"}"
+    survives: false
+    why: ""
+
+  - id: M486
+    title: "退回重寫沒有上限（dry-run 一直有退件就一直退回，整晚燒錢）"
+    file: pulse-nightly.py
+    find: "    return (write_rec.get(\"bounces\") or 0) < max_bounces"
+    replace: "    return True"
+    survives: false
+    why: ""
+
+  - id: M487
+    title: "退回重寫不看離開碼（dry-run 全部過關也退回一次）"
+    file: pulse-nightly.py
+    find: "    if not b or dry_rc not in b[\"codes\"] or write_rec is None:"
+    replace: "    if not b or write_rec is None:"
+    survives: false
+    why: ""
+
+  - id: M488
+    title: "advance() 沒接上退回重寫（判斷函式對、呼叫端沒問它，退件照樣只在隔天摘要裡）"
+    file: pulse-nightly.py
+    find: "                if bounce_due(spec, dry_rc, wrec):"
+    replace: "                if False:"
+    survives: false
+    why: ""
+
+  - id: M489
+    title: "github-desc-apply 沒宣告退回（翻譯段的退件不再交回寫的人）"
+    file: pulse-nightly.py
+    find: "                    bounce={\"to\": \"github-desc-write\", \"codes\": (1, 3)},\n"
+    replace: ""
+    survives: false
+    why: ""
+
+  - id: M490
+    title: "退回過的那一段摘要不寫退回次數（退回變成安靜重試）"
+    file: pulse-nightly.py
+    find: "            if status == \"ok\" and rec and rec.get(\"bounces\"):"
+    replace: "            if False:"
+    survives: false
+    why: ""
+
+  - id: M491
+    title: "github-desc-apply 的摘要只寫 rc，不抓總結行（過關幾條、退件幾條看不到）"
+    file: pulse-nightly.py
+    find: "                    summary_grep=\"／退件\"),"
+    replace: "                    ),"
+    survives: false
+    why: ""
+
+  - id: M501
+    title: "退回重寫的交棒訊息第一行多帶字（外殼把整串當 stage id，那一棒的成本記不到）"
+    file: pulse-nightly.py
+    find: "        f\"[narrative] {spec['id']}\",\n        f\"  退回重寫："
+    replace: "        f\"[narrative] {spec['id']}（退回重寫）\",\n        f\"  退回重寫："
     survives: false
     why: ""
 
