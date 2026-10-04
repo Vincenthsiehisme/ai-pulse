@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-03'
+generated_day: '2026-10-04'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**68 天**（2026-07-24 … 2026-10-03），去重後 **4544** 列。
+語料範圍：**69 天**（2026-07-24 … 2026-10-04），去重後 **4586** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,45 +17,45 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 99 | 5 |
-| September | 55 | 7 |
-| LLMs | 51 | 13 |
-| Amazon | 48 | 5 |
+| Apple | 101 | 5 |
+| September | 57 | 7 |
+| LLMs | 52 | 13 |
+| Amazon | 51 | 5 |
 | LLM | 46 | 11 |
 | They | 44 | 9 |
 | There | 44 | 7 |
+| Here | 39 | 8 |
 | One | 38 | 10 |
-| Trump | 37 | 4 |
+| Trump | 38 | 4 |
 | Muse | 37 | 5 |
-| Here | 36 | 8 |
 | Pro | 34 | 6 |
 | CEO | 32 | 5 |
 | July | 31 | 9 |
 | When | 31 | 9 |
 | AI-powered | 30 | 9 |
 | U.S | 30 | 8 |
+| June | 29 | 7 |
 | Python | 28 | 4 |
 | August | 28 | 8 |
 | Android | 28 | 4 |
 | Astra | 28 | 5 |
-| June | 27 | 7 |
 | San Francisco | 27 | 9 |
+| October | 27 | 7 |
 | Research | 26 | 6 |
-| October | 26 | 7 |
 | China | 25 | 8 |
+| Linux | 25 | 5 |
 | Last | 25 | 6 |
 | After | 25 | 6 |
 | With | 24 | 10 |
-| Linux | 24 | 5 |
+| Building | 23 | 10 |
 | Pixel | 23 | 3 |
-| Building | 22 | 10 |
 | Learn | 21 | 5 |
-| Rust | 20 | 3 |
+| Rust | 21 | 3 |
 | Samsung | 20 | 5 |
 | Wednesday | 19 | 4 |
 | Opus | 19 | 5 |
+| These | 19 | 6 |
 | AI-generated | 19 | 7 |
-| These | 18 | 6 |
 | Flash | 17 | 5 |
 | Europe | 17 | 7 |
 | Tuesday | 17 | 6 |
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 130 | src-hn-frontpage |
+| Show HN | 132 | src-hn-frontpage |
 | TechCrunch Disrupt | 54 | src-media-techcrunch |
 | The Download | 53 | src-media-mit-techreview |
 | Tags | 31 | src-kol-simonwillison |
@@ -97,45 +97,45 @@ generator: scripts/pulse-dictionary-gaps.py
 | Register | 17 | src-media-techcrunch |
 | MIT Technology Review | 16 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
+| Opt | 15 | src-media-theverge |
 | Ask HN | 15 | src-hn-frontpage |
-| Opt | 14 | src-media-theverge |
+| The Verge | 14 | src-media-theverge |
 | Is Hiring | 14 | src-hn-frontpage |
 | Tool | 13 | src-kol-simonwillison |
-| The Verge | 13 | src-media-theverge |
 | GeForce NOW | 12 | src-nvidia-blog |
 | Hey HN | 12 | src-hn-frontpage |
 | According | 11 | src-media-theverge |
 | YC S26 | 11 | src-hn-frontpage |
 | Best Buy | 11 | src-media-theverge |
+| The Stepback | 10 | src-media-theverge |
 | Disrupt | 10 | src-media-techcrunch |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
-| The Stepback | 9 | src-media-theverge |
 | Datasette | 9 | src-kol-simonwillison |
+| Installer No | 8 | src-media-theverge |
+| Verge-iest | 8 | src-media-theverge |
+| Installer | 8 | src-media-theverge |
 | Roundtables | 8 | src-media-mit-techreview |
+| A Blog | 8 | src-hf-blog |
 | Marvel | 7 | src-media-theverge |
 | At TechCrunch Disrupt | 7 | src-media-techcrunch |
 | FCC | 7 | src-media-theverge |
 | The Algorithm | 7 | src-media-mit-techreview |
 | Netflix | 7 | src-media-theverge |
-| Installer No | 7 | src-media-theverge |
-| Verge-iest | 7 | src-media-theverge |
-| Installer | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
-| Valve | 7 | src-media-theverge |
-| A Blog | 7 | src-hf-blog |
+| Sunday | 6 | src-media-theverge |
 | Code | 6 | src-hn-frontpage |
 | Open-source | 6 | src-hn-frontpage |
 | Galaxy Z Fold | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
+| Walmart | 6 | src-media-theverge |
 | Grand Theft Auto | 6 | src-media-theverge |
 | Series A | 6 | src-media-techcrunch |
 | Victoria Song | 6 | src-media-theverge |
 | VCs | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
-| Sunday | 5 | src-media-theverge |
 | Woot | 5 | src-media-theverge |
 | Nscale | 5 | src-media-techcrunch |
 | AI Stage | 5 | src-media-techcrunch |
@@ -145,8 +145,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | Bose | 5 | src-media-theverge |
 | Innovators Under | 5 | src-media-mit-techreview |
 | Self-hosted | 5 | src-hn-frontpage |
-| Walmart | 5 | src-media-theverge |
 | Optimizer | 5 | src-media-theverge |
+| Verge | 5 | src-media-theverge |
 
 ## 這一頁不保證什麼
 
