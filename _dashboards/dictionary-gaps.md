@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-04'
+generated_day: '2026-10-05'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**69 天**（2026-07-24 … 2026-10-04），去重後 **4586** 列。
+語料範圍：**70 天**（2026-07-24 … 2026-10-05），去重後 **4659** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,65 +17,65 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Apple | 101 | 5 |
-| September | 57 | 7 |
+| Apple | 102 | 5 |
+| September | 58 | 8 |
 | LLMs | 52 | 13 |
 | Amazon | 51 | 5 |
-| LLM | 46 | 11 |
+| LLM | 47 | 12 |
 | They | 44 | 9 |
 | There | 44 | 7 |
-| Here | 39 | 8 |
+| Here | 42 | 8 |
+| Trump | 39 | 4 |
 | One | 38 | 10 |
-| Trump | 38 | 4 |
 | Muse | 37 | 5 |
 | Pro | 34 | 6 |
-| CEO | 32 | 5 |
+| CEO | 34 | 5 |
+| When | 32 | 9 |
 | July | 31 | 9 |
-| When | 31 | 9 |
+| U.S | 31 | 8 |
 | AI-powered | 30 | 9 |
-| U.S | 30 | 8 |
 | June | 29 | 7 |
 | Python | 28 | 4 |
 | August | 28 | 8 |
 | Android | 28 | 4 |
 | Astra | 28 | 5 |
+| Research | 27 | 6 |
 | San Francisco | 27 | 9 |
+| Linux | 27 | 5 |
 | October | 27 | 7 |
-| Research | 26 | 6 |
-| China | 25 | 8 |
-| Linux | 25 | 5 |
+| China | 26 | 8 |
+| After | 26 | 6 |
 | Last | 25 | 6 |
-| After | 25 | 6 |
+| Building | 24 | 10 |
 | With | 24 | 10 |
-| Building | 23 | 10 |
+| Learn | 23 | 5 |
 | Pixel | 23 | 3 |
-| Learn | 21 | 5 |
 | Rust | 21 | 3 |
+| Opus | 20 | 5 |
+| AI-generated | 20 | 7 |
 | Samsung | 20 | 5 |
 | Wednesday | 19 | 4 |
-| Opus | 19 | 5 |
 | These | 19 | 6 |
-| AI-generated | 19 | 7 |
+| Chinese | 18 | 8 |
+| Over | 18 | 4 |
 | Flash | 17 | 5 |
 | Europe | 17 | 7 |
 | Tuesday | 17 | 6 |
+| May | 17 | 7 |
+| Mac | 17 | 4 |
 | Fable | 17 | 5 |
+| API | 17 | 5 |
 | Elon Musk | 17 | 5 |
 | SpaceX | 17 | 5 |
+| RAM | 17 | 2 |
 | Don | 17 | 5 |
 | Industry | 16 | 2 |
+| European Union | 16 | 3 |
 | India | 16 | 4 |
-| May | 16 | 7 |
-| Mac | 16 | 4 |
-| Chinese | 16 | 8 |
-| API | 16 | 5 |
-| RAM | 16 | 2 |
 | Windows | 16 | 3 |
-| Over | 16 | 4 |
 | Xbox | 16 | 2 |
 | The AI | 16 | 6 |
 | Security | 15 | 8 |
-| European Union | 15 | 3 |
 | Thursday | 15 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
@@ -87,15 +87,15 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| Show HN | 132 | src-hn-frontpage |
-| TechCrunch Disrupt | 54 | src-media-techcrunch |
-| The Download | 53 | src-media-mit-techreview |
+| Show HN | 133 | src-hn-frontpage |
+| TechCrunch Disrupt | 57 | src-media-techcrunch |
+| The Download | 54 | src-media-mit-techreview |
 | Tags | 31 | src-kol-simonwillison |
 | Hi HN | 20 | src-hn-frontpage |
-| Highlights | 18 | src-gh-vllm-releases |
+| Highlights | 19 | src-gh-vllm-releases |
+| Register | 19 | src-media-techcrunch |
 | Launch HN | 17 | src-hn-frontpage |
-| Register | 17 | src-media-techcrunch |
-| MIT Technology Review | 16 | src-media-mit-techreview |
+| MIT Technology Review | 17 | src-media-mit-techreview |
 | Committee | 15 | src-ep-itre |
 | Opt | 15 | src-media-theverge |
 | Ask HN | 15 | src-hn-frontpage |
@@ -114,6 +114,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | Datasette | 9 | src-kol-simonwillison |
+| FCC | 8 | src-media-theverge |
 | Installer No | 8 | src-media-theverge |
 | Verge-iest | 8 | src-media-theverge |
 | Installer | 8 | src-media-theverge |
@@ -121,7 +122,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | A Blog | 8 | src-hf-blog |
 | Marvel | 7 | src-media-theverge |
 | At TechCrunch Disrupt | 7 | src-media-techcrunch |
-| FCC | 7 | src-media-theverge |
 | The Algorithm | 7 | src-media-mit-techreview |
 | Netflix | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
@@ -135,6 +135,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Series A | 6 | src-media-techcrunch |
 | Victoria Song | 6 | src-media-theverge |
 | VCs | 6 | src-media-techcrunch |
+| Startup Battlefield | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Woot | 5 | src-media-theverge |
 | Nscale | 5 | src-media-techcrunch |
@@ -146,7 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Innovators Under | 5 | src-media-mit-techreview |
 | Self-hosted | 5 | src-hn-frontpage |
 | Optimizer | 5 | src-media-theverge |
-| Verge | 5 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

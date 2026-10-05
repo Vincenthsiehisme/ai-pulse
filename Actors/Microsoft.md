@@ -3,17 +3,18 @@ id: actor-microsoft
 kind: company
 in_dictionary: true
 aliases: ["微軟", "MSFT"]
-generated_day: '2026-10-04'
+generated_day: '2026-10-05'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Microsoft
 
-事件 **4** 則：`published` 4
+事件 **5** 則：`published` 4、`review` 1
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-03 | [[Events/evt-2026-10-03-623369\|The Agent Said It Was Done. The Database Disagreed.]] | review |
 | 2026-09-10 | [[Events/evt-2026-09-10-b1e953\|Claude In Microsoft Foundry]] | published |
 | 2026-09-03 | [[Events/evt-2026-09-03-a2c6fd\|Sparks Fly: NVIDIA Accelerates Local AI at IFA 2026]] | published |
 | 2026-08-12 | [[Events/evt-2026-08-12-de5d3a\|MindTopo reveals VLMs’ spatial reasoning abilities]] | published |

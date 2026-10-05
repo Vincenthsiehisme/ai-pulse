@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-10-04'
+generated_day: '2026-10-05'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,11 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **31** 則：`published` 26、`review` 5
+事件 **32** 則：`published` 26、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-03 | [[Events/evt-2026-10-03-623369\|The Agent Said It Was Done. The Database Disagreed.]] | review |
 | 2026-10-02 | [[Events/evt-2026-10-02-7699ed\|AutoSynthData: Generating Training Data for Enterprise Agents]] | published |
 | 2026-09-29 | [[Events/evt-2026-09-29-96c618\|Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents]] | review |
 | 2026-09-29 | [[Events/evt-2026-09-29-119ae0\|Introducing dots]] | published |

@@ -1,16 +1,32 @@
 [
   {
-    "id": "evt-2026-10-02-96307e",
-    "title": "Claude Frontier Academy",
-    "company": "Anthropic",
-    "track": "產品與商業驗證",
-    "summary": "Anthropic 發布「Claude Frontier Academy」，內容我們不轉述，請看原文。",
+    "id": "evt-2026-10-05-312d0f",
+    "title": "v0.31.0",
+    "company": "DeepSeek",
+    "track": null,
+    "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-03-623369",
-    "title": "The Agent Said It Was Done. The Database Disagreed.",
-    "company": "Hugging Face",
+    "id": "evt-2026-10-05-793d3b",
+    "title": "From Scan to Treatment Plan, AI Helps Close Breast Cancer’s Deadliest Gaps",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-05-a7a31a",
+    "title": "Building advertising for the way people use AI",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-05-dbbb76",
+    "title": "Our approach to EU text provenance rules",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null

@@ -1,690 +1,290 @@
 [
   {
-    "full_name": "DuarteSantos8/openGym",
-    "desc": "Self-hosted gym & body-weight tracker — plan routines, log workouts (supersets, warm-ups, cardio), see which muscles are trained, fatigued or detrained, import from FitNotes/Strong/Hevy, passkey login. Your data, your server.",
+    "full_name": "QingYunA/answer-me-with-html",
+    "desc": "Answer me with HTML — an agent skill that answers hard questions with a one-page HTML you can actually read. 让 AI Agent 用一页 HTML 回答复杂问题。",
     "language": "JavaScript",
-    "topics": [
-      "bodyweight",
-      "docker",
-      "fitness",
-      "fitness-tracker",
-      "gym",
-      "health"
-    ],
-    "stars": 2551,
-    "url": "https://github.com/DuarteSantos8/openGym",
-    "stale_zh": null
-  },
-  {
-    "full_name": "diegosouzapw/OmniRoute",
-    "desc": "Never stop coding. Free MIT AI gateway: one endpoint, 359 providers (150+ free), 1200+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by hundreds of contributors",
-    "language": "TypeScript",
-    "topics": [
-      "a2a",
-      "ai-agents",
-      "ai-gateway",
-      "anthropic",
-      "claude",
-      "claude-code"
-    ],
-    "stars": 72910,
-    "url": "https://github.com/diegosouzapw/OmniRoute",
-    "stale_zh": null
-  },
-  {
-    "full_name": "LodyAI/Lody",
-    "desc": "Share coding agents with your team on phone and desktop",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "agentic-workflow",
-      "coding-agent",
-      "collaboration",
-      "local-first",
-      "multi-agent"
-    ],
-    "stars": 1212,
-    "url": "https://github.com/LodyAI/Lody",
-    "stale_zh": null
-  },
-  {
-    "full_name": "edenfunf/reelmimic",
-    "desc": "Show it a video you love. Get a new video in the same style. An AI crew (Claude Code or Codex) plans, builds and reviews it with you.",
-    "language": "JavaScript",
-    "topics": [
-      "2d-animation",
-      "ai-agents",
-      "ai-video",
-      "animation",
-      "claude-code",
-      "codex"
-    ],
-    "stars": 1258,
-    "url": "https://github.com/edenfunf/reelmimic",
-    "stale_zh": null
-  },
-  {
-    "full_name": "0xethanq/astra-quant-agent",
-    "desc": "结合多大模型分析与确定性代码风控的自主量化交易系统 ｜ Autonomous crypto trading system with multi-LLM analysis, deterministic Python risk control & OKX execution.",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "ai-agents",
-      "ai-trading",
-      "algorithmic-trading",
-      "binance",
-      "crypto-trading"
-    ],
-    "stars": 334,
-    "url": "https://github.com/0xethanq/astra-quant-agent",
-    "stale_zh": null
-  },
-  {
-    "full_name": "oriveo/oriveo",
-    "desc": "Open-source, bring-your-own-key (BYOK) multi-model AI chat client for iOS, Android and the web. One LLM client for OpenAI, Anthropic, Google Gemini, OpenRouter, DeepSeek and ten more providers, plus any OpenAI-, Anthropic- or Gemini-compatible endpoint — Ollama, LM Studio, llama.cpp, vLLM. Local-first, self-hostable, no account. AGPL-3.0.",
-    "language": "Swift",
-    "topics": [
-      "ai-chat",
-      "ai-chat-client",
-      "ai-client",
-      "android",
-      "anthropic",
-      "bring-your-own-key"
-    ],
-    "stars": 425,
-    "url": "https://github.com/oriveo/oriveo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "StarTrail-org/PixelRAG",
-    "desc": "https://arxiv.org/abs/2606.28344. The end of web parsing. The beginning of scalable pixel-native search. link: https://pixelrag.ai/",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "ai",
-      "memory",
-      "multimodal",
-      "rag",
-      "search"
-    ],
-    "stars": 10172,
-    "url": "https://github.com/StarTrail-org/PixelRAG",
-    "stale_zh": null
-  },
-  {
-    "full_name": "nexu-io/open-design",
-    "desc": "🎨 Best DeepSeek Harness Design Plugin. The open-source Claude Design alternative. 🖥️ Local-first desktop app. 🖼️ Your coding agent becomes the design engine: prototypes, landing pages, dashboards, slides, images & video — real files, HTML/PDF/PPTX/MP4 export. 🤖 Claude Code / Codex / Cursor / DeepSeek Harness / OpenCode & 20+ CLIs via BYOK.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-skills",
-      "ai-design",
-      "byok",
-      "claude-code-for-design",
-      "claude-design",
-      "codex-design"
-    ],
-    "stars": 99406,
-    "url": "https://github.com/nexu-io/open-design",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Yzw202011/OmniSpace",
-    "desc": "本地优先的全栈 AI 创作工作站：AI对话 · AI漫画 · 漫剧创作 · 写作台 · 知识学习五大模块；vLLM / llama.cpp / Transformers 多引擎本地推理，显存智能调度、舱壁隔离自愈、仅供学习使用，欢迎交流指正。（最新进度（除插件系统）受到协议限制，暂时无法提交到仓库）",
-    "language": "Python",
-    "topics": [
-      "ai-comic",
-      "ai-manga",
-      "fastapi",
-      "knowledge-graph",
-      "llama-cpp",
-      "local-first"
-    ],
-    "stars": 349,
-    "url": "https://github.com/Yzw202011/OmniSpace",
-    "stale_zh": null
-  },
-  {
-    "full_name": "tt-a1i/archify",
-    "desc": "Turn any idea, plan, or codebase into a beautiful interactive diagram. An agent skill for Claude Code, Codex, and more.",
-    "language": "JavaScript",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "architecture-diagram",
-      "claude-code",
-      "claude-skills",
-      "codex"
-    ],
-    "stars": 77239,
-    "url": "https://github.com/tt-a1i/archify",
-    "stale_zh": "agent skill，產出架構、工作流程、時序、資料流與生命週期圖，輸出為含動態效果、可匯出的獨立 HTML"
-  },
-  {
-    "full_name": "ThinkWatchProject/ThinkWatch-Lite",
-    "desc": "Local gateway for Claude Code, Codex and other AI clients on macOS, Windows and Linux: switch upstreams without touching clients, keep API keys from relays, cut off malicious tool calls, trace every request.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-gateway",
-      "anthropic",
-      "claude-code",
-      "codex",
-      "cost-monitoring",
-      "cost-tracking"
-    ],
-    "stars": 1050,
-    "url": "https://github.com/ThinkWatchProject/ThinkWatch-Lite",
-    "stale_zh": null
-  },
-  {
-    "full_name": "youngyangyang04/llm-master",
-    "desc": "大模型（LLM）全栈学习路线与中文教程🔥：覆盖 Prompt Engineering、RAG、AI Agent、MCP、微调、模型部署、Transformer、AI 编程与大厂面试，从入门到生产实践。",
-    "language": "",
-    "topics": [
-      "agent",
-      "large-language-models",
-      "llm",
-      "llm-learning",
-      "llm-tutorial",
-      "rag"
-    ],
-    "stars": 1077,
-    "url": "https://github.com/youngyangyang04/llm-master",
-    "stale_zh": null
-  },
-  {
-    "full_name": "AtomicBot-ai/atomic-agent",
-    "desc": "Atomic Agent is a local-first AI agent. Runs open-weight models on your own machine via llama.cpp.",
-    "language": "TypeScript",
-    "topics": [
-      "agents",
-      "ai-agent",
-      "browser-automation",
-      "cli",
-      "gbnf",
-      "gguf"
-    ],
-    "stars": 2778,
-    "url": "https://github.com/AtomicBot-ai/atomic-agent",
-    "stale_zh": null
-  },
-  {
-    "full_name": "aoci-spec/aoci-code",
-    "desc": "A persistent, Git-versioned map of your whole codebase and database schema that coding agents read before they touch anything. Local-first MCP server + CLI in Go: a governed repository index of code knowledge that gives Claude Code, Codex, Cursor, and opencode long-term context, memory, and code intelligence.",
-    "language": "Go",
-    "topics": [
-      "agent-memory",
-      "agents-md",
-      "ai-coding",
-      "ai-context",
-      "claude-code",
-      "code-indexing"
-    ],
-    "stars": 1062,
-    "url": "https://github.com/aoci-spec/aoci-code",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ApodexAI/FrontierAgent",
-    "desc": "🧩 FrontierAgent, our agent framework, open-sourced alongside it — native command-line TUI, ReAct and Agent Team modes, one command on macOS and Linux, no preinstall, no hard Docker dependency.",
-    "language": "Python",
-    "topics": [
-      "agent-orchestration",
-      "agentic-ai",
-      "agentic-framework",
-      "ai-agents",
-      "harness",
-      "multi-agent"
-    ],
-    "stars": 5096,
-    "url": "https://github.com/ApodexAI/FrontierAgent",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Hacker-Valley-Media/Interceptor",
-    "desc": "Browser automation and computer use for AI agents. One CLI and MCP server for your signed-in browser, native macOS apps, and real iPhones.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "ai-tools",
-      "browser-automation",
-      "browser-extension",
-      "browser-use"
-    ],
-    "stars": 495,
-    "url": "https://github.com/Hacker-Valley-Media/Interceptor",
-    "stale_zh": null
-  },
-  {
-    "full_name": "kaankiziltug/logo-design-skill",
-    "desc": "A comprehensive logo-design skill for Claude, Gemini CLI, Codex and other AI agents: principles, process, SVG craft, testing tools and a 1,400+ logo reference library.",
-    "language": "HTML",
-    "topics": [
-      "agent-skills",
-      "branding",
-      "claude",
-      "claude-skills",
-      "codex",
-      "gemini-cli"
-    ],
-    "stars": 1830,
-    "url": "https://github.com/kaankiziltug/logo-design-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "iannuttall/seo",
-    "desc": "The only SEO skill your agent needs. 70+ SEO audit tools through a local CLI and MCP server, using your own crawl, Search Console, and GA4 data.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-agents",
-      "cli",
-      "google-analytics",
-      "local-first",
-      "mcp",
-      "search-console"
-    ],
-    "stars": 549,
-    "url": "https://github.com/iannuttall/seo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "carnot-tech/consulting-pptx-skill",
-    "desc": "AIにまじなPPTXを作らせるClaude Codeスキル — スライド規約＋62型スライド型カタログ（SlideSpec 36型＋自由記述27パーツ）＋生成パイプライン＋機械チェック",
-    "language": "HTML",
-    "topics": [],
-    "stars": 1013,
-    "url": "https://github.com/carnot-tech/consulting-pptx-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "useagenthq/useagent",
-    "desc": "The open-source AI coworker for your team: agents with their own cloud computer, your tools and context, handing back finished work websites, decks, spreadsheets, reports, PRs. Runs Claude Code, Codex, OpenCode on your subscription.",
-    "language": "TypeScript",
-    "topics": [
-      "agents",
-      "ai",
-      "ai-agents",
-      "ai-coworker",
-      "automation",
-      "autonomous-agents"
-    ],
-    "stars": 380,
-    "url": "https://github.com/useagenthq/useagent",
-    "stale_zh": null
-  },
-  {
-    "full_name": "sno-ai/sno-station",
-    "desc": "Sno Station — your Claude Code and Codex working as one squad on your own machine. Shared encrypted memory, agent-to-agent messaging (Reach), squad skills for handoff and cross-vendor review, and a nightly loop that rewrites the agents' own skills with your approval. Open source, no daemon, no cloud required. Assembled in public.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-communication",
-      "agent-memory",
-      "agentic-ai",
-      "ai-agents",
-      "claude-code",
-      "codex"
-    ],
-    "stars": 424,
-    "url": "https://github.com/sno-ai/sno-station",
-    "stale_zh": null
-  },
-  {
-    "full_name": "okf-memory/okf-agent-memory",
-    "desc": "Git-native persistent memory for AI coding agents. Implements Google OKF v0.2 with sub-300µs in-memory BM25 search, embedded MCP server, and progressive disclosure. Slashes token bloat by 80% with zero external databases or dependencies. Built in pure Go.",
-    "language": "Go",
-    "topics": [
-      "agent-memory",
-      "ai-agents",
-      "bm25",
-      "coding-agents",
-      "developer-tools",
-      "git-native"
-    ],
-    "stars": 750,
-    "url": "https://github.com/okf-memory/okf-agent-memory",
-    "stale_zh": null
-  },
-  {
-    "full_name": "whitecircle/halo",
-    "desc": "Halo is an open-source framework built by White Circle for training large language and multimodal models",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "async-rl",
-      "distributed-training",
-      "fine-tuning",
-      "grpo",
-      "large-language-models"
-    ],
-    "stars": 815,
-    "url": "https://github.com/whitecircle/halo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Jakeschincariol/linkedin-agent-skill",
-    "desc": "Eleven free Claude skills that run a LinkedIn account: posts off 21 hook formulas, comments, replies, profile score, weekly plan, and a humanizer that strips the AI fingerprint and scores the draft before it goes out.",
-    "language": "Python",
-    "topics": [
-      "agent-skills",
-      "ai-humanizer",
-      "claude",
-      "claude-code",
-      "claude-skills",
-      "content-marketing"
-    ],
-    "stars": 1220,
-    "url": "https://github.com/Jakeschincariol/linkedin-agent-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "xberg-io/xberg",
-    "desc": "Polyglot document intelligence with a Rust core: extract text, metadata, images, tables, and structured data from 106 formats across 140 file extensions, plus code intelligence for 371 languages. Fifteen bindings, with CLI, REST API, and MCP server.",
-    "language": "Rust",
-    "topics": [
-      "bun",
-      "csharp",
-      "document-intelligence",
-      "elixir",
-      "ffi",
-      "golang"
-    ],
-    "stars": 9375,
-    "url": "https://github.com/xberg-io/xberg",
-    "stale_zh": "Rust 核心的多語文件解析框架，從 101 種格式抽取文字與結構化資料，涵蓋 371 種語言，附 CLI／MCP"
-  },
-  {
-    "full_name": "danyuchn/asd-ste100-skill",
-    "desc": "ASD-STE100 Simplified Technical English rules, repurposed as a Claude Code skill for rewriting ambiguous agent-facing English.",
-    "language": "Python",
-    "topics": [],
-    "stars": 3505,
-    "url": "https://github.com/danyuchn/asd-ste100-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Louis-CFM/coucou",
-    "desc": "A tiny friend that lives in your notch (macOS) or at the top of your screen (Windows, Linux) and keeps an eye on your coding agents: Claude Code, Codex, Cursor, Gemini CLI, Antigravity and more.",
-    "language": "Swift",
-    "topics": [
-      "ai-agents",
-      "anthropic",
-      "antigravity",
-      "claude",
-      "claude-code",
-      "codex"
-    ],
-    "stars": 3404,
-    "url": "https://github.com/Louis-CFM/coucou",
-    "stale_zh": null
-  },
-  {
-    "full_name": "JordyZomer/lemmalog",
-    "desc": "A Datalog engine for LLM agent memory: stratified rules, provenance-tracked facts, incremental derivation, and an MCP server that lets your harness use it as a shared brain.",
-    "language": "Rust",
-    "topics": [
-      "agent-memory",
-      "datalog",
-      "knowledge-graph",
-      "llm",
-      "llm-agents",
-      "mcp"
-    ],
-    "stars": 328,
-    "url": "https://github.com/JordyZomer/lemmalog",
-    "stale_zh": null
-  },
-  {
-    "full_name": "opendataloader-project/opendataloader-pdf",
-    "desc": "PDF Parser for AI-ready data. Automate PDF accessibility. Open-source.",
-    "language": "Java",
-    "topics": [
-      "a11y",
-      "accessibility",
-      "ai",
-      "bounding-box",
-      "document-parsing",
-      "eaa"
-    ],
-    "stars": 29484,
-    "url": "https://github.com/opendataloader-project/opendataloader-pdf",
-    "stale_zh": null
-  },
-  {
-    "full_name": "github/github-mcp-server",
-    "desc": "GitHub's official MCP Server",
-    "language": "Go",
-    "topics": [
-      "github",
-      "mcp",
-      "mcp-server"
-    ],
-    "stars": 33363,
-    "url": "https://github.com/github/github-mcp-server",
-    "stale_zh": null
-  },
-  {
-    "full_name": "calmrocks/ai-engineer-notebooks",
-    "desc": "Hands-on, framework-free Colab notebooks for the AI Engineer / Forward Deployed Engineer (FDE) skill set — model APIs, structured output, tool calling, RAG, evals-as-the-spine, agents (loop from scratch, tool design, guardrails, MCP, Skills), fine-tuning vs LoRA, prompt-injection/security, LLMOps, and customer craft. Runs on the free Groq API.",
-    "language": "Jupyter Notebook",
-    "topics": [
-      "agents",
-      "ai-engineer",
-      "ai-engineering",
-      "colab",
-      "evals",
-      "fine-tuning"
-    ],
-    "stars": 684,
-    "url": "https://github.com/calmrocks/ai-engineer-notebooks",
-    "stale_zh": null
-  },
-  {
-    "full_name": "milvus-io/pymilvus",
-    "desc": "Python SDK for Milvus Vector Database",
-    "language": "Python",
-    "topics": [
-      "anns",
-      "faiss",
-      "faiss-vector-database",
-      "milvus",
-      "milvus-lite",
-      "milvus-sdk"
-    ],
-    "stars": 1413,
-    "url": "https://github.com/milvus-io/pymilvus",
-    "stale_zh": null
-  },
-  {
-    "full_name": "LibreChat-AI/LibreChat",
-    "desc": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter, Vertex AI, Gemini, Artifacts, AI model switching, message search, Code Interpreter, langchain, DALL-E-3, OpenAPI Actions, Functions, Secure Multi-User Auth, Presets, open-source for self-hosting. Active",
-    "language": "TypeScript",
-    "topics": [
-      "ai",
-      "anthropic",
-      "artifacts",
-      "aws",
-      "azure",
-      "chatgpt"
-    ],
-    "stars": 45265,
-    "url": "https://github.com/LibreChat-AI/LibreChat",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Pan-Chera/Multi-Agent-CAD",
-    "desc": "MAC (Multi-Agent CAD): A decoupled multi-agent framework for text-to-CAD generation via constrained test-time compute",
-    "language": "Python",
-    "topics": [
-      "3d-modeling",
-      "3d-printing",
-      "agent-pipeline",
-      "aider",
-      "assembly",
-      "build123d"
-    ],
-    "stars": 1018,
-    "url": "https://github.com/Pan-Chera/Multi-Agent-CAD",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Zyrexnn/Cybermes",
-    "desc": "Autonomous Offensive Security, Bug Bounty & Red Teaming Agent Framework powered by Hermes Agent, specialized reasoning skills, and multi-model LLM orchestration.",
-    "language": "Python",
-    "topics": [
-      "ai-agent",
-      "appsec",
-      "bug-bounty",
-      "cvss-v3",
-      "cybersecurity",
-      "devsecops"
-    ],
-    "stars": 918,
-    "url": "https://github.com/Zyrexnn/Cybermes",
-    "stale_zh": null
-  },
-  {
-    "full_name": "sansan0/TrendRadar",
-    "desc": "⭐AI-driven public opinion & trend monitor with multi-platform aggregation, RSS, and smart alerts.🎯 告别信息过载，你的 AI 舆情监控助手与热点筛选工具！聚合多平台热点 +  RSS 订阅，支持关键词精准筛选。AI 智能筛选新闻 + AI 翻译 +  AI 分析简报直推手机，也支持接入 MCP 架构，赋能 AI 自然语言对话分析、情感洞察与趋势预测等。支持 Docker ，数据本地/云端自持。集成微信/飞书/钉钉/Telegram/邮件/ntfy/bark/slack 等渠道智能推送。",
-    "language": "Python",
-    "topics": [
-      "data-analysis",
-      "python",
-      "trending-topics",
-      "news",
-      "hot-news",
-      "docker"
-    ],
-    "stars": 62671,
-    "url": "https://github.com/sansan0/TrendRadar",
-    "stale_zh": null
-  },
-  {
-    "full_name": "modelscope/ms-cookbook",
-    "desc": "魔搭紫皮书｜ModelScope Cookbook：面向开发者的开源模型应用实战指南，覆盖模型选型、推理、微调、评测、RAG、Agent 与 AIGC，从跑通第一个模型到构建实际应用。",
-    "language": "HTML",
-    "topics": [
-      "ai-agents",
-      "cookbook",
-      "diffusion-models",
-      "fine-tuning",
-      "generative-ai",
-      "llm"
-    ],
-    "stars": 412,
-    "url": "https://github.com/modelscope/ms-cookbook",
-    "stale_zh": null
-  },
-  {
-    "full_name": "microsoft/graphrag",
-    "desc": "A modular graph-based Retrieval-Augmented Generation (RAG) system",
-    "language": "Python",
-    "topics": [
-      "gpt",
-      "gpt-4",
-      "gpt4",
-      "graphrag",
-      "llm",
-      "llms"
-    ],
-    "stars": 36218,
-    "url": "https://github.com/microsoft/graphrag",
-    "stale_zh": null
-  },
-  {
-    "full_name": "MODSetter/SurfSense",
-    "desc": "Air gapped, privacy focused open source NotebookLM alternative. Join our Discord: https://discord.gg/ejRNvftDp9",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "rag",
-      "notebooklm",
-      "agent",
-      "agents",
-      "notebooklm-alternative"
-    ],
-    "stars": 16322,
-    "url": "https://github.com/MODSetter/SurfSense",
-    "stale_zh": null
-  },
-  {
-    "full_name": "gufo-org/gufo",
-    "desc": "Strix Halo inference engine. Qwen Flash Next Q4_K_XL: 1,628.52pp, 59.41tg single user, 157.22 tok/s 8 users; Qwen27B Q4_K_XL: 656.33pp, 70.56tg tok/s single user with DFlash2",
-    "language": "C++",
-    "topics": [
-      "amd",
-      "gfx1151",
-      "llm",
-      "ryzen-ai",
-      "strix-halo"
-    ],
-    "stars": 527,
-    "url": "https://github.com/gufo-org/gufo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "anthropics/claude-code",
-    "desc": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands.",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 149399,
-    "url": "https://github.com/anthropics/claude-code",
-    "stale_zh": null
-  },
-  {
-    "full_name": "feitangyuan/onetake",
-    "desc": "Motion films that never cut to the next slide: every beat grows out of the one before, one continuous camera, continuity measured by an oracle. A Claude Agent Skill for product launch films and feature demos.",
-    "language": "Python",
     "topics": [
       "agent-skill",
-      "animation",
-      "canvas",
-      "claude-skill",
-      "launch-video",
-      "motion-graphics"
-    ],
-    "stars": 1493,
-    "url": "https://github.com/feitangyuan/onetake",
-    "stale_zh": null
-  },
-  {
-    "full_name": "cloudflare/security-audit-skill",
-    "desc": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings",
-    "language": "JavaScript",
-    "topics": [],
-    "stars": 24135,
-    "url": "https://github.com/cloudflare/security-audit-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "20000419/fauxnix",
-    "desc": "Run Linux-style commands on Windows via deterministic bash→PowerShell translation. No VM, no WSL. MCP server + CLI built for AI agents (Claude Code, Codex, OpenCode...). GNU-style output, bash-style errors, UTF-8/GBK handled.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-agents",
-      "bash",
+      "ai-agent",
       "claude-code",
       "cli",
-      "codex",
-      "coreutils"
+      "diagram",
+      "explainer"
     ],
-    "stars": 717,
-    "url": "https://github.com/20000419/fauxnix",
+    "stars": 1471,
+    "url": "https://github.com/QingYunA/answer-me-with-html",
     "stale_zh": null
   },
   {
-    "full_name": "Ryze-AI-Adgent/open-seo-mcp-skills",
-    "desc": "Free SEO MCP server + open-source SEO and GEO skills for Claude: keyword research, rank tracking, audits, backlinks, AI visibility on your real GSC/GA4/ads data. claude mcp add ryze --transport http https://connector.get-ryze.ai/mcp",
-    "language": "Shell",
+    "full_name": "omnirush-ai/omnirush-gui",
+    "desc": "A desktop coding agent with free access to frontier models.",
+    "language": "TypeScript",
+    "topics": [],
+    "stars": 1744,
+    "url": "https://github.com/omnirush-ai/omnirush-gui",
+    "stale_zh": null
+  },
+  {
+    "full_name": "lemomo-ai/lemo-opuscar",
+    "desc": "Claude Code skill for short films with no video model: 43 film styles, each a style prompt plus a demo film made entirely in code by Claude Opus 5.5 (incl. OPUSCAR 98). By Lemomo. | Opus5.5 x 43 种影片风格：风格提示词 + 纯代码样片 + 导演与技术指南",
+    "language": "JavaScript",
     "topics": [
-      "ai-seo",
-      "ai-visibility",
-      "backlinks",
+      "agent-skills",
+      "ai-agents",
+      "ai-short-film",
+      "ai-video",
+      "animation",
+      "canvas"
+    ],
+    "stars": 1169,
+    "url": "https://github.com/lemomo-ai/lemo-opuscar",
+    "stale_zh": null
+  },
+  {
+    "full_name": "stas00/ml-engineering",
+    "desc": "Machine Learning Engineering Open Book",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "debugging",
+      "gpus",
+      "inference",
+      "large-language-models",
+      "llm"
+    ],
+    "stars": 19269,
+    "url": "https://github.com/stas00/ml-engineering",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Kevin-Liu-01/Claude-of-Tanks",
+    "desc": "A World of Tanks-style armored combat simulator built directly with Three.js and Vite: 220 vehicles, 33 destructible battlefields, and 13 modes, with plate-level armor, ballistics, modules, spotting, and physics. Play in your browser on desktop or mobile. Built end-to-end by a multi-agent Claude/Codex pipeline.",
+    "language": "TypeScript",
+    "topics": [
+      "3d-game",
+      "browser-game",
       "claude",
+      "game",
+      "gamedev",
+      "javascript"
+    ],
+    "stars": 448,
+    "url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks",
+    "stale_zh": null
+  },
+  {
+    "full_name": "nirholas/XActions",
+    "desc": "⚡ The Complete X/Twitter Automation Toolkit — Scrapers, MCP server for AI agents (Claude/GPT), CLI, browser scripts. No API fees. Open source. Unfollow people who don't follow back. Monitor real-time analytics. Auto follow, like, comment, scrape, without API. Follow Bot. Like bot. Grow your account automatically.",
+    "language": "HTML",
+    "topics": [
+      "ai-agent",
+      "automation",
+      "claude",
+      "gpt",
+      "mass-unfollow",
+      "mcp"
+    ],
+    "stars": 570,
+    "url": "https://github.com/nirholas/XActions",
+    "stale_zh": null
+  },
+  {
+    "full_name": "KlaatAI/klaatcode",
+    "desc": "Open-source AI coding agent for the terminal. Claude Code-grade accuracy with smart model routing — uses the right AI model for each task, cutting costs 10x. Supports Claude, GPT, Gemini, DeepSeek & more.",
+    "language": "TypeScript",
+    "topics": [
+      "agentic-ai",
+      "ai",
+      "ai-agents",
+      "ai-coding",
+      "ai-model",
+      "ai-tools"
+    ],
+    "stars": 359,
+    "url": "https://github.com/KlaatAI/klaatcode",
+    "stale_zh": null
+  },
+  {
+    "full_name": "sandbaseai/sandbase-harness",
+    "desc": "Local-first, self-hosted AI agent runtime and MCP bridge with sandboxed sessions, memory, credentials, audit/replay, and a local Console.",
+    "language": "TypeScript",
+    "topics": [
+      "agent-harness",
+      "agent-observability",
+      "agent-plugin",
+      "agent-runtime",
+      "agent-sandbox",
+      "ai-agents"
+    ],
+    "stars": 683,
+    "url": "https://github.com/sandbaseai/sandbase-harness",
+    "stale_zh": null
+  },
+  {
+    "full_name": "owainlewis/machinist",
+    "desc": "Open source software factory infrastructure for advanced AI coding workflows",
+    "language": "Go",
+    "topics": [
+      "ai-agents",
+      "automation",
       "claude-code",
+      "codex",
+      "coding-agents",
+      "developer-tools"
+    ],
+    "stars": 487,
+    "url": "https://github.com/owainlewis/machinist",
+    "stale_zh": null
+  },
+  {
+    "full_name": "deepset-ai/haystack",
+    "desc": "Open-source AI orchestration framework for building context-engineered, production-ready LLM applications. Design modular pipelines and agent workflows with explicit control over retrieval, routing, memory, and generation. Built for scalable agents, RAG, multimodal applications, semantic search, and conversational systems.",
+    "language": "Python",
+    "topics": [
+      "agent-framework",
+      "agentic-ai",
+      "agentic-rag",
+      "agents",
+      "ai",
+      "ai-agents"
+    ],
+    "stars": 26669,
+    "url": "https://github.com/deepset-ai/haystack",
+    "stale_zh": null
+  },
+  {
+    "full_name": "OpenByteInc/QuantDinger",
+    "desc": "Open-source AI Trading OS, agent trading, and vibe trading, with Jev System One integration. Research, build Python strategies, backtest, and paper/live trade across crypto, stocks, and forex. Launch your own multi-tenant trading SaaS with built-in user management, billing, payments, and settlement.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "alpaca",
+      "backtesting",
+      "binance",
+      "crypto",
+      "exchange"
+    ],
+    "stars": 12470,
+    "url": "https://github.com/OpenByteInc/QuantDinger",
+    "stale_zh": null
+  },
+  {
+    "full_name": "redis/redis",
+    "desc": "For developers, who are building real-time data-driven applications, Redis is the preferred, fastest, and most feature-rich cache, data structure server, and document and vector query engine.",
+    "language": "C",
+    "topics": [
+      "cache",
+      "caching",
+      "database",
+      "distributed-systems",
+      "in-memory",
+      "in-memory-database"
+    ],
+    "stars": 76604,
+    "url": "https://github.com/redis/redis",
+    "stale_zh": null
+  },
+  {
+    "full_name": "modelcontextprotocol/python-sdk",
+    "desc": "The official Python SDK for Model Context Protocol servers and clients",
+    "language": "Python",
+    "topics": [
+      "mcp",
+      "mcp-client",
+      "mcp-server",
+      "python"
+    ],
+    "stars": 24495,
+    "url": "https://github.com/modelcontextprotocol/python-sdk",
+    "stale_zh": null
+  },
+  {
+    "full_name": "panxunying/ai-coding-welfare",
+    "desc": "AI Coding 福利站导航：免费白嫖 Claude Code / Codex 的中转站与公益站合集，含额度、模型、价格自动更新与一键配置脚本",
+    "language": "JavaScript",
+    "topics": [
+      "ai-coding",
+      "anthropic",
+      "api-proxy",
+      "claude-code",
+      "codex",
+      "free-api"
+    ],
+    "stars": 948,
+    "url": "https://github.com/panxunying/ai-coding-welfare",
+    "stale_zh": null
+  },
+  {
+    "full_name": "farion1231/cc-switch",
+    "desc": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Grok Build & Hermes Agent. Only official website: ccswitch.io",
+    "language": "Rust",
+    "topics": [
+      "ai-tools",
+      "claude-code",
+      "codex",
+      "desktop-app",
+      "grok",
+      "grokbuild"
+    ],
+    "stars": 140266,
+    "url": "https://github.com/farion1231/cc-switch",
+    "stale_zh": null
+  },
+  {
+    "full_name": "alexgreensh/attention-span",
+    "desc": "Make your agents talk human. ADHD-friendly output styles for Claude Code, Codex, and others. So you can pay attention, not tokens.",
+    "language": "Python",
+    "topics": [
+      "adhd-friendly",
+      "ai-slop-reduction",
+      "anti-slop",
+      "claude-code",
+      "claude-plugin",
       "claude-skills"
     ],
-    "stars": 3653,
-    "url": "https://github.com/Ryze-AI-Adgent/open-seo-mcp-skills",
+    "stars": 1281,
+    "url": "https://github.com/alexgreensh/attention-span",
+    "stale_zh": null
+  },
+  {
+    "full_name": "undefined-ui/second-brain-os",
+    "desc": "An AI second brain that maintains itself. Full guide, starter vault, agent skills and scripts for a self-organizing knowledge base in Claude Code and Obsidian.",
+    "language": "HTML",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "claude",
+      "claude-code",
+      "claude-skills",
+      "knowledge-graph"
+    ],
+    "stars": 943,
+    "url": "https://github.com/undefined-ui/second-brain-os",
+    "stale_zh": null
+  },
+  {
+    "full_name": "garrytan/gstack",
+    "desc": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
+    "language": "TypeScript",
+    "topics": [],
+    "stars": 135358,
+    "url": "https://github.com/garrytan/gstack",
+    "stale_zh": null
+  },
+  {
+    "full_name": "herdrdev/herdr",
+    "desc": "the runtime your coding agents live on",
+    "language": "Rust",
+    "topics": [
+      "agent",
+      "agent-orchestration",
+      "ai",
+      "ai-agents",
+      "claude-code",
+      "cli"
+    ],
+    "stars": 42489,
+    "url": "https://github.com/herdrdev/herdr",
     "stale_zh": null
   }
 ]
