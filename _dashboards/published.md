@@ -1,6 +1,16 @@
-# 已發布事件（390）
+# 已發布事件（394）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-05
+- **[[Events/evt-2026-10-05-312d0f|v0.31.0]]** — vLLM · infra · conf 73 · heat 未量測
+  vLLM 發布 v0.31.0，717 個 commit、307 位貢獻者，亮點是 DeepSeek-V4.1-Flash 的效能優化。
+- **[[Events/evt-2026-10-05-793d3b|From Scan to Treatment Plan, AI Helps Close Breast Cancer’s Deadliest Gaps]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 官方部落格介紹乳癌篩檢到治療規劃的 AI 新創，切入點是篩檢率低與放射科人力吃緊。
+- **[[Events/evt-2026-10-05-a7a31a|Building advertising for the way people use AI]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 宣布 ChatGPT 推出新的視覺化廣告格式，並擴充成效衡量、歸因合作夥伴與品牌適用性工具。
+- **[[Events/evt-2026-10-05-dbbb76|Our approach to EU text provenance rules]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發表〈Our approach to EU text provenance rules〉，談它對歐盟文字來源標示規則的做法；我們依授權限制只給標題與連結，不轉述內文。
 
 ## 2026-10-02
 - **[[Events/evt-2026-10-02-7699ed|AutoSynthData: Generating Training Data for Enterprise Agents]]** — ServiceNow · research · conf 73 · heat 未量測

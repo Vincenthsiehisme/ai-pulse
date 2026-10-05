@@ -1,19 +1,19 @@
 [
   {
-    "id": "evt-2026-10-03-623369",
-    "path": "evt-2026-10-03-623369.md",
-    "title": "The Agent Said It Was Done. The Database Disagreed.",
+    "id": "evt-2026-10-05-312d0f",
+    "path": "evt-2026-10-05-312d0f.md",
+    "title": "v0.31.0",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "Hugging Face",
+    "company_guess": "DeepSeek",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/microsoft/thinkingbox",
-        "title": "The Agent Said It Was Done. The Database Disagreed.",
-        "summary": "A Blog post by Microsoft on Hugging Face",
+        "source_id": "src-gh-vllm-releases",
+        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
+        "title": "v0.31.0",
+        "summary": "# v0.31.0\r\n\r\n## Highlights\r\n\r\nThis release features 717 commits from 307 contributors (96 new)!\r\n\r\n* **DeepSeek-V4.1-Flash performance**: FlashMLA mega attention with the V4.1 NVFP4 compressed KV cache is now the SM100 default (#56935); DeepGEMM sparse MQA logits for the indexer (#56254) and Mega-Ga",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -27,6 +27,107 @@
       },
       "needs_source_link": false,
       "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-05-793d3b",
+    "path": "evt-2026-10-05-793d3b.md",
+    "title": "From Scan to Treatment Plan, AI Helps Close Breast Cancer’s Deadliest Gaps",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/ai-breast-cancer-startups/",
+        "title": "From Scan to Treatment Plan, AI Helps Close Breast Cancer’s Deadliest Gaps",
+        "summary": "Breast cancer is the most commonly diagnosed cancer among American women — yet the gaps in care are wide. A majority of women over age 40 skip the recommended annual screening. Radiologists are reading more mammograms with fewer colleagues. And when a diagnosis arrives, the tests that inform treatme",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-05-a7a31a",
+    "path": "evt-2026-10-05-a7a31a.md",
+    "title": "Building advertising for the way people use AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/new-chatgpt-ads-format-and-measurement",
+        "title": "Building advertising for the way people use AI",
+        "summary": "OpenAI introduces a new visual ad format in ChatGPT and expands measurement tools, attribution partnerships, and brand suitability for advertisers.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-05-dbbb76",
+    "path": "evt-2026-10-05-dbbb76.md",
+    "title": "Our approach to EU text provenance rules",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/eu-text-provenance",
+        "title": "Our approach to EU text provenance rules",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/eu-text-provenance/",
+        "title": "Our approach to EU text provenance rules",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 2
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
     }
   }
 ]

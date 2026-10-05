@@ -164,6 +164,16 @@
     "src_hash": "efce92ae3e5e",
     "zh": "用穴居人口吻跟 coding agent 對話，這個爆紅 skill + proxy 幫忙省下 65% token"
   },
+  "Kevin-Liu-01/Claude-of-Tanks": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "a8dc9ced5441",
+    "zh": "Three.js 做的《戰車世界》風格坦克模擬器，瀏覽器可玩，多 agent 流程完成"
+  },
+  "KlaatAI/klaatcode": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "8bb6a2118b6e",
+    "zh": "開源終端機 coding agent，依任務選模型，宣稱成本降 10 倍"
+  },
   "LMCache/LMCache": {
     "at": "2026-08-21T19:12:31+00:00",
     "src_hash": "4426ad662c17",
@@ -224,6 +234,11 @@
     "src_hash": "6eb4d1ab3a37",
     "zh": "會跟著你一起成長的 agent"
   },
+  "OpenByteInc/QuantDinger": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "b012ce4e0828",
+    "zh": "開源 AI 交易 OS，可寫 Python 策略、回測，並在加密貨幣、股票、外匯做模擬或實盤交易"
+  },
   "OpenHands/OpenHands": {
     "at": "2026-09-08T19:19:22+00:00",
     "src_hash": "270caa459fbb",
@@ -263,6 +278,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "57256537e19c",
     "zh": "開源桌面 AI agent，以昔漣為基礎開發"
+  },
+  "QingYunA/answer-me-with-html": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "d2d3746fdb42",
+    "zh": "Agent skill，讓 AI 用一頁可讀的 HTML 回答複雜問題"
   },
   "Ryze-AI-Adgent/open-seo-mcp-skills": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -368,6 +388,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "e8f3d861fbb7",
     "zh": "建構並運行你看得見、看得懂、信得過的 agent"
+  },
+  "alexgreensh/attention-span": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "94cea6919d81",
+    "zh": "讓 agent 講人話：給 Claude Code、Codex 等用的 ADHD 友善輸出風格，省 token 也好讀"
   },
   "algorithmicsuperintelligence/optillm": {
     "at": "2026-09-18T19:12:51+00:00",
@@ -509,6 +534,11 @@
     "src_hash": "ab6b0f1479f6",
     "zh": "號稱全球第一個開源的企業 world model"
   },
+  "deepset-ai/haystack": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "e90cf88e0620",
+    "zh": "開源 AI 編排框架，建構 LLM 應用，可明確控制檢索、路由、記憶與生成"
+  },
   "diegosouzapw/OmniRoute": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "7029eb063ac3",
@@ -544,6 +574,11 @@
     "src_hash": "2557f3bff226",
     "zh": "提供網頁搜尋與爬取的 Exa MCP"
   },
+  "farion1231/cc-switch": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "6f43b1762022",
+    "zh": "跨平台桌面整合助手，支援 Claude Code、Codex、OpenCode 等"
+  },
   "feitangyuan/onetake": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "4d138d86591c",
@@ -553,6 +588,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "97a2ec229740",
     "zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
+  },
+  "garrytan/gstack": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "f3707131a421",
+    "zh": "Garry Tan 的 Claude Code 設定：23 個工具，分別扮演 CEO 到 QA 等角色"
   },
   "getzep/graphiti": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -593,6 +633,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "2b0a1bd8518e",
     "zh": "在送進 LLM 前壓縮工具輸出、log、檔案與 RAG 片段：JSON 省 60–95% token、答案不變"
+  },
+  "herdrdev/herdr": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "3fd22bfaca5f",
+    "zh": "給 coding agent 長駐的 runtime"
   },
   "heygen-com/hyperframes": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -694,6 +739,11 @@
     "src_hash": "caea6695fbfe",
     "zh": "在同一個工作區裡建 Agentic workflow 與 RAG pipeline，可部署雲端、VPC 或自架環境"
   },
+  "lemomo-ai/lemo-opuscar": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "ca2ac55da0ad",
+    "zh": "Claude Code skill：不靠影片模型做短片，43 種影片風格，各附風格提示詞與純程式碼樣片"
+  },
   "lightonai/next-plaid": {
     "at": "2026-08-14T19:13:10+00:00",
     "src_hash": "064db50fe87f",
@@ -784,6 +834,11 @@
     "src_hash": "cccdd0d6e025",
     "zh": "做行動裝置自動化與抓取的 MCP server，支援 iOS、Android、模擬器與實機"
   },
+  "modelcontextprotocol/python-sdk": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "ad8a56084662",
+    "zh": "Model Context Protocol 官方 Python SDK，可寫 server 與 client"
+  },
   "modelscope/ms-cookbook": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "2dfffa61ccd5",
@@ -834,6 +889,11 @@
     "src_hash": "fd627fa67712",
     "zh": "開源的 Claude Design 替代品，本機桌面 app，讓 coding agent 做原型、網頁、簡報與影片"
   },
+  "nirholas/XActions": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "89acba19899d",
+    "zh": "X/Twitter 自動化工具包：爬取、MCP server、CLI、瀏覽器腳本，不需 API"
+  },
   "obra/superpowers": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "406416e89aff",
@@ -858,6 +918,11 @@
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "a8a230ac5d63",
     "zh": "開源 AI agent 框架，統一調度 Claude Code、Codex 等，換 harness 不重寫"
+  },
+  "omnirush-ai/omnirush-gui": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "74d2150402c3",
+    "zh": "桌面版 coding agent，可免費使用前沿模型"
   },
   "open-slide/open-slide": {
     "at": "2026-09-26T19:13:11+00:00",
@@ -888,6 +953,16 @@
     "at": "2026-07-31T19:20:39+00:00",
     "src_hash": "3bd04ccdeb4b",
     "zh": "分散式低延遲 Graph+Vector 資料庫，亞毫秒 HNSW 搜尋與圖遍歷，相容 Neo4j／qdrant"
+  },
+  "owainlewis/machinist": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "2291969b8595",
+    "zh": "開源軟體工廠基礎設施，用於進階 AI coding 工作流"
+  },
+  "panxunying/ai-coding-welfare": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "e02e450c3ce1",
+    "zh": "Claude Code / Codex 的中轉站與公益站導航，含額度、價格與一鍵設定腳本"
   },
   "paradedb/paradedb": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -934,6 +1009,11 @@
     "src_hash": "4755f26ada89",
     "zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
   },
+  "redis/redis": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "4b54176b4cc7",
+    "zh": "快取、資料結構伺服器，也是文件與向量查詢引擎，給即時資料應用使用"
+  },
   "rehan-remade/universal-modder": {
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "b49c140fb240",
@@ -968,6 +1048,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "2db2cd973e1b",
     "zh": "agent meta-harness：部署多代理群、協調自動化工作流，整合 Claude Code、Codex 等工具"
+  },
+  "sandbaseai/sandbase-harness": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "59f52070d5a6",
+    "zh": "本機優先、可自架的 AI agent runtime 與 MCP bridge，含沙箱與稽核重播"
   },
   "sandbox-quantum/switch": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -1029,6 +1114,11 @@
     "src_hash": "047f56869216",
     "zh": "Orca 是管理多個平行 agent 的整合開發環境，可用自己的訂閱執行任何程式 agent，支援桌面、行動與遠端"
   },
+  "stas00/ml-engineering": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "3f95e8803c1c",
+    "zh": "機器學習工程開放書"
+  },
   "superlinked/sie": {
     "at": "2026-08-24T19:12:53+00:00",
     "src_hash": "b59774c79b1e",
@@ -1068,6 +1158,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "a47f6be22b69",
     "zh": "Crawl4AI：對 LLM 友善的開源網頁爬蟲與抓取工具"
+  },
+  "undefined-ui/second-brain-os": {
+    "at": "2026-10-05T22:18:12+00:00",
+    "src_hash": "4c5efa15dadc",
+    "zh": "會自己整理的 AI 第二大腦：Claude Code 與 Obsidian 的指南、vault 與腳本"
   },
   "unslothai/unsloth": {
     "at": "2026-10-03T18:55:46+00:00",
