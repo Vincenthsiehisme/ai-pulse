@@ -29,6 +29,11 @@
     "src_hash": "47e983421d6e",
     "zh": "幫你找出在自己硬體上跑得動、表現最好的本地 LLM，用實測 benchmark 排名而非參數量，一行指令就能跑"
   },
+  "Anionex/agent-vision-toolkit": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "8a93c0135fe8",
+    "zh": "讓純文字模型也能看圖的視覺工具箱，支援多圖理解、圖片問答、UI 還原與 GUI 自動化"
+  },
   "ApodexAI/FrontierAgent": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "a0b40d979dcf",
@@ -134,6 +139,11 @@
     "src_hash": "5f700f2f4caa",
     "zh": "在標準 llama.cpp 上跑超過記憶體大小的 MoE 模型，12 GB 的手機也能跑前沿規模 MoE，無損"
   },
+  "HexRaysSA/ida-mcp": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "6136b0bf91a0",
+    "zh": "Hex-Rays 官方的 IDA MCP Server"
+  },
   "Human-Agent-Society/reef": {
     "at": "2026-09-26T19:13:11+00:00",
     "src_hash": "c88311d60fd8",
@@ -218,6 +228,11 @@
     "at": "2026-08-10T00:35:39+00:00",
     "src_hash": "0db9ebf38607",
     "zh": "PraisonAI：5 行程式碼部署自主 AI agent 團隊，會研究、規劃、寫程式、執行任務，支援 100+ LLM"
+  },
+  "Mintplex-Labs/anything-llm": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "99deb4ae38eb",
+    "zh": "AnythingLLM：以本機優先為主的完整 agent 體驗，把 AI 握在自己手上"
   },
   "NVIDIA/Model-Optimizer": {
     "at": "2026-07-31T19:20:39+00:00",
@@ -314,6 +329,11 @@
     "src_hash": "0cb7dedab815",
     "zh": "開源 LLM 知識平台：把原始文件轉成可查詢的 RAG、自主推理 agent 與自我維護的 Wiki"
   },
+  "TencentCloud/Octop": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "428732ee42ff",
+    "zh": "可自行架設的 AI 助理，支援多使用者與多 agent"
+  },
   "TencentCloud/TencentDB-Agent-Memory": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "1423652fa85e",
@@ -369,6 +389,11 @@
     "src_hash": "f28264181fbb",
     "zh": "給 AI coding agent 用的生產級工程 skills 集"
   },
+  "aerovato/operator-memory": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "5f4c26764f1d",
+    "zh": "給 coding agent 用、會自我改進的 context 引擎"
+  },
   "affaan-m/ECC": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "ac439f9c8bf6",
@@ -408,6 +433,11 @@
     "at": "2026-09-03T19:13:59+00:00",
     "src_hash": "fb9576c6c0bd",
     "zh": "輕量、極快的 in-process 向量資料庫"
+  },
+  "alikon-art/DeterminFlow": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "c3a8335eb3dc",
+    "zh": "面向生產環境的 AI 工作流 runtime，可開發、驗證、復原複雜工作流並穩定交付成服務"
   },
   "angusdevgo/Seep-Reverse-Lab": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -494,10 +524,20 @@
     "src_hash": "50ca2c25cd0f",
     "zh": "讓 AI 產出 PPTX 的 Claude Code skill，含投影片規範、62 種版型目錄與機器檢查"
   },
+  "cathrynlavery/diagram-design": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "69f1daed9a17",
+    "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，42 種圖型，純 HTML＋SVG"
+  },
   "cheahjs/free-llm-api-resources": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "b39be18886ec",
     "zh": "一份可透過 API 取用的免費 LLM 推論資源清單"
+  },
+  "chengyi-ai/native-subtitle-quote-image": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "672d1ce1af70",
+    "zh": "保留影片內嵌字幕、精準取幀，生成 3:4 社群長圖的 Agent Skill"
   },
   "clavia-labs/tardigrade": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -549,6 +589,11 @@
     "src_hash": "08aae20dce2c",
     "zh": "讓 Gemma 4 26B-A4B 在任何 M 系列 MacBook 上，用約 2 GB 記憶體跑推論"
   },
+  "duty1g/x64dbg-mcp-server": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "b2324629d8cc",
+    "zh": "x64dbg 的原生 MCP 外掛，用 Zig 寫成，讓 AI 助理透過 HTTP 下中斷點、單步、讀記憶體"
+  },
   "dzhng/jevgrep": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "1d7037235e0d",
@@ -594,6 +639,11 @@
     "src_hash": "f3707131a421",
     "zh": "Garry Tan 的 Claude Code 設定：23 個工具，分別扮演 CEO 到 QA 等角色"
   },
+  "genkit-ai/genkit": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "9c35e14e61c4",
+    "zh": "支援 JavaScript、Go、Dart、Python 的開源 agent 應用框架，Google 自家正式環境在用"
+  },
   "getzep/graphiti": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "d968ab43987a",
@@ -623,6 +673,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "7d919085df67",
     "zh": "Strix Halo 的推論引擎，附 Qwen 模型的實測 token 速度"
+  },
+  "hardenrun/aif": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "787cc97652cc",
+    "zh": "給 coding agent 與個人 agent 用的裝置端防火牆"
   },
   "harry0703/MoneyPrinterTurbo": {
     "at": "2026-07-29T19:13:52+00:00",
@@ -894,6 +949,11 @@
     "src_hash": "89acba19899d",
     "zh": "X/Twitter 自動化工具包：爬取、MCP server、CLI、瀏覽器腳本，不需 API"
   },
+  "nykooi1/vibe-wise": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "cbf424f5deef",
+    "zh": "Claude Code 外掛，讓你在 AI 寫程式的同時學會怎麼建構"
+  },
   "obra/superpowers": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "406416e89aff",
@@ -998,6 +1058,11 @@
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "041ad980eaa1",
     "zh": "Python 的 AI 寫法：agent、即時語音、圖像生成、embedding，支援各模型，全程型別化"
+  },
+  "qybaihe/mu": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "92e124b0f584",
+    "zh": "先想再做的 coding agent：小而快的裁判處理例行判斷，大模型負責實作"
   },
   "rasbt/LLMs-from-scratch": {
     "at": "2026-08-10T00:35:39+00:00",
@@ -1184,6 +1249,11 @@
     "src_hash": "9ca67cf52b52",
     "zh": "Hindsight：會學習的 agent 記憶系統"
   },
+  "vibheksoni/stealth-browser-mcp": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "9f72bc1e0b67",
+    "zh": "透過 MCP 與 Chrome DevTools Protocol 供 AI agent 使用的隱匿瀏覽器自動化"
+  },
   "virgiliojr94/book-to-skill": {
     "at": "2026-08-28T19:24:01+00:00",
     "src_hash": "df7edf5152c8",
@@ -1259,9 +1329,19 @@
     "src_hash": "d416d35139b4",
     "zh": "原生的控制平面，統一管理 Claude Code、Codex、Cursor、Devin 等 coding agent"
   },
+  "zilliztech/VectorDBBench": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "f46a7e0bdfc2",
+    "zh": "向量資料庫的效能評測工具"
+  },
   "zj-unicom-ai/UniEmployee": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "e34b53043674",
     "zh": "企業用的數位員工建構與運行平台，把專業員工的經驗、流程與判斷標準固化成可配置、可審批、可觀測的 AI 數位員工"
+  },
+  "zzzz7788990213-ops/EvoVLM": {
+    "at": "2026-10-06T20:41:13+00:00",
+    "src_hash": "ce1336c823ec",
+    "zh": "用 LLM 引導的演化搜尋，找出準確又省資源的視覺語言模型推論程式"
   }
 }

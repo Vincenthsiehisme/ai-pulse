@@ -1,6 +1,20 @@
-# 已發布事件（394）
+# 已發布事件（400）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-06
+- **[[Events/evt-2026-10-06-0521a3|Cyber Verification Program]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布「Cyber Verification Program」，細節見原文。
+- **[[Events/evt-2026-10-06-18e48e|Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance]]** — Technology Innovation Institute · model-capability · conf 73 · heat 未量測
+  阿布達比 TII 在 Hugging Face 發表 Falcon-Emirati，主打方言與文化語境。
+- **[[Events/evt-2026-10-06-301d39|Why Telecom Operators Are Building Their AI Strategy on Open Models]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 說電信業者把 AI 策略押在開放模型上，理由不只是成本。
+- **[[Events/evt-2026-10-06-41752b|Advancing computer use with Ironclad]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 與 Ironclad 合作，用合約流程訓練並評測電腦操作型 agent。
+- **[[Events/evt-2026-10-06-604dd9|Atlassian and OpenAI expand partnership to turn enterprise knowledge into action]]** — OpenAI · product · conf 73 · heat 未量測
+  Atlassian 與 OpenAI 擴大合作，把前沿模型接上企業知識。
+- **[[Events/evt-2026-10-06-82cdd2|EmbeddingGemma 2: an open, lightweight multimodal embedding model]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
+  Google DeepMind 發布 EmbeddingGemma 2，開放、輕量的多模態嵌入模型。
 
 ## 2026-10-05
 - **[[Events/evt-2026-10-05-312d0f|v0.31.0]]** — vLLM · infra · conf 73 · heat 未量測

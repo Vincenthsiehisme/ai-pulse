@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-05'
+updated: '2026-10-06'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 今天新增一則：vLLM 發布 v0.31.0，717 個 commit、307 位貢獻者，亮點第一條是 DeepSeek-V4.1-Flash 的效能，FlashMLA mega attention 搭配 NVFP4 壓縮 KV cache 成為 SM100 的預設路徑。改動編號可在 release 頁面核對，但頁面沒有附吞吐或延遲對照。這是這條線少見的非 NVIDIA 訊號。10-02 的 DGX Spark 64GB 版與 10-01 的每兆瓦約 6,000 萬美元，仍是 NVIDIA 單一來源的官方說法，沒有第三方數字。
-    next: 看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 在 SM100 上新舊預設路徑的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日，以及第三方的本機推論實測；看其他業者公布的每兆瓦成本是否落在同一量級；看 CoreWeave 新一代機型的上線日期與客戶名單。
+    now: 今天新增一則：NVIDIA 部落格說電信業者越來越多把 AI 策略建在開放模型上，理由包括信任、控制與客製，不只是成本。文章提到的 State of AI 報告在摘要處截斷，沒有採用比例，且是 NVIDIA 自己的說法。10-05 vLLM 發布 v0.31.0，717 個 commit、307 位貢獻者，亮點第一條是 DeepSeek-V4.1-Flash 的效能，頁面沒有附吞吐或延遲對照，這是這條線少見的非 NVIDIA 訊號。10-02 的 DGX Spark 64GB 版與 10-01 的每兆瓦約 6,000 萬美元，仍是 NVIDIA 單一來源的官方說法，沒有第三方數字。
+    next: 看 State of AI 報告裡電信業採用開放模型的實際比例，以及有沒有電信商公開自己的部署；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 在 SM100 上新舊預設路徑的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級；看 CoreWeave 新一代機型的上線日期與客戶名單。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 今天新增一則：Ai2 在 Hugging Face 開源 AstaBrief，標題說它是 Asta 裡的快速報告生成模型。來源摘要只有一句，模型大小、授權與評測都沒寫。10-01 的 Olmo-core 3 同樣只有標題與一句話，Ai2 連兩天在這條線上出現，但我們都沒拿到內文。09-30 的 Gemini 4 Argon 仍只有媒體說還不能用，官方兩篇我們只收標題與連結；SynthID Bio 是蛋白質浮水印的概念驗證，沒給偵測率；Open TTS Leaderboard 的評測方法未見。09-29 的 GPT-6.1 Sol 仍是廠商自述的比較，沒有獨立評測數字。
-    next: 看 AstaBrief 的模型卡有沒有列出授權、參數量與評測數字；看 Olmo-core 3 的原文或程式碼庫有沒有給出支援的 MoE 規模與訓練效率；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 SynthID Bio 有沒有論文公布偵測率；GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
+    now: 今天新增一則：Google DeepMind 發布 EmbeddingGemma 2，標題說它是開放、輕量的多模態嵌入模型。這個來源我們只收標題與連結，規格、評測與授權都沒有。10-02 的 Ai2 AstaBrief 與 10-01 的 Olmo-core 3 同樣只有標題與一句話。09-30 的 Gemini 4 Argon 仍只有媒體說還不能用，官方兩篇我們只收標題與連結；SynthID Bio 是蛋白質浮水印的概念驗證，沒給偵測率；Open TTS Leaderboard 的評測方法未見。09-29 的 GPT-6.1 Sol 仍是廠商自述的比較，沒有獨立評測數字。
+    next: 看 EmbeddingGemma 2 的權重釋出平台、授權與多模態檢索基準；看 AstaBrief 的模型卡有沒有列出授權、參數量與評測數字；看 Olmo-core 3 的原文或程式碼庫有沒有給出支援的 MoE 規模與訓練效率；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 今天新增兩則。OpenAI 宣布 ChatGPT 推出新的視覺化廣告格式，並擴充成效衡量、歸因合作夥伴與品牌適用性工具，證據只有官方一句摘要，格式長相與開放範圍都沒有。NVIDIA 部落格以乳癌篩檢到治療規劃為題，介紹旗下 AI 新創，是廠商案例文章，沒有臨床成效數字。10-02 的 Chatham Financial 案例稱交易驗證從 30 分鐘壓到 4 分鐘以內，10-01 的 The Den 稱每週省 10 到 15 小時，這些數字都是 OpenAI 自己發的。Claude Frontier Academy 與 Barclays 兩則依授權只收標題與連結，內容請讀原文。
-    next: 看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因合作夥伴；看 NVIDIA 那篇提到的新創有沒有公開臨床驗證或監管核可資料；看 Chatham 是否補上驗證準確率與人工覆核比例；看 The Den 之外有沒有第三方客戶給出同類數字；看 Albertsons 與 Barclays 是否揭露部署範圍。
+    now: 今天新增兩則。OpenAI 與 Atlassian 擴大合作，要把前沿模型連到企業知識，協助團隊規劃、開發與交付工作，證據只有官方一句摘要，整合範圍與時程都沒有。Anthropic 的 Cyber Verification Program 依授權只收標題與連結，內容請讀原文。10-05 的 ChatGPT 視覺化廣告格式與 NVIDIA 乳癌篩檢案例文章仍是單一來源。10-02 的 Chatham Financial 案例稱交易驗證從 30 分鐘壓到 4 分鐘以內，10-01 的 The Den 稱每週省 10 到 15 小時，這些數字都是 OpenAI 自己發的。
+    next: 看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 原文公布的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因合作夥伴；看 Chatham 是否補上驗證準確率與人工覆核比例；看 The Den 之外有沒有第三方客戶給出同類數字。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -59,11 +59,11 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 今天新增一則：ServiceNow-AI 在 Hugging Face 發表 AutoSynthData，標題指向替企業 agent 生成訓練資料。來源摘要只有「一篇部落格文章」這一句，方法、資料規模與評測都沒有，只能確定有人在處理企業場景缺訓練資料的問題。09-29 OpenAI 的 Dots（標題為常駐型代理）仍只有標題與連結，功能、價格與開放範圍不明。09-28 的 Holo4 是 H company 的通用電腦操作 agent，同樣是單一來源。
-    next: 看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試，並被其他團隊引用；看 Dots 是否有官方文件公布可驗證的功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測；延續前面的觀察點：Agents API 定價公布後的採用情況、NVIDIA 安全框架是否變成具體工具。
+    now: 今天新增一則：OpenAI 發文說明與 Ironclad 合作，在複雜的合約工作流程上訓練並評測 AI agent，目標是推進 computer use 在專業工作上的表現。來源摘要只有這一句，任務設計、評測方法與成績都沒有。10-01 前後的 ServiceNow-AI AutoSynthData 只確定有人在處理企業場景缺訓練資料的問題。09-29 OpenAI 的 Dots（標題為常駐型代理）仍只有標題與連結，功能、價格與開放範圍不明。09-28 的 Holo4 是 H company 的通用電腦操作 agent，同樣是單一來源。
+    next: 看 OpenAI 是否公布合約任務上的評測結果，或把這套評測開放給外部；看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試；看 Dots 是否有官方文件公布可驗證的功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測；延續前面的觀察點：Agents API 定價公布後的採用情況、NVIDIA 安全框架是否變成具體工具。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這一輪新增一則。OpenAI執行長Sam Altman 09-23在聯合國安全理事會發表談話，圍繞AI安全、維持人類對AI的控制、以及國際合作三個主題，跟同一批的Academy兩週年回顧、Daybreak開放給烏克蘭政府、Grab東南亞技能培訓合起來看，OpenAI這週把政策論述的層級又拉高一階——從產業自律與區域培訓，延伸到聯合國安理會這個級別的公開露出。內容本身偏原則性表態，沒有具體承諾或可量化的政策內容，跟上一輪「論述先於落地」的觀察一致。
-    next: 觀察後續是否有具體政策文件、多邊協議、或聯合國層級的AI治理提案跟進，讓這次露出從表態變成可查證的政策動作；沿用上一輪對烏克蘭Daybreak成效與Grab完訓人數的觀察。
+    now: 今天新增一則：阿布達比的 Technology Innovation Institute 在 Hugging Face 發表 Falcon-Emirati，標題把方言、文化與語氣細微差異列為目標。來源摘要只說這是一篇 TII 的部落格文章，模型規格與評測沒有。上一輪的觀察仍在：Sam Altman 09-23 在聯合國安全理事會的談話偏原則性表態，沒有具體承諾或可量化的政策內容，Daybreak 開放給烏克蘭政府與 Grab 東南亞技能培訓也還沒有成效數字。
+    next: 看 Falcon-Emirati 的權重是否釋出、授權條款，以及有沒有在阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
     lenses: []
