@@ -1,32 +1,48 @@
 [
   {
-    "id": "evt-2026-10-05-312d0f",
-    "title": "v0.31.0",
-    "company": "DeepSeek",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-05-793d3b",
-    "title": "From Scan to Treatment Plan, AI Helps Close Breast Cancer’s Deadliest Gaps",
+    "id": "evt-2026-10-06-0521a3",
+    "title": "Cyber Verification Program",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-05-a7a31a",
-    "title": "Building advertising for the way people use AI",
+    "id": "evt-2026-10-06-18e48e",
+    "title": "Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-06-301d39",
+    "title": "Why Telecom Operators Are Building Their AI Strategy on Open Models",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-06-41752b",
+    "title": "Advancing computer use with Ironclad",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-05-dbbb76",
-    "title": "Our approach to EU text provenance rules",
+    "id": "evt-2026-10-06-604dd9",
+    "title": "Atlassian and OpenAI expand partnership to turn enterprise knowledge into action",
     "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-06-82cdd2",
+    "title": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null

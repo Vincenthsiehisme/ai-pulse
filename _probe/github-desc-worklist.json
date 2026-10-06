@@ -1,290 +1,229 @@
 [
   {
-    "full_name": "QingYunA/answer-me-with-html",
-    "desc": "Answer me with HTML — an agent skill that answers hard questions with a one-page HTML you can actually read. 让 AI Agent 用一页 HTML 回答复杂问题。",
-    "language": "JavaScript",
-    "topics": [
-      "agent-skill",
-      "ai-agent",
-      "claude-code",
-      "cli",
-      "diagram",
-      "explainer"
-    ],
-    "stars": 1471,
-    "url": "https://github.com/QingYunA/answer-me-with-html",
-    "stale_zh": null
-  },
-  {
-    "full_name": "omnirush-ai/omnirush-gui",
-    "desc": "A desktop coding agent with free access to frontier models.",
-    "language": "TypeScript",
+    "full_name": "nykooi1/vibe-wise",
+    "desc": "A Claude Code plugin that helps you learn how to build while AI writes the code.",
+    "language": "Python",
     "topics": [],
-    "stars": 1744,
-    "url": "https://github.com/omnirush-ai/omnirush-gui",
+    "stars": 2472,
+    "url": "https://github.com/nykooi1/vibe-wise",
     "stale_zh": null
   },
   {
-    "full_name": "lemomo-ai/lemo-opuscar",
-    "desc": "Claude Code skill for short films with no video model: 43 film styles, each a style prompt plus a demo film made entirely in code by Claude Opus 5.5 (incl. OPUSCAR 98). By Lemomo. | Opus5.5 x 43 种影片风格：风格提示词 + 纯代码样片 + 导演与技术指南",
-    "language": "JavaScript",
+    "full_name": "aerovato/operator-memory",
+    "desc": "The self-improving context engine for coding agents.",
+    "language": "TypeScript",
     "topics": [
-      "agent-skills",
-      "ai-agents",
-      "ai-short-film",
-      "ai-video",
-      "animation",
-      "canvas"
+      "agent",
+      "agent-memory",
+      "agent-skill",
+      "agentic-workflow",
+      "ai",
+      "chatgpt"
     ],
-    "stars": 1169,
-    "url": "https://github.com/lemomo-ai/lemo-opuscar",
+    "stars": 367,
+    "url": "https://github.com/aerovato/operator-memory",
     "stale_zh": null
   },
   {
-    "full_name": "stas00/ml-engineering",
-    "desc": "Machine Learning Engineering Open Book",
+    "full_name": "chengyi-ai/native-subtitle-quote-image",
+    "desc": "保留视频内嵌字幕，精确取帧并生成 3:4 社交长图的 Agent Skill",
     "language": "Python",
     "topics": [
-      "ai",
-      "debugging",
-      "gpus",
-      "inference",
-      "large-language-models",
-      "llm"
+      "agent-skills",
+      "codex",
+      "social-media",
+      "subtitles",
+      "video-processing"
     ],
-    "stars": 19269,
-    "url": "https://github.com/stas00/ml-engineering",
+    "stars": 1401,
+    "url": "https://github.com/chengyi-ai/native-subtitle-quote-image",
     "stale_zh": null
   },
   {
-    "full_name": "Kevin-Liu-01/Claude-of-Tanks",
-    "desc": "A World of Tanks-style armored combat simulator built directly with Three.js and Vite: 220 vehicles, 33 destructible battlefields, and 13 modes, with plate-level armor, ballistics, modules, spotting, and physics. Play in your browser on desktop or mobile. Built end-to-end by a multi-agent Claude/Codex pipeline.",
-    "language": "TypeScript",
+    "full_name": "alikon-art/DeterminFlow",
+    "desc": "A production-oriented AI workflow runtime for building, validating, recovering, and shipping complex AI workflows as dependable services. 面向生产的 AI 工作流运行时：快速开发、验证和恢复复杂 AI 工作流，并将其稳定交付为服务。",
+    "language": "Python",
     "topics": [
-      "3d-game",
-      "browser-game",
-      "claude",
-      "game",
-      "gamedev",
-      "javascript"
+      "agent-orchestration",
+      "ai-agents",
+      "ai-workflow",
+      "fastapi",
+      "llm",
+      "multi-agent"
     ],
-    "stars": 448,
-    "url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks",
+    "stars": 849,
+    "url": "https://github.com/alikon-art/DeterminFlow",
     "stale_zh": null
   },
   {
-    "full_name": "nirholas/XActions",
-    "desc": "⚡ The Complete X/Twitter Automation Toolkit — Scrapers, MCP server for AI agents (Claude/GPT), CLI, browser scripts. No API fees. Open source. Unfollow people who don't follow back. Monitor real-time analytics. Auto follow, like, comment, scrape, without API. Follow Bot. Like bot. Grow your account automatically.",
+    "full_name": "HexRaysSA/ida-mcp",
+    "desc": "Official Hex-Rays IDA MCP Server.",
+    "language": "Python",
+    "topics": [],
+    "stars": 680,
+    "url": "https://github.com/HexRaysSA/ida-mcp",
+    "stale_zh": null
+  },
+  {
+    "full_name": "cathrynlavery/diagram-design",
+    "desc": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Factory Droid, and Pi. 42 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
     "language": "HTML",
     "topics": [
-      "ai-agent",
-      "automation",
-      "claude",
-      "gpt",
-      "mass-unfollow",
-      "mcp"
+      "agent-skills",
+      "claude-code",
+      "codex",
+      "data-visualization",
+      "diagrams",
+      "drawio"
     ],
-    "stars": 570,
-    "url": "https://github.com/nirholas/XActions",
+    "stars": 43938,
+    "url": "https://github.com/cathrynlavery/diagram-design",
     "stale_zh": null
   },
   {
-    "full_name": "KlaatAI/klaatcode",
-    "desc": "Open-source AI coding agent for the terminal. Claude Code-grade accuracy with smart model routing — uses the right AI model for each task, cutting costs 10x. Supports Claude, GPT, Gemini, DeepSeek & more.",
-    "language": "TypeScript",
-    "topics": [
-      "agentic-ai",
-      "ai",
-      "ai-agents",
-      "ai-coding",
-      "ai-model",
-      "ai-tools"
-    ],
-    "stars": 359,
-    "url": "https://github.com/KlaatAI/klaatcode",
-    "stale_zh": null
-  },
-  {
-    "full_name": "sandbaseai/sandbase-harness",
-    "desc": "Local-first, self-hosted AI agent runtime and MCP bridge with sandboxed sessions, memory, credentials, audit/replay, and a local Console.",
+    "full_name": "qybaihe/mu",
+    "desc": "mu (μ): a coding agent that thinks before it acts. A small, fast judge makes the routine calls, the big model does the work. Built on pi and AionUi.",
     "language": "TypeScript",
     "topics": [
       "agent-harness",
-      "agent-observability",
-      "agent-plugin",
-      "agent-runtime",
-      "agent-sandbox",
-      "ai-agents"
+      "ai-agent",
+      "ai-coding",
+      "aionui",
+      "cli",
+      "coding-agent"
     ],
-    "stars": 683,
-    "url": "https://github.com/sandbaseai/sandbase-harness",
+    "stars": 404,
+    "url": "https://github.com/qybaihe/mu",
     "stale_zh": null
   },
   {
-    "full_name": "owainlewis/machinist",
-    "desc": "Open source software factory infrastructure for advanced AI coding workflows",
-    "language": "Go",
-    "topics": [
-      "ai-agents",
-      "automation",
-      "claude-code",
-      "codex",
-      "coding-agents",
-      "developer-tools"
-    ],
-    "stars": 487,
-    "url": "https://github.com/owainlewis/machinist",
+    "full_name": "zzzz7788990213-ops/EvoVLM",
+    "desc": "Evolving Multimodal Inference Programs: LLM-guided evolutionary search for accurate and efficient vision-language inference.",
+    "language": "Python",
+    "topics": [],
+    "stars": 486,
+    "url": "https://github.com/zzzz7788990213-ops/EvoVLM",
     "stale_zh": null
   },
   {
-    "full_name": "deepset-ai/haystack",
-    "desc": "Open-source AI orchestration framework for building context-engineered, production-ready LLM applications. Design modular pipelines and agent workflows with explicit control over retrieval, routing, memory, and generation. Built for scalable agents, RAG, multimodal applications, semantic search, and conversational systems.",
+    "full_name": "vibheksoni/stealth-browser-mcp",
+    "desc": "Stealth browser automation for AI agents over MCP and the Chrome DevTools Protocol: navigation, network hooks, DOM extraction, and pixel-accurate UI cloning.",
     "language": "Python",
     "topics": [
-      "agent-framework",
-      "agentic-ai",
-      "agentic-rag",
+      "ai-agent-tools",
+      "ai-tools",
+      "anthropic",
+      "anti-bot-bypass",
+      "automation-tools",
+      "browser-automation"
+    ],
+    "stars": 2208,
+    "url": "https://github.com/vibheksoni/stealth-browser-mcp",
+    "stale_zh": null
+  },
+  {
+    "full_name": "zilliztech/VectorDBBench",
+    "desc": "Benchmark for vector databases.",
+    "language": "Python",
+    "topics": [
+      "benchmark",
+      "cost-effectiveness",
+      "performance",
+      "vector-database",
+      "vector-search",
+      "vectordb"
+    ],
+    "stars": 1189,
+    "url": "https://github.com/zilliztech/VectorDBBench",
+    "stale_zh": null
+  },
+  {
+    "full_name": "genkit-ai/genkit",
+    "desc": "Open-source framework for building agentic apps in JavaScript, Go, Dart, and Python, built and used in production by Google",
+    "language": "TypeScript",
+    "topics": [
       "agents",
       "ai",
-      "ai-agents"
+      "embedders",
+      "genkit",
+      "llm",
+      "multimodal"
     ],
-    "stars": 26669,
-    "url": "https://github.com/deepset-ai/haystack",
+    "stars": 6476,
+    "url": "https://github.com/genkit-ai/genkit",
     "stale_zh": null
   },
   {
-    "full_name": "OpenByteInc/QuantDinger",
-    "desc": "Open-source AI Trading OS, agent trading, and vibe trading, with Jev System One integration. Research, build Python strategies, backtest, and paper/live trade across crypto, stocks, and forex. Launch your own multi-tenant trading SaaS with built-in user management, billing, payments, and settlement.",
+    "full_name": "Anionex/agent-vision-toolkit",
+    "desc": "为纯文本模型\"看图“设计更好的视觉工具箱和技能，支持多图理解，图片问答，前端UI还原、GUI 自动化等，并可选无缝接入多个主流agent，直接识别粘贴图片｜ A vision toolkit and skill designed for text-only llms — image Q&A, long-screenshot OCR, frontend UI restoration, and GUI automation, with optional seamless integration for Codex, Claude Code, Pi, Oh My Pi, and OpenCode",
     "language": "Python",
     "topics": [
       "agent",
-      "alpaca",
-      "backtesting",
-      "binance",
-      "crypto",
-      "exchange"
+      "agent-skills",
+      "claude-code",
+      "codex",
+      "computer-use",
+      "deepseek"
     ],
-    "stars": 12470,
-    "url": "https://github.com/OpenByteInc/QuantDinger",
+    "stars": 1216,
+    "url": "https://github.com/Anionex/agent-vision-toolkit",
     "stale_zh": null
   },
   {
-    "full_name": "redis/redis",
-    "desc": "For developers, who are building real-time data-driven applications, Redis is the preferred, fastest, and most feature-rich cache, data structure server, and document and vector query engine.",
-    "language": "C",
-    "topics": [
-      "cache",
-      "caching",
-      "database",
-      "distributed-systems",
-      "in-memory",
-      "in-memory-database"
-    ],
-    "stars": 76604,
-    "url": "https://github.com/redis/redis",
-    "stale_zh": null
-  },
-  {
-    "full_name": "modelcontextprotocol/python-sdk",
-    "desc": "The official Python SDK for Model Context Protocol servers and clients",
-    "language": "Python",
-    "topics": [
-      "mcp",
-      "mcp-client",
-      "mcp-server",
-      "python"
-    ],
-    "stars": 24495,
-    "url": "https://github.com/modelcontextprotocol/python-sdk",
-    "stale_zh": null
-  },
-  {
-    "full_name": "panxunying/ai-coding-welfare",
-    "desc": "AI Coding 福利站导航：免费白嫖 Claude Code / Codex 的中转站与公益站合集，含额度、模型、价格自动更新与一键配置脚本",
+    "full_name": "Mintplex-Labs/anything-llm",
+    "desc": "Stop renting your intelligence. Own it with AnythingLLM. Everything you need for a powerful local-first agent experience",
     "language": "JavaScript",
     "topics": [
-      "ai-coding",
-      "anthropic",
-      "api-proxy",
-      "claude-code",
-      "codex",
-      "free-api"
+      "agent-computer",
+      "agent-harness",
+      "agent-orchestration",
+      "agentic-ai",
+      "agentic-workflow",
+      "ai-agents"
     ],
-    "stars": 948,
-    "url": "https://github.com/panxunying/ai-coding-welfare",
+    "stars": 66759,
+    "url": "https://github.com/Mintplex-Labs/anything-llm",
     "stale_zh": null
   },
   {
-    "full_name": "farion1231/cc-switch",
-    "desc": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Grok Build & Hermes Agent. Only official website: ccswitch.io",
-    "language": "Rust",
-    "topics": [
-      "ai-tools",
-      "claude-code",
-      "codex",
-      "desktop-app",
-      "grok",
-      "grokbuild"
-    ],
-    "stars": 140266,
-    "url": "https://github.com/farion1231/cc-switch",
-    "stale_zh": null
-  },
-  {
-    "full_name": "alexgreensh/attention-span",
-    "desc": "Make your agents talk human. ADHD-friendly output styles for Claude Code, Codex, and others. So you can pay attention, not tokens.",
+    "full_name": "TencentCloud/Octop",
+    "desc": "A smarter, self-hosted AI assistant — multi-user, multi-agent.",
     "language": "Python",
     "topics": [
-      "adhd-friendly",
-      "ai-slop-reduction",
-      "anti-slop",
-      "claude-code",
-      "claude-plugin",
-      "claude-skills"
+      "agent",
+      "agentic-ai",
+      "ai",
+      "ai-agent",
+      "ai-agents",
+      "local-first"
     ],
-    "stars": 1281,
-    "url": "https://github.com/alexgreensh/attention-span",
+    "stars": 7388,
+    "url": "https://github.com/TencentCloud/Octop",
     "stale_zh": null
   },
   {
-    "full_name": "undefined-ui/second-brain-os",
-    "desc": "An AI second brain that maintains itself. Full guide, starter vault, agent skills and scripts for a self-organizing knowledge base in Claude Code and Obsidian.",
-    "language": "HTML",
+    "full_name": "hardenrun/aif",
+    "desc": "On device Firewall for Coding and Personal Agents",
+    "language": "",
+    "topics": [],
+    "stars": 1334,
+    "url": "https://github.com/hardenrun/aif",
+    "stale_zh": null
+  },
+  {
+    "full_name": "duty1g/x64dbg-mcp-server",
+    "desc": "x64dbg-MCP Server is a native MCP (Model Context Protocol) plugin for x64dbg that exposes the debugger's full functionality over HTTP. Connect any MCP-compatible AI assistant and control x64dbg programmatically: set breakpoints, step through code, read memory, dump registers, and more.  Built with Zig — zero dependencies, single-binary output, cros",
+    "language": "Zig",
     "topics": [
-      "agent-skills",
       "ai-agents",
+      "ai-debugging",
+      "binary-analysis",
       "claude",
       "claude-code",
-      "claude-skills",
-      "knowledge-graph"
+      "malware-analysis"
     ],
-    "stars": 943,
-    "url": "https://github.com/undefined-ui/second-brain-os",
-    "stale_zh": null
-  },
-  {
-    "full_name": "garrytan/gstack",
-    "desc": "Use Garry Tan's exact Claude Code setup: 23 opinionated tools that serve as CEO, Designer, Eng Manager, Release Manager, Doc Engineer, and QA",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 135358,
-    "url": "https://github.com/garrytan/gstack",
-    "stale_zh": null
-  },
-  {
-    "full_name": "herdrdev/herdr",
-    "desc": "the runtime your coding agents live on",
-    "language": "Rust",
-    "topics": [
-      "agent",
-      "agent-orchestration",
-      "ai",
-      "ai-agents",
-      "claude-code",
-      "cli"
-    ],
-    "stars": 42489,
-    "url": "https://github.com/herdrdev/herdr",
+    "stars": 2304,
+    "url": "https://github.com/duty1g/x64dbg-mcp-server",
     "stale_zh": null
   }
 ]
