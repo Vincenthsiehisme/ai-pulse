@@ -2,46 +2,70 @@
   {
     "id": "evt-2026-10-06-0521a3",
     "title": "Cyber Verification Program",
-    "company": "industry",
+    "company": "Anthropic",
+    "track": "產品與商業驗證",
+    "summary": "Anthropic 發布「Cyber Verification Program」，細節見原文。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-06-771dea",
+    "title": "Sharing AI progress in mathematics",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-06-18e48e",
-    "title": "Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance",
+    "id": "evt-2026-10-06-f1d736",
+    "title": "How Jump Trading is scaling quant research with ChatGPT",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-07-425321",
+    "title": "Helping teens learn, plan, and shape the future of AI",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-07-839523",
+    "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents",
+    "company": "Microsoft",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-07-90ce7f",
+    "title": "Multimodal open d1 decision models for the edge",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-06-301d39",
-    "title": "Why Telecom Operators Are Building Their AI Strategy on Open Models",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-06-41752b",
-    "title": "Advancing computer use with Ironclad",
+    "id": "evt-2026-10-07-c706e1",
+    "title": "Radisson Hotel Group brings hotel discovery into ChatGPT",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-06-604dd9",
-    "title": "Atlassian and OpenAI expand partnership to turn enterprise knowledge into action",
-    "company": "OpenAI",
+    "id": "evt-2026-10-07-d78d6b",
+    "title": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-06-82cdd2",
-    "title": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
+    "id": "evt-2026-10-07-ed2654",
+    "title": "Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses",
     "company": "industry",
     "track": null,
     "summary": "",

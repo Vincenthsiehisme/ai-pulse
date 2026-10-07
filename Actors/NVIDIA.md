@@ -3,18 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-06'
+generated_day: '2026-10-07'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **75** 則：`dropped` 1、`published` 69、`review` 5
+事件 **75** 則：`dropped` 1、`published` 70、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-06 | [[Events/evt-2026-10-06-301d39\|Why Telecom Operators Are Building Their AI Strategy on Open Models]] | review |
+| 2026-10-06 | [[Events/evt-2026-10-06-301d39\|Why Telecom Operators Are Building Their AI Strategy on Open Models]] | published |
 | 2026-10-05 | [[Events/evt-2026-10-05-793d3b\|From Scan to Treatment Plan, AI Helps Close Breast Cancer’s Deadliest Gaps]] | published |
 | 2026-10-02 | [[Events/evt-2026-10-02-f6eb80\|NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI]] | published |
 | 2026-10-01 | [[Events/evt-2026-10-01-7fcc7c\|Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment]] | published |

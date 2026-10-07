@@ -1,7 +1,14 @@
-# 被門禁擋下（44）
+# 被門禁擋下（52）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-07-425321|Helping teens learn, plan, and shape the future of AI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-07-839523|NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Sp]]** — Microsoft — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-07-90ce7f|Multimodal open d1 decision models for the edge]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-07-c706e1|Radisson Hotel Group brings hotel discovery into ChatGPT]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-07-d78d6b|One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-06-771dea|Sharing AI progress in mathematics]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-06-f1d736|How Jump Trading is scaling quant research with ChatGPT]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-03-623369|The Agent Said It Was Done. The Database Disagreed.]]** — Microsoft — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-96c618|Getting the Source Right, Not Just the Fact: Source-Aware Verification]]** — Multiverse Computing — blockers: thin_research_analysis
@@ -40,6 +47,7 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-10-07-ed2654|Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework fo]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity

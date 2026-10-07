@@ -1,229 +1,205 @@
 [
   {
-    "full_name": "nykooi1/vibe-wise",
-    "desc": "A Claude Code plugin that helps you learn how to build while AI writes the code.",
-    "language": "Python",
-    "topics": [],
-    "stars": 2472,
-    "url": "https://github.com/nykooi1/vibe-wise",
-    "stale_zh": null
-  },
-  {
-    "full_name": "aerovato/operator-memory",
-    "desc": "The self-improving context engine for coding agents.",
-    "language": "TypeScript",
+    "full_name": "Ryder-Sun/Meldwork",
+    "desc": "Local-first AI agent workspace for multi-agent collaboration, agent orchestration, scoped permissions, evidence-aware runs, and human-in-the-loop decisions.",
+    "language": "JavaScript",
     "topics": [
-      "agent",
-      "agent-memory",
-      "agent-skill",
-      "agentic-workflow",
-      "ai",
-      "chatgpt"
-    ],
-    "stars": 367,
-    "url": "https://github.com/aerovato/operator-memory",
-    "stale_zh": null
-  },
-  {
-    "full_name": "chengyi-ai/native-subtitle-quote-image",
-    "desc": "保留视频内嵌字幕，精确取帧并生成 3:4 社交长图的 Agent Skill",
-    "language": "Python",
-    "topics": [
-      "agent-skills",
-      "codex",
-      "social-media",
-      "subtitles",
-      "video-processing"
-    ],
-    "stars": 1401,
-    "url": "https://github.com/chengyi-ai/native-subtitle-quote-image",
-    "stale_zh": null
-  },
-  {
-    "full_name": "alikon-art/DeterminFlow",
-    "desc": "A production-oriented AI workflow runtime for building, validating, recovering, and shipping complex AI workflows as dependable services. 面向生产的 AI 工作流运行时：快速开发、验证和恢复复杂 AI 工作流，并将其稳定交付为服务。",
-    "language": "Python",
-    "topics": [
+      "acp",
+      "agent-client-protocol",
+      "agent-collaboration",
+      "agent-coordination",
       "agent-orchestration",
-      "ai-agents",
-      "ai-workflow",
-      "fastapi",
-      "llm",
-      "multi-agent"
+      "agent-runtime"
     ],
-    "stars": 849,
-    "url": "https://github.com/alikon-art/DeterminFlow",
+    "stars": 376,
+    "url": "https://github.com/Ryder-Sun/Meldwork",
     "stale_zh": null
   },
   {
-    "full_name": "HexRaysSA/ida-mcp",
-    "desc": "Official Hex-Rays IDA MCP Server.",
-    "language": "Python",
+    "full_name": "OnyxAxisOwO/ObsidianArc",
+    "desc": "A self-hosted AI platform with a Go server, multi-provider routing, usage tracking and an admin console, with chat and agentic work modes.",
+    "language": "Go",
     "topics": [],
-    "stars": 680,
-    "url": "https://github.com/HexRaysSA/ida-mcp",
+    "stars": 407,
+    "url": "https://github.com/OnyxAxisOwO/ObsidianArc",
     "stale_zh": null
   },
   {
-    "full_name": "cathrynlavery/diagram-design",
-    "desc": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Factory Droid, and Pi. 42 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
-    "language": "HTML",
-    "topics": [
-      "agent-skills",
-      "claude-code",
-      "codex",
-      "data-visualization",
-      "diagrams",
-      "drawio"
-    ],
-    "stars": 43938,
-    "url": "https://github.com/cathrynlavery/diagram-design",
-    "stale_zh": null
-  },
-  {
-    "full_name": "qybaihe/mu",
-    "desc": "mu (μ): a coding agent that thinks before it acts. A small, fast judge makes the routine calls, the big model does the work. Built on pi and AionUi.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-harness",
-      "ai-agent",
-      "ai-coding",
-      "aionui",
-      "cli",
-      "coding-agent"
-    ],
-    "stars": 404,
-    "url": "https://github.com/qybaihe/mu",
-    "stale_zh": null
-  },
-  {
-    "full_name": "zzzz7788990213-ops/EvoVLM",
-    "desc": "Evolving Multimodal Inference Programs: LLM-guided evolutionary search for accurate and efficient vision-language inference.",
-    "language": "Python",
-    "topics": [],
-    "stars": 486,
-    "url": "https://github.com/zzzz7788990213-ops/EvoVLM",
-    "stale_zh": null
-  },
-  {
-    "full_name": "vibheksoni/stealth-browser-mcp",
-    "desc": "Stealth browser automation for AI agents over MCP and the Chrome DevTools Protocol: navigation, network hooks, DOM extraction, and pixel-accurate UI cloning.",
-    "language": "Python",
-    "topics": [
-      "ai-agent-tools",
-      "ai-tools",
-      "anthropic",
-      "anti-bot-bypass",
-      "automation-tools",
-      "browser-automation"
-    ],
-    "stars": 2208,
-    "url": "https://github.com/vibheksoni/stealth-browser-mcp",
-    "stale_zh": null
-  },
-  {
-    "full_name": "zilliztech/VectorDBBench",
-    "desc": "Benchmark for vector databases.",
-    "language": "Python",
-    "topics": [
-      "benchmark",
-      "cost-effectiveness",
-      "performance",
-      "vector-database",
-      "vector-search",
-      "vectordb"
-    ],
-    "stars": 1189,
-    "url": "https://github.com/zilliztech/VectorDBBench",
-    "stale_zh": null
-  },
-  {
-    "full_name": "genkit-ai/genkit",
-    "desc": "Open-source framework for building agentic apps in JavaScript, Go, Dart, and Python, built and used in production by Google",
+    "full_name": "EXXETA/exxperts",
+    "desc": "Local-first AI agents with governed, approval-gated memory. Any model provider; MCP tools and web search built in. Nothing remembered without your say-so, nothing leaves your machine.",
     "language": "TypeScript",
     "topics": [
       "agents",
       "ai",
-      "embedders",
-      "genkit",
-      "llm",
-      "multimodal"
+      "local-first",
+      "memory",
+      "typescript",
+      "llm"
     ],
-    "stars": 6476,
-    "url": "https://github.com/genkit-ai/genkit",
+    "stars": 375,
+    "url": "https://github.com/EXXETA/exxperts",
     "stale_zh": null
   },
   {
-    "full_name": "Anionex/agent-vision-toolkit",
-    "desc": "为纯文本模型\"看图“设计更好的视觉工具箱和技能，支持多图理解，图片问答，前端UI还原、GUI 自动化等，并可选无缝接入多个主流agent，直接识别粘贴图片｜ A vision toolkit and skill designed for text-only llms — image Q&A, long-screenshot OCR, frontend UI restoration, and GUI automation, with optional seamless integration for Codex, Claude Code, Pi, Oh My Pi, and OpenCode",
+    "full_name": "CyberSunil/LLMVault",
+    "desc": "An intentionally vulnerable OWASP LLM Top 10 training platform for AI Security, Prompt Injection, RAG Security, Agent Security, and GenAI penetration testing.",
     "language": "Python",
     "topics": [
-      "agent",
-      "agent-skills",
+      "agent-security",
+      "ai-security",
+      "ai-security-tool",
+      "artificial-intelligence",
+      "ctf",
+      "docker"
+    ],
+    "stars": 334,
+    "url": "https://github.com/CyberSunil/LLMVault",
+    "stale_zh": null
+  },
+  {
+    "full_name": "dyad-sh/dyad",
+    "desc": "Local, open-source AI app builder for power users ✨ v0 / Lovable / Replit / Bolt alternative 🌟 Star if you like it!",
+    "language": "TypeScript",
+    "topics": [
+      "ai-app-builder",
+      "anthropic",
+      "artificial-intelligence",
+      "bolt",
+      "deepseek",
+      "gemini"
+    ],
+    "stars": 21741,
+    "url": "https://github.com/dyad-sh/dyad",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Jakeschincariol/arena-skill",
+    "desc": "When Claude keeps giving you bad answers, make 100 versions of it fight to the death. Same task, 100 different strategies, a bracket, one answer left. Free Claude Code skill.",
+    "language": "Python",
+    "topics": [
+      "arena",
       "claude-code",
-      "codex",
-      "computer-use",
-      "deepseek"
+      "claude-skills",
+      "multi-agent",
+      "prompting",
+      "subagents"
     ],
-    "stars": 1216,
-    "url": "https://github.com/Anionex/agent-vision-toolkit",
+    "stars": 335,
+    "url": "https://github.com/Jakeschincariol/arena-skill",
     "stale_zh": null
   },
   {
-    "full_name": "Mintplex-Labs/anything-llm",
-    "desc": "Stop renting your intelligence. Own it with AnythingLLM. Everything you need for a powerful local-first agent experience",
-    "language": "JavaScript",
+    "full_name": "ItzCrazyKns/Vane",
+    "desc": "Vane is an AI-powered answering engine.",
+    "language": "TypeScript",
     "topics": [
-      "agent-computer",
-      "agent-harness",
-      "agent-orchestration",
-      "agentic-ai",
-      "agentic-workflow",
-      "ai-agents"
+      "ai-agents",
+      "ai-search-engine",
+      "answering-engine",
+      "artificial-intelligence",
+      "llm",
+      "machine-learning"
     ],
-    "stars": 66759,
-    "url": "https://github.com/Mintplex-Labs/anything-llm",
+    "stars": 37107,
+    "url": "https://github.com/ItzCrazyKns/Vane",
     "stale_zh": null
   },
   {
-    "full_name": "TencentCloud/Octop",
-    "desc": "A smarter, self-hosted AI assistant — multi-user, multi-agent.",
+    "full_name": "raullenchai/Rapid-MLX",
+    "desc": "Rapid-MLX is an open-source (Apache 2.0) OpenAI- and Anthropic-compatible LLM inference server for Apple Silicon, built on MLX, focused on reliable tool calling for coding agents. Up to 4× faster than Apple's MLX (mlx-lm) on the same weights.",
     "language": "Python",
     "topics": [
-      "agent",
-      "agentic-ai",
-      "ai",
-      "ai-agent",
-      "ai-agents",
-      "local-first"
+      "anthropic-api",
+      "apple-silicon",
+      "claude-code",
+      "coding-agents",
+      "continuous-batching",
+      "inference-server"
     ],
-    "stars": 7388,
-    "url": "https://github.com/TencentCloud/Octop",
-    "stale_zh": null
+    "stars": 3929,
+    "url": "https://github.com/raullenchai/Rapid-MLX",
+    "stale_zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
   },
   {
-    "full_name": "hardenrun/aif",
-    "desc": "On device Firewall for Coding and Personal Agents",
+    "full_name": "AgentMemoryRepo/agentmemoryrepo",
+    "desc": "Spec for Agent Memory Repo",
     "language": "",
     "topics": [],
-    "stars": 1334,
-    "url": "https://github.com/hardenrun/aif",
+    "stars": 610,
+    "url": "https://github.com/AgentMemoryRepo/agentmemoryrepo",
     "stale_zh": null
   },
   {
-    "full_name": "duty1g/x64dbg-mcp-server",
-    "desc": "x64dbg-MCP Server is a native MCP (Model Context Protocol) plugin for x64dbg that exposes the debugger's full functionality over HTTP. Connect any MCP-compatible AI assistant and control x64dbg programmatically: set breakpoints, step through code, read memory, dump registers, and more.  Built with Zig — zero dependencies, single-binary output, cros",
-    "language": "Zig",
+    "full_name": "codedogQBY/ReadAny",
+    "desc": "AI-powered cross-platform e-book reader with semantic search, RAG chat, local vector store, notes, TTS, and WebDAV sync.",
+    "language": "TypeScript",
+    "topics": [
+      "ai",
+      "anthropic",
+      "ebook-reader",
+      "embeddings",
+      "epub-reader",
+      "expo"
+    ],
+    "stars": 2724,
+    "url": "https://github.com/codedogQBY/ReadAny",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Louis-CFM/coucou",
+    "desc": "A tiny friend in your Mac's notch and on your iPhone that keeps an eye on your AI coding agents: Claude Code, Codex, Cursor, Gemini CLI, Antigravity and more. Approve from the notch or your Lock Screen.",
+    "language": "Swift",
     "topics": [
       "ai-agents",
-      "ai-debugging",
-      "binary-analysis",
+      "anthropic",
+      "antigravity",
       "claude",
       "claude-code",
-      "malware-analysis"
+      "codex"
     ],
-    "stars": 2304,
-    "url": "https://github.com/duty1g/x64dbg-mcp-server",
+    "stars": 4002,
+    "url": "https://github.com/Louis-CFM/coucou",
+    "stale_zh": "住在螢幕頂端的小工具，盯著 Claude Code、Codex、Cursor 等 coding agent"
+  },
+  {
+    "full_name": "google/adk-python",
+    "desc": "An open-source, code-first Python toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "agentic",
+      "agentic-ai",
+      "agents",
+      "agents-sdk",
+      "ai"
+    ],
+    "stars": 21736,
+    "url": "https://github.com/google/adk-python",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mrmps/classifier-dev",
+    "desc": "Zero-shot text classification over plain HTTP — no API key, no account. One Cloudflare Worker, a CLI, and an MCP server. https://classifier.dev",
+    "language": "TypeScript",
+    "topics": [
+      "api",
+      "classification",
+      "cli",
+      "cloudflare-workers",
+      "llm",
+      "mcp"
+    ],
+    "stars": 424,
+    "url": "https://github.com/mrmps/classifier-dev",
+    "stale_zh": null
+  },
+  {
+    "full_name": "elstongun/leviathan",
+    "desc": "**Deep memory for agents over large datasets.**   Leviathan is a single static binary that turns your records (JSONL, JSON, CSV/TSV, SQLite, or anything a database CLI can export) into a ranked full-text index.",
+    "language": "Rust",
+    "topics": [],
+    "stars": 662,
+    "url": "https://github.com/elstongun/leviathan",
     "stale_zh": null
   }
 ]

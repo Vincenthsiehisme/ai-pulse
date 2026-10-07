@@ -3,18 +3,19 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-10-06'
+generated_day: '2026-10-07'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **20** 則：`published` 14、`review` 6
+事件 **21** 則：`published` 14、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-06 | [[Events/evt-2026-10-06-18e48e\|Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance]] | review |
+| 2026-10-07 | [[Events/evt-2026-10-07-d78d6b\|One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO]] | review |
+| 2026-10-07 | [[Events/evt-2026-10-07-90ce7f\|Multimodal open d1 decision models for the edge]] | review |
 | 2026-09-30 | [[Events/evt-2026-09-30-1c6239\|Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning]] | published |
 | 2026-09-22 | [[Events/evt-2026-09-22-cadfa8\|Transformers now runs llama.cpp quants]] | published |
 | 2026-09-22 | [[Events/evt-2026-09-22-c77761\|Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community]] | published |
