@@ -1,6 +1,20 @@
-# 已發布事件（400）
+# 已發布事件（408）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-07
+- **[[Events/evt-2026-10-07-425321|Helping teens learn, plan, and shape the future of AI]]** — OpenAI · product · conf 73 · heat 未量測
+  ChatGPT for Teens 加入大學申請規劃工具與學習功能。
+- **[[Events/evt-2026-10-07-839523|NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents]]** — Microsoft · infra · conf 80 · heat 未量測
+  NVIDIA 與微軟聯手，讓 AI agent 在 Windows PC 本機執行。
+- **[[Events/evt-2026-10-07-90ce7f|Multimodal open d1 decision models for the edge]]** — Liquid AI · model-capability · conf 73 · heat 未量測
+  Liquid AI 在 Hugging Face 發表邊緣裝置用的多模態 d1 決策模型。
+- **[[Events/evt-2026-10-07-c706e1|Radisson Hotel Group brings hotel discovery into ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+  Radisson 與 Accenture 做出 ChatGPT 外掛，讓旅客找房訂房。
+- **[[Events/evt-2026-10-07-d78d6b|One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  NVIDIA 說同一個 Nemotron 模型家族，微調後拿下 IOI 與 IMO 兩項金牌等級成績。
+- **[[Events/evt-2026-10-07-ed2654|Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses]]** — Microsoft · research · conf 73 · heat 未量測
+  微軟研究院發布 Agent Lightning v1.0，約 3,500 行的輕量 agent 強化學習框架。
 
 ## 2026-10-06
 - **[[Events/evt-2026-10-06-0521a3|Cyber Verification Program]]** — Anthropic · policy · conf 73 · heat 未量測
@@ -13,8 +27,12 @@
   OpenAI 與 Ironclad 合作，用合約流程訓練並評測電腦操作型 agent。
 - **[[Events/evt-2026-10-06-604dd9|Atlassian and OpenAI expand partnership to turn enterprise knowledge into action]]** — OpenAI · product · conf 73 · heat 未量測
   Atlassian 與 OpenAI 擴大合作，把前沿模型接上企業知識。
+- **[[Events/evt-2026-10-06-771dea|Sharing AI progress in mathematics]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 公開數學 AI 進展，成果與預印本放上 GitHub。
 - **[[Events/evt-2026-10-06-82cdd2|EmbeddingGemma 2: an open, lightweight multimodal embedding model]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
   Google DeepMind 發布 EmbeddingGemma 2，開放、輕量的多模態嵌入模型。
+- **[[Events/evt-2026-10-06-f1d736|How Jump Trading is scaling quant research with ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+  Jump Trading 用 ChatGPT 擴大量化研究，流程保留人工審查。
 
 ## 2026-10-05
 - **[[Events/evt-2026-10-05-312d0f|v0.31.0]]** — vLLM · infra · conf 73 · heat 未量測

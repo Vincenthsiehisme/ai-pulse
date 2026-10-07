@@ -19,6 +19,11 @@
     "src_hash": "9f9b012a91f6",
     "zh": "在 Windows 把 bash 指令轉成 PowerShell 執行，免 VM 與 WSL，附 MCP 與 CLI"
   },
+  "AgentMemoryRepo/agentmemoryrepo": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "bae17dcdc119",
+    "zh": "Agent Memory Repo 的規格文件"
+  },
   "Agents365-ai/drawio-skill": {
     "at": "2026-09-02T19:14:09+00:00",
     "src_hash": "6be7dcaf63df",
@@ -74,6 +79,11 @@
     "src_hash": "6e2520fd125c",
     "zh": "讓模型直接操作 Windows 電腦的 MCP server"
   },
+  "CyberSunil/LLMVault": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "cced6598b05d",
+    "zh": "刻意留漏洞的 OWASP LLM Top 10 訓練平台，練提示注入、RAG、agent 安全"
+  },
   "DeusData/codebase-memory-mcp": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "e804f93bd902",
@@ -88,6 +98,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "41a6cdf90ef3",
     "zh": "自架的健身與體重追蹤器，可排課表、記錄訓練、看肌群疲勞狀態，支援匯入 FitNotes/Strong/Hevy"
+  },
+  "EXXETA/exxperts": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "0576e84207c2",
+    "zh": "本機優先的 AI agent，記憶需經核准才寫入，可接任何模型供應商，內建 MCP 工具與網頁搜尋，資料不離開你的電腦"
   },
   "FareedKhan-dev/kimi-k3-in-c": {
     "at": "2026-08-10T19:09:33+00:00",
@@ -149,10 +164,20 @@
     "src_hash": "c88311d60fd8",
     "zh": "讓 agent 能持續自我改進的基礎設施"
   },
+  "ItzCrazyKns/Vane": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "b463ed839c77",
+    "zh": "AI 驅動的問答引擎"
+  },
   "JCodesMore/ai-website-cloner-template": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "6127e1554d28",
     "zh": "用 AI coding agent 一個指令複製任何網站"
+  },
+  "Jakeschincariol/arena-skill": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "ea84a86ce32a",
+    "zh": "免費的 Claude Code skill：同一個任務用 100 種策略產生答案，淘汰賽比到剩一個"
   },
   "Jakeschincariol/linkedin-agent-skill": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -249,6 +274,11 @@
     "src_hash": "6eb4d1ab3a37",
     "zh": "會跟著你一起成長的 agent"
   },
+  "OnyxAxisOwO/ObsidianArc": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "f84824cdb3e4",
+    "zh": "自架的 AI 平台，Go 伺服器，支援多供應商路由、用量追蹤與管理後台，有對話和 agent 兩種工作模式"
+  },
   "OpenByteInc/QuantDinger": {
     "at": "2026-10-05T22:18:12+00:00",
     "src_hash": "b012ce4e0828",
@@ -298,6 +328,11 @@
     "at": "2026-10-05T22:18:12+00:00",
     "src_hash": "d2d3746fdb42",
     "zh": "Agent skill，讓 AI 用一頁可讀的 HTML 回答複雜問題"
+  },
+  "Ryder-Sun/Meldwork": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "0c18a2981977",
+    "zh": "本機優先的 AI agent 工作區，支援多 agent 協作與調度、權限範圍控制、附證據的執行紀錄，以及人工決策介入"
   },
   "Ryze-AI-Adgent/open-seo-mcp-skills": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -549,6 +584,11 @@
     "src_hash": "1311aa16b1d0",
     "zh": "coding agent skill，做多階段資安稽核，產出經獨立驗證、機器可讀的發現"
   },
+  "codedogQBY/ReadAny": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "04c7417bbd6f",
+    "zh": "跨平台 AI 電子書閱讀器，有語意搜尋、RAG 對話、本機向量庫、筆記、TTS 與 WebDAV 同步"
+  },
   "coreyhaines31/marketingskills": {
     "at": "2026-09-08T19:19:22+00:00",
     "src_hash": "9b4d064a6baf",
@@ -594,6 +634,11 @@
     "src_hash": "b2324629d8cc",
     "zh": "x64dbg 的原生 MCP 外掛，用 Zig 寫成，讓 AI 助理透過 HTTP 下中斷點、單步、讀記憶體"
   },
+  "dyad-sh/dyad": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "b09a2c40e1dc",
+    "zh": "本機執行的開源 AI 應用程式產生器，給進階使用者，定位是 v0、Lovable、Replit、Bolt 的替代品"
+  },
   "dzhng/jevgrep": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "1d7037235e0d",
@@ -613,6 +658,11 @@
     "at": "2026-09-25T19:17:07+00:00",
     "src_hash": "d678b6f74cbf",
     "zh": "開源的 agentic 作業系統"
+  },
+  "elstongun/leviathan": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "49f962b17c64",
+    "zh": "給 agent 用的大型資料集深層記憶：單一靜態執行檔，把 JSONL、CSV、SQLite 等紀錄轉成排序的全文索引"
   },
   "exa-labs/exa-mcp-server": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -663,6 +713,11 @@
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "aae307cecf19",
     "zh": "把 Gemini 帶進終端機的開源 AI agent"
+  },
+  "google/adk-python": {
+    "at": "2026-10-07T20:56:20+00:00",
+    "src_hash": "b2c1658f7fb1",
+    "zh": "開源、以程式碼為主的 Python 工具組，用來建構、評測與部署 AI agent"
   },
   "gpustack/gpustack": {
     "at": "2026-09-09T19:22:19+00:00",

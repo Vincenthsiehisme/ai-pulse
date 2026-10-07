@@ -1,40 +1,146 @@
 [
   {
-    "id": "evt-2026-10-06-0521a3",
-    "path": "evt-2026-10-06-0521a3.md",
-    "title": "Cyber Verification Program",
+    "id": "evt-2026-10-06-771dea",
+    "path": "evt-2026-10-06-771dea.md",
+    "title": "Sharing AI progress in mathematics",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "industry",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/cyber-verification-program",
-        "title": "Cyber Verification Program",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics",
+        "title": "Sharing AI progress in mathematics",
+        "summary": " https:&#x2F;&#x2F;github.com&#x2F;openai&#x2F;math   https:&#x2F;&#x2F;github.com&#x2F;openai&#x2F;math&#x2F;tree&#x2F;main&#x2F;preprints ",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+        "title": "Sharing AI progress in mathematics",
+        "summary": " https:&#x2F;&#x2F;github.com&#x2F;openai&#x2F;math   https:&#x2F;&#x2F;github.com&#x2F;openai&#x2F;math&#x2F;tree&#x2F;main&#x2F;preprints ",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
       }
     ],
     "availability": {
       "counts": {
-        "has_text": 0,
+        "has_text": 2,
         "unfetched": 0,
-        "withheld": 1
+        "withheld": 0
       },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
+      "needs_source_link": false,
+      "reasons": []
     }
   },
   {
-    "id": "evt-2026-10-06-18e48e",
-    "path": "evt-2026-10-06-18e48e.md",
-    "title": "Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance",
+    "id": "evt-2026-10-06-f1d736",
+    "path": "evt-2026-10-06-f1d736.md",
+    "title": "How Jump Trading is scaling quant research with ChatGPT",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/jump-trading",
+        "title": "How Jump Trading is scaling quant research with ChatGPT",
+        "summary": "Jump Trading uses OpenAI to expand quantitative research. See how longer-running AI workflows combine multiple data sources with human review.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-07-425321",
+    "path": "evt-2026-10-07-425321.md",
+    "title": "Helping teens learn, plan, and shape the future of AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/teens-learn-and-plan",
+        "title": "Helping teens learn, plan, and shape the future of AI",
+        "summary": "College Planner is coming to ChatGPT for Teens to help students manage college applications, alongside new flashcards, quizzes, and a teen AI council.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-07-839523",
+    "path": "evt-2026-10-07-839523.md",
+    "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Microsoft",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-microsoft-windows-event/",
+        "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents",
+        "summary": "At a Microsoft event in San Francisco on Wednesday, Jensen Huang and Satya Nadella outlined how NVIDIA and Microsoft are co-engineering hardware and software for AI agents to run on Windows PCs. NVIDIA was founded because of Windows, Huang said. Now AI agents are coming to Windows. “If you look at t",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      },
+      {
+        "source_id": "src-media-techcrunch",
+        "url": "https://techcrunch.com/2026/10/07/microsoft-releases-new-nvidia-chip-ai-pcs-with-revamped-windows-11/",
+        "title": "Microsoft releases new Nvidia-chip AI PCs with revamped Windows 11",
+        "summary": "Microsoft revealed the specs and price for its Surface Laptop Ultra, AI PCs that run on Nvidia chips that are designed to run AI models and agents.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 2,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-07-90ce7f",
+    "path": "evt-2026-10-07-90ce7f.md",
+    "title": "Multimodal open d1 decision models for the edge",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "Hugging Face",
@@ -43,9 +149,9 @@
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/tiiuae/falcon-emirati",
-        "title": "Falcon-Emirati: When an LLM Learns the Dialect, the Culture, and the Nuance",
-        "summary": "A Blog post by Technology Innovation Institute on Hugging Face",
+        "url": "https://huggingface.co/blog/LiquidAI/open-d1",
+        "title": "Multimodal open d1 decision models for the edge",
+        "summary": "A Blog post by Liquid AI on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -62,39 +168,9 @@
     }
   },
   {
-    "id": "evt-2026-10-06-301d39",
-    "path": "evt-2026-10-06-301d39.md",
-    "title": "Why Telecom Operators Are Building Their AI Strategy on Open Models",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/telecom-operators-open-models/",
-        "title": "Why Telecom Operators Are Building Their AI Strategy on Open Models",
-        "summary": "Telecom operators are increasingly building their AI strategies on open models — and the reasons go beyond mere cost.  Open models give telcos the ability to trust, control and customize AI across their most critical workloads — from autonomous networks to customer care.  NVIDIA’s latest State of AI",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-06-41752b",
-    "path": "evt-2026-10-06-41752b.md",
-    "title": "Advancing computer use with Ironclad",
+    "id": "evt-2026-10-07-c706e1",
+    "path": "evt-2026-10-07-c706e1.md",
+    "title": "Radisson Hotel Group brings hotel discovery into ChatGPT",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -103,9 +179,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/advancing-computer-use-with-ironclad",
-        "title": "Advancing computer use with Ironclad",
-        "summary": "Learn how OpenAI and Ironclad are training and evaluating AI agents on complex contracting workflows to advance computer use for professional work.",
+        "url": "https://openai.com/index/radisson",
+        "title": "Radisson Hotel Group brings hotel discovery into ChatGPT",
+        "summary": "Radisson partnered with Accenture to build a ChatGPT plugin using OpenAI technology, helping travelers find, compare, and book hotels while planning their trips.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -122,20 +198,20 @@
     }
   },
   {
-    "id": "evt-2026-10-06-604dd9",
-    "path": "evt-2026-10-06-604dd9.md",
-    "title": "Atlassian and OpenAI expand partnership to turn enterprise knowledge into action",
+    "id": "evt-2026-10-07-d78d6b",
+    "path": "evt-2026-10-07-d78d6b.md",
+    "title": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/atlassian-partnership",
-        "title": "Atlassian and OpenAI expand partnership to turn enterprise knowledge into action",
-        "summary": "Atlassian and OpenAI are expanding their partnership to connect frontier models with enterprise knowledge and help teams plan, build, and deliver work.",
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nvidia/nemotron-ioi-and-imo-2026",
+        "title": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO",
+        "summary": "A Blog post by NVIDIA on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -152,9 +228,9 @@
     }
   },
   {
-    "id": "evt-2026-10-06-82cdd2",
-    "path": "evt-2026-10-06-82cdd2.md",
-    "title": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
+    "id": "evt-2026-10-07-ed2654",
+    "path": "evt-2026-10-07-ed2654.md",
+    "title": "Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -162,25 +238,23 @@
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/embeddinggemma-2-an-open-lightweight-multimodal-embedding-model/",
-        "title": "EmbeddingGemma 2: an open, lightweight multimodal embedding model",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+        "source_id": "src-msr-blog",
+        "url": "https://www.microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/",
+        "title": "Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses",
+        "summary": " Training AI agents with reinforcement learning can be challenging because their tools, context, and decision-making are managed by complex frameworks. Agent Lightning connects existing agents to RL training, making it easier to improve them without rebuilding them. \n The post  Agent Lightning v1.0:",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
       }
     ],
     "availability": {
       "counts": {
-        "has_text": 0,
+        "has_text": 1,
         "unfetched": 0,
-        "withheld": 1
+        "withheld": 0
       },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
+      "needs_source_link": false,
+      "reasons": []
     }
   }
 ]
