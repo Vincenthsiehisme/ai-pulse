@@ -11539,12 +11539,21 @@ _nc_sabad_row = next((r for r in _ncl.parse_ledger(_nc_ledger(_nc_w9) or "")
 _NC_TR_SALOCK = _nc_transcript("sess-salock", _NC_MARK, [_nc_asst(_NC_U1, rid="req_main")])
 _nc_lock = _nc_root / "sess-salock" / "subagents" / "locked"
 _nc_lock.mkdir(parents=True)
-_nc_lock.chmod(0)
-_nc_salock = _nc.subagent_entries(_NC_TR_SALOCK)
-_nc_lock.chmod(0o755)
+# 「讀不到」用換掉 os.scandir 造，不用 chmod 0：雲端 routine 以 root 跑，權限位元擋不住 root，
+# chmod 0 的目錄照樣讀得到，這一格在每週禮貌檢查裡一直是紅的（2026-10-04 那班 1306/1307）。
+_nc_scandir_orig = os.scandir
+def _nc_scandir_locked(path="."):
+    if os.fspath(path) == str(_nc_lock):
+        raise PermissionError(13, "Permission denied", os.fspath(path))
+    return _nc_scandir_orig(path)
+os.scandir = _nc_scandir_locked
+try:
+    _nc_salock = _nc.subagent_entries(_NC_TR_SALOCK)
+finally:
+    os.scandir = _nc_scandir_orig
 acase("成本帳 hook：subagent 檔解析失敗、目錄讀不到 → 那一行 usd_equiv 是 None、note 寫原因（不安靜少算）",
       [_nc_sabad_row.get("usd_equiv", "缺"), "subagent" in (_nc_sabad_row.get("note") or ""),
-       "agent-b.jsonl" in (_nc_sabad_row.get("note") or ""), bool(_nc_salock[1])],
+       "agent-b.jsonl" in (_nc_sabad_row.get("note") or ""), [p for p in _nc_salock[1] if "locked" in p] != []],
       [None, True, True, True])
 
 # driver 只在開新的一天時讀帳本：昨天（UTC）的所有行加總；同一天第二次 run 不改 cost_prev。
