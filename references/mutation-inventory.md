@@ -3166,9 +3166,11 @@ M446–M455 守四件事：subagent 的 transcript 有沒有一起讀、讀不�
 失敗的離開碼是不是 1（M451、M452）；成本 commit 是不是唯一被推的那一顆（M453、M454）；
 身分句是不是要在開頭（M455）。M390 與 M438 的 find 跟著改：判夜班改走 `is_cost_routine`，
 `date` 改從主檔取。本機領先與落後兩格都真的造出來（本機多一顆沒推的 commit；推上去之後
-`reset --hard HEAD~1`），fetch 失敗是把 origin 指到不存在的路徑。subagent 目錄讀不到是
+`reset --hard HEAD~1`），fetch 失敗是把 origin 指到不存在的路徑。subagent 目錄讀不到原本是
 `chmod 0` 一層子目錄，`os.walk` 的 `onerror` 接得到；`pathlib.rglob` 會安靜吞掉權限錯誤
-（這台 Python 3.9.6 實測回空清單），所以不用它。
+（這台 Python 3.9.6 實測回空清單），所以不用它。2026-10-07 改成在那一格把 `os.scandir` 換掉、
+對那層子目錄丟 `PermissionError`：雲端 routine 以 root 跑，`chmod 0` 擋不住 root，那一格在每週
+禮貌檢查裡一直是紅的。M449 換成新寫法後在副本重跑過，仍是 killed。
 
 M385 在這一輪第一次跑是 crashed：不在 main 也照樣推之後，成本 commit 從 session 分支推上了 origin/main，
 回到 main 的本機落後 origin，後面那一格被新的 origin 檢查擋下、帳本是空的，而那一格用 `[0]` 取帳本行，
