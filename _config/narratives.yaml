@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-07'
+updated: '2026-10-08'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 今天新增一則，也是這條線少見有兩條獨立來源的發表：微軟在舊金山的活動上，黃仁勳與納德拉說明兩家公司共同設計硬體與軟體，讓 AI agent 在 Windows PC 本機執行。NVIDIA 部落格的標題提到 RTX Spark，TechCrunch 寫微軟公布了搭載 NVIDIA 晶片的 Surface Laptop Ultra 規格與價格，實際數字不在我們的摘要裡。10-06 NVIDIA 說電信業者把 AI 策略建在開放模型上，報告在摘要處截斷，沒有採用比例。10-05 vLLM v0.31.0 有 717 個 commit、307 位貢獻者，亮點是 DeepSeek-V4.1-Flash 的效能，頁面沒有吞吐或延遲對照。10-02 的 DGX Spark 64GB 版與 10-01 的每兆瓦約 6,000 萬美元仍是 NVIDIA 單一來源的官方說法。
-    next: 看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 Windows 11 改版有沒有把 agent 做成系統層級的能力；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
+    now: '這一輪新增一則 NVIDIA 的 GeForce NOW 例行更新：《Gears of War: E-Day》上架，Fire TV 用戶即將能購買會員，與 AI 基礎設施關係不大。這條線更有分量的仍是 10-07 的 RTX Spark：微軟在舊金山的活動上，黃仁勳與納德拉說明兩家公司共同設計硬體與軟體，讓 AI agent 在 Windows PC 本機執行。NVIDIA 部落格的標題提到 RTX Spark，TechCrunch 寫微軟公布了搭載 NVIDIA 晶片的 Surface Laptop Ultra 規格與價格，實際數字不在我們的摘要裡。10-06 NVIDIA 說電信業者把 AI 策略建在開放模型上，報告在摘要處截斷，沒有採用比例。10-05 vLLM v0.31.0 有 717 個 commit、307 位貢獻者，頁面沒有吞吐或延遲對照。10-02 的 DGX Spark 64GB 版與 10-01 的每兆瓦約 6,000 萬美元仍是 NVIDIA 單一來源的官方說法。'
+    next: 看 Fire TV 購買 GeForce NOW 會員的實際開放日期與地區；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 Windows 11 改版有沒有把 agent 做成系統層級的能力；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 今天新增四則。OpenAI 的數學進展文章只有兩條 GitHub 連結（openai/math 與 preprints 目錄），成果內容我們沒讀到，但預印本是公開的，可以直接查。NVIDIA 說 Nemotron 微調後在 IOI 與 IMO 都達到金牌等級，來源只有標題，分數與評測設定未見。Liquid AI 的 d1 邊緣決策模型與 10-06 的 EmbeddingGemma 2 一樣只有標題和一行說明，規格、授權、評測都沒有。10-02 的 Ai2 AstaBrief 與 10-01 的 Olmo-core 3 同樣只有標題與一句話。09-30 的 Gemini 4 Argon 仍只有媒體說還不能用，官方兩篇我們只收標題與連結。09-29 的 GPT-6.1 Sol 是廠商自述的比較，沒有獨立評測數字。
-    next: 看 openai/math 預印本實際列了哪些結果，以及外部數學家的檢查；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的模型卡有沒有列出參數量、授權與邊緣硬體上的延遲；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
+    now: 這一輪新增三則。Technology Innovation Institute 在 Hugging Face 發表 Falcon ASR，來源摘要只有一行，規格、語言支援與字詞錯誤率都沒有。Liquid AI 的 d1 邊緣決策模型只有標題和一行說明，授權與評測未見。NVIDIA 說 Nemotron 微調後在 IOI 與 IMO 都達到金牌等級，來源只有標題，分數與評測設定不明。10-06 的 OpenAI 數學進展文章只有兩條 GitHub 連結，成果內容我們沒讀到，預印本是公開的，可以直接查。EmbeddingGemma 2、Ai2 的 AstaBrief 與 Olmo-core 3 同樣只有標題與一句話。09-30 的 Gemini 4 Argon 仍只有媒體說還不能用，官方兩篇我們只收標題與連結。09-29 的 GPT-6.1 Sol 是廠商自述的比較，沒有獨立評測數字。
+    next: 看 Falcon ASR 的模型卡有沒有授權條款與公開基準的字詞錯誤率；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的模型卡有沒有列出參數量、授權與邊緣硬體上的延遲；看 openai/math 預印本實際列了哪些結果，以及外部數學家的檢查；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 今天新增五則，除 Anthropic 那則外都是 OpenAI 自己發的。ChatGPT for Teens 要加 College Planner、閃卡、測驗與青少年 AI 理事會，College Planner 用的是「coming to」，上線日期沒寫。Radisson 與 Accenture 做了 ChatGPT 外掛，讓旅客找房訂房，沒有使用量。Jump Trading 的案例說長時間工作流程串多個資料來源並保留人工審查，沒有效益數字。OpenAI 與 Atlassian 擴大合作，證據只有官方一句摘要，整合範圍與時程都沒有。Anthropic 的 Cyber Verification Program 依授權只收標題與連結，內容請讀原文。10-05 的 ChatGPT 視覺化廣告格式與 NVIDIA 乳癌篩檢案例仍是單一來源。
-    next: 看 College Planner 的實際開放日期與地區，以及 teen AI council 的成員與公開紀錄；看 Radisson 是否公布外掛的預訂占比；看 Jump Trading 或其他量化公司有沒有補上可驗證的用量或績效；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 原文公布的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因夥伴。
+    now: 這一輪新增兩則。Anthropic 的 2026 使用政策更新依授權只收標題與連結，政策改了什麼請讀原文。OpenAI 的 Pollo AI 客戶案例說它用 GPT-5.6、GPT-6 Astra 與 GPT-Image-2.5 做圖片與影片廣告，沒有用量或成效數字。10-07 的三則仍是廠商自述：ChatGPT for Teens 要加 College Planner 與學習功能，上線日期沒寫；Radisson 與 Accenture 做了 ChatGPT 外掛讓旅客找房訂房，沒有使用量；Jump Trading 案例沒有效益數字。OpenAI 與 Atlassian 擴大合作，證據只有官方一句摘要。Anthropic 的 Cyber Verification Program 同樣只收標題與連結。10-05 的 ChatGPT 視覺化廣告格式與 NVIDIA 乳癌篩檢案例仍是單一來源。
+    next: 看 2026 使用政策更新原文公布的生效日期與條款差異；看 Pollo AI 是否公布用戶數或廣告成效，以及 GPT-6 Astra 有沒有獨立的正式發布說明；看 College Planner 的實際開放日期與地區；看 Radisson 是否公布外掛的預訂占比；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 原文公布的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因夥伴。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -50,8 +50,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 這一輪新增一則：OpenAI 發表〈Our approach to EU text provenance rules〉，談它對歐盟文字來源標示規則的做法。這個來源的授權只允許標題加連結，所以我們沒有取內文，也不轉述內容，細節請讀原文。它放在這條線，只是因為涉及合規與公司對外立場，不含估值、募資或併購。09-30 的 NVIDIA 研究生獎學金（最高 6 萬美元）與 09-28 的 OpenAI 對 Lenfest 計畫出資 500 萬美元，仍是這條線最近的資金類訊號。
-    next: 讀 OpenAI 歐盟文字來源標示那篇原文，確認它講的規則與時程，並看是否有其他來源或監管機關佐證；看 Lenfest 計畫的參與機構與資金分配；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金；持續留意估值、募資或併購這類實際的資本動態。
+    now: 這一輪新增兩則 Anthropic 公告：Genesis Mission Commitment 與 Anthropic Cyber Mission。兩篇的授權都只允許標題加連結，我們沒有取內文，承諾與任務的內容請讀原文，也無從判斷是否涉及資金。OpenAI 先前發表的〈Our approach to EU text provenance rules〉同樣只收標題與連結，只是涉及合規與公司對外立場，不含估值、募資或併購。09-30 的 NVIDIA 研究生獎學金（最高 6 萬美元）與 09-28 的 OpenAI 對 Lenfest 計畫出資 500 萬美元，仍是這條線最近的資金類訊號。
+    next: 讀 Genesis Mission Commitment 原文，確認承諾項目、時程與是否涉及資金；讀 Anthropic Cyber Mission 原文，確認它是新團隊、新產品還是對外承諾；讀 OpenAI 歐盟文字來源標示那篇原文，確認規則與時程；看 Lenfest 計畫的參與機構與資金分配；持續留意估值、募資或併購這類實際的資本動態。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
@@ -59,11 +59,11 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 今天新增一則：微軟研究院發布 Agent Lightning v1.0，標題寫明約 3,500 行，摘要說它把既有 agent 接上強化學習訓練，不必重建 agent。效果數據來源沒有提供。10-06 OpenAI 與 Ironclad 合作，在合約工作流程上訓練並評測 computer use agent，摘要只有一句，任務設計與成績都沒有。10-01 前後的 ServiceNow-AI AutoSynthData 只確定有人在處理企業場景缺訓練資料的問題。09-29 OpenAI 的 Dots 仍只有標題與連結，功能、價格與開放範圍不明。09-28 的 Holo4 是 H company 的通用電腦操作 agent，單一來源。
-    next: 看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有在自己的 agent 框架上跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果，或把評測開放給外部；看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試；看 Dots 是否有官方文件公布功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測。
+    now: 這一輪新增 OpenAI 的 Oracle 客戶案例。摘要說 Oracle 在招募、工程與營運用 ChatGPT Work 和 Codex 做成可重複的流程，標題寫「數天縮到數分鐘」，但來源沒有給量測方式或數字。10-07 微軟研究院發布 Agent Lightning v1.0，標題寫明約 3,500 行，摘要說它把既有 agent 接上強化學習訓練，不必重建 agent，效果數據來源沒有提供。10-06 OpenAI 與 Ironclad 合作，在合約工作流程上訓練並評測 computer use agent，摘要只有一句，任務設計與成績都沒有。10-01 前後的 ServiceNow-AI AutoSynthData 只確定有人在處理企業場景缺訓練資料的問題。09-29 OpenAI 的 Dots 仍只有標題與連結，功能、價格與開放範圍不明。09-28 的 Holo4 是 H company 的通用電腦操作 agent，單一來源。
+    next: 看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有在自己的 agent 框架上跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果，或把評測開放給外部；看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試；看 Dots 是否有官方文件公布功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 今天新增一則：阿布達比的 Technology Innovation Institute 在 Hugging Face 發表 Falcon-Emirati，標題把方言、文化與語氣細微差異列為目標。來源摘要只說這是一篇 TII 的部落格文章，模型規格與評測沒有。上一輪的觀察仍在：Sam Altman 09-23 在聯合國安全理事會的談話偏原則性表態，沒有具體承諾或可量化的政策內容，Daybreak 開放給烏克蘭政府與 Grab 東南亞技能培訓也還沒有成效數字。
-    next: 看 Falcon-Emirati 的權重是否釋出、授權條款，以及有沒有在阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
+    now: 這一輪新增一則：OpenAI 發文說它瓦解了兩個利用假記者與一個智庫當門面的 AI 影響力行動，用來散布地緣政治訊息。來源摘要只有這一句，行動來自哪裡、規模多大、封鎖多少帳號都沒有交代，歸屬與成效都是 OpenAI 單方的說法。先前的觀察仍在：阿布達比的 Technology Innovation Institute 在 Hugging Face 發表 Falcon-Emirati，標題把方言、文化與語氣細微差異列為目標，模型規格與評測沒有。Sam Altman 09-23 在聯合國安全理事會的談話偏原則性表態，沒有具體承諾；Daybreak 開放給烏克蘭政府與 Grab 東南亞技能培訓也還沒有成效數字。
+    next: 看有沒有獨立研究機構或其他平台公開同一批假身分的分析，能對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及有沒有在阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
     lenses: []

@@ -1,10 +1,28 @@
-# 已發布事件（408）
+# 已發布事件（416）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-08
+- **[[Events/evt-2026-10-08-08bd26|Disrupting AI-enabled “false front” operations]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 表示已瓦解兩個利用假記者與假智庫的 AI 影響力行動。
+- **[[Events/evt-2026-10-08-1711dc|2026 Usage Policy Update]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布 2026 使用政策更新，內文我們不轉述。
+- **[[Events/evt-2026-10-08-5f6a44|Genesis Mission Commitment]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布 Genesis Mission Commitment，內文我們不轉述。
+- **[[Events/evt-2026-10-08-68fb2a|How Oracle turns days of work into minutes with ChatGPT and Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布 Oracle 使用 ChatGPT 與 Codex 的客戶案例。
+- **[[Events/evt-2026-10-08-8f5386|Anthropic Cyber Mission]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布 Anthropic Cyber Mission，內文我們不轉述。
+- **[[Events/evt-2026-10-08-9cbbbf|Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  《Gears of War: E-Day》上架 GeForce NOW，Fire TV 用戶將可直接買會員。
+- **[[Events/evt-2026-10-08-b2495d|Pollo AI turns creative ideas into campaigns with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布 Pollo AI 的客戶案例，用 GPT-5.6 等模型做圖片與影片廣告。
 
 ## 2026-10-07
 - **[[Events/evt-2026-10-07-425321|Helping teens learn, plan, and shape the future of AI]]** — OpenAI · product · conf 73 · heat 未量測
   ChatGPT for Teens 加入大學申請規劃工具與學習功能。
+- **[[Events/evt-2026-10-07-7fc660|Introducing Falcon ASR]]** — Technology Innovation Institute · model-capability · conf 73 · heat 未量測
+  TII 在 Hugging Face 部落格發表 Falcon ASR。
 - **[[Events/evt-2026-10-07-839523|NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents]]** — Microsoft · infra · conf 80 · heat 未量測
   NVIDIA 與微軟聯手，讓 AI agent 在 Windows PC 本機執行。
 - **[[Events/evt-2026-10-07-90ce7f|Multimodal open d1 decision models for the edge]]** — Liquid AI · model-capability · conf 73 · heat 未量測

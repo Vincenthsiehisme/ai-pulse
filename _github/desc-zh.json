@@ -19,6 +19,11 @@
     "src_hash": "9f9b012a91f6",
     "zh": "在 Windows 把 bash 指令轉成 PowerShell 執行，免 VM 與 WSL，附 MCP 與 CLI"
   },
+  "Agent-Field/CodeAF": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "f9700f13ee25",
+    "zh": "給開放模型用的開源軟體工廠"
+  },
   "AgentMemoryRepo/agentmemoryrepo": {
     "at": "2026-10-07T20:56:20+00:00",
     "src_hash": "bae17dcdc119",
@@ -129,6 +134,11 @@
     "src_hash": "8e48530c1c58",
     "zh": "把程式庫連同文件、SQL schema、設定與 PDF 變成可查詢的知識圖；本地 AST 解析、不用向量庫"
   },
+  "HBAI-Ltd/Toonflow-app": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "333dc744dc2c",
+    "zh": "開源 AI 創作平台，結合無限畫布、AI Agent 與視覺化工作流，可做圖像、影片與短劇"
+  },
   "HKUDS/DeepTutor": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "7bf25fcf4ee9",
@@ -138,6 +148,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "f85ad7ad599b",
     "zh": "你的個人交易 agent"
+  },
+  "HKUDS/nanobot": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "7fbffb4724d8",
+    "zh": "超輕量的開源自架個人 AI agent 框架，Python 寫成，有 WebUI、記憶、MCP 與多 agent 流程"
   },
   "Hacker-Valley-Media/Interceptor": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -235,9 +250,9 @@
     "zh": "面向基本面因子研究的 agent：假設驅動，附證據門檻驗證與研究記憶"
   },
   "Louis-CFM/coucou": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "ebd993c329e8",
-    "zh": "住在螢幕頂端的小工具，盯著 Claude Code、Codex、Cursor 等 coding agent"
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "33456789b642",
+    "zh": "住在 Mac 瀏海與 iPhone 上的小工具，監看 Claude Code、Codex 等 agent，可直接核准"
   },
   "MODSetter/SurfSense": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -273,6 +288,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "6eb4d1ab3a37",
     "zh": "會跟著你一起成長的 agent"
+  },
+  "Oldcircle/geo-sleuth": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "972f7fe0693e",
+    "zh": "判斷照片拍攝地點的 agent skill，用地圖、地形、衛星與街景比對，並列出推理過程"
   },
   "OnyxAxisOwO/ObsidianArc": {
     "at": "2026-10-07T20:56:20+00:00",
@@ -459,6 +479,11 @@
     "src_hash": "c71e99fdaf97",
     "zh": "LLM 推論最佳化代理（inference proxy）"
   },
+  "alibaba/open-code-review": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "8cafd66df6ba",
+    "zh": "結合確定性流程與 LLM Agent 的程式碼審查工具，逐行留言，內建多語言規則集"
+  },
   "alibaba/spring-ai-alibaba": {
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "8f5ad0ef6325",
@@ -473,6 +498,11 @@
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "c3a8335eb3dc",
     "zh": "面向生產環境的 AI 工作流 runtime，可開發、驗證、復原複雜工作流並穩定交付成服務"
+  },
+  "amitshekhariitbhu/llm-inference-engineering": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "42ea425d9348",
+    "zh": "LLM 推論工程的逐步教學，從 KV cache、PagedAttention 到 vLLM、SGLang"
   },
   "angusdevgo/Seep-Reverse-Lab": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -498,6 +528,11 @@
     "at": "2026-08-28T19:24:01+00:00",
     "src_hash": "6598a7af3ad0",
     "zh": "Apify MCP server讓AI代理用Apify Store的工具，從社群媒體、搜尋引擎、地圖等站台擷取資料"
+  },
+  "apify/crawlee": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "31c7704758ff",
+    "zh": "Node.js 網頁爬取與瀏覽器自動化函式庫，支援 Puppeteer、Playwright，可抓資料給 LLM、RAG"
   },
   "asgeirtj/system_prompts_leaks": {
     "at": "2026-09-12T19:15:08+00:00",
@@ -674,6 +709,16 @@
     "src_hash": "6f43b1762022",
     "zh": "跨平台桌面整合助手，支援 Claude Code、Codex、OpenCode 等"
   },
+  "feder-cr/invisible_dots": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "be41c97a445b",
+    "zh": "OpenAI Dots、Grok Bot 的開源自架替代品，設計成不被反機器人系統偵測"
+  },
+  "feder-cr/invisible_playwright_mcp": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "4bf73081814f",
+    "zh": "不被反機器人與驗證碼偵測的 Playwright MCP server，用隱身 Firefox 瀏覽網頁"
+  },
   "feitangyuan/onetake": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "4d138d86591c",
@@ -778,6 +823,11 @@
     "at": "2026-08-12T19:14:16+00:00",
     "src_hash": "f5b7e92297d4",
     "zh": "RAGFlow：開源 RAG 引擎，結合 RAG 與 Agent 能力，讓 LLM 有更好的 context 層"
+  },
+  "intelligencedev/manifold": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "ee1ba494c144",
+    "zh": "實驗性平台，用多個 AI 助理組隊，自動化長時程工作流程"
   },
   "jaredrhod/ai-memory-vault": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -928,6 +978,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "24b8d0d758e3",
     "zh": "Milvus 向量資料庫的 Python SDK"
+  },
+  "miqdadbadjuber/anti-slop": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "db1b39b8cafd",
+    "zh": "給 AI coding agent 的規則集，用來濾掉千篇一律的 AI 介面設計、文字與程式碼"
   },
   "mlc-ai/web-llm": {
     "at": "2026-09-02T19:14:09+00:00",
@@ -1125,9 +1180,9 @@
     "zh": "用 PyTorch 一步步從零實作一個類 ChatGPT 的 LLM"
   },
   "raullenchai/Rapid-MLX": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "4755f26ada89",
-    "zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "5f2b1597d8cb",
+    "zh": "Apple Silicon 上的開源 LLM 推論伺服器，相容 OpenAI 與 Anthropic，主打穩定的工具呼叫"
   },
   "redis/redis": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -1163,6 +1218,11 @@
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "bd93fec2b4ce",
     "zh": "AI 的文件處理平台"
+  },
+  "rush-db/rushdb": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "ab925b80d05d",
+    "zh": "給 AI agent 的圖加向量資料庫與記憶層，丟入 JSON 即可查詢，免 schema，建在 Neo4j 上"
   },
   "ruvnet/ruflo": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -1259,6 +1319,11 @@
     "src_hash": "15b60b61c8f7",
     "zh": "OpenCode 外掛，用本地向量資料庫給編碼 agent 持久記憶"
   },
+  "tigerless-labs/agent-memory": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "e2d3a3f42f92",
+    "zh": "AI agent 的長期記憶 runtime，以 Markdown 為底，本機檢索，不需 API key"
+  },
   "tiliondev/fortress": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "6cbdc7ae9c33",
@@ -1268,6 +1333,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "72d22bba8d27",
     "zh": "開源 agent harness，主打最快、最便宜、最省資源，用 Rust 寫成"
+  },
+  "topoteretes/cognee": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "8fbc377f6446",
+    "zh": "開源的 AI 記憶平台，讓 agent 用小模型免費擁有持久的長期記憶"
   },
   "tt-a1i/archify": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1290,9 +1360,9 @@
     "zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
   },
   "useagenthq/useagent": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "022b16f653c4",
-    "zh": "開源的 AI 同事，agent 有自己的雲端電腦，交付網站、簡報、報告與 PR，跑 Claude Code、Codex"
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "d9448deca610",
+    "zh": "開源的 Devin 替代品，在可自架的隔離雲端工作區跑 Claude Code、Codex 等 agent"
   },
   "usemoss/moss": {
     "at": "2026-08-19T19:13:25+00:00",
@@ -1383,6 +1453,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "d416d35139b4",
     "zh": "原生的控制平面，統一管理 Claude Code、Codex、Cursor、Devin 等 coding agent"
+  },
+  "zhaoxuya520/reverse-skill": {
+    "at": "2026-10-08T20:58:31+00:00",
+    "src_hash": "58211d0efc4e",
+    "zh": "逆向工程、授權滲透測試與資安研究的 skill 路由包，可自動路由並按需準備工具鏈"
   },
   "zilliztech/VectorDBBench": {
     "at": "2026-10-06T20:41:13+00:00",
