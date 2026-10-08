@@ -14,12 +14,12 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "abstract + link"
 endpoint: "https://www.microsoft.com/en-us/research/feed/"
-robots_checked_day: "2026-10-01"
+robots_checked_day: "2026-10-08"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-10-07"
+last_observed_day: "2026-10-08"
 items_observed: 24
 events_bound: 3
-events_published: 2
+events_published: 3
 health_score: 100
 consecutive_failures: 0
 last_status: 200
@@ -36,7 +36,7 @@ last_status: 200
 | 收錄 | `probing` | 會被抓 |
 | 已觀測 | 24 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 3 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 2 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 已發布 | 3 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**Microsoft**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 

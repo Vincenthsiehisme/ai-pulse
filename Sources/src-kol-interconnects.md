@@ -16,9 +16,9 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://www.interconnects.ai/feed"
-robots_checked_day: "2026-10-01"
+robots_checked_day: "2026-10-08"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-10-07"
+last_observed_day: "2026-10-08"
 items_observed: 35
 events_bound: 0
 events_published: 0

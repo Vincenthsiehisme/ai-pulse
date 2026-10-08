@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-07"
+generated_day: "2026-10-08"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-07"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **386** 則／已裁決 **26** 則。
+待回答 **394** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#ddd6f20e`** — infra-cost
-  > 看 State of AI 報告裡電信業採用開放模型的實際比例，以及有沒有電信商公開自己的部署；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 在 SM100 上新舊預設路徑的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級；看 CoreWeave 新一代機型的上線日期與客戶名單。
+- **`infra-cost#64e2b36d`** — infra-cost
+  > 看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 Windows 11 改版有沒有把 agent 做成系統層級的能力；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
 
-- **`model-research#65756710`** — model-research
-  > 看 EmbeddingGemma 2 的權重釋出平台、授權與多模態檢索基準；看 AstaBrief 的模型卡有沒有列出授權、參數量與評測數字；看 Olmo-core 3 的原文或程式碼庫有沒有給出支援的 MoE 規模與訓練效率；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
+- **`model-research#cd11f1fe`** — model-research
+  > 看 openai/math 預印本實際列了哪些結果，以及外部數學家的檢查；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的模型卡有沒有列出參數量、授權與邊緣硬體上的延遲；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
 
-- **`product-market#6ce7257f`** — product-market
-  > 看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 原文公布的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因合作夥伴；看 Chatham 是否補上驗證準確率與人工覆核比例；看 The Den 之外有沒有第三方客戶給出同類數字。
+- **`product-market#9e1324d8`** — product-market
+  > 看 College Planner 的實際開放日期與地區，以及 teen AI council 的成員與公開紀錄；看 Radisson 是否公布外掛的預訂占比；看 Jump Trading 或其他量化公司有沒有補上可驗證的用量或績效；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 原文公布的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因夥伴。
 
 - **`capital-evolution#f82cf857`** — capital-evolution
   > 讀 OpenAI 歐盟文字來源標示那篇原文，確認它講的規則與時程，並看是否有其他來源或監管機關佐證；看 Lenfest 計畫的參與機構與資金分配；讀 Anthropic 與 Infosys 原文確認合作範圍與是否涉及資金；持續留意估值、募資或併購這類實際的資本動態。
 
-- **`agent-refactor#2f78b469`** — agent-refactor
-  > 看 OpenAI 是否公布合約任務上的評測結果，或把這套評測開放給外部；看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試；看 Dots 是否有官方文件公布可驗證的功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測；延續前面的觀察點：Agents API 定價公布後的採用情況、NVIDIA 安全框架是否變成具體工具。
+- **`agent-refactor#e31b450d`** — agent-refactor
+  > 看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有在自己的 agent 框架上跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果，或把評測開放給外部；看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試；看 Dots 是否有官方文件公布功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測。
 
 - **`global-map#bad23921`** — global-map
   > 看 Falcon-Emirati 的權重是否釋出、授權條款，以及有沒有在阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
 
-## 事件層（380）
+## 事件層（388）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1181,5 +1181,29 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-06-604dd9#b1849610`** — evt-2026-10-06-604dd9
   > 具體整合功能的上線日期、可用方案，以及權限與資料處理的說明。
 
+- **`evt-2026-10-06-771dea#902df85b`** — evt-2026-10-06-771dea
+  > github.com/openai/math/preprints 底下列出的論文，以及外部數學家對其中證明的檢查結果。
+
 - **`evt-2026-10-06-82cdd2#ef8cf02c`** — evt-2026-10-06-82cdd2
   > 權重釋出平台與授權條款，以及在多模態檢索基準上的公開評測。
+
+- **`evt-2026-10-06-f1d736#fcde704e`** — evt-2026-10-06-f1d736
+  > Jump Trading 或其他量化公司是否公開類似的長時間工作流程，以及 OpenAI 是否補上可驗證的用量或績效數字。
+
+- **`evt-2026-10-07-425321#ab0c9e91`** — evt-2026-10-07-425321
+  > College Planner 的實際開放日期與地區，以及 teen AI council 的成員組成與公開紀錄。
+
+- **`evt-2026-10-07-839523#137a7a45`** — evt-2026-10-07-839523
+  > Surface Laptop Ultra 的出貨日期與實際售價，以及第三方 OEM 是否跟進推出 RTX Spark 機種。
+
+- **`evt-2026-10-07-90ce7f#043d983a`** — evt-2026-10-07-90ce7f
+  > d1 模型卡上的參數量、授權條款，以及在邊緣硬體上的實測延遲。
+
+- **`evt-2026-10-07-c706e1#593c7a2e`** — evt-2026-10-07-c706e1
+  > Radisson 是否公布外掛的使用量或預訂占比，以及其他飯店集團是否推出類似外掛。
+
+- **`evt-2026-10-07-d78d6b#0b3d2501`** — evt-2026-10-07-d78d6b
+  > 文章公布的評測方法與分數，以及外部團隊是否能重現同樣結果。
+
+- **`evt-2026-10-07-ed2654#d96d633a`** — evt-2026-10-07-ed2654
+  > v1.0 的程式碼庫與接入範例，以及第三方在非微軟 agent 框架上的訓練報告。

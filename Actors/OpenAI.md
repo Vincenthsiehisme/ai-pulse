@@ -3,21 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-07'
+generated_day: '2026-10-08'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **141** 則：`published` 134、`review` 7
+事件 **144** 則：`published` 138、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-07 | [[Events/evt-2026-10-07-c706e1\|Radisson Hotel Group brings hotel discovery into ChatGPT]] | review |
-| 2026-10-07 | [[Events/evt-2026-10-07-425321\|Helping teens learn, plan, and shape the future of AI]] | review |
-| 2026-10-06 | [[Events/evt-2026-10-06-f1d736\|How Jump Trading is scaling quant research with ChatGPT]] | review |
-| 2026-10-06 | [[Events/evt-2026-10-06-771dea\|Sharing AI progress in mathematics]] | review |
+| 2026-10-08 | [[Events/evt-2026-10-08-b2495d\|Pollo AI turns creative ideas into campaigns with OpenAI]] | review |
+| 2026-10-08 | [[Events/evt-2026-10-08-68fb2a\|How Oracle turns days of work into minutes with ChatGPT and Codex]] | review |
+| 2026-10-08 | [[Events/evt-2026-10-08-08bd26\|Disrupting AI-enabled “false front” operations]] | review |
+| 2026-10-07 | [[Events/evt-2026-10-07-c706e1\|Radisson Hotel Group brings hotel discovery into ChatGPT]] | published |
+| 2026-10-07 | [[Events/evt-2026-10-07-425321\|Helping teens learn, plan, and shape the future of AI]] | published |
+| 2026-10-06 | [[Events/evt-2026-10-06-f1d736\|How Jump Trading is scaling quant research with ChatGPT]] | published |
+| 2026-10-06 | [[Events/evt-2026-10-06-771dea\|Sharing AI progress in mathematics]] | published |
 | 2026-10-06 | [[Events/evt-2026-10-06-604dd9\|Atlassian and OpenAI expand partnership to turn enterprise knowledge into action]] | published |
 | 2026-10-06 | [[Events/evt-2026-10-06-41752b\|Advancing computer use with Ironclad]] | published |
 | 2026-10-05 | [[Events/evt-2026-10-05-dbbb76\|Our approach to EU text provenance rules]] | published |

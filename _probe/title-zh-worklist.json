@@ -1,32 +1,8 @@
 [
   {
-    "id": "evt-2026-10-06-0521a3",
-    "title": "Cyber Verification Program",
-    "company": "Anthropic",
-    "track": "產品與商業驗證",
-    "summary": "Anthropic 發布「Cyber Verification Program」，細節見原文。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-06-771dea",
-    "title": "Sharing AI progress in mathematics",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-06-f1d736",
-    "title": "How Jump Trading is scaling quant research with ChatGPT",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-07-425321",
-    "title": "Helping teens learn, plan, and shape the future of AI",
-    "company": "OpenAI",
+    "id": "evt-2026-10-07-7fc660",
+    "title": "Introducing Falcon ASR",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
@@ -35,38 +11,70 @@
     "id": "evt-2026-10-07-839523",
     "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents",
     "company": "Microsoft",
-    "track": null,
-    "summary": "",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 與微軟聯手，讓 AI agent 在 Windows PC 本機執行。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-07-90ce7f",
-    "title": "Multimodal open d1 decision models for the edge",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
+    "id": "evt-2026-10-07-ed2654",
+    "title": "Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses",
+    "company": "Microsoft",
+    "track": "Agent與軟體重構",
+    "summary": "微軟研究院發布 Agent Lightning v1.0，約 3,500 行的輕量 agent 強化學習框架。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-07-c706e1",
-    "title": "Radisson Hotel Group brings hotel discovery into ChatGPT",
+    "id": "evt-2026-10-08-08bd26",
+    "title": "Disrupting AI-enabled “false front” operations",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-07-d78d6b",
-    "title": "One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO",
-    "company": "Hugging Face",
+    "id": "evt-2026-10-08-1711dc",
+    "title": "2026 Usage Policy Update",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-07-ed2654",
-    "title": "Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses",
+    "id": "evt-2026-10-08-5f6a44",
+    "title": "Genesis Mission Commitment",
     "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-08-68fb2a",
+    "title": "How Oracle turns days of work into minutes with ChatGPT and Codex",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-08-8f5386",
+    "title": "Anthropic Cyber Mission",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-08-9cbbbf",
+    "title": "Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-08-b2495d",
+    "title": "Pollo AI turns creative ideas into campaigns with OpenAI",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null

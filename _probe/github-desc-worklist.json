@@ -1,107 +1,178 @@
 [
   {
-    "full_name": "Ryder-Sun/Meldwork",
-    "desc": "Local-first AI agent workspace for multi-agent collaboration, agent orchestration, scoped permissions, evidence-aware runs, and human-in-the-loop decisions.",
-    "language": "JavaScript",
+    "full_name": "Oldcircle/geo-sleuth",
+    "desc": "An agent skill that finds where a photo was taken — OpenStreetMap geometry, elevation skylines, satellite imagery and street view — and shows its work. Works with Claude Code, Codex, Cursor, Gemini CLI, OpenCode and GitHub Copilot.",
+    "language": "Python",
     "topics": [
-      "acp",
-      "agent-client-protocol",
-      "agent-collaboration",
-      "agent-coordination",
-      "agent-orchestration",
-      "agent-runtime"
+      "agent-skills",
+      "ai-agents",
+      "claude-code",
+      "codex",
+      "computer-vision",
+      "cursor"
     ],
-    "stars": 376,
-    "url": "https://github.com/Ryder-Sun/Meldwork",
+    "stars": 1440,
+    "url": "https://github.com/Oldcircle/geo-sleuth",
     "stale_zh": null
   },
   {
-    "full_name": "OnyxAxisOwO/ObsidianArc",
-    "desc": "A self-hosted AI platform with a Go server, multi-provider routing, usage tracking and an admin console, with chat and agentic work modes.",
+    "full_name": "Agent-Field/CodeAF",
+    "desc": "Open-Source Software factory for Open Models",
     "language": "Go",
-    "topics": [],
-    "stars": 407,
-    "url": "https://github.com/OnyxAxisOwO/ObsidianArc",
+    "topics": [
+      "agent-fleet",
+      "agent-harness",
+      "agentfield",
+      "agentic-coding",
+      "ai",
+      "ai-coding"
+    ],
+    "stars": 351,
+    "url": "https://github.com/Agent-Field/CodeAF",
     "stale_zh": null
   },
   {
-    "full_name": "EXXETA/exxperts",
-    "desc": "Local-first AI agents with governed, approval-gated memory. Any model provider; MCP tools and web search built in. Nothing remembered without your say-so, nothing leaves your machine.",
+    "full_name": "tigerless-labs/agent-memory",
+    "desc": "Long-term memory runtime for AI agents — plain Markdown as the source of truth, local ranked retrieval, and an independent sleep-time Manage layer. Claude Code and Codex share one store. No API key.",
+    "language": "Python",
+    "topics": [
+      "agent-memory",
+      "ai-agents",
+      "claude-code",
+      "codex",
+      "llm",
+      "local-first"
+    ],
+    "stars": 2646,
+    "url": "https://github.com/tigerless-labs/agent-memory",
+    "stale_zh": null
+  },
+  {
+    "full_name": "amitshekhariitbhu/llm-inference-engineering",
+    "desc": "Learn LLM Inference Engineering step by step - from KV cache, PagedAttention, and continuous batching to vLLM, SGLang, and GPUs.",
+    "language": "Markdown",
+    "topics": [
+      "inference-engineering",
+      "inference-optimization",
+      "large-language-models",
+      "llm",
+      "llm-engineering",
+      "llm-inference"
+    ],
+    "stars": 305,
+    "url": "https://github.com/amitshekhariitbhu/llm-inference-engineering",
+    "stale_zh": null
+  },
+  {
+    "full_name": "feder-cr/invisible_dots",
+    "desc": "Open-source, self-hosted alternative to OpenAI Dots, Grok Bot. Built to be undetectable by anti-bot systems.",
     "language": "TypeScript",
+    "topics": [
+      "ai-agent",
+      "playwright",
+      "ai-agents",
+      "browser-automation",
+      "mcp",
+      "stealth-browser"
+    ],
+    "stars": 31867,
+    "url": "https://github.com/feder-cr/invisible_dots",
+    "stale_zh": null
+  },
+  {
+    "full_name": "HBAI-Ltd/Toonflow-app",
+    "desc": "Toonflow 是开源 AI 创作平台，融合无限画布、AI Agent 与可视化工作流，支持图像生成、视频生成、智能分镜及短剧创作。支持本地部署、自由接入模型，提供跨平台桌面端，并可通过 MCP 与插件扩展创作能力。Open-source AI creative platform with an infinite canvas, AI agents and visual workflows for image generation, video generation and filmmaking, with a canvas-based approach similar to LibTV and TapNow.",
+    "language": "Vue",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-content-creation",
+      "ai-filmmaking",
+      "generative-ai",
+      "image-generation"
+    ],
+    "stars": 16787,
+    "url": "https://github.com/HBAI-Ltd/Toonflow-app",
+    "stale_zh": null
+  },
+  {
+    "full_name": "feder-cr/invisible_playwright_mcp",
+    "desc": "Playwright MCP server undetected by anti-bots and captchas: AI agent browses the web on anti-detect stealth Firefox, Python, undetected browser automation, scraping, computer use.",
+    "language": "Python",
+    "topics": [
+      "ai-tools",
+      "antidetect-browser",
+      "autonomous-agents",
+      "browser-agent",
+      "browser-automation",
+      "claude-code-plugin"
+    ],
+    "stars": 2673,
+    "url": "https://github.com/feder-cr/invisible_playwright_mcp",
+    "stale_zh": null
+  },
+  {
+    "full_name": "intelligencedev/manifold",
+    "desc": "Manifold is an experimental platform for enabling long horizon workflow automation using teams of AI assistants.",
+    "language": "Go",
     "topics": [
       "agents",
-      "ai",
-      "local-first",
-      "memory",
-      "typescript",
-      "llm"
-    ],
-    "stars": 375,
-    "url": "https://github.com/EXXETA/exxperts",
-    "stale_zh": null
-  },
-  {
-    "full_name": "CyberSunil/LLMVault",
-    "desc": "An intentionally vulnerable OWASP LLM Top 10 training platform for AI Security, Prompt Injection, RAG Security, Agent Security, and GenAI penetration testing.",
-    "language": "Python",
-    "topics": [
-      "agent-security",
-      "ai-security",
-      "ai-security-tool",
-      "artificial-intelligence",
-      "ctf",
-      "docker"
-    ],
-    "stars": 334,
-    "url": "https://github.com/CyberSunil/LLMVault",
-    "stale_zh": null
-  },
-  {
-    "full_name": "dyad-sh/dyad",
-    "desc": "Local, open-source AI app builder for power users ✨ v0 / Lovable / Replit / Bolt alternative 🌟 Star if you like it!",
-    "language": "TypeScript",
-    "topics": [
-      "ai-app-builder",
-      "anthropic",
-      "artificial-intelligence",
-      "bolt",
-      "deepseek",
-      "gemini"
-    ],
-    "stars": 21741,
-    "url": "https://github.com/dyad-sh/dyad",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Jakeschincariol/arena-skill",
-    "desc": "When Claude keeps giving you bad answers, make 100 versions of it fight to the death. Same task, 100 different strategies, a bracket, one answer left. Free Claude Code skill.",
-    "language": "Python",
-    "topics": [
-      "arena",
-      "claude-code",
-      "claude-skills",
-      "multi-agent",
-      "prompting",
-      "subagents"
-    ],
-    "stars": 335,
-    "url": "https://github.com/Jakeschincariol/arena-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ItzCrazyKns/Vane",
-    "desc": "Vane is an AI-powered answering engine.",
-    "language": "TypeScript",
-    "topics": [
       "ai-agents",
-      "ai-search-engine",
-      "answering-engine",
+      "ai-assistant",
+      "ai-tools",
       "artificial-intelligence",
-      "llm",
-      "machine-learning"
+      "go"
     ],
-    "stars": 37107,
-    "url": "https://github.com/ItzCrazyKns/Vane",
+    "stars": 502,
+    "url": "https://github.com/intelligencedev/manifold",
+    "stale_zh": null
+  },
+  {
+    "full_name": "apify/crawlee",
+    "desc": "Crawlee—A web scraping and browser automation library for Node.js to build reliable crawlers. In JavaScript and TypeScript. Extract data for AI, LLMs, RAG, or GPTs. Download HTML, PDF, JPG, PNG, and other files from websites. Works with Puppeteer, Playwright, Cheerio, JSDOM, and raw HTTP. Both headful and headless mode. With proxy rotation.",
+    "language": "TypeScript",
+    "topics": [
+      "apify",
+      "automation",
+      "crawler",
+      "crawling",
+      "headless",
+      "headless-chrome"
+    ],
+    "stars": 26074,
+    "url": "https://github.com/apify/crawlee",
+    "stale_zh": null
+  },
+  {
+    "full_name": "rush-db/rushdb",
+    "desc": "RushDB is a graph + vector database and memory layer for AI agents. Push any JSON, get typed, searchable, relationship-aware records back — no schema, no migrations. Built on Neo4j.",
+    "language": "TypeScript",
+    "topics": [
+      "app-backend",
+      "database",
+      "docker",
+      "graphs",
+      "instant-apps",
+      "neo4j"
+    ],
+    "stars": 324,
+    "url": "https://github.com/rush-db/rushdb",
+    "stale_zh": null
+  },
+  {
+    "full_name": "HKUDS/nanobot",
+    "desc": "Ultra-lightweight, open-source, self-hosted personal AI agent framework in Python with WebUI, tools, memory, MCP, multi-agent workflows, automation, and chat apps",
+    "language": "Python",
+    "topics": [
+      "agent-framework",
+      "ai-agent",
+      "ai-agents",
+      "chatbot",
+      "chatops",
+      "discord-bot"
+    ],
+    "stars": 48874,
+    "url": "https://github.com/HKUDS/nanobot",
     "stale_zh": null
   },
   {
@@ -116,33 +187,40 @@
       "continuous-batching",
       "inference-server"
     ],
-    "stars": 3929,
+    "stars": 3942,
     "url": "https://github.com/raullenchai/Rapid-MLX",
     "stale_zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
   },
   {
-    "full_name": "AgentMemoryRepo/agentmemoryrepo",
-    "desc": "Spec for Agent Memory Repo",
-    "language": "",
-    "topics": [],
-    "stars": 610,
-    "url": "https://github.com/AgentMemoryRepo/agentmemoryrepo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "codedogQBY/ReadAny",
-    "desc": "AI-powered cross-platform e-book reader with semantic search, RAG chat, local vector store, notes, TTS, and WebDAV sync.",
+    "full_name": "useagenthq/useagent",
+    "desc": "The open-source Devin alternative. Run Claude Code, Codex, OpenCode or Pi in isolated cloud workspaces you can self-host.",
     "language": "TypeScript",
     "topics": [
+      "agents",
       "ai",
-      "anthropic",
-      "ebook-reader",
-      "embeddings",
-      "epub-reader",
-      "expo"
+      "ai-agents",
+      "ai-coworker",
+      "automation",
+      "autonomous-agents"
     ],
-    "stars": 2724,
-    "url": "https://github.com/codedogQBY/ReadAny",
+    "stars": 371,
+    "url": "https://github.com/useagenthq/useagent",
+    "stale_zh": "開源的 AI 同事，agent 有自己的雲端電腦，交付網站、簡報、報告與 PR，跑 Claude Code、Codex"
+  },
+  {
+    "full_name": "alibaba/open-code-review",
+    "desc": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
+    "language": "Go",
+    "topics": [
+      "agent",
+      "agent-skills",
+      "code-review",
+      "code-review-assistant",
+      "harness",
+      "repository-level-context"
+    ],
+    "stars": 44558,
+    "url": "https://github.com/alibaba/open-code-review",
     "stale_zh": null
   },
   {
@@ -157,49 +235,49 @@
       "claude-code",
       "codex"
     ],
-    "stars": 4002,
+    "stars": 4224,
     "url": "https://github.com/Louis-CFM/coucou",
     "stale_zh": "住在螢幕頂端的小工具，盯著 Claude Code、Codex、Cursor 等 coding agent"
   },
   {
-    "full_name": "google/adk-python",
-    "desc": "An open-source, code-first Python toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control.",
+    "full_name": "miqdadbadjuber/anti-slop",
+    "desc": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text, and code.",
+    "language": "JavaScript",
+    "topics": [
+      "accessibility",
+      "agent-skills",
+      "ai-agents",
+      "ai-coding-agent",
+      "ai-slop",
+      "anti-slop"
+    ],
+    "stars": 5024,
+    "url": "https://github.com/miqdadbadjuber/anti-slop",
+    "stale_zh": null
+  },
+  {
+    "full_name": "topoteretes/cognee",
+    "desc": "Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory with small models for free",
     "language": "Python",
     "topics": [
-      "agent",
-      "agentic",
-      "agentic-ai",
-      "agents",
-      "agents-sdk",
-      "ai"
+      "agent-memory",
+      "agent-skills",
+      "ai",
+      "ai-agents",
+      "ai-memory",
+      "cognitive-architecture"
     ],
-    "stars": 21736,
-    "url": "https://github.com/google/adk-python",
+    "stars": 31749,
+    "url": "https://github.com/topoteretes/cognee",
     "stale_zh": null
   },
   {
-    "full_name": "mrmps/classifier-dev",
-    "desc": "Zero-shot text classification over plain HTTP — no API key, no account. One Cloudflare Worker, a CLI, and an MCP server. https://classifier.dev",
-    "language": "TypeScript",
-    "topics": [
-      "api",
-      "classification",
-      "cli",
-      "cloudflare-workers",
-      "llm",
-      "mcp"
-    ],
-    "stars": 424,
-    "url": "https://github.com/mrmps/classifier-dev",
-    "stale_zh": null
-  },
-  {
-    "full_name": "elstongun/leviathan",
-    "desc": "**Deep memory for agents over large datasets.**   Leviathan is a single static binary that turns your records (JSONL, JSON, CSV/TSV, SQLite, or anything a database CLI can export) into a ranked full-text index.",
-    "language": "Rust",
+    "full_name": "zhaoxuya520/reverse-skill",
+    "desc": "Reverse Engineering / Authorized Penetration Testing / Security Research Skill Router Pack AI-powered routing + On-demand toolchain bootstrapping + Self-evolving knowledge base  Supports Claude Code, Kiro, Cursor, Cline, and other AI coding clients 逆向/渗透/安全技能路由包 - AI 自动路由 + 按需自举工具链 + 自动进化经验库 | 支持 Claude Code / Kiro / Cursor / Cline 等代码 AI 客户端",
+    "language": "PowerShell",
     "topics": [],
-    "stars": 662,
-    "url": "https://github.com/elstongun/leviathan",
+    "stars": 40241,
+    "url": "https://github.com/zhaoxuya520/reverse-skill",
     "stale_zh": null
   }
 ]

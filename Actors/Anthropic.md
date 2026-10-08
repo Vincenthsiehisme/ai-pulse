@@ -3,17 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-10-07'
+generated_day: '2026-10-08'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **111** 則：`published` 106、`review` 5
+事件 **112** 則：`published` 106、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-08 | [[Events/evt-2026-10-08-8f5386\|Anthropic Cyber Mission]] | review |
 | 2026-10-06 | [[Events/evt-2026-10-06-0521a3\|Cyber Verification Program]] | published |
 | 2026-10-02 | [[Events/evt-2026-10-02-96307e\|Claude Frontier Academy]] | published |
 | 2026-10-01 | [[Events/evt-2026-10-01-5d1170\|Barclays Scales Claude]] | published |
