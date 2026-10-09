@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-10-08'
+generated_day: '2026-10-09'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,11 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **34** 則：`published` 28、`review` 6
+事件 **35** 則：`published` 29、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-08 | [[Events/evt-2026-10-08-68fb2a\|How Oracle turns days of work into minutes with ChatGPT and Codex]] | published |
 | 2026-10-07 | [[Events/evt-2026-10-07-ed2654\|Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses]] | published |
 | 2026-10-06 | [[Events/evt-2026-10-06-41752b\|Advancing computer use with Ironclad]] | published |
 | 2026-10-03 | [[Events/evt-2026-10-03-623369\|The Agent Said It Was Done. The Database Disagreed.]] | review |

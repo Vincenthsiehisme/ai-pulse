@@ -1,283 +1,146 @@
 [
   {
-    "full_name": "Oldcircle/geo-sleuth",
-    "desc": "An agent skill that finds where a photo was taken — OpenStreetMap geometry, elevation skylines, satellite imagery and street view — and shows its work. Works with Claude Code, Codex, Cursor, Gemini CLI, OpenCode and GitHub Copilot.",
-    "language": "Python",
+    "full_name": "nano-muse/nanoMuse",
+    "desc": "nanoMuse: an open-source personal agent for every device you own. One agent with a name and a look of its own that does things, keeps working while the app is closed, remembers you, and asks before anything you cannot undo. On Android, iPhone and iPad, Windows / macOS / Linux and in the browser; your phone's screen and your computer as its hands.",
+    "language": "Swift",
     "topics": [
       "agent-skills",
-      "ai-agents",
-      "claude-code",
-      "codex",
-      "computer-vision",
-      "cursor"
-    ],
-    "stars": 1440,
-    "url": "https://github.com/Oldcircle/geo-sleuth",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Agent-Field/CodeAF",
-    "desc": "Open-Source Software factory for Open Models",
-    "language": "Go",
-    "topics": [
-      "agent-fleet",
-      "agent-harness",
-      "agentfield",
-      "agentic-coding",
-      "ai",
-      "ai-coding"
-    ],
-    "stars": 351,
-    "url": "https://github.com/Agent-Field/CodeAF",
-    "stale_zh": null
-  },
-  {
-    "full_name": "tigerless-labs/agent-memory",
-    "desc": "Long-term memory runtime for AI agents — plain Markdown as the source of truth, local ranked retrieval, and an independent sleep-time Manage layer. Claude Code and Codex share one store. No API key.",
-    "language": "Python",
-    "topics": [
-      "agent-memory",
-      "ai-agents",
-      "claude-code",
-      "codex",
-      "llm",
-      "local-first"
-    ],
-    "stars": 2646,
-    "url": "https://github.com/tigerless-labs/agent-memory",
-    "stale_zh": null
-  },
-  {
-    "full_name": "amitshekhariitbhu/llm-inference-engineering",
-    "desc": "Learn LLM Inference Engineering step by step - from KV cache, PagedAttention, and continuous batching to vLLM, SGLang, and GPUs.",
-    "language": "Markdown",
-    "topics": [
-      "inference-engineering",
-      "inference-optimization",
-      "large-language-models",
-      "llm",
-      "llm-engineering",
-      "llm-inference"
-    ],
-    "stars": 305,
-    "url": "https://github.com/amitshekhariitbhu/llm-inference-engineering",
-    "stale_zh": null
-  },
-  {
-    "full_name": "feder-cr/invisible_dots",
-    "desc": "Open-source, self-hosted alternative to OpenAI Dots, Grok Bot. Built to be undetectable by anti-bot systems.",
-    "language": "TypeScript",
-    "topics": [
       "ai-agent",
-      "playwright",
-      "ai-agents",
-      "browser-automation",
-      "mcp",
-      "stealth-browser"
-    ],
-    "stars": 31867,
-    "url": "https://github.com/feder-cr/invisible_dots",
-    "stale_zh": null
-  },
-  {
-    "full_name": "HBAI-Ltd/Toonflow-app",
-    "desc": "Toonflow 是开源 AI 创作平台，融合无限画布、AI Agent 与可视化工作流，支持图像生成、视频生成、智能分镜及短剧创作。支持本地部署、自由接入模型，提供跨平台桌面端，并可通过 MCP 与插件扩展创作能力。Open-source AI creative platform with an infinite canvas, AI agents and visual workflows for image generation, video generation and filmmaking, with a canvas-based approach similar to LibTV and TapNow.",
-    "language": "Vue",
-    "topics": [
-      "ai",
-      "ai-agents",
-      "ai-content-creation",
-      "ai-filmmaking",
-      "generative-ai",
-      "image-generation"
-    ],
-    "stars": 16787,
-    "url": "https://github.com/HBAI-Ltd/Toonflow-app",
-    "stale_zh": null
-  },
-  {
-    "full_name": "feder-cr/invisible_playwright_mcp",
-    "desc": "Playwright MCP server undetected by anti-bots and captchas: AI agent browses the web on anti-detect stealth Firefox, Python, undetected browser automation, scraping, computer use.",
-    "language": "Python",
-    "topics": [
-      "ai-tools",
-      "antidetect-browser",
-      "autonomous-agents",
-      "browser-agent",
-      "browser-automation",
-      "claude-code-plugin"
-    ],
-    "stars": 2673,
-    "url": "https://github.com/feder-cr/invisible_playwright_mcp",
-    "stale_zh": null
-  },
-  {
-    "full_name": "intelligencedev/manifold",
-    "desc": "Manifold is an experimental platform for enabling long horizon workflow automation using teams of AI assistants.",
-    "language": "Go",
-    "topics": [
-      "agents",
-      "ai-agents",
-      "ai-assistant",
-      "ai-tools",
-      "artificial-intelligence",
-      "go"
+      "android",
+      "computer-use",
+      "cross-device",
+      "desktop-app"
     ],
     "stars": 502,
-    "url": "https://github.com/intelligencedev/manifold",
+    "url": "https://github.com/nano-muse/nanoMuse",
     "stale_zh": null
   },
   {
-    "full_name": "apify/crawlee",
-    "desc": "Crawlee—A web scraping and browser automation library for Node.js to build reliable crawlers. In JavaScript and TypeScript. Extract data for AI, LLMs, RAG, or GPTs. Download HTML, PDF, JPG, PNG, and other files from websites. Works with Puppeteer, Playwright, Cheerio, JSDOM, and raw HTTP. Both headful and headless mode. With proxy rotation.",
-    "language": "TypeScript",
-    "topics": [
-      "apify",
-      "automation",
-      "crawler",
-      "crawling",
-      "headless",
-      "headless-chrome"
-    ],
-    "stars": 26074,
-    "url": "https://github.com/apify/crawlee",
-    "stale_zh": null
-  },
-  {
-    "full_name": "rush-db/rushdb",
-    "desc": "RushDB is a graph + vector database and memory layer for AI agents. Push any JSON, get typed, searchable, relationship-aware records back — no schema, no migrations. Built on Neo4j.",
-    "language": "TypeScript",
-    "topics": [
-      "app-backend",
-      "database",
-      "docker",
-      "graphs",
-      "instant-apps",
-      "neo4j"
-    ],
-    "stars": 324,
-    "url": "https://github.com/rush-db/rushdb",
-    "stale_zh": null
-  },
-  {
-    "full_name": "HKUDS/nanobot",
-    "desc": "Ultra-lightweight, open-source, self-hosted personal AI agent framework in Python with WebUI, tools, memory, MCP, multi-agent workflows, automation, and chat apps",
+    "full_name": "Jakeschincariol/replica-skill",
+    "desc": "Eleven free Claude skills that clone any app: reverse-engineer it, rebuild it, test it for bugs, then fix what its users hate. Free, MIT.",
     "language": "Python",
-    "topics": [
-      "agent-framework",
-      "ai-agent",
-      "ai-agents",
-      "chatbot",
-      "chatops",
-      "discord-bot"
-    ],
-    "stars": 48874,
-    "url": "https://github.com/HKUDS/nanobot",
-    "stale_zh": null
-  },
-  {
-    "full_name": "raullenchai/Rapid-MLX",
-    "desc": "Rapid-MLX is an open-source (Apache 2.0) OpenAI- and Anthropic-compatible LLM inference server for Apple Silicon, built on MLX, focused on reliable tool calling for coding agents. Up to 4× faster than Apple's MLX (mlx-lm) on the same weights.",
-    "language": "Python",
-    "topics": [
-      "anthropic-api",
-      "apple-silicon",
-      "claude-code",
-      "coding-agents",
-      "continuous-batching",
-      "inference-server"
-    ],
-    "stars": 3942,
-    "url": "https://github.com/raullenchai/Rapid-MLX",
-    "stale_zh": "Apple Silicon 本機 AI 引擎，比 Ollama 快 4.2 倍，可直接替換 OpenAI"
-  },
-  {
-    "full_name": "useagenthq/useagent",
-    "desc": "The open-source Devin alternative. Run Claude Code, Codex, OpenCode or Pi in isolated cloud workspaces you can self-host.",
-    "language": "TypeScript",
-    "topics": [
-      "agents",
-      "ai",
-      "ai-agents",
-      "ai-coworker",
-      "automation",
-      "autonomous-agents"
-    ],
-    "stars": 371,
-    "url": "https://github.com/useagenthq/useagent",
-    "stale_zh": "開源的 AI 同事，agent 有自己的雲端電腦，交付網站、簡報、報告與 PR，跑 Claude Code、Codex"
-  },
-  {
-    "full_name": "alibaba/open-code-review",
-    "desc": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
-    "language": "Go",
     "topics": [
       "agent",
       "agent-skills",
-      "code-review",
-      "code-review-assistant",
-      "harness",
-      "repository-level-context"
+      "app-clone",
+      "claude",
+      "claude-code",
+      "claude-skills"
     ],
-    "stars": 44558,
-    "url": "https://github.com/alibaba/open-code-review",
+    "stars": 1339,
+    "url": "https://github.com/Jakeschincariol/replica-skill",
     "stale_zh": null
   },
   {
-    "full_name": "Louis-CFM/coucou",
-    "desc": "A tiny friend in your Mac's notch and on your iPhone that keeps an eye on your AI coding agents: Claude Code, Codex, Cursor, Gemini CLI, Antigravity and more. Approve from the notch or your Lock Screen.",
+    "full_name": "ganeshmshetty/openclip",
+    "desc": "An open-source, privacy-first macOS text action popup for running custom scripts, AI-powered actions, and extensible workflows on selected text.",
     "language": "Swift",
     "topics": [
+      "app-kit",
+      "apple-intelligence",
+      "applescript",
+      "clipboard",
+      "developer-tools",
+      "javascriptcore"
+    ],
+    "stars": 648,
+    "url": "https://github.com/ganeshmshetty/openclip",
+    "stale_zh": null
+  },
+  {
+    "full_name": "tinyhumansai/openhuman",
+    "desc": "The fastest, cheapest, most efficient open-source agent harness. Run more than 500 agents on a $10 VPS.",
+    "language": "Rust",
+    "topics": [
+      "agent-orchestration",
       "ai-agents",
-      "anthropic",
+      "ai-assistant",
+      "desktop",
+      "llm",
+      "local-first"
+    ],
+    "stars": 41744,
+    "url": "https://github.com/tinyhumansai/openhuman",
+    "stale_zh": "開源 agent harness，主打最快、最便宜、最省資源，用 Rust 寫成"
+  },
+  {
+    "full_name": "Javis603/token-monitor",
+    "desc": "Local-first desktop widget for tracking token usage, costs, and limits across 43+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
+    "language": "JavaScript",
+    "topics": [
+      "ai-tools",
+      "claude-code",
+      "codex",
+      "llm",
+      "local-first",
+      "self-hosted"
+    ],
+    "stars": 2699,
+    "url": "https://github.com/Javis603/token-monitor",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Evil0ctal/Douyin_TikTok_Download_API",
+    "desc": "🚀 抖音、TikTok 数据采集与无水印视频下载 API，自托管，支持 MCP 调用与 Docker 一键部署。| Self-hosted TikTok & Douyin scraper and no-watermark video downloader — async REST API, MCP server, CLI and web console for posts, profiles, comments and playlists. Self-healing identity pool, PostgreSQL archive, one docker compose up.",
+    "language": "Python",
+    "topics": [
+      "asyncio",
+      "crawler",
+      "data-collection",
+      "douyin",
+      "douyin-api",
+      "downloader"
+    ],
+    "stars": 20548,
+    "url": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API",
+    "stale_zh": null
+  },
+  {
+    "full_name": "maziyarpanahi/openmed",
+    "desc": "Local-first healthcare AI: clinical NER and HIPAA PII de-identification on hardware you control. 2,200+ medical models, 35 model-backed PII languages, and Python, MLX, Android and browser runtimes. Apache-2.0 SDK.",
+    "language": "Python",
+    "topics": [
+      "android",
+      "clinical-nlp",
+      "healthcare",
+      "hipaa",
+      "ios",
+      "javascript"
+    ],
+    "stars": 5499,
+    "url": "https://github.com/maziyarpanahi/openmed",
+    "stale_zh": null
+  },
+  {
+    "full_name": "cayu-dev/cayu",
+    "desc": "Cayu is an open-source Python framework for building and running domain-specific long-horizon agents, with a durable runtime built in.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "autonomous-agents",
+      "harness",
+      "long-horizon-agents",
+      "long-running-agents",
+      "runtime"
+    ],
+    "stars": 759,
+    "url": "https://github.com/cayu-dev/cayu",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mksglu/context-mode",
+    "desc": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.",
+    "language": "TypeScript",
+    "topics": [
       "antigravity",
       "claude",
       "claude-code",
-      "codex"
+      "claude-code-hooks",
+      "claude-code-plugins",
+      "claude-code-skill"
     ],
-    "stars": 4224,
-    "url": "https://github.com/Louis-CFM/coucou",
-    "stale_zh": "住在螢幕頂端的小工具，盯著 Claude Code、Codex、Cursor 等 coding agent"
-  },
-  {
-    "full_name": "miqdadbadjuber/anti-slop",
-    "desc": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text, and code.",
-    "language": "JavaScript",
-    "topics": [
-      "accessibility",
-      "agent-skills",
-      "ai-agents",
-      "ai-coding-agent",
-      "ai-slop",
-      "anti-slop"
-    ],
-    "stars": 5024,
-    "url": "https://github.com/miqdadbadjuber/anti-slop",
-    "stale_zh": null
-  },
-  {
-    "full_name": "topoteretes/cognee",
-    "desc": "Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory with small models for free",
-    "language": "Python",
-    "topics": [
-      "agent-memory",
-      "agent-skills",
-      "ai",
-      "ai-agents",
-      "ai-memory",
-      "cognitive-architecture"
-    ],
-    "stars": 31749,
-    "url": "https://github.com/topoteretes/cognee",
-    "stale_zh": null
-  },
-  {
-    "full_name": "zhaoxuya520/reverse-skill",
-    "desc": "Reverse Engineering / Authorized Penetration Testing / Security Research Skill Router Pack AI-powered routing + On-demand toolchain bootstrapping + Self-evolving knowledge base  Supports Claude Code, Kiro, Cursor, Cline, and other AI coding clients 逆向/渗透/安全技能路由包 - AI 自动路由 + 按需自举工具链 + 自动进化经验库 | 支持 Claude Code / Kiro / Cursor / Cline 等代码 AI 客户端",
-    "language": "PowerShell",
-    "topics": [],
-    "stars": 40241,
-    "url": "https://github.com/zhaoxuya520/reverse-skill",
+    "stars": 25934,
+    "url": "https://github.com/mksglu/context-mode",
     "stale_zh": null
   }
 ]

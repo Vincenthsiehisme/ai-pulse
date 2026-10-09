@@ -111,7 +111,7 @@
   OpenAI DevDay 2026 開講，官方回顧文我們只收標題與連結。
 - **[[Events/evt-2026-09-29-119ae0|Introducing dots]]** — OpenAI · product · conf 80 · heat 未量測
   OpenAI 發布 Dots，標題稱為「常駐型代理」，官方內文我們只收標題與連結。
-- **[[Events/evt-2026-09-29-686cda|Introducing GPT-6.1 Sol]]** — OpenAI · model-capability · conf 94 · heat 未量測
+- **[[Events/evt-2026-09-29-686cda|Introducing GPT-6.1 Sol]]** — OpenAI · model-capability · conf 100 · heat 未量測
   OpenAI 推出 GPT-6.1 Sol，自稱接近 GPT-6 Astra，價格約五分之一。
 
 ## 2026-09-28
