@@ -109,6 +109,11 @@
     "src_hash": "0576e84207c2",
     "zh": "本機優先的 AI agent，記憶需經核准才寫入，可接任何模型供應商，內建 MCP 工具與網頁搜尋，資料不離開你的電腦"
   },
+  "Evil0ctal/Douyin_TikTok_Download_API": {
+    "at": "2026-10-09T20:27:19+00:00",
+    "src_hash": "3facf6e7788e",
+    "zh": "自架的抖音與 TikTok 資料擷取、無浮水印影片下載 API，支援 MCP 與 Docker 部署"
+  },
   "FareedKhan-dev/kimi-k3-in-c": {
     "at": "2026-08-10T19:09:33+00:00",
     "src_hash": "0e143566f257",
@@ -198,6 +203,16 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "0608c765a073",
     "zh": "11 個免費 Claude skill，用來經營 LinkedIn：寫貼文、留言、回覆、檔案評分與週計畫"
+  },
+  "Jakeschincariol/replica-skill": {
+    "at": "2026-10-09T20:27:19+00:00",
+    "src_hash": "aab785544538",
+    "zh": "11 個免費 Claude skills，可逆向、重建、測試任一 App 並修掉用戶抱怨的問題，MIT 授權"
+  },
+  "Javis603/token-monitor": {
+    "at": "2026-10-09T20:27:19+00:00",
+    "src_hash": "59efb10bddda",
+    "zh": "本機優先的桌面小工具，追蹤 43 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
   },
   "Johnson-Durui/Companion-Space": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -599,6 +614,11 @@
     "src_hash": "69f1daed9a17",
     "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，42 種圖型，純 HTML＋SVG"
   },
+  "cayu-dev/cayu": {
+    "at": "2026-10-09T20:27:19+00:00",
+    "src_hash": "5f47ff0d93b2",
+    "zh": "開源 Python 框架，用來建構並執行特定領域的長時程 agent，內建持久化執行環境"
+  },
   "cheahjs/free-llm-api-resources": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "b39be18886ec",
@@ -728,6 +748,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "97a2ec229740",
     "zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
+  },
+  "ganeshmshetty/openclip": {
+    "at": "2026-10-09T20:27:19+00:00",
+    "src_hash": "3d24a0f70efb",
+    "zh": "開源、重隱私的 macOS 文字動作彈窗，對選取文字執行自訂腳本、AI 動作與擴充流程"
   },
   "garrytan/gstack": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -944,6 +969,11 @@
     "src_hash": "be3c361f31f8",
     "zh": "給真正的工程師的技能集，直接取自作者自己的 .agents 目錄"
   },
+  "maziyarpanahi/openmed": {
+    "at": "2026-10-09T20:27:19+00:00",
+    "src_hash": "8e0a551b6858",
+    "zh": "本機優先的醫療 AI，在自有硬體上做臨床 NER 與 HIPAA 個資去識別，含 2,200 多個醫療模型"
+  },
   "mem0ai/mem0": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "6f9c671048a4",
@@ -1043,6 +1073,11 @@
     "at": "2026-08-04T19:21:24+00:00",
     "src_hash": "0144872fe000",
     "zh": "5ire：跨平台桌面 AI 助理兼 MCP client，透過 MCP server 接本機知識庫與工具"
+  },
+  "nano-muse/nanoMuse": {
+    "at": "2026-10-09T20:27:19+00:00",
+    "src_hash": "2389c62e2ba8",
+    "zh": "開源個人 agent，跨 Android、iPhone、桌面與瀏覽器，App 關著也能持續工作，不可逆操作前會先詢問"
   },
   "naw103/foremerge": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -1330,9 +1365,9 @@
     "zh": "隱身的 Chromium 引擎，只改一行程式碼就能讓爬蟲與瀏覽器 agent 不被封鎖"
   },
   "tinyhumansai/openhuman": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "72d22bba8d27",
-    "zh": "開源 agent harness，主打最快、最便宜、最省資源，用 Rust 寫成"
+    "at": "2026-10-09T20:27:19+00:00",
+    "src_hash": "5345f03b6f19",
+    "zh": "開源 agent harness，主打最快、最便宜、最省資源，10 美元的 VPS 可跑 500 多個 agent"
   },
   "topoteretes/cognee": {
     "at": "2026-10-08T20:58:31+00:00",

@@ -2,17 +2,17 @@
 id: evt-2026-10-09-ecfbef
 slug: impactful-scheduling-for-gpu-clusters-ecfb
 title: Impactful scheduling for GPU clusters
-title_zh: null
-title_zh_src: null
+title_zh: GPU 叢集的有效排程
+title_zh_src: 6016a9b11d0d
 date: '2026-10-09'
 happened_at: '2026-10-09T15:20:29+00:00'
 ingested_at: '2026-10-09T20:22:29+00:00'
 recovered_by: null
 coverage: observed
-status: review
-category: null
-company: Hugging Face
-track: null
+status: published
+category: infra
+company: Ai2
+track: 基礎設施與成本
 fingerprint: null
 facet: update
 tier_evidence: 1
@@ -35,18 +35,14 @@ score_factors:
   freshness: 95
   crossRegion: null
   propagationSignals: 0
-blockers:
-- placeholder_content
-- thin_fact
-- missing_category
-- missing_track
+blockers: []
 warnings:
 - single-source fact; cross-source corroboration pending
 keywords:
-- impactful
-- scheduling
-- gpu
-- clusters
+- Ai2
+- GPU 叢集
+- 排程
+- 訓練基礎設施
 next_signal: ''
 evidence:
 - source_id: src-hf-blog
@@ -57,23 +53,26 @@ evidence:
   suspected_repost: false
 tags:
 - event
-- review
+- published
+summary: Ai2 在 Hugging Face 發文談 GPU 叢集的排程方法。
+enriched: true
+published_at: '2026-10-09T20:26:15.272674+00:00'
 ---
 
 ## 事實
-待編輯：一句話講清楚發生了什麼（enrich 依證據填、過 speak-human-tw）。
+Ai2 在 Hugging Face 部落格發表〈Impactful scheduling for GPU clusters〉。來源摘要只有「Ai2 的一篇部落格文章」，沒有內文。（證據不足，待補）
 
 ## 證據
 - [[Sources/src-hf-blog|src-hf-blog]] — Impactful scheduling for GPU clusters（https://huggingface.co/blog/allenai/impactful-scheduling）
 
 ## 脈絡
-待編輯：這件事放在什麼背景下才看得懂。
+標題指向 GPU 叢集的工作排程，作者是 Ai2。排程策略、評估方式與結果在證據裡都沒有。（證據不足，待補）
 
 ## 影響
-待編輯：對能力 / 成本 / 競爭結構的影響。
+目前證據看不出對訓練成本或叢集使用率的具體影響。（證據不足，待補）
 
 ## 判斷
-待編輯（規則標註）：單一獨立來源 → 待證實。
+只有標題可用，不下結論。排程屬於基礎設施成本的題目，等拿到正文再判斷是否有可量化的利用率提升。
 
 ## 下一個訊號
-待編輯：接下來要觀察哪個可驗證訊號。
+文中是否給出叢集利用率或等待時間的前後數字，以及排程工具是否開源。

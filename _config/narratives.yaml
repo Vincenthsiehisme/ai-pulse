@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-08'
+updated: '2026-10-09'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: '這一輪新增一則 NVIDIA 的 GeForce NOW 例行更新：《Gears of War: E-Day》上架，Fire TV 用戶即將能購買會員，與 AI 基礎設施關係不大。這條線更有分量的仍是 10-07 的 RTX Spark：微軟在舊金山的活動上，黃仁勳與納德拉說明兩家公司共同設計硬體與軟體，讓 AI agent 在 Windows PC 本機執行。NVIDIA 部落格的標題提到 RTX Spark，TechCrunch 寫微軟公布了搭載 NVIDIA 晶片的 Surface Laptop Ultra 規格與價格，實際數字不在我們的摘要裡。10-06 NVIDIA 說電信業者把 AI 策略建在開放模型上，報告在摘要處截斷，沒有採用比例。10-05 vLLM v0.31.0 有 717 個 commit、307 位貢獻者，頁面沒有吞吐或延遲對照。10-02 的 DGX Spark 64GB 版與 10-01 的每兆瓦約 6,000 萬美元仍是 NVIDIA 單一來源的官方說法。'
-    next: 看 Fire TV 購買 GeForce NOW 會員的實際開放日期與地區；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 Windows 11 改版有沒有把 agent 做成系統層級的能力；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
+    now: 這一輪新增兩則。10-08 OpenAI 的 LegalOn 案例說，每日 Codex 的估計成本降低 65%，開發速度維持；做法是把 Astra、Sol、Luna 依任務配對並管理預算。這是廠商發布的單一客戶數字，「估計」成本的基準沒給。10-09 Ai2 在 Hugging Face 發表〈Impactful scheduling for GPU clusters〉，摘要只有「Ai2 的一篇部落格文章」，排程方法與結果都看不到。其餘延續上一輪：10-08 NVIDIA 的 GeForce NOW 例行更新與 AI 基礎設施關係不大。更有分量的是 10-07 的 RTX Spark，黃仁勳與納德拉說明兩家共同設計硬體與軟體，讓 AI agent 在 Windows PC 本機執行，Surface Laptop Ultra 的規格與價格不在我們的摘要裡。10-06 電信業者建在開放模型上的報告在摘要處截斷，沒有採用比例。10-05 vLLM v0.31.0 有 717 個 commit、307 位貢獻者，頁面沒有吞吐或延遲對照。10-02 的 DGX Spark 64GB 版與 10-01 的每兆瓦約 6,000 萬美元仍是 NVIDIA 單一來源的說法。
+    next: 看其他 Codex 客戶有沒有公布類似的任務分層與成本數字，以及 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率或等待時間的前後數字，排程工具是否開源；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增兩則。Anthropic 的 2026 使用政策更新依授權只收標題與連結，政策改了什麼請讀原文。OpenAI 的 Pollo AI 客戶案例說它用 GPT-5.6、GPT-6 Astra 與 GPT-Image-2.5 做圖片與影片廣告，沒有用量或成效數字。10-07 的三則仍是廠商自述：ChatGPT for Teens 要加 College Planner 與學習功能，上線日期沒寫；Radisson 與 Accenture 做了 ChatGPT 外掛讓旅客找房訂房，沒有使用量；Jump Trading 案例沒有效益數字。OpenAI 與 Atlassian 擴大合作，證據只有官方一句摘要。Anthropic 的 Cyber Verification Program 同樣只收標題與連結。10-05 的 ChatGPT 視覺化廣告格式與 NVIDIA 乳癌篩檢案例仍是單一來源。
-    next: 看 2026 使用政策更新原文公布的生效日期與條款差異；看 Pollo AI 是否公布用戶數或廣告成效，以及 GPT-6 Astra 有沒有獨立的正式發布說明；看 College Planner 的實際開放日期與地區；看 Radisson 是否公布外掛的預訂占比；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 原文公布的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因夥伴。
+    now: 這一輪新增 10-09 的 Sophos 案例。OpenAI 稱 Sophos 用 Daybreak 把威脅調查時間縮短 96%，MDR 案件有 52% 自動化，並保留人工監督。兩個數字都出自 OpenAI 發布的說法，96% 的比較基準沒有交代，52% 是案件比例而不是時間，兩者不能互相推算。10-08 的兩則延續上一輪：Anthropic 的 2026 使用政策更新依授權只收標題與連結，政策改了什麼請讀原文；OpenAI 的 Pollo AI 案例說它用 GPT-5.6、GPT-6 Astra 與 GPT-Image-2.5 做圖片與影片廣告，沒有用量或成效數字。10-07 的 ChatGPT for Teens、Radisson 外掛、10-06 的 Jump Trading 與 Atlassian 擴大合作，仍是廠商自述，沒有使用量或效益數字。Anthropic 的 Cyber Verification Program 同樣只收標題與連結。10-05 的 ChatGPT 視覺化廣告格式與 NVIDIA 乳癌篩檢案例仍是單一來源。
+    next: 看 Sophos 或第三方是否公布自動化案件的誤判率與複查比例；看 2026 使用政策更新原文公布的生效日期與條款差異；看 Pollo AI 是否公布用戶數或廣告成效；看 College Planner 的實際開放日期與地區；看 Radisson 是否公布外掛的預訂占比；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因夥伴。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -59,8 +59,8 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這一輪新增 OpenAI 的 Oracle 客戶案例。摘要說 Oracle 在招募、工程與營運用 ChatGPT Work 和 Codex 做成可重複的流程，標題寫「數天縮到數分鐘」，但來源沒有給量測方式或數字。10-07 微軟研究院發布 Agent Lightning v1.0，標題寫明約 3,500 行，摘要說它把既有 agent 接上強化學習訓練，不必重建 agent，效果數據來源沒有提供。10-06 OpenAI 與 Ironclad 合作，在合約工作流程上訓練並評測 computer use agent，摘要只有一句，任務設計與成績都沒有。10-01 前後的 ServiceNow-AI AutoSynthData 只確定有人在處理企業場景缺訓練資料的問題。09-29 OpenAI 的 Dots 仍只有標題與連結，功能、價格與開放範圍不明。09-28 的 Holo4 是 H company 的通用電腦操作 agent，單一來源。
-    next: 看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有在自己的 agent 框架上跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果，或把評測開放給外部；看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試；看 Dots 是否有官方文件公布功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測。
+    now: 這一輪新增兩則，證據都很薄。10-08 Hugging Face 發表〈The model that didn't exist, so you made it yourself〉，網址帶 building-with-ml-intern，摘要只有該站的通用介紹，ML intern 是什麼看不出來。同日 NVIDIA 的 Omniverse 系列文說開發者把前沿 AI 模型接上 Omniverse 函式庫來組裝資產、串接物理與渲染，摘要在句中截斷，沒有數字與具名客戶。Oracle 的客戶案例仍只有標題「數天縮到數分鐘」，來源沒給量測方式。10-07 微軟研究院的 Agent Lightning v1.0 約 3,500 行，把既有 agent 接上強化學習訓練，效果數據來源沒提供。10-06 OpenAI 與 Ironclad 在合約工作流程上訓練並評測 computer use agent，任務設計與成績都沒有。10-02 ServiceNow-AI 的 AutoSynthData 只確定在處理企業場景缺訓練資料的問題。09-29 OpenAI 的 Dots 只有標題與連結。09-28 的 Holo4 是 H company 的通用電腦操作 agent，單一來源。
+    next: 看 Hugging Face 那篇有沒有公開 ML intern 的程式碼或模型連結；看 NVIDIA 是否公布具名客戶或開發時間對比；看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果；看 AutoSynthData 有沒有同步釋出資料集或基準測試；看 Dots 是否有官方文件公布功能與限制；看 Holo4 有沒有第三方的電腦操作評測。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。

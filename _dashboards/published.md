@@ -1,12 +1,22 @@
-# 已發布事件（416）
+# 已發布事件（421）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-09
+- **[[Events/evt-2026-10-09-6f51cf|Sophos cuts threat investigation time by 96% with OpenAI Daybreak]]** — OpenAI · product · conf 73 · heat 未量測
+  Sophos 稱用 OpenAI Daybreak 把威脅調查時間縮短 96%。
+- **[[Events/evt-2026-10-09-ecfbef|Impactful scheduling for GPU clusters]]** — Ai2 · infra · conf 73 · heat 未量測
+  Ai2 在 Hugging Face 發文談 GPU 叢集的排程方法。
 
 ## 2026-10-08
 - **[[Events/evt-2026-10-08-08bd26|Disrupting AI-enabled “false front” operations]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 表示已瓦解兩個利用假記者與假智庫的 AI 影響力行動。
 - **[[Events/evt-2026-10-08-1711dc|2026 Usage Policy Update]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 發布 2026 使用政策更新，內文我們不轉述。
+- **[[Events/evt-2026-10-08-2e7e69|The model that didn't exist, so you made it yourself]]** — Hugging Face · product · conf 73 · heat 未量測
+  Hugging Face 發文談自己動手做出一個原本不存在的模型。
+- **[[Events/evt-2026-10-08-3e80ab|LegalOn halves Codex costs while maintaining development speed]]** — OpenAI · product · conf 73 · heat 未量測
+  LegalOn 把每日 Codex 估計成本砍掉 65%，開發速度沒掉。
 - **[[Events/evt-2026-10-08-5f6a44|Genesis Mission Commitment]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 發布 Genesis Mission Commitment，內文我們不轉述。
 - **[[Events/evt-2026-10-08-68fb2a|How Oracle turns days of work into minutes with ChatGPT and Codex]]** — OpenAI · product · conf 73 · heat 未量測
@@ -17,6 +27,8 @@
   《Gears of War: E-Day》上架 GeForce NOW，Fire TV 用戶將可直接買會員。
 - **[[Events/evt-2026-10-08-b2495d|Pollo AI turns creative ideas into campaigns with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 發布 Pollo AI 的客戶案例，用 GPT-5.6 等模型做圖片與影片廣告。
+- **[[Events/evt-2026-10-08-ce8030|Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 說明開發者如何用前沿 AI 代理搭配 Omniverse 函式庫做模擬應用。
 
 ## 2026-10-07
 - **[[Events/evt-2026-10-07-425321|Helping teens learn, plan, and shape the future of AI]]** — OpenAI · product · conf 73 · heat 未量測

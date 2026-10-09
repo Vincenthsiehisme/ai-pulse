@@ -1,235 +1,139 @@
 [
   {
-    "id": "evt-2026-10-07-7fc660",
-    "path": "evt-2026-10-07-7fc660.md",
-    "title": "Introducing Falcon ASR",
+    "id": "evt-2026-10-08-2e7e69",
+    "path": "evt-2026-10-08-2e7e69.md",
+    "title": "The model that didn't exist, so you made it yourself",
     "fingerprint": null,
-    "facet": "release",
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/building-with-ml-intern",
+        "title": "The model that didn't exist, so you made it yourself",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-08-3e80ab",
+    "path": "evt-2026-10-08-3e80ab.md",
+    "title": "LegalOn halves Codex costs while maintaining development speed",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/legalon-halves-codex-costs",
+        "title": "LegalOn halves Codex costs while maintaining development speed",
+        "summary": "LegalOn cut estimated daily Codex costs by 65% while maintaining development speed. It matched Astra, Sol, and Luna to tasks and managed budgets strategically.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-08-ce8030",
+    "path": "evt-2026-10-08-ce8030.md",
+    "title": "Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/",
+        "title": "Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents",
+        "summary": "Turning a simulation idea into a working application means assembling assets, connecting physics and rendering, and checking that the scene behaves as intended. Developers are combining frontier AI models with NVIDIA Omniverse libraries to help carry out that work — building applications for explori",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-09-6f51cf",
+    "path": "evt-2026-10-09-6f51cf.md",
+    "title": "Sophos cuts threat investigation time by 96% with OpenAI Daybreak",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/sophos",
+        "title": "Sophos cuts threat investigation time by 96% with OpenAI Daybreak",
+        "summary": "Discover how Sophos uses OpenAI’s Daybreak to cut cyber-threat investigation time by 96% and automate 52% of MDR cases while preserving human oversight.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-09-ecfbef",
+    "path": "evt-2026-10-09-ecfbef.md",
+    "title": "Impactful scheduling for GPU clusters",
+    "fingerprint": null,
+    "facet": "update",
     "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/tiiuae/falcon-asr",
-        "title": "Introducing Falcon ASR",
-        "summary": "A Blog post by Technology Innovation Institute on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-08-08bd26",
-    "path": "evt-2026-10-08-08bd26.md",
-    "title": "Disrupting AI-enabled “false front” operations",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/disrupting-ai-enabled-false-front-operations",
-        "title": "Disrupting AI-enabled “false front” operations",
-        "summary": "OpenAI disrupted two AI-enabled influence operations that used false-front journalists and a think tank to spread geopolitical messaging.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-08-1711dc",
-    "path": "evt-2026-10-08-1711dc.md",
-    "title": "2026 Usage Policy Update",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/2026-usage-policy-update",
-        "title": "2026 Usage Policy Update",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-08-5f6a44",
-    "path": "evt-2026-10-08-5f6a44.md",
-    "title": "Genesis Mission Commitment",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/genesis-mission-commitment",
-        "title": "Genesis Mission Commitment",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-08-68fb2a",
-    "path": "evt-2026-10-08-68fb2a.md",
-    "title": "How Oracle turns days of work into minutes with ChatGPT and Codex",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/oracle",
-        "title": "How Oracle turns days of work into minutes with ChatGPT and Codex",
-        "summary": "Across recruiting, engineering, and operations, Oracle turns specialist knowledge into fast, repeatable workflows with ChatGPT Work and Codex.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-08-8f5386",
-    "path": "evt-2026-10-08-8f5386.md",
-    "title": "Anthropic Cyber Mission",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/anthropic-cyber-mission",
-        "title": "Anthropic Cyber Mission",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-08-9cbbbf",
-    "path": "evt-2026-10-08-9cbbbf.md",
-    "title": "Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-gears-of-war-e-day/",
-        "title": "Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW",
-        "summary": "Gears of War: E-Day leads the charge on GeForce NOW this week, bringing Marcus Fenix and Dom Santiago’s first fight against the Locust Horde to the cloud with GeForce RTX-powered performance. A new way to join the action is also coming: Fire TV users will soon be able to purchase GeForce NOW members",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-08-b2495d",
-    "path": "evt-2026-10-08-b2495d.md",
-    "title": "Pollo AI turns creative ideas into campaigns with OpenAI",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/pollo-ai",
-        "title": "Pollo AI turns creative ideas into campaigns with OpenAI",
-        "summary": "With GPT-5.6, GPT-6 Astra, and GPT‑Image‑2.5, Pollo AI helps creators turn bold ideas into detailed images and cinematic video ads.",
+        "url": "https://huggingface.co/blog/allenai/impactful-scheduling",
+        "title": "Impactful scheduling for GPU clusters",
+        "summary": "A Blog post by Ai2 on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
