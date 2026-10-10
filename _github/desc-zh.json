@@ -34,6 +34,11 @@
     "src_hash": "6be7dcaf63df",
     "zh": "把文字與真實來源轉成可維護的 .drawio 架構圖，支援增量同步、多視角投影，並內建 MCP server"
   },
+  "Alishahryar1/free-claude-code": {
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "46131b106445",
+    "zh": "讓 Claude Code、Codex 等工具免費使用，支援終端、IDE、手機與瀏覽器"
+  },
   "Andyyyy64/whichllm": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "47e983421d6e",
@@ -140,9 +145,9 @@
     "zh": "把程式庫連同文件、SQL schema、設定與 PDF 變成可查詢的知識圖；本地 AST 解析、不用向量庫"
   },
   "HBAI-Ltd/Toonflow-app": {
-    "at": "2026-10-08T20:58:31+00:00",
-    "src_hash": "333dc744dc2c",
-    "zh": "開源 AI 創作平台，結合無限畫布、AI Agent 與視覺化工作流，可做圖像、影片與短劇"
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "f0ad8c9ee729",
+    "zh": "開源 AI 短劇與漫劇創作平台，含劇本、分鏡、素材管理、圖像與影片生成，可本地部署"
   },
   "HKUDS/DeepTutor": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -210,8 +215,8 @@
     "zh": "11 個免費 Claude skills，可逆向、重建、測試任一 App 並修掉用戶抱怨的問題，MIT 授權"
   },
   "Javis603/token-monitor": {
-    "at": "2026-10-09T20:27:19+00:00",
-    "src_hash": "59efb10bddda",
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "be586a80e300",
     "zh": "本機優先的桌面小工具，追蹤 43 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
   },
   "Johnson-Durui/Companion-Space": {
@@ -263,6 +268,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "e665e1379f6f",
     "zh": "面向基本面因子研究的 agent：假設驅動，附證據門檻驗證與研究記憶"
+  },
+  "LosaLosSantos/aurelio-finance": {
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "73b31a99f602",
+    "zh": "開源個人理財 app，內建 AI 理財顧問，在自己電腦上追蹤淨資產、投資、ETF、現金與負債"
   },
   "Louis-CFM/coucou": {
     "at": "2026-10-08T20:58:31+00:00",
@@ -610,9 +620,9 @@
     "zh": "讓 AI 產出 PPTX 的 Claude Code skill，含投影片規範、62 種版型目錄與機器檢查"
   },
   "cathrynlavery/diagram-design": {
-    "at": "2026-10-06T20:41:13+00:00",
-    "src_hash": "69f1daed9a17",
-    "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，42 種圖型，純 HTML＋SVG"
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "fd4e4548b98a",
+    "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，44 種圖型，純 HTML＋SVG"
   },
   "cayu-dev/cayu": {
     "at": "2026-10-09T20:27:19+00:00",
@@ -715,8 +725,8 @@
     "zh": "開源的 agentic 作業系統"
   },
   "elstongun/leviathan": {
-    "at": "2026-10-07T20:56:20+00:00",
-    "src_hash": "49f962b17c64",
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "6c114f8d2abb",
     "zh": "給 agent 用的大型資料集深層記憶：單一靜態執行檔，把 JSONL、CSV、SQLite 等紀錄轉成排序的全文索引"
   },
   "exa-labs/exa-mcp-server": {
@@ -795,8 +805,8 @@
     "zh": "GPU 叢集管理工具，服務 vLLM、SGLang 等高效能 AI 模型，並提供隨選的 SSH GPU 執行個體"
   },
   "gufo-org/gufo": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "7d919085df67",
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "cf9f56406ac7",
     "zh": "Strix Halo 的推論引擎，附 Qwen 模型的實測 token 速度"
   },
   "hardenrun/aif": {
@@ -925,8 +935,8 @@
     "zh": "在同一個工作區裡建 Agentic workflow 與 RAG pipeline，可部署雲端、VPC 或自架環境"
   },
   "lemomo-ai/lemo-opuscar": {
-    "at": "2026-10-05T22:18:12+00:00",
-    "src_hash": "ca2ac55da0ad",
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "d099af5505be",
     "zh": "Claude Code skill：不靠影片模型做短片，43 種影片風格，各附風格提示詞與純程式碼樣片"
   },
   "lightonai/next-plaid": {
@@ -1013,6 +1023,11 @@
     "at": "2026-10-08T20:58:31+00:00",
     "src_hash": "db1b39b8cafd",
     "zh": "給 AI coding agent 的規則集，用來濾掉千篇一律的 AI 介面設計、文字與程式碼"
+  },
+  "mksglu/context-mode": {
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "80f8ee4ff268",
+    "zh": "AI 程式 agent 的 context 最佳化：工具輸出沙箱化、保存 session 記憶"
   },
   "mlc-ai/web-llm": {
     "at": "2026-09-02T19:14:09+00:00",
@@ -1373,6 +1388,11 @@
     "at": "2026-10-08T20:58:31+00:00",
     "src_hash": "8fbc377f6446",
     "zh": "開源的 AI 記憶平台，讓 agent 用小模型免費擁有持久的長期記憶"
+  },
+  "totec448-spec/chat-on-steroids": {
+    "at": "2026-10-10T19:38:45+00:00",
+    "src_hash": "f19575676d9c",
+    "zh": "給 ChatGPT 用的本機 MCP 功能，含 Chrome 整合與多 agent 工作流"
   },
   "tt-a1i/archify": {
     "at": "2026-10-04T18:54:49+00:00",
