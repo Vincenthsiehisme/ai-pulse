@@ -1,71 +1,71 @@
 [
   {
-    "full_name": "nano-muse/nanoMuse",
-    "desc": "nanoMuse: an open-source personal agent for every device you own. One agent with a name and a look of its own that does things, keeps working while the app is closed, remembers you, and asks before anything you cannot undo. On Android, iPhone and iPad, Windows / macOS / Linux and in the browser; your phone's screen and your computer as its hands.",
-    "language": "Swift",
-    "topics": [
-      "agent-skills",
-      "ai-agent",
-      "android",
-      "computer-use",
-      "cross-device",
-      "desktop-app"
-    ],
-    "stars": 502,
-    "url": "https://github.com/nano-muse/nanoMuse",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Jakeschincariol/replica-skill",
-    "desc": "Eleven free Claude skills that clone any app: reverse-engineer it, rebuild it, test it for bugs, then fix what its users hate. Free, MIT.",
+    "full_name": "LosaLosSantos/aurelio-finance",
+    "desc": "Open-source personal finance app with an AI financial advisor: track your net worth, investments, ETFs, cash and debts on your own computer.",
     "language": "Python",
     "topics": [
-      "agent",
+      "ai",
+      "dividends",
+      "etf",
+      "finance",
+      "financial-planning",
+      "fintech"
+    ],
+    "stars": 2092,
+    "url": "https://github.com/LosaLosSantos/aurelio-finance",
+    "stale_zh": null
+  },
+  {
+    "full_name": "cathrynlavery/diagram-design",
+    "desc": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Factory Droid, and Pi. 44 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+    "language": "HTML",
+    "topics": [
       "agent-skills",
-      "app-clone",
-      "claude",
       "claude-code",
-      "claude-skills"
+      "codex",
+      "data-visualization",
+      "diagrams",
+      "drawio"
     ],
-    "stars": 1339,
-    "url": "https://github.com/Jakeschincariol/replica-skill",
-    "stale_zh": null
+    "stars": 48744,
+    "url": "https://github.com/cathrynlavery/diagram-design",
+    "stale_zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，42 種圖型，純 HTML＋SVG"
   },
   {
-    "full_name": "ganeshmshetty/openclip",
-    "desc": "An open-source, privacy-first macOS text action popup for running custom scripts, AI-powered actions, and extensible workflows on selected text.",
-    "language": "Swift",
+    "full_name": "lemomo-ai/lemo-opuscar",
+    "desc": "Claude Code skill for short films with no video model: 43 film styles, each a style prompt plus a demo film made entirely in code by Claude Opus 5.5 (incl. OPUSCAR 98). By Lemomo. · Opus5.5 x 43 种影片风格：风格提示词 + 纯代码样片 + 导演与技术指南",
+    "language": "JavaScript",
     "topics": [
-      "app-kit",
-      "apple-intelligence",
-      "applescript",
-      "clipboard",
-      "developer-tools",
-      "javascriptcore"
-    ],
-    "stars": 648,
-    "url": "https://github.com/ganeshmshetty/openclip",
-    "stale_zh": null
-  },
-  {
-    "full_name": "tinyhumansai/openhuman",
-    "desc": "The fastest, cheapest, most efficient open-source agent harness. Run more than 500 agents on a $10 VPS.",
-    "language": "Rust",
-    "topics": [
-      "agent-orchestration",
+      "agent-skills",
       "ai-agents",
-      "ai-assistant",
-      "desktop",
-      "llm",
+      "ai-short-film",
+      "ai-video",
+      "animation",
+      "canvas"
+    ],
+    "stars": 1804,
+    "url": "https://github.com/lemomo-ai/lemo-opuscar",
+    "stale_zh": "Claude Code skill：不靠影片模型做短片，43 種影片風格，各附風格提示詞與純程式碼樣片"
+  },
+  {
+    "full_name": "totec448-spec/chat-on-steroids",
+    "desc": "Cross-platform local MCP capabilities for ChatGPT with Chrome integration, Goal, Compact & Resume, and durable multi-agent workflows.",
+    "language": "TypeScript",
+    "topics": [
+      "automation",
+      "chatgpt",
+      "chrome-extension",
+      "electron",
+      "linux",
       "local-first"
     ],
-    "stars": 41744,
-    "url": "https://github.com/tinyhumansai/openhuman",
-    "stale_zh": "開源 agent harness，主打最快、最便宜、最省資源，用 Rust 寫成"
+    "stars": 4561,
+    "url": "https://github.com/totec448-spec/chat-on-steroids",
+    "stale_zh": null
   },
   {
     "full_name": "Javis603/token-monitor",
-    "desc": "Local-first desktop widget for tracking token usage, costs, and limits across 43+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
+    "desc": "Local-first desktop widget for tracking token usage, costs, limits, and session activity across 43+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
     "language": "JavaScript",
     "topics": [
       "ai-tools",
@@ -75,57 +75,49 @@
       "local-first",
       "self-hosted"
     ],
-    "stars": 2699,
+    "stars": 2726,
     "url": "https://github.com/Javis603/token-monitor",
+    "stale_zh": "本機優先的桌面小工具，追蹤 43 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
+  },
+  {
+    "full_name": "HBAI-Ltd/Toonflow-app",
+    "desc": "短剧、漫剧制作工具 Toonflow：开源 AI 视频创作平台，集成剧本创作、智能分镜、角色与场景资产管理、图像生成和视频生成。融合无限画布、AI Agent 与可视化工作流，支持本地部署、自选模型、跨平台客户端、MCP 与插件扩展。Open-source AI short drama and motion comic creation tool with an infinite canvas, AI agents, storyboarding, image and video generation. Self-hosted and extensible, with a canvas-based approach similar to LibTV and TapNow.",
+    "language": "TypeScript",
+    "topics": [
+      "ai-content-creation",
+      "generative-ai",
+      "image-generation",
+      "text-to-video",
+      "video-generation",
+      "ai-agents"
+    ],
+    "stars": 17112,
+    "url": "https://github.com/HBAI-Ltd/Toonflow-app",
+    "stale_zh": "開源 AI 創作平台，結合無限畫布、AI Agent 與視覺化工作流，可做圖像、影片與短劇"
+  },
+  {
+    "full_name": "Alishahryar1/free-claude-code",
+    "desc": "Use Claude Code, Codex, VSCode, Pi, and OpenCode (and 6 other harnesses) for free (1.3B+ free tokens) from your terminal, app, IDE, or phone, and now from the browser with native browser sessions (multi-harness + multi-model) like OpenClaw (voice supported + ToS friendly)",
+    "language": "Python",
+    "topics": [],
+    "stars": 57382,
+    "url": "https://github.com/Alishahryar1/free-claude-code",
     "stale_zh": null
   },
   {
-    "full_name": "Evil0ctal/Douyin_TikTok_Download_API",
-    "desc": "🚀 抖音、TikTok 数据采集与无水印视频下载 API，自托管，支持 MCP 调用与 Docker 一键部署。| Self-hosted TikTok & Douyin scraper and no-watermark video downloader — async REST API, MCP server, CLI and web console for posts, profiles, comments and playlists. Self-healing identity pool, PostgreSQL archive, one docker compose up.",
-    "language": "Python",
+    "full_name": "gufo-org/gufo",
+    "desc": "Strix Halo inference engine. Qwen Flash Next Q4_K_XL: 1,702.93pp, 65.25tg single user, 184.74 tok/s 8 users; Qwen27B Q4_K_XL: 656.33pp, 70.56tg tok/s single user with DFlash2",
+    "language": "C++",
     "topics": [
-      "asyncio",
-      "crawler",
-      "data-collection",
-      "douyin",
-      "douyin-api",
-      "downloader"
+      "amd",
+      "gfx1151",
+      "llm",
+      "ryzen-ai",
+      "strix-halo"
     ],
-    "stars": 20548,
-    "url": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API",
-    "stale_zh": null
-  },
-  {
-    "full_name": "maziyarpanahi/openmed",
-    "desc": "Local-first healthcare AI: clinical NER and HIPAA PII de-identification on hardware you control. 2,200+ medical models, 35 model-backed PII languages, and Python, MLX, Android and browser runtimes. Apache-2.0 SDK.",
-    "language": "Python",
-    "topics": [
-      "android",
-      "clinical-nlp",
-      "healthcare",
-      "hipaa",
-      "ios",
-      "javascript"
-    ],
-    "stars": 5499,
-    "url": "https://github.com/maziyarpanahi/openmed",
-    "stale_zh": null
-  },
-  {
-    "full_name": "cayu-dev/cayu",
-    "desc": "Cayu is an open-source Python framework for building and running domain-specific long-horizon agents, with a durable runtime built in.",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "autonomous-agents",
-      "harness",
-      "long-horizon-agents",
-      "long-running-agents",
-      "runtime"
-    ],
-    "stars": 759,
-    "url": "https://github.com/cayu-dev/cayu",
-    "stale_zh": null
+    "stars": 642,
+    "url": "https://github.com/gufo-org/gufo",
+    "stale_zh": "Strix Halo 的推論引擎，附 Qwen 模型的實測 token 速度"
   },
   {
     "full_name": "mksglu/context-mode",
@@ -139,8 +131,17 @@
       "claude-code-plugins",
       "claude-code-skill"
     ],
-    "stars": 25934,
+    "stars": 26216,
     "url": "https://github.com/mksglu/context-mode",
     "stale_zh": null
+  },
+  {
+    "full_name": "elstongun/leviathan",
+    "desc": "Deep memory for agents over large datasets. Leviathan is a single static binary that turns your records (JSONL, JSON, CSV/TSV, SQLite, or anything a database CLI can export) into a ranked full-text index.",
+    "language": "Rust",
+    "topics": [],
+    "stars": 732,
+    "url": "https://github.com/elstongun/leviathan",
+    "stale_zh": "給 agent 用的大型資料集深層記憶：單一靜態執行檔，把 JSONL、CSV、SQLite 等紀錄轉成排序的全文索引"
   }
 ]

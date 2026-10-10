@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-09"
+generated_day: "2026-10-10"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-09"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **402** 則／已裁決 **26** 則。
+待回答 **407** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#8c0aa159`** — infra-cost
-  > 看 Fire TV 購買 GeForce NOW 會員的實際開放日期與地區；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 Windows 11 改版有沒有把 agent 做成系統層級的能力；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
+- **`infra-cost#8bf5da35`** — infra-cost
+  > 看其他 Codex 客戶有沒有公布類似的任務分層與成本數字，以及 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率或等待時間的前後數字，排程工具是否開源；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
 
 - **`model-research#8832663c`** — model-research
   > 看 Falcon ASR 的模型卡有沒有授權條款與公開基準的字詞錯誤率；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的模型卡有沒有列出參數量、授權與邊緣硬體上的延遲；看 openai/math 預印本實際列了哪些結果，以及外部數學家的檢查；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
 
-- **`product-market#506ca0f1`** — product-market
-  > 看 2026 使用政策更新原文公布的生效日期與條款差異；看 Pollo AI 是否公布用戶數或廣告成效，以及 GPT-6 Astra 有沒有獨立的正式發布說明；看 College Planner 的實際開放日期與地區；看 Radisson 是否公布外掛的預訂占比；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 原文公布的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因夥伴。
+- **`product-market#b61c0bdd`** — product-market
+  > 看 Sophos 或第三方是否公布自動化案件的誤判率與複查比例；看 2026 使用政策更新原文公布的生效日期與條款差異；看 Pollo AI 是否公布用戶數或廣告成效；看 College Planner 的實際開放日期與地區；看 Radisson 是否公布外掛的預訂占比；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因夥伴。
 
 - **`capital-evolution#9ef40870`** — capital-evolution
   > 讀 Genesis Mission Commitment 原文，確認承諾項目、時程與是否涉及資金；讀 Anthropic Cyber Mission 原文，確認它是新團隊、新產品還是對外承諾；讀 OpenAI 歐盟文字來源標示那篇原文，確認規則與時程；看 Lenfest 計畫的參與機構與資金分配；持續留意估值、募資或併購這類實際的資本動態。
 
-- **`agent-refactor#a2945beb`** — agent-refactor
-  > 看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有在自己的 agent 框架上跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果，或把評測開放給外部；看 AutoSynthData 有沒有同步釋出資料集、程式碼或基準測試；看 Dots 是否有官方文件公布功能與使用限制；看 Holo4 有沒有第三方的電腦操作評測。
+- **`agent-refactor#a8b85a64`** — agent-refactor
+  > 看 Hugging Face 那篇有沒有公開 ML intern 的程式碼或模型連結；看 NVIDIA 是否公布具名客戶或開發時間對比；看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果；看 AutoSynthData 有沒有同步釋出資料集或基準測試；看 Dots 是否有官方文件公布功能與限制；看 Holo4 有沒有第三方的電腦操作評測。
 
 - **`global-map#68a1eeca`** — global-map
   > 看有沒有獨立研究機構或其他平台公開同一批假身分的分析，能對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及有沒有在阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
 
-## 事件層（396）
+## 事件層（401）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1217,6 +1217,12 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-08-1711dc#c6255d41`** — evt-2026-10-08-1711dc
   > 原文公布的生效日期，以及是否有第三方整理出新舊條款的差異。
 
+- **`evt-2026-10-08-2e7e69#29dd5a19`** — evt-2026-10-08-2e7e69
+  > Hugging Face 是否公開 ML intern 的程式碼或模型連結，並說明它能自動完成哪些訓練步驟。
+
+- **`evt-2026-10-08-3e80ab#31da42c4`** — evt-2026-10-08-3e80ab
+  > 其他 Codex 客戶是否公布類似的任務分層與成本數字，以及 OpenAI 是否把這種模型配對寫進官方文件或產品設定。
+
 - **`evt-2026-10-08-5f6a44#387312c5`** — evt-2026-10-08-5f6a44
   > 原文是否列出可驗證的承諾項目與時程，以及計畫另一方是否有對應公告。
 
@@ -1231,3 +1237,12 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-10-08-b2495d#0323d1cf`** — evt-2026-10-08-b2495d
   > Pollo AI 是否公開用戶數或廣告成效，以及 GPT-6 Astra 是否有獨立的正式發布說明。
+
+- **`evt-2026-10-08-ce8030#4993f9b4`** — evt-2026-10-08-ce8030
+  > NVIDIA 是否公布具名客戶或實際的開發時間對比，以及文中用到的是哪幾個代理框架。
+
+- **`evt-2026-10-09-6f51cf#6ea51ebb`** — evt-2026-10-09-6f51cf
+  > Sophos 或第三方是否公布自動化案件的誤判率與複查比例，以及其他 MDR 廠商是否跟進類似數字。
+
+- **`evt-2026-10-09-ecfbef#057b9a16`** — evt-2026-10-09-ecfbef
+  > 文中是否給出叢集利用率或等待時間的前後數字，以及排程工具是否開源。

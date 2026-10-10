@@ -1,58 +1,10 @@
 [
   {
-    "id": "evt-2026-10-07-839523",
-    "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents",
-    "company": "Microsoft",
-    "track": "基礎設施與成本",
-    "summary": "NVIDIA 與微軟聯手，讓 AI agent 在 Windows PC 本機執行。",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-10-07-ed2654",
     "title": "Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses",
     "company": "Microsoft",
     "track": "Agent與軟體重構",
     "summary": "微軟研究院發布 Agent Lightning v1.0，約 3,500 行的輕量 agent 強化學習框架。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-08-2e7e69",
-    "title": "The model that didn't exist, so you made it yourself",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-08-3e80ab",
-    "title": "LegalOn halves Codex costs while maintaining development speed",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-08-ce8030",
-    "title": "Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-09-6f51cf",
-    "title": "Sophos cuts threat investigation time by 96% with OpenAI Daybreak",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-09-ecfbef",
-    "title": "Impactful scheduling for GPU clusters",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
     "stale_zh": null
   }
 ]

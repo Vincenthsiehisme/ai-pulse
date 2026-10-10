@@ -17,7 +17,7 @@ can_satisfy_primary: false
 endpoint: "https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss"
 robots_checked_day: "2026-10-08"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-10-09"
+last_observed_day: "2026-10-10"
 items_observed: 65
 events_bound: 1
 events_published: 1

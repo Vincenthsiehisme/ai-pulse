@@ -3,7 +3,7 @@ id: actor-allen-institute-for-ai
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-10-09'
+generated_day: '2026-10-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

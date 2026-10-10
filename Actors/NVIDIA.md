@@ -3,18 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-09'
+generated_day: '2026-10-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **78** 則：`dropped` 1、`published` 72、`review` 5
+事件 **78** 則：`dropped` 1、`published` 73、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-08 | [[Events/evt-2026-10-08-ce8030\|Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents]] | review |
+| 2026-10-08 | [[Events/evt-2026-10-08-ce8030\|Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-9cbbbf\|Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW]] | published |
 | 2026-10-07 | [[Events/evt-2026-10-07-d78d6b\|One Model Family, Two Gold-Level Results: Fine-Tuning Nemotron for IOI and IMO]] | published |
 | 2026-10-06 | [[Events/evt-2026-10-06-301d39\|Why Telecom Operators Are Building Their AI Strategy on Open Models]] | published |
