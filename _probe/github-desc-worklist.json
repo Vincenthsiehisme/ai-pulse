@@ -1,23 +1,7 @@
 [
   {
-    "full_name": "LosaLosSantos/aurelio-finance",
-    "desc": "Open-source personal finance app with an AI financial advisor: track your net worth, investments, ETFs, cash and debts on your own computer.",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "dividends",
-      "etf",
-      "finance",
-      "financial-planning",
-      "fintech"
-    ],
-    "stars": 2092,
-    "url": "https://github.com/LosaLosSantos/aurelio-finance",
-    "stale_zh": null
-  },
-  {
     "full_name": "cathrynlavery/diagram-design",
-    "desc": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Factory Droid, and Pi. 44 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+    "desc": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, and Pi. 44 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
     "language": "HTML",
     "topics": [
       "agent-skills",
@@ -27,121 +11,113 @@
       "diagrams",
       "drawio"
     ],
-    "stars": 48744,
+    "stars": 50080,
     "url": "https://github.com/cathrynlavery/diagram-design",
-    "stale_zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，42 種圖型，純 HTML＋SVG"
+    "stale_zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，44 種圖型，純 HTML＋SVG"
   },
   {
-    "full_name": "lemomo-ai/lemo-opuscar",
-    "desc": "Claude Code skill for short films with no video model: 43 film styles, each a style prompt plus a demo film made entirely in code by Claude Opus 5.5 (incl. OPUSCAR 98). By Lemomo. · Opus5.5 x 43 种影片风格：风格提示词 + 纯代码样片 + 导演与技术指南",
-    "language": "JavaScript",
+    "full_name": "jiabaobei/memory-bridge",
+    "desc": "记忆桥 MemoryBridge — 跨设备、跨平台的 AI 共享记忆层 | Cross-device and cross-platform shared memory for AI (CDSMP implementation)",
+    "language": "Python",
     "topics": [
-      "agent-skills",
-      "ai-agents",
-      "ai-short-film",
-      "ai-video",
-      "animation",
-      "canvas"
+      "agent",
+      "ai",
+      "cdsmp",
+      "cross-device",
+      "cross-platform",
+      "llm"
     ],
-    "stars": 1804,
-    "url": "https://github.com/lemomo-ai/lemo-opuscar",
-    "stale_zh": "Claude Code skill：不靠影片模型做短片，43 種影片風格，各附風格提示詞與純程式碼樣片"
-  },
-  {
-    "full_name": "totec448-spec/chat-on-steroids",
-    "desc": "Cross-platform local MCP capabilities for ChatGPT with Chrome integration, Goal, Compact & Resume, and durable multi-agent workflows.",
-    "language": "TypeScript",
-    "topics": [
-      "automation",
-      "chatgpt",
-      "chrome-extension",
-      "electron",
-      "linux",
-      "local-first"
-    ],
-    "stars": 4561,
-    "url": "https://github.com/totec448-spec/chat-on-steroids",
+    "stars": 305,
+    "url": "https://github.com/jiabaobei/memory-bridge",
     "stale_zh": null
   },
   {
-    "full_name": "Javis603/token-monitor",
-    "desc": "Local-first desktop widget for tracking token usage, costs, limits, and session activity across 43+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
-    "language": "JavaScript",
-    "topics": [
-      "ai-tools",
-      "claude-code",
-      "codex",
-      "llm",
-      "local-first",
-      "self-hosted"
-    ],
-    "stars": 2726,
-    "url": "https://github.com/Javis603/token-monitor",
-    "stale_zh": "本機優先的桌面小工具，追蹤 43 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
-  },
-  {
-    "full_name": "HBAI-Ltd/Toonflow-app",
-    "desc": "短剧、漫剧制作工具 Toonflow：开源 AI 视频创作平台，集成剧本创作、智能分镜、角色与场景资产管理、图像生成和视频生成。融合无限画布、AI Agent 与可视化工作流，支持本地部署、自选模型、跨平台客户端、MCP 与插件扩展。Open-source AI short drama and motion comic creation tool with an infinite canvas, AI agents, storyboarding, image and video generation. Self-hosted and extensible, with a canvas-based approach similar to LibTV and TapNow.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-content-creation",
-      "generative-ai",
-      "image-generation",
-      "text-to-video",
-      "video-generation",
-      "ai-agents"
-    ],
-    "stars": 17112,
-    "url": "https://github.com/HBAI-Ltd/Toonflow-app",
-    "stale_zh": "開源 AI 創作平台，結合無限畫布、AI Agent 與視覺化工作流，可做圖像、影片與短劇"
-  },
-  {
-    "full_name": "Alishahryar1/free-claude-code",
-    "desc": "Use Claude Code, Codex, VSCode, Pi, and OpenCode (and 6 other harnesses) for free (1.3B+ free tokens) from your terminal, app, IDE, or phone, and now from the browser with native browser sessions (multi-harness + multi-model) like OpenClaw (voice supported + ToS friendly)",
+    "full_name": "Jakeschincariol/youtube-agent-skill",
+    "desc": "Eleven Claude skills that run a YouTube channel: scripts off 21 hook formulas with a scored hook, title and thumbnail linted as one pairing, an edit decision list from your transcript, a retention reader that finds where viewers actually leave, a Shorts cutter, and a virality engine. Free, MIT.",
     "language": "Python",
     "topics": [],
-    "stars": 57382,
-    "url": "https://github.com/Alishahryar1/free-claude-code",
+    "stars": 1092,
+    "url": "https://github.com/Jakeschincariol/youtube-agent-skill",
     "stale_zh": null
   },
   {
-    "full_name": "gufo-org/gufo",
-    "desc": "Strix Halo inference engine. Qwen Flash Next Q4_K_XL: 1,702.93pp, 65.25tg single user, 184.74 tok/s 8 users; Qwen27B Q4_K_XL: 656.33pp, 70.56tg tok/s single user with DFlash2",
-    "language": "C++",
+    "full_name": "fidetolabs/qanat",
+    "desc": "An MCP server that turns filings and prices into valuation indicators, and tests each one inside its own industry. Connect it to your agent and ask.",
+    "language": "Python",
     "topics": [
-      "amd",
-      "gfx1151",
-      "llm",
-      "ryzen-ai",
-      "strix-halo"
+      "alpha-research",
+      "backtesting",
+      "duckdb",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol"
     ],
-    "stars": 642,
-    "url": "https://github.com/gufo-org/gufo",
-    "stale_zh": "Strix Halo 的推論引擎，附 Qwen 模型的實測 token 速度"
+    "stars": 304,
+    "url": "https://github.com/fidetolabs/qanat",
+    "stale_zh": null
   },
   {
-    "full_name": "mksglu/context-mode",
-    "desc": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and   enforces routing across 17 platforms via MCP + hooks.",
+    "full_name": "MODSetter/SurfSense",
+    "desc": "Air-gapped, privacy-focused, open-source NotebookLM alternative. AI agent that researches, transforms, and edits your documents. Join our Discord: https://discord.gg/ejRNvftDp9",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "rag",
+      "notebooklm",
+      "agent",
+      "agents",
+      "notebooklm-alternative"
+    ],
+    "stars": 16361,
+    "url": "https://github.com/MODSetter/SurfSense",
+    "stale_zh": "注重隱私、可離線運作的開源 NotebookLM 替代品"
+  },
+  {
+    "full_name": "googleworkspace/cli",
+    "desc": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google Discovery Service. Includes AI agent skills.",
+    "language": "Rust",
+    "topics": [
+      "agent-skills",
+      "ai-agent",
+      "automation",
+      "cli",
+      "discovery-api",
+      "gemini-cli-extension"
+    ],
+    "stars": 31329,
+    "url": "https://github.com/googleworkspace/cli",
+    "stale_zh": null
+  },
+  {
+    "full_name": "tourmind-com/Tourmind-Booking-Skills",
+    "desc": "AI agent skills for end-to-end hotel and flight booking—compare live hotel rates across leading OTAs and suppliers, search and verify real-time airfares worldwide, book stays and flights, and manage reservations, hotel cancellations, and payments via the TourMind API.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "ai-agent",
+      "booking-api",
+      "codex-skills",
+      "hotel-api",
+      "hotel-booking"
+    ],
+    "stars": 1865,
+    "url": "https://github.com/tourmind-com/Tourmind-Booking-Skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "breferrari/obsidian-mind",
+    "desc": "A self-organizing Obsidian vault that gives AI coding agents persistent memory.",
     "language": "TypeScript",
     "topics": [
-      "antigravity",
-      "claude",
+      "ai-agents",
       "claude-code",
-      "claude-code-hooks",
-      "claude-code-plugins",
-      "claude-code-skill"
+      "codex-cli",
+      "gemini-cli",
+      "knowledge-management",
+      "obsidian"
     ],
-    "stars": 26216,
-    "url": "https://github.com/mksglu/context-mode",
+    "stars": 5184,
+    "url": "https://github.com/breferrari/obsidian-mind",
     "stale_zh": null
-  },
-  {
-    "full_name": "elstongun/leviathan",
-    "desc": "Deep memory for agents over large datasets. Leviathan is a single static binary that turns your records (JSONL, JSON, CSV/TSV, SQLite, or anything a database CLI can export) into a ranked full-text index.",
-    "language": "Rust",
-    "topics": [],
-    "stars": 732,
-    "url": "https://github.com/elstongun/leviathan",
-    "stale_zh": "給 agent 用的大型資料集深層記憶：單一靜態執行檔，把 JSONL、CSV、SQLite 等紀錄轉成排序的全文索引"
   }
 ]
