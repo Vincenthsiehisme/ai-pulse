@@ -214,6 +214,11 @@
     "src_hash": "aab785544538",
     "zh": "11 個免費 Claude skills，可逆向、重建、測試任一 App 並修掉用戶抱怨的問題，MIT 授權"
   },
+  "Jakeschincariol/youtube-agent-skill": {
+    "at": "2026-10-11T19:50:00+00:00",
+    "src_hash": "c54e1b693f09",
+    "zh": "11 個經營 YouTube 頻道的 Claude skill，含腳本、剪輯清單、留存分析"
+  },
   "Javis603/token-monitor": {
     "at": "2026-10-10T19:38:45+00:00",
     "src_hash": "be586a80e300",
@@ -280,9 +285,9 @@
     "zh": "住在 Mac 瀏海與 iPhone 上的小工具，監看 Claude Code、Codex 等 agent，可直接核准"
   },
   "MODSetter/SurfSense": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "8401936781d0",
-    "zh": "注重隱私、可離線運作的開源 NotebookLM 替代品"
+    "at": "2026-10-11T19:50:00+00:00",
+    "src_hash": "86bd833f4fdf",
+    "zh": "注重隱私、可離線運作的開源 NotebookLM 替代品，AI agent 負責研究、轉換與編輯文件"
   },
   "MemPalace/mempalace": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -579,6 +584,11 @@
     "src_hash": "5e2cb29a04e7",
     "zh": "《深入理解 AI Agent：設計原理與工程實踐》（李博杰 著）開源主倉庫：全書正文、PDF 與各章配套程式碼"
   },
+  "breferrari/obsidian-mind": {
+    "at": "2026-10-11T19:50:00+00:00",
+    "src_hash": "3e3e8c86d43d",
+    "zh": "會自己整理的 Obsidian vault，讓 AI coding agent 有持久記憶"
+  },
   "browser-use/browser-use": {
     "at": "2026-09-09T19:22:19+00:00",
     "src_hash": "b8fdd6846628",
@@ -620,8 +630,8 @@
     "zh": "讓 AI 產出 PPTX 的 Claude Code skill，含投影片規範、62 種版型目錄與機器檢查"
   },
   "cathrynlavery/diagram-design": {
-    "at": "2026-10-10T19:38:45+00:00",
-    "src_hash": "fd4e4548b98a",
+    "at": "2026-10-11T19:50:00+00:00",
+    "src_hash": "df9a6af97c26",
     "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，44 種圖型，純 HTML＋SVG"
   },
   "cayu-dev/cayu": {
@@ -754,6 +764,11 @@
     "src_hash": "4d138d86591c",
     "zh": "Claude Agent Skill，做不切換投影片的連續運鏡動態影片，用於產品發表與功能展示"
   },
+  "fidetolabs/qanat": {
+    "at": "2026-10-11T19:50:00+00:00",
+    "src_hash": "1a6560d492eb",
+    "zh": "MCP server，把財報與股價轉成估值指標，並在各自的產業內檢驗每個指標"
+  },
   "firecrawl/firecrawl": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "97a2ec229740",
@@ -873,6 +888,11 @@
     "at": "2026-08-28T19:24:01+00:00",
     "src_hash": "ab579914c613",
     "zh": "嵌入式單檔知識圖譜資料庫，支援向量搜尋與全文搜尋，用於AI/RAG應用"
+  },
+  "jiabaobei/memory-bridge": {
+    "at": "2026-10-11T19:50:00+00:00",
+    "src_hash": "3f0f38f23f16",
+    "zh": "記憶橋 MemoryBridge，跨裝置、跨平台的 AI 共用記憶層（CDSMP 實作）"
   },
   "jingyaogong/minimind": {
     "at": "2026-09-08T19:19:22+00:00",
@@ -1393,6 +1413,11 @@
     "at": "2026-10-10T19:38:45+00:00",
     "src_hash": "f19575676d9c",
     "zh": "給 ChatGPT 用的本機 MCP 功能，含 Chrome 整合與多 agent 工作流"
+  },
+  "tourmind-com/Tourmind-Booking-Skills": {
+    "at": "2026-10-11T19:50:00+00:00",
+    "src_hash": "856657b9371a",
+    "zh": "訂飯店與機票的 AI agent skills，比價、查即時機票、訂房、管理訂單與付款，走 TourMind API"
   },
   "tt-a1i/archify": {
     "at": "2026-10-04T18:54:49+00:00",
