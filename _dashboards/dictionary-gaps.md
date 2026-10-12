@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-11'
+generated_day: '2026-10-12'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**76 天**（2026-07-24 … 2026-10-11），去重後 **5032** 列。
+語料範圍：**77 天**（2026-07-24 … 2026-10-12），去重後 **5093** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,36 +17,36 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 146 | 2 |
-| Apple | 108 | 5 |
-| Amazon | 63 | 5 |
+| Show HN | 149 | 2 |
+| Apple | 109 | 5 |
+| Amazon | 64 | 5 |
 | September | 61 | 8 |
 | LLMs | 53 | 13 |
 | There | 50 | 7 |
 | They | 49 | 9 |
 | LLM | 48 | 12 |
-| Here | 46 | 8 |
+| Here | 47 | 8 |
 | Trump | 41 | 5 |
 | Muse | 41 | 5 |
-| One | 39 | 10 |
-| October | 39 | 7 |
+| One | 40 | 10 |
+| October | 40 | 7 |
+| San Francisco | 37 | 9 |
 | CEO | 36 | 5 |
-| San Francisco | 35 | 9 |
 | When | 35 | 11 |
-| Pro | 34 | 6 |
-| Python | 32 | 4 |
+| Pro | 35 | 7 |
+| Python | 34 | 4 |
+| July | 32 | 9 |
+| U.S | 32 | 8 |
 | AI-powered | 31 | 9 |
-| July | 31 | 9 |
-| U.S | 31 | 8 |
+| After | 31 | 6 |
+| China | 30 | 8 |
+| Android | 30 | 4 |
 | June | 29 | 7 |
 | Linux | 29 | 5 |
-| After | 29 | 6 |
 | August | 29 | 8 |
-| Android | 29 | 4 |
 | Astra | 29 | 5 |
 | Research | 27 | 6 |
-| China | 27 | 8 |
-| Last | 26 | 6 |
+| Last | 27 | 6 |
 | Building | 25 | 10 |
 | With | 25 | 10 |
 | Pixel | 24 | 3 |
@@ -57,21 +57,21 @@ generator: scripts/pulse-dictionary-gaps.py
 | Samsung | 22 | 5 |
 | Opus | 21 | 5 |
 | These | 21 | 7 |
+| Europe | 20 | 7 |
 | Wednesday | 20 | 5 |
-| Europe | 19 | 7 |
+| Over | 20 | 5 |
+| Mac | 19 | 4 |
 | Chinese | 19 | 8 |
 | API | 19 | 5 |
-| Over | 19 | 5 |
 | Flash | 18 | 5 |
 | Tuesday | 18 | 6 |
 | Some | 18 | 8 |
-| Mac | 18 | 4 |
+| Elon Musk | 18 | 5 |
 | RAM | 18 | 2 |
 | Don | 18 | 5 |
 | Thursday | 17 | 4 |
 | May | 17 | 7 |
 | Fable | 17 | 5 |
-| Elon Musk | 17 | 5 |
 | SpaceX | 17 | 5 |
 | The AI | 17 | 6 |
 | Get | 17 | 4 |
@@ -87,26 +87,25 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| TechCrunch Disrupt | 67 | src-media-techcrunch |
-| The Download | 58 | src-media-mit-techreview |
-| Tags | 33 | src-kol-simonwillison |
+| TechCrunch Disrupt | 68 | src-media-techcrunch |
+| The Download | 59 | src-media-mit-techreview |
+| Tags | 34 | src-kol-simonwillison |
 | Register | 23 | src-media-techcrunch |
-| Hi HN | 21 | src-hn-frontpage |
+| Hi HN | 22 | src-hn-frontpage |
 | MIT Technology Review | 21 | src-media-mit-techreview |
 | Highlights | 19 | src-gh-vllm-releases |
-| Launch HN | 17 | src-hn-frontpage |
+| Launch HN | 18 | src-hn-frontpage |
 | The Verge | 17 | src-media-theverge |
 | Opt | 16 | src-media-theverge |
 | Committee | 15 | src-ep-itre |
 | Ask HN | 15 | src-hn-frontpage |
-| Tool | 14 | src-kol-simonwillison |
 | Is Hiring | 14 | src-hn-frontpage |
 | GeForce NOW | 13 | src-nvidia-blog |
 | Best Buy | 13 | src-media-theverge |
-| Hey HN | 12 | src-hn-frontpage |
+| Hey HN | 13 | src-hn-frontpage |
+| Datasette | 12 | src-kol-simonwillison |
 | The Stepback | 11 | src-media-theverge |
 | YC S26 | 11 | src-hn-frontpage |
-| Datasette | 11 | src-kol-simonwillison |
 | A Blog | 11 | src-hf-blog |
 | Disrupt | 10 | src-media-techcrunch |
 | October Prime Day | 10 | src-media-theverge |
@@ -119,8 +118,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Verge-iest | 9 | src-media-theverge |
 | Installer | 9 | src-media-theverge |
 | Roundtables | 9 | src-media-mit-techreview |
-| Moscone West | 8 | src-media-techcrunch |
-| Marvel | 7 | src-media-theverge |
+| Moscone West | 9 | src-media-techcrunch |
 | Sunday | 7 | src-media-theverge |
 | At TechCrunch Disrupt | 7 | src-media-techcrunch |
 | The Algorithm | 7 | src-media-mit-techreview |
@@ -135,10 +133,12 @@ generator: scripts/pulse-dictionary-gaps.py
 | Spider-Man | 6 | src-media-theverge |
 | Lenovo | 6 | src-media-theverge |
 | Grand Theft Auto | 6 | src-media-theverge |
+| The New York | 6 | src-media-theverge |
 | Verge | 6 | src-media-theverge |
 | Victoria Song | 6 | src-media-theverge |
 | VCs | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
+| Zig | 5 | src-hn-frontpage |
 | Woot | 5 | src-media-theverge |
 | Nscale | 5 | src-media-techcrunch |
 | Apple TV | 5 | src-media-theverge |

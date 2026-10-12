@@ -1,76 +1,90 @@
 [
   {
-    "full_name": "cathrynlavery/diagram-design",
-    "desc": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, and Pi. 44 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
-    "language": "HTML",
+    "full_name": "wheresryan22/anatomy",
+    "desc": "An agent skill for creating detailed, interactive isometric illustrations of real-world machines and complex systems. Generates polished SVGs with optional WebGL shaders and 3D effects.",
+    "language": "JavaScript",
     "topics": [
-      "agent-skills",
+      "agent-skill",
+      "open-source",
+      "svg",
+      "vizualization"
+    ],
+    "stars": 6091,
+    "url": "https://github.com/wheresryan22/anatomy",
+    "stale_zh": null
+  },
+  {
+    "full_name": "lyogavin/airllm",
+    "desc": "AirLLM 2.8T LLM inference with single 4GB GPU",
+    "language": "Jupyter Notebook",
+    "topics": [
+      "chinese-llm",
+      "chinese-nlp",
+      "finetune",
+      "generative-ai",
+      "instruct-gpt",
+      "instruction-set"
+    ],
+    "stars": 37474,
+    "url": "https://github.com/lyogavin/airllm",
+    "stale_zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
+  },
+  {
+    "full_name": "Javis603/token-monitor",
+    "desc": "Local-first desktop widget for tracking token usage, costs, limits, and session activity across 44+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
+    "language": "JavaScript",
+    "topics": [
+      "ai",
+      "ai-tools",
+      "antigravity",
       "claude-code",
       "codex",
-      "data-visualization",
-      "diagrams",
-      "drawio"
+      "cursor"
     ],
-    "stars": 50080,
-    "url": "https://github.com/cathrynlavery/diagram-design",
-    "stale_zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，44 種圖型，純 HTML＋SVG"
+    "stars": 2963,
+    "url": "https://github.com/Javis603/token-monitor",
+    "stale_zh": "本機優先的桌面小工具，追蹤 43 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
   },
   {
-    "full_name": "jiabaobei/memory-bridge",
-    "desc": "记忆桥 MemoryBridge — 跨设备、跨平台的 AI 共享记忆层 | Cross-device and cross-platform shared memory for AI (CDSMP implementation)",
-    "language": "Python",
+    "full_name": "rociiu/talorys",
+    "desc": "Your personal AI agent in your own Cloudflare account. Chat, memory, tasks, notes and scheduled reminders, deployed with one command: npx create-talorys@latest. Free-tier friendly, single-user, no telemetry.",
+    "language": "TypeScript",
     "topics": [
-      "agent",
-      "ai",
-      "cdsmp",
-      "cross-device",
-      "cross-platform",
-      "llm"
+      "ai-agent",
+      "cloudflare",
+      "cloudflare-workers",
+      "durable-objects",
+      "personal-assistant",
+      "react"
     ],
-    "stars": 305,
-    "url": "https://github.com/jiabaobei/memory-bridge",
+    "stars": 892,
+    "url": "https://github.com/rociiu/talorys",
     "stale_zh": null
   },
   {
-    "full_name": "Jakeschincariol/youtube-agent-skill",
-    "desc": "Eleven Claude skills that run a YouTube channel: scripts off 21 hook formulas with a scored hook, title and thumbnail linted as one pairing, an edit decision list from your transcript, a retention reader that finds where viewers actually leave, a Shorts cutter, and a virality engine. Free, MIT.",
+    "full_name": "skalesapp/skales",
+    "desc": "Personal AI agent for macOS, Windows, Linux, Android & iOS. Set a goal, it works alone: coding (Skales Code), desktop + browser automation, autonomous scheduled Tasks. Teams of agents and humans across paired desktops. Agent2Agent, MCP, computer use, voice, local LLMs (Ollama), Agent Skills (SKILL.md). 26 AI providers, BYOK. No Docker, no terminal.",
+    "language": "",
+    "topics": [
+      "agentic-ai",
+      "ai-agent",
+      "ai-assistant",
+      "android",
+      "automation",
+      "autonomous-agent"
+    ],
+    "stars": 2000,
+    "url": "https://github.com/skalesapp/skales",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Jakeschincariol/instagram-agent-skill",
+    "desc": "Thirteen Claude skills that run an Instagram account: Reels off 26 scored hook formulas, a viral research skill, a caption linter, and a humanizer. Free, MIT.",
     "language": "Python",
     "topics": [],
-    "stars": 1092,
-    "url": "https://github.com/Jakeschincariol/youtube-agent-skill",
+    "stars": 1058,
+    "url": "https://github.com/Jakeschincariol/instagram-agent-skill",
     "stale_zh": null
-  },
-  {
-    "full_name": "fidetolabs/qanat",
-    "desc": "An MCP server that turns filings and prices into valuation indicators, and tests each one inside its own industry. Connect it to your agent and ask.",
-    "language": "Python",
-    "topics": [
-      "alpha-research",
-      "backtesting",
-      "duckdb",
-      "mcp",
-      "mcp-server",
-      "model-context-protocol"
-    ],
-    "stars": 304,
-    "url": "https://github.com/fidetolabs/qanat",
-    "stale_zh": null
-  },
-  {
-    "full_name": "MODSetter/SurfSense",
-    "desc": "Air-gapped, privacy-focused, open-source NotebookLM alternative. AI agent that researches, transforms, and edits your documents. Join our Discord: https://discord.gg/ejRNvftDp9",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "rag",
-      "notebooklm",
-      "agent",
-      "agents",
-      "notebooklm-alternative"
-    ],
-    "stars": 16361,
-    "url": "https://github.com/MODSetter/SurfSense",
-    "stale_zh": "注重隱私、可離線運作的開源 NotebookLM 替代品"
   },
   {
     "full_name": "googleworkspace/cli",
@@ -84,40 +98,88 @@
       "discovery-api",
       "gemini-cli-extension"
     ],
-    "stars": 31329,
+    "stars": 31411,
     "url": "https://github.com/googleworkspace/cli",
     "stale_zh": null
   },
   {
-    "full_name": "tourmind-com/Tourmind-Booking-Skills",
-    "desc": "AI agent skills for end-to-end hotel and flight booking—compare live hotel rates across leading OTAs and suppliers, search and verify real-time airfares worldwide, book stays and flights, and manage reservations, hotel cancellations, and payments via the TourMind API.",
+    "full_name": "sno-ai/sno-station",
+    "desc": "Turn the agents you already use into a squad. Codex, Claude Code, Cursor, Hermes Agent and OpenClaw share one encrypted memory, pass work to each other, review each other's work, and get better every night. Open source. Runs on your computer.",
+    "language": "TypeScript",
+    "topics": [
+      "agent-memory",
+      "agent-skills",
+      "ai-agents",
+      "claude-code",
+      "code-review",
+      "codex"
+    ],
+    "stars": 650,
+    "url": "https://github.com/sno-ai/sno-station",
+    "stale_zh": "讓 Claude Code 與 Codex 在本機協作，共用加密記憶，每晚經你同意後改寫 skill"
+  },
+  {
+    "full_name": "ohdearquant/lionagi",
+    "desc": "An intelligence orchestra",
     "language": "Python",
     "topics": [
-      "agent-skills",
-      "ai-agent",
-      "booking-api",
-      "codex-skills",
-      "hotel-api",
-      "hotel-booking"
+      "agents",
+      "ai",
+      "automation",
+      "data",
+      "llm",
+      "machine-learning"
     ],
-    "stars": 1865,
-    "url": "https://github.com/tourmind-com/Tourmind-Booking-Skills",
+    "stars": 411,
+    "url": "https://github.com/ohdearquant/lionagi",
     "stale_zh": null
   },
   {
-    "full_name": "breferrari/obsidian-mind",
-    "desc": "A self-organizing Obsidian vault that gives AI coding agents persistent memory.",
-    "language": "TypeScript",
+    "full_name": "oceanbase/oceanbase",
+    "desc": "OceanBase is the unified distributed database for the AI era — open-source, multi-model, one engine for your most demanding workloads.",
+    "language": "C++",
     "topics": [
-      "ai-agents",
-      "claude-code",
-      "codex-cli",
-      "gemini-cli",
-      "knowledge-management",
-      "obsidian"
+      "analytics",
+      "cloud-native",
+      "database",
+      "distributed-database",
+      "fulltext",
+      "fulltext-search"
     ],
-    "stars": 5184,
-    "url": "https://github.com/breferrari/obsidian-mind",
+    "stars": 10322,
+    "url": "https://github.com/oceanbase/oceanbase",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Apeireth/Apeireth",
+    "desc": "Apeireth — A Pure Safe Rust AGI Operating System & Cognitive Microkernel. 18 crates: continuous topological memory, causal world model, cognitive scheduler, Ember HUD, triple-onion security & portable USB agent.",
+    "language": "Rust",
+    "topics": [
+      "agi",
+      "ai-agents",
+      "autonomous-agents",
+      "cognitive-architecture",
+      "microkernel",
+      "operating-system"
+    ],
+    "stars": 398,
+    "url": "https://github.com/Apeireth/Apeireth",
+    "stale_zh": null
+  },
+  {
+    "full_name": "nateherkai/scroll-craft",
+    "desc": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a Claude Code plugin.",
+    "language": "JavaScript",
+    "topics": [
+      "accessibility",
+      "agent-skills",
+      "ai-web-design",
+      "anthropic",
+      "claude-code",
+      "claude-code-plugin"
+    ],
+    "stars": 3271,
+    "url": "https://github.com/nateherkai/scroll-craft",
     "stale_zh": null
   }
 ]
