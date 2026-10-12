@@ -49,6 +49,11 @@
     "src_hash": "8a93c0135fe8",
     "zh": "讓純文字模型也能看圖的視覺工具箱，支援多圖理解、圖片問答、UI 還原與 GUI 自動化"
   },
+  "Apeireth/Apeireth": {
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "d0cdacc8f071",
+    "zh": "純安全 Rust 寫的 AGI 作業系統與認知微核心，含 18 個 crate、拓撲記憶與因果世界模型"
+  },
   "ApodexAI/FrontierAgent": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "a0b40d979dcf",
@@ -204,6 +209,11 @@
     "src_hash": "ea84a86ce32a",
     "zh": "免費的 Claude Code skill：同一個任務用 100 種策略產生答案，淘汰賽比到剩一個"
   },
+  "Jakeschincariol/instagram-agent-skill": {
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "ed8659d4d83a",
+    "zh": "十三個經營 Instagram 帳號的 Claude skill，含 Reels 鉤子、爆款研究與文案檢查"
+  },
   "Jakeschincariol/linkedin-agent-skill": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "0608c765a073",
@@ -220,9 +230,9 @@
     "zh": "11 個經營 YouTube 頻道的 Claude skill，含腳本、剪輯清單、留存分析"
   },
   "Javis603/token-monitor": {
-    "at": "2026-10-10T19:38:45+00:00",
-    "src_hash": "be586a80e300",
-    "zh": "本機優先的桌面小工具，追蹤 43 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "6bc9d38abcab",
+    "zh": "本機優先的桌面小工具，追蹤 44 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
   },
   "Johnson-Durui/Companion-Space": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -980,9 +990,9 @@
     "zh": "在 Kubernetes 上用現代加速器達到頂尖的推論效能"
   },
   "lyogavin/airllm": {
-    "at": "2026-08-01T19:12:28+00:00",
-    "src_hash": "d0d80379dd24",
-    "zh": "用單張 4GB GPU 跑 70B 模型推論（AirLLM）"
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "a89b2b038711",
+    "zh": "用單張 4GB GPU 跑 2.8T 參數 LLM 推論（AirLLM）"
   },
   "mastra-ai/mastra": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -1114,6 +1124,11 @@
     "src_hash": "2389c62e2ba8",
     "zh": "開源個人 agent，跨 Android、iPhone、桌面與瀏覽器，App 關著也能持續工作，不可逆操作前會先詢問"
   },
+  "nateherkai/scroll-craft": {
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "4a49a9d42efc",
+    "zh": "建立沉浸式捲動網站的 agent skill，支援 Codex、Claude Code，也有外掛版"
+  },
   "naw103/foremerge": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "85680981ef19",
@@ -1139,10 +1154,20 @@
     "src_hash": "406416e89aff",
     "zh": "一套真的能用的 agentic skills 框架與軟體開發方法論"
   },
+  "oceanbase/oceanbase": {
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "197f47f9bf53",
+    "zh": "開源的分散式資料庫，多模型、單一引擎，定位為 AI 時代的統一資料庫"
+  },
   "oceanbase/seekdb": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "42ae5dc54124",
     "zh": "AI 原生搜尋資料庫，把向量、文字、結構化與半結構化資料整合進單一引擎，適合當 agent 的儲存層"
+  },
+  "ohdearquant/lionagi": {
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "b3481da6d821",
+    "zh": "An intelligence orchestra（智慧樂團，原文未說明細節）"
   },
   "okf-memory/okf-agent-memory": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1264,6 +1289,11 @@
     "src_hash": "b49c140fb240",
     "zh": "讓 Claude 改造任何你擁有的 PC 遊戲：含技能、工具與 fal MCP，涵蓋逆向工程、素材生成與遊戲內測試"
   },
+  "rociiu/talorys": {
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "41a2a3088a69",
+    "zh": "跑在你自己 Cloudflare 帳號裡的個人 AI agent，有聊天、記憶、任務、筆記與排程提醒，一行指令部署"
+  },
   "rocketride-org/rocketride-server": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "137c15108c22",
@@ -1344,15 +1374,20 @@
     "src_hash": "939428bc7fad",
     "zh": "像人一樣操作電腦的開源 agent 框架"
   },
+  "skalesapp/skales": {
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "3b1b134ae72d",
+    "zh": "跨五個平台的個人 AI agent，設好目標自行執行，支援 MCP 與本機 LLM"
+  },
   "skyzh/tiny-llm": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "776da5bb1789",
     "zh": "教系統工程師在 Apple Silicon 上建置迷你版 vLLM + Qwen 推論系統"
   },
   "sno-ai/sno-station": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "ce121ad2978d",
-    "zh": "讓 Claude Code 與 Codex 在本機協作，共用加密記憶，每晚經你同意後改寫 skill"
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "ccee2da83ee8",
+    "zh": "讓 Codex、Claude Code、Cursor 等 agent 組成小隊，共用加密記憶、互相交辦與審查，在本機執行"
   },
   "sqliteai/sqlite-vector": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -1488,6 +1523,11 @@
     "at": "2026-08-11T19:12:15+00:00",
     "src_hash": "965322c3682f",
     "zh": "ARIS：純 Markdown 的自主 ML 研究技能，含跨模型審查、發想與實驗自動化，免框架、免綁定"
+  },
+  "wheresryan22/anatomy": {
+    "at": "2026-10-12T22:42:13+00:00",
+    "src_hash": "91f5cbd4ed91",
+    "zh": "畫真實機器與複雜系統等角互動插圖的 agent skill，輸出 SVG，可加 WebGL 效果"
   },
   "whitecircle/halo": {
     "at": "2026-10-04T18:54:49+00:00",

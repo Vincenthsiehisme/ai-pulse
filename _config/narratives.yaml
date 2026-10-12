@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-09'
+updated: '2026-10-12'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 這一輪新增兩則。10-08 OpenAI 的 LegalOn 案例說，每日 Codex 的估計成本降低 65%，開發速度維持；做法是把 Astra、Sol、Luna 依任務配對並管理預算。這是廠商發布的單一客戶數字，「估計」成本的基準沒給。10-09 Ai2 在 Hugging Face 發表〈Impactful scheduling for GPU clusters〉，摘要只有「Ai2 的一篇部落格文章」，排程方法與結果都看不到。其餘延續上一輪：10-08 NVIDIA 的 GeForce NOW 例行更新與 AI 基礎設施關係不大。更有分量的是 10-07 的 RTX Spark，黃仁勳與納德拉說明兩家共同設計硬體與軟體，讓 AI agent 在 Windows PC 本機執行，Surface Laptop Ultra 的規格與價格不在我們的摘要裡。10-06 電信業者建在開放模型上的報告在摘要處截斷，沒有採用比例。10-05 vLLM v0.31.0 有 717 個 commit、307 位貢獻者，頁面沒有吞吐或延遲對照。10-02 的 DGX Spark 64GB 版與 10-01 的每兆瓦約 6,000 萬美元仍是 NVIDIA 單一來源的說法。
-    next: 看其他 Codex 客戶有沒有公布類似的任務分層與成本數字，以及 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率或等待時間的前後數字，排程工具是否開源；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
+    now: 這一輪新增一則。10-12 NVIDIA 在 OCP Global Summit 宣布開放 Vera Rubin 架構，部落格的說法是 AI 工廠從百萬瓦走向十億瓦級，開放標準能讓擴充更快、更有效率、更可靠。開放哪些規格、授權條件為何，摘要沒有交代，目前只有 NVIDIA 單一來源。其餘延續上一輪：10-08 OpenAI 的 LegalOn 案例說，每日 Codex 的估計成本降低 65%，開發速度維持；做法是把 Astra、Sol、Luna 依任務配對並管理預算。這是廠商發布的單一客戶數字，「估計」成本的基準沒給。10-09 Ai2 在 Hugging Face 發表〈Impactful scheduling for GPU clusters〉，摘要只有「Ai2 的一篇部落格文章」，排程方法與結果都看不到。10-08 NVIDIA 的 GeForce NOW 例行更新與 AI 基礎設施關係不大。更有分量的是 10-07 的 RTX Spark，黃仁勳與納德拉說明兩家共同設計硬體與軟體，讓 AI agent 在 Windows PC 本機執行，Surface Laptop Ultra 的規格與價格不在我們的摘要裡。10-06 電信業者建在開放模型上的報告在摘要處截斷，沒有採用比例。10-05 vLLM v0.31.0 有 717 個 commit、307 位貢獻者，頁面沒有吞吐或延遲對照。10-02 的 DGX Spark 64GB 版與 10-01 的每兆瓦約 6,000 萬美元仍是 NVIDIA 單一來源的說法。
+    next: 看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件，以及伺服器、機櫃、電力供應廠商是否公開表態採用；看其他 Codex 客戶有沒有公布類似的任務分層與成本數字，以及 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率或等待時間的前後數字，排程工具是否開源；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？

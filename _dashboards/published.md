@@ -1,6 +1,10 @@
-# 已發布事件（421）
+# 已發布事件（422）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-12
+- **[[Events/evt-2026-10-12-66a80a|OCP Global Summit: Amid Ecosystem Adoption, NVIDIA Opens Vera Rubin Architecture to Help Scale AI Factories Worldwide]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 在 OCP 全球高峰會宣布開放 Vera Rubin 架構，主打 AI 工廠的開放標準。
 
 ## 2026-10-09
 - **[[Events/evt-2026-10-09-6f51cf|Sophos cuts threat investigation time by 96% with OpenAI Daybreak]]** — OpenAI · product · conf 73 · heat 未量測
