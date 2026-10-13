@@ -59,6 +59,11 @@
     "src_hash": "a0b40d979dcf",
     "zh": "開源 agent 框架，原生命令列 TUI，支援 ReAct 與 Agent Team 模式，一行指令安裝"
   },
+  "Appllama/appllama-skills": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "69b311be3f60",
+    "zh": "agent skills，把暢銷 app 的設計模式轉成原生品質的行動裝置畫面"
+  },
   "ArcadeData/arcadedb": {
     "at": "2026-08-20T19:08:38+00:00",
     "src_hash": "ac5e08fbccb4",
@@ -129,6 +134,16 @@
     "src_hash": "0e143566f257",
     "zh": "讓2.78兆參數的Kimi K3在單顆CPU、8.24GB RAM上跑推論，純C99實作，不用BLAS、框架或GPU"
   },
+  "Fei2411/DeepSeek-Bot": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "dcd5f1ee174b",
+    "zh": "DeepSeek Harness 用的長駐 bot 團隊，含主 bot、bot 之間的訊息與群組聊天"
+  },
+  "Folkbench/folkbench": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "7b04273e730e",
+    "zh": "AI API 中轉站評測排行與切換工具，實測可用率、延遲與價格，適用 Claude Code、Codex"
+  },
   "FuRongJun-1999/dsh-memory": {
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "6f6b0db29424",
@@ -158,6 +173,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "7bf25fcf4ee9",
     "zh": "DeepTutor：終身個人化的家教"
+  },
+  "HKUDS/LightRAG": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "f6e5ee673de7",
+    "zh": "LightRAG：簡單快速的檢索增強生成（EMNLP2025）"
   },
   "HKUDS/Vibe-Trading": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -508,6 +528,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "e8f3d861fbb7",
     "zh": "建構並運行你看得見、看得懂、信得過的 agent"
+  },
+  "agentvivekkumar/dontbemichael": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "97e5a60aa72e",
+    "zh": "本機多 agent 工具，搭配現有 Claude Code、Codex 訂閱，跑一整間 agent 辦公室"
   },
   "alexgreensh/attention-span": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -1084,6 +1109,11 @@
     "src_hash": "2dfffa61ccd5",
     "zh": "魔搭 ModelScope Cookbook，開發者的開源模型應用實戰指南，涵蓋選型、推理、微調、RAG 與 Agent"
   },
+  "mrpulor-gh/nuphus-mcp": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "d701d707eb2a",
+    "zh": "桌面自動化 MCP server，讓任何 AI agent 控制螢幕、視窗、滑鼠鍵盤與 Chrome"
+  },
   "msitarzewski/agency-agents": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "f6970773b060",
@@ -1135,9 +1165,9 @@
     "zh": "在程式碼衝突前先抓出意圖衝突，建在 Git 之上的 coding agent 開源協調協定"
   },
   "nexu-io/open-design": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "fd627fa67712",
-    "zh": "開源的 Claude Design 替代品，本機桌面 app，讓 coding agent 做原型、網頁、簡報與影片"
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "94633dc42cee",
+    "zh": "開源、本機優先的協作式 AI 設計工作區，可與團隊和 agent 做原型、網頁、簡報、圖片與影片"
   },
   "nirholas/XActions": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -1228,6 +1258,11 @@
     "at": "2026-10-05T22:18:12+00:00",
     "src_hash": "e02e450c3ce1",
     "zh": "Claude Code / Codex 的中轉站與公益站導航，含額度、價格與一鍵設定腳本"
+  },
+  "paperclipai/paperclip": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "3a71e3f3a44a",
+    "zh": "開源 app，用來管理工作中使用的 agent"
   },
   "paradedb/paradedb": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -1354,6 +1389,11 @@
     "src_hash": "423faf82cd96",
     "zh": "瀏覽器自動化、測試與網頁爬取的 Python API；CDP 模式讓 Chrome 隱匿，並可搭配 Playwright"
   },
+  "seyedehsanhadi/sloptrim": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "0d9ca097fc4c",
+    "zh": "本機偵測 AI 寫作痕跡的工具，替 agent 存的文字檔評分，只用 Python 標準庫"
+  },
   "sgl-project/sglang": {
     "at": "2026-08-31T19:11:07+00:00",
     "src_hash": "34d9064f6249",
@@ -1385,8 +1425,8 @@
     "zh": "教系統工程師在 Apple Silicon 上建置迷你版 vLLM + Qwen 推論系統"
   },
   "sno-ai/sno-station": {
-    "at": "2026-10-12T22:42:13+00:00",
-    "src_hash": "ccee2da83ee8",
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "cdb78122a596",
     "zh": "讓 Codex、Claude Code、Cursor 等 agent 組成小隊，共用加密記憶、互相交辦與審查，在本機執行"
   },
   "sqliteai/sqlite-vector": {
@@ -1488,6 +1528,11 @@
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "9ca67cf52b52",
     "zh": "Hindsight：會學習的 agent 記憶系統"
+  },
+  "vercel-labs/skills": {
+    "at": "2026-10-13T20:55:59+00:00",
+    "src_hash": "618aa067db4d",
+    "zh": "開源的 agent skills 工具，用 npx skills 執行"
   },
   "vibheksoni/stealth-browser-mcp": {
     "at": "2026-10-06T20:41:13+00:00",

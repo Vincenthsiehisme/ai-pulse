@@ -1,12 +1,7 @@
-# 被門禁擋下（49）
+# 被門禁擋下（44）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-10-13-1b231f|NVIDIA Announces New Investments in France’s Startups]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-13-553372|Higgsfield takes AI video from 1 minute to over 10]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-13-57c947|Gemini 4 Argon: Built to solve your hardest problems]]** — Google DeepMind — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-10-13-7423b2|All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-13-88abe5|Run fast, private agents on-device with LFM2.5-24B-A2B]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-03-623369|The Agent Said It Was Done. The Database Disagreed.]]** — Microsoft — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-96c618|Getting the Source Right, Not Just the Fact: Source-Aware Verification]]** — Multiverse Computing — blockers: thin_research_analysis
