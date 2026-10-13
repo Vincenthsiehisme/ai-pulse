@@ -3,17 +3,18 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-12'
+generated_day: '2026-10-13'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **146** 則：`published` 143、`review` 3
+事件 **147** 則：`published` 143、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-13 | [[Events/evt-2026-10-13-553372\|Higgsfield takes AI video from 1 minute to over 10]] | review |
 | 2026-10-09 | [[Events/evt-2026-10-09-6f51cf\|Sophos cuts threat investigation time by 96% with OpenAI Daybreak]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-b2495d\|Pollo AI turns creative ideas into campaigns with OpenAI]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-68fb2a\|How Oracle turns days of work into minutes with ChatGPT and Codex]] | published |

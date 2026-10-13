@@ -2,7 +2,47 @@
   {
     "id": "evt-2026-10-12-66a80a",
     "title": "OCP Global Summit: Amid Ecosystem Adoption, NVIDIA Opens Vera Rubin Architecture to Help Scale AI Factories Worldwide",
-    "company": "Scale AI",
+    "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 在 OCP 全球高峰會宣布開放 Vera Rubin 架構，主打 AI 工廠的開放標準。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-13-1b231f",
+    "title": "NVIDIA Announces New Investments in France’s Startups",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-13-553372",
+    "title": "Higgsfield takes AI video from 1 minute to over 10",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-13-57c947",
+    "title": "Gemini 4 Argon: Built to solve your hardest problems",
+    "company": "Google DeepMind",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-13-7423b2",
+    "title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-13-88abe5",
+    "title": "Run fast, private agents on-device with LFM2.5-24B-A2B",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null

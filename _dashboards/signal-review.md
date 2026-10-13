@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-12"
+generated_day: "2026-10-13"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-12"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **407** 則／已裁決 **26** 則。
+待回答 **408** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,8 +24,8 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#8bf5da35`** — infra-cost
-  > 看其他 Codex 客戶有沒有公布類似的任務分層與成本數字，以及 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率或等待時間的前後數字，排程工具是否開源；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
+- **`infra-cost#9884432e`** — infra-cost
+  > 看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件，以及伺服器、機櫃、電力供應廠商是否公開表態採用；看其他 Codex 客戶有沒有公布類似的任務分層與成本數字，以及 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率或等待時間的前後數字，排程工具是否開源；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
 
 - **`model-research#8832663c`** — model-research
   > 看 Falcon ASR 的模型卡有沒有授權條款與公開基準的字詞錯誤率；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的模型卡有沒有列出參數量、授權與邊緣硬體上的延遲；看 openai/math 預印本實際列了哪些結果，以及外部數學家的檢查；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#68a1eeca`** — global-map
   > 看有沒有獨立研究機構或其他平台公開同一批假身分的分析，能對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及有沒有在阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
 
-## 事件層（401）
+## 事件層（402）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1246,3 +1246,6 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-10-09-ecfbef#057b9a16`** — evt-2026-10-09-ecfbef
   > 文中是否給出叢集利用率或等待時間的前後數字，以及排程工具是否開源。
+
+- **`evt-2026-10-12-66a80a#ca301203`** — evt-2026-10-12-66a80a
+  > OCP 或 NVIDIA 是否釋出 Vera Rubin 開放規格文件，以及有沒有伺服器、機櫃或電力供應廠商公開表態採用。

@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-12'
+generated_day: '2026-10-13'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**77 天**（2026-07-24 … 2026-10-12），去重後 **5093** 列。
+語料範圍：**78 天**（2026-07-24 … 2026-10-13），去重後 **5163** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,66 +17,66 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 149 | 2 |
-| Apple | 109 | 5 |
-| Amazon | 64 | 5 |
+| Show HN | 153 | 2 |
+| Apple | 112 | 5 |
+| Amazon | 66 | 5 |
 | September | 61 | 8 |
 | LLMs | 53 | 13 |
-| There | 50 | 7 |
-| They | 49 | 9 |
-| LLM | 48 | 12 |
+| LLM | 51 | 12 |
+| There | 51 | 7 |
+| They | 50 | 9 |
 | Here | 47 | 8 |
+| One | 42 | 10 |
 | Trump | 41 | 5 |
+| October | 41 | 7 |
 | Muse | 41 | 5 |
-| One | 40 | 10 |
-| October | 40 | 7 |
-| San Francisco | 37 | 9 |
-| CEO | 36 | 5 |
-| When | 35 | 11 |
-| Pro | 35 | 7 |
-| Python | 34 | 4 |
+| San Francisco | 39 | 9 |
+| CEO | 37 | 5 |
+| When | 36 | 11 |
+| Pro | 36 | 7 |
+| Python | 35 | 4 |
+| AI-powered | 34 | 9 |
 | July | 32 | 9 |
 | U.S | 32 | 8 |
-| AI-powered | 31 | 9 |
+| Android | 32 | 4 |
 | After | 31 | 6 |
 | China | 30 | 8 |
-| Android | 30 | 4 |
 | June | 29 | 7 |
 | Linux | 29 | 5 |
 | August | 29 | 8 |
 | Astra | 29 | 5 |
 | Research | 27 | 6 |
 | Last | 27 | 6 |
+| With | 26 | 10 |
 | Building | 25 | 10 |
-| With | 25 | 10 |
+| Rust | 24 | 3 |
 | Pixel | 24 | 3 |
+| AI-generated | 24 | 8 |
 | Windows | 24 | 5 |
 | Learn | 23 | 5 |
-| Rust | 23 | 3 |
-| AI-generated | 23 | 8 |
+| These | 22 | 7 |
 | Samsung | 22 | 5 |
 | Opus | 21 | 5 |
-| These | 21 | 7 |
+| API | 21 | 6 |
 | Europe | 20 | 7 |
 | Wednesday | 20 | 5 |
 | Over | 20 | 5 |
+| Tuesday | 19 | 6 |
 | Mac | 19 | 4 |
 | Chinese | 19 | 8 |
-| API | 19 | 5 |
+| Don | 19 | 5 |
 | Flash | 18 | 5 |
-| Tuesday | 18 | 6 |
 | Some | 18 | 8 |
 | Elon Musk | 18 | 5 |
+| SpaceX | 18 | 5 |
 | RAM | 18 | 2 |
-| Don | 18 | 5 |
 | Thursday | 17 | 4 |
+| Monday | 17 | 4 |
 | May | 17 | 7 |
 | Fable | 17 | 5 |
-| SpaceX | 17 | 5 |
+| Xbox | 17 | 2 |
 | The AI | 17 | 6 |
 | Get | 17 | 4 |
-| Industry | 16 | 2 |
-| European Union | 16 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,14 +87,14 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| TechCrunch Disrupt | 68 | src-media-techcrunch |
-| The Download | 59 | src-media-mit-techreview |
+| TechCrunch Disrupt | 71 | src-media-techcrunch |
+| The Download | 60 | src-media-mit-techreview |
 | Tags | 34 | src-kol-simonwillison |
-| Register | 23 | src-media-techcrunch |
+| Register | 25 | src-media-techcrunch |
 | Hi HN | 22 | src-hn-frontpage |
-| MIT Technology Review | 21 | src-media-mit-techreview |
+| MIT Technology Review | 22 | src-media-mit-techreview |
 | Highlights | 19 | src-gh-vllm-releases |
-| Launch HN | 18 | src-hn-frontpage |
+| Launch HN | 19 | src-hn-frontpage |
 | The Verge | 17 | src-media-theverge |
 | Opt | 16 | src-media-theverge |
 | Committee | 15 | src-ep-itre |
@@ -108,6 +108,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | YC S26 | 11 | src-hn-frontpage |
 | A Blog | 11 | src-hf-blog |
 | Disrupt | 10 | src-media-techcrunch |
+| Moscone West | 10 | src-media-techcrunch |
 | October Prime Day | 10 | src-media-theverge |
 | AMENDMENTS | 9 | src-ep-itre |
 | Establishing | 9 | src-ep-itre |
@@ -118,14 +119,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Verge-iest | 9 | src-media-theverge |
 | Installer | 9 | src-media-theverge |
 | Roundtables | 9 | src-media-mit-techreview |
-| Moscone West | 9 | src-media-techcrunch |
+| Startup Battlefield | 8 | src-media-techcrunch |
 | Sunday | 7 | src-media-theverge |
 | At TechCrunch Disrupt | 7 | src-media-techcrunch |
 | The Algorithm | 7 | src-media-mit-techreview |
 | Decoder | 7 | src-media-theverge |
 | Walmart | 7 | src-media-theverge |
 | Series A | 7 | src-media-techcrunch |
-| Startup Battlefield | 7 | src-media-techcrunch |
 | Code | 6 | src-hn-frontpage |
 | Open-source | 6 | src-hn-frontpage |
 | Galaxy Z Fold | 6 | src-media-theverge |

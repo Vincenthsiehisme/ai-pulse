@@ -3,17 +3,18 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-10-12'
+generated_day: '2026-10-13'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **24** 則：`published` 19、`review` 5
+事件 **25** 則：`published` 19、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-13 | [[Events/evt-2026-10-13-57c947\|Gemini 4 Argon: Built to solve your hardest problems]] | review |
 | 2026-10-06 | [[Events/evt-2026-10-06-82cdd2\|EmbeddingGemma 2: an open, lightweight multimodal embedding model]] | published |
 | 2026-09-30 | [[Events/evt-2026-09-30-fa1a68\|Gemini 4 Argon: our next era of frontier intelligence]] | published |
 | 2026-09-30 | [[Events/evt-2026-09-30-583eae\|Introducing SynthID Bio]] | published |
