@@ -3,7 +3,7 @@
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-10-13
-- **[[Events/evt-2026-10-13-1b231f|NVIDIA Announces New Investments in France’s Startups]]** — NVIDIA · capital · conf 73 · heat 未量測
+- **[[Events/evt-2026-10-13-1b231f|NVIDIA Announces New Investments in France’s Startups]]** — NVIDIA · capital · conf 83 · heat 未量測
   NVIDIA 宣布新一輪投資法國新創，聚焦 agentic computing。
 - **[[Events/evt-2026-10-13-553372|Higgsfield takes AI video from 1 minute to over 10]]** — OpenAI · product · conf 73 · heat 未量測
   Higgsfield 用 GPT-6 Astra 把 AI 影片長度從 1 分鐘拉到 10 分鐘以上。

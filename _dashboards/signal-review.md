@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-13"
+generated_day: "2026-10-14"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-13"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **408** 則／已裁決 **26** 則。
+待回答 **413** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,17 +24,17 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#9884432e`** — infra-cost
-  > 看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件，以及伺服器、機櫃、電力供應廠商是否公開表態採用；看其他 Codex 客戶有沒有公布類似的任務分層與成本數字，以及 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率或等待時間的前後數字，排程工具是否開源；看 Surface Laptop Ultra 的出貨日期與實際售價，以及其他 OEM 是否推出 RTX Spark 機種；看 State of AI 報告裡電信業採用開放模型的實際比例；看 vLLM 或社群是否公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 NVIDIA 公布 DGX Spark 64GB 版的定價與開賣日；看其他業者公布的每兆瓦成本是否落在同一量級。
+- **`infra-cost#711ab932`** — infra-cost
+  > 看搭載 RTX Spark 的筆電上市日期與定價，以及第三方實測的本地模型推論速度；看 Surface Laptop Ultra 的出貨日期與售價，以及其他 OEM 是否推出 RTX Spark 機種；看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件；看其他 Codex 客戶有沒有公布類似的成本數字與 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率的前後數字；看 vLLM 或社群公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 DGX Spark 64GB 版的定價與開賣日。
 
-- **`model-research#8832663c`** — model-research
-  > 看 Falcon ASR 的模型卡有沒有授權條款與公開基準的字詞錯誤率；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的模型卡有沒有列出參數量、授權與邊緣硬體上的延遲；看 openai/math 預印本實際列了哪些結果，以及外部數學家的檢查；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 Gemini 4 Argon 對外開放的日期與官方基準測試；看 GPT-6.1 Sol 的獨立實測與價格是否對得上「約五分之一」的說法。
+- **`model-research#c1e64312`** — model-research
+  > 看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權條款與裝置上的每秒 token 數；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 Falcon ASR 的授權與字詞錯誤率；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的參數量、授權與邊緣硬體延遲；看 openai/math 預印本實際列了哪些結果；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 GPT-6.1 Sol 的獨立實測與價格。
 
-- **`product-market#b61c0bdd`** — product-market
-  > 看 Sophos 或第三方是否公布自動化案件的誤判率與複查比例；看 2026 使用政策更新原文公布的生效日期與條款差異；看 Pollo AI 是否公布用戶數或廣告成效；看 College Planner 的實際開放日期與地區；看 Radisson 是否公布外掛的預訂占比；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 的參與資格與申請方式；看 OpenAI 是否公布新廣告格式的開放範圍與第一批歸因夥伴。
+- **`product-market#4f5d6e22`** — product-market
+  > 看 Higgsfield 是否公開長片樣本與定價，以及其他影片平台是否接入同一組模型；看 Sophos 或第三方是否公布自動化案件的誤判率與複查比例；看 2026 使用政策更新原文公布的生效日期與條款差異；看 Pollo AI 是否公布用戶數或廣告成效；看 Radisson 外掛的預訂占比；看 Atlassian 整合的具體功能、可用方案與上線日期；看 Cyber Verification Program 的參與資格與申請方式。
 
-- **`capital-evolution#9ef40870`** — capital-evolution
-  > 讀 Genesis Mission Commitment 原文，確認承諾項目、時程與是否涉及資金；讀 Anthropic Cyber Mission 原文，確認它是新團隊、新產品還是對外承諾；讀 OpenAI 歐盟文字來源標示那篇原文，確認規則與時程；看 Lenfest 計畫的參與機構與資金分配；持續留意估值、募資或併購這類實際的資本動態。
+- **`capital-evolution#ca90a853`** — capital-evolution
+  > 看 NVIDIA 或被投資新創是否公布投資金額與名單，以及這些公司是否公開採用 NVIDIA 的 agent 相關軟體；讀 Genesis Mission Commitment 原文，確認承諾項目、時程與是否涉及資金；讀 Anthropic Cyber Mission 原文，確認它是新團隊、新產品還是對外承諾；讀 OpenAI 歐盟文字來源標示原文，確認規則與時程；看 Lenfest 計畫的參與機構與資金分配。
 
 - **`agent-refactor#a8b85a64`** — agent-refactor
   > 看 Hugging Face 那篇有沒有公開 ML intern 的程式碼或模型連結；看 NVIDIA 是否公布具名客戶或開發時間對比；看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果；看 AutoSynthData 有沒有同步釋出資料集或基準測試；看 Dots 是否有官方文件公布功能與限制；看 Holo4 有沒有第三方的電腦操作評測。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#68a1eeca`** — global-map
   > 看有沒有獨立研究機構或其他平台公開同一批假身分的分析，能對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及有沒有在阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
 
-## 事件層（402）
+## 事件層（407）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1249,3 +1249,18 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-10-12-66a80a#ca301203`** — evt-2026-10-12-66a80a
   > OCP 或 NVIDIA 是否釋出 Vera Rubin 開放規格文件，以及有沒有伺服器、機櫃或電力供應廠商公開表態採用。
+
+- **`evt-2026-10-13-1b231f#740c77fa`** — evt-2026-10-13-1b231f
+  > NVIDIA 或被投資新創公布具體金額與名單，以及這些公司是否公開採用 NVIDIA 的 agent 相關軟體。
+
+- **`evt-2026-10-13-553372#3af11e2b`** — evt-2026-10-13-553372
+  > Higgsfield 公開的長片樣本與定價，以及其他影片平台是否宣布接入同一組模型。
+
+- **`evt-2026-10-13-57c947#d47250a9`** — evt-2026-10-13-57c947
+  > 第三方基準測試或其他來源對 Gemini 4 Argon 的報導，以及 API 價格與上線地區。
+
+- **`evt-2026-10-13-7423b2#0f6b6e60`** — evt-2026-10-13-7423b2
+  > 搭載 RTX Spark 的筆電上市日期與定價，以及第三方實測的本地模型推論速度。
+
+- **`evt-2026-10-13-88abe5#698dd78e`** — evt-2026-10-13-88abe5
+  > 模型卡上的基準分數、授權條款，以及在實際裝置上的每秒 token 數。

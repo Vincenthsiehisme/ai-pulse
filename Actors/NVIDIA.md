@@ -3,19 +3,20 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-13'
+generated_day: '2026-10-14'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **81** 則：`dropped` 1、`published` 74、`review` 6
+事件 **82** 則：`dropped` 1、`published` 76、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-13 | [[Events/evt-2026-10-13-7423b2\|All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark]] | review |
-| 2026-10-13 | [[Events/evt-2026-10-13-1b231f\|NVIDIA Announces New Investments in France’s Startups]] | review |
+| 2026-10-14 | [[Events/evt-2026-10-14-fbe8ca\|European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations]] | review |
+| 2026-10-13 | [[Events/evt-2026-10-13-7423b2\|All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark]] | published |
+| 2026-10-13 | [[Events/evt-2026-10-13-1b231f\|NVIDIA Announces New Investments in France’s Startups]] | published |
 | 2026-10-12 | [[Events/evt-2026-10-12-66a80a\|OCP Global Summit: Amid Ecosystem Adoption, NVIDIA Opens Vera Rubin Architecture to Help Scale AI Factories Worldwide]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-ce8030\|Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-9cbbbf\|Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW]] | published |

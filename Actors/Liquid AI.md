@@ -3,7 +3,7 @@ id: actor-liquid-ai
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-10-13'
+generated_day: '2026-10-14'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -12,10 +12,11 @@ tags: [actor, company]
 
 > ⚠ **字典裡沒有這家公司。** 它是從 Event 的 `company` 欄位冒出來的，代表 `_config/entities.yaml` 少收了一條——或者 `infer_company()` 推錯了。兩種都要人看一眼。
 
-事件 **5** 則：`published` 5
+事件 **6** 則：`published` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-13 | [[Events/evt-2026-10-13-88abe5\|Run fast, private agents on-device with LFM2.5-24B-A2B]] | published |
 | 2026-10-07 | [[Events/evt-2026-10-07-90ce7f\|Multimodal open d1 decision models for the edge]] | published |
 | 2026-09-24 | [[Events/evt-2026-09-24-e54c41\|Accelerating vision-language models with LFM2.5-VL-DSpark]] | published |
 | 2026-08-20 | [[Events/evt-2026-08-20-3eb48c\|Up to 3.2x Faster Inference with LFM2.5-DSpark]] | published |

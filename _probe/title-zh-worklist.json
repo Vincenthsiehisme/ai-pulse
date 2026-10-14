@@ -1,48 +1,80 @@
 [
   {
-    "id": "evt-2026-10-12-66a80a",
-    "title": "OCP Global Summit: Amid Ecosystem Adoption, NVIDIA Opens Vera Rubin Architecture to Help Scale AI Factories Worldwide",
-    "company": "NVIDIA",
-    "track": "基礎設施與成本",
-    "summary": "NVIDIA 在 OCP 全球高峰會宣布開放 Vera Rubin 架構，主打 AI 工廠的開放標準。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-13-1b231f",
-    "title": "NVIDIA Announces New Investments in France’s Startups",
-    "company": "NVIDIA",
+    "id": "evt-2026-10-14-0f6af4",
+    "title": "2026 Us Midterms",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-13-553372",
-    "title": "Higgsfield takes AI video from 1 minute to over 10",
+    "id": "evt-2026-10-14-3b8c3c",
+    "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-13-57c947",
-    "title": "Gemini 4 Argon: Built to solve your hardest problems",
+    "id": "evt-2026-10-14-518ad7",
+    "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
     "company": "Google DeepMind",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-13-7423b2",
-    "title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
-    "company": "NVIDIA",
+    "id": "evt-2026-10-14-5f2e66",
+    "title": "Singapore Office Opening",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-13-88abe5",
-    "title": "Run fast, private agents on-device with LFM2.5-24B-A2B",
+    "id": "evt-2026-10-14-7d0c31",
+    "title": "HiRO-ACEv2: Simulating extreme weather at 3 km resolution for a fraction of the cost",
     "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-14-96c7b4",
+    "title": "Grok Voice 3",
+    "company": "xAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-14-9b69f6",
+    "title": "Amp puts AI agents to work beyond code with OpenAI models",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-14-c89100",
+    "title": "The EU’s next chapter in AI is agentic",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-14-f443ac",
+    "title": "SentinelOne cuts malware analysis from weeks to hours",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-14-fbe8ca",
+    "title": "European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations",
+    "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null

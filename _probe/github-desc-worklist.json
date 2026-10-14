@@ -1,54 +1,56 @@
 [
   {
-    "full_name": "Folkbench/folkbench",
-    "desc": "AI API 中转站评测排行与切换工具：实测可用率、延迟与价格 · Open-source AI API relay benchmark, rankings & switcher for Claude Code / Codex",
-    "language": "Rust",
+    "full_name": "Harvil1/codeAgent",
+    "desc": "CodeAgent is an open-source coding agent that lives in your terminal. It understands your repository, plans multi-step changes, writes and edits files, runs commands and tests, and iterates until the task is done — all with a transparent, extensible tool loop.",
+    "language": "Python",
     "topics": [
-      "ai",
-      "api-relay",
-      "api-relay-pricing",
-      "benchmark",
-      "benchmarks",
-      "claude"
+      "agent",
+      "ai-agent",
+      "cli",
+      "coding-agent",
+      "context-engineering",
+      "deepseek"
     ],
-    "stars": 840,
-    "url": "https://github.com/Folkbench/folkbench",
+    "stars": 652,
+    "url": "https://github.com/Harvil1/codeAgent",
     "stale_zh": null
   },
   {
-    "full_name": "paperclipai/paperclip",
-    "desc": "The open-source app everyone uses to manage agents at work",
-    "language": "TypeScript",
+    "full_name": "jianruntech/geo-score",
+    "desc": "Can AI engines cite your site, and do they? Free 0–100 readiness score on an open GEO rubric, plus ask and weekly citation tracking via OpenAI, Perplexity, Gemini, Anthropic and OpenRouter with your own keys. Zero dependencies; CLI, GitHub Action and MCP server.",
+    "language": "Python",
     "topics": [
-      "acpx",
-      "agent-orchestration",
-      "agent-skills",
-      "agentic-ai",
-      "ai-agents",
-      "ai-engineering"
+      "aeo",
+      "ai-search",
+      "ai-visibility",
+      "answer-engine-optimization",
+      "chatgpt",
+      "claude-code"
     ],
-    "stars": 101502,
-    "url": "https://github.com/paperclipai/paperclip",
+    "stars": 394,
+    "url": "https://github.com/jianruntech/geo-score",
     "stale_zh": null
   },
   {
-    "full_name": "Fei2411/DeepSeek-Bot",
-    "desc": "A team of long-lived bots for DeepSeek Harness, with main bots, bot-to-bot messages and group chats.",
-    "language": "JavaScript",
+    "full_name": "ardeyouxipianyi/workbuddy2api-hub",
+    "desc": "WorkBuddy 国际国内多账号反代网关，支持 Codex / Claude Code / DSH与标准 OpenAI 客户端。",
+    "language": "Python",
     "topics": [
-      "bot",
-      "deepseek-harness",
-      "dsh-plugin",
-      "multi-agent"
+      "api-gateway",
+      "claude-code",
+      "codebuddy",
+      "codex",
+      "deepseek",
+      "openai-api"
     ],
-    "stars": 1661,
-    "url": "https://github.com/Fei2411/DeepSeek-Bot",
+    "stars": 1299,
+    "url": "https://github.com/ardeyouxipianyi/workbuddy2api-hub",
     "stale_zh": null
   },
   {
     "full_name": "emo-xiaoyu/harness-mix",
     "desc": "",
-    "language": "JavaScript",
+    "language": "TypeScript",
     "topics": [
       "ai-agents",
       "cluade-code",
@@ -57,84 +59,88 @@
       "cursor",
       "deepseek-harness"
     ],
-    "stars": 404,
+    "stars": 462,
     "url": "https://github.com/emo-xiaoyu/harness-mix",
     "stale_zh": null
   },
   {
-    "full_name": "seyedehsanhadi/sloptrim",
-    "desc": "A local detector for AI-writing patterns. Scores every prose file your agent saves. Python standard library only, no network, no model.",
-    "language": "Python",
-    "topics": [
-      "ai-agents",
-      "ai-slop",
-      "claude-code",
-      "claude-code-plugin",
-      "claude-code-plugins-marketplace",
-      "claude-code-skills"
-    ],
-    "stars": 349,
-    "url": "https://github.com/seyedehsanhadi/sloptrim",
-    "stale_zh": null
-  },
-  {
-    "full_name": "agentvivekkumar/dontbemichael",
-    "desc": "A local multi-agent harness that works with your existing Claude Code, Codex subscriptions, allows you to run an office of agents",
-    "language": "TypeScript",
-    "topics": [
-      "agentic",
-      "ai"
-    ],
-    "stars": 432,
-    "url": "https://github.com/agentvivekkumar/dontbemichael",
-    "stale_zh": null
-  },
-  {
-    "full_name": "nexu-io/open-design",
-    "desc": "OpenDesign is the 1st Collaborative AI Design Agent Workspace. Local-first and open source. Create prototypes, websites, apps, dashboards, presentations, images, and videos with your team and AI agents. Share work, exchange feedback, and iterate together in one workspace.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-design",
-      "byok",
-      "coding-agents",
-      "design-systems",
-      "local-first",
-      "claude-design"
-    ],
-    "stars": 100944,
-    "url": "https://github.com/nexu-io/open-design",
-    "stale_zh": "開源的 Claude Design 替代品，本機桌面 app，讓 coding agent 做原型、網頁、簡報與影片"
-  },
-  {
-    "full_name": "mrpulor-gh/nuphus-mcp",
-    "desc": "Desktop automation MCP server — computer use for any AI agent: control screen, windows, mouse/keyboard, and Chrome via Model Context Protocol (stdio). Not a DSH plugin — DSH users install dsh-nuphus-mcp.",
-    "language": "Rust",
-    "topics": [
-      "ai-agent",
-      "browser-automation",
-      "chrome-automation",
-      "computer-use",
-      "computer-vision",
-      "desktop-automation"
-    ],
-    "stars": 325,
-    "url": "https://github.com/mrpulor-gh/nuphus-mcp",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Appllama/appllama-skills",
-    "desc": "A builder, not just a researcher. Agent skills that turn top-grossing app patterns into native-quality mobile screens.",
-    "language": "",
+    "full_name": "Leonxlnx/taste-skill",
+    "desc": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages",
+    "language": "JavaScript",
     "topics": [
       "agent-skills",
       "ai-agents",
+      "anti-slop",
+      "claude-code",
+      "codex",
+      "cursor"
+    ],
+    "stars": 96303,
+    "url": "https://github.com/Leonxlnx/taste-skill",
+    "stale_zh": "Taste-Skill：給 AI 一點品味，別再生出無聊平庸的內容"
+  },
+  {
+    "full_name": "VoltAgent/official-mcp-servers",
+    "desc": "A curated directory of 300+ official MCP servers from the companies behind the products. No unofficial forks, no abandoned projects.",
+    "language": "",
+    "topics": [
+      "ai-tools",
+      "awesome-list",
       "claude",
       "claude-code",
-      "claude-code-skill",
-      "claude-skills"
+      "codex",
+      "cursor"
     ],
-    "stars": 2805,
-    "url": "https://github.com/Appllama/appllama-skills",
+    "stars": 342,
+    "url": "https://github.com/VoltAgent/official-mcp-servers",
+    "stale_zh": null
+  },
+  {
+    "full_name": "citrolabs/ego-lite",
+    "desc": "The fastest browser for AI agents to run browser automation, built for sharing your logged-in browser state with your AI agents, like Codex or Claude Code, without disturbing you. Zero cost, zero config.",
+    "language": "JavaScript",
+    "topics": [
+      "agent-skills",
+      "ai-agent",
+      "automation",
+      "browser",
+      "browser-automation",
+      "claude-code"
+    ],
+    "stars": 17390,
+    "url": "https://github.com/citrolabs/ego-lite",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Javis603/token-monitor",
+    "desc": "Local-first desktop widget for tracking token usage, costs, limits, and session activity across 45+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
+    "language": "JavaScript",
+    "topics": [
+      "ai",
+      "ai-tools",
+      "antigravity",
+      "claude-code",
+      "codex",
+      "cursor"
+    ],
+    "stars": 3084,
+    "url": "https://github.com/Javis603/token-monitor",
+    "stale_zh": "本機優先的桌面小工具，追蹤 44 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
+  },
+  {
+    "full_name": "redf0x1/camofox-browser",
+    "desc": "Anti-detection browser server for AI agents — REST API wrapping Camoufox engine with OpenClaw plugin support",
+    "language": "JavaScript",
+    "topics": [
+      "ai-agent",
+      "anti-detection",
+      "automation",
+      "bot-detection",
+      "browser-automation",
+      "browser-server"
+    ],
+    "stars": 421,
+    "url": "https://github.com/redf0x1/camofox-browser",
     "stale_zh": null
   },
   {
@@ -149,49 +155,40 @@
       "discovery-api",
       "gemini-cli-extension"
     ],
-    "stars": 31460,
+    "stars": 31496,
     "url": "https://github.com/googleworkspace/cli",
     "stale_zh": null
   },
   {
-    "full_name": "HKUDS/LightRAG",
-    "desc": "[EMNLP2025] LightRAG: Simple and Fast Retrieval-Augmented Generation",
-    "language": "Python",
+    "full_name": "sno-ai/sno-station-skills",
+    "desc": "Sno Station Skills: 31 tested skills that turn Claude Code and Codex into one working team. Cross-vendor peer review, automatic handoff when an agent hits its quota, a one-page morning brief, work orders with proof, and a nightly loop that learns from your own sessions. Open source, installed with one sno setup.",
+    "language": "Shell",
     "topics": [
-      "docling",
-      "genai",
-      "gpt",
-      "graphrag",
-      "knowledge-graph",
-      "large-language-models"
-    ],
-    "stars": 40115,
-    "url": "https://github.com/HKUDS/LightRAG",
-    "stale_zh": null
-  },
-  {
-    "full_name": "vercel-labs/skills",
-    "desc": "The open agent skills tool - npx skills",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 34393,
-    "url": "https://github.com/vercel-labs/skills",
-    "stale_zh": null
-  },
-  {
-    "full_name": "sno-ai/sno-station",
-    "desc": "Turn the agents you already use into a squad. Codex, Claude Code, Cursor, Hermes Agent and OpenClaw use one encrypted memory, pass work to each other, review each other's work, and dream every night to wake up a little better. Open source. Runs on your computer.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-memory",
+      "agent-handoff",
       "agent-skills",
+      "agentic-ai",
       "ai-agents",
       "claude-code",
-      "code-review",
-      "codex"
+      "claude-code-skills"
     ],
-    "stars": 681,
-    "url": "https://github.com/sno-ai/sno-station",
-    "stale_zh": "讓 Codex、Claude Code、Cursor 等 agent 組成小隊，共用加密記憶、互相交辦與審查，在本機執行"
+    "stars": 325,
+    "url": "https://github.com/sno-ai/sno-station-skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "K-Dense-AI/scientific-agent-skills",
+    "desc": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 250,000+ scientists worldwide. 177 ready-to-use validated skills plus 100+ scientific databases covering biology, chemistry, medicine, and drug discovery. Compatible with Cursor, Claude Code, Codex, Pi, Antigravity, and the open Agent Skills standard.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "ai-scientist",
+      "bioinformatics",
+      "chemoinformatics",
+      "claude",
+      "claude-skills"
+    ],
+    "stars": 49183,
+    "url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+    "stale_zh": null
   }
 ]
