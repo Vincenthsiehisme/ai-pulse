@@ -1,78 +1,18 @@
 [
   {
-    "id": "evt-2026-10-13-1b231f",
-    "path": "evt-2026-10-13-1b231f.md",
-    "title": "NVIDIA Announces New Investments in France’s Startups",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/france-ecosystem-agentic-computing/",
-        "title": "NVIDIA Announces New Investments in France’s Startups",
-        "summary": "Companies in France are deploying agentic computing across industries spanning space, financial services, the public sector and scientific research, demonstrating how the country’s ecosystem has moved from ambition to application. France’s progress sits on deliberate groundwork. The AI Action Summit",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-13-553372",
-    "path": "evt-2026-10-13-553372.md",
-    "title": "Higgsfield takes AI video from 1 minute to over 10",
+    "id": "evt-2026-10-14-0f6af4",
+    "path": "evt-2026-10-14-0f6af4.md",
+    "title": "2026 Us Midterms",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/higgsfield-longer-videos-voice",
-        "title": "Higgsfield takes AI video from 1 minute to over 10",
-        "summary": "Higgsfield brings creators longer videos with GPT-6 Astra, precise visuals with GPT-Image-2.5, and a path to voice filmmaking with GPT-Live.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-13-57c947",
-    "path": "evt-2026-10-13-57c947.md",
-    "title": "Gemini 4 Argon: Built to solve your hardest problems",
-    "fingerprint": "google:gemini:4",
-    "facet": "capability",
-    "company_guess": "Google DeepMind",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/introducing-gemini-4-argon/",
-        "title": "Gemini 4 Argon: Built to solve your hardest problems",
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/2026-us-midterms",
+        "title": "2026 Us Midterms",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -92,20 +32,20 @@
     }
   },
   {
-    "id": "evt-2026-10-13-7423b2",
-    "path": "evt-2026-10-13-7423b2.md",
-    "title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
+    "id": "evt-2026-10-14-3b8c3c",
+    "path": "evt-2026-10-14-3b8c3c.md",
+    "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "NVIDIA",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates/",
-        "title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
-        "summary": "NVIDIA RTX Spark is a new beginning for the PC — a reinvention combining the capabilities of a gaming PC, a creative studio and a personal AI supercomputer into a single superchip. With up to 128GB of unified memory and 1 petaflop of AI compute, RTX Spark delivers the full stack of NVIDIA RTX and [&",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/third-moment-research",
+        "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
+        "summary": "With GPT-6 Astra and GPT-6.1 Sol, Codex, and Daybreak for cybersecurity, this AI lab builds agents that focus for days and improve with use.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -122,9 +62,71 @@
     }
   },
   {
-    "id": "evt-2026-10-13-88abe5",
-    "path": "evt-2026-10-13-88abe5.md",
-    "title": "Run fast, private agents on-device with LFM2.5-24B-A2B",
+    "id": "evt-2026-10-14-518ad7",
+    "path": "evt-2026-10-14-518ad7.md",
+    "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Google DeepMind",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
+        "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
+        "summary": "Learn how Google DeepMind and GovTech Singapore uses lightweight on-device Gemma models to intercept conversational scams in private chats with zero cloud data egress.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-14-5f2e66",
+    "path": "evt-2026-10-14-5f2e66.md",
+    "title": "Singapore Office Opening",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/singapore-office-opening",
+        "title": "Singapore Office Opening",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-10-14-7d0c31",
+    "path": "evt-2026-10-14-7d0c31.md",
+    "title": "HiRO-ACEv2: Simulating extreme weather at 3 km resolution for a fraction of the cost",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "Hugging Face",
@@ -133,9 +135,161 @@
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/LiquidAI/lfm25-24b-a2b",
-        "title": "Run fast, private agents on-device with LFM2.5-24B-A2B",
-        "summary": "A Blog post by Liquid AI on Hugging Face",
+        "url": "https://huggingface.co/blog/allenai/hiro-acev2",
+        "title": "HiRO-ACEv2: Simulating extreme weather at 3 km resolution for a fraction of the cost",
+        "summary": "A Blog post by Ai2 on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-14-96c7b4",
+    "path": "evt-2026-10-14-96c7b4.md",
+    "title": "Grok Voice 3",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "xAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-xai-news",
+        "url": "https://x.ai/news/grok-voice-3",
+        "title": "Grok Voice 3",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "站方宣告 ai-input=no，不把內容當成 AI 的輸入",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "站方宣告 ai-input=no，不把內容當成 AI 的輸入"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-10-14-9b69f6",
+    "path": "evt-2026-10-14-9b69f6.md",
+    "title": "Amp puts AI agents to work beyond code with OpenAI models",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/amp-beyond-coding",
+        "title": "Amp puts AI agents to work beyond code with OpenAI models",
+        "summary": "See how Amp pushes the frontier of what agents can do with GPT-6 Astra, Ultrafast, GPT-Live-1, and Sign in with ChatGPT.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-14-c89100",
+    "path": "evt-2026-10-14-c89100.md",
+    "title": "The EU’s next chapter in AI is agentic",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/the-eus-next-chapter-in-ai-is-agentic",
+        "title": "The EU’s next chapter in AI is agentic",
+        "summary": "New analysis shows how agentic AI adoption is growing across EU enterprises and small businesses—and where deeper use could unlock more value.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-14-f443ac",
+    "path": "evt-2026-10-14-f443ac.md",
+    "title": "SentinelOne cuts malware analysis from weeks to hours",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/sentinelone",
+        "title": "SentinelOne cuts malware analysis from weeks to hours",
+        "summary": "With OpenAI Daybreak, SentinelOne cuts weeks of malware analysis to hours, creating capacity to investigate more threats.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-14-fbe8ca",
+    "path": "evt-2026-10-14-fbe8ca.md",
+    "title": "European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/european-cities-agents-urban-operations/",
+        "title": "European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations",
+        "summary": "Keeping a city running means making decisions that affect residents every day — from when to repair a road to how to use energy more efficiently. Across the EMEA region, cities and local software, infrastructure and integration partners are using NVIDIA accelerated computing to build physical AI age",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"

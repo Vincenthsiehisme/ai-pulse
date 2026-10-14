@@ -1,6 +1,28 @@
-# 已發布事件（427）
+# 已發布事件（437）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-14
+- **[[Events/evt-2026-10-14-0f6af4|2026 Us Midterms]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發表 2026 美國期中選舉相關文章，內文我們不轉述。
+- **[[Events/evt-2026-10-14-3b8c3c|How Third Moment Research runs 10,000 agents for 36+ hours]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 客戶案例：Third Moment Research 讓 10,000 個 agent 連跑 36 小時以上。
+- **[[Events/evt-2026-10-14-518ad7|Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection]]** — Google DeepMind · product · conf 73 · heat 未量測
+  DeepMind 與新加坡 GovTech 合作，用裝置端 Gemma 小模型攔截聊天詐騙。
+- **[[Events/evt-2026-10-14-5f2e66|Singapore Office Opening]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 宣布新加坡辦公室開幕，內文我們不轉述。
+- **[[Events/evt-2026-10-14-7d0c31|HiRO-ACEv2: Simulating extreme weather at 3 km resolution for a fraction of the cost]]** — Ai2 · research · conf 73 · heat 未量測
+  Ai2 發表 HiRO-ACEv2，以較低成本模擬 3 公里解析度的極端天氣。
+- **[[Events/evt-2026-10-14-96c7b4|Grok Voice 3]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發表 Grok Voice 3，站方宣告不供 AI 讀取，內文我們不轉述。
+- **[[Events/evt-2026-10-14-9b69f6|Amp puts AI agents to work beyond code with OpenAI models]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 客戶案例：Amp 用 GPT-6 Astra 等模型把 agent 推到程式碼以外的工作。
+- **[[Events/evt-2026-10-14-c89100|The EU’s next chapter in AI is agentic]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發表歐盟 agentic AI 採用分析，企業與中小企業用量在成長。
+- **[[Events/evt-2026-10-14-f443ac|SentinelOne cuts malware analysis from weeks to hours]]** — OpenAI · product · conf 73 · heat 未量測
+  SentinelOne 用 OpenAI Daybreak，把惡意程式分析從數週縮到數小時。
+- **[[Events/evt-2026-10-14-fbe8ca|European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 稱歐洲多個城市用其加速運算建 physical AI agent，處理市政營運。
 
 ## 2026-10-13
 - **[[Events/evt-2026-10-13-1b231f|NVIDIA Announces New Investments in France’s Startups]]** — NVIDIA · capital · conf 83 · heat 未量測

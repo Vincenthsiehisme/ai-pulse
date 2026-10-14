@@ -194,6 +194,11 @@
     "src_hash": "ddde87b2c869",
     "zh": "給 AI agent 的瀏覽器自動化與 computer use，一個 CLI 加 MCP server"
   },
+  "Harvil1/codeAgent": {
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "107bb4d2e2d6",
+    "zh": "開源的終端機 coding agent，能讀懂 repo、規劃多步修改、改檔、跑指令與測試，直到任務完成"
+  },
   "HelixDB/helix-db": {
     "at": "2026-09-19T19:11:14+00:00",
     "src_hash": "fdc2b620a80f",
@@ -250,9 +255,9 @@
     "zh": "11 個經營 YouTube 頻道的 Claude skill，含腳本、剪輯清單、留存分析"
   },
   "Javis603/token-monitor": {
-    "at": "2026-10-12T22:42:13+00:00",
-    "src_hash": "6bc9d38abcab",
-    "zh": "本機優先的桌面小工具，追蹤 44 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "3d8f3b4352f7",
+    "zh": "本機優先的桌面小工具，追蹤 45 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
   },
   "Johnson-Durui/Companion-Space": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -268,6 +273,11 @@
     "at": "2026-09-17T19:14:47+00:00",
     "src_hash": "efce92ae3e5e",
     "zh": "用穴居人口吻跟 coding agent 對話，這個爆紅 skill + proxy 幫忙省下 65% token"
+  },
+  "K-Dense-AI/scientific-agent-skills": {
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "047f8745946f",
+    "zh": "科學用 Agent Skills 庫：177 個驗證過的 skills 加 100 多個科學資料庫"
   },
   "Kevin-Liu-01/Claude-of-Tanks": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -285,9 +295,9 @@
     "zh": "LMCache：用目前最快的 KV Cache 層，加速你的 LLM 推論"
   },
   "Leonxlnx/taste-skill": {
-    "at": "2026-07-27T19:23:58+00:00",
-    "src_hash": "685042ad8a5f",
-    "zh": "Taste-Skill：給 AI 一點品味，別再生出無聊平庸的內容"
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "533ea97664e9",
+    "zh": "給 coding agent 用的 skills：美術指導、參考圖與瀏覽器檢查，取代千篇一律的 AI 頁面"
   },
   "LibreChat-AI/LibreChat": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -469,6 +479,11 @@
     "src_hash": "01a1340495c2",
     "zh": "跨平台的向量資料庫，能以外掛形式整合進現有資料庫"
   },
+  "VoltAgent/official-mcp-servers": {
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "2f0b960b4fc0",
+    "zh": "精選 300 多個由產品原廠發布的官方 MCP server 目錄，不收非官方 fork 與已停更專案"
+  },
   "Yeachan-Heo/oh-my-claudecode": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "1465816ff206",
@@ -599,6 +614,11 @@
     "src_hash": "31c7704758ff",
     "zh": "Node.js 網頁爬取與瀏覽器自動化函式庫，支援 Puppeteer、Playwright，可抓資料給 LLM、RAG"
   },
+  "ardeyouxipianyi/workbuddy2api-hub": {
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "8a1148492287",
+    "zh": "WorkBuddy 多帳號反向代理閘道，支援 Codex、Claude Code 與 OpenAI 用戶端"
+  },
   "asgeirtj/system_prompts_leaks": {
     "at": "2026-09-12T19:15:08+00:00",
     "src_hash": "081f0cd29b0f",
@@ -683,6 +703,11 @@
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "672d1ce1af70",
     "zh": "保留影片內嵌字幕、精準取幀，生成 3:4 社群長圖的 Agent Skill"
+  },
+  "citrolabs/ego-lite": {
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "80ef4925da5d",
+    "zh": "給 AI agent 用的瀏覽器自動化工具，讓 Codex、Claude Code 共用你已登入的瀏覽器狀態"
   },
   "clavia-labs/tardigrade": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -928,6 +953,11 @@
     "at": "2026-10-11T19:50:00+00:00",
     "src_hash": "3f0f38f23f16",
     "zh": "記憶橋 MemoryBridge，跨裝置、跨平台的 AI 共用記憶層（CDSMP 實作）"
+  },
+  "jianruntech/geo-score": {
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "d02b97e641a0",
+    "zh": "檢查 AI 引擎能否引用你的網站：免費 0–100 GEO 就緒分數，並用自己的 key 做每週引用追蹤"
   },
   "jingyaogong/minimind": {
     "at": "2026-09-08T19:19:22+00:00",
@@ -1314,6 +1344,11 @@
     "src_hash": "5f2b1597d8cb",
     "zh": "Apple Silicon 上的開源 LLM 推論伺服器，相容 OpenAI 與 Anthropic，主打穩定的工具呼叫"
   },
+  "redf0x1/camofox-browser": {
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "3bed05bbf2a8",
+    "zh": "給 AI agent 用的反偵測瀏覽器伺服器，REST API 包裝 Camoufox 引擎"
+  },
   "redis/redis": {
     "at": "2026-10-05T22:18:12+00:00",
     "src_hash": "4b54176b4cc7",
@@ -1428,6 +1463,11 @@
     "at": "2026-10-13T20:55:59+00:00",
     "src_hash": "cdb78122a596",
     "zh": "讓 Codex、Claude Code、Cursor 等 agent 組成小隊，共用加密記憶、互相交辦與審查，在本機執行"
+  },
+  "sno-ai/sno-station-skills": {
+    "at": "2026-10-14T19:51:47+00:00",
+    "src_hash": "bb917e79ca55",
+    "zh": "31 個測試過的 skills，讓 Claude Code 與 Codex 組隊：互審、額度用完自動交接、晨間簡報"
   },
   "sqliteai/sqlite-vector": {
     "at": "2026-07-30T19:18:19+00:00",
