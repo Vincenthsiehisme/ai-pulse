@@ -6842,6 +6842,12 @@ acase(".gitignore 擋掉 Obsidian 的 graph.json"
       ".obsidian/graph.json" in open(
           os.path.join(_HERE, "..", ".gitignore"), encoding="utf-8").read(),
       True)
+_gj = _subprocess.run(["git", "-C", os.path.join(_HERE, ".."), "ls-files", "--", ".obsidian/graph.json"],
+                      capture_output=True, text=True)
+acase("Obsidian 的 graph.json 沒有被 git 追蹤"
+      "（上一條只看 .gitignore 有那一行，但 .gitignore 管不到已追蹤的檔：graph.json "
+      "2026-07-24 隨 probe commit 進庫，之後一直被追蹤，那一行從沒生效，上一條照樣綠）",
+      [_gj.returncode, _gj.stdout], [0, ""])
 
 acase("夜班：同一個 UTC 日被碰第二次時，要說出來而不是留一片空白"
       "（台北 04:47 ＝ UTC 前一天 20:47，所以同一個 UTC 日會被白天手動跑與當晚排程"
