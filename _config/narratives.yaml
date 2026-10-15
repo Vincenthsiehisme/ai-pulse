@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-14'
+updated: '2026-10-15'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 這一輪新增 10-14 的 NVIDIA 部落格，說 EMEA 的城市與在地夥伴用 NVIDIA 加速運算建 physical AI agent，處理道路維修時機、能源效率等市政決策。證據摘要在句中截斷，沒有具名城市、合約或成效數字，是廠商的生態系說法。10-13 的 NVIDIA〈All Systems Go〉稱 RTX Spark 最高 128GB 統一記憶體、1 petaflop 的 AI 算力，各家 PC 應用軟體已完成更新，這些是廠商自述，沒有第三方實測，應用名單與出貨日期摘要沒有列。10-12 的 Vera Rubin 開放架構、10-08 LegalOn 的 Codex 成本降 65%、10-09 Ai2 的 GPU 排程文章與 10-05 vLLM v0.31.0，細節與前一輪相同，仍是單一來源或缺對照數字。
-    next: 看 NVIDIA 市政文章是否點名具體城市與合約，以及上線後的成效數據；看搭載 RTX Spark 的筆電上市日期與定價，以及第三方實測的本地模型推論速度；看 Surface Laptop Ultra 的出貨日期與售價，以及其他 OEM 是否推出 RTX Spark 機種；看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件；看其他 Codex 客戶有沒有公布類似的成本數字與 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率的前後數字；看 vLLM 或社群公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 DGX Spark 64GB 版的定價與開賣日。
+    now: 這一輪新增 10-15 的兩則 NVIDIA 區域布局文章。一則談北歐國家投入先進運算，引用的是北歐新創密度，摘要沒有算力投資金額或專案名稱。另一則宣布擴大歐洲科學界的取用，含開放學習資源、合作與算力，算力規模與申請條件摘要被截斷。前一輪的 NVIDIA 歐洲市政 agent 文章沒有具名城市、合約或成效數字。10-13 的〈All Systems Go〉稱 RTX Spark 最高 128GB 統一記憶體、1 petaflop 的 AI 算力，是廠商自述，沒有第三方實測。10-12 的 Vera Rubin 開放架構、10-08 LegalOn 的 Codex 成本降 65%、10-09 Ai2 的 GPU 排程文章與 10-05 vLLM v0.31.0，仍是單一來源或缺對照數字。
+    next: 看歐洲科學界取用計畫公布的算力配額、申請方式與首批合作機構；看北歐文章是否列出各國 AI 工廠或超級電腦專案與金額；看 NVIDIA 市政文章是否點名具體城市與合約，以及上線後的成效數據；看搭載 RTX Spark 的筆電上市日期與定價，以及第三方實測的本地模型推論速度；看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件；看其他 Codex 客戶有沒有公布類似的成本數字與 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率的前後數字；看 vLLM 或社群公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 DGX Spark 64GB 版的定價與開賣日。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這一輪新增 10-14 的 Ai2 HiRO-ACEv2，標題主張以一小部分成本模擬 3 公里解析度的極端天氣，來源摘要只有「Hugging Face 上的部落格文章」，沒有成本對照或驗證結果。10-13 的 Gemini 4 Argon 依授權只收標題與連結，Liquid AI 的 LFM2.5-24B-A2B 主打裝置端私密 agent，證據只有一句話，沒有基準、速度或授權。10-07 的 Falcon ASR、Liquid AI d1、NVIDIA Nemotron 在 IOI 與 IMO 達金牌等級，以及 10-06 的 OpenAI 數學進展與 EmbeddingGemma 2，仍只有標題與一兩行說明。09-29 的 GPT-6.1 Sol 是廠商自述的比較，沒有獨立評測數字。
-    next: 看 HiRO-ACEv2 有沒有公布與既有方法的成本對照與驗證結果；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與裝置上的每秒 token 數；看 Falcon ASR 的授權與字詞錯誤率；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的參數量、授權與邊緣硬體延遲；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 GPT-6.1 Sol 的獨立實測與價格。
+    now: 這一輪新增 10-15 的五則。NVIDIA 發布開放的 Nemotron 3.5 Super VL（1200 億參數）與兩款邊緣模型，「最快」「最準」是官方自述，沒有第三方基準。Swiss AI Initiative 的 Apertus 1.5、Meta 的 Muse Spark Open、FLUX.3 Image Klein 進入 Diffusers，三則都只有標題與 Hugging Face 的通用介紹，沒有規格、授權或基準。DeepMind 用 Google Antigravity 找抗菌肽，摘要沒有流程與實驗驗證。前一輪的 Ai2 HiRO-ACEv2、Gemini 4 Argon（只收標題與連結）、Liquid AI 的 LFM2.5-24B-A2B 與 GPT-6.1 Sol 仍停在標題與一兩行說明，沒有獨立評測數字。
+    next: 看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準，以及 Bolt 在 24GB 裝置上的實測吞吐量；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 DeepMind 抗菌肽文章有沒有公布候選分子數與濕實驗驗證；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增 10-14 的三則。SentinelOne 案例是 OpenAI 稱用 Daybreak 把惡意程式分析從數週縮到數小時，是同一天幾篇案例裡唯一有前後對比的，但樣本數與比較基準摘要沒有交代。Anthropic「2026 Us Midterms」依授權只收標題與連結，內容請讀原文。xAI 的 Grok Voice 3 因站方宣告 ai-input=no，我們只收標題與連結。10-13 的 Higgsfield 案例把 AI 影片從 1 分鐘拉到 10 分鐘以上，長度數字出自標題，畫質、成本與成功率都沒有。10-09 的 Sophos 案例稱威脅調查時間縮短 96%、MDR 案件 52% 自動化，96% 的比較基準沒有交代。其餘 10-08 的使用政策更新、Pollo AI，10-07 的 ChatGPT for Teens、Radisson 外掛，10-06 的 Atlassian 擴大合作，仍是廠商自述。
-    next: 看 SentinelOne 或第三方是否公布分析樣本數、準確率與測量方式；看 Anthropic 選舉文章原文有沒有列出可驗證的措施；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Higgsfield 是否公開長片樣本與定價；看 Sophos 或第三方是否公布自動化案件的誤判率與複查比例；看 2026 使用政策更新原文公布的生效日期與條款差異；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
+    now: 這一輪新增 10-14 到 10-15 的幾則。OpenAI 的 Block 案例稱資安團隊調查威脅更快、補丁幾分鐘內提出，沒有基準線。OpenAI 在巴西教師節推出葡萄牙語版教育者資源，主打 Study Mode。NVIDIA 預告 RTX Spark 隔天發表，並更新 GeForce NOW 的 DLSS 4.5 控制，兩則都是活動與功能預告，沒有技術細節。SentinelOne 稱用 Daybreak 把惡意程式分析從數週縮到數小時，是同一批案例裡少數有前後對比的，但樣本數與比較基準摘要沒有交代。Anthropic 的選舉文章依授權只收標題與連結，xAI 的 Grok Voice 3 因站方宣告 ai-input=no 也只收標題與連結。Sophos 稱調查時間縮短 96%，比較基準沒有交代。Higgsfield、Pollo AI、ChatGPT for Teens、Radisson 外掛與 Atlassian 擴大合作，仍是廠商自述。
+    next: 看 Block、SentinelOne、Sophos 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Anthropic 選舉文章原文有沒有列出可驗證的措施；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？

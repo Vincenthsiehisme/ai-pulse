@@ -69,6 +69,11 @@
     "src_hash": "ac5e08fbccb4",
     "zh": "多模型資料庫，一套 DBMS 同時吃 SQL、Cypher、Gremlin、MongoDB 與 Redis，支援向量嵌入"
   },
+  "Arekejoker/qwen21-nsfw-pose-skill": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "8c2c89a00458",
+    "zh": "Qwen-Image 2.1 的 NSFW 姿勢出圖 skill，附提示詞配方、LoRA 與 136 種姿勢控制"
+  },
   "AstrBotDevs/AstrBot": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "8eb3a7d4ad9d",
@@ -304,6 +309,11 @@
     "src_hash": "58a2bd209fcc",
     "zh": "強化版 ChatGPT 複製品，支援 Agents、MCP 與多家模型，可自架、多人登入"
   },
+  "LingCore/WinShun": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "53cd39c64ab5",
+    "zh": "免費開源的 Windows 快速搜尋啟動器，支援拼音搜檔、全文搜尋、剪貼簿歷史與 MCP"
+  },
   "LodyAI/Lody": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "4c49715d9da8",
@@ -414,6 +424,11 @@
     "src_hash": "57256537e19c",
     "zh": "開源桌面 AI agent，以昔漣為基礎開發"
   },
+  "Purewhiter/mobilegym": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "1a6cbb711796",
+    "zh": "MobileGym：手機 GUI agent 研究用的可驗證模擬平台，在瀏覽器裡跑 Android 模擬器"
+  },
   "QingYunA/answer-me-with-html": {
     "at": "2026-10-05T22:18:12+00:00",
     "src_hash": "d2d3746fdb42",
@@ -444,6 +459,11 @@
     "src_hash": "8814dfdd0807",
     "zh": "以像素為單位的原生搜尋，不再解析網頁（附 arXiv 論文連結）"
   },
+  "StartLuxLabs/StartLux-Decision": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "4b363ff68d17",
+    "zh": "0.8B 到 27B 的開放決策模型，一次輸出各選項的校準機率，沒把握才補一段短思考"
+  },
   "TauricResearch/TradingAgents": {
     "at": "2026-08-10T00:35:39+00:00",
     "src_hash": "07fb9f695eda",
@@ -468,6 +488,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "15a22e233440",
     "zh": "Claude Code、Codex 的本機 gateway，免改客戶端即可切換上游，並追蹤每個請求"
+  },
+  "Unstructured-IO/unstructured": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "552ee3e0204c",
+    "zh": "開源文件 ETL，把複雜文件轉成乾淨的結構化格式給語言模型用"
   },
   "VectifyAI/PageIndex": {
     "at": "2026-09-28T21:28:17+00:00",
@@ -518,6 +543,11 @@
     "at": "2026-08-04T19:21:24+00:00",
     "src_hash": "f28264181fbb",
     "zh": "給 AI coding agent 用的生產級工程 skills 集"
+  },
+  "adongwanai/AgentGuide": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "c0cdb64261d5",
+    "zh": "AI Agent 開發指南：LangGraph 實戰、進階 RAG、大模型面試題庫、強化學習"
   },
   "aerovato/operator-memory": {
     "at": "2026-10-06T20:41:13+00:00",
@@ -589,6 +619,11 @@
     "src_hash": "e546473ae54d",
     "zh": "agent 原生的多平台逆向工程與 CWE-602 客戶端授權稽核工作台"
   },
+  "anomalyco/opencode": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "afcd9384a60e",
+    "zh": "開源的程式 agent"
+  },
   "ant-research/AntOmniEvo": {
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "60fb4b83e687",
@@ -598,6 +633,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "8531f673ac9e",
     "zh": "住在終端機的 agentic 寫程式工具，看得懂你的程式碼，用自然語言處理例行工作、解釋程式與 git 流程"
+  },
+  "anthropics/claude-plugins-official": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "094c343a3235",
+    "zh": "Anthropic 管理的官方 Claude Code 外掛目錄"
   },
   "aoci-spec/aoci-code": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -645,9 +685,9 @@
     "zh": "會自己整理的 Obsidian vault，讓 AI coding agent 有持久記憶"
   },
   "browser-use/browser-use": {
-    "at": "2026-09-09T19:22:19+00:00",
-    "src_hash": "b8fdd6846628",
-    "zh": "能操作瀏覽器的 AI agent"
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "0d0e0f5c279a",
+    "zh": "開源 Python 函式庫，讓 AI agent 操作瀏覽器，另有託管的 Browser Use Cloud"
   },
   "bytedance/deer-flow": {
     "at": "2026-07-31T19:20:39+00:00",
@@ -758,6 +798,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "7029eb063ac3",
     "zh": "免費 MIT 授權的 AI gateway，單一端點串 359 家供應商、1200 多個模型，額度用完自動切換"
+  },
+  "dragonked2/alphacode": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "8a1a130dd52a",
+    "zh": "免費 MIT 的 AI 程式 agent，免 API key，可接多家模型，Rust 寫成"
   },
   "drumih/turbo-fieldfare": {
     "at": "2026-08-02T19:12:08+00:00",
@@ -979,6 +1024,11 @@
     "src_hash": "4daa33697f4d",
     "zh": "給 Claude、Codex 等 agent 的 logo 設計 skill，含 SVG 技巧與 1400 多款參考"
   },
+  "kharmanskyi/open-steps": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "73a118a62c72",
+    "zh": "給 Claude Code、Codex 等工具的白話 skills，附誠實報告與可照做的步驟"
+  },
   "koala73/worldmonitor": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "4fd40cb6ef54",
@@ -1195,9 +1245,9 @@
     "zh": "在程式碼衝突前先抓出意圖衝突，建在 Git 之上的 coding agent 開源協調協定"
   },
   "nexu-io/open-design": {
-    "at": "2026-10-13T20:55:59+00:00",
-    "src_hash": "94633dc42cee",
-    "zh": "開源、本機優先的協作式 AI 設計工作區，可與團隊和 agent 做原型、網頁、簡報、圖片與影片"
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "becaa7ed8ae6",
+    "zh": "開源、本機優先的協作式 AI 設計工作區，與團隊和 agent 一起做原型、網頁、簡報與影片"
   },
   "nirholas/XActions": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -1249,6 +1299,11 @@
     "src_hash": "74d2150402c3",
     "zh": "桌面版 coding agent，可免費使用前沿模型"
   },
+  "onyx-dot-app/onyx": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "38d0c2a6c330",
+    "zh": "開源 AI 平台，提供進階功能的 AI 聊天，可搭配任何 LLM"
+  },
   "open-slide/open-slide": {
     "at": "2026-09-26T19:13:11+00:00",
     "src_hash": "e3d27a2e28bd",
@@ -1278,6 +1333,11 @@
     "at": "2026-07-31T19:20:39+00:00",
     "src_hash": "3bd04ccdeb4b",
     "zh": "分散式低延遲 Graph+Vector 資料庫，亞毫秒 HNSW 搜尋與圖遍歷，相容 Neo4j／qdrant"
+  },
+  "outcrawlai/scout": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "83a027aeb1a8",
+    "zh": "Outcrawl 的開源瀏覽器 agent，自動鏡像自 Outcrawl 官方 repo"
   },
   "owainlewis/machinist": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -1489,6 +1549,11 @@
     "src_hash": "b59774c79b1e",
     "zh": "開源推論伺服器與正式環境叢集，涵蓋 agent 需要的所有模型"
   },
+  "synergycodes/workflowbuilder": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "cb96f23bb065",
+    "zh": "Apache 2.0 的 React SDK，用來嵌入拖拉式工作流編輯器，後端可替換"
+  },
   "t8y2/dbx": {
     "at": "2026-09-26T19:13:11+00:00",
     "src_hash": "7db02f43c54c",
@@ -1604,6 +1669,11 @@
     "src_hash": "0973420ed49d",
     "zh": "給 AI agent 的自我演化情境資料庫，整合 agent 記憶、RAG 知識與技能"
   },
+  "wangmiaozero/pi-harness": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "2d0307f45dc4",
+    "zh": "Pi Coding Agent 的營運超集，加上可觀測性、治理、故障恢復與多 agent 編排"
+  },
   "wanshuiyin/Auto-claude-code-research-in-sleep": {
     "at": "2026-08-11T19:12:15+00:00",
     "src_hash": "965322c3682f",
@@ -1618,6 +1688,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "c201a8983779",
     "zh": "White Circle 開源的大型語言與多模態模型訓練框架"
+  },
+  "with-pebbly/aseprite-ai-artist": {
+    "at": "2026-10-15T19:35:35+00:00",
+    "src_hash": "6563e2018c87",
+    "zh": "讓程式 agent 在已開啟的 Aseprite 裡畫像素圖，提供 MCP server 與 skills"
   },
   "withastro/flue": {
     "at": "2026-08-01T19:12:28+00:00",
