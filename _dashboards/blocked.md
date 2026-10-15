@@ -1,7 +1,17 @@
-# 被門禁擋下（44）
+# 被門禁擋下（56）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-15-07c132|Apertus 1.5 Release Notes]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-15-160218|Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-15-45643f|Accelerating the search for antimicrobial peptides with Google Antigra]]** — Google — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-15-554475|The Nordics and NVIDIA Show What’s Possible When a Region Commits to A]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-15-57e880|Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-15-85c4aa|Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-ex]]** — Meta — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-15-bd52bf|Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-15-be1784|NVIDIA Expands Advanced Technology Access for Europe’s Scientific Comm]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-15-f9fdb2|Welcome FLUX.3 Image Klein in Diffusers]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-14-7c1ce0|How Block is building AI-powered security with OpenAI technology]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-03-623369|The Agent Said It Was Done. The Database Disagreed.]]** — Microsoft — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-96c618|Getting the Source Right, Not Just the Fact: Source-Aware Verification]]** — Multiverse Computing — blockers: thin_research_analysis
@@ -40,6 +50,8 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-10-15-142ee5|An Update On Independent Evaluators]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-15-a85352|Teaching students to think and learn through questions]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity

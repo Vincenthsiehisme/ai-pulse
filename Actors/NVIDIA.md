@@ -3,18 +3,23 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-14'
+generated_day: '2026-10-15'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **82** 則：`dropped` 1、`published` 76、`review` 5
+事件 **87** 則：`dropped` 1、`published` 77、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-14 | [[Events/evt-2026-10-14-fbe8ca\|European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-be1784\|NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-bd52bf\|Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-57e880\|Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-554475\|The Nordics and NVIDIA Show What’s Possible When a Region Commits to Advanced Computing]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-160218\|Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With Highest Efficiency Super VL and Bolt Models]] | review |
+| 2026-10-14 | [[Events/evt-2026-10-14-fbe8ca\|European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations]] | published |
 | 2026-10-13 | [[Events/evt-2026-10-13-7423b2\|All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark]] | published |
 | 2026-10-13 | [[Events/evt-2026-10-13-1b231f\|NVIDIA Announces New Investments in France’s Startups]] | published |
 | 2026-10-12 | [[Events/evt-2026-10-12-66a80a\|OCP Global Summit: Amid Ecosystem Adoption, NVIDIA Opens Vera Rubin Architecture to Help Scale AI Factories Worldwide]] | published |

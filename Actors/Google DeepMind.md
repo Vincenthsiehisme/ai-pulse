@@ -3,18 +3,18 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-10-14'
+generated_day: '2026-10-15'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **26** 則：`published` 20、`review` 6
+事件 **26** 則：`published` 21、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-14 | [[Events/evt-2026-10-14-518ad7\|Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection]] | review |
+| 2026-10-14 | [[Events/evt-2026-10-14-518ad7\|Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection]] | published |
 | 2026-10-13 | [[Events/evt-2026-10-13-57c947\|Gemini 4 Argon: Built to solve your hardest problems]] | published |
 | 2026-10-06 | [[Events/evt-2026-10-06-82cdd2\|EmbeddingGemma 2: an open, lightweight multimodal embedding model]] | published |
 | 2026-09-30 | [[Events/evt-2026-09-30-fa1a68\|Gemini 4 Argon: our next era of frontier intelligence]] | published |

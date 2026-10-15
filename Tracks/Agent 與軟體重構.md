@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-10-14'
+generated_day: '2026-10-15'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,12 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **37** 則：`published` 31、`review` 6
+事件 **39** 則：`published` 33、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-14 | [[Events/evt-2026-10-14-9b69f6\|Amp puts AI agents to work beyond code with OpenAI models]] | published |
+| 2026-10-14 | [[Events/evt-2026-10-14-3b8c3c\|How Third Moment Research runs 10,000 agents for 36+ hours]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-ce8030\|Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-68fb2a\|How Oracle turns days of work into minutes with ChatGPT and Codex]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-2e7e69\|The model that didn't exist, so you made it yourself]] | published |

@@ -1,80 +1,104 @@
 [
   {
-    "id": "evt-2026-10-14-0f6af4",
-    "title": "2026 Us Midterms",
-    "company": "industry",
-    "track": null,
-    "summary": "",
+    "id": "evt-2026-10-14-3b8c3c",
+    "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
+    "company": "OpenAI",
+    "track": "Agent與軟體重構",
+    "summary": "OpenAI 客戶案例：Third Moment Research 讓 10,000 個 agent 連跑 36 小時以上。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-14-3b8c3c",
-    "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
+    "id": "evt-2026-10-14-7c1ce0",
+    "title": "How Block is building AI-powered security with OpenAI technology",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-14-518ad7",
-    "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
-    "company": "Google DeepMind",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-14-5f2e66",
-    "title": "Singapore Office Opening",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-14-7d0c31",
-    "title": "HiRO-ACEv2: Simulating extreme weather at 3 km resolution for a fraction of the cost",
+    "id": "evt-2026-10-15-07c132",
+    "title": "Apertus 1.5 Release Notes",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-14-96c7b4",
-    "title": "Grok Voice 3",
-    "company": "xAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-14-9b69f6",
-    "title": "Amp puts AI agents to work beyond code with OpenAI models",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-14-c89100",
-    "title": "The EU’s next chapter in AI is agentic",
+    "id": "evt-2026-10-15-142ee5",
+    "title": "An Update On Independent Evaluators",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-14-f443ac",
-    "title": "SentinelOne cuts malware analysis from weeks to hours",
-    "company": "OpenAI",
+    "id": "evt-2026-10-15-160218",
+    "title": "Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With Highest Efficiency Super VL and Bolt Models",
+    "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-14-fbe8ca",
-    "title": "European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations",
+    "id": "evt-2026-10-15-45643f",
+    "title": "Accelerating the search for antimicrobial peptides with Google Antigravity",
+    "company": "Google",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-554475",
+    "title": "The Nordics and NVIDIA Show What’s Possible When a Region Commits to Advanced Computing",
     "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-57e880",
+    "title": "Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-85c4aa",
+    "title": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
+    "company": "Meta",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-a85352",
+    "title": "Teaching students to think and learn through questions",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-bd52bf",
+    "title": "Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-be1784",
+    "title": "NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-f9fdb2",
+    "title": "Welcome FLUX.3 Image Klein in Diffusers",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
