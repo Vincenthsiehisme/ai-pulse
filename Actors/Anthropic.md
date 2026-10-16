@@ -3,17 +3,19 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-10-15'
+generated_day: '2026-10-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **116** 則：`published` 111、`review` 5
+事件 **118** 則：`published` 111、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-15 | [[Events/evt-2026-10-15-3f28e4\|Offering Expanded Claude Access Across All Three Branches Of Government]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-142ee5\|An Update On Independent Evaluators]] | review |
 | 2026-10-14 | [[Events/evt-2026-10-14-5f2e66\|Singapore Office Opening]] | published |
 | 2026-10-14 | [[Events/evt-2026-10-14-0f6af4\|2026 Us Midterms]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-8f5386\|Anthropic Cyber Mission]] | published |

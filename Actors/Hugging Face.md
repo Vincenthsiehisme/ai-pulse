@@ -3,19 +3,20 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-10-15'
+generated_day: '2026-10-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **22** 則：`published` 15、`review` 7
+事件 **23** 則：`published` 16、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-15 | [[Events/evt-2026-10-15-f9fdb2\|Welcome FLUX.3 Image Klein in Diffusers]] | review |
-| 2026-10-15 | [[Events/evt-2026-10-15-07c132\|Apertus 1.5 Release Notes]] | review |
+| 2026-10-16 | [[Events/evt-2026-10-16-7149f7\|Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-f9fdb2\|Welcome FLUX.3 Image Klein in Diffusers]] | published |
+| 2026-10-15 | [[Events/evt-2026-10-15-74ed5b\|Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint]] | review |
 | 2026-10-08 | [[Events/evt-2026-10-08-2e7e69\|The model that didn't exist, so you made it yourself]] | published |
 | 2026-09-30 | [[Events/evt-2026-09-30-1c6239\|Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning]] | published |
 | 2026-09-22 | [[Events/evt-2026-09-22-cadfa8\|Transformers now runs llama.cpp quants]] | published |

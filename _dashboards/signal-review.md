@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-15"
+generated_day: "2026-10-16"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-15"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **423** 則／已裁決 **26** 則。
+待回答 **434** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,14 +24,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#ed73ef34`** — infra-cost
-  > 看 NVIDIA 市政文章是否點名具體城市與合約，以及上線後的成效數據；看搭載 RTX Spark 的筆電上市日期與定價，以及第三方實測的本地模型推論速度；看 Surface Laptop Ultra 的出貨日期與售價，以及其他 OEM 是否推出 RTX Spark 機種；看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件；看其他 Codex 客戶有沒有公布類似的成本數字與 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率的前後數字；看 vLLM 或社群公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 DGX Spark 64GB 版的定價與開賣日。
+- **`infra-cost#848da968`** — infra-cost
+  > 看歐洲科學界取用計畫公布的算力配額、申請方式與首批合作機構；看北歐文章是否列出各國 AI 工廠或超級電腦專案與金額；看 NVIDIA 市政文章是否點名具體城市與合約，以及上線後的成效數據；看搭載 RTX Spark 的筆電上市日期與定價，以及第三方實測的本地模型推論速度；看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件；看其他 Codex 客戶有沒有公布類似的成本數字與 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率的前後數字；看 vLLM 或社群公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 DGX Spark 64GB 版的定價與開賣日。
 
-- **`model-research#19405a8c`** — model-research
-  > 看 HiRO-ACEv2 有沒有公布與既有方法的成本對照與驗證結果；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與裝置上的每秒 token 數；看 Falcon ASR 的授權與字詞錯誤率；看 NVIDIA Nemotron 文章公布的 IOI、IMO 分數與評測方式；看 d1 的參數量、授權與邊緣硬體延遲；看 EmbeddingGemma 2 的權重釋出平台與多模態檢索基準；看 GPT-6.1 Sol 的獨立實測與價格。
+- **`model-research#4c8eb2e0`** — model-research
+  > 看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準，以及 Bolt 在 24GB 裝置上的實測吞吐量；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 DeepMind 抗菌肽文章有沒有公布候選分子數與濕實驗驗證；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
 
-- **`product-market#363e8ec2`** — product-market
-  > 看 SentinelOne 或第三方是否公布分析樣本數、準確率與測量方式；看 Anthropic 選舉文章原文有沒有列出可驗證的措施；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Higgsfield 是否公開長片樣本與定價；看 Sophos 或第三方是否公布自動化案件的誤判率與複查比例；看 2026 使用政策更新原文公布的生效日期與條款差異；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
+- **`product-market#1bc59e0b`** — product-market
+  > 看 Block、SentinelOne、Sophos 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Anthropic 選舉文章原文有沒有列出可驗證的措施；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
 
 - **`capital-evolution#7cb61e65`** — capital-evolution
   > 看 Anthropic 新加坡辦公室原文有沒有給人數、客戶或合作對象，以及後續是否有在地合作公告；看 NVIDIA 或被投資新創是否公布投資金額與名單；讀 Genesis Mission Commitment 原文，確認承諾項目、時程與是否涉及資金；讀 Anthropic Cyber Mission 原文，確認它是新團隊、新產品還是對外承諾；看 Lenfest 計畫的參與機構與資金分配。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#0f6ae177`** — global-map
   > 看 DeepMind 與 GovTech 是否公布偵測率、誤報率與部署的裝置範圍；看 OpenAI 歐盟分析的完整版有沒有公布方法、樣本與採用率，以及歐盟政策討論是否引用；看有沒有獨立研究機構公開同一批假身分的分析，對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
 
-## 事件層（417）
+## 事件層（428）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1277,6 +1277,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-14-5f2e66#a0ee2b46`** — evt-2026-10-14-5f2e66
   > 原文是否給出人數、客戶或合作對象，以及是否有後續在地合作的公告。
 
+- **`evt-2026-10-14-7c1ce0#f5b36947`** — evt-2026-10-14-7c1ce0
+  > Block 或 OpenAI 是否公布可驗證的指標，例如調查時間縮短幅度、補丁採用率。
+
 - **`evt-2026-10-14-7d0c31#11f82b03`** — evt-2026-10-14-7d0c31
   > 原文是否公布與既有方法的成本對照與驗證結果。
 
@@ -1294,3 +1297,33 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-10-14-fbe8ca#fce2a12b`** — evt-2026-10-14-fbe8ca
   > 是否點名具體城市與合約，以及上線後的成效數據。
+
+- **`evt-2026-10-15-07c132#1d530031`** — evt-2026-10-15-07c132
+  > 原文列出的版本差異、基準測試結果，以及模型權重是否同步上架。
+
+- **`evt-2026-10-15-160218#cf756967`** — evt-2026-10-15-160218
+  > 第三方基準測試結果，以及 Bolt 在 24GB 卡上的實測吞吐量。
+
+- **`evt-2026-10-15-45643f#12219f09`** — evt-2026-10-15-45643f
+  > 原文是否給出候選分子數量與濕實驗驗證結果。
+
+- **`evt-2026-10-15-554475#78fb1724`** — evt-2026-10-15-554475
+  > 原文是否列出北歐各國的 AI 工廠或超級電腦專案與金額。
+
+- **`evt-2026-10-15-57e880#76206743`** — evt-2026-10-15-57e880
+  > 隔天正式發表時公布的規格、價格與出貨時程。
+
+- **`evt-2026-10-15-85c4aa#e12f2648`** — evt-2026-10-15-85c4aa
+  > 原文公布的參數量、授權條款與基準測試成績。
+
+- **`evt-2026-10-15-a85352#298f3978`** — evt-2026-10-15-a85352
+  > OpenAI 是否擴大 Study Mode 的語言與國家，並公布教育端的使用數據。
+
+- **`evt-2026-10-15-bd52bf#f165cc30`** — evt-2026-10-15-bd52bf
+  > DLSS 4.5 控制在雲端的實際畫質與延遲回饋。
+
+- **`evt-2026-10-15-be1784#fc13112b`** — evt-2026-10-15-be1784
+  > 算力配額、申請方式與首批合作機構名單。
+
+- **`evt-2026-10-15-f9fdb2#667ba2e4`** — evt-2026-10-15-f9fdb2
+  > 原文公布的模型大小、授權與推論需求。

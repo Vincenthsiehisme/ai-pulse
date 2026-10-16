@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-15'
+generated_day: '2026-10-16'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**80 天**（2026-07-24 … 2026-10-15），去重後 **5311** 列。
+語料範圍：**81 天**（2026-07-24 … 2026-10-16），去重後 **5376** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,34 +17,34 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 159 | 2 |
-| Apple | 116 | 5 |
-| Amazon | 73 | 5 |
+| Show HN | 162 | 2 |
+| Apple | 122 | 5 |
+| Amazon | 75 | 5 |
 | September | 61 | 8 |
-| There | 54 | 7 |
-| LLMs | 53 | 13 |
-| They | 51 | 9 |
+| LLMs | 55 | 13 |
+| There | 55 | 7 |
+| They | 52 | 9 |
 | LLM | 51 | 12 |
 | Here | 48 | 8 |
-| October | 44 | 7 |
+| October | 45 | 7 |
 | One | 43 | 10 |
 | Trump | 43 | 5 |
-| Muse | 42 | 5 |
+| Muse | 43 | 5 |
 | San Francisco | 40 | 9 |
 | Python | 38 | 4 |
-| CEO | 37 | 5 |
+| CEO | 38 | 5 |
+| When | 37 | 11 |
 | AI-powered | 36 | 10 |
-| When | 36 | 11 |
 | Pro | 36 | 7 |
+| July | 34 | 9 |
 | U.S | 34 | 8 |
-| July | 33 | 9 |
 | Android | 32 | 4 |
 | China | 31 | 8 |
 | Linux | 31 | 5 |
+| Last | 31 | 6 |
 | After | 31 | 6 |
-| Last | 30 | 6 |
+| June | 30 | 7 |
 | Astra | 30 | 5 |
-| June | 29 | 7 |
 | Research | 29 | 6 |
 | August | 29 | 8 |
 | AI-generated | 27 | 8 |
@@ -55,28 +55,28 @@ generator: scripts/pulse-dictionary-gaps.py
 | Learn | 24 | 6 |
 | These | 24 | 7 |
 | Pixel | 24 | 3 |
-| Europe | 22 | 8 |
+| Europe | 23 | 8 |
 | Wednesday | 22 | 5 |
+| API | 22 | 6 |
 | Samsung | 22 | 5 |
 | Opus | 21 | 5 |
-| API | 21 | 6 |
 | Over | 21 | 5 |
 | Tuesday | 20 | 6 |
 | Mac | 19 | 4 |
 | Chinese | 19 | 8 |
+| Elon Musk | 19 | 5 |
 | The AI | 19 | 6 |
 | Don | 19 | 5 |
 | Flash | 18 | 5 |
 | Thursday | 18 | 4 |
 | Some | 18 | 8 |
 | Fable | 18 | 5 |
-| Elon Musk | 18 | 5 |
+| Tool | 18 | 2 |
 | SpaceX | 18 | 5 |
 | While | 18 | 4 |
 | RAM | 18 | 2 |
 | Xbox | 18 | 2 |
 | Monday | 17 | 4 |
-| May | 17 | 7 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,8 +87,8 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| TechCrunch Disrupt | 75 | src-media-techcrunch |
-| The Download | 62 | src-media-mit-techreview |
+| TechCrunch Disrupt | 76 | src-media-techcrunch |
+| The Download | 63 | src-media-mit-techreview |
 | Tags | 35 | src-kol-simonwillison |
 | Register | 27 | src-media-techcrunch |
 | Hi HN | 23 | src-hn-frontpage |
@@ -99,8 +99,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | The Verge | 17 | src-media-theverge |
 | Committee | 15 | src-ep-itre |
 | Ask HN | 15 | src-hn-frontpage |
+| Is Hiring | 15 | src-hn-frontpage |
 | GeForce NOW | 14 | src-nvidia-blog |
-| Is Hiring | 14 | src-hn-frontpage |
 | Best Buy | 13 | src-media-theverge |
 | Hey HN | 13 | src-hn-frontpage |
 | Datasette | 12 | src-kol-simonwillison |
@@ -123,6 +123,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Startup Battlefield | 8 | src-media-techcrunch |
 | Sunday | 7 | src-media-theverge |
 | The Algorithm | 7 | src-media-mit-techreview |
+| Apple TV | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
 | Walmart | 7 | src-media-theverge |
 | Series A | 7 | src-media-techcrunch |
@@ -133,7 +134,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Open-source | 6 | src-hn-frontpage |
 | Galaxy Z Fold | 6 | src-media-theverge |
 | AI Stage | 6 | src-media-techcrunch |
-| Apple TV | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
 | Lenovo | 6 | src-media-theverge |
 | Grand Theft Auto | 6 | src-media-theverge |

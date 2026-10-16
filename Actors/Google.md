@@ -3,18 +3,18 @@ id: actor-google
 kind: company
 in_dictionary: true
 aliases: ["谷歌", "Alphabet"]
-generated_day: '2026-10-15'
+generated_day: '2026-10-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google
 
-事件 **8** 則：`published` 2、`review` 6
+事件 **8** 則：`published` 3、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-15 | [[Events/evt-2026-10-15-45643f\|Accelerating the search for antimicrobial peptides with Google Antigravity]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-45643f\|Accelerating the search for antimicrobial peptides with Google Antigravity]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-aab6d4\|Expanding Our Use Of Google Cloud Tpus And Services]] | published |
 | 2026-07-22 | [[Events/evt-2026-07-22-5d5ed0\|Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission]] | published |
 | 2026-07-13 | [[Events/evt-2026-07-13-cdd3fe\|Empowering India’s next generation of innovators with ATL Saathi]] | review |

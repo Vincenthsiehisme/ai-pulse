@@ -1,83 +1,51 @@
 [
   {
-    "full_name": "Arekejoker/qwen21-nsfw-pose-skill",
-    "desc": "Qwen-Image 2.1 NSFW/姿势出图 skill：作者级提示词配方 + NSFW LoRA + 136 姿势 VNCCS 人偶控制；适用 Claude Code / Codex / Cursor / OpenClaw",
+    "full_name": "hujjun/mcd-saver-strategist",
+    "desc": "麦当劳省钱点餐助手（麦门精算师）｜麦当劳优惠券组合优化 Skill：拉取麦当劳菜单与全部可用优惠券，算出最省的点餐组合，巨无霸套餐 ¥47 → ¥21.9（省 53%）。McDonalds MCP（麦当劳 MCP）coupon optimizer · McDonalds China MCP Server · Agent Skill for WorkBuddy · 麦当劳程序员创意开发大赛参赛作品",
     "language": "Python",
     "topics": [
       "agent-skill",
-      "comfyui",
-      "image-generation",
-      "openclaw",
-      "pose-control",
-      "qwen-image"
-    ],
-    "stars": 1960,
-    "url": "https://github.com/Arekejoker/qwen21-nsfw-pose-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "outcrawlai/scout",
-    "desc": "Scout: the open-source browser agent, by Outcrawl. Mirrored automatically from Outcrawl's own repository.",
-    "language": "TypeScript",
-    "topics": [
       "ai-agent",
-      "browser-agent",
-      "browser-automation",
-      "cdp",
-      "llm",
-      "typescript"
+      "coupon-optimizer",
+      "coupons",
+      "deterministic-optimization",
+      "fast-food"
     ],
-    "stars": 820,
-    "url": "https://github.com/outcrawlai/scout",
+    "stars": 470,
+    "url": "https://github.com/hujjun/mcd-saver-strategist",
     "stale_zh": null
   },
   {
-    "full_name": "wangmiaozero/pi-harness",
-    "desc": "The operational superset of Pi Coding Agent — everything Pi, plus observability, governance, recovery, evaluation and multi-agent orchestration. Pi Coding Agent 的运维超集——完整继承 Pi 的核心能力，并进一步扩展可观测性、治理、故障恢复、评估和多 Agent 编排。",
-    "language": "TypeScript",
+    "full_name": "xerj-org/xerj",
+    "desc": "XERJ is the new way for AI to search data. Its autoindex capability activates agents to know your data without the token waste of grep and sed. One command indexes code, docs, logs and PDFs for search, RAG, security audits and agent memory, using 40x fewer tokens than grep. Elasticsearch compatible, so existing clients just work.",
+    "language": "Rust",
     "topics": [
-      "agent-harness",
-      "agent-observability",
-      "agent-orchestration",
-      "ai-agent",
-      "coding-agent",
-      "desktop-app"
+      "ai-search",
+      "ai-search-algorithms",
+      "ai-search-engine",
+      "ai-search-free",
+      "ai-search-module",
+      "ai-search-optimization"
     ],
-    "stars": 553,
-    "url": "https://github.com/wangmiaozero/pi-harness",
+    "stars": 6750,
+    "url": "https://github.com/xerj-org/xerj",
     "stale_zh": null
   },
   {
-    "full_name": "LingCore/WinShun",
-    "desc": "Win顺：免费开源的 Windows 快速搜索启动器。双击 Ctrl，拼音秒搜文件、全文搜索 Word/Excel/PDF、剪贴板历史（代替 Win+V）、对话框搜索、任务栏搜索、插件、AI 助手 MCP。Free Windows search launcher: pinyin file search, full-text search, clipboard history, MCP server. Everything/Listary alternative.",
-    "language": "C++",
+    "full_name": "soumatheusgomes/vibe-coding-toolkit",
+    "desc": "A curated, battle-tested AI-coding toolkit: Claude Code plugins, subagent orchestration, quality gates, and ready-to-copy prompts, extracted from real production use.",
+    "language": "JavaScript",
     "topics": [
-      "chinese",
-      "clipboard-history",
-      "clipboard-manager",
-      "cpp",
-      "everything",
-      "file-search"
+      "ai-agents",
+      "ai-coding",
+      "claude-code",
+      "developer-tools",
+      "llm-agents",
+      "prompts"
     ],
-    "stars": 378,
-    "url": "https://github.com/LingCore/WinShun",
+    "stars": 1260,
+    "url": "https://github.com/soumatheusgomes/vibe-coding-toolkit",
     "stale_zh": null
-  },
-  {
-    "full_name": "nexu-io/open-design",
-    "desc": "The 1st Collaborative AI Design Agent Workspace. Local-first and open source. Create prototypes, websites, apps, dashboards, presentations, images, and videos with your team and AI agents. Share work, exchange feedback, and iterate together in one workspace.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-design",
-      "byok",
-      "coding-agents",
-      "design-systems",
-      "local-first",
-      "claude-design"
-    ],
-    "stars": 101333,
-    "url": "https://github.com/nexu-io/open-design",
-    "stale_zh": "開源、本機優先的協作式 AI 設計工作區，可與團隊和 agent 做原型、網頁、簡報、圖片與影片"
   },
   {
     "full_name": "emo-xiaoyu/harness-mix",
@@ -91,190 +59,167 @@
       "cursor",
       "deepseek-harness"
     ],
-    "stars": 526,
+    "stars": 588,
     "url": "https://github.com/emo-xiaoyu/harness-mix",
     "stale_zh": null
   },
   {
-    "full_name": "dragonked2/alphacode",
-    "desc": "Free MIT AI coding agent — no API key needed. Built-in free model, or bring Claude, GPT, Gemini, DeepSeek, Ollama +50 more. Swarm mode, 40+ tools, browser & desktop automation, built in Rust.",
-    "language": "Rust",
-    "topics": [
-      "agentic-ai",
-      "ai",
-      "ai-agent",
-      "ai-agents",
-      "ai-coding",
-      "ai-coding-assistant"
-    ],
-    "stars": 312,
-    "url": "https://github.com/dragonked2/alphacode",
-    "stale_zh": null
-  },
-  {
-    "full_name": "with-pebbly/aseprite-ai-artist",
-    "desc": "Your coding agent paints pixel art in the Aseprite window you already have open. MCP server + skills for Claude Code, omp, Codex, Gemini CLI and Cursor — draws, looks at its work, animates and exports. Gallery and benchmark: pixeli.pebbly.space",
-    "language": "TypeScript",
-    "topics": [
-      "ai-agents",
-      "aseprite",
-      "benchmark",
-      "claude-code",
-      "gamedev",
-      "lua"
-    ],
-    "stars": 346,
-    "url": "https://github.com/with-pebbly/aseprite-ai-artist",
-    "stale_zh": null
-  },
-  {
-    "full_name": "adongwanai/AgentGuide",
-    "desc": "https://adongwanai.github.io/AgentGuide | AI Agent开发指南 | LangGraph实战 | 高级RAG | 转行大模型 | 大模型面试 | 算法工程师 | 面试题库 | 强化学习｜数据合成",
-    "language": "MDX",
-    "topics": [
-      "agenticrag",
-      "ai-agent",
-      "crewai",
-      "graphrag",
-      "grpo",
-      "interview"
-    ],
-    "stars": 10908,
-    "url": "https://github.com/adongwanai/AgentGuide",
-    "stale_zh": null
-  },
-  {
-    "full_name": "StartLuxLabs/StartLux-Decision",
-    "desc": "Open decision models from 0.8B to 27B: a calibrated probability for every option in one pass, and a short thought only when unsure. Engine for vLLM, llama.cpp and MLX.",
-    "language": "Python",
-    "topics": [
-      "agents",
-      "calibration",
-      "classification",
-      "decision-making",
-      "gguf",
-      "inference"
-    ],
-    "stars": 415,
-    "url": "https://github.com/StartLuxLabs/StartLux-Decision",
-    "stale_zh": null
-  },
-  {
-    "full_name": "browser-use/browser-use",
-    "desc": "Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
-    "language": "Python",
-    "topics": [
-      "ai-agents",
-      "ai-tools",
-      "browser-agent",
-      "browser-automation",
-      "browser-use",
-      "cdp"
-    ],
-    "stars": 118088,
-    "url": "https://github.com/browser-use/browser-use",
-    "stale_zh": "能操作瀏覽器的 AI agent"
-  },
-  {
-    "full_name": "anthropics/claude-plugins-official",
-    "desc": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
-    "language": "Python",
-    "topics": [
-      "claude-code",
-      "mcp",
-      "skills"
-    ],
-    "stars": 38841,
-    "url": "https://github.com/anthropics/claude-plugins-official",
-    "stale_zh": null
-  },
-  {
-    "full_name": "synergycodes/workflowbuilder",
-    "desc": "Workflow Builder - Apache 2.0 React SDK for embedding visual workflow editors. Drag-and-drop workflow builder UI with a reference back-end and an execution engine swappable by design, proven with Temporal. Back-end agnostic. Built on React Flow and Temporal. Reference stack for AI workflows and automations in digital products.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-agent-workflow",
-      "ai-workflows",
-      "automation",
-      "diagramming",
-      "embedded-workflow",
-      "frontend-sdk"
-    ],
-    "stars": 400,
-    "url": "https://github.com/synergycodes/workflowbuilder",
-    "stale_zh": null
-  },
-  {
-    "full_name": "kharmanskyi/open-steps",
-    "desc": "Plain-language agent skills for Claude Code, Codex, Cursor and Gemini CLI: honest session reports, straight verdicts, steps you can follow. MIT.",
-    "language": "Shell",
-    "topics": [
-      "agent-skill",
-      "agent-skills",
-      "ai-agents",
-      "claude-code",
-      "claude-code-plugin",
-      "claude-code-skills"
-    ],
-    "stars": 1364,
-    "url": "https://github.com/kharmanskyi/open-steps",
-    "stale_zh": null
-  },
-  {
-    "full_name": "onyx-dot-app/onyx",
-    "desc": "Open Source AI Platform - AI Chat with advanced features that works with every LLM",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "ai-chat",
-      "chatgpt",
-      "chatui",
-      "enterprise-search",
-      "gen-ai"
-    ],
-    "stars": 32495,
-    "url": "https://github.com/onyx-dot-app/onyx",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Purewhiter/mobilegym",
-    "desc": "[EMNLP 2026] MobileGym: A Verifiable and Highly Parallel Simulation Platform for Mobile GUI Agent Research · 浏览器里运行的安卓模拟器 · Browser-hosted Android Simulator · Verifiable Evaluation · Scalable Online RL Training",
+    "full_name": "imfeh2/fora",
+    "desc": "Run your own organization of agents",
     "language": "Python",
     "topics": [
       "agent",
+      "agent-runtime",
+      "agentic-workflows",
+      "ai",
+      "ai-agent",
+      "ai-workspace"
+    ],
+    "stars": 319,
+    "url": "https://github.com/imfeh2/fora",
+    "stale_zh": null
+  },
+  {
+    "full_name": "graygnatconsole/mcp-audit-tool",
+    "desc": "🛡️ Security audit CLI for Model Context Protocol (MCP) servers — scan AI agent configs for tool poisoning, rug pulls, hardcoded secrets, command injection & supply-chain risks. Pure Python, SARIF + CI ready.",
+    "language": "Python",
+    "topics": [
+      "agent-security",
+      "agentic-ai",
+      "ai-security",
+      "cursor",
+      "llm-guardrails",
+      "llm-security"
+    ],
+    "stars": 340,
+    "url": "https://github.com/graygnatconsole/mcp-audit-tool",
+    "stale_zh": null
+  },
+  {
+    "full_name": "qdrant/qdrant-js",
+    "desc": "JavaScript/Typescript SDK for Qdrant Vector Database",
+    "language": "TypeScript",
+    "topics": [
+      "javascript",
+      "sdk",
+      "sdk-typescript",
+      "typescript",
+      "vector-database"
+    ],
+    "stars": 466,
+    "url": "https://github.com/qdrant/qdrant-js",
+    "stale_zh": null
+  },
+  {
+    "full_name": "breakstageaxe61/genspark-claw",
+    "desc": "🦀⚡ Community skill pack & CLI for Genspark Claw, OpenClaw & Hermes agents — 5 production-ready SKILL.md skills (deep research, reports, slides, browser automation, AI call prep), zero-dependency Node.js installer, MCP server, one-line install",
+    "language": "JavaScript",
+    "topics": [
+      "agent-skills",
+      "ai-agent",
+      "ai-assistants",
+      "ai-tools",
+      "awesome-genspark",
+      "genspark-agent"
+    ],
+    "stars": 330,
+    "url": "https://github.com/breakstageaxe61/genspark-claw",
+    "stale_zh": null
+  },
+  {
+    "full_name": "thesysdev/open-intelligent-ui",
+    "desc": "An open-source take on ChatGPT's Intelligent UI: answers stream as interactive UI (maps, photos, charts, drawings and working tools). Built with OpenUI.",
+    "language": "TypeScript",
+    "topics": [
       "agents",
       "ai",
-      "android",
-      "automation",
-      "benchmark"
+      "ai-agents",
+      "ai-ui",
+      "chat-ui",
+      "chatgpt"
     ],
-    "stars": 823,
-    "url": "https://github.com/Purewhiter/mobilegym",
+    "stars": 442,
+    "url": "https://github.com/thesysdev/open-intelligent-ui",
     "stale_zh": null
   },
   {
-    "full_name": "Unstructured-IO/unstructured",
-    "desc": "Convert documents to structured data effortlessly. Unstructured is open-source ETL solution for transforming complex documents into clean, structured formats for language models.  Visit our website to learn more about our enterprise grade Platform product for production grade workflows, partitioning, enrichments, chunking and embedding.",
-    "language": "HTML",
+    "full_name": "Javis603/token-monitor",
+    "desc": "Local-first desktop widget for tracking token usage, costs, limits, and session activity across 46+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
+    "language": "JavaScript",
     "topics": [
-      "data-pipelines",
-      "deep-learning",
-      "document-image-analysis",
-      "document-image-processing",
-      "document-parser",
-      "document-parsing"
+      "ai",
+      "ai-tools",
+      "antigravity",
+      "claude-code",
+      "codex",
+      "cursor"
     ],
-    "stars": 15569,
-    "url": "https://github.com/Unstructured-IO/unstructured",
+    "stars": 3143,
+    "url": "https://github.com/Javis603/token-monitor",
+    "stale_zh": "本機優先的桌面小工具，追蹤 45 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
+  },
+  {
+    "full_name": "useagenthq/useagent",
+    "desc": "The open-source Devin alternative. Run Claude Code, Codex or OpenCode in isolated cloud workspaces you can self-host.",
+    "language": "TypeScript",
+    "topics": [
+      "agents",
+      "ai",
+      "ai-agents",
+      "automation",
+      "autonomous-agents",
+      "claude"
+    ],
+    "stars": 357,
+    "url": "https://github.com/useagenthq/useagent",
+    "stale_zh": "開源的 Devin 替代品，在可自架的隔離雲端工作區跑 Claude Code、Codex 等 agent"
+  },
+  {
+    "full_name": "scaleapi/agentenv-framework",
+    "desc": "Creating realistic RL environments requires collaboration between researchers, engineers, and domain experts across many dimensions: artifacts, environments tools, dynamism of the environment, reproducibility, and more. There is no open source framework for building these environments effectively. Until now.",
+    "language": "Python",
+    "topics": [
+      "a2a",
+      "agent-evaluation",
+      "agentic-ai",
+      "ai-agents",
+      "llm-agents",
+      "llm-evaluation"
+    ],
+    "stars": 319,
+    "url": "https://github.com/scaleapi/agentenv-framework",
     "stale_zh": null
   },
   {
-    "full_name": "anomalyco/opencode",
-    "desc": "The open source coding agent.",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 213868,
-    "url": "https://github.com/anomalyco/opencode",
+    "full_name": "lemomo-ai/lemo-opuscar",
+    "desc": "Claude Code skill for short films with no video model: 51 film styles, each a style prompt plus a demo film made entirely in code by Claude Opus 5.5 (incl. OPUSCAR 98 and the new Evidence Films). By Lemomo. · Opus5.5 x 51 种影片风格：风格提示词 + 纯代码样片 + 导演与技术指南（新增「实证影像」）",
+    "language": "JavaScript",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "ai-short-film",
+      "ai-video",
+      "animation",
+      "canvas"
+    ],
+    "stars": 2666,
+    "url": "https://github.com/lemomo-ai/lemo-opuscar",
+    "stale_zh": "Claude Code skill：不靠影片模型做短片，43 種影片風格，各附風格提示詞與純程式碼樣片"
+  },
+  {
+    "full_name": "LearningCircuit/local-deep-research",
+    "desc": "~95% on SimpleQA (e.g. Qwen3.6-27B on a 3090). Supports all local and cloud LLMs (llama.cpp, Ollama, Google, ...). 10+ search engines - arXiv, PubMed, your private documents. Everything Local & Encrypted.",
+    "language": "Python",
+    "topics": [
+      "academia",
+      "anthropic",
+      "arxiv",
+      "brave",
+      "deep-research",
+      "encryption"
+    ],
+    "stars": 9254,
+    "url": "https://github.com/LearningCircuit/local-deep-research",
     "stale_zh": null
   }
 ]

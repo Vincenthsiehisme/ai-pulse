@@ -3,21 +3,24 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-15'
+generated_day: '2026-10-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **152** 則：`published` 148、`review` 4
+事件 **155** 則：`published` 150、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-15 | [[Events/evt-2026-10-15-efa674\|Sullivan & Cromwell brings legal expertise into agreement review]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-a85352\|Teaching students to think and learn through questions]] | published |
+| 2026-10-15 | [[Events/evt-2026-10-15-8cf5c3\|Bringing GPT-Rosalind to academic research labs]] | review |
 | 2026-10-14 | [[Events/evt-2026-10-14-f443ac\|SentinelOne cuts malware analysis from weeks to hours]] | published |
 | 2026-10-14 | [[Events/evt-2026-10-14-c89100\|The EU’s next chapter in AI is agentic]] | published |
 | 2026-10-14 | [[Events/evt-2026-10-14-9b69f6\|Amp puts AI agents to work beyond code with OpenAI models]] | published |
-| 2026-10-14 | [[Events/evt-2026-10-14-7c1ce0\|How Block is building AI-powered security with OpenAI technology]] | review |
+| 2026-10-14 | [[Events/evt-2026-10-14-7c1ce0\|How Block is building AI-powered security with OpenAI technology]] | published |
 | 2026-10-14 | [[Events/evt-2026-10-14-3b8c3c\|How Third Moment Research runs 10,000 agents for 36+ hours]] | published |
 | 2026-10-13 | [[Events/evt-2026-10-13-553372\|Higgsfield takes AI video from 1 minute to over 10]] | published |
 | 2026-10-09 | [[Events/evt-2026-10-09-6f51cf\|Sophos cuts threat investigation time by 96% with OpenAI Daybreak]] | published |

@@ -8,97 +8,49 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-14-7c1ce0",
-    "title": "How Block is building AI-powered security with OpenAI technology",
+    "id": "evt-2026-10-15-3f28e4",
+    "title": "Offering Expanded Claude Access Across All Three Branches Of Government",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-74ed5b",
+    "title": "Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-8cf5c3",
+    "title": "Bringing GPT-Rosalind to academic research labs",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-15-07c132",
-    "title": "Apertus 1.5 Release Notes",
+    "id": "evt-2026-10-15-efa674",
+    "title": "Sullivan & Cromwell brings legal expertise into agreement review",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-16-7149f7",
+    "title": "Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-15-142ee5",
-    "title": "An Update On Independent Evaluators",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-160218",
-    "title": "Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With Highest Efficiency Super VL and Bolt Models",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-45643f",
-    "title": "Accelerating the search for antimicrobial peptides with Google Antigravity",
-    "company": "Google",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-554475",
-    "title": "The Nordics and NVIDIA Show What’s Possible When a Region Commits to Advanced Computing",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-57e880",
-    "title": "Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-85c4aa",
-    "title": "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta",
-    "company": "Meta",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-a85352",
-    "title": "Teaching students to think and learn through questions",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-bd52bf",
-    "title": "Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-be1784",
-    "title": "NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-f9fdb2",
-    "title": "Welcome FLUX.3 Image Klein in Diffusers",
-    "company": "Hugging Face",
+    "id": "evt-2026-10-16-bdd080",
+    "title": "Welcome Beam: a 501B open model you can own, customize, and scale",
+    "company": "Scale AI",
     "track": null,
     "summary": "",
     "stale_zh": null

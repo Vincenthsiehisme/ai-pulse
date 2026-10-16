@@ -15,10 +15,10 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://techcrunch.com/category/artificial-intelligence/feed/"
-robots_checked_day: "2026-10-08"
+robots_checked_day: "2026-10-16"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-10-15"
-items_observed: 727
+last_observed_day: "2026-10-16"
+items_observed: 738
 events_bound: 8
 events_published: 8
 health_score: 100
@@ -35,7 +35,7 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 727 筆 | 抓到了，但站方那陣子沒發東西 |
+| 已觀測 | 738 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 8 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 8 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
