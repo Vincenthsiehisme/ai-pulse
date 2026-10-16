@@ -1,26 +1,40 @@
-# 已發布事件（448）
+# 已發布事件（454）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-16
+- **[[Events/evt-2026-10-16-7149f7|Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline]]** — NVIDIA · research · conf 73 · heat 未量測
+  NVIDIA 在 Hugging Face 發表印度語系預訓練資料，標題寫 2.8 兆 token 加一條開放的資料生成流程。
+- **[[Events/evt-2026-10-16-bdd080|Welcome Beam: a 501B open model you can own, customize, and scale]]** — Reflection AI · model-capability · conf 73 · heat 未量測
+  Hugging Face 部落格出現 Beam，標題稱是可自有、可客製的 501B 開放模型。
 
 ## 2026-10-15
 - **[[Events/evt-2026-10-15-07c132|Apertus 1.5 Release Notes]]** — Swiss AI Initiative · model-capability · conf 73 · heat 未量測
   Swiss AI Initiative 在 Hugging Face 發布 Apertus 1.5 的版本說明。
 - **[[Events/evt-2026-10-15-160218|Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With Highest Efficiency Super VL and Bolt Models]]** — NVIDIA · model-capability · conf 73 · heat 未量測
   NVIDIA 發布開放權重的 Nemotron 3.5 Super VL，另有兩款邊緣模型。
+- **[[Events/evt-2026-10-15-3f28e4|Offering Expanded Claude Access Across All Three Branches Of Government]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 宣布把 Claude 的使用管道擴大到政府三權分支，細節我們沒轉述。
 - **[[Events/evt-2026-10-15-45643f|Accelerating the search for antimicrobial peptides with Google Antigravity]]** — Google · research · conf 73 · heat 未量測
   DeepMind 用 Google Antigravity 找抗菌肽。
 - **[[Events/evt-2026-10-15-554475|The Nordics and NVIDIA Show What’s Possible When a Region Commits to Advanced Computing]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 發文談北歐國家投入先進運算，北歐新創密度居歐洲之冠。
 - **[[Events/evt-2026-10-15-57e880|Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark]]** — NVIDIA · product · conf 73 · heat 未量測
   NVIDIA RTX Spark 隔天發表，官方邀請各地參加發表活動。
+- **[[Events/evt-2026-10-15-74ed5b|Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint]]** — IBM · model-capability · conf 73 · heat 未量測
+  IBM Granite 在 Hugging Face 發表 Granite Switch 4.1，標題稱一個端點同時處理對話、決策與語音。
 - **[[Events/evt-2026-10-15-85c4aa|Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta]]** — Meta · model-capability · conf 73 · heat 未量測
   Hugging Face 部落格介紹 Meta 的開放權重多模態混合專家模型 Muse Spark Open。
+- **[[Events/evt-2026-10-15-8cf5c3|Bringing GPT-Rosalind to academic research labs]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出 Rosalind 學術方案，讓符合資格的學術實驗室申請贊助使用 GPT-Rosalind。
 - **[[Events/evt-2026-10-15-a85352|Teaching students to think and learn through questions]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 在教師節推出巴西葡萄牙語版的教育者 AI 資源，主打 Study Mode。
 - **[[Events/evt-2026-10-15-bd52bf|Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
   GeForce NOW 加入 DLSS 4.5 控制選項，Enshrouded 同步推出 1.0。
 - **[[Events/evt-2026-10-15-be1784|NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 宣布擴大歐洲科學界的先進運算取用，含開放學習資源、合作與算力。
+- **[[Events/evt-2026-10-15-efa674|Sullivan & Cromwell brings legal expertise into agreement review]]** — OpenAI · product · conf 73 · heat 未量測
+  Sullivan & Cromwell 與 OpenAI 合作做出 Agreement Analyzer，用來找合約草稿裡的問題。
 - **[[Events/evt-2026-10-15-f9fdb2|Welcome FLUX.3 Image Klein in Diffusers]]** — Hugging Face · model-capability · conf 73 · heat 未量測
   Hugging Face 宣布 Diffusers 支援 FLUX.3 Image Klein。
 

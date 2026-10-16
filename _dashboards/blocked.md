@@ -1,14 +1,8 @@
-# 被門禁擋下（51）
+# 被門禁擋下（45）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-10-16-7149f7|Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Genera]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-16-bdd080|Welcome Beam: a 501B open model you can own, customize, and scale]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-15-142ee5|An Update On Independent Evaluators]]** — Anthropic — blockers: thin_research_analysis
-- **[[Events/evt-2026-10-15-3f28e4|Offering Expanded Claude Access Across All Three Branches Of Governmen]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-10-15-74ed5b|Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-15-8cf5c3|Bringing GPT-Rosalind to academic research labs]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-15-efa674|Sullivan & Cromwell brings legal expertise into agreement review]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-03-623369|The Agent Said It Was Done. The Database Disagreed.]]** — Microsoft — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-96c618|Getting the Source Right, Not Just the Fact: Source-Aware Verification]]** — Multiverse Computing — blockers: thin_research_analysis

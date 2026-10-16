@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-15'
+updated: '2026-10-16'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這一輪新增 10-15 的五則。NVIDIA 發布開放的 Nemotron 3.5 Super VL（1200 億參數）與兩款邊緣模型，「最快」「最準」是官方自述，沒有第三方基準。Swiss AI Initiative 的 Apertus 1.5、Meta 的 Muse Spark Open、FLUX.3 Image Klein 進入 Diffusers，三則都只有標題與 Hugging Face 的通用介紹，沒有規格、授權或基準。DeepMind 用 Google Antigravity 找抗菌肽，摘要沒有流程與實驗驗證。前一輪的 Ai2 HiRO-ACEv2、Gemini 4 Argon（只收標題與連結）、Liquid AI 的 LFM2.5-24B-A2B 與 GPT-6.1 Sol 仍停在標題與一兩行說明，沒有獨立評測數字。
-    next: 看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準，以及 Bolt 在 24GB 裝置上的實測吞吐量；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 DeepMind 抗菌肽文章有沒有公布候選分子數與濕實驗驗證；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
+    now: 這一輪新增 10-15 到 10-16 的三則，都只有標題與 Hugging Face 的一句通用介紹。NVIDIA 的印度語系預訓練資料標題寫 2.8 兆 token 加開放的資料生成流程，授權與涵蓋語言未知。Beam 標題稱是 501B 的開放模型，網址帶 reflection-beam，規格與授權沒有。IBM 的 Granite Switch 4.1 標題稱一個端點處理對話、決策與語音，模型大小與評測沒有。前一輪的 NVIDIA Nemotron 3.5 Super VL 與兩款邊緣模型，「最快」「最準」是官方自述，沒有第三方基準。Apertus 1.5、Meta 的 Muse Spark Open、FLUX.3 Image Klein 進入 Diffusers、DeepMind 的抗菌肽、Ai2 HiRO-ACEv2、Gemini 4 Argon（只收標題與連結）、Liquid AI 的 LFM2.5-24B-A2B 與 GPT-6.1 Sol，仍停在標題與一兩行說明，沒有獨立評測數字。
+    next: 看 Beam 的權重是否真的可下載、授權寬不寬，以及第三方評測；看 NVIDIA 印度語系資料集與生成程式碼有沒有附連結與授權，有沒有人用它訓出模型；看 Granite Switch 4.1 內文有沒有列模型大小與語音、決策兩項的評測；看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準，以及 Bolt 在 24GB 裝置上的實測吞吐量；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增 10-14 到 10-15 的幾則。OpenAI 的 Block 案例稱資安團隊調查威脅更快、補丁幾分鐘內提出，沒有基準線。OpenAI 在巴西教師節推出葡萄牙語版教育者資源，主打 Study Mode。NVIDIA 預告 RTX Spark 隔天發表，並更新 GeForce NOW 的 DLSS 4.5 控制，兩則都是活動與功能預告，沒有技術細節。SentinelOne 稱用 Daybreak 把惡意程式分析從數週縮到數小時，是同一批案例裡少數有前後對比的，但樣本數與比較基準摘要沒有交代。Anthropic 的選舉文章依授權只收標題與連結，xAI 的 Grok Voice 3 因站方宣告 ai-input=no 也只收標題與連結。Sophos 稱調查時間縮短 96%，比較基準沒有交代。Higgsfield、Pollo AI、ChatGPT for Teens、Radisson 外掛與 Atlassian 擴大合作，仍是廠商自述。
-    next: 看 Block、SentinelOne、Sophos 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Anthropic 選舉文章原文有沒有列出可驗證的措施；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
+    now: 這一輪新增 10-15 的三則，都是把產品交給特定對象。OpenAI 的 Rosalind 學術方案讓符合資格的學術實驗室申請贊助存取 GPT-Rosalind，限生命科學，資格與額度摘要沒有。Sullivan & Cromwell 與 OpenAI 做出 Agreement Analyzer 找合約草稿的問題，沒有成效數字。Anthropic 擴大 Claude 在政府三個分支的使用範圍，依授權只收標題與連結。前一輪 OpenAI 的 Block 案例稱資安團隊調查威脅更快，沒有基準線。SentinelOne 稱惡意程式分析從數週縮到數小時，是少數有前後對比的案例，但樣本數與比較基準摘要沒有交代。Sophos 稱調查時間縮短 96%，比較基準同樣沒有交代。NVIDIA 的 RTX Spark 預告與 GeForce NOW 的 DLSS 4.5 控制是活動與功能預告，沒有技術細節。xAI 的 Grok Voice 3 因站方宣告 ai-input=no 只收標題與連結。Higgsfield、Pollo AI、ChatGPT for Teens、Radisson 外掛與 Atlassian 擴大合作，仍是廠商自述。
+    next: 看 Anthropic 政府公告原文有沒有列具體機關、定價或採購管道；看 Rosalind 方案公布的資格條件、贊助額度與首批實驗室；看 Sullivan & Cromwell 是否公布 Agreement Analyzer 的使用範圍或錯誤率；看 Block、SentinelOne、Sophos 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？

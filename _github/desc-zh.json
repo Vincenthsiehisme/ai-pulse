@@ -260,9 +260,9 @@
     "zh": "11 個經營 YouTube 頻道的 Claude skill，含腳本、剪輯清單、留存分析"
   },
   "Javis603/token-monitor": {
-    "at": "2026-10-14T19:51:47+00:00",
-    "src_hash": "3d8f3b4352f7",
-    "zh": "本機優先的桌面小工具，追蹤 45 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "f84d2dd3bc89",
+    "zh": "本機優先的桌面小工具，追蹤 46 種以上 AI 程式工具的 token 用量、費用、額度與工作階段，支援多裝置同步"
   },
   "Johnson-Durui/Companion-Space": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -298,6 +298,11 @@
     "at": "2026-08-21T19:12:31+00:00",
     "src_hash": "4426ad662c17",
     "zh": "LMCache：用目前最快的 KV Cache 層，加速你的 LLM 推論"
+  },
+  "LearningCircuit/local-deep-research": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "3853bf8e57ec",
+    "zh": "本機深度研究工具，SimpleQA 約 95%，支援各種本機與雲端 LLM，10 多個搜尋引擎，全程本機加密"
   },
   "Leonxlnx/taste-skill": {
     "at": "2026-10-14T19:51:47+00:00",
@@ -924,6 +929,11 @@
     "src_hash": "7ffd0b016014",
     "zh": "GPU 叢集管理工具，服務 vLLM、SGLang 等高效能 AI 模型，並提供隨選的 SSH GPU 執行個體"
   },
+  "graygnatconsole/mcp-audit-tool": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "d48ab8e618ad",
+    "zh": "MCP 伺服器的資安稽核 CLI，掃描 tool poisoning、rug pull、寫死密鑰與指令注入"
+  },
   "gufo-org/gufo": {
     "at": "2026-10-10T19:38:45+00:00",
     "src_hash": "cf9f56406ac7",
@@ -959,6 +969,11 @@
     "src_hash": "868d99d02cc8",
     "zh": "Transformers：文字、視覺、音訊與多模態最先進機器學習模型的定義框架，支援推論與訓練"
   },
+  "hujjun/mcd-saver-strategist": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "4d7ffc7d3652",
+    "zh": "麥當勞省錢點餐 Skill：抓取菜單與全部可用優惠券，算出最省的組合，巨無霸套餐 ¥47 降到 ¥21.9"
+  },
   "iFurySt/open-browser-use": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "9ed7aa25db62",
@@ -968,6 +983,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "10bde132d493",
     "zh": "SEO skill，70 多個稽核工具走本機 CLI 與 MCP，用你自己的 GSC 與 GA4 資料"
+  },
+  "imfeh2/fora": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "8b7ad2301e26",
+    "zh": "跑你自己的 agent 組織"
   },
   "inclusionAI/Avernet": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -1070,9 +1090,9 @@
     "zh": "在同一個工作區裡建 Agentic workflow 與 RAG pipeline，可部署雲端、VPC 或自架環境"
   },
   "lemomo-ai/lemo-opuscar": {
-    "at": "2026-10-10T19:38:45+00:00",
-    "src_hash": "d099af5505be",
-    "zh": "Claude Code skill：不靠影片模型做短片，43 種影片風格，各附風格提示詞與純程式碼樣片"
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "282a109cfb3d",
+    "zh": "Claude Code skill：不靠影片模型做短片，51 種影片風格，各附風格提示詞與純程式碼樣片"
   },
   "lightonai/next-plaid": {
     "at": "2026-08-14T19:13:10+00:00",
@@ -1389,6 +1409,11 @@
     "src_hash": "041ad980eaa1",
     "zh": "Python 的 AI 寫法：agent、即時語音、圖像生成、embedding，支援各模型，全程型別化"
   },
+  "qdrant/qdrant-js": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "487fac0023c5",
+    "zh": "Qdrant 向量資料庫的 JavaScript/TypeScript SDK"
+  },
   "qybaihe/mu": {
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "92e124b0f584",
@@ -1474,6 +1499,11 @@
     "src_hash": "a7b112c33175",
     "zh": "AI 輿情與熱點監控，彙整多平台與 RSS，可依關鍵字篩選，支援 MCP 與多管道推播"
   },
+  "scaleapi/agentenv-framework": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "4f5323613c9b",
+    "zh": "建立擬真 RL 環境的開源框架，涵蓋產物、環境工具、環境動態與可重現性"
+  },
   "scrypster/muninndb": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "02be7fc4362a",
@@ -1529,6 +1559,11 @@
     "src_hash": "bb917e79ca55",
     "zh": "31 個測試過的 skills，讓 Claude Code 與 Codex 組隊：互審、額度用完自動交接、晨間簡報"
   },
+  "soumatheusgomes/vibe-coding-toolkit": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "5c153bafeb67",
+    "zh": "整理自實際生產環境的 AI 寫程式工具包：Claude Code 外掛、subagent 編排、品質關卡與現成提示詞"
+  },
   "sqliteai/sqlite-vector": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "f119f30849a5",
@@ -1563,6 +1598,11 @@
     "at": "2026-08-07T01:27:45+00:00",
     "src_hash": "0746c8f49f1d",
     "zh": "跨 session 保留 agent 記憶：記錄它做過的事、用 AI 壓縮，再把相關脈絡帶進下次 session"
+  },
+  "thesysdev/open-intelligent-ui": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "9159f3a50003",
+    "zh": "ChatGPT Intelligent UI 的開源版，回答以地圖、圖表等互動介面串流呈現"
   },
   "tickernelz/opencode-mem": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -1620,9 +1660,9 @@
     "zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
   },
   "useagenthq/useagent": {
-    "at": "2026-10-08T20:58:31+00:00",
-    "src_hash": "d9448deca610",
-    "zh": "開源的 Devin 替代品，在可自架的隔離雲端工作區跑 Claude Code、Codex 等 agent"
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "be4edc241a05",
+    "zh": "開源的 Devin 替代品，在可自架的隔離雲端工作區跑 Claude Code、Codex 或 OpenCode"
   },
   "usemoss/moss": {
     "at": "2026-08-19T19:13:25+00:00",
@@ -1713,6 +1753,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "f236345e9932",
     "zh": "AI 時代的波克夏：基於 Claude Code／Codex 的價值投資研究框架，集四大師方法論與多 agent 研究"
+  },
+  "xerj-org/xerj": {
+    "at": "2026-10-16T19:09:41+00:00",
+    "src_hash": "ba159e162411",
+    "zh": "給 AI 搜尋資料的索引工具，一行指令索引程式碼、文件、日誌與 PDF，稱比 grep 省 40 倍 token"
   },
   "xzf-thu/VoiceMem": {
     "at": "2026-10-02T20:16:53+00:00",
