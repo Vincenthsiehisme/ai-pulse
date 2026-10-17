@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-16"
+generated_day: "2026-10-17"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-16"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **434** 則／已裁決 **26** 則。
+待回答 **440** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -27,11 +27,11 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`infra-cost#848da968`** — infra-cost
   > 看歐洲科學界取用計畫公布的算力配額、申請方式與首批合作機構；看北歐文章是否列出各國 AI 工廠或超級電腦專案與金額；看 NVIDIA 市政文章是否點名具體城市與合約，以及上線後的成效數據；看搭載 RTX Spark 的筆電上市日期與定價，以及第三方實測的本地模型推論速度；看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件；看其他 Codex 客戶有沒有公布類似的成本數字與 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率的前後數字；看 vLLM 或社群公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 DGX Spark 64GB 版的定價與開賣日。
 
-- **`model-research#4c8eb2e0`** — model-research
-  > 看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準，以及 Bolt 在 24GB 裝置上的實測吞吐量；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 DeepMind 抗菌肽文章有沒有公布候選分子數與濕實驗驗證；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
+- **`model-research#632500c3`** — model-research
+  > 看 Beam 的權重是否真的可下載、授權寬不寬，以及第三方評測；看 NVIDIA 印度語系資料集與生成程式碼有沒有附連結與授權，有沒有人用它訓出模型；看 Granite Switch 4.1 內文有沒有列模型大小與語音、決策兩項的評測；看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準，以及 Bolt 在 24GB 裝置上的實測吞吐量；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
 
-- **`product-market#1bc59e0b`** — product-market
-  > 看 Block、SentinelOne、Sophos 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Anthropic 選舉文章原文有沒有列出可驗證的措施；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
+- **`product-market#2519042c`** — product-market
+  > 看 Anthropic 政府公告原文有沒有列具體機關、定價或採購管道；看 Rosalind 方案公布的資格條件、贊助額度與首批實驗室；看 Sullivan & Cromwell 是否公布 Agreement Analyzer 的使用範圍或錯誤率；看 Block、SentinelOne、Sophos 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
 
 - **`capital-evolution#7cb61e65`** — capital-evolution
   > 看 Anthropic 新加坡辦公室原文有沒有給人數、客戶或合作對象，以及後續是否有在地合作公告；看 NVIDIA 或被投資新創是否公布投資金額與名單；讀 Genesis Mission Commitment 原文，確認承諾項目、時程與是否涉及資金；讀 Anthropic Cyber Mission 原文，確認它是新團隊、新產品還是對外承諾；看 Lenfest 計畫的參與機構與資金分配。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#0f6ae177`** — global-map
   > 看 DeepMind 與 GovTech 是否公布偵測率、誤報率與部署的裝置範圍；看 OpenAI 歐盟分析的完整版有沒有公布方法、樣本與採用率，以及歐盟政策討論是否引用；看有沒有獨立研究機構公開同一批假身分的分析，對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
 
-## 事件層（428）
+## 事件層（434）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1304,6 +1304,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-15-160218#cf756967`** — evt-2026-10-15-160218
   > 第三方基準測試結果，以及 Bolt 在 24GB 卡上的實測吞吐量。
 
+- **`evt-2026-10-15-3f28e4#86ce04d2`** — evt-2026-10-15-3f28e4
+  > 原文是否列出具體機關、定價或採購管道；其他模型廠商是否在同一個月跟進類似的跨分支方案。
+
 - **`evt-2026-10-15-45643f#12219f09`** — evt-2026-10-15-45643f
   > 原文是否給出候選分子數量與濕實驗驗證結果。
 
@@ -1313,8 +1316,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-15-57e880#76206743`** — evt-2026-10-15-57e880
   > 隔天正式發表時公布的規格、價格與出貨時程。
 
+- **`evt-2026-10-15-74ed5b#0f7c7ea3`** — evt-2026-10-15-74ed5b
+  > 部落格內文是否公開模型大小、授權與語音、決策兩項的評測；Hugging Face 上是否同步釋出權重。
+
 - **`evt-2026-10-15-85c4aa#e12f2648`** — evt-2026-10-15-85c4aa
   > 原文公布的參數量、授權條款與基準測試成績。
+
+- **`evt-2026-10-15-8cf5c3#7114a8c0`** — evt-2026-10-15-8cf5c3
+  > 官方頁面公布的資格條件與贊助額度；首批獲選實驗室名單或第一批產出的研究成果。
 
 - **`evt-2026-10-15-a85352#298f3978`** — evt-2026-10-15-a85352
   > OpenAI 是否擴大 Study Mode 的語言與國家，並公布教育端的使用數據。
@@ -1325,5 +1334,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-15-be1784#fc13112b`** — evt-2026-10-15-be1784
   > 算力配額、申請方式與首批合作機構名單。
 
+- **`evt-2026-10-15-efa674#bd962fc3`** — evt-2026-10-15-efa674
+  > S&C 是否公布內部使用範圍或錯誤率；其他大型事務所是否發表類似的合約審閱工具。
+
 - **`evt-2026-10-15-f9fdb2#667ba2e4`** — evt-2026-10-15-f9fdb2
   > 原文公布的模型大小、授權與推論需求。
+
+- **`evt-2026-10-16-7149f7#59793207`** — evt-2026-10-16-7149f7
+  > 內文是否附資料集與生成程式碼的連結與授權；是否有第三方用它訓練出印度語系模型並公布評測。
+
+- **`evt-2026-10-16-bdd080#0c9b147a`** — evt-2026-10-16-bdd080
+  > Hugging Face 上是否有可下載的權重與授權條款；第三方對 Beam 的獨立評測。

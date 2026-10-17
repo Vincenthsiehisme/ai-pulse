@@ -1,50 +1,82 @@
 [
   {
-    "full_name": "hujjun/mcd-saver-strategist",
-    "desc": "麦当劳省钱点餐助手（麦门精算师）｜麦当劳优惠券组合优化 Skill：拉取麦当劳菜单与全部可用优惠券，算出最省的点餐组合，巨无霸套餐 ¥47 → ¥21.9（省 53%）。McDonalds MCP（麦当劳 MCP）coupon optimizer · McDonalds China MCP Server · Agent Skill for WorkBuddy · 麦当劳程序员创意开发大赛参赛作品",
+    "full_name": "scenario-labs/blender-plugin",
+    "desc": "Scenario for Blender: AI images, video, 3D and PBR materials in the viewport, plus a local MCP server for agents. Blender 5.0+ extension, GPL-3.0-or-later.",
     "language": "Python",
     "topics": [
-      "agent-skill",
-      "ai-agent",
-      "coupon-optimizer",
-      "coupons",
-      "deterministic-optimization",
-      "fast-food"
+      "3d",
+      "agentic-ai",
+      "ai",
+      "blender",
+      "blender-addon",
+      "blender-extension"
     ],
-    "stars": 470,
-    "url": "https://github.com/hujjun/mcd-saver-strategist",
+    "stars": 502,
+    "url": "https://github.com/scenario-labs/blender-plugin",
     "stale_zh": null
   },
   {
-    "full_name": "xerj-org/xerj",
-    "desc": "XERJ is the new way for AI to search data. Its autoindex capability activates agents to know your data without the token waste of grep and sed. One command indexes code, docs, logs and PDFs for search, RAG, security audits and agent memory, using 40x fewer tokens than grep. Elasticsearch compatible, so existing clients just work.",
-    "language": "Rust",
+    "full_name": "stablyai/orca",
+    "desc": "Orca is the place for working with a fleet of agents (e.g. Grok Bot, Claude Code). Run any coding agent with your own subscription. Available on desktop, mobile and remote runtime.",
+    "language": "TypeScript",
     "topics": [
-      "ai-search",
-      "ai-search-algorithms",
-      "ai-search-engine",
-      "ai-search-free",
-      "ai-search-module",
-      "ai-search-optimization"
+      "ade",
+      "agent-ide",
+      "ai-agents",
+      "automation",
+      "bot",
+      "claude-code"
     ],
-    "stars": 6750,
-    "url": "https://github.com/xerj-org/xerj",
-    "stale_zh": null
+    "stars": 95141,
+    "url": "https://github.com/stablyai/orca",
+    "stale_zh": "Orca 是管理多個平行 agent 的整合開發環境，可用自己的訂閱執行任何程式 agent，支援桌面、行動與遠端"
   },
   {
-    "full_name": "soumatheusgomes/vibe-coding-toolkit",
-    "desc": "A curated, battle-tested AI-coding toolkit: Claude Code plugins, subagent orchestration, quality gates, and ready-to-copy prompts, extracted from real production use.",
+    "full_name": "breakstageaxe61/genspark-claw",
+    "desc": "🦀⚡ Community skill pack & CLI for Genspark Claw, OpenClaw & Hermes agents — 5 production-ready SKILL.md skills (deep research, reports, slides, browser automation, AI call prep), zero-dependency Node.js installer, MCP server, one-line install",
     "language": "JavaScript",
     "topics": [
-      "ai-agents",
-      "ai-coding",
-      "claude-code",
-      "developer-tools",
-      "llm-agents",
-      "prompts"
+      "agent-skills",
+      "ai-agent",
+      "ai-assistants",
+      "ai-tools",
+      "awesome-genspark",
+      "genspark-agent"
     ],
-    "stars": 1260,
-    "url": "https://github.com/soumatheusgomes/vibe-coding-toolkit",
+    "stars": 363,
+    "url": "https://github.com/breakstageaxe61/genspark-claw",
+    "stale_zh": null
+  },
+  {
+    "full_name": "sgaofen/humanizer-local-model",
+    "desc": "Rewrites AI drafts so they read like a person wrote them — runs locally, keeps the facts",
+    "language": "Python",
+    "topics": [
+      "gguf",
+      "humanizer",
+      "llama-cpp",
+      "llm",
+      "local-llm",
+      "rewriting"
+    ],
+    "stars": 346,
+    "url": "https://github.com/sgaofen/humanizer-local-model",
+    "stale_zh": null
+  },
+  {
+    "full_name": "springvoiceswell/semrush-ai-tool",
+    "desc": "Semrush SEO AI-powered analysis tool MCP server & CLI for keyword research, domain analytics, backlink analysis",
+    "language": "JavaScript",
+    "topics": [
+      "ai-seo",
+      "backlink-analysis",
+      "claude-desktop",
+      "cursor-pro",
+      "semrush",
+      "semrush-alternative"
+    ],
+    "stars": 343,
+    "url": "https://github.com/springvoiceswell/semrush-ai-tool",
     "stale_zh": null
   },
   {
@@ -59,167 +91,24 @@
       "cursor",
       "deepseek-harness"
     ],
-    "stars": 588,
+    "stars": 625,
     "url": "https://github.com/emo-xiaoyu/harness-mix",
     "stale_zh": null
   },
   {
-    "full_name": "imfeh2/fora",
-    "desc": "Run your own organization of agents",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "agent-runtime",
-      "agentic-workflows",
-      "ai",
-      "ai-agent",
-      "ai-workspace"
-    ],
-    "stars": 319,
-    "url": "https://github.com/imfeh2/fora",
-    "stale_zh": null
-  },
-  {
-    "full_name": "graygnatconsole/mcp-audit-tool",
-    "desc": "🛡️ Security audit CLI for Model Context Protocol (MCP) servers — scan AI agent configs for tool poisoning, rug pulls, hardcoded secrets, command injection & supply-chain risks. Pure Python, SARIF + CI ready.",
-    "language": "Python",
-    "topics": [
-      "agent-security",
-      "agentic-ai",
-      "ai-security",
-      "cursor",
-      "llm-guardrails",
-      "llm-security"
-    ],
-    "stars": 340,
-    "url": "https://github.com/graygnatconsole/mcp-audit-tool",
-    "stale_zh": null
-  },
-  {
-    "full_name": "qdrant/qdrant-js",
-    "desc": "JavaScript/Typescript SDK for Qdrant Vector Database",
-    "language": "TypeScript",
-    "topics": [
-      "javascript",
-      "sdk",
-      "sdk-typescript",
-      "typescript",
-      "vector-database"
-    ],
-    "stars": 466,
-    "url": "https://github.com/qdrant/qdrant-js",
-    "stale_zh": null
-  },
-  {
-    "full_name": "breakstageaxe61/genspark-claw",
-    "desc": "🦀⚡ Community skill pack & CLI for Genspark Claw, OpenClaw & Hermes agents — 5 production-ready SKILL.md skills (deep research, reports, slides, browser automation, AI call prep), zero-dependency Node.js installer, MCP server, one-line install",
-    "language": "JavaScript",
+    "full_name": "googleworkspace/cli",
+    "desc": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google Discovery Service. Includes AI agent skills.",
+    "language": "Rust",
     "topics": [
       "agent-skills",
       "ai-agent",
-      "ai-assistants",
-      "ai-tools",
-      "awesome-genspark",
-      "genspark-agent"
-    ],
-    "stars": 330,
-    "url": "https://github.com/breakstageaxe61/genspark-claw",
-    "stale_zh": null
-  },
-  {
-    "full_name": "thesysdev/open-intelligent-ui",
-    "desc": "An open-source take on ChatGPT's Intelligent UI: answers stream as interactive UI (maps, photos, charts, drawings and working tools). Built with OpenUI.",
-    "language": "TypeScript",
-    "topics": [
-      "agents",
-      "ai",
-      "ai-agents",
-      "ai-ui",
-      "chat-ui",
-      "chatgpt"
-    ],
-    "stars": 442,
-    "url": "https://github.com/thesysdev/open-intelligent-ui",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Javis603/token-monitor",
-    "desc": "Local-first desktop widget for tracking token usage, costs, limits, and session activity across 46+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
-    "language": "JavaScript",
-    "topics": [
-      "ai",
-      "ai-tools",
-      "antigravity",
-      "claude-code",
-      "codex",
-      "cursor"
-    ],
-    "stars": 3143,
-    "url": "https://github.com/Javis603/token-monitor",
-    "stale_zh": "本機優先的桌面小工具，追蹤 45 種以上 AI 程式工具的 token 用量、費用與額度，支援多裝置同步"
-  },
-  {
-    "full_name": "useagenthq/useagent",
-    "desc": "The open-source Devin alternative. Run Claude Code, Codex or OpenCode in isolated cloud workspaces you can self-host.",
-    "language": "TypeScript",
-    "topics": [
-      "agents",
-      "ai",
-      "ai-agents",
       "automation",
-      "autonomous-agents",
-      "claude"
+      "cli",
+      "discovery-api",
+      "gemini-cli-extension"
     ],
-    "stars": 357,
-    "url": "https://github.com/useagenthq/useagent",
-    "stale_zh": "開源的 Devin 替代品，在可自架的隔離雲端工作區跑 Claude Code、Codex 等 agent"
-  },
-  {
-    "full_name": "scaleapi/agentenv-framework",
-    "desc": "Creating realistic RL environments requires collaboration between researchers, engineers, and domain experts across many dimensions: artifacts, environments tools, dynamism of the environment, reproducibility, and more. There is no open source framework for building these environments effectively. Until now.",
-    "language": "Python",
-    "topics": [
-      "a2a",
-      "agent-evaluation",
-      "agentic-ai",
-      "ai-agents",
-      "llm-agents",
-      "llm-evaluation"
-    ],
-    "stars": 319,
-    "url": "https://github.com/scaleapi/agentenv-framework",
-    "stale_zh": null
-  },
-  {
-    "full_name": "lemomo-ai/lemo-opuscar",
-    "desc": "Claude Code skill for short films with no video model: 51 film styles, each a style prompt plus a demo film made entirely in code by Claude Opus 5.5 (incl. OPUSCAR 98 and the new Evidence Films). By Lemomo. · Opus5.5 x 51 种影片风格：风格提示词 + 纯代码样片 + 导演与技术指南（新增「实证影像」）",
-    "language": "JavaScript",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "ai-short-film",
-      "ai-video",
-      "animation",
-      "canvas"
-    ],
-    "stars": 2666,
-    "url": "https://github.com/lemomo-ai/lemo-opuscar",
-    "stale_zh": "Claude Code skill：不靠影片模型做短片，43 種影片風格，各附風格提示詞與純程式碼樣片"
-  },
-  {
-    "full_name": "LearningCircuit/local-deep-research",
-    "desc": "~95% on SimpleQA (e.g. Qwen3.6-27B on a 3090). Supports all local and cloud LLMs (llama.cpp, Ollama, Google, ...). 10+ search engines - arXiv, PubMed, your private documents. Everything Local & Encrypted.",
-    "language": "Python",
-    "topics": [
-      "academia",
-      "anthropic",
-      "arxiv",
-      "brave",
-      "deep-research",
-      "encryption"
-    ],
-    "stars": 9254,
-    "url": "https://github.com/LearningCircuit/local-deep-research",
+    "stars": 31602,
+    "url": "https://github.com/googleworkspace/cli",
     "stale_zh": null
   }
 ]

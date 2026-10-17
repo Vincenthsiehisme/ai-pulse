@@ -35,7 +35,7 @@
   NVIDIA 宣布擴大歐洲科學界的先進運算取用，含開放學習資源、合作與算力。
 - **[[Events/evt-2026-10-15-efa674|Sullivan & Cromwell brings legal expertise into agreement review]]** — OpenAI · product · conf 73 · heat 未量測
   Sullivan & Cromwell 與 OpenAI 合作做出 Agreement Analyzer，用來找合約草稿裡的問題。
-- **[[Events/evt-2026-10-15-f9fdb2|Welcome FLUX.3 Image Klein in Diffusers]]** — Hugging Face · model-capability · conf 73 · heat 未量測
+- **[[Events/evt-2026-10-15-f9fdb2|Welcome FLUX.3 Image Klein in Diffusers]]** — Hugging Face · model-capability · conf 80 · heat 未量測
   Hugging Face 宣布 Diffusers 支援 FLUX.3 Image Klein。
 
 ## 2026-10-14

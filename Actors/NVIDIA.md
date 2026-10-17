@@ -3,17 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-16'
+generated_day: '2026-10-17'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **87** 則：`dropped` 1、`published` 82、`review` 4
+事件 **88** 則：`dropped` 1、`published` 83、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-16 | [[Events/evt-2026-10-16-7149f7\|Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-be1784\|NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-bd52bf\|Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-57e880\|Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark]] | published |

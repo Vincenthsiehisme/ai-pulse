@@ -3,20 +3,22 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-16'
+generated_day: '2026-10-17'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **155** 則：`published` 150、`review` 5
+事件 **157** 則：`published` 152、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-15 | [[Events/evt-2026-10-15-efa674\|Sullivan & Cromwell brings legal expertise into agreement review]] | review |
+| 2026-10-16 | [[Events/evt-2026-10-16-bd6b14\|Benefit Street Partners answers questions faster with Codex]] | review |
+| 2026-10-16 | [[Events/evt-2026-10-16-921b99\|Stack Overflow for Agents triples signups with ChatGPT plugin]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-efa674\|Sullivan & Cromwell brings legal expertise into agreement review]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-a85352\|Teaching students to think and learn through questions]] | published |
-| 2026-10-15 | [[Events/evt-2026-10-15-8cf5c3\|Bringing GPT-Rosalind to academic research labs]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-8cf5c3\|Bringing GPT-Rosalind to academic research labs]] | published |
 | 2026-10-14 | [[Events/evt-2026-10-14-f443ac\|SentinelOne cuts malware analysis from weeks to hours]] | published |
 | 2026-10-14 | [[Events/evt-2026-10-14-c89100\|The EU’s next chapter in AI is agentic]] | published |
 | 2026-10-14 | [[Events/evt-2026-10-14-9b69f6\|Amp puts AI agents to work beyond code with OpenAI models]] | published |

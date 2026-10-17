@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-16'
+generated_day: '2026-10-17'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**81 天**（2026-07-24 … 2026-10-16），去重後 **5376** 列。
+語料範圍：**82 天**（2026-07-24 … 2026-10-17），去重後 **5424** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,43 +17,43 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 162 | 2 |
-| Apple | 122 | 5 |
-| Amazon | 75 | 5 |
+| Show HN | 164 | 2 |
+| Apple | 123 | 5 |
+| Amazon | 76 | 5 |
 | September | 61 | 8 |
 | LLMs | 55 | 13 |
 | There | 55 | 7 |
 | They | 52 | 9 |
-| LLM | 51 | 12 |
+| LLM | 52 | 12 |
 | Here | 48 | 8 |
 | October | 45 | 7 |
 | One | 43 | 10 |
 | Trump | 43 | 5 |
 | Muse | 43 | 5 |
 | San Francisco | 40 | 9 |
+| CEO | 39 | 5 |
 | Python | 38 | 4 |
-| CEO | 38 | 5 |
 | When | 37 | 11 |
 | AI-powered | 36 | 10 |
 | Pro | 36 | 7 |
 | July | 34 | 9 |
 | U.S | 34 | 8 |
+| Linux | 32 | 5 |
+| Last | 32 | 6 |
+| After | 32 | 6 |
 | Android | 32 | 4 |
 | China | 31 | 8 |
-| Linux | 31 | 5 |
-| Last | 31 | 6 |
-| After | 31 | 6 |
 | June | 30 | 7 |
+| August | 30 | 8 |
 | Astra | 30 | 5 |
 | Research | 29 | 6 |
-| August | 29 | 8 |
-| AI-generated | 27 | 8 |
-| With | 26 | 10 |
+| AI-generated | 28 | 8 |
+| With | 27 | 10 |
 | Building | 25 | 10 |
 | Rust | 25 | 3 |
+| These | 25 | 7 |
 | Windows | 25 | 5 |
 | Learn | 24 | 6 |
-| These | 24 | 7 |
 | Pixel | 24 | 3 |
 | Europe | 23 | 8 |
 | Wednesday | 22 | 5 |
@@ -62,17 +62,17 @@ generator: scripts/pulse-dictionary-gaps.py
 | Opus | 21 | 5 |
 | Over | 21 | 5 |
 | Tuesday | 20 | 6 |
+| Elon Musk | 20 | 5 |
+| Flash | 19 | 5 |
 | Mac | 19 | 4 |
 | Chinese | 19 | 8 |
-| Elon Musk | 19 | 5 |
+| Tool | 19 | 2 |
+| SpaceX | 19 | 5 |
 | The AI | 19 | 6 |
 | Don | 19 | 5 |
-| Flash | 18 | 5 |
 | Thursday | 18 | 4 |
 | Some | 18 | 8 |
 | Fable | 18 | 5 |
-| Tool | 18 | 2 |
-| SpaceX | 18 | 5 |
 | While | 18 | 4 |
 | RAM | 18 | 2 |
 | Xbox | 18 | 2 |
@@ -91,7 +91,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | The Download | 63 | src-media-mit-techreview |
 | Tags | 35 | src-kol-simonwillison |
 | Register | 27 | src-media-techcrunch |
-| Hi HN | 23 | src-hn-frontpage |
+| Hi HN | 24 | src-hn-frontpage |
 | MIT Technology Review | 22 | src-media-mit-techreview |
 | Highlights | 19 | src-gh-vllm-releases |
 | Launch HN | 19 | src-hn-frontpage |
@@ -107,6 +107,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | A Blog | 12 | src-hf-blog |
 | The Stepback | 11 | src-media-theverge |
 | YC S26 | 11 | src-hn-frontpage |
+| Installer No | 10 | src-media-theverge |
+| Verge-iest | 10 | src-media-theverge |
+| Installer | 10 | src-media-theverge |
+| Roundtables | 10 | src-media-mit-techreview |
 | Disrupt | 10 | src-media-techcrunch |
 | Moscone West | 10 | src-media-techcrunch |
 | October Prime Day | 10 | src-media-theverge |
@@ -115,17 +119,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | FCC | 9 | src-media-theverge |
-| Installer No | 9 | src-media-theverge |
-| Verge-iest | 9 | src-media-theverge |
-| Installer | 9 | src-media-theverge |
-| Roundtables | 9 | src-media-mit-techreview |
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
+| Walmart | 8 | src-media-theverge |
 | Startup Battlefield | 8 | src-media-techcrunch |
 | Sunday | 7 | src-media-theverge |
 | The Algorithm | 7 | src-media-mit-techreview |
 | Apple TV | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
-| Walmart | 7 | src-media-theverge |
 | Series A | 7 | src-media-techcrunch |
 | Verge | 7 | src-media-theverge |
 | Victoria Song | 7 | src-media-theverge |
@@ -136,6 +136,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | AI Stage | 6 | src-media-techcrunch |
 | Spider-Man | 6 | src-media-theverge |
 | Lenovo | 6 | src-media-theverge |
+| Bose | 6 | src-media-theverge |
 | Grand Theft Auto | 6 | src-media-theverge |
 | The New York | 6 | src-media-theverge |
 | Optimizer | 6 | src-media-theverge |
@@ -146,7 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Nscale | 5 | src-media-techcrunch |
 | PlayStation | 5 | src-media-theverge |
 | Reuters | 5 | src-media-theverge |
-| Real World AI | 5 | src-media-techcrunch |
 
 ## 這一頁不保證什麼
 
