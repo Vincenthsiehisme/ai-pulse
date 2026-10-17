@@ -1,10 +1,16 @@
-# 已發布事件（454）
+# 已發布事件（457）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-10-16
 - **[[Events/evt-2026-10-16-7149f7|Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline]]** — NVIDIA · research · conf 73 · heat 未量測
   NVIDIA 在 Hugging Face 發表印度語系預訓練資料，標題寫 2.8 兆 token 加一條開放的資料生成流程。
+- **[[Events/evt-2026-10-16-921b99|Stack Overflow for Agents triples signups with ChatGPT plugin]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 說 Stack Overflow for Agents 靠 ChatGPT 外掛，讓代理建立數成長最高 10 倍。
+- **[[Events/evt-2026-10-16-b1b8ac|How Itaú is building generative AI for its entire customer base]]** — Itaú · product · conf 73 · heat 未量測
+  巴西銀行 Itaú 用 ia.i 對話介面與 IARA 治理平台，把生成式 AI 推向全體客戶。
+- **[[Events/evt-2026-10-16-bd6b14|Benefit Street Partners answers questions faster with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  Benefit Street Partners 的 Anant Kumar 用 Codex 做放款估值比較與信貸合約分析工具。
 - **[[Events/evt-2026-10-16-bdd080|Welcome Beam: a 501B open model you can own, customize, and scale]]** — Reflection AI · model-capability · conf 73 · heat 未量測
   Hugging Face 部落格出現 Beam，標題稱是可自有、可客製的 501B 開放模型。
 

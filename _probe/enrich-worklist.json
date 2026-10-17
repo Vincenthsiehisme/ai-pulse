@@ -1,70 +1,8 @@
 [
   {
-    "id": "evt-2026-10-15-3f28e4",
-    "path": "evt-2026-10-15-3f28e4.md",
-    "title": "Offering Expanded Claude Access Across All Three Branches Of Government",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Anthropic",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/offering-expanded-claude-access-across-all-three-branches-of-government",
-        "title": "Offering Expanded Claude Access Across All Three Branches Of Government",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-15-74ed5b",
-    "path": "evt-2026-10-15-74ed5b.md",
-    "title": "Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1",
-        "title": "Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint",
-        "summary": "A Blog post by IBM Granite on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-15-8cf5c3",
-    "path": "evt-2026-10-15-8cf5c3.md",
-    "title": "Bringing GPT-Rosalind to academic research labs",
+    "id": "evt-2026-10-16-921b99",
+    "path": "evt-2026-10-16-921b99.md",
+    "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -73,9 +11,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/introducing-the-rosalind-academic-plan",
-        "title": "Bringing GPT-Rosalind to academic research labs",
-        "summary": "Introducing the Rosalind Academic Plan, offering eligible academic labs sponsored access to GPT-Rosalind and tools to advance life sciences research.",
+        "url": "https://openai.com/index/stack-overflow-chatgpt-plugin",
+        "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
+        "summary": "Two engineers shipped Stack Overflow for Agents in a few weeks with Codex, and its ChatGPT plugin helped drive up to 10× growth in agent creation.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -92,9 +30,39 @@
     }
   },
   {
-    "id": "evt-2026-10-15-efa674",
-    "path": "evt-2026-10-15-efa674.md",
-    "title": "Sullivan & Cromwell brings legal expertise into agreement review",
+    "id": "evt-2026-10-16-b1b8ac",
+    "path": "evt-2026-10-16-b1b8ac.md",
+    "title": "How Itaú is building generative AI for its entire customer base",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/itau-generative-ai",
+        "title": "How Itaú is building generative AI for its entire customer base",
+        "summary": "With ia.i, a conversational interface, and the IARA governance platform, Itaú is applying its AI First strategy to customers and employees — in one of Brazil’s most regulated sectors.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-16-bd6b14",
+    "path": "evt-2026-10-16-bd6b14.md",
+    "title": "Benefit Street Partners answers questions faster with Codex",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -103,69 +71,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/sullivan-cromwell",
-        "title": "Sullivan & Cromwell brings legal expertise into agreement review",
-        "summary": "In collaboration with OpenAI, Sullivan & Cromwell developed Agreement Analyzer, an AI tool for identifying issues in a draft agreement.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-16-7149f7",
-    "path": "evt-2026-10-16-7149f7.md",
-    "title": "Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/nvidia/scaling-indic-pretraining",
-        "title": "Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline",
-        "summary": "A Blog post by NVIDIA on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-16-bdd080",
-    "path": "evt-2026-10-16-bdd080.md",
-    "title": "Welcome Beam: a 501B open model you can own, customize, and scale",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Scale AI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/reflection-beam",
-        "title": "Welcome Beam: a 501B open model you can own, customize, and scale",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "url": "https://openai.com/index/benefit-street-partners",
+        "title": "Benefit Street Partners answers questions faster with Codex",
+        "summary": "Anant Kumar builds tools to compare loan valuations and analyze credit agreements, using Codex for code review and faster follow-ups.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"

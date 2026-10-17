@@ -1504,6 +1504,11 @@
     "src_hash": "4f5323613c9b",
     "zh": "建立擬真 RL 環境的開源框架，涵蓋產物、環境工具、環境動態與可重現性"
   },
+  "scenario-labs/blender-plugin": {
+    "at": "2026-10-17T18:04:23+00:00",
+    "src_hash": "937b9b778b30",
+    "zh": "Blender 擴充：在視窗內生成 AI 圖像、影片、3D 與 PBR 材質，附本機 MCP server"
+  },
   "scrypster/muninndb": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "02be7fc4362a",
@@ -1518,6 +1523,11 @@
     "at": "2026-10-13T20:55:59+00:00",
     "src_hash": "0d9ca097fc4c",
     "zh": "本機偵測 AI 寫作痕跡的工具，替 agent 存的文字檔評分，只用 Python 標準庫"
+  },
+  "sgaofen/humanizer-local-model": {
+    "at": "2026-10-17T18:04:23+00:00",
+    "src_hash": "06c1e3b82b5c",
+    "zh": "把 AI 草稿改寫成像人寫的，在本機執行，保留原本的事實"
   },
   "sgl-project/sglang": {
     "at": "2026-08-31T19:11:07+00:00",
@@ -1564,15 +1574,20 @@
     "src_hash": "5c153bafeb67",
     "zh": "整理自實際生產環境的 AI 寫程式工具包：Claude Code 外掛、subagent 編排、品質關卡與現成提示詞"
   },
+  "springvoiceswell/semrush-ai-tool": {
+    "at": "2026-10-17T18:04:23+00:00",
+    "src_hash": "fda50184a40f",
+    "zh": "Semrush SEO 分析工具的 MCP server 與 CLI，用於關鍵字研究、網域分析、反向連結分析"
+  },
   "sqliteai/sqlite-vector": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "f119f30849a5",
     "zh": "跨平台、高效率的 SQLite 擴充，替嵌入式資料庫加上向量搜尋"
   },
   "stablyai/orca": {
-    "at": "2026-10-02T20:16:53+00:00",
-    "src_hash": "047f56869216",
-    "zh": "Orca 是管理多個平行 agent 的整合開發環境，可用自己的訂閱執行任何程式 agent，支援桌面、行動與遠端"
+    "at": "2026-10-17T18:04:23+00:00",
+    "src_hash": "e30ec82e80d9",
+    "zh": "管理多個 agent（如 Grok Bot、Claude Code）的工作環境，用自己的訂閱，支援桌面與行動"
   },
   "stas00/ml-engineering": {
     "at": "2026-10-05T22:18:12+00:00",
