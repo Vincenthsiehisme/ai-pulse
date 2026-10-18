@@ -1,32 +1,32 @@
 [
   {
-    "id": "evt-2026-10-14-3b8c3c",
-    "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
-    "company": "OpenAI",
-    "track": "Agent與軟體重構",
-    "summary": "OpenAI 客戶案例：Third Moment Research 讓 10,000 個 agent 連跑 36 小時以上。",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-10-16-921b99",
     "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
     "company": "OpenAI",
+    "track": "Agent與軟體重構",
+    "summary": "OpenAI 說 Stack Overflow for Agents 靠 ChatGPT 外掛，讓代理建立數成長最高 10 倍。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-17-2d9ac1",
+    "title": "RTX Spark Ignites Global Celebration as New Windows PCs Arrive",
+    "company": "Microsoft",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-16-b1b8ac",
-    "title": "How Itaú is building generative AI for its entire customer base",
+    "id": "evt-2026-10-18-3f122f",
+    "title": "Public Benefit Fund",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-16-bd6b14",
-    "title": "Benefit Street Partners answers questions faster with Codex",
-    "company": "OpenAI",
+    "id": "evt-2026-10-18-fc5edf",
+    "title": "v0.32.0",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null

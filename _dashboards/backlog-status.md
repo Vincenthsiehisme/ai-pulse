@@ -1,5 +1,5 @@
 ---
-generated_day: '2026-10-17'
+generated_day: '2026-10-18'
 generator: scripts/pulse-backlog-status.py
 ---
 
@@ -16,8 +16,8 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 總數 | 504 |
-| `published` | 454 |
+| 總數 | 507 |
+| `published` | 457 |
 | `review` | 48 |
 | `dropped` | 2 |
 | 帶 `stale_backfill` | 12 |
@@ -34,8 +34,8 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| `_corpus/` 天數 | 82 |
-| 起訖 | 2026-07-24 … 2026-10-17 |
+| `_corpus/` 天數 | 83 |
+| 起訖 | 2026-07-24 … 2026-10-18 |
 
 ## 來源
 
@@ -61,7 +61,7 @@ generator: scripts/pulse-backlog-status.py
 
 | 量到什麼 | 值 |
 |---|---|
-| 時間 | 2026-10-17T18:00:09+00:00 |
+| 時間 | 2026-10-18T18:19:12+00:00 |
 | 條目 / 來源 | 418 items / 33 sources |
 | status 分佈 | 200 20、304 3、429 1、error 1、robots_disallow 1、robots_unknown 2、skipped_lifecycle 5 |
 | 零產出（200 但 0 筆） | src-mistral-news |

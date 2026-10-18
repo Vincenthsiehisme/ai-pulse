@@ -21,7 +21,7 @@ items_observed: 0
 events_bound: 0
 events_published: 0
 health_score: 0
-consecutive_failures: 57
+consecutive_failures: 58
 last_status: "error"
 ---
 

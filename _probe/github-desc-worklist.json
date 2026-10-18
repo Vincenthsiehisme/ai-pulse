@@ -1,35 +1,51 @@
 [
   {
-    "full_name": "scenario-labs/blender-plugin",
-    "desc": "Scenario for Blender: AI images, video, 3D and PBR materials in the viewport, plus a local MCP server for agents. Blender 5.0+ extension, GPL-3.0-or-later.",
-    "language": "Python",
-    "topics": [
-      "3d",
-      "agentic-ai",
-      "ai",
-      "blender",
-      "blender-addon",
-      "blender-extension"
-    ],
-    "stars": 502,
-    "url": "https://github.com/scenario-labs/blender-plugin",
-    "stale_zh": null
-  },
-  {
-    "full_name": "stablyai/orca",
-    "desc": "Orca is the place for working with a fleet of agents (e.g. Grok Bot, Claude Code). Run any coding agent with your own subscription. Available on desktop, mobile and remote runtime.",
+    "full_name": "diegosouzapw/OmniRoute",
+    "desc": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by 900+ contributors",
     "language": "TypeScript",
     "topics": [
-      "ade",
-      "agent-ide",
+      "a2a",
       "ai-agents",
-      "automation",
-      "bot",
+      "ai-gateway",
+      "anthropic",
+      "claude",
       "claude-code"
     ],
-    "stars": 95141,
-    "url": "https://github.com/stablyai/orca",
-    "stale_zh": "Orca 是管理多個平行 agent 的整合開發環境，可用自己的訂閱執行任何程式 agent，支援桌面、行動與遠端"
+    "stars": 78040,
+    "url": "https://github.com/diegosouzapw/OmniRoute",
+    "stale_zh": "免費 MIT 授權的 AI gateway，單一端點串 359 家供應商、1200 多個模型，額度用完自動切換"
+  },
+  {
+    "full_name": "xerj-org/xerj",
+    "desc": "XERJ is the new way for AI to search data. Its autoindex capability activates agents to know your data without the token waste of grep (1974 tool). One command indexes code, docs, logs and PDFs for search, RAG, security audits and agent memory, using 40x fewer tokens than grep. It’s durable and can replace ElasticSearch saving you x10 infra costs.",
+    "language": "Rust",
+    "topics": [
+      "ai-search",
+      "ai-search-algorithms",
+      "ai-search-engine",
+      "ai-search-free",
+      "ai-search-module",
+      "ai-search-optimization"
+    ],
+    "stars": 8288,
+    "url": "https://github.com/xerj-org/xerj",
+    "stale_zh": "給 AI 搜尋資料的索引工具，一行指令索引程式碼、文件、日誌與 PDF，稱比 grep 省 40 倍 token"
+  },
+  {
+    "full_name": "nexu-io/open-design",
+    "desc": "The 1st Collaborative AI Design Agent Workspace. Local-first and open source. Create motion, prototypes, websites, apps, dashboards, presentations, images, and videos with your team and AI agents. Share work, exchange feedback, and iterate together in one workspace.",
+    "language": "TypeScript",
+    "topics": [
+      "ai-design",
+      "byok",
+      "design-systems",
+      "claude-design",
+      "hermes-agent",
+      "agent-skills"
+    ],
+    "stars": 102168,
+    "url": "https://github.com/nexu-io/open-design",
+    "stale_zh": "開源、本機優先的協作式 AI 設計工作區，與團隊和 agent 一起做原型、網頁、簡報與影片"
   },
   {
     "full_name": "breakstageaxe61/genspark-claw",
@@ -43,72 +59,138 @@
       "awesome-genspark",
       "genspark-agent"
     ],
-    "stars": 363,
+    "stars": 411,
     "url": "https://github.com/breakstageaxe61/genspark-claw",
     "stale_zh": null
   },
   {
-    "full_name": "sgaofen/humanizer-local-model",
-    "desc": "Rewrites AI drafts so they read like a person wrote them — runs locally, keeps the facts",
-    "language": "Python",
-    "topics": [
-      "gguf",
-      "humanizer",
-      "llama-cpp",
-      "llm",
-      "local-llm",
-      "rewriting"
-    ],
-    "stars": 346,
-    "url": "https://github.com/sgaofen/humanizer-local-model",
-    "stale_zh": null
-  },
-  {
-    "full_name": "springvoiceswell/semrush-ai-tool",
-    "desc": "Semrush SEO AI-powered analysis tool MCP server & CLI for keyword research, domain analytics, backlink analysis",
-    "language": "JavaScript",
-    "topics": [
-      "ai-seo",
-      "backlink-analysis",
-      "claude-desktop",
-      "cursor-pro",
-      "semrush",
-      "semrush-alternative"
-    ],
-    "stars": 343,
-    "url": "https://github.com/springvoiceswell/semrush-ai-tool",
-    "stale_zh": null
-  },
-  {
-    "full_name": "emo-xiaoyu/harness-mix",
-    "desc": "",
+    "full_name": "XiaoPuOuO/openchatx-mcp",
+    "desc": "Turn ChatGPT into a local agent runtime. Operate your computer, use local tools, discover MCP servers, and delegate work to your own models through one MCP connection.",
     "language": "TypeScript",
     "topics": [
+      "agent-runtime",
       "ai-agents",
-      "cluade-code",
-      "codebuddy",
-      "codex",
-      "cursor",
-      "deepseek-harness"
+      "chatgpt",
+      "local-agent",
+      "macos",
+      "mcp"
     ],
-    "stars": 625,
-    "url": "https://github.com/emo-xiaoyu/harness-mix",
+    "stars": 323,
+    "url": "https://github.com/XiaoPuOuO/openchatx-mcp",
     "stale_zh": null
   },
   {
-    "full_name": "googleworkspace/cli",
-    "desc": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google Discovery Service. Includes AI agent skills.",
+    "full_name": "perplexityai/SPACE",
+    "desc": "Sandboxed Platform for Agentic Code Execution: pluggable-runtime sandboxes for running agent and user code in isolation.",
+    "language": "Rust",
+    "topics": [],
+    "stars": 1516,
+    "url": "https://github.com/perplexityai/SPACE",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Evil0ctal/Douyin_TikTok_Download_API",
+    "desc": "🚀 自托管的抖音、TikTok 数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok & Douyin scraper and no-watermark video downloader — async REST API, MCP server for AI agents, CLI and web console, plus offline speech-to-text for downloaded videos. Self-healing identity pool, PostgreSQL archive, one docker compose up.",
+    "language": "Python",
+    "topics": [
+      "ai-agents",
+      "crawler",
+      "data-collection",
+      "douyin",
+      "douyin-api",
+      "downloader"
+    ],
+    "stars": 20771,
+    "url": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API",
+    "stale_zh": "自架的抖音與 TikTok 資料擷取、無浮水印影片下載 API，支援 MCP 與 Docker 部署"
+  },
+  {
+    "full_name": "himovo/movo",
+    "desc": "Turn DeepSeek Harness into a self-hosted enterprise Agent platform with knowledge, deep research, content generation, vibe coding, browser automation, governance, and admin controls.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "ai-agents",
+      "brower-automation",
+      "dsh-plugin",
+      "enterprise-agents",
+      "mcp"
+    ],
+    "stars": 304,
+    "url": "https://github.com/himovo/movo",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Zackriya-Solutions/meetily",
+    "desc": "Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker diarization, and Ollama summarization built on Rust. 100% local processing. no cloud required. Meetily (Meetly Ai - https://meetily.ai) is the #1 Self-hosted, Open-source Ai meeting note taker for macOS & Windows. Understand How to write meeting minutes",
     "language": "Rust",
     "topics": [
-      "agent-skills",
-      "ai-agent",
-      "automation",
-      "cli",
-      "discovery-api",
-      "gemini-cli-extension"
+      "ai",
+      "ai-meeting-assistant",
+      "llm",
+      "local-ai",
+      "mac",
+      "meeting-minutes"
     ],
-    "stars": 31602,
-    "url": "https://github.com/googleworkspace/cli",
+    "stars": 31899,
+    "url": "https://github.com/Zackriya-Solutions/meetily",
+    "stale_zh": null
+  },
+  {
+    "full_name": "edison7009/EchoBird",
+    "desc": "Manage ChatGPT, Codex CLI, and Claude Code accounts and track quota in one place. Use multi-model smart routing with priority and automatic failover. Install AI tools and deploy local LLMs in one click.",
+    "language": "Rust",
+    "topics": [
+      "claude-code",
+      "deepseek",
+      "deepseek-harness",
+      "dsh-plugin",
+      "dsh-plugins",
+      "kimi-code"
+    ],
+    "stars": 3357,
+    "url": "https://github.com/edison7009/EchoBird",
+    "stale_zh": null
+  },
+  {
+    "full_name": "AlephAITech/WorkBuddyGuide",
+    "desc": "A practical, open-source guide to mastering WorkBuddy through real-world workflows.开源的 WorkBuddy 实战蓝皮书：教程、真实工作流、Skills、MCP、自动化与多智能体实践。",
+    "language": "TypeScript",
+    "topics": [
+      "codex",
+      "guide",
+      "llm",
+      "workbuddy",
+      "agent-skills",
+      "automation"
+    ],
+    "stars": 3503,
+    "url": "https://github.com/AlephAITech/WorkBuddyGuide",
+    "stale_zh": null
+  },
+  {
+    "full_name": "microsoft/autogen",
+    "desc": "A programming framework for agentic AI",
+    "language": "Python",
+    "topics": [
+      "agentic",
+      "agentic-agi",
+      "agents",
+      "ai",
+      "autogen",
+      "autogen-ecosystem"
+    ],
+    "stars": 61463,
+    "url": "https://github.com/microsoft/autogen",
+    "stale_zh": null
+  },
+  {
+    "full_name": "akitaonrails/ai-memory",
+    "desc": "Solution for long term memory for agent coding CLIs and to facilitate handoff between different agent vendors",
+    "language": "Rust",
+    "topics": [],
+    "stars": 10346,
+    "url": "https://github.com/akitaonrails/ai-memory",
     "stale_zh": null
   }
 ]

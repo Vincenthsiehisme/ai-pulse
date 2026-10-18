@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-17"
+generated_day: "2026-10-18"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-17"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **440** 則／已裁決 **26** 則。
+待回答 **443** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -30,19 +30,19 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`model-research#632500c3`** — model-research
   > 看 Beam 的權重是否真的可下載、授權寬不寬，以及第三方評測；看 NVIDIA 印度語系資料集與生成程式碼有沒有附連結與授權，有沒有人用它訓出模型；看 Granite Switch 4.1 內文有沒有列模型大小與語音、決策兩項的評測；看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準，以及 Bolt 在 24GB 裝置上的實測吞吐量；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 Gemini 4 Argon 原文公布的基準與開放日期，以及第三方評測；看 LFM2.5-24B-A2B 的模型卡有沒有列基準、授權與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
 
-- **`product-market#2519042c`** — product-market
-  > 看 Anthropic 政府公告原文有沒有列具體機關、定價或採購管道；看 Rosalind 方案公布的資格條件、贊助額度與首批實驗室；看 Sullivan & Cromwell 是否公布 Agreement Analyzer 的使用範圍或錯誤率；看 Block、SentinelOne、Sophos 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價；看 Radisson 外掛的預訂占比；看 Atlassian 整合的功能、可用方案與上線日期。
+- **`product-market#ff3a1a09`** — product-market
+  > 看 Itaú 或監理端是否公布 ia.i 的使用者數、處理量與申訴率；看 Anthropic 政府公告原文有沒有列具體機關、定價或採購管道；看 Rosalind 方案公布的資格條件、贊助額度與首批實驗室；看 Sullivan & Cromwell 是否公布 Agreement Analyzer 的使用範圍或錯誤率；看 Block、SentinelOne 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價。
 
 - **`capital-evolution#7cb61e65`** — capital-evolution
   > 看 Anthropic 新加坡辦公室原文有沒有給人數、客戶或合作對象，以及後續是否有在地合作公告；看 NVIDIA 或被投資新創是否公布投資金額與名單；讀 Genesis Mission Commitment 原文，確認承諾項目、時程與是否涉及資金；讀 Anthropic Cyber Mission 原文，確認它是新團隊、新產品還是對外承諾；看 Lenfest 計畫的參與機構與資金分配。
 
-- **`agent-refactor#f4709845`** — agent-refactor
-  > 看 OpenAI 或 Third Moment Research 是否公開任務完成率、單位成本，或第三方複現；看 Amp 是否公布非程式碼任務的類型與使用量；看 Hugging Face 那篇有沒有公開 ML intern 的程式碼或模型連結；看 NVIDIA 是否公布具名客戶或開發時間對比；看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果；看 Holo4 有沒有第三方的電腦操作評測。
+- **`agent-refactor#0c02defd`** — agent-refactor
+  > 看 Stack Overflow 或第三方是否公布代理建立數與註冊數的絕對值和期間；看 Benefit Street Partners 是否把工具擴到其他團隊並公布節省的時間；看 OpenAI 或 Third Moment Research 是否公開任務完成率、單位成本，或第三方複現；看 Amp 是否公布非程式碼任務的類型與使用量；看 Hugging Face 那篇有沒有公開 ML intern 的程式碼或模型連結；看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果；看 Holo4 有沒有第三方的電腦操作評測。
 
 - **`global-map#0f6ae177`** — global-map
   > 看 DeepMind 與 GovTech 是否公布偵測率、誤報率與部署的裝置範圍；看 OpenAI 歐盟分析的完整版有沒有公布方法、樣本與採用率，以及歐盟政策討論是否引用；看有沒有獨立研究機構公開同一批假身分的分析，對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
 
-## 事件層（434）
+## 事件層（437）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1342,6 +1342,15 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-10-16-7149f7#59793207`** — evt-2026-10-16-7149f7
   > 內文是否附資料集與生成程式碼的連結與授權；是否有第三方用它訓練出印度語系模型並公布評測。
+
+- **`evt-2026-10-16-921b99#a9e4aded`** — evt-2026-10-16-921b99
+  > Stack Overflow 或第三方是否公布代理建立數、註冊數的絕對值與統計期間，能驗證 10 倍這個說法。
+
+- **`evt-2026-10-16-b1b8ac#67c2ca46`** — evt-2026-10-16-b1b8ac
+  > Itaú 是否公布 ia.i 的使用者數、處理量或錯誤與申訴率，以及巴西監理機關對 IARA 類治理機制的回應。
+
+- **`evt-2026-10-16-bd6b14#091124a2`** — evt-2026-10-16-bd6b14
+  > Benefit Street Partners 是否把這類工具擴到其他團隊，或公布節省的時間與採用人數。
 
 - **`evt-2026-10-16-bdd080#0c9b147a`** — evt-2026-10-16-bdd080
   > Hugging Face 上是否有可下載的權重與授權條款；第三方對 Beam 的獨立評測。

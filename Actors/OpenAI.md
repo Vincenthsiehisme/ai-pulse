@@ -3,19 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-17'
+generated_day: '2026-10-18'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **157** 則：`published` 152、`review` 5
+事件 **157** 則：`published` 154、`review` 3
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-16 | [[Events/evt-2026-10-16-bd6b14\|Benefit Street Partners answers questions faster with Codex]] | review |
-| 2026-10-16 | [[Events/evt-2026-10-16-921b99\|Stack Overflow for Agents triples signups with ChatGPT plugin]] | review |
+| 2026-10-16 | [[Events/evt-2026-10-16-bd6b14\|Benefit Street Partners answers questions faster with Codex]] | published |
+| 2026-10-16 | [[Events/evt-2026-10-16-921b99\|Stack Overflow for Agents triples signups with ChatGPT plugin]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-efa674\|Sullivan & Cromwell brings legal expertise into agreement review]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-a85352\|Teaching students to think and learn through questions]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-8cf5c3\|Bringing GPT-Rosalind to academic research labs]] | published |

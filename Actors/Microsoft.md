@@ -3,17 +3,18 @@ id: actor-microsoft
 kind: company
 in_dictionary: true
 aliases: ["微軟", "MSFT"]
-generated_day: '2026-10-17'
+generated_day: '2026-10-18'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Microsoft
 
-事件 **7** 則：`published` 6、`review` 1
+事件 **8** 則：`published` 6、`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-17 | [[Events/evt-2026-10-17-2d9ac1\|RTX Spark Ignites Global Celebration as New Windows PCs Arrive]] | review |
 | 2026-10-07 | [[Events/evt-2026-10-07-ed2654\|Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses]] | published |
 | 2026-10-07 | [[Events/evt-2026-10-07-839523\|NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents]] | published |
 | 2026-10-03 | [[Events/evt-2026-10-03-623369\|The Agent Said It Was Done. The Database Disagreed.]] | review |
