@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-17'
+updated: '2026-10-18'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 這一輪新增 10-15 的兩則 NVIDIA 區域布局文章。一則談北歐國家投入先進運算，引用的是北歐新創密度，摘要沒有算力投資金額或專案名稱。另一則宣布擴大歐洲科學界的取用，含開放學習資源、合作與算力，算力規模與申請條件摘要被截斷。前一輪的 NVIDIA 歐洲市政 agent 文章沒有具名城市、合約或成效數字。10-13 的〈All Systems Go〉稱 RTX Spark 最高 128GB 統一記憶體、1 petaflop 的 AI 算力，是廠商自述，沒有第三方實測。10-12 的 Vera Rubin 開放架構、10-08 LegalOn 的 Codex 成本降 65%、10-09 Ai2 的 GPU 排程文章與 10-05 vLLM v0.31.0，仍是單一來源或缺對照數字。
-    next: 看歐洲科學界取用計畫公布的算力配額、申請方式與首批合作機構；看北歐文章是否列出各國 AI 工廠或超級電腦專案與金額；看 NVIDIA 市政文章是否點名具體城市與合約，以及上線後的成效數據；看搭載 RTX Spark 的筆電上市日期與定價，以及第三方實測的本地模型推論速度；看 OCP 或 NVIDIA 有沒有釋出 Vera Rubin 的開放規格文件；看其他 Codex 客戶有沒有公布類似的成本數字與 65% 的比較基準；看 Ai2 那篇有沒有給叢集利用率的前後數字；看 vLLM 或社群公布 DeepSeek-V4.1-Flash 的吞吐與延遲對照；看 DGX Spark 64GB 版的定價與開賣日。
+    now: 這一輪新增 10-18 的 vLLM v0.32.0 與 10-17 的 NVIDIA RTX Spark 筆電開賣。v0.32.0 有 814 個 commit、363 位貢獻者，新增預設啟用的 POST /v1/systemone 端點，摘要沒有效能數字。RTX Spark 筆電起價 2,399 美元、最高 128GB 統一記憶體，ASUS、Dell、HP、Lenovo、Microsoft、MSI 都有機種，全是廠商自述，沒有第三方實測。10-15 的北歐與歐洲科學界兩則 NVIDIA 文章、10-14 的歐洲市政 agent 文章，仍缺算力金額、專案名稱與成效數字。10-13 的〈All Systems Go〉、10-12 的 Vera Rubin 開放架構、10-09 Ai2 的 GPU 排程文章，同樣是單一來源或缺對照數字。
+    next: 看 RTX Spark 筆電的獨立評測，尤其是本機大模型推論速度與 128GB 機種的實際售價；看 vLLM v0.32.0 的完整 release notes 與 /v1/systemone 的文件及後續 issue；看歐洲科學界取用計畫公布的算力配額與首批合作機構；看北歐文章是否列出各國專案與金額；看市政 agent 文章是否點名城市與合約；看 Vera Rubin 的開放規格文件有沒有釋出；看 Ai2 那篇有沒有給叢集利用率的前後數字。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -50,8 +50,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 這一輪新增 10-14 的 Anthropic「Singapore Office Opening」，依授權只收標題與連結，人員規模、時程與業務範圍要讀原文，單看標題只能確定 Anthropic 在亞太增加一個據點。10-13 NVIDIA 宣布對法國新創的新投資，文中說法國企業已把 agentic computing 用在太空、金融服務、公共部門與科學研究，投資金額與被投資名單摘要沒有給，目前只有 NVIDIA 單一來源。其餘延續上一輪：10-08 Anthropic 的 Genesis Mission Commitment 與 Cyber Mission 依授權只收標題與連結，我們無從判斷是否涉及資金；09-30 的 NVIDIA 研究生獎學金最高 6 萬美元與 09-28 OpenAI 對 Lenfest 計畫出資 500 萬美元，仍是最近的資金類訊號。
-    next: 看 Anthropic 新加坡辦公室原文有沒有給人數、客戶或合作對象，以及後續是否有在地合作公告；看 NVIDIA 或被投資新創是否公布投資金額與名單；讀 Genesis Mission Commitment 原文，確認承諾項目、時程與是否涉及資金；讀 Anthropic Cyber Mission 原文，確認它是新團隊、新產品還是對外承諾；看 Lenfest 計畫的參與機構與資金分配。
+    now: 這一輪新增 10-18 的 Anthropic〈Public Benefit Fund〉，依授權只收標題與連結，基金規模、用途與對象要讀原文，單看標題無從判斷。10-14 的 Anthropic 新加坡辦公室同樣只有標題與連結，只能確定在亞太增加據點。10-13 NVIDIA 對法國新創的新投資，投資金額與名單摘要沒有給，目前只有 NVIDIA 單一來源。10-08 Anthropic 的 Genesis Mission Commitment 與 Cyber Mission 也只收標題與連結。09-30 的 NVIDIA 研究生獎學金最高 6 萬美元與 09-28 OpenAI 對 Lenfest 計畫出資 500 萬美元，仍是最近有金額的資金類訊號。
+    next: 讀 Public Benefit Fund 原文，確認基金規模、出資方式與受益對象；看 Anthropic 新加坡辦公室原文有沒有給人數與合作對象；看 NVIDIA 或被投資新創是否公布法國投資的金額與名單；讀 Genesis Mission Commitment 與 Cyber Mission 原文，確認承諾項目、時程與是否涉及資金；看 Lenfest 計畫的參與機構與資金分配。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？

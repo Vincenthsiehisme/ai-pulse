@@ -1,19 +1,19 @@
 [
   {
-    "id": "evt-2026-10-16-921b99",
-    "path": "evt-2026-10-16-921b99.md",
-    "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
+    "id": "evt-2026-10-17-2d9ac1",
+    "path": "evt-2026-10-17-2d9ac1.md",
+    "title": "RTX Spark Ignites Global Celebration as New Windows PCs Arrive",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "Microsoft",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/stack-overflow-chatgpt-plugin",
-        "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
-        "summary": "Two engineers shipped Stack Overflow for Agents in a few weeks with Codex, and its ChatGPT plugin helped drive up to 10× growth in agent creation.",
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-windows-laptops-celebration/",
+        "title": "RTX Spark Ignites Global Celebration as New Windows PCs Arrive",
+        "summary": "NVIDIA RTX Spark laptops are now available, bringing NVIDIA Blackwell RTX graphics, up to 128GB of unified memory and the full NVIDIA AI platform to slim, premium Windows PCs.  Starting at $2,399, laptops from ASUS, Dell, HP, Lenovo, Microsoft and MSI bring powerful local AI, content creation and ga",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,9 +30,9 @@
     }
   },
   {
-    "id": "evt-2026-10-16-b1b8ac",
-    "path": "evt-2026-10-16-b1b8ac.md",
-    "title": "How Itaú is building generative AI for its entire customer base",
+    "id": "evt-2026-10-18-3f122f",
+    "path": "evt-2026-10-18-3f122f.md",
+    "title": "Public Benefit Fund",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -40,40 +40,42 @@
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/itau-generative-ai",
-        "title": "How Itaú is building generative AI for its entire customer base",
-        "summary": "With ia.i, a conversational interface, and the IARA governance platform, Itaú is applying its AI First strategy to customers and employees — in one of Brazil’s most regulated sectors.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/public-benefit-fund",
+        "title": "Public Benefit Fund",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
       }
     ],
     "availability": {
       "counts": {
-        "has_text": 1,
+        "has_text": 0,
         "unfetched": 0,
-        "withheld": 0
+        "withheld": 1
       },
-      "needs_source_link": false,
-      "reasons": []
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
     }
   },
   {
-    "id": "evt-2026-10-16-bd6b14",
-    "path": "evt-2026-10-16-bd6b14.md",
-    "title": "Benefit Street Partners answers questions faster with Codex",
+    "id": "evt-2026-10-18-fc5edf",
+    "path": "evt-2026-10-18-fc5edf.md",
+    "title": "v0.32.0",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/benefit-street-partners",
-        "title": "Benefit Street Partners answers questions faster with Codex",
-        "summary": "Anant Kumar builds tools to compare loan valuations and analyze credit agreements, using Codex for code review and faster follow-ups.",
+        "source_id": "src-gh-vllm-releases",
+        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.32.0",
+        "title": "v0.32.0",
+        "summary": "# v0.32.0\r\n\r\n## Highlights\r\n\r\nThis release features 814 commits from 363 contributors (121 new)!\r\n\r\n* **Structured decisions and generic parsers**: the new `POST /v1/systemone` endpoint answers `choice`, `noul` and `score` questions over a structured state (#59299), is served by default (#60677, #60",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"

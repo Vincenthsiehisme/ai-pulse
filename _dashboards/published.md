@@ -1,6 +1,16 @@
-# 已發布事件（457）
+# 已發布事件（460）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-18
+- **[[Events/evt-2026-10-18-3f122f|Public Benefit Fund]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布〈Public Benefit Fund〉一文，內容本站不轉述，請看原文。
+- **[[Events/evt-2026-10-18-fc5edf|v0.32.0]]** — vLLM · infra · conf 73 · heat 未量測
+  vLLM 釋出 v0.32.0，累計 814 個 commit、363 位貢獻者，新增 /v1/systemone 端點。
+
+## 2026-10-17
+- **[[Events/evt-2026-10-17-2d9ac1|RTX Spark Ignites Global Celebration as New Windows PCs Arrive]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 宣布 RTX Spark 筆電開賣，起價 2,399 美元，最高 128GB 統一記憶體。
 
 ## 2026-10-16
 - **[[Events/evt-2026-10-16-7149f7|Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline]]** — NVIDIA · research · conf 73 · heat 未量測

@@ -34,6 +34,11 @@
     "src_hash": "6be7dcaf63df",
     "zh": "把文字與真實來源轉成可維護的 .drawio 架構圖，支援增量同步、多視角投影，並內建 MCP server"
   },
+  "AlephAITech/WorkBuddyGuide": {
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "f2563902e5f8",
+    "zh": "開源的 WorkBuddy 實戰指南，含教學、真實工作流、Skills、MCP、自動化與多 agent 實踐"
+  },
   "Alishahryar1/free-claude-code": {
     "at": "2026-10-10T19:38:45+00:00",
     "src_hash": "46131b106445",
@@ -130,9 +135,9 @@
     "zh": "本機優先的 AI agent，記憶需經核准才寫入，可接任何模型供應商，內建 MCP 工具與網頁搜尋，資料不離開你的電腦"
   },
   "Evil0ctal/Douyin_TikTok_Download_API": {
-    "at": "2026-10-09T20:27:19+00:00",
-    "src_hash": "3facf6e7788e",
-    "zh": "自架的抖音與 TikTok 資料擷取、無浮水印影片下載 API，支援 MCP 與 Docker 部署"
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "934b8091ba70",
+    "zh": "自架的抖音與 TikTok 資料擷取、無浮水印影片下載 API，支援 MCP、離線語音轉文字與 Docker 部署"
   },
   "FareedKhan-dev/kimi-k3-in-c": {
     "at": "2026-08-10T19:09:33+00:00",
@@ -514,6 +519,11 @@
     "src_hash": "2f0b960b4fc0",
     "zh": "精選 300 多個由產品原廠發布的官方 MCP server 目錄，不收非官方 fork 與已停更專案"
   },
+  "XiaoPuOuO/openchatx-mcp": {
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "912806067f80",
+    "zh": "把 ChatGPT 變成本機 agent 執行環境，透過單一 MCP 連線操作電腦、使用本機工具"
+  },
   "Yeachan-Heo/oh-my-claudecode": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "1465816ff206",
@@ -523,6 +533,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "e168a11c732a",
     "zh": "本機優先的 AI 創作工作站，含對話、漫畫、寫作與知識學習，支援 vLLM、llama.cpp 本地推理"
+  },
+  "Zackriya-Solutions/meetily": {
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "dba0e7237da2",
+    "zh": "隱私優先的 AI 會議助理，Rust 寫成，本機即時逐字稿、講者辨識與 Ollama 摘要，不需雲端"
   },
   "ZhuLinsen/daily_stock_analysis": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -583,6 +598,11 @@
     "at": "2026-10-13T20:55:59+00:00",
     "src_hash": "97e5a60aa72e",
     "zh": "本機多 agent 工具，搭配現有 Claude Code、Codex 訂閱，跑一整間 agent 辦公室"
+  },
+  "akitaonrails/ai-memory": {
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "236ea78e99c7",
+    "zh": "給 coding agent CLI 的長期記憶方案，方便在不同 agent 廠商之間交接"
   },
   "alexgreensh/attention-span": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -800,9 +820,9 @@
     "zh": "開源 AI 編排框架，建構 LLM 應用，可明確控制檢索、路由、記憶與生成"
   },
   "diegosouzapw/OmniRoute": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "7029eb063ac3",
-    "zh": "免費 MIT 授權的 AI gateway，單一端點串 359 家供應商、1200 多個模型，額度用完自動切換"
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "b13c19619844",
+    "zh": "免費 MIT 授權的 AI gateway，單一端點串 375 家供應商、1,400 多個模型，額度用完自動切換"
   },
   "dragonked2/alphacode": {
     "at": "2026-10-15T19:35:35+00:00",
@@ -838,6 +858,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "a89d46936fb1",
     "zh": "給它一支喜歡的影片，產出同風格的新影片，由 Claude Code 或 Codex 陪你規劃、製作與審查"
+  },
+  "edison7009/EchoBird": {
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "204cad531a74",
+    "zh": "集中管理 ChatGPT、Codex CLI、Claude Code 帳號與額度，支援多模型路由與自動容錯切換"
   },
   "elizaOS/eliza": {
     "at": "2026-09-25T19:17:07+00:00",
@@ -963,6 +988,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "b239f2c17c0e",
     "zh": "寫 HTML、算繪成影片，為 agent 而生"
+  },
+  "himovo/movo": {
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "899ff181356f",
+    "zh": "把 DeepSeek Harness 變成自架的企業 agent 平台，含知識庫、深度研究、瀏覽器自動化與管理控制"
   },
   "huggingface/transformers": {
     "at": "2026-08-12T19:14:16+00:00",
@@ -1159,6 +1189,11 @@
     "src_hash": "b96fba42819c",
     "zh": "18 堂課帶你從零開始寫 AI Agent"
   },
+  "microsoft/autogen": {
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "54e94a11c836",
+    "zh": "Agentic AI 的程式開發框架"
+  },
   "microsoft/graphrag": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "6396784fb92d",
@@ -1265,9 +1300,9 @@
     "zh": "在程式碼衝突前先抓出意圖衝突，建在 Git 之上的 coding agent 開源協調協定"
   },
   "nexu-io/open-design": {
-    "at": "2026-10-15T19:35:35+00:00",
-    "src_hash": "becaa7ed8ae6",
-    "zh": "開源、本機優先的協作式 AI 設計工作區，與團隊和 agent 一起做原型、網頁、簡報與影片"
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "38657d03bbf0",
+    "zh": "開源、本機優先的協作式 AI 設計工作區，與團隊和 agent 一起做動態、原型、網頁、簡報與影片"
   },
   "nirholas/XActions": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -1383,6 +1418,11 @@
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "cd3a264f173e",
     "zh": "可直接跑的雲端範本，用於 RAG、AI pipeline 與企業搜尋，可與 S3、Kafka 等即時同步"
+  },
+  "perplexityai/SPACE": {
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "671197a39023",
+    "zh": "Agent 程式碼執行用的沙箱平台，可抽換執行環境，隔離執行 agent 與使用者的程式碼"
   },
   "philippgille/chromem-go": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -1770,8 +1810,8 @@
     "zh": "AI 時代的波克夏：基於 Claude Code／Codex 的價值投資研究框架，集四大師方法論與多 agent 研究"
   },
   "xerj-org/xerj": {
-    "at": "2026-10-16T19:09:41+00:00",
-    "src_hash": "ba159e162411",
+    "at": "2026-10-18T18:23:02+00:00",
+    "src_hash": "35eb10def4ce",
     "zh": "給 AI 搜尋資料的索引工具，一行指令索引程式碼、文件、日誌與 PDF，稱比 grep 省 40 倍 token"
   },
   "xzf-thu/VoiceMem": {
