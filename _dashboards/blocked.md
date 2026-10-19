@@ -1,10 +1,7 @@
-# 被門禁擋下（48）
+# 被門禁擋下（45）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-10-19-2cecf1|NVIDIA Advances Agentic Security for Media, From European Public Servi]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-19-b29e8a|TorchNeuron: running HF models on AWS Trainium is easier than ever]]** — AWS — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-19-b6d148|Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-15-142ee5|An Update On Independent Evaluators]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-03-623369|The Agent Said It Was Done. The Database Disagreed.]]** — Microsoft — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — NVIDIA — blockers: thin_research_analysis

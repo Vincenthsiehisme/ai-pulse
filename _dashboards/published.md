@@ -1,6 +1,14 @@
-# 已發布事件（460）
+# 已發布事件（463）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-19
+- **[[Events/evt-2026-10-19-2cecf1|NVIDIA Advances Agentic Security for Media, From European Public Service Broadcasting to Global Content Production]]** — NVIDIA · product · conf 73 · heat 未量測
+  歐洲廣播聯盟（EBU）與 NVIDIA 合作擴充主權 AI 能力，柏林活動同步展示媒體產業的 agentic 安全進展。
+- **[[Events/evt-2026-10-19-b29e8a|TorchNeuron: running HF models on AWS Trainium is easier than ever]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 推出 TorchNeuron，讓 HF 模型更容易跑在 AWS Trainium 上。
+- **[[Events/evt-2026-10-19-b6d148|Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help]]** — NVIDIA · policy · conf 73 · heat 未量測
+  德國總理梅爾茲與黃仁勳在柏林對談德國 AI 路線，焦點放在工業應用。
 
 ## 2026-10-18
 - **[[Events/evt-2026-10-18-3f122f|Public Benefit Fund]]** — Anthropic · policy · conf 80 · heat 未量測

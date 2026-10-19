@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-18'
+updated: '2026-10-19'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 這一輪新增 10-18 的 vLLM v0.32.0 與 10-17 的 NVIDIA RTX Spark 筆電開賣。v0.32.0 有 814 個 commit、363 位貢獻者，新增預設啟用的 POST /v1/systemone 端點，摘要沒有效能數字。RTX Spark 筆電起價 2,399 美元、最高 128GB 統一記憶體，ASUS、Dell、HP、Lenovo、Microsoft、MSI 都有機種，全是廠商自述，沒有第三方實測。10-15 的北歐與歐洲科學界兩則 NVIDIA 文章、10-14 的歐洲市政 agent 文章，仍缺算力金額、專案名稱與成效數字。10-13 的〈All Systems Go〉、10-12 的 Vera Rubin 開放架構、10-09 Ai2 的 GPU 排程文章，同樣是單一來源或缺對照數字。
-    next: 看 RTX Spark 筆電的獨立評測，尤其是本機大模型推論速度與 128GB 機種的實際售價；看 vLLM v0.32.0 的完整 release notes 與 /v1/systemone 的文件及後續 issue；看歐洲科學界取用計畫公布的算力配額與首批合作機構；看北歐文章是否列出各國專案與金額；看市政 agent 文章是否點名城市與合約；看 Vera Rubin 的開放規格文件有沒有釋出；看 Ai2 那篇有沒有給叢集利用率的前後數字。
+    now: 這一輪新增 10-19 的 Hugging Face TorchNeuron：標題稱 HF 模型在 AWS Trainium 上執行更容易，證據只有標題與一句機構簡介，沒有支援模型清單、效能或成本數字，單一來源。這一輪新增 10-18 的 vLLM v0.32.0 與 10-17 的 NVIDIA RTX Spark 筆電開賣。v0.32.0 有 814 個 commit、363 位貢獻者，新增預設啟用的 POST /v1/systemone 端點，摘要沒有效能數字。RTX Spark 筆電起價 2,399 美元、最高 128GB 統一記憶體，ASUS、Dell、HP、Lenovo、Microsoft、MSI 都有機種，全是廠商自述，沒有第三方實測。10-15 的北歐與歐洲科學界兩則 NVIDIA 文章、10-14 的歐洲市政 agent 文章，仍缺算力金額、專案名稱與成效數字。10-13 的〈All Systems Go〉、10-12 的 Vera Rubin 開放架構、10-09 Ai2 的 GPU 排程文章，同樣是單一來源或缺對照數字。
+    next: 看 HF 或 AWS 是否公布 TorchNeuron 支援的模型清單，以及相對 GPU 的效能與成本數字，社群是否有第三方實測。看 RTX Spark 筆電的獨立評測，尤其是本機大模型推論速度與 128GB 機種的實際售價；看 vLLM v0.32.0 的完整 release notes 與 /v1/systemone 的文件及後續 issue；看歐洲科學界取用計畫公布的算力配額與首批合作機構；看北歐文章是否列出各國專案與金額；看市政 agent 文章是否點名城市與合約；看 Vera Rubin 的開放規格文件有沒有釋出；看 Ai2 那篇有沒有給叢集利用率的前後數字。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增 10-16 的 Itaú 案例：OpenAI 說這家巴西銀行對客戶推出對話介面 ia.i，內部用 IARA 治理平台管理，放在 AI First 策略下，摘要沒有用戶數、上線時間或成效。前一輪 10-15 的三則是把產品交給特定對象。OpenAI 的 Rosalind 學術方案讓符合資格的學術實驗室申請贊助存取 GPT-Rosalind，限生命科學，資格與額度摘要沒有。Sullivan & Cromwell 與 OpenAI 做出 Agreement Analyzer 找合約草稿的問題，沒有成效數字。Anthropic 擴大 Claude 在政府三個分支的使用範圍，依授權只收標題與連結。OpenAI 的 Block 案例稱資安團隊調查威脅更快，沒有基準線。SentinelOne 稱惡意程式分析從數週縮到數小時，是少數有前後對比的案例，但樣本數與比較基準摘要沒有交代。NVIDIA 的 RTX Spark 預告與 GeForce NOW 的 DLSS 4.5 控制是活動與功能預告，沒有技術細節。xAI 的 Grok Voice 3 因站方宣告 ai-input=no 只收標題與連結。
-    next: 看 Itaú 或監理端是否公布 ia.i 的使用者數、處理量與申訴率；看 Anthropic 政府公告原文有沒有列具體機關、定價或採購管道；看 Rosalind 方案公布的資格條件、贊助額度與首批實驗室；看 Sullivan & Cromwell 是否公布 Agreement Analyzer 的使用範圍或錯誤率；看 Block、SentinelOne 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價。
+    now: 這一輪新增 10-19 的 NVIDIA 柏林媒體活動：歐洲廣播聯盟（EBU）與 NVIDIA 合作擴充主權 AI 能力，活動由 Adobe、Bertelsmann、NVIDIA 與 UFA 合辦，證據只有開頭摘要，沒有合作範圍、時程或產品名稱，單一來源。這一輪新增 10-16 的 Itaú 案例：OpenAI 說這家巴西銀行對客戶推出對話介面 ia.i，內部用 IARA 治理平台管理，放在 AI First 策略下，摘要沒有用戶數、上線時間或成效。前一輪 10-15 的三則是把產品交給特定對象。OpenAI 的 Rosalind 學術方案讓符合資格的學術實驗室申請贊助存取 GPT-Rosalind，限生命科學，資格與額度摘要沒有。Sullivan & Cromwell 與 OpenAI 做出 Agreement Analyzer 找合約草稿的問題，沒有成效數字。Anthropic 擴大 Claude 在政府三個分支的使用範圍，依授權只收標題與連結。OpenAI 的 Block 案例稱資安團隊調查威脅更快，沒有基準線。SentinelOne 稱惡意程式分析從數週縮到數小時，是少數有前後對比的案例，但樣本數與比較基準摘要沒有交代。NVIDIA 的 RTX Spark 預告與 GeForce NOW 的 DLSS 4.5 控制是活動與功能預告，沒有技術細節。xAI 的 Grok Voice 3 因站方宣告 ai-input=no 只收標題與連結。
+    next: 看 EBU 或 Adobe、Bertelsmann、UFA 是否另行發布合作內容，NVIDIA 是否公開產品名稱、部署時程與採用名單。看 Itaú 或監理端是否公布 ia.i 的使用者數、處理量與申訴率；看 Anthropic 政府公告原文有沒有列具體機關、定價或採購管道；看 Rosalind 方案公布的資格條件、贊助額度與首批實驗室；看 Sullivan & Cromwell 是否公布 Agreement Analyzer 的使用範圍或錯誤率；看 Block、SentinelOne 或第三方是否公布樣本數、準確率、誤判率與測量方式；看 Grok Voice 3 原文有沒有語音延遲、語言支援與開放對象；看 Study Mode 是否擴大語言與國家，並公布教育端使用數據；看 RTX Spark 發表後公布的規格、價格與出貨時程；看 Higgsfield 是否公開長片樣本與定價。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -64,6 +64,6 @@ tracks:
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這一輪新增兩則。Google DeepMind 與新加坡 GovTech 合作，用裝置端的 Gemma 小模型攔截私人聊天中的對話式詐騙，依摘要沒有資料送到雲端，偵測率與誤報率沒有公布。OpenAI 發表歐盟 agentic AI 採用分析，說企業與小型企業的採用在成長，更深入的使用還有價值可挖，是 OpenAI 自己的分析，沒有給採用率。先前的觀察仍在：OpenAI 瓦解兩個利用假記者與智庫當門面的 AI 影響力行動，歸屬與成效都是單方說法；阿布達比 TII 在 Hugging Face 發表 Falcon-Emirati，模型規格與評測沒有；Sam Altman 09-23 在聯合國安理會的談話偏原則性表態；Daybreak 開放給烏克蘭政府與 Grab 東南亞技能培訓還沒有成效數字。
-    next: 看 DeepMind 與 GovTech 是否公布偵測率、誤報率與部署的裝置範圍；看 OpenAI 歐盟分析的完整版有沒有公布方法、樣本與採用率，以及歐盟政策討論是否引用；看有沒有獨立研究機構公開同一批假身分的分析，對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
+    now: 這一輪新增 10-19 的德國工業 AI 對談：NVIDIA 官方部落格記述德國總理梅爾茲與黃仁勳在柏林 Kraftwerk 討論德國 AI 路線，焦點是工業應用，摘要沒有投資金額、算力部署或政策措施，單一來源。這一輪新增兩則。Google DeepMind 與新加坡 GovTech 合作，用裝置端的 Gemma 小模型攔截私人聊天中的對話式詐騙，依摘要沒有資料送到雲端，偵測率與誤報率沒有公布。OpenAI 發表歐盟 agentic AI 採用分析，說企業與小型企業的採用在成長，更深入的使用還有價值可挖，是 OpenAI 自己的分析，沒有給採用率。先前的觀察仍在：OpenAI 瓦解兩個利用假記者與智庫當門面的 AI 影響力行動，歸屬與成效都是單方說法；阿布達比 TII 在 Hugging Face 發表 Falcon-Emirati，模型規格與評測沒有；Sam Altman 09-23 在聯合國安理會的談話偏原則性表態；Daybreak 開放給烏克蘭政府與 Grab 東南亞技能培訓還沒有成效數字。
+    next: 看德國政府或 NVIDIA 是否公布工業 AI 的算力部署、資金規模或合作企業名單，以及德媒對這場對談的獨立報導。看 DeepMind 與 GovTech 是否公布偵測率、誤報率與部署的裝置範圍；看 OpenAI 歐盟分析的完整版有沒有公布方法、樣本與採用率，以及歐盟政策討論是否引用；看有沒有獨立研究機構公開同一批假身分的分析，對照 OpenAI 的說法；看 Falcon-Emirati 的權重是否釋出、授權條款，以及阿拉伯語方言基準上的公開評測；觀察後續是否有具體政策文件、多邊協議或聯合國層級的 AI 治理提案跟進；沿用上一輪對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
     lenses: []

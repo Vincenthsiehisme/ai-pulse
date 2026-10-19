@@ -244,6 +244,11 @@
     "src_hash": "ea84a86ce32a",
     "zh": "免費的 Claude Code skill：同一個任務用 100 種策略產生答案，淘汰賽比到剩一個"
   },
+  "Jakeschincariol/founder-skill": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "38ced4694286",
+    "zh": "11 個免費 Claude skill，在創業前測試商業點子，含董事會、行銷總監、CFO 與 100 位買家 agent"
+  },
   "Jakeschincariol/instagram-agent-skill": {
     "at": "2026-10-12T22:42:13+00:00",
     "src_hash": "ed8659d4d83a",
@@ -313,6 +318,11 @@
     "at": "2026-10-14T19:51:47+00:00",
     "src_hash": "533ea97664e9",
     "zh": "給 coding agent 用的 skills：美術指導、參考圖與瀏覽器檢查，取代千篇一律的 AI 頁面"
+  },
+  "LiCinCan/blender-ai-mcp-addon": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "18f7d0150b26",
+    "zh": "Blender 的 AI 助手與 MCP server，有視覺化對話、場景工具與多 agent 流程，可接多家模型"
   },
   "LibreChat-AI/LibreChat": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -504,6 +514,11 @@
     "src_hash": "552ee3e0204c",
     "zh": "開源文件 ETL，把複雜文件轉成乾淨的結構化格式給語言模型用"
   },
+  "VITASID57/bluntcore-intimacy-lab": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "79d5358712ca",
+    "zh": "人機親密實驗室，收錄人機戀、成人 AI、Prompt、Memory、Agent 與模型測試紀錄"
+  },
   "VectifyAI/PageIndex": {
     "at": "2026-09-28T21:28:17+00:00",
     "src_hash": "16a4bbfb8531",
@@ -513,6 +528,11 @@
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "01a1340495c2",
     "zh": "跨平台的向量資料庫，能以外掛形式整合進現有資料庫"
+  },
+  "Vincentwei1021/mg-styles-15": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "b2ae99790e76",
+    "zh": "15 種動態設計風格，每種由 Claude Opus 5.5 依一個 prompt 寫程式產生，可看影片與原始碼"
   },
   "VoltAgent/official-mcp-servers": {
     "at": "2026-10-14T19:51:47+00:00",
@@ -558,6 +578,11 @@
     "at": "2026-08-29T19:09:37+00:00",
     "src_hash": "47941375e293",
     "zh": "零伺服器的程式碼智慧引擎，在瀏覽器端把 repo 轉成互動知識圖譜，內建 Graph RAG agent"
+  },
+  "activeing123/mcptoon": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "27bf81080f13",
+    "zh": "零依賴 CLI，統一管理 MCP server 與 agent skill，壓縮 token"
   },
   "addyosmani/agent-skills": {
     "at": "2026-08-04T19:21:24+00:00",
@@ -704,6 +729,11 @@
     "src_hash": "5e2cb29a04e7",
     "zh": "《深入理解 AI Agent：設計原理與工程實踐》（李博杰 著）開源主倉庫：全書正文、PDF 與各章配套程式碼"
   },
+  "breakstageaxe61/genspark-claw": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "ca767f869440",
+    "zh": "Genspark Claw 等 agent 的社群 skill 包與 CLI，含 5 個 skill"
+  },
   "breferrari/obsidian-mind": {
     "at": "2026-10-11T19:50:00+00:00",
     "src_hash": "3e3e8c86d43d",
@@ -793,6 +823,11 @@
     "at": "2026-09-08T19:19:22+00:00",
     "src_hash": "9b4d064a6baf",
     "zh": "給 Claude Code 與 AI agent 用的行銷技能：轉換率優化、文案、SEO 與成長工程分析"
+  },
+  "cranebeaker/coop-anything": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "7dfc27185c5f",
+    "zh": "讓 AI agent 把任何單機遊戲改成可與朋友連線或分割畫面同玩，附 MCP server 與操作手冊"
   },
   "danyuchn/asd-ste100-skill": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -900,9 +935,9 @@
     "zh": "Claude Agent Skill，做不切換投影片的連續運鏡動態影片，用於產品發表與功能展示"
   },
   "fidetolabs/qanat": {
-    "at": "2026-10-11T19:50:00+00:00",
-    "src_hash": "1a6560d492eb",
-    "zh": "MCP server，把財報與股價轉成估值指標，並在各自的產業內檢驗每個指標"
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "9eba85cd2a81",
+    "zh": "投資研究資料平台，以 MCP server 提供，計算時點一致的財務指標，用於估值與篩選"
   },
   "firecrawl/firecrawl": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -963,6 +998,11 @@
     "at": "2026-10-10T19:38:45+00:00",
     "src_hash": "cf9f56406ac7",
     "zh": "Strix Halo 的推論引擎，附 Qwen 模型的實測 token 速度"
+  },
+  "hanzohanzhe/Grandet": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "24c3414882ac",
+    "zh": "幫 AI agent 找最便宜的模型 API，附 Skill 與匿名 MCP server"
   },
   "hardenrun/aif": {
     "at": "2026-10-06T20:41:13+00:00",
@@ -1334,6 +1374,11 @@
     "src_hash": "b3481da6d821",
     "zh": "An intelligence orchestra（智慧樂團，原文未說明細節）"
   },
+  "oil-oil/oil-ui": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "342a36229371",
+    "zh": "給 AI agent 用的 UI 設計 Skill，比較多種方向並依截圖修改"
+  },
   "okf-memory/okf-agent-memory": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "05bae11a2f39",
@@ -1693,6 +1738,11 @@
     "at": "2026-10-11T19:50:00+00:00",
     "src_hash": "856657b9371a",
     "zh": "訂飯店與機票的 AI agent skills，比價、查即時機票、訂房、管理訂單與付款，走 TourMind API"
+  },
+  "trhhubsd/ARTEX": {
+    "at": "2026-10-19T20:49:33+00:00",
+    "src_hash": "7e15970abe27",
+    "zh": "AI 自主滲透測試系統，多 agent LLM，以 Go 與 Next.js 寫成，百度 agent+ 攻防挑戰賽冠軍"
   },
   "tt-a1i/archify": {
     "at": "2026-10-04T18:54:49+00:00",
