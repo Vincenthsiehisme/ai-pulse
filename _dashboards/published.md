@@ -3,7 +3,7 @@
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-10-18
-- **[[Events/evt-2026-10-18-3f122f|Public Benefit Fund]]** — Anthropic · policy · conf 73 · heat 未量測
+- **[[Events/evt-2026-10-18-3f122f|Public Benefit Fund]]** — Anthropic · policy · conf 80 · heat 未量測
   Anthropic 發布〈Public Benefit Fund〉一文，內容本站不轉述，請看原文。
 - **[[Events/evt-2026-10-18-fc5edf|v0.32.0]]** — vLLM · infra · conf 73 · heat 未量測
   vLLM 釋出 v0.32.0，累計 814 個 commit、363 位貢獻者，新增 /v1/systemone 端點。

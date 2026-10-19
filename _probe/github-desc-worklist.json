@@ -1,51 +1,53 @@
 [
   {
-    "full_name": "diegosouzapw/OmniRoute",
-    "desc": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by 900+ contributors",
-    "language": "TypeScript",
+    "full_name": "cranebeaker/coop-anything",
+    "desc": "Co-op Anything: point your AI agent at any single-player game and play it with friends (online and/or splitscreen!). MCP server and playbook to let you reverse engineer, fix, test, ship and share what it learns.",
+    "language": "C",
+    "topics": [],
+    "stars": 563,
+    "url": "https://github.com/cranebeaker/coop-anything",
+    "stale_zh": null
+  },
+  {
+    "full_name": "hanzohanzhe/Grandet",
+    "desc": "Find the cheapest API for any model and connect it from your AI agent: Grandet Skill and an anonymous MCP server, backed by listed prices from 1,800+ official, inference and relay providers on grandet.ai.",
+    "language": "JavaScript",
     "topics": [
-      "a2a",
+      "agent-skills",
+      "ai",
       "ai-agents",
-      "ai-gateway",
-      "anthropic",
-      "claude",
-      "claude-code"
+      "api-credits",
+      "api-pricing",
+      "api-relay"
     ],
-    "stars": 78040,
-    "url": "https://github.com/diegosouzapw/OmniRoute",
-    "stale_zh": "免費 MIT 授權的 AI gateway，單一端點串 359 家供應商、1200 多個模型，額度用完自動切換"
+    "stars": 450,
+    "url": "https://github.com/hanzohanzhe/Grandet",
+    "stale_zh": null
   },
   {
-    "full_name": "xerj-org/xerj",
-    "desc": "XERJ is the new way for AI to search data. Its autoindex capability activates agents to know your data without the token waste of grep (1974 tool). One command indexes code, docs, logs and PDFs for search, RAG, security audits and agent memory, using 40x fewer tokens than grep. It’s durable and can replace ElasticSearch saving you x10 infra costs.",
-    "language": "Rust",
+    "full_name": "LiCinCan/blender-ai-mcp-addon",
+    "desc": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with OpenAI, ChatGPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon and plugin, copilot for 3D, bpy Python scripting, MCP integration.",
+    "language": "Python",
     "topics": [
-      "ai-search",
-      "ai-search-algorithms",
-      "ai-search-engine",
-      "ai-search-free",
-      "ai-search-module",
-      "ai-search-optimization"
+      "ai-assistant",
+      "blender",
+      "blender-addon",
+      "blender-ai",
+      "blender-automation",
+      "blender-extension"
     ],
-    "stars": 8288,
-    "url": "https://github.com/xerj-org/xerj",
-    "stale_zh": "給 AI 搜尋資料的索引工具，一行指令索引程式碼、文件、日誌與 PDF，稱比 grep 省 40 倍 token"
+    "stars": 960,
+    "url": "https://github.com/LiCinCan/blender-ai-mcp-addon",
+    "stale_zh": null
   },
   {
-    "full_name": "nexu-io/open-design",
-    "desc": "The 1st Collaborative AI Design Agent Workspace. Local-first and open source. Create motion, prototypes, websites, apps, dashboards, presentations, images, and videos with your team and AI agents. Share work, exchange feedback, and iterate together in one workspace.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-design",
-      "byok",
-      "design-systems",
-      "claude-design",
-      "hermes-agent",
-      "agent-skills"
-    ],
-    "stars": 102168,
-    "url": "https://github.com/nexu-io/open-design",
-    "stale_zh": "開源、本機優先的協作式 AI 設計工作區，與團隊和 agent 一起做原型、網頁、簡報與影片"
+    "full_name": "VITASID57/bluntcore-intimacy-lab",
+    "desc": "🧬 钝核｜人机亲密实验室 · Bluntcore Intimacy Lab｜人机恋、成人 AI、Prompt、Memory、Agent、模型床测与实验记录。",
+    "language": "",
+    "topics": [],
+    "stars": 484,
+    "url": "https://github.com/VITASID57/bluntcore-intimacy-lab",
+    "stale_zh": null
   },
   {
     "full_name": "breakstageaxe61/genspark-claw",
@@ -59,138 +61,97 @@
       "awesome-genspark",
       "genspark-agent"
     ],
-    "stars": 411,
+    "stars": 466,
     "url": "https://github.com/breakstageaxe61/genspark-claw",
     "stale_zh": null
   },
   {
-    "full_name": "XiaoPuOuO/openchatx-mcp",
-    "desc": "Turn ChatGPT into a local agent runtime. Operate your computer, use local tools, discover MCP servers, and delegate work to your own models through one MCP connection.",
-    "language": "TypeScript",
+    "full_name": "trhhubsd/ARTEX",
+    "desc": "ARTEX · AI autonomous penetration testing system (multi-agent LLM, Go + Next.js) · AI 自主渗透测试系统 · 百度 agent+ 攻防挑战赛冠军",
+    "language": "Go",
     "topics": [
-      "agent-runtime",
-      "ai-agents",
-      "chatgpt",
-      "local-agent",
-      "macos",
-      "mcp"
+      "ai-agent",
+      "ai-security",
+      "artex",
+      "autonomous-agents",
+      "cybersecurity",
+      "go"
     ],
-    "stars": 323,
-    "url": "https://github.com/XiaoPuOuO/openchatx-mcp",
+    "stars": 1317,
+    "url": "https://github.com/trhhubsd/ARTEX",
     "stale_zh": null
   },
   {
-    "full_name": "perplexityai/SPACE",
-    "desc": "Sandboxed Platform for Agentic Code Execution: pluggable-runtime sandboxes for running agent and user code in isolation.",
-    "language": "Rust",
-    "topics": [],
-    "stars": 1516,
-    "url": "https://github.com/perplexityai/SPACE",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Evil0ctal/Douyin_TikTok_Download_API",
-    "desc": "🚀 自托管的抖音、TikTok 数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok & Douyin scraper and no-watermark video downloader — async REST API, MCP server for AI agents, CLI and web console, plus offline speech-to-text for downloaded videos. Self-healing identity pool, PostgreSQL archive, one docker compose up.",
+    "full_name": "Jakeschincariol/founder-skill",
+    "desc": "Eleven free Claude skills that test a business before you launch it: a board trained on Hormozi, Thiel and Jobs, a marketing director, a CFO, and a consumer panel of 100 buyer agents. Free, MIT.",
     "language": "Python",
     "topics": [
-      "ai-agents",
-      "crawler",
-      "data-collection",
-      "douyin",
-      "douyin-api",
-      "downloader"
-    ],
-    "stars": 20771,
-    "url": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API",
-    "stale_zh": "自架的抖音與 TikTok 資料擷取、無浮水印影片下載 API，支援 MCP 與 Docker 部署"
-  },
-  {
-    "full_name": "himovo/movo",
-    "desc": "Turn DeepSeek Harness into a self-hosted enterprise Agent platform with knowledge, deep research, content generation, vibe coding, browser automation, governance, and admin controls.",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "ai-agents",
-      "brower-automation",
-      "dsh-plugin",
-      "enterprise-agents",
-      "mcp"
-    ],
-    "stars": 304,
-    "url": "https://github.com/himovo/movo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Zackriya-Solutions/meetily",
-    "desc": "Privacy first, AI meeting assistant with 4x faster Parakeet/Whisper live transcription, speaker diarization, and Ollama summarization built on Rust. 100% local processing. no cloud required. Meetily (Meetly Ai - https://meetily.ai) is the #1 Self-hosted, Open-source Ai meeting note taker for macOS & Windows. Understand How to write meeting minutes",
-    "language": "Rust",
-    "topics": [
-      "ai",
-      "ai-meeting-assistant",
-      "llm",
-      "local-ai",
-      "mac",
-      "meeting-minutes"
-    ],
-    "stars": 31899,
-    "url": "https://github.com/Zackriya-Solutions/meetily",
-    "stale_zh": null
-  },
-  {
-    "full_name": "edison7009/EchoBird",
-    "desc": "Manage ChatGPT, Codex CLI, and Claude Code accounts and track quota in one place. Use multi-model smart routing with priority and automatic failover. Install AI tools and deploy local LLMs in one click.",
-    "language": "Rust",
-    "topics": [
+      "business-plan",
       "claude-code",
-      "deepseek",
-      "deepseek-harness",
-      "dsh-plugin",
-      "dsh-plugins",
-      "kimi-code"
+      "claude-skills",
+      "startup",
+      "subagents",
+      "unit-economics"
     ],
-    "stars": 3357,
-    "url": "https://github.com/edison7009/EchoBird",
+    "stars": 1070,
+    "url": "https://github.com/Jakeschincariol/founder-skill",
     "stale_zh": null
   },
   {
-    "full_name": "AlephAITech/WorkBuddyGuide",
-    "desc": "A practical, open-source guide to mastering WorkBuddy through real-world workflows.开源的 WorkBuddy 实战蓝皮书：教程、真实工作流、Skills、MCP、自动化与多智能体实践。",
-    "language": "TypeScript",
-    "topics": [
-      "codex",
-      "guide",
-      "llm",
-      "workbuddy",
-      "agent-skills",
-      "automation"
-    ],
-    "stars": 3503,
-    "url": "https://github.com/AlephAITech/WorkBuddyGuide",
-    "stale_zh": null
-  },
-  {
-    "full_name": "microsoft/autogen",
-    "desc": "A programming framework for agentic AI",
+    "full_name": "activeing123/mcptoon",
+    "desc": "One zero-dependency CLI for every MCP server and agent skill. Token optimization, tool discovery and context compression: 71,929 -> 581 tokens (-99.2%, measured), schemas stay out of context. One config for Claude Code, Codex, Cursor, every agent. 341KB, pure Python. | 零依赖 CLI：管所有 MCP 工具与技能，工具发现省 99.2% token。",
     "language": "Python",
     "topics": [
-      "agentic",
-      "agentic-agi",
-      "agents",
-      "ai",
-      "autogen",
-      "autogen-ecosystem"
+      "agent-skills",
+      "claude",
+      "claude-code",
+      "cli",
+      "codex",
+      "context-compression"
     ],
-    "stars": 61463,
-    "url": "https://github.com/microsoft/autogen",
+    "stars": 347,
+    "url": "https://github.com/activeing123/mcptoon",
     "stale_zh": null
   },
   {
-    "full_name": "akitaonrails/ai-memory",
-    "desc": "Solution for long term memory for agent coding CLIs and to facilitate handoff between different agent vendors",
-    "language": "Rust",
+    "full_name": "oil-oil/oil-ui",
+    "desc": "UI design skill for Claude Code, Codex and other AI agents: explore distinct directions, compare them side by side, refine against real screenshots. 给 AI Agent 用的 UI 设计 Skill。",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "ai-design",
+      "claude-code",
+      "claude-skills",
+      "codex",
+      "frontend"
+    ],
+    "stars": 1841,
+    "url": "https://github.com/oil-oil/oil-ui",
+    "stale_zh": null
+  },
+  {
+    "full_name": "fidetolabs/qanat",
+    "desc": "A data platform for investment research. Ingests financial data sources and computes point-in-time financial metrics for valuation and screening. Delivered as an MCP server.",
+    "language": "Python",
+    "topics": [
+      "alpha-research",
+      "backtesting",
+      "duckdb",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol"
+    ],
+    "stars": 317,
+    "url": "https://github.com/fidetolabs/qanat",
+    "stale_zh": "MCP server，把財報與股價轉成估值指標，並在各自的產業內檢驗每個指標"
+  },
+  {
+    "full_name": "Vincentwei1021/mg-styles-15",
+    "desc": "15 motion design styles, each made by Claude Opus 5.5 writing code from one prompt: watch the films, copy the prompts, read the full source.",
+    "language": "Python",
     "topics": [],
-    "stars": 10346,
-    "url": "https://github.com/akitaonrails/ai-memory",
+    "stars": 1321,
+    "url": "https://github.com/Vincentwei1021/mg-styles-15",
     "stale_zh": null
   }
 ]

@@ -3,7 +3,7 @@ id: actor-vllm
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-10-18'
+generated_day: '2026-10-19'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -12,10 +12,11 @@ tags: [actor, company]
 
 > ⚠ **字典裡沒有這家公司。** 它是從 Event 的 `company` 欄位冒出來的，代表 `_config/entities.yaml` 少收了一條——或者 `infer_company()` 推錯了。兩種都要人看一眼。
 
-事件 **6** 則：`published` 6
+事件 **7** 則：`published` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-18 | [[Events/evt-2026-10-18-fc5edf\|v0.32.0]] | published |
 | 2026-10-05 | [[Events/evt-2026-10-05-312d0f\|v0.31.0]] | published |
 | 2026-09-22 | [[Events/evt-2026-09-22-d743ee\|v0.30.0]] | published |
 | 2026-09-09 | [[Events/evt-2026-09-09-d85302\|v0.29.0]] | published |
