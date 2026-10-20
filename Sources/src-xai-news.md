@@ -16,8 +16,8 @@ license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, s
 endpoint: "https://x.ai/sitemap.xml"
 robots_checked_day: "2026-10-16"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-10-19"
-items_observed: 65
+last_observed_day: "2026-10-20"
+items_observed: 66
 events_bound: 17
 events_published: 16
 health_score: 100
@@ -34,7 +34,7 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 65 筆 | 抓到了，但站方那陣子沒發東西 |
+| 已觀測 | 66 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 17 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 16 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 

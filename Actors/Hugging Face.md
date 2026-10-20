@@ -3,17 +3,22 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-10-19'
+generated_day: '2026-10-20'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **21** 則：`published` 16、`review` 5
+事件 **26** 則：`published` 17、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-20 | [[Events/evt-2026-10-20-8d2bea\|NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation]] | review |
+| 2026-10-20 | [[Events/evt-2026-10-20-46b233\|FairStress: A deeper evaluation of fairness in LLM decision-making]] | review |
+| 2026-10-20 | [[Events/evt-2026-10-20-3bdd58\|Hugging Face ❤️ TorchTPU: TPUs, Natively]] | review |
+| 2026-10-20 | [[Events/evt-2026-10-20-260a2f\|ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model]] | review |
+| 2026-10-19 | [[Events/evt-2026-10-19-b29e8a\|TorchNeuron: running HF models on AWS Trainium is easier than ever]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-f9fdb2\|Welcome FLUX.3 Image Klein in Diffusers]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-2e7e69\|The model that didn't exist, so you made it yourself]] | published |
 | 2026-09-30 | [[Events/evt-2026-09-30-1c6239\|Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning]] | published |

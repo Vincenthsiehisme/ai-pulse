@@ -3,18 +3,23 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-10-19'
+generated_day: '2026-10-20'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **119** 則：`published` 113、`review` 6
+事件 **124** 則：`published` 113、`review` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-19 | [[Events/evt-2026-10-19-dff564\|Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule]] | review |
+| 2026-10-19 | [[Events/evt-2026-10-19-71ea5e\|Building Safeguards For Claude]] | review |
+| 2026-10-19 | [[Events/evt-2026-10-19-36f71c\|Claude Gov Models For U S National Security Customers]] | review |
 | 2026-10-18 | [[Events/evt-2026-10-18-3f122f\|Public Benefit Fund]] | published |
+| 2026-10-15 | [[Events/evt-2026-10-15-8f04df\|Releasing Claude Instant 1.2]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-3f68b4\|Introducing Claude]] | review |
 | 2026-10-15 | [[Events/evt-2026-10-15-3f28e4\|Offering Expanded Claude Access Across All Three Branches Of Government]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-142ee5\|An Update On Independent Evaluators]] | review |
 | 2026-10-14 | [[Events/evt-2026-10-14-5f2e66\|Singapore Office Opening]] | published |

@@ -1,5 +1,45 @@
 [
   {
+    "id": "evt-2026-10-15-1d07ce",
+    "title": "100k Context Windows",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-3f68b4",
+    "title": "Introducing Claude",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-6bf3e9",
+    "title": "Frontier Threats Red Teaming For Ai Safety",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-8f04df",
+    "title": "Releasing Claude Instant 1.2",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-15-9707c4",
+    "title": "Frontier Model Security",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
     "id": "evt-2026-10-16-921b99",
     "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
     "company": "OpenAI",
@@ -8,25 +48,113 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-19-2cecf1",
-    "title": "NVIDIA Advances Agentic Security for Media, From European Public Service Broadcasting to Global Content Production",
-    "company": "NVIDIA",
+    "id": "evt-2026-10-19-0a1541",
+    "title": "Advancing coding in low‑resource programming languages",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-19-b29e8a",
-    "title": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
-    "company": "AWS",
+    "id": "evt-2026-10-19-36f71c",
+    "title": "Claude Gov Models For U S National Security Customers",
+    "company": "Anthropic",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-19-b6d148",
-    "title": "Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help",
-    "company": "NVIDIA",
+    "id": "evt-2026-10-19-3b49f6",
+    "title": "Responsible Scaling Policy v3",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-19-7083e1",
+    "title": "Testing And Mitigating Elections Related Risks",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-19-71ea5e",
+    "title": "Building Safeguards For Claude",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-19-dff564",
+    "title": "Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule",
+    "company": "Anthropic",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-1188ef",
+    "title": "OpenAI acquires Orchestra Bio",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-260a2f",
+    "title": "ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-2bf802",
+    "title": "Franchisee reconciles cash in 94% less time with ChatGPT Work",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-2d6c92",
+    "title": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-2fa1fb",
+    "title": "MPS in PyTorch 2.15",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-3bdd58",
+    "title": "Hugging Face ❤️ TorchTPU: TPUs, Natively",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-46b233",
+    "title": "FairStress: A deeper evaluation of fairness in LLM decision-making",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-8d2bea",
+    "title": "NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
