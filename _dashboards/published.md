@@ -1,14 +1,38 @@
-# 已發布事件（463）
+# 已發布事件（479）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-20
+- **[[Events/evt-2026-10-20-1188ef|OpenAI acquires Orchestra Bio]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 宣布收購 Orchestra Bio，切入生技製藥研發。
+- **[[Events/evt-2026-10-20-2bf802|Franchisee reconciles cash in 94% less time with ChatGPT Work]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 案例：加盟主用 ChatGPT Work 把對帳與調價時間縮短九成多。
+- **[[Events/evt-2026-10-20-2d6c92|AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms]]** — Hugging Face · product · conf 73 · heat 未量測
+  AnyLanguageModel 釋出 1.0，聚焦 Apple 平台本地模型。
+- **[[Events/evt-2026-10-20-2fa1fb|MPS in PyTorch 2.15]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 發文談 PyTorch 2.15 的 MPS 後端。
+- **[[Events/evt-2026-10-20-3bdd58|Hugging Face ❤️ TorchTPU: TPUs, Natively]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 發文談在 TPU 上原生跑 PyTorch。
+- **[[Events/evt-2026-10-20-efa6ff|Spain-Based Startups Advance Regional Innovation With Barcelona Supercomputing Center]]** — NVIDIA · infra · conf 73 · heat 未量測
+  巴塞隆納超算中心的 AI Factory 新創計畫從試辦轉為全面運作。
 
 ## 2026-10-19
 - **[[Events/evt-2026-10-19-2cecf1|NVIDIA Advances Agentic Security for Media, From European Public Service Broadcasting to Global Content Production]]** — NVIDIA · product · conf 73 · heat 未量測
   歐洲廣播聯盟（EBU）與 NVIDIA 合作擴充主權 AI 能力，柏林活動同步展示媒體產業的 agentic 安全進展。
+- **[[Events/evt-2026-10-19-36f71c|Claude Gov Models For U S National Security Customers]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 官網新聞頁出現《Claude Gov Models For U S National Security Customers》，內文未摘錄。
+- **[[Events/evt-2026-10-19-3b49f6|Responsible Scaling Policy v3]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 官網新聞頁出現《Responsible Scaling Policy v3》，內文未摘錄。
+- **[[Events/evt-2026-10-19-7083e1|Testing And Mitigating Elections Related Risks]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 官網新聞頁出現《Testing And Mitigating Elections Related Risks》，內文未摘錄。
+- **[[Events/evt-2026-10-19-71ea5e|Building Safeguards For Claude]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 官網新聞頁出現《Building Safeguards For Claude》，內文未摘錄。
 - **[[Events/evt-2026-10-19-b29e8a|TorchNeuron: running HF models on AWS Trainium is easier than ever]]** — Hugging Face · infra · conf 73 · heat 未量測
   Hugging Face 推出 TorchNeuron，讓 HF 模型更容易跑在 AWS Trainium 上。
 - **[[Events/evt-2026-10-19-b6d148|Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help]]** — NVIDIA · policy · conf 73 · heat 未量測
   德國總理梅爾茲與黃仁勳在柏林對談德國 AI 路線，焦點放在工業應用。
+- **[[Events/evt-2026-10-19-dff564|Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 官網新聞頁出現《Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule》，內文未摘錄。
 
 ## 2026-10-18
 - **[[Events/evt-2026-10-18-3f122f|Public Benefit Fund]]** — Anthropic · policy · conf 80 · heat 未量測
@@ -37,20 +61,30 @@
   Swiss AI Initiative 在 Hugging Face 發布 Apertus 1.5 的版本說明。
 - **[[Events/evt-2026-10-15-160218|Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With Highest Efficiency Super VL and Bolt Models]]** — NVIDIA · model-capability · conf 73 · heat 未量測
   NVIDIA 發布開放權重的 Nemotron 3.5 Super VL，另有兩款邊緣模型。
+- **[[Events/evt-2026-10-15-1d07ce|100k Context Windows]]** — Anthropic · model-capability · conf 73 · heat 未量測
+  Anthropic 官網新聞頁出現《100k Context Windows》，內文未摘錄。
 - **[[Events/evt-2026-10-15-3f28e4|Offering Expanded Claude Access Across All Three Branches Of Government]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 宣布把 Claude 的使用管道擴大到政府三權分支，細節我們沒轉述。
+- **[[Events/evt-2026-10-15-3f68b4|Introducing Claude]]** — Anthropic · product · conf 83 · heat 未量測
+  Anthropic 官網新聞頁出現《Introducing Claude》，內文未摘錄。
 - **[[Events/evt-2026-10-15-45643f|Accelerating the search for antimicrobial peptides with Google Antigravity]]** — Google · research · conf 73 · heat 未量測
   DeepMind 用 Google Antigravity 找抗菌肽。
 - **[[Events/evt-2026-10-15-554475|The Nordics and NVIDIA Show What’s Possible When a Region Commits to Advanced Computing]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 發文談北歐國家投入先進運算，北歐新創密度居歐洲之冠。
 - **[[Events/evt-2026-10-15-57e880|Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark]]** — NVIDIA · product · conf 73 · heat 未量測
   NVIDIA RTX Spark 隔天發表，官方邀請各地參加發表活動。
+- **[[Events/evt-2026-10-15-6bf3e9|Frontier Threats Red Teaming For Ai Safety]]** — Anthropic · policy · conf 83 · heat 未量測
+  Anthropic 官網新聞頁出現《Frontier Threats Red Teaming For Ai Safety》，內文未摘錄。
 - **[[Events/evt-2026-10-15-74ed5b|Granite Switch 4.1: Chat, Decisions, and Speech from One Endpoint]]** — IBM · model-capability · conf 73 · heat 未量測
   IBM Granite 在 Hugging Face 發表 Granite Switch 4.1，標題稱一個端點同時處理對話、決策與語音。
 - **[[Events/evt-2026-10-15-85c4aa|Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta]]** — Meta · model-capability · conf 73 · heat 未量測
   Hugging Face 部落格介紹 Meta 的開放權重多模態混合專家模型 Muse Spark Open。
 - **[[Events/evt-2026-10-15-8cf5c3|Bringing GPT-Rosalind to academic research labs]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 推出 Rosalind 學術方案，讓符合資格的學術實驗室申請贊助使用 GPT-Rosalind。
+- **[[Events/evt-2026-10-15-8f04df|Releasing Claude Instant 1.2]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 官網新聞頁出現《Releasing Claude Instant 1.2》，內文未摘錄。
+- **[[Events/evt-2026-10-15-9707c4|Frontier Model Security]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 官網新聞頁出現《Frontier Model Security》，內文未摘錄。
 - **[[Events/evt-2026-10-15-a85352|Teaching students to think and learn through questions]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 在教師節推出巴西葡萄牙語版的教育者 AI 資源，主打 Study Mode。
 - **[[Events/evt-2026-10-15-bd52bf|Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測

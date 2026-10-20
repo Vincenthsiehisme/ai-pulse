@@ -314,6 +314,11 @@
     "src_hash": "3853bf8e57ec",
     "zh": "本機深度研究工具，SimpleQA 約 95%，支援各種本機與雲端 LLM，10 多個搜尋引擎，全程本機加密"
   },
+  "Leonxlnx/earshot": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "b8a1b6dc3947",
+    "zh": "讓 coding agent 聽音訊、審查並產生聲音，只用 CPU，開源"
+  },
   "Leonxlnx/taste-skill": {
     "at": "2026-10-14T19:51:47+00:00",
     "src_hash": "533ea97664e9",
@@ -353,6 +358,11 @@
     "at": "2026-10-08T20:58:31+00:00",
     "src_hash": "33456789b642",
     "zh": "住在 Mac 瀏海與 iPhone 上的小工具，監看 Claude Code、Codex 等 agent，可直接核准"
+  },
+  "LumaryLabsLLC/muxin": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "12304ba34572",
+    "zh": "統管多台機器與 AI agent 的 app，附 MCP server"
   },
   "MODSetter/SurfSense": {
     "at": "2026-10-11T19:50:00+00:00",
@@ -629,6 +639,11 @@
     "src_hash": "236ea78e99c7",
     "zh": "給 coding agent CLI 的長期記憶方案，方便在不同 agent 廠商之間交接"
   },
+  "alchaincyf/huashu-motion": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "0705446b2547",
+    "zh": "讓 agent 一鍵產出商用等級的產品宣傳片，會作曲，指著畫面就能改"
+  },
   "alexgreensh/attention-span": {
     "at": "2026-10-05T22:18:12+00:00",
     "src_hash": "94cea6919d81",
@@ -744,6 +759,11 @@
     "src_hash": "0d0e0f5c279a",
     "zh": "開源 Python 函式庫，讓 AI agent 操作瀏覽器，另有託管的 Browser Use Cloud"
   },
+  "bytechefhq/bytechef": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "20ac1db9254e",
+    "zh": "開源 AI agent 與工作流程自動化，可自架或嵌入 SaaS，Apache 2.0，對標 n8n 與 Zapier"
+  },
   "bytedance/deer-flow": {
     "at": "2026-07-31T19:20:39+00:00",
     "src_hash": "43c34c4ce29f",
@@ -778,6 +798,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "50ca2c25cd0f",
     "zh": "讓 AI 產出 PPTX 的 Claude Code skill，含投影片規範、62 種版型目錄與機器檢查"
+  },
+  "carnot-tech/jinba-consulting-pptx-skill": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "76c86789dc26",
+    "zh": "讓 AI 做出正經 PPTX 簡報的 Claude Code / Codex skill"
   },
   "cathrynlavery/diagram-design": {
     "at": "2026-10-11T19:50:00+00:00",
@@ -908,6 +933,11 @@
     "at": "2026-10-10T19:38:45+00:00",
     "src_hash": "6c114f8d2abb",
     "zh": "給 agent 用的大型資料集深層記憶：單一靜態執行檔，把 JSONL、CSV、SQLite 等紀錄轉成排序的全文索引"
+  },
+  "epsilla-cloud/vectordb": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "1adeafc2aa29",
+    "zh": "利用平行圖運算的高效能向量資料庫"
   },
   "exa-labs/exa-mcp-server": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -1294,6 +1324,11 @@
     "src_hash": "f6970773b060",
     "zh": "一整間 AI 代理商在你手上：從前端高手到 Reddit 社群專家，每個 agent 都是有個性的專才"
   },
+  "mudler/LocalAI": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "8fec01035252",
+    "zh": "開源 AI 引擎，在任何硬體上跑 LLM、視覺、語音、影像、影片模型，不需要 GPU"
+  },
   "mukul975/Anthropic-Cybersecurity-Skills": {
     "at": "2026-08-16T19:07:53+00:00",
     "src_hash": "5329e3096f48",
@@ -1424,6 +1459,11 @@
     "src_hash": "3b40d6466f22",
     "zh": "開源 PDF 解析器，輸出可供 AI 使用的資料，並處理 PDF 無障礙"
   },
+  "openfilm/openfilm": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "4287c0741ff1",
+    "zh": "開源 AI 影片 agent，讓 coding agent 變成影片 agent，附編輯器可改任何產出"
+  },
   "oriveo/oriveo": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "645f094272ca",
@@ -1514,6 +1554,11 @@
     "src_hash": "5f2b1597d8cb",
     "zh": "Apple Silicon 上的開源 LLM 推論伺服器，相容 OpenAI 與 Anthropic，主打穩定的工具呼叫"
   },
+  "receptron/laya": {
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "92348b337d74",
+    "zh": "用 ONNX Runtime 在 Node.js 跑開源決策模型 Laya"
+  },
   "redf0x1/camofox-browser": {
     "at": "2026-10-14T19:51:47+00:00",
     "src_hash": "3bed05bbf2a8",
@@ -1575,9 +1620,9 @@
     "zh": "本機優先、可自架的 AI agent runtime 與 MCP bridge，含沙箱與稽核重播"
   },
   "sandbox-quantum/switch": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "19f483f61e6d",
-    "zh": "把任何 AI agent 接進團隊的 Slack、Teams 與 Discord，開源且可自架"
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "f701cd8c9a50",
+    "zh": "在 Slack、Teams、Discord 放開源 AI 隊友，可自架，不限模型"
   },
   "sansan0/TrendRadar": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1750,9 +1795,9 @@
     "zh": "agent skill，把想法、計畫或程式碼轉成可互動的架構圖"
   },
   "unclecode/crawl4ai": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "a47f6be22b69",
-    "zh": "Crawl4AI：對 LLM 友善的開源網頁爬蟲與抓取工具"
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "6dec1e66e9e9",
+    "zh": "給 LLM 與 AI agent 用的開源網頁爬蟲，把網站轉成乾淨的 Markdown"
   },
   "undefined-ui/second-brain-os": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -1860,9 +1905,9 @@
     "zh": "AI 時代的波克夏：基於 Claude Code／Codex 的價值投資研究框架，集四大師方法論與多 agent 研究"
   },
   "xerj-org/xerj": {
-    "at": "2026-10-18T18:23:02+00:00",
-    "src_hash": "35eb10def4ce",
-    "zh": "給 AI 搜尋資料的索引工具，一行指令索引程式碼、文件、日誌與 PDF，稱比 grep 省 40 倍 token"
+    "at": "2026-10-20T19:46:47+00:00",
+    "src_hash": "df24f50cdb62",
+    "zh": "給 AI agent 用的本機搜尋引擎與 MCP server，相容 Elasticsearch API"
   },
   "xzf-thu/VoiceMem": {
     "at": "2026-10-02T20:16:53+00:00",

@@ -1,20 +1,12 @@
-# 被門禁擋下（65）
+# 被門禁擋下（49）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-10-20-1188ef|OpenAI acquires Orchestra Bio]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-20-260a2f|ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on custo]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-20-2bf802|Franchisee reconciles cash in 94% less time with ChatGPT Work]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-20-3bdd58|Hugging Face ❤️ TorchTPU: TPUs, Natively]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-20-46b233|FairStress: A deeper evaluation of fairness in LLM decision-making]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-20-8d2bea|NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Gen]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-19-0a1541|Advancing coding in low‑resource programming languages]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-19-36f71c|Claude Gov Models For U S National Security Customers]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-10-19-71ea5e|Building Safeguards For Claude]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-10-19-dff564|Securing America S Compute Advantage Anthropic S Position On The Diffu]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-10-20-260a2f|ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on custo]]** — IBM — blockers: thin_research_analysis
+- **[[Events/evt-2026-10-20-46b233|FairStress: A deeper evaluation of fairness in LLM decision-making]]** — Ai2 — blockers: thin_research_analysis
+- **[[Events/evt-2026-10-20-8d2bea|NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Gen]]** — NVIDIA — blockers: thin_research_analysis
+- **[[Events/evt-2026-10-19-0a1541|Advancing coding in low‑resource programming languages]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-15-142ee5|An Update On Independent Evaluators]]** — Anthropic — blockers: thin_research_analysis
-- **[[Events/evt-2026-10-15-3f68b4|Introducing Claude]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-10-15-8f04df|Releasing Claude Instant 1.2]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-10-03-623369|The Agent Said It Was Done. The Database Disagreed.]]** — Microsoft — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-67e008|NVIDIA Kumo Tabular Sets a New Accuracy-Efficiency Frontier for Tabula]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-09-29-96c618|Getting the Source Right, Not Just the Fact: Source-Aware Verification]]** — Multiverse Computing — blockers: thin_research_analysis
@@ -53,14 +45,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-10-20-2d6c92|AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-10-20-2fa1fb|MPS in PyTorch 2.15]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-10-20-efa6ff|Spain-Based Startups Advance Regional Innovation With Barcelona Superc]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-10-19-3b49f6|Responsible Scaling Policy v3]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-10-19-7083e1|Testing And Mitigating Elections Related Risks]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-10-15-1d07ce|100k Context Windows]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-10-15-6bf3e9|Frontier Threats Red Teaming For Ai Safety]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-10-15-9707c4|Frontier Model Security]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity
