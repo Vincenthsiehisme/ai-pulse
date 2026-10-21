@@ -1,6 +1,40 @@
-# 已發布事件（479）
+# 已發布事件（496）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-21
+- **[[Events/evt-2026-10-21-115bf8|NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA cuDSS 今天正式 GA，把工程與科學模擬的一段關鍵運算搬上 GPU。
+- **[[Events/evt-2026-10-21-29062d|How we built ChatGPT’s novel ad stack for user trust and relevance]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 說明 ChatGPT 廣告系統怎麼運作：用 LLM 理解對話意圖，廣告與答案分開。
+- **[[Events/evt-2026-10-21-32a623|Christopher Stubbs Joins Long Term Benefit Trust]]** — Anthropic · policy · conf 73 · heat 未量測
+  Christopher Stubbs 加入 Anthropic 的 Long Term Benefit Trust，內文未取得。
+- **[[Events/evt-2026-10-21-3f3fe6|Europe’s Industrial Leaders Reinvent Engineering and Manufacturing With NVIDIA]]** — NVIDIA · product · conf 73 · heat 未量測
+  歐洲工業大廠在工程與製造流程中採用 NVIDIA CUDA-X、Omniverse、Cosmos 與 Nemotron。
+- **[[Events/evt-2026-10-21-3f6e5f|Granite Speech 5.0: Transcribe, Translate, and Attribute more Accurately and Faster]]** — IBM · model-capability · conf 73 · heat 未量測
+  IBM Granite Speech 5.0 發布，宣稱轉錄、翻譯與說話者標註更準更快。
+- **[[Events/evt-2026-10-21-423d52|OpenAI models are coming to Google Cloud]]** — OpenAI · capital · conf 80 · heat 未量測
+  OpenAI 模型將上 Google Cloud，Ars Technica 說未來幾週提供 GPT 6.1 Astra、Sol、Luna。
+- **[[Events/evt-2026-10-21-5e6d47|Democratic governance of frontier AI, part II: Empowering cyber defenders]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 提出藍圖：用前沿 AI、更強防護與更現代的資安，替網路防禦方賦能。
+- **[[Events/evt-2026-10-21-7c7b8b|How AT&T is rethinking in-house legal work with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  AT&T 與 OpenAI 合作，改造內部法務的案件受理與判斷擴展。
+- **[[Events/evt-2026-10-21-92a508|Profiling TorchNeuron (Part 1): System-level profiling on AWS Trainium.]]** — Amazon · infra · conf 73 · heat 未量測
+  Amazon 發表 TorchNeuron 剖析系列第一篇，講 AWS Trainium 的系統層級效能分析。
+- **[[Events/evt-2026-10-21-94b016|Bringing the Spark to Europe: Local Intelligence Powers Next Wave of Agents]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 在 GTC Berlin 展示本地 AI 硬體全系列：RTX Spark、DGX Spark、DGX Station。
+- **[[Events/evt-2026-10-21-98fb46|NVIDIA Agent Toolkit Expands, Grounding Enterprise Agents in Company Data]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA Agent Toolkit 擴充，讓企業代理能用公司資料並受邊界管控。
+- **[[Events/evt-2026-10-21-af85b4|NVIDIA Cloud Partners Scale Across Europe — Sovereign, Open and Built for Safe AI Agents]]** — NVIDIA · infra · conf 83 · heat 未量測
+  歐洲 NVIDIA 雲端夥伴擴張，同時 NVIDIA 擴充開放模型家族，含 Nemotron 3.5 Super VL。
+- **[[Events/evt-2026-10-21-b189ca|Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure]]** — Google · infra · conf 73 · heat 未量測
+  Google Cloud 與 NVIDIA 宣布 Vera Rubin 基礎設施將於下月 GA，之後擴展至歐洲。
+- **[[Events/evt-2026-10-21-c7d64d|GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote]]** — NVIDIA · product · conf 73 · heat 未量測
+  GTC Berlin 2026 開幕，為期三天、逾百場議程，Jensen Huang 主題演講同步直播。
+- **[[Events/evt-2026-10-21-d0398c|NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 公布 OpenShell 參考架構，並擴充機密運算，讓前沿模型業者安全跨基礎設施擴展。
+- **[[Events/evt-2026-10-21-dacc08|ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform]]** — OpenAI · capital · conf 73 · heat 未量測
+  ChatGPT 廣告擴到 26 個新國家，OpenAI 稱已有超過 10 萬名廣告主使用。
 
 ## 2026-10-20
 - **[[Events/evt-2026-10-20-1188ef|OpenAI acquires Orchestra Bio]]** — OpenAI · capital · conf 80 · heat 未量測
@@ -13,6 +47,8 @@
   Hugging Face 發文談 PyTorch 2.15 的 MPS 後端。
 - **[[Events/evt-2026-10-20-3bdd58|Hugging Face ❤️ TorchTPU: TPUs, Natively]]** — Hugging Face · infra · conf 73 · heat 未量測
   Hugging Face 發文談在 TPU 上原生跑 PyTorch。
+- **[[Events/evt-2026-10-20-ce71d9|European Leaders Turn to NVIDIA Vera CPUs to Build Local Infrastructure]]** — NVIDIA · infra · conf 73 · heat 未量測
+  Nebius 與 Nscale 等業者轉向 NVIDIA Vera CPU，建歐洲本地 AI 基礎設施。
 - **[[Events/evt-2026-10-20-efa6ff|Spain-Based Startups Advance Regional Innovation With Barcelona Supercomputing Center]]** — NVIDIA · infra · conf 73 · heat 未量測
   巴塞隆納超算中心的 AI Factory 新創計畫從試辦轉為全面運作。
 

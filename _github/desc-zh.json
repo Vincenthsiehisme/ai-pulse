@@ -34,6 +34,11 @@
     "src_hash": "6be7dcaf63df",
     "zh": "把文字與真實來源轉成可維護的 .drawio 架構圖，支援增量同步、多視角投影，並內建 MCP server"
   },
+  "AhmadHassan-BTed/AutoSwarm-Shadow-Adapter": {
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "afa5ca52189f",
+    "zh": "給 OpenOPC 代理 DAG 執行環境用的免改碼人在迴圈轉接器"
+  },
   "AlephAITech/WorkBuddyGuide": {
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "f2563902e5f8",
@@ -135,9 +140,9 @@
     "zh": "本機優先的 AI agent，記憶需經核准才寫入，可接任何模型供應商，內建 MCP 工具與網頁搜尋，資料不離開你的電腦"
   },
   "Evil0ctal/Douyin_TikTok_Download_API": {
-    "at": "2026-10-18T18:23:02+00:00",
-    "src_hash": "934b8091ba70",
-    "zh": "自架的抖音與 TikTok 資料擷取、無浮水印影片下載 API，支援 MCP、離線語音轉文字與 Docker 部署"
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "42ab820d020b",
+    "zh": "自架的抖音、TikTok、B 站資料擷取與無浮水印影片下載 API，支援 MCP、離線語音轉文字與 Docker"
   },
   "FareedKhan-dev/kimi-k3-in-c": {
     "at": "2026-08-10T19:09:33+00:00",
@@ -148,6 +153,11 @@
     "at": "2026-10-13T20:55:59+00:00",
     "src_hash": "dcd5f1ee174b",
     "zh": "DeepSeek Harness 用的長駐 bot 團隊，含主 bot、bot 之間的訊息與群組聊天"
+  },
+  "FengZhenfei/carrel": {
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "992d00a6fe2e",
+    "zh": "給 AI agent 用的本體增強生成（Ontology-Augmented Generation）"
   },
   "Folkbench/folkbench": {
     "at": "2026-10-13T20:55:59+00:00",
@@ -805,9 +815,9 @@
     "zh": "讓 AI 做出正經 PPTX 簡報的 Claude Code / Codex skill"
   },
   "cathrynlavery/diagram-design": {
-    "at": "2026-10-11T19:50:00+00:00",
-    "src_hash": "df9a6af97c26",
-    "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，44 種圖型，純 HTML＋SVG"
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "677a90ddba8d",
+    "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，45 種圖型，純 HTML＋SVG"
   },
   "cayu-dev/cayu": {
     "at": "2026-10-09T20:27:19+00:00",
@@ -1129,6 +1139,16 @@
     "src_hash": "394531d8c3b6",
     "zh": "從零訓練一個 6,400 萬參數的 LLM，只要 2 小時"
   },
+  "jnMetaCode/agency-agents-zh": {
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "cc9d1e1f1737",
+    "zh": "277 個即插即用的 AI 專家角色，支援 20 種工具，含 64 個中國市場原創智慧體與編排器"
+  },
+  "jonaslsaa/pi-optchat": {
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "15d7e97f84d3",
+    "zh": "給 Pi 用的持久無限記憶，含設定檔、背景 agent 與對話匯入"
+  },
   "jundot/omlx": {
     "at": "2026-08-17T19:10:59+00:00",
     "src_hash": "967d0d1fd482",
@@ -1148,6 +1168,11 @@
     "at": "2026-10-15T19:35:35+00:00",
     "src_hash": "73a118a62c72",
     "zh": "給 Claude Code、Codex 等工具的白話 skills，附誠實報告與可照做的步驟"
+  },
+  "kividbio/kividb": {
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "a9bbf55c38b4",
+    "zh": "用 Rust 寫的多執行緒 Redis 與 Valkey 替代品，相容直接替換，內建全文與向量搜尋"
   },
   "koala73/worldmonitor": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -1210,9 +1235,14 @@
     "zh": "拿來建即時語音 AI agent 的框架"
   },
   "llm-d/llm-d": {
-    "at": "2026-07-30T19:18:19+00:00",
-    "src_hash": "ded019d9b9e2",
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "157e27356ce3",
     "zh": "在 Kubernetes 上用現代加速器達到頂尖的推論效能"
+  },
+  "luongnv89/claude-howto": {
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "407654f3df82",
+    "zh": "以範例為主的 Claude Code 圖解指南，從基礎到進階 agent，附可複製的範本"
   },
   "lyogavin/airllm": {
     "at": "2026-10-12T22:42:13+00:00",
@@ -1238,6 +1268,11 @@
     "at": "2026-10-09T20:27:19+00:00",
     "src_hash": "8e0a551b6858",
     "zh": "本機優先的醫療 AI，在自有硬體上做臨床 NER 與 HIPAA 個資去識別，含 2,200 多個醫療模型"
+  },
+  "mcncarl/jianying-headless": {
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "77f145121cf0",
+    "zh": "私有原始碼預覽：原生剪映草稿、隔離式編輯與匯出，以及獨立的 Agent Skill"
   },
   "mem0ai/mem0": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -1669,6 +1704,11 @@
     "src_hash": "676b1ecaa56d",
     "zh": "從 vibe coding 練到 agentic engineering，靠練習讓 Claude 更完美"
   },
+  "simbasjungles/free-my-tv": {
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "ec72d610e1b2",
+    "zh": "Google TV 的快速無廣告主畫面，開源，用 Claude Code 做的，一鍵還原"
+  },
   "simonlin1212/vibe-astock": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "16dc11e259e0",
@@ -1730,9 +1770,9 @@
     "zh": "開源推論伺服器與正式環境叢集，涵蓋 agent 需要的所有模型"
   },
   "synergycodes/workflowbuilder": {
-    "at": "2026-10-15T19:35:35+00:00",
-    "src_hash": "cb96f23bb065",
-    "zh": "Apache 2.0 的 React SDK，用來嵌入拖拉式工作流編輯器，後端可替換"
+    "at": "2026-10-21T19:47:16+00:00",
+    "src_hash": "1af54be6c363",
+    "zh": "可嵌入產品的開源工作流編排框架，React 拖拉式編輯器、Temporal 持久執行、AI agent 人工核准"
   },
   "t8y2/dbx": {
     "at": "2026-09-26T19:13:11+00:00",

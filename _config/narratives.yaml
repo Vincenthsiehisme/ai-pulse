@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-20'
+updated: '2026-10-21'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 這一輪新增 10-20 的三則 Hugging Face 文章，AnyLanguageModel 1.0（Apple 平台本地模型）、PyTorch 2.15 的 MPS 後端、TorchTPU（TPU 上原生跑 PyTorch），三則都只有標題與通用站點描述，沒有支援範圍或效能數字。10-19 Anthropic 對擴散規則的立場文，依授權只收標題與連結，具體主張不明。10-19 的 Hugging Face TorchNeuron 讓 HF 模型更容易跑在 AWS Trainium，只有標題與一句簡介，沒有模型清單或成本。10-18 的 vLLM v0.32.0 有 814 個 commit、363 位貢獻者，新增 /v1/systemone 端點，摘要沒有效能數字。10-17 的 RTX Spark 筆電起價 2,399 美元、最高 128GB 統一記憶體，全是廠商自述。10-15 的北歐與歐洲科學界兩則 NVIDIA 文章、10-14 的歐洲市政 agent、10-13 的〈All Systems Go〉、10-12 的 Vera Rubin 開放架構、10-09 Ai2 的 GPU 排程文章，仍缺金額、名單或前後數字。
-    next: 看 AnyLanguageModel、MPS 與 TorchTPU 三則是否附支援的後端、算子覆蓋與效能數據；看 Anthropic 擴散規則立場文列了哪些具體修改建議；看 HF 或 AWS 是否公布 TorchNeuron 支援的模型清單與相對 GPU 的效能與成本，社群是否有第三方實測；看 RTX Spark 筆電的獨立評測，尤其是本機大模型推論速度與 128GB 機種實際售價；看 vLLM v0.32.0 完整 release notes 與 /v1/systemone 文件；看歐洲科學界取用計畫的算力配額與首批機構；看北歐文章是否列各國專案與金額；看市政 agent 文章是否點名城市與合約；看 Vera Rubin 開放規格文件是否釋出；看 Ai2 那篇有沒有叢集利用率的前後數字。
+    now: 今天新增五則，GTC Berlin 同期。Google Cloud 與 NVIDIA 稱 Vera Rubin NVL72 的 A5X 執行個體下個月 GA，之後擴到歐洲，價格沒給。NVIDIA 展示 RTX Spark、DGX Spark、DGX Station 本地硬體三層，宣布 cuDSS 函式庫 GA，並公布 OpenShell 參考架構與機密運算擴充，這些都是廠商自述，沒有效能與價格數字。Amazon 發表 TorchNeuron 剖析系列第一篇，摘要無內文。10-20 的 Nebius、Nscale 轉向 Vera CPU 只有廠商說法，沒有部署規模。
+    next: 看 A5X 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署數量與時間；看 DGX Spark 與 DGX Station 的歐洲價格與出貨時程；看 cuDSS 是否有模擬軟體廠商整合與實測加速倍率；看機密運算的效能損耗與支援平台；看 TorchNeuron 後續篇章有沒有調校前後數據。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 這一輪新增 10-19 的兩則 Anthropic 與 10-15 的三則，全是新聞頁的標題與連結，依授權沒有內文：Responsible Scaling Policy v3、Building Safeguards For Claude、100k Context Windows、前沿威脅紅隊測試，其中 RSP v3 與前一版差在哪，我們比對不了。另有 10-20 的 Ai2 FairStress，標題稱是更深入的 LLM 決策公平性評測，與 NVIDIA 的 Cosmos3-H-Dreams 手術場景生成式模擬，兩則都只有署名摘要，沒有分數或規格。更早的 NVIDIA 印度語系資料、Beam 501B、Granite Switch 4.1、Nemotron 3.5 Super VL 與邊緣模型、Apertus 1.5、Muse Spark Open、FLUX.3 Image Klein、DeepMind 抗菌肽、Ai2 HiRO-ACEv2、Gemini 4 Argon、LFM2.5-24B-A2B 與 GPT-6.1 Sol，仍停在標題與一兩行說明，沒有獨立評測數字。
-    next: 讀 RSP v3 原文，與 v2 比對能力門檻與防護等級有沒有變；看 FairStress 是否公開評測集與各模型結果；看 Cosmos3-H-Dreams 的權重、授權與臨床驗證說明；看 Beam 的權重是否真的可下載與授權寬不寬；看 NVIDIA 印度語系資料集有沒有附連結與授權；看 Granite Switch 4.1 內文有沒有列模型大小與評測；看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 Gemini 4 Argon 公布的基準與開放日期；看 LFM2.5-24B-A2B 模型卡的基準與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
+    now: 今天只新增一則：IBM Granite Speech 5.0，標題稱轉錄、翻譯與說話者標註更準更快，摘要只有署名，沒有詞錯率或速度數字。10-19 的 Anthropic Responsible Scaling Policy v3 與 Building Safeguards For Claude 仍只有標題與連結，依授權沒有內文，RSP v3 與前一版差在哪，我們比對不了。更早的 Beam 501B、Apertus 1.5、Muse Spark Open、Gemini 4 Argon、LFM2.5-24B-A2B 等，一樣停在標題與一兩行說明，沒有獨立評測數字。
+    next: 看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期；看 Muse Spark Open、Apertus 1.5 原文有沒有列參數量、授權與基準。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 這一輪新增 10-20 的 OpenAI 加盟主案例：一位 Schlotzsky's 與 Cinnabon 加盟主用 ChatGPT Work 縮短對帳與調價時間，數字出自 OpenAI 自己發的客戶案例，只有一個樣本。10-19 的 Anthropic Claude Gov 模型針對美國國家安全客戶，依授權只收標題與連結，部署範圍不明。10-19 NVIDIA 柏林媒體活動，歐洲廣播聯盟與 NVIDIA 合作擴充主權 AI，只有開頭摘要，沒有範圍與時程。10-16 的 Itaú 案例，ia.i 對話介面與 IARA 治理平台，沒有用戶數與成效。前一輪 10-15 的 Rosalind 學術方案、Sullivan & Cromwell 的 Agreement Analyzer、Anthropic 政府三分支使用範圍、Block 與 SentinelOne 資安案例、NVIDIA RTX Spark 預告與 GeForce NOW 的 DLSS 4.5、xAI Grok Voice 3，仍多為官方自述或只有標題與連結，沒有第三方數字。
-    next: 看 OpenAI 是否發出更多不同規模客戶的量化案例，單一加盟主不能代表一般企業；看 Claude Gov 原文有沒有列客戶範圍、部署環境與使用限制；看 EBU 或 Adobe、Bertelsmann、UFA 是否另行發布合作內容；看 Itaú 或監理端是否公布 ia.i 的使用者數、處理量與申訴率；看 Anthropic 政府公告原文有沒有列具體機關與採購管道；看 Rosalind 方案公布的資格條件與首批實驗室；看 Sullivan & Cromwell 是否公布 Agreement Analyzer 的使用範圍或錯誤率；看 Block、SentinelOne 或第三方是否公布樣本數、準確率與測量方式；看 Grok Voice 3 原文有沒有延遲、語言與開放對象；看 RTX Spark 的規格、價格與出貨時程。
+    now: 今天有三則 OpenAI。ChatGPT Ads 擴到 26 個新國家，OpenAI 稱已有超過 10 萬名廣告主使用，沒有附營收或成效；同日另一篇說明廣告堆疊，用 LLM 理解對話意圖，廣告與答案分開，沒有隔離效果的驗證。AT&T 法務團隊 LegalEdge 與 OpenAI 的案例，沒有量化成果。10-20 的加盟主案例仍只有單一樣本，10-19 的 Claude Gov 模型只收標題與連結，部署範圍不明。
+    next: 看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容；看 AT&T 是否公布處理量與節省時數；看 OpenAI 是否發出更多不同規模客戶的量化案例；看 Claude Gov 原文有沒有列客戶範圍與使用限制。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -50,8 +50,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 這一輪新增 10-20 的 OpenAI 收購 Orchestra Bio，目標是把 AI 營運能力帶進生命科學研發，摘要沒有收購金額、交割時程與整合安排，單一來源。先前 10-18 的 Anthropic〈Public Benefit Fund〉與 10-14 的新加坡辦公室，依授權只收標題與連結，基金規模、用途與辦公室人數都不明。10-13 NVIDIA 對法國新創的新投資，金額與名單沒有給，只有 NVIDIA 單一來源。10-08 Anthropic 的 Genesis Mission Commitment 與 Cyber Mission 也只收標題與連結。09-30 的 NVIDIA 研究生獎學金最高 6 萬美元與 09-28 OpenAI 對 Lenfest 計畫出資 500 萬美元，仍是最近有金額的資金類訊號。
-    next: 看 OpenAI 與 Orchestra Bio 是否公布交易條件，以及 Orchestra Bio 的產品會不會併入 OpenAI 的產品線；讀 Public Benefit Fund 原文，確認基金規模、出資方式與受益對象；看新加坡辦公室原文有沒有給人數與合作對象；看 NVIDIA 或被投資新創是否公布法國投資的金額與名單；讀 Genesis Mission Commitment 與 Cyber Mission 原文，確認承諾項目與是否涉及資金；看 Lenfest 計畫的參與機構與資金分配。
+    now: 今天新增三則。OpenAI 模型將上 Google Cloud，Ars Technica 稱未來幾週提供 GPT 6.1 的 Astra、Sol、Luna，OpenAI 官方內文依授權只收標題與連結，價格與合約條件不明，單一媒體來源。OpenAI 發表〈前沿 AI 的民主治理〉第二部，是政策藍圖，沒有具體資源承諾。Anthropic 宣布 Christopher Stubbs 加入 Long Term Benefit Trust，內文未取得。10-20 的 OpenAI 收購 Orchestra Bio，金額與交割時程仍不明。
+    next: 看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期；看 OpenAI 治理藍圖是否出現可執行的防禦方存取計畫；讀 Public Benefit Fund 原文確認規模與受益對象。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
@@ -59,11 +59,11 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這一輪新增兩則，都出自 OpenAI 10-16 的客戶案例，數字都是廠商自述。Stack Overflow for Agents 說兩位工程師用 Codex 幾週內做完，ChatGPT 外掛帶動代理建立數最高成長 10 倍，摘要沒有基期與統計區間。Benefit Street Partners 的 Anant Kumar 自己做放款估值比較與信貸合約分析工具，用 Codex 做程式碼審查，標題稱回答更快，沒有量化。再往前，10-14 的 Third Moment Research 標題給的是規模：10,000 個 agent 連跑 36 小時以上，沒有任務類型、完成率或成本。Amp 主張 agent 用到程式碼以外的工作，沒寫實際任務。10-08 Hugging Face 的 ML intern 文章只有通用介紹，Oracle 案例只有「數天縮到數分鐘」的標題，10-07 微軟研究院的 Agent Lightning v1.0 沒有效果數據，10-06 OpenAI 與 Ironclad 的合約 agent 沒有成績。
-    next: 看 Stack Overflow 或第三方是否公布代理建立數與註冊數的絕對值和期間；看 Benefit Street Partners 是否把工具擴到其他團隊並公布節省的時間；看 OpenAI 或 Third Moment Research 是否公開任務完成率、單位成本，或第三方複現；看 Amp 是否公布非程式碼任務的類型與使用量；看 Hugging Face 那篇有沒有公開 ML intern 的程式碼或模型連結；看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果；看 Holo4 有沒有第三方的電腦操作評測。
+    now: 今天新增一則：NVIDIA Agent Toolkit 擴充，官方稱企業可用公司資料客製並控制代理，同時監控，新增工具清單與採用者沒有給。這是廠商自述，沒有第三方數字。先前的內容不變：10-16 OpenAI 的 Stack Overflow for Agents 與 Benefit Street Partners 兩個客戶案例，數字都出自廠商；10-14 Third Moment Research 的 10,000 個 agent 連跑 36 小時以上，沒有完成率與成本。
+    next: 看 NVIDIA 是否點名採用 Agent Toolkit 的企業與具體新增工具；看 Stack Overflow 或第三方是否公布代理建立數的絕對值與期間；看 OpenAI 或 Third Moment Research 是否公開任務完成率與單位成本；看 Agent Lightning 的程式碼與微軟以外的訓練結果。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 這一輪新增 10-20 的巴塞隆納超算中心 AI Factory 新創計畫，從試辦轉為全面運作，提供新創主權運算、技術支援與培訓，出自 NVIDIA 自家部落格，只有摘要，沒有參與新創名單或運算配額。10-19 Anthropic 的選舉相關風險測試與緩解，依授權只收標題與連結，結果不明。10-19 的德國工業 AI 對談，NVIDIA 官方部落格記述梅爾茲與黃仁勳在柏林討論德國 AI 路線，焦點是工業應用，沒有投資金額或政策措施。10-14 的 DeepMind 與新加坡 GovTech 合作，用裝置端 Gemma 小模型攔截聊天詐騙，偵測率與誤報率沒公布。10-14 的 OpenAI 歐盟 agentic AI 採用分析是 OpenAI 自己的分析，沒有採用率。先前的觀察仍在：OpenAI 瓦解兩個假身分影響力行動、TII 的 Falcon-Emirati、Altman 在聯合國安理會的談話、Daybreak 開放給烏克蘭與 Grab 東南亞技能培訓，都還沒有成效數字。
-    next: 看 BSC 是否公布參與新創數量與運算配額；看 Anthropic 選舉風險原文是否公開測試方法與緩解規則；看德國政府或 NVIDIA 是否公布工業 AI 的算力部署、資金規模或合作企業名單，以及德媒的獨立報導；看 DeepMind 與 GovTech 是否公布偵測率、誤報率與部署範圍；看 OpenAI 歐盟分析完整版有沒有公布方法、樣本與採用率；看有沒有獨立機構公開同一批假身分的分析，對照 OpenAI 的說法；看 Falcon-Emirati 的權重、授權與阿拉伯語方言的公開評測；看後續是否有具體政策文件或多邊協議跟進；沿用對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
+    now: 今天新增三則，都出自 NVIDIA GTC Berlin。歐洲工業大廠在工程與製造流程用 CUDA-X、Omniverse、Cosmos、Nemotron，沒有點名客戶與數字。歐洲雲端夥伴擴張，同時新增開放模型，含 Nemotron 3.5 Super VL，夥伴名單與容量沒給。GTC Berlin 直播頁只有活動資訊，三天、逾百場議程。10-20 的巴塞隆納 AI Factory 新創計畫與 10-19 德國工業 AI 對談仍沒有金額或配額。
+    next: 看 NVIDIA 後續是否點名歐洲製造商並公布導入成果；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額；看德國政府或 NVIDIA 是否公布工業 AI 的算力部署與資金規模。
     lenses: []
