@@ -1,45 +1,5 @@
 [
   {
-    "id": "evt-2026-10-15-1d07ce",
-    "title": "100k Context Windows",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-3f68b4",
-    "title": "Introducing Claude",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-6bf3e9",
-    "title": "Frontier Threats Red Teaming For Ai Safety",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-8f04df",
-    "title": "Releasing Claude Instant 1.2",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-15-9707c4",
-    "title": "Frontier Model Security",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-10-16-921b99",
     "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
     "company": "OpenAI",
@@ -48,113 +8,153 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-19-0a1541",
-    "title": "Advancing coding in low‑resource programming languages",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-19-36f71c",
-    "title": "Claude Gov Models For U S National Security Customers",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-10-19-3b49f6",
     "title": "Responsible Scaling Policy v3",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-19-7083e1",
-    "title": "Testing And Mitigating Elections Related Risks",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-19-71ea5e",
-    "title": "Building Safeguards For Claude",
     "company": "Anthropic",
+    "track": "模型能力與研究",
+    "summary": "Anthropic 官網新聞頁出現《Responsible Scaling Policy v3》，內文未摘錄。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-20-ce71d9",
+    "title": "European Leaders Turn to NVIDIA Vera CPUs to Build Local Infrastructure",
+    "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-19-dff564",
-    "title": "Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule",
-    "company": "Anthropic",
+    "id": "evt-2026-10-20-efa6ff",
+    "title": "Spain-Based Startups Advance Regional Innovation With Barcelona Supercomputing Center",
+    "company": "NVIDIA",
+    "track": "全球創新版圖",
+    "summary": "巴塞隆納超算中心的 AI Factory 新創計畫從試辦轉為全面運作。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-115bf8",
+    "title": "NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations",
+    "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-20-1188ef",
-    "title": "OpenAI acquires Orchestra Bio",
+    "id": "evt-2026-10-21-1378db",
+    "title": "Using thousands of AI agents to uncover new leads in biological data",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-20-260a2f",
-    "title": "ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-20-2bf802",
-    "title": "Franchisee reconciles cash in 94% less time with ChatGPT Work",
+    "id": "evt-2026-10-21-29062d",
+    "title": "How we built ChatGPT’s novel ad stack for user trust and relevance",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-20-2d6c92",
-    "title": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
+    "id": "evt-2026-10-21-32a623",
+    "title": "Christopher Stubbs Joins Long Term Benefit Trust",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-20-2fa1fb",
-    "title": "MPS in PyTorch 2.15",
+    "id": "evt-2026-10-21-3c66c9",
+    "title": "How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-3f3fe6",
+    "title": "Europe’s Industrial Leaders Reinvent Engineering and Manufacturing With NVIDIA",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-3f6e5f",
+    "title": "Granite Speech 5.0: Transcribe, Translate, and Attribute more Accurately and Faster",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-4163ab",
+    "title": "Patch the Planet: global response coordination as agents uncover critical vulnerabilities",
     "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-20-3bdd58",
-    "title": "Hugging Face ❤️ TorchTPU: TPUs, Natively",
+    "id": "evt-2026-10-21-423d52",
+    "title": "OpenAI models are coming to Google Cloud",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-5e6d47",
+    "title": "Democratic governance of frontier AI, part II: Empowering cyber defenders",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-75c306",
+    "title": "NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Relational Data, No Training Required",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-20-46b233",
-    "title": "FairStress: A deeper evaluation of fairness in LLM decision-making",
+    "id": "evt-2026-10-21-7c7b8b",
+    "title": "How AT&T is rethinking in-house legal work with OpenAI",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-92a508",
+    "title": "Profiling TorchNeuron (Part 1): System-level profiling on AWS Trainium.",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-20-8d2bea",
-    "title": "NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation",
-    "company": "Hugging Face",
+    "id": "evt-2026-10-21-94b016",
+    "title": "Bringing the Spark to Europe: Local Intelligence Powers Next Wave of Agents",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-98fb46",
+    "title": "NVIDIA Agent Toolkit Expands, Grounding Enterprise Agents in Company Data",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-21-af85b4",
+    "title": "NVIDIA Cloud Partners Scale Across Europe — Sovereign, Open and Built for Safe AI Agents",
+    "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null

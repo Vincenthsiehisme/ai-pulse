@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-20'
+generated_day: '2026-10-21'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**85 天**（2026-07-24 … 2026-10-20），去重後 **5634** 列。
+語料範圍：**86 天**（2026-07-24 … 2026-10-21），去重後 **5727** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,59 +17,59 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 169 | 2 |
-| Apple | 126 | 5 |
-| Amazon | 80 | 5 |
+| Show HN | 170 | 2 |
+| Apple | 127 | 6 |
+| Amazon | 83 | 5 |
 | September | 61 | 8 |
 | LLMs | 56 | 13 |
+| There | 56 | 7 |
 | LLM | 55 | 12 |
-| There | 55 | 7 |
-| They | 52 | 9 |
-| Here | 48 | 8 |
+| They | 53 | 9 |
+| Here | 50 | 8 |
 | October | 48 | 7 |
+| Trump | 45 | 5 |
 | Muse | 45 | 5 |
-| Trump | 44 | 5 |
 | One | 43 | 10 |
 | San Francisco | 41 | 9 |
 | CEO | 40 | 5 |
+| When | 39 | 11 |
 | AI-powered | 38 | 10 |
 | Python | 38 | 4 |
-| When | 38 | 11 |
 | July | 37 | 9 |
-| Pro | 36 | 7 |
+| Pro | 37 | 7 |
 | U.S | 35 | 8 |
 | After | 35 | 6 |
 | Android | 34 | 4 |
+| Linux | 33 | 5 |
 | China | 32 | 8 |
-| Linux | 32 | 5 |
 | Last | 32 | 6 |
+| Astra | 32 | 6 |
 | With | 31 | 10 |
-| Astra | 31 | 5 |
 | June | 30 | 7 |
+| Research | 30 | 6 |
 | August | 30 | 8 |
-| Research | 29 | 6 |
-| AI-generated | 28 | 8 |
-| Rust | 27 | 3 |
+| AI-generated | 29 | 8 |
+| Europe | 28 | 8 |
+| Rust | 28 | 3 |
+| Learn | 27 | 6 |
+| Windows | 27 | 5 |
 | These | 26 | 7 |
-| Windows | 26 | 5 |
 | Building | 25 | 10 |
-| Learn | 25 | 6 |
-| Europe | 24 | 8 |
 | Pixel | 24 | 3 |
+| Samsung | 24 | 5 |
+| Opus | 23 | 6 |
 | API | 23 | 6 |
-| Samsung | 23 | 5 |
 | Wednesday | 22 | 5 |
-| Opus | 22 | 5 |
+| SpaceX | 22 | 5 |
 | Over | 22 | 5 |
 | Flash | 21 | 6 |
 | Tuesday | 21 | 6 |
 | Elon Musk | 21 | 5 |
-| SpaceX | 21 | 5 |
+| Xbox | 21 | 2 |
+| Chinese | 20 | 8 |
 | While | 20 | 4 |
 | RAM | 20 | 2 |
-| Xbox | 20 | 2 |
 | Mac | 19 | 4 |
-| Chinese | 19 | 8 |
 | Tool | 19 | 2 |
 | The AI | 19 | 6 |
 | Don | 19 | 5 |
@@ -88,22 +88,22 @@ generator: scripts/pulse-dictionary-gaps.py
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
-| The Download | 65 | src-media-mit-techreview |
+| The Download | 66 | src-media-mit-techreview |
 | Tags | 36 | src-kol-simonwillison |
+| Hi HN | 27 | src-hn-frontpage |
 | Register | 27 | src-media-techcrunch |
-| Hi HN | 26 | src-hn-frontpage |
 | MIT Technology Review | 23 | src-media-mit-techreview |
-| Launch HN | 21 | src-hn-frontpage |
+| Launch HN | 22 | src-hn-frontpage |
 | Highlights | 20 | src-gh-vllm-releases |
 | Opt | 18 | src-media-theverge |
-| The Verge | 17 | src-media-theverge |
+| The Verge | 18 | src-media-theverge |
+| Is Hiring | 17 | src-hn-frontpage |
 | Ask HN | 16 | src-hn-frontpage |
-| Is Hiring | 16 | src-hn-frontpage |
+| A Blog | 16 | src-hf-blog |
 | Committee | 15 | src-ep-itre |
 | GeForce NOW | 14 | src-nvidia-blog |
 | Best Buy | 14 | src-media-theverge |
 | Hey HN | 14 | src-hn-frontpage |
-| A Blog | 14 | src-hf-blog |
 | The Stepback | 12 | src-media-theverge |
 | Datasette | 12 | src-kol-simonwillison |
 | YC S26 | 11 | src-hn-frontpage |
@@ -122,7 +122,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Startup Battlefield | 9 | src-media-techcrunch |
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
 | The Algorithm | 8 | src-media-mit-techreview |
-| Walmart | 8 | src-media-theverge |
 | Sunday | 7 | src-media-theverge |
 | Open-source | 7 | src-hn-frontpage |
 | Apple TV | 7 | src-media-theverge |
@@ -131,10 +130,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | Verge | 7 | src-media-theverge |
 | Victoria Song | 7 | src-media-theverge |
 | Join | 7 | src-media-techcrunch |
+| Related | 6 | src-hn-frontpage |
 | Code | 6 | src-hn-frontpage |
 | Galaxy Z Fold | 6 | src-media-theverge |
-| Nscale | 6 | src-media-techcrunch |
 | AI Stage | 6 | src-media-techcrunch |
+| PlayStation | 6 | src-media-theverge |
 | Reuters | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
 | Bose | 6 | src-media-theverge |
@@ -144,9 +144,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | VCs | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Latest | 5 | src-kol-interconnects |
+| Equity | 5 | src-media-techcrunch |
 | Zig | 5 | src-hn-frontpage |
 | Mini | 5 | src-media-theverge |
-| Woot | 5 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

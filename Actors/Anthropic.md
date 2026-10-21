@@ -3,24 +3,29 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-10-20'
+generated_day: '2026-10-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **124** 則：`published` 113、`review` 11
+事件 **129** 則：`published` 123、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-19 | [[Events/evt-2026-10-19-dff564\|Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule]] | review |
-| 2026-10-19 | [[Events/evt-2026-10-19-71ea5e\|Building Safeguards For Claude]] | review |
-| 2026-10-19 | [[Events/evt-2026-10-19-36f71c\|Claude Gov Models For U S National Security Customers]] | review |
+| 2026-10-19 | [[Events/evt-2026-10-19-dff564\|Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule]] | published |
+| 2026-10-19 | [[Events/evt-2026-10-19-71ea5e\|Building Safeguards For Claude]] | published |
+| 2026-10-19 | [[Events/evt-2026-10-19-7083e1\|Testing And Mitigating Elections Related Risks]] | published |
+| 2026-10-19 | [[Events/evt-2026-10-19-3b49f6\|Responsible Scaling Policy v3]] | published |
+| 2026-10-19 | [[Events/evt-2026-10-19-36f71c\|Claude Gov Models For U S National Security Customers]] | published |
 | 2026-10-18 | [[Events/evt-2026-10-18-3f122f\|Public Benefit Fund]] | published |
-| 2026-10-15 | [[Events/evt-2026-10-15-8f04df\|Releasing Claude Instant 1.2]] | review |
-| 2026-10-15 | [[Events/evt-2026-10-15-3f68b4\|Introducing Claude]] | review |
+| 2026-10-15 | [[Events/evt-2026-10-15-9707c4\|Frontier Model Security]] | published |
+| 2026-10-15 | [[Events/evt-2026-10-15-8f04df\|Releasing Claude Instant 1.2]] | published |
+| 2026-10-15 | [[Events/evt-2026-10-15-6bf3e9\|Frontier Threats Red Teaming For Ai Safety]] | published |
+| 2026-10-15 | [[Events/evt-2026-10-15-3f68b4\|Introducing Claude]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-3f28e4\|Offering Expanded Claude Access Across All Three Branches Of Government]] | published |
+| 2026-10-15 | [[Events/evt-2026-10-15-1d07ce\|100k Context Windows]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-142ee5\|An Update On Independent Evaluators]] | review |
 | 2026-10-14 | [[Events/evt-2026-10-14-5f2e66\|Singapore Office Opening]] | published |
 | 2026-10-14 | [[Events/evt-2026-10-14-0f6af4\|2026 Us Midterms]] | published |

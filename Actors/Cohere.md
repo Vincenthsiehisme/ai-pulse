@@ -3,7 +3,7 @@ id: actor-cohere
 kind: company
 in_dictionary: true
 aliases: []
-generated_day: '2026-10-20'
+generated_day: '2026-10-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

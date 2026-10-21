@@ -16,10 +16,10 @@ license_note: "titles + links only"
 endpoint: "https://blogs.nvidia.com/feed/"
 robots_checked_day: "2026-10-16"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-10-20"
-items_observed: 98
-events_bound: 94
-events_published: 90
+last_observed_day: "2026-10-21"
+items_observed: 108
+events_bound: 103
+events_published: 91
 health_score: 100
 consecutive_failures: 0
 last_status: 200
@@ -34,9 +34,9 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 98 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 94 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 90 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 已觀測 | 108 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 103 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已發布 | 91 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**NVIDIA**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 

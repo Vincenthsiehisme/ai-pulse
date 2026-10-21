@@ -1,186 +1,181 @@
 [
   {
-    "full_name": "Leonxlnx/earshot",
-    "desc": "Ears for coding agents: let AI hear, review and make sound. CPU-only, open source.",
-    "language": "Python",
-    "topics": [
-      "ai-agents",
-      "audio",
-      "claude-code",
-      "mcp",
-      "sound-design"
-    ],
-    "stars": 1899,
-    "url": "https://github.com/Leonxlnx/earshot",
-    "stale_zh": null
-  },
-  {
-    "full_name": "sandbox-quantum/switch",
-    "desc": "Open-source AI teammates in Slack, Teams, Discord, Telegram and Mattermost. Self-host it, with any agent harness and any model.",
-    "language": "Python",
-    "topics": [
-      "agent-orchestration",
-      "ai-agents",
-      "discord",
-      "mcp",
-      "microsoft-teams",
-      "multi-agent"
-    ],
-    "stars": 853,
-    "url": "https://github.com/sandbox-quantum/switch",
-    "stale_zh": "把任何 AI agent 接進團隊的 Slack、Teams 與 Discord，開源且可自架"
-  },
-  {
-    "full_name": "alchaincyf/huashu-motion",
-    "desc": "让你的agent一键直出商业级产品宣传片：会作曲，能指着画面改。Commercial-grade launch films by your coding agent — point at the frame to change it.",
-    "language": "JavaScript",
-    "topics": [
-      "agent-skills",
-      "animation",
-      "claude-code",
-      "codex",
-      "gsap",
-      "launch-video"
-    ],
-    "stars": 1136,
-    "url": "https://github.com/alchaincyf/huashu-motion",
-    "stale_zh": null
-  },
-  {
-    "full_name": "openfilm/openfilm",
-    "desc": "The open source AI video agent: turns any coding agent into a video agent, with an editor to change anything it makes.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-video",
-      "claude-code",
-      "codex",
-      "coding-agents",
-      "html",
-      "motion-graphics"
-    ],
-    "stars": 1572,
-    "url": "https://github.com/openfilm/openfilm",
-    "stale_zh": null
-  },
-  {
-    "full_name": "xerj-org/xerj",
-    "desc": "Local-first search engine and MCP server for AI agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hybrid search, code search without grep, agent memory and RAG. Elasticsearch-compatible API; Corpus Hub serves hundreds of reference memory corpora.",
-    "language": "Rust",
-    "topics": [
-      "agent-memory",
-      "ai-agents",
-      "bm25",
-      "claude-code",
-      "cli",
-      "code-search"
-    ],
-    "stars": 12363,
-    "url": "https://github.com/xerj-org/xerj",
-    "stale_zh": "給 AI 搜尋資料的索引工具，一行指令索引程式碼、文件、日誌與 PDF，稱比 grep 省 40 倍 token"
-  },
-  {
-    "full_name": "unclecode/crawl4ai",
-    "desc": "Open-source web crawler and scraper for LLMs and AI agents: any website into clean, LLM-ready Markdown. Run it yourself, or use Crawl4AI Cloud with one key. Join our Discord https://discord.gg/VuxzM8mtf",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "ai-agents",
-      "crawler",
-      "data-extraction",
-      "llm",
-      "markdown"
-    ],
-    "stars": 85922,
-    "url": "https://github.com/unclecode/crawl4ai",
-    "stale_zh": "Crawl4AI：對 LLM 友善的開源網頁爬蟲與抓取工具"
-  },
-  {
-    "full_name": "bytechefhq/bytechef",
-    "desc": "Open-source AI agents and workflow automation. Self-host or embed in your SaaS. Apache 2.0 alternative to n8n and Zapier.",
+    "full_name": "simbasjungles/free-my-tv",
+    "desc": "A fast, ad-free home screen for Google TV. Open source, built with Claude Code. One button to undo.",
     "language": "Java",
     "topics": [
-      "ai",
-      "ai-agents",
-      "api",
-      "automation",
-      "embedded-ipaas",
-      "hacktoberfest"
+      "android-tv",
+      "claude-code",
+      "google-tv",
+      "home-screen",
+      "launcher",
+      "no-ads"
     ],
-    "stars": 1037,
-    "url": "https://github.com/bytechefhq/bytechef",
+    "stars": 2580,
+    "url": "https://github.com/simbasjungles/free-my-tv",
     "stale_zh": null
   },
   {
-    "full_name": "mudler/LocalAI",
-    "desc": "LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
-    "language": "Go",
-    "topics": [
-      "agents",
-      "ai",
-      "api",
-      "audio-generation",
-      "decentralized",
-      "distributed"
-    ],
-    "stars": 49791,
-    "url": "https://github.com/mudler/LocalAI",
-    "stale_zh": null
-  },
-  {
-    "full_name": "epsilla-cloud/vectordb",
-    "desc": "A high performance Vector Database leveraging parallel graph computing",
-    "language": "C++",
-    "topics": [
-      "ai",
-      "chatgpt",
-      "data",
-      "data-science",
-      "database",
-      "embeddings"
-    ],
-    "stars": 874,
-    "url": "https://github.com/epsilla-cloud/vectordb",
-    "stale_zh": null
-  },
-  {
-    "full_name": "receptron/laya",
-    "desc": "Run Laya, the open-source Jev-compatible System-1 decision model, from Node.js / TypeScript via ONNX Runtime",
-    "language": "TypeScript",
-    "topics": [
-      "classification",
-      "decision-model",
-      "inference",
-      "llm",
-      "local-first",
-      "machine-learning"
-    ],
-    "stars": 971,
-    "url": "https://github.com/receptron/laya",
-    "stale_zh": null
-  },
-  {
-    "full_name": "carnot-tech/jinba-consulting-pptx-skill",
-    "desc": "AIにまじなPPTXを作らせる Claude Code / Codex スキル",
-    "language": "Python",
-    "topics": [],
-    "stars": 1383,
-    "url": "https://github.com/carnot-tech/jinba-consulting-pptx-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "LumaryLabsLLC/muxin",
-    "desc": "All your machines, one app. For you and your AI agents: agent sessions, desktops, files, logs and GitHub across your Macs, Linux and Windows machines, with an MCP server.",
+    "full_name": "kividbio/kividb",
+    "desc": "A fast, multi-threaded Redis® and Valkey alternative written in Rust: drop-in compatible, with full-text and vector search built in",
     "language": "Rust",
     "topics": [
-      "ai-agents",
-      "claude-code",
-      "devtools",
-      "gpui",
-      "mcp",
-      "remote-desktop"
+      "cache",
+      "database",
+      "dragonfly-alternative",
+      "drop-in-replacement",
+      "full-text-search",
+      "high-performance"
     ],
-    "stars": 342,
-    "url": "https://github.com/LumaryLabsLLC/muxin",
+    "stars": 374,
+    "url": "https://github.com/kividbio/kividb",
+    "stale_zh": null
+  },
+  {
+    "full_name": "AhmadHassan-BTed/AutoSwarm-Shadow-Adapter",
+    "desc": "Zero-modification Human-in-the-Loop adapter for OpenOPC's agentic DAG runtime.",
+    "language": "Python",
+    "topics": [
+      "agentic-ai",
+      "agentic-workflow",
+      "ai-employee",
+      "ai-native",
+      "ai-workforce",
+      "dag-orchestration"
+    ],
+    "stars": 2421,
+    "url": "https://github.com/AhmadHassan-BTed/AutoSwarm-Shadow-Adapter",
+    "stale_zh": null
+  },
+  {
+    "full_name": "FengZhenfei/carrel",
+    "desc": "Ontology-Augmented Generation for AI agents.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "dgx-spark",
+      "document-parsing",
+      "icloud-sync",
+      "knowledge-graph"
+    ],
+    "stars": 373,
+    "url": "https://github.com/FengZhenfei/carrel",
+    "stale_zh": null
+  },
+  {
+    "full_name": "jonaslsaa/pi-optchat",
+    "desc": "Persistent infinite memory with profiles, background agents, and conversation imports for Pi.",
+    "language": "TypeScript",
+    "topics": [
+      "memory",
+      "optchat",
+      "pi-extension"
+    ],
+    "stars": 307,
+    "url": "https://github.com/jonaslsaa/pi-optchat",
+    "stale_zh": null
+  },
+  {
+    "full_name": "llm-d/llm-d",
+    "desc": "State of the art inference performance with modern accelerators on Kubernetes",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "cncf",
+      "distributed-inference",
+      "gpu",
+      "inference",
+      "intelligent-routing"
+    ],
+    "stars": 4926,
+    "url": "https://github.com/llm-d/llm-d",
+    "stale_zh": "在 Kubernetes 上用現代加速器達到頂尖的推論效能"
+  },
+  {
+    "full_name": "cathrynlavery/diagram-design",
+    "desc": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, Qoder, and Pi. 45 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+    "language": "HTML",
+    "topics": [
+      "agent-skills",
+      "claude-code",
+      "codex",
+      "data-visualization",
+      "diagrams",
+      "drawio"
+    ],
+    "stars": 59450,
+    "url": "https://github.com/cathrynlavery/diagram-design",
+    "stale_zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，44 種圖型，純 HTML＋SVG"
+  },
+  {
+    "full_name": "jnMetaCode/agency-agents-zh",
+    "desc": "🎭 277 个即插即用的 AI 专家角色 — 支持 Claude Code/Cursor/Copilot 等 20 种工具，覆盖工程/设计/营销/金融等 20 个部门。含 64 个中国市场原创智能体（小红书/抖音/微信/飞书/钉钉/Qt 上位机/机械设计）。搭配编排器 agency-orchestrator，一句话即可让多位专家按 DAG 自动协作。",
+    "language": "Shell",
+    "topics": [
+      "agency-orchestrator",
+      "agent-definitions",
+      "ai-agents",
+      "ai-roles",
+      "chinese",
+      "claude"
+    ],
+    "stars": 21481,
+    "url": "https://github.com/jnMetaCode/agency-agents-zh",
+    "stale_zh": null
+  },
+  {
+    "full_name": "synergycodes/workflowbuilder",
+    "desc": "Workflow orchestration framework for your product, open source: a white-label React workflow builder, durable execution on your own Temporal, human approval steps for AI agents, and a live view of every run.",
+    "language": "TypeScript",
+    "topics": [
+      "react-flow",
+      "react",
+      "workflow-builder",
+      "workflow-editor",
+      "workflow-automation",
+      "temporal"
+    ],
+    "stars": 408,
+    "url": "https://github.com/synergycodes/workflowbuilder",
+    "stale_zh": "Apache 2.0 的 React SDK，用來嵌入拖拉式工作流編輯器，後端可替換"
+  },
+  {
+    "full_name": "Evil0ctal/Douyin_TikTok_Download_API",
+    "desc": "🚀 自托管的抖音、TikTok、B 站数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok, Douyin & Bilibili scraper and no-watermark video downloader — async REST API, MCP server for AI agents, CLI and web console, plus offline speech-to-text for downloaded videos. Self-healing identity pool, PostgreSQL archive, one docker compose up.",
+    "language": "Python",
+    "topics": [
+      "bilibili",
+      "crawler",
+      "data-collection",
+      "douyin",
+      "douyin-api",
+      "downloader"
+    ],
+    "stars": 20822,
+    "url": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API",
+    "stale_zh": "自架的抖音與 TikTok 資料擷取、無浮水印影片下載 API，支援 MCP、離線語音轉文字與 Docker 部署"
+  },
+  {
+    "full_name": "luongnv89/claude-howto",
+    "desc": "A visual, example-driven guide to Claude Code — from basic concepts to advanced agents, with copy-paste templates that bring immediate value.",
+    "language": "Python",
+    "topics": [
+      "claude-code",
+      "guide",
+      "tutorial"
+    ],
+    "stars": 42470,
+    "url": "https://github.com/luongnv89/claude-howto",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mcncarl/jianying-headless",
+    "desc": "Private source preview: native Jianying drafts, isolated editing/export, and standalone Agent Skill.",
+    "language": "Python",
+    "topics": [],
+    "stars": 3462,
+    "url": "https://github.com/mcncarl/jianying-headless",
     "stale_zh": null
   }
 ]

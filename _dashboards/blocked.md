@@ -1,10 +1,29 @@
-# 被門禁擋下（49）
+# 被門禁擋下（70）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-21-115bf8|NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Sci]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-1378db|Using thousands of AI agents to uncover new leads in biological data]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-29062d|How we built ChatGPT’s novel ad stack for user trust and relevance]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-3c66c9|How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% ]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-3f3fe6|Europe’s Industrial Leaders Reinvent Engineering and Manufacturing Wit]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-3f6e5f|Granite Speech 5.0: Transcribe, Translate, and Attribute more Accurate]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-423d52|OpenAI models are coming to Google Cloud]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-5e6d47|Democratic governance of frontier AI, part II: Empowering cyber defend]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-75c306|NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Rela]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-7c7b8b|How AT&T is rethinking in-house legal work with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-92a508|Profiling TorchNeuron (Part 1): System-level profiling on AWS Trainium]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-94b016|Bringing the Spark to Europe: Local Intelligence Powers Next Wave of A]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-98fb46|NVIDIA Agent Toolkit Expands, Grounding Enterprise Agents in Company D]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-af85b4|NVIDIA Cloud Partners Scale Across Europe — Sovereign, Open and Built ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-b189ca|Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera R]]** — Google — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-c7d64d|GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-d0398c|NVIDIA Confidential Computing Expands, Enabling Frontier Model Builder]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-dacc08|ChatGPT Ads expands to 26 new countries as over 100,000 advertisers ha]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-20-260a2f|ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on custo]]** — IBM — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-20-46b233|FairStress: A deeper evaluation of fairness in LLM decision-making]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-20-8d2bea|NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Gen]]** — NVIDIA — blockers: thin_research_analysis
+- **[[Events/evt-2026-10-20-ce71d9|European Leaders Turn to NVIDIA Vera CPUs to Build Local Infrastructur]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-19-0a1541|Advancing coding in low‑resource programming languages]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-15-142ee5|An Update On Independent Evaluators]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-03-623369|The Agent Said It Was Done. The Database Disagreed.]]** — Microsoft — blockers: thin_research_analysis
@@ -45,6 +64,8 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-10-21-32a623|Christopher Stubbs Joins Long Term Benefit Trust]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-a32000|Training a coding model to paint watercolours with TRL and OpenEnv]]** — industry — blockers: generic_entity

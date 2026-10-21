@@ -18,7 +18,7 @@ can_satisfy_primary: false
 endpoint: "https://www.interconnects.ai/feed"
 robots_checked_day: "2026-10-16"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-10-20"
+last_observed_day: "2026-10-21"
 items_observed: 38
 events_bound: 0
 events_published: 0

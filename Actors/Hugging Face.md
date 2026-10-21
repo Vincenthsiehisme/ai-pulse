@@ -3,21 +3,24 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-10-20'
+generated_day: '2026-10-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **26** 則：`published` 17、`review` 9
+事件 **29** 則：`published` 20、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-20 | [[Events/evt-2026-10-20-8d2bea\|NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation]] | review |
-| 2026-10-20 | [[Events/evt-2026-10-20-46b233\|FairStress: A deeper evaluation of fairness in LLM decision-making]] | review |
-| 2026-10-20 | [[Events/evt-2026-10-20-3bdd58\|Hugging Face ❤️ TorchTPU: TPUs, Natively]] | review |
-| 2026-10-20 | [[Events/evt-2026-10-20-260a2f\|ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-92a508\|Profiling TorchNeuron (Part 1): System-level profiling on AWS Trainium.]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-75c306\|NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Relational Data, No Training Required]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-3f6e5f\|Granite Speech 5.0: Transcribe, Translate, and Attribute more Accurately and Faster]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-3c66c9\|How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications]] | review |
+| 2026-10-20 | [[Events/evt-2026-10-20-3bdd58\|Hugging Face ❤️ TorchTPU: TPUs, Natively]] | published |
+| 2026-10-20 | [[Events/evt-2026-10-20-2fa1fb\|MPS in PyTorch 2.15]] | published |
+| 2026-10-20 | [[Events/evt-2026-10-20-2d6c92\|AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms]] | published |
 | 2026-10-19 | [[Events/evt-2026-10-19-b29e8a\|TorchNeuron: running HF models on AWS Trainium is easier than ever]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-f9fdb2\|Welcome FLUX.3 Image Klein in Diffusers]] | published |
 | 2026-10-08 | [[Events/evt-2026-10-08-2e7e69\|The model that didn't exist, so you made it yourself]] | published |

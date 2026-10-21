@@ -3,7 +3,7 @@
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-10-20
-- **[[Events/evt-2026-10-20-1188ef|OpenAI acquires Orchestra Bio]]** — OpenAI · capital · conf 73 · heat 未量測
+- **[[Events/evt-2026-10-20-1188ef|OpenAI acquires Orchestra Bio]]** — OpenAI · capital · conf 80 · heat 未量測
   OpenAI 宣布收購 Orchestra Bio，切入生技製藥研發。
 - **[[Events/evt-2026-10-20-2bf802|Franchisee reconciles cash in 94% less time with ChatGPT Work]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 案例：加盟主用 ChatGPT Work 把對帳與調價時間縮短九成多。
@@ -35,7 +35,7 @@
   Anthropic 官網新聞頁出現《Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule》，內文未摘錄。
 
 ## 2026-10-18
-- **[[Events/evt-2026-10-18-3f122f|Public Benefit Fund]]** — Anthropic · policy · conf 80 · heat 未量測
+- **[[Events/evt-2026-10-18-3f122f|Public Benefit Fund]]** — Anthropic · policy · conf 87 · heat 未量測
   Anthropic 發布〈Public Benefit Fund〉一文，內容本站不轉述，請看原文。
 - **[[Events/evt-2026-10-18-fc5edf|v0.32.0]]** — vLLM · infra · conf 73 · heat 未量測
   vLLM 釋出 v0.32.0，累計 814 個 commit、363 位貢獻者，新增 /v1/systemone 端點。

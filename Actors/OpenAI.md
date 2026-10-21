@@ -3,19 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-20'
+generated_day: '2026-10-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **160** 則：`published` 154、`review` 6
+事件 **166** 則：`published` 156、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-20 | [[Events/evt-2026-10-20-2bf802\|Franchisee reconciles cash in 94% less time with ChatGPT Work]] | review |
-| 2026-10-20 | [[Events/evt-2026-10-20-1188ef\|OpenAI acquires Orchestra Bio]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-dacc08\|ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-7c7b8b\|How AT&T is rethinking in-house legal work with OpenAI]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-5e6d47\|Democratic governance of frontier AI, part II: Empowering cyber defenders]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-423d52\|OpenAI models are coming to Google Cloud]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-29062d\|How we built ChatGPT’s novel ad stack for user trust and relevance]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-1378db\|Using thousands of AI agents to uncover new leads in biological data]] | review |
+| 2026-10-20 | [[Events/evt-2026-10-20-2bf802\|Franchisee reconciles cash in 94% less time with ChatGPT Work]] | published |
+| 2026-10-20 | [[Events/evt-2026-10-20-1188ef\|OpenAI acquires Orchestra Bio]] | published |
 | 2026-10-19 | [[Events/evt-2026-10-19-0a1541\|Advancing coding in low‑resource programming languages]] | review |
 | 2026-10-16 | [[Events/evt-2026-10-16-bd6b14\|Benefit Street Partners answers questions faster with Codex]] | published |
 | 2026-10-16 | [[Events/evt-2026-10-16-921b99\|Stack Overflow for Agents triples signups with ChatGPT plugin]] | published |
