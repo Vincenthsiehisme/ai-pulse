@@ -17,9 +17,9 @@ can_satisfy_primary: false
 endpoint: "https://techcrunch.com/category/artificial-intelligence/feed/"
 robots_checked_day: "2026-10-16"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-10-21"
-items_observed: 774
-events_bound: 10
+last_observed_day: "2026-10-22"
+items_observed: 791
+events_bound: 11
 events_published: 10
 health_score: 100
 consecutive_failures: 0
@@ -35,8 +35,8 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 774 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 10 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已觀測 | 791 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 11 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 10 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 這條來源不能單獨作為一手證據（`can_satisfy_primary: false`）。它的角色是佐證與獨立性，不是「事情發生了」的來源。

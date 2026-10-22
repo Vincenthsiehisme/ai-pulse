@@ -1,10 +1,23 @@
-# 被門禁擋下（53）
+# 被門禁擋下（70）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-22-116ab3|NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factor]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-1d80df|What FDE means at OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-1e857c|NVIDIA Transforms European Retail, From Digital Discovery to Physical ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-2853b8|Ensemble forecasting with IBM Granite time-series models]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-3d807f|NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Mode]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-5073ac|OlmoEarth v1.3: State-of-the-art embeddings for the whole planet]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-5b47bc|Leading European Financial Services Organizations Embrace Open Models ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-61e6cb|NVIDIA Open Models Power a New Wave of European Public Sector Projects]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-6d60ac|Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-9fce05|How Companies Are Using NVIDIA DSX to Break the Power Bottleneck]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-b1caf2|Uber brings ChatGPT Work to all employees with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-21-0aaca8|Broad access through consistent standards]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-21-1378db|Using thousands of AI agents to uncover new leads in biological data]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-21-3c66c9|How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% ]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-21-75c306|NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Rela]]** — NVIDIA — blockers: thin_research_analysis
+- **[[Events/evt-2026-10-21-dab677|Cloudflare links vulnerability discovery to defense with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-20-260a2f|ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on custo]]** — IBM — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-20-46b233|FairStress: A deeper evaluation of fairness in LLM decision-making]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-20-8d2bea|NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Gen]]** — NVIDIA — blockers: thin_research_analysis
@@ -48,6 +61,10 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-10-22-680f76|Beyond tree cover: mapping the world’s forest types]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-22-7d0754|Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-22-a19b05|Partnernetworkannouncement]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-22-a636c6|Donating Agent Skills To The Agentic Ai Foundation]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity

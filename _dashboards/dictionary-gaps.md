@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-21'
+generated_day: '2026-10-22'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**86 天**（2026-07-24 … 2026-10-21），去重後 **5727** 列。
+語料範圍：**87 天**（2026-07-24 … 2026-10-22），去重後 **5812** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,31 +17,31 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 170 | 2 |
-| Apple | 127 | 6 |
-| Amazon | 83 | 5 |
+| Show HN | 176 | 2 |
+| Apple | 128 | 6 |
+| Amazon | 85 | 5 |
 | September | 61 | 8 |
-| LLMs | 56 | 13 |
-| There | 56 | 7 |
+| LLMs | 57 | 13 |
+| There | 57 | 7 |
 | LLM | 55 | 12 |
 | They | 53 | 9 |
 | Here | 50 | 8 |
 | October | 48 | 7 |
+| Muse | 47 | 5 |
 | Trump | 45 | 5 |
-| Muse | 45 | 5 |
 | One | 43 | 10 |
 | San Francisco | 41 | 9 |
 | CEO | 40 | 5 |
+| AI-powered | 39 | 10 |
 | When | 39 | 11 |
-| AI-powered | 38 | 10 |
+| July | 38 | 9 |
 | Python | 38 | 4 |
-| July | 37 | 9 |
-| Pro | 37 | 7 |
-| U.S | 35 | 8 |
+| Pro | 38 | 7 |
+| U.S | 36 | 8 |
 | After | 35 | 6 |
-| Android | 34 | 4 |
+| Android | 35 | 4 |
+| China | 33 | 8 |
 | Linux | 33 | 5 |
-| China | 32 | 8 |
 | Last | 32 | 6 |
 | Astra | 32 | 6 |
 | With | 31 | 10 |
@@ -64,19 +64,19 @@ generator: scripts/pulse-dictionary-gaps.py
 | Over | 22 | 5 |
 | Flash | 21 | 6 |
 | Tuesday | 21 | 6 |
+| Chinese | 21 | 8 |
 | Elon Musk | 21 | 5 |
 | Xbox | 21 | 2 |
-| Chinese | 20 | 8 |
 | While | 20 | 4 |
 | RAM | 20 | 2 |
+| The AI | 20 | 6 |
+| Thursday | 19 | 4 |
 | Mac | 19 | 4 |
 | Tool | 19 | 2 |
-| The AI | 19 | 6 |
 | Don | 19 | 5 |
-| Thursday | 18 | 4 |
 | Monday | 18 | 4 |
+| India | 18 | 4 |
 | Some | 18 | 8 |
-| Fable | 18 | 5 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -88,21 +88,21 @@ generator: scripts/pulse-dictionary-gaps.py
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
-| The Download | 66 | src-media-mit-techreview |
-| Tags | 36 | src-kol-simonwillison |
+| The Download | 67 | src-media-mit-techreview |
+| Tags | 37 | src-kol-simonwillison |
 | Hi HN | 27 | src-hn-frontpage |
 | Register | 27 | src-media-techcrunch |
-| MIT Technology Review | 23 | src-media-mit-techreview |
+| MIT Technology Review | 24 | src-media-mit-techreview |
 | Launch HN | 22 | src-hn-frontpage |
 | Highlights | 20 | src-gh-vllm-releases |
+| The Verge | 19 | src-media-theverge |
 | Opt | 18 | src-media-theverge |
-| The Verge | 18 | src-media-theverge |
+| A Blog | 18 | src-hf-blog |
 | Is Hiring | 17 | src-hn-frontpage |
 | Ask HN | 16 | src-hn-frontpage |
-| A Blog | 16 | src-hf-blog |
 | Committee | 15 | src-ep-itre |
-| GeForce NOW | 14 | src-nvidia-blog |
-| Best Buy | 14 | src-media-theverge |
+| GeForce NOW | 15 | src-nvidia-blog |
+| Best Buy | 15 | src-media-theverge |
 | Hey HN | 14 | src-hn-frontpage |
 | The Stepback | 12 | src-media-theverge |
 | Datasette | 12 | src-kol-simonwillison |
@@ -125,28 +125,28 @@ generator: scripts/pulse-dictionary-gaps.py
 | Sunday | 7 | src-media-theverge |
 | Open-source | 7 | src-hn-frontpage |
 | Apple TV | 7 | src-media-theverge |
+| PlayStation | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
+| Grand Theft Auto | 7 | src-media-theverge |
 | Series A | 7 | src-media-techcrunch |
 | Verge | 7 | src-media-theverge |
 | Victoria Song | 7 | src-media-theverge |
 | Join | 7 | src-media-techcrunch |
+| VCs | 7 | src-media-techcrunch |
 | Related | 6 | src-hn-frontpage |
 | Code | 6 | src-hn-frontpage |
 | Galaxy Z Fold | 6 | src-media-theverge |
 | AI Stage | 6 | src-media-techcrunch |
-| PlayStation | 6 | src-media-theverge |
 | Reuters | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
 | Bose | 6 | src-media-theverge |
-| Grand Theft Auto | 6 | src-media-theverge |
+| IBM Research | 6 | src-hf-blog |
 | The New York | 6 | src-media-theverge |
 | Optimizer | 6 | src-media-theverge |
-| VCs | 6 | src-media-techcrunch |
 | Co-Scientist | 5 | src-deepmind-blog |
 | Latest | 5 | src-kol-interconnects |
 | Equity | 5 | src-media-techcrunch |
 | Zig | 5 | src-hn-frontpage |
-| Mini | 5 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

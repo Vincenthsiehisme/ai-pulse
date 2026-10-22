@@ -3,20 +3,19 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-10-21'
+generated_day: '2026-10-22'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **29** 則：`published` 20、`review` 9
+事件 **28** 則：`published` 20、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-21 | [[Events/evt-2026-10-21-92a508\|Profiling TorchNeuron (Part 1): System-level profiling on AWS Trainium.]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-75c306\|NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Relational Data, No Training Required]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-3f6e5f\|Granite Speech 5.0: Transcribe, Translate, and Attribute more Accurately and Faster]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-5073ac\|OlmoEarth v1.3: State-of-the-art embeddings for the whole planet]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-2853b8\|Ensemble forecasting with IBM Granite time-series models]] | review |
 | 2026-10-21 | [[Events/evt-2026-10-21-3c66c9\|How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications]] | review |
 | 2026-10-20 | [[Events/evt-2026-10-20-3bdd58\|Hugging Face ❤️ TorchTPU: TPUs, Natively]] | published |
 | 2026-10-20 | [[Events/evt-2026-10-20-2fa1fb\|MPS in PyTorch 2.15]] | published |

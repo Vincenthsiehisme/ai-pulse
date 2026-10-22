@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-10-21'
+generated_day: '2026-10-22'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,12 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **43** 則：`published` 35、`review` 8
+事件 **45** 則：`published` 36、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-21 | [[Events/evt-2026-10-21-98fb46\|NVIDIA Agent Toolkit Expands, Grounding Enterprise Agents in Company Data]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-4163ab\|Patch the Planet: global response coordination as agents uncover critical vulnerabilities]] | review |
 | 2026-10-20 | [[Events/evt-2026-10-20-260a2f\|ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model]] | review |
 | 2026-10-19 | [[Events/evt-2026-10-19-0a1541\|Advancing coding in low‑resource programming languages]] | review |
 | 2026-10-16 | [[Events/evt-2026-10-16-bd6b14\|Benefit Street Partners answers questions faster with Codex]] | published |

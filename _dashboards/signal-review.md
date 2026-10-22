@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-21"
+generated_day: "2026-10-22"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-21"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **465** 則／已裁決 **26** 則。
+待回答 **482** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#197ef27e`** — infra-cost
-  > 看 AnyLanguageModel、MPS 與 TorchTPU 三則是否附支援的後端、算子覆蓋與效能數據；看 Anthropic 擴散規則立場文列了哪些具體修改建議；看 HF 或 AWS 是否公布 TorchNeuron 支援的模型清單與相對 GPU 的效能與成本，社群是否有第三方實測；看 RTX Spark 筆電的獨立評測，尤其是本機大模型推論速度與 128GB 機種實際售價；看 vLLM v0.32.0 完整 release notes 與 /v1/systemone 文件；看歐洲科學界取用計畫的算力配額與首批機構；看北歐文章是否列各國專案與金額；看市政 agent 文章是否點名城市與合約；看 Vera Rubin 開放規格文件是否釋出；看 Ai2 那篇有沒有叢集利用率的前後數字。
+- **`infra-cost#cdd39c95`** — infra-cost
+  > 看 A5X 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署數量與時間；看 DGX Spark 與 DGX Station 的歐洲價格與出貨時程；看 cuDSS 是否有模擬軟體廠商整合與實測加速倍率；看機密運算的效能損耗與支援平台；看 TorchNeuron 後續篇章有沒有調校前後數據。
 
-- **`model-research#1fbbe622`** — model-research
-  > 讀 RSP v3 原文，與 v2 比對能力門檻與防護等級有沒有變；看 FairStress 是否公開評測集與各模型結果；看 Cosmos3-H-Dreams 的權重、授權與臨床驗證說明；看 Beam 的權重是否真的可下載與授權寬不寬；看 NVIDIA 印度語系資料集有沒有附連結與授權；看 Granite Switch 4.1 內文有沒有列模型大小與評測；看 Nemotron 3.5 Super VL 與 Bolt 的第三方基準；看 Apertus 1.5、Muse Spark Open 與 FLUX.3 Image Klein 原文有沒有列參數量、授權與基準；看 Gemini 4 Argon 公布的基準與開放日期；看 LFM2.5-24B-A2B 模型卡的基準與每秒 token 數；看 GPT-6.1 Sol 的獨立實測與價格。
+- **`model-research#ac7d5c4e`** — model-research
+  > 看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期；看 Muse Spark Open、Apertus 1.5 原文有沒有列參數量、授權與基準。
 
-- **`product-market#a5b3b8a4`** — product-market
-  > 看 OpenAI 是否發出更多不同規模客戶的量化案例，單一加盟主不能代表一般企業；看 Claude Gov 原文有沒有列客戶範圍、部署環境與使用限制；看 EBU 或 Adobe、Bertelsmann、UFA 是否另行發布合作內容；看 Itaú 或監理端是否公布 ia.i 的使用者數、處理量與申訴率；看 Anthropic 政府公告原文有沒有列具體機關與採購管道；看 Rosalind 方案公布的資格條件與首批實驗室；看 Sullivan & Cromwell 是否公布 Agreement Analyzer 的使用範圍或錯誤率；看 Block、SentinelOne 或第三方是否公布樣本數、準確率與測量方式；看 Grok Voice 3 原文有沒有延遲、語言與開放對象；看 RTX Spark 的規格、價格與出貨時程。
+- **`product-market#85fb1528`** — product-market
+  > 看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容；看 AT&T 是否公布處理量與節省時數；看 OpenAI 是否發出更多不同規模客戶的量化案例；看 Claude Gov 原文有沒有列客戶範圍與使用限制。
 
-- **`capital-evolution#b57a8687`** — capital-evolution
-  > 看 OpenAI 與 Orchestra Bio 是否公布交易條件，以及 Orchestra Bio 的產品會不會併入 OpenAI 的產品線；讀 Public Benefit Fund 原文，確認基金規模、出資方式與受益對象；看新加坡辦公室原文有沒有給人數與合作對象；看 NVIDIA 或被投資新創是否公布法國投資的金額與名單；讀 Genesis Mission Commitment 與 Cyber Mission 原文，確認承諾項目與是否涉及資金；看 Lenfest 計畫的參與機構與資金分配。
+- **`capital-evolution#3e9f0987`** — capital-evolution
+  > 看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期；看 OpenAI 治理藍圖是否出現可執行的防禦方存取計畫；讀 Public Benefit Fund 原文確認規模與受益對象。
 
-- **`agent-refactor#0c02defd`** — agent-refactor
-  > 看 Stack Overflow 或第三方是否公布代理建立數與註冊數的絕對值和期間；看 Benefit Street Partners 是否把工具擴到其他團隊並公布節省的時間；看 OpenAI 或 Third Moment Research 是否公開任務完成率、單位成本，或第三方複現；看 Amp 是否公布非程式碼任務的類型與使用量；看 Hugging Face 那篇有沒有公開 ML intern 的程式碼或模型連結；看 Oracle 或第三方有沒有公開工時節省的量測方式；看 Agent Lightning 的程式碼與接入範例，以及微軟以外的團隊有沒有跑出訓練結果；看 OpenAI 是否公布 Ironclad 合約任務的評測結果；看 Holo4 有沒有第三方的電腦操作評測。
+- **`agent-refactor#ff225ccd`** — agent-refactor
+  > 看 NVIDIA 是否點名採用 Agent Toolkit 的企業與具體新增工具；看 Stack Overflow 或第三方是否公布代理建立數的絕對值與期間；看 OpenAI 或 Third Moment Research 是否公開任務完成率與單位成本；看 Agent Lightning 的程式碼與微軟以外的訓練結果。
 
-- **`global-map#f5604976`** — global-map
-  > 看 BSC 是否公布參與新創數量與運算配額；看 Anthropic 選舉風險原文是否公開測試方法與緩解規則；看德國政府或 NVIDIA 是否公布工業 AI 的算力部署、資金規模或合作企業名單，以及德媒的獨立報導；看 DeepMind 與 GovTech 是否公布偵測率、誤報率與部署範圍；看 OpenAI 歐盟分析完整版有沒有公布方法、樣本與採用率；看有沒有獨立機構公開同一批假身分的分析，對照 OpenAI 的說法；看 Falcon-Emirati 的權重、授權與阿拉伯語方言的公開評測；看後續是否有具體政策文件或多邊協議跟進；沿用對烏克蘭 Daybreak 成效與 Grab 完訓人數的觀察。
+- **`global-map#e917734a`** — global-map
+  > 看 NVIDIA 後續是否點名歐洲製造商並公布導入成果；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額；看德國政府或 NVIDIA 是否公布工業 AI 的算力部署與資金規模。
 
-## 事件層（459）
+## 事件層（476）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1418,5 +1418,56 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-20-3bdd58#cd38fe90`** — evt-2026-10-20-3bdd58
   > Transformers 等函式庫的 TPU 支援是否正式釋出，並附效能數據
 
+- **`evt-2026-10-20-ce71d9#3bb75fe0`** — evt-2026-10-20-ce71d9
+  > Nebius 或 Nscale 是否公布 Vera CPU 的實際部署數量與上線時間。
+
 - **`evt-2026-10-20-efa6ff#ee3699da`** — evt-2026-10-20-efa6ff
   > BSC 是否公佈參與新創數量與運算配額
+
+- **`evt-2026-10-21-115bf8#376fa9b9`** — evt-2026-10-21-115bf8
+  > 主流模擬軟體是否宣布整合 cuDSS，並公布實測加速倍率。
+
+- **`evt-2026-10-21-29062d#29a70726`** — evt-2026-10-21-29062d
+  > 是否出現第三方檢驗廣告是否影響回答內容。
+
+- **`evt-2026-10-21-32a623#8a3d3029`** — evt-2026-10-21-32a623
+  > Anthropic 是否公布 Trust 成員名單與任期安排。
+
+- **`evt-2026-10-21-3f3fe6#c62508fd`** — evt-2026-10-21-3f3fe6
+  > 是否有具名歐洲製造商公布導入成果或採購承諾。
+
+- **`evt-2026-10-21-3f6e5f#c0fb249c`** — evt-2026-10-21-3f6e5f
+  > 是否公布詞錯率與速度基準，以及授權條款。
+
+- **`evt-2026-10-21-423d52#bb3f5b62`** — evt-2026-10-21-423d52
+  > OpenAI 或 Google Cloud 官方公告的上線日期與價格。
+
+- **`evt-2026-10-21-5e6d47#15e91457`** — evt-2026-10-21-5e6d47
+  > 是否出現具體的防禦方存取計畫或政府合作。
+
+- **`evt-2026-10-21-7c7b8b#73656350`** — evt-2026-10-21-7c7b8b
+  > 是否公布處理量、節省時數等量化成果。
+
+- **`evt-2026-10-21-92a508#b0ba5aa1`** — evt-2026-10-21-92a508
+  > 後續篇章是否給出具體瓶頸與調校前後數據。
+
+- **`evt-2026-10-21-94b016#ef4122cb`** — evt-2026-10-21-94b016
+  > 各機型在歐洲的上市時間與售價。
+
+- **`evt-2026-10-21-98fb46#e4987ffc`** — evt-2026-10-21-98fb46
+  > 有哪些企業公開採用，以及新增工具的具體項目。
+
+- **`evt-2026-10-21-af85b4#6ecafb38`** — evt-2026-10-21-af85b4
+  > 各雲端夥伴公布的歐洲容量與客戶。
+
+- **`evt-2026-10-21-b189ca#fedc9256`** — evt-2026-10-21-b189ca
+  > A5X 下月是否如期開通，以及定價。
+
+- **`evt-2026-10-21-c7d64d#d796e540`** — evt-2026-10-21-c7d64d
+  > 主題演講後公布的具體產品與夥伴。
+
+- **`evt-2026-10-21-d0398c#622a68ca`** — evt-2026-10-21-d0398c
+  > 支援的雲端與 GPU 世代，以及效能損耗數字。
+
+- **`evt-2026-10-21-dacc08#cfb452e8`** — evt-2026-10-21-dacc08
+  > OpenAI 是否公布廣告營收或各國上線清單。

@@ -3,26 +3,34 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-21'
+generated_day: '2026-10-22'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **101** 則：`dropped` 1、`published` 87、`review` 13
+事件 **109** 則：`dropped` 1、`published` 95、`review` 13
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-21 | [[Events/evt-2026-10-21-d0398c\|NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-c7d64d\|GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-af85b4\|NVIDIA Cloud Partners Scale Across Europe — Sovereign, Open and Built for Safe AI Agents]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-98fb46\|NVIDIA Agent Toolkit Expands, Grounding Enterprise Agents in Company Data]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-94b016\|Bringing the Spark to Europe: Local Intelligence Powers Next Wave of Agents]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-3f3fe6\|Europe’s Industrial Leaders Reinvent Engineering and Manufacturing With NVIDIA]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-115bf8\|NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-9fce05\|How Companies Are Using NVIDIA DSX to Break the Power Bottleneck]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-6d60ac\|Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-61e6cb\|NVIDIA Open Models Power a New Wave of European Public Sector Projects]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-5b47bc\|Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-3d807f\|NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-1e857c\|NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-116ab3\|NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-d0398c\|NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-c7d64d\|GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-af85b4\|NVIDIA Cloud Partners Scale Across Europe — Sovereign, Open and Built for Safe AI Agents]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-98fb46\|NVIDIA Agent Toolkit Expands, Grounding Enterprise Agents in Company Data]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-94b016\|Bringing the Spark to Europe: Local Intelligence Powers Next Wave of Agents]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-75c306\|NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Relational Data, No Training Required]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-3f3fe6\|Europe’s Industrial Leaders Reinvent Engineering and Manufacturing With NVIDIA]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-115bf8\|NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations]] | published |
 | 2026-10-20 | [[Events/evt-2026-10-20-efa6ff\|Spain-Based Startups Advance Regional Innovation With Barcelona Supercomputing Center]] | published |
-| 2026-10-20 | [[Events/evt-2026-10-20-ce71d9\|European Leaders Turn to NVIDIA Vera CPUs to Build Local Infrastructure]] | review |
+| 2026-10-20 | [[Events/evt-2026-10-20-ce71d9\|European Leaders Turn to NVIDIA Vera CPUs to Build Local Infrastructure]] | published |
 | 2026-10-20 | [[Events/evt-2026-10-20-8d2bea\|NVIDIA Cosmos3-H-Dreams: Bringing Clinical Surgery to Life Through Generative Simulation]] | review |
 | 2026-10-19 | [[Events/evt-2026-10-19-b6d148\|Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help]] | published |
 | 2026-10-19 | [[Events/evt-2026-10-19-2cecf1\|NVIDIA Advances Agentic Security for Media, From European Public Service Broadcasting to Global Content Production]] | published |

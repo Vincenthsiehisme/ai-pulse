@@ -3,23 +3,27 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-21'
+generated_day: '2026-10-22'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **166** 則：`published` 156、`review` 10
+事件 **170** 則：`published` 161、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-21 | [[Events/evt-2026-10-21-dacc08\|ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-7c7b8b\|How AT&T is rethinking in-house legal work with OpenAI]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-5e6d47\|Democratic governance of frontier AI, part II: Empowering cyber defenders]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-423d52\|OpenAI models are coming to Google Cloud]] | review |
-| 2026-10-21 | [[Events/evt-2026-10-21-29062d\|How we built ChatGPT’s novel ad stack for user trust and relevance]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-b1caf2\|Uber brings ChatGPT Work to all employees with OpenAI]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-1d80df\|What FDE means at OpenAI]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-dacc08\|ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-dab677\|Cloudflare links vulnerability discovery to defense with OpenAI]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-7c7b8b\|How AT&T is rethinking in-house legal work with OpenAI]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-5e6d47\|Democratic governance of frontier AI, part II: Empowering cyber defenders]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-423d52\|OpenAI models are coming to Google Cloud]] | published |
+| 2026-10-21 | [[Events/evt-2026-10-21-29062d\|How we built ChatGPT’s novel ad stack for user trust and relevance]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-1378db\|Using thousands of AI agents to uncover new leads in biological data]] | review |
+| 2026-10-21 | [[Events/evt-2026-10-21-0aaca8\|Broad access through consistent standards]] | review |
 | 2026-10-20 | [[Events/evt-2026-10-20-2bf802\|Franchisee reconciles cash in 94% less time with ChatGPT Work]] | published |
 | 2026-10-20 | [[Events/evt-2026-10-20-1188ef\|OpenAI acquires Orchestra Bio]] | published |
 | 2026-10-19 | [[Events/evt-2026-10-19-0a1541\|Advancing coding in low‑resource programming languages]] | review |

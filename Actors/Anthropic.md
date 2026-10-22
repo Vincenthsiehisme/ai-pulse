@@ -3,17 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-10-21'
+generated_day: '2026-10-22'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **129** 則：`published` 123、`review` 6
+事件 **130** 則：`published` 124、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-21 | [[Events/evt-2026-10-21-32a623\|Christopher Stubbs Joins Long Term Benefit Trust]] | published |
 | 2026-10-19 | [[Events/evt-2026-10-19-dff564\|Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule]] | published |
 | 2026-10-19 | [[Events/evt-2026-10-19-71ea5e\|Building Safeguards For Claude]] | published |
 | 2026-10-19 | [[Events/evt-2026-10-19-7083e1\|Testing And Mitigating Elections Related Risks]] | published |
