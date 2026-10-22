@@ -1,8 +1,36 @@
-# 已發布事件（496）
+# 已發布事件（510）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-10-22
+- **[[Events/evt-2026-10-22-116ab3|NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 推出 Minerva，替 AI 工廠做端到端的可觀測性。
+- **[[Events/evt-2026-10-22-1d80df|What FDE means at OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發文說明「前線部署工程」在公司內的意思。
+- **[[Events/evt-2026-10-22-1e857c|NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 列出歐洲零售業用開放模型與實體 AI 的案例，含推論成本降 90%。
+- **[[Events/evt-2026-10-22-3d807f|NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  NVIDIA 擴充 Cosmos 平台，新增訓練工具、模擬檢查點與資料工廠藍圖。
+- **[[Events/evt-2026-10-22-5b47bc|Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence]]** — NVIDIA · product · conf 73 · heat 未量測
+  GTC Berlin 上，歐洲金融業展示在自家基礎設施跑開放權重模型。
+- **[[Events/evt-2026-10-22-61e6cb|NVIDIA Open Models Power a New Wave of European Public Sector Projects]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 說明歐洲公部門如何用開放模型，資料留在政府自己控制的基礎設施。
+- **[[Events/evt-2026-10-22-6d60ac|Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  歐洲氣象與能源業者部署 NVIDIA Earth-2 開放模型做天氣與氣候預測。
+- **[[Events/evt-2026-10-22-7d0754|Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  《決勝時刻：現代戰爭 4》上線即登 GeForce NOW。
+- **[[Events/evt-2026-10-22-9fce05|How Companies Are Using NVIDIA DSX to Break the Power Bottleneck]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 稱電力是基礎設施最大瓶頸，用 DSX 平台把電網與 AI 工廠當一個系統規劃。
+- **[[Events/evt-2026-10-22-a19b05|Partnernetworkannouncement]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發布一則夥伴網路公告，內文我們不取。
+- **[[Events/evt-2026-10-22-a636c6|Donating Agent Skills To The Agentic Ai Foundation]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 把 Agent Skills 標準捐給 Linux 基金會下的 Agentic AI Foundation。
+- **[[Events/evt-2026-10-22-b1caf2|Uber brings ChatGPT Work to all employees with OpenAI]]** — OpenAI · product · conf 80 · heat 未量測
+  Uber 把 ChatGPT Work 推給全公司超過 3 萬名員工。
+
 ## 2026-10-21
+- **[[Events/evt-2026-10-21-0aaca8|Broad access through consistent standards]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 公開與經銷夥伴合作時要求的一致安全標準。
 - **[[Events/evt-2026-10-21-115bf8|NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations]]** — NVIDIA · product · conf 73 · heat 未量測
   NVIDIA cuDSS 今天正式 GA，把工程與科學模擬的一段關鍵運算搬上 GPU。
 - **[[Events/evt-2026-10-21-29062d|How we built ChatGPT’s novel ad stack for user trust and relevance]]** — OpenAI · product · conf 73 · heat 未量測
@@ -33,6 +61,8 @@
   GTC Berlin 2026 開幕，為期三天、逾百場議程，Jensen Huang 主題演講同步直播。
 - **[[Events/evt-2026-10-21-d0398c|NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 公布 OpenShell 參考架構，並擴充機密運算，讓前沿模型業者安全跨基礎設施擴展。
+- **[[Events/evt-2026-10-21-dab677|Cloudflare links vulnerability discovery to defense with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  Cloudflare 用 OpenAI Daybreak 找漏洞並提出修補建議，開發端用 Codex。
 - **[[Events/evt-2026-10-21-dacc08|ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform]]** — OpenAI · capital · conf 73 · heat 未量測
   ChatGPT 廣告擴到 26 個新國家，OpenAI 稱已有超過 10 萬名廣告主使用。
 

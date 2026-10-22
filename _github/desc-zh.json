@@ -829,6 +829,11 @@
     "src_hash": "b39be18886ec",
     "zh": "一份可透過 API 取用的免費 LLM 推論資源清單"
   },
+  "cheaper-inference/OmniRoute": {
+    "at": "2026-10-22T19:40:44+00:00",
+    "src_hash": "b13c19619844",
+    "zh": "免費 MIT 授權 AI 閘道，單一端點串 375 家供應商、1,400 多個模型，支援自動切換"
+  },
   "chengyi-ai/native-subtitle-quote-image": {
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "672d1ce1af70",
@@ -985,9 +990,9 @@
     "zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
   },
   "ganeshmshetty/openclip": {
-    "at": "2026-10-09T20:27:19+00:00",
-    "src_hash": "3d24a0f70efb",
-    "zh": "開源、重隱私的 macOS 文字動作彈窗，對選取文字執行自訂腳本、AI 動作與擴充流程"
+    "at": "2026-10-22T19:40:44+00:00",
+    "src_hash": "72630f8a9bb4",
+    "zh": "開源的 macOS 文字動作彈窗，對選取的文字執行自訂腳本、AI 動作與擴充流程"
   },
   "garrytan/gstack": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -1215,9 +1220,9 @@
     "zh": "在同一個工作區裡建 Agentic workflow 與 RAG pipeline，可部署雲端、VPC 或自架環境"
   },
   "lemomo-ai/lemo-opuscar": {
-    "at": "2026-10-16T19:09:41+00:00",
-    "src_hash": "282a109cfb3d",
-    "zh": "Claude Code skill：不靠影片模型做短片，51 種影片風格，各附風格提示詞與純程式碼樣片"
+    "at": "2026-10-22T19:40:44+00:00",
+    "src_hash": "866210a0e66a",
+    "zh": "Claude Code 的影片風格工具箱：59 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
   },
   "lightonai/next-plaid": {
     "at": "2026-08-14T19:13:10+00:00",
@@ -1554,6 +1559,11 @@
     "src_hash": "01abf8e637f5",
     "zh": "Pinecone 向量資料庫的官方 Python SDK"
   },
+  "pinganbbOvO/ai-companion-kit": {
+    "at": "2026-10-22T19:40:44+00:00",
+    "src_hash": "ff343481c572",
+    "zh": "給 AI 一副身體和一點人味：會記事、看場合的 QQ 陪聊，加上能控制安卓手機的 MCP"
+  },
   "pipecat-ai/pipecat": {
     "at": "2026-08-22T19:07:20+00:00",
     "src_hash": "a973bc939d92",
@@ -1563,6 +1573,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "9e28dd97f073",
     "zh": "建構有狀態 agent 用的記憶函式庫"
+  },
+  "promptfoo/promptfoo": {
+    "at": "2026-10-22T19:40:44+00:00",
+    "src_hash": "0512ee2c4713",
+    "zh": "測試 prompt、agent 與 RAG，也做 AI 的紅隊與漏洞掃描，可跨模型比較，支援 CLI 與 CI/CD"
   },
   "pydantic/pydantic-ai": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -1978,6 +1993,11 @@
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "f46a7e0bdfc2",
     "zh": "向量資料庫的效能評測工具"
+  },
+  "ziplab/ATAS": {
+    "at": "2026-10-22T19:40:44+00:00",
+    "src_hash": "8cc4f833d2f8",
+    "zh": "Any Time, Any Space：以世界狀態為核心的 agent 式影片生成框架"
   },
   "zj-unicom-ai/UniEmployee": {
     "at": "2026-10-03T18:55:46+00:00",
