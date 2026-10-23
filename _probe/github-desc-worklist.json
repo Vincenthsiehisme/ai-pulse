@@ -1,98 +1,100 @@
 [
   {
-    "full_name": "cheaper-inference/OmniRoute",
-    "desc": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A, Desktop/PWA. Built by 900+ contributors",
-    "language": "TypeScript",
+    "full_name": "simbasjungles/free-my-tv",
+    "desc": "A fast, ad-free home screen for Google TV, LG webOS and Samsung Tizen. One button to undo.",
+    "language": "Java",
     "topics": [
-      "a2a",
-      "ai-agents",
-      "ai-gateway",
-      "anthropic",
-      "claude",
-      "claude-code"
+      "android-tv",
+      "claude-code",
+      "google-tv",
+      "home-screen",
+      "launcher",
+      "no-ads"
     ],
-    "stars": 79809,
-    "url": "https://github.com/cheaper-inference/OmniRoute",
-    "stale_zh": null
+    "stars": 3869,
+    "url": "https://github.com/simbasjungles/free-my-tv",
+    "stale_zh": "Google TV 的快速無廣告主畫面，開源，用 Claude Code 做的，一鍵還原"
   },
   {
-    "full_name": "pinganbbOvO/ai-companion-kit",
-    "desc": "给你的 AI 一副身体，和一点人味 —— 会记事、会看场合的 QQ 陪聊 + 能控制安卓手机的 MCP",
-    "language": "JavaScript",
-    "topics": [
-      "adb",
-      "agent",
-      "ai-companion",
-      "android",
-      "chatbot",
-      "deepseek"
-    ],
-    "stars": 360,
-    "url": "https://github.com/pinganbbOvO/ai-companion-kit",
-    "stale_zh": null
-  },
-  {
-    "full_name": "lemomo-ai/lemo-opuscar",
-    "desc": "A toolbox of film styles made in code for Claude Code: 59 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in code by Claude Opus 5.5, with no video model. By Lemomo. · 一套用代码做片的风格工具箱：59 种现成风格，也能做出你自己的",
-    "language": "JavaScript",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "ai-short-film",
-      "ai-video",
-      "animation",
-      "canvas"
-    ],
-    "stars": 5497,
-    "url": "https://github.com/lemomo-ai/lemo-opuscar",
-    "stale_zh": "Claude Code skill：不靠影片模型做短片，51 種影片風格，各附風格提示詞與純程式碼樣片"
-  },
-  {
-    "full_name": "promptfoo/promptfoo",
-    "desc": "Test your prompts, agents, and RAGs. Red teaming/pentesting/vulnerability scanning for AI. Compare performance of GPT, Claude, Gemini, DeepSeek, and more. Simple declarative configs with command line and CI/CD integration.  Used by OpenAI and Anthropic.",
-    "language": "TypeScript",
-    "topics": [
-      "ci",
-      "ci-cd",
-      "cicd",
-      "evaluation",
-      "evaluation-framework",
-      "llm"
-    ],
-    "stars": 26294,
-    "url": "https://github.com/promptfoo/promptfoo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ganeshmshetty/openclip",
-    "desc": "An open-source, macOS text action popup for running custom scripts, AI actions, and extensible workflows on selected text.",
-    "language": "Swift",
-    "topics": [
-      "app-kit",
-      "apple-intelligence",
-      "applescript",
-      "clipboard",
-      "developer-tools",
-      "javascriptcore"
-    ],
-    "stars": 703,
-    "url": "https://github.com/ganeshmshetty/openclip",
-    "stale_zh": "開源、重隱私的 macOS 文字動作彈窗，對選取文字執行自訂腳本、AI 動作與擴充流程"
-  },
-  {
-    "full_name": "ziplab/ATAS",
-    "desc": "Any Time, Any Space: A World-State-Centric Framework for Agentic Video Generation",
+    "full_name": "dagoSte/squadra",
+    "desc": "Coordinate Claude, Codex and Cursor windows with shared tasks, acknowledgements, prechecks, parallel tests, source-bound proofs and independent review. Built-in skills recall lessons, simplify code and forecast work. Track progress, decisions and evidence in a bilingual local dashboard, with MCP plugins. Browse skills and verified security audits.",
     "language": "Python",
     "topics": [
-      "agentic-video-generation",
-      "mutli-agent",
-      "mutli-agent-system",
-      "spatial-consistency",
-      "video-generation",
-      "video-generator"
+      "agent-orchestration",
+      "agent-skills",
+      "agentic-coding",
+      "ai-agents",
+      "ai-coding",
+      "claude"
     ],
-    "stars": 339,
-    "url": "https://github.com/ziplab/ATAS",
+    "stars": 373,
+    "url": "https://github.com/dagoSte/squadra",
+    "stale_zh": null
+  },
+  {
+    "full_name": "abacusai/abacusai-bot",
+    "desc": "100% free, open-source personal agents for your messaging apps, tools, and services",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "ai",
+      "ai-agents",
+      "android",
+      "cli",
+      "coding-agent"
+    ],
+    "stars": 312,
+    "url": "https://github.com/abacusai/abacusai-bot",
+    "stale_zh": null
+  },
+  {
+    "full_name": "DuarteSantos8/openGym",
+    "desc": "Open-source gym & body-weight tracker, now in the App Store (iPhone + Apple Watch) and as an Android APK. Plan routines, log workouts, see which muscles are trained, import from Strong/Hevy/FitNotes. Self-host it or use it on the phone alone.",
+    "language": "JavaScript",
+    "topics": [
+      "bodyweight",
+      "docker",
+      "fitness",
+      "fitness-tracker",
+      "gym",
+      "health"
+    ],
+    "stars": 15198,
+    "url": "https://github.com/DuarteSantos8/openGym",
+    "stale_zh": "自架的健身與體重追蹤器，可排課表、記錄訓練、看肌群疲勞狀態，支援匯入 FitNotes/Strong/Hevy"
+  },
+  {
+    "full_name": "Anil-matcha/open-duet",
+    "desc": "Open-source, self-hosted alternative to Claude Duet: AI coworkers (named agents) with instructions, memory, routines, their own isolated computer, and your approval before they act. Also an alternative to OpenAI Dots, Meta Muse, Grok Bot, Manus Cue and ChatGPT agent.",
+    "language": "Python",
+    "topics": [
+      "agentic-ai",
+      "ai-agent",
+      "ai-assistant",
+      "ai-coworker",
+      "ai-employees",
+      "ai-workspace"
+    ],
+    "stars": 6105,
+    "url": "https://github.com/Anil-matcha/open-duet",
+    "stale_zh": null
+  },
+  {
+    "full_name": "colbymchenry/codegraph",
+    "desc": "Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent — fewer tokens, fewer tool calls, 100% local",
+    "language": "C",
+    "topics": [],
+    "stars": 75057,
+    "url": "https://github.com/colbymchenry/codegraph",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Ansub/tv-detox",
+    "desc": "Make an old Android TV fast again with Claude Code or Codex: a tiny ad-free home screen plus the prompt to clean it up",
+    "language": "Java",
+    "topics": [],
+    "stars": 1361,
+    "url": "https://github.com/Ansub/tv-detox",
     "stale_zh": null
   }
 ]

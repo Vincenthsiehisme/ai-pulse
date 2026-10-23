@@ -8,153 +8,89 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-21-0aaca8",
-    "title": "Broad access through consistent standards",
-    "company": "OpenAI",
+    "id": "evt-2026-10-22-85c1cb",
+    "title": "Open Call Guest Investigators Life Sciences",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-21-b189ca",
-    "title": "Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure",
-    "company": "Google",
-    "track": "基礎設施與成本",
-    "summary": "Google Cloud 與 NVIDIA 宣布 Vera Rubin 基礎設施將於下月 GA，之後擴展至歐洲。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-21-c7d64d",
-    "title": "GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote",
-    "company": "NVIDIA",
-    "track": "全球創新版圖",
-    "summary": "GTC Berlin 2026 開幕，為期三天、逾百場議程，Jensen Huang 主題演講同步直播。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-21-d0398c",
-    "title": "NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure",
-    "company": "NVIDIA",
-    "track": "基礎設施與成本",
-    "summary": "NVIDIA 公布 OpenShell 參考架構，並擴充機密運算，讓前沿模型業者安全跨基礎設施擴展。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-21-dab677",
-    "title": "Cloudflare links vulnerability discovery to defense with OpenAI",
-    "company": "OpenAI",
+    "id": "evt-2026-10-22-921176",
+    "title": "Build more responsive apps with the Decisions API",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-21-dacc08",
-    "title": "ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform",
+    "id": "evt-2026-10-22-a0d14a",
+    "title": "Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-22-a636c6",
+    "title": "Donating Agent Skills To The Agentic Ai Foundation",
+    "company": "Anthropic",
+    "track": "Agent與軟體重構",
+    "summary": "Anthropic 把 Agent Skills 標準捐給 Linux 基金會下的 Agentic AI Foundation。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-22-b1caf2",
+    "title": "Uber brings ChatGPT Work to all employees with OpenAI",
     "company": "OpenAI",
     "track": "產品與商業驗證",
-    "summary": "ChatGPT 廣告擴到 26 個新國家，OpenAI 稱已有超過 10 萬名廣告主使用。",
+    "summary": "Uber 把 ChatGPT Work 推給全公司超過 3 萬名員工。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-22-116ab3",
-    "title": "NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-22-1d80df",
-    "title": "What FDE means at OpenAI",
+    "id": "evt-2026-10-23-439d7e",
+    "title": "OpenAI and Poland’s NASK partner to advance AI safety and security",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-22-1e857c",
-    "title": "NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations",
+    "id": "evt-2026-10-23-4e180a",
+    "title": "Kazakhstan Expands Compute for Its AI Future",
     "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-22-2853b8",
-    "title": "Ensemble forecasting with IBM Granite time-series models",
+    "id": "evt-2026-10-23-599b06",
+    "title": "LitPivot: Developing research ideas through dynamic contextualization within the literature landscape",
     "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-22-3d807f",
-    "title": "NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models",
-    "company": "NVIDIA",
+    "id": "evt-2026-10-23-993840",
+    "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-22-5073ac",
-    "title": "OlmoEarth v1.3: State-of-the-art embeddings for the whole planet",
-    "company": "Hugging Face",
+    "id": "evt-2026-10-23-f0d396",
+    "title": "Does Your Model Run on AWS Trainium? Look It Up",
+    "company": "AWS",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-22-5b47bc",
-    "title": "Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-22-61e6cb",
-    "title": "NVIDIA Open Models Power a New Wave of European Public Sector Projects",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-22-680f76",
-    "title": "Beyond tree cover: mapping the world’s forest types",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-22-6d60ac",
-    "title": "Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-22-7d0754",
-    "title": "Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-22-9fce05",
-    "title": "How Companies Are Using NVIDIA DSX to Break the Power Bottleneck",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-22-a19b05",
-    "title": "Partnernetworkannouncement",
-    "company": "industry",
+    "id": "evt-2026-10-23-f254b4",
+    "title": "Securing our frontier model training environment",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null

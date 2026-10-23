@@ -16,12 +16,12 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://simonwillison.net/atom/everything/"
-robots_checked_day: "2026-10-16"
+robots_checked_day: "2026-10-23"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-10-22"
-items_observed: 282
+last_observed_day: "2026-10-23"
+items_observed: 283
 events_bound: 12
-events_published: 9
+events_published: 10
 health_score: 100
 consecutive_failures: 0
 last_status: 200
@@ -36,9 +36,9 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 282 筆 | 抓到了，但站方那陣子沒發東西 |
+| 已觀測 | 283 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 12 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 9 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 已發布 | 10 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 這條來源不能單獨作為一手證據（`can_satisfy_primary: false`）。它的角色是佐證與獨立性，不是「事情發生了」的來源。
 

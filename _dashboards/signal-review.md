@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-22"
+generated_day: "2026-10-23"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-22"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **482** 則／已裁決 **26** 則。
+待回答 **496** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#cdd39c95`** — infra-cost
-  > 看 A5X 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署數量與時間；看 DGX Spark 與 DGX Station 的歐洲價格與出貨時程；看 cuDSS 是否有模擬軟體廠商整合與實測加速倍率；看機密運算的效能損耗與支援平台；看 TorchNeuron 後續篇章有沒有調校前後數據。
+- **`infra-cost#29b7d8e8`** — infra-cost
+  > 看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率數字；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 是否有軟體廠商整合與實測加速倍率；看機密運算的效能損耗。
 
-- **`model-research#ac7d5c4e`** — model-research
-  > 看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期；看 Muse Spark Open、Apertus 1.5 原文有沒有列參數量、授權與基準。
+- **`model-research#b10befef`** — model-research
+  > 看 Cosmos 的榜單名稱與分數，以及第三方採用案例；看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期。
 
-- **`product-market#85fb1528`** — product-market
-  > 看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容；看 AT&T 是否公布處理量與節省時數；看 OpenAI 是否發出更多不同規模客戶的量化案例；看 Claude Gov 原文有沒有列客戶範圍與使用限制。
+- **`product-market#bd0e3092`** — product-market
+  > 看 Uber 或 OpenAI 是否公布使用率與節省工時，或其他大型企業跟進全員導入；看零售案例的 90% 用什麼基準；看使用政策頁是否出現新的夥伴條款；看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容。
 
-- **`capital-evolution#3e9f0987`** — capital-evolution
-  > 看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期；看 OpenAI 治理藍圖是否出現可執行的防禦方存取計畫；讀 Public Benefit Fund 原文確認規模與受益對象。
+- **`capital-evolution#6d682e94`** — capital-evolution
+  > 讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
 
-- **`agent-refactor#ff225ccd`** — agent-refactor
-  > 看 NVIDIA 是否點名採用 Agent Toolkit 的企業與具體新增工具；看 Stack Overflow 或第三方是否公布代理建立數的絕對值與期間；看 OpenAI 或 Third Moment Research 是否公開任務完成率與單位成本；看 Agent Lightning 的程式碼與微軟以外的訓練結果。
+- **`agent-refactor#55e717db`** — agent-refactor
+  > 看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF 工作組；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業；看 OpenAI 或 Third Moment Research 是否公開任務完成率與單位成本。
 
-- **`global-map#e917734a`** — global-map
-  > 看 NVIDIA 後續是否點名歐洲製造商並公布導入成果；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額；看德國政府或 NVIDIA 是否公布工業 AI 的算力部署與資金規模。
+- **`global-map#8b710d7c`** — global-map
+  > 看有沒有具名的政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看 NVIDIA 後續是否點名歐洲製造商並公布導入成果；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
 
-## 事件層（476）
+## 事件層（490）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1424,6 +1424,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-20-efa6ff#ee3699da`** — evt-2026-10-20-efa6ff
   > BSC 是否公佈參與新創數量與運算配額
 
+- **`evt-2026-10-21-0aaca8#483f6f2c`** — evt-2026-10-21-0aaca8
+  > 使用政策頁面是否出現新的夥伴條款，或有夥伴公開調整產品說明。
+
 - **`evt-2026-10-21-115bf8#376fa9b9`** — evt-2026-10-21-115bf8
   > 主流模擬軟體是否宣布整合 cuDSS，並公布實測加速倍率。
 
@@ -1469,5 +1472,44 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-21-d0398c#622a68ca`** — evt-2026-10-21-d0398c
   > 支援的雲端與 GPU 世代，以及效能損耗數字。
 
+- **`evt-2026-10-21-dab677#c97d3a3d`** — evt-2026-10-21-dab677
+  > Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數量或修補時間。
+
 - **`evt-2026-10-21-dacc08#cfb452e8`** — evt-2026-10-21-dacc08
   > OpenAI 是否公布廣告營收或各國上線清單。
+
+- **`evt-2026-10-22-116ab3#d474941c`** — evt-2026-10-22-116ab3
+  > 有沒有雲端或資料中心客戶公開採用 Minerva，以及正式上市時程。
+
+- **`evt-2026-10-22-1d80df#127e31ea`** — evt-2026-10-22-1d80df
+  > OpenAI 是否同步釋出 FDE 職缺或企業導入案例。
+
+- **`evt-2026-10-22-1e857c#335ecf7d`** — evt-2026-10-22-1e857c
+  > 該商務平台是否公布成本比較的基準與模型規模。
+
+- **`evt-2026-10-22-3d807f#fb341db7`** — evt-2026-10-22-3d807f
+  > 榜單的具體名稱與分數，以及第三方團隊採用 Cosmos 的公開案例。
+
+- **`evt-2026-10-22-5b47bc#5f8d9a67`** — evt-2026-10-22-5b47bc
+  > Revolut 等業者是否公布實際上線的服務範圍與模型選擇。
+
+- **`evt-2026-10-22-61e6cb#5e9e7aca`** — evt-2026-10-22-61e6cb
+  > 有沒有具名的政府機關公開採用，以及使用的模型與語言。
+
+- **`evt-2026-10-22-6d60ac#a23742c5`** — evt-2026-10-22-6d60ac
+  > 具名業者的預測準確度比較，或與既有數值預報系統並行的結果。
+
+- **`evt-2026-10-22-7d0754#26d9fcb5`** — evt-2026-10-22-7d0754
+  > 無需追蹤。
+
+- **`evt-2026-10-22-9fce05#20e3f5e4`** — evt-2026-10-22-9fce05
+  > 具名採用者是否公布併網時間縮短或電力利用率的數字。
+
+- **`evt-2026-10-22-a19b05#7b30dd2c`** — evt-2026-10-22-a19b05
+  > 原文公布的夥伴名單與合作條件，請讀者自行查看原文。
+
+- **`evt-2026-10-22-a636c6#97bfe316`** — evt-2026-10-22-a636c6
+  > OpenAI、Google 等是否宣布支援 Agent Skills，或加入 AAIF 相關工作組。
+
+- **`evt-2026-10-22-b1caf2#95ecc185`** — evt-2026-10-22-b1caf2
+  > Uber 或 OpenAI 是否公布使用率、節省工時，或其他大型企業跟進的全員導入。

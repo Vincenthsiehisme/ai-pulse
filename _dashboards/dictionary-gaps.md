@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-22'
+generated_day: '2026-10-23'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**87 天**（2026-07-24 … 2026-10-22），去重後 **5812** 列。
+語料範圍：**88 天**（2026-07-24 … 2026-10-23），去重後 **5870** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,7 +17,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 176 | 2 |
+| Show HN | 180 | 2 |
 | Apple | 128 | 6 |
 | Amazon | 85 | 5 |
 | September | 61 | 8 |
@@ -26,7 +26,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | LLM | 55 | 12 |
 | They | 53 | 9 |
 | Here | 50 | 8 |
-| October | 48 | 7 |
+| October | 49 | 7 |
 | Muse | 47 | 5 |
 | Trump | 45 | 5 |
 | One | 43 | 10 |
@@ -34,15 +34,15 @@ generator: scripts/pulse-dictionary-gaps.py
 | CEO | 40 | 5 |
 | AI-powered | 39 | 10 |
 | When | 39 | 11 |
+| Pro | 39 | 7 |
 | July | 38 | 9 |
 | Python | 38 | 4 |
-| Pro | 38 | 7 |
 | U.S | 36 | 8 |
-| After | 35 | 6 |
+| After | 36 | 6 |
 | Android | 35 | 4 |
 | China | 33 | 8 |
 | Linux | 33 | 5 |
-| Last | 32 | 6 |
+| Last | 33 | 6 |
 | Astra | 32 | 6 |
 | With | 31 | 10 |
 | June | 30 | 7 |
@@ -50,33 +50,33 @@ generator: scripts/pulse-dictionary-gaps.py
 | August | 30 | 8 |
 | AI-generated | 29 | 8 |
 | Europe | 28 | 8 |
+| Learn | 28 | 6 |
 | Rust | 28 | 3 |
-| Learn | 27 | 6 |
 | Windows | 27 | 5 |
 | These | 26 | 7 |
 | Building | 25 | 10 |
+| SpaceX | 24 | 5 |
 | Pixel | 24 | 3 |
 | Samsung | 24 | 5 |
 | Opus | 23 | 6 |
 | API | 23 | 6 |
 | Wednesday | 22 | 5 |
-| SpaceX | 22 | 5 |
+| Elon Musk | 22 | 5 |
 | Over | 22 | 5 |
 | Flash | 21 | 6 |
 | Tuesday | 21 | 6 |
 | Chinese | 21 | 8 |
-| Elon Musk | 21 | 5 |
 | Xbox | 21 | 2 |
+| Some | 20 | 8 |
 | While | 20 | 4 |
 | RAM | 20 | 2 |
 | The AI | 20 | 6 |
 | Thursday | 19 | 4 |
 | Mac | 19 | 4 |
+| Fable | 19 | 5 |
 | Tool | 19 | 2 |
 | Don | 19 | 5 |
 | Monday | 18 | 4 |
-| India | 18 | 4 |
-| Some | 18 | 8 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -88,18 +88,18 @@ generator: scripts/pulse-dictionary-gaps.py
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
-| The Download | 67 | src-media-mit-techreview |
-| Tags | 37 | src-kol-simonwillison |
+| The Download | 68 | src-media-mit-techreview |
+| Tags | 38 | src-kol-simonwillison |
 | Hi HN | 27 | src-hn-frontpage |
 | Register | 27 | src-media-techcrunch |
 | MIT Technology Review | 24 | src-media-mit-techreview |
 | Launch HN | 22 | src-hn-frontpage |
 | Highlights | 20 | src-gh-vllm-releases |
 | The Verge | 19 | src-media-theverge |
+| A Blog | 19 | src-hf-blog |
 | Opt | 18 | src-media-theverge |
-| A Blog | 18 | src-hf-blog |
+| Ask HN | 17 | src-hn-frontpage |
 | Is Hiring | 17 | src-hn-frontpage |
-| Ask HN | 16 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
 | GeForce NOW | 15 | src-nvidia-blog |
 | Best Buy | 15 | src-media-theverge |

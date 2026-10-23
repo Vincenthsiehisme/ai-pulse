@@ -3,24 +3,26 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-22'
+generated_day: '2026-10-23'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **109** 則：`dropped` 1、`published` 95、`review` 13
+事件 **111** 則：`dropped` 1、`published` 103、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-22 | [[Events/evt-2026-10-22-9fce05\|How Companies Are Using NVIDIA DSX to Break the Power Bottleneck]] | review |
-| 2026-10-22 | [[Events/evt-2026-10-22-6d60ac\|Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction]] | review |
-| 2026-10-22 | [[Events/evt-2026-10-22-61e6cb\|NVIDIA Open Models Power a New Wave of European Public Sector Projects]] | review |
-| 2026-10-22 | [[Events/evt-2026-10-22-5b47bc\|Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence]] | review |
-| 2026-10-22 | [[Events/evt-2026-10-22-3d807f\|NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models]] | review |
-| 2026-10-22 | [[Events/evt-2026-10-22-1e857c\|NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations]] | review |
-| 2026-10-22 | [[Events/evt-2026-10-22-116ab3\|NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories]] | review |
+| 2026-10-23 | [[Events/evt-2026-10-23-4e180a\|Kazakhstan Expands Compute for Its AI Future]] | review |
+| 2026-10-22 | [[Events/evt-2026-10-22-9fce05\|How Companies Are Using NVIDIA DSX to Break the Power Bottleneck]] | published |
+| 2026-10-22 | [[Events/evt-2026-10-22-7d0754\|Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW]] | published |
+| 2026-10-22 | [[Events/evt-2026-10-22-6d60ac\|Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction]] | published |
+| 2026-10-22 | [[Events/evt-2026-10-22-61e6cb\|NVIDIA Open Models Power a New Wave of European Public Sector Projects]] | published |
+| 2026-10-22 | [[Events/evt-2026-10-22-5b47bc\|Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence]] | published |
+| 2026-10-22 | [[Events/evt-2026-10-22-3d807f\|NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models]] | published |
+| 2026-10-22 | [[Events/evt-2026-10-22-1e857c\|NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations]] | published |
+| 2026-10-22 | [[Events/evt-2026-10-22-116ab3\|NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-d0398c\|NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-c7d64d\|GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-af85b4\|NVIDIA Cloud Partners Scale Across Europe — Sovereign, Open and Built for Safe AI Agents]] | published |

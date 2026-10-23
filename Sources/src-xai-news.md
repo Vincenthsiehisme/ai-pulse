@@ -14,12 +14,12 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "titles + links only；站方另掛 Content-Signal: ai-train=no, search=yes, ai-input=no"
 endpoint: "https://x.ai/sitemap.xml"
-robots_checked_day: "2026-10-16"
+robots_checked_day: "2026-10-23"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-10-22"
+last_observed_day: "2026-10-23"
 items_observed: 67
 events_bound: 18
-events_published: 16
+events_published: 17
 health_score: 100
 consecutive_failures: 0
 last_status: 200
@@ -36,7 +36,7 @@ last_status: 200
 | 收錄 | `probing` | 會被抓 |
 | 已觀測 | 67 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 18 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 16 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 已發布 | 17 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**xAI**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 
