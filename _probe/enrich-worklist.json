@@ -1,19 +1,51 @@
 [
   {
-    "id": "evt-2026-10-21-0aaca8",
-    "path": "evt-2026-10-21-0aaca8.md",
-    "title": "Broad access through consistent standards",
+    "id": "evt-2026-10-22-85c1cb",
+    "path": "evt-2026-10-22-85c1cb.md",
+    "title": "Open Call Guest Investigators Life Sciences",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/open-call-guest-investigators-life-sciences",
+        "title": "Open Call Guest Investigators Life Sciences",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-10-22-921176",
+    "path": "evt-2026-10-22-921176.md",
+    "title": "Build more responsive apps with the Decisions API",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/broad-access-through-consistent-standards",
-        "title": "Broad access through consistent standards",
-        "summary": "How OpenAI works with distribution partners to uphold consistent safeguards, support responsible access, and clarify expectations in our Usage Policies.",
+        "url": "https://openai.com/index/decisions-api",
+        "title": "Build more responsive apps with the Decisions API",
+        "summary": "Fast, focused, low-cost decisions for any application.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,140 +62,20 @@
     }
   },
   {
-    "id": "evt-2026-10-21-dab677",
-    "path": "evt-2026-10-21-dab677.md",
-    "title": "Cloudflare links vulnerability discovery to defense with OpenAI",
+    "id": "evt-2026-10-22-a0d14a",
+    "path": "evt-2026-10-22-a0d14a.md",
+    "title": "Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox",
     "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/cloudflare-cyber",
-        "title": "Cloudflare links vulnerability discovery to defense with OpenAI",
-        "summary": "Cloudflare uses OpenAI Daybreak to investigate vulnerabilities and propose fixes for review. Its developers use Codex to build faster and improve code quality.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-116ab3",
-    "path": "evt-2026-10-22-116ab3.md",
-    "title": "NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/minerva-platform-infrastructure/",
-        "title": "NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories",
-        "summary": "Launched today, NVIDIA Minerva is an AIOps platform built to help teams find problems earlier and keep AI factories productive. It brings together telemetry from infrastructure and AI workloads, then applies purpose-built AI models to turn that data into timely, actionable insight. AI factories are ",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-1d80df",
-    "path": "evt-2026-10-22-1d80df.md",
-    "title": "What FDE means at OpenAI",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/forward-deployed-engineering-means",
-        "title": "What FDE means at OpenAI",
-        "summary": "What forward deployed engineering means at OpenAI",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-1e857c",
-    "path": "evt-2026-10-22-1e857c.md",
-    "title": "NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/european-retail-open-models-robotics/",
-        "title": "NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations",
-        "summary": "European retailers are using open models and physical intelligence across use cases — from a commerce platform cutting inference costs by 90% to to a fulfillment center where collaboration of different robotic fleets is simulated inside a digital twin. Frontier Results With Open Models Retail leader",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-2853b8",
-    "path": "evt-2026-10-22-2853b8.md",
-    "title": "Ensemble forecasting with IBM Granite time-series models",
-    "fingerprint": null,
-    "facet": "capital",
+    "facet": "capability",
     "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/ibm-research/granite-timeseries-ensemble-r1",
-        "title": "Ensemble forecasting with IBM Granite time-series models",
-        "summary": "A Blog post by IBM Research on Hugging Face",
+        "url": "https://huggingface.co/blog/microsoft/thinkingbox-training",
+        "title": "Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox",
+        "summary": "A Blog post by Microsoft on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -180,20 +92,50 @@
     }
   },
   {
-    "id": "evt-2026-10-22-3d807f",
-    "path": "evt-2026-10-22-3d807f.md",
-    "title": "NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models",
+    "id": "evt-2026-10-23-439d7e",
+    "path": "evt-2026-10-23-439d7e.md",
+    "title": "OpenAI and Poland’s NASK partner to advance AI safety and security",
     "fingerprint": null,
-    "facet": "benchmark",
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/openai-nask-ai-safety-security-partnership",
+        "title": "OpenAI and Poland’s NASK partner to advance AI safety and security",
+        "summary": "OpenAI and Poland’s NASK are partnering on AI safety, security, and technical research to strengthen safeguards and support a more resilient digital ecosystem.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-23-4e180a",
+    "path": "evt-2026-10-23-4e180a.md",
+    "title": "Kazakhstan Expands Compute for Its AI Future",
+    "fingerprint": null,
+    "facet": "update",
     "company_guess": "NVIDIA",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/cosmos-open-train-evaluate-deploy-world-models/",
-        "title": "NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models",
-        "summary": "To help developers rapidly build world models, which help physical AI systems understand and simulate the real world, NVIDIA has expanded the Cosmos platform with new training tools, simulation checkpoints and Cosmos Data Factory blueprints.  Ranking top five on six different open models leaderboard",
+        "url": "https://blogs.nvidia.com/blog/kazakhstan-ai-compute-ecosystem/",
+        "title": "Kazakhstan Expands Compute for Its AI Future",
+        "summary": "Kazakhstan’s AI ecosystem is moving from infrastructure plans to deployment.  The shift is visible across the full AI stack — from infrastructure to models to applications. The announcements below — coinciding with a visit to Astana by NVIDIA founder and CEO Jensen Huang — point to the nation’s incr",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -210,9 +152,9 @@
     }
   },
   {
-    "id": "evt-2026-10-22-5073ac",
-    "path": "evt-2026-10-22-5073ac.md",
-    "title": "OlmoEarth v1.3: State-of-the-art embeddings for the whole planet",
+    "id": "evt-2026-10-23-599b06",
+    "path": "evt-2026-10-23-599b06.md",
+    "title": "LitPivot: Developing research ideas through dynamic contextualization within the literature landscape",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "Hugging Face",
@@ -221,8 +163,8 @@
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/allenai/olmoearth-v1-3",
-        "title": "OlmoEarth v1.3: State-of-the-art embeddings for the whole planet",
+        "url": "https://huggingface.co/blog/allenai/litpivot",
+        "title": "LitPivot: Developing research ideas through dynamic contextualization within the literature landscape",
         "summary": "A Blog post by Ai2 on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
@@ -240,282 +182,20 @@
     }
   },
   {
-    "id": "evt-2026-10-22-5b47bc",
-    "path": "evt-2026-10-22-5b47bc.md",
-    "title": "Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/european-financial-services-organizations-open-models-proprietary-intelligence/",
-        "title": "Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence",
-        "summary": "At GTC Berlin, banks, payment companies and financial data providers are showing what production-scale intelligence looks like — built on NVIDIA accelerated computing, powered by open weight models and running on their own infrastructure. Revolut is rebuilding its technology stack on a single founda",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-61e6cb",
-    "path": "evt-2026-10-22-61e6cb.md",
-    "title": "NVIDIA Open Models Power a New Wave of European Public Sector Projects",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/european-public-sector-open-models/",
-        "title": "NVIDIA Open Models Power a New Wave of European Public Sector Projects",
-        "summary": "Governments need modern solutions to serve the public while keeping sensitive information under their control. Open models provide a path forward, letting governments evaluate them, adapt them to local languages and public services, run them on infrastructure they control, apply their own safeguards",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-680f76",
-    "path": "evt-2026-10-22-680f76.md",
-    "title": "Beyond tree cover: mapping the world’s forest types",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/beyond-tree-cover-mapping-the-worlds-forest-types/",
-        "title": "Beyond tree cover: mapping the world’s forest types",
-        "summary": "A global map categorizing every 10-meter patch of land on Earth into distinct forest types.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-6d60ac",
-    "path": "evt-2026-10-22-6d60ac.md",
-    "title": "Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/europe-earth-2-open-models-weather-climate-prediction/",
-        "title": "Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction",
-        "summary": "Weather forecasts shape more than daily plans; timely weather information is crucial for energy producers, insurers and transport operators to plan around changing conditions. A global forecast can show a storm taking shape, but decisions about solar farms, shipping routes or insured property depend",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-7d0754",
-    "path": "evt-2026-10-22-7d0754.md",
-    "title": "Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-call-of-duty-modern-warfare-4/",
-        "title": "Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW",
-        "summary": "Lock in and load out this GFN Thursday. Call of Duty: Modern Warfare 4 arrives on GeForce NOW at launch, bringing a new campaign, multiplayer action and DMZ, high-stakes extraction mode to supported devices. The campaign also gets an enhanced look: GeForce RTX 5080-class performance arrives for Ulti",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-9fce05",
-    "path": "evt-2026-10-22-9fce05.md",
-    "title": "How Companies Are Using NVIDIA DSX to Break the Power Bottleneck",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/dsx-power/",
-        "title": "How Companies Are Using NVIDIA DSX to Break the Power Bottleneck",
-        "summary": "Companies around the world are building on the NVIDIA DSX AI Factory Platform to plan, simulate and run the grid and the AI factory as one system, from the substation to the rack. Their adoption of the platform responds to an acute problem. Power is now the biggest bottleneck in infrastructure. More",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-22-a19b05",
-    "path": "evt-2026-10-22-a19b05.md",
-    "title": "Partnernetworkannouncement",
-    "fingerprint": null,
-    "facet": "release",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-xai-news",
-        "url": "https://x.ai/news/partnernetworkannouncement",
-        "title": "Partnernetworkannouncement",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "站方宣告 ai-input=no，不把內容當成 AI 的輸入",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "站方宣告 ai-input=no，不把內容當成 AI 的輸入"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-22-a636c6",
-    "path": "evt-2026-10-22-a636c6.md",
-    "title": "Donating Agent Skills To The Agentic Ai Foundation",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
-        "title": "Donating Agent Skills To The Agentic Ai Foundation",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-kol-simonwillison",
-        "url": "https://simonwillison.net/2026/Oct/22/donating-agent-skills/",
-        "title": "Donating Agent Skills to the Agentic AI Foundation",
-        "summary": "   Donating Agent Skills to the Agentic AI Foundation   \nNews today from Anthropic: \n \n We’re committed to keeping Agent Skills open, community-driven, and vendor-neutral. Today, we are donating the standard to the Agentic AI Foundation (AAIF) under the Linux Foundation,  which we co-founded  with B",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-22-b1caf2",
-    "path": "evt-2026-10-22-b1caf2.md",
-    "title": "Uber brings ChatGPT Work to all employees with OpenAI",
+    "id": "evt-2026-10-23-993840",
+    "path": "evt-2026-10-23-993840.md",
+    "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
-    "independent_sources": 2,
+    "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/uber-chatgpt-work-rollout",
-        "title": "Uber brings ChatGPT Work to all employees with OpenAI",
-        "summary": "Uber is rolling out ChatGPT Work to more than 30,000 employees, helping teams research, analyze data, create presentations, and complete complex workflows.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      },
-      {
-        "source_id": "src-media-techcrunch",
-        "url": "https://techcrunch.com/2026/10/22/uber-puts-all-30000-employees-on-chatgpt-work/",
-        "title": "Uber puts all 30,000 employees on ChatGPT Work",
-        "summary": "The ride-share giant previously deployed a much smaller pilot for ChatGPT Work but is now taking the enterprise agent company-wide.",
+        "url": "https://openai.com/index/scaling-storage-one-billion-users-part-two",
+        "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
+        "summary": "Learn how OpenAI scaled Habitat with reliable multi-tenancy, global caching, and Azure Cosmos DB to deliver 12× faster reads for ChatGPT.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -523,7 +203,67 @@
     ],
     "availability": {
       "counts": {
-        "has_text": 2,
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-23-f0d396",
+    "path": "evt-2026-10-23-f0d396.md",
+    "title": "Does Your Model Run on AWS Trainium? Look It Up",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "AWS",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/torch-neuronx-model-support",
+        "title": "Does Your Model Run on AWS Trainium? Look It Up",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-23-f254b4",
+    "path": "evt-2026-10-23-f254b4.md",
+    "title": "Securing our frontier model training environment",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/securing-our-frontier-model-training-environment",
+        "title": "Securing our frontier model training environment",
+        "summary": "OpenAI explains how we strengthened containment for frontier model training and evaluation, including offline environments and high-compute red-teaming.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
         "unfetched": 0,
         "withheld": 0
       },

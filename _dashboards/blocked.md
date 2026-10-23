@@ -1,17 +1,13 @@
-# 被門禁擋下（65）
+# 被門禁擋下（59）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-10-23-439d7e|OpenAI and Poland’s NASK partner to advance AI safety and security]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-23-4e180a|Kazakhstan Expands Compute for Its AI Future]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-23-599b06|LitPivot: Developing research ideas through dynamic contextualization ]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-23-993840|Rapidly scaling online storage to serve over 1 billion ChatGPT users (]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-23-f0d396|Does Your Model Run on AWS Trainium? Look It Up]]** — AWS — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-10-23-f254b4|Securing our frontier model training environment]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-23-599b06|LitPivot: Developing research ideas through dynamic contextualization ]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-22-2853b8|Ensemble forecasting with IBM Granite time-series models]]** — IBM — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-22-5073ac|OlmoEarth v1.3: State-of-the-art embeddings for the whole planet]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-22-680f76|Beyond tree cover: mapping the world’s forest types]]** — Google DeepMind — blockers: thin_research_analysis
-- **[[Events/evt-2026-10-22-a0d14a|Turning Database Grading into RL Rewards: Post-Training Agents with Th]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-22-85c1cb|Open Call Guest Investigators Life Sciences]]** — Anthropic — blockers: thin_research_analysis
+- **[[Events/evt-2026-10-22-a0d14a|Turning Database Grading into RL Rewards: Post-Training Agents with Th]]** — Microsoft — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-21-1378db|Using thousands of AI agents to uncover new leads in biological data]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-21-3c66c9|How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% ]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-21-75c306|NVIDIA Kumo Relational Outperforms Supervised Machine Learning on Rela]]** — NVIDIA — blockers: thin_research_analysis
@@ -58,8 +54,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-10-22-85c1cb|Open Call Guest Investigators Life Sciences]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-10-22-921176|Build more responsive apps with the Decisions API]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity

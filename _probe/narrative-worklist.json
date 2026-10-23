@@ -3,9 +3,18 @@
     "slug": "model-research",
     "name": "模型能力與研究",
     "current_thesis": "訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。",
-    "current_now": "今天只新增一則：IBM Granite Speech 5.0，標題稱轉錄、翻譯與說話者標註更準更快，摘要只有署名，沒有詞錯率或速度數字。10-19 的 Anthropic Responsible Scaling Policy v3 與 Building Safeguards For Claude 仍只有標題與連結，依授權沒有內文，RSP v3 與前一版差在哪，我們比對不了。更早的 Beam 501B、Apertus 1.5、Muse Spark Open、Gemini 4 Argon、LFM2.5-24B-A2B 等，一樣停在標題與一兩行說明，沒有獨立評測數字。",
-    "current_next": "看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期；看 Muse Spark Open、Apertus 1.5 原文有沒有列參數量、授權與基準。",
+    "current_now": "今天新增 NVIDIA Cosmos 平台擴充，加入訓練工具、模擬檢查點與資料工廠藍圖。摘要提到在六個開放模型排行榜上名列前五，榜單名稱與分數被截斷，排名由 NVIDIA 自述。IBM Granite Speech 5.0 標題稱轉錄、翻譯與說話者標註更準更快，沒有詞錯率或速度數字。10-19 的 Anthropic Responsible Scaling Policy v3 與 Building Safeguards For Claude 仍只有標題與連結，RSP v3 與前一版差在哪，我們比對不了。更早的 Beam 501B、Apertus 1.5、Muse Spark Open、Gemini 4 Argon 等，一樣停在標題與一兩行說明，沒有獨立評測數字。",
+    "current_next": "看 Cosmos 的榜單名稱與分數，以及第三方採用案例；看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期。",
     "events": [
+      {
+        "slug": "securing-our-frontier-model-training-environment-f254",
+        "date": "2026-10-23",
+        "company": "OpenAI",
+        "title": "Securing our frontier model training environment",
+        "summary": "OpenAI 說明如何加強前沿模型訓練與評測環境的隔離。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "nvidia-cosmos-opens-new-tools-to-train-evaluate-and-deploy-w-3d80",
         "date": "2026-10-22",
@@ -945,362 +954,11 @@
     ]
   },
   {
-    "slug": "agent-refactor",
-    "name": "Agent 與軟體重構",
-    "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "今天新增一則：NVIDIA Agent Toolkit 擴充，官方稱企業可用公司資料客製並控制代理，同時監控，新增工具清單與採用者沒有給。這是廠商自述，沒有第三方數字。先前的內容不變：10-16 OpenAI 的 Stack Overflow for Agents 與 Benefit Street Partners 兩個客戶案例，數字都出自廠商；10-14 Third Moment Research 的 10,000 個 agent 連跑 36 小時以上，沒有完成率與成本。",
-    "current_next": "看 NVIDIA 是否點名採用 Agent Toolkit 的企業與具體新增工具；看 Stack Overflow 或第三方是否公布代理建立數的絕對值與期間；看 OpenAI 或 Third Moment Research 是否公開任務完成率與單位成本；看 Agent Lightning 的程式碼與微軟以外的訓練結果。",
-    "events": [
-      {
-        "slug": "donating-agent-skills-to-the-agentic-ai-foundation-a636",
-        "date": "2026-10-22",
-        "company": "Anthropic",
-        "title": "Donating Agent Skills To The Agentic Ai Foundation",
-        "summary": "Anthropic 把 Agent Skills 標準捐給 Linux 基金會下的 Agentic AI Foundation。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "nvidia-agent-toolkit-expands-grounding-enterprise-agents-in--98fb",
-        "date": "2026-10-21",
-        "company": "NVIDIA",
-        "title": "NVIDIA Agent Toolkit Expands, Grounding Enterprise Agents in Company Data",
-        "summary": "NVIDIA Agent Toolkit 擴充，讓企業代理能用公司資料並受邊界管控。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "cloudflare-links-vulnerability-discovery-to-defense-with-ope-dab6",
-        "date": "2026-10-21",
-        "company": "OpenAI",
-        "title": "Cloudflare links vulnerability discovery to defense with OpenAI",
-        "summary": "Cloudflare 用 OpenAI Daybreak 找漏洞並提出修補建議，開發端用 Codex。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "stack-overflow-for-agents-triples-signups-with-chatgpt-plugi-921b",
-        "date": "2026-10-16",
-        "company": "OpenAI",
-        "title": "Stack Overflow for Agents triples signups with ChatGPT plugin",
-        "summary": "OpenAI 說 Stack Overflow for Agents 靠 ChatGPT 外掛，讓代理建立數成長最高 10 倍。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "benefit-street-partners-answers-questions-faster-with-codex-bd6b",
-        "date": "2026-10-16",
-        "company": "OpenAI",
-        "title": "Benefit Street Partners answers questions faster with Codex",
-        "summary": "Benefit Street Partners 的 Anant Kumar 用 Codex 做放款估值比較與信貸合約分析工具。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "how-third-moment-research-runs-10-000-agents-for-36-hours-3b8c",
-        "date": "2026-10-14",
-        "company": "OpenAI",
-        "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
-        "summary": "OpenAI 客戶案例：Third Moment Research 讓 10,000 個 agent 連跑 36 小時以上。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "amp-puts-ai-agents-to-work-beyond-code-with-openai-models-9b69",
-        "date": "2026-10-14",
-        "company": "OpenAI",
-        "title": "Amp puts AI agents to work beyond code with OpenAI models",
-        "summary": "OpenAI 客戶案例：Amp 用 GPT-6 Astra 等模型把 agent 推到程式碼以外的工作。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "the-model-that-didn-t-exist-so-you-made-it-yourself-2e7e",
-        "date": "2026-10-08",
-        "company": "Hugging Face",
-        "title": "The model that didn't exist, so you made it yourself",
-        "summary": "Hugging Face 發文談自己動手做出一個原本不存在的模型。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "how-oracle-turns-days-of-work-into-minutes-with-chatgpt-and--68fb",
-        "date": "2026-10-08",
-        "company": "OpenAI",
-        "title": "How Oracle turns days of work into minutes with ChatGPT and Codex",
-        "summary": "OpenAI 發布 Oracle 使用 ChatGPT 與 Codex 的客戶案例。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "into-the-omniverse-how-developers-turn-ideas-into-simulation-ce80",
-        "date": "2026-10-08",
-        "company": "NVIDIA",
-        "title": "Into the Omniverse: How Developers Turn Ideas Into Simulations With Frontier AI Agents",
-        "summary": "NVIDIA 說明開發者如何用前沿 AI 代理搭配 Omniverse 函式庫做模擬應用。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "agent-lightning-v1-0-a-3-500-line-lightweight-agentic-rl-fra-ed26",
-        "date": "2026-10-07",
-        "company": "Microsoft",
-        "title": "Agent Lightning v1.0: A 3,500-Line Lightweight Agentic RL Framework for Training Agents with Real Harnesses",
-        "summary": "微軟研究院發布 Agent Lightning v1.0，約 3,500 行的輕量 agent 強化學習框架。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "advancing-computer-use-with-ironclad-4175",
-        "date": "2026-10-06",
-        "company": "OpenAI",
-        "title": "Advancing computer use with Ironclad",
-        "summary": "OpenAI 與 Ironclad 合作，用合約流程訓練並評測電腦操作型 agent。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "autosynthdata-generating-training-data-for-enterprise-agents-7699",
-        "date": "2026-10-02",
-        "company": "ServiceNow",
-        "title": "AutoSynthData: Generating Training Data for Enterprise Agents",
-        "summary": "ServiceNow-AI 在 Hugging Face 發文，談替企業 agent 生成訓練資料的 AutoSynthData。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "introducing-dots-119a",
-        "date": "2026-09-29",
-        "company": "OpenAI",
-        "title": "Introducing dots",
-        "summary": "OpenAI 發布 Dots，標題稱為「常駐型代理」，官方內文我們只收標題與連結。",
-        "confidence": 80,
-        "heat": "未量測"
-      },
-      {
-        "slug": "holo4-powering-generalist-computer-use-agents-0834",
-        "date": "2026-09-28",
-        "company": "H company",
-        "title": "Holo4: powering generalist computer-use agents",
-        "summary": "H company 在 Hugging Face 發表 Holo4，定位是通用型電腦操作 agent。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "nvidia-isaac-ros-5-0-advances-agentic-open-source-robotics-d-986f",
-        "date": "2026-09-22",
-        "company": "NVIDIA",
-        "title": "NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development",
-        "summary": "NVIDIA 發布 Isaac ROS 5.0，替代理式開源機器人開發添加 GPU 加速套件。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "ai-security-is-an-engineering-problem-how-to-solve-it-at-eve-01cf",
-        "date": "2026-09-21",
-        "company": "NVIDIA",
-        "title": "AI Security Is an Engineering Problem — How to Solve It at Every Layer of the Agent Stack",
-        "summary": "NVIDIA 主張 AI 安全該當工程問題處理：明確需求、可執行管控、指定負責人。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "cognition-helps-devin-test-its-own-work-with-gpt-6-astra-d17d",
-        "date": "2026-09-11",
-        "company": "Cognition",
-        "title": "Cognition helps Devin test its own work with GPT‑6 Astra",
-        "summary": "Cognition 用 GPT-6 Astra 讓 Devin 具備自我測試能力，目標是讓工程師少審查、多出貨。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "donating-the-model-context-protocol-and-establishing-of-the--4fdf",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Donating The Model Context Protocol And Establishing Of The Agentic Ai Foundation",
-        "summary": "Anthropic將MCP協定捐出並成立Agentic AI基金會，具體治理架構我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "rebuilding-automatic1111-with-gradio-workflow-9118",
-        "date": "2026-09-10",
-        "company": "Hugging Face",
-        "title": "Rebuilding AUTOMATIC1111 with Gradio Workflow",
-        "summary": "Hugging Face用Gradio Workflow重建知名Stable Diffusion介面AUTOMATIC1111。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "introducing-the-agents-api-bd46",
-        "date": "2026-09-10",
-        "company": "OpenAI",
-        "title": "Introducing the Agents API",
-        "summary": "OpenAI 推出 Agents API，把 Codex harness 包成可直接呼叫的雲端 agent 服務。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "apple-xcode-claude-agent-sdk-c084",
-        "date": "2026-09-09",
-        "company": "Anthropic",
-        "title": "Apple Xcode Claude Agent Sdk",
-        "summary": "Claude Agent SDK進駐Apple Xcode，具體整合方式我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "designing-grok-bot-fff6",
-        "date": "2026-09-03",
-        "company": "xAI",
-        "title": "Designing Grok Bot",
-        "summary": "xAI 發布「設計 Grok Bot」文章，站方政策不允許內容被當 AI 輸入，這裡只給連結",
-        "confidence": 83,
-        "heat": "未量測"
-      },
-      {
-        "slug": "introducing-agentic-video-understanding-with-gemini-bb44",
-        "date": "2026-09-01",
-        "company": "Google DeepMind",
-        "title": "Introducing agentic video understanding with Gemini",
-        "summary": "Google DeepMind 發布 Gemini 的「主動式影片理解」功能，內容僅標題可用。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "how-ai-native-companies-turn-workflows-into-operating-capabi-cf07",
-        "date": "2026-09-01",
-        "company": "OpenAI",
-        "title": "How AI-native companies turn workflows into operating capability",
-        "summary": "OpenAI 整理 Basis、Clay、Exa Labs 三家公司用 AI agent 改造內部流程的案例。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "wire-it-run-it-deploy-it-ai-workflows-in-gradio-4e5d",
-        "date": "2026-08-25",
-        "company": "Hugging Face",
-        "title": "Wire It, Run It, Deploy It: AI Workflows in Gradio",
-        "summary": "Hugging Face 發文介紹 Gradio 的 AI 工作流功能，說明如何串接、執行並部署 AI 工作流程。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "replit-expands-access-to-software-creation-with-gpt-5-6-luna-6fb8",
-        "date": "2026-08-19",
-        "company": "OpenAI",
-        "title": "Replit expands access to software creation with GPT-5.6 Luna",
-        "summary": "OpenAI 同步擴大 GPT-5.6 Luna 的免費使用範圍，Replit 也推出以它為底層、不限 token 用量的免費模式。",
-        "confidence": 83,
-        "heat": "未量測"
-      },
-      {
-        "slug": "grok-build-for-everyone-e403",
-        "date": "2026-08-19",
-        "company": "xAI",
-        "title": "Grok Build For Everyone",
-        "summary": "xAI 把「Grok Build」功能開放給所有使用者，但站方擋下轉述、正文只能看原文。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "asana-cleared-5-years-of-engineering-work-in-2-weeks-with-co-0eac",
-        "date": "2026-08-18",
-        "company": "OpenAI",
-        "title": "Asana cleared 5 years of engineering work in 2 weeks with Codex",
-        "summary": "Asana 用 OpenAI Codex 兩週內完成原本要五年才能做完的工程工作，只花約 1.2 萬美元。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "grok-4-6-github-copilot-92a7",
-        "date": "2026-08-14",
-        "company": "xAI",
-        "title": "Grok 4.6 Github Copilot",
-        "summary": "xAI 發公告談 Grok 4.6 與 GitHub Copilot 的整合，站方不開放內文擷取。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "record-train-and-deploy-from-one-place-with-strands-agents-l-3b67",
-        "date": "2026-08-13",
-        "company": "Amazon",
-        "title": "Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets",
-        "summary": "Amazon 用 Strands Agents 串接機器人資料錄製、訓練與部署流程",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "the-builder-s-guide-to-gpt-5-6-49ff",
-        "date": "2026-08-13",
-        "company": "OpenAI",
-        "title": "The builder’s guide to GPT‑5.6",
-        "summary": "OpenAI 出 GPT-5.6 建構者指南，教新創用模型選擇省成本",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "nvidia-and-local-ai-community-fuel-open-source-models-and-in-6d61",
-        "date": "2026-08-11",
-        "company": "NVIDIA",
-        "title": "NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents",
-        "summary": "NVIDIA 八月起連續介紹推動開源本地 AI 模型與代理的社群夥伴。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "ai-leaders-propose-safe-guidelines-for-cybersecurity-transpa-6c96",
-        "date": "2026-08-04",
-        "company": "Open Secure AI Alliance",
-        "title": "AI Leaders Propose SAFE Guidelines for Cybersecurity Transparency",
-        "summary": "Open Secure AI Alliance（120+ 組織）在 Black Hat 前提出 SAFE 準則，要補 agentic AI 的資安透明度。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "orchard-an-open-framework-for-scalable-agentic-ai-591d",
-        "date": "2026-08-03",
-        "company": "Microsoft",
-        "title": "Orchard: An open framework for scalable agentic AI",
-        "summary": "微軟研究院開源 agent 框架 Orchard，用同一套基礎設施訓練與評測跨任務 AI agent。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "grok-build-mode-5b94",
-        "date": "2026-07-28",
-        "company": "xAI",
-        "title": "Grok Build Mode",
-        "summary": "xAI 為 Grok 推出 Build Mode",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "scientific-computing-in-the-age-of-agentic-ai-a1c4",
-        "date": "2026-07-28",
-        "company": "OpenAI",
-        "title": "Scientific computing in the age of agentic AI",
-        "summary": "OpenAI field report：科學家用 AI coding agent 改造科學計算",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "introducing-openai-presence-8a7a",
-        "date": "2026-07-22",
-        "company": "OpenAI",
-        "title": "Introducing OpenAI Presence",
-        "summary": "OpenAI 推出企業級 agent 平台 Presence，主打可部署的語音與聊天客服 agent。",
-        "confidence": 73,
-        "heat": "未量測"
-      }
-    ]
-  },
-  {
     "slug": "product-market",
     "name": "產品與商業驗證",
     "current_thesis": "本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。",
-    "current_now": "今天有三則 OpenAI。ChatGPT Ads 擴到 26 個新國家，OpenAI 稱已有超過 10 萬名廣告主使用，沒有附營收或成效；同日另一篇說明廣告堆疊，用 LLM 理解對話意圖，廣告與答案分開，沒有隔離效果的驗證。AT&T 法務團隊 LegalEdge 與 OpenAI 的案例，沒有量化成果。10-20 的加盟主案例仍只有單一樣本，10-19 的 Claude Gov 模型只收標題與連結，部署範圍不明。",
-    "current_next": "看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容；看 AT&T 是否公布處理量與節省時數；看 OpenAI 是否發出更多不同規模客戶的量化案例；看 Claude Gov 原文有沒有列客戶範圍與使用限制。",
+    "current_now": "今天四則。Uber 把 ChatGPT Work 推給超過 3 萬名員工，OpenAI 官方與 TechCrunch 都有報導，TechCrunch 說先前只有規模小得多的試行，合約金額與使用率沒有。OpenAI 發文談前線部署工程（FDE），證據只有一句標題式摘要，內文未取得。NVIDIA 列出歐洲零售案例，其中一個商務平台推論成本降 90%，基準沒說明。GeForce NOW 上架新遊戲，與 AI 主線關聯弱。10-21 OpenAI 公開與經銷夥伴合作的一致安全標準，只有官方摘要。ChatGPT Ads 擴到 26 個新國家，稱超過 10 萬名廣告主使用，沒有附營收或成效；AT&T 法務案例沒有量化成果。",
+    "current_next": "看 Uber 或 OpenAI 是否公布使用率與節省工時，或其他大型企業跟進全員導入；看零售案例的 90% 用什麼基準；看使用政策頁是否出現新的夥伴條款；看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容。",
     "events": [
       {
         "slug": "what-fde-means-at-openai-1d80",
@@ -1326,6 +984,15 @@
         "company": "NVIDIA",
         "title": "Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW",
         "summary": "《決勝時刻：現代戰爭 4》上線即登 GeForce NOW。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "build-more-responsive-apps-with-the-decisions-api-9211",
+        "date": "2026-10-22",
+        "company": "OpenAI",
+        "title": "Build more responsive apps with the Decisions API",
+        "summary": "OpenAI 推出 Decisions API，主打低成本、快速的應用內決策。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -2757,9 +2424,27 @@
     "slug": "infra-cost",
     "name": "基礎設施與成本",
     "current_thesis": "本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。",
-    "current_now": "今天新增五則，GTC Berlin 同期。Google Cloud 與 NVIDIA 稱 Vera Rubin NVL72 的 A5X 執行個體下個月 GA，之後擴到歐洲，價格沒給。NVIDIA 展示 RTX Spark、DGX Spark、DGX Station 本地硬體三層，宣布 cuDSS 函式庫 GA，並公布 OpenShell 參考架構與機密運算擴充，這些都是廠商自述，沒有效能與價格數字。Amazon 發表 TorchNeuron 剖析系列第一篇，摘要無內文。10-20 的 Nebius、Nscale 轉向 Vera CPU 只有廠商說法，沒有部署規模。",
-    "current_next": "看 A5X 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署數量與時間；看 DGX Spark 與 DGX Station 的歐洲價格與出貨時程；看 cuDSS 是否有模擬軟體廠商整合與實測加速倍率；看機密運算的效能損耗與支援平台；看 TorchNeuron 後續篇章有沒有調校前後數據。",
+    "current_now": "今天新增兩則 NVIDIA。Minerva 是 AIOps 平台，匯集基礎設施與 AI 工作負載的遙測資料，用專門的 AI 模型產出洞察，價格、授權與支援範圍沒給。DSX 案例稱電力是目前基礎設施最大瓶頸，多家公司用 DSX 把電網與 AI 工廠當成一個系統規劃，採用公司與規模在摘要中被截斷。10-21 的 GTC Berlin 同期消息：Google Cloud 與 NVIDIA 稱 Vera Rubin 基礎設施下個月 GA，之後擴到歐洲，價格沒給；NVIDIA 展示本地硬體全系列，宣布 cuDSS GA，並擴充機密運算，皆為廠商自述，沒有效能與價格數字。Amazon 的 TorchNeuron 剖析系列第一篇摘要無內文。10-20 Nebius、Nscale 轉向 Vera CPU 只有廠商說法。",
+    "current_next": "看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率數字；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 是否有軟體廠商整合與實測加速倍率；看機密運算的效能損耗。",
     "events": [
+      {
+        "slug": "rapidly-scaling-online-storage-to-serve-over-1-billion-chatg-9938",
+        "date": "2026-10-23",
+        "company": "OpenAI",
+        "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
+        "summary": "OpenAI 講 Habitat 儲存層如何撐住逾 10 億 ChatGPT 使用者，讀取快 12 倍。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "does-your-model-run-on-aws-trainium-look-it-up-f0d3",
+        "date": "2026-10-23",
+        "company": "AWS",
+        "title": "Does Your Model Run on AWS Trainium? Look It Up",
+        "summary": "Hugging Face 發文教人查自己的模型能不能在 AWS Trainium 上跑。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "nvidia-unveils-minerva-to-bring-end-to-end-observability-for-116a",
         "date": "2026-10-22",
@@ -3519,480 +3204,30 @@
     ]
   },
   {
-    "slug": "capital-evolution",
-    "name": "資本與公司演化",
-    "current_thesis": "唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。",
-    "current_now": "今天新增三則。OpenAI 模型將上 Google Cloud，Ars Technica 稱未來幾週提供 GPT 6.1 的 Astra、Sol、Luna，OpenAI 官方內文依授權只收標題與連結，價格與合約條件不明，單一媒體來源。OpenAI 發表〈前沿 AI 的民主治理〉第二部，是政策藍圖，沒有具體資源承諾。Anthropic 宣布 Christopher Stubbs 加入 Long Term Benefit Trust，內文未取得。10-20 的 OpenAI 收購 Orchestra Bio，金額與交割時程仍不明。",
-    "current_next": "看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期；看 OpenAI 治理藍圖是否出現可執行的防禦方存取計畫；讀 Public Benefit Fund 原文確認規模與受益對象。",
-    "events": [
-      {
-        "slug": "leading-european-financial-services-organizations-embrace-op-5b47",
-        "date": "2026-10-22",
-        "company": "NVIDIA",
-        "title": "Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence",
-        "summary": "GTC Berlin 上，歐洲金融業展示在自家基礎設施跑開放權重模型。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "partnernetworkannouncement-a19b",
-        "date": "2026-10-22",
-        "company": "xAI",
-        "title": "Partnernetworkannouncement",
-        "summary": "xAI 發布一則夥伴網路公告，內文我們不取。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "christopher-stubbs-joins-long-term-benefit-trust-32a6",
-        "date": "2026-10-21",
-        "company": "Anthropic",
-        "title": "Christopher Stubbs Joins Long Term Benefit Trust",
-        "summary": "Christopher Stubbs 加入 Anthropic 的 Long Term Benefit Trust，內文未取得。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "openai-models-are-coming-to-google-cloud-423d",
-        "date": "2026-10-21",
-        "company": "OpenAI",
-        "title": "OpenAI models are coming to Google Cloud",
-        "summary": "OpenAI 模型將上 Google Cloud，Ars Technica 說未來幾週提供 GPT 6.1 Astra、Sol、Luna。",
-        "confidence": 80,
-        "heat": "未量測"
-      },
-      {
-        "slug": "democratic-governance-of-frontier-ai-part-ii-empowering-cybe-5e6d",
-        "date": "2026-10-21",
-        "company": "OpenAI",
-        "title": "Democratic governance of frontier AI, part II: Empowering cyber defenders",
-        "summary": "OpenAI 提出藍圖：用前沿 AI、更強防護與更現代的資安，替網路防禦方賦能。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "openai-acquires-orchestra-bio-1188",
-        "date": "2026-10-20",
-        "company": "OpenAI",
-        "title": "OpenAI acquires Orchestra Bio",
-        "summary": "OpenAI 宣布收購 Orchestra Bio，切入生技製藥研發。",
-        "confidence": 80,
-        "heat": "未量測"
-      },
-      {
-        "slug": "public-benefit-fund-3f12",
-        "date": "2026-10-18",
-        "company": "Anthropic",
-        "title": "Public Benefit Fund",
-        "summary": "Anthropic 發布〈Public Benefit Fund〉一文，內容本站不轉述，請看原文。",
-        "confidence": 87,
-        "heat": "未量測"
-      },
-      {
-        "slug": "singapore-office-opening-5f2e",
-        "date": "2026-10-14",
-        "company": "Anthropic",
-        "title": "Singapore Office Opening",
-        "summary": "Anthropic 宣布新加坡辦公室開幕，內文我們不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "nvidia-announces-new-investments-in-france-s-startups-1b23",
-        "date": "2026-10-13",
-        "company": "NVIDIA",
-        "title": "NVIDIA Announces New Investments in France’s Startups",
-        "summary": "NVIDIA 宣布新一輪投資法國新創，聚焦 agentic computing。",
-        "confidence": 83,
-        "heat": "未量測"
-      },
-      {
-        "slug": "genesis-mission-commitment-5f6a",
-        "date": "2026-10-08",
-        "company": "Anthropic",
-        "title": "Genesis Mission Commitment",
-        "summary": "Anthropic 發布 Genesis Mission Commitment，內文我們不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-cyber-mission-8f53",
-        "date": "2026-10-08",
-        "company": "Anthropic",
-        "title": "Anthropic Cyber Mission",
-        "summary": "Anthropic 發布 Anthropic Cyber Mission，內文我們不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "our-approach-to-eu-text-provenance-rules-dbbb",
-        "date": "2026-10-05",
-        "company": "OpenAI",
-        "title": "Our approach to EU text provenance rules",
-        "summary": "OpenAI 發表〈Our approach to EU text provenance rules〉，談它對歐盟文字來源標示規則的做法；我們依授權限制只給標題與連結，不轉述內文。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "nvidia-opens-applications-for-2027-2028-graduate-fellowships-12d4",
-        "date": "2026-09-30",
-        "company": "NVIDIA",
-        "title": "NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000",
-        "summary": "NVIDIA 開放 2027–2028 年度研究生獎學金申請，獎助最高 6 萬美元。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-infosys-4317",
-        "date": "2026-09-28",
-        "company": "Anthropic",
-        "title": "Anthropic Infosys",
-        "summary": "Anthropic 發布與 Infosys 相關的公告，內文我們依授權限制不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "the-lenfest-institute-grows-landmark-program-with-expanded-o-5136",
-        "date": "2026-09-28",
-        "company": "OpenAI",
-        "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
-        "summary": "OpenAI 擴大 Lenfest AI 合作計畫，出資 500 萬美元，另加最多 500 萬美元的軟體額度與工程支援。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "sakeena-fiza-helps-nvidia-hardware-succeed-at-scale-075f",
-        "date": "2026-09-23",
-        "company": "NVIDIA",
-        "title": "Sakeena Fiza Helps NVIDIA Hardware Succeed at Scale",
-        "summary": "NVIDIA 人物專訪：驗證工程師 Sakeena Fiza 談硬體規模化背後的除錯工作。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "jun-kim-omlx-creator-and-maintainer-joins-hugging-face-to-su-c777",
-        "date": "2026-09-22",
-        "company": "Hugging Face",
-        "title": "Jun Kim, oMLX creator and maintainer, joins Hugging Face to support the MLX community",
-        "summary": "oMLX 創建者暨維護者 Jun Kim 加入 Hugging Face，支援 MLX 生態系。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "rahul-patil-joins-anthropic-0738",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Rahul Patil Joins Anthropic",
-        "summary": "Anthropic 找來 Rahul Patil 加入公司，細節我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "updates-to-our-consumer-terms-3b03",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Updates To Our Consumer Terms",
-        "summary": "Anthropic 更新消費者服務條款，異動細節我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "snowflake-anthropic-expanded-partnership-5974",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Snowflake Anthropic Expanded Partnership",
-        "summary": "Anthropic與Snowflake擴大合作，具體內容我們選擇不轉述。",
-        "confidence": 83,
-        "heat": "未量測"
-      },
-      {
-        "slug": "microsoft-nvidia-anthropic-announce-strategic-partnerships-5b8a",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Microsoft Nvidia Anthropic Announce Strategic Partnerships",
-        "summary": "微軟、NVIDIA與Anthropic宣布策略合作，具體條款我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-expands-global-leadership-in-enterprise-ai-naming--766c",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Anthropic Expands Global Leadership In Enterprise Ai Naming Chris Ciauri As Managing Director Of",
-        "summary": "Anthropic 任命 Chris Ciauri 為企業業務 Managing Director，完整職稱我們手上的標題被截斷。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-raises-series-f-at-usd183b-post-money-valuation-88a1",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Anthropic Raises Series F At usd183b Post Money Valuation",
-        "summary": "Anthropic 完成 Series F 募資，投後估值達 1,830 億美元，細節我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "updating-restrictions-of-sales-to-unsupported-regions-8e33",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Updating Restrictions Of Sales To Unsupported Regions",
-        "summary": "Anthropic 調整未支援地區的銷售限制政策，異動細節我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-acquires-bun-as-claude-code-reaches-usd1b-mileston-a02a",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Anthropic Acquires Bun As Claude Code Reaches usd1b Milestone",
-        "summary": "Anthropic收購JS執行環境Bun，同時宣布Claude Code年化營收達10億美元。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "genesis-mission-partnership-db61",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Genesis Mission Partnership",
-        "summary": "Anthropic加入美國「創世紀任務」（Genesis Mission）合作，具體角色我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "cognizant-partnership-f048",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Cognizant Partnership",
-        "summary": "Anthropic分別與Cognizant、馬里蘭州達成合作，具體內容我們選擇不轉述。",
-        "confidence": 83,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-invests-50-billion-in-american-ai-infrastructure-f6b8",
-        "date": "2026-09-10",
-        "company": "Anthropic",
-        "title": "Anthropic Invests 50 Billion In American Ai Infrastructure",
-        "summary": "Anthropic宣布在美國AI基礎設施投資500億美元，具體用途我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "servicenow-anthropic-claude-308d",
-        "date": "2026-09-09",
-        "company": "Anthropic",
-        "title": "Servicenow Anthropic Claude",
-        "summary": "Anthropic與ServiceNow宣布合作，具體內容我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-acquires-stainless-3947",
-        "date": "2026-09-09",
-        "company": "Anthropic",
-        "title": "Anthropic Acquires Stainless",
-        "summary": "Anthropic 併購一家名為 Stainless 的公司，交易細節我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "confidential-draft-s1-sec-7541",
-        "date": "2026-09-09",
-        "company": "Anthropic",
-        "title": "Confidential Draft s1 Sec",
-        "summary": "標題暗示 Anthropic 已遞交機密版 IPO 申報文件，內容我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "ben-bernanke-cb0d",
-        "date": "2026-09-09",
-        "company": "Anthropic",
-        "title": "Ben Bernanke",
-        "summary": "前聯準會主席 Ben Bernanke 出現在 Anthropic 官網公告標題中，內容我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "paul-christiano-joins-openai-foundation-board-d89d",
-        "date": "2026-09-09",
-        "company": "OpenAI",
-        "title": "Paul Christiano joins OpenAI Foundation Board",
-        "summary": "AI 對齊研究者 Paul Christiano 加入 OpenAI 基金會董事會與安全委員會。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "mariano-florentino-long-term-benefit-trust-ebca",
-        "date": "2026-09-09",
-        "company": "Anthropic",
-        "title": "Mariano Florentino Long Term Benefit Trust",
-        "summary": "Anthropic長期利益信託（LTBT）人事異動，具體內容我們選擇不轉述。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "funding-grants-for-new-research-into-ai-and-teen-development-7238",
-        "date": "2026-09-08",
-        "company": "OpenAI",
-        "title": "Funding grants for new research into AI and teen development",
-        "summary": "OpenAI 撥 500 萬美元資助青少年 AI 影響獨立研究",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "nvidia-to-acquire-hugging-face-4edf",
-        "date": "2026-09-03",
-        "company": "Hugging Face",
-        "title": "NVIDIA to Acquire Hugging Face",
-        "summary": "NVIDIA 宣布以近 130 億美元收購 Hugging Face，承諾維持平台開放",
-        "confidence": 87,
-        "heat": "未量測"
-      },
-      {
-        "slug": "a-milestone-in-expanding-access-to-ai-2738",
-        "date": "2026-08-31",
-        "company": "OpenAI",
-        "title": "A milestone in expanding access to AI",
-        "summary": "OpenAI 的 ChatGPT 廣告年化營收站上十億美元，同步擴大海外覆蓋。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "our-decision-on-cursor-following-its-acquisition-by-spacex-7a42",
-        "date": "2026-08-28",
-        "company": "OpenAI",
-        "title": "Our decision on Cursor following its acquisition by SpaceX",
-        "summary": "OpenAI 因 Cursor 被 SpaceX 收購，宣布終止提供模型給 Cursor 的合約。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "gates-foundation-partnership-3df3",
-        "date": "2026-08-27",
-        "company": "Anthropic",
-        "title": "Gates Foundation Partnership",
-        "summary": "Anthropic發布與蓋茲基金會的合作公告，具體合作內容未轉載，僅留標題與連結。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-partners-with-allen-institute-and-howard-hughes-me-a3f0",
-        "date": "2026-08-27",
-        "company": "Anthropic",
-        "title": "Anthropic Partners With Allen Institute And Howard Hughes Medical Institute",
-        "summary": "Anthropic發布與艾倫研究所（Allen Institute）及霍華休斯醫學研究所（HHMI）的合作公告，具體內容未轉載，僅留標題與連結。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "skt-partnership-announcement-a7cd",
-        "date": "2026-08-26",
-        "company": "Anthropic",
-        "title": "Skt Partnership Announcement",
-        "summary": "Anthropic發布與SK電訊（SKT）的合作公告，具體合作內容未轉載，僅留標題與連結。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "accenture-aws-anthropic-d149",
-        "date": "2026-08-26",
-        "company": "Anthropic",
-        "title": "Accenture Aws Anthropic",
-        "summary": "Anthropic發布與埃森哲（Accenture）及AWS的三方合作公告，具體合作內容未轉載，僅留標題與連結。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "anthropic-partners-with-google-cloud-e998",
-        "date": "2026-08-26",
-        "company": "Anthropic",
-        "title": "Anthropic Partners With Google Cloud",
-        "summary": "Anthropic發布與Google Cloud的合作公告，具體合作內容未轉載，僅留標題與連結。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "the-full-stack-behind-abundant-intelligence-08b3",
-        "date": "2026-08-25",
-        "company": "OpenAI",
-        "title": "The full stack behind abundant intelligence",
-        "summary": "OpenAI 財務長 Sarah Friar 說明晶片、算力、模型與產品四層進展如何疊加，讓智慧的規模擴大、成本下降。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "openai-appoints-dali-rajic-as-chief-revenue-officer-b967",
-        "date": "2026-08-13",
-        "company": "OpenAI",
-        "title": "OpenAI appoints Dali Rajic as Chief Revenue Officer",
-        "summary": "OpenAI 任命 Dali Rajic 為首席營收長，帶領全球營收組織",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "nvidia-ai-factory-compute-is-becoming-an-investable-asset-cl-a9d8",
-        "date": "2026-08-12",
-        "company": "NVIDIA",
-        "title": "NVIDIA AI Factory Compute Is Becoming an Investable Asset Class",
-        "summary": "NVIDIA 找上六家資產管理與投行建融資平台，目標動員逾 5,000 億美元第三方資本蓋 AI 基礎設施。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "testing-ads-in-chatgpt-5bb6",
-        "date": "2026-08-11",
-        "company": "OpenAI",
-        "title": "Testing ads in ChatGPT",
-        "summary": "OpenAI 開始在 ChatGPT 測試廣告，作為支撐免費使用的營收來源。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "tino-cuellar-b30a",
-        "date": "2026-08-04",
-        "company": "Anthropic",
-        "title": "Tino Cuellar",
-        "summary": "Anthropic 官網發布一則以「Tino Cuellar」為題的消息，內容細節證據不足。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "apple-is-getting-this-wrong-c411",
-        "date": "2026-08-03",
-        "company": "OpenAI",
-        "title": "Apple is getting this wrong",
-        "summary": "OpenAI 公開反駁 Apple 的訴訟，稱對方指控毫無根據，並貼出往來訊息還原經過。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "accelerating-the-frontiers-of-scientific-discovery-google-s--5d5e",
-        "date": "2026-07-22",
-        "company": "Google",
-        "title": "Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission",
-        "summary": "Google 以 4,000 萬美元 token 與額度綁 Genesis Mission，象徵大於實質。",
-        "confidence": 73,
-        "heat": "未量測"
-      },
-      {
-        "slug": "david-v-lez-and-robin-vince-join-the-boards-of-the-openai-fo-f36b",
-        "date": "2026-07-21",
-        "company": "OpenAI",
-        "title": "David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC",
-        "summary": "OpenAI 董事會新增兩名金融重量級人物 David Vélez 與 Robin Vince。",
-        "confidence": 73,
-        "heat": "未量測"
-      }
-    ]
-  },
-  {
     "slug": "global-map",
     "name": "全球創新版圖",
     "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "今天新增三則，都出自 NVIDIA GTC Berlin。歐洲工業大廠在工程與製造流程用 CUDA-X、Omniverse、Cosmos、Nemotron，沒有點名客戶與數字。歐洲雲端夥伴擴張，同時新增開放模型，含 Nemotron 3.5 Super VL，夥伴名單與容量沒給。GTC Berlin 直播頁只有活動資訊，三天、逾百場議程。10-20 的巴塞隆納 AI Factory 新創計畫與 10-19 德國工業 AI 對談仍沒有金額或配額。",
-    "current_next": "看 NVIDIA 後續是否點名歐洲製造商並公布導入成果；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額；看德國政府或 NVIDIA 是否公布工業 AI 的算力部署與資金規模。",
+    "current_now": "今天新增兩則，都出自 NVIDIA 歐洲系列。公部門那篇指出，政府希望敏感資訊留在自己控制的基礎設施，用開放模型自行評估、針對在地語言調整並套用自己的防護機制，沒有點名具體機關與預算。Earth-2 那篇談歐洲業者部署開放模型做天氣與氣候預測，論點是能源、保險與運輸的決策需要比全球預報更在地的預測，具體部署單位被截斷。10-21 歐洲工業大廠在工程與製造流程用 CUDA-X、Omniverse、Cosmos、Nemotron，沒有點名客戶與數字。歐洲雲端夥伴擴張，夥伴名單與容量沒給。GTC Berlin 直播頁只有活動資訊。10-20 巴塞隆納 AI Factory 新創計畫仍沒有金額或配額。",
+    "current_next": "看有沒有具名的政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看 NVIDIA 後續是否點名歐洲製造商並公布導入成果；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。",
     "events": [
+      {
+        "slug": "openai-and-poland-s-nask-partner-to-advance-ai-safety-and-se-439d",
+        "date": "2026-10-23",
+        "company": "OpenAI",
+        "title": "OpenAI and Poland’s NASK partner to advance AI safety and security",
+        "summary": "OpenAI 與波蘭 NASK 合作，做 AI 安全與資安研究。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "kazakhstan-expands-compute-for-its-ai-future-4e18",
+        "date": "2026-10-23",
+        "company": "NVIDIA",
+        "title": "Kazakhstan Expands Compute for Its AI Future",
+        "summary": "NVIDIA 說哈薩克的 AI 生態系正從基礎設施規劃走向落地，黃仁勳到訪阿斯塔納。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "nvidia-open-models-power-a-new-wave-of-european-public-secto-61e6",
         "date": "2026-10-22",

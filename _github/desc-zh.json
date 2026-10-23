@@ -54,10 +54,20 @@
     "src_hash": "47e983421d6e",
     "zh": "幫你找出在自己硬體上跑得動、表現最好的本地 LLM，用實測 benchmark 排名而非參數量，一行指令就能跑"
   },
+  "Anil-matcha/open-duet": {
+    "at": "2026-10-23T19:40:32+00:00",
+    "src_hash": "b6ff3e92cc85",
+    "zh": "開源可自架的 Claude Duet 替代品：有指令、記憶與例行工作的 AI 同事，行動前需你核准"
+  },
   "Anionex/agent-vision-toolkit": {
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "8a93c0135fe8",
     "zh": "讓純文字模型也能看圖的視覺工具箱，支援多圖理解、圖片問答、UI 還原與 GUI 自動化"
+  },
+  "Ansub/tv-detox": {
+    "at": "2026-10-23T19:40:32+00:00",
+    "src_hash": "9286c3e8b30c",
+    "zh": "用 Claude Code 或 Codex 讓舊 Android TV 變快：精簡無廣告主畫面加清理用的 prompt"
   },
   "Apeireth/Apeireth": {
     "at": "2026-10-12T22:42:13+00:00",
@@ -130,9 +140,9 @@
     "zh": "讓 AI agent 像全場最懶的資深工程師那樣想：最好的程式是你沒寫的那段"
   },
   "DuarteSantos8/openGym": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "41a6cdf90ef3",
-    "zh": "自架的健身與體重追蹤器，可排課表、記錄訓練、看肌群疲勞狀態，支援匯入 FitNotes/Strong/Hevy"
+    "at": "2026-10-23T19:40:32+00:00",
+    "src_hash": "ef0dc272201c",
+    "zh": "開源健身與體重追蹤 app，可排課表、記錄訓練，支援匯入 Strong/Hevy，可自架"
   },
   "EXXETA/exxperts": {
     "at": "2026-10-07T20:56:20+00:00",
@@ -594,6 +604,11 @@
     "src_hash": "79e2e12c4bed",
     "zh": "開源、可擴充的 AI agent，不只給程式碼建議，還能安裝、執行、編輯與測試，可搭配任何 LLM"
   },
+  "abacusai/abacusai-bot": {
+    "at": "2026-10-23T19:40:32+00:00",
+    "src_hash": "a2e8481cd1f1",
+    "zh": "100% 免費開源的個人 agent，可接訊息 app、工具與服務"
+  },
   "abhigyanpatwari/GitNexus": {
     "at": "2026-08-29T19:09:37+00:00",
     "src_hash": "47941375e293",
@@ -859,6 +874,11 @@
     "src_hash": "04c7417bbd6f",
     "zh": "跨平台 AI 電子書閱讀器，有語意搜尋、RAG 對話、本機向量庫、筆記、TTS 與 WebDAV 同步"
   },
+  "colbymchenry/codegraph": {
+    "at": "2026-10-23T19:40:32+00:00",
+    "src_hash": "09b406e6ed1f",
+    "zh": "預先索引的程式碼知識圖，隨程式變動自動同步，給多種 coding agent 用，省 token、少呼叫工具，完全本機"
+  },
   "coreyhaines31/marketingskills": {
     "at": "2026-09-08T19:19:22+00:00",
     "src_hash": "9b4d064a6baf",
@@ -868,6 +888,11 @@
     "at": "2026-10-19T20:49:33+00:00",
     "src_hash": "7dfc27185c5f",
     "zh": "讓 AI agent 把任何單機遊戲改成可與朋友連線或分割畫面同玩，附 MCP server 與操作手冊"
+  },
+  "dagoSte/squadra": {
+    "at": "2026-10-23T19:40:32+00:00",
+    "src_hash": "5d5feee95a3a",
+    "zh": "協調 Claude、Codex、Cursor 視窗的共用任務、預檢與獨立審查，附本機儀表板"
   },
   "danyuchn/asd-ste100-skill": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1720,9 +1745,9 @@
     "zh": "從 vibe coding 練到 agentic engineering，靠練習讓 Claude 更完美"
   },
   "simbasjungles/free-my-tv": {
-    "at": "2026-10-21T19:47:16+00:00",
-    "src_hash": "ec72d610e1b2",
-    "zh": "Google TV 的快速無廣告主畫面，開源，用 Claude Code 做的，一鍵還原"
+    "at": "2026-10-23T19:40:32+00:00",
+    "src_hash": "d34840bba700",
+    "zh": "Google TV、LG webOS、Samsung Tizen 用的快速無廣告主畫面，一個按鈕即可還原"
   },
   "simonlin1212/vibe-astock": {
     "at": "2026-10-03T18:55:46+00:00",

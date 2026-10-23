@@ -1,6 +1,18 @@
-# 已發布事件（510）
+# 已發布事件（516）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-23
+- **[[Events/evt-2026-10-23-439d7e|OpenAI and Poland’s NASK partner to advance AI safety and security]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 與波蘭 NASK 合作，做 AI 安全與資安研究。
+- **[[Events/evt-2026-10-23-4e180a|Kazakhstan Expands Compute for Its AI Future]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 說哈薩克的 AI 生態系正從基礎設施規劃走向落地，黃仁勳到訪阿斯塔納。
+- **[[Events/evt-2026-10-23-993840|Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 講 Habitat 儲存層如何撐住逾 10 億 ChatGPT 使用者，讀取快 12 倍。
+- **[[Events/evt-2026-10-23-f0d396|Does Your Model Run on AWS Trainium? Look It Up]]** — AWS · infra · conf 73 · heat 未量測
+  Hugging Face 發文教人查自己的模型能不能在 AWS Trainium 上跑。
+- **[[Events/evt-2026-10-23-f254b4|Securing our frontier model training environment]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 說明如何加強前沿模型訓練與評測環境的隔離。
 
 ## 2026-10-22
 - **[[Events/evt-2026-10-22-116ab3|NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories]]** — NVIDIA · infra · conf 73 · heat 未量測
@@ -19,6 +31,8 @@
   歐洲氣象與能源業者部署 NVIDIA Earth-2 開放模型做天氣與氣候預測。
 - **[[Events/evt-2026-10-22-7d0754|Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
   《決勝時刻：現代戰爭 4》上線即登 GeForce NOW。
+- **[[Events/evt-2026-10-22-921176|Build more responsive apps with the Decisions API]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出 Decisions API，主打低成本、快速的應用內決策。
 - **[[Events/evt-2026-10-22-9fce05|How Companies Are Using NVIDIA DSX to Break the Power Bottleneck]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 稱電力是基礎設施最大瓶頸，用 DSX 平台把電網與 AI 工廠當一個系統規劃。
 - **[[Events/evt-2026-10-22-a19b05|Partnernetworkannouncement]]** — xAI · product · conf 73 · heat 未量測
