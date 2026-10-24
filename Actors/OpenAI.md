@@ -3,21 +3,22 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-23'
+generated_day: '2026-10-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **173** 則：`published` 165、`review` 8
+事件 **174** 則：`published` 169、`review` 5
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-23 | [[Events/evt-2026-10-23-f254b4\|Securing our frontier model training environment]] | review |
-| 2026-10-23 | [[Events/evt-2026-10-23-993840\|Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)]] | review |
-| 2026-10-23 | [[Events/evt-2026-10-23-439d7e\|OpenAI and Poland’s NASK partner to advance AI safety and security]] | review |
+| 2026-10-23 | [[Events/evt-2026-10-23-f254b4\|Securing our frontier model training environment]] | published |
+| 2026-10-23 | [[Events/evt-2026-10-23-993840\|Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)]] | published |
+| 2026-10-23 | [[Events/evt-2026-10-23-439d7e\|OpenAI and Poland’s NASK partner to advance AI safety and security]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-b1caf2\|Uber brings ChatGPT Work to all employees with OpenAI]] | published |
+| 2026-10-22 | [[Events/evt-2026-10-22-921176\|Build more responsive apps with the Decisions API]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-1d80df\|What FDE means at OpenAI]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-dacc08\|ChatGPT Ads expands to 26 new countries as over 100,000 advertisers have used the platform]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-dab677\|Cloudflare links vulnerability discovery to defense with OpenAI]] | published |

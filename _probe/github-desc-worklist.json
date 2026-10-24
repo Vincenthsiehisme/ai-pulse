@@ -1,100 +1,219 @@
 [
   {
-    "full_name": "simbasjungles/free-my-tv",
-    "desc": "A fast, ad-free home screen for Google TV, LG webOS and Samsung Tizen. One button to undo.",
-    "language": "Java",
-    "topics": [
-      "android-tv",
-      "claude-code",
-      "google-tv",
-      "home-screen",
-      "launcher",
-      "no-ads"
-    ],
-    "stars": 3869,
-    "url": "https://github.com/simbasjungles/free-my-tv",
-    "stale_zh": "Google TV 的快速無廣告主畫面，開源，用 Claude Code 做的，一鍵還原"
-  },
-  {
-    "full_name": "dagoSte/squadra",
-    "desc": "Coordinate Claude, Codex and Cursor windows with shared tasks, acknowledgements, prechecks, parallel tests, source-bound proofs and independent review. Built-in skills recall lessons, simplify code and forecast work. Track progress, decisions and evidence in a bilingual local dashboard, with MCP plugins. Browse skills and verified security audits.",
+    "full_name": "ComputerUseAgent/AutoCua",
+    "desc": "Automatic computer use agent for end-to-end automation workflows on macOS, Windows, Linux, iOS and the browser.",
     "language": "Python",
     "topics": [
-      "agent-orchestration",
-      "agent-skills",
-      "agentic-coding",
-      "ai-agents",
-      "ai-coding",
-      "claude"
+      "browser-use",
+      "browser-use-agent",
+      "codex",
+      "computer-agent",
+      "computer-use",
+      "computer-use-agent"
     ],
-    "stars": 373,
-    "url": "https://github.com/dagoSte/squadra",
+    "stars": 518,
+    "url": "https://github.com/ComputerUseAgent/AutoCua",
     "stale_zh": null
   },
   {
-    "full_name": "abacusai/abacusai-bot",
-    "desc": "100% free, open-source personal agents for your messaging apps, tools, and services",
+    "full_name": "opensec-git/Pi-Bolt",
+    "desc": "⚡ Pi, the coding agent, compiled ahead of time to one native executable. 10× faster to start, 7× less CPU and 4.5× less memory than Pi on Node. Linux, macOS, Windows, ARM64 and Android (Termux).",
     "language": "TypeScript",
+    "topics": [
+      "ahead-of-time",
+      "ai-agent",
+      "ai-coding-assistant",
+      "android",
+      "arm64",
+      "bun"
+    ],
+    "stars": 534,
+    "url": "https://github.com/opensec-git/Pi-Bolt",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ctoldigital/axuse",
+    "desc": "Accessibility-first browser & computer use for AI agents — one MCP server for every harness (Codex, Claude Code, OpenCode, Antigravity). Instruments the DOM/accessibility tree via CDP instead of screenshot loops: diffed snapshots, stable element refs, trusted input, typed errors. Zero dependencies",
+    "language": "JavaScript",
+    "topics": [
+      "agentic-automation",
+      "ai-agents",
+      "browser-automation",
+      "browser-use",
+      "cdp",
+      "chrome-devtools-protocol"
+    ],
+    "stars": 422,
+    "url": "https://github.com/ctoldigital/axuse",
+    "stale_zh": null
+  },
+  {
+    "full_name": "kajisho5/ffmpeg-skill",
+    "desc": "Local video editor for coding agents: 42 FFmpeg tools with a machine-readable contract and an MCP server, for Claude Code, Cursor and Codex. Cut, captions, reframe, loudness, platform exports. No cloud, no API keys.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "audio-processing",
+      "captions",
+      "claude-code",
+      "codex"
+    ],
+    "stars": 2510,
+    "url": "https://github.com/kajisho5/ffmpeg-skill",
+    "stale_zh": null
+  },
+  {
+    "full_name": "makecindy/cindy",
+    "desc": "Consider it done. The open-source AI agent that works out of the box · 想到，就能做到。开源、开箱即用的 AI Agent。",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "ai-agent",
+      "ai-assistant",
+      "android",
+      "claude-code",
+      "codex"
+    ],
+    "stars": 3964,
+    "url": "https://github.com/makecindy/cindy",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Ayzzz123/mcd-coupon-strategist",
+    "desc": "麦麦省钱助手 —— 基于麦当劳 MCP 的点餐成本优化 Skill。算出当前门店最省钱的点餐方案，并主动提示凑单陷阱。",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "cost-optimization",
+      "coupon",
+      "llm",
+      "mcd-mcp",
+      "mcdonalds"
+    ],
+    "stars": 1004,
+    "url": "https://github.com/Ayzzz123/mcd-coupon-strategist",
+    "stale_zh": null
+  },
+  {
+    "full_name": "hhblaze/DBreeze",
+    "desc": "C# .NET NOSQL ( key value, object store embedded TextSearch SemanticSearch Vector layer ) ACID multi-paradigm database management system.",
+    "language": "C#",
+    "topics": [
+      "acid",
+      "android",
+      "c-sharp",
+      "clustering",
+      "database",
+      "dotnet"
+    ],
+    "stars": 582,
+    "url": "https://github.com/hhblaze/DBreeze",
+    "stale_zh": null
+  },
+  {
+    "full_name": "SouravBeraAkaSpeed/xiryn",
+    "desc": "Xiryn — the open-source personal agent. Does everything Muse, Grok Bot and Dots do, on your own computer: each agent gets its own Linux desktop in Docker, any model with your keys, an encrypted vault, and control from Telegram.",
+    "language": "TypeScript",
+    "topics": [
+      "ai-agents",
+      "ai-sdk",
+      "anthropic",
+      "byok",
+      "computer-use",
+      "docker"
+    ],
+    "stars": 309,
+    "url": "https://github.com/SouravBeraAkaSpeed/xiryn",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Helldez/BigMoeOnEdge",
+    "desc": "Run MoE models bigger than your RAM. Frontier-size MoE on a phone, laptop, edge. Lossless, on stock llama.cpp. An adaptive streaming optimizer. Any hardware, any OS, any model, any quantization, behind a local OpenAI-compatible server.",
+    "language": "C++",
+    "topics": [
+      "android",
+      "cpp",
+      "edge-ai",
+      "gguf",
+      "inference",
+      "llama-cpp"
+    ],
+    "stars": 655,
+    "url": "https://github.com/Helldez/BigMoeOnEdge",
+    "stale_zh": "在標準 llama.cpp 上跑超過記憶體大小的 MoE 模型，12 GB 的手機也能跑前沿規模 MoE，無損"
+  },
+  {
+    "full_name": "mrmps/classifier-dev",
+    "desc": "Zero-shot text classification over plain HTTP — no API key, no account. One Cloudflare Worker, a CLI, and an MCP server. https://classifier.dev",
+    "language": "TypeScript",
+    "topics": [
+      "api",
+      "classification",
+      "cli",
+      "cloudflare-workers",
+      "llm",
+      "mcp"
+    ],
+    "stars": 429,
+    "url": "https://github.com/mrmps/classifier-dev",
+    "stale_zh": null
+  },
+  {
+    "full_name": "unum-cloud/USearch",
+    "desc": "Fast Open-Source Search & Clustering engine × for Vectors & Arbitrary Objects × in C++, C, Python, JavaScript, Rust, Java, Objective-C, Swift, C#, GoLang, and Wolfram 🔍",
+    "language": "C++",
+    "topics": [
+      "approximate-nearest-neighbor-search",
+      "clustering",
+      "database",
+      "faiss",
+      "full-text-search",
+      "fuzzy-search"
+    ],
+    "stars": 4351,
+    "url": "https://github.com/unum-cloud/USearch",
+    "stale_zh": null
+  },
+  {
+    "full_name": "N4darae/shrt",
+    "desc": "A contract-driven gRPC regression harness for AI coding agents, with human-approved baselines. Snapshot the valid call chains of an API so an agent can look one up instead of tracing for it. gRPC today, OpenAPI next",
+    "language": "Go",
+    "topics": [],
+    "stars": 1499,
+    "url": "https://github.com/N4darae/shrt",
+    "stale_zh": null
+  },
+  {
+    "full_name": "kuafuai/andee",
+    "desc": "It moves into your phone or Mac and uses any app the way you do. No integrations, no root, any model. Its memory and your passwords never leave the device.",
+    "language": "Kotlin",
     "topics": [
       "agent",
       "ai",
       "ai-agents",
-      "android",
-      "cli",
-      "coding-agent"
+      "android-automation",
+      "mobile-agents",
+      "personal-agent"
     ],
-    "stars": 312,
-    "url": "https://github.com/abacusai/abacusai-bot",
+    "stars": 2729,
+    "url": "https://github.com/kuafuai/andee",
     "stale_zh": null
   },
   {
-    "full_name": "DuarteSantos8/openGym",
-    "desc": "Open-source gym & body-weight tracker, now in the App Store (iPhone + Apple Watch) and as an Android APK. Plan routines, log workouts, see which muscles are trained, import from Strong/Hevy/FitNotes. Self-host it or use it on the phone alone.",
-    "language": "JavaScript",
+    "full_name": "INSANE0777/Awwwards-mcp",
+    "desc": "Free, open-source MCP server that gives AI coding agents (Claude Code, Codex, Cursor, OpenCode, ZCode…) design inspiration from award-winning websites — search with real screenshots, pull design DNA, capture and record live sites. A Mobbin alternative. No API key.",
+    "language": "TypeScript",
     "topics": [
-      "bodyweight",
-      "docker",
-      "fitness",
-      "fitness-tracker",
-      "gym",
-      "health"
+      "ai-agents",
+      "awwwards",
+      "claude-code",
+      "codex",
+      "coding-agent",
+      "cursor"
     ],
-    "stars": 15198,
-    "url": "https://github.com/DuarteSantos8/openGym",
-    "stale_zh": "自架的健身與體重追蹤器，可排課表、記錄訓練、看肌群疲勞狀態，支援匯入 FitNotes/Strong/Hevy"
-  },
-  {
-    "full_name": "Anil-matcha/open-duet",
-    "desc": "Open-source, self-hosted alternative to Claude Duet: AI coworkers (named agents) with instructions, memory, routines, their own isolated computer, and your approval before they act. Also an alternative to OpenAI Dots, Meta Muse, Grok Bot, Manus Cue and ChatGPT agent.",
-    "language": "Python",
-    "topics": [
-      "agentic-ai",
-      "ai-agent",
-      "ai-assistant",
-      "ai-coworker",
-      "ai-employees",
-      "ai-workspace"
-    ],
-    "stars": 6105,
-    "url": "https://github.com/Anil-matcha/open-duet",
-    "stale_zh": null
-  },
-  {
-    "full_name": "colbymchenry/codegraph",
-    "desc": "Pre-indexed code knowledge graph, auto syncs on code changes, for Claude Code, Codex, Gemini, Cursor, OpenCode, AntiGravity, Kiro, CoPilot, and Hermes Agent — fewer tokens, fewer tool calls, 100% local",
-    "language": "C",
-    "topics": [],
-    "stars": 75057,
-    "url": "https://github.com/colbymchenry/codegraph",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Ansub/tv-detox",
-    "desc": "Make an old Android TV fast again with Claude Code or Codex: a tiny ad-free home screen plus the prompt to clean it up",
-    "language": "Java",
-    "topics": [],
-    "stars": 1361,
-    "url": "https://github.com/Ansub/tv-detox",
+    "stars": 323,
+    "url": "https://github.com/INSANE0777/Awwwards-mcp",
     "stale_zh": null
   }
 ]

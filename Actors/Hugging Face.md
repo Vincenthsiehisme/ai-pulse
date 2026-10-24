@@ -3,19 +3,17 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-10-23'
+generated_day: '2026-10-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **28** 則：`published` 20、`review` 8
+事件 **26** 則：`published` 20、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-23 | [[Events/evt-2026-10-23-599b06\|LitPivot: Developing research ideas through dynamic contextualization within the literature landscape]] | review |
-| 2026-10-22 | [[Events/evt-2026-10-22-a0d14a\|Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox]] | review |
 | 2026-10-21 | [[Events/evt-2026-10-21-3c66c9\|How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications]] | review |
 | 2026-10-20 | [[Events/evt-2026-10-20-3bdd58\|Hugging Face ❤️ TorchTPU: TPUs, Natively]] | published |
 | 2026-10-20 | [[Events/evt-2026-10-20-2fa1fb\|MPS in PyTorch 2.15]] | published |

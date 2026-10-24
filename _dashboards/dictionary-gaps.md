@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-23'
+generated_day: '2026-10-24'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**88 天**（2026-07-24 … 2026-10-23），去重後 **5870** 列。
+語料範圍：**89 天**（2026-07-24 … 2026-10-24），去重後 **5915** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,26 +17,26 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 180 | 2 |
-| Apple | 128 | 6 |
+| Show HN | 181 | 2 |
+| Apple | 130 | 6 |
 | Amazon | 85 | 5 |
 | September | 61 | 8 |
 | LLMs | 57 | 13 |
 | There | 57 | 7 |
 | LLM | 55 | 12 |
-| They | 53 | 9 |
-| Here | 50 | 8 |
-| October | 49 | 7 |
+| They | 54 | 9 |
+| Here | 52 | 8 |
+| October | 50 | 7 |
 | Muse | 47 | 5 |
 | Trump | 45 | 5 |
 | One | 43 | 10 |
+| Python | 41 | 5 |
 | San Francisco | 41 | 9 |
+| Pro | 41 | 7 |
 | CEO | 40 | 5 |
 | AI-powered | 39 | 10 |
 | When | 39 | 11 |
-| Pro | 39 | 7 |
 | July | 38 | 9 |
-| Python | 38 | 4 |
 | U.S | 36 | 8 |
 | After | 36 | 6 |
 | Android | 35 | 4 |
@@ -63,20 +63,20 @@ generator: scripts/pulse-dictionary-gaps.py
 | Wednesday | 22 | 5 |
 | Elon Musk | 22 | 5 |
 | Over | 22 | 5 |
+| Xbox | 22 | 2 |
 | Flash | 21 | 6 |
 | Tuesday | 21 | 6 |
 | Chinese | 21 | 8 |
-| Xbox | 21 | 2 |
 | Some | 20 | 8 |
+| Tool | 20 | 2 |
 | While | 20 | 4 |
 | RAM | 20 | 2 |
 | The AI | 20 | 6 |
 | Thursday | 19 | 4 |
 | Mac | 19 | 4 |
 | Fable | 19 | 5 |
-| Tool | 19 | 2 |
 | Don | 19 | 5 |
-| Monday | 18 | 4 |
+| Duo | 19 | 3 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -95,7 +95,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | MIT Technology Review | 24 | src-media-mit-techreview |
 | Launch HN | 22 | src-hn-frontpage |
 | Highlights | 20 | src-gh-vllm-releases |
-| The Verge | 19 | src-media-theverge |
+| The Verge | 20 | src-media-theverge |
 | A Blog | 19 | src-hf-blog |
 | Opt | 18 | src-media-theverge |
 | Ask HN | 17 | src-hn-frontpage |
@@ -107,10 +107,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | The Stepback | 12 | src-media-theverge |
 | Datasette | 12 | src-kol-simonwillison |
 | YC S26 | 11 | src-hn-frontpage |
+| Installer No | 11 | src-media-theverge |
+| Verge-iest | 11 | src-media-theverge |
+| Installer | 11 | src-media-theverge |
 | Disrupt | 11 | src-media-techcrunch |
-| Installer No | 10 | src-media-theverge |
-| Verge-iest | 10 | src-media-theverge |
-| Installer | 10 | src-media-theverge |
 | Roundtables | 10 | src-media-mit-techreview |
 | Moscone West | 10 | src-media-techcrunch |
 | October Prime Day | 10 | src-media-theverge |

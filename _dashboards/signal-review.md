@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-23"
+generated_day: "2026-10-24"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-23"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **496** 則／已裁決 **26** 則。
+待回答 **502** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,14 +24,14 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#29b7d8e8`** — infra-cost
-  > 看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率數字；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 是否有軟體廠商整合與實測加速倍率；看機密運算的效能損耗。
+- **`infra-cost#42700f9f`** — infra-cost
+  > 看 OpenAI 全文是否交代 12 倍的比較基準與延遲分位數；看 Trainium 支援模型的涵蓋與實測價格比；看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 的實測加速倍率與機密運算的效能損耗。
 
-- **`model-research#b10befef`** — model-research
-  > 看 Cosmos 的榜單名稱與分數，以及第三方採用案例；看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期。
+- **`model-research#ecf78e52`** — model-research
+  > 看 OpenAI 隔離文章全文是否列出隔離層級或第三方稽核；看 Cosmos 的榜單名稱與分數，以及第三方採用案例；看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期。
 
-- **`product-market#bd0e3092`** — product-market
-  > 看 Uber 或 OpenAI 是否公布使用率與節省工時，或其他大型企業跟進全員導入；看零售案例的 90% 用什麼基準；看使用政策頁是否出現新的夥伴條款；看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容。
+- **`product-market#af9becc2`** — product-market
+  > 看 Decisions API 文件公布的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率與節省工時，或其他大型企業跟進全員導入；看零售案例的 90% 用什麼基準；看使用政策頁是否出現新的夥伴條款；看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容。
 
 - **`capital-evolution#6d682e94`** — capital-evolution
   > 讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
@@ -39,10 +39,10 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`agent-refactor#55e717db`** — agent-refactor
   > 看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF 工作組；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業；看 OpenAI 或 Third Moment Research 是否公開任務完成率與單位成本。
 
-- **`global-map#8b710d7c`** — global-map
-  > 看有沒有具名的政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看 NVIDIA 後續是否點名歐洲製造商並公布導入成果；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
+- **`global-map#99ad817c`** — global-map
+  > 看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
 
-## 事件層（490）
+## 事件層（496）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1502,6 +1502,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-22-7d0754#26d9fcb5`** — evt-2026-10-22-7d0754
   > 無需追蹤。
 
+- **`evt-2026-10-22-921176#aa0b9aa2`** — evt-2026-10-22-921176
+  > 官方文件公布的價格、延遲與可用模型，以及開發者社群的實測結果。
+
 - **`evt-2026-10-22-9fce05#20e3f5e4`** — evt-2026-10-22-9fce05
   > 具名採用者是否公布併網時間縮短或電力利用率的數字。
 
@@ -1513,3 +1516,18 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-10-22-b1caf2#95ecc185`** — evt-2026-10-22-b1caf2
   > Uber 或 OpenAI 是否公布使用率、節省工時，或其他大型企業跟進的全員導入。
+
+- **`evt-2026-10-23-439d7e#0c569a4c`** — evt-2026-10-23-439d7e
+  > 雙方公布的聯合研究、評測工具或資安演練成果。
+
+- **`evt-2026-10-23-4e180a#adc29908`** — evt-2026-10-23-4e180a
+  > 哈薩克方或合作夥伴公布的機房規模、GPU 採購量與啟用時程。
+
+- **`evt-2026-10-23-993840#b27f27d6`** — evt-2026-10-23-993840
+  > 全文是否公布延遲分位數、成本變化，以及是否還有後續篇章。
+
+- **`evt-2026-10-23-f0d396#998dc5fc`** — evt-2026-10-23-f0d396
+  > 支援模型的數量與熱門模型的涵蓋，以及實測的吞吐量與價格比較。
+
+- **`evt-2026-10-23-f254b4#c5b7a1cb`** — evt-2026-10-23-f254b4
+  > 全文是否公布隔離層級、第三方稽核，或之後的安全框架更新。

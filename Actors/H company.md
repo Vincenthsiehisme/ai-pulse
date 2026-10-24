@@ -3,7 +3,7 @@ id: actor-h-company
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-10-23'
+generated_day: '2026-10-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
