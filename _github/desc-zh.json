@@ -104,6 +104,11 @@
     "src_hash": "6f30aa98993d",
     "zh": "本機優先的 AI agent，透過 llama.cpp 在自己的機器上跑開放權重模型"
   },
+  "Ayzzz123/mcd-coupon-strategist": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "ecf4c3aa71f6",
+    "zh": "麥麥省錢助手，基於麥當勞 MCP 的點餐成本優化 Skill，算出當前門店最省錢的點餐方案並提示湊單陷阱"
+  },
   "BuilderIO/agent-native": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "1ba7b3291edd",
@@ -118,6 +123,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "b9464618b539",
     "zh": "給 coding agent 用的 Chrome DevTools"
+  },
+  "ComputerUseAgent/AutoCua": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "1c06bad3aff5",
+    "zh": "能在 macOS、Windows、Linux、iOS 與瀏覽器上端到端自動化流程的 computer use agent"
   },
   "CursorTouch/Windows-MCP": {
     "at": "2026-08-07T01:27:45+00:00",
@@ -235,9 +245,9 @@
     "zh": "用 Rust 寫成、跑在 Object Storage 上的 OLTP 圖形資料庫，內建向量與全文搜尋"
   },
   "Helldez/BigMoeOnEdge": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "5f700f2f4caa",
-    "zh": "在標準 llama.cpp 上跑超過記憶體大小的 MoE 模型，12 GB 的手機也能跑前沿規模 MoE，無損"
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "d4f73412271d",
+    "zh": "在標準 llama.cpp 上跑超過記憶體大小的 MoE 模型，手機、筆電與邊緣裝置都能跑，無損"
   },
   "HexRaysSA/ida-mcp": {
     "at": "2026-10-06T20:41:13+00:00",
@@ -248,6 +258,11 @@
     "at": "2026-09-26T19:13:11+00:00",
     "src_hash": "c88311d60fd8",
     "zh": "讓 agent 能持續自我改進的基礎設施"
+  },
+  "INSANE0777/Awwwards-mcp": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "f5cbfed57a2e",
+    "zh": "讓 AI 編碼 agent 取得得獎網站設計靈感的開源 MCP server，免 API key"
   },
   "ItzCrazyKns/Vane": {
     "at": "2026-10-07T20:56:20+00:00",
@@ -404,6 +419,11 @@
     "src_hash": "99deb4ae38eb",
     "zh": "AnythingLLM：以本機優先為主的完整 agent 體驗，把 AI 握在自己手上"
   },
+  "N4darae/shrt": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "e115897ae3f9",
+    "zh": "給 AI 編碼 agent 的契約驅動 gRPC 回歸測試工具，基準線由人核准"
+  },
   "NVIDIA/Model-Optimizer": {
     "at": "2026-07-31T19:20:39+00:00",
     "src_hash": "8320033a1389",
@@ -503,6 +523,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "94291621a3b8",
     "zh": "本地優先、完全由你掌握的 AI agent harness，含迴圈、記憶、評測，程式碼設計成長大後仍好讀"
+  },
+  "SouravBeraAkaSpeed/xiryn": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "6ba194a37ba9",
+    "zh": "開源個人 agent，各有 Docker 內的 Linux 桌面，任何模型皆可，Telegram 控制"
   },
   "StarTrail-org/PixelRAG": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -889,6 +914,11 @@
     "src_hash": "7dfc27185c5f",
     "zh": "讓 AI agent 把任何單機遊戲改成可與朋友連線或分割畫面同玩，附 MCP server 與操作手冊"
   },
+  "ctoldigital/axuse": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "950b35863989",
+    "zh": "給 AI agent 的無障礙優先瀏覽器操作 MCP server，讀無障礙樹而非截圖"
+  },
   "dagoSte/squadra": {
     "at": "2026-10-23T19:40:32+00:00",
     "src_hash": "5d5feee95a3a",
@@ -1099,6 +1129,11 @@
     "src_hash": "b239f2c17c0e",
     "zh": "寫 HTML、算繪成影片，為 agent 而生"
   },
+  "hhblaze/DBreeze": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "5e75cec0b98b",
+    "zh": "C# .NET 的 NoSQL 嵌入式資料庫，含鍵值、物件儲存、全文與語意搜尋向量層，支援 ACID"
+  },
   "himovo/movo": {
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "899ff181356f",
@@ -1194,6 +1229,11 @@
     "src_hash": "4daa33697f4d",
     "zh": "給 Claude、Codex 等 agent 的 logo 設計 skill，含 SVG 技巧與 1400 多款參考"
   },
+  "kajisho5/ffmpeg-skill": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "857fb8273720",
+    "zh": "給編碼 agent 的本機影片剪輯工具，42 個 FFmpeg 工具加 MCP server，免雲端"
+  },
   "kharmanskyi/open-steps": {
     "at": "2026-10-15T19:35:35+00:00",
     "src_hash": "73a118a62c72",
@@ -1208,6 +1248,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "4fd40cb6ef54",
     "zh": "即時全球情報儀表板：AI 新聞彙整、地緣政治與基礎設施監看"
+  },
+  "kuafuai/andee": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "c0d5aa19997c",
+    "zh": "住進手機或 Mac 裡，像人一樣操作任何 app，不用整合、不用 root，記憶與密碼不離開裝置"
   },
   "kucherenko/jscpd": {
     "at": "2026-09-02T19:14:09+00:00",
@@ -1278,6 +1323,11 @@
     "at": "2026-10-12T22:42:13+00:00",
     "src_hash": "a89b2b038711",
     "zh": "用單張 4GB GPU 跑 2.8T 參數 LLM 推論（AirLLM）"
+  },
+  "makecindy/cindy": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "b3f220d6a998",
+    "zh": "開源、開箱即用的 AI Agent，想到就能做到"
   },
   "mastra-ai/mastra": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -1378,6 +1428,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "2dfffa61ccd5",
     "zh": "魔搭 ModelScope Cookbook，開發者的開源模型應用實戰指南，涵蓋選型、推理、微調、RAG 與 Agent"
+  },
+  "mrmps/classifier-dev": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "056bae817ac6",
+    "zh": "純 HTTP 的 zero-shot 文字分類，免 API key 與帳號，含 CLI 與 MCP server"
   },
   "mrpulor-gh/nuphus-mcp": {
     "at": "2026-10-13T20:55:59+00:00",
@@ -1528,6 +1583,11 @@
     "at": "2026-10-20T19:46:47+00:00",
     "src_hash": "4287c0741ff1",
     "zh": "開源 AI 影片 agent，讓 coding agent 變成影片 agent，附編輯器可改任何產出"
+  },
+  "opensec-git/Pi-Bolt": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "b4261fbb6f13",
+    "zh": "把編碼 agent Pi 預先編譯成單一原生執行檔，啟動快 10 倍，CPU 少用 7 倍，記憶體少用 4.5 倍"
   },
   "oriveo/oriveo": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1888,6 +1948,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "d8f474d71ae1",
     "zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
+  },
+  "unum-cloud/USearch": {
+    "at": "2026-10-24T18:28:06+00:00",
+    "src_hash": "d86ae4414bd1",
+    "zh": "開源的向量與任意物件搜尋、分群引擎，支援 C++、Python、Rust、JavaScript 等多種語言"
   },
   "useagenthq/useagent": {
     "at": "2026-10-16T19:09:41+00:00",
