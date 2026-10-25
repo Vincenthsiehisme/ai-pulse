@@ -125,9 +125,9 @@
     "zh": "給 coding agent 用的 Chrome DevTools"
   },
   "ComputerUseAgent/AutoCua": {
-    "at": "2026-10-24T18:28:06+00:00",
-    "src_hash": "1c06bad3aff5",
-    "zh": "能在 macOS、Windows、Linux、iOS 與瀏覽器上端到端自動化流程的 computer use agent"
+    "at": "2026-10-25T18:38:34+00:00",
+    "src_hash": "9c8a216769cb",
+    "zh": "一個 Computer Use agent 通吃 macOS、Windows、Linux、瀏覽器、iOS 與程式碼"
   },
   "CursorTouch/Windows-MCP": {
     "at": "2026-08-07T01:27:45+00:00",
@@ -1039,6 +1039,11 @@
     "src_hash": "9eba85cd2a81",
     "zh": "投資研究資料平台，以 MCP server 提供，計算時點一致的財務指標，用於估值與篩選"
   },
+  "finereli/whatsapp-mcp": {
+    "at": "2026-10-25T18:38:34+00:00",
+    "src_hash": "aea5ad2a1d0b",
+    "zh": "唯讀 MCP server，讓 AI agent 搜尋、讀取你自己的 WhatsApp 訊息"
+  },
   "firecrawl/firecrawl": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "97a2ec229740",
@@ -1084,6 +1089,11 @@
     "src_hash": "b2c1658f7fb1",
     "zh": "開源、以程式碼為主的 Python 工具組，用來建構、評測與部署 AI agent"
   },
+  "google/elephant-goldfish-model": {
+    "at": "2026-10-25T18:38:34+00:00",
+    "src_hash": "dcc36b0a2386",
+    "zh": "Google 做的開源方法與 skill 組，用 LLM 做規格驅動開發"
+  },
   "gpustack/gpustack": {
     "at": "2026-09-09T19:22:19+00:00",
     "src_hash": "7ffd0b016014",
@@ -1118,6 +1128,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "2b0a1bd8518e",
     "zh": "在送進 LLM 前壓縮工具輸出、log、檔案與 RAG 片段：JSON 省 60–95% token、答案不變"
+  },
+  "heaven999b/hello-agent-system": {
+    "at": "2026-10-25T18:38:34+00:00",
+    "src_hash": "500194397d99",
+    "zh": "從零做起、逐層學企業級 AI agent 系統設計，17 堂中英雙語課附測試過的練習"
   },
   "herdrdev/herdr": {
     "at": "2026-10-05T22:18:12+00:00",
