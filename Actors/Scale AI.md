@@ -3,7 +3,7 @@ id: actor-scale-ai
 kind: company
 in_dictionary: true
 aliases: ["Scale"]
-generated_day: '2026-10-24'
+generated_day: '2026-10-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

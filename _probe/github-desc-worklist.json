@@ -1,219 +1,75 @@
 [
   {
-    "full_name": "ComputerUseAgent/AutoCua",
-    "desc": "Automatic computer use agent for end-to-end automation workflows on macOS, Windows, Linux, iOS and the browser.",
-    "language": "Python",
-    "topics": [
-      "browser-use",
-      "browser-use-agent",
-      "codex",
-      "computer-agent",
-      "computer-use",
-      "computer-use-agent"
-    ],
-    "stars": 518,
-    "url": "https://github.com/ComputerUseAgent/AutoCua",
-    "stale_zh": null
-  },
-  {
-    "full_name": "opensec-git/Pi-Bolt",
-    "desc": "⚡ Pi, the coding agent, compiled ahead of time to one native executable. 10× faster to start, 7× less CPU and 4.5× less memory than Pi on Node. Linux, macOS, Windows, ARM64 and Android (Termux).",
-    "language": "TypeScript",
-    "topics": [
-      "ahead-of-time",
-      "ai-agent",
-      "ai-coding-assistant",
-      "android",
-      "arm64",
-      "bun"
-    ],
-    "stars": 534,
-    "url": "https://github.com/opensec-git/Pi-Bolt",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ctoldigital/axuse",
-    "desc": "Accessibility-first browser & computer use for AI agents — one MCP server for every harness (Codex, Claude Code, OpenCode, Antigravity). Instruments the DOM/accessibility tree via CDP instead of screenshot loops: diffed snapshots, stable element refs, trusted input, typed errors. Zero dependencies",
-    "language": "JavaScript",
-    "topics": [
-      "agentic-automation",
-      "ai-agents",
-      "browser-automation",
-      "browser-use",
-      "cdp",
-      "chrome-devtools-protocol"
-    ],
-    "stars": 422,
-    "url": "https://github.com/ctoldigital/axuse",
-    "stale_zh": null
-  },
-  {
-    "full_name": "kajisho5/ffmpeg-skill",
-    "desc": "Local video editor for coding agents: 42 FFmpeg tools with a machine-readable contract and an MCP server, for Claude Code, Cursor and Codex. Cut, captions, reframe, loudness, platform exports. No cloud, no API keys.",
+    "full_name": "google/elephant-goldfish-model",
+    "desc": "An open-source method and skill set created at Google for spec-driven development with LLMs",
     "language": "Python",
     "topics": [
       "agent-skills",
       "ai-agents",
-      "audio-processing",
-      "captions",
+      "antigravity",
       "claude-code",
-      "codex"
+      "claude-code-plugin",
+      "claude-skills"
     ],
-    "stars": 2510,
-    "url": "https://github.com/kajisho5/ffmpeg-skill",
+    "stars": 812,
+    "url": "https://github.com/google/elephant-goldfish-model",
     "stale_zh": null
   },
   {
-    "full_name": "makecindy/cindy",
-    "desc": "Consider it done. The open-source AI agent that works out of the box · 想到，就能做到。开源、开箱即用的 AI Agent。",
-    "language": "TypeScript",
+    "full_name": "ComputerUseAgent/AutoCua",
+    "desc": "One Computer Use agent for everything (macOS, Windows, Linux, Browser, iOS & Code).",
+    "language": "Python",
     "topics": [
-      "agent",
-      "ai-agent",
-      "ai-assistant",
-      "android",
-      "claude-code",
-      "codex"
+      "browser-use",
+      "browser-use-agent",
+      "computer-agent",
+      "computer-use",
+      "ios-automation",
+      "linux-ai"
     ],
-    "stars": 3964,
-    "url": "https://github.com/makecindy/cindy",
-    "stale_zh": null
+    "stars": 636,
+    "url": "https://github.com/ComputerUseAgent/AutoCua",
+    "stale_zh": "能在 macOS、Windows、Linux、iOS 與瀏覽器上端到端自動化流程的 computer use agent"
   },
   {
-    "full_name": "Ayzzz123/mcd-coupon-strategist",
-    "desc": "麦麦省钱助手 —— 基于麦当劳 MCP 的点餐成本优化 Skill。算出当前门店最省钱的点餐方案，并主动提示凑单陷阱。",
+    "full_name": "heaven999b/hello-agent-system",
+    "desc": "👋 Hello Agent System — learn enterprise AI agent system design by building every production layer from scratch. 17 bilingual lessons (EN/中文) with tested exercises: tools, architectures, reliability, security, evals, distributed execution, cost, RAG, release ops. 企业级 Agent 系统设计训练营",
     "language": "Python",
     "topics": [
       "agent",
-      "cost-optimization",
-      "coupon",
-      "llm",
-      "mcd-mcp",
-      "mcdonalds"
-    ],
-    "stars": 1004,
-    "url": "https://github.com/Ayzzz123/mcd-coupon-strategist",
-    "stale_zh": null
-  },
-  {
-    "full_name": "hhblaze/DBreeze",
-    "desc": "C# .NET NOSQL ( key value, object store embedded TextSearch SemanticSearch Vector layer ) ACID multi-paradigm database management system.",
-    "language": "C#",
-    "topics": [
-      "acid",
-      "android",
-      "c-sharp",
-      "clustering",
-      "database",
-      "dotnet"
-    ],
-    "stars": 582,
-    "url": "https://github.com/hhblaze/DBreeze",
-    "stale_zh": null
-  },
-  {
-    "full_name": "SouravBeraAkaSpeed/xiryn",
-    "desc": "Xiryn — the open-source personal agent. Does everything Muse, Grok Bot and Dots do, on your own computer: each agent gets its own Linux desktop in Docker, any model with your keys, an encrypted vault, and control from Telegram.",
-    "language": "TypeScript",
-    "topics": [
       "ai-agents",
-      "ai-sdk",
-      "anthropic",
-      "byok",
-      "computer-use",
-      "docker"
+      "bilingual",
+      "chinese",
+      "course",
+      "distributed-systems"
     ],
-    "stars": 309,
-    "url": "https://github.com/SouravBeraAkaSpeed/xiryn",
+    "stars": 304,
+    "url": "https://github.com/heaven999b/hello-agent-system",
     "stale_zh": null
   },
   {
-    "full_name": "Helldez/BigMoeOnEdge",
-    "desc": "Run MoE models bigger than your RAM. Frontier-size MoE on a phone, laptop, edge. Lossless, on stock llama.cpp. An adaptive streaming optimizer. Any hardware, any OS, any model, any quantization, behind a local OpenAI-compatible server.",
-    "language": "C++",
+    "full_name": "HarnessRouter/harnessrouter",
+    "desc": "HarnessRouter Community Edition: the self-hosted, Apache-2.0 edition of the unified interface for agent harnesses. Run Codex, Claude Code, Hermes, PI, DSH, and more through one API, with sessions, streaming, files, cancellation, and failure handling. Implements the Unified Harness Protocol (UHP), an open standard. Your keys, your infrastructure.",
+    "language": "Python",
     "topics": [
-      "android",
-      "cpp",
-      "edge-ai",
-      "gguf",
-      "inference",
-      "llama-cpp"
+      "agent-api",
+      "agent-framework",
+      "agent-harness",
+      "ai-agents",
+      "ai-infrastructure",
+      "coding-agent"
     ],
-    "stars": 655,
-    "url": "https://github.com/Helldez/BigMoeOnEdge",
-    "stale_zh": "在標準 llama.cpp 上跑超過記憶體大小的 MoE 模型，12 GB 的手機也能跑前沿規模 MoE，無損"
+    "stars": 3621,
+    "url": "https://github.com/HarnessRouter/harnessrouter",
+    "stale_zh": null
   },
   {
-    "full_name": "mrmps/classifier-dev",
-    "desc": "Zero-shot text classification over plain HTTP — no API key, no account. One Cloudflare Worker, a CLI, and an MCP server. https://classifier.dev",
+    "full_name": "finereli/whatsapp-mcp",
+    "desc": "A read-only MCP server that lets your AI agent search and read your own WhatsApp messages. Use it free at whatsapp.finereli.com, or run your own copy on Cloudflare.",
     "language": "TypeScript",
-    "topics": [
-      "api",
-      "classification",
-      "cli",
-      "cloudflare-workers",
-      "llm",
-      "mcp"
-    ],
-    "stars": 429,
-    "url": "https://github.com/mrmps/classifier-dev",
-    "stale_zh": null
-  },
-  {
-    "full_name": "unum-cloud/USearch",
-    "desc": "Fast Open-Source Search & Clustering engine × for Vectors & Arbitrary Objects × in C++, C, Python, JavaScript, Rust, Java, Objective-C, Swift, C#, GoLang, and Wolfram 🔍",
-    "language": "C++",
-    "topics": [
-      "approximate-nearest-neighbor-search",
-      "clustering",
-      "database",
-      "faiss",
-      "full-text-search",
-      "fuzzy-search"
-    ],
-    "stars": 4351,
-    "url": "https://github.com/unum-cloud/USearch",
-    "stale_zh": null
-  },
-  {
-    "full_name": "N4darae/shrt",
-    "desc": "A contract-driven gRPC regression harness for AI coding agents, with human-approved baselines. Snapshot the valid call chains of an API so an agent can look one up instead of tracing for it. gRPC today, OpenAPI next",
-    "language": "Go",
     "topics": [],
-    "stars": 1499,
-    "url": "https://github.com/N4darae/shrt",
-    "stale_zh": null
-  },
-  {
-    "full_name": "kuafuai/andee",
-    "desc": "It moves into your phone or Mac and uses any app the way you do. No integrations, no root, any model. Its memory and your passwords never leave the device.",
-    "language": "Kotlin",
-    "topics": [
-      "agent",
-      "ai",
-      "ai-agents",
-      "android-automation",
-      "mobile-agents",
-      "personal-agent"
-    ],
-    "stars": 2729,
-    "url": "https://github.com/kuafuai/andee",
-    "stale_zh": null
-  },
-  {
-    "full_name": "INSANE0777/Awwwards-mcp",
-    "desc": "Free, open-source MCP server that gives AI coding agents (Claude Code, Codex, Cursor, OpenCode, ZCode…) design inspiration from award-winning websites — search with real screenshots, pull design DNA, capture and record live sites. A Mobbin alternative. No API key.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-agents",
-      "awwwards",
-      "claude-code",
-      "codex",
-      "coding-agent",
-      "cursor"
-    ],
-    "stars": 323,
-    "url": "https://github.com/INSANE0777/Awwwards-mcp",
+    "stars": 375,
+    "url": "https://github.com/finereli/whatsapp-mcp",
     "stale_zh": null
   }
 ]

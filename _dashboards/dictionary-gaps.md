@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-24'
+generated_day: '2026-10-25'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**89 天**（2026-07-24 … 2026-10-24），去重後 **5915** 列。
+語料範圍：**90 天**（2026-07-24 … 2026-10-25），去重後 **5954** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,22 +17,22 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 181 | 2 |
+| Show HN | 183 | 2 |
 | Apple | 130 | 6 |
-| Amazon | 85 | 5 |
+| Amazon | 86 | 5 |
 | September | 61 | 8 |
-| LLMs | 57 | 13 |
+| LLMs | 58 | 13 |
 | There | 57 | 7 |
+| They | 55 | 9 |
 | LLM | 55 | 12 |
-| They | 54 | 9 |
 | Here | 52 | 8 |
 | October | 50 | 7 |
-| Muse | 47 | 5 |
+| Muse | 48 | 6 |
 | Trump | 45 | 5 |
 | One | 43 | 10 |
-| Python | 41 | 5 |
+| Python | 42 | 5 |
+| Pro | 42 | 8 |
 | San Francisco | 41 | 9 |
-| Pro | 41 | 7 |
 | CEO | 40 | 5 |
 | AI-powered | 39 | 10 |
 | When | 39 | 11 |
@@ -44,20 +44,20 @@ generator: scripts/pulse-dictionary-gaps.py
 | Linux | 33 | 5 |
 | Last | 33 | 6 |
 | Astra | 32 | 6 |
+| June | 31 | 7 |
 | With | 31 | 10 |
-| June | 30 | 7 |
 | Research | 30 | 6 |
+| AI-generated | 30 | 8 |
 | August | 30 | 8 |
-| AI-generated | 29 | 8 |
+| Rust | 29 | 3 |
 | Europe | 28 | 8 |
 | Learn | 28 | 6 |
-| Rust | 28 | 3 |
 | Windows | 27 | 5 |
 | These | 26 | 7 |
 | Building | 25 | 10 |
+| Samsung | 25 | 5 |
 | SpaceX | 24 | 5 |
 | Pixel | 24 | 3 |
-| Samsung | 24 | 5 |
 | Opus | 23 | 6 |
 | API | 23 | 6 |
 | Wednesday | 22 | 5 |
@@ -67,11 +67,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | Flash | 21 | 6 |
 | Tuesday | 21 | 6 |
 | Chinese | 21 | 8 |
+| Tool | 21 | 2 |
+| The AI | 21 | 6 |
 | Some | 20 | 8 |
-| Tool | 20 | 2 |
 | While | 20 | 4 |
 | RAM | 20 | 2 |
-| The AI | 20 | 6 |
 | Thursday | 19 | 4 |
 | Mac | 19 | 4 |
 | Fable | 19 | 5 |
@@ -96,15 +96,15 @@ generator: scripts/pulse-dictionary-gaps.py
 | Launch HN | 22 | src-hn-frontpage |
 | Highlights | 20 | src-gh-vllm-releases |
 | The Verge | 20 | src-media-theverge |
+| Opt | 19 | src-media-theverge |
 | A Blog | 19 | src-hf-blog |
-| Opt | 18 | src-media-theverge |
 | Ask HN | 17 | src-hn-frontpage |
 | Is Hiring | 17 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
 | GeForce NOW | 15 | src-nvidia-blog |
 | Best Buy | 15 | src-media-theverge |
 | Hey HN | 14 | src-hn-frontpage |
-| The Stepback | 12 | src-media-theverge |
+| The Stepback | 13 | src-media-theverge |
 | Datasette | 12 | src-kol-simonwillison |
 | YC S26 | 11 | src-hn-frontpage |
 | Installer No | 11 | src-media-theverge |
@@ -120,11 +120,11 @@ generator: scripts/pulse-dictionary-gaps.py
 | European Biotech Act | 9 | src-ep-itre |
 | FCC | 9 | src-media-theverge |
 | Startup Battlefield | 9 | src-media-techcrunch |
+| Sunday | 8 | src-media-theverge |
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
 | The Algorithm | 8 | src-media-mit-techreview |
-| Sunday | 7 | src-media-theverge |
+| Apple TV | 8 | src-media-theverge |
 | Open-source | 7 | src-hn-frontpage |
-| Apple TV | 7 | src-media-theverge |
 | PlayStation | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
 | Grand Theft Auto | 7 | src-media-theverge |

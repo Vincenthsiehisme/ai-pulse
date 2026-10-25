@@ -16,7 +16,7 @@ license_note: "titles + links only"
 endpoint: "https://blogs.nvidia.com/feed/"
 robots_checked_day: "2026-10-23"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-10-24"
+last_observed_day: "2026-10-25"
 items_observed: 117
 events_bound: 112
 events_published: 109

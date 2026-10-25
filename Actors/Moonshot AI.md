@@ -3,7 +3,7 @@ id: actor-moonshot
 kind: company
 in_dictionary: true
 aliases: ["月之暗面"]
-generated_day: '2026-10-24'
+generated_day: '2026-10-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
