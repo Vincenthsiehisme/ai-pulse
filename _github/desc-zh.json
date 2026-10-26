@@ -45,9 +45,9 @@
     "zh": "開源的 WorkBuddy 實戰指南，含教學、真實工作流、Skills、MCP、自動化與多 agent 實踐"
   },
   "Alishahryar1/free-claude-code": {
-    "at": "2026-10-10T19:38:45+00:00",
-    "src_hash": "46131b106445",
-    "zh": "讓 Claude Code、Codex 等工具免費使用，支援終端、IDE、手機與瀏覽器"
+    "at": "2026-10-26T20:51:43+00:00",
+    "src_hash": "a682f23009ad",
+    "zh": "免費使用 Claude Code、Codex 等十多種 harness，支援終端、IDE、手機與瀏覽器"
   },
   "Andyyyy64/whichllm": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -109,6 +109,11 @@
     "src_hash": "ecf4c3aa71f6",
     "zh": "麥麥省錢助手，基於麥當勞 MCP 的點餐成本優化 Skill，算出當前門店最省錢的點餐方案並提示湊單陷阱"
   },
+  "BotHarness/DeepSeekBot": {
+    "at": "2026-10-26T20:51:43+00:00",
+    "src_hash": "5c0679f9aa61",
+    "zh": "基於 DeepSeek Harness 的開源 GrokBot 替代品，多個有長期記憶的個人 Bot，可用插件擴充"
+  },
   "BuilderIO/agent-native": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "1ba7b3291edd",
@@ -168,6 +173,11 @@
     "at": "2026-08-10T19:09:33+00:00",
     "src_hash": "0e143566f257",
     "zh": "讓2.78兆參數的Kimi K3在單顆CPU、8.24GB RAM上跑推論，純C99實作，不用BLAS、框架或GPU"
+  },
+  "Fei2411/DS-Bot": {
+    "at": "2026-10-26T20:51:43+00:00",
+    "src_hash": "dcd5f1ee174b",
+    "zh": "DeepSeek Harness 的長駐 Bot 團隊，有主 Bot、Bot 間訊息與群組聊天"
   },
   "Fei2411/DeepSeek-Bot": {
     "at": "2026-10-13T20:55:59+00:00",
