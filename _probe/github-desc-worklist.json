@@ -1,75 +1,41 @@
 [
   {
-    "full_name": "google/elephant-goldfish-model",
-    "desc": "An open-source method and skill set created at Google for spec-driven development with LLMs",
-    "language": "Python",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "antigravity",
-      "claude-code",
-      "claude-code-plugin",
-      "claude-skills"
-    ],
-    "stars": 812,
-    "url": "https://github.com/google/elephant-goldfish-model",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ComputerUseAgent/AutoCua",
-    "desc": "One Computer Use agent for everything (macOS, Windows, Linux, Browser, iOS & Code).",
-    "language": "Python",
-    "topics": [
-      "browser-use",
-      "browser-use-agent",
-      "computer-agent",
-      "computer-use",
-      "ios-automation",
-      "linux-ai"
-    ],
-    "stars": 636,
-    "url": "https://github.com/ComputerUseAgent/AutoCua",
-    "stale_zh": "能在 macOS、Windows、Linux、iOS 與瀏覽器上端到端自動化流程的 computer use agent"
-  },
-  {
-    "full_name": "heaven999b/hello-agent-system",
-    "desc": "👋 Hello Agent System — learn enterprise AI agent system design by building every production layer from scratch. 17 bilingual lessons (EN/中文) with tested exercises: tools, architectures, reliability, security, evals, distributed execution, cost, RAG, release ops. 企业级 Agent 系统设计训练营",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "ai-agents",
-      "bilingual",
-      "chinese",
-      "course",
-      "distributed-systems"
-    ],
-    "stars": 304,
-    "url": "https://github.com/heaven999b/hello-agent-system",
-    "stale_zh": null
-  },
-  {
-    "full_name": "HarnessRouter/harnessrouter",
-    "desc": "HarnessRouter Community Edition: the self-hosted, Apache-2.0 edition of the unified interface for agent harnesses. Run Codex, Claude Code, Hermes, PI, DSH, and more through one API, with sessions, streaming, files, cancellation, and failure handling. Implements the Unified Harness Protocol (UHP), an open standard. Your keys, your infrastructure.",
-    "language": "Python",
-    "topics": [
-      "agent-api",
-      "agent-framework",
-      "agent-harness",
-      "ai-agents",
-      "ai-infrastructure",
-      "coding-agent"
-    ],
-    "stars": 3621,
-    "url": "https://github.com/HarnessRouter/harnessrouter",
-    "stale_zh": null
-  },
-  {
-    "full_name": "finereli/whatsapp-mcp",
-    "desc": "A read-only MCP server that lets your AI agent search and read your own WhatsApp messages. Use it free at whatsapp.finereli.com, or run your own copy on Cloudflare.",
+    "full_name": "BotHarness/DeepSeekBot",
+    "desc": "Open-source GrokBot alternative built on DeepSeek Harness. Build your personal bot team: multiple personal agents with persistent memory, identities and permissions, extensible through DSH plugins.｜基于 DeepSeek Harness 的开源 GrokBot 平替：有长期记忆的个人 AI Bot 团队，支持多 Bot 协作、身份权限与插件生态扩展。MIT.",
     "language": "TypeScript",
-    "topics": [],
-    "stars": 375,
-    "url": "https://github.com/finereli/whatsapp-mcp",
+    "topics": [
+      "agent-memory",
+      "ai-agent",
+      "bot-marketplace",
+      "deepseek",
+      "deepseek-bot",
+      "deepseek-harness"
+    ],
+    "stars": 338,
+    "url": "https://github.com/BotHarness/DeepSeekBot",
     "stale_zh": null
+  },
+  {
+    "full_name": "Fei2411/DS-Bot",
+    "desc": "A team of long-lived bots for DeepSeek Harness, with main bots, bot-to-bot messages and group chats.",
+    "language": "JavaScript",
+    "topics": [
+      "bot",
+      "deepseek-harness",
+      "dsh-plugin",
+      "multi-agent"
+    ],
+    "stars": 4118,
+    "url": "https://github.com/Fei2411/DS-Bot",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Alishahryar1/free-claude-code",
+    "desc": "Use Claude Code, Codex, Antigravity, VSCode, Pi, and OpenCode (and 6 other harnesses) for free (1.3B+ free tokens) from your terminal, app, IDE, or phone, and now from the browser with native browser sessions (multi-harness + multi-model) like OpenClaw (voice supported + ToS friendly)",
+    "language": "Python",
+    "topics": [],
+    "stars": 63734,
+    "url": "https://github.com/Alishahryar1/free-claude-code",
+    "stale_zh": "讓 Claude Code、Codex 等工具免費使用，支援終端、IDE、手機與瀏覽器"
   }
 ]

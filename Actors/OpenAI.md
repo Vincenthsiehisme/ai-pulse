@@ -3,17 +3,21 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-25'
+generated_day: '2026-10-26'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **174** 則：`published` 169、`review` 5
+事件 **178** 則：`published` 169、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-26 | [[Events/evt-2026-10-26-ea4611\|How Ultrafast cut incident investigation from hours to minutes at OpenAI]] | review |
+| 2026-10-26 | [[Events/evt-2026-10-26-d344a5\|How Fanatics and OpenAI streamline the fan experience]] | review |
+| 2026-10-26 | [[Events/evt-2026-10-26-686cda\|Introducing GPT-6.1 Terra]] | review |
+| 2026-10-26 | [[Events/evt-2026-10-26-678c8c\|ChatGPT’s expanding world of work]] | review |
 | 2026-10-23 | [[Events/evt-2026-10-23-f254b4\|Securing our frontier model training environment]] | published |
 | 2026-10-23 | [[Events/evt-2026-10-23-993840\|Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)]] | published |
 | 2026-10-23 | [[Events/evt-2026-10-23-439d7e\|OpenAI and Poland’s NASK partner to advance AI safety and security]] | published |

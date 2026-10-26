@@ -1,7 +1,11 @@
-# 被門禁擋下（59）
+# 被門禁擋下（63）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-26-678c8c|ChatGPT’s expanding world of work]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-26-686cda|Introducing GPT-6.1 Terra]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-26-d344a5|How Fanatics and OpenAI streamline the fan experience]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-26-ea4611|How Ultrafast cut incident investigation from hours to minutes at Open]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-23-599b06|LitPivot: Developing research ideas through dynamic contextualization ]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-22-2853b8|Ensemble forecasting with IBM Granite time-series models]]** — IBM — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-22-5073ac|OlmoEarth v1.3: State-of-the-art embeddings for the whole planet]]** — Ai2 — blockers: thin_research_analysis
