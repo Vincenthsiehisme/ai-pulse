@@ -3,16 +3,43 @@
     "slug": "model-research",
     "name": "模型能力與研究",
     "current_thesis": "訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。",
-    "current_now": "今天新增一則 OpenAI 的訓練環境安全文章，摘要說加強了訓練與評測的隔離，做法含離線環境與高算力紅隊演練，沒有具體事件或成效數字。10-22 的 NVIDIA Cosmos 平台擴充，加入訓練工具、模擬檢查點與資料工廠藍圖，榜單名稱與分數被截斷，排名由 NVIDIA 自述。IBM Granite Speech 5.0 標題稱轉錄、翻譯與說話者標註更準更快，沒有詞錯率或速度數字。10-19 的 Anthropic Responsible Scaling Policy v3 與 Building Safeguards For Claude 仍只有標題與連結，RSP v3 與前一版差在哪，我們比對不了。更早的 Beam 501B、Apertus 1.5、Muse Spark Open、Gemini 4 Argon 等，一樣停在標題與一兩行說明，沒有獨立評測數字。",
-    "current_next": "看 OpenAI 隔離文章全文是否列出隔離層級或第三方稽核；看 Cosmos 的榜單名稱與分數，以及第三方採用案例；看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Beam 的權重能否下載與授權寬不寬；看 Gemini 4 Argon 公布的基準與開放日期。",
+    "current_now": "今天新增 OpenAI 的「Introducing GPT-6.1 Terra」，官方頁面與 Hacker News 首頁都連到它，但這一則的來源授權只收標題與連結，規格、價格與評測我們不轉述，原文在 openai.com/index/introducing-gpt-6-1-terra。10-23 OpenAI 的訓練環境安全文章，摘要說加強了訓練與評測的隔離，沒有具體事件或成效數字。10-22 NVIDIA Cosmos 平台擴充，加入訓練工具、模擬檢查點與資料工廠藍圖，排名由 NVIDIA 自述。IBM Granite Speech 5.0 標題稱轉錄、翻譯與說話者標註更準更快，沒有詞錯率或速度數字。10-19 的 Anthropic Responsible Scaling Policy v3 與 Building Safeguards For Claude 仍只有標題與連結，RSP v3 與前一版差在哪，我們比對不了。更早的 Beam 501B、Apertus 1.5、Muse Spark Open、Gemini 4 Argon 等，一樣停在標題與一兩行說明，沒有獨立評測數字。",
+    "current_next": "讀 GPT-6.1 Terra 原文，看價格、可用日期與第三方基準是否在一週內跟上；看 OpenAI 隔離文章全文是否列出隔離層級或第三方稽核；看 Cosmos 的榜單名稱與分數，以及第三方採用案例；看 Granite Speech 5.0 是否公布詞錯率、速度基準與授權；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Gemini 4 Argon 公布的基準與開放日期。",
     "events": [
+      {
+        "slug": "build-specialized-multimodal-models-with-lfm3-372f",
+        "date": "2026-10-27",
+        "company": "Liquid AI",
+        "title": "Build specialized multimodal models with LFM3",
+        "summary": "Liquid AI 在 Hugging Face 發文介紹 LFM3，主打打造特化的多模態模型。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "genie-4-a-new-generation-of-world-simulation-7142",
+        "date": "2026-10-27",
+        "company": "Google DeepMind",
+        "title": "Genie 4: A new generation of world simulation",
+        "summary": "DeepMind 發表世界模擬模型 Genie 4，稱可即時模擬且擬真度大幅提高。",
+        "confidence": 80,
+        "heat": "未量測"
+      },
+      {
+        "slug": "working-with-academic-communities-to-build-scientific-unders-27a6",
+        "date": "2026-10-26",
+        "company": "OpenAI",
+        "title": "Working with academic communities to build scientific understanding",
+        "summary": "OpenAI 公開模型在 Kakeya 猜想、指數時間假說與量子色動力學上的結果，並說明研究者如何驗證。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "introducing-gpt-6-1-terra-686c",
         "date": "2026-10-26",
         "company": "OpenAI",
         "title": "Introducing GPT-6.1 Terra",
         "summary": "OpenAI 發表 GPT-6.1 Terra，內容細節我們不轉述，請看原文。",
-        "confidence": 80,
+        "confidence": 90,
         "heat": "未量測"
       },
       {
@@ -966,9 +993,27 @@
     "slug": "agent-refactor",
     "name": "Agent 與軟體重構",
     "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "今天新增 Anthropic 把 Agent Skills 標準捐給 Linux 基金會旗下的 Agentic AI Foundation，聲明稱要保持開放、不綁定單一廠商，內容引述自 Simon Willison，Anthropic 官方公告依授權只收標題與連結，治理細節證據裡沒有。10-21 的 Cloudflare 案例是用 OpenAI Daybreak 找漏洞並提出修補建議交人審查，沒有量化結果。同日 NVIDIA Agent Toolkit 擴充，官方稱企業可用公司資料客製並控制代理，新增工具清單與採用者沒有給，屬廠商自述。10-16 OpenAI 的兩個客戶案例數字出自廠商，10-14 Third Moment Research 的 10,000 個 agent 連跑 36 小時以上，沒有完成率與成本。",
-    "current_next": "看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF 工作組；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業；看 OpenAI 或 Third Moment Research 是否公開任務完成率與單位成本。",
+    "current_now": "今天新增 OpenAI 的 Codex Ultrafast 事故調查案例，工程師自述調查時間從數小時縮到數分鐘，同一頁也提到安全分析與程式碼重構，沒有案例數與實測數字，屬自述。10-22 Anthropic 把 Agent Skills 標準捐給 Linux 基金會旗下的 Agentic AI Foundation，聲明稱要保持開放、不綁定單一廠商，Anthropic 官方公告依授權只收標題與連結，治理細節證據裡沒有。10-21 的 Cloudflare 案例是用 OpenAI Daybreak 找漏洞並提出修補建議交人審查，沒有量化結果。同日 NVIDIA Agent Toolkit 擴充，官方稱企業可用公司資料客製並控制代理，新增工具清單與採用者沒有給，屬廠商自述。10-16 OpenAI 的兩個客戶案例數字出自廠商，10-14 Third Moment Research 的 10,000 個 agent 連跑 36 小時以上，沒有完成率與成本。",
+    "current_next": "看 OpenAI 是否公開 Ultrafast 的具體事故排查過程與準確率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF 工作組；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業；看 OpenAI 或 Third Moment Research 是否公開任務完成率與單位成本。",
     "events": [
+      {
+        "slug": "openai-expands-partnership-with-oracle-to-bring-its-apps-to--fe3f",
+        "date": "2026-10-27",
+        "company": "OpenAI",
+        "title": "OpenAI expands partnership with Oracle to bring its apps to ChatGPT",
+        "summary": "OpenAI 與 Oracle 擴大合作，把 Oracle 的商業應用與 AI 代理帶進 ChatGPT。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "greptile-takes-bug-detection-beyond-code-review-with-gpt-6-a-0654",
+        "date": "2026-10-26",
+        "company": "OpenAI",
+        "title": "Greptile takes bug detection beyond code review with GPT-6 Astra",
+        "summary": "OpenAI 發表 Greptile 用 GPT-6 Astra 做 bug 偵測的客戶案例。",
+        "confidence": 83,
+        "heat": "未量測"
+      },
       {
         "slug": "how-ultrafast-cut-incident-investigation-from-hours-to-minut-ea46",
         "date": "2026-10-26",
@@ -1326,9 +1371,27 @@
     "slug": "product-market",
     "name": "產品與商業驗證",
     "current_thesis": "本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。",
-    "current_now": "10-22 有五則。Uber 把 ChatGPT Work 推給超過 3 萬名員工，OpenAI 官方與 TechCrunch 都有報導，TechCrunch 說先前只有規模小得多的試行，合約金額與使用率沒有。OpenAI 發表 Decisions API，摘要只有「快、專注、低成本的決策」一句，沒有價格、延遲或支援模型。OpenAI 另發文談前線部署工程（FDE），內文未取得。NVIDIA 列出歐洲零售案例，其中一個商務平台推論成本降 90%，基準沒說明。GeForce NOW 上架新遊戲，與 AI 主線關聯弱。10-21 OpenAI 公開與經銷夥伴合作的一致安全標準，只有官方摘要。ChatGPT Ads 擴到 26 個新國家，稱超過 10 萬名廣告主使用，沒有附營收或成效；AT&T 法務案例沒有量化成果。",
-    "current_next": "看 Decisions API 文件公布的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率與節省工時，或其他大型企業跟進全員導入；看零售案例的 90% 用什麼基準；看使用政策頁是否出現新的夥伴條款；看 OpenAI 是否公布廣告營收、各國上線清單，或第三方是否檢驗廣告影響回答內容。",
+    "current_now": "今天新增兩則 OpenAI。ChatGPT 工作用途的 Signals 資料涵蓋 165 項工作活動、近 100 個國家，摘要沒有占比，樣本與分類由 OpenAI 定義。Fanatics 的 Shop the Look 在約 30,000 件 MLB 商品上測試，互動率高 10%，對照組與指標定義沒寫，也沒有轉換率。10-22 有五則：Uber 把 ChatGPT Work 推給超過 3 萬名員工，OpenAI 官方與 TechCrunch 都有報導，TechCrunch 說先前只有規模小得多的試行，合約金額與使用率沒有。OpenAI 發表 Decisions API，摘要只有「快、專注、低成本的決策」一句，沒有價格、延遲或支援模型。OpenAI 另發文談前線部署工程（FDE），內文未取得。NVIDIA 列出歐洲零售案例，其中一個商務平台推論成本降 90%，基準沒說明。GeForce NOW 上架新遊戲，與 AI 主線關聯弱。10-21 ChatGPT Ads 擴到 26 個新國家，稱超過 10 萬名廣告主使用，沒有附營收或成效。",
+    "current_next": "看 Signals 原文是否公開各類工作活動的占比與逐期變化；看 Fanatics 是否公布轉換率或營收指標；看 Decisions API 文件公布的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率與節省工時，或其他大型企業跟進全員導入；看零售案例的 90% 用什麼基準；看 OpenAI 是否公布廣告營收與各國上線清單。",
     "events": [
+      {
+        "slug": "grok-bot-sales-147a",
+        "date": "2026-10-27",
+        "company": "xAI",
+        "title": "Grok Bot Sales",
+        "summary": "xAI 發布 Grok Bot Sales 頁面，站方禁止 AI 讀取內容，本站不轉述，原文見連結。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-check-point-accelerates-vulnerability-research-with-dayb-80fb",
+        "date": "2026-10-27",
+        "company": "OpenAI",
+        "title": "How Check Point accelerates vulnerability research with Daybreak",
+        "summary": "OpenAI 發表 Check Point 用 Daybreak 加快漏洞研究的客戶案例。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "chatgpt-s-expanding-world-of-work-678c",
         "date": "2026-10-26",

@@ -1,8 +1,24 @@
-# 已發布事件（520）
+# 已發布事件（527）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-10-27
+- **[[Events/evt-2026-10-27-147ac0|Grok Bot Sales]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發布 Grok Bot Sales 頁面，站方禁止 AI 讀取內容，本站不轉述，原文見連結。
+- **[[Events/evt-2026-10-27-372f1a|Build specialized multimodal models with LFM3]]** — Liquid AI · model-capability · conf 73 · heat 未量測
+  Liquid AI 在 Hugging Face 發文介紹 LFM3，主打打造特化的多模態模型。
+- **[[Events/evt-2026-10-27-7142ec|Genie 4: A new generation of world simulation]]** — Google DeepMind · model-capability · conf 80 · heat 未量測
+  DeepMind 發表世界模擬模型 Genie 4，稱可即時模擬且擬真度大幅提高。
+- **[[Events/evt-2026-10-27-80fb0c|How Check Point accelerates vulnerability research with Daybreak]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發表 Check Point 用 Daybreak 加快漏洞研究的客戶案例。
+- **[[Events/evt-2026-10-27-fe3f2e|OpenAI expands partnership with Oracle to bring its apps to ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 與 Oracle 擴大合作，把 Oracle 的商業應用與 AI 代理帶進 ChatGPT。
+
 ## 2026-10-26
+- **[[Events/evt-2026-10-26-065414|Greptile takes bug detection beyond code review with GPT-6 Astra]]** — OpenAI · product · conf 83 · heat 未量測
+  OpenAI 發表 Greptile 用 GPT-6 Astra 做 bug 偵測的客戶案例。
+- **[[Events/evt-2026-10-26-27a6cc|Working with academic communities to build scientific understanding]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 公開模型在 Kakeya 猜想、指數時間假說與量子色動力學上的結果，並說明研究者如何驗證。
 - **[[Events/evt-2026-10-26-678c8c|ChatGPT’s expanding world of work]]** — OpenAI · research · conf 73 · heat 未量測
   OpenAI 用 Signals 資料公開 ChatGPT 的工作用途：165 項工作活動、近 100 個國家。
 - **[[Events/evt-2026-10-26-686cda|Introducing GPT-6.1 Terra]]** — OpenAI · model-capability · conf 90 · heat 未量測

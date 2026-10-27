@@ -315,9 +315,9 @@
     "zh": "11 個經營 YouTube 頻道的 Claude skill，含腳本、剪輯清單、留存分析"
   },
   "Javis603/token-monitor": {
-    "at": "2026-10-16T19:09:41+00:00",
-    "src_hash": "f84d2dd3bc89",
-    "zh": "本機優先的桌面小工具，追蹤 46 種以上 AI 程式工具的 token 用量、費用、額度與工作階段，支援多裝置同步"
+    "at": "2026-10-27T20:22:03+00:00",
+    "src_hash": "b052aea9859d",
+    "zh": "本機優先的桌面小工具，追蹤 47 種以上 AI 程式工具的 token 用量與費用"
   },
   "Johnson-Durui/Companion-Space": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -1004,6 +1004,11 @@
     "src_hash": "204cad531a74",
     "zh": "集中管理 ChatGPT、Codex CLI、Claude Code 帳號與額度，支援多模型路由與自動容錯切換"
   },
+  "eliasbiondo/antirion": {
+    "at": "2026-10-27T20:22:03+00:00",
+    "src_hash": "89fe8462ca29",
+    "zh": "號稱最快的開源 AI gateway，單一 Rust 執行檔，統一路由、管控並觀測各家 LLM 呼叫"
+  },
   "elizaOS/eliza": {
     "at": "2026-09-25T19:17:07+00:00",
     "src_hash": "d678b6f74cbf",
@@ -1100,9 +1105,9 @@
     "zh": "開源、以程式碼為主的 Python 工具組，用來建構、評測與部署 AI agent"
   },
   "google/elephant-goldfish-model": {
-    "at": "2026-10-25T18:38:34+00:00",
-    "src_hash": "dcc36b0a2386",
-    "zh": "Google 做的開源方法與 skill 組，用 LLM 做規格驅動開發"
+    "at": "2026-10-27T20:22:03+00:00",
+    "src_hash": "76dbcd94b3a3",
+    "zh": "開源 skills，用來和 AI agent 一起設計與審查軟體"
   },
   "gpustack/gpustack": {
     "at": "2026-09-09T19:22:19+00:00",
@@ -1259,6 +1264,11 @@
     "src_hash": "857fb8273720",
     "zh": "給編碼 agent 的本機影片剪輯工具，42 個 FFmpeg 工具加 MCP server，免雲端"
   },
+  "keptinventory/kept": {
+    "at": "2026-10-27T20:22:03+00:00",
+    "src_hash": "1ddca3debc8a",
+    "zh": "可自架的開源庫存工具，記錄所有物品與位置，內建 AI 助理與 MCP server"
+  },
   "kharmanskyi/open-steps": {
     "at": "2026-10-15T19:35:35+00:00",
     "src_hash": "73a118a62c72",
@@ -1273,6 +1283,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "4fd40cb6ef54",
     "zh": "即時全球情報儀表板：AI 新聞彙整、地緣政治與基礎設施監看"
+  },
+  "kris-hansen/comanda": {
+    "at": "2026-10-27T20:22:03+00:00",
+    "src_hash": "2a4028146c09",
+    "zh": "CLI 原生的 AI agent 編排器，用 YAML 跑 Claude Code、Codex、Gemini CLI"
   },
   "kuafuai/andee": {
     "at": "2026-10-24T18:28:06+00:00",
@@ -1453,6 +1468,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "2dfffa61ccd5",
     "zh": "魔搭 ModelScope Cookbook，開發者的開源模型應用實戰指南，涵蓋選型、推理、微調、RAG 與 Agent"
+  },
+  "morganlinton/BeautifulRust": {
+    "at": "2026-10-27T20:22:03+00:00",
+    "src_hash": "c02dc45d55ef",
+    "zh": "教 coding agent 寫、審查與移植慣用 Rust 的 Agent Skills，附 clippy 設定"
   },
   "mrmps/classifier-dev": {
     "at": "2026-10-24T18:28:06+00:00",
@@ -1898,6 +1918,11 @@
     "at": "2026-10-21T19:47:16+00:00",
     "src_hash": "1af54be6c363",
     "zh": "可嵌入產品的開源工作流編排框架，React 拖拉式編輯器、Temporal 持久執行、AI agent 人工核准"
+  },
+  "t3dotgg/tstack": {
+    "at": "2026-10-27T20:22:03+00:00",
+    "src_hash": "6fb49c1d73d7",
+    "zh": "作者每天在用的 agent skills，支援 Claude Code 與 Codex"
   },
   "t8y2/dbx": {
     "at": "2026-09-26T19:13:11+00:00",
