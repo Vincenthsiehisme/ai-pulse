@@ -5,7 +5,7 @@
 ## 2026-10-26
 - **[[Events/evt-2026-10-26-678c8c|ChatGPT’s expanding world of work]]** — OpenAI · research · conf 73 · heat 未量測
   OpenAI 用 Signals 資料公開 ChatGPT 的工作用途：165 項工作活動、近 100 個國家。
-- **[[Events/evt-2026-10-26-686cda|Introducing GPT-6.1 Terra]]** — OpenAI · model-capability · conf 80 · heat 未量測
+- **[[Events/evt-2026-10-26-686cda|Introducing GPT-6.1 Terra]]** — OpenAI · model-capability · conf 90 · heat 未量測
   OpenAI 發表 GPT-6.1 Terra，內容細節我們不轉述，請看原文。
 - **[[Events/evt-2026-10-26-d344a5|How Fanatics and OpenAI streamline the fan experience]]** — OpenAI · product · conf 73 · heat 未量測
   Fanatics 用 OpenAI 做「Shop the Look」，約 3 萬件 MLB 商品測試互動率高 10%。

@@ -1,41 +1,107 @@
 [
   {
-    "full_name": "BotHarness/DeepSeekBot",
-    "desc": "Open-source GrokBot alternative built on DeepSeek Harness. Build your personal bot team: multiple personal agents with persistent memory, identities and permissions, extensible through DSH plugins.｜基于 DeepSeek Harness 的开源 GrokBot 平替：有长期记忆的个人 AI Bot 团队，支持多 Bot 协作、身份权限与插件生态扩展。MIT.",
-    "language": "TypeScript",
+    "full_name": "google/elephant-goldfish-model",
+    "desc": "Open-source skills for designing and reviewing software with AI agents",
+    "language": "Python",
     "topics": [
-      "agent-memory",
-      "ai-agent",
-      "bot-marketplace",
-      "deepseek",
-      "deepseek-bot",
-      "deepseek-harness"
+      "agent-skills",
+      "ai-agents",
+      "antigravity",
+      "claude-code",
+      "claude-code-plugin",
+      "claude-skills"
     ],
-    "stars": 338,
-    "url": "https://github.com/BotHarness/DeepSeekBot",
+    "stars": 2999,
+    "url": "https://github.com/google/elephant-goldfish-model",
+    "stale_zh": "Google 做的開源方法與 skill 組，用 LLM 做規格驅動開發"
+  },
+  {
+    "full_name": "eliasbiondo/antirion",
+    "desc": "⚡ The fastest open-source AI gateway — one Rust binary with a built-in console to route, secure, budget and observe every LLM call across OpenAI, Anthropic, Gemini, Bedrock and more.",
+    "language": "Rust",
+    "topics": [
+      "a2a",
+      "ai-gateway",
+      "anthropic",
+      "api-gateway",
+      "bifrost-alternative",
+      "guardrails"
+    ],
+    "stars": 372,
+    "url": "https://github.com/eliasbiondo/antirion",
     "stale_zh": null
   },
   {
-    "full_name": "Fei2411/DS-Bot",
-    "desc": "A team of long-lived bots for DeepSeek Harness, with main bots, bot-to-bot messages and group chats.",
-    "language": "JavaScript",
-    "topics": [
-      "bot",
-      "deepseek-harness",
-      "dsh-plugin",
-      "multi-agent"
-    ],
-    "stars": 4118,
-    "url": "https://github.com/Fei2411/DS-Bot",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Alishahryar1/free-claude-code",
-    "desc": "Use Claude Code, Codex, Antigravity, VSCode, Pi, and OpenCode (and 6 other harnesses) for free (1.3B+ free tokens) from your terminal, app, IDE, or phone, and now from the browser with native browser sessions (multi-harness + multi-model) like OpenClaw (voice supported + ToS friendly)",
+    "full_name": "t3dotgg/tstack",
+    "desc": "The agent skills I use every day. Works with Claude Code and Codex.",
     "language": "Python",
     "topics": [],
-    "stars": 63734,
-    "url": "https://github.com/Alishahryar1/free-claude-code",
-    "stale_zh": "讓 Claude Code、Codex 等工具免費使用，支援終端、IDE、手機與瀏覽器"
+    "stars": 1952,
+    "url": "https://github.com/t3dotgg/tstack",
+    "stale_zh": null
+  },
+  {
+    "full_name": "keptinventory/kept",
+    "desc": "Self-hosted, open-source inventory of everything you own and where it is. AI assistant and MCP server built in.",
+    "language": "TypeScript",
+    "topics": [
+      "3d",
+      "home-inventory",
+      "homelab",
+      "inventory",
+      "inventory-management",
+      "mcp"
+    ],
+    "stars": 346,
+    "url": "https://github.com/keptinventory/kept",
+    "stale_zh": null
+  },
+  {
+    "full_name": "morganlinton/BeautifulRust",
+    "desc": "Agent Skills that teach coding agents to write, review, and port idiomatic Rust, plus a tested clippy config. Works with Claude Code, Codex, Copilot, Cursor, and Gemini CLI.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "claude-code",
+      "claude-plugin",
+      "claude-skills",
+      "clippy",
+      "code-review"
+    ],
+    "stars": 1299,
+    "url": "https://github.com/morganlinton/BeautifulRust",
+    "stale_zh": null
+  },
+  {
+    "full_name": "kris-hansen/comanda",
+    "desc": "The CLI-native orchestrator for AI agent workflows. Run Claude Code, Codex, Gemini CLI & Kimi Code from declarative YAML. Because the terminal is where real work happens.",
+    "language": "Go",
+    "topics": [
+      "agents",
+      "ai",
+      "ai-agents",
+      "anthropic",
+      "automation",
+      "claude"
+    ],
+    "stars": 331,
+    "url": "https://github.com/kris-hansen/comanda",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Javis603/token-monitor",
+    "desc": "Local-first desktop widget for tracking token usage, costs, limits, and session activity across 47+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
+    "language": "JavaScript",
+    "topics": [
+      "ai",
+      "ai-tools",
+      "antigravity",
+      "claude-code",
+      "codex",
+      "cursor"
+    ],
+    "stars": 3406,
+    "url": "https://github.com/Javis603/token-monitor",
+    "stale_zh": "本機優先的桌面小工具，追蹤 46 種以上 AI 程式工具的 token 用量、費用、額度與工作階段，支援多裝置同步"
   }
 ]

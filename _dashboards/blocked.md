@@ -1,7 +1,14 @@
-# 被門禁擋下（59）
+# 被門禁擋下（68）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-27-147ac0|Grok Bot Sales]]** — xAI — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-10-27-372f1a|Build specialized multimodal models with LFM3]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-27-6a61a0|Can we trust LLMs to judge whether a research idea is novel?]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-27-80fb0c|How Check Point accelerates vulnerability research with Daybreak]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-27-fe3f2e|OpenAI expands partnership with Oracle to bring its apps to ChatGPT]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-26-065414|Greptile takes bug detection beyond code review with GPT-6 Astra]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-26-27a6cc|Working with academic communities to build scientific understanding]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-23-599b06|LitPivot: Developing research ideas through dynamic contextualization ]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-22-2853b8|Ensemble forecasting with IBM Granite time-series models]]** — IBM — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-22-5073ac|OlmoEarth v1.3: State-of-the-art embeddings for the whole planet]]** — Ai2 — blockers: thin_research_analysis
@@ -54,6 +61,8 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-10-27-59a63a|How AI Is Changing the Pace of Discovery for Millions Living With Deme]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-27-7142ec|Genie 4: A new generation of world simulation]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
