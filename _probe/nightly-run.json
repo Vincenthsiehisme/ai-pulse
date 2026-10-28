@@ -1,141 +1,144 @@
 {
-  "date": "2026-10-27",
-  "started_at": "2026-10-27 20:20Z",
-  "finished": true,
+  "date": "2026-10-28",
+  "started_at": "2026-10-28 20:40Z",
+  "finished": false,
   "cost_prev": {
-    "date": "2026-10-26",
+    "date": "2026-10-27",
     "rows": 1,
-    "usd_equiv": 0.606528,
+    "usd_equiv": 0.819318,
     "note": null,
-    "latest": "2026-10-26"
+    "latest": "2026-10-27"
   },
   "stages": [
     {
       "id": "align-main",
       "status": "noted",
-      "note": "從 `claude/sleepy-albattani-i5s89d` 切回 `main` 並 ff 到 origin/main",
-      "at": "2026-10-27 20:20Z",
-      "full_output": "From https://github.com/Vincenthsiehisme/ai-pulse\n * branch            main       -> FETCH_HEAD\nYour branch is up to date with 'origin/main'.\nSwitched to branch 'main'\nAlready up to date.\n"
+      "note": "從 `claude/sleepy-albattani-j69x28` 切回 `main` 並 ff 到 origin/main",
+      "at": "2026-10-28 20:40Z",
+      "full_output": "From https://github.com/Vincenthsiehisme/ai-pulse\n * branch            main       -> FETCH_HEAD\n   6f00d89..9f96f1d  main       -> origin/main\nYour branch is behind 'origin/main' by 5 commits, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nSwitched to branch 'main'\nUpdating 6f00d89..9f96f1d\nFast-forward\n Actors/AMD.md                                      |    2 +-\n Actors/AWS.md                                      |    2 +-\n Actors/Ai2.md                                      |    5 +-\n Actors/Alibaba.md                                  |    2 +-\n Actors/Allen Institute for AI.md                   |    2 +-\n Actors/AllenAI.md                                  |    2 +-\n Actors/Amazon.md                                   |    2 +-\n Actors/Anthropic.md                                |    2 +-\n Actors/Anysphere.md                                |    2 +-\n Actors/Baidu.md                                    |    2 +-\n Actors/Broadcom.md                                 |    2 +-\n Actors/ByteDance.md                                |    2 +-\n Actors/Cerebras.md                                 |    2 +-\n Actors/Cognition.md                                |    2 +-\n Actors/Cohere.md                                   |    2 +-\n Actors/CoreWeave.md                                |    2 +-\n Actors/DeepSeek.md                                 |    2 +-\n Actors/Dharma-AI.md                                |    2 +-\n Actors/Firebird.md                                 |    2 +-\n Actors/Fyxer.md                                    |    2 +-\n Actors/Google DeepMind.md                          |    6 +-\n Actors/Google.md                                   |    2 +-\n Actors/Groq.md                                     |    2 +-\n Actors/H company.md                                |    2 +-\n Actors/Hugging Face.md                             |    7 +-\n Actors/IBM Research.md                             |    2 +-\n Actors/IBM.md                                      |    2 +-\n \"Actors/Ita\\303\\272.md\"                            |    2 +-\n Actors/Liquid AI.md                                |    5 +-\n Actors/LiquidAI.md                                 |    2 +-\n Actors/Meta.md                                     |    2 +-\n Actors/Microsoft.md                                |    5 +-\n Actors/MiniMax.md                                  |    2 +-\n Actors/Mistral AI.md                               |    2 +-\n Actors/Moonshot AI.md                              |    2 +-\n Actors/Multiverse Computing.md                     |    2 +-\n Actors/NTT DATA.md                                 |    2 +-\n Actors/NVIDIA.md                                   |    5 +-\n ...DIA\\343\\200\\201Google\\343\\200\\201Emerald AI.md\" |    2 +-\n Actors/Open Secure AI Alliance.md                  |    2 +-\n Actors/OpenAI.md                                   |   15 +-\n Actors/Perplexity.md                               |    2 +-\n Actors/Reflection AI.md                            |    2 +-\n Actors/Safe Superintelligence.md                   |    2 +-\n Actors/Scale AI.md                                 |    2 +-\n Actors/ServiceNow.md                               |    2 +-\n Actors/Swiss AI Initiative.md                      |    2 +-\n Actors/TSMC.md                                     |    2 +-\n Actors/Technology Innovation Institute.md          |    2 +-\n Actors/Tencent.md                                  |    2 +-\n Actors/Thinking Machines Lab.md                    |    2 +-\n Actors/Virgin Atlantic.md                          |    2 +-\n Actors/Z.ai.md                                     |    2 +-\n Actors/Zapier.md                                   |    2 +-\n Actors/vLLM.md                                     |    2 +-\n Actors/xAI.md                                      |    6 +-\n Digests/2026-10-27.md                              |   56 +\n Events/evt-2026-10-26-065414.md                    |   44 +-\n Events/evt-2026-10-26-27a6cc.md                    |   42 +-\n Events/evt-2026-10-27-061204.md                    |   78 +\n Events/evt-2026-10-27-13f226.md                    |   83 +\n Events/evt-2026-10-27-147ac0.md                    |   37 +-\n Events/evt-2026-10-27-318c45.md                    |   79 +\n Events/evt-2026-10-27-372f1a.md                    |   42 +-\n Events/evt-2026-10-27-59a63a.md                    |   40 +-\n Events/evt-2026-10-27-6a61a0.md                    |   39 +-\n Events/evt-2026-10-27-7142ec.md                    |   42 +-\n Events/evt-2026-10-27-80fb0c.md                    |   41 +-\n Events/evt-2026-10-27-fe3f2e.md                    |   43 +-\n Events/evt-2026-10-28-521bbb.md                    |   91 +\n Events/evt-2026-10-28-603cba.md                    |   78 +\n Events/evt-2026-10-28-63d59c.md                    |   82 +\n Events/evt-2026-10-28-ebc366.md                    |   85 +\n Events/evt-2026-10-28-f7c4df.md                    |   81 +\n Events/evt-2026-10-28-fa1a68.md                    |  101 +\n Sources/src-anthropic-news.md                      |   10 +-\n Sources/src-deepmind-blog.md                       |   14 +-\n Sources/src-gh-openai-codex.md                     |    2 +-\n Sources/src-gh-vllm-releases.md                    |    2 +-\n Sources/src-hf-blog.md                             |   14 +-\n Sources/src-hn-frontpage.md                        |   14 +-\n Sources/src-kol-interconnects.md                   |    6 +-\n Sources/src-kol-karpathy.md                        |    2 +-\n Sources/src-kol-oneusefulthing.md                  |    2 +-\n Sources/src-kol-raschka.md                         |    2 +-\n Sources/src-kol-simonwillison.md                   |    6 +-\n Sources/src-media-arstechnica.md                   |   10 +-\n Sources/src-media-ieee-spectrum.md                 |    6 +-\n Sources/src-media-mit-techreview.md                |    6 +-\n Sources/src-media-techcrunch.md                    |    6 +-\n Sources/src-media-theverge.md                      |   10 +-\n Sources/src-meta-research.md                       |    2 +-\n Sources/src-msr-blog.md                            |    2 +-\n Sources/src-nvidia-blog.md                         |   10 +-\n Sources/src-openai-blog.md                         |   14 +-\n Sources/src-xai-news.md                            |    6 +-\n ...273\\237\\351\\253\\224\\351\\207\\215\\346\\247\\213.md\" |    6 +-\n \"Tracks/_\\346\\234\\252\\346\\255\\270\\351\\241\\236.md\"  |   27 +-\n ...211\\265\\346\\226\\260\\347\\211\\210\\345\\234\\226.md\" |    5 +-\n ...226\\275\\350\\210\\207\\346\\210\\220\\346\\234\\254.md\" |    2 +-\n ...212\\233\\350\\210\\207\\347\\240\\224\\347\\251\\266.md\" |    8 +-\n ...225\\206\\346\\245\\255\\351\\251\\227\\350\\255\\211.md\" |    6 +-\n ...205\\254\\345\\217\\270\\346\\274\\224\\345\\214\\226.md\" |    2 +-\n _config/narratives.yaml                            |   14 +-\n _corpus/2026-10-28/src-anthropic-news.jsonl        |   40 +\n _corpus/2026-10-28/src-deepmind-blog.jsonl         |   30 +\n _corpus/2026-10-28/src-gh-vllm-releases.jsonl      |   20 +\n _corpus/2026-10-28/src-hf-blog.jsonl               |   20 +\n _corpus/2026-10-28/src-hn-frontpage.jsonl          |   30 +\n _corpus/2026-10-28/src-kol-interconnects.jsonl     |   20 +\n _corpus/2026-10-28/src-kol-karpathy.jsonl          |   10 +\n _corpus/2026-10-28/src-kol-oneusefulthing.jsonl    |   20 +\n _corpus/2026-10-28/src-kol-raschka.jsonl           |   20 +\n _corpus/2026-10-28/src-kol-simonwillison.jsonl     |   20 +\n _corpus/2026-10-28/src-media-arstechnica.jsonl     |   20 +\n _corpus/2026-10-28/src-media-ieee-spectrum.jsonl   |   20 +\n _corpus/2026-10-28/src-media-mit-techreview.jsonl  |   10 +\n _corpus/2026-10-28/src-media-techcrunch.jsonl      |   20 +\n _corpus/2026-10-28/src-media-theverge.jsonl        |   10 +\n _corpus/2026-10-28/src-meta-research.jsonl         |   10 +\n _corpus/2026-10-28/src-msr-blog.jsonl              |   10 +\n _corpus/2026-10-28/src-nvidia-blog.jsonl           |   18 +\n _corpus/2026-10-28/src-openai-blog.jsonl           |   50 +\n _corpus/2026-10-28/src-xai-news.jsonl              |   40 +\n _dashboards/backlog-status.md                      |   14 +-\n _dashboards/blocked.md                             |   22 +-\n _dashboards/coverage-gap.md                        |    2 +-\n _dashboards/dictionary-gaps.md                     |   56 +-\n _dashboards/digests.md                             |    8 +-\n _dashboards/health.md                              |   90 +-\n _dashboards/published.md                           |   18 +-\n _dashboards/signal-review.md                       |   39 +-\n _github/board.json                                 | 4767 ++++++++++----------\n _github/desc-coverage.json                         |   10 +-\n _github/desc-zh.json                               |   37 +-\n _github/state.json                                 | 3088 ++++++-------\n _probe/2026-10-28/report.md                        |  187 +\n _probe/2026-10-28/signals-scored.jsonl             |  363 ++\n _probe/coverage-gap.json                           |    2 +-\n _probe/digest-apply-last.json                      |    6 +-\n _probe/digest-worklist.json                        | 1499 +++---\n _probe/enrich-worklist.json                        |  237 +-\n _probe/github-desc-worklist.json                   |  142 +-\n _probe/narrative-history.jsonl                     |    6 +\n _probe/narrative-signatures.json                   |    6 +-\n _probe/narrative-state.json                        |    6 +-\n _probe/narrative-worklist.json                     |   77 +-\n _probe/nightly-cost.jsonl                          |    1 +\n _probe/nightly-run.json                            |  100 +-\n _probe/seen.json                                   |   75 +-\n _probe/source-health.json                          |  248 +-\n _probe/source-runs.jsonl                           |    1 +\n _probe/state.json                                  |   60 +-\n _probe/title-zh-worklist.json                      |   46 +-\n 154 files changed, 7862 insertions(+), 5339 deletions(-)\n create mode 100644 Digests/2026-10-27.md\n create mode 100644 Events/evt-2026-10-27-061204.md\n create mode 100644 Events/evt-2026-10-27-13f226.md\n create mode 100644 Events/evt-2026-10-27-318c45.md\n create mode 100644 Events/evt-2026-10-28-521bbb.md\n create mode 100644 Events/evt-2026-10-28-603cba.md\n create mode 100644 Events/evt-2026-10-28-63d59c.md\n create mode 100644 Events/evt-2026-10-28-ebc366.md\n create mode 100644 Events/evt-2026-10-28-f7c4df.md\n create mode 100644 Events/evt-2026-10-28-fa1a68.md\n create mode 100644 _corpus/2026-10-28/src-anthropic-news.jsonl\n create mode 100644 _corpus/2026-10-28/src-deepmind-blog.jsonl\n create mode 100644 _corpus/2026-10-28/src-gh-vllm-releases.jsonl\n create mode 100644 _corpus/2026-10-28/src-hf-blog.jsonl\n create mode 100644 _corpus/2026-10-28/src-hn-frontpage.jsonl\n create mode 100644 _corpus/2026-10-28/src-kol-interconnects.jsonl\n create mode 100644 _corpus/2026-10-28/src-kol-karpathy.jsonl\n create mode 100644 _corpus/2026-10-28/src-kol-oneusefulthing.jsonl\n create mode 100644 _corpus/2026-10-28/src-kol-raschka.jsonl\n create mode 100644 _corpus/2026-10-28/src-kol-simonwillison.jsonl\n create mode 100644 _corpus/2026-10-28/src-media-arstechnica.jsonl\n create mode 100644 _corpus/2026-10-28/src-media-ieee-spectrum.jsonl\n create mode 100644 _corpus/2026-10-28/src-media-mit-techreview.jsonl\n create mode 100644 _corpus/2026-10-28/src-media-techcrunch.jsonl\n create mode 100644 _corpus/2026-10-28/src-media-theverge.jsonl\n create mode 100644 _corpus/2026-10-28/src-meta-research.jsonl\n create mode 100644 _corpus/2026-10-28/src-msr-blog.jsonl\n create mode 100644 _corpus/2026-10-28/src-nvidia-blog.jsonl\n create mode 100644 _corpus/2026-10-28/src-openai-blog.jsonl\n create mode 100644 _corpus/2026-10-28/src-xai-news.jsonl\n create mode 100644 _probe/2026-10-28/report.md\n create mode 100644 _probe/2026-10-28/signals-scored.jsonl\n"
     },
     {
       "id": "precheck",
       "status": "ok",
-      "note": "今日 probe 已就緒（_probe/2026-10-27/report.md）",
-      "at": "2026-10-27 20:20Z"
+      "note": "今日 probe 已就緒（_probe/2026-10-28/report.md）",
+      "at": "2026-10-28 20:40Z"
     },
     {
       "id": "enrich-prep",
       "status": "ok",
-      "note": "pulse-enrich-prep  待 enrich=9  已 enrich 跳過=59",
-      "at": "2026-10-27 20:20Z"
+      "note": "pulse-enrich-prep  待 enrich=9  已 enrich 跳過=61",
+      "at": "2026-10-28 20:40Z"
     },
     {
       "id": "enrich-write",
       "status": "ok",
       "note": "收到 enrich-result.json（9 筆，清單 9 筆）",
-      "at": "2026-10-27 20:21Z",
+      "at": "2026-10-28 20:41Z",
       "worklist": {
         "path": "_probe/enrich-worklist.json",
         "count": 9,
-        "mtime": 1793132426
+        "mtime": 1793220039
       }
     },
     {
       "id": "enrich-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-10-27 20:21Z"
+      "at": "2026-10-28 20:41Z"
     },
     {
       "id": "gate",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-10-27 20:21Z"
+      "at": "2026-10-28 20:41Z"
     },
     {
       "id": "dashboard",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-10-27 20:21Z"
+      "at": "2026-10-28 20:41Z"
     },
     {
       "id": "digest-prep",
       "status": "ok",
-      "note": "pulse-digest-prep  2026-10-27  mode=normal  素材=7 則  配對=21 組",
-      "at": "2026-10-27 20:21Z"
+      "note": "pulse-digest-prep  2026-10-28  mode=normal  素材=8 則  配對=28 組",
+      "at": "2026-10-28 20:41Z"
     },
     {
       "id": "digest-write",
       "status": "ok",
-      "note": "收到 digest.json（素材 7 則）",
-      "at": "2026-10-27 20:21Z",
+      "note": "收到 digest.json（素材 8 則）",
+      "at": "2026-10-28 20:42Z",
       "worklist": {
         "path": "_probe/digest-worklist.json",
-        "count": 7,
-        "mtime": 1793132470
+        "count": 8,
+        "mtime": 1793220102
       }
     },
     {
       "id": "digest-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-10-27 20:21Z"
+      "at": "2026-10-28 20:42Z"
     },
     {
       "id": "digest-gate",
       "status": "ok",
-      "note": "pulse-digest-gate  draft=70  reviewed=0  rejected=0  共 70 份  → _dashboards/digests.md",
-      "at": "2026-10-27 20:21Z"
+      "note": "pulse-digest-gate  draft=71  reviewed=0  rejected=0  共 71 份  → _dashboards/digests.md",
+      "at": "2026-10-28 20:42Z"
     },
     {
       "id": "narrative-prep",
       "status": "ok",
-      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=3",
-      "at": "2026-10-27 20:21Z"
+      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=4",
+      "at": "2026-10-28 20:42Z"
     },
     {
       "id": "narrative-write",
       "status": "ok",
-      "note": "收到 narrative-result.json（3 筆，清單 3 筆）",
-      "at": "2026-10-27 20:21Z",
+      "note": "收到 narrative-result.json（4 筆，清單 4 筆）",
+      "at": "2026-10-28 20:42Z",
       "worklist": {
         "path": "_probe/narrative-worklist.json",
-        "count": 3,
-        "mtime": 1793132494
+        "count": 4,
+        "mtime": 1793220133
       }
     },
     {
       "id": "narrative-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-10-27 20:21Z"
+      "at": "2026-10-28 20:42Z"
     },
     {
       "id": "github-desc-write",
       "status": "ok",
-      "note": "收到 github-desc-result.json（7 筆，清單 7 筆）",
-      "at": "2026-10-27 20:22Z",
+      "note": "收到 github-desc-result.json（8 筆，清單 8 筆）｜dry-run 退件（rc=1）後退回重寫過 1 次",
+      "at": "2026-10-28 20:42Z",
       "worklist": {
         "path": "_probe/github-desc-worklist.json",
-        "count": 7,
-        "mtime": 1793132412
-      }
+        "count": 8,
+        "mtime": 1793220025
+      },
+      "bounces": 1,
+      "bounce_rc": 1
     },
     {
       "id": "github-desc-apply",
-      "status": "ok",
-      "note": "過關 7／退件 0；榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）",
-      "at": "2026-10-27 20:22Z"
+      "status": "noted",
+      "note": "過關 6／退件 2；榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）",
+      "at": "2026-10-28 20:42Z",
+      "full_output": "pulse-github-desc-apply  收到 8 條譯文\n\n  [新增] Nutlope/hallmark\n         「給 Claude Code、Cursor、Codex 用的設計 skill，專門對付 AI 味的粗糙設計」\n  [新增] pullboard-dev/pullboard\n         「自主開發框架：agent 依你核准的規格開發、遵守你訂的規則，要另一個 agent 驗證過才能合併」\n  [重譯] eliasbiondo/antirion\n         「號稱最快的開源 AI Gateway，單一執行檔內建主控台，可路由、保護、控管預算並觀測各家 LLM 呼叫」\n  [新增] Pal-AI-Lab/Cortico\n         「事件流式的 AI Agent 框架，用來做你自己的人格聊天機器人」\n  [退件] cbrock84/headcount\n         超過 60 字（榜是一行字的版面）\n         「把 agent 組成一間公司：15+ 部門、125+ skill，可單獨安裝，支援 Claude Code 與 ChatGPT」\n  [新增] Graphicle-AI/graphicle\n         「給 coding agent 的程式碼圖譜與記憶，單一 Rust 程式，支援 MCP client」\n  [退件] peonist-ai/halogen-flash-server\n         超過 60 字（榜是一行字的版面）\n         「AMD Strix Halo 本機推論：跑 Qwen3.8-Flash-Next，單埠提供 OpenAI 與 Anthropic API」\n  [新增] Vincentwei1021/video-talkcraft\n         「讓 Claude Code / Codex 做配音驅動動態解說影片的 skill，用 Remotion 渲染」\n\n  過關 6／退件 2；榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）\n  退件的不會靜靜消失——下次 prep 會原樣排回待譯清單。\n  已寫入 _github/desc-zh.json。榜讀不到，不生一份假的 dist/data/github.json——真正生效是下一班 Actions 從 desc-zh.json 掛回去。\n[note] 讀不到 dist/data/github.json（它不進版控），改用 _probe/github-desc-worklist.json 的原文比對。這是潤稿端的正常路徑，不是錯誤。\n"
     },
     {
       "id": "title-write",
       "status": "ok",
       "note": "收到 title-zh-result.json（10 筆，清單 10 筆）｜dry-run 退件（rc=1）後退回重寫過 1 次",
-      "at": "2026-10-27 20:22Z",
+      "at": "2026-10-28 20:43Z",
       "worklist": {
         "path": "_probe/title-zh-worklist.json",
         "count": 10,
-        "mtime": 1793132412
+        "mtime": 1793220025
       },
       "bounces": 1,
       "bounce_rc": 1
@@ -143,29 +146,16 @@
     {
       "id": "title-apply",
       "status": "noted",
-      "note": "寫入 9 則，退件 1 則（原樣保留 1 則）",
-      "at": "2026-10-27 20:22Z",
-      "full_output": "pulse-title-apply  收到 10 條譯文\n\n  [退件] evt-2026-10-16-921b99\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「Stack Overflow for Agents 靠 ChatGPT 外掛註冊數成長三倍」\n  [新增] evt-2026-10-26-065414\n         「Greptile 用 GPT-6 Astra 把 bug 偵測推到程式碼審查之外」\n         原文：Greptile takes bug detection beyond code review with GPT-6 Astra\n  [新增] evt-2026-10-26-27a6cc\n         「與學術社群合作，建立對科學的理解」\n         原文：Working with academic communities to build scientific understanding\n  [原樣保留] evt-2026-10-27-147ac0\n         「Grok Bot Sales」\n         原文：Grok Bot Sales\n  [新增] evt-2026-10-27-372f1a\n         「用 LFM3 建立特化的多模態模型」\n         原文：Build specialized multimodal models with LFM3\n  [新增] evt-2026-10-27-59a63a\n         「AI 如何加快數百萬失智症患者相關研究的進展」\n         原文：How AI Is Changing the Pace of Discovery for Millions Living With Dementia\n  [新增] evt-2026-10-27-6a61a0\n         「我們能信任 LLM 來判斷研究構想是否新穎嗎？」\n         原文：Can we trust LLMs to judge whether a research idea is novel?\n  [新增] evt-2026-10-27-7142ec\n         「Genie 4：新一代世界模擬」\n         原文：Genie 4: A new generation of world simulation\n  [新增] evt-2026-10-27-80fb0c\n         「Check Point 如何用 Daybreak 加快漏洞研究」\n         原文：How Check Point accelerates vulnerability research with Daybreak\n  [新增] evt-2026-10-27-fe3f2e\n         「OpenAI 擴大與 Oracle 合作，Oracle 應用進 ChatGPT」\n         原文：OpenAI expands partnership with Oracle to bring its apps to ChatGPT\n\n  寫入 9 則，退件 1 則（原樣保留 1 則）\n"
+      "note": "寫入 8 則，退件 2 則（原樣保留 1 則）",
+      "at": "2026-10-28 20:43Z",
+      "full_output": "pulse-title-apply  收到 10 條譯文\n\n  [退件] evt-2026-10-16-921b99\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「Stack Overflow for Agents 靠 ChatGPT 外掛註冊數三倍」\n  [原樣保留] evt-2026-10-27-061204\n         「s1 Sec」\n         原文：s1 Sec\n  [新增] evt-2026-10-27-13f226\n         「Retell 用 OpenAI 模型支撐每月 1 億通通話」\n         原文：Retell uses OpenAI models to help power 100M monthly calls\n  [新增] evt-2026-10-27-318c45\n         「擴大與 GSA 的合作（Expanding Partnership Gsa）」\n         原文：Expanding Partnership Gsa\n  [退件] evt-2026-10-28-521bbb\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「NVIDIA Nemotron 3.5 Transcribe 與 Granary v2 多語轉錄」\n  [新增] evt-2026-10-28-603cba\n         「企業的未來」\n         原文：The future of the firm\n  [新增] evt-2026-10-28-63d59c\n         「Legora 建構法務工作的代理式作業系統」\n         原文：Legora is building the agentic operating system for legal work\n  [新增] evt-2026-10-28-ebc366\n         「NVIDIA RTX Spark Windows 筆電新增模型、代理工具與遊戲」\n         原文：Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games\n  [新增] evt-2026-10-28-f7c4df\n         「OpenAI 與 ServiceNow 擴大企業工作流程合作」\n         原文：OpenAI and ServiceNow expand partnership across enterprise workflows\n  [新增] evt-2026-10-28-fa1a68\n         「Gemini 4 Carbon：Google 的下一代前沿模型」\n         原文：Gemini 4 Carbon: Our next frontier model\n\n  寫入 8 則，退件 2 則（原樣保留 1 則）\n"
     },
     {
       "id": "render",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-10-27 20:22Z"
-    },
-    {
-      "id": "commit",
-      "status": "ok",
-      "note": "commit 71834af 已推上 origin",
-      "at": "2026-10-27 20:22Z"
-    },
-    {
-      "id": "monitor",
-      "status": "ok",
-      "note": "rc=0",
-      "at": "2026-10-27 20:22Z",
-      "full_output": "pulse-monitor  2026-10-27\n  最後一次 probe: 2026-10-27（0 天前）\n  已上線=527  review=61（待處理=46／設計上擋著=15）  未 enrich=0  待處理最久=89 天（進庫天數）\n  人工判定不追=2（理由見 _dashboards/dropped.md）\n  沒收的修碼分支：0 支\n  每日精選：最後一篇 2026-10-27（0 天前）\n  潤稿鏈缺日：**量不到**——這是淺 checkout（`fetch-depth: 1`），看不到 commit 歷史。`data-refresh.yml` 要設 `fetch-depth: 0`\n  每日精選缺日：窗內 1 天沒有缺口\n  夜班成本（API 等價，帳本從 2026-10-01 起）\n    近 7 天 USD 5.5617｜有金額 7 天、量不到 0 天（null 0 行）、沒有帳本行 0 天\n    近 30 天 USD 20.4769｜有金額 26 天、量不到 0 天（null 0 行）、沒有帳本行 0 天\n  ── blocker 分佈 ──\n     39  thin_research_analysis\n     11  stale_backfill\n      7  generic_entity\n      4  thin_by_policy\n      1  thin_fact\n  ── 待處理卡最久的 5 則 ──\n    [89d/已enrich] Gemini Robotics 2 brings whole body intelligence to robots\n           thin_research_analysis\n    [89d/已enrich] GPU Management: Why Idle GPUs Are the New Grounded Aircraft\n           generic_entity\n    [88d/已enrich] Investigating Incidents Cybersecurity Evals\n           thin_research_analysis\n    [87d/已enrich] Ten advances in mathematics and theoretical computer science\n           thin_fact,thin_research_analysis\n    [77d/已enrich] Thinking of ACE? We Can Do It with Fewer Tokens\n           thin_research_analysis\n  ── 覆蓋範圍（近 30 天，實有語料 31 天）──\n     必盯實體                 來源   看見   事件   上線  最後看見\n     OpenAI                2 1305   63   61  0d 前\n     Anthropic             1  635   25   23  0d 前\n     Google DeepMind       1  116    7    6  0d 前\n     Google                1  389    9    8  0d 前\n     Meta                  1  280    1    1  0d 前\n     Microsoft             1  246    4    2  0d 前\n     NVIDIA                1  600   44   40  0d 前\n     Hugging Face          1  154    8    7  0d 前\n     xAI                   1    1    3    3  27d 前\n     Mistral AI            1   17    0    0  8d 前\n     Alibaba               1    8    0    0  0d 前\n     DeepSeek              0  291    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Safe Superintelligence    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Thinking Machines Lab    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cohere                0   21    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Perplexity            0    9    0    0  22d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Anysphere (Cursor)    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cognition             0    8    0    0  23d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Scale AI              0  317    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Z.ai                  0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Moonshot AI           0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     MiniMax               0   63    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     ByteDance             0   18    0    0  19d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Baidu                 0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Tencent               0    2    0    0  19d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AMD                   1   49    0    0  0d 前\n     TSMC                  0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Broadcom              0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Groq                  0    1    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cerebras              0    4    0    0  2d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     CoreWeave             0   15    1    1  13d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AWS                   0   19    1    1  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     可跑來源 28 條，其中 7 條本窗口零產出：src-amd-ir, src-gh-openai-codex, src-kol-thezvi, src-media-theregister, src-media-venturebeat, src-mistral-news, src-qwen-blog\n     ⚠ 來源已死但每班照樣有貨 2 條：src-kol-karpathy（最新 2026-04-30，落後 180 天，門檻 60）、src-meta-research（最新 2023-05-17，落後 1259 天，門檻 30）\n     最新一筆 published 量不到：無\n"
+      "at": "2026-10-28 20:43Z"
     }
   ],
-  "updated_at": "2026-10-27 20:22Z"
+  "updated_at": "2026-10-28 20:43Z"
 }

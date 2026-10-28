@@ -1,10 +1,28 @@
-# 已發布事件（527）
+# 已發布事件（535）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-10-28
+- **[[Events/evt-2026-10-28-521bbb|NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt]]** — NVIDIA · model-capability · conf 80 · heat 未量測
+  NVIDIA 在 Hugging Face 發了 Nemotron 3.5 Transcribe 與 Granary v2，內文我們未取用。
+- **[[Events/evt-2026-10-28-63d59c|Legora is building the agentic operating system for legal work]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 案例稿：法律科技公司 Legora 用 OpenAI 模型、ChatGPT 與 Codex 加速法務流程。
+- **[[Events/evt-2026-10-28-ebc366|Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 說 RTX Spark 輕薄筆電已由六家品牌上市，並加入新模型、代理工具與遊戲。
+- **[[Events/evt-2026-10-28-f7c4df|OpenAI and ServiceNow expand partnership across enterprise workflows]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 與 ServiceNow 擴大合作：OpenAI 模型與代理進 ServiceNow，ServiceNow 流程進 ChatGPT 與 Codex。
+- **[[Events/evt-2026-10-28-fa1a68|Gemini 4 Carbon: Our next frontier model]]** — Google DeepMind · model-capability · conf 94 · heat 未量測
+  Google 發表 Gemini 4 Carbon，The Verge 說它在 Artificial Analysis 指數排第一，Ars 說外界還用不到。
+
 ## 2026-10-27
+- **[[Events/evt-2026-10-27-061204|s1 Sec]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發了一篇標題為「s1 Sec」的新聞稿，內文我們未取用，請看原文。
+- **[[Events/evt-2026-10-27-13f226|Retell uses OpenAI models to help power 100M monthly calls]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 案例稿：語音代理公司 Retell 用 OpenAI 模型撐起每月 1 億通電話。
 - **[[Events/evt-2026-10-27-147ac0|Grok Bot Sales]]** — xAI · product · conf 73 · heat 未量測
   xAI 發布 Grok Bot Sales 頁面，站方禁止 AI 讀取內容，本站不轉述，原文見連結。
+- **[[Events/evt-2026-10-27-318c45|Expanding Partnership Gsa]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發了一篇「Expanding Partnership Gsa」，內文我們未取用，請看原文。
 - **[[Events/evt-2026-10-27-372f1a|Build specialized multimodal models with LFM3]]** — Liquid AI · model-capability · conf 73 · heat 未量測
   Liquid AI 在 Hugging Face 發文介紹 LFM3，主打打造特化的多模態模型。
 - **[[Events/evt-2026-10-27-7142ec|Genie 4: A new generation of world simulation]]** — Google DeepMind · model-capability · conf 80 · heat 未量測

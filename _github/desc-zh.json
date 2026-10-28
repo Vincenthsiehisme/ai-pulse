@@ -209,6 +209,11 @@
     "src_hash": "361156a8b5a7",
     "zh": "幫 Claude Code 等 agent 配記憶、技能、Organic-Driven Dev，開源不綁工具"
   },
+  "Graphicle-AI/graphicle": {
+    "at": "2026-10-28T20:42:53+00:00",
+    "src_hash": "b6938989b3b8",
+    "zh": "給 coding agent 的程式碼圖譜與記憶，單一 Rust 程式，支援 MCP client"
+  },
   "Graphify-Labs/graphify": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "8e48530c1c58",
@@ -449,6 +454,11 @@
     "src_hash": "6eb4d1ab3a37",
     "zh": "會跟著你一起成長的 agent"
   },
+  "Nutlope/hallmark": {
+    "at": "2026-10-28T20:42:53+00:00",
+    "src_hash": "f0a2c9e42558",
+    "zh": "給 Claude Code、Cursor、Codex 用的設計 skill，專門對付 AI 味的粗糙設計"
+  },
   "Oldcircle/geo-sleuth": {
     "at": "2026-10-08T20:58:31+00:00",
     "src_hash": "972f7fe0693e",
@@ -483,6 +493,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "1ff6b0367f24",
     "zh": "把 PDF 或圖片文件轉成給 AI 用的結構化資料，輕量的 OCR 工具包，支援 100 多種語言"
+  },
+  "Pal-AI-Lab/Cortico": {
+    "at": "2026-10-28T20:42:53+00:00",
+    "src_hash": "1bca65d23591",
+    "zh": "事件流式的 AI Agent 框架，用來做你自己的人格聊天機器人"
   },
   "Pan-Chera/Multi-Agent-CAD": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -598,6 +613,11 @@
     "at": "2026-10-19T20:49:33+00:00",
     "src_hash": "b2ae99790e76",
     "zh": "15 種動態設計風格，每種由 Claude Opus 5.5 依一個 prompt 寫程式產生，可看影片與原始碼"
+  },
+  "Vincentwei1021/video-talkcraft": {
+    "at": "2026-10-28T20:42:53+00:00",
+    "src_hash": "9e0b2cac578f",
+    "zh": "讓 Claude Code / Codex 做配音驅動動態解說影片的 skill，用 Remotion 渲染"
   },
   "VoltAgent/official-mcp-servers": {
     "at": "2026-10-14T19:51:47+00:00",
@@ -1005,9 +1025,9 @@
     "zh": "集中管理 ChatGPT、Codex CLI、Claude Code 帳號與額度，支援多模型路由與自動容錯切換"
   },
   "eliasbiondo/antirion": {
-    "at": "2026-10-27T20:22:03+00:00",
-    "src_hash": "89fe8462ca29",
-    "zh": "號稱最快的開源 AI gateway，單一 Rust 執行檔，統一路由、管控並觀測各家 LLM 呼叫"
+    "at": "2026-10-28T20:42:53+00:00",
+    "src_hash": "7d36d806b9fb",
+    "zh": "號稱最快的開源 AI Gateway，單一執行檔內建主控台，可路由、保護、控管預算並觀測各家 LLM 呼叫"
   },
   "elizaOS/eliza": {
     "at": "2026-09-25T19:17:07+00:00",
@@ -1708,6 +1728,11 @@
     "at": "2026-10-22T19:40:44+00:00",
     "src_hash": "0512ee2c4713",
     "zh": "測試 prompt、agent 與 RAG，也做 AI 的紅隊與漏洞掃描，可跨模型比較，支援 CLI 與 CI/CD"
+  },
+  "pullboard-dev/pullboard": {
+    "at": "2026-10-28T20:42:53+00:00",
+    "src_hash": "a4829570746f",
+    "zh": "自主開發框架：agent 依你核准的規格開發、遵守你訂的規則，要另一個 agent 驗證過才能合併"
   },
   "pydantic/pydantic-ai": {
     "at": "2026-10-01T20:41:09+00:00",
