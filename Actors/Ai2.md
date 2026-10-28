@@ -3,7 +3,7 @@ id: actor-ai2
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-10-27'
+generated_day: '2026-10-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -12,10 +12,11 @@ tags: [actor, company]
 
 > ⚠ **字典裡沒有這家公司。** 它是從 Event 的 `company` 欄位冒出來的，代表 `_config/entities.yaml` 少收了一條——或者 `infer_company()` 推錯了。兩種都要人看一眼。
 
-事件 **7** 則：`published` 4、`review` 3
+事件 **8** 則：`published` 4、`review` 4
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-27 | [[Events/evt-2026-10-27-6a61a0\|Can we trust LLMs to judge whether a research idea is novel?]] | review |
 | 2026-10-23 | [[Events/evt-2026-10-23-599b06\|LitPivot: Developing research ideas through dynamic contextualization within the literature landscape]] | review |
 | 2026-10-22 | [[Events/evt-2026-10-22-5073ac\|OlmoEarth v1.3: State-of-the-art embeddings for the whole planet]] | review |
 | 2026-10-20 | [[Events/evt-2026-10-20-46b233\|FairStress: A deeper evaluation of fairness in LLM decision-making]] | review |

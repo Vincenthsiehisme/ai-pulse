@@ -3,25 +3,28 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-27'
+generated_day: '2026-10-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **182** 則：`published` 173、`review` 9
+事件 **185** 則：`published` 177、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-27 | [[Events/evt-2026-10-27-fe3f2e\|OpenAI expands partnership with Oracle to bring its apps to ChatGPT]] | review |
-| 2026-10-27 | [[Events/evt-2026-10-27-80fb0c\|How Check Point accelerates vulnerability research with Daybreak]] | review |
+| 2026-10-28 | [[Events/evt-2026-10-28-f7c4df\|OpenAI and ServiceNow expand partnership across enterprise workflows]] | review |
+| 2026-10-28 | [[Events/evt-2026-10-28-63d59c\|Legora is building the agentic operating system for legal work]] | review |
+| 2026-10-27 | [[Events/evt-2026-10-27-fe3f2e\|OpenAI expands partnership with Oracle to bring its apps to ChatGPT]] | published |
+| 2026-10-27 | [[Events/evt-2026-10-27-80fb0c\|How Check Point accelerates vulnerability research with Daybreak]] | published |
+| 2026-10-27 | [[Events/evt-2026-10-27-13f226\|Retell uses OpenAI models to help power 100M monthly calls]] | review |
 | 2026-10-26 | [[Events/evt-2026-10-26-ea4611\|How Ultrafast cut incident investigation from hours to minutes at OpenAI]] | published |
 | 2026-10-26 | [[Events/evt-2026-10-26-d344a5\|How Fanatics and OpenAI streamline the fan experience]] | published |
 | 2026-10-26 | [[Events/evt-2026-10-26-686cda\|Introducing GPT-6.1 Terra]] | published |
 | 2026-10-26 | [[Events/evt-2026-10-26-678c8c\|ChatGPT’s expanding world of work]] | published |
-| 2026-10-26 | [[Events/evt-2026-10-26-27a6cc\|Working with academic communities to build scientific understanding]] | review |
-| 2026-10-26 | [[Events/evt-2026-10-26-065414\|Greptile takes bug detection beyond code review with GPT-6 Astra]] | review |
+| 2026-10-26 | [[Events/evt-2026-10-26-27a6cc\|Working with academic communities to build scientific understanding]] | published |
+| 2026-10-26 | [[Events/evt-2026-10-26-065414\|Greptile takes bug detection beyond code review with GPT-6 Astra]] | published |
 | 2026-10-23 | [[Events/evt-2026-10-23-f254b4\|Securing our frontier model training environment]] | published |
 | 2026-10-23 | [[Events/evt-2026-10-23-993840\|Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)]] | published |
 | 2026-10-23 | [[Events/evt-2026-10-23-439d7e\|OpenAI and Poland’s NASK partner to advance AI safety and security]] | published |

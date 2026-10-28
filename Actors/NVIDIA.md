@@ -3,17 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-27'
+generated_day: '2026-10-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **111** 則：`dropped` 1、`published` 104、`review` 6
+事件 **112** 則：`dropped` 1、`published` 104、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-27 | [[Events/evt-2026-10-27-59a63a\|How AI Is Changing the Pace of Discovery for Millions Living With Dementia]] | review |
 | 2026-10-23 | [[Events/evt-2026-10-23-4e180a\|Kazakhstan Expands Compute for Its AI Future]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-9fce05\|How Companies Are Using NVIDIA DSX to Break the Power Bottleneck]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-7d0754\|Cloud Deployment Incoming: ‘Call of Duty: Modern Warfare 4’ Arrives on GeForce NOW]] | published |

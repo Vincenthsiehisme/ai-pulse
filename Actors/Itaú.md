@@ -3,7 +3,7 @@ id: actor-itaú
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-10-27'
+generated_day: '2026-10-28'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

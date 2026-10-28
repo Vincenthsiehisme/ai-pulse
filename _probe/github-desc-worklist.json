@@ -1,23 +1,32 @@
 [
   {
-    "full_name": "google/elephant-goldfish-model",
-    "desc": "Open-source skills for designing and reviewing software with AI agents",
-    "language": "Python",
+    "full_name": "Nutlope/hallmark",
+    "desc": "Anti-AI-slop design skill for Claude Code, Cursor, and Codex.",
+    "language": "CSS",
+    "topics": [],
+    "stars": 40535,
+    "url": "https://github.com/Nutlope/hallmark",
+    "stale_zh": null
+  },
+  {
+    "full_name": "pullboard-dev/pullboard",
+    "desc": "Autonomous development for real products. Governed agents build from specs you approve, follow the rules you set, and nothing merges until another agent proves it. Your decisions, judgement and taste are the bar that work must clear. Declare your vision and let agents build it.",
+    "language": "JavaScript",
     "topics": [
-      "agent-skills",
+      "agent-orchestration",
+      "agentic-coding",
       "ai-agents",
-      "antigravity",
-      "claude-code",
-      "claude-code-plugin",
-      "claude-skills"
+      "ai-governance",
+      "autonomous-agents",
+      "claude-code"
     ],
-    "stars": 2999,
-    "url": "https://github.com/google/elephant-goldfish-model",
-    "stale_zh": "Google 做的開源方法與 skill 組，用 LLM 做規格驅動開發"
+    "stars": 419,
+    "url": "https://github.com/pullboard-dev/pullboard",
+    "stale_zh": null
   },
   {
     "full_name": "eliasbiondo/antirion",
-    "desc": "⚡ The fastest open-source AI gateway — one Rust binary with a built-in console to route, secure, budget and observe every LLM call across OpenAI, Anthropic, Gemini, Bedrock and more.",
+    "desc": "⚡ The fastest open-source AI Gateway and LLM Gateway — one binary with built-in console to route, secure, budget and observe every LLM call across OpenAI, Anthropic, Gemini, Bedrock and more.",
     "language": "Rust",
     "topics": [
       "a2a",
@@ -27,81 +36,88 @@
       "bifrost-alternative",
       "guardrails"
     ],
-    "stars": 372,
+    "stars": 407,
     "url": "https://github.com/eliasbiondo/antirion",
-    "stale_zh": null
+    "stale_zh": "號稱最快的開源 AI gateway，單一 Rust 執行檔，統一路由、管控並觀測各家 LLM 呼叫"
   },
   {
-    "full_name": "t3dotgg/tstack",
-    "desc": "The agent skills I use every day. Works with Claude Code and Codex.",
-    "language": "Python",
-    "topics": [],
-    "stars": 1952,
-    "url": "https://github.com/t3dotgg/tstack",
-    "stale_zh": null
-  },
-  {
-    "full_name": "keptinventory/kept",
-    "desc": "Self-hosted, open-source inventory of everything you own and where it is. AI assistant and MCP server built in.",
+    "full_name": "Pal-AI-Lab/Cortico",
+    "desc": "Event-stream AI Agent framework for building your persona bot 🍊",
     "language": "TypeScript",
     "topics": [
-      "3d",
-      "home-inventory",
-      "homelab",
-      "inventory",
-      "inventory-management",
-      "mcp"
+      "agent-framework",
+      "ai-agent",
+      "chatbot",
+      "llm",
+      "persona",
+      "typescript"
     ],
-    "stars": 346,
-    "url": "https://github.com/keptinventory/kept",
+    "stars": 310,
+    "url": "https://github.com/Pal-AI-Lab/Cortico",
     "stale_zh": null
   },
   {
-    "full_name": "morganlinton/BeautifulRust",
-    "desc": "Agent Skills that teach coding agents to write, review, and port idiomatic Rust, plus a tested clippy config. Works with Claude Code, Codex, Copilot, Cursor, and Gemini CLI.",
-    "language": "Python",
+    "full_name": "cbrock84/headcount",
+    "desc": "An agent organization structured as a company — 15+ departments, 125+ skills, each independently installable, citing the standards and regulators that settle the question. Runs in Claude Code and ChatGPT.",
+    "language": "Markdown",
+    "topics": [
+      "agent-marketplace",
+      "chatgpt-plugin",
+      "chatgpt-skills",
+      "claude-code",
+      "claude-code-plugin",
+      "claude-plugin"
+    ],
+    "stars": 2350,
+    "url": "https://github.com/cbrock84/headcount",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Graphicle-AI/graphicle",
+    "desc": "Code graph and memory for your coding agents, in one Rust program. For Claude Code, Codex, Cursor and any MCP client.",
+    "language": "Rust",
+    "topics": [
+      "agent-memory",
+      "ai-agents",
+      "claude-code",
+      "code-analysis",
+      "code-graph",
+      "code-intelligence"
+    ],
+    "stars": 404,
+    "url": "https://github.com/Graphicle-AI/graphicle",
+    "stale_zh": null
+  },
+  {
+    "full_name": "peonist-ai/halogen-flash-server",
+    "desc": "Local inference that behaves like a frontier API: Qwen3.8-Flash-Next on AMD Strix Halo plus small NPU models, over the OpenAI and Anthropic APIs on one port.",
+    "language": "Shell",
+    "topics": [
+      "amd",
+      "gfx1151",
+      "gpu-inference",
+      "hip",
+      "inference-engine",
+      "llm"
+    ],
+    "stars": 1131,
+    "url": "https://github.com/peonist-ai/halogen-flash-server",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Vincentwei1021/video-talkcraft",
+    "desc": "Agent skill that turns Claude Code / Codex into a motion-design studio for voiceover-driven explainer videos — word-level voiceover sync, 109 motion recipe cards, an anti-slideshow camera system, Remotion rendering.",
+    "language": "HTML",
     "topics": [
       "agent-skills",
+      "ai-agent",
+      "claude",
       "claude-code",
-      "claude-plugin",
-      "claude-skills",
-      "clippy",
-      "code-review"
+      "explainer-video",
+      "kinetic-typography"
     ],
-    "stars": 1299,
-    "url": "https://github.com/morganlinton/BeautifulRust",
+    "stars": 1903,
+    "url": "https://github.com/Vincentwei1021/video-talkcraft",
     "stale_zh": null
-  },
-  {
-    "full_name": "kris-hansen/comanda",
-    "desc": "The CLI-native orchestrator for AI agent workflows. Run Claude Code, Codex, Gemini CLI & Kimi Code from declarative YAML. Because the terminal is where real work happens.",
-    "language": "Go",
-    "topics": [
-      "agents",
-      "ai",
-      "ai-agents",
-      "anthropic",
-      "automation",
-      "claude"
-    ],
-    "stars": 331,
-    "url": "https://github.com/kris-hansen/comanda",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Javis603/token-monitor",
-    "desc": "Local-first desktop widget for tracking token usage, costs, limits, and session activity across 47+ AI coding tools—including Claude Code, Codex, Cursor, OpenCode, OpenClaw, and more—with multi-device sync.",
-    "language": "JavaScript",
-    "topics": [
-      "ai",
-      "ai-tools",
-      "antigravity",
-      "claude-code",
-      "codex",
-      "cursor"
-    ],
-    "stars": 3406,
-    "url": "https://github.com/Javis603/token-monitor",
-    "stale_zh": "本機優先的桌面小工具，追蹤 46 種以上 AI 程式工具的 token 用量、費用、額度與工作階段，支援多裝置同步"
   }
 ]
