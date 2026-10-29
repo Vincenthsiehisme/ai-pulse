@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-10-28'
+generated_day: '2026-10-29'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,13 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **51** 則：`published` 41、`review` 10
+事件 **54** 則：`published` 43、`review` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-28 | [[Events/evt-2026-10-28-f7c4df\|OpenAI and ServiceNow expand partnership across enterprise workflows]] | published |
+| 2026-10-28 | [[Events/evt-2026-10-28-63d59c\|Legora is building the agentic operating system for legal work]] | published |
+| 2026-10-28 | [[Events/evt-2026-10-28-603cba\|The future of the firm]] | review |
 | 2026-10-27 | [[Events/evt-2026-10-27-fe3f2e\|OpenAI expands partnership with Oracle to bring its apps to ChatGPT]] | published |
 | 2026-10-26 | [[Events/evt-2026-10-26-ea4611\|How Ultrafast cut incident investigation from hours to minutes at OpenAI]] | published |
 | 2026-10-26 | [[Events/evt-2026-10-26-065414\|Greptile takes bug detection beyond code review with GPT-6 Astra]] | published |

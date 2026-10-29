@@ -3,18 +3,18 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-10-28'
+generated_day: '2026-10-29'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **29** 則：`published` 22、`review` 7
+事件 **29** 則：`published` 23、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-28 | [[Events/evt-2026-10-28-fa1a68\|Gemini 4 Carbon: Our next frontier model]] | review |
+| 2026-10-28 | [[Events/evt-2026-10-28-fa1a68\|Gemini 4 Carbon: Our next frontier model]] | published |
 | 2026-10-27 | [[Events/evt-2026-10-27-7142ec\|Genie 4: A new generation of world simulation]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-680f76\|Beyond tree cover: mapping the world’s forest types]] | review |
 | 2026-10-14 | [[Events/evt-2026-10-14-518ad7\|Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection]] | published |

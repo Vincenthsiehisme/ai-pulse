@@ -1,123 +1,212 @@
 [
   {
-    "full_name": "Nutlope/hallmark",
-    "desc": "Anti-AI-slop design skill for Claude Code, Cursor, and Codex.",
-    "language": "CSS",
-    "topics": [],
-    "stars": 40535,
-    "url": "https://github.com/Nutlope/hallmark",
-    "stale_zh": null
-  },
-  {
-    "full_name": "pullboard-dev/pullboard",
-    "desc": "Autonomous development for real products. Governed agents build from specs you approve, follow the rules you set, and nothing merges until another agent proves it. Your decisions, judgement and taste are the bar that work must clear. Declare your vision and let agents build it.",
-    "language": "JavaScript",
-    "topics": [
-      "agent-orchestration",
-      "agentic-coding",
-      "ai-agents",
-      "ai-governance",
-      "autonomous-agents",
-      "claude-code"
-    ],
-    "stars": 419,
-    "url": "https://github.com/pullboard-dev/pullboard",
-    "stale_zh": null
-  },
-  {
-    "full_name": "eliasbiondo/antirion",
-    "desc": "⚡ The fastest open-source AI Gateway and LLM Gateway — one binary with built-in console to route, secure, budget and observe every LLM call across OpenAI, Anthropic, Gemini, Bedrock and more.",
+    "full_name": "pbakaus/impeccable",
+    "desc": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
     "language": "Rust",
-    "topics": [
-      "a2a",
-      "ai-gateway",
-      "anthropic",
-      "api-gateway",
-      "bifrost-alternative",
-      "guardrails"
-    ],
-    "stars": 407,
-    "url": "https://github.com/eliasbiondo/antirion",
-    "stale_zh": "號稱最快的開源 AI gateway，單一 Rust 執行檔，統一路由、管控並觀測各家 LLM 呼叫"
-  },
-  {
-    "full_name": "Pal-AI-Lab/Cortico",
-    "desc": "Event-stream AI Agent framework for building your persona bot 🍊",
-    "language": "TypeScript",
-    "topics": [
-      "agent-framework",
-      "ai-agent",
-      "chatbot",
-      "llm",
-      "persona",
-      "typescript"
-    ],
-    "stars": 310,
-    "url": "https://github.com/Pal-AI-Lab/Cortico",
-    "stale_zh": null
-  },
-  {
-    "full_name": "cbrock84/headcount",
-    "desc": "An agent organization structured as a company — 15+ departments, 125+ skills, each independently installable, citing the standards and regulators that settle the question. Runs in Claude Code and ChatGPT.",
-    "language": "Markdown",
-    "topics": [
-      "agent-marketplace",
-      "chatgpt-plugin",
-      "chatgpt-skills",
-      "claude-code",
-      "claude-code-plugin",
-      "claude-plugin"
-    ],
-    "stars": 2350,
-    "url": "https://github.com/cbrock84/headcount",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Graphicle-AI/graphicle",
-    "desc": "Code graph and memory for your coding agents, in one Rust program. For Claude Code, Codex, Cursor and any MCP client.",
-    "language": "Rust",
-    "topics": [
-      "agent-memory",
-      "ai-agents",
-      "claude-code",
-      "code-analysis",
-      "code-graph",
-      "code-intelligence"
-    ],
-    "stars": 404,
-    "url": "https://github.com/Graphicle-AI/graphicle",
-    "stale_zh": null
-  },
-  {
-    "full_name": "peonist-ai/halogen-flash-server",
-    "desc": "Local inference that behaves like a frontier API: Qwen3.8-Flash-Next on AMD Strix Halo plus small NPU models, over the OpenAI and Anthropic APIs on one port.",
-    "language": "Shell",
-    "topics": [
-      "amd",
-      "gfx1151",
-      "gpu-inference",
-      "hip",
-      "inference-engine",
-      "llm"
-    ],
-    "stars": 1131,
-    "url": "https://github.com/peonist-ai/halogen-flash-server",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Vincentwei1021/video-talkcraft",
-    "desc": "Agent skill that turns Claude Code / Codex into a motion-design studio for voiceover-driven explainer videos — word-level voiceover sync, 109 motion recipe cards, an anti-slideshow camera system, Remotion rendering.",
-    "language": "HTML",
     "topics": [
       "agent-skills",
-      "ai-agent",
-      "claude",
-      "claude-code",
-      "explainer-video",
-      "kinetic-typography"
+      "ai",
+      "anti-slop",
+      "design",
+      "slop"
     ],
-    "stars": 1903,
-    "url": "https://github.com/Vincentwei1021/video-talkcraft",
+    "stars": 95086,
+    "url": "https://github.com/pbakaus/impeccable",
+    "stale_zh": null
+  },
+  {
+    "full_name": "C4rohan/Lampline",
+    "desc": "Build AI phone agents on your own computer and test every change with an AI caller. Open source, runs free with no API keys, cents per call with your own keys. Imports Dialogflow CX.",
+    "language": "Python",
+    "topics": [
+      "agents-as-code",
+      "contact-center",
+      "conversational-ai",
+      "cx-agent-studio",
+      "dialogflow-cx",
+      "ivr"
+    ],
+    "stars": 543,
+    "url": "https://github.com/C4rohan/Lampline",
+    "stale_zh": null
+  },
+  {
+    "full_name": "FrigadeHQ/hob",
+    "desc": "An easier way to use AI on your own computer. A free, open-source alternative to Claude and ChatGPT that runs open-weight models like Gemma and gpt-oss locally on Mac, Windows and Linux. Private, and works offline.",
+    "language": "TypeScript",
+    "topics": [
+      "ai-agent",
+      "ai-assistant",
+      "chatgpt-alternative",
+      "claude-alternative",
+      "desktop-app",
+      "electron"
+    ],
+    "stars": 366,
+    "url": "https://github.com/FrigadeHQ/hob",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ComputerUseAgent/AutoCua",
+    "desc": "Automate with computer-use agent (ComputerUse / CUA) for macOS, Windows, Linux, Browser, iOS & Android. It sees the screen, clicks, types, browses and writes the code too. One agent, every computer.",
+    "language": "Python",
+    "topics": [
+      "browser-use",
+      "browser-use-agent",
+      "computer-agent",
+      "computer-use",
+      "ios-automation",
+      "linux-ai"
+    ],
+    "stars": 832,
+    "url": "https://github.com/ComputerUseAgent/AutoCua",
+    "stale_zh": "一個 Computer Use agent 通吃 macOS、Windows、Linux、瀏覽器、iOS 與程式碼"
+  },
+  {
+    "full_name": "harish-gaggar/mcp-server-gateway",
+    "desc": "MCP gateway & OAuth MCP servers. LangGraph agent: memory, eval/tracking, PII guard, context trimming. Docker quick start for enterprise agents.",
+    "language": "Python",
+    "topics": [
+      "agentic-ai",
+      "ai-agents",
+      "context-engineering",
+      "enterprise-ai",
+      "langgraph",
+      "llm-evaluation"
+    ],
+    "stars": 386,
+    "url": "https://github.com/harish-gaggar/mcp-server-gateway",
+    "stale_zh": null
+  },
+  {
+    "full_name": "shinshin86/mesh-avatar-studio",
+    "desc": "Turn one illustration into an animated 2D mesh avatar with a coding agent and a local editor",
+    "language": "TypeScript",
+    "topics": [
+      "2d-animation",
+      "avatar",
+      "claude-code",
+      "codex",
+      "mesh-deformation",
+      "vtuber"
+    ],
+    "stars": 1624,
+    "url": "https://github.com/shinshin86/mesh-avatar-studio",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Zero-Mem/Zero-mem",
+    "desc": "Official code for \"Zero-Mem: Zero-Token Memory Operations for LLM Agents\".",
+    "language": "Python",
+    "topics": [],
+    "stars": 346,
+    "url": "https://github.com/Zero-Mem/Zero-mem",
+    "stale_zh": null
+  },
+  {
+    "full_name": "cporter202/agentic-ai-starters",
+    "desc": "A practical collection of plug-and-play starter blueprints for building autonomous AI apps with real APIs. Discover ready-to-build agent workflows, API stacks, architecture patterns, prompts, and monetization ideas for research agents, lead gen systems, SEO automations, MCP toolchains, and more.",
+    "language": "",
+    "topics": [
+      "agentic-ai",
+      "ai-agents",
+      "api-workflows",
+      "autonomous-workflows",
+      "customer-support-ai",
+      "lead-generation"
+    ],
+    "stars": 303,
+    "url": "https://github.com/cporter202/agentic-ai-starters",
+    "stale_zh": null
+  },
+  {
+    "full_name": "DenisSergeevitch/ex-ussr-kinship-research",
+    "desc": "Evidence-first genealogy skill for AI agents (Codex, Claude Code): church books, civil, military, deportation and repression records across the former USSR. Replies in your language.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "archives",
+      "claude-code",
+      "codex",
+      "family-history",
+      "familysearch"
+    ],
+    "stars": 1251,
+    "url": "https://github.com/DenisSergeevitch/ex-ussr-kinship-research",
+    "stale_zh": null
+  },
+  {
+    "full_name": "andyhuo520/digital-human-koubo",
+    "desc": "AI digital-human talking-head videos from one photo: Renoise MCP generation + 5 editing styles + 48 creator-grade packaging components. Agent skill for Claude Code / Codex / OpenClaw / WorkBuddy …",
+    "language": "TypeScript",
+    "topics": [],
+    "stars": 1455,
+    "url": "https://github.com/andyhuo520/digital-human-koubo",
+    "stale_zh": null
+  },
+  {
+    "full_name": "haunchen/n8n-skills",
+    "desc": "Designed specifically for AI assistants, the n8n Workflow Automation Skills Suite.",
+    "language": "TypeScript",
+    "topics": [
+      "automation",
+      "claude",
+      "n8n",
+      "n8n-skills",
+      "n8n-workflow",
+      "skills"
+    ],
+    "stars": 411,
+    "url": "https://github.com/haunchen/n8n-skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "huggingface/text-embeddings-inference",
+    "desc": "A blazing fast inference solution for text embeddings models",
+    "language": "Rust",
+    "topics": [
+      "ai",
+      "embeddings",
+      "huggingface",
+      "llm",
+      "ml"
+    ],
+    "stars": 5095,
+    "url": "https://github.com/huggingface/text-embeddings-inference",
+    "stale_zh": null
+  },
+  {
+    "full_name": "QuantumNous/new-api",
+    "desc": "Open-source AI gateway. Self-hosted LLM gateway with OpenAI-, Claude- and Gemini-compatible APIs, model routing, access control, usage tracking and cost accounting.",
+    "language": "Go",
+    "topics": [
+      "ai-gateway",
+      "api-management",
+      "claude",
+      "deepseek",
+      "gemini",
+      "llm-gateway"
+    ],
+    "stars": 50970,
+    "url": "https://github.com/QuantumNous/new-api",
+    "stale_zh": null
+  },
+  {
+    "full_name": "VITASID57/bluntcore-intimacy-lab",
+    "desc": "🧬 钝核｜人机亲密实验室 · Bluntcore Intimacy Lab｜人机恋、成人 AI、Prompt、Memory、Agent、模型床测与实验记录。https://x.com/QloveDudu",
+    "language": "",
+    "topics": [],
+    "stars": 774,
+    "url": "https://github.com/VITASID57/bluntcore-intimacy-lab",
+    "stale_zh": "人機親密實驗室，收錄人機戀、成人 AI、Prompt、Memory、Agent 與模型測試紀錄"
+  },
+  {
+    "full_name": "nateherkai/roast-room",
+    "desc": "Seven AI advisors (Bezos, Paul Graham, Hormozi, Gary Vee, Dan Martell, Gino Wickman, Buffett) debate your business decision in Claude Code, live around a table.",
+    "language": "JavaScript",
+    "topics": [],
+    "stars": 1407,
+    "url": "https://github.com/nateherkai/roast-room",
     "stale_zh": null
   }
 ]

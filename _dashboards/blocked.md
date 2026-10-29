@@ -1,7 +1,12 @@
-# 被門禁擋下（62）
+# 被門禁擋下（71）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-29-39de95|Welcome Le Chonk: Mistral Large 4 on Hugging Face]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-29-878ddc|How we detect frontier model misalignment]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-29-a5f631|How Ropes & Gray is developing AI for transactional diligence]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-29-c5342e|Granite Switch 4.1.1 — Update models like you update software]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-10-29-feaaee|An updated Model Spec for more capable and beneficial AI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-28-603cba|The future of the firm]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-27-59a63a|How AI Is Changing the Pace of Discovery for Millions Living With Deme]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-27-6a61a0|Can we trust LLMs to judge whether a research idea is novel?]]** — Ai2 — blockers: thin_research_analysis
@@ -57,6 +62,10 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-10-29-3c844c|Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for ]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-29-ab82c2|Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-29-bd042a|Slice Into GFN Thursday: ‘Phantom Blade Zero’ Launches on GeForce NOW]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-10-29-e5f194|Ai For Science Expands Foundations Research Institutions]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity

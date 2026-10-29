@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-28"
+generated_day: "2026-10-29"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-28"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **513** 則／已裁決 **26** 則。
+待回答 **521** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#42700f9f`** — infra-cost
-  > 看 OpenAI 全文是否交代 12 倍的比較基準與延遲分位數；看 Trainium 支援模型的涵蓋與實測價格比；看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 的實測加速倍率與機密運算的效能損耗。
+- **`infra-cost#08372a49`** — infra-cost
+  > 看第三方評測的 RTX Spark 本機模型推論速度與各品牌機型定價；看 OpenAI 全文是否交代 12 倍的比較基準與延遲分位數；看 Trainium 支援模型的涵蓋與實測價格比；看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 的實測加速倍率。
 
-- **`model-research#8b6c80e5`** — model-research
-  > 看 Genie 4 是否開放外部試用或發布技術報告；看 OpenAI 學術合作那篇的結果有沒有學界公開複驗；看 LFM3 的權重釋出方式、授權與基準測試；讀 GPT-6.1 Terra 原文，看價格、可用日期與第三方基準是否在一週內跟上；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變；看 Gemini 4 Argon 公布的基準與開放日期。
+- **`model-research#3b84f4a3`** — model-research
+  > 看 Gemini 4 Carbon 何時開放使用，以及開放後第三方對程式與資安任務的獨立測試，驗證榜首與領先幅度；看 Nemotron 3.5 Transcribe 模型卡上的語言覆蓋、授權與詞錯率；看 Genie 4 是否開放試用或發布技術報告；看 OpenAI 學術合作那篇的結果有沒有學界複驗；看 LFM3 的權重釋出方式與基準；讀 GPT-6.1 Terra 原文，看價格、可用日期與第三方基準是否在一週內跟上；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變。
 
-- **`product-market#8b5b3ed9`** — product-market
-  > 讀 Grok Bot Sales 原文，看有沒有價格或產品細節；看 Check Point 是否公布使用 Daybreak 後的時間節省；看 Signals 原文是否公開各類工作活動的占比與逐期變化；看 Fanatics 是否公布轉換率或營收指標；看 Decisions API 文件公布的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率與節省工時；看 OpenAI 是否公布廣告營收與各國上線清單。
+- **`product-market#9480d6f3`** — product-market
+  > 看 Retell 或第三方是否公開語音基準的方法與其他模型成績；讀 Anthropic 兩篇原文，看 GSA 合作的範圍、價格與適用機構；讀 Grok Bot Sales 原文，看有沒有價格或產品細節；看 Check Point 是否公布 Daybreak 的時間節省；看 Signals 原文是否公開各類工作活動的占比；看 Fanatics 是否公布轉換率；看 Decisions API 文件的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率；看 OpenAI 是否公布廣告營收與各國上線清單。
 
 - **`capital-evolution#6d682e94`** — capital-evolution
   > 讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
 
-- **`agent-refactor#f89a4820`** — agent-refactor
-  > 看 Oracle 首批進 ChatGPT 的應用清單與上線日期；看 Greptile 是否自行公布偵測率或誤報率；看 OpenAI 是否公開 Ultrafast 的具體事故排查過程與準確率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF 工作組；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業。
+- **`agent-refactor#ae6c8623`** — agent-refactor
+  > 看 ServiceNow 方面的對應公告與首批整合的上線日期；看 Legora 是否公布合約分析的準確度或採用數；看 Oracle 首批進 ChatGPT 的應用清單與日期；看 Greptile 是否自行公布偵測率與誤報率；看 OpenAI 是否公開 Ultrafast 的排查過程與準確率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業。
 
 - **`global-map#99ad817c`** — global-map
   > 看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
 
-## 事件層（507）
+## 事件層（515）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1550,8 +1550,17 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-26-ea4611#a4a77853`** — evt-2026-10-26-ea4611
   > 是否公開具體事故的排查過程與準確率，或有外部團隊回報類似的縮短幅度。
 
+- **`evt-2026-10-27-061204#96e6788b`** — evt-2026-10-27-061204
+  > 是否出現第二個獨立來源報導同一件事，或 Anthropic 在其他頁面補上摘要。
+
+- **`evt-2026-10-27-13f226#7a4683be`** — evt-2026-10-27-13f226
+  > Retell 或第三方是否公開該語音基準測試的方法與其他模型的成績。
+
 - **`evt-2026-10-27-147ac0#be3b7b0f`** — evt-2026-10-27-147ac0
   > 原文頁面是否有後續產品或定價說明，請直接查看 https://x.ai/news/grok-bot-sales。
+
+- **`evt-2026-10-27-318c45#0ecc7366`** — evt-2026-10-27-318c45
+  > GSA 或其他媒體是否獨立報導同一件合作，並公布範圍與條件。
 
 - **`evt-2026-10-27-372f1a#82bc4623`** — evt-2026-10-27-372f1a
   > LFM3 的權重釋出方式、授權與公開基準測試結果。
@@ -1564,3 +1573,18 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-10-27-fe3f2e#aa1970c4`** — evt-2026-10-27-fe3f2e
   > 首批可用的 Oracle 應用清單與上線日期。
+
+- **`evt-2026-10-28-521bbb#2577ab20`** — evt-2026-10-28-521bbb
+  > 模型卡上的語言覆蓋、授權條款，以及第三方的詞錯率比較。
+
+- **`evt-2026-10-28-63d59c#dd5b1f84`** — evt-2026-10-28-63d59c
+  > Legora 是否公布合約分析的準確度、處理量或客戶採用數。
+
+- **`evt-2026-10-28-ebc366#fc402e74`** — evt-2026-10-28-ebc366
+  > 第三方評測的本機模型推論速度，以及各品牌機型的定價。
+
+- **`evt-2026-10-28-f7c4df#058ae62f`** — evt-2026-10-28-f7c4df
+  > ServiceNow 方面的對應公告，以及首批可用整合的上線日期。
+
+- **`evt-2026-10-28-fa1a68#e8522956`** — evt-2026-10-28-fa1a68
+  > Gemini 4 Carbon 何時開放使用，以及開放後第三方對資安與程式任務的獨立測試。

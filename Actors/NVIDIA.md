@@ -3,17 +3,19 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-28'
+generated_day: '2026-10-29'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **112** 則：`dropped` 1、`published` 104、`review` 7
+事件 **114** 則：`dropped` 1、`published` 106、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-28 | [[Events/evt-2026-10-28-ebc366\|Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games]] | published |
+| 2026-10-28 | [[Events/evt-2026-10-28-521bbb\|NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt]] | published |
 | 2026-10-27 | [[Events/evt-2026-10-27-59a63a\|How AI Is Changing the Pace of Discovery for Millions Living With Dementia]] | review |
 | 2026-10-23 | [[Events/evt-2026-10-23-4e180a\|Kazakhstan Expands Compute for Its AI Future]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-9fce05\|How Companies Are Using NVIDIA DSX to Break the Power Bottleneck]] | published |

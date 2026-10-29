@@ -3,17 +3,19 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-10-28'
+generated_day: '2026-10-29'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **132** 則：`published` 125、`review` 7
+事件 **134** 則：`published` 127、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-27 | [[Events/evt-2026-10-27-318c45\|Expanding Partnership Gsa]] | published |
+| 2026-10-27 | [[Events/evt-2026-10-27-061204\|s1 Sec]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-a636c6\|Donating Agent Skills To The Agentic Ai Foundation]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-85c1cb\|Open Call Guest Investigators Life Sciences]] | review |
 | 2026-10-21 | [[Events/evt-2026-10-21-32a623\|Christopher Stubbs Joins Long Term Benefit Trust]] | published |
