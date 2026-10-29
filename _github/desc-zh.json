@@ -119,6 +119,11 @@
     "src_hash": "1ba7b3291edd",
     "zh": "用來建構 agentic 應用的框架"
   },
+  "C4rohan/Lampline": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "210f9c986ec6",
+    "zh": "在自己電腦上建 AI 電話 agent，並用 AI 來電者測試每次改動。開源，可匯入 Dialogflow CX"
+  },
   "CherryHQ/cherry-studio": {
     "at": "2026-08-07T01:27:45+00:00",
     "src_hash": "4d766d8331fc",
@@ -130,9 +135,9 @@
     "zh": "給 coding agent 用的 Chrome DevTools"
   },
   "ComputerUseAgent/AutoCua": {
-    "at": "2026-10-25T18:38:34+00:00",
-    "src_hash": "9c8a216769cb",
-    "zh": "一個 Computer Use agent 通吃 macOS、Windows、Linux、瀏覽器、iOS 與程式碼"
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "772c79bd8761",
+    "zh": "Computer Use agent，跨 macOS、Windows、Linux、瀏覽器與手機，看螢幕、點擊、打字"
   },
   "CursorTouch/Windows-MCP": {
     "at": "2026-08-07T01:27:45+00:00",
@@ -143,6 +148,11 @@
     "at": "2026-10-07T20:56:20+00:00",
     "src_hash": "cced6598b05d",
     "zh": "刻意留漏洞的 OWASP LLM Top 10 訓練平台，練提示注入、RAG、agent 安全"
+  },
+  "DenisSergeevitch/ex-ussr-kinship-research": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "e1d01c5f7e3c",
+    "zh": "給 Codex、Claude Code 的家譜研究 skill，查前蘇聯地區教會、民事、軍事等檔案"
   },
   "DeusData/codebase-memory-mcp": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -193,6 +203,11 @@
     "at": "2026-10-13T20:55:59+00:00",
     "src_hash": "7b04273e730e",
     "zh": "AI API 中轉站評測排行與切換工具，實測可用率、延遲與價格，適用 Claude Code、Codex"
+  },
+  "FrigadeHQ/hob": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "62c7dfe5fc4f",
+    "zh": "免費開源桌面 App，本機跑 Gemma、gpt-oss 等開放權重模型，離線可用"
   },
   "FuRongJun-1999/dsh-memory": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -529,6 +544,11 @@
     "src_hash": "d2d3746fdb42",
     "zh": "Agent skill，讓 AI 用一頁可讀的 HTML 回答複雜問題"
   },
+  "QuantumNous/new-api": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "ea5d95556396",
+    "zh": "開源自架 AI 閘道，相容 OpenAI、Claude、Gemini API，含模型路由與用量成本核算"
+  },
   "Ryder-Sun/Meldwork": {
     "at": "2026-10-07T20:56:20+00:00",
     "src_hash": "0c18a2981977",
@@ -595,8 +615,8 @@
     "zh": "開源文件 ETL，把複雜文件轉成乾淨的結構化格式給語言模型用"
   },
   "VITASID57/bluntcore-intimacy-lab": {
-    "at": "2026-10-19T20:49:33+00:00",
-    "src_hash": "79d5358712ca",
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "7f4dcbcee9fa",
     "zh": "人機親密實驗室，收錄人機戀、成人 AI、Prompt、Memory、Agent 與模型測試紀錄"
   },
   "VectifyAI/PageIndex": {
@@ -643,6 +663,11 @@
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "dba0e7237da2",
     "zh": "隱私優先的 AI 會議助理，Rust 寫成，本機即時逐字稿、講者辨識與 Ollama 摘要，不需雲端"
+  },
+  "Zero-Mem/Zero-mem": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "afce03b4790c",
+    "zh": "論文 Zero-Mem：LLM agent 零 token 記憶操作的官方程式碼"
   },
   "ZhuLinsen/daily_stock_analysis": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -758,6 +783,11 @@
     "at": "2026-10-08T20:58:31+00:00",
     "src_hash": "42ea425d9348",
     "zh": "LLM 推論工程的逐步教學，從 KV cache、PagedAttention 到 vLLM、SGLang"
+  },
+  "andyhuo520/digital-human-koubo": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "89c51d32dac8",
+    "zh": "一張照片生成數位人口播影片，含 Renoise MCP、5 種剪輯風格、48 個包裝元件"
   },
   "angusdevgo/Seep-Reverse-Lab": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -938,6 +968,11 @@
     "at": "2026-09-08T19:19:22+00:00",
     "src_hash": "9b4d064a6baf",
     "zh": "給 Claude Code 與 AI agent 用的行銷技能：轉換率優化、文案、SEO 與成長工程分析"
+  },
+  "cporter202/agentic-ai-starters": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "653aa417c718",
+    "zh": "自主 AI 應用的現成起手範本集：agent 流程、API 組合、架構模式、prompt 與變現點子"
   },
   "cranebeaker/coop-anything": {
     "at": "2026-10-19T20:49:33+00:00",
@@ -1154,10 +1189,20 @@
     "src_hash": "787cc97652cc",
     "zh": "給 coding agent 與個人 agent 用的裝置端防火牆"
   },
+  "harish-gaggar/mcp-server-gateway": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "ee32be658691",
+    "zh": "MCP 閘道與 OAuth MCP 伺服器，附 LangGraph agent：記憶、評測、PII 防護"
+  },
   "harry0703/MoneyPrinterTurbo": {
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "1a156a1c8dec",
     "zh": "用 AI 大模型和自動化流程，依主題或關鍵字一鍵生成高畫質短影片"
+  },
+  "haunchen/n8n-skills": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "5073ae677fc6",
+    "zh": "專為 AI 助理設計的 n8n 工作流自動化 skills 套件"
   },
   "headroomlabs-ai/headroom": {
     "at": "2026-07-27T19:23:58+00:00",
@@ -1188,6 +1233,11 @@
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "899ff181356f",
     "zh": "把 DeepSeek Harness 變成自架的企業 agent 平台，含知識庫、深度研究、瀏覽器自動化與管理控制"
+  },
+  "huggingface/text-embeddings-inference": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "70f5dbaee281",
+    "zh": "極速的文字 embedding 模型推論方案"
   },
   "huggingface/transformers": {
     "at": "2026-08-12T19:14:16+00:00",
@@ -1549,6 +1599,11 @@
     "src_hash": "2389c62e2ba8",
     "zh": "開源個人 agent，跨 Android、iPhone、桌面與瀏覽器，App 關著也能持續工作，不可逆操作前會先詢問"
   },
+  "nateherkai/roast-room": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "6c54297e1ffa",
+    "zh": "七位 AI 顧問（Bezos、Paul Graham 等）在 Claude Code 裡圍桌辯論你的商業決策"
+  },
   "nateherkai/scroll-craft": {
     "at": "2026-10-12T22:42:13+00:00",
     "src_hash": "4a49a9d42efc",
@@ -1693,6 +1748,11 @@
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "cd3a264f173e",
     "zh": "可直接跑的雲端範本，用於 RAG、AI pipeline 與企業搜尋，可與 S3、Kafka 等即時同步"
+  },
+  "pbakaus/impeccable": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "ebcb3bf0b41d",
+    "zh": "給 coding agent 的設計詞彙，用 critique、audit 檢查，攔下 AI slop"
   },
   "perplexityai/SPACE": {
     "at": "2026-10-18T18:23:02+00:00",
@@ -1873,6 +1933,11 @@
     "at": "2026-08-27T19:10:49+00:00",
     "src_hash": "676b1ecaa56d",
     "zh": "從 vibe coding 練到 agentic engineering，靠練習讓 Claude 更完美"
+  },
+  "shinshin86/mesh-avatar-studio": {
+    "at": "2026-10-29T20:47:36+00:00",
+    "src_hash": "1f9b335d1bfd",
+    "zh": "用 coding agent 與本機編輯器，把一張插畫變成可動的 2D 網格虛擬形象"
   },
   "simbasjungles/free-my-tv": {
     "at": "2026-10-23T19:40:32+00:00",

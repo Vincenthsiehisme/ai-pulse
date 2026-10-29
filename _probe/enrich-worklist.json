@@ -1,155 +1,19 @@
 [
   {
-    "id": "evt-2026-10-27-061204",
-    "path": "evt-2026-10-27-061204.md",
-    "title": "s1 Sec",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/s1-sec",
-        "title": "s1 Sec",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-27-13f226",
-    "path": "evt-2026-10-27-13f226.md",
-    "title": "Retell uses OpenAI models to help power 100M monthly calls",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/retell-ai",
-        "title": "Retell uses OpenAI models to help power 100M monthly calls",
-        "summary": "GPT-6 Astra tops Retell’s voice agent benchmark, while Codex helps it reach a $1.6M annual revenue run rate per employee.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-27-318c45",
-    "path": "evt-2026-10-27-318c45.md",
-    "title": "Expanding Partnership Gsa",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/expanding-partnership-gsa",
-        "title": "Expanding Partnership Gsa",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 0,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-28-521bbb",
-    "path": "evt-2026-10-28-521bbb.md",
-    "title": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
+    "id": "evt-2026-10-29-39de95",
+    "path": "evt-2026-10-29-39de95.md",
+    "title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "Hugging Face",
-    "independent_sources": 2,
+    "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/nvidia/nemotron-transcribe-granary",
-        "title": "Nvidia Nemotron 3.5 Transcribe: open ASR for 40 languages",
-        "summary": "",
-        "availability": "unfetched",
-        "availability_reason": "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口",
-        "writing_hint": "不要寫進文章。這是我們沒抓到，屬於故障不屬於證據狀態；文章裡就當這一則只有標題。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://huggingface.co/blog/nvidia/nemotron-transcribe-granary",
-        "title": "Nvidia Nemotron 3.5 Transcribe: open ASR for 40 languages",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 0,
-        "unfetched": 1,
-        "withheld": 1
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口"
-      ]
-    }
-  },
-  {
-    "id": "evt-2026-10-28-603cba",
-    "path": "evt-2026-10-28-603cba.md",
-    "title": "The future of the firm",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/the-future-of-the-firm",
-        "title": "The future of the firm",
-        "summary": "How AI might enter the org chart—beneath, beside, and between us.",
+        "url": "https://huggingface.co/blog/mistral-large4",
+        "title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -166,9 +30,39 @@
     }
   },
   {
-    "id": "evt-2026-10-28-63d59c",
-    "path": "evt-2026-10-28-63d59c.md",
-    "title": "Legora is building the agentic operating system for legal work",
+    "id": "evt-2026-10-29-3c844c",
+    "path": "evt-2026-10-29-3c844c.md",
+    "title": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/anydecisionmodel",
+        "title": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-29-878ddc",
+    "path": "evt-2026-10-29-878ddc.md",
+    "title": "How we detect frontier model misalignment",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -177,9 +71,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/legora",
-        "title": "Legora is building the agentic operating system for legal work",
-        "summary": "See how Legora uses OpenAI models, ChatGPT, and Codex to accelerate legal workflows, expand contract analysis, and free lawyers to focus on higher-value work.",
+        "url": "https://openai.com/index/how-we-detect-frontier-model-misalignment",
+        "title": "How we detect frontier model misalignment",
+        "summary": "OpenAI uses layered monitoring to detect frontier model misalignment and unauthorized agent behavior so responders can intervene before incidents escalate.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -196,20 +90,80 @@
     }
   },
   {
-    "id": "evt-2026-10-28-ebc366",
-    "path": "evt-2026-10-28-ebc366.md",
-    "title": "Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games",
+    "id": "evt-2026-10-29-a5f631",
+    "path": "evt-2026-10-29-a5f631.md",
+    "title": "How Ropes & Gray is developing AI for transactional diligence",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "Microsoft",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/ropes-gray-ai-diligence",
+        "title": "How Ropes & Gray is developing AI for transactional diligence",
+        "summary": "Ropes & Gray is developing AI for transactional diligence with OpenAI. Lawyers review grouped documents, summaries, and reports before advising clients.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-29-ab82c2",
+    "path": "evt-2026-10-29-ab82c2.md",
+    "title": "Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/announcing-project-protostar",
+        "title": "Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-29-bd042a",
+    "path": "evt-2026-10-29-bd042a.md",
+    "title": "Slice Into GFN Thursday: ‘Phantom Blade Zero’ Launches on GeForce NOW",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games/",
-        "title": "Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games",
-        "summary": "NVIDIA RTX Spark powers thin and light laptops built for everything that developers, creators and gamers do. RTX Spark laptops are now available from ASUS, Dell, HP, Lenovo, Microsoft and MSI. These powerful systems combine an NVIDIA Blackwell RTX GPU and an NVIDIA Grace CPU in a single superchip wi",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-phantom-blade-zero/",
+        "title": "Slice Into GFN Thursday: ‘Phantom Blade Zero’ Launches on GeForce NOW",
+        "summary": "This Halloween week, GFN Thursday is delivering a fresh batch of gaming treats. Something wicked this blade comes. S-GAME’s Phantom Blade Zero launches on GeForce NOW today, bringing a scarily good blend of martial arts and punk fantasy to the cloud. There’s also something on the horizon for adventu",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -226,9 +180,71 @@
     }
   },
   {
-    "id": "evt-2026-10-28-f7c4df",
-    "path": "evt-2026-10-28-f7c4df.md",
-    "title": "OpenAI and ServiceNow expand partnership across enterprise workflows",
+    "id": "evt-2026-10-29-c5342e",
+    "path": "evt-2026-10-29-c5342e.md",
+    "title": "Granite Switch 4.1.1 — Update models like you update software",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1-1",
+        "title": "Granite Switch 4.1.1 — Update models like you update software",
+        "summary": "A Blog post by IBM Granite on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-10-29-e5f194",
+    "path": "evt-2026-10-29-e5f194.md",
+    "title": "Ai For Science Expands Foundations Research Institutions",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/ai-for-science-expands-foundations-research-institutions",
+        "title": "Ai For Science Expands Foundations Research Institutions",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-10-29-feaaee",
+    "path": "evt-2026-10-29-feaaee.md",
+    "title": "An updated Model Spec for more capable and beneficial AI",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -237,9 +253,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/openai-servicenow-partnership-expansion",
-        "title": "OpenAI and ServiceNow expand partnership across enterprise workflows",
-        "summary": "OpenAI and ServiceNow expand their partnership to bring OpenAI models and agents into ServiceNow and ServiceNow workflows into ChatGPT and Codex.",
+        "url": "https://openai.com/index/updated-model-spec",
+        "title": "An updated Model Spec for more capable and beneficial AI",
+        "summary": "OpenAI’s updated Model Spec outlines five core values to guide more capable AI toward sound judgment, human agency, and faithfulness to human intent.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -253,65 +269,6 @@
       },
       "needs_source_link": false,
       "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-28-fa1a68",
-    "path": "evt-2026-10-28-fa1a68.md",
-    "title": "Gemini 4 Carbon: Our next frontier model",
-    "fingerprint": "google:gemini:4",
-    "facet": "update",
-    "company_guess": "Google DeepMind",
-    "independent_sources": 4,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/",
-        "title": "Gemini 4 Carbon: Our next frontier model",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-media-theverge",
-        "url": "https://www.theverge.com/tech/1021339/google-gemini-4-carbon-cybersecurity-frontier",
-        "title": "Google launches Gemini 4 Carbon with a ‘significant leap’ in cybersecurity",
-        "summary": "Google has released its latest frontier model, Gemini 4 Carbon, offering \"significant gains\" in coding, agentic tasks, and cybersecurity. In an announcement on Wednesday, Google highlights Carbon's top spot on the Artificial Analysis Intelligence Index (v5.0) benchmark, with Claude Opus 5.5 and GPT-",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      },
-      {
-        "source_id": "src-media-arstechnica",
-        "url": "https://arstechnica.com/ai/2026/10/google-announces-gemini-4-carbon-its-latest-frontier-ai-model-that-you-cant-use/",
-        "title": "Google announces Gemini 4 Carbon, its latest frontier AI model that you can't use",
-        "summary": "Gemini 4 Carbon is essentially a slightly better version of Argon.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/",
-        "title": "Gemini 4 Carbon",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 2,
-        "unfetched": 0,
-        "withheld": 2
-      },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
     }
   }
 ]

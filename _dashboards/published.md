@@ -1,6 +1,22 @@
-# 已發布事件（535）
+# 已發布事件（542）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-29
+- **[[Events/evt-2026-10-29-39de95|Welcome Le Chonk: Mistral Large 4 on Hugging Face]]** — Mistral AI · model-capability · conf 73 · heat 未量測
+  Hugging Face 發文歡迎 Mistral Large 4 上架，內文細節證據不足。
+- **[[Events/evt-2026-10-29-3c844c|Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms]]** — Hugging Face · product · conf 73 · heat 未量測
+  Hugging Face 發文介紹 AnySpeechRecognizer 與 AnyDecisionModel 兩個面向 Apple 平台的開放模型。
+- **[[Events/evt-2026-10-29-a5f631|How Ropes & Gray is developing AI for transactional diligence]]** — OpenAI · product · conf 73 · heat 未量測
+  Ropes & Gray 與 OpenAI 合作開發交易盡職調查用的 AI，律師審閱後才對客戶提供意見。
+- **[[Events/evt-2026-10-29-ab82c2|Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready]]** — Hugging Face · research · conf 73 · heat 未量測
+  Hugging Face 宣布 Project ProtoStar，目標是讓公共資助的科學資料能被 AI 使用。
+- **[[Events/evt-2026-10-29-bd042a|Slice Into GFN Thursday: ‘Phantom Blade Zero’ Launches on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 的 GFN Thursday 本週上架《Phantom Blade Zero》，是例行的雲端遊戲更新。
+- **[[Events/evt-2026-10-29-c5342e|Granite Switch 4.1.1 — Update models like you update software]]** — IBM · model-capability · conf 73 · heat 未量測
+  IBM Granite 在 Hugging Face 發文，說明 Granite Switch 4.1.1 讓模型能像軟體一樣更新。
+- **[[Events/evt-2026-10-29-feaaee|An updated Model Spec for more capable and beneficial AI]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 更新 Model Spec，列出五項核心價值，引導更強的模型維持判斷力、人類自主與忠於人意。
 
 ## 2026-10-28
 - **[[Events/evt-2026-10-28-521bbb|NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt]]** — NVIDIA · model-capability · conf 80 · heat 未量測
