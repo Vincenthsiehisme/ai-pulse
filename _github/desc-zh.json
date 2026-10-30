@@ -9,6 +9,11 @@
     "src_hash": "0d901a544c30",
     "zh": "結合多個大模型分析與確定性程式風控的自主量化交易系統，可在 OKX 下單"
   },
+  "1llu50ry/mcp-reverse": {
+    "at": "2026-10-30T20:18:02+00:00",
+    "src_hash": "de9459bc8928",
+    "zh": "遊戲逆向工程用的 MCP server，附 4,100 多項技能的知識庫，可接 Claude、Cursor"
+  },
   "1weiho/open-slide": {
     "at": "2026-08-24T19:12:53+00:00",
     "src_hash": "e3d27a2e28bd",
@@ -499,6 +504,11 @@
     "src_hash": "73bec7a8a467",
     "zh": "開源、重隱私、不用 cookie 的網站分析，含營收歸因與 MCP server"
   },
+  "OpenSenseNova/SenseNova-RoboRSI": {
+    "at": "2026-10-30T20:18:02+00:00",
+    "src_hash": "53c35eed2801",
+    "zh": "用來建構、評測並遞迴改進具身 agent 的統一框架，程式碼即將釋出"
+  },
   "Osmantic/ODS": {
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "fb5aba90cef7",
@@ -558,6 +568,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "d73c9d500f6f",
     "zh": "免費 SEO MCP server 與開源 SEO、GEO skill，做關鍵字研究、排名追蹤、稽核與反向連結"
+  },
+  "Sallyn0225/eidolon-sc": {
+    "at": "2026-10-30T20:18:02+00:00",
+    "src_hash": "99330eca0567",
+    "zh": "《偶像大師 閃耀色彩》偶像的 AI 分身，可語音文字對話，日語配中文字幕"
   },
   "ScrapeGraphAI/Scrapegraph-ai": {
     "at": "2026-08-03T19:17:58+00:00",
@@ -814,6 +829,11 @@
     "src_hash": "094c343a3235",
     "zh": "Anthropic 管理的官方 Claude Code 外掛目錄"
   },
+  "anthropics/skills": {
+    "at": "2026-10-30T20:18:02+00:00",
+    "src_hash": "517a6cd8cb2d",
+    "zh": "Agent Skills 的公開儲存庫"
+  },
   "aoci-spec/aoci-code": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "22e9d7c883d1",
@@ -1060,8 +1080,8 @@
     "zh": "集中管理 ChatGPT、Codex CLI、Claude Code 帳號與額度，支援多模型路由與自動容錯切換"
   },
   "eliasbiondo/antirion": {
-    "at": "2026-10-28T20:42:53+00:00",
-    "src_hash": "7d36d806b9fb",
+    "at": "2026-10-30T20:18:02+00:00",
+    "src_hash": "b5822b4dfcbb",
     "zh": "號稱最快的開源 AI Gateway，單一執行檔內建主控台，可路由、保護、控管預算並觀測各家 LLM 呼叫"
   },
   "elizaOS/eliza": {
@@ -1085,9 +1105,9 @@
     "zh": "提供網頁搜尋與爬取的 Exa MCP"
   },
   "farion1231/cc-switch": {
-    "at": "2026-10-05T22:18:12+00:00",
-    "src_hash": "6f43b1762022",
-    "zh": "跨平台桌面整合助手，支援 Claude Code、Codex、OpenCode 等"
+    "at": "2026-10-30T20:18:02+00:00",
+    "src_hash": "773fb29c08e4",
+    "zh": "跨平台桌面助手，支援 Claude Code、Codex、OpenCode、DeepSeek Harness 等"
   },
   "feder-cr/invisible_dots": {
     "at": "2026-10-08T20:58:31+00:00",
@@ -1118,6 +1138,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "97a2ec229740",
     "zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
+  },
+  "flohoeller/affectui": {
+    "at": "2026-10-30T20:18:02+00:00",
+    "src_hash": "ba6b7d3c20da",
+    "zh": "AI agent 用的 React 元件，涵蓋 agent 樹、tool call、trace 與核准"
   },
   "ganeshmshetty/openclip": {
     "at": "2026-10-22T19:40:44+00:00",
@@ -1333,6 +1358,11 @@
     "at": "2026-10-24T18:28:06+00:00",
     "src_hash": "857fb8273720",
     "zh": "給編碼 agent 的本機影片剪輯工具，42 個 FFmpeg 工具加 MCP server，免雲端"
+  },
+  "kaomei/stickman-video-director": {
+    "at": "2026-10-30T20:18:02+00:00",
+    "src_hash": "eaaaf042f461",
+    "zh": "把任何腳本變成多種風格的火柴人動畫影片，供無臉 YouTube 頻道使用，自動處理畫面、旁白、字幕與音效，免費開源"
   },
   "keptinventory/kept": {
     "at": "2026-10-27T20:22:03+00:00",

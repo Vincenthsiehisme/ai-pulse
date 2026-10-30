@@ -1,12 +1,24 @@
-# 已發布事件（542）
+# 已發布事件（547）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-10-30
+- **[[Events/evt-2026-10-30-37ea6c|Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals]]** — NVIDIA · research · conf 73 · heat 未量測
+  NVIDIA 部落格介紹 AI 代理如何用在搜尋外星訊號的研究上。
+- **[[Events/evt-2026-10-30-5b5f46|Community safety report and new protections for teens]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發布社群安全報告，並在 ChatGPT 擴大暴力預防措施與青少年保護。
+- **[[Events/evt-2026-10-30-d6d96d|Making it easier for websites to express AI training preferences]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 將遵守共用的 robots.txt 訊號，讓網站表達是否同意 AI 訓練。
+- **[[Events/evt-2026-10-30-f1b8bd|nemotron-halloween]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  NVIDIA 在 Hugging Face 部落格發布名為 nemotron-halloween 的文章。
 
 ## 2026-10-29
 - **[[Events/evt-2026-10-29-39de95|Welcome Le Chonk: Mistral Large 4 on Hugging Face]]** — Mistral AI · model-capability · conf 73 · heat 未量測
   Hugging Face 發文歡迎 Mistral Large 4 上架，內文細節證據不足。
 - **[[Events/evt-2026-10-29-3c844c|Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms]]** — Hugging Face · product · conf 73 · heat 未量測
   Hugging Face 發文介紹 AnySpeechRecognizer 與 AnyDecisionModel 兩個面向 Apple 平台的開放模型。
+- **[[Events/evt-2026-10-29-985dc6|Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 公布 Credit Saison 的 ChatGPT Enterprise 試辦，自稱投資報酬率達 954%。
 - **[[Events/evt-2026-10-29-a5f631|How Ropes & Gray is developing AI for transactional diligence]]** — OpenAI · product · conf 73 · heat 未量測
   Ropes & Gray 與 OpenAI 合作開發交易盡職調查用的 AI，律師審閱後才對客戶提供意見。
 - **[[Events/evt-2026-10-29-ab82c2|Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready]]** — Hugging Face · research · conf 73 · heat 未量測

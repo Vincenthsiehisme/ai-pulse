@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-29'
+updated: '2026-10-30'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 今天新增兩則。Hugging Face 發文歡迎 Mistral Large 4 上架，我們只有標題與平台的通用簡介，參數規模、授權與成績都沒有。OpenAI 更新 Model Spec，摘要列出五項核心價值，目標是讓更強的模型保持良好判斷、尊重人類自主、忠於人的意圖，五項的名稱與條文差異摘要沒給。10-28 Gemini 4 Carbon 是 Google 的新前沿模型，The Verge 轉述 Google 說它在 Artificial Analysis Intelligence Index v5.0 排第一，Ars Technica 則說它基本上是 Argon 的小幅改良版而且外界還不能用，兩邊對幅度的說法不一致，官方原文只收標題與連結。同日 NVIDIA 的 Nemotron 3.5 Transcribe 與 Granary v2 是多語語音辨識模型與資料集，兩個來源我們都只有標題。10-27 Genie 4 是 DeepMind 的世界模擬模型，自稱即時模擬的擬真度大幅提高，沒有規格與延遲數字。Liquid AI 的 LFM3 主打特化的多模態模型，摘要只有一行。10-26 OpenAI 發文列出模型在 Kakeya 猜想、Exponential Time Hypothesis 與量子色動力學上的結果，我們手上只有摘要。GPT-6.1 Terra 來源授權只收標題與連結，規格、價格與評測不轉述，原文在 openai.com/index/introducing-gpt-6-1-terra。10-23 OpenAI 的訓練環境安全文章說加強了訓練與評測的隔離，沒有具體事件或成效數字。10-22 NVIDIA Cosmos 擴充訓練工具、模擬檢查點與資料工廠藍圖，排名由 NVIDIA 自述。10-19 的 Anthropic Responsible Scaling Policy v3 仍只有標題與連結，與前一版的差異我們比對不了。更早的 Beam 501B、Apertus 1.5、Muse Spark Open、Gemini 4 Argon 等，一樣停在標題與一兩行說明，沒有獨立評測數字。
-    next: 看 Mistral Large 4 的模型卡是否公布授權、參數量與第三方基準；看 Model Spec 全文的五項價值與前一版差在哪，以及模型行為有沒有跟著改；看 Gemini 4 Carbon 何時開放使用，以及開放後第三方對程式與資安任務的獨立測試，驗證榜首與領先幅度；看 Nemotron 3.5 Transcribe 模型卡上的語言覆蓋、授權與詞錯率；看 Genie 4 是否開放試用或發布技術報告；看 OpenAI 學術合作那篇的結果有沒有學界複驗；看 LFM3 的權重釋出方式與基準；讀 GPT-6.1 Terra 原文，看價格、可用日期與第三方基準是否在一週內跟上；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變。
+    now: 今天新增一則。NVIDIA 在 Hugging Face 發了標題為 nemotron-halloween 的文章，我們只有標題與一句平台簡介，是否附模型或資料集不明（證據不足，待補）。 前一輪新增的部分：Hugging Face 發文歡迎 Mistral Large 4 上架，我們只有標題與平台的通用簡介，參數規模、授權與成績都沒有。OpenAI 更新 Model Spec，摘要列出五項核心價值，目標是讓更強的模型保持良好判斷、尊重人類自主、忠於人的意圖，五項的名稱與條文差異摘要沒給。10-28 Gemini 4 Carbon 是 Google 的新前沿模型，The Verge 轉述 Google 說它在 Artificial Analysis Intelligence Index v5.0 排第一，Ars Technica 則說它基本上是 Argon 的小幅改良版而且外界還不能用，兩邊對幅度的說法不一致，官方原文只收標題與連結。同日 NVIDIA 的 Nemotron 3.5 Transcribe 與 Granary v2 是多語語音辨識模型與資料集，兩個來源我們都只有標題。10-27 Genie 4 是 DeepMind 的世界模擬模型，自稱即時模擬的擬真度大幅提高，沒有規格與延遲數字。Liquid AI 的 LFM3 主打特化的多模態模型，摘要只有一行。10-26 OpenAI 發文列出模型在 Kakeya 猜想、Exponential Time Hypothesis 與量子色動力學上的結果，我們手上只有摘要。GPT-6.1 Terra 來源授權只收標題與連結，規格、價格與評測不轉述，原文在 openai.com/index/introducing-gpt-6-1-terra。10-23 OpenAI 的訓練環境安全文章說加強了訓練與評測的隔離，沒有具體事件或成效數字。10-22 NVIDIA Cosmos 擴充訓練工具、模擬檢查點與資料工廠藍圖，排名由 NVIDIA 自述。10-19 的 Anthropic Responsible Scaling Policy v3 仍只有標題與連結，與前一版的差異我們比對不了。更早的 Beam 501B、Apertus 1.5、Muse Spark Open、Gemini 4 Argon 等，一樣停在標題與一兩行說明，沒有獨立評測數字。
+    next: 看 nemotron-halloween 全文是否連到新的 Nemotron 權重、資料集或基準結果；看 Mistral Large 4 的模型卡是否公布授權、參數量與第三方基準；看 Model Spec 全文的五項價值與前一版差在哪，以及模型行為有沒有跟著改；看 Gemini 4 Carbon 何時開放使用，以及開放後第三方對程式與資安任務的獨立測試，驗證榜首與領先幅度；看 Nemotron 3.5 Transcribe 模型卡上的語言覆蓋、授權與詞錯率；看 Genie 4 是否開放試用或發布技術報告；看 OpenAI 學術合作那篇的結果有沒有學界複驗；看 LFM3 的權重釋出方式與基準；讀 GPT-6.1 Terra 原文，看價格、可用日期與第三方基準是否在一週內跟上；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,9 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 今天新增三則。Ropes & Gray 與 OpenAI 合作開發交易盡職調查用的 AI，摘要寫律師會先審閱系統分組的文件、摘要與報告，再向客戶提供建議，節省時數與導入規模沒有數字。Hugging Face 介紹面向 Apple 平台的 AnySpeechRecognizer 與 AnyDecisionModel，我們只有標題，作者、授權與效能都沒有。NVIDIA 的 GFN Thursday 上架《Phantom Blade Zero》，是例行的雲端遊戲更新，與 AI 主線關聯弱。10-28 Retell 案例是 OpenAI 自家發的，稱 OpenAI 模型支撐每月 1 億通通話，摘要提到 GPT-6 Astra 在 Retell 的語音代理基準排第一，Codex 協助達到每名員工 160 萬美元年營收運行率，基準與數字都出自 OpenAI 與 Retell 自述，方法沒交代。Anthropic 有兩篇新聞頁文章，標題是「s1 Sec」與「Expanding Partnership Gsa」，授權註記只收標題與連結，內文不轉述，後者從標題看與 GSA 的合作擴大有關，範圍與條件沒有證據。原文在 anthropic.com/news/s1-sec 與 anthropic.com/news/expanding-partnership-gsa。10-27 xAI 的 Grok Bot Sales 頁面，站方宣告 ai-input=no，我們不取內文也不轉述，原文在 x.ai/news/grok-bot-sales。同日 OpenAI 的 Check Point 案例說分析師用 Daybreak 更快把漏洞情資轉成客戶防護，沒有節省時間的數字。10-26 兩則 OpenAI：ChatGPT 工作用途的 Signals 資料涵蓋 165 項工作活動、近 100 個國家，摘要沒有占比；Fanatics 的 Shop the Look 在約 30,000 件 MLB 商品上測試，互動率高 10%，對照組與指標定義沒寫。10-22 Uber 把 ChatGPT Work 推給超過 3 萬名員工，合約金額與使用率沒有；OpenAI 發表 Decisions API，摘要只有一句。10-21 ChatGPT Ads 擴到 26 個新國家，稱超過 10 萬名廣告主，沒有營收或成效。
-    next: 看 Ropes & Gray 是否公布導入的案件量與審閱時間變化，以及其他大型律所有沒有跟進；看 AnySpeechRecognizer 模型卡是否列出支援的 Apple 晶片、延遲與辨識錯誤率；看 Retell 或第三方是否公開語音基準的方法與其他模型成績；讀 Anthropic 兩篇原文，看 GSA 合作的範圍、價格與適用機構；讀 Grok Bot Sales 原文，看有沒有價格或產品細節；看 Check Point 是否公布 Daybreak 的時間節省；看 Signals 原文是否公開各類工作活動的占比；看 Fanatics 是否公布轉換率；看 Decisions API 文件的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率；看 OpenAI 是否公布廣告營收與各國上線清單。
+    now: 今天新增四則，皆為 OpenAI。Credit Saison 的 ChatGPT Enterprise 試辦自稱 ROI 954%，計算口徑與樣本規模沒有交代。社群安全報告那篇列出擴大暴力預防防護、更早介入，並承諾公開公共安全報告，青少年保護的具體做法摘要沒給。另一篇宣布會尊重共用的 robots.txt 訊號，讓網站表達 AI 訓練偏好，參與業者與生效時間沒有證據。Ropes & Gray 的交易盡職調查案例，是 10-29 同日的另一則客戶案例。 前一輪新增的部分：Ropes & Gray 與 OpenAI 合作開發交易盡職調查用的 AI，摘要寫律師會先審閱系統分組的文件、摘要與報告，再向客戶提供建議，節省時數與導入規模沒有數字。Hugging Face 介紹面向 Apple 平台的 AnySpeechRecognizer 與 AnyDecisionModel，我們只有標題，作者、授權與效能都沒有。NVIDIA 的 GFN Thursday 上架《Phantom Blade Zero》，是例行的雲端遊戲更新，與 AI 主線關聯弱。10-28 Retell 案例是 OpenAI 自家發的，稱 OpenAI 模型支撐每月 1 億通通話，摘要提到 GPT-6 Astra 在 Retell 的語音代理基準排第一，Codex 協助達到每名員工 160 萬美元年營收運行率，基準與數字都出自 OpenAI 與 Retell 自述，方法沒交代。Anthropic 有兩篇新聞頁文章，標題是「s1 Sec」與「Expanding Partnership Gsa」，授權註記只收標題與連結，內文不轉述，後者從標題看與 GSA 的合作擴大有關，範圍與條件沒有證據。原文在 anthropic.com/news/s1-sec 與 anthropic.com/news/expanding-partnership-gsa。10-27 xAI 的 Grok Bot Sales 頁面，站方宣告 ai-input=no，我們不取內文也不轉述，原文在 x.ai/news/grok-bot-sales。同日 OpenAI 的 Check Point 案例說分析師用 Daybreak 更快把漏洞情資轉成客戶防護，沒有節省時間的數字。10-26 兩則 OpenAI：ChatGPT 工作用途的 Signals
+      資料涵蓋 165 項工作活動、近 100 個國家，摘要沒有占比；Fanatics 的 Shop the Look 在約 30,000 件 MLB 商品上測試，互動率高 10%，對照組與指標定義沒寫。10-22 Uber 把 ChatGPT Work 推給超過 3 萬名員工，合約金額與使用率沒有；OpenAI 發表 Decisions API，摘要只有一句。10-21 ChatGPT Ads 擴到 26 個新國家，稱超過 10 萬名廣告主，沒有營收或成效。
+    next: 看 Credit Saison 或第三方是否公布 ROI 的算法；看 OpenAI 下一份安全報告的時間與涵蓋指標；看其他模型業者是否加入共用的 robots.txt 訊號；看 Ropes & Gray 是否公布導入的案件量與審閱時間變化，以及其他大型律所有沒有跟進；看 AnySpeechRecognizer 模型卡是否列出支援的 Apple 晶片、延遲與辨識錯誤率；看 Retell 或第三方是否公開語音基準的方法與其他模型成績；讀 Anthropic 兩篇原文，看 GSA 合作的範圍、價格與適用機構；讀 Grok Bot Sales 原文，看有沒有價格或產品細節；看 Check Point 是否公布 Daybreak 的時間節省；看 Signals 原文是否公開各類工作活動的占比；看 Fanatics 是否公布轉換率；看 Decisions API 文件的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率；看 OpenAI 是否公布廣告營收與各國上線清單。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -64,6 +65,6 @@ tracks:
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 今天新增一則。Hugging Face 宣布 Project ProtoStar，目標是讓公共資助的科學資料能被 AI 使用，我們只有標題，合作單位、資料範圍與時程都沒有證據。10-28 前後：OpenAI 與波蘭 NASK 合作做 AI 安全與資安研究，沒有金額、期程或具體專案。NVIDIA 稱哈薩克的 AI 生態系正從基礎設施規劃走向部署，與黃仁勳訪問阿斯塔納同步發布公告，摘要沒有 GPU 數量或投資金額。10-22 NVIDIA 歐洲系列兩則：公部門那篇指出政府希望敏感資訊留在自己控制的基礎設施，用開放模型自行評估並套用自己的防護機制，沒有點名機關與預算；Earth-2 那篇談歐洲業者部署開放模型做天氣與氣候預測，具體部署單位被截斷。10-21 歐洲工業大廠在工程與製造流程用 CUDA-X、Omniverse、Cosmos、Nemotron，沒有點名客戶與數字。歐洲雲端夥伴擴張，夥伴名單與容量沒給。10-20 巴塞隆納 AI Factory 新創計畫仍沒有金額或配額。
-    next: 看 ProtoStar 的首批資料集上線時間、合作機構名單與授權方式；看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
+    now: 今天新增一則。NVIDIA 部落格介紹 AI 代理用在外星智慧搜尋（SETI）的研究，摘要被截斷，專案、機構與技術細節都沒有證據，屬於廠商科普文。 前一輪新增的部分：Hugging Face 宣布 Project ProtoStar，目標是讓公共資助的科學資料能被 AI 使用，我們只有標題，合作單位、資料範圍與時程都沒有證據。10-28 前後：OpenAI 與波蘭 NASK 合作做 AI 安全與資安研究，沒有金額、期程或具體專案。NVIDIA 稱哈薩克的 AI 生態系正從基礎設施規劃走向部署，與黃仁勳訪問阿斯塔納同步發布公告，摘要沒有 GPU 數量或投資金額。10-22 NVIDIA 歐洲系列兩則：公部門那篇指出政府希望敏感資訊留在自己控制的基礎設施，用開放模型自行評估並套用自己的防護機制，沒有點名機關與預算；Earth-2 那篇談歐洲業者部署開放模型做天氣與氣候預測，具體部署單位被截斷。10-21 歐洲工業大廠在工程與製造流程用 CUDA-X、Omniverse、Cosmos、Nemotron，沒有點名客戶與數字。歐洲雲端夥伴擴張，夥伴名單與容量沒給。10-20 巴塞隆納 AI Factory 新創計畫仍沒有金額或配額。
+    next: 看 SETI 那篇提到的研究團隊是否發表論文或公開資料集；看 ProtoStar 的首批資料集上線時間、合作機構名單與授權方式；看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
     lenses: []
