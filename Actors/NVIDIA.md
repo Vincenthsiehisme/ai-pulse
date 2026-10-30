@@ -3,17 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-10-29'
+generated_day: '2026-10-30'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **114** 則：`dropped` 1、`published` 106、`review` 7
+事件 **115** 則：`dropped` 1、`published` 107、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-29 | [[Events/evt-2026-10-29-bd042a\|Slice Into GFN Thursday: ‘Phantom Blade Zero’ Launches on GeForce NOW]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-ebc366\|Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-521bbb\|NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt]] | published |
 | 2026-10-27 | [[Events/evt-2026-10-27-59a63a\|How AI Is Changing the Pace of Discovery for Millions Living With Dementia]] | review |

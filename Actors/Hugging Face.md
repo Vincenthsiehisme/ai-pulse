@@ -3,19 +3,20 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-10-29'
+generated_day: '2026-10-30'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **28** 則：`published` 20、`review` 8
+事件 **29** 則：`published` 22、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-29 | [[Events/evt-2026-10-29-c5342e\|Granite Switch 4.1.1 — Update models like you update software]] | review |
-| 2026-10-29 | [[Events/evt-2026-10-29-39de95\|Welcome Le Chonk: Mistral Large 4 on Hugging Face]] | review |
+| 2026-10-30 | [[Events/evt-2026-10-30-f1b8bd\|nemotron-halloween]] | review |
+| 2026-10-29 | [[Events/evt-2026-10-29-ab82c2\|Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready]] | published |
+| 2026-10-29 | [[Events/evt-2026-10-29-3c844c\|Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-3c66c9\|How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications]] | review |
 | 2026-10-20 | [[Events/evt-2026-10-20-3bdd58\|Hugging Face ❤️ TorchTPU: TPUs, Natively]] | published |
 | 2026-10-20 | [[Events/evt-2026-10-20-2fa1fb\|MPS in PyTorch 2.15]] | published |

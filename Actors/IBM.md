@@ -3,7 +3,7 @@ id: actor-ibm
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-10-29'
+generated_day: '2026-10-30'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -12,10 +12,11 @@ tags: [actor, company]
 
 > ⚠ **字典裡沒有這家公司。** 它是從 Event 的 `company` 欄位冒出來的，代表 `_config/entities.yaml` 少收了一條——或者 `infer_company()` 推錯了。兩種都要人看一眼。
 
-事件 **6** 則：`published` 4、`review` 2
+事件 **7** 則：`published` 5、`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-10-29 | [[Events/evt-2026-10-29-c5342e\|Granite Switch 4.1.1 — Update models like you update software]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-2853b8\|Ensemble forecasting with IBM Granite time-series models]] | review |
 | 2026-10-21 | [[Events/evt-2026-10-21-3f6e5f\|Granite Speech 5.0: Transcribe, Translate, and Attribute more Accurately and Faster]] | published |
 | 2026-10-20 | [[Events/evt-2026-10-20-260a2f\|ALTK-Evolve: How learned memory tops the τ²-bench leaderboard on customer service tasks without a frontier model]] | review |
