@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-10-30'
+updated: '2026-10-31'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -51,8 +51,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 今天新增兩則。NVIDIA 在 GTC Berlin 展示歐洲金融業在自家基礎設施跑開放權重模型，Revolut 的部分被截斷，規模與成本數字沒有。xAI 發布標題為 Partnernetworkannouncement 的公告，該站宣告 ai-input=no，我們依此不取內文，夥伴是誰與條件為何看不到，原文在 https://x.ai/news/partnernetworkannouncement 。10-21 OpenAI 模型將上 Google Cloud，Ars Technica 稱未來幾週提供 GPT 6.1 的 Astra、Sol、Luna，價格與合約條件不明，單一媒體來源。OpenAI 發表〈前沿 AI 的民主治理〉第二部，是政策藍圖，沒有具體資源承諾。Anthropic 宣布 Christopher Stubbs 加入 Long Term Benefit Trust，內文未取得。10-20 OpenAI 收購 Orchestra Bio，金額與交割時程仍不明。
-    next: 讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
+    now: 今天新增一則。OpenAI 在官方部落格發表〈Fair use benefits everyone〉，轉載創作者、學者與法律專家的法庭意見書節錄，主張合理使用支持 AI 訓練，是法律敘事，沒有金額或資源承諾，單一來源。其餘維持：NVIDIA 在 GTC Berlin 展示歐洲金融業在自家基礎設施跑開放權重模型，Revolut 的部分被截斷，規模與成本數字沒有。xAI 發布標題為 Partnernetworkannouncement 的公告，該站宣告 ai-input=no，我們依此不取內文，夥伴是誰與條件為何看不到，原文在 https://x.ai/news/partnernetworkannouncement 。10-21 OpenAI 模型將上 Google Cloud，Ars Technica 稱未來幾週提供 GPT 6.1 的 Astra、Sol、Luna，價格與合約條件不明，單一媒體來源。OpenAI 發表〈前沿 AI 的民主治理〉第二部，是政策藍圖，沒有具體資源承諾。Anthropic 宣布 Christopher Stubbs 加入 Long Term Benefit Trust，內文未取得。10-20 OpenAI 收購 Orchestra Bio，金額與交割時程仍不明。
+    next: 看相關著作權案件的法院裁決或和解，是否採納合理使用的論點；讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？

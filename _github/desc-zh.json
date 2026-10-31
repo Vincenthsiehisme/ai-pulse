@@ -169,6 +169,11 @@
     "src_hash": "0a977cb7f34a",
     "zh": "讓 AI agent 像全場最懶的資深工程師那樣想：最好的程式是你沒寫的那段"
   },
+  "Donchitos/Claude-Code-Game-Studios": {
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "9d527e159631",
+    "zh": "把 Claude Code 變成遊戲開發工作室：49 個 agent、72 個工作流 skill，仿真實工作室的分層協作"
+  },
   "DuarteSantos8/openGym": {
     "at": "2026-10-23T19:40:32+00:00",
     "src_hash": "ef0dc272201c",
@@ -178,6 +183,11 @@
     "at": "2026-10-07T20:56:20+00:00",
     "src_hash": "0576e84207c2",
     "zh": "本機優先的 AI agent，記憶需經核准才寫入，可接任何模型供應商，內建 MCP 工具與網頁搜尋，資料不離開你的電腦"
+  },
+  "Egonex-AI/Understand-Anything": {
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "85b83fc23d68",
+    "zh": "把任何程式碼轉成可互動探索、搜尋與提問的知識圖譜，支援 Claude Code、Codex、Cursor 等"
   },
   "Evil0ctal/Douyin_TikTok_Download_API": {
     "at": "2026-10-21T19:47:16+00:00",
@@ -603,6 +613,11 @@
     "at": "2026-08-10T00:35:39+00:00",
     "src_hash": "07fb9f695eda",
     "zh": "TradingAgents：多 agent LLM 金融交易框架"
+  },
+  "Tejashmakwana/motionmaxxing": {
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "93b6db044229",
+    "zh": "給動態設計用的 agent skill，把粗糙的 AI 影片改成像動態設計師做的成品"
   },
   "Tencent/WeKnora": {
     "at": "2026-09-18T19:12:51+00:00",
@@ -1069,6 +1084,11 @@
     "src_hash": "c054e48f4763",
     "zh": "AI agent 工具包：統一 LLM API、agent loop、TUI 與寫程式用的 agent CLI"
   },
+  "echris6/motion-video-kit": {
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "06923f07e2df",
+    "zh": "Claude Code skill 套件，用來製作商業影片：獨立評審迴圈、動態原則、音效設計與 Three.js 範式"
+  },
   "edenfunf/reelmimic": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "a89d46936fb1",
@@ -1464,6 +1484,11 @@
     "src_hash": "a89b2b038711",
     "zh": "用單張 4GB GPU 跑 2.8T 參數 LLM 推論（AirLLM）"
   },
+  "macro-inc/macro": {
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "558d9c059aca",
+    "zh": "團隊統一工作區：email、聊天、文件、任務、agent、通話與 CRM，以共用 AI 記憶互相連結"
+  },
   "makecindy/cindy": {
     "at": "2026-10-24T18:28:06+00:00",
     "src_hash": "b3f220d6a998",
@@ -1498,6 +1523,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "6f9c671048a4",
     "zh": "AI agent 的記憶層，可直接套用的記憶基礎設施，讓上下文持續保留，為正式環境設計"
+  },
+  "microsoft/TokenEconomizer": {
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "886d73278ee7",
+    "zh": "靠經驗驅動、不碰模型內部的 coding agent 成本控制工具"
   },
   "microsoft/Webwright": {
     "at": "2026-09-14T19:12:31+00:00",
@@ -1719,6 +1749,11 @@
     "src_hash": "de16d13e0c60",
     "zh": "好上手的 AI 介面，支援 Ollama、OpenAI API 等"
   },
+  "openai/codex": {
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "69d4d9a57d42",
+    "zh": "在終端機執行的輕量 coding agent"
+  },
   "opendatalab/MinerU": {
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "e7595528b2f9",
@@ -1848,6 +1883,11 @@
     "at": "2026-10-08T20:58:31+00:00",
     "src_hash": "5f2b1597d8cb",
     "zh": "Apple Silicon 上的開源 LLM 推論伺服器，相容 OpenAI 與 Anthropic，主打穩定的工具呼叫"
+  },
+  "reason-machines/reason-network": {
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "7e35c7e5958a",
+    "zh": "讓團隊的 coding agent 彼此溝通的網路，是 `reason network` 的核心引擎"
   },
   "receptron/laya": {
     "at": "2026-10-20T19:46:47+00:00",
@@ -2210,9 +2250,9 @@
     "zh": "給 Claude 的 MCP server，讓它能控制終端機、搜尋檔案系統並做 diff 檔案編輯"
   },
   "xberg-io/xberg": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "0d499976c378",
-    "zh": "Rust 核心的文件解析框架，從 106 種格式抽取文字、表格與結構化資料，附 CLI、REST API、MCP"
+    "at": "2026-10-31T19:40:39+00:00",
+    "src_hash": "48de74b20940",
+    "zh": "快速精準的文件解析引擎，支援各語言，從 100 多種格式抽出文字、表格與中繼資料，含 OCR 與轉錄"
   },
   "xbtlin/ai-berkshire": {
     "at": "2026-07-27T19:23:58+00:00",

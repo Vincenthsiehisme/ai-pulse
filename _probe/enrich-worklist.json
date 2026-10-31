@@ -1,8 +1,8 @@
 [
   {
-    "id": "evt-2026-10-29-985dc6",
-    "path": "evt-2026-10-29-985dc6.md",
-    "title": "Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot",
+    "id": "evt-2026-10-30-bc2e85",
+    "path": "evt-2026-10-30-bc2e85.md",
+    "title": "Fair use benefits everyone",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -11,129 +11,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/credit-saison",
-        "title": "Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot",
-        "summary": "Credit Saison’s ChatGPT Enterprise pilot delivered 954% ROI. See how leaders and employees helped turn the results into companywide adoption.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-30-37ea6c",
-    "path": "evt-2026-10-30-37ea6c.md",
-    "title": "Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/ai-joins-the-search-for-extraterrestrial-signals/",
-        "title": "Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals",
-        "summary": "While science fiction lore tells us that humans will meet extraterrestrial life in the form of little green men, the detail that should raise hairs this Halloween is this: the search for extraterrestrial intelligence took a major leap forward with AI, and it increasingly focuses on AI agents built b",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-30-5b5f46",
-    "path": "evt-2026-10-30-5b5f46.md",
-    "title": "Community safety report and new protections for teens",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/community-safety-report-and-new-protections-for-teens",
-        "title": "Community safety report and new protections for teens",
-        "summary": "OpenAI is strengthening violence prevention in ChatGPT with expanded safeguards, earlier interventions, and a new commitment to public safety reporting.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-30-d6d96d",
-    "path": "evt-2026-10-30-d6d96d.md",
-    "title": "Making it easier for websites to express AI training preferences",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/helping-websites-express-ai-training-preferences",
-        "title": "Making it easier for websites to express AI training preferences",
-        "summary": "OpenAI will honor a shared robots.txt signal to help website operators communicate their AI training preferences to participating providers.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-10-30-f1b8bd",
-    "path": "evt-2026-10-30-f1b8bd.md",
-    "title": "nemotron-halloween",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/nvidia/nemotron-halloween",
-        "title": "nemotron-halloween",
-        "summary": "A Blog post by NVIDIA on Hugging Face",
+        "url": "https://openai.com/index/fair-use-benefits-everyone",
+        "title": "Fair use benefits everyone",
+        "summary": "OpenAI shares excerpts from court briefs by creators, academics, accessibility advocates, and legal experts, among others, on how fair use supports AI training and innovation.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"

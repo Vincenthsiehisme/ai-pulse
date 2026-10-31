@@ -1,4 +1,4 @@
-# 已發布事件（547）
+# 已發布事件（548）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
@@ -7,6 +7,8 @@
   NVIDIA 部落格介紹 AI 代理如何用在搜尋外星訊號的研究上。
 - **[[Events/evt-2026-10-30-5b5f46|Community safety report and new protections for teens]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 發布社群安全報告，並在 ChatGPT 擴大暴力預防措施與青少年保護。
+- **[[Events/evt-2026-10-30-bc2e85|Fair use benefits everyone]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 在官方部落格轉載創作者、學者與法律專家的法庭意見書節錄，主張合理使用支持 AI 訓練。
 - **[[Events/evt-2026-10-30-d6d96d|Making it easier for websites to express AI training preferences]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 將遵守共用的 robots.txt 訊號，讓網站表達是否同意 AI 訓練。
 - **[[Events/evt-2026-10-30-f1b8bd|nemotron-halloween]]** — NVIDIA · model-capability · conf 73 · heat 未量測
