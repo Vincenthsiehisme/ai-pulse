@@ -16,65 +16,17 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-29-39de95",
-    "title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
-    "company": "Mistral AI",
-    "track": "模型能力與研究",
-    "summary": "Hugging Face 發文歡迎 Mistral Large 4 上架，內文細節證據不足。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-29-3c844c",
-    "title": "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms",
-    "company": "Hugging Face",
-    "track": "產品與商業驗證",
-    "summary": "Hugging Face 發文介紹 AnySpeechRecognizer 與 AnyDecisionModel 兩個面向 Apple 平台的開放模型。",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-10-29-985dc6",
     "title": "Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot",
     "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-29-bd042a",
-    "title": "Slice Into GFN Thursday: ‘Phantom Blade Zero’ Launches on GeForce NOW",
-    "company": "NVIDIA",
     "track": "產品與商業驗證",
-    "summary": "NVIDIA 的 GFN Thursday 本週上架《Phantom Blade Zero》，是例行的雲端遊戲更新。",
+    "summary": "OpenAI 公布 Credit Saison 的 ChatGPT Enterprise 試辦，自稱投資報酬率達 954%。",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-10-30-37ea6c",
-    "title": "Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-30-5b5f46",
-    "title": "Community safety report and new protections for teens",
+    "id": "evt-2026-10-30-bc2e85",
+    "title": "Fair use benefits everyone",
     "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-30-d6d96d",
-    "title": "Making it easier for websites to express AI training preferences",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-10-30-f1b8bd",
-    "title": "nemotron-halloween",
-    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null

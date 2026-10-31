@@ -1,7 +1,8 @@
-# 被門禁擋下（64）
+# 被門禁擋下（65）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-10-30-bc2e85|Fair use benefits everyone]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-29-878ddc|How we detect frontier model misalignment]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-e5f194|Ai For Science Expands Foundations Research Institutions]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-28-603cba|The future of the firm]]** — OpenAI — blockers: thin_research_analysis

@@ -3,22 +3,23 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-30'
+generated_day: '2026-10-31'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **192** 則：`published` 182、`review` 10
+事件 **193** 則：`published` 185、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-10-30 | [[Events/evt-2026-10-30-d6d96d\|Making it easier for websites to express AI training preferences]] | review |
-| 2026-10-30 | [[Events/evt-2026-10-30-5b5f46\|Community safety report and new protections for teens]] | review |
+| 2026-10-30 | [[Events/evt-2026-10-30-d6d96d\|Making it easier for websites to express AI training preferences]] | published |
+| 2026-10-30 | [[Events/evt-2026-10-30-bc2e85\|Fair use benefits everyone]] | review |
+| 2026-10-30 | [[Events/evt-2026-10-30-5b5f46\|Community safety report and new protections for teens]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-feaaee\|An updated Model Spec for more capable and beneficial AI]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-a5f631\|How Ropes & Gray is developing AI for transactional diligence]] | published |
-| 2026-10-29 | [[Events/evt-2026-10-29-985dc6\|Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot]] | review |
+| 2026-10-29 | [[Events/evt-2026-10-29-985dc6\|Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-878ddc\|How we detect frontier model misalignment]] | review |
 | 2026-10-28 | [[Events/evt-2026-10-28-f7c4df\|OpenAI and ServiceNow expand partnership across enterprise workflows]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-63d59c\|Legora is building the agentic operating system for legal work]] | published |

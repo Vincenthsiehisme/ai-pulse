@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-30'
+generated_day: '2026-10-31'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**95 天**（2026-07-24 … 2026-10-30），去重後 **6296** 列。
+語料範圍：**96 天**（2026-07-24 … 2026-10-31），去重後 **6348** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,38 +17,38 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 194 | 2 |
-| Apple | 140 | 6 |
+| Show HN | 197 | 2 |
+| Apple | 142 | 6 |
 | Amazon | 93 | 5 |
-| September | 62 | 8 |
-| LLMs | 61 | 13 |
+| September | 63 | 8 |
+| LLMs | 62 | 13 |
 | There | 60 | 8 |
+| Here | 58 | 9 |
 | They | 57 | 9 |
-| Here | 57 | 9 |
 | LLM | 56 | 12 |
 | October | 50 | 7 |
 | Muse | 48 | 6 |
 | Trump | 47 | 5 |
 | Pro | 45 | 8 |
+| Python | 44 | 5 |
 | One | 44 | 10 |
-| Python | 43 | 5 |
-| CEO | 42 | 5 |
+| CEO | 43 | 5 |
 | AI-powered | 41 | 10 |
 | San Francisco | 41 | 9 |
 | When | 41 | 11 |
-| After | 39 | 6 |
+| After | 40 | 6 |
 | July | 38 | 9 |
 | U.S | 38 | 8 |
 | Last | 36 | 7 |
+| China | 35 | 8 |
 | Android | 35 | 4 |
-| China | 34 | 8 |
 | With | 34 | 10 |
 | Linux | 34 | 5 |
 | Astra | 32 | 6 |
 | June | 31 | 7 |
 | Research | 31 | 6 |
 | AI-generated | 31 | 8 |
-| Windows | 30 | 5 |
+| Windows | 31 | 5 |
 | August | 30 | 8 |
 | Europe | 29 | 8 |
 | Rust | 29 | 3 |
@@ -57,26 +57,26 @@ generator: scripts/pulse-dictionary-gaps.py
 | Building | 27 | 11 |
 | Wednesday | 26 | 5 |
 | Samsung | 26 | 5 |
+| November | 26 | 4 |
+| IPO | 26 | 7 |
 | SpaceX | 25 | 5 |
-| IPO | 25 | 7 |
 | Opus | 24 | 6 |
+| Chinese | 24 | 8 |
 | API | 24 | 6 |
 | Pixel | 24 | 3 |
-| November | 24 | 4 |
-| Chinese | 23 | 8 |
 | Elon Musk | 23 | 5 |
+| While | 23 | 4 |
+| Xbox | 23 | 2 |
 | Thursday | 22 | 5 |
 | Tool | 22 | 2 |
 | Over | 22 | 5 |
-| Xbox | 22 | 2 |
 | Flash | 21 | 6 |
 | Tuesday | 21 | 6 |
 | Some | 21 | 8 |
 | Mac | 21 | 4 |
-| While | 21 | 4 |
 | The AI | 21 | 6 |
+| Can | 21 | 7 |
 | Duo | 21 | 3 |
-| Monday | 20 | 4 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -94,22 +94,22 @@ generator: scripts/pulse-dictionary-gaps.py
 | Hi HN | 28 | src-hn-frontpage |
 | MIT Technology Review | 24 | src-media-mit-techreview |
 | Launch HN | 23 | src-hn-frontpage |
+| The Verge | 22 | src-media-theverge |
 | A Blog | 22 | src-hf-blog |
-| The Verge | 21 | src-media-theverge |
 | Highlights | 20 | src-gh-vllm-releases |
 | Opt | 20 | src-media-theverge |
+| Best Buy | 18 | src-media-theverge |
 | Is Hiring | 18 | src-hn-frontpage |
 | Ask HN | 17 | src-hn-frontpage |
-| Best Buy | 17 | src-media-theverge |
 | GeForce NOW | 16 | src-nvidia-blog |
 | Committee | 15 | src-ep-itre |
 | Hey HN | 14 | src-hn-frontpage |
 | The Stepback | 13 | src-media-theverge |
+| Installer No | 12 | src-media-theverge |
+| Verge-iest | 12 | src-media-theverge |
+| Installer | 12 | src-media-theverge |
 | Datasette | 12 | src-kol-simonwillison |
 | YC S26 | 11 | src-hn-frontpage |
-| Installer No | 11 | src-media-theverge |
-| Verge-iest | 11 | src-media-theverge |
-| Installer | 11 | src-media-theverge |
 | Disrupt | 11 | src-media-techcrunch |
 | FCC | 10 | src-media-theverge |
 | Roundtables | 10 | src-media-mit-techreview |

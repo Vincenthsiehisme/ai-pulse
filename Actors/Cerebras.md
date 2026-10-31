@@ -3,7 +3,7 @@ id: actor-cerebras
 kind: company
 in_dictionary: true
 aliases: []
-generated_day: '2026-10-30'
+generated_day: '2026-10-31'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

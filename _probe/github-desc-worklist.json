@@ -1,111 +1,180 @@
 [
   {
-    "full_name": "1llu50ry/mcp-reverse",
-    "desc": "MCP (Model Context Protocol) server for game hacking & reverse engineering. A structured knowledge base of 4,100+ skills with full source code archives, specialized agents, and workflow tools -- designed to be plugged into Claude, Cursor, or any MCP-compatible client.",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 485,
-    "url": "https://github.com/1llu50ry/mcp-reverse",
-    "stale_zh": null
-  },
-  {
-    "full_name": "eliasbiondo/antirion",
-    "desc": "🕷️ The fastest open-source AI Gateway and LLM Gateway — one binary with built-in console to route, secure, budget and observe every LLM call across OpenAI, Anthropic, Gemini, Bedrock and more.",
-    "language": "Rust",
-    "topics": [
-      "a2a",
-      "ai-gateway",
-      "anthropic",
-      "api-gateway",
-      "bifrost-alternative",
-      "guardrails"
-    ],
-    "stars": 494,
-    "url": "https://github.com/eliasbiondo/antirion",
-    "stale_zh": "號稱最快的開源 AI Gateway，單一執行檔內建主控台，可路由、保護、控管預算並觀測各家 LLM 呼叫"
-  },
-  {
-    "full_name": "Sallyn0225/eidolon-sc",
-    "desc": "和《偶像大师 闪耀色彩》偶像实时语音/文字对话的 AI 分身：日语原声 + 中文字幕、回忆原作剧情、跨角色共享记忆；支持 Google/GitHub 登录与自带密钥，Docker Compose 一键部署（参考 LAPLACE Eidolon）",
+    "full_name": "microsoft/TokenEconomizer",
+    "desc": "Experience-Driven Black-Box Cost Control for Coding Agents",
     "language": "Python",
     "topics": [
-      "ai-companion",
-      "character-ai",
-      "docker-compose",
-      "fastapi",
-      "idolmaster",
-      "llm"
+      "agentic-ai",
+      "agentic-coding",
+      "ai-coding",
+      "ai-coding-assistant",
+      "anthropic",
+      "artificial-intelligence"
     ],
-    "stars": 337,
-    "url": "https://github.com/Sallyn0225/eidolon-sc",
+    "stars": 2894,
+    "url": "https://github.com/microsoft/TokenEconomizer",
     "stale_zh": null
   },
   {
-    "full_name": "flohoeller/affectui",
-    "desc": "UI for AI agents. React components for what agents do – agent trees, tool calls, traces, handoffs and approvals – and for the rest of your app. One file each, install with shadcn or via MCP. Free and open source.",
-    "language": "TypeScript",
+    "full_name": "Donchitos/Claude-Code-Game-Studios",
+    "desc": "Turn Claude Code into a full game dev studio — 49 AI agents, 72 workflow skills, and a complete coordination system mirroring real studio hierarchy.",
+    "language": "Shell",
     "topics": [
-      "agent-ui",
+      "ai-agents",
+      "ai-assisted-development",
+      "anthropic",
+      "claude",
+      "claude-code",
+      "game-design"
+    ],
+    "stars": 31023,
+    "url": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+    "stale_zh": null
+  },
+  {
+    "full_name": "macro-inc/macro",
+    "desc": "Macro is a unified workspace for teams: email, chat, docs, tasks, agents, calls, and CRM — @-linked together with shared AI memory.",
+    "language": "Rust",
+    "topics": [
+      "agent",
       "ai",
       "ai-agents",
-      "ai-ui",
-      "animation",
-      "components"
+      "all-in-one",
+      "crm",
+      "crm-system"
     ],
-    "stars": 397,
-    "url": "https://github.com/flohoeller/affectui",
+    "stars": 6024,
+    "url": "https://github.com/macro-inc/macro",
     "stale_zh": null
   },
   {
-    "full_name": "anthropics/skills",
-    "desc": "Public repository for Agent Skills",
+    "full_name": "scenario-labs/skills",
+    "desc": "Get production-ready images, video, audio, and 3D from any AI agent: skills that pick the right model, price before spending, and keep characters and brands consistent through the Scenario MCP, plus expert teams that drive Blender, Maya, ZBrush, Unreal, and Unity.",
     "language": "Python",
     "topics": [
-      "agent-skills"
+      "3d-models",
+      "agent-skills",
+      "ai-agents",
+      "ai-art",
+      "blender",
+      "claude-code"
     ],
-    "stars": 185189,
-    "url": "https://github.com/anthropics/skills",
+    "stars": 1368,
+    "url": "https://github.com/scenario-labs/skills",
     "stale_zh": null
   },
   {
-    "full_name": "OpenSenseNova/SenseNova-RoboRSI",
-    "desc": "A unified framework for building, evaluating, and recursively improving embodied agents. 🚀 Code release coming soon.",
-    "language": "Python",
+    "full_name": "irinabuht12-oss/google-ads-meta-ads-mcp",
+    "desc": "Google Ads MCP server + Meta Ads MCP (Facebook Ads MCP) + Google Analytics MCP (GA4) + Search Console in one hosted remote MCP for Claude, ChatGPT, Cursor & n8n: OAuth login, no API keys, approval-gated writes, 7-day free trial. By Ryze AI.",
+    "language": "",
+    "topics": [
+      "advertising",
+      "chatgpt",
+      "claude",
+      "cursor",
+      "facebook-ads",
+      "facebook-ads-mcp"
+    ],
+    "stars": 6625,
+    "url": "https://github.com/irinabuht12-oss/google-ads-meta-ads-mcp",
+    "stale_zh": null
+  },
+  {
+    "full_name": "openai/codex",
+    "desc": "Lightweight coding agent that runs in your terminal",
+    "language": "Rust",
     "topics": [],
-    "stars": 340,
-    "url": "https://github.com/OpenSenseNova/SenseNova-RoboRSI",
+    "stars": 132461,
+    "url": "https://github.com/openai/codex",
     "stale_zh": null
   },
   {
-    "full_name": "kaomei/stickman-video-director",
-    "desc": "Turn any script into viral, multi-style animated stickman videos for Faceless YouTube Channels. Automate visuals, voiceover, captions & SFX. 100% Free & Open-Source.",
-    "language": "Python",
+    "full_name": "peonist-ai/halogen-flash-server",
+    "desc": "Local inference that behaves like a frontier API: Qwen3.8-Flash-Next on AMD Strix Halo plus small NPU models, over the OpenAI and Anthropic APIs on one port.",
+    "language": "Shell",
     "topics": [
-      "agent-skills-manager",
-      "ai-animation-generator",
-      "ai-video-production",
-      "automated-video",
-      "codex-skills",
-      "content-creation"
+      "amd",
+      "gfx1151",
+      "gpu-inference",
+      "hip",
+      "inference-engine",
+      "llm"
     ],
-    "stars": 3482,
-    "url": "https://github.com/kaomei/stickman-video-director",
+    "stars": 1162,
+    "url": "https://github.com/peonist-ai/halogen-flash-server",
     "stale_zh": null
   },
   {
-    "full_name": "farion1231/cc-switch",
-    "desc": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode,DeepSeek Harness and more. Only official website: ccswitch.io",
+    "full_name": "xberg-io/xberg",
+    "desc": "The fast, precise document-intelligence engine for every language: text, tables and metadata from 100+ formats, with OCR, transcription and code intelligence.",
     "language": "Rust",
     "topics": [
-      "ai-tools",
+      "text-extraction",
+      "document-intelligence",
+      "metadata-extraction",
+      "pdf-extraction",
+      "python",
+      "rag"
+    ],
+    "stars": 9482,
+    "url": "https://github.com/xberg-io/xberg",
+    "stale_zh": "Rust 核心的文件解析框架，從 106 種格式抽取文字、表格與結構化資料，附 CLI、REST API、MCP"
+  },
+  {
+    "full_name": "reason-machines/reason-network",
+    "desc": "Reason Network: your team's coding agents, talking to each other. The engine behind `reason network`.",
+    "language": "Rust",
+    "topics": [
+      "agent-to-agent",
+      "ai-agents",
       "claude-code",
       "codex",
-      "deepseek-harness",
-      "desktop-app",
-      "grok"
+      "coding-agents",
+      "cursor"
     ],
-    "stars": 150387,
-    "url": "https://github.com/farion1231/cc-switch",
-    "stale_zh": "跨平台桌面整合助手，支援 Claude Code、Codex、OpenCode 等"
+    "stars": 1405,
+    "url": "https://github.com/reason-machines/reason-network",
+    "stale_zh": null
+  },
+  {
+    "full_name": "echris6/motion-video-kit",
+    "desc": "Claude Code skill kit for premium AI-assisted business videos: independent critic loop, motion principles from 28 launch films, quality bar, sound design, business offers, Three.js patterns, scripts",
+    "language": "Python",
+    "topics": [],
+    "stars": 1312,
+    "url": "https://github.com/echris6/motion-video-kit",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Tejashmakwana/motionmaxxing",
+    "desc": "Looksmaxxing for motion graphics. An agent skill that turns AI slop videos into films that look made by a motion designer.",
+    "language": "JavaScript",
+    "topics": [
+      "agent-skills",
+      "ai",
+      "claude-code",
+      "gsap",
+      "hyperframes",
+      "motion-graphics"
+    ],
+    "stars": 1187,
+    "url": "https://github.com/Tejashmakwana/motionmaxxing",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Egonex-AI/Understand-Anything",
+    "desc": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more.",
+    "language": "TypeScript",
+    "topics": [
+      "antigravity-skills",
+      "business-knowledge",
+      "claude-code",
+      "claude-skills",
+      "codebase-analysis",
+      "codex"
+    ],
+    "stars": 89368,
+    "url": "https://github.com/Egonex-AI/Understand-Anything",
+    "stale_zh": null
   }
 ]
