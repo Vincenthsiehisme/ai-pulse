@@ -3,7 +3,7 @@ id: actor-google
 kind: company
 in_dictionary: true
 aliases: ["谷歌", "Alphabet"]
-generated_day: '2026-10-31'
+generated_day: '2026-11-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

@@ -16,7 +16,7 @@ license_note: "titles + links only"
 endpoint: "https://deepmind.google/blog/rss.xml"
 robots_checked_day: "2026-10-30"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-10-31"
+last_observed_day: "2026-11-01"
 items_observed: 61
 events_bound: 36
 events_published: 25

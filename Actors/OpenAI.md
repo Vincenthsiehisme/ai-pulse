@@ -3,19 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-10-31'
+generated_day: '2026-11-01'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **193** 則：`published` 185、`review` 8
+事件 **193** 則：`published` 186、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
 | 2026-10-30 | [[Events/evt-2026-10-30-d6d96d\|Making it easier for websites to express AI training preferences]] | published |
-| 2026-10-30 | [[Events/evt-2026-10-30-bc2e85\|Fair use benefits everyone]] | review |
+| 2026-10-30 | [[Events/evt-2026-10-30-bc2e85\|Fair use benefits everyone]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-5b5f46\|Community safety report and new protections for teens]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-feaaee\|An updated Model Spec for more capable and beneficial AI]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-a5f631\|How Ropes & Gray is developing AI for transactional diligence]] | published |

@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-10-31"
+generated_day: "2026-11-01"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-10-31"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **533** 則／已裁決 **26** 則。
+待回答 **534** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -33,8 +33,8 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`product-market#19780c66`** — product-market
   > 看 Credit Saison 或第三方是否公布 ROI 的算法；看 OpenAI 下一份安全報告的時間與涵蓋指標；看其他模型業者是否加入共用的 robots.txt 訊號；看 Ropes & Gray 是否公布導入的案件量與審閱時間變化，以及其他大型律所有沒有跟進；看 AnySpeechRecognizer 模型卡是否列出支援的 Apple 晶片、延遲與辨識錯誤率；看 Retell 或第三方是否公開語音基準的方法與其他模型成績；讀 Anthropic 兩篇原文，看 GSA 合作的範圍、價格與適用機構；讀 Grok Bot Sales 原文，看有沒有價格或產品細節；看 Check Point 是否公布 Daybreak 的時間節省；看 Signals 原文是否公開各類工作活動的占比；看 Fanatics 是否公布轉換率；看 Decisions API 文件的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率；看 OpenAI 是否公布廣告營收與各國上線清單。
 
-- **`capital-evolution#6d682e94`** — capital-evolution
-  > 讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
+- **`capital-evolution#8209e59c`** — capital-evolution
+  > 看相關著作權案件的法院裁決或和解，是否採納合理使用的論點；讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
 
 - **`agent-refactor#ae6c8623`** — agent-refactor
   > 看 ServiceNow 方面的對應公告與首批整合的上線日期；看 Legora 是否公布合約分析的準確度或採用數；看 Oracle 首批進 ChatGPT 的應用清單與日期；看 Greptile 是否自行公布偵測率與誤報率；看 OpenAI 是否公開 Ultrafast 的排查過程與準確率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#87f23214`** — global-map
   > 看 SETI 那篇提到的研究團隊是否發表論文或公開資料集；看 ProtoStar 的首批資料集上線時間、合作機構名單與授權方式；看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
 
-## 事件層（527）
+## 事件層（528）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1618,6 +1618,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-10-30-5b5f46#57a14f8e`** — evt-2026-10-30-5b5f46
   > OpenAI 下一份安全報告的發布時間與涵蓋指標，以及青少年保護措施的實際上線範圍。
+
+- **`evt-2026-10-30-bc2e85#f61358d4`** — evt-2026-10-30-bc2e85
+  > 看相關著作權案件的法院裁決或和解，是否採納合理使用的論點；以及其他 AI 公司是否發表類似的意見書彙整。
 
 - **`evt-2026-10-30-d6d96d#73547f81`** — evt-2026-10-30-d6d96d
   > 其他模型業者是否宣布加入同一訊號，以及該訊號是否被寫進公開的規格或標準文件。

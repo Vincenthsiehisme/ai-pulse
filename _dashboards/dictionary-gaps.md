@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-10-31'
+generated_day: '2026-11-01'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**96 天**（2026-07-24 … 2026-10-31），去重後 **6348** 列。
+語料範圍：**97 天**（2026-07-24 … 2026-11-01），去重後 **6393** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,22 +17,22 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 197 | 2 |
-| Apple | 142 | 6 |
+| Show HN | 201 | 2 |
+| Apple | 145 | 6 |
 | Amazon | 93 | 5 |
 | September | 63 | 8 |
-| LLMs | 62 | 13 |
-| There | 60 | 8 |
+| LLMs | 63 | 13 |
+| There | 61 | 8 |
 | Here | 58 | 9 |
 | They | 57 | 9 |
-| LLM | 56 | 12 |
-| October | 50 | 7 |
+| LLM | 57 | 12 |
+| October | 51 | 7 |
 | Muse | 48 | 6 |
 | Trump | 47 | 5 |
 | Pro | 45 | 8 |
 | Python | 44 | 5 |
 | One | 44 | 10 |
-| CEO | 43 | 5 |
+| CEO | 44 | 5 |
 | AI-powered | 41 | 10 |
 | San Francisco | 41 | 9 |
 | When | 41 | 11 |
@@ -49,7 +49,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Research | 31 | 6 |
 | AI-generated | 31 | 8 |
 | Windows | 31 | 5 |
-| August | 30 | 8 |
+| August | 31 | 8 |
 | Europe | 29 | 8 |
 | Rust | 29 | 3 |
 | These | 29 | 8 |
@@ -59,8 +59,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | Samsung | 26 | 5 |
 | November | 26 | 4 |
 | IPO | 26 | 7 |
+| Opus | 25 | 6 |
 | SpaceX | 25 | 5 |
-| Opus | 24 | 6 |
 | Chinese | 24 | 8 |
 | API | 24 | 6 |
 | Pixel | 24 | 3 |
@@ -70,13 +70,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Thursday | 22 | 5 |
 | Tool | 22 | 2 |
 | Over | 22 | 5 |
+| The AI | 22 | 7 |
 | Flash | 21 | 6 |
 | Tuesday | 21 | 6 |
 | Some | 21 | 8 |
 | Mac | 21 | 4 |
-| The AI | 21 | 6 |
-| Can | 21 | 7 |
-| Duo | 21 | 3 |
+| According | 21 | 4 |
+| YouTube | 21 | 7 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -90,21 +90,21 @@ generator: scripts/pulse-dictionary-gaps.py
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | The Download | 73 | src-media-mit-techreview |
 | Tags | 39 | src-kol-simonwillison |
-| Register | 29 | src-media-techcrunch |
+| Register | 30 | src-media-techcrunch |
 | Hi HN | 28 | src-hn-frontpage |
 | MIT Technology Review | 24 | src-media-mit-techreview |
 | Launch HN | 23 | src-hn-frontpage |
 | The Verge | 22 | src-media-theverge |
 | A Blog | 22 | src-hf-blog |
+| Opt | 21 | src-media-theverge |
 | Highlights | 20 | src-gh-vllm-releases |
-| Opt | 20 | src-media-theverge |
 | Best Buy | 18 | src-media-theverge |
 | Is Hiring | 18 | src-hn-frontpage |
 | Ask HN | 17 | src-hn-frontpage |
 | GeForce NOW | 16 | src-nvidia-blog |
 | Committee | 15 | src-ep-itre |
+| The Stepback | 14 | src-media-theverge |
 | Hey HN | 14 | src-hn-frontpage |
-| The Stepback | 13 | src-media-theverge |
 | Installer No | 12 | src-media-theverge |
 | Verge-iest | 12 | src-media-theverge |
 | Installer | 12 | src-media-theverge |
@@ -119,9 +119,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
+| Sunday | 9 | src-media-theverge |
 | The Algorithm | 9 | src-media-mit-techreview |
 | Startup Battlefield | 9 | src-media-techcrunch |
-| Sunday | 8 | src-media-theverge |
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
 | Open-source | 8 | src-hn-frontpage |
 | Apple TV | 8 | src-media-theverge |
