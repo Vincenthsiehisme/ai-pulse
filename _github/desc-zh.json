@@ -354,6 +354,11 @@
     "src_hash": "b052aea9859d",
     "zh": "本機優先的桌面小工具，追蹤 47 種以上 AI 程式工具的 token 用量與費用"
   },
+  "JiangNanGenius/floe-agent": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "8e9c120a9ca0",
+    "zh": "iPad 優先的開源 iOS AI Agent，裝置端跑 Linux、Python、Git，自帶 API key"
+  },
   "Johnson-Durui/Companion-Space": {
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "fb91a4bbdf8d",
@@ -463,6 +468,11 @@
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "99deb4ae38eb",
     "zh": "AnythingLLM：以本機優先為主的完整 agent 體驗，把 AI 握在自己手上"
+  },
+  "N1nEmAn/sapper-v2": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "ba7be8493b56",
+    "zh": "自主滲透測試軍團：AI 指揮官加 worker 群與分層事實意圖圖，拿下騰訊智慧攻防線上賽冠軍"
   },
   "N4darae/shrt": {
     "at": "2026-10-24T18:28:06+00:00",
@@ -1034,6 +1044,11 @@
     "src_hash": "0f1350efa57d",
     "zh": "從零開始建構 agent：agent 原理與實作教程"
   },
+  "daveebbelaar/bama": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "b8af0db32bd7",
+    "zh": "BAMA：用 agent skills 研究、設計、開發並測試原生 macOS app（Swift / SwiftUI）"
+  },
   "deanpeters/Product-Manager-Skills": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "e718a21e83eb",
@@ -1098,6 +1113,11 @@
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "204cad531a74",
     "zh": "集中管理 ChatGPT、Codex CLI、Claude Code 帳號與額度，支援多模型路由與自動容錯切換"
+  },
+  "ekzhang/resin": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "6645803d4f0e",
+    "zh": "🧱 實驗性的函式庫，用來建構 inference engine"
   },
   "eliasbiondo/antirion": {
     "at": "2026-10-30T20:18:02+00:00",
@@ -1324,6 +1344,16 @@
     "src_hash": "ee1ba494c144",
     "zh": "實驗性平台，用多個 AI 助理組隊，自動化長時程工作流程"
   },
+  "irinabuht12-oss/google-ads-meta-ads-mcp": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "0dfa0700d744",
+    "zh": "整合 Google Ads、Meta Ads、GA4 的託管遠端 MCP，OAuth 登入，寫入需核准"
+  },
+  "jakubkrehel/skills": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "0037c8ffb8d4",
+    "zh": "一組幫你做出好介面的 agent skills"
+  },
   "jaredrhod/ai-memory-vault": {
     "at": "2026-07-30T19:18:19+00:00",
     "src_hash": "9611f41a21e8",
@@ -1450,9 +1480,9 @@
     "zh": "在同一個工作區裡建 Agentic workflow 與 RAG pipeline，可部署雲端、VPC 或自架環境"
   },
   "lemomo-ai/lemo-opuscar": {
-    "at": "2026-10-22T19:40:44+00:00",
-    "src_hash": "866210a0e66a",
-    "zh": "Claude Code 的影片風格工具箱：59 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "ec6196e2c4c5",
+    "zh": "Claude Code 的影片風格工具箱：66 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
   },
   "lightonai/next-plaid": {
     "at": "2026-08-14T19:13:10+00:00",
@@ -1864,6 +1894,11 @@
     "src_hash": "041ad980eaa1",
     "zh": "Python 的 AI 寫法：agent、即時語音、圖像生成、embedding，支援各模型，全程型別化"
   },
+  "qdrant/qdrant": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "b682ae0dfd78",
+    "zh": "高效能、大規模的向量資料庫與向量搜尋引擎，也有雲端版本"
+  },
   "qdrant/qdrant-js": {
     "at": "2026-10-16T19:09:41+00:00",
     "src_hash": "487fac0023c5",
@@ -1908,6 +1943,11 @@
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "b49c140fb240",
     "zh": "讓 Claude 改造任何你擁有的 PC 遊戲：含技能、工具與 fal MCP，涵蓋逆向工程、素材生成與遊戲內測試"
+  },
+  "respanai/respan-gateway": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "113961dc7930",
+    "zh": "用 Rust 寫的開源 LLM gateway，一個端點接 OpenAI、Anthropic、Gemini 等各家模型"
   },
   "rociiu/talorys": {
     "at": "2026-10-12T22:42:13+00:00",
@@ -1973,6 +2013,11 @@
     "at": "2026-10-17T18:04:23+00:00",
     "src_hash": "937b9b778b30",
     "zh": "Blender 擴充：在視窗內生成 AI 圖像、影片、3D 與 PBR 材質，附本機 MCP server"
+  },
+  "scenario-labs/skills": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "325d38189470",
+    "zh": "讓 AI agent 產出圖像、影片、音訊與 3D，花錢前先報價，並保持角色與品牌一致"
   },
   "scrypster/muninndb": {
     "at": "2026-08-02T19:12:08+00:00",
@@ -2224,6 +2269,11 @@
     "src_hash": "965322c3682f",
     "zh": "ARIS：純 Markdown 的自主 ML 研究技能，含跨模型審查、發想與實驗自動化，免框架、免綁定"
   },
+  "wenxuanzhang1209-cyber/meetdo": {
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "c105309b561b",
+    "zh": "MeetDo：開源的會議轉行動 AI，可自架即時會議、本地 ASR/LLM，產出結構化紀錄與 DOCX/PDF"
+  },
   "wheresryan22/anatomy": {
     "at": "2026-10-12T22:42:13+00:00",
     "src_hash": "91f5cbd4ed91",
@@ -2260,9 +2310,9 @@
     "zh": "AI 時代的波克夏：基於 Claude Code／Codex 的價值投資研究框架，集四大師方法論與多 agent 研究"
   },
   "xerj-org/xerj": {
-    "at": "2026-10-20T19:46:47+00:00",
-    "src_hash": "df24f50cdb62",
-    "zh": "給 AI agent 用的本機搜尋引擎與 MCP server，相容 Elasticsearch API"
+    "at": "2026-11-01T19:59:42+00:00",
+    "src_hash": "1107240dba02",
+    "zh": "給 AI agent 用的搜尋引擎與 MCP server，單一 Rust 執行檔，相容 Elasticsearch"
   },
   "xzf-thu/VoiceMem": {
     "at": "2026-10-02T20:16:53+00:00",
