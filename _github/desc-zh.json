@@ -484,6 +484,11 @@
     "src_hash": "8320033a1389",
     "zh": "整合量化、蒸餾、剪枝、推測解碼等技術的模型最佳化函式庫，壓縮模型以加速 TensorRT-LLM、vLLM 等框架推論"
   },
+  "Nasiko-Labs/nasiko": {
+    "at": "2026-11-02T23:19:22+00:00",
+    "src_hash": "3a5b4ec2bd4d",
+    "zh": "給 AI Agent 用的開放執行環境"
+  },
   "Nehanth/pooled": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "94cee3dcf729",
@@ -888,6 +893,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "6be6744d183c",
     "zh": "一個 skill，避免 coding agent 把答案埋在長篇輸出裡，輸出對 ADHD 友善"
+  },
+  "baidu-baige/LoongSage": {
+    "at": "2026-11-02T23:19:22+00:00",
+    "src_hash": "8710ce036bd6",
+    "zh": "給前沿 LLM 用的生產級高效 Agentic RL 框架，附經驗證的訓練配方"
   },
   "blader/humanizer": {
     "at": "2026-09-24T19:28:45+00:00",
@@ -1335,9 +1345,9 @@
     "zh": "分散式 agent 協調平台，讓 agent 在上面連線、協作、執行並持續演化"
   },
   "infiniflow/ragflow": {
-    "at": "2026-08-12T19:14:16+00:00",
-    "src_hash": "f5b7e92297d4",
-    "zh": "RAGFlow：開源 RAG 引擎，結合 RAG 與 Agent 能力，讓 LLM 有更好的 context 層"
+    "at": "2026-11-02T23:19:22+00:00",
+    "src_hash": "70a54a1b96c6",
+    "zh": "RAGFlow：以 Agent 為核心的資料庫，由 RAG 引擎發展成 context 基礎設施"
   },
   "intelligencedev/manifold": {
     "at": "2026-10-08T20:58:31+00:00",
@@ -1353,6 +1363,11 @@
     "at": "2026-11-01T19:59:42+00:00",
     "src_hash": "0037c8ffb8d4",
     "zh": "一組幫你做出好介面的 agent skills"
+  },
+  "janhq/jan": {
+    "at": "2026-11-02T23:19:22+00:00",
+    "src_hash": "ff9569bb3242",
+    "zh": "Jan：可 100% 離線在自己電腦上執行的開源 ChatGPT 替代品"
   },
   "jaredrhod/ai-memory-vault": {
     "at": "2026-07-30T19:18:19+00:00",
@@ -1839,6 +1854,11 @@
     "src_hash": "9e1755f4e11a",
     "zh": "一個 Postgres 搞定應用資料、全文檢索、向量檢索與聚合，pg_search 擴充的出處"
   },
+  "patch-gg/pixelfx": {
+    "at": "2026-11-02T23:19:22+00:00",
+    "src_hash": "ba636e6ed43e",
+    "zh": "244 種像素風特效，每個都是一小段程式，另附可自製特效的 Claude Code skill"
+  },
   "pathwaycom/llm-app": {
     "at": "2026-08-02T19:12:08+00:00",
     "src_hash": "cd3a264f173e",
@@ -2133,6 +2153,11 @@
     "at": "2026-09-26T19:13:11+00:00",
     "src_hash": "7db02f43c54c",
     "zh": "25 MB 輕量跨平台資料庫客戶端，支援 100+ 種資料庫，內建 AI 助手、MCP Server 與 CLI"
+  },
+  "tettethu/VibeGame": {
+    "at": "2026-11-02T23:19:22+00:00",
+    "src_hash": "ab9c63024db5",
+    "zh": "VibeGame：開源多 Agent 框架，用自然語言生成可玩的 2D 網頁遊戲"
   },
   "thedotmack/claude-mem": {
     "at": "2026-08-07T01:27:45+00:00",

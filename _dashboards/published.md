@@ -1,10 +1,22 @@
-# 已發布事件（548）
+# 已發布事件（553）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-02
+- **[[Events/evt-2026-11-02-54a2cc|Qodo builds context into AI code review with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  Qodo 推出 Codex 外掛，把公司知識與程式規範帶進 AI 程式碼審查。
+- **[[Events/evt-2026-11-02-5efa64|LifeVal]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 發表 LifeVal 基準，衡量 AI 幫人完成找托育、理財、辦政府文件等日常任務的能力。
+- **[[Events/evt-2026-11-02-bda7cd|Introducing the Grid Protectors Program]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 推出 Grid Protectors 計畫，與電力業者合作，讓未來的算力園區支援電網穩定並避免推高用電成本。
+- **[[Events/evt-2026-11-02-caa65d|v0.33.0]]** — vLLM · infra · conf 73 · heat 未量測
+  vLLM 發布 v0.33.0，累計 927 個 commit、389 位貢獻者，新增多個大型 MoE 模型支援。
 
 ## 2026-10-30
 - **[[Events/evt-2026-10-30-37ea6c|Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals]]** — NVIDIA · research · conf 73 · heat 未量測
   NVIDIA 部落格介紹 AI 代理如何用在搜尋外星訊號的研究上。
+- **[[Events/evt-2026-10-30-4f5a97|Speeding up planning decisions with AI]]** — Google DeepMind · policy · conf 73 · heat 未量測
+  Google DeepMind 與英國政府合作，用 AI 縮短規劃審查的評估時間。
 - **[[Events/evt-2026-10-30-5b5f46|Community safety report and new protections for teens]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 發布社群安全報告，並在 ChatGPT 擴大暴力預防措施與青少年保護。
 - **[[Events/evt-2026-10-30-bc2e85|Fair use benefits everyone]]** — OpenAI · policy · conf 73 · heat 未量測

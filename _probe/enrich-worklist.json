@@ -1,1 +1,152 @@
-[]
+[
+  {
+    "id": "evt-2026-10-30-4f5a97",
+    "path": "evt-2026-10-30-4f5a97.md",
+    "title": "Speeding up planning decisions with AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Google DeepMind",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/speeding-up-planning-decisions-with-ai/",
+        "title": "Speeding up planning decisions with AI",
+        "summary": "Google DeepMind and UK government work together to reduce planning assessment times",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-02-54a2cc",
+    "path": "evt-2026-11-02-54a2cc.md",
+    "title": "Qodo builds context into AI code review with Codex",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/qodo-codex-plugin",
+        "title": "Qodo builds context into AI code review with Codex",
+        "summary": "Qodo brings company knowledge and coding standards into Codex, helping developers catch P0 issues across repositories before opening a pull request.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-02-5efa64",
+    "path": "evt-2026-11-02-5efa64.md",
+    "title": "LifeVal",
+    "fingerprint": null,
+    "facet": "benchmark",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/lifeval",
+        "title": "LifeVal",
+        "summary": "Introducing LifeVal, a benchmark measuring how well AI helps people complete everyday tasks, from finding childcare to managing finances and government paperwork.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-02-bda7cd",
+    "path": "evt-2026-11-02-bda7cd.md",
+    "title": "Introducing the Grid Protectors Program",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/grid-protectors-program",
+        "title": "Introducing the Grid Protectors Program",
+        "summary": "OpenAI’s Grid Protectors Program will work with utilities to help future compute campuses support grid reliability and protect consumer electricity costs.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-02-caa65d",
+    "path": "evt-2026-11-02-caa65d.md",
+    "title": "v0.33.0",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Meta",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-gh-vllm-releases",
+        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc3",
+        "title": "v0.33.0",
+        "summary": "# v0.33.0\r\n\r\n## Highlights\r\n\r\nThis release features 927 commits from 389 contributors (122 new)!\r\n\r\n* **New models**: Reflection Beam-1.0 (501B MoE, 23B active) with its DFlash2 drafter (#62074), Yandex AliceAI-Foundation-80B-A3B (#57963), Recursive Flint (40B MoE, 2.5B active) (#62938), Muse Spark ",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  }
+]
