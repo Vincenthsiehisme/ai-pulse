@@ -22,5 +22,45 @@
     "track": "產品與商業驗證",
     "summary": "OpenAI 公布 Credit Saison 的 ChatGPT Enterprise 試辦，自稱投資報酬率達 954%。",
     "stale_zh": null
+  },
+  {
+    "id": "evt-2026-10-30-4f5a97",
+    "title": "Speeding up planning decisions with AI",
+    "company": "Google DeepMind",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-02-54a2cc",
+    "title": "Qodo builds context into AI code review with Codex",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-02-5efa64",
+    "title": "LifeVal",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-02-bda7cd",
+    "title": "Introducing the Grid Protectors Program",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-02-caa65d",
+    "title": "v0.33.0",
+    "company": "Meta",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
   }
 ]

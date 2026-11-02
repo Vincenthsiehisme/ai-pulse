@@ -3,17 +3,19 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-01'
+generated_day: '2026-11-02'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **193** 則：`published` 186、`review` 7
+事件 **195** 則：`published` 186、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-02 | [[Events/evt-2026-11-02-bda7cd\|Introducing the Grid Protectors Program]] | review |
+| 2026-11-02 | [[Events/evt-2026-11-02-54a2cc\|Qodo builds context into AI code review with Codex]] | review |
 | 2026-10-30 | [[Events/evt-2026-10-30-d6d96d\|Making it easier for websites to express AI training preferences]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-bc2e85\|Fair use benefits everyone]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-5b5f46\|Community safety report and new protections for teens]] | published |

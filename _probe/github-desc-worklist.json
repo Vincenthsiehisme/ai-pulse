@@ -1,98 +1,82 @@
 [
   {
-    "full_name": "daveebbelaar/bama",
-    "desc": "BAMA: Build Any Mac App. Agent skills to research, clone, design, build, optimize, and test native macOS apps with Swift and SwiftUI.",
-    "language": "Swift",
+    "full_name": "patch-gg/pixelfx",
+    "desc": "244 pixel art effects, every one a small piece of code. Plus a Claude Code skill to make your own.",
+    "language": "JavaScript",
     "topics": [
       "agent-skills",
-      "ai-agents",
-      "app-clone",
-      "claude-code",
+      "animation",
+      "canvas",
       "claude-code-plugin",
-      "codex"
+      "gamedev",
+      "pixel-art"
     ],
-    "stars": 1265,
-    "url": "https://github.com/daveebbelaar/bama",
+    "stars": 3466,
+    "url": "https://github.com/patch-gg/pixelfx",
     "stale_zh": null
   },
   {
-    "full_name": "N1nEmAn/sapper-v2",
-    "desc": "Autonomous pentest legion — AI commander + worker swarm + layered fact-intent graph. 3rd Tencent Intelligent Attack-Defense online champion (634 teams · 8h unattended · 1B tokens beat 4.5B). The Nüwa Test: give AIs Create/Language/History, let a civilization grow.",
-    "language": "Python",
-    "topics": [
-      "ai-agents",
-      "autonomous-agents",
-      "claude-code",
-      "ctf",
-      "llm",
-      "multi-agent"
-    ],
-    "stars": 432,
-    "url": "https://github.com/N1nEmAn/sapper-v2",
-    "stale_zh": null
-  },
-  {
-    "full_name": "respanai/respan-gateway",
-    "desc": "Open-source LLM gateway in Rust. One endpoint for OpenAI, Anthropic, Gemini and every other vendor. Any SDK, any model, any tool.",
+    "full_name": "Nasiko-Labs/nasiko",
+    "desc": "The Open Runtime for AI Agents",
     "language": "Rust",
     "topics": [
+      "agent-security",
+      "ai",
       "ai-agents",
-      "ai-gateway",
-      "ai-proxy",
-      "anthropic",
+      "cli",
+      "hacktoberfest",
+      "llms"
+    ],
+    "stars": 11536,
+    "url": "https://github.com/Nasiko-Labs/nasiko",
+    "stale_zh": null
+  },
+  {
+    "full_name": "infiniflow/ragflow",
+    "desc": "RAGFlow is an agent-native database: a Retrieval-Augmented Generation (RAG) engine that grew into context infrastructure.",
+    "language": "Go",
+    "topics": [
+      "agent-harness",
+      "agent-native-database",
+      "agentic-ai",
+      "agentic-retrieval",
+      "agentic-search",
+      "ai"
+    ],
+    "stars": 93370,
+    "url": "https://github.com/infiniflow/ragflow",
+    "stale_zh": "RAGFlow：開源 RAG 引擎，結合 RAG 與 Agent 能力，讓 LLM 有更好的 context 層"
+  },
+  {
+    "full_name": "tettethu/VibeGame",
+    "desc": "VibeGame: Vibe Your Dream Game -- An open-source self-evolving multi-agent framework with an AI-Native game engine that turns your natural language into a fully playable 2D web game and edit it any way you want, built on Claude Code & Codex.",
+    "language": "Python",
+    "topics": [
+      "agent",
       "claude-code",
-      "gemini"
+      "codex",
+      "creative-coding",
+      "game-development",
+      "game-engine"
     ],
-    "stars": 469,
-    "url": "https://github.com/respanai/respan-gateway",
+    "stars": 344,
+    "url": "https://github.com/tettethu/VibeGame",
     "stale_zh": null
   },
   {
-    "full_name": "ekzhang/resin",
-    "desc": "🧱 Experimental library for building inference engines",
-    "language": "Python",
+    "full_name": "janhq/jan",
+    "desc": "Jan is an open source alternative to ChatGPT that runs 100% offline on your computer.",
+    "language": "Rust",
     "topics": [
-      "cuda",
-      "deepseek",
-      "gpt-oss",
-      "gpu",
-      "inference",
-      "inkling"
-    ],
-    "stars": 359,
-    "url": "https://github.com/ekzhang/resin",
-    "stale_zh": null
-  },
-  {
-    "full_name": "irinabuht12-oss/google-ads-meta-ads-mcp",
-    "desc": "Google Ads MCP server + Meta Ads MCP (Facebook Ads MCP) + Google Analytics MCP (GA4) + Search Console in one hosted remote MCP for Claude, ChatGPT, Cursor & n8n: OAuth login, no API keys, approval-gated writes, 7-day free trial. By Ryze AI.",
-    "language": "",
-    "topics": [
-      "advertising",
       "chatgpt",
-      "claude",
-      "cursor",
-      "facebook-ads",
-      "facebook-ads-mcp"
+      "gpt",
+      "llamacpp",
+      "llm",
+      "localai",
+      "open-source"
     ],
-    "stars": 6753,
-    "url": "https://github.com/irinabuht12-oss/google-ads-meta-ads-mcp",
-    "stale_zh": null
-  },
-  {
-    "full_name": "scenario-labs/skills",
-    "desc": "Get production-ready images, video, audio, and 3D from any AI agent: skills that pick the right model, price before spending, and keep characters and brands consistent through the Scenario MCP, plus expert teams that drive Blender, Maya, ZBrush, Unreal, and Unity.",
-    "language": "Python",
-    "topics": [
-      "3d-models",
-      "agent-skills",
-      "ai-agents",
-      "ai-art",
-      "blender",
-      "claude-code"
-    ],
-    "stars": 1446,
-    "url": "https://github.com/scenario-labs/skills",
+    "stars": 45337,
+    "url": "https://github.com/janhq/jan",
     "stale_zh": null
   },
   {
@@ -107,97 +91,17 @@
       "inference-engine",
       "llm"
     ],
-    "stars": 1175,
+    "stars": 1196,
     "url": "https://github.com/peonist-ai/halogen-flash-server",
     "stale_zh": null
   },
   {
-    "full_name": "wenxuanzhang1209-cyber/meetdo",
-    "desc": "MeetDo — open-source Meeting-to-Action AI by 筑听 · JKinco Listen. Self-hosted live meetings, local ASR/LLM, structured minutes, DOCX/PDF.",
+    "full_name": "baidu-baige/LoongSage",
+    "desc": "A production-grade, high-efficiency Agentic RL framework for frontier LLMs with validated recipes.",
     "language": "Python",
-    "topics": [
-      "ai-meeting-assistant",
-      "audio-transcription",
-      "docker",
-      "fastapi",
-      "funasr",
-      "livekit"
-    ],
-    "stars": 308,
-    "url": "https://github.com/wenxuanzhang1209-cyber/meetdo",
-    "stale_zh": null
-  },
-  {
-    "full_name": "qdrant/qdrant",
-    "desc": "Qdrant - High-performance, massive-scale Vector Database and Vector Search Engine for the next generation of AI. Also available in the cloud https://cloud.qdrant.io/",
-    "language": "Rust",
-    "topics": [
-      "ai-search",
-      "ai-search-engine",
-      "embeddings-similarity",
-      "hnsw",
-      "hybrid-search",
-      "image-search"
-    ],
-    "stars": 35367,
-    "url": "https://github.com/qdrant/qdrant",
-    "stale_zh": null
-  },
-  {
-    "full_name": "lemomo-ai/lemo-opuscar",
-    "desc": "A toolbox of film styles made in code for Claude Code: 66 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in code by Claude Opus 5.5, with no video model. By Lemomo. · 一套用代码做片的风格工具箱：66 种现成风格，也能做出你自己的",
-    "language": "JavaScript",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "ai-short-film",
-      "ai-video",
-      "animation",
-      "canvas"
-    ],
-    "stars": 10527,
-    "url": "https://github.com/lemomo-ai/lemo-opuscar",
-    "stale_zh": "Claude Code 的影片風格工具箱：59 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
-  },
-  {
-    "full_name": "JiangNanGenius/floe-agent",
-    "desc": "iPad-first, open-source iOS AI Agent optimized for iOS/iPadOS, with native iPhone support and Android alpha. On-device Linux, terminal, Python/Node.js, Git and web previews; BYOK AI, Notes, Office, Canvas, CAD/3D, voice, Skill Hub and supported local models on iOS. 开源设备端 AI 智能体工作台。",
-    "language": "Swift",
-    "topics": [
-      "ai-agent",
-      "ai-assistant",
-      "android",
-      "byok",
-      "ios",
-      "ios-ai-agent"
-    ],
-    "stars": 411,
-    "url": "https://github.com/JiangNanGenius/floe-agent",
-    "stale_zh": null
-  },
-  {
-    "full_name": "jakubkrehel/skills",
-    "desc": "A collection of agent skills that help you build great interfaces.",
-    "language": "Markdown",
     "topics": [],
-    "stars": 9997,
-    "url": "https://github.com/jakubkrehel/skills",
+    "stars": 544,
+    "url": "https://github.com/baidu-baige/LoongSage",
     "stale_zh": null
-  },
-  {
-    "full_name": "xerj-org/xerj",
-    "desc": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hybrid search, code search without grep, agent memory and RAG. Elasticsearch-compatible API; Corpus Hub serves hundreds of reference memory corpora.",
-    "language": "Rust",
-    "topics": [
-      "agent-memory",
-      "ai-agents",
-      "bm25",
-      "claude-code",
-      "cli",
-      "code-search"
-    ],
-    "stars": 18641,
-    "url": "https://github.com/xerj-org/xerj",
-    "stale_zh": "給 AI agent 用的本機搜尋引擎與 MCP server，相容 Elasticsearch API"
   }
 ]
