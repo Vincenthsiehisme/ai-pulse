@@ -1,19 +1,199 @@
 [
   {
-    "id": "evt-2026-10-30-4f5a97",
-    "path": "evt-2026-10-30-4f5a97.md",
-    "title": "Speeding up planning decisions with AI",
+    "id": "evt-2026-11-02-43902e",
+    "path": "evt-2026-11-02-43902e.md",
+    "title": "OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "Google DeepMind",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/dan-driscoll-joins-openai",
+        "title": "OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization",
+        "summary": "OpenAI appoints Dan Driscoll to advise on responsible AI for national security modernization, cyber resilience, and collaboration with U.S. allies.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-02-7ab007",
+    "path": "evt-2026-11-02-7ab007.md",
+    "title": "Preparing our next security sprint to harden OpenAI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai",
+        "title": "Preparing our next security sprint to harden OpenAI",
+        "summary": "OpenAI is preparing its next internal security sprint with Cathedral Systems to test and strengthen its defenses using AI.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-02-ab0561",
+    "path": "evt-2026-11-02-ab0561.md",
+    "title": "Scaling Git at OpenAI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/scaling-git-at-openai",
+        "title": "Scaling Git at OpenAI",
+        "summary": "How OpenAI built Pando, a Git-compatible backend designed for the scale of development that Codex makes possible.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-02-f5d698",
+    "path": "evt-2026-11-02-f5d698.md",
+    "title": "Rewarding defenders with bigger bug bounties",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/rewarding-defenders-with-bigger-bug-bounties",
+        "title": "Rewarding defenders with bigger bug bounties",
+        "summary": "OpenAI is raising Security Bug Bounty rewards and introducing report quality, loyalty, and priority campaign bonuses for independent security researchers.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-03-156064",
+    "path": "evt-2026-11-03-156064.md",
+    "title": "Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Scale AI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/cities-physical-agentic-ai-applications/",
+        "title": "Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI",
+        "summary": "Cities generate enormous amounts of data from cameras, sensors and operational systems, but turning it into useful action — for planning, maintenance and public services — remains a challenge. Physical and agentic AI offer new ways to close that gap, from digital twins for infrastructure planning to",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-03-1cfb29",
+    "path": "evt-2026-11-03-1cfb29.md",
+    "title": "Transformers Model Integration Contracts",
+    "fingerprint": null,
+    "facet": "distribution",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/transformers-mic",
+        "title": "Transformers Model Integration Contracts",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-03-267137",
+    "path": "evt-2026-11-03-267137.md",
+    "title": "Agentic cheminformatics with Google Antigravity",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Google",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/speeding-up-planning-decisions-with-ai/",
-        "title": "Speeding up planning decisions with AI",
-        "summary": "Google DeepMind and UK government work together to reduce planning assessment times",
+        "url": "https://deepmind.google/blog/agentic-cheminformatics-with-google-antigravity/",
+        "title": "Agentic cheminformatics with Google Antigravity",
+        "summary": "Learn how Google Antigravity and our Cheminformatics Skills accelerate drug discovery workflows, search compounds, and propose novel rigidified macrocycles.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,50 +210,20 @@
     }
   },
   {
-    "id": "evt-2026-11-02-54a2cc",
-    "path": "evt-2026-11-02-54a2cc.md",
-    "title": "Qodo builds context into AI code review with Codex",
+    "id": "evt-2026-11-03-3c0d19",
+    "path": "evt-2026-11-03-3c0d19.md",
+    "title": "AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving Faster Because of It",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/qodo-codex-plugin",
-        "title": "Qodo builds context into AI code review with Codex",
-        "summary": "Qodo brings company knowledge and coding standards into Codex, helping developers catch P0 issues across repositories before opening a pull request.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-02-5efa64",
-    "path": "evt-2026-11-02-5efa64.md",
-    "title": "LifeVal",
-    "fingerprint": null,
-    "facet": "benchmark",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/lifeval",
-        "title": "LifeVal",
-        "summary": "Introducing LifeVal, a benchmark measuring how well AI helps people complete everyday tasks, from finding childcare to managing finances and government paperwork.",
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/ai-semiconductor-fabs/",
+        "title": "AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving Faster Because of It",
+        "summary": "Demand for advanced chips is rising. The processes to build them are getting more complex. And the margin for error is shrinking. For engineers, understanding how a process change will behave, how a material will interact with a new step, how a defect maps back to a root cause are critical, challeng",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -90,20 +240,50 @@
     }
   },
   {
-    "id": "evt-2026-11-02-bda7cd",
-    "path": "evt-2026-11-02-bda7cd.md",
-    "title": "Introducing the Grid Protectors Program",
+    "id": "evt-2026-11-03-466907",
+    "path": "evt-2026-11-03-466907.md",
+    "title": "StateBench: Testing how language models track state changes over long documents",
     "fingerprint": null,
-    "facet": "release",
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/allenai/statebench",
+        "title": "StateBench: Testing how language models track state changes over long documents",
+        "summary": "A Blog post by Ai2 on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-03-67babc",
+    "path": "evt-2026-11-03-67babc.md",
+    "title": "How Cisco defends at machine speed with OpenAI",
+    "fingerprint": null,
+    "facet": "update",
     "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/grid-protectors-program",
-        "title": "Introducing the Grid Protectors Program",
-        "summary": "OpenAI’s Grid Protectors Program will work with utilities to help future compute campuses support grid reliability and protect consumer electricity costs.",
+        "url": "https://openai.com/index/cisco-cyber",
+        "title": "How Cisco defends at machine speed with OpenAI",
+        "summary": "Cisco combines network intelligence with OpenAI models to strengthen enterprise security. Learn how it is building more adaptive defenses.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -120,20 +300,140 @@
     }
   },
   {
-    "id": "evt-2026-11-02-caa65d",
-    "path": "evt-2026-11-02-caa65d.md",
-    "title": "v0.33.0",
+    "id": "evt-2026-11-03-8b52b4",
+    "path": "evt-2026-11-03-8b52b4.md",
+    "title": "OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "Meta",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-gh-vllm-releases",
-        "url": "https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc3",
-        "title": "v0.33.0",
-        "summary": "# v0.33.0\r\n\r\n## Highlights\r\n\r\nThis release features 927 commits from 389 contributors (122 new)!\r\n\r\n* **New models**: Reflection Beam-1.0 (501B MoE, 23B active) with its DFlash2 drafter (#62074), Yandex AliceAI-Foundation-80B-A3B (#57963), Recursive Flint (40B MoE, 2.5B active) (#62938), Muse Spark ",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/jill-hazelbaker-chief-corporate-affairs-officer",
+        "title": "OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer",
+        "summary": "Jill Hazelbaker will join OpenAI as Chief Corporate Affairs Officer, leading the company’s global communications and corporate positioning.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-03-d81447",
+    "path": "evt-2026-11-03-d81447.md",
+    "title": "Accelerating engineering for the physical world",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/accelerating-engineering-for-the-physical-world",
+        "title": "Accelerating engineering for the physical world",
+        "summary": "Discover how ChatGPT and Codex are helping engineers accelerate CAD, PCB design, simulation, and other workflows across the physical world.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-03-df7407",
+    "path": "evt-2026-11-03-df7407.md",
+    "title": "Heimstaden is changing residential real estate management with AI",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/heimstaden",
+        "title": "Heimstaden is changing residential real estate management with AI",
+        "summary": "Discover how Heimstaden uses OpenAI’s ChatGPT Enterprise and Codex to transform property management, cut costs, and empower employees across Europe.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-03-f8ea3f",
+    "path": "evt-2026-11-03-f8ea3f.md",
+    "title": "Palette: teaching a small model to build decks in your design language",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/ibm-research/palette-deck-building",
+        "title": "Palette: teaching a small model to build decks in your design language",
+        "summary": "A Blog post by IBM Research on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-03-fc5d73",
+    "path": "evt-2026-11-03-fc5d73.md",
+    "title": "CWE-bench v2: More coverage, quality, and transparency",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/cwe-bench",
+        "title": "CWE-bench v2: More coverage, quality, and transparency",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"

@@ -60,9 +60,9 @@
     "zh": "幫你找出在自己硬體上跑得動、表現最好的本地 LLM，用實測 benchmark 排名而非參數量，一行指令就能跑"
   },
   "Anil-matcha/open-duet": {
-    "at": "2026-10-23T19:40:32+00:00",
-    "src_hash": "b6ff3e92cc85",
-    "zh": "開源可自架的 Claude Duet 替代品：有指令、記憶與例行工作的 AI 同事，行動前需你核准"
+    "at": "2026-11-03T21:25:10+00:00",
+    "src_hash": "e5f2e6d7ca73",
+    "zh": "開源可自架的 Grok Bot 替代品：有記憶與例行工作的 AI 同事，行動前需你核准"
   },
   "Anionex/agent-vision-toolkit": {
     "at": "2026-10-06T20:41:13+00:00",
@@ -180,9 +180,9 @@
     "zh": "開源健身與體重追蹤 app，可排課表、記錄訓練，支援匯入 Strong/Hevy，可自架"
   },
   "EXXETA/exxperts": {
-    "at": "2026-10-07T20:56:20+00:00",
-    "src_hash": "0576e84207c2",
-    "zh": "本機優先的 AI agent，記憶需經核准才寫入，可接任何模型供應商，內建 MCP 工具與網頁搜尋，資料不離開你的電腦"
+    "at": "2026-11-03T21:25:10+00:00",
+    "src_hash": "072b98a13453",
+    "zh": "免費開源的桌面 app，用 AI 處理工作，儲存任何記憶之前會先讓你看到內容"
   },
   "Egonex-AI/Understand-Anything": {
     "at": "2026-10-31T19:40:39+00:00",
@@ -584,6 +584,11 @@
     "src_hash": "ea5d95556396",
     "zh": "開源自架 AI 閘道，相容 OpenAI、Claude、Gemini API，含模型路由與用量成本核算"
   },
+  "QwenLM/qwen-code": {
+    "at": "2026-11-03T21:25:10+00:00",
+    "src_hash": "753d3be5716a",
+    "zh": "住在終端機裡的開源 AI coding agent"
+  },
   "Ryder-Sun/Meldwork": {
     "at": "2026-10-07T20:56:20+00:00",
     "src_hash": "0c18a2981977",
@@ -899,6 +904,11 @@
     "src_hash": "8710ce036bd6",
     "zh": "給前沿 LLM 用的生產級高效 Agentic RL 框架，附經驗證的訓練配方"
   },
+  "beenuar/AiSOC": {
+    "at": "2026-11-03T21:25:10+00:00",
+    "src_hash": "b96c5f3bc7ac",
+    "zh": "開源 AI 資安營運中心：告警融合、LLM agent 分流、MITRE ATT&CK 調查，可自架"
+  },
   "blader/humanizer": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "2d8e471f104f",
@@ -968,6 +978,11 @@
     "at": "2026-10-20T19:46:47+00:00",
     "src_hash": "76c86789dc26",
     "zh": "讓 AI 做出正經 PPTX 簡報的 Claude Code / Codex skill"
+  },
+  "caru-ini/stack-diagram": {
+    "at": "2026-11-03T21:25:10+00:00",
+    "src_hash": "7e6a0033de10",
+    "zh": "Agent skill：用一句話描述你的技術堆疊，產出附官方 logo 的架構圖"
   },
   "cathrynlavery/diagram-design": {
     "at": "2026-10-21T19:47:16+00:00",
@@ -1639,6 +1654,11 @@
     "src_hash": "ad8a56084662",
     "zh": "Model Context Protocol 官方 Python SDK，可寫 server 與 client"
   },
+  "modelflare-ai/AnyModelBot": {
+    "at": "2026-11-03T21:25:10+00:00",
+    "src_hash": "ab194a48e2b0",
+    "zh": "開源、本機優先的 Grok Bot 替代品，一把 key 通用 70 多種模型，可在 app、微信、飛書使用"
+  },
   "modelscope/ms-cookbook": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "2dfffa61ccd5",
@@ -2008,6 +2028,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "2db2cd973e1b",
     "zh": "agent meta-harness：部署多代理群、協調自動化工作流，整合 Claude Code、Codex 等工具"
+  },
+  "sahenjp/RustXNG": {
+    "at": "2026-11-03T21:25:10+00:00",
+    "src_hash": "d78e6ed9e4a4",
+    "zh": "以 SearXNG 為基礎、用 Rust 寫的可自架 metasearch 引擎，專供 AI agent 檢索"
   },
   "sandbaseai/sandbase-harness": {
     "at": "2026-10-05T22:18:12+00:00",

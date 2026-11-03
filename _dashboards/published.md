@@ -1,16 +1,44 @@
-# 已發布事件（553）
+# 已發布事件（566）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-11-03
+- **[[Events/evt-2026-11-03-156064|Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 說明城市如何用實體 AI 與代理式 AI，把攝影機與感測器資料變成行動。
+- **[[Events/evt-2026-11-03-1cfb29|Transformers Model Integration Contracts]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 發表 Transformers 的模型整合規範（Model Integration Contracts）。
+- **[[Events/evt-2026-11-03-267137|Agentic cheminformatics with Google Antigravity]]** — Google · research · conf 73 · heat 未量測
+  Google DeepMind 展示 Antigravity 與化學資訊學技能，用來搜尋化合物並提出新的剛性化大環分子。
+- **[[Events/evt-2026-11-03-3c0d19|AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving Faster Because of It]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 說 AI 正在改變半導體廠的工程工作，工程師反應更快。
+- **[[Events/evt-2026-11-03-466907|StateBench: Testing how language models track state changes over long documents]]** — Ai2 · research · conf 73 · heat 未量測
+  Ai2 發表 StateBench，測語言模型在長文件中追蹤狀態變化的能力。
+- **[[Events/evt-2026-11-03-67babc|How Cisco defends at machine speed with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  Cisco 結合網路情報與 OpenAI 模型，強化企業資安防禦。
+- **[[Events/evt-2026-11-03-8b52b4|OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer]]** — OpenAI · capital · conf 73 · heat 未量測
+  OpenAI 任命 Jill Hazelbaker 為首席企業事務長。
+- **[[Events/evt-2026-11-03-d81447|Accelerating engineering for the physical world]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 說 ChatGPT 與 Codex 正被用在 CAD、PCB 設計與模擬等實體工程流程。
+- **[[Events/evt-2026-11-03-df7407|Heimstaden is changing residential real estate management with AI]]** — OpenAI · product · conf 73 · heat 未量測
+  Heimstaden 用 ChatGPT Enterprise 與 Codex 改造歐洲的物業管理。
+
 ## 2026-11-02
+- **[[Events/evt-2026-11-02-43902e|OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 找來 Dan Driscoll 擔任國家安全現代化的資深顧問。
 - **[[Events/evt-2026-11-02-54a2cc|Qodo builds context into AI code review with Codex]]** — OpenAI · product · conf 73 · heat 未量測
   Qodo 推出 Codex 外掛，把公司知識與程式規範帶進 AI 程式碼審查。
 - **[[Events/evt-2026-11-02-5efa64|LifeVal]]** — OpenAI · research · conf 73 · heat 未量測
   OpenAI 發表 LifeVal 基準，衡量 AI 幫人完成找托育、理財、辦政府文件等日常任務的能力。
+- **[[Events/evt-2026-11-02-7ab007|Preparing our next security sprint to harden OpenAI]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 預告下一輪資安衝刺，找 Cathedral Systems 用 AI 測試自身防禦。
+- **[[Events/evt-2026-11-02-ab0561|Scaling Git at OpenAI]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 公開自家 Git 相容後端 Pando，為 Codex 帶來的開發量級而做。
 - **[[Events/evt-2026-11-02-bda7cd|Introducing the Grid Protectors Program]]** — OpenAI · infra · conf 73 · heat 未量測
   OpenAI 推出 Grid Protectors 計畫，與電力業者合作，讓未來的算力園區支援電網穩定並避免推高用電成本。
 - **[[Events/evt-2026-11-02-caa65d|v0.33.0]]** — vLLM · infra · conf 73 · heat 未量測
   vLLM 發布 v0.33.0，累計 927 個 commit、389 位貢獻者，新增多個大型 MoE 模型支援。
+- **[[Events/evt-2026-11-02-f5d698|Rewarding defenders with bigger bug bounties]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 調高資安漏洞賞金，並加入報告品質、忠誠度與優先活動三種加成。
 
 ## 2026-10-30
 - **[[Events/evt-2026-10-30-37ea6c|Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals]]** — NVIDIA · research · conf 73 · heat 未量測

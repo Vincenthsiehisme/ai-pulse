@@ -1,20 +1,8 @@
-# 被門禁擋下（79）
+# 被門禁擋下（66）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-11-03-156064|Cities Worldwide Build and Scale AI Services With NVIDIA Physical and ]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-03-1cfb29|Transformers Model Integration Contracts]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-03-267137|Agentic cheminformatics with Google Antigravity]]** — Google — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-03-466907|StateBench: Testing how language models track state changes over long ]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-03-67babc|How Cisco defends at machine speed with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-03-8b52b4|OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-03-d81447|Accelerating engineering for the physical world]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-03-df7407|Heimstaden is changing residential real estate management with AI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-03-f8ea3f|Palette: teaching a small model to build decks in your design language]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-02-43902e|OpenAI appoints Dan Driscoll as Senior Counselor for National Security]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-02-7ab007|Preparing our next security sprint to harden OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-02-ab0561|Scaling Git at OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-02-f5d698|Rewarding defenders with bigger bug bounties]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-03-f8ea3f|Palette: teaching a small model to build decks in your design language]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-878ddc|How we detect frontier model misalignment]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-e5f194|Ai For Science Expands Foundations Research Institutions]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-28-603cba|The future of the firm]]** — OpenAI — blockers: thin_research_analysis
@@ -72,8 +60,7 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-11-03-3c0d19|AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving ]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-03-442128|Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Ste]]** — industry — blockers: generic_entity
