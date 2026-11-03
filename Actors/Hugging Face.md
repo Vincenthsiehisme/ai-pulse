@@ -3,17 +3,20 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-02'
+generated_day: '2026-11-03'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **28** 則：`published` 22、`review` 6
+事件 **31** 則：`published` 22、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-03 | [[Events/evt-2026-11-03-f8ea3f\|Palette: teaching a small model to build decks in your design language]] | review |
+| 2026-11-03 | [[Events/evt-2026-11-03-466907\|StateBench: Testing how language models track state changes over long documents]] | review |
+| 2026-11-03 | [[Events/evt-2026-11-03-1cfb29\|Transformers Model Integration Contracts]] | review |
 | 2026-10-29 | [[Events/evt-2026-10-29-ab82c2\|Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-3c844c\|Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-3c66c9\|How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications]] | review |

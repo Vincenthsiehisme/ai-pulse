@@ -3,19 +3,28 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-02'
+generated_day: '2026-11-03'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **195** 則：`published` 186、`review` 9
+事件 **204** 則：`published` 189、`review` 15
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-02 | [[Events/evt-2026-11-02-bda7cd\|Introducing the Grid Protectors Program]] | review |
-| 2026-11-02 | [[Events/evt-2026-11-02-54a2cc\|Qodo builds context into AI code review with Codex]] | review |
+| 2026-11-03 | [[Events/evt-2026-11-03-df7407\|Heimstaden is changing residential real estate management with AI]] | review |
+| 2026-11-03 | [[Events/evt-2026-11-03-d81447\|Accelerating engineering for the physical world]] | review |
+| 2026-11-03 | [[Events/evt-2026-11-03-8b52b4\|OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer]] | review |
+| 2026-11-03 | [[Events/evt-2026-11-03-67babc\|How Cisco defends at machine speed with OpenAI]] | review |
+| 2026-11-02 | [[Events/evt-2026-11-02-f5d698\|Rewarding defenders with bigger bug bounties]] | review |
+| 2026-11-02 | [[Events/evt-2026-11-02-bda7cd\|Introducing the Grid Protectors Program]] | published |
+| 2026-11-02 | [[Events/evt-2026-11-02-ab0561\|Scaling Git at OpenAI]] | review |
+| 2026-11-02 | [[Events/evt-2026-11-02-7ab007\|Preparing our next security sprint to harden OpenAI]] | review |
+| 2026-11-02 | [[Events/evt-2026-11-02-5efa64\|LifeVal]] | published |
+| 2026-11-02 | [[Events/evt-2026-11-02-54a2cc\|Qodo builds context into AI code review with Codex]] | published |
+| 2026-11-02 | [[Events/evt-2026-11-02-43902e\|OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization]] | review |
 | 2026-10-30 | [[Events/evt-2026-10-30-d6d96d\|Making it easier for websites to express AI training preferences]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-bc2e85\|Fair use benefits everyone]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-5b5f46\|Community safety report and new protections for teens]] | published |

@@ -1,107 +1,114 @@
 [
   {
-    "full_name": "patch-gg/pixelfx",
-    "desc": "244 pixel art effects, every one a small piece of code. Plus a Claude Code skill to make your own.",
-    "language": "JavaScript",
+    "full_name": "modelflare-ai/AnyModelBot",
+    "desc": "🤖 Open-source, local-first alternative to Grok Bot, OpenAI dots and Claude Duet. Your own AI bots on any model: GPT, Claude, Gemini, Grok, DeepSeek, Kimi, GLM and 70+ more through one Modelflare key. Reach them in the app, WeChat or Feishu; they remember you, work in the background, run commands and use your computer. Pay per use.",
+    "language": "Python",
+    "topics": [
+      "ai-agent",
+      "ai-assistant",
+      "chatbot",
+      "claude",
+      "computer-use",
+      "deepseek"
+    ],
+    "stars": 2349,
+    "url": "https://github.com/modelflare-ai/AnyModelBot",
+    "stale_zh": null
+  },
+  {
+    "full_name": "sahenjp/RustXNG",
+    "desc": "Self-hosted metasearch and grounding engine for AI agents, based on SearXNG. Rust, JSON API, optional page text.",
+    "language": "Rust",
+    "topics": [
+      "agpl",
+      "ai-agents",
+      "grounding",
+      "llm",
+      "mcp",
+      "metasearch"
+    ],
+    "stars": 776,
+    "url": "https://github.com/sahenjp/RustXNG",
+    "stale_zh": null
+  },
+  {
+    "full_name": "caru-ini/stack-diagram",
+    "desc": "Agent skill: describe your stack in a sentence, get an architecture diagram with official logos",
+    "language": "TypeScript",
     "topics": [
       "agent-skills",
-      "animation",
-      "canvas",
-      "claude-code-plugin",
-      "gamedev",
-      "pixel-art"
+      "architecture-diagram",
+      "claude-code",
+      "claude-skills",
+      "codex",
+      "diagram"
     ],
-    "stars": 3466,
-    "url": "https://github.com/patch-gg/pixelfx",
+    "stars": 1498,
+    "url": "https://github.com/caru-ini/stack-diagram",
     "stale_zh": null
   },
   {
-    "full_name": "Nasiko-Labs/nasiko",
-    "desc": "The Open Runtime for AI Agents",
-    "language": "Rust",
+    "full_name": "beenuar/AiSOC",
+    "desc": "Open-source AI Security Operations Center: alert fusion, LLM-agent triage, MITRE ATT&CK investigation, and a replayable decision ledger for every agent step. Self-hostable, runs with no API keys, MIT licensed. Ships an MCP server for Claude, Cursor and Continue.",
+    "language": "Python",
     "topics": [
-      "agent-security",
+      "agentic-ai",
+      "ai-security",
+      "alert-triage",
+      "blue-team",
+      "cybersecurity",
+      "detection-engineering"
+    ],
+    "stars": 6975,
+    "url": "https://github.com/beenuar/AiSOC",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Anil-matcha/open-duet",
+    "desc": "Open-source, self-hosted alternative to Grok Bot, Claude Duet, OpenAI Dots, Meta Muse, Instinct, Manus Cue: AI coworkers (named agents) with instructions, memory, routines, their own isolated computer, and your approval before they act.",
+    "language": "Python",
+    "topics": [
+      "agentic-ai",
+      "ai-agent",
+      "ai-assistant",
+      "ai-coworker",
+      "ai-employees",
+      "ai-workspace"
+    ],
+    "stars": 6703,
+    "url": "https://github.com/Anil-matcha/open-duet",
+    "stale_zh": "開源可自架的 Claude Duet 替代品：有指令、記憶與例行工作的 AI 同事，行動前需你核准"
+  },
+  {
+    "full_name": "QwenLM/qwen-code",
+    "desc": "An open-source AI coding agent that lives in your terminal.",
+    "language": "TypeScript",
+    "topics": [
+      "agentic",
+      "ai",
+      "ai-agent",
+      "ai-coding",
+      "cli",
+      "coding-agent"
+    ],
+    "stars": 28975,
+    "url": "https://github.com/QwenLM/qwen-code",
+    "stale_zh": null
+  },
+  {
+    "full_name": "EXXETA/exxperts",
+    "desc": "A free, open-source desktop app for getting work done with AI. It shows you what it would remember before it saves anything.",
+    "language": "TypeScript",
+    "topics": [
+      "agent-memory",
       "ai",
       "ai-agents",
-      "cli",
-      "hacktoberfest",
-      "llms"
+      "ai-assistant",
+      "ai-memory",
+      "chatgpt"
     ],
-    "stars": 11536,
-    "url": "https://github.com/Nasiko-Labs/nasiko",
-    "stale_zh": null
-  },
-  {
-    "full_name": "infiniflow/ragflow",
-    "desc": "RAGFlow is an agent-native database: a Retrieval-Augmented Generation (RAG) engine that grew into context infrastructure.",
-    "language": "Go",
-    "topics": [
-      "agent-harness",
-      "agent-native-database",
-      "agentic-ai",
-      "agentic-retrieval",
-      "agentic-search",
-      "ai"
-    ],
-    "stars": 93370,
-    "url": "https://github.com/infiniflow/ragflow",
-    "stale_zh": "RAGFlow：開源 RAG 引擎，結合 RAG 與 Agent 能力，讓 LLM 有更好的 context 層"
-  },
-  {
-    "full_name": "tettethu/VibeGame",
-    "desc": "VibeGame: Vibe Your Dream Game -- An open-source self-evolving multi-agent framework with an AI-Native game engine that turns your natural language into a fully playable 2D web game and edit it any way you want, built on Claude Code & Codex.",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "claude-code",
-      "codex",
-      "creative-coding",
-      "game-development",
-      "game-engine"
-    ],
-    "stars": 344,
-    "url": "https://github.com/tettethu/VibeGame",
-    "stale_zh": null
-  },
-  {
-    "full_name": "janhq/jan",
-    "desc": "Jan is an open source alternative to ChatGPT that runs 100% offline on your computer.",
-    "language": "Rust",
-    "topics": [
-      "chatgpt",
-      "gpt",
-      "llamacpp",
-      "llm",
-      "localai",
-      "open-source"
-    ],
-    "stars": 45337,
-    "url": "https://github.com/janhq/jan",
-    "stale_zh": null
-  },
-  {
-    "full_name": "peonist-ai/halogen-flash-server",
-    "desc": "Local inference that behaves like a frontier API: Qwen3.8-Flash-Next on AMD Strix Halo plus small NPU models, over the OpenAI and Anthropic APIs on one port.",
-    "language": "Shell",
-    "topics": [
-      "amd",
-      "gfx1151",
-      "gpu-inference",
-      "hip",
-      "inference-engine",
-      "llm"
-    ],
-    "stars": 1196,
-    "url": "https://github.com/peonist-ai/halogen-flash-server",
-    "stale_zh": null
-  },
-  {
-    "full_name": "baidu-baige/LoongSage",
-    "desc": "A production-grade, high-efficiency Agentic RL framework for frontier LLMs with validated recipes.",
-    "language": "Python",
-    "topics": [],
-    "stars": 544,
-    "url": "https://github.com/baidu-baige/LoongSage",
-    "stale_zh": null
+    "stars": 415,
+    "url": "https://github.com/EXXETA/exxperts",
+    "stale_zh": "本機優先的 AI agent，記憶需經核准才寫入，可接任何模型供應商，內建 MCP 工具與網頁搜尋，資料不離開你的電腦"
   }
 ]

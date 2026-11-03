@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-11-02'
+generated_day: '2026-11-03'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,11 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **54** 則：`published` 43、`review` 11
+事件 **55** 則：`published` 44、`review` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-02 | [[Events/evt-2026-11-02-54a2cc\|Qodo builds context into AI code review with Codex]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-f7c4df\|OpenAI and ServiceNow expand partnership across enterprise workflows]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-63d59c\|Legora is building the agentic operating system for legal work]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-603cba\|The future of the firm]] | review |

@@ -3,17 +3,18 @@ id: actor-google
 kind: company
 in_dictionary: true
 aliases: ["谷歌", "Alphabet"]
-generated_day: '2026-11-02'
+generated_day: '2026-11-03'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google
 
-事件 **9** 則：`published` 4、`review` 5
+事件 **10** 則：`published` 4、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-03 | [[Events/evt-2026-11-03-267137\|Agentic cheminformatics with Google Antigravity]] | review |
 | 2026-10-21 | [[Events/evt-2026-10-21-b189ca\|Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-45643f\|Accelerating the search for antimicrobial peptides with Google Antigravity]] | published |
 | 2026-09-10 | [[Events/evt-2026-09-10-aab6d4\|Expanding Our Use Of Google Cloud Tpus And Services]] | published |
