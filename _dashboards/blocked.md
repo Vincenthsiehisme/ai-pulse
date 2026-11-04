@@ -1,11 +1,15 @@
-# 被門禁擋下（66）
+# 被門禁擋下（70）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-04-513b63|Daybreak Red is now available in AWS GovCloud (US-East)]]** — AWS — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-04-763047|OpenAI to acquire Pierre Computer Company, Inc.]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-04-b05a2c|Dharma Field Extractor: Any Document In, Structured Fields in JSON Out]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-03-f8ea3f|Palette: teaching a small model to build decks in your design language]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-878ddc|How we detect frontier model misalignment]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-e5f194|Ai For Science Expands Foundations Research Institutions]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-28-603cba|The future of the firm]]** — OpenAI — blockers: thin_research_analysis
+- **[[Events/evt-2026-10-28-912f1b|Evernote turns AI-driven discovery into paid subscriptions]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-10-27-59a63a|How AI Is Changing the Pace of Discovery for Millions Living With Deme]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-27-6a61a0|Can we trust LLMs to judge whether a research idea is novel?]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-23-599b06|LitPivot: Developing research ideas through dynamic contextualization ]]** — Ai2 — blockers: thin_research_analysis

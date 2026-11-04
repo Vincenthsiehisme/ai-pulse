@@ -3,17 +3,19 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-11-03'
+generated_day: '2026-11-04'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **117** 則：`dropped` 1、`published` 109、`review` 7
+事件 **119** 則：`dropped` 1、`published` 111、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-03 | [[Events/evt-2026-11-03-3c0d19\|AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving Faster Because of It]] | published |
+| 2026-11-03 | [[Events/evt-2026-11-03-156064\|Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-f1b8bd\|nemotron-halloween]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-37ea6c\|Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-bd042a\|Slice Into GFN Thursday: ‘Phantom Blade Zero’ Launches on GeForce NOW]] | published |

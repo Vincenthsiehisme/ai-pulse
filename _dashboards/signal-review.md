@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-03"
+generated_day: "2026-11-04"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-03"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **539** 則／已裁決 **26** 則。
+待回答 **552** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#aaa57df1`** — infra-cost
-  > 看正式版 v0.33.0 說明是否與 rc3 一致、新增模型的實測吞吐量；看 Grid Protectors 是否出現具名電力夥伴與可量測承諾；看 Granite Switch 文章是否說明更新如何打包、舊版行為是否相容；看第三方評測的 RTX Spark 本機模型推論速度與各品牌機型定價；看 OpenAI 全文是否交代 12 倍的比較基準與延遲分位數；看 Trainium 支援模型的涵蓋與實測價格比；看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 的實測加速倍率。
+- **`infra-cost#c160d7b8`** — infra-cost
+  > 看 OpenAI 資安衝刺結束後是否公布發現數量與修補成果；看賞金頁面的實際金額；看 Pando 是否開源或公布吞吐與延遲；看 NVIDIA 晶圓廠文章是否點名客戶與良率數字；看正式版 v0.33.0 說明是否與 rc3 一致、新增模型的實測吞吐量；看 Grid Protectors 是否出現具名電力夥伴與可量測承諾；看 Granite Switch 文章是否說明更新如何打包、舊版行為是否相容；看第三方評測的 RTX Spark 本機模型推論速度與各品牌機型定價；看 OpenAI 全文是否交代 12 倍的比較基準與延遲分位數；看 Trainium 支援模型的涵蓋與實測價格比；看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 的實測加速倍率。
 
-- **`model-research#c4ec5355`** — model-research
-  > 看 LifeVal 是否公開題目與評分程式，以及有沒有納入第三方模型作對照；看 nemotron-halloween 全文是否連到新的 Nemotron 權重、資料集或基準結果；看 Mistral Large 4 的模型卡是否公布授權、參數量與第三方基準；看 Model Spec 全文的五項價值與前一版差在哪，以及模型行為有沒有跟著改；看 Gemini 4 Carbon 何時開放使用，以及開放後第三方對程式與資安任務的獨立測試，驗證榜首與領先幅度；看 Nemotron 3.5 Transcribe 模型卡上的語言覆蓋、授權與詞錯率；看 Genie 4 是否開放試用或發布技術報告；看 OpenAI 學術合作那篇的結果有沒有學界複驗；看 LFM3 的權重釋出方式與基準；讀 GPT-6.1 Terra 原文，看價格、可用日期與第三方基準是否在一週內跟上；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變。
+- **`model-research#d4e956a3`** — model-research
+  > 看 StateBench 的資料集與排行榜是否公開、有沒有納入非 Ai2 的模型作對照；看 LifeVal 是否公開題目與評分程式，以及有沒有納入第三方模型作對照；看 nemotron-halloween 全文是否連到新的 Nemotron 權重、資料集或基準結果；看 Mistral Large 4 的模型卡是否公布授權、參數量與第三方基準；看 Model Spec 全文的五項價值與前一版差在哪，以及模型行為有沒有跟著改；看 Gemini 4 Carbon 何時開放使用，以及開放後第三方對程式與資安任務的獨立測試，驗證榜首與領先幅度；看 Nemotron 3.5 Transcribe 模型卡上的語言覆蓋、授權與詞錯率；看 Genie 4 是否開放試用或發布技術報告；看 OpenAI 學術合作那篇的結果有沒有學界複驗；看 LFM3 的權重釋出方式與基準；讀 GPT-6.1 Terra 原文，看價格、可用日期與第三方基準是否在一週內跟上；讀 RSP v3 原文，與前一版比對能力門檻與防護等級有沒有變。
 
-- **`product-market#4eb0eef1`** — product-market
-  > 看 DeepMind 與英國政府是否公布試行範圍與處理時間的前後對照；看 Credit Saison 或第三方是否公布 ROI 的算法；看 OpenAI 下一份安全報告的時間與涵蓋指標；看其他模型業者是否加入共用的 robots.txt 訊號；看 Ropes & Gray 是否公布導入的案件量與審閱時間變化，以及其他大型律所有沒有跟進；看 AnySpeechRecognizer 模型卡是否列出支援的 Apple 晶片、延遲與辨識錯誤率；看 Retell 或第三方是否公開語音基準的方法與其他模型成績；讀 Anthropic 兩篇原文，看 GSA 合作的範圍、價格與適用機構；讀 Grok Bot Sales 原文，看有沒有價格或產品細節；看 Check Point 是否公布 Daybreak 的時間節省；看 Signals 原文是否公開各類工作活動的占比；看 Fanatics 是否公布轉換率；看 Decisions API 文件的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率；看 OpenAI 是否公布廣告營收與各國上線清單。
+- **`product-market#4865837a`** — product-market
+  > 看 NVIDIA 城市案例有沒有市政單位或第三方確認；看 Cisco 與 Heimstaden 是否公布量化成效；看是否有具名工程公司公開 CAD、PCB 的使用成果；看 DeepMind 與英國政府是否公布試行範圍與處理時間的前後對照；看 Credit Saison 或第三方是否公布 ROI 的算法；看 OpenAI 下一份安全報告的時間與涵蓋指標；看其他模型業者是否加入共用的 robots.txt 訊號；看 Ropes & Gray 是否公布導入的案件量與審閱時間變化，以及其他大型律所有沒有跟進；看 AnySpeechRecognizer 模型卡是否列出支援的 Apple 晶片、延遲與辨識錯誤率；看 Retell 或第三方是否公開語音基準的方法與其他模型成績；讀 Anthropic 兩篇原文，看 GSA 合作的範圍、價格與適用機構；讀 Grok Bot Sales 原文，看有沒有價格或產品細節；看 Check Point 是否公布 Daybreak 的時間節省；看 Signals 原文是否公開各類工作活動的占比；看 Fanatics 是否公布轉換率；看 Decisions API 文件的價格、延遲與可用模型；看 Uber 或 OpenAI 是否公布使用率；看 OpenAI 是否公布廣告營收與各國上線清單。
 
-- **`capital-evolution#8209e59c`** — capital-evolution
-  > 看相關著作權案件的法院裁決或和解，是否採納合理使用的論點；讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
+- **`capital-evolution#3fa48c3b`** — capital-evolution
+  > 看 OpenAI 的對外溝通是否隨新任命調整；看是否出現與政府或盟友的具體合作案；看相關著作權案件的法院裁決或和解，是否採納合理使用的論點；讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
 
-- **`agent-refactor#40828603`** — agent-refactor
-  > 看 Qodo 或使用團隊是否公布 Codex 外掛的誤報率與抓到問題的比例，以及其他審查工具是否跟進外掛；看 ServiceNow 方面的對應公告與首批整合的上線日期；看 Legora 是否公布合約分析的準確度或採用數；看 Oracle 首批進 ChatGPT 的應用清單與日期；看 Greptile 是否自行公布偵測率與誤報率；看 OpenAI 是否公開 Ultrafast 的排查過程與準確率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業。
+- **`agent-refactor#167925ef`** — agent-refactor
+  > 看 Transformers 儲存庫有沒有對應的文件或 PR，說明整合規範的具體要求；看 DeepMind 提出的分子有沒有實驗驗證或論文對照；看 Qodo 或使用團隊是否公布 Codex 外掛的誤報率與抓到問題的比例，以及其他審查工具是否跟進外掛；看 ServiceNow 方面的對應公告與首批整合的上線日期；看 Legora 是否公布合約分析的準確度或採用數；看 Oracle 首批進 ChatGPT 的應用清單與日期；看 Greptile 是否自行公布偵測率與誤報率；看 OpenAI 是否公開 Ultrafast 的排查過程與準確率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業。
 
 - **`global-map#87f23214`** — global-map
   > 看 SETI 那篇提到的研究團隊是否發表論文或公開資料集；看 ProtoStar 的首批資料集上線時間、合作機構名單與授權方式；看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
 
-## 事件層（533）
+## 事件層（546）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1631,14 +1631,53 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-10-30-f1b8bd#deb6ab84`** — evt-2026-10-30-f1b8bd
   > 文章是否連結到新的 Nemotron 模型權重、資料集或基準測試結果。
 
+- **`evt-2026-11-02-43902e#c61ee259`** — evt-2026-11-02-43902e
+  > 觀察 OpenAI 後續是否公布與國防或盟友政府的具體合作案。
+
 - **`evt-2026-11-02-54a2cc#b515b3b5`** — evt-2026-11-02-54a2cc
   > 觀察 Qodo 或使用團隊是否公布誤報率、抓到問題的比例，以及其他審查工具是否跟進 Codex 外掛。
 
 - **`evt-2026-11-02-5efa64#ac4dc342`** — evt-2026-11-02-5efa64
   > 觀察是否公開題目與評分程式、第三方模型有沒有被納入測試，以及 OpenAI 自家模型的成績是否附上對照組。
 
+- **`evt-2026-11-02-7ab007#0194759b`** — evt-2026-11-02-7ab007
+  > 觀察衝刺結束後 OpenAI 是否公布發現數量或修補成果。
+
+- **`evt-2026-11-02-ab0561#9f09833c`** — evt-2026-11-02-ab0561
+  > 觀察 OpenAI 是否開源 Pando，或公布吞吐與延遲數字。
+
 - **`evt-2026-11-02-bda7cd#1e275ba8`** — evt-2026-11-02-bda7cd
   > 觀察是否出現具名的電力公司夥伴、可量測的承諾（例如負載調度或自備電源），以及地方監管機關的回應。
 
 - **`evt-2026-11-02-caa65d#4060bc3d`** — evt-2026-11-02-caa65d
   > 觀察正式 v0.33.0 的發布說明是否與 rc3 一致，以及新列模型的實測吞吐量與社群回報的問題。
+
+- **`evt-2026-11-02-f5d698#04cf850a`** — evt-2026-11-02-f5d698
+  > 觀察官方獎金頁面的具體金額，以及之後公開的修補案例。
+
+- **`evt-2026-11-03-156064#ff972f6e`** — evt-2026-11-03-156064
+  > 觀察文中點名的城市案例是否有第三方或市政單位確認。
+
+- **`evt-2026-11-03-1cfb29#8ba4ca86`** — evt-2026-11-03-1cfb29
+  > 觀察文章全文與 Transformers 儲存庫中對應的文件或 PR。
+
+- **`evt-2026-11-03-267137#23e64587`** — evt-2026-11-03-267137
+  > 觀察是否有實驗驗證或論文對照這些提出的分子。
+
+- **`evt-2026-11-03-3c0d19#05f2924f`** — evt-2026-11-03-3c0d19
+  > 觀察文中是否列出具體晶圓廠客戶與良率或週期數字。
+
+- **`evt-2026-11-03-466907#0f935a24`** — evt-2026-11-03-466907
+  > 觀察基準的資料集、排行榜與各模型得分。
+
+- **`evt-2026-11-03-67babc#cac95bef`** — evt-2026-11-03-67babc
+  > 觀察 Cisco 側是否有獨立說明或量化結果。
+
+- **`evt-2026-11-03-8b52b4#ef9df131`** — evt-2026-11-03-8b52b4
+  > 觀察 OpenAI 對外溝通策略是否隨之調整。
+
+- **`evt-2026-11-03-d81447#f245f67d`** — evt-2026-11-03-d81447
+  > 觀察是否有具名工程公司公開使用成果。
+
+- **`evt-2026-11-03-df7407#6fa90c37`** — evt-2026-11-03-df7407
+  > 觀察 Heimstaden 是否公布具體節省或效率數字。

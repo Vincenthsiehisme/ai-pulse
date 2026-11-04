@@ -16,7 +16,7 @@ license_note: "abstract + link"
 endpoint: "https://www.microsoft.com/en-us/research/feed/"
 robots_checked_day: "2026-10-30"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-11-03"
+last_observed_day: "2026-11-04"
 items_observed: 32
 events_bound: 3
 events_published: 3
