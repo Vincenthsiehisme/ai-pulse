@@ -3,13 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-11-03'
+updated: '2026-11-04'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 今天新增五則。OpenAI 同在 11-02 發了三篇：預告與 Cathedral Systems 合作的下一輪內部資安衝刺，調高 Security Bug Bounty 並新增品質、忠誠度與優先活動加碼，以及 Scaling Git at OpenAI，介紹為 Codex 規模設計的 Git 相容後端 Pando，三篇都沒有金額、範圍或效能數字。NVIDIA 稱 AI 正改變半導體廠的工程工作，廠商自述，量化成效沒有。 前一輪新增的部分：今天新增兩則。vLLM v0.33.0 發布，收錄 927 個 commit、389 位貢獻者，新支援 Reflection Beam-1.0（501B MoE，啟用 23B）、Recursive Flint（40B MoE）等模型，證據取自 rc3 標籤，摘要在中途截斷。OpenAI 宣布 Grid Protectors 計畫，與電力業者合作讓未來算力園區支援電網可靠度並保護消費者電費，業者名單與機制沒有證據，屬公司承諾性公告。 前一輪新增的部分：今天新增一則。IBM Granite 在 Hugging Face 發表 Granite Switch 4.1.1，標題主張模型可以像軟體一樣更新，我們只有一句來源說明，更新機制與版本相容性沒有證據。10-28 NVIDIA 說 RTX Spark 輕薄筆電已由華碩、戴爾、惠普、聯想、微軟與微星六家供貨，晶片把 Blackwell RTX GPU 與 Grace CPU 放在同一顆超級晶片上，並新增模型、代理工具與遊戲，價格、效能與續航摘要沒提，屬廠商自述。10-23 OpenAI 講 Habitat 儲存層撐住逾 10 億 ChatGPT 使用者，用多租戶、全球快取與 Azure Cosmos DB，讀取快 12 倍，基準沒說。Hugging Face 發文教人查模型能否在 AWS Trainium 上跑，沒有支援清單或效能數字。10-22 NVIDIA 的 Minerva 是 AIOps 平台，價格、授權與支援範圍沒給；DSX 案例稱電力是目前基礎設施最大瓶頸，採用公司與規模被截斷。10-21 GTC Berlin 同期消息：Google Cloud 與 NVIDIA 稱 Vera Rubin 基礎設施下個月 GA，價格沒給；cuDSS GA 與機密運算擴充皆為廠商自述，沒有效能與價格數字。Amazon
-      的 TorchNeuron 剖析系列第一篇摘要無內文。10-20 Nebius、Nscale 轉向 Vera CPU 只有廠商說法。
-    next: 看 OpenAI 資安衝刺結束後是否公布發現數量與修補成果；看賞金頁面的實際金額；看 Pando 是否開源或公布吞吐與延遲；看 NVIDIA 晶圓廠文章是否點名客戶與良率數字；看正式版 v0.33.0 說明是否與 rc3 一致、新增模型的實測吞吐量；看 Grid Protectors 是否出現具名電力夥伴與可量測承諾；看 Granite Switch 文章是否說明更新如何打包、舊版行為是否相容；看第三方評測的 RTX Spark 本機模型推論速度與各品牌機型定價；看 OpenAI 全文是否交代 12 倍的比較基準與延遲分位數；看 Trainium 支援模型的涵蓋與實測價格比；看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 的實測加速倍率。
+    now: 今天新增一則。Daybreak Red 上架 AWS GovCloud（US-East），核准客戶可經 Amazon Bedrock 使用 GPT-5.6 Cyber，限經授權的資安工作，價格與客戶範圍沒有證據，單一來源。 前一輪新增的部分：今天新增五則。OpenAI 同在 11-02 發了三篇：預告與 Cathedral Systems 合作的下一輪內部資安衝刺，調高 Security Bug Bounty 並新增品質、忠誠度與優先活動加碼，以及 Scaling Git at OpenAI，介紹為 Codex 規模設計的 Git 相容後端 Pando，三篇都沒有金額、範圍或效能數字。NVIDIA 稱 AI 正改變半導體廠的工程工作，廠商自述，量化成效沒有。
+    next: 看 AWS 是否公布 Bedrock 上 GPT-5.6 Cyber 的定價與可用區域，以及有沒有政府客戶公開採用；看 OpenAI 資安衝刺結束後是否公布發現數量與修補成果；看賞金頁面的實際金額；看 Pando 是否開源或公布吞吐與延遲；看 NVIDIA 晶圓廠文章是否點名客戶與良率數字；看正式版 v0.33.0 說明是否與 rc3 一致、新增模型的實測吞吐量；看 Grid Protectors 是否出現具名電力夥伴與可量測承諾；看 Granite Switch 文章是否說明更新如何打包、舊版行為是否相容；看第三方評測的 RTX Spark 本機模型推論速度與各品牌機型定價；看 OpenAI 全文是否交代 12 倍的比較基準與延遲分位數；看 Trainium 支援模型的涵蓋與實測價格比；看 Minerva 的上市時程與具名客戶；看 DSX 採用者是否公布併網時間或電力利用率；看 Vera Rubin 下月是否如期開通與定價；看 Nebius、Nscale 是否公布 Vera CPU 部署規模；看 cuDSS 的實測加速倍率。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -53,8 +52,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 今天新增一則，另一則延續 11-02。OpenAI 任命 Jill Hazelbaker 為首席企業事務長，負責全球溝通與公司定位，到任日期與前職摘要沒給。11-02 任命 Dan Driscoll 為國家安全現代化資深顧問，職責涵蓋負責任 AI、網路韌性與和美國盟友的合作。兩則都是人事公告，沒有金額或合約。 前一輪新增的部分：今天新增一則。OpenAI 在官方部落格發表〈Fair use benefits everyone〉，轉載創作者、學者與法律專家的法庭意見書節錄，主張合理使用支持 AI 訓練，是法律敘事，沒有金額或資源承諾，單一來源。其餘維持：NVIDIA 在 GTC Berlin 展示歐洲金融業在自家基礎設施跑開放權重模型，Revolut 的部分被截斷，規模與成本數字沒有。xAI 發布標題為 Partnernetworkannouncement 的公告，該站宣告 ai-input=no，我們依此不取內文，夥伴是誰與條件為何看不到，原文在 https://x.ai/news/partnernetworkannouncement 。10-21 OpenAI 模型將上 Google Cloud，Ars Technica 稱未來幾週提供 GPT 6.1 的 Astra、Sol、Luna，價格與合約條件不明，單一媒體來源。OpenAI 發表〈前沿 AI 的民主治理〉第二部，是政策藍圖，沒有具體資源承諾。Anthropic 宣布 Christopher Stubbs 加入 Long Term Benefit Trust，內文未取得。10-20 OpenAI 收購 Orchestra Bio，金額與交割時程仍不明。
-    next: 看 OpenAI 的對外溝通是否隨新任命調整；看是否出現與政府或盟友的具體合作案；看相關著作權案件的法院裁決或和解，是否採納合理使用的論點；讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
+    now: 今天新增一則。OpenAI 宣布收購 Pierre Computer Company, Inc.，官方頁面與 Hacker News 轉貼都只帶出一則推文連結，金額、條件與 Pierre 的業務目前看不到（證據不足，待補）。 前一輪新增的部分：今天新增一則，另一則延續 11-02。OpenAI 任命 Jill Hazelbaker 為首席企業事務長，負責全球溝通與公司定位，到任日期與前職摘要沒給。11-02 任命 Dan Driscoll 為國家安全現代化資深顧問，職責涵蓋負責任 AI、網路韌性與和美國盟友的合作。兩則都是人事公告，沒有金額或合約。
+    next: 看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併安排；看 OpenAI 的對外溝通是否隨新任命調整；看是否出現與政府或盟友的具體合作案；看相關著作權案件的法院裁決或和解，是否採納合理使用的論點；讀 xAI 公告原文，確認夥伴名單與條件；看 Revolut 等業者是否公布實際上線範圍；看 OpenAI 或 Google Cloud 官方公告的上線日期與價格；看 OpenAI 與 Orchestra Bio 是否公布交易條件；看 Anthropic 是否公布 Trust 成員名單與任期。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
@@ -62,8 +61,8 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 今天新增三則。Hugging Face 發表 Transformers 的模型整合規範，來源摘要只是公司通用簡介，規範內容我們沒有。Google DeepMind 展示 Antigravity 搭配 Cheminformatics Skills，用在搜尋化合物並提出新的剛性化大環分子，屬廠商展示，有沒有實驗驗證沒有證據。11-02 Qodo 與 Codex 的整合，來源是 OpenAI 自家部落格。 前一輪新增的部分：今天新增一則。Qodo 與 Codex 的整合把公司內部知識與程式規範帶進程式碼審查，讓開發者開 pull request 前跨程式庫抓出 P0 等級問題，來源是 OpenAI 自家部落格，準確率、價格與支援語言沒有數字。 前一輪新增的部分：今天新增兩則 OpenAI 稿。Legora 案例說它用 OpenAI 模型、ChatGPT 與 Codex 加速法務流程，摘要沒有任何數字。與 ServiceNow 的合作擴大是雙向：OpenAI 模型與代理進 ServiceNow，ServiceNow 流程進 ChatGPT 與 Codex，沒有上線時程與條件，只有 OpenAI 一方的說法。10-27 Oracle 擴大合作，把商業應用與 AI 代理帶進 ChatGPT，合作範圍與上線時程沒有給。10-26 Greptile 用 GPT-6 Astra 做 bug 偵測，搭配 Daybreak 與 Codex，摘要沒有偵測率或誤報率。同日 OpenAI 的 Codex Ultrafast 事故調查案例，工程師自述調查時間從數小時縮到數分鐘，沒有案例數與實測。10-22 Anthropic 把 Agent Skills 標準捐給 Linux 基金會旗下的 Agentic AI Foundation，官方公告依授權只收標題與連結，治理細節證據裡沒有。10-21 Cloudflare 用 OpenAI Daybreak 找漏洞並提出修補建議交人審查，沒有量化結果。同日 NVIDIA Agent Toolkit 擴充，採用者沒有給，屬廠商自述。10-14 Third Moment Research 的 10,000 個 agent 連跑 36 小時以上，沒有完成率與成本。
-    next: 看 Transformers 儲存庫有沒有對應的文件或 PR，說明整合規範的具體要求；看 DeepMind 提出的分子有沒有實驗驗證或論文對照；看 Qodo 或使用團隊是否公布 Codex 外掛的誤報率與抓到問題的比例，以及其他審查工具是否跟進外掛；看 ServiceNow 方面的對應公告與首批整合的上線日期；看 Legora 是否公布合約分析的準確度或採用數；看 Oracle 首批進 ChatGPT 的應用清單與日期；看 Greptile 是否自行公布偵測率與誤報率；看 OpenAI 是否公開 Ultrafast 的排查過程與準確率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業。
+    now: 今天新增一則。Dharma-AI 在 Hugging Face 發表 Dharma Field Extractor，標題主打任何文件輸入、輸出結構化 JSON 欄位，證據只有標題，模型大小、準確率與授權都沒有。 前一輪新增的部分：今天新增三則。Hugging Face 發表 Transformers 的模型整合規範，來源摘要只是公司通用簡介，規範內容我們沒有。Google DeepMind 展示 Antigravity 搭配 Cheminformatics Skills，用在搜尋化合物並提出新的剛性化大環分子，屬廠商展示，有沒有實驗驗證沒有證據。11-02 Qodo 與 Codex 的整合，來源是 OpenAI 自家部落格。
+    next: 看 Dharma Field Extractor 是否釋出模型權重與公開基準的評測結果；看 Transformers 儲存庫有沒有對應的文件或 PR，說明整合規範的具體要求；看 DeepMind 提出的分子有沒有實驗驗證或論文對照；看 Qodo 或使用團隊是否公布 Codex 外掛的誤報率與抓到問題的比例，以及其他審查工具是否跟進外掛；看 ServiceNow 方面的對應公告與首批整合的上線日期；看 Legora 是否公布合約分析的準確度或採用數；看 Oracle 首批進 ChatGPT 的應用清單與日期；看 Greptile 是否自行公布偵測率與誤報率；看 OpenAI 是否公開 Ultrafast 的排查過程與準確率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF；看 Cloudflare 或 OpenAI 是否公布 Daybreak 找到的漏洞數與修補時間；看 NVIDIA 是否點名採用 Agent Toolkit 的企業。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。

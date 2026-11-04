@@ -1,6 +1,14 @@
-# 已發布事件（566）
+# 已發布事件（570）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-04
+- **[[Events/evt-2026-11-04-513b63|Daybreak Red is now available in AWS GovCloud (US-East)]]** — OpenAI · infra · conf 73 · heat 未量測
+  Daybreak Red 上架 AWS GovCloud（US-East），核准客戶可經 Amazon Bedrock 使用 GPT-5.6 Cyber。
+- **[[Events/evt-2026-11-04-763047|OpenAI to acquire Pierre Computer Company, Inc.]]** — OpenAI · capital · conf 80 · heat 未量測
+  OpenAI 宣布收購 Pierre Computer Company, Inc.。
+- **[[Events/evt-2026-11-04-b05a2c|Dharma Field Extractor: Any Document In, Structured Fields in JSON Out]]** — Hugging Face · product · conf 73 · heat 未量測
+  Dharma-AI 在 Hugging Face 發表 Dharma Field Extractor，主打文件進、結構化 JSON 欄位出。
 
 ## 2026-11-03
 - **[[Events/evt-2026-11-03-156064|Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI]]** — NVIDIA · product · conf 73 · heat 未量測
@@ -77,6 +85,8 @@
   NVIDIA 在 Hugging Face 發了 Nemotron 3.5 Transcribe 與 Granary v2，內文我們未取用。
 - **[[Events/evt-2026-10-28-63d59c|Legora is building the agentic operating system for legal work]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 案例稿：法律科技公司 Legora 用 OpenAI 模型、ChatGPT 與 Codex 加速法務流程。
+- **[[Events/evt-2026-10-28-912f1b|Evernote turns AI-driven discovery into paid subscriptions]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布客戶案例：Evernote 用 ChatGPT Ads 找新用戶，並追蹤免費試用轉付費的比例。
 - **[[Events/evt-2026-10-28-ebc366|Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 說 RTX Spark 輕薄筆電已由六家品牌上市，並加入新模型、代理工具與遊戲。
 - **[[Events/evt-2026-10-28-f7c4df|OpenAI and ServiceNow expand partnership across enterprise workflows]]** — OpenAI · product · conf 73 · heat 未量測

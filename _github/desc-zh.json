@@ -574,6 +574,11 @@
     "src_hash": "1a6cbb711796",
     "zh": "MobileGym：手機 GUI agent 研究用的可驗證模擬平台，在瀏覽器裡跑 Android 模擬器"
   },
+  "PurpleDoubleD/locally-uncensored": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "6378b4a16fdb",
+    "zh": "本機一體化 AI 工作室：聊天、圖片與影片生成、coding agent，免費開源，免 Docker、免終端機、免雲端"
+  },
   "QingYunA/answer-me-with-html": {
     "at": "2026-10-05T22:18:12+00:00",
     "src_hash": "d2d3746fdb42",
@@ -909,6 +914,11 @@
     "src_hash": "b96c5f3bc7ac",
     "zh": "開源 AI 資安營運中心：告警融合、LLM agent 分流、MITRE ATT&CK 調查，可自架"
   },
+  "benjitaylor/skills": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "6b7053abc066",
+    "zh": "給 AI coding agent 用的技能（skills）集合"
+  },
   "blader/humanizer": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "2d8e471f104f",
@@ -918,6 +928,11 @@
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "5e2cb29a04e7",
     "zh": "《深入理解 AI Agent：設計原理與工程實踐》（李博杰 著）開源主倉庫：全書正文、PDF 與各章配套程式碼"
+  },
+  "botpress/botpress": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "f4686e4666f8",
+    "zh": "開源的 GPT/LLM agent 建置與部署平台"
   },
   "breakstageaxe61/genspark-claw": {
     "at": "2026-10-19T20:49:33+00:00",
@@ -1033,6 +1048,11 @@
     "at": "2026-10-23T19:40:32+00:00",
     "src_hash": "09b406e6ed1f",
     "zh": "預先索引的程式碼知識圖，隨程式變動自動同步，給多種 coding agent 用，省 token、少呼叫工具，完全本機"
+  },
+  "converge-ai-labs/agent-foundation": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "949441346271",
+    "zh": "在自己的基礎設施上建置、執行與管理 AI agent，含 harness、持久化執行、多模型供應商與管理主控台"
   },
   "coreyhaines31/marketingskills": {
     "at": "2026-09-08T19:19:22+00:00",
@@ -1158,6 +1178,11 @@
     "at": "2026-10-10T19:38:45+00:00",
     "src_hash": "6c114f8d2abb",
     "zh": "給 agent 用的大型資料集深層記憶：單一靜態執行檔，把 JSONL、CSV、SQLite 等紀錄轉成排序的全文索引"
+  },
+  "elvarofficial/teardown": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "eef0df8c4946",
+    "zh": "Claude Code 技能，把任何機器變成可拆解的 3D 模擬器"
   },
   "epsilla-cloud/vectordb": {
     "at": "2026-10-20T19:46:47+00:00",
@@ -1374,6 +1399,11 @@
     "src_hash": "0dfa0700d744",
     "zh": "整合 Google Ads、Meta Ads、GA4 的託管遠端 MCP，OAuth 登入，寫入需核准"
   },
+  "jaikydota/BullFlow": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "bc8d891caa9d",
+    "zh": "開源企業級 RAG 方案：從知識庫、行銷內容自動產出到一鍵發布 17 個平台，知識庫可全用本地開源模型"
+  },
   "jakubkrehel/skills": {
     "at": "2026-11-01T19:59:42+00:00",
     "src_hash": "0037c8ffb8d4",
@@ -1514,6 +1544,11 @@
     "src_hash": "ec6196e2c4c5",
     "zh": "Claude Code 的影片風格工具箱：66 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
   },
+  "lexifina/global-law": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "21ec7295630d",
+    "zh": "把各國法律放進 git：可查任何國家、任何日期的條文，以及每個字是哪條法律寫入的"
+  },
   "lightonai/next-plaid": {
     "at": "2026-08-14T19:13:10+00:00",
     "src_hash": "064db50fe87f",
@@ -1533,6 +1568,11 @@
     "at": "2026-10-21T19:47:16+00:00",
     "src_hash": "157e27356ce3",
     "zh": "在 Kubernetes 上用現代加速器達到頂尖的推論效能"
+  },
+  "lobehub/lobehub": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "0618fc51963d",
+    "zh": "用來編制 agent 團隊的平台，負責雇用、排程並回報，讓 agent 全天候運作"
   },
   "luongnv89/claude-howto": {
     "at": "2026-10-21T19:47:16+00:00",
@@ -2150,9 +2190,9 @@
     "zh": "跨平台、高效率的 SQLite 擴充，替嵌入式資料庫加上向量搜尋"
   },
   "stablyai/orca": {
-    "at": "2026-10-17T18:04:23+00:00",
-    "src_hash": "e30ec82e80d9",
-    "zh": "管理多個 agent（如 Grok Bot、Claude Code）的工作環境，用自己的訂閱，支援桌面與行動"
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "f112c3352147",
+    "zh": "管理多個 coding agent（Claude Code、Codex 等）的工作環境，用自己的訂閱，支援桌面與行動"
   },
   "stas00/ml-engineering": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -2239,10 +2279,15 @@
     "src_hash": "2df0c5090dd9",
     "zh": "agent skill，把想法、計畫或程式碼轉成可互動的架構圖"
   },
+  "udhaykumarbala/cleanyourtv-app": {
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "1e46038cd843",
+    "zh": "社群製作的手機 App，用手機清理 Android TV，不需筆電、不需 coding agent、不移除任何應用"
+  },
   "unclecode/crawl4ai": {
-    "at": "2026-10-20T19:46:47+00:00",
-    "src_hash": "6dec1e66e9e9",
-    "zh": "給 LLM 與 AI agent 用的開源網頁爬蟲，把網站轉成乾淨的 Markdown"
+    "at": "2026-11-04T21:40:11+00:00",
+    "src_hash": "fc676ed253d5",
+    "zh": "給 AI agent 用的網頁爬取、抽取與搜尋 API，爬蟲本體開源（Apache-2.0）可自架"
   },
   "undefined-ui/second-brain-os": {
     "at": "2026-10-05T22:18:12+00:00",
