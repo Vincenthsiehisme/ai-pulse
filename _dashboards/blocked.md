@@ -1,7 +1,16 @@
-# 被門禁擋下（66）
+# 被門禁擋下（78）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-05-0c6558|Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips]]** — Google DeepMind — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-11-05-18f919|‘Hogwarts Legacy’ Gets a Magical NVIDIA DLSS 5 Upgrade on GeForce NOW]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-05-390f13|GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-05-51be7b|More Performance From Every Byte: How Full-Stack Codesign Solves AI’s ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-05-acdc79|The Wizard of Open Weights: Chris Alexiuk Makes AI Easy With Open Mode]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-05-ba85a1|New NVIDIA Cosmos 3 Open Models for Interactive World Simulation]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-05-efd830|Setting a new standard for responsible AI infrastructure]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-04-2f8efb|A thousand fewer paths to root]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-04-d60f1d|Introducing Images 2.6]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-03-f8ea3f|Palette: teaching a small model to build decks in your design language]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-878ddc|How we detect frontier model misalignment]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-e5f194|Ai For Science Expands Foundations Research Institutions]]** — Anthropic — blockers: thin_research_analysis
@@ -60,6 +69,9 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-11-05-58d399|The Long Term Benefit Trust]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-05-fea268|Vera Delivers the Best of Both Worlds: Highest Throughput and Fastest ]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-09-22-4b1c67|How UK AISI and EvalEval Are Making Benchmark Results Reproducible]]** — industry — blockers: generic_entity

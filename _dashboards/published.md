@@ -113,7 +113,7 @@
   OpenAI 與 Oracle 擴大合作，把 Oracle 的商業應用與 AI 代理帶進 ChatGPT。
 
 ## 2026-10-26
-- **[[Events/evt-2026-10-26-065414|Greptile takes bug detection beyond code review with GPT-6 Astra]]** — OpenAI · product · conf 83 · heat 未量測
+- **[[Events/evt-2026-10-26-065414|Greptile takes bug detection beyond code review with GPT-6 Astra]]** — OpenAI · product · conf 90 · heat 未量測
   OpenAI 發表 Greptile 用 GPT-6 Astra 做 bug 偵測的客戶案例。
 - **[[Events/evt-2026-10-26-27a6cc|Working with academic communities to build scientific understanding]]** — OpenAI · research · conf 73 · heat 未量測
   OpenAI 公開模型在 Kakeya 猜想、指數時間假說與量子色動力學上的結果，並說明研究者如何驗證。

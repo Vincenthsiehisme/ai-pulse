@@ -3,17 +3,20 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-11-04'
+generated_day: '2026-11-05'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **119** 則：`dropped` 1、`published` 111、`review` 7
+事件 **122** 則：`dropped` 1、`published` 111、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-05 | [[Events/evt-2026-11-05-acdc79\|The Wizard of Open Weights: Chris Alexiuk Makes AI Easy With Open Models]] | review |
+| 2026-11-05 | [[Events/evt-2026-11-05-51be7b\|More Performance From Every Byte: How Full-Stack Codesign Solves AI’s Memory Challenge]] | review |
+| 2026-11-05 | [[Events/evt-2026-11-05-18f919\|‘Hogwarts Legacy’ Gets a Magical NVIDIA DLSS 5 Upgrade on GeForce NOW]] | review |
 | 2026-11-03 | [[Events/evt-2026-11-03-3c0d19\|AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving Faster Because of It]] | published |
 | 2026-11-03 | [[Events/evt-2026-11-03-156064\|Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-f1b8bd\|nemotron-halloween]] | published |

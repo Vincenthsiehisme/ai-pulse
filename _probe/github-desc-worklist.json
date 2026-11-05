@@ -1,163 +1,99 @@
 [
   {
-    "full_name": "benjitaylor/skills",
-    "desc": "Skills for AI coding agents.",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 1884,
-    "url": "https://github.com/benjitaylor/skills",
-    "stale_zh": null
-  },
-  {
-    "full_name": "stablyai/orca",
-    "desc": "Orca is the place for working with a fleet of coding agents (e.g. Claude Code, Codex). Run any agent with your own subscription. Available on desktop, mobile and remote runtime.",
+    "full_name": "liguobao/ds-harness-remote",
+    "desc": "基于 DeepSeek Harness 插件机制构建的远程访问方案，通过低延迟、端到端加密的 P2P 网络，支持使用 PC、移动端 和 Web 随时访问本地设备上的DSH 、CodeX、Cursor、Claude Code等工作区。 (Built on DeepSeek Harness plugins, this low-latency, end-to-end encrypted P2P solution lets PC, mobile, and web clients access local DSH, Codex, Cursor, and Claude Code workspaces.)",
     "language": "TypeScript",
     "topics": [
-      "ade",
-      "agent-ide",
-      "ai-agents",
-      "automation",
-      "bot",
-      "claude-code"
+      "deepseek",
+      "dsh-plugin"
     ],
-    "stars": 115376,
-    "url": "https://github.com/stablyai/orca",
-    "stale_zh": "管理多個 agent（如 Grok Bot、Claude Code）的工作環境，用自己的訂閱，支援桌面與行動"
-  },
-  {
-    "full_name": "lexifina/global-law",
-    "desc": "The world's law in git: any provision, any country, any date, and the law that wrote each word.",
-    "language": "HTML",
-    "topics": [
-      "git",
-      "law",
-      "legal-tech",
-      "legislation",
-      "mcp",
-      "open-data"
-    ],
-    "stars": 1799,
-    "url": "https://github.com/lexifina/global-law",
+    "stars": 1934,
+    "url": "https://github.com/liguobao/ds-harness-remote",
     "stale_zh": null
   },
   {
-    "full_name": "jaikydota/BullFlow",
-    "desc": "推量牛 BullFlow — 开源企业级 RAG 解决方案：从企业知识库、营销内容自动化生产到全域内容分发 | Open-source enterprise RAG solution: knowledge base → automated marketing content → omnichannel publishing. 知识库全链路本地开源模型，无需付费模型；AI Agent 创作图文 / 图片 / 视频，一键发布抖音、小红书、公众号、LinkedIn、YouTube 等 17 个平台。Commercial-grade, multi-tenant, billing & admin built in. MIT",
-    "language": "TypeScript",
+    "full_name": "polterguy/magic",
+    "desc": "Instant SECURE Full Stack Apps and AI Agents",
+    "language": "C#",
     "topics": [
-      "ai-agents",
-      "bge-m3",
-      "content-generation",
-      "elasticsearch",
-      "knowledge-base",
-      "langgraph"
-    ],
-    "stars": 321,
-    "url": "https://github.com/jaikydota/BullFlow",
-    "stale_zh": null
-  },
-  {
-    "full_name": "elvarofficial/teardown",
-    "desc": "A Claude Code skill that turns any machine into a 3D simulator you can take apart",
-    "language": "JavaScript",
-    "topics": [],
-    "stars": 1890,
-    "url": "https://github.com/elvarofficial/teardown",
-    "stale_zh": null
-  },
-  {
-    "full_name": "converge-ai-labs/agent-foundation",
-    "desc": "a13n - Build, run, and manage AI agents at scale on your own infrastructure. Open source, with a built-in harness, durable execution, multi-provider support, and a management console. Built With Love 💜 @converge-ai-labs",
-    "language": "Python",
-    "topics": [
-      "a13n",
-      "agent",
-      "harness",
-      "managed-agents",
-      "sign-in-with-chatgpt"
-    ],
-    "stars": 427,
-    "url": "https://github.com/converge-ai-labs/agent-foundation",
-    "stale_zh": null
-  },
-  {
-    "full_name": "lobehub/lobehub",
-    "desc": "🤯 LobeHub is your Chief Agent Operator, organizing your agents into 7×24 operations by hiring, scheduling, and reporting on your entire AI team.",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "agent-collaboration",
-      "agent-harness",
-      "ai",
-      "cao",
-      "chatgpt"
-    ],
-    "stars": 83873,
-    "url": "https://github.com/lobehub/lobehub",
-    "stale_zh": null
-  },
-  {
-    "full_name": "PurpleDoubleD/locally-uncensored",
-    "desc": "The all-in-one local AI studio for your desktop: chat, image and video generation and a coding agent in one free, open source app. Windows and Linux. No Docker, no terminal, no cloud required.",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "ai-chat",
-      "ai-studio",
-      "all-in-one",
-      "coding-agent",
-      "desktop-app"
-    ],
-    "stars": 3277,
-    "url": "https://github.com/PurpleDoubleD/locally-uncensored",
-    "stale_zh": null
-  },
-  {
-    "full_name": "unclecode/crawl4ai",
-    "desc": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open source: this repo is the Apache-2.0 crawler that powers it, and you can self-host it.",
-    "language": "Python",
-    "topics": [
+      "agentic-ai",
       "ai",
       "ai-agents",
-      "crawl4ai-cloud",
-      "crawler",
-      "data-extraction",
+      "backend",
+      "code-generation",
+      "crud-generator"
+    ],
+    "stars": 1237,
+    "url": "https://github.com/polterguy/magic",
+    "stale_zh": null
+  },
+  {
+    "full_name": "wici-ai/inferssd",
+    "desc": "Run models larger than your RAM or VRAM by streaming MoE experts from SSD. Built on llama.cpp.",
+    "language": "C++",
+    "topics": [
+      "apple-silicon",
+      "cuda",
+      "gguf",
+      "inference",
+      "llama-cpp",
       "llm"
     ],
-    "stars": 86900,
-    "url": "https://github.com/unclecode/crawl4ai",
-    "stale_zh": "給 LLM 與 AI agent 用的開源網頁爬蟲，把網站轉成乾淨的 Markdown"
-  },
-  {
-    "full_name": "botpress/botpress",
-    "desc": "The open-source hub to build & deploy GPT/LLM Agents ⚡️",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "ai",
-      "botpress",
-      "chatbot",
-      "chatgpt",
-      "gpt"
-    ],
-    "stars": 14979,
-    "url": "https://github.com/botpress/botpress",
+    "stars": 324,
+    "url": "https://github.com/wici-ai/inferssd",
     "stale_zh": null
   },
   {
-    "full_name": "udhaykumarbala/cleanyourtv-app",
-    "desc": "A community-built phone app for Clean Your TV: clean up an Android TV from your phone. No laptop, no coding agent, nothing uninstalled.",
-    "language": "Kotlin",
+    "full_name": "MervinPraison/PraisonAI",
+    "desc": "Private AI agents for highly regulated teams, and for anyone who wants AI on their own computer. Open-source Python agent framework that runs fully offline.",
+    "language": "Python",
     "topics": [
-      "adb",
-      "android-tv",
-      "debloat",
-      "fire-tv",
-      "google-tv",
-      "launcher"
+      "agents",
+      "ai",
+      "ai-agent-framework",
+      "ai-agent-sdk",
+      "ai-agents",
+      "ai-agents-sdk"
     ],
-    "stars": 1606,
-    "url": "https://github.com/udhaykumarbala/cleanyourtv-app",
+    "stars": 9322,
+    "url": "https://github.com/MervinPraison/PraisonAI",
+    "stale_zh": "PraisonAI：5 行程式碼部署自主 AI agent 團隊，會研究、規劃、寫程式、執行任務，支援 100+ LLM"
+  },
+  {
+    "full_name": "infiniflow/infinity",
+    "desc": "The AI-native database built for LLM applications, providing incredibly fast hybrid search of dense vector, sparse vector, tensor (multi-vector), and full-text.",
+    "language": "C++",
+    "topics": [
+      "ai-native",
+      "approximate-nearest-neighbor-search",
+      "bm25",
+      "cpp20",
+      "cpp20-modules",
+      "embedding"
+    ],
+    "stars": 4759,
+    "url": "https://github.com/infiniflow/infinity",
+    "stale_zh": null
+  },
+  {
+    "full_name": "vercel-labs/agent-browser",
+    "desc": "Browser automation CLI for AI agents",
+    "language": "Rust",
+    "topics": [],
+    "stars": 45815,
+    "url": "https://github.com/vercel-labs/agent-browser",
+    "stale_zh": null
+  },
+  {
+    "full_name": "RUC-NLPIR/FlashRSI",
+    "desc": "A Unified Framework for Efficient RSI Research",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "recursive-self-improvement"
+    ],
+    "stars": 333,
+    "url": "https://github.com/RUC-NLPIR/FlashRSI",
     "stale_zh": null
   }
 ]

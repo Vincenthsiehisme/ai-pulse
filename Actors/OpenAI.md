@@ -3,18 +3,23 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-04'
+generated_day: '2026-11-05'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **206** 則：`published` 197、`review` 9
+事件 **211** 則：`published` 200、`review` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-04 | [[Events/evt-2026-11-04-763047\|OpenAI to acquire Pierre Computer Company, Inc.]] | review |
+| 2026-11-05 | [[Events/evt-2026-11-05-efd830\|Setting a new standard for responsible AI infrastructure]] | review |
+| 2026-11-05 | [[Events/evt-2026-11-05-390f13\|GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents]] | review |
+| 2026-11-04 | [[Events/evt-2026-11-04-d60f1d\|Introducing Images 2.6]] | review |
+| 2026-11-04 | [[Events/evt-2026-11-04-763047\|OpenAI to acquire Pierre Computer Company, Inc.]] | published |
+| 2026-11-04 | [[Events/evt-2026-11-04-513b63\|Daybreak Red is now available in AWS GovCloud (US-East)]] | published |
+| 2026-11-04 | [[Events/evt-2026-11-04-2f8efb\|A thousand fewer paths to root]] | review |
 | 2026-11-03 | [[Events/evt-2026-11-03-df7407\|Heimstaden is changing residential real estate management with AI]] | published |
 | 2026-11-03 | [[Events/evt-2026-11-03-d81447\|Accelerating engineering for the physical world]] | published |
 | 2026-11-03 | [[Events/evt-2026-11-03-8b52b4\|OpenAI appoints Jill Hazelbaker as Chief Corporate Affairs Officer]] | published |
@@ -34,7 +39,7 @@ tags: [actor, company]
 | 2026-10-29 | [[Events/evt-2026-10-29-985dc6\|Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-878ddc\|How we detect frontier model misalignment]] | review |
 | 2026-10-28 | [[Events/evt-2026-10-28-f7c4df\|OpenAI and ServiceNow expand partnership across enterprise workflows]] | published |
-| 2026-10-28 | [[Events/evt-2026-10-28-912f1b\|Evernote turns AI-driven discovery into paid subscriptions]] | review |
+| 2026-10-28 | [[Events/evt-2026-10-28-912f1b\|Evernote turns AI-driven discovery into paid subscriptions]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-63d59c\|Legora is building the agentic operating system for legal work]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-603cba\|The future of the firm]] | review |
 | 2026-10-27 | [[Events/evt-2026-10-27-fe3f2e\|OpenAI expands partnership with Oracle to bring its apps to ChatGPT]] | published |

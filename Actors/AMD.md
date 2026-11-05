@@ -3,7 +3,7 @@ id: actor-amd
 kind: company
 in_dictionary: true
 aliases: ["超微"]
-generated_day: '2026-11-04'
+generated_day: '2026-11-05'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
