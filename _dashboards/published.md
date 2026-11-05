@@ -1,14 +1,38 @@
-# 已發布事件（570）
+# 已發布事件（581）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-11-05
+- **[[Events/evt-2026-11-05-0c6558|Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
+  Google DeepMind 發布 Gemini Omni 1.2 Flash，標題稱更快、更省、可處理更長片段。
+- **[[Events/evt-2026-11-05-18f919|‘Hogwarts Legacy’ Gets a Magical NVIDIA DLSS 5 Upgrade on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  GeForce NOW 上的《Hogwarts Legacy》加入 DLSS 5 的 3D-Guided Neural Rendering。
+- **[[Events/evt-2026-11-05-390f13|GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents]]** — OpenAI · model-capability · conf 73 · heat 未量測
+  OpenAI 發表資安專用模型 GPT‑6 Cyber，用於找漏洞與開發修補，並限制在授權範圍內。
+- **[[Events/evt-2026-11-05-51be7b|More Performance From Every Byte: How Full-Stack Codesign Solves AI’s Memory Challenge]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 說記憶體吃緊且漲價，主張靠軟硬體協同設計榨出每個位元組的效能。
+- **[[Events/evt-2026-11-05-58d399|The Long Term Benefit Trust]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發表〈The Long Term Benefit Trust〉，內文我們依政策不轉述。
+- **[[Events/evt-2026-11-05-acdc79|The Wizard of Open Weights: Chris Alexiuk Makes AI Easy With Open Models]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 人物專訪：Chris Alexiuk 主張對開源 AI 要大聲說。
+- **[[Events/evt-2026-11-05-ba85a1|New NVIDIA Cosmos 3 Open Models for Interactive World Simulation]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  NVIDIA 在 Hugging Face 發表 Cosmos 3 開放模型，用於互動式世界模擬。
+- **[[Events/evt-2026-11-05-efd830|Setting a new standard for responsible AI infrastructure]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 提出社區公約與算力園區政策藍圖，主張保護在地資源並創造工作。
+- **[[Events/evt-2026-11-05-fea268|Vera Delivers the Best of Both Worlds: Highest Throughput and Fastest Agents]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 稱 Vera CPU 同時拿到最高吞吐與最快的代理執行。
+
 ## 2026-11-04
+- **[[Events/evt-2026-11-04-2f8efb|A thousand fewer paths to root]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 用自動化流程在 Linux 核心找到並驗證 948 個本機提權漏洞，還產出修補。
 - **[[Events/evt-2026-11-04-513b63|Daybreak Red is now available in AWS GovCloud (US-East)]]** — OpenAI · infra · conf 73 · heat 未量測
   Daybreak Red 上架 AWS GovCloud（US-East），核准客戶可經 Amazon Bedrock 使用 GPT-5.6 Cyber。
 - **[[Events/evt-2026-11-04-763047|OpenAI to acquire Pierre Computer Company, Inc.]]** — OpenAI · capital · conf 80 · heat 未量測
   OpenAI 宣布收購 Pierre Computer Company, Inc.。
 - **[[Events/evt-2026-11-04-b05a2c|Dharma Field Extractor: Any Document In, Structured Fields in JSON Out]]** — Hugging Face · product · conf 73 · heat 未量測
   Dharma-AI 在 Hugging Face 發表 Dharma Field Extractor，主打文件進、結構化 JSON 欄位出。
+- **[[Events/evt-2026-11-04-d60f1d|Introducing Images 2.6]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出 Images 2.6，主打生成更快、可做 GIF、編輯更精準。
 
 ## 2026-11-03
 - **[[Events/evt-2026-11-03-156064|Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI]]** — NVIDIA · product · conf 73 · heat 未量測

@@ -460,9 +460,9 @@
     "zh": "自稱 benchmark 成績最好的開源 AI 記憶系統，而且免費"
   },
   "MervinPraison/PraisonAI": {
-    "at": "2026-08-10T00:35:39+00:00",
-    "src_hash": "0db9ebf38607",
-    "zh": "PraisonAI：5 行程式碼部署自主 AI agent 團隊，會研究、規劃、寫程式、執行任務，支援 100+ LLM"
+    "at": "2026-11-05T21:42:35+00:00",
+    "src_hash": "98b589441862",
+    "zh": "給受管制團隊和想在本機跑 AI 的人，開源 Python agent 框架，可完全離線"
   },
   "Mintplex-Labs/anything-llm": {
     "at": "2026-10-06T20:41:13+00:00",
@@ -593,6 +593,11 @@
     "at": "2026-11-03T21:25:10+00:00",
     "src_hash": "753d3be5716a",
     "zh": "住在終端機裡的開源 AI coding agent"
+  },
+  "RUC-NLPIR/FlashRSI": {
+    "at": "2026-11-05T21:42:35+00:00",
+    "src_hash": "c96115a1a7ac",
+    "zh": "高效 RSI（遞迴自我改進）研究的統一框架"
   },
   "Ryder-Sun/Meldwork": {
     "at": "2026-10-07T20:56:20+00:00",
@@ -1384,6 +1389,11 @@
     "src_hash": "1e9884a6f1c6",
     "zh": "分散式 agent 協調平台，讓 agent 在上面連線、協作、執行並持續演化"
   },
+  "infiniflow/infinity": {
+    "at": "2026-11-05T21:42:35+00:00",
+    "src_hash": "938c988376ea",
+    "zh": "給 LLM 應用的 AI 原生資料庫，混合搜尋含稠密向量、稀疏向量、tensor 與全文檢索"
+  },
   "infiniflow/ragflow": {
     "at": "2026-11-02T23:19:22+00:00",
     "src_hash": "70a54a1b96c6",
@@ -1959,6 +1969,11 @@
     "src_hash": "9e28dd97f073",
     "zh": "建構有狀態 agent 用的記憶函式庫"
   },
+  "polterguy/magic": {
+    "at": "2026-11-05T21:42:35+00:00",
+    "src_hash": "4b3bf9b56047",
+    "zh": "快速產生安全的全端應用與 AI agent"
+  },
   "promptfoo/promptfoo": {
     "at": "2026-10-22T19:40:44+00:00",
     "src_hash": "0512ee2c4713",
@@ -2319,6 +2334,11 @@
     "src_hash": "9ca67cf52b52",
     "zh": "Hindsight：會學習的 agent 記憶系統"
   },
+  "vercel-labs/agent-browser": {
+    "at": "2026-11-05T21:42:35+00:00",
+    "src_hash": "b91e5300f490",
+    "zh": "給 AI agent 用的瀏覽器自動化 CLI"
+  },
   "vercel-labs/skills": {
     "at": "2026-10-13T20:55:59+00:00",
     "src_hash": "618aa067db4d",
@@ -2378,6 +2398,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "c201a8983779",
     "zh": "White Circle 開源的大型語言與多模態模型訓練框架"
+  },
+  "wici-ai/inferssd": {
+    "at": "2026-11-05T21:42:35+00:00",
+    "src_hash": "837f7d1fb5ca",
+    "zh": "從 SSD 串流載入 MoE experts，讓模型大小可超過記憶體或 VRAM，建立在 llama.cpp 上"
   },
   "with-pebbly/aseprite-ai-artist": {
     "at": "2026-10-15T19:35:35+00:00",
