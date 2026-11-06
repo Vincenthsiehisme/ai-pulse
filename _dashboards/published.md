@@ -1,10 +1,28 @@
-# 已發布事件（581）
+# 已發布事件（590）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-11-06
+- **[[Events/evt-2026-11-06-06032b|Partnering with Hacktron to find vulnerabilities in OpenAI’s systems]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 找 Hacktron 合作，替自家系統找漏洞並測試與第三方服務的連接。
+- **[[Events/evt-2026-11-06-62893a|How NVIDIA Open Source Tools Are Helping Researchers Build Next-Generation 6G Networks]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 開源 Aerial 滿一年，與 Sionna 等工具一起組成 6G 研究的開源基礎。
+- **[[Events/evt-2026-11-06-786420|Egyptian and Nigerian English join the Open ASR Leaderboard]]** — Hugging Face · research · conf 73 · heat 未量測
+  Open ASR Leaderboard 新增埃及與奈及利亞口音的英語。
+- **[[Events/evt-2026-11-06-7f2ec2|Measuring how AI agents handle everyday wet-lab science]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 推出 BioBasicsBench，用 100 項任務測 AI 代理處理日常濕實驗數據的能力。
+
 ## 2026-11-05
+- **[[Events/evt-2026-11-05-02b0c9|Flipsnack grows product signups with conversion optimization]]** — OpenAI · product · conf 73 · heat 未量測
+  Flipsnack 把 ChatGPT 廣告導向產品試用，註冊數上升、單筆註冊成本下降。
+- **[[Events/evt-2026-11-05-0bc1e1|Australian universities are creating AI-native graduates]]** — OpenAI · product · conf 73 · heat 未量測
+  澳洲多所大學擴大 ChatGPT 使用權限，並把 AI 帶進教學。
 - **[[Events/evt-2026-11-05-0c6558|Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips]]** — Google DeepMind · model-capability · conf 80 · heat 未量測
   Google DeepMind 發布 Gemini Omni 1.2 Flash，標題稱更快、更省、可處理更長片段。
+- **[[Events/evt-2026-11-05-0e6cf0|Cult.fit builds operational muscle with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  健身平台 Cult.fit 用 Codex 讓各部門自己做工具。
+- **[[Events/evt-2026-11-05-0eee80|Franklin Templeton uses OpenAI to support investment research]]** — OpenAI · product · conf 73 · heat 未量測
+  Franklin Templeton 從股票研究切入，用 AI 流程比較研究觀點、檢視投資風險。
 - **[[Events/evt-2026-11-05-18f919|‘Hogwarts Legacy’ Gets a Magical NVIDIA DLSS 5 Upgrade on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
   GeForce NOW 上的《Hogwarts Legacy》加入 DLSS 5 的 3D-Guided Neural Rendering。
 - **[[Events/evt-2026-11-05-390f13|GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents]]** — OpenAI · model-capability · conf 73 · heat 未量測
@@ -13,6 +31,8 @@
   NVIDIA 說記憶體吃緊且漲價，主張靠軟硬體協同設計榨出每個位元組的效能。
 - **[[Events/evt-2026-11-05-58d399|The Long Term Benefit Trust]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 發表〈The Long Term Benefit Trust〉，內文我們依政策不轉述。
+- **[[Events/evt-2026-11-05-6beae7|Merge builds product and business tools with OpenAI technology]]** — OpenAI · product · conf 73 · heat 未量測
+  Merge 同時用 GPT-6 Astra、ChatGPT 與 Codex，從程式碼審查一路用到高管晚宴規劃。
 - **[[Events/evt-2026-11-05-acdc79|The Wizard of Open Weights: Chris Alexiuk Makes AI Easy With Open Models]]** — NVIDIA · product · conf 73 · heat 未量測
   NVIDIA 人物專訪：Chris Alexiuk 主張對開源 AI 要大聲說。
 - **[[Events/evt-2026-11-05-ba85a1|New NVIDIA Cosmos 3 Open Models for Interactive World Simulation]]** — NVIDIA · model-capability · conf 73 · heat 未量測

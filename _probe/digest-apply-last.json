@@ -1,14 +1,9 @@
 {
- "at": "2026-11-05 21:41Z",
- "date": "2026-11-05",
- "outcome": "rejected",
- "material": 11,
+ "at": "2026-11-06 21:12Z",
+ "date": "2026-11-06",
+ "outcome": "written",
+ "material": 9,
  "mode": "normal",
- "problems": [
-  {
-   "rule": "unknown_event",
-   "where": "dropped:evt-2026-11-05-f5fc9d",
-   "why": "丟棄了一則不在今天 worklist 裡的事件"
-  }
- ]
+ "problems": [],
+ "sections": 4
 }

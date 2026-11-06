@@ -309,6 +309,11 @@
     "src_hash": "f5cbfed57a2e",
     "zh": "讓 AI 編碼 agent 取得得獎網站設計靈感的開源 MCP server，免 API key"
   },
+  "Interactive-Active-AI/NextTransformer": {
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "6f80eab9cab0",
+    "zh": "下一代 Transformer/LLM 開源框架，含算力對齊的基準測試與自動架構研究平台"
+  },
   "ItzCrazyKns/Vane": {
     "at": "2026-10-07T20:56:20+00:00",
     "src_hash": "b463ed839c77",
@@ -484,6 +489,11 @@
     "src_hash": "8320033a1389",
     "zh": "整合量化、蒸餾、剪枝、推測解碼等技術的模型最佳化函式庫，壓縮模型以加速 TensorRT-LLM、vLLM 等框架推論"
   },
+  "NVIDIA/auto-ontology": {
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "60deb5b817e6",
+    "zh": "Python 框架，在資料上建語意圖譜推理層，讓 LLM 與 agent 的查詢生成更確定、更可解釋"
+  },
   "Nasiko-Labs/nasiko": {
     "at": "2026-11-02T23:19:22+00:00",
     "src_hash": "3a5b4ec2bd4d",
@@ -515,9 +525,9 @@
     "zh": "自架的 AI 平台，Go 伺服器，支援多供應商路由、用量追蹤與管理後台，有對話和 agent 兩種工作模式"
   },
   "OpenByteInc/QuantDinger": {
-    "at": "2026-10-05T22:18:12+00:00",
-    "src_hash": "b012ce4e0828",
-    "zh": "開源 AI 交易 OS，可寫 Python 策略、回測，並在加密貨幣、股票、外匯做模擬或實盤交易"
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "28b2577c9374",
+    "zh": "開源、可自架的 Agentic 交易 OS，含策略、回測、風控與模擬／實盤執行"
   },
   "OpenHands/OpenHands": {
     "at": "2026-09-08T19:19:22+00:00",
@@ -965,9 +975,9 @@
     "zh": "開源長時程 SuperAgent 框架，能研究、寫程式與創作，靠沙箱、記憶、工具、子代理處理數分鐘到數小時的任務"
   },
   "cactus-compute/cactus": {
-    "at": "2026-08-11T19:12:15+00:00",
-    "src_hash": "c60b0a6ccb80",
-    "zh": "給手機、穿戴裝置、智慧家庭與機器人的量化、kernel、runtime 與推論引擎"
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "01188973129a",
+    "zh": "50MB 以下的 agent、語音與視覺 AI，給消費性裝置用"
   },
   "calesthio/OpenMontage": {
     "at": "2026-08-03T19:17:58+00:00",
@@ -1028,6 +1038,11 @@
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "672d1ce1af70",
     "zh": "保留影片內嵌字幕、精準取幀，生成 3:4 社群長圖的 Agent Skill"
+  },
+  "chutingyean/Agent-Cockpit": {
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "abc261a4e321",
+    "zh": "給 AI 研究 agent 的證據鏈白板與 MCP server，每個結論都能追到產生它的程式碼"
   },
   "citrolabs/ego-lite": {
     "at": "2026-10-14T19:51:47+00:00",
@@ -1280,9 +1295,9 @@
     "zh": "開源、以程式碼為主的 Python 工具組，用來建構、評測與部署 AI agent"
   },
   "google/elephant-goldfish-model": {
-    "at": "2026-10-27T20:22:03+00:00",
-    "src_hash": "76dbcd94b3a3",
-    "zh": "開源 skills，用來和 AI agent 一起設計與審查軟體"
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "c631a9817938",
+    "zh": "開源插件，和 AI agent 一起設計與審查軟體"
   },
   "gpustack/gpustack": {
     "at": "2026-09-09T19:22:19+00:00",
@@ -1563,6 +1578,11 @@
     "at": "2026-08-14T19:13:10+00:00",
     "src_hash": "064db50fe87f",
     "zh": "NextPlaid、ColGREP：多向量搜尋工具，串接資料庫到 coding agent"
+  },
+  "liguobao/ds-harness-remote": {
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "d7a51c30cf83",
+    "zh": "基於 DeepSeek Harness 插件的遠端存取方案，用加密 P2P 從 PC、手機與 Web 連回本機工作區"
   },
   "livecontext-ai/livecontext-ce": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -2205,9 +2225,9 @@
     "zh": "跨平台、高效率的 SQLite 擴充，替嵌入式資料庫加上向量搜尋"
   },
   "stablyai/orca": {
-    "at": "2026-11-04T21:40:11+00:00",
-    "src_hash": "f112c3352147",
-    "zh": "管理多個 coding agent（Claude Code、Codex 等）的工作環境，用自己的訂閱，支援桌面與行動"
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "40769c0bf9bb",
+    "zh": "用自己的訂閱同時跑多個 coding agent（Claude Code、Codex 等），支援桌面、手機與遠端"
   },
   "stas00/ml-engineering": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -2353,6 +2373,11 @@
     "at": "2026-08-28T19:24:01+00:00",
     "src_hash": "df7edf5152c8",
     "zh": "把任何技術書PDF轉成Claude Code skill，工作時可以直接查閱與使用"
+  },
+  "vladimirrott/mojo-dllm": {
+    "at": "2026-11-06T21:12:40+00:00",
+    "src_hash": "995fb81cdda5",
+    "zh": "用 Mojo 寫的擴散語言模型（LLaDA、Dream）本機推論"
   },
   "vllm-project/semantic-router": {
     "at": "2026-08-21T19:12:31+00:00",
