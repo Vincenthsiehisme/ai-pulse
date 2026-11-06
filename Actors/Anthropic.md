@@ -3,17 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-11-05'
+generated_day: '2026-11-06'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **135** 則：`published` 127、`review` 8
+事件 **136** 則：`published` 128、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-05 | [[Events/evt-2026-11-05-58d399\|The Long Term Benefit Trust]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-e5f194\|Ai For Science Expands Foundations Research Institutions]] | review |
 | 2026-10-27 | [[Events/evt-2026-10-27-318c45\|Expanding Partnership Gsa]] | published |
 | 2026-10-27 | [[Events/evt-2026-10-27-061204\|s1 Sec]] | published |

@@ -3,18 +3,18 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-11-05'
+generated_day: '2026-11-06'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **31** 則：`published` 24、`review` 7
+事件 **31** 則：`published` 25、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-05 | [[Events/evt-2026-11-05-0c6558\|Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips]] | review |
+| 2026-11-05 | [[Events/evt-2026-11-05-0c6558\|Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-4f5a97\|Speeding up planning decisions with AI]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-fa1a68\|Gemini 4 Carbon: Our next frontier model]] | published |
 | 2026-10-27 | [[Events/evt-2026-10-27-7142ec\|Genie 4: A new generation of world simulation]] | published |

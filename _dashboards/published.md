@@ -3,7 +3,7 @@
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-11-05
-- **[[Events/evt-2026-11-05-0c6558|Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
+- **[[Events/evt-2026-11-05-0c6558|Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips]]** — Google DeepMind · model-capability · conf 80 · heat 未量測
   Google DeepMind 發布 Gemini Omni 1.2 Flash，標題稱更快、更省、可處理更長片段。
 - **[[Events/evt-2026-11-05-18f919|‘Hogwarts Legacy’ Gets a Magical NVIDIA DLSS 5 Upgrade on GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
   GeForce NOW 上的《Hogwarts Legacy》加入 DLSS 5 的 3D-Guided Neural Rendering。

@@ -14,9 +14,9 @@ lifecycle: "probing"
 robots_ok: true
 license_note: "abstract + link"
 endpoint: "https://research.facebook.com/feed/"
-robots_checked_day: "2026-10-30"
+robots_checked_day: "2026-11-06"
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-11-05"
+last_observed_day: "2026-11-06"
 items_observed: 10
 events_bound: 0
 events_published: 0

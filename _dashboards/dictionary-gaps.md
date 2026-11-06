@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-05'
+generated_day: '2026-11-06'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**101 天**（2026-07-24 … 2026-11-05），去重後 **6675** 列。
+語料範圍：**102 天**（2026-07-24 … 2026-11-06），去重後 **6742** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,63 +17,63 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 208 | 2 |
-| Apple | 158 | 6 |
-| Amazon | 98 | 5 |
+| Show HN | 210 | 2 |
+| Apple | 159 | 6 |
+| Amazon | 102 | 5 |
+| LLMs | 68 | 13 |
 | September | 66 | 8 |
-| LLMs | 66 | 13 |
 | Here | 63 | 9 |
 | There | 62 | 8 |
 | They | 60 | 9 |
 | LLM | 60 | 12 |
 | October | 53 | 8 |
-| Muse | 50 | 6 |
+| Muse | 53 | 6 |
 | Trump | 49 | 5 |
 | Pro | 48 | 8 |
+| Python | 47 | 5 |
 | One | 47 | 10 |
-| Python | 46 | 5 |
 | CEO | 46 | 5 |
+| After | 45 | 6 |
+| San Francisco | 44 | 9 |
 | When | 44 | 12 |
-| San Francisco | 42 | 9 |
-| After | 42 | 6 |
+| U.S | 43 | 8 |
 | AI-powered | 41 | 10 |
-| U.S | 41 | 8 |
 | July | 39 | 9 |
+| Linux | 38 | 6 |
 | Android | 38 | 4 |
-| Linux | 37 | 6 |
 | With | 36 | 10 |
 | Last | 36 | 7 |
 | China | 35 | 8 |
+| November | 35 | 6 |
 | AI-generated | 34 | 9 |
 | Astra | 34 | 6 |
-| November | 33 | 6 |
+| Windows | 33 | 5 |
 | June | 32 | 7 |
 | These | 32 | 8 |
-| Windows | 32 | 5 |
 | Research | 31 | 6 |
 | Rust | 31 | 3 |
 | August | 31 | 8 |
 | Europe | 30 | 8 |
 | Learn | 30 | 6 |
 | Building | 28 | 12 |
+| Samsung | 28 | 5 |
 | IPO | 28 | 7 |
 | API | 27 | 6 |
-| Samsung | 27 | 5 |
 | Wednesday | 26 | 5 |
+| Tuesday | 26 | 6 |
+| Opus | 26 | 6 |
 | Chinese | 26 | 8 |
-| Opus | 25 | 6 |
 | SpaceX | 25 | 5 |
+| While | 25 | 4 |
 | Pixel | 25 | 3 |
 | Xbox | 25 | 2 |
-| Tuesday | 24 | 6 |
 | Monday | 24 | 4 |
 | Elon Musk | 24 | 5 |
-| While | 24 | 4 |
 | YouTube | 24 | 7 |
+| Duo | 24 | 3 |
+| Flash | 23 | 6 |
 | Thursday | 23 | 5 |
 | Mac | 23 | 4 |
-| Duo | 23 | 3 |
-| Flash | 22 | 6 |
 | Tool | 22 | 2 |
 | According | 22 | 4 |
 | Over | 22 | 5 |
@@ -87,13 +87,13 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 77 | src-media-mit-techreview |
+| The Download | 78 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 42 | src-kol-simonwillison |
 | Register | 32 | src-media-techcrunch |
 | Hi HN | 30 | src-hn-frontpage |
 | Launch HN | 26 | src-hn-frontpage |
-| A Blog | 25 | src-hf-blog |
+| A Blog | 26 | src-hf-blog |
 | MIT Technology Review | 24 | src-media-mit-techreview |
 | Opt | 22 | src-media-theverge |
 | The Verge | 22 | src-media-theverge |
@@ -133,6 +133,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | PlayStation | 8 | src-media-theverge |
 | Series A | 8 | src-media-techcrunch |
 | Optimizer | 8 | src-media-theverge |
+| Following | 7 | src-media-theverge |
 | Galaxy Z Fold | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
 | Bose | 7 | src-media-theverge |
@@ -140,7 +141,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Grand Theft Auto | 7 | src-media-theverge |
 | Related | 6 | src-hn-frontpage |
 | Code | 6 | src-hn-frontpage |
-| Following | 6 | src-media-theverge |
 | Woot | 6 | src-media-theverge |
 | AI Stage | 6 | src-media-techcrunch |
 | Spider-Man | 6 | src-media-theverge |

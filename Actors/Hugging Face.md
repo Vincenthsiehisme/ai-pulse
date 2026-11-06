@@ -3,7 +3,7 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-05'
+generated_day: '2026-11-06'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -14,7 +14,7 @@ tags: [actor, company]
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-05 | [[Events/evt-2026-11-05-ba85a1\|New NVIDIA Cosmos 3 Open Models for Interactive World Simulation]] | review |
+| 2026-11-06 | [[Events/evt-2026-11-06-71da0a\|ToyBlocks: A controlled world for robot learning and evaluation]] | review |
 | 2026-11-04 | [[Events/evt-2026-11-04-b05a2c\|Dharma Field Extractor: Any Document In, Structured Fields in JSON Out]] | published |
 | 2026-11-03 | [[Events/evt-2026-11-03-1cfb29\|Transformers Model Integration Contracts]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-ab82c2\|Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready]] | published |

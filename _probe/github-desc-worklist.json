@@ -1,5 +1,62 @@
 [
   {
+    "full_name": "cactus-compute/cactus",
+    "desc": "Sub-50mb agentic, voice and vision intelligence for consumer devices.",
+    "language": "Python",
+    "topics": [
+      "cactus",
+      "llm",
+      "on-device-ai",
+      "edge-ai",
+      "foundation-model",
+      "function-calling"
+    ],
+    "stars": 14511,
+    "url": "https://github.com/cactus-compute/cactus",
+    "stale_zh": "給手機、穿戴裝置、智慧家庭與機器人的量化、kernel、runtime 與推論引擎"
+  },
+  {
+    "full_name": "vladimirrott/mojo-dllm",
+    "desc": "Local inference for diffusion language models (LLaDA, Dream), written in Mojo",
+    "language": "Mojo",
+    "topics": [
+      "cpu",
+      "diffusion-models",
+      "gguf",
+      "inference",
+      "llada",
+      "llm"
+    ],
+    "stars": 402,
+    "url": "https://github.com/vladimirrott/mojo-dllm",
+    "stale_zh": null
+  },
+  {
+    "full_name": "stablyai/orca",
+    "desc": "Orca lets you run a fleet of coding agents (e.g. Claude Code, Codex) with your own subscription. Available on desktop, mobile and remote runtime.",
+    "language": "TypeScript",
+    "topics": [
+      "agent-ide",
+      "ai-agents",
+      "automation",
+      "bot",
+      "claude-code",
+      "codex"
+    ],
+    "stars": 117740,
+    "url": "https://github.com/stablyai/orca",
+    "stale_zh": "管理多個 coding agent（Claude Code、Codex 等）的工作環境，用自己的訂閱，支援桌面與行動"
+  },
+  {
+    "full_name": "NVIDIA/auto-ontology",
+    "desc": "Auto Ontology is a Python framework for building semantic, graph-based reasoning layers over data. It enables deterministic query generation, better context retrieval, and more explainable AI for LLM and agent workflows.",
+    "language": "Python",
+    "topics": [],
+    "stars": 8858,
+    "url": "https://github.com/NVIDIA/auto-ontology",
+    "stale_zh": null
+  },
+  {
     "full_name": "liguobao/ds-harness-remote",
     "desc": "基于 DeepSeek Harness 插件机制构建的远程访问方案，通过低延迟、端到端加密的 P2P 网络，支持使用 PC、移动端 和 Web 随时访问本地设备上的DSH 、CodeX、Cursor、Claude Code等工作区。 (Built on DeepSeek Harness plugins, this low-latency, end-to-end encrypted P2P solution lets PC, mobile, and web clients access local DSH, Codex, Cursor, and Claude Code workspaces.)",
     "language": "TypeScript",
@@ -7,93 +64,72 @@
       "deepseek",
       "dsh-plugin"
     ],
-    "stars": 1934,
+    "stars": 2072,
     "url": "https://github.com/liguobao/ds-harness-remote",
     "stale_zh": null
   },
   {
-    "full_name": "polterguy/magic",
-    "desc": "Instant SECURE Full Stack Apps and AI Agents",
-    "language": "C#",
+    "full_name": "chutingyean/Agent-Cockpit",
+    "desc": "Evidence-chain whiteboard + MCP server for AI research agents: every claim traces back to the run and code that produced it. 讓 AI agent 做研究時，每個結論都能追到產生它的程式碼。Claude Code · Codex · Cursor · Gemini CLI",
+    "language": "JavaScript",
+    "topics": [
+      "ai-agents",
+      "claude-code",
+      "code-review",
+      "codex",
+      "developer-tools",
+      "knowledge-graph"
+    ],
+    "stars": 384,
+    "url": "https://github.com/chutingyean/Agent-Cockpit",
+    "stale_zh": null
+  },
+  {
+    "full_name": "OpenByteInc/QuantDinger",
+    "desc": "The most complete open-source, self-hosted Agentic Trading OS—AI research, Python strategies, factor discovery, backtesting, optimization, paper/live multi-asset execution, risk controls, monitoring, MCP, and multi-tenant SaaS in one auditable stack.",
+    "language": "Python",
     "topics": [
       "agentic-ai",
-      "ai",
       "ai-agents",
-      "backend",
-      "code-generation",
-      "crud-generator"
+      "backtesting",
+      "crypto",
+      "finance",
+      "fintech"
     ],
-    "stars": 1237,
-    "url": "https://github.com/polterguy/magic",
-    "stale_zh": null
+    "stars": 13575,
+    "url": "https://github.com/OpenByteInc/QuantDinger",
+    "stale_zh": "開源 AI 交易 OS，可寫 Python 策略、回測，並在加密貨幣、股票、外匯做模擬或實盤交易"
   },
   {
-    "full_name": "wici-ai/inferssd",
-    "desc": "Run models larger than your RAM or VRAM by streaming MoE experts from SSD. Built on llama.cpp.",
-    "language": "C++",
+    "full_name": "Interactive-Active-AI/NextTransformer",
+    "desc": ":sunrise: A comprehensive, cutting-edge open-source framework for next-generation Transformers/LLM, with compute-matched benchmarking and a platform for autonomous architecture research.",
+    "language": "Python",
     "topics": [
-      "apple-silicon",
-      "cuda",
-      "gguf",
-      "inference",
-      "llama-cpp",
+      "auto-research",
+      "benchmark",
+      "deep-learning",
+      "language-models",
+      "linear-attention",
       "llm"
     ],
-    "stars": 324,
-    "url": "https://github.com/wici-ai/inferssd",
+    "stars": 347,
+    "url": "https://github.com/Interactive-Active-AI/NextTransformer",
     "stale_zh": null
   },
   {
-    "full_name": "MervinPraison/PraisonAI",
-    "desc": "Private AI agents for highly regulated teams, and for anyone who wants AI on their own computer. Open-source Python agent framework that runs fully offline.",
+    "full_name": "google/elephant-goldfish-model",
+    "desc": "Open-source plugin for designing and reviewing software with AI agents",
     "language": "Python",
     "topics": [
-      "agents",
-      "ai",
-      "ai-agent-framework",
-      "ai-agent-sdk",
+      "agent-skills",
       "ai-agents",
-      "ai-agents-sdk"
+      "antigravity",
+      "claude-code",
+      "claude-code-plugin",
+      "claude-skills"
     ],
-    "stars": 9322,
-    "url": "https://github.com/MervinPraison/PraisonAI",
-    "stale_zh": "PraisonAI：5 行程式碼部署自主 AI agent 團隊，會研究、規劃、寫程式、執行任務，支援 100+ LLM"
-  },
-  {
-    "full_name": "infiniflow/infinity",
-    "desc": "The AI-native database built for LLM applications, providing incredibly fast hybrid search of dense vector, sparse vector, tensor (multi-vector), and full-text.",
-    "language": "C++",
-    "topics": [
-      "ai-native",
-      "approximate-nearest-neighbor-search",
-      "bm25",
-      "cpp20",
-      "cpp20-modules",
-      "embedding"
-    ],
-    "stars": 4759,
-    "url": "https://github.com/infiniflow/infinity",
-    "stale_zh": null
-  },
-  {
-    "full_name": "vercel-labs/agent-browser",
-    "desc": "Browser automation CLI for AI agents",
-    "language": "Rust",
-    "topics": [],
-    "stars": 45815,
-    "url": "https://github.com/vercel-labs/agent-browser",
-    "stale_zh": null
-  },
-  {
-    "full_name": "RUC-NLPIR/FlashRSI",
-    "desc": "A Unified Framework for Efficient RSI Research",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "recursive-self-improvement"
-    ],
-    "stars": 333,
-    "url": "https://github.com/RUC-NLPIR/FlashRSI",
-    "stale_zh": null
+    "stars": 13030,
+    "url": "https://github.com/google/elephant-goldfish-model",
+    "stale_zh": "開源 skills，用來和 AI agent 一起設計與審查軟體"
   }
 ]
