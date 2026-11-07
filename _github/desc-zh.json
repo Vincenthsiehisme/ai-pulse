@@ -374,6 +374,11 @@
     "src_hash": "a866ccdea938",
     "zh": "給 LLM agent 記憶用的 Datalog 引擎，附 MCP server 供多個 agent 共用"
   },
+  "JosssphZhou/poki": {
+    "at": "2026-11-07T19:45:30+00:00",
+    "src_hash": "b6c7c6b70413",
+    "zh": "讓 AI agent 操作真實 iPhone。本機 MCP server 與 agent，不需越獄，不需額外硬體"
+  },
   "JuliusBrussee/caveman": {
     "at": "2026-09-17T19:14:47+00:00",
     "src_hash": "efce92ae3e5e",
@@ -743,6 +748,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "8f35b4a2144f",
     "zh": "LLM 驅動的多市場股票分析系統：多源行情、即時新聞、決策看板與自動推送，可零成本定時執行"
+  },
+  "ZiChuanLan/agent-purge": {
+    "at": "2026-11-07T19:45:30+00:00",
+    "src_hash": "b2d698c9ffbe",
+    "zh": "一套人設通用多個 coding agent，替換或注入 system prompt，附本機網頁控制台"
   },
   "Zyrexnn/Cybermes": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1295,9 +1305,9 @@
     "zh": "開源、以程式碼為主的 Python 工具組，用來建構、評測與部署 AI agent"
   },
   "google/elephant-goldfish-model": {
-    "at": "2026-11-06T21:12:40+00:00",
-    "src_hash": "c631a9817938",
-    "zh": "開源插件，和 AI agent 一起設計與審查軟體"
+    "at": "2026-11-07T19:45:30+00:00",
+    "src_hash": "c208836263fd",
+    "zh": "開源插件，和 agent 一起設計與審查軟體"
   },
   "gpustack/gpustack": {
     "at": "2026-09-09T19:22:19+00:00",
@@ -2458,6 +2468,11 @@
     "at": "2026-11-01T19:59:42+00:00",
     "src_hash": "1107240dba02",
     "zh": "給 AI agent 用的搜尋引擎與 MCP server，單一 Rust 執行檔，相容 Elasticsearch"
+  },
+  "xiajiajun516/dsh-config-manager": {
+    "at": "2026-11-07T19:45:30+00:00",
+    "src_hash": "a15fc1c09160",
+    "zh": "DeepSeek Harness（DSH）備份還原插件，匯出、匯入、同步設定與 MCP server，可一鍵搬機"
   },
   "xzf-thu/VoiceMem": {
     "at": "2026-10-02T20:16:53+00:00",
