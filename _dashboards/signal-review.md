@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-06"
+generated_day: "2026-11-07"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-06"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **567** 則／已裁決 **26** 則。
+待回答 **576** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#feb32cee`** — infra-cost
-  > 看 NVIDIA 公布的記憶體效率具體數據，以及記憶體供應商的報價走向；看第三方在代理工作負載上對 Vera 的實測，以及雲端業者的採用公告；看具體園區是否引用 OpenAI 的社區公約，以及地方政府的回應；看 AWS 是否公布 GPT-5.6 Cyber 在 Bedrock 的定價與可用區域；看 Pando 是否開源或公布吞吐與延遲；看 Grid Protectors 是否出現具名電力夥伴與可量測承諾。
+- **`infra-cost#385eddc9`** — infra-cost
+  > 看 Hacktron 合作是否發布測試結果、Aerial 與 Sionna 的社群採用數字；看 NVIDIA 公布的記憶體效率具體數據，以及記憶體供應商的報價走向；看第三方在代理工作負載上對 Vera 的實測，以及雲端業者的採用公告；看具體園區是否引用 OpenAI 的社區公約，以及地方政府的回應；看 AWS 是否公布 GPT-5.6 Cyber 在 Bedrock 的定價與可用區域；看 Pando 是否開源或公布吞吐與延遲；看 Grid Protectors 是否出現具名電力夥伴與可量測承諾。
 
-- **`model-research#f9d6c630`** — model-research
-  > 看 Gemini Omni 1.2 Flash 原文公布的價格與片段長度上限，以及第三方實測；看 Cosmos 3 模型卡的授權、規模與下載量；看 StateBench 的資料集與排行榜是否公開，有沒有納入非 Ai2 的模型；看 LifeVal 是否公開題目與評分程式；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首與領先幅度的驗證；看 Genie 4 是否開放試用或發布技術報告；看 Mistral Large 4 的模型卡是否公布授權與第三方基準。
+- **`model-research#8ca6509c`** — model-research
+  > 看 BioBasicsBench 的任務集是否開放、其他實驗室的得分；看 Gemini Omni 1.2 Flash 原文公布的價格與片段長度上限，以及第三方實測；看 Cosmos 3 模型卡的授權、規模與下載量；看 StateBench 的資料集與排行榜是否公開，有沒有納入非 Ai2 的模型；看 LifeVal 是否公開題目與評分程式；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首與領先幅度的驗證；看 Genie 4 是否開放試用或發布技術報告；看 Mistral Large 4 的模型卡是否公布授權與第三方基準。
 
-- **`product-market#5afa891c`** — product-market
-  > 看 Images 2.6 的 API 定價與延遲實測，以及開發者對新控制項的回饋；看 DLSS 5 支援的遊戲數量與第三方畫質評測；看 Cisco 與 Heimstaden 是否公布量化成效；看 DeepMind 與英國政府是否公布試行範圍與處理時間的前後對照；看 Credit Saison 的 ROI 算法；看 OpenAI 下一份安全報告的時間與涵蓋指標。
+- **`product-market#8fd20466`** — product-market
+  > 看 ChatGPT Ads 是否公布可比較的成本與轉換數字、澳洲大學的名單與授權人數、Franklin Templeton 是否擴到股票研究以外；看 Images 2.6 的 API 定價與延遲實測，以及開發者對新控制項的回饋；看 DLSS 5 支援的遊戲數量與第三方畫質評測；看 Cisco 與 Heimstaden 是否公布量化成效；看 DeepMind 與英國政府是否公布試行範圍與處理時間的前後對照；看 Credit Saison 的 ROI 算法；看 OpenAI 下一份安全報告的時間與涵蓋指標。
 
 - **`capital-evolution#0ebe2388`** — capital-evolution
   > 讀 Long Term Benefit Trust 原文，看治理安排是否有後續公告；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併；看 OpenAI 的對外溝通是否隨新任命調整；看是否出現與政府或盟友的具體合作案；看 OpenAI 與 Orchestra Bio 是否公布交易條件。
 
-- **`agent-refactor#d1bc8778`** — agent-refactor
-  > 看 Linux 核心上游是否合併那批修補，以及 OpenAI 是否公開驗證方法與誤報率；看 GPT‑6 Cyber 的存取條件、外部評測與第三方紅隊對越權行為的測試；看 Dharma Field Extractor 是否釋出權重與公開基準；看 DeepMind 提出的分子有沒有實驗驗證；看 Qodo 是否公布 Codex 外掛的誤報率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF。
+- **`agent-refactor#e2dd2e95`** — agent-refactor
+  > 看 Cult.fit 與 Merge 是否補上具體工具與前後對照數字，以及 GPT-6 Astra 的公開規格與定價；看 Linux 核心上游是否合併那批修補，以及 OpenAI 是否公開驗證方法與誤報率；看 GPT‑6 Cyber 的存取條件、外部評測與第三方紅隊對越權行為的測試；看 Dharma Field Extractor 是否釋出權重與公開基準；看 DeepMind 提出的分子有沒有實驗驗證；看 Qodo 是否公布 Codex 外掛的誤報率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF。
 
-- **`global-map#87f23214`** — global-map
-  > 看 SETI 那篇提到的研究團隊是否發表論文或公開資料集；看 ProtoStar 的首批資料集上線時間、合作機構名單與授權方式；看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
+- **`global-map#09457880`** — global-map
+  > 看 Open ASR Leaderboard 新增資料的規模與來源、各模型在兩種口音上的錯誤率；看 SETI 那篇提到的研究團隊是否發表論文或公開資料集；看 ProtoStar 的首批資料集上線時間、合作機構名單與授權方式；看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
 
-## 事件層（561）
+## 事件層（570）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1700,8 +1700,20 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-11-04-d60f1d#ce8ebcc5`** — evt-2026-11-04-d60f1d
   > API 定價與延遲實測，以及開發者對新控制項的採用回饋。
 
+- **`evt-2026-11-05-02b0c9#cfd4bb7d`** — evt-2026-11-05-02b0c9
+  > OpenAI 是否在後續案例或廣告後台公布可比較的成本與轉換數字，或出現其他廣告主的獨立回報。
+
+- **`evt-2026-11-05-0bc1e1#e0bb514c`** — evt-2026-11-05-0bc1e1
+  > 參與的大學名單、授權人數，以及是否有學習成效或課程設計的公開資料。
+
 - **`evt-2026-11-05-0c6558#83b2e98a`** — evt-2026-11-05-0c6558
   > 原文公布的價格與片段長度上限，以及第三方的實測比較。
+
+- **`evt-2026-11-05-0e6cf0#c07a39d3`** — evt-2026-11-05-0e6cf0
+  > Cult.fit 或 OpenAI 是否補上具體的內部工具清單與前後對照數字。
+
+- **`evt-2026-11-05-0eee80#579812ba`** — evt-2026-11-05-0eee80
+  > 是否擴及股票研究以外的業務，以及有沒有公開的使用規模或風控做法。
 
 - **`evt-2026-11-05-18f919#64997258`** — evt-2026-11-05-18f919
   > DLSS 5 支援的遊戲數量是否持續增加，以及是否有第三方畫質評測。
@@ -1715,6 +1727,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-11-05-58d399#8b11ac08`** — evt-2026-11-05-58d399
   > 原文所述的治理安排是否有後續公告。
 
+- **`evt-2026-11-05-6beae7#c4041307`** — evt-2026-11-05-6beae7
+  > GPT-6 Astra 的公開規格與定價，以及 Merge 是否提供各用途的量化成效。
+
 - **`evt-2026-11-05-acdc79#4fe3607e`** — evt-2026-11-05-acdc79
   > （需補充）此則沒有可驗證的後續訊號。
 
@@ -1726,3 +1741,15 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-11-05-fea268#c059c718`** — evt-2026-11-05-fea268
   > 第三方在代理工作負載上對 Vera 的實測，以及雲端業者的採用公告。
+
+- **`evt-2026-11-06-06032b#9cbaea50`** — evt-2026-11-06-06032b
+  > OpenAI 或 Hacktron 是否發布測試結果、已修補漏洞的摘要或方法說明。
+
+- **`evt-2026-11-06-62893a#7d8fe7ab`** — evt-2026-11-06-62893a
+  > Aerial 與 Sionna 的社群採用數字、引用該工具的 6G 研究成果，以及後續的版本發布。
+
+- **`evt-2026-11-06-786420#5be3e6c7`** — evt-2026-11-06-786420
+  > 新增資料集的規模與來源、各模型在兩種口音上的錯誤率。
+
+- **`evt-2026-11-06-7f2ec2#dc7dc57f`** — evt-2026-11-06-7f2ec2
+  > OpenAI 與其他實驗室在 BioBasicsBench 上的公開得分，以及任務集是否開放給外部使用。

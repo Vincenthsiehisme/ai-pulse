@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-06'
+generated_day: '2026-11-07'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**102 天**（2026-07-24 … 2026-11-06），去重後 **6742** 列。
+語料範圍：**103 天**（2026-07-24 … 2026-11-07），去重後 **6782** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,14 +17,14 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 210 | 2 |
+| Show HN | 213 | 2 |
 | Apple | 159 | 6 |
 | Amazon | 102 | 5 |
 | LLMs | 68 | 13 |
 | September | 66 | 8 |
 | Here | 63 | 9 |
 | There | 62 | 8 |
-| They | 60 | 9 |
+| They | 61 | 9 |
 | LLM | 60 | 12 |
 | October | 53 | 8 |
 | Muse | 53 | 6 |
@@ -41,41 +41,41 @@ generator: scripts/pulse-dictionary-gaps.py
 | July | 39 | 9 |
 | Linux | 38 | 6 |
 | Android | 38 | 4 |
-| With | 36 | 10 |
+| With | 37 | 10 |
 | Last | 36 | 7 |
+| November | 36 | 6 |
 | China | 35 | 8 |
-| November | 35 | 6 |
 | AI-generated | 34 | 9 |
 | Astra | 34 | 6 |
 | Windows | 33 | 5 |
 | June | 32 | 7 |
 | These | 32 | 8 |
+| August | 32 | 8 |
 | Research | 31 | 6 |
 | Rust | 31 | 3 |
-| August | 31 | 8 |
 | Europe | 30 | 8 |
 | Learn | 30 | 6 |
-| Building | 28 | 12 |
+| Building | 29 | 12 |
+| API | 28 | 6 |
 | Samsung | 28 | 5 |
 | IPO | 28 | 7 |
-| API | 27 | 6 |
+| Chinese | 27 | 8 |
 | Wednesday | 26 | 5 |
 | Tuesday | 26 | 6 |
 | Opus | 26 | 6 |
-| Chinese | 26 | 8 |
+| Elon Musk | 25 | 5 |
 | SpaceX | 25 | 5 |
 | While | 25 | 4 |
 | Pixel | 25 | 3 |
 | Xbox | 25 | 2 |
+| Thursday | 24 | 5 |
 | Monday | 24 | 4 |
-| Elon Musk | 24 | 5 |
 | YouTube | 24 | 7 |
 | Duo | 24 | 3 |
 | Flash | 23 | 6 |
-| Thursday | 23 | 5 |
 | Mac | 23 | 4 |
+| According | 23 | 4 |
 | Tool | 22 | 2 |
-| According | 22 | 4 |
 | Over | 22 | 5 |
 
 ## 單來源高頻（觀察用，不列入晉升）
@@ -106,9 +106,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | Hey HN | 15 | src-hn-frontpage |
 | The Stepback | 14 | src-media-theverge |
 | Datasette | 14 | src-kol-simonwillison |
-| Installer No | 12 | src-media-theverge |
-| Verge-iest | 12 | src-media-theverge |
-| Installer | 12 | src-media-theverge |
+| Installer No | 13 | src-media-theverge |
+| Verge-iest | 13 | src-media-theverge |
+| Installer | 13 | src-media-theverge |
 | TechCrunch Founder Summit | 12 | src-media-techcrunch |
 | YC S26 | 11 | src-hn-frontpage |
 | Roundtables | 11 | src-media-mit-techreview |
@@ -143,10 +143,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | Code | 6 | src-hn-frontpage |
 | Woot | 6 | src-media-theverge |
 | AI Stage | 6 | src-media-techcrunch |
+| Los Angeles | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
 | Wi-Fi | 6 | src-media-theverge |
 | YC S23 | 6 | src-hn-frontpage |
-| YC W24 | 6 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

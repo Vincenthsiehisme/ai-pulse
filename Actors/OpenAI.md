@@ -3,26 +3,26 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-06'
+generated_day: '2026-11-07'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **218** 則：`published` 204、`review` 14
+事件 **218** 則：`published` 211、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-06 | [[Events/evt-2026-11-06-7f2ec2\|Measuring how AI agents handle everyday wet-lab science]] | review |
-| 2026-11-06 | [[Events/evt-2026-11-06-06032b\|Partnering with Hacktron to find vulnerabilities in OpenAI’s systems]] | review |
+| 2026-11-06 | [[Events/evt-2026-11-06-7f2ec2\|Measuring how AI agents handle everyday wet-lab science]] | published |
+| 2026-11-06 | [[Events/evt-2026-11-06-06032b\|Partnering with Hacktron to find vulnerabilities in OpenAI’s systems]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-efd830\|Setting a new standard for responsible AI infrastructure]] | published |
-| 2026-11-05 | [[Events/evt-2026-11-05-6beae7\|Merge builds product and business tools with OpenAI technology]] | review |
+| 2026-11-05 | [[Events/evt-2026-11-05-6beae7\|Merge builds product and business tools with OpenAI technology]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-390f13\|GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents]] | published |
-| 2026-11-05 | [[Events/evt-2026-11-05-0eee80\|Franklin Templeton uses OpenAI to support investment research]] | review |
-| 2026-11-05 | [[Events/evt-2026-11-05-0e6cf0\|Cult.fit builds operational muscle with Codex]] | review |
-| 2026-11-05 | [[Events/evt-2026-11-05-0bc1e1\|Australian universities are creating AI-native graduates]] | review |
-| 2026-11-05 | [[Events/evt-2026-11-05-02b0c9\|Flipsnack grows product signups with conversion optimization]] | review |
+| 2026-11-05 | [[Events/evt-2026-11-05-0eee80\|Franklin Templeton uses OpenAI to support investment research]] | published |
+| 2026-11-05 | [[Events/evt-2026-11-05-0e6cf0\|Cult.fit builds operational muscle with Codex]] | published |
+| 2026-11-05 | [[Events/evt-2026-11-05-0bc1e1\|Australian universities are creating AI-native graduates]] | published |
+| 2026-11-05 | [[Events/evt-2026-11-05-02b0c9\|Flipsnack grows product signups with conversion optimization]] | published |
 | 2026-11-04 | [[Events/evt-2026-11-04-d60f1d\|Introducing Images 2.6]] | published |
 | 2026-11-04 | [[Events/evt-2026-11-04-763047\|OpenAI to acquire Pierre Computer Company, Inc.]] | published |
 | 2026-11-04 | [[Events/evt-2026-11-04-513b63\|Daybreak Red is now available in AWS GovCloud (US-East)]] | published |

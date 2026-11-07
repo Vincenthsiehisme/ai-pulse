@@ -1,124 +1,55 @@
 [
   {
-    "full_name": "cactus-compute/cactus",
-    "desc": "Sub-50mb agentic, voice and vision intelligence for consumer devices.",
-    "language": "Python",
-    "topics": [
-      "cactus",
-      "llm",
-      "on-device-ai",
-      "edge-ai",
-      "foundation-model",
-      "function-calling"
-    ],
-    "stars": 14511,
-    "url": "https://github.com/cactus-compute/cactus",
-    "stale_zh": "給手機、穿戴裝置、智慧家庭與機器人的量化、kernel、runtime 與推論引擎"
-  },
-  {
-    "full_name": "vladimirrott/mojo-dllm",
-    "desc": "Local inference for diffusion language models (LLaDA, Dream), written in Mojo",
-    "language": "Mojo",
-    "topics": [
-      "cpu",
-      "diffusion-models",
-      "gguf",
-      "inference",
-      "llada",
-      "llm"
-    ],
-    "stars": 402,
-    "url": "https://github.com/vladimirrott/mojo-dllm",
-    "stale_zh": null
-  },
-  {
-    "full_name": "stablyai/orca",
-    "desc": "Orca lets you run a fleet of coding agents (e.g. Claude Code, Codex) with your own subscription. Available on desktop, mobile and remote runtime.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-ide",
-      "ai-agents",
-      "automation",
-      "bot",
-      "claude-code",
-      "codex"
-    ],
-    "stars": 117740,
-    "url": "https://github.com/stablyai/orca",
-    "stale_zh": "管理多個 coding agent（Claude Code、Codex 等）的工作環境，用自己的訂閱，支援桌面與行動"
-  },
-  {
-    "full_name": "NVIDIA/auto-ontology",
-    "desc": "Auto Ontology is a Python framework for building semantic, graph-based reasoning layers over data. It enables deterministic query generation, better context retrieval, and more explainable AI for LLM and agent workflows.",
-    "language": "Python",
-    "topics": [],
-    "stars": 8858,
-    "url": "https://github.com/NVIDIA/auto-ontology",
-    "stale_zh": null
-  },
-  {
-    "full_name": "liguobao/ds-harness-remote",
-    "desc": "基于 DeepSeek Harness 插件机制构建的远程访问方案，通过低延迟、端到端加密的 P2P 网络，支持使用 PC、移动端 和 Web 随时访问本地设备上的DSH 、CodeX、Cursor、Claude Code等工作区。 (Built on DeepSeek Harness plugins, this low-latency, end-to-end encrypted P2P solution lets PC, mobile, and web clients access local DSH, Codex, Cursor, and Claude Code workspaces.)",
-    "language": "TypeScript",
-    "topics": [
-      "deepseek",
-      "dsh-plugin"
-    ],
-    "stars": 2072,
-    "url": "https://github.com/liguobao/ds-harness-remote",
-    "stale_zh": null
-  },
-  {
-    "full_name": "chutingyean/Agent-Cockpit",
-    "desc": "Evidence-chain whiteboard + MCP server for AI research agents: every claim traces back to the run and code that produced it. 讓 AI agent 做研究時，每個結論都能追到產生它的程式碼。Claude Code · Codex · Cursor · Gemini CLI",
+    "full_name": "JosssphZhou/poki",
+    "desc": "Let AI agents operate a real iPhone. Local MCP server and agent, no jailbreak, no extra hardware.",
     "language": "JavaScript",
     "topics": [
       "ai-agents",
-      "claude-code",
-      "code-review",
-      "codex",
-      "developer-tools",
-      "knowledge-graph"
+      "automation",
+      "ios",
+      "iphone",
+      "mcp",
+      "model-context-protocol"
     ],
-    "stars": 384,
-    "url": "https://github.com/chutingyean/Agent-Cockpit",
+    "stars": 488,
+    "url": "https://github.com/JosssphZhou/poki",
     "stale_zh": null
   },
   {
-    "full_name": "OpenByteInc/QuantDinger",
-    "desc": "The most complete open-source, self-hosted Agentic Trading OS—AI research, Python strategies, factor discovery, backtesting, optimization, paper/live multi-asset execution, risk controls, monitoring, MCP, and multi-tenant SaaS in one auditable stack.",
-    "language": "Python",
+    "full_name": "cutetailbud/ff-ruyijs",
+    "desc": "This is a lightweight, headless browser purpose-built for AI agents (such as Codex or Claude Code) to perform browser automation tasks; it is designed to navigate through various web protection systems, login processes, and reverse-engineering scenarios",
+    "language": "C++",
     "topics": [
-      "agentic-ai",
-      "ai-agents",
-      "backtesting",
-      "crypto",
-      "finance",
-      "fintech"
+      "anti-bot",
+      "automation",
+      "firefox",
+      "headless-browser",
+      "javascript",
+      "python"
     ],
-    "stars": 13575,
-    "url": "https://github.com/OpenByteInc/QuantDinger",
-    "stale_zh": "開源 AI 交易 OS，可寫 Python 策略、回測，並在加密貨幣、股票、外匯做模擬或實盤交易"
+    "stars": 888,
+    "url": "https://github.com/cutetailbud/ff-ruyijs",
+    "stale_zh": null
   },
   {
-    "full_name": "Interactive-Active-AI/NextTransformer",
-    "desc": ":sunrise: A comprehensive, cutting-edge open-source framework for next-generation Transformers/LLM, with compute-matched benchmarking and a platform for autonomous architecture research.",
-    "language": "Python",
+    "full_name": "xiajiajun516/dsh-config-manager",
+    "desc": "DeepSeek Harness (DSH) backup & restore plugin — export, import, migrate and sync your complete DSH configuration, plugins, MCP servers, skills and workspace. One-click migration to another machine.",
+    "language": "TypeScript",
     "topics": [
-      "auto-research",
-      "benchmark",
-      "deep-learning",
-      "language-models",
-      "linear-attention",
-      "llm"
+      "backup",
+      "cli",
+      "config-manager",
+      "configuration",
+      "cordis",
+      "deepseek"
     ],
-    "stars": 347,
-    "url": "https://github.com/Interactive-Active-AI/NextTransformer",
+    "stars": 315,
+    "url": "https://github.com/xiajiajun516/dsh-config-manager",
     "stale_zh": null
   },
   {
     "full_name": "google/elephant-goldfish-model",
-    "desc": "Open-source plugin for designing and reviewing software with AI agents",
+    "desc": "Open-source plugin for designing and reviewing software with agents",
     "language": "Python",
     "topics": [
       "agent-skills",
@@ -128,8 +59,40 @@
       "claude-code-plugin",
       "claude-skills"
     ],
-    "stars": 13030,
+    "stars": 13692,
     "url": "https://github.com/google/elephant-goldfish-model",
-    "stale_zh": "開源 skills，用來和 AI agent 一起設計與審查軟體"
+    "stale_zh": "開源插件，和 AI agent 一起設計與審查軟體"
+  },
+  {
+    "full_name": "ZiChuanLan/agent-purge",
+    "desc": "One persona, many coding agents. Replace or inject system prompts across codex, claude, opencode, grok, omp, hermes, pi, zcode - with a local web console.",
+    "language": "JavaScript",
+    "topics": [
+      "claude-code",
+      "codex",
+      "coding-agent",
+      "deepseek-harness",
+      "harness",
+      "omp"
+    ],
+    "stars": 1405,
+    "url": "https://github.com/ZiChuanLan/agent-purge",
+    "stale_zh": null
+  },
+  {
+    "full_name": "everyinfra/everyinfra-agent-plugins",
+    "desc": "EveryInfra MCP server & agent plugin: scraper API for TikTok, Instagram, Amazon, YouTube, Xiaohongshu & Douyin. 573 data APIs across 106 platforms, from $0.56/1K calls. For Claude Code, Cursor, Codex.",
+    "language": "Python",
+    "topics": [
+      "ai-agents",
+      "amazon-scraper",
+      "captcha-solver",
+      "claude-code",
+      "cursor",
+      "douyin"
+    ],
+    "stars": 332,
+    "url": "https://github.com/everyinfra/everyinfra-agent-plugins",
+    "stale_zh": null
   }
 ]

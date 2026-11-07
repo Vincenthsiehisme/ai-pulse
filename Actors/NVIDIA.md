@@ -3,18 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-11-06'
+generated_day: '2026-11-07'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **125** 則：`dropped` 1、`published` 116、`review` 8
+事件 **125** 則：`dropped` 1、`published` 117、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-06 | [[Events/evt-2026-11-06-62893a\|How NVIDIA Open Source Tools Are Helping Researchers Build Next-Generation 6G Networks]] | review |
+| 2026-11-06 | [[Events/evt-2026-11-06-62893a\|How NVIDIA Open Source Tools Are Helping Researchers Build Next-Generation 6G Networks]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-fea268\|Vera Delivers the Best of Both Worlds: Highest Throughput and Fastest Agents]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-ba85a1\|New NVIDIA Cosmos 3 Open Models for Interactive World Simulation]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-acdc79\|The Wizard of Open Weights: Chris Alexiuk Makes AI Easy With Open Models]] | published |
