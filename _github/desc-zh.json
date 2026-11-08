@@ -229,6 +229,11 @@
     "src_hash": "6f6b0db29424",
     "zh": "白箱 AGI 架構探索：後設認知、持續學習、世界模型、自我改進，以及不用 LLM 的可稽核管線與信任護欄"
   },
+  "GabrieleLozupone/kokon": {
+    "at": "2026-11-08T20:04:50+00:00",
+    "src_hash": "81546ce5418f",
+    "zh": "用文字描述修圖，跑在自己的 GPU 上。免費開源，照片不離開電腦，附 MCP server"
+  },
   "Gentleman-Programming/engram": {
     "at": "2026-08-19T19:13:25+00:00",
     "src_hash": "e79a45ac4ae9",
@@ -809,6 +814,11 @@
     "src_hash": "9c05c4aea9b6",
     "zh": "開源的多 agent 版 Claude Tag 替代品，在團隊工作的地方 @ 任何 agent，與團隊一起做事並邊做邊學"
   },
+  "agentpit-io/hunter-community": {
+    "at": "2026-11-08T20:04:50+00:00",
+    "src_hash": "a72c531e4028",
+    "zh": "騰訊 WorkBuddy 金融版的開源本地替代方案，多 agent 投研終端，涵蓋 A 股、港股、美股"
+  },
   "agentscope-ai/agentscope": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "e8f3d861fbb7",
@@ -1104,6 +1114,11 @@
     "src_hash": "950b35863989",
     "zh": "給 AI agent 的無障礙優先瀏覽器操作 MCP server，讀無障礙樹而非截圖"
   },
+  "cutetailbud/ff-ruyijs": {
+    "at": "2026-11-08T20:04:50+00:00",
+    "src_hash": "d1645a748dc1",
+    "zh": "給 AI agent 用的輕量 headless 瀏覽器，做瀏覽器自動化，可應付網站防護與登入流程"
+  },
   "dagoSte/squadra": {
     "at": "2026-10-23T19:40:32+00:00",
     "src_hash": "5d5feee95a3a",
@@ -1219,6 +1234,11 @@
     "src_hash": "1adeafc2aa29",
     "zh": "利用平行圖運算的高效能向量資料庫"
   },
+  "everyinfra/everyinfra-agent-plugins": {
+    "at": "2026-11-08T20:04:50+00:00",
+    "src_hash": "54a867222cff",
+    "zh": "EveryInfra 的 MCP server 與 agent 外掛，提供 106 個平台、573 支爬取 API"
+  },
   "exa-labs/exa-mcp-server": {
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "2557f3bff226",
@@ -1263,6 +1283,11 @@
     "at": "2026-10-30T20:18:02+00:00",
     "src_hash": "ba6b7d3c20da",
     "zh": "AI agent 用的 React 元件，涵蓋 agent 樹、tool call、trace 與核准"
+  },
+  "free-dam-man/agent-deploy-memory-muse": {
+    "at": "2026-11-08T20:04:50+00:00",
+    "src_hash": "17feca8d1c29",
+    "zh": "全球破甲記憶 muse 版：免信用卡部署加密節點的方法論（無金鑰）"
   },
   "ganeshmshetty/openclip": {
     "at": "2026-10-22T19:40:44+00:00",
@@ -2340,9 +2365,9 @@
     "zh": "會自己整理的 AI 第二大腦：Claude Code 與 Obsidian 的指南、vault 與腳本"
   },
   "unslothai/unsloth": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "d8f474d71ae1",
-    "zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
+    "at": "2026-11-08T20:04:50+00:00",
+    "src_hash": "1e15f06193cb",
+    "zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，支援 GGUF、MLX、Gemma 4、FLUX 等"
   },
   "unum-cloud/USearch": {
     "at": "2026-10-24T18:28:06+00:00",
@@ -2483,6 +2508,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "1145a2413afb",
     "zh": "在選單列統一管理各 agent 用的模型，例如 Codex 跑 DeepSeek、Claude Code 跑 Kimi"
+  },
+  "yjid/kensaku": {
+    "at": "2026-11-08T20:04:50+00:00",
+    "src_hash": "612ee19c101a",
+    "zh": "在本機即時搜尋文件、程式碼甚至截圖。免費開源的檔案啟動器，支援 OCR、語意搜尋與 MCP agent 存取"
   },
   "youngyangyang04/llm-master": {
     "at": "2026-10-04T18:54:49+00:00",
