@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-07'
+generated_day: '2026-11-08'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**103 天**（2026-07-24 … 2026-11-07），去重後 **6782** 列。
+語料範圍：**104 天**（2026-07-24 … 2026-11-08），去重後 **6816** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,42 +17,42 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 213 | 2 |
-| Apple | 159 | 6 |
+| Show HN | 214 | 2 |
+| Apple | 162 | 6 |
 | Amazon | 102 | 5 |
 | LLMs | 68 | 13 |
 | September | 66 | 8 |
+| There | 64 | 8 |
 | Here | 63 | 9 |
-| There | 62 | 8 |
 | They | 61 | 9 |
 | LLM | 60 | 12 |
+| Muse | 54 | 6 |
 | October | 53 | 8 |
-| Muse | 53 | 6 |
 | Trump | 49 | 5 |
 | Pro | 48 | 8 |
 | Python | 47 | 5 |
 | One | 47 | 10 |
-| CEO | 46 | 5 |
-| After | 45 | 6 |
+| CEO | 47 | 5 |
+| After | 46 | 6 |
 | San Francisco | 44 | 9 |
 | When | 44 | 12 |
 | U.S | 43 | 8 |
 | AI-powered | 41 | 10 |
 | July | 39 | 9 |
-| Linux | 38 | 6 |
+| Linux | 39 | 6 |
 | Android | 38 | 4 |
 | With | 37 | 10 |
+| China | 36 | 8 |
 | Last | 36 | 7 |
 | November | 36 | 6 |
-| China | 35 | 8 |
 | AI-generated | 34 | 9 |
+| Windows | 34 | 5 |
 | Astra | 34 | 6 |
-| Windows | 33 | 5 |
 | June | 32 | 7 |
+| Rust | 32 | 3 |
 | These | 32 | 8 |
 | August | 32 | 8 |
 | Research | 31 | 6 |
-| Rust | 31 | 3 |
 | Europe | 30 | 8 |
 | Learn | 30 | 6 |
 | Building | 29 | 12 |
@@ -63,9 +63,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | Wednesday | 26 | 5 |
 | Tuesday | 26 | 6 |
 | Opus | 26 | 6 |
-| Elon Musk | 25 | 5 |
+| Elon Musk | 26 | 5 |
+| While | 26 | 4 |
 | SpaceX | 25 | 5 |
-| While | 25 | 4 |
 | Pixel | 25 | 3 |
 | Xbox | 25 | 2 |
 | Thursday | 24 | 5 |
@@ -75,8 +75,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | Flash | 23 | 6 |
 | Mac | 23 | 4 |
 | According | 23 | 4 |
-| Tool | 22 | 2 |
-| Over | 22 | 5 |
+| RAM | 23 | 2 |
+| Don | 23 | 5 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -95,7 +95,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Launch HN | 26 | src-hn-frontpage |
 | A Blog | 26 | src-hf-blog |
 | MIT Technology Review | 24 | src-media-mit-techreview |
-| Opt | 22 | src-media-theverge |
+| Opt | 23 | src-media-theverge |
 | The Verge | 22 | src-media-theverge |
 | Highlights | 21 | src-gh-vllm-releases |
 | Best Buy | 21 | src-media-theverge |
@@ -103,9 +103,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | Is Hiring | 18 | src-hn-frontpage |
 | GeForce NOW | 17 | src-nvidia-blog |
 | Committee | 15 | src-ep-itre |
+| The Stepback | 15 | src-media-theverge |
 | Hey HN | 15 | src-hn-frontpage |
-| The Stepback | 14 | src-media-theverge |
-| Datasette | 14 | src-kol-simonwillison |
+| Datasette | 15 | src-kol-simonwillison |
 | Installer No | 13 | src-media-theverge |
 | Verge-iest | 13 | src-media-theverge |
 | Installer | 13 | src-media-theverge |
@@ -113,6 +113,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | YC S26 | 11 | src-hn-frontpage |
 | Roundtables | 11 | src-media-mit-techreview |
 | Disrupt | 11 | src-media-techcrunch |
+| Sunday | 10 | src-media-theverge |
 | FCC | 10 | src-media-theverge |
 | The Algorithm | 10 | src-media-mit-techreview |
 | Moscone West | 10 | src-media-techcrunch |
@@ -121,7 +122,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
-| Sunday | 9 | src-media-theverge |
 | Reuters | 9 | src-media-theverge |
 | Verge | 9 | src-media-theverge |
 | Victoria Song | 9 | src-media-theverge |
@@ -139,6 +139,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Bose | 7 | src-media-theverge |
 | IBM Research | 7 | src-hf-blog |
 | Grand Theft Auto | 7 | src-media-theverge |
+| On Equity | 7 | src-media-techcrunch |
 | Related | 6 | src-hn-frontpage |
 | Code | 6 | src-hn-frontpage |
 | Woot | 6 | src-media-theverge |
@@ -146,7 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Los Angeles | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
 | Wi-Fi | 6 | src-media-theverge |
-| YC S23 | 6 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 

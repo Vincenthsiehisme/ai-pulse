@@ -1,21 +1,5 @@
 [
   {
-    "full_name": "JosssphZhou/poki",
-    "desc": "Let AI agents operate a real iPhone. Local MCP server and agent, no jailbreak, no extra hardware.",
-    "language": "JavaScript",
-    "topics": [
-      "ai-agents",
-      "automation",
-      "ios",
-      "iphone",
-      "mcp",
-      "model-context-protocol"
-    ],
-    "stars": 488,
-    "url": "https://github.com/JosssphZhou/poki",
-    "stale_zh": null
-  },
-  {
     "full_name": "cutetailbud/ff-ruyijs",
     "desc": "This is a lightweight, headless browser purpose-built for AI agents (such as Codex or Claude Code) to perform browser automation tasks; it is designed to navigate through various web protection systems, login processes, and reverse-engineering scenarios",
     "language": "C++",
@@ -27,56 +11,24 @@
       "javascript",
       "python"
     ],
-    "stars": 888,
+    "stars": 1084,
     "url": "https://github.com/cutetailbud/ff-ruyijs",
     "stale_zh": null
   },
   {
-    "full_name": "xiajiajun516/dsh-config-manager",
-    "desc": "DeepSeek Harness (DSH) backup & restore plugin — export, import, migrate and sync your complete DSH configuration, plugins, MCP servers, skills and workspace. One-click migration to another machine.",
-    "language": "TypeScript",
+    "full_name": "yjid/kensaku",
+    "desc": "Search inside documents, code, and even screenshots - instantly and locally. A free, open-source file launcher with OCR, semantic search, and MCP agent access.",
+    "language": "Rust",
     "topics": [
-      "backup",
-      "cli",
-      "config-manager",
-      "configuration",
-      "cordis",
-      "deepseek"
-    ],
-    "stars": 315,
-    "url": "https://github.com/xiajiajun516/dsh-config-manager",
-    "stale_zh": null
-  },
-  {
-    "full_name": "google/elephant-goldfish-model",
-    "desc": "Open-source plugin for designing and reviewing software with agents",
-    "language": "Python",
-    "topics": [
-      "agent-skills",
       "ai-agents",
-      "antigravity",
-      "claude-code",
-      "claude-code-plugin",
-      "claude-skills"
+      "desktop",
+      "desktop-search",
+      "file-search",
+      "full-text-search",
+      "launcher"
     ],
-    "stars": 13692,
-    "url": "https://github.com/google/elephant-goldfish-model",
-    "stale_zh": "開源插件，和 AI agent 一起設計與審查軟體"
-  },
-  {
-    "full_name": "ZiChuanLan/agent-purge",
-    "desc": "One persona, many coding agents. Replace or inject system prompts across codex, claude, opencode, grok, omp, hermes, pi, zcode - with a local web console.",
-    "language": "JavaScript",
-    "topics": [
-      "claude-code",
-      "codex",
-      "coding-agent",
-      "deepseek-harness",
-      "harness",
-      "omp"
-    ],
-    "stars": 1405,
-    "url": "https://github.com/ZiChuanLan/agent-purge",
+    "stars": 1409,
+    "url": "https://github.com/yjid/kensaku",
     "stale_zh": null
   },
   {
@@ -91,8 +43,65 @@
       "cursor",
       "douyin"
     ],
-    "stars": 332,
+    "stars": 352,
     "url": "https://github.com/everyinfra/everyinfra-agent-plugins",
+    "stale_zh": null
+  },
+  {
+    "full_name": "GabrieleLozupone/kokon",
+    "desc": "Edit photos by describing the change, on your own GPU. A free, open-source alternative to Nano Banana and ChatGPT image editing: photos stay on your computer, no daily limit. One installer for Windows, Mac and Linux sets up the best open model (Qwen-Image 2.1). MCP server for AI agents.",
+    "language": "Rust",
+    "topics": [
+      "ai-photo-editor",
+      "comfyui-alternative",
+      "generative-fill",
+      "image-editing",
+      "image-generation",
+      "inpainting"
+    ],
+    "stars": 320,
+    "url": "https://github.com/GabrieleLozupone/kokon",
+    "stale_zh": null
+  },
+  {
+    "full_name": "unslothai/unsloth",
+    "desc": "Local UI to run and train LLMs and diffusion models. Supports GGUF, MLX, Qwen3.8, DeepSeek-V4.1, MiniMax-H3, Gemma 4, FLUX and more.",
+    "language": "Python",
+    "topics": [
+      "agent",
+      "ai",
+      "chatgpt",
+      "deepseek",
+      "fine-tuning",
+      "gemma"
+    ],
+    "stars": 79195,
+    "url": "https://github.com/unslothai/unsloth",
+    "stale_zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
+  },
+  {
+    "full_name": "agentpit-io/hunter-community",
+    "desc": "HunterCode · Community Edition · 腾讯 WorkBuddy 金融版的开源本地替代方案 · open-source, local alternative to Tencent WorkBuddy Finance Edition · 多智能体投研终端 A股/港股/美股 · 推理在你机器上跑 · 仓位不出你硬盘 · BYOK · Apache 2.0 · docker compose 自托管",
+    "language": "Python",
+    "topics": [
+      "ai-agents",
+      "docker-compose",
+      "financial-ai",
+      "mcp",
+      "opencode",
+      "self-hosted"
+    ],
+    "stars": 601,
+    "url": "https://github.com/agentpit-io/hunter-community",
+    "stale_zh": null
+  },
+  {
+    "full_name": "free-dam-man/agent-deploy-memory-muse",
+    "desc": "全球破甲记忆 · muse 版：免卡部署加密节点方法论（无密钥）",
+    "language": "",
+    "topics": [],
+    "stars": 382,
+    "url": "https://github.com/free-dam-man/agent-deploy-memory-muse",
     "stale_zh": null
   }
 ]

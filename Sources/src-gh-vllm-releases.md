@@ -16,7 +16,7 @@ license_note: "release notes + link"
 endpoint: "vllm-project/vllm"
 robots_checked_day:
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-11-07"
+last_observed_day: "2026-11-08"
 items_observed: 29
 events_bound: 8
 events_published: 8
