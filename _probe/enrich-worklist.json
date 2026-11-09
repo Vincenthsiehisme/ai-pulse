@@ -1,1 +1,341 @@
-[]
+[
+  {
+    "id": "evt-2026-11-09-2874cb",
+    "path": "evt-2026-11-09-2874cb.md",
+    "title": "Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nvidia/nemotron-personas-finance-japan",
+        "title": "Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context",
+        "summary": "A Blog post by NVIDIA on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-2cba92",
+    "path": "evt-2026-11-09-2cba92.md",
+    "title": "NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum",
+    "fingerprint": null,
+    "facet": "release",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/korean-startup-investments-msit/",
+        "title": "NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum",
+        "summary": "Korea’s Ministry of Science and ICT and NVIDIA hosted the MSIT-NVIDIA AI Startup Partnership Forum at COEX. Ryu Je-myung, vice minister of science and ICT, joined NVIDIA leaders to meet with over 20 Korean startups across foundation models, physical AI, AI infrastructure and AI semiconductors. NVIDI",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-2d53d5",
+    "path": "evt-2026-11-09-2d53d5.md",
+    "title": "CodeRabbit scales agentic software development and ships 20x more",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/coderabbit-codex-daybreak",
+        "title": "CodeRabbit scales agentic software development and ships 20x more",
+        "summary": "CodeRabbit uses OpenAI models to govern and trust AI-generated code and Codex to ship 20 times more software with the same engineering team.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-6c81be",
+    "path": "evt-2026-11-09-6c81be.md",
+    "title": "Kuken Industries searches 70 years of drawings in minutes",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/kuken",
+        "title": "Kuken Industries searches 70 years of drawings in minutes",
+        "summary": "Kuken Industries uses the OpenAI API to search 70 years of cooling tower drawings. Engineers can find the drawing for a repair in 4.5 minutes, down from nearly an hour.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-751727",
+    "path": "evt-2026-11-09-751727.md",
+    "title": "Your Experts Have Partners. There's HOPE for Keeping Them Together",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/amazon/higher-order-pruning-experts",
+        "title": "Your Experts Have Partners. There's HOPE for Keeping Them Together",
+        "summary": "A Blog post by Amazon on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-7c436e",
+    "path": "evt-2026-11-09-7c436e.md",
+    "title": "NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/nvidia-dynamo-korea-open-models/",
+        "title": "NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production",
+        "summary": "NVIDIA is releasing Dynamo-optimized deployment recipes for Korea’s leading open models: A.X K2 from SK Telecom, K-EXAONE 2.0 from LG AI Research, Solar Open 2 from Upstage and Motif-3 from Motif Technologies. As models grow beyond the capacity of a single GPU, they must be split across multiple GPU",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-88f821",
+    "path": "evt-2026-11-09-88f821.md",
+    "title": "Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/robotics-simulation-advancements-corl/",
+        "title": "Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation",
+        "summary": "Simulation, which has long been the proving ground for robots learning to walk, roll and hop, is now helping researchers teach robots tasks that require a finer touch: aligning gears, connecting cables and assembling small components.  The shift from locomotion to manipulation is taking center stage",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-b6e540",
+    "path": "evt-2026-11-09-b6e540.md",
+    "title": "ChatGPT Enterprise now available in AWS Marketplace",
+    "fingerprint": null,
+    "facet": "distribution",
+    "company_guess": "AWS",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace",
+        "title": "ChatGPT Enterprise now available in AWS Marketplace",
+        "summary": "ChatGPT Enterprise is now available through AWS Marketplace, helping organizations simplify procurement through existing AWS purchasing and billing relationships.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-c53424",
+    "path": "evt-2026-11-09-c53424.md",
+    "title": "Korea Advances Physical AI Across Industries With NVIDIA",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/korea-physical-ai-ecosystem/",
+        "title": "Korea Advances Physical AI Across Industries With NVIDIA",
+        "summary": "Tapping into the country’s strengths in manufacturing and engineering, NVIDIA is helping advance Korea’s physical AI ecosystem. The country’s industry leaders are applying accelerated computing, AI and simulation to everything from semiconductor manufacturing to robotics and autonomous vehicles. The",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      },
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/korea-secure-agentic-ai/",
+        "title": "Korea’s AI Ecosystem Advances and Secures Agentic AI With NVIDIA",
+        "summary": "As AI agents take on more work, they need capable open models and security that advances alongside them. Hyundai Motor Group is exploring NVIDIA NemoClaw blueprints and the NVIDIA OpenShell runtime, while AIM Intelligence is integrating its Starfort platform with NVIDIA OpenShell to support secure A",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 2,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-c8f352",
+    "path": "evt-2026-11-09-c8f352.md",
+    "title": "Control Room: A central system to track and stop model workloads across our research infrastructure",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/control-room",
+        "title": "Control Room: A central system to track and stop model workloads across our research infrastructure",
+        "summary": "Learn how OpenAI’s Control Room tracks model workloads across our research infrastructure and can rapidly stop them when safety or security concerns arise.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-09-ea1fc6",
+    "path": "evt-2026-11-09-ea1fc6.md",
+    "title": "From Chips to Skills, NVIDIA and Korea Expand Sovereign AI Collaboration",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "NVIDIA",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/korea-sovereign-ai-collaboration/",
+        "title": "From Chips to Skills, NVIDIA and Korea Expand Sovereign AI Collaboration",
+        "summary": "NVIDIA and Korea’s Ministry of Science and ICT (MSIT) are expanding their collaboration across the country’s sovereign AI ecosystem, from AI semiconductors and data center infrastructure to talent, startups, models, agents and security. The collaboration lays the groundwork for Korean NPU and XPU co",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  }
+]

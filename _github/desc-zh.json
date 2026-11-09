@@ -549,6 +549,11 @@
     "src_hash": "73bec7a8a467",
     "zh": "開源、重隱私、不用 cookie 的網站分析，含營收歸因與 MCP server"
   },
+  "OpenMontageInc/OpenMontage": {
+    "at": "2026-11-09T23:57:52+00:00",
+    "src_hash": "e86b438611c0",
+    "zh": "開源的代理式影片製作系統：12 條製作流程、100 多個工具、700 多份技能與知識檔，把 AI 寫碼助手變成影片工作室"
+  },
   "OpenSenseNova/SenseNova-RoboRSI": {
     "at": "2026-10-30T20:18:02+00:00",
     "src_hash": "53c35eed2801",
@@ -844,6 +849,11 @@
     "src_hash": "94cea6919d81",
     "zh": "讓 agent 講人話：給 Claude Code、Codex 等用的 ADHD 友善輸出風格，省 token 也好讀"
   },
+  "alexsergivan/kwant": {
+    "at": "2026-11-09T23:57:52+00:00",
+    "src_hash": "2c25f229aa81",
+    "zh": "單一自架執行檔裡的 AI bot 團隊：空間、帳號、交接、核准與例行任務。Rust + React，開源"
+  },
   "algorithmicsuperintelligence/optillm": {
     "at": "2026-09-18T19:12:51+00:00",
     "src_hash": "c71e99fdaf97",
@@ -883,6 +893,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "e546473ae54d",
     "zh": "agent 原生的多平台逆向工程與 CWE-602 客戶端授權稽核工作台"
+  },
+  "anomalyco/browse": {
+    "at": "2026-11-09T23:57:52+00:00",
+    "src_hash": "c78f0312ae4e",
+    "zh": "讓 AI 代理使用你真實瀏覽器的 MCP server 與 Chromium 擴充套件"
   },
   "anomalyco/opencode": {
     "at": "2026-10-15T19:35:35+00:00",
@@ -1213,6 +1228,11 @@
     "at": "2026-10-30T20:18:02+00:00",
     "src_hash": "b5822b4dfcbb",
     "zh": "號稱最快的開源 AI Gateway，單一執行檔內建主控台，可路由、保護、控管預算並觀測各家 LLM 呼叫"
+  },
+  "elie222/botdirectory.ai": {
+    "at": "2026-11-09T23:57:52+00:00",
+    "src_hash": "7a9f95b62d2e",
+    "zh": "開源的代理 bot 提示詞目錄，適用 Grok Bot、Rakazo 與其他代理"
   },
   "elizaOS/eliza": {
     "at": "2026-09-25T19:17:07+00:00",
@@ -1789,6 +1809,11 @@
     "src_hash": "f6970773b060",
     "zh": "一整間 AI 代理商在你手上：從前端高手到 Reddit 社群專家，每個 agent 都是有個性的專才"
   },
+  "muaaz9329/cheap-ag": {
+    "at": "2026-11-09T23:57:52+00:00",
+    "src_hash": "d417e62a23af",
+    "zh": "Opus 規劃、便宜模型寫碼、測試把關，給 Claude Code 與 Codex 的 MCP server"
+  },
   "mudler/LocalAI": {
     "at": "2026-10-20T19:46:47+00:00",
     "src_hash": "8fec01035252",
@@ -2159,6 +2184,11 @@
     "src_hash": "a7b112c33175",
     "zh": "AI 輿情與熱點監控，彙整多平台與 RSS，可依關鍵字篩選，支援 MCP 與多管道推播"
   },
+  "sarpstar/cinecode": {
+    "at": "2026-11-09T23:57:52+00:00",
+    "src_hash": "9faedf169290",
+    "zh": "用程式碼做影片：AI 寫碼代理寫腳本、逐格用程式生成畫面、設計音效，輸出 MP4"
+  },
   "scaleapi/agentenv-framework": {
     "at": "2026-10-16T19:09:41+00:00",
     "src_hash": "4f5323613c9b",
@@ -2203,6 +2233,11 @@
     "at": "2026-08-27T19:10:49+00:00",
     "src_hash": "676b1ecaa56d",
     "zh": "從 vibe coding 練到 agentic engineering，靠練習讓 Claude 更完美"
+  },
+  "shanselman/sandbox-mcp": {
+    "at": "2026-11-09T23:57:52+00:00",
+    "src_hash": "d59687dabe4c",
+    "zh": "一次性 Windows 測試環境：自動化 Windows Sandbox 的 MCP server 與 CLI"
   },
   "shinshin86/mesh-avatar-studio": {
     "at": "2026-10-29T20:47:36+00:00",

@@ -1,6 +1,28 @@
-# 已發布事件（590）
+# 已發布事件（600）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-09
+- **[[Events/evt-2026-11-09-2874cb|Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context]]** — NVIDIA · research · conf 73 · heat 未量測
+  NVIDIA 在 Hugging Face 發布日本金融情境的合成人物資料集 Nemotron-Personas-Finance-Japan。
+- **[[Events/evt-2026-11-09-2cba92|NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum]]** — NVIDIA · capital · conf 73 · heat 未量測
+  韓國科學技術資訊通訊部與 NVIDIA 在論壇上宣布對韓國新創的新投資計畫。
+- **[[Events/evt-2026-11-09-2d53d5|CodeRabbit scales agentic software development and ships 20x more]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布 CodeRabbit 案例：用 Codex 讓同一批工程師出貨量拉到 20 倍。
+- **[[Events/evt-2026-11-09-6c81be|Kuken Industries searches 70 years of drawings in minutes]]** — OpenAI · product · conf 73 · heat 未量測
+  久建工業用 OpenAI API 搜尋 70 年冷卻塔圖面，找圖從近一小時縮到 4.5 分鐘。
+- **[[Events/evt-2026-11-09-751727|Your Experts Have Partners. There's HOPE for Keeping Them Together]]** — Amazon · research · conf 73 · heat 未量測
+  Amazon 在 Hugging Face 發文提出 HOPE，主題是專家模型剪枝時保留相互依賴的專家。
+- **[[Events/evt-2026-11-09-7c436e|NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 為 SK 電信、LG、Upstage、Motif 四款韓國開放模型釋出 Dynamo 部署配方。
+- **[[Events/evt-2026-11-09-b6e540|ChatGPT Enterprise now available in AWS Marketplace]]** — OpenAI · product · conf 73 · heat 未量測
+  ChatGPT Enterprise 上架 AWS Marketplace，企業可直接用 AWS 帳單採購。
+- **[[Events/evt-2026-11-09-c53424|Korea Advances Physical AI Across Industries With NVIDIA]]** — NVIDIA · infra · conf 83 · heat 未量測
+  NVIDIA 兩篇文章盤點韓國製造業實體 AI 與代理 AI 安全的合作進展。
+- **[[Events/evt-2026-11-09-c8f352|Control Room: A central system to track and stop model workloads across our research infrastructure]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 介紹內部系統 Control Room，可追蹤研究設施上的模型工作負載並緊急停止。
+- **[[Events/evt-2026-11-09-ea1fc6|From Chips to Skills, NVIDIA and Korea Expand Sovereign AI Collaboration]]** — NVIDIA · policy · conf 73 · heat 未量測
+  NVIDIA 與韓國科技部擴大主權 AI 合作，範圍從晶片、資料中心到人才與資安。
 
 ## 2026-11-06
 - **[[Events/evt-2026-11-06-06032b|Partnering with Hacktron to find vulnerabilities in OpenAI’s systems]]** — OpenAI · policy · conf 73 · heat 未量測

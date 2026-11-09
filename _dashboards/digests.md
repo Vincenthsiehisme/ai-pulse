@@ -1,6 +1,6 @@
 ---
 kind: dashboard
-generated: 2026-11-08 20:04Z
+generated: 2026-11-09 23:57Z
 ---
 
 # 每日精選
