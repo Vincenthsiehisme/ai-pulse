@@ -3,17 +3,20 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-08'
+generated_day: '2026-11-09'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **218** 則：`published` 211、`review` 7
+事件 **221** 則：`published` 211、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-09 | [[Events/evt-2026-11-09-c8f352\|Control Room: A central system to track and stop model workloads across our research infrastructure]] | review |
+| 2026-11-09 | [[Events/evt-2026-11-09-6c81be\|Kuken Industries searches 70 years of drawings in minutes]] | review |
+| 2026-11-09 | [[Events/evt-2026-11-09-2d53d5\|CodeRabbit scales agentic software development and ships 20x more]] | review |
 | 2026-11-06 | [[Events/evt-2026-11-06-7f2ec2\|Measuring how AI agents handle everyday wet-lab science]] | published |
 | 2026-11-06 | [[Events/evt-2026-11-06-06032b\|Partnering with Hacktron to find vulnerabilities in OpenAI’s systems]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-efd830\|Setting a new standard for responsible AI infrastructure]] | published |

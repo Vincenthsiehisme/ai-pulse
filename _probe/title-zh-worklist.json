@@ -14,5 +14,93 @@
     "track": "產品與商業驗證",
     "summary": "OpenAI 公布 Credit Saison 的 ChatGPT Enterprise 試辦，自稱投資報酬率達 954%。",
     "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-2874cb",
+    "title": "Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-2cba92",
+    "title": "NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-2d53d5",
+    "title": "CodeRabbit scales agentic software development and ships 20x more",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-6c81be",
+    "title": "Kuken Industries searches 70 years of drawings in minutes",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-751727",
+    "title": "Your Experts Have Partners. There's HOPE for Keeping Them Together",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-7c436e",
+    "title": "NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-88f821",
+    "title": "Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-b6e540",
+    "title": "ChatGPT Enterprise now available in AWS Marketplace",
+    "company": "AWS",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-c53424",
+    "title": "Korea Advances Physical AI Across Industries With NVIDIA",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-c8f352",
+    "title": "Control Room: A central system to track and stop model workloads across our research infrastructure",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-09-ea1fc6",
+    "title": "From Chips to Skills, NVIDIA and Korea Expand Sovereign AI Collaboration",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
   }
 ]

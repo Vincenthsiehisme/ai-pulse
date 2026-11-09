@@ -1,7 +1,18 @@
-# 被門禁擋下（68）
+# 被門禁擋下（79）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-09-2874cb|Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-2cba92|NVIDIA Announces New Planned Investments in Korean Startups at the MSI]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-2d53d5|CodeRabbit scales agentic software development and ships 20x more]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-6c81be|Kuken Industries searches 70 years of drawings in minutes]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-751727|Your Experts Have Partners. There's HOPE for Keeping Them Together]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-7c436e|NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-88f821|Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-b6e540|ChatGPT Enterprise now available in AWS Marketplace]]** — AWS — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-c53424|Korea Advances Physical AI Across Industries With NVIDIA]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-c8f352|Control Room: A central system to track and stop model workloads acros]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-09-ea1fc6|From Chips to Skills, NVIDIA and Korea Expand Sovereign AI Collaborati]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-06-71da0a|ToyBlocks: A controlled world for robot learning and evaluation]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-03-f8ea3f|Palette: teaching a small model to build decks in your design language]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-878ddc|How we detect frontier model misalignment]]** — OpenAI — blockers: thin_research_analysis

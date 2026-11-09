@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-08'
+generated_day: '2026-11-09'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**104 天**（2026-07-24 … 2026-11-08），去重後 **6816** 列。
+語料範圍：**105 天**（2026-07-24 … 2026-11-09），去重後 **6895** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,49 +17,49 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 214 | 2 |
-| Apple | 162 | 6 |
-| Amazon | 102 | 5 |
+| Show HN | 218 | 2 |
+| Apple | 163 | 6 |
+| Amazon | 103 | 5 |
 | LLMs | 68 | 13 |
-| September | 66 | 8 |
-| There | 64 | 8 |
-| Here | 63 | 9 |
+| September | 67 | 8 |
+| Here | 65 | 9 |
+| There | 65 | 9 |
 | They | 61 | 9 |
 | LLM | 60 | 12 |
 | Muse | 54 | 6 |
 | October | 53 | 8 |
-| Trump | 49 | 5 |
+| Trump | 50 | 5 |
+| CEO | 50 | 5 |
+| After | 49 | 6 |
+| One | 48 | 10 |
 | Pro | 48 | 8 |
 | Python | 47 | 5 |
-| One | 47 | 10 |
-| CEO | 47 | 5 |
-| After | 46 | 6 |
-| San Francisco | 44 | 9 |
+| San Francisco | 45 | 9 |
+| U.S | 45 | 8 |
 | When | 44 | 12 |
-| U.S | 43 | 8 |
 | AI-powered | 41 | 10 |
 | July | 39 | 9 |
 | Linux | 39 | 6 |
 | Android | 38 | 4 |
+| November | 38 | 6 |
+| China | 37 | 8 |
 | With | 37 | 10 |
-| China | 36 | 8 |
 | Last | 36 | 7 |
-| November | 36 | 6 |
-| AI-generated | 34 | 9 |
+| AI-generated | 35 | 9 |
+| Chinese | 34 | 8 |
+| Rust | 34 | 3 |
 | Windows | 34 | 5 |
 | Astra | 34 | 6 |
 | June | 32 | 7 |
-| Rust | 32 | 3 |
+| Research | 32 | 6 |
 | These | 32 | 8 |
 | August | 32 | 8 |
-| Research | 31 | 6 |
+| Learn | 31 | 6 |
 | Europe | 30 | 8 |
-| Learn | 30 | 6 |
 | Building | 29 | 12 |
-| API | 28 | 6 |
+| API | 29 | 6 |
 | Samsung | 28 | 5 |
 | IPO | 28 | 7 |
-| Chinese | 27 | 8 |
 | Wednesday | 26 | 5 |
 | Tuesday | 26 | 6 |
 | Opus | 26 | 6 |
@@ -70,10 +70,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | Xbox | 25 | 2 |
 | Thursday | 24 | 5 |
 | Monday | 24 | 4 |
+| Mac | 24 | 4 |
 | YouTube | 24 | 7 |
 | Duo | 24 | 3 |
 | Flash | 23 | 6 |
-| Mac | 23 | 4 |
 | According | 23 | 4 |
 | RAM | 23 | 2 |
 | Don | 23 | 5 |
@@ -87,13 +87,13 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 78 | src-media-mit-techreview |
+| The Download | 79 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 42 | src-kol-simonwillison |
 | Register | 32 | src-media-techcrunch |
 | Hi HN | 30 | src-hn-frontpage |
+| A Blog | 27 | src-hf-blog |
 | Launch HN | 26 | src-hn-frontpage |
-| A Blog | 26 | src-hf-blog |
 | MIT Technology Review | 24 | src-media-mit-techreview |
 | Opt | 23 | src-media-theverge |
 | The Verge | 22 | src-media-theverge |
@@ -110,12 +110,12 @@ generator: scripts/pulse-dictionary-gaps.py
 | Verge-iest | 13 | src-media-theverge |
 | Installer | 13 | src-media-theverge |
 | TechCrunch Founder Summit | 12 | src-media-techcrunch |
+| The Algorithm | 11 | src-media-mit-techreview |
 | YC S26 | 11 | src-hn-frontpage |
 | Roundtables | 11 | src-media-mit-techreview |
 | Disrupt | 11 | src-media-techcrunch |
 | Sunday | 10 | src-media-theverge |
 | FCC | 10 | src-media-theverge |
-| The Algorithm | 10 | src-media-mit-techreview |
 | Moscone West | 10 | src-media-techcrunch |
 | October Prime Day | 10 | src-media-theverge |
 | AMENDMENTS | 9 | src-ep-itre |
@@ -134,19 +134,19 @@ generator: scripts/pulse-dictionary-gaps.py
 | Series A | 8 | src-media-techcrunch |
 | Optimizer | 8 | src-media-theverge |
 | Following | 7 | src-media-theverge |
+| Woot | 7 | src-media-theverge |
 | Galaxy Z Fold | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
 | Bose | 7 | src-media-theverge |
 | IBM Research | 7 | src-hf-blog |
 | Grand Theft Auto | 7 | src-media-theverge |
+| YC S23 | 7 | src-hn-frontpage |
 | On Equity | 7 | src-media-techcrunch |
 | Related | 6 | src-hn-frontpage |
 | Code | 6 | src-hn-frontpage |
-| Woot | 6 | src-media-theverge |
 | AI Stage | 6 | src-media-techcrunch |
 | Los Angeles | 6 | src-media-theverge |
 | Spider-Man | 6 | src-media-theverge |
-| Wi-Fi | 6 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

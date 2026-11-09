@@ -1,107 +1,100 @@
 [
   {
-    "full_name": "cutetailbud/ff-ruyijs",
-    "desc": "This is a lightweight, headless browser purpose-built for AI agents (such as Codex or Claude Code) to perform browser automation tasks; it is designed to navigate through various web protection systems, login processes, and reverse-engineering scenarios",
-    "language": "C++",
-    "topics": [
-      "anti-bot",
-      "automation",
-      "firefox",
-      "headless-browser",
-      "javascript",
-      "python"
-    ],
-    "stars": 1084,
-    "url": "https://github.com/cutetailbud/ff-ruyijs",
-    "stale_zh": null
-  },
-  {
-    "full_name": "yjid/kensaku",
-    "desc": "Search inside documents, code, and even screenshots - instantly and locally. A free, open-source file launcher with OCR, semantic search, and MCP agent access.",
-    "language": "Rust",
+    "full_name": "shanselman/sandbox-mcp",
+    "desc": "Fresh, throwaway Windows machines for testing your apps: an MCP server and CLI that automate Windows Sandbox",
+    "language": "JavaScript",
     "topics": [
       "ai-agents",
-      "desktop",
-      "desktop-search",
-      "file-search",
-      "full-text-search",
-      "launcher"
+      "mcp",
+      "mcp-server",
+      "testing",
+      "ui-automation",
+      "windows"
     ],
-    "stars": 1409,
-    "url": "https://github.com/yjid/kensaku",
+    "stars": 382,
+    "url": "https://github.com/shanselman/sandbox-mcp",
     "stale_zh": null
   },
   {
-    "full_name": "everyinfra/everyinfra-agent-plugins",
-    "desc": "EveryInfra MCP server & agent plugin: scraper API for TikTok, Instagram, Amazon, YouTube, Xiaohongshu & Douyin. 573 data APIs across 106 platforms, from $0.56/1K calls. For Claude Code, Cursor, Codex.",
+    "full_name": "sarpstar/cinecode",
+    "desc": "Films made with code. Short films, long YouTube videos, ads, explainers and music videos: an AI coding agent writes the script, builds every frame in code, designs the sound and hands you an MP4.",
     "language": "Python",
-    "topics": [
-      "ai-agents",
-      "amazon-scraper",
-      "captcha-solver",
-      "claude-code",
-      "cursor",
-      "douyin"
-    ],
-    "stars": 352,
-    "url": "https://github.com/everyinfra/everyinfra-agent-plugins",
+    "topics": [],
+    "stars": 1911,
+    "url": "https://github.com/sarpstar/cinecode",
     "stale_zh": null
   },
   {
-    "full_name": "GabrieleLozupone/kokon",
-    "desc": "Edit photos by describing the change, on your own GPU. A free, open-source alternative to Nano Banana and ChatGPT image editing: photos stay on your computer, no daily limit. One installer for Windows, Mac and Linux sets up the best open model (Qwen-Image 2.1). MCP server for AI agents.",
+    "full_name": "alexsergivan/kwant",
+    "desc": "Your own team of AI bots in one self-hosted binary: spaces, every account you have, handoffs, approvals and routines. Open-source, self-hosted alternative to Grok Bot, Claude Duet and OpenAI dots. Rust + React.",
     "language": "Rust",
     "topics": [
-      "ai-photo-editor",
-      "comfyui-alternative",
-      "generative-fill",
-      "image-editing",
-      "image-generation",
-      "inpainting"
+      "ai-agents",
+      "ai-assistant",
+      "ai-bot",
+      "automation",
+      "bot",
+      "bots-team"
     ],
-    "stars": 320,
-    "url": "https://github.com/GabrieleLozupone/kokon",
+    "stars": 415,
+    "url": "https://github.com/alexsergivan/kwant",
     "stale_zh": null
   },
   {
-    "full_name": "unslothai/unsloth",
-    "desc": "Local UI to run and train LLMs and diffusion models. Supports GGUF, MLX, Qwen3.8, DeepSeek-V4.1, MiniMax-H3, Gemma 4, FLUX and more.",
+    "full_name": "anomalyco/browse",
+    "desc": "Let your AI agents use your real browser: an MCP server and a Chromium extension",
+    "language": "TypeScript",
+    "topics": [],
+    "stars": 408,
+    "url": "https://github.com/anomalyco/browse",
+    "stale_zh": null
+  },
+  {
+    "full_name": "muaaz9329/cheap-ag",
+    "desc": "50x your usage with cheap-ag. Opus/Astra plans, a dirt-cheap model writes every line, and tests decide what ships. Your $20 plan stops hitting limits. One MCP server for Claude Code & Codex.",
+    "language": "TypeScript",
+    "topics": [
+      "agentic-coding",
+      "ai-agents",
+      "anthropic",
+      "cheap-llm",
+      "claude-code",
+      "claude-code-hooks"
+    ],
+    "stars": 323,
+    "url": "https://github.com/muaaz9329/cheap-ag",
+    "stale_zh": null
+  },
+  {
+    "full_name": "elie222/botdirectory.ai",
+    "desc": "Open-source directory of agent-bot prompts for Grok Bot, Rakazo, and any agent — botdirectory.ai",
+    "language": "Astro",
+    "topics": [
+      "agents",
+      "ai-agents",
+      "astro",
+      "automation",
+      "bots",
+      "directory"
+    ],
+    "stars": 307,
+    "url": "https://github.com/elie222/botdirectory.ai",
+    "stale_zh": null
+  },
+  {
+    "full_name": "OpenMontageInc/OpenMontage",
+    "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent skill and production-knowledge files. Turn your AI coding assistant into a full video production studio.",
     "language": "Python",
     "topics": [
       "agent",
+      "agentic-ai",
       "ai",
-      "chatgpt",
-      "deepseek",
-      "fine-tuning",
-      "gemma"
+      "claude",
+      "copilot",
+      "cursor"
     ],
-    "stars": 79195,
-    "url": "https://github.com/unslothai/unsloth",
-    "stale_zh": "本地 UI，可執行與訓練 LLM 與 diffusion 模型，含 Qwen3.8、Kimi K3、Gemma 4 等"
-  },
-  {
-    "full_name": "agentpit-io/hunter-community",
-    "desc": "HunterCode · Community Edition · 腾讯 WorkBuddy 金融版的开源本地替代方案 · open-source, local alternative to Tencent WorkBuddy Finance Edition · 多智能体投研终端 A股/港股/美股 · 推理在你机器上跑 · 仓位不出你硬盘 · BYOK · Apache 2.0 · docker compose 自托管",
-    "language": "Python",
-    "topics": [
-      "ai-agents",
-      "docker-compose",
-      "financial-ai",
-      "mcp",
-      "opencode",
-      "self-hosted"
-    ],
-    "stars": 601,
-    "url": "https://github.com/agentpit-io/hunter-community",
-    "stale_zh": null
-  },
-  {
-    "full_name": "free-dam-man/agent-deploy-memory-muse",
-    "desc": "全球破甲记忆 · muse 版：免卡部署加密节点方法论（无密钥）",
-    "language": "",
-    "topics": [],
-    "stars": 382,
-    "url": "https://github.com/free-dam-man/agent-deploy-memory-muse",
+    "stars": 79104,
+    "url": "https://github.com/OpenMontageInc/OpenMontage",
     "stale_zh": null
   }
 ]
