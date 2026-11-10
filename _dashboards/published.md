@@ -1,6 +1,26 @@
-# 已發布事件（600）
+# 已發布事件（610）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-10
+- **[[Events/evt-2026-11-10-0eaec8|Decision Models in Hugging Face]]** — Hugging Face · product · conf 73 · heat 未量測
+  Hugging Face 發表「Decision Models」文章，但可取得的摘要沒有說明內容。
+- **[[Events/evt-2026-11-10-0ec7d4|Closing the AI guidance gap in education]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發表與 ThinkYoung 的研究，談教師支援與 AI 素養的教育指引缺口。
+- **[[Events/evt-2026-11-10-2c86c2|Introducing AlphaProof Code: a breakthrough in verifying complex software at depth]]** — Google DeepMind · research · conf 80 · heat 未量測
+  DeepMind 的 AlphaProof Code 代理用 Lean 寫了三百萬行證明，驗證 Signal 的核心加密。
+- **[[Events/evt-2026-11-10-30f9f6|Roadshow Launch]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發表〈Roadshow Launch〉，本站依授權限制只放標題與連結，不轉述內文。
+- **[[Events/evt-2026-11-10-556f5b|Work at the Frontier: AI’s effect on freelance work]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 與 Upwork 的研究指出，AI 相關自由接案需求、預算與工時都在上升。
+- **[[Events/evt-2026-11-10-93b799|Pay for Hugging Face Hub with your Google Cloud Account]]** — Hugging Face · capital · conf 73 · heat 未量測
+  Hugging Face Hub 的付費可以改用 Google Cloud 帳戶結算。
+- **[[Events/evt-2026-11-10-93f5da|Introducing Businesses in ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 推出 ChatGPT 內的 Businesses 功能，讓商家管理資訊並查看自己在 ChatGPT 的呈現。
+- **[[Events/evt-2026-11-10-c70435|Helping caregivers use AI in everyday life]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI Academy 將在美國五座城市為照顧者辦免費 ChatGPT 實作工作坊。
+- **[[Events/evt-2026-11-10-efc0c2|NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 在 KubeCon 宣布捐出 OpenShell，並擴大開源與 AI 基礎設施投入。
 
 ## 2026-11-09
 - **[[Events/evt-2026-11-09-2874cb|Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context]]** — NVIDIA · research · conf 73 · heat 未量測
@@ -15,6 +35,8 @@
   Amazon 在 Hugging Face 發文提出 HOPE，主題是專家模型剪枝時保留相互依賴的專家。
 - **[[Events/evt-2026-11-09-7c436e|NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 為 SK 電信、LG、Upstage、Motif 四款韓國開放模型釋出 Dynamo 部署配方。
+- **[[Events/evt-2026-11-09-add137|Gemini Robotics 2.5 accelerates real-world general dexterity]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
+  DeepMind 發表 Gemini Robotics 2.5，主打機器人的靈巧度、可靠度與安全性。
 - **[[Events/evt-2026-11-09-b6e540|ChatGPT Enterprise now available in AWS Marketplace]]** — OpenAI · product · conf 73 · heat 未量測
   ChatGPT Enterprise 上架 AWS Marketplace，企業可直接用 AWS 帳單採購。
 - **[[Events/evt-2026-11-09-c53424|Korea Advances Physical AI Across Industries With NVIDIA]]** — NVIDIA · infra · conf 83 · heat 未量測

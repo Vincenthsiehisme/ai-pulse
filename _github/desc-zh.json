@@ -64,6 +64,11 @@
     "src_hash": "e5f2e6d7ca73",
     "zh": "開源可自架的 Grok Bot 替代品：有記憶與例行工作的 AI 同事，行動前需你核准"
   },
+  "Anil-matcha/suparagent": {
+    "at": "2026-11-10T21:34:44+00:00",
+    "src_hash": "e5f2e6d7ca73",
+    "zh": "開源、可自架的 AI 同事平台，每個 agent 有指令、記憶、例行任務與獨立電腦，動手前需你核准"
+  },
   "Anionex/agent-vision-toolkit": {
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "8a93c0135fe8",
@@ -514,6 +519,11 @@
     "src_hash": "94cee3dcf729",
     "zh": "在瀏覽器裡做點對點 LLM 推論，把多台裝置湊起來跑大型開源模型，供聊天與 coding agent 使用"
   },
+  "NiazMorshed2007/reanimate": {
+    "at": "2026-11-10T21:34:44+00:00",
+    "src_hash": "829422ff9759",
+    "zh": "Claude Code 技能：逐格逆向任何動畫，再驗證複製出來的動作與原本一致"
+  },
   "NousResearch/hermes-agent": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "6eb4d1ab3a37",
@@ -593,6 +603,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "57256537e19c",
     "zh": "開源桌面 AI agent，以昔漣為基礎開發"
+  },
+  "PrefectHQ/fastmcp": {
+    "at": "2026-11-10T21:34:44+00:00",
+    "src_hash": "0a2b2642ca68",
+    "zh": "用 Python 快速建立 MCP 伺服器與用戶端"
   },
   "Purewhiter/mobilegym": {
     "at": "2026-10-15T19:35:35+00:00",
@@ -1144,6 +1159,11 @@
     "src_hash": "bf8bb8fac6a0",
     "zh": "把 ASD-STE100 簡化技術英語規則做成 Claude Code skill，用來改寫有歧義的英文"
   },
+  "datamllab/OpenEBFM": {
+    "at": "2026-11-10T21:34:44+00:00",
+    "src_hash": "5102ecc4e8be",
+    "zh": "訓練與擴大能量式基礎模型的開源程式碼"
+  },
   "datawhalechina/hello-agents": {
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "0f1350efa57d",
@@ -1489,6 +1509,11 @@
     "src_hash": "0037c8ffb8d4",
     "zh": "一組幫你做出好介面的 agent skills"
   },
+  "janestreet/agent_skills": {
+    "at": "2026-11-10T21:34:44+00:00",
+    "src_hash": "ce8667c8b2c4",
+    "zh": "Agent skills（agent 技能集）"
+  },
   "janhq/jan": {
     "at": "2026-11-02T23:19:22+00:00",
     "src_hash": "ff9569bb3242",
@@ -1580,9 +1605,9 @@
     "zh": "CLI 原生的 AI agent 編排器，用 YAML 跑 Claude Code、Codex、Gemini CLI"
   },
   "kuafuai/andee": {
-    "at": "2026-10-24T18:28:06+00:00",
-    "src_hash": "c0d5aa19997c",
-    "zh": "住進手機或 Mac 裡，像人一樣操作任何 app，不用整合、不用 root，記憶與密碼不離開裝置"
+    "at": "2026-11-10T21:34:44+00:00",
+    "src_hash": "cf69b027b0b2",
+    "zh": "住進手機或 Mac 裡，像人一樣操作任何 app，不用整合、不用 root，支援任意模型，記憶與密碼不離開裝置"
   },
   "kucherenko/jscpd": {
     "at": "2026-09-02T19:14:09+00:00",
@@ -1655,9 +1680,9 @@
     "zh": "在 Kubernetes 上用現代加速器達到頂尖的推論效能"
   },
   "lobehub/lobehub": {
-    "at": "2026-11-04T21:40:11+00:00",
-    "src_hash": "0618fc51963d",
-    "zh": "用來編制 agent 團隊的平台，負責雇用、排程並回報，讓 agent 全天候運作"
+    "at": "2026-11-10T21:34:44+00:00",
+    "src_hash": "5afe71ef8d58",
+    "zh": "把 super-agent 加進團隊現有的聊天，自己接手工作，每週變得更好"
   },
   "luongnv89/claude-howto": {
     "at": "2026-10-21T19:47:16+00:00",
@@ -1873,6 +1898,11 @@
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "38657d03bbf0",
     "zh": "開源、本機優先的協作式 AI 設計工作區，與團隊和 agent 一起做動態、原型、網頁、簡報與影片"
+  },
+  "ngocanhnckh/renderlint": {
+    "at": "2026-11-10T21:34:44+00:00",
+    "src_hash": "4718e55e1706",
+    "zh": "檢查渲染後的 UI：文字溢出、對比不足、元素重疊、跑版，為 AI coding agent 設計"
   },
   "nirholas/XActions": {
     "at": "2026-10-05T22:18:12+00:00",
