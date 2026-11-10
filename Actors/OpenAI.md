@@ -3,20 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-09'
+generated_day: '2026-11-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **221** 則：`published` 211、`review` 10
+事件 **226** 則：`published` 215、`review` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-09 | [[Events/evt-2026-11-09-c8f352\|Control Room: A central system to track and stop model workloads across our research infrastructure]] | review |
-| 2026-11-09 | [[Events/evt-2026-11-09-6c81be\|Kuken Industries searches 70 years of drawings in minutes]] | review |
-| 2026-11-09 | [[Events/evt-2026-11-09-2d53d5\|CodeRabbit scales agentic software development and ships 20x more]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-c70435\|Helping caregivers use AI in everyday life]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-93f5da\|Introducing Businesses in ChatGPT]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-556f5b\|Work at the Frontier: AI’s effect on freelance work]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-0ec7d4\|Closing the AI guidance gap in education]] | review |
+| 2026-11-09 | [[Events/evt-2026-11-09-c8f352\|Control Room: A central system to track and stop model workloads across our research infrastructure]] | published |
+| 2026-11-09 | [[Events/evt-2026-11-09-b6e540\|ChatGPT Enterprise now available in AWS Marketplace]] | published |
+| 2026-11-09 | [[Events/evt-2026-11-09-6c81be\|Kuken Industries searches 70 years of drawings in minutes]] | published |
+| 2026-11-09 | [[Events/evt-2026-11-09-2d53d5\|CodeRabbit scales agentic software development and ships 20x more]] | published |
 | 2026-11-06 | [[Events/evt-2026-11-06-7f2ec2\|Measuring how AI agents handle everyday wet-lab science]] | published |
 | 2026-11-06 | [[Events/evt-2026-11-06-06032b\|Partnering with Hacktron to find vulnerabilities in OpenAI’s systems]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-efd830\|Setting a new standard for responsible AI infrastructure]] | published |

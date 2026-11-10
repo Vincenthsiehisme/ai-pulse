@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-09"
+generated_day: "2026-11-10"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-09"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **576** 則／已裁決 **26** 則。
+待回答 **586** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#385eddc9`** — infra-cost
-  > 看 Hacktron 合作是否發布測試結果、Aerial 與 Sionna 的社群採用數字；看 NVIDIA 公布的記憶體效率具體數據，以及記憶體供應商的報價走向；看第三方在代理工作負載上對 Vera 的實測，以及雲端業者的採用公告；看具體園區是否引用 OpenAI 的社區公約，以及地方政府的回應；看 AWS 是否公布 GPT-5.6 Cyber 在 Bedrock 的定價與可用區域；看 Pando 是否開源或公布吞吐與延遲；看 Grid Protectors 是否出現具名電力夥伴與可量測承諾。
+- **`infra-cost#63351d55`** — infra-cost
+  > 看 Dynamo 配方公布的實測吞吐量，以及四款模型的實際部署案例；看 OpenAI 是否公布 Control Room 的實際停機事件，或同業跟進類似機制；看 Hacktron 合作是否發布測試結果；看 NVIDIA 公布的記憶體效率具體數據；看第三方在代理工作負載上對 Vera 的實測；看 AWS 是否公布 GPT-5.6 Cyber 在 Bedrock 的定價。
 
-- **`model-research#8ca6509c`** — model-research
-  > 看 BioBasicsBench 的任務集是否開放、其他實驗室的得分；看 Gemini Omni 1.2 Flash 原文公布的價格與片段長度上限，以及第三方實測；看 Cosmos 3 模型卡的授權、規模與下載量；看 StateBench 的資料集與排行榜是否公開，有沒有納入非 Ai2 的模型；看 LifeVal 是否公開題目與評分程式；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首與領先幅度的驗證；看 Genie 4 是否開放試用或發布技術報告；看 Mistral Large 4 的模型卡是否公布授權與第三方基準。
+- **`model-research#bd6bb4c7`** — model-research
+  > 看 HOPE 公布的剪枝比例、基準分數與是否釋出程式碼；看 BioBasicsBench 的任務集是否開放、其他實驗室的得分；看 Gemini Omni 1.2 Flash 原文的價格與片段長度上限，以及第三方實測；看 Cosmos 3 模型卡的授權、規模與下載量；看 StateBench 與 LifeVal 是否公開題目與排行榜；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首的驗證。
 
-- **`product-market#8fd20466`** — product-market
-  > 看 ChatGPT Ads 是否公布可比較的成本與轉換數字、澳洲大學的名單與授權人數、Franklin Templeton 是否擴到股票研究以外；看 Images 2.6 的 API 定價與延遲實測，以及開發者對新控制項的回饋；看 DLSS 5 支援的遊戲數量與第三方畫質評測；看 Cisco 與 Heimstaden 是否公布量化成效；看 DeepMind 與英國政府是否公布試行範圍與處理時間的前後對照；看 Credit Saison 的 ROI 算法；看 OpenAI 下一份安全報告的時間與涵蓋指標。
+- **`product-market#056d72a0`** — product-market
+  > 看 Kuken 是否公布檢索準確率，或其他製造業出現類似案例；看 AWS Marketplace 頁面的定價與抵扣條件，以及實際透過市集採購的企業；看 ChatGPT Ads 是否公布可比較的成本與轉換數字；看 Images 2.6 的 API 定價與延遲實測；看 Cisco 與 Heimstaden 是否公布量化成效。
 
-- **`capital-evolution#0ebe2388`** — capital-evolution
-  > 讀 Long Term Benefit Trust 原文，看治理安排是否有後續公告；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併；看 OpenAI 的對外溝通是否隨新任命調整；看是否出現與政府或盟友的具體合作案；看 OpenAI 與 Orchestra Bio 是否公布交易條件。
+- **`capital-evolution#1645c047`** — capital-evolution
+  > 看 NVIDIA 或被投資新創公開具體投資對象與金額；讀 Long Term Benefit Trust 原文，看治理安排是否有後續公告；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併；看 OpenAI 與 Orchestra Bio 是否公布交易條件。
 
-- **`agent-refactor#e2dd2e95`** — agent-refactor
-  > 看 Cult.fit 與 Merge 是否補上具體工具與前後對照數字，以及 GPT-6 Astra 的公開規格與定價；看 Linux 核心上游是否合併那批修補，以及 OpenAI 是否公開驗證方法與誤報率；看 GPT‑6 Cyber 的存取條件、外部評測與第三方紅隊對越權行為的測試；看 Dharma Field Extractor 是否釋出權重與公開基準；看 DeepMind 提出的分子有沒有實驗驗證；看 Qodo 是否公布 Codex 外掛的誤報率；看 OpenAI、Google 等是否宣布支援 Agent Skills 或加入 AAIF。
+- **`agent-refactor#b6a177a4`** — agent-refactor
+  > 看 CodeRabbit 是否公布出貨量與缺陷率的對照，或有獨立來源驗證 20 倍；看 Cult.fit 與 Merge 是否補上具體工具與前後對照；看 Linux 核心上游是否合併那批修補，以及誤報率；看 GPT‑6 Cyber 的存取條件與第三方紅隊測試；看 Qodo 是否公布 Codex 外掛的誤報率。
 
-- **`global-map#09457880`** — global-map
-  > 看 Open ASR Leaderboard 新增資料的規模與來源、各模型在兩種口音上的錯誤率；看 SETI 那篇提到的研究團隊是否發表論文或公開資料集；看 ProtoStar 的首批資料集上線時間、合作機構名單與授權方式；看 OpenAI 與 NASK 公布的聯合研究或評測成果；看哈薩克方公布的機房規模、GPU 採購量與啟用時程；看有沒有具名的歐洲政府機關公開採用，以及使用的模型與語言；看 Earth-2 業者的預測準確度比較；看歐洲雲端夥伴公布的容量與客戶；看 BSC 是否公布參與新創數量與運算配額。
+- **`global-map#46c75c80`** — global-map
+  > 看韓國合作公布 NPU 與 XPU 共同開發的時程與參與的韓國晶片業者；看現代集團或其他韓國業者公布 NemoClaw、OpenShell 的實際部署範圍；看 Nemotron-Personas-Finance-Japan 的下載數與日本金融任務上的第三方使用；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率；看 ProtoStar 首批資料集上線時間；看有沒有具名的歐洲政府機關公開採用開放模型。
 
-## 事件層（570）
+## 事件層（580）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1753,3 +1753,33 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-11-06-7f2ec2#dc7dc57f`** — evt-2026-11-06-7f2ec2
   > OpenAI 與其他實驗室在 BioBasicsBench 上的公開得分，以及任務集是否開放給外部使用。
+
+- **`evt-2026-11-09-2874cb#7dc838a1`** — evt-2026-11-09-2874cb
+  > 資料集頁面的下載數、是否有第三方在日本金融任務上公開使用或評測。
+
+- **`evt-2026-11-09-2cba92#3328ba9a`** — evt-2026-11-09-2cba92
+  > NVIDIA 或被投資新創公開具體投資對象與金額。
+
+- **`evt-2026-11-09-2d53d5#916119c4`** — evt-2026-11-09-2d53d5
+  > 是否有獨立來源或 CodeRabbit 公布出貨量與缺陷率的對照數據。
+
+- **`evt-2026-11-09-6c81be#5ed93a01`** — evt-2026-11-09-6c81be
+  > Kuken 是否公布檢索準確率，或其他製造業客戶出現類似的圖面搜尋案例。
+
+- **`evt-2026-11-09-751727#7f2e3faf`** — evt-2026-11-09-751727
+  > 部落格或論文公布的剪枝比例與基準測試分數，以及是否釋出程式碼。
+
+- **`evt-2026-11-09-7c436e#54fa02f4`** — evt-2026-11-09-7c436e
+  > 配方公布的實測吞吐量，以及這四款模型在雲端或企業的實際部署案例。
+
+- **`evt-2026-11-09-b6e540#5e9d6620`** — evt-2026-11-09-b6e540
+  > 市集頁面的定價與抵扣條件，以及企業客戶透過市集採購的實際案例。
+
+- **`evt-2026-11-09-c53424#c32aea21`** — evt-2026-11-09-c53424
+  > 現代集團或其他韓國業者公布 NemoClaw、OpenShell 的實際部署範圍。
+
+- **`evt-2026-11-09-c8f352#12b91f12`** — evt-2026-11-09-c8f352
+  > OpenAI 是否公布 Control Room 的實際停機事件，或同業跟進類似機制。
+
+- **`evt-2026-11-09-ea1fc6#b01fe5e6`** — evt-2026-11-09-ea1fc6
+  > NPU、XPU 共同開發的具體時程與參與的韓國晶片業者。

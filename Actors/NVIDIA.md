@@ -3,22 +3,24 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-11-09'
+generated_day: '2026-11-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **130** 則：`dropped` 1、`published` 117、`review` 12
+事件 **132** 則：`dropped` 1、`published` 122、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-09 | [[Events/evt-2026-11-09-ea1fc6\|From Chips to Skills, NVIDIA and Korea Expand Sovereign AI Collaboration]] | review |
-| 2026-11-09 | [[Events/evt-2026-11-09-c53424\|Korea Advances Physical AI Across Industries With NVIDIA]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-efc0c2\|NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure]] | review |
+| 2026-11-09 | [[Events/evt-2026-11-09-ea1fc6\|From Chips to Skills, NVIDIA and Korea Expand Sovereign AI Collaboration]] | published |
+| 2026-11-09 | [[Events/evt-2026-11-09-c53424\|Korea Advances Physical AI Across Industries With NVIDIA]] | published |
 | 2026-11-09 | [[Events/evt-2026-11-09-88f821\|Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation]] | review |
-| 2026-11-09 | [[Events/evt-2026-11-09-7c436e\|NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production]] | review |
-| 2026-11-09 | [[Events/evt-2026-11-09-2cba92\|NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum]] | review |
+| 2026-11-09 | [[Events/evt-2026-11-09-7c436e\|NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production]] | published |
+| 2026-11-09 | [[Events/evt-2026-11-09-2cba92\|NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum]] | published |
+| 2026-11-09 | [[Events/evt-2026-11-09-2874cb\|Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context]] | published |
 | 2026-11-06 | [[Events/evt-2026-11-06-62893a\|How NVIDIA Open Source Tools Are Helping Researchers Build Next-Generation 6G Networks]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-fea268\|Vera Delivers the Best of Both Worlds: Highest Throughput and Fastest Agents]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-ba85a1\|New NVIDIA Cosmos 3 Open Models for Interactive World Simulation]] | published |

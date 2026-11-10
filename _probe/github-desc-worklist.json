@@ -1,100 +1,139 @@
 [
   {
-    "full_name": "shanselman/sandbox-mcp",
-    "desc": "Fresh, throwaway Windows machines for testing your apps: an MCP server and CLI that automate Windows Sandbox",
+    "full_name": "janestreet/agent_skills",
+    "desc": "Agent skills",
+    "language": "",
+    "topics": [],
+    "stars": 3660,
+    "url": "https://github.com/janestreet/agent_skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Zaneris/passenger",
+    "desc": "An open-source IDE for C# and .NET, built with Avalonia, for Windows, macOS and Linux: a Roslyn-powered editor, its own debugger with Hot Reload, a CPU and memory profiler, XAML tooling for Avalonia and WPF, and an MCP server for coding agents.",
+    "language": "C#",
+    "topics": [
+      "avalonia",
+      "csharp",
+      "debugger",
+      "dotnet",
+      "ide",
+      "mcp"
+    ],
+    "stars": 478,
+    "url": "https://github.com/Zaneris/passenger",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ngocanhnckh/renderlint",
+    "desc": "Lint the rendered UI: catches overflowing text, low contrast, overlaps, broken responsive layouts, emoji icons and more in any web framework. Built for AI coding agents.",
     "language": "JavaScript",
     "topics": [
+      "accessibility",
       "ai-agents",
-      "mcp",
-      "mcp-server",
-      "testing",
-      "ui-automation",
-      "windows"
-    ],
-    "stars": 382,
-    "url": "https://github.com/shanselman/sandbox-mcp",
-    "stale_zh": null
-  },
-  {
-    "full_name": "sarpstar/cinecode",
-    "desc": "Films made with code. Short films, long YouTube videos, ads, explainers and music videos: an AI coding agent writes the script, builds every frame in code, designs the sound and hands you an MP4.",
-    "language": "Python",
-    "topics": [],
-    "stars": 1911,
-    "url": "https://github.com/sarpstar/cinecode",
-    "stale_zh": null
-  },
-  {
-    "full_name": "alexsergivan/kwant",
-    "desc": "Your own team of AI bots in one self-hosted binary: spaces, every account you have, handoffs, approvals and routines. Open-source, self-hosted alternative to Grok Bot, Claude Duet and OpenAI dots. Rust + React.",
-    "language": "Rust",
-    "topics": [
-      "ai-agents",
-      "ai-assistant",
-      "ai-bot",
-      "automation",
-      "bot",
-      "bots-team"
-    ],
-    "stars": 415,
-    "url": "https://github.com/alexsergivan/kwant",
-    "stale_zh": null
-  },
-  {
-    "full_name": "anomalyco/browse",
-    "desc": "Let your AI agents use your real browser: an MCP server and a Chromium extension",
-    "language": "TypeScript",
-    "topics": [],
-    "stars": 408,
-    "url": "https://github.com/anomalyco/browse",
-    "stale_zh": null
-  },
-  {
-    "full_name": "muaaz9329/cheap-ag",
-    "desc": "50x your usage with cheap-ag. Opus/Astra plans, a dirt-cheap model writes every line, and tests decide what ships. Your $20 plan stops hitting limits. One MCP server for Claude Code & Codex.",
-    "language": "TypeScript",
-    "topics": [
-      "agentic-coding",
-      "ai-agents",
-      "anthropic",
-      "cheap-llm",
       "claude-code",
-      "claude-code-hooks"
+      "contrast",
+      "frontend",
+      "linter"
     ],
-    "stars": 323,
-    "url": "https://github.com/muaaz9329/cheap-ag",
+    "stars": 340,
+    "url": "https://github.com/ngocanhnckh/renderlint",
     "stale_zh": null
   },
   {
-    "full_name": "elie222/botdirectory.ai",
-    "desc": "Open-source directory of agent-bot prompts for Grok Bot, Rakazo, and any agent — botdirectory.ai",
-    "language": "Astro",
+    "full_name": "NiazMorshed2007/reanimate",
+    "desc": "A Claude Code skill that reverse-engineers any animation frame by frame, then proves the copy moves the same.",
+    "language": "JavaScript",
     "topics": [
-      "agents",
-      "ai-agents",
-      "astro",
-      "automation",
-      "bots",
-      "directory"
+      "agent-skills",
+      "animation",
+      "claude-code",
+      "claude-skills",
+      "frontend",
+      "motion"
     ],
-    "stars": 307,
-    "url": "https://github.com/elie222/botdirectory.ai",
+    "stars": 1533,
+    "url": "https://github.com/NiazMorshed2007/reanimate",
     "stale_zh": null
   },
   {
-    "full_name": "OpenMontageInc/OpenMontage",
-    "desc": "World's first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent skill and production-knowledge files. Turn your AI coding assistant into a full video production studio.",
-    "language": "Python",
+    "full_name": "kuafuai/andee",
+    "desc": "Andee lives on your phone or Mac and uses any app like you do—no integrations, no root, any model; memory and passwords never leave your device | Andee 住进你的手机或 Mac，像你一样操作任何 App——无需集成、无需 Root、支持任意模型，记忆和密码绝不离开设备。",
+    "language": "Kotlin",
     "topics": [
       "agent",
-      "agentic-ai",
       "ai",
-      "claude",
-      "copilot",
-      "cursor"
+      "ai-agents",
+      "android-automation",
+      "mobile-agents",
+      "personal-agent"
     ],
-    "stars": 79104,
-    "url": "https://github.com/OpenMontageInc/OpenMontage",
+    "stars": 4400,
+    "url": "https://github.com/kuafuai/andee",
+    "stale_zh": "住進手機或 Mac 裡，像人一樣操作任何 app，不用整合、不用 root，記憶與密碼不離開裝置"
+  },
+  {
+    "full_name": "Anil-matcha/suparagent",
+    "desc": "Open-source, self-hosted alternative to Grok Bot, Claude Duet, OpenAI Dots, Meta Muse, Instinct, Manus Cue: AI coworkers (named agents) with instructions, memory, routines, their own isolated computer, and your approval before they act.",
+    "language": "Python",
+    "topics": [
+      "agentic-ai",
+      "ai-agent",
+      "ai-assistant",
+      "ai-coworker",
+      "ai-employees",
+      "ai-workspace"
+    ],
+    "stars": 7002,
+    "url": "https://github.com/Anil-matcha/suparagent",
     "stale_zh": null
+  },
+  {
+    "full_name": "PrefectHQ/fastmcp",
+    "desc": "🚀 The fast, Pythonic way to build MCP servers and clients.",
+    "language": "Python",
+    "topics": [
+      "agents",
+      "fastmcp",
+      "llms",
+      "mcp",
+      "mcp-clients",
+      "mcp-servers"
+    ],
+    "stars": 28372,
+    "url": "https://github.com/PrefectHQ/fastmcp",
+    "stale_zh": null
+  },
+  {
+    "full_name": "datamllab/OpenEBFM",
+    "desc": "Open-source code for training and scaling up energy-based foundation models.",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "climbmix",
+      "dclm",
+      "energy-based-generation",
+      "energy-based-language-models",
+      "energy-based-models"
+    ],
+    "stars": 328,
+    "url": "https://github.com/datamllab/OpenEBFM",
+    "stale_zh": null
+  },
+  {
+    "full_name": "lobehub/lobehub",
+    "desc": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every week.",
+    "language": "TypeScript",
+    "topics": [
+      "agent",
+      "agent-collaboration",
+      "agent-harness",
+      "loop-engineering",
+      "mcp",
+      "personal-assistant"
+    ],
+    "stars": 84859,
+    "url": "https://github.com/lobehub/lobehub",
+    "stale_zh": "用來編制 agent 團隊的平台，負責雇用、排程並回報，讓 agent 全天候運作"
   }
 ]

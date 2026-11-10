@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-09'
+generated_day: '2026-11-10'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**105 天**（2026-07-24 … 2026-11-09），去重後 **6895** 列。
+語料範圍：**106 天**（2026-07-24 … 2026-11-10），去重後 **6976** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,66 +17,66 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 218 | 2 |
+| Show HN | 220 | 2 |
 | Apple | 163 | 6 |
-| Amazon | 103 | 5 |
+| Amazon | 104 | 5 |
 | LLMs | 68 | 13 |
 | September | 67 | 8 |
 | Here | 65 | 9 |
 | There | 65 | 9 |
 | They | 61 | 9 |
 | LLM | 60 | 12 |
-| Muse | 54 | 6 |
+| Muse | 55 | 6 |
 | October | 53 | 8 |
+| After | 51 | 6 |
 | Trump | 50 | 5 |
 | CEO | 50 | 5 |
-| After | 49 | 6 |
-| One | 48 | 10 |
-| Pro | 48 | 8 |
+| One | 49 | 10 |
+| Pro | 49 | 8 |
 | Python | 47 | 5 |
+| U.S | 47 | 8 |
 | San Francisco | 45 | 9 |
-| U.S | 45 | 8 |
 | When | 44 | 12 |
 | AI-powered | 41 | 10 |
+| Android | 40 | 4 |
 | July | 39 | 9 |
+| China | 39 | 8 |
 | Linux | 39 | 6 |
-| Android | 38 | 4 |
-| November | 38 | 6 |
-| China | 37 | 8 |
-| With | 37 | 10 |
+| November | 39 | 6 |
+| With | 38 | 10 |
 | Last | 36 | 7 |
+| Chinese | 35 | 8 |
 | AI-generated | 35 | 9 |
-| Chinese | 34 | 8 |
+| Windows | 35 | 5 |
 | Rust | 34 | 3 |
-| Windows | 34 | 5 |
 | Astra | 34 | 6 |
+| August | 33 | 8 |
 | June | 32 | 7 |
 | Research | 32 | 6 |
 | These | 32 | 8 |
-| August | 32 | 8 |
+| IPO | 32 | 7 |
 | Learn | 31 | 6 |
 | Europe | 30 | 8 |
 | Building | 29 | 12 |
 | API | 29 | 6 |
-| Samsung | 28 | 5 |
-| IPO | 28 | 7 |
+| Samsung | 29 | 5 |
 | Wednesday | 26 | 5 |
 | Tuesday | 26 | 6 |
 | Opus | 26 | 6 |
 | Elon Musk | 26 | 5 |
+| SpaceX | 26 | 5 |
 | While | 26 | 4 |
-| SpaceX | 25 | 5 |
-| Pixel | 25 | 3 |
+| Pixel | 26 | 3 |
+| Fable | 25 | 6 |
 | Xbox | 25 | 2 |
 | Thursday | 24 | 5 |
 | Monday | 24 | 4 |
 | Mac | 24 | 4 |
+| According | 24 | 4 |
 | YouTube | 24 | 7 |
 | Duo | 24 | 3 |
 | Flash | 23 | 6 |
-| According | 23 | 4 |
-| RAM | 23 | 2 |
-| Don | 23 | 5 |
+| Tool | 23 | 2 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,7 +87,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 79 | src-media-mit-techreview |
+| The Download | 80 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 42 | src-kol-simonwillison |
 | Register | 32 | src-media-techcrunch |
@@ -97,8 +97,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | MIT Technology Review | 24 | src-media-mit-techreview |
 | Opt | 23 | src-media-theverge |
 | The Verge | 22 | src-media-theverge |
+| Best Buy | 22 | src-media-theverge |
 | Highlights | 21 | src-gh-vllm-releases |
-| Best Buy | 21 | src-media-theverge |
 | Ask HN | 19 | src-hn-frontpage |
 | Is Hiring | 18 | src-hn-frontpage |
 | GeForce NOW | 17 | src-nvidia-blog |
@@ -122,6 +122,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Establishing | 9 | src-ep-itre |
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
+| PlayStation | 9 | src-media-theverge |
 | Reuters | 9 | src-media-theverge |
 | Verge | 9 | src-media-theverge |
 | Victoria Song | 9 | src-media-theverge |
@@ -130,7 +131,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
 | Open-source | 8 | src-hn-frontpage |
 | Apple TV | 8 | src-media-theverge |
-| PlayStation | 8 | src-media-theverge |
 | Series A | 8 | src-media-techcrunch |
 | Optimizer | 8 | src-media-theverge |
 | Following | 7 | src-media-theverge |
@@ -138,6 +138,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Galaxy Z Fold | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
 | Bose | 7 | src-media-theverge |
+| Wi-Fi | 7 | src-media-theverge |
 | IBM Research | 7 | src-hf-blog |
 | Grand Theft Auto | 7 | src-media-theverge |
 | YC S23 | 7 | src-hn-frontpage |
@@ -146,7 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Code | 6 | src-hn-frontpage |
 | AI Stage | 6 | src-media-techcrunch |
 | Los Angeles | 6 | src-media-theverge |
-| Spider-Man | 6 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

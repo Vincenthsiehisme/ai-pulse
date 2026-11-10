@@ -157,7 +157,7 @@
   NVIDIA 說 RTX Spark 輕薄筆電已由六家品牌上市，並加入新模型、代理工具與遊戲。
 - **[[Events/evt-2026-10-28-f7c4df|OpenAI and ServiceNow expand partnership across enterprise workflows]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 與 ServiceNow 擴大合作：OpenAI 模型與代理進 ServiceNow，ServiceNow 流程進 ChatGPT 與 Codex。
-- **[[Events/evt-2026-10-28-fa1a68|Gemini 4 Carbon: Our next frontier model]]** — Google DeepMind · model-capability · conf 94 · heat 未量測
+- **[[Events/evt-2026-10-28-fa1a68|Gemini 4 Carbon: Our next frontier model]]** — Google DeepMind · model-capability · conf 100 · heat 未量測
   Google 發表 Gemini 4 Carbon，The Verge 說它在 Artificial Analysis 指數排第一，Ars 說外界還用不到。
 
 ## 2026-10-27

@@ -3,7 +3,7 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-09'
+generated_day: '2026-11-10'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -14,8 +14,8 @@ tags: [actor, company]
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-09 | [[Events/evt-2026-11-09-751727\|Your Experts Have Partners. There's HOPE for Keeping Them Together]] | review |
-| 2026-11-09 | [[Events/evt-2026-11-09-2874cb\|Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-93b799\|Pay for Hugging Face Hub with your Google Cloud Account]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-0eaec8\|Decision Models in Hugging Face]] | review |
 | 2026-11-06 | [[Events/evt-2026-11-06-786420\|Egyptian and Nigerian English join the Open ASR Leaderboard]] | published |
 | 2026-11-04 | [[Events/evt-2026-11-04-b05a2c\|Dharma Field Extractor: Any Document In, Structured Fields in JSON Out]] | published |
 | 2026-11-03 | [[Events/evt-2026-11-03-1cfb29\|Transformers Model Integration Contracts]] | published |

@@ -1,8 +1,16 @@
-# 被門禁擋下（69）
+# 被門禁擋下（79）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-10-0eaec8|Decision Models in Hugging Face]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-10-0ec7d4|Closing the AI guidance gap in education]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-10-556f5b|Work at the Frontier: AI’s effect on freelance work]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-10-93b799|Pay for Hugging Face Hub with your Google Cloud Account]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-10-93f5da|Introducing Businesses in ChatGPT]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-10-c70435|Helping caregivers use AI in everyday life]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-10-efc0c2|NVIDIA Expands Open Source Commitment With OpenShell Donation and New ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-09-88f821|Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots]]** — NVIDIA — blockers: thin_research_analysis
+- **[[Events/evt-2026-11-09-add137|Gemini Robotics 2.5 accelerates real-world general dexterity]]** — Google DeepMind — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-06-71da0a|ToyBlocks: A controlled world for robot learning and evaluation]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-03-f8ea3f|Palette: teaching a small model to build decks in your design language]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-10-29-878ddc|How we detect frontier model misalignment]]** — OpenAI — blockers: thin_research_analysis
@@ -62,6 +70,8 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-11-10-2c86c2|Introducing AlphaProof Code: a breakthrough in verifying complex softw]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-10-30f9f6|Roadshow Launch]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
