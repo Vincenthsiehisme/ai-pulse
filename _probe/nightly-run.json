@@ -1,7 +1,7 @@
 {
   "date": "2026-11-10",
   "started_at": "2026-11-10 21:33Z",
-  "finished": false,
+  "finished": true,
   "cost_prev": {
     "date": "2026-11-09",
     "rows": 1,
@@ -155,6 +155,19 @@
       "status": "ok",
       "note": "rc=0",
       "at": "2026-11-10 21:35Z"
+    },
+    {
+      "id": "commit",
+      "status": "ok",
+      "note": "commit 2343f25 已推上 origin",
+      "at": "2026-11-10 21:35Z"
+    },
+    {
+      "id": "monitor",
+      "status": "ok",
+      "note": "rc=0",
+      "at": "2026-11-10 21:35Z",
+      "full_output": "pulse-monitor  2026-11-10\n  最後一次 probe: 2026-11-10（0 天前）\n  已上線=610  review=69（待處理=54／設計上擋著=15）  未 enrich=0  待處理最久=103 天（進庫天數）\n  人工判定不追=2（理由見 _dashboards/dropped.md）\n  沒收的修碼分支：0 支\n  每日精選：最後一篇 2026-11-10（0 天前）\n  潤稿鏈缺日：**量不到**——這是淺 checkout（`fetch-depth: 1`），看不到 commit 歷史。`data-refresh.yml` 要設 `fetch-depth: 0`\n  ⚠ 每日精選缺日：**2026-11-09 這 1 天沒有產出**（窗內 1 天），而前後有——「最後一次是哪一天」那個形狀看不見這種洞。先去 origin 上找那幾天的分支：最可能是那一晚做完了、push 只落在 session 自己的分支上。每日精選只寫當天、不回頭補，所以補不補是人的決定\n  夜班成本（API 等價，帳本從 2026-10-01 起）\n    近 7 天 USD 5.2713｜有金額 7 天、量不到 0 天（null 0 行）、沒有帳本行 0 天\n    近 30 天 USD 23.3144｜有金額 30 天、量不到 0 天（null 0 行）、沒有帳本行 0 天\n  ── blocker 分佈 ──\n     47  thin_research_analysis\n     11  stale_backfill\n      9  generic_entity\n      4  thin_by_policy\n      1  thin_fact\n  ── 待處理卡最久的 5 則 ──\n    [103d/已enrich] Gemini Robotics 2 brings whole body intelligence to robots\n           thin_research_analysis\n    [103d/已enrich] GPU Management: Why Idle GPUs Are the New Grounded Aircraft\n           generic_entity\n    [102d/已enrich] Investigating Incidents Cybersecurity Evals\n           thin_research_analysis\n    [101d/已enrich] Ten advances in mathematics and theoretical computer science\n           thin_fact,thin_research_analysis\n    [91d/已enrich] Thinking of ACE? We Can Do It with Fewer Tokens\n           thin_research_analysis\n  ── 覆蓋範圍（近 30 天，實有語料 31 天）──\n     必盯實體                 來源   看見   事件   上線  最後看見\n     OpenAI                2 1243   80   76  0d 前\n     Anthropic             1  443   23   20  0d 前\n     Google DeepMind       1  117    9    8  0d 前\n     Google                1  362   12   11  0d 前\n     Meta                  1  284    1    1  0d 前\n     Microsoft             1  177    1    0  0d 前\n     NVIDIA                1  573   54   50  0d 前\n     Hugging Face          1  133   13   12  0d 前\n     xAI                   1    2    3    3  8d 前\n     Mistral AI            1   10    1    1  11d 前\n     Alibaba               1    1    0    0  14d 前\n     DeepSeek              0  310    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Safe Superintelligence    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Thinking Machines Lab    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cohere                0    7    0    0  14d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Perplexity            0    2    0    0  7d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Anysphere (Cursor)    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cognition             0    1    0    0  3d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Scale AI              0  298    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Z.ai                  0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Moonshot AI           0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     MiniMax               0   63    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     ByteDance             0    1    0    0  7d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Baidu                 0    1    0    0  5d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Tencent               0    2    0    0  5d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AMD                   1   38    0    0  0d 前\n     TSMC                  0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Broadcom              0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Groq                  0    2    0    0  13d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cerebras              0    3    0    0  16d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     CoreWeave             0    4    0    0  27d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AWS                   0   49    1    1  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     可跑來源 28 條，其中 7 條本窗口零產出：src-amd-ir, src-gh-openai-codex, src-kol-thezvi, src-media-theregister, src-media-venturebeat, src-mistral-news, src-qwen-blog\n     ⚠ 來源已死但每班照樣有貨 2 條：src-kol-lilianweng（最新 2026-07-04，落後 129 天，門檻 120）、src-meta-research（最新 2023-05-17，落後 1273 天，門檻 30）\n     最新一筆 published 量不到：無\n"
     }
   ],
   "updated_at": "2026-11-10 21:35Z"
