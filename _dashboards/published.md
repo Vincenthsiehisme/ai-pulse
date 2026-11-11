@@ -1,6 +1,22 @@
-# 已發布事件（610）
+# 已發布事件（618）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-12
+- **[[Events/evt-2026-11-12-a54d53|Gilbert + Tobin rethinks the business of law with AI]]** — Gilbert + Tobin · product · conf 73 · heat 未量測
+  OpenAI 訪談澳洲律所 Gilbert + Tobin 執行長 Sam Nickless，談 AI 如何改寫法律業務。
+
+## 2026-11-11
+- **[[Events/evt-2026-11-11-0f8cda|ChatGPT Plus for veterans and servicemembers]]** — OpenAI · product · conf 73 · heat 未量測
+  超過 2 萬名退伍軍人與轉職中的現役軍人已領取一年免費 ChatGPT Plus。
+- **[[Events/evt-2026-11-11-378012|AlphaGenome 2: Deciphering how cells read DNA to better understand disease]]** — Google DeepMind · research · conf 73 · heat 未量測
+  DeepMind 發表 AlphaGenome 2，預測 DNA 序列與變異對特定人類細胞類型和疾病的影響。
+- **[[Events/evt-2026-11-11-cb9d65|How AI Helps Recyclers Turn Mixed Waste Into Reusable Material]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 介紹回收業者用視覺 AI 與機器人，從輸送帶上挑出可回收的衣物、瓶子與混合廢棄物。
+- **[[Events/evt-2026-11-11-ea65ae|BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model]]** — QVAC · model-capability · conf 73 · heat 未量測
+  QVAC 在 Hugging Face 發表 BotPsy，主打參數不到十億的裝置端代理語言模型。
+- **[[Events/evt-2026-11-11-ebc7e1|JioStar’s chief architect on AI discovery at 500M-user scale]]** — JioStar · product · conf 73 · heat 未量測
+  JioStar 首席架構師談在 5 億用戶規模下做 AI 探索，重點是評測、護欄與上線。
 
 ## 2026-11-10
 - **[[Events/evt-2026-11-10-0eaec8|Decision Models in Hugging Face]]** — Hugging Face · product · conf 73 · heat 未量測
@@ -13,10 +29,14 @@
   Anthropic 發表〈Roadshow Launch〉，本站依授權限制只放標題與連結，不轉述內文。
 - **[[Events/evt-2026-11-10-556f5b|Work at the Frontier: AI’s effect on freelance work]]** — OpenAI · research · conf 73 · heat 未量測
   OpenAI 與 Upwork 的研究指出，AI 相關自由接案需求、預算與工時都在上升。
+- **[[Events/evt-2026-11-10-6f2bea|Cogent and OpenAI build cyber defense factories for enterprises]]** — OpenAI · product · conf 73 · heat 未量測
+  Cogent 用 OpenAI 模型加企業內部脈絡，讓代理自動修補漏洞。
 - **[[Events/evt-2026-11-10-93b799|Pay for Hugging Face Hub with your Google Cloud Account]]** — Hugging Face · capital · conf 73 · heat 未量測
   Hugging Face Hub 的付費可以改用 Google Cloud 帳戶結算。
 - **[[Events/evt-2026-11-10-93f5da|Introducing Businesses in ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 推出 ChatGPT 內的 Businesses 功能，讓商家管理資訊並查看自己在 ChatGPT 的呈現。
+- **[[Events/evt-2026-11-10-b65c3c|Singapore Airlines elevates travel & work with OpenAI technology]]** — OpenAI · product · conf 73 · heat 未量測
+  新加坡航空用 OpenAI 模型與 API 改善客服等工作，Kris 聊天機器人的 CSAT 翻倍。
 - **[[Events/evt-2026-11-10-c70435|Helping caregivers use AI in everyday life]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI Academy 將在美國五座城市為照顧者辦免費 ChatGPT 實作工作坊。
 - **[[Events/evt-2026-11-10-efc0c2|NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure]]** — NVIDIA · infra · conf 73 · heat 未量測

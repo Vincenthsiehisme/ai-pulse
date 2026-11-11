@@ -1,9 +1,14 @@
 {
- "at": "2026-11-10 21:34Z",
- "date": "2026-11-10",
- "outcome": "written",
- "material": 10,
+ "at": "2026-11-11 22:24Z",
+ "date": "2026-11-11",
+ "outcome": "rejected",
+ "material": 8,
  "mode": "normal",
- "problems": [],
- "sections": 5
+ "problems": [
+  {
+   "rule": "unknown_event",
+   "where": "s3",
+   "why": "引用的事件 evt-2026-11-11-a332b2 不在今天的 worklist 裡，讀者查不到、我們也查不到"
+  }
+ ]
 }

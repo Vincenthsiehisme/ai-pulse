@@ -1,4 +1,9 @@
 {
+  "0sec-labs/0": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "d4977e04fec7",
+    "zh": "開源 AI 資安工具組，含程式碼分析、滲透測試、弱點研究、逆向與修補的網頁介面，另有 CLI 與 MCP"
+  },
   "0x4m4/hexstrike-ai": {
     "at": "2026-08-16T19:07:53+00:00",
     "src_hash": "ec8bf8d7b0af",
@@ -119,6 +124,11 @@
     "src_hash": "ecf4c3aa71f6",
     "zh": "麥麥省錢助手，基於麥當勞 MCP 的點餐成本優化 Skill，算出當前門店最省錢的點餐方案並提示湊單陷阱"
   },
+  "Bai-Cute/big-blue-fish-desktop-pet": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "b8432edafa70",
+    "zh": "Windows AI 桌寵「藍色大肥鱼」，內建 4B 本地模型，依天氣、科技新聞與目前使用的應用以文字氣泡陪伴"
+  },
   "BotHarness/DeepSeekBot": {
     "at": "2026-10-26T20:51:43+00:00",
     "src_hash": "5c0679f9aa61",
@@ -133,6 +143,11 @@
     "at": "2026-10-29T20:47:36+00:00",
     "src_hash": "210f9c986ec6",
     "zh": "在自己電腦上建 AI 電話 agent，並用 AI 來電者測試每次改動。開源，可匯入 Dialogflow CX"
+  },
+  "Cattmonkey/ChaosIntelligence": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "0a03fcd08984",
+    "zh": "把 agent 當函式、把想法寫成程式的 agent 原生函式語言，附 CLI、Web IDE 與即時 UI"
   },
   "CherryHQ/cherry-studio": {
     "at": "2026-08-07T01:27:45+00:00",
@@ -539,6 +554,11 @@
     "src_hash": "972f7fe0693e",
     "zh": "判斷照片拍攝地點的 agent skill，用地圖、地形、衛星與街景比對，並列出推理過程"
   },
+  "OmniJev/Flide": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "8d2463c05e5f",
+    "zh": "決策模型用的極速推論引擎"
+  },
   "OnyxAxisOwO/ObsidianArc": {
     "at": "2026-10-07T20:56:20+00:00",
     "src_hash": "f84824cdb3e4",
@@ -638,6 +658,11 @@
     "at": "2026-11-05T21:42:35+00:00",
     "src_hash": "c96115a1a7ac",
     "zh": "高效 RSI（遞迴自我改進）研究的統一框架"
+  },
+  "RunanywhereAI/trnrt": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "0da090c8d834",
+    "zh": "AWS Trainium 上的開源 LLM 推論引擎，支援百萬 token 上下文與 OpenAI 相容 API"
   },
   "Ryder-Sun/Meldwork": {
     "at": "2026-10-07T20:56:20+00:00",
@@ -764,6 +789,11 @@
     "src_hash": "dba0e7237da2",
     "zh": "隱私優先的 AI 會議助理，Rust 寫成，本機即時逐字稿、講者辨識與 Ollama 摘要，不需雲端"
   },
+  "Zaneris/passenger": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "107725b42cb8",
+    "zh": "用 Avalonia 做的開源 C#/.NET IDE，含除錯器、效能分析與 MCP server"
+  },
   "Zero-Mem/Zero-mem": {
     "at": "2026-10-29T20:47:36+00:00",
     "src_hash": "afce03b4790c",
@@ -778,6 +808,11 @@
     "at": "2026-11-07T19:45:30+00:00",
     "src_hash": "b2d698c9ffbe",
     "zh": "一套人設通用多個 coding agent，替換或注入 system prompt，附本機網頁控制台"
+  },
+  "Zleap-AI/SAG-Wiki": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "f9a94e6a9e12",
+    "zh": "給人和 agent 用的輕量知識庫，主打索引快、檢索準"
   },
   "Zyrexnn/Cybermes": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1048,6 +1083,11 @@
     "at": "2026-10-02T20:16:53+00:00",
     "src_hash": "f79205906053",
     "zh": "整合 IDE 的程式 agent，由 Stencil Labs 開發"
+  },
+  "capture0x/AdStrike": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "9984497dc708",
+    "zh": "AI 驅動的 Active Directory 紅隊框架，供授權滲透測試與攻擊路徑分析"
   },
   "carnot-tech/consulting-pptx-skill": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1635,9 +1675,9 @@
     "zh": "建構穩健的 agent"
   },
   "langfuse/langfuse": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "559b814b596a",
-    "zh": "開源的 agent 評測與可觀測平台，追蹤、評估並改進 LLM 應用"
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "dfb36d0d8332",
+    "zh": "開源 AI 工程平台：AI Gateway、agent 可觀測、評測與 prompt 管理"
   },
   "langgenius/dify": {
     "at": "2026-09-02T19:14:09+00:00",
@@ -1713,6 +1753,11 @@
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "bac52b59a288",
     "zh": "AI 原生 HTAP 資料庫，內建 Git-for-Data 與向量搜尋，作為智慧 agent 與應用的資料骨幹"
+  },
+  "mattabate/life-distributable": {
+    "at": "2026-11-11T22:25:07+00:00",
+    "src_hash": "6a3eec45114c",
+    "zh": "在你自己的 Mac 上全天候處理生活事務的個人 agent，對 Claude Code 說一句話就能安裝"
   },
   "mattpocock/skills": {
     "at": "2026-10-02T20:16:53+00:00",

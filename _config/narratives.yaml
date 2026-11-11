@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-11-10'
+updated: '2026-11-11'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 今天新增一則。Google DeepMind 發表 Gemini Robotics 2.5，自稱是目前能力最強的視覺語言動作模型，重點是機器人的靈巧度、可靠度與安全性，只有官方摘要，沒有基準數字。前一輪：11-09 Amazon 在 Hugging Face 發表 HOPE，標題指向混合專家模型剪枝時保留彼此相依的專家，方法與結果證據不足，待補。11-06 OpenAI 的 BioBasicsBench 用 100 項任務測 AI 代理處理日常濕實驗，沒給任何模型得分，基準由 OpenAI 自己設計。Gemini Omni 1.2 Flash 與 NVIDIA Cosmos 3 只有標題或一句介紹，沒有獨立評測。11-03 Ai2 的 StateBench 與 11-02 OpenAI 的 LifeVal 都沒給題數與成績。10-28 Gemini 4 Carbon 的榜首說法與外界反應不一致。
-    next: 看 Gemini Robotics 2.5 是否公開評測數據、開放外部團隊試用，以及有沒有第三方重現；看 HOPE 的剪枝比例、基準分數與是否釋出程式碼；看 BioBasicsBench 的任務集是否開放、其他實驗室的得分；看 StateBench 與 LifeVal 是否公開題目與排行榜；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首的驗證。
+    now: 今天新增兩則。DeepMind 的 AlphaGenome 2 預測 DNA 序列與變異對特定人類細胞類型和疾病的影響，摘要沒有基準數字，也沒說與前一版差在哪。QVAC 在 Hugging Face 發表 BotPsy，標題主打十億參數以下的裝置端代理模型，來源只有一句作者說明，沒有內文，證據不足，待補。前一輪：11-09 Amazon 的 HOPE 談混合專家模型剪枝時保留彼此相依的專家，方法與結果未知。同日 DeepMind 的 Gemini Robotics 2.5 自稱最強視覺語言動作模型，沒有基準數字。11-06 OpenAI 的 BioBasicsBench 用 100 項任務測代理處理濕實驗數據，沒給任何模型得分，基準由 OpenAI 自己設計。11-03 Ai2 的 StateBench 與 11-02 OpenAI 的 LifeVal 都沒給題數與成績。10-28 Gemini 4 Carbon 的榜首說法與外界反應不一致。
+    next: 看 AlphaGenome 2 是否釋出論文與基準對比、是否開放研究者使用；看 BotPsy 的權重是否公開，以及工具呼叫基準與實機延遲；看 Gemini Robotics 2.5 是否公開評測數據與第三方重現；看 HOPE 的剪枝比例、基準分數與是否釋出程式碼；看 StateBench 與 LifeVal 是否公開題目與排行榜；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首的驗證。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 今天新增七則，多半是廠商自述。OpenAI 與 Upwork 的研究指出 AI 相關自由接案的預算與工時都在上升，數字摘要沒給，且 OpenAI 是共同作者。OpenAI 推出 ChatGPT 內的 Businesses 功能，讓商家管理資訊並查看自己在 ChatGPT 的呈現，是否收費、如何排序沒寫。Hugging Face Hub 的付費可改用 Google Cloud 帳戶結算。OpenAI 發表教育指引研究，並在美國五城辦照顧者工作坊。Hugging Face 的 Decision Models 摘要沒有內容，證據不足，待補。Anthropic 的〈Roadshow Launch〉依授權只放標題與連結。11-09 的 Kuken Industries 案例把找圖時間從近一小時降到 4.5 分鐘，ChatGPT Enterprise 上架 AWS Marketplace，價格與抵用承諾額度沒寫。
-    next: 看 Businesses 是否公布排序規則、收費或廣告機制；看 Upwork 研究的方法與樣本，以及獨立研究是否得到相近結果；看 AWS Marketplace 與 Google Cloud Marketplace 的定價與抵扣條件；看 Kuken 是否公布檢索準確率；看 Roadshow Launch 原文有沒有可驗證的產品或時程訊息。
+    now: 今天新增四則，全是單一來源的廠商自述。新加坡航空說 Kris 聊天機器人的 CSAT 翻倍，沒有絕對值。OpenAI 說逾 20,000 名退伍軍人與轉職軍人領了一年免費 ChatGPT Plus，是領取數不是續用數。NVIDIA 說視覺 AI 與機器人讓數千噸回收材料免於掩埋，沒有時間範圍與業者名稱。JioStar 與 Gilbert + Tobin 兩則訪談只有主題，沒有成效數字，證據不足，待補。前一輪：OpenAI 與 Upwork 的研究指出 AI 相關自由接案的預算與工時上升，OpenAI 是共同作者。OpenAI 的 ChatGPT Businesses 讓商家查看自己在 ChatGPT 的呈現，是否收費、如何排序沒寫。ChatGPT Enterprise 上架 AWS Marketplace，價格與抵用承諾額度沒寫。Anthropic 的〈Roadshow Launch〉依授權只放標題與連結。
+    next: 看新航是否補上 CSAT 絕對值與處理量；看免費方案是否擴到其他族群，或公布領取者的續訂情況；看 Businesses 是否公布排序規則、收費或廣告機制；看 Upwork 研究的方法與樣本，以及獨立研究是否得到相近結果；看 AWS Marketplace 與 Google Cloud Marketplace 的定價與抵扣條件；看 Roadshow Launch 原文有沒有可驗證的產品或時程訊息。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -59,8 +59,8 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 今天新增一則。DeepMind 的 AlphaProof Code 代理用 Lean 寫了三百萬行證明，用來驗證 Signal 的核心加密。DeepMind 部落格與 Hacker News 指向同一個網址，實質上仍是單一來源，證明涵蓋範圍摘要沒寫。前一輪：11-09 OpenAI 發布 CodeRabbit 客戶案例，用 Codex 讓同一團隊出貨 20 倍，計算口徑與時間範圍沒給，屬廠商自述。11-05 兩則 OpenAI 客戶案例（Cult.fit、Merge）沒有具體清單或效率數字。11-04 OpenAI 的自動化流程在 Linux 核心找到並修補 948 個本機提權漏洞，誤報率與上游採納數量沒有。
-    next: 看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果，以及證明庫與流程是否公開；看 CodeRabbit 是否公布出貨量與缺陷率的對照；看 Linux 核心上游是否合併那批修補，以及誤報率。
+    now: 今天新增一則。Cogent 把 OpenAI 模型和企業內部脈絡結合，讓代理自動修補漏洞，是 OpenAI 部落格的客戶案例，摘要沒有客戶數、修補量或成效數字，也沒說修補是只給建議還是直接上線。前一輪：11-10 DeepMind 的 AlphaProof Code 用 Lean 寫了三百萬行證明來驗證 Signal 的核心加密，證明涵蓋範圍摘要沒寫。11-09 OpenAI 的 CodeRabbit 案例說用 Codex 讓同一批工程師出貨 20 倍，計算口徑與時間範圍沒給，屬廠商自述。11-05 Cult.fit 與 Merge 兩則 OpenAI 客戶案例沒有具體清單或效率數字。11-04 OpenAI 的自動化流程在 Linux 核心找到並驗證 948 個本機提權漏洞，誤報率與上游採納數量沒有。
+    next: 看 Cogent 或客戶是否公布修補成功率與誤修率；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果，以及證明庫是否公開；看 CodeRabbit 是否公布出貨量與缺陷率的對照；看 Linux 核心上游是否合併那批修補，以及誤報率。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。

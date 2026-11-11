@@ -1,12 +1,8 @@
-# 被門禁擋下（78）
+# 被門禁擋下（70）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-11-11-0f8cda|ChatGPT Plus for veterans and servicemembers]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-11-ea65ae|BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agen]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-11-ebc7e1|JioStar’s chief architect on AI discovery at 500M-user scale]]** — Scale AI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-10-6f2bea|Cogent and OpenAI build cyber defense factories for enterprises]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-10-b65c3c|Singapore Airlines elevates travel & work with OpenAI technology]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-11-a332b2|Token Pooling-Aware Training for Multi-Vector Embedding Models]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-09-88f821|Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-06-71da0a|ToyBlocks: A controlled world for robot learning and evaluation]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-03-f8ea3f|Palette: teaching a small model to build decks in your design language]]** — IBM Research — blockers: thin_research_analysis
@@ -67,10 +63,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-11-12-a54d53|Gilbert + Tobin rethinks the business of law with AI]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-11-378012|AlphaGenome 2: Deciphering how cells read DNA to better understand dis]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-11-a332b2|Token Pooling-Aware Training for Multi-Vector Embedding Models]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-11-cb9d65|How AI Helps Recyclers Turn Mixed Waste Into Reusable Material]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
