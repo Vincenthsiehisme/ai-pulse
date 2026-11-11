@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-10'
+generated_day: '2026-11-11'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**106 天**（2026-07-24 … 2026-11-10），去重後 **6976** 列。
+語料範圍：**107 天**（2026-07-24 … 2026-11-11），去重後 **7051** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,15 +17,15 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 220 | 2 |
+| Show HN | 222 | 2 |
 | Apple | 163 | 6 |
-| Amazon | 104 | 5 |
+| Amazon | 105 | 5 |
 | LLMs | 68 | 13 |
 | September | 67 | 8 |
-| Here | 65 | 9 |
-| There | 65 | 9 |
+| Here | 66 | 9 |
+| There | 66 | 9 |
 | They | 61 | 9 |
-| LLM | 60 | 12 |
+| LLM | 61 | 12 |
 | Muse | 55 | 6 |
 | October | 53 | 8 |
 | After | 51 | 6 |
@@ -33,44 +33,44 @@ generator: scripts/pulse-dictionary-gaps.py
 | CEO | 50 | 5 |
 | One | 49 | 10 |
 | Pro | 49 | 8 |
-| Python | 47 | 5 |
-| U.S | 47 | 8 |
-| San Francisco | 45 | 9 |
-| When | 44 | 12 |
-| AI-powered | 41 | 10 |
+| Python | 48 | 5 |
+| U.S | 48 | 8 |
+| San Francisco | 46 | 9 |
+| When | 45 | 12 |
+| AI-powered | 42 | 10 |
+| November | 42 | 6 |
 | Android | 40 | 4 |
 | July | 39 | 9 |
 | China | 39 | 8 |
+| With | 39 | 10 |
 | Linux | 39 | 6 |
-| November | 39 | 6 |
-| With | 38 | 10 |
+| Chinese | 36 | 8 |
 | Last | 36 | 7 |
-| Chinese | 35 | 8 |
+| Rust | 35 | 3 |
 | AI-generated | 35 | 9 |
 | Windows | 35 | 5 |
-| Rust | 34 | 3 |
 | Astra | 34 | 6 |
 | August | 33 | 8 |
+| IPO | 33 | 7 |
 | June | 32 | 7 |
 | Research | 32 | 6 |
 | These | 32 | 8 |
-| IPO | 32 | 7 |
+| API | 32 | 6 |
 | Learn | 31 | 6 |
 | Europe | 30 | 8 |
 | Building | 29 | 12 |
-| API | 29 | 6 |
 | Samsung | 29 | 5 |
-| Wednesday | 26 | 5 |
+| Wednesday | 28 | 5 |
+| Pixel | 27 | 3 |
 | Tuesday | 26 | 6 |
 | Opus | 26 | 6 |
+| Fable | 26 | 6 |
 | Elon Musk | 26 | 5 |
 | SpaceX | 26 | 5 |
 | While | 26 | 4 |
-| Pixel | 26 | 3 |
-| Fable | 25 | 6 |
+| Monday | 25 | 4 |
 | Xbox | 25 | 2 |
 | Thursday | 24 | 5 |
-| Monday | 24 | 4 |
 | Mac | 24 | 4 |
 | According | 24 | 4 |
 | YouTube | 24 | 7 |
@@ -87,13 +87,13 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 80 | src-media-mit-techreview |
+| The Download | 81 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 42 | src-kol-simonwillison |
 | Register | 32 | src-media-techcrunch |
-| Hi HN | 30 | src-hn-frontpage |
+| Hi HN | 31 | src-hn-frontpage |
+| Launch HN | 27 | src-hn-frontpage |
 | A Blog | 27 | src-hf-blog |
-| Launch HN | 26 | src-hn-frontpage |
 | MIT Technology Review | 24 | src-media-mit-techreview |
 | Opt | 23 | src-media-theverge |
 | The Verge | 22 | src-media-theverge |

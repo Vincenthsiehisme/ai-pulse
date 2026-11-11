@@ -3,19 +3,20 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-10'
+generated_day: '2026-11-11'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **33** 則：`published` 25、`review` 8
+事件 **34** 則：`published` 27、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-10 | [[Events/evt-2026-11-10-93b799\|Pay for Hugging Face Hub with your Google Cloud Account]] | review |
-| 2026-11-10 | [[Events/evt-2026-11-10-0eaec8\|Decision Models in Hugging Face]] | review |
+| 2026-11-11 | [[Events/evt-2026-11-11-ea65ae\|BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-93b799\|Pay for Hugging Face Hub with your Google Cloud Account]] | published |
+| 2026-11-10 | [[Events/evt-2026-11-10-0eaec8\|Decision Models in Hugging Face]] | published |
 | 2026-11-06 | [[Events/evt-2026-11-06-786420\|Egyptian and Nigerian English join the Open ASR Leaderboard]] | published |
 | 2026-11-04 | [[Events/evt-2026-11-04-b05a2c\|Dharma Field Extractor: Any Document In, Structured Fields in JSON Out]] | published |
 | 2026-11-03 | [[Events/evt-2026-11-03-1cfb29\|Transformers Model Integration Contracts]] | published |

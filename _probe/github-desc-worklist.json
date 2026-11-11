@@ -1,11 +1,18 @@
 [
   {
-    "full_name": "janestreet/agent_skills",
-    "desc": "Agent skills",
-    "language": "",
-    "topics": [],
-    "stars": 3660,
-    "url": "https://github.com/janestreet/agent_skills",
+    "full_name": "RunanywhereAI/trnrt",
+    "desc": "The open LLM inference engine for AWS Trainium: NKI megakernels, 1M-token context, OpenAI-compatible API. By RunAnywhere.",
+    "language": "Python",
+    "topics": [
+      "aws",
+      "glm",
+      "inference",
+      "llm",
+      "llm-serving",
+      "megakernels"
+    ],
+    "stars": 1319,
+    "url": "https://github.com/RunanywhereAI/trnrt",
     "stale_zh": null
   },
   {
@@ -20,120 +27,136 @@
       "ide",
       "mcp"
     ],
-    "stars": 478,
+    "stars": 533,
     "url": "https://github.com/Zaneris/passenger",
     "stale_zh": null
   },
   {
-    "full_name": "ngocanhnckh/renderlint",
-    "desc": "Lint the rendered UI: catches overflowing text, low contrast, overlaps, broken responsive layouts, emoji icons and more in any web framework. Built for AI coding agents.",
-    "language": "JavaScript",
+    "full_name": "Zleap-AI/SAG-Wiki",
+    "desc": "A lightweight knowledge base for people and agents, with ultra fast indexing and most precise retrieval.",
+    "language": "Rust",
     "topics": [
-      "accessibility",
-      "ai-agents",
-      "claude-code",
-      "contrast",
-      "frontend",
-      "linter"
+      "knowledge-base",
+      "knowledge-graph",
+      "rag",
+      "rust",
+      "sag",
+      "sag-wiki"
     ],
-    "stars": 340,
-    "url": "https://github.com/ngocanhnckh/renderlint",
+    "stars": 1048,
+    "url": "https://github.com/Zleap-AI/SAG-Wiki",
     "stale_zh": null
   },
   {
-    "full_name": "NiazMorshed2007/reanimate",
-    "desc": "A Claude Code skill that reverse-engineers any animation frame by frame, then proves the copy moves the same.",
-    "language": "JavaScript",
+    "full_name": "OmniJev/Flide",
+    "desc": "🔥🔥 The extremely fast inference engine for decision model",
+    "language": "Python",
     "topics": [
-      "agent-skills",
-      "animation",
-      "claude-code",
-      "claude-skills",
-      "frontend",
-      "motion"
+      "ai-agents",
+      "cuda",
+      "decision-making",
+      "deterministic-inference",
+      "gemma",
+      "inference-engine"
     ],
-    "stars": 1533,
-    "url": "https://github.com/NiazMorshed2007/reanimate",
+    "stars": 445,
+    "url": "https://github.com/OmniJev/Flide",
     "stale_zh": null
   },
   {
-    "full_name": "kuafuai/andee",
-    "desc": "Andee lives on your phone or Mac and uses any app like you do—no integrations, no root, any model; memory and passwords never leave your device | Andee 住进你的手机或 Mac，像你一样操作任何 App——无需集成、无需 Root、支持任意模型，记忆和密码绝不离开设备。",
-    "language": "Kotlin",
+    "full_name": "0sec-labs/0",
+    "desc": "The open-source AI security harness. Includes a web interface for code analysis, pentesting, vulnerability research, reverse engineering, verification, and fixing + CLI and MCP for agents.",
+    "language": "TypeScript",
     "topics": [
-      "agent",
-      "ai",
       "ai-agents",
-      "android-automation",
-      "mobile-agents",
-      "personal-agent"
+      "application-security",
+      "binary-analysis",
+      "code-review",
+      "cybersecurity",
+      "llm-agents"
     ],
-    "stars": 4400,
-    "url": "https://github.com/kuafuai/andee",
-    "stale_zh": "住進手機或 Mac 裡，像人一樣操作任何 app，不用整合、不用 root，記憶與密碼不離開裝置"
+    "stars": 1305,
+    "url": "https://github.com/0sec-labs/0",
+    "stale_zh": null
   },
   {
-    "full_name": "Anil-matcha/suparagent",
-    "desc": "Open-source, self-hosted alternative to Grok Bot, Claude Duet, OpenAI Dots, Meta Muse, Instinct, Manus Cue: AI coworkers (named agents) with instructions, memory, routines, their own isolated computer, and your approval before they act.",
+    "full_name": "Bai-Cute/big-blue-fish-desktop-pet",
+    "desc": "蓝色大肥鱼 Windows AI 桌宠，内置 4B 本地大模型，以鲸鱼娘人设结合天气、科技新闻和当前应用，通过文字气泡温柔陪伴。支持一键安装与离电暂停推理。Big Blue Fish desktop pet with local LLM.",
+    "language": "C#",
+    "topics": [
+      "ai-companion",
+      "big-blue-fish",
+      "deepseek",
+      "desktop-companion",
+      "desktop-pet",
+      "dotnet"
+    ],
+    "stars": 314,
+    "url": "https://github.com/Bai-Cute/big-blue-fish-desktop-pet",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Cattmonkey/ChaosIntelligence",
+    "desc": "把智能体当函数，把想法写成程序。Agent-native functional language with a CLI, Web IDE, goal-driven bots and live UI. Source-available; no AI training.",
     "language": "Python",
     "topics": [
       "agentic-ai",
-      "ai-agent",
-      "ai-assistant",
-      "ai-coworker",
-      "ai-employees",
-      "ai-workspace"
+      "ai-agents",
+      "cli",
+      "developer-tools",
+      "functional-programming",
+      "generative-ui"
     ],
-    "stars": 7002,
-    "url": "https://github.com/Anil-matcha/suparagent",
+    "stars": 392,
+    "url": "https://github.com/Cattmonkey/ChaosIntelligence",
     "stale_zh": null
   },
   {
-    "full_name": "PrefectHQ/fastmcp",
-    "desc": "🚀 The fast, Pythonic way to build MCP servers and clients.",
-    "language": "Python",
+    "full_name": "mattabate/life-distributable",
+    "desc": "A personal agent that works on your life around the clock, on a Mac you own. One sentence to Claude Code installs it.",
+    "language": "Go",
     "topics": [
-      "agents",
-      "fastmcp",
-      "llms",
-      "mcp",
-      "mcp-clients",
-      "mcp-servers"
+      "agent-swarm",
+      "agentic-ai",
+      "ai-agents",
+      "ai-assistants",
+      "ai-enablement",
+      "ai-swarm"
     ],
-    "stars": 28372,
-    "url": "https://github.com/PrefectHQ/fastmcp",
+    "stars": 381,
+    "url": "https://github.com/mattabate/life-distributable",
     "stale_zh": null
   },
   {
-    "full_name": "datamllab/OpenEBFM",
-    "desc": "Open-source code for training and scaling up energy-based foundation models.",
-    "language": "Python",
-    "topics": [
-      "ai",
-      "climbmix",
-      "dclm",
-      "energy-based-generation",
-      "energy-based-language-models",
-      "energy-based-models"
-    ],
-    "stars": 328,
-    "url": "https://github.com/datamllab/OpenEBFM",
-    "stale_zh": null
-  },
-  {
-    "full_name": "lobehub/lobehub",
-    "desc": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every week.",
+    "full_name": "langfuse/langfuse",
+    "desc": "🪢 Open source AI engineering platform: AI Gateway, agent observability, evals, and prompt/skill management, built on OpenTelemetry. One open platform for every AI call and every agent. Self-host or use Langfuse Cloud.",
     "language": "TypeScript",
     "topics": [
-      "agent",
-      "agent-collaboration",
-      "agent-harness",
-      "loop-engineering",
-      "mcp",
-      "personal-assistant"
+      "ai-gateway",
+      "analytics",
+      "evaluation",
+      "gateway",
+      "langchain",
+      "large-language-models"
     ],
-    "stars": 84859,
-    "url": "https://github.com/lobehub/lobehub",
-    "stale_zh": "用來編制 agent 團隊的平台，負責雇用、排程並回報，讓 agent 全天候運作"
+    "stars": 37317,
+    "url": "https://github.com/langfuse/langfuse",
+    "stale_zh": "開源的 agent 評測與可觀測平台，追蹤、評估並改進 LLM 應用"
+  },
+  {
+    "full_name": "capture0x/AdStrike",
+    "desc": "AI-powered modular Active Directory red-team framework for authorized penetration testing, AD enumeration, attack-path analysis,   Kerberos/ADCS workflows, reporting, operator automation, and MCP server integration.",
+    "language": "Python",
+    "topics": [
+      "active-directory",
+      "active-directory-exploitation",
+      "active-directory-security",
+      "ad-agent",
+      "ad-attack",
+      "ad-attack-paths"
+    ],
+    "stars": 442,
+    "url": "https://github.com/capture0x/AdStrike",
+    "stale_zh": null
   }
 ]

@@ -3,18 +3,19 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-11-10'
+generated_day: '2026-11-11'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **32** 則：`published` 25、`review` 7
+事件 **33** 則：`published` 27、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-09 | [[Events/evt-2026-11-09-add137\|Gemini Robotics 2.5 accelerates real-world general dexterity]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-2c86c2\|Introducing AlphaProof Code: a breakthrough in verifying complex software at depth]] | published |
+| 2026-11-09 | [[Events/evt-2026-11-09-add137\|Gemini Robotics 2.5 accelerates real-world general dexterity]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-0c6558\|Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips]] | published |
 | 2026-10-30 | [[Events/evt-2026-10-30-4f5a97\|Speeding up planning decisions with AI]] | published |
 | 2026-10-28 | [[Events/evt-2026-10-28-fa1a68\|Gemini 4 Carbon: Our next frontier model]] | published |
