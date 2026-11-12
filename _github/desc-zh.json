@@ -1399,6 +1399,11 @@
     "src_hash": "00bde8fff964",
     "zh": "GitHub 官方 MCP Server"
   },
+  "gogoymh/auto-ontology-mcp": {
+    "at": "2026-11-12T22:01:23+00:00",
+    "src_hash": "cdb94b26566c",
+    "zh": "NVIDIA Auto Ontology 語意層加個人知識庫，做成 MCP server，免 LLM API key"
+  },
   "google-gemini/gemini-cli": {
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "aae307cecf19",
@@ -1908,6 +1913,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "5930308b3e42",
     "zh": "Fair-code 工作流程自動化平台，內建 AI 功能，可視覺化搭建也能寫程式，支援自架或雲端，400 多個整合"
+  },
+  "n8n-io/nod": {
+    "at": "2026-11-12T22:01:23+00:00",
+    "src_hash": "af3a3b0c1557",
+    "zh": "開源個人代理，有自己的電腦，會追發票、準備通話、取消試用，動手前先問你。跑在你的機器上，模型自選"
   },
   "nanaism/yomiyasu": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -2459,6 +2469,11 @@
     "src_hash": "2df0c5090dd9",
     "zh": "agent skill，把想法、計畫或程式碼轉成可互動的架構圖"
   },
+  "uclanlp/OpenVLHarness": {
+    "at": "2026-11-12T22:01:23+00:00",
+    "src_hash": "5971e9f91fae",
+    "zh": "OpenVLHarness 官方程式碼：具多模態記憶、處理真實世界視覺任務的代理工具使用"
+  },
   "udhaykumarbala/cleanyourtv-app": {
     "at": "2026-11-04T21:40:11+00:00",
     "src_hash": "1e46038cd843",
@@ -2628,6 +2643,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "436b76437fe1",
     "zh": "LLM 全端學習路線與中文教程，涵蓋 RAG、Agent、MCP、微調與部署"
+  },
+  "zenstory-ai/novel-to-game": {
+    "at": "2026-11-12T22:01:23+00:00",
+    "src_hash": "efb7751f1c25",
+    "zh": "把小說改編成可玩遊戲的 AI skill 合集，含企劃、程式碼與實機驗收"
   },
   "zeronsh/zeron": {
     "at": "2026-10-03T18:55:46+00:00",

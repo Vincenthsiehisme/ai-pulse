@@ -1,13 +1,7 @@
-# 被門禁擋下（77）
+# 被門禁擋下（70）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-11-12-387d4d|A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-12-3c4ee7|LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-12-803a22|How Amplitude ships product improvements in 1–2 days with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-12-9317df|Claude 4]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
-- **[[Events/evt-2026-11-12-950a8b|Holiday Extras is rethinking what it can build with Codex]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-12-afd9d6|Supporting research on AI and children’s safety]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-11-a332b2|Token Pooling-Aware Training for Multi-Vector Embedding Models]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-09-88f821|Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-06-71da0a|ToyBlocks: A controlled world for robot learning and evaluation]]** — Ai2 — blockers: thin_research_analysis
@@ -69,7 +63,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-11-12-b58850|The Definitive Fine-Tuning Guide for 3D Generation Models]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity

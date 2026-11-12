@@ -1,10 +1,24 @@
-# 已發布事件（618）
+# 已發布事件（625）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
 ## 2026-11-12
+- **[[Events/evt-2026-11-12-387d4d|A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  《戰鎚 40,000：戰爭黎明 IV》將上 GeForce NOW，DLSS 5 也要進兩款遊戲。
+- **[[Events/evt-2026-11-12-3c4ee7|LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B]]** — IBM · model-capability · conf 73 · heat 未量測
+  IBM Granite 4.1 的 3B 與 8B 模型內建 LLMON，一種為 LLM 設計的標記語言。
+- **[[Events/evt-2026-11-12-803a22|How Amplitude ships product improvements in 1–2 days with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  Amplitude 用 OpenAI 模型做出產品代理 Wave，宣稱改善可在 1 到 2 天內上線。
+- **[[Events/evt-2026-11-12-9317df|Claude 4]]** — Anthropic · model-capability · conf 73 · heat 未量測
+  Anthropic 發布 Claude 4，我們依授權限制只列標題與連結。
+- **[[Events/evt-2026-11-12-950a8b|Holiday Extras is rethinking what it can build with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  旅遊服務商 Holiday Extras 用 Codex 開發應用，OpenAI 稱訂房轉換率因此提高。
 - **[[Events/evt-2026-11-12-a54d53|Gilbert + Tobin rethinks the business of law with AI]]** — Gilbert + Tobin · product · conf 73 · heat 未量測
   OpenAI 訪談澳洲律所 Gilbert + Tobin 執行長 Sam Nickless，談 AI 如何改寫法律業務。
+- **[[Events/evt-2026-11-12-afd9d6|Supporting research on AI and children’s safety]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 出資 200 萬美元，支持 AI 與兒少安全的研究。
+- **[[Events/evt-2026-11-12-b58850|The Definitive Fine-Tuning Guide for 3D Generation Models]]** — Hugging Face · research · conf 73 · heat 未量測
+  Hugging Face 發布 3D 生成模型的 LoRA 微調指南。
 
 ## 2026-11-11
 - **[[Events/evt-2026-11-11-0f8cda|ChatGPT Plus for veterans and servicemembers]]** — OpenAI · product · conf 73 · heat 未量測
