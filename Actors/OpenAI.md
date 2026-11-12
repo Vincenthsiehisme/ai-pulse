@@ -3,22 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-11'
+generated_day: '2026-11-12'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **229** 則：`published` 219、`review` 10
+事件 **232** 則：`published` 222、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-11 | [[Events/evt-2026-11-11-0f8cda\|ChatGPT Plus for veterans and servicemembers]] | review |
+| 2026-11-12 | [[Events/evt-2026-11-12-afd9d6\|Supporting research on AI and children’s safety]] | review |
+| 2026-11-12 | [[Events/evt-2026-11-12-950a8b\|Holiday Extras is rethinking what it can build with Codex]] | review |
+| 2026-11-12 | [[Events/evt-2026-11-12-803a22\|How Amplitude ships product improvements in 1–2 days with OpenAI]] | review |
+| 2026-11-11 | [[Events/evt-2026-11-11-0f8cda\|ChatGPT Plus for veterans and servicemembers]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-c70435\|Helping caregivers use AI in everyday life]] | published |
-| 2026-11-10 | [[Events/evt-2026-11-10-b65c3c\|Singapore Airlines elevates travel & work with OpenAI technology]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-b65c3c\|Singapore Airlines elevates travel & work with OpenAI technology]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-93f5da\|Introducing Businesses in ChatGPT]] | published |
-| 2026-11-10 | [[Events/evt-2026-11-10-6f2bea\|Cogent and OpenAI build cyber defense factories for enterprises]] | review |
+| 2026-11-10 | [[Events/evt-2026-11-10-6f2bea\|Cogent and OpenAI build cyber defense factories for enterprises]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-556f5b\|Work at the Frontier: AI’s effect on freelance work]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-0ec7d4\|Closing the AI guidance gap in education]] | published |
 | 2026-11-09 | [[Events/evt-2026-11-09-c8f352\|Control Room: A central system to track and stop model workloads across our research infrastructure]] | published |

@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-11"
+generated_day: "2026-11-12"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-11"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **596** 則／已裁決 **26** 則。
+待回答 **604** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -27,22 +27,22 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`infra-cost#7d45278b`** — infra-cost
   > 看 OpenShell 是否進入 CNCF 等中立基金會、有哪些專案採用；看 Dynamo 配方公布的實測吞吐量與四款模型的部署案例；看 OpenAI 是否公布 Control Room 的實際停機事件；看 Hacktron 合作是否發布測試結果。
 
-- **`model-research#04ec9eb3`** — model-research
-  > 看 Gemini Robotics 2.5 是否公開評測數據、開放外部團隊試用，以及有沒有第三方重現；看 HOPE 的剪枝比例、基準分數與是否釋出程式碼；看 BioBasicsBench 的任務集是否開放、其他實驗室的得分；看 StateBench 與 LifeVal 是否公開題目與排行榜；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首的驗證。
+- **`model-research#5d822428`** — model-research
+  > 看 AlphaGenome 2 是否釋出論文與基準對比、是否開放研究者使用；看 BotPsy 的權重是否公開，以及工具呼叫基準與實機延遲；看 Gemini Robotics 2.5 是否公開評測數據與第三方重現；看 HOPE 的剪枝比例、基準分數與是否釋出程式碼；看 StateBench 與 LifeVal 是否公開題目與排行榜；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首的驗證。
 
-- **`product-market#586331cc`** — product-market
-  > 看 Businesses 是否公布排序規則、收費或廣告機制；看 Upwork 研究的方法與樣本，以及獨立研究是否得到相近結果；看 AWS Marketplace 與 Google Cloud Marketplace 的定價與抵扣條件；看 Kuken 是否公布檢索準確率；看 Roadshow Launch 原文有沒有可驗證的產品或時程訊息。
+- **`product-market#23f8d7ba`** — product-market
+  > 看新航是否補上 CSAT 絕對值與處理量；看免費方案是否擴到其他族群，或公布領取者的續訂情況；看 Businesses 是否公布排序規則、收費或廣告機制；看 Upwork 研究的方法與樣本，以及獨立研究是否得到相近結果；看 AWS Marketplace 與 Google Cloud Marketplace 的定價與抵扣條件；看 Roadshow Launch 原文有沒有可驗證的產品或時程訊息。
 
 - **`capital-evolution#1645c047`** — capital-evolution
   > 看 NVIDIA 或被投資新創公開具體投資對象與金額；讀 Long Term Benefit Trust 原文，看治理安排是否有後續公告；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併；看 OpenAI 與 Orchestra Bio 是否公布交易條件。
 
-- **`agent-refactor#80532ba5`** — agent-refactor
-  > 看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果，以及證明庫與流程是否公開；看 CodeRabbit 是否公布出貨量與缺陷率的對照；看 Linux 核心上游是否合併那批修補，以及誤報率。
+- **`agent-refactor#b57b48cf`** — agent-refactor
+  > 看 Cogent 或客戶是否公布修補成功率與誤修率；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果，以及證明庫是否公開；看 CodeRabbit 是否公布出貨量與缺陷率的對照；看 Linux 核心上游是否合併那批修補，以及誤報率。
 
 - **`global-map#46c75c80`** — global-map
   > 看韓國合作公布 NPU 與 XPU 共同開發的時程與參與的韓國晶片業者；看現代集團或其他韓國業者公布 NemoClaw、OpenShell 的實際部署範圍；看 Nemotron-Personas-Finance-Japan 的下載數與日本金融任務上的第三方使用；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率；看 ProtoStar 首批資料集上線時間；看有沒有具名的歐洲政府機關公開採用開放模型。
 
-## 事件層（590）
+## 事件層（598）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1802,14 +1802,38 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-11-10-556f5b#b1e560ef`** — evt-2026-11-10-556f5b
   > 看報告是否公布方法與樣本，以及其他平台或獨立研究是否得到相近結果。
 
+- **`evt-2026-11-10-6f2bea#569f9b9e`** — evt-2026-11-10-6f2bea
+  > Cogent 或客戶是否公布修補成功率、誤修率，或有哪些企業實際導入。
+
 - **`evt-2026-11-10-93b799#f3f9650a`** — evt-2026-11-10-93b799
   > 看 Marketplace 上架的方案內容、是否可折抵 Google Cloud 承諾額度，以及其他雲端是否跟進。
 
 - **`evt-2026-11-10-93f5da#8a22f6ed`** — evt-2026-11-10-93f5da
   > 看是否公布排序規則、是否收費或有廣告機制，以及開放的地區與商家類型。
 
+- **`evt-2026-11-10-b65c3c#bfed312a`** — evt-2026-11-10-b65c3c
+  > 新航或 OpenAI 是否補上 CSAT 絕對值、處理量或轉人工比例。
+
 - **`evt-2026-11-10-c70435#e1803344`** — evt-2026-11-10-c70435
   > 看是否擴大城市數量或推出線上版本，以及是否公布參與人數與成果。
 
 - **`evt-2026-11-10-efc0c2#ce7c998d`** — evt-2026-11-10-efc0c2
   > 看 OpenShell 是否進入 CNCF 等中立基金會、有哪些專案採用，以及 NVIDIA 之後的維護投入。
+
+- **`evt-2026-11-11-0f8cda#50293344`** — evt-2026-11-11-0f8cda
+  > OpenAI 是否把同類免費方案擴到其他族群，或公布領取者的續訂與使用情況。
+
+- **`evt-2026-11-11-378012#90fcbaa8`** — evt-2026-11-11-378012
+  > 是否釋出論文、基準對比，以及模型或 API 是否開放研究者使用。
+
+- **`evt-2026-11-11-cb9d65#e88d5819`** — evt-2026-11-11-cb9d65
+  > 是否出現具名業者的處理量、分選準確率或單位成本數字。
+
+- **`evt-2026-11-11-ea65ae#12924c7a`** — evt-2026-11-11-ea65ae
+  > 模型權重是否開放，以及工具呼叫基準與實機延遲數字。
+
+- **`evt-2026-11-11-ebc7e1#35eba442`** — evt-2026-11-11-ebc7e1
+  > JioStar 是否公布探索功能的點擊、留存等成效，或具體的評測做法。
+
+- **`evt-2026-11-12-a54d53#32d7a0b0`** — evt-2026-11-12-a54d53
+  > 是否公布導入範圍（哪些業務線）與對計費模式或人力配置的影響。

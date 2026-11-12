@@ -3,7 +3,7 @@ id: actor-coreweave
 kind: company
 in_dictionary: true
 aliases: []
-generated_day: '2026-11-11'
+generated_day: '2026-11-12'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

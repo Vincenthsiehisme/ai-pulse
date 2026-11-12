@@ -3,18 +3,19 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-11'
+generated_day: '2026-11-12'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **34** 則：`published` 27、`review` 7
+事件 **35** 則：`published` 27、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-11 | [[Events/evt-2026-11-11-ea65ae\|BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model]] | review |
+| 2026-11-12 | [[Events/evt-2026-11-12-3c4ee7\|LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B]] | review |
+| 2026-11-11 | [[Events/evt-2026-11-11-a332b2\|Token Pooling-Aware Training for Multi-Vector Embedding Models]] | review |
 | 2026-11-10 | [[Events/evt-2026-11-10-93b799\|Pay for Hugging Face Hub with your Google Cloud Account]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-0eaec8\|Decision Models in Hugging Face]] | published |
 | 2026-11-06 | [[Events/evt-2026-11-06-786420\|Egyptian and Nigerian English join the Open ASR Leaderboard]] | published |

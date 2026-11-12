@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-11'
+generated_day: '2026-11-12'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**107 天**（2026-07-24 … 2026-11-11），去重後 **7051** 列。
+語料範圍：**108 天**（2026-07-24 … 2026-11-12），去重後 **7126** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,66 +17,66 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 222 | 2 |
-| Apple | 163 | 6 |
-| Amazon | 105 | 5 |
-| LLMs | 68 | 13 |
+| Show HN | 225 | 2 |
+| Apple | 164 | 6 |
+| Amazon | 106 | 5 |
+| LLMs | 69 | 13 |
+| Here | 68 | 9 |
+| There | 68 | 9 |
 | September | 67 | 8 |
-| Here | 66 | 9 |
-| There | 66 | 9 |
 | They | 61 | 9 |
 | LLM | 61 | 12 |
+| CEO | 55 | 5 |
 | Muse | 55 | 6 |
 | October | 53 | 8 |
-| After | 51 | 6 |
-| Trump | 50 | 5 |
-| CEO | 50 | 5 |
+| After | 52 | 6 |
+| Trump | 51 | 5 |
+| U.S | 50 | 8 |
 | One | 49 | 10 |
 | Pro | 49 | 8 |
 | Python | 48 | 5 |
-| U.S | 48 | 8 |
 | San Francisco | 46 | 9 |
 | When | 45 | 12 |
-| AI-powered | 42 | 10 |
-| November | 42 | 6 |
+| November | 44 | 6 |
+| AI-powered | 43 | 10 |
+| China | 41 | 8 |
+| July | 40 | 9 |
 | Android | 40 | 4 |
-| July | 39 | 9 |
-| China | 39 | 8 |
 | With | 39 | 10 |
 | Linux | 39 | 6 |
-| Chinese | 36 | 8 |
-| Last | 36 | 7 |
-| Rust | 35 | 3 |
+| Chinese | 38 | 8 |
+| Rust | 37 | 3 |
+| Last | 37 | 7 |
 | AI-generated | 35 | 9 |
 | Windows | 35 | 5 |
 | Astra | 34 | 6 |
 | August | 33 | 8 |
 | IPO | 33 | 7 |
+| Jensen Huang | 33 | 5 |
 | June | 32 | 7 |
 | Research | 32 | 6 |
 | These | 32 | 8 |
 | API | 32 | 6 |
 | Learn | 31 | 6 |
 | Europe | 30 | 8 |
+| Wednesday | 30 | 5 |
+| Samsung | 30 | 5 |
 | Building | 29 | 12 |
-| Samsung | 29 | 5 |
-| Wednesday | 28 | 5 |
+| Elon Musk | 27 | 5 |
 | Pixel | 27 | 3 |
 | Tuesday | 26 | 6 |
 | Opus | 26 | 6 |
 | Fable | 26 | 6 |
-| Elon Musk | 26 | 5 |
 | SpaceX | 26 | 5 |
 | While | 26 | 4 |
+| Xbox | 26 | 2 |
+| Thursday | 25 | 6 |
 | Monday | 25 | 4 |
-| Xbox | 25 | 2 |
-| Thursday | 24 | 5 |
 | Mac | 24 | 4 |
 | According | 24 | 4 |
 | YouTube | 24 | 7 |
+| Over | 24 | 6 |
 | Duo | 24 | 3 |
-| Flash | 23 | 6 |
-| Tool | 23 | 2 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,35 +87,38 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 81 | src-media-mit-techreview |
+| The Download | 82 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 42 | src-kol-simonwillison |
 | Register | 32 | src-media-techcrunch |
 | Hi HN | 31 | src-hn-frontpage |
+| A Blog | 28 | src-hf-blog |
 | Launch HN | 27 | src-hn-frontpage |
-| A Blog | 27 | src-hf-blog |
-| MIT Technology Review | 24 | src-media-mit-techreview |
-| Opt | 23 | src-media-theverge |
+| MIT Technology Review | 25 | src-media-mit-techreview |
+| Opt | 24 | src-media-theverge |
+| Best Buy | 23 | src-media-theverge |
 | The Verge | 22 | src-media-theverge |
-| Best Buy | 22 | src-media-theverge |
 | Highlights | 21 | src-gh-vllm-releases |
 | Ask HN | 19 | src-hn-frontpage |
+| GeForce NOW | 18 | src-nvidia-blog |
 | Is Hiring | 18 | src-hn-frontpage |
-| GeForce NOW | 17 | src-nvidia-blog |
+| Hey HN | 17 | src-hn-frontpage |
 | Committee | 15 | src-ep-itre |
 | The Stepback | 15 | src-media-theverge |
-| Hey HN | 15 | src-hn-frontpage |
 | Datasette | 15 | src-kol-simonwillison |
 | Installer No | 13 | src-media-theverge |
 | Verge-iest | 13 | src-media-theverge |
 | Installer | 13 | src-media-theverge |
+| Disrupt | 12 | src-media-techcrunch |
 | TechCrunch Founder Summit | 12 | src-media-techcrunch |
 | The Algorithm | 11 | src-media-mit-techreview |
 | YC S26 | 11 | src-hn-frontpage |
 | Roundtables | 11 | src-media-mit-techreview |
-| Disrupt | 11 | src-media-techcrunch |
 | Sunday | 10 | src-media-theverge |
 | FCC | 10 | src-media-theverge |
+| Verge | 10 | src-media-theverge |
+| Victoria Song | 10 | src-media-theverge |
+| Startup Battlefield | 10 | src-media-techcrunch |
 | Moscone West | 10 | src-media-techcrunch |
 | October Prime Day | 10 | src-media-theverge |
 | AMENDMENTS | 9 | src-ep-itre |
@@ -123,16 +126,12 @@ generator: scripts/pulse-dictionary-gaps.py
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | PlayStation | 9 | src-media-theverge |
-| Reuters | 9 | src-media-theverge |
-| Verge | 9 | src-media-theverge |
-| Victoria Song | 9 | src-media-theverge |
+| Optimizer | 9 | src-media-theverge |
 | VCs | 9 | src-media-techcrunch |
-| Startup Battlefield | 9 | src-media-techcrunch |
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
 | Open-source | 8 | src-hn-frontpage |
 | Apple TV | 8 | src-media-theverge |
 | Series A | 8 | src-media-techcrunch |
-| Optimizer | 8 | src-media-theverge |
 | Following | 7 | src-media-theverge |
 | Woot | 7 | src-media-theverge |
 | Galaxy Z Fold | 7 | src-media-theverge |
@@ -147,6 +146,7 @@ generator: scripts/pulse-dictionary-gaps.py
 | Code | 6 | src-hn-frontpage |
 | AI Stage | 6 | src-media-techcrunch |
 | Los Angeles | 6 | src-media-theverge |
+| Spider-Man | 6 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

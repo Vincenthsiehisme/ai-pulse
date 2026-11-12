@@ -1,162 +1,66 @@
 [
   {
-    "full_name": "RunanywhereAI/trnrt",
-    "desc": "The open LLM inference engine for AWS Trainium: NKI megakernels, 1M-token context, OpenAI-compatible API. By RunAnywhere.",
-    "language": "Python",
-    "topics": [
-      "aws",
-      "glm",
-      "inference",
-      "llm",
-      "llm-serving",
-      "megakernels"
-    ],
-    "stars": 1319,
-    "url": "https://github.com/RunanywhereAI/trnrt",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Zaneris/passenger",
-    "desc": "An open-source IDE for C# and .NET, built with Avalonia, for Windows, macOS and Linux: a Roslyn-powered editor, its own debugger with Hot Reload, a CPU and memory profiler, XAML tooling for Avalonia and WPF, and an MCP server for coding agents.",
-    "language": "C#",
-    "topics": [
-      "avalonia",
-      "csharp",
-      "debugger",
-      "dotnet",
-      "ide",
-      "mcp"
-    ],
-    "stars": 533,
-    "url": "https://github.com/Zaneris/passenger",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Zleap-AI/SAG-Wiki",
-    "desc": "A lightweight knowledge base for people and agents, with ultra fast indexing and most precise retrieval.",
-    "language": "Rust",
-    "topics": [
-      "knowledge-base",
-      "knowledge-graph",
-      "rag",
-      "rust",
-      "sag",
-      "sag-wiki"
-    ],
-    "stars": 1048,
-    "url": "https://github.com/Zleap-AI/SAG-Wiki",
-    "stale_zh": null
-  },
-  {
-    "full_name": "OmniJev/Flide",
-    "desc": "🔥🔥 The extremely fast inference engine for decision model",
-    "language": "Python",
-    "topics": [
-      "ai-agents",
-      "cuda",
-      "decision-making",
-      "deterministic-inference",
-      "gemma",
-      "inference-engine"
-    ],
-    "stars": 445,
-    "url": "https://github.com/OmniJev/Flide",
-    "stale_zh": null
-  },
-  {
-    "full_name": "0sec-labs/0",
-    "desc": "The open-source AI security harness. Includes a web interface for code analysis, pentesting, vulnerability research, reverse engineering, verification, and fixing + CLI and MCP for agents.",
+    "full_name": "n8n-io/nod",
+    "desc": "Open source personal agent with its own computer. It chases invoices, preps your calls and cancels trials on real websites, and asks before it acts. Runs on your machine with the model you choose. By n8n.",
     "language": "TypeScript",
     "topics": [
-      "ai-agents",
-      "application-security",
-      "binary-analysis",
-      "code-review",
-      "cybersecurity",
-      "llm-agents"
+      "agents",
+      "ai-agent",
+      "ai-assistant",
+      "anthropic",
+      "automation",
+      "browser-automation"
     ],
-    "stars": 1305,
-    "url": "https://github.com/0sec-labs/0",
+    "stars": 812,
+    "url": "https://github.com/n8n-io/nod",
     "stale_zh": null
   },
   {
-    "full_name": "Bai-Cute/big-blue-fish-desktop-pet",
-    "desc": "蓝色大肥鱼 Windows AI 桌宠，内置 4B 本地大模型，以鲸鱼娘人设结合天气、科技新闻和当前应用，通过文字气泡温柔陪伴。支持一键安装与离电暂停推理。Big Blue Fish desktop pet with local LLM.",
-    "language": "C#",
-    "topics": [
-      "ai-companion",
-      "big-blue-fish",
-      "deepseek",
-      "desktop-companion",
-      "desktop-pet",
-      "dotnet"
-    ],
-    "stars": 314,
-    "url": "https://github.com/Bai-Cute/big-blue-fish-desktop-pet",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Cattmonkey/ChaosIntelligence",
-    "desc": "把智能体当函数，把想法写成程序。Agent-native functional language with a CLI, Web IDE, goal-driven bots and live UI. Source-available; no AI training.",
+    "full_name": "gogoymh/auto-ontology-mcp",
+    "desc": "NVIDIA Auto Ontology's semantic layer and a personal knowledge base as an MCP server for Claude, ChatGPT and other MCP clients. No LLM API key needed.",
     "language": "Python",
     "topics": [
-      "agentic-ai",
-      "ai-agents",
-      "cli",
-      "developer-tools",
-      "functional-programming",
-      "generative-ui"
+      "chatgpt",
+      "claude",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "ontology"
     ],
-    "stars": 392,
-    "url": "https://github.com/Cattmonkey/ChaosIntelligence",
+    "stars": 382,
+    "url": "https://github.com/gogoymh/auto-ontology-mcp",
     "stale_zh": null
   },
   {
-    "full_name": "mattabate/life-distributable",
-    "desc": "A personal agent that works on your life around the clock, on a Mac you own. One sentence to Claude Code installs it.",
-    "language": "Go",
-    "topics": [
-      "agent-swarm",
-      "agentic-ai",
-      "ai-agents",
-      "ai-assistants",
-      "ai-enablement",
-      "ai-swarm"
-    ],
-    "stars": 381,
-    "url": "https://github.com/mattabate/life-distributable",
-    "stale_zh": null
-  },
-  {
-    "full_name": "langfuse/langfuse",
-    "desc": "🪢 Open source AI engineering platform: AI Gateway, agent observability, evals, and prompt/skill management, built on OpenTelemetry. One open platform for every AI call and every agent. Self-host or use Langfuse Cloud.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-gateway",
-      "analytics",
-      "evaluation",
-      "gateway",
-      "langchain",
-      "large-language-models"
-    ],
-    "stars": 37317,
-    "url": "https://github.com/langfuse/langfuse",
-    "stale_zh": "開源的 agent 評測與可觀測平台，追蹤、評估並改進 LLM 應用"
-  },
-  {
-    "full_name": "capture0x/AdStrike",
-    "desc": "AI-powered modular Active Directory red-team framework for authorized penetration testing, AD enumeration, attack-path analysis,   Kerberos/ADCS workflows, reporting, operator automation, and MCP server integration.",
+    "full_name": "uclanlp/OpenVLHarness",
+    "desc": "Official Code for OpenVLHarness: Real-World Visual Agentic Tool‑Use with Multimodal Memory",
     "language": "Python",
     "topics": [
-      "active-directory",
-      "active-directory-exploitation",
-      "active-directory-security",
-      "ad-agent",
-      "ad-attack",
-      "ad-attack-paths"
+      "agent-harness",
+      "agent-skills",
+      "agentic-ai",
+      "ai-agents",
+      "coding-agent",
+      "deep-research"
     ],
-    "stars": 442,
-    "url": "https://github.com/capture0x/AdStrike",
+    "stars": 474,
+    "url": "https://github.com/uclanlp/OpenVLHarness",
+    "stale_zh": null
+  },
+  {
+    "full_name": "zenstory-ai/novel-to-game",
+    "desc": "把小说改编成可玩游戏的 AI skill 合集：从文字冒险、策略经营到互动影游，一站式生成策划案、可运行代码与实机验收，适配 Claude Code / Codex 等 ｜ Agent skills for adapting novels into playable games",
+    "language": "Markdown",
+    "topics": [
+      "agent-skills",
+      "ai-game-development",
+      "claude-code",
+      "game-design",
+      "kimi-code",
+      "narrative-design"
+    ],
+    "stars": 1055,
+    "url": "https://github.com/zenstory-ai/novel-to-game",
     "stale_zh": null
   }
 ]
