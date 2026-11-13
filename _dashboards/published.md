@@ -7,9 +7,9 @@
   《戰鎚 40,000：戰爭黎明 IV》將上 GeForce NOW，DLSS 5 也要進兩款遊戲。
 - **[[Events/evt-2026-11-12-3c4ee7|LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B]]** — IBM · model-capability · conf 73 · heat 未量測
   IBM Granite 4.1 的 3B 與 8B 模型內建 LLMON，一種為 LLM 設計的標記語言。
-- **[[Events/evt-2026-11-12-803a22|How Amplitude ships product improvements in 1–2 days with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-11-12-803a22|How Amplitude ships product improvements in 1–2 days with OpenAI]]** — OpenAI · product · conf 83 · heat 未量測
   Amplitude 用 OpenAI 模型做出產品代理 Wave，宣稱改善可在 1 到 2 天內上線。
-- **[[Events/evt-2026-11-12-9317df|Claude 4]]** — Anthropic · model-capability · conf 73 · heat 未量測
+- **[[Events/evt-2026-11-12-9317df|Claude 4]]** — Anthropic · model-capability · conf 83 · heat 未量測
   Anthropic 發布 Claude 4，我們依授權限制只列標題與連結。
 - **[[Events/evt-2026-11-12-950a8b|Holiday Extras is rethinking what it can build with Codex]]** — OpenAI · product · conf 73 · heat 未量測
   旅遊服務商 Holiday Extras 用 Codex 開發應用，OpenAI 稱訂房轉換率因此提高。
@@ -47,7 +47,7 @@
   Cogent 用 OpenAI 模型加企業內部脈絡，讓代理自動修補漏洞。
 - **[[Events/evt-2026-11-10-93b799|Pay for Hugging Face Hub with your Google Cloud Account]]** — Hugging Face · capital · conf 73 · heat 未量測
   Hugging Face Hub 的付費可以改用 Google Cloud 帳戶結算。
-- **[[Events/evt-2026-11-10-93f5da|Introducing Businesses in ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+- **[[Events/evt-2026-11-10-93f5da|Introducing Businesses in ChatGPT]]** — OpenAI · product · conf 83 · heat 未量測
   OpenAI 推出 ChatGPT 內的 Businesses 功能，讓商家管理資訊並查看自己在 ChatGPT 的呈現。
 - **[[Events/evt-2026-11-10-b65c3c|Singapore Airlines elevates travel & work with OpenAI technology]]** — OpenAI · product · conf 73 · heat 未量測
   新加坡航空用 OpenAI 模型與 API 改善客服等工作，Kris 聊天機器人的 CSAT 翻倍。

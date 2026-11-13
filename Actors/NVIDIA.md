@@ -3,18 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-11-12'
+generated_day: '2026-11-13'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **134** 則：`dropped` 1、`published` 124、`review` 9
+事件 **134** 則：`dropped` 1、`published` 125、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-12 | [[Events/evt-2026-11-12-387d4d\|A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW]] | review |
+| 2026-11-12 | [[Events/evt-2026-11-12-387d4d\|A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW]] | published |
 | 2026-11-11 | [[Events/evt-2026-11-11-cb9d65\|How AI Helps Recyclers Turn Mixed Waste Into Reusable Material]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-efc0c2\|NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure]] | published |
 | 2026-11-09 | [[Events/evt-2026-11-09-ea1fc6\|From Chips to Skills, NVIDIA and Korea Expand Sovereign AI Collaboration]] | published |

@@ -1,7 +1,11 @@
-# 被門禁擋下（70）
+# 被門禁擋下（78）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-13-07ae84|llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-13-9c3857|Build a Robot Pick-and-Place Simulation with SimReady Assets]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-13-a319f0|XYBench: Helping with the problem behind the question]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-12-855ebd|Gondola doubles revenue as its team builds more with Codex]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-11-a332b2|Token Pooling-Aware Training for Multi-Vector Embedding Models]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-09-88f821|Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-06-71da0a|ToyBlocks: A controlled world for robot learning and evaluation]]** — Ai2 — blockers: thin_research_analysis
@@ -63,6 +67,10 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-11-13-363c05|Statement Comments Secretary War]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-13-416581|How AI Is Helping Care Teams Get Patients the Right Care, Sooner]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-13-a31951|Election Safeguards Update]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-13-fe797a|Reflections On Our Responsible Scaling Policy]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity

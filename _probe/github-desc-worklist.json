@@ -1,66 +1,123 @@
 [
   {
-    "full_name": "n8n-io/nod",
-    "desc": "Open source personal agent with its own computer. It chases invoices, preps your calls and cancels trials on real websites, and asks before it acts. Runs on your machine with the model you choose. By n8n.",
+    "full_name": "pingdotgg/t3code",
+    "desc": "The best way to control Claude Code, Codex and more from any computer or phone",
     "language": "TypeScript",
     "topics": [
+      "agent-orchestration",
       "agents",
-      "ai-agent",
-      "ai-assistant",
-      "anthropic",
-      "automation",
-      "browser-automation"
-    ],
-    "stars": 812,
-    "url": "https://github.com/n8n-io/nod",
-    "stale_zh": null
-  },
-  {
-    "full_name": "gogoymh/auto-ontology-mcp",
-    "desc": "NVIDIA Auto Ontology's semantic layer and a personal knowledge base as an MCP server for Claude, ChatGPT and other MCP clients. No LLM API key needed.",
-    "language": "Python",
-    "topics": [
+      "ai",
       "chatgpt",
       "claude",
-      "mcp",
-      "mcp-server",
-      "model-context-protocol",
-      "ontology"
+      "claude-code"
     ],
-    "stars": 382,
-    "url": "https://github.com/gogoymh/auto-ontology-mcp",
+    "stars": 59496,
+    "url": "https://github.com/pingdotgg/t3code",
     "stale_zh": null
   },
   {
-    "full_name": "uclanlp/OpenVLHarness",
-    "desc": "Official Code for OpenVLHarness: Real-World Visual Agentic Tool‑Use with Multimodal Memory",
+    "full_name": "zaxiu88888/issue-rag",
+    "desc": "RAG over GitHub issues, with a hand-reviewed eval set and an audit of the judge itself. Reports the interval, not just the best number.",
     "language": "Python",
     "topics": [
-      "agent-harness",
-      "agent-skills",
-      "agentic-ai",
-      "ai-agents",
-      "coding-agent",
-      "deep-research"
+      "evaluation",
+      "github-issues",
+      "llm",
+      "llm-as-judge",
+      "python",
+      "rag"
     ],
-    "stars": 474,
-    "url": "https://github.com/uclanlp/OpenVLHarness",
+    "stars": 387,
+    "url": "https://github.com/zaxiu88888/issue-rag",
     "stale_zh": null
   },
   {
-    "full_name": "zenstory-ai/novel-to-game",
-    "desc": "把小说改编成可玩游戏的 AI skill 合集：从文字冒险、策略经营到互动影游，一站式生成策划案、可运行代码与实机验收，适配 Claude Code / Codex 等 ｜ Agent skills for adapting novels into playable games",
-    "language": "Markdown",
+    "full_name": "mdiri-ai/SoduWork",
+    "desc": "The AI-native engine for teams and their agents. Multi-harness, multi-agent, self-hosted.",
+    "language": "JavaScript",
     "topics": [
-      "agent-skills",
-      "ai-game-development",
-      "claude-code",
-      "game-design",
-      "kimi-code",
-      "narrative-design"
+      "agent-harness",
+      "agent-orchestration",
+      "agent-workflows",
+      "ai-agents",
+      "ai-workflows",
+      "anti-slop"
     ],
-    "stars": 1055,
-    "url": "https://github.com/zenstory-ai/novel-to-game",
+    "stars": 666,
+    "url": "https://github.com/mdiri-ai/SoduWork",
+    "stale_zh": null
+  },
+  {
+    "full_name": "agentes-chat/agentes-chat",
+    "desc": "Open-source, self-hosted Slack alternative where your team and AI agents work together in channels and DMs. Agents run on Claude, ChatGPT/Codex, Gemini or Grok, with MCP tools, their own computer and browser, routines, memory and approvals. Web, desktop and phone apps. Docker Compose + Postgres. AGPL-3.0.",
+    "language": "TypeScript",
+    "topics": [
+      "agentic-ai",
+      "ai-agents",
+      "browser-automation",
+      "chat",
+      "claude",
+      "claude-code"
+    ],
+    "stars": 1330,
+    "url": "https://github.com/agentes-chat/agentes-chat",
+    "stale_zh": null
+  },
+  {
+    "full_name": "sno-ai/sno-station",
+    "desc": "When Claude Code hits its usage limit, Codex picks the task up from the same memory. Sno Station puts Codex, Claude Code, Cursor, Hermes Agent and OpenClaw on one squad: they hand work to each other and review each other's code. Open source, runs on your computer.",
+    "language": "TypeScript",
+    "topics": [
+      "agent-memory",
+      "agent-orchestration",
+      "agentic-coding",
+      "ai-code-review",
+      "ai-coding-agent",
+      "ai-memory"
+    ],
+    "stars": 1019,
+    "url": "https://github.com/sno-ai/sno-station",
+    "stale_zh": "讓 Codex、Claude Code、Cursor 等 agent 組成小隊，共用加密記憶、互相交辦與審查，在本機執行"
+  },
+  {
+    "full_name": "konlu/story-studio",
+    "desc": "从选题到剪映草稿的一站式 AI 短视频内容创作 Agent Skill",
+    "language": "Python",
+    "topics": [],
+    "stars": 1047,
+    "url": "https://github.com/konlu/story-studio",
+    "stale_zh": null
+  },
+  {
+    "full_name": "EL4CTEO/blender-skills",
+    "desc": "Professional Blender 5.3 workflows as Agent Skills for Claude Code, Codex, Gemini CLI, Copilot and Cursor: modeling, UVs, PBR, baking, rigging, animation, export and QA.",
+    "language": "Python",
+    "topics": [
+      "3d",
+      "agent-skills",
+      "ai-agents",
+      "blender",
+      "blender-python",
+      "bpy"
+    ],
+    "stars": 1054,
+    "url": "https://github.com/EL4CTEO/blender-skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "obsidianmd/obsidian-skills",
+    "desc": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.",
+    "language": "Shell",
+    "topics": [
+      "agents",
+      "agentskills",
+      "bases",
+      "claude",
+      "clawdbot",
+      "cli"
+    ],
+    "stars": 52280,
+    "url": "https://github.com/obsidianmd/obsidian-skills",
     "stale_zh": null
   }
 ]

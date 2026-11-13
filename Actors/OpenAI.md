@@ -3,20 +3,21 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-12'
+generated_day: '2026-11-13'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **232** 則：`published` 222、`review` 10
+事件 **233** 則：`published` 225、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-12 | [[Events/evt-2026-11-12-afd9d6\|Supporting research on AI and children’s safety]] | review |
-| 2026-11-12 | [[Events/evt-2026-11-12-950a8b\|Holiday Extras is rethinking what it can build with Codex]] | review |
-| 2026-11-12 | [[Events/evt-2026-11-12-803a22\|How Amplitude ships product improvements in 1–2 days with OpenAI]] | review |
+| 2026-11-12 | [[Events/evt-2026-11-12-afd9d6\|Supporting research on AI and children’s safety]] | published |
+| 2026-11-12 | [[Events/evt-2026-11-12-950a8b\|Holiday Extras is rethinking what it can build with Codex]] | published |
+| 2026-11-12 | [[Events/evt-2026-11-12-855ebd\|Gondola doubles revenue as its team builds more with Codex]] | review |
+| 2026-11-12 | [[Events/evt-2026-11-12-803a22\|How Amplitude ships product improvements in 1–2 days with OpenAI]] | published |
 | 2026-11-11 | [[Events/evt-2026-11-11-0f8cda\|ChatGPT Plus for veterans and servicemembers]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-c70435\|Helping caregivers use AI in everyday life]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-b65c3c\|Singapore Airlines elevates travel & work with OpenAI technology]] | published |
