@@ -1,6 +1,22 @@
-# 已發布事件（625）
+# 已發布事件（633）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-13
+- **[[Events/evt-2026-11-13-07ae84|llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem]]** — ggml-org · infra · conf 73 · heat 未量測
+  ggml-org 在 Hugging Face 發文宣布 llama.cpp 推出 v1.0.0。
+- **[[Events/evt-2026-11-13-363c05|Statement Comments Secretary War]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 新聞稿「Statement Comments Secretary War」，內文依授權限制不轉述。
+- **[[Events/evt-2026-11-13-416581|How AI Is Helping Care Teams Get Patients the Right Care, Sooner]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 部落格盤點醫療照護團隊如何用 AI 縮短病患等到適當照護的時間。
+- **[[Events/evt-2026-11-13-9c3857|Build a Robot Pick-and-Place Simulation with SimReady Assets]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 在 Hugging Face 發教學，用 SimReady 資產建立機器人取放模擬。
+- **[[Events/evt-2026-11-13-a31951|Election Safeguards Update]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 新聞稿「Election Safeguards Update」，內文依授權限制不轉述。
+- **[[Events/evt-2026-11-13-a319f0|XYBench: Helping with the problem behind the question]]** — Ai2 · research · conf 73 · heat 未量測
+  Ai2 在 Hugging Face 發表 XYBench，主題是處理問題背後真正的問題。
+- **[[Events/evt-2026-11-13-fe797a|Reflections On Our Responsible Scaling Policy]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 新聞稿「Reflections On Our Responsible Scaling Policy」，內文依授權限制不轉述。
 
 ## 2026-11-12
 - **[[Events/evt-2026-11-12-387d4d|A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
@@ -9,6 +25,8 @@
   IBM Granite 4.1 的 3B 與 8B 模型內建 LLMON，一種為 LLM 設計的標記語言。
 - **[[Events/evt-2026-11-12-803a22|How Amplitude ships product improvements in 1–2 days with OpenAI]]** — OpenAI · product · conf 83 · heat 未量測
   Amplitude 用 OpenAI 模型做出產品代理 Wave，宣稱改善可在 1 到 2 天內上線。
+- **[[Events/evt-2026-11-12-855ebd|Gondola doubles revenue as its team builds more with Codex]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布客戶案例：Gondola 用 Codex 讓主力工程師產出提高 50%，營收翻倍。
 - **[[Events/evt-2026-11-12-9317df|Claude 4]]** — Anthropic · model-capability · conf 83 · heat 未量測
   Anthropic 發布 Claude 4，我們依授權限制只列標題與連結。
 - **[[Events/evt-2026-11-12-950a8b|Holiday Extras is rethinking what it can build with Codex]]** — OpenAI · product · conf 73 · heat 未量測

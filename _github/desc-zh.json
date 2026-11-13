@@ -199,6 +199,11 @@
     "src_hash": "ef0dc272201c",
     "zh": "開源健身與體重追蹤 app，可排課表、記錄訓練，支援匯入 Strong/Hevy，可自架"
   },
+  "EL4CTEO/blender-skills": {
+    "at": "2026-11-13T21:46:45+00:00",
+    "src_hash": "fc62dd628b23",
+    "zh": "Blender 5.3 專業工作流程的 Agent Skills，涵蓋建模、UV、PBR、烘焙、綁定、動畫、匯出與 QA"
+  },
   "EXXETA/exxperts": {
     "at": "2026-11-03T21:25:10+00:00",
     "src_hash": "072b98a13453",
@@ -868,6 +873,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "9c05c4aea9b6",
     "zh": "開源的多 agent 版 Claude Tag 替代品，在團隊工作的地方 @ 任何 agent，與團隊一起做事並邊做邊學"
+  },
+  "agentes-chat/agentes-chat": {
+    "at": "2026-11-13T21:46:45+00:00",
+    "src_hash": "7d1c67ff98dc",
+    "zh": "開源、可自架的 Slack 替代品，團隊與 AI agent 在頻道和私訊中協作"
   },
   "agentpit-io/hunter-community": {
     "at": "2026-11-08T20:04:50+00:00",
@@ -1644,6 +1654,11 @@
     "src_hash": "4fd40cb6ef54",
     "zh": "即時全球情報儀表板：AI 新聞彙整、地緣政治與基礎設施監看"
   },
+  "konlu/story-studio": {
+    "at": "2026-11-13T21:46:45+00:00",
+    "src_hash": "cbe9ecf25244",
+    "zh": "從選題到剪映草稿的 AI 短影片內容創作 Agent Skill"
+  },
   "kris-hansen/comanda": {
     "at": "2026-10-27T20:22:03+00:00",
     "src_hash": "2a4028146c09",
@@ -1778,6 +1793,11 @@
     "at": "2026-10-21T19:47:16+00:00",
     "src_hash": "77f145121cf0",
     "zh": "私有原始碼預覽：原生剪映草稿、隔離式編輯與匯出，以及獨立的 Agent Skill"
+  },
+  "mdiri-ai/SoduWork": {
+    "at": "2026-11-13T21:46:45+00:00",
+    "src_hash": "f48fe76f76fb",
+    "zh": "給團隊與其 agent 用的 AI 原生引擎，支援多 harness、多 agent，可自架"
   },
   "mem0ai/mem0": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -1974,6 +1994,11 @@
     "src_hash": "406416e89aff",
     "zh": "一套真的能用的 agentic skills 框架與軟體開發方法論"
   },
+  "obsidianmd/obsidian-skills": {
+    "at": "2026-11-13T21:46:45+00:00",
+    "src_hash": "0af57b94f045",
+    "zh": "Obsidian 的 Agent Skills，教 agent 使用 Obsidian CLI 與開放格式"
+  },
   "oceanbase/oceanbase": {
     "at": "2026-10-12T22:42:13+00:00",
     "src_hash": "197f47f9bf53",
@@ -2123,6 +2148,11 @@
     "at": "2026-10-22T19:40:44+00:00",
     "src_hash": "ff343481c572",
     "zh": "給 AI 一副身體和一點人味：會記事、看場合的 QQ 陪聊，加上能控制安卓手機的 MCP"
+  },
+  "pingdotgg/t3code": {
+    "at": "2026-11-13T21:46:45+00:00",
+    "src_hash": "fd92bf9485d9",
+    "zh": "在電腦或手機上操控 Claude Code、Codex 等工具的最佳方式"
   },
   "pipecat-ai/pipecat": {
     "at": "2026-08-22T19:07:20+00:00",
@@ -2355,9 +2385,9 @@
     "zh": "教系統工程師在 Apple Silicon 上建置迷你版 vLLM + Qwen 推論系統"
   },
   "sno-ai/sno-station": {
-    "at": "2026-10-13T20:55:59+00:00",
-    "src_hash": "cdb78122a596",
-    "zh": "讓 Codex、Claude Code、Cursor 等 agent 組成小隊，共用加密記憶、互相交辦與審查，在本機執行"
+    "at": "2026-11-13T21:46:45+00:00",
+    "src_hash": "e96c1de83e50",
+    "zh": "讓 Codex、Claude Code、Cursor 等 agent 共用記憶、互相交辦與審查，開源、在本機執行"
   },
   "sno-ai/sno-station-skills": {
     "at": "2026-10-14T19:51:47+00:00",
@@ -2643,6 +2673,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "436b76437fe1",
     "zh": "LLM 全端學習路線與中文教程，涵蓋 RAG、Agent、MCP、微調與部署"
+  },
+  "zaxiu88888/issue-rag": {
+    "at": "2026-11-13T21:46:45+00:00",
+    "src_hash": "62b6158509c7",
+    "zh": "針對 GitHub issue 的 RAG，附人工審過的評測集，並稽核評審本身，回報區間而非只報最佳數字"
   },
   "zenstory-ai/novel-to-game": {
     "at": "2026-11-12T22:01:23+00:00",

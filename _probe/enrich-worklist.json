@@ -1,68 +1,8 @@
 [
   {
-    "id": "evt-2026-11-12-387d4d",
-    "path": "evt-2026-11-12-387d4d.md",
-    "title": "A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-warhammer-dawn-of-war-iv-coming/",
-        "title": "A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW",
-        "summary": "Rally the ranks this GFN Thursday. Warhammer 40,000: Dawn of War IV is coming to GeForce NOW, allowing players to experience the battle for Kronus through cloud gaming. There’s more on the horizon, with NVIDIA DLSS 5 technology coming to War Thunder and Where Winds Meet. Meanwhile, Dragon’s Dogma 2:",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-12-3c4ee7",
-    "path": "evt-2026-11-12-3c4ee7.md",
-    "title": "LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
-        "title": "LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B",
-        "summary": "A Blog post by IBM Granite on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-12-803a22",
-    "path": "evt-2026-11-12-803a22.md",
-    "title": "How Amplitude ships product improvements in 1–2 days with OpenAI",
+    "id": "evt-2026-11-12-855ebd",
+    "path": "evt-2026-11-12-855ebd.md",
+    "title": "Gondola doubles revenue as its team builds more with Codex",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -71,9 +11,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/amplitude",
-        "title": "How Amplitude ships product improvements in 1–2 days with OpenAI",
-        "summary": "Built primarily on OpenAI models, Amplitude’s proactive product agent, Wave, identifies what to build, helps teams ship changes with coding agents, and measures the impact.",
+        "url": "https://openai.com/business/customer-stories/gondola",
+        "title": "Gondola doubles revenue as its team builds more with Codex",
+        "summary": "Gondola helps creatives get credit and get hired, with Codex raising its lead engineer’s output by 50% and ChatGPT simplifying daily work.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -90,19 +30,49 @@
     }
   },
   {
-    "id": "evt-2026-11-12-9317df",
-    "path": "evt-2026-11-12-9317df.md",
-    "title": "Claude 4",
-    "fingerprint": "anthropic:claude:4",
+    "id": "evt-2026-11-13-07ae84",
+    "path": "evt-2026-11-13-07ae84.md",
+    "title": "llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem",
+    "fingerprint": null,
     "facet": "update",
-    "company_guess": "Anthropic",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
+        "title": "llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem",
+        "summary": "A Blog post by ggml-org on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-13-363c05",
+    "path": "evt-2026-11-13-363c05.md",
+    "title": "Statement Comments Secretary War",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/claude-4",
-        "title": "Claude 4",
+        "url": "https://www.anthropic.com/news/statement-comments-secretary-war",
+        "title": "Statement Comments Secretary War",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -122,69 +92,9 @@
     }
   },
   {
-    "id": "evt-2026-11-12-950a8b",
-    "path": "evt-2026-11-12-950a8b.md",
-    "title": "Holiday Extras is rethinking what it can build with Codex",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/business/customer-stories/holidays-extras-codex",
-        "title": "Holiday Extras is rethinking what it can build with Codex",
-        "summary": "With Codex, Holiday Extras is turning customer expertise into better apps, higher booking conversion and new possibilities for growth.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-12-afd9d6",
-    "path": "evt-2026-11-12-afd9d6.md",
-    "title": "Supporting research on AI and children’s safety",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/children-first-declaration",
-        "title": "Supporting research on AI and children’s safety",
-        "summary": "OpenAI commits $2 million to research on AI and children’s safety. The work supports shared tools to measure risks and opportunities for young people.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-12-b58850",
-    "path": "evt-2026-11-12-b58850.md",
-    "title": "The Definitive Fine-Tuning Guide for 3D Generation Models",
+    "id": "evt-2026-11-13-416581",
+    "path": "evt-2026-11-13-416581.md",
+    "title": "How AI Is Helping Care Teams Get Patients the Right Care, Sooner",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -192,10 +102,10 @@
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/3d-lora-finetuning",
-        "title": "The Definitive Fine-Tuning Guide for 3D Generation Models",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/how-ai-is-helping-care-teams/",
+        "title": "How AI Is Helping Care Teams Get Patients the Right Care, Sooner",
+        "summary": "From pediatric research to smart hospitals, AI is helping care teams spend less time on routine tasks and more time with patients.  Health systems and startups are putting it to work across healthcare, from matching patients to clinical trials to supporting radiologists, hospital teams and patients ",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -209,6 +119,130 @@
       },
       "needs_source_link": false,
       "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-13-9c3857",
+    "path": "evt-2026-11-13-9c3857.md",
+    "title": "Build a Robot Pick-and-Place Simulation with SimReady Assets",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nvidia/simready-assets-robot-pick-and-place",
+        "title": "Build a Robot Pick-and-Place Simulation with SimReady Assets",
+        "summary": "A Blog post by NVIDIA on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-13-a31951",
+    "path": "evt-2026-11-13-a31951.md",
+    "title": "Election Safeguards Update",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/election-safeguards-update",
+        "title": "Election Safeguards Update",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-13-a319f0",
+    "path": "evt-2026-11-13-a319f0.md",
+    "title": "XYBench: Helping with the problem behind the question",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/allenai/xybench",
+        "title": "XYBench: Helping with the problem behind the question",
+        "summary": "A Blog post by Ai2 on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-13-fe797a",
+    "path": "evt-2026-11-13-fe797a.md",
+    "title": "Reflections On Our Responsible Scaling Policy",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/reflections-on-our-responsible-scaling-policy",
+        "title": "Reflections On Our Responsible Scaling Policy",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
     }
   }
 ]

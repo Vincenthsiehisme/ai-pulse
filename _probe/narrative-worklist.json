@@ -3,9 +3,27 @@
     "slug": "model-research",
     "name": "模型能力與研究",
     "current_thesis": "訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。",
-    "current_now": "今天新增兩則。DeepMind 的 AlphaGenome 2 預測 DNA 序列與變異對特定人類細胞類型和疾病的影響，摘要沒有基準數字，也沒說與前一版差在哪。QVAC 在 Hugging Face 發表 BotPsy，標題主打十億參數以下的裝置端代理模型，來源只有一句作者說明，沒有內文，證據不足，待補。前一輪：11-09 Amazon 的 HOPE 談混合專家模型剪枝時保留彼此相依的專家，方法與結果未知。同日 DeepMind 的 Gemini Robotics 2.5 自稱最強視覺語言動作模型，沒有基準數字。11-06 OpenAI 的 BioBasicsBench 用 100 項任務測代理處理濕實驗數據，沒給任何模型得分，基準由 OpenAI 自己設計。11-03 Ai2 的 StateBench 與 11-02 OpenAI 的 LifeVal 都沒給題數與成績。10-28 Gemini 4 Carbon 的榜首說法與外界反應不一致。",
-    "current_next": "看 AlphaGenome 2 是否釋出論文與基準對比、是否開放研究者使用；看 BotPsy 的權重是否公開，以及工具呼叫基準與實機延遲；看 Gemini Robotics 2.5 是否公開評測數據與第三方重現；看 HOPE 的剪枝比例、基準分數與是否釋出程式碼；看 StateBench 與 LifeVal 是否公開題目與排行榜；看 Gemini 4 Carbon 何時開放使用，以及第三方對榜首的驗證。",
+    "current_now": "今天新增三則。IBM 在 Hugging Face 發文，說 Granite 4.1 的 3B 與 8B 已內建 LLMON，一種為 LLM 設計的標記語言，來源只有一行說明，語法與評測不在手上，證據不足，待補。Hugging Face 發布 3D 生成模型的 LoRA 微調指南，只有標題與網址，內容證據不足，待補。Anthropic 的〈Claude 4〉依授權只放標題與連結，內文請看原文。前一輪：11-11 DeepMind 的 AlphaGenome 2 預測 DNA 序列與變異對特定人類細胞類型和疾病的影響，摘要沒有基準數字。同日 QVAC 的 BotPsy 主打十億參數以下的裝置端代理模型，沒有內文。11-09 Amazon 的 HOPE 談混合專家模型剪枝時保留彼此相依的專家，方法與結果未知。同日 DeepMind 的 Gemini Robotics 2.5 沒有基準數字。11-06 OpenAI 的 BioBasicsBench 用 100 項任務測代理處理濕實驗數據，沒給任何模型得分，基準由 OpenAI 自己設計。",
+    "current_next": "看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 3D 微調指南用了哪個基礎模型、需要多少 GPU；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 AlphaGenome 2 是否釋出論文與基準對比；看 BotPsy 的權重是否公開；看 Gemini Robotics 2.5 是否公開評測數據；看 HOPE 的剪枝比例與基準分數。",
     "events": [
+      {
+        "slug": "xybench-helping-with-the-problem-behind-the-question-a319",
+        "date": "2026-11-13",
+        "company": "Ai2",
+        "title": "XYBench: Helping with the problem behind the question",
+        "summary": "Ai2 在 Hugging Face 發表 XYBench，主題是處理問題背後真正的問題。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "reflections-on-our-responsible-scaling-policy-fe79",
+        "date": "2026-11-13",
+        "company": "Anthropic",
+        "title": "Reflections On Our Responsible Scaling Policy",
+        "summary": "Anthropic 新聞稿「Reflections On Our Responsible Scaling Policy」，內文依授權限制不轉述。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "llmon-an-llm-native-markup-language-now-in-granite-4-1-3b-an-3c4e",
         "date": "2026-11-12",
@@ -21,7 +39,7 @@
         "company": "Anthropic",
         "title": "Claude 4",
         "summary": "Anthropic 發布 Claude 4，我們依授權限制只列標題與連結。",
-        "confidence": 73,
+        "confidence": 83,
         "heat": "未量測"
       },
       {
@@ -1155,16 +1173,25 @@
     "slug": "agent-refactor",
     "name": "Agent 與軟體重構",
     "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "今天新增一則。Cogent 把 OpenAI 模型和企業內部脈絡結合，讓代理自動修補漏洞，是 OpenAI 部落格的客戶案例，摘要沒有客戶數、修補量或成效數字，也沒說修補是只給建議還是直接上線。前一輪：11-10 DeepMind 的 AlphaProof Code 用 Lean 寫了三百萬行證明來驗證 Signal 的核心加密，證明涵蓋範圍摘要沒寫。11-09 OpenAI 的 CodeRabbit 案例說用 Codex 讓同一批工程師出貨 20 倍，計算口徑與時間範圍沒給，屬廠商自述。11-05 Cult.fit 與 Merge 兩則 OpenAI 客戶案例沒有具體清單或效率數字。11-04 OpenAI 的自動化流程在 Linux 核心找到並驗證 948 個本機提權漏洞，誤報率與上游採納數量沒有。",
-    "current_next": "看 Cogent 或客戶是否公布修補成功率與誤修率；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果，以及證明庫是否公開；看 CodeRabbit 是否公布出貨量與缺陷率的對照；看 Linux 核心上游是否合併那批修補，以及誤報率。",
+    "current_now": "今天新增兩則，都是 OpenAI 官網的客戶案例，屬廠商自述。Amplitude 的產品代理 Wave 建在 OpenAI 模型上，負責找該做什麼、搭配程式碼代理出貨並量測成效，標題稱改善 1 到 2 天上線，改善前的基準沒給。Holiday Extras 用 Codex 開發應用，稱訂房轉換率提高，沒有幅度。前一輪：11-10 DeepMind 的 AlphaProof Code 用 Lean 寫了三百萬行證明來驗證 Signal 的核心加密，證明涵蓋範圍摘要沒寫。同日 Cogent 用 OpenAI 模型加企業內部脈絡讓代理自動修補漏洞，沒有修補量與成效數字。11-09 OpenAI 的 CodeRabbit 案例說用 Codex 讓同一批工程師出貨 20 倍，計算口徑沒給。11-04 OpenAI 的自動化流程在 Linux 核心找到並驗證 948 個本機提權漏洞，誤報率與上游採納數量沒有。",
+    "current_next": "看 Amplitude 或其客戶是否公開 Wave 的採用數據，以及其他供應商是否推出類似的產品代理；看 Holiday Extras 是否補上轉換率的幅度與對照期間；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果；看 Cogent 是否公布修補成功率與誤修率；看 CodeRabbit 是否公布出貨量與缺陷率的對照；看 Linux 核心上游是否合併那批修補。",
     "events": [
+      {
+        "slug": "build-a-robot-pick-and-place-simulation-with-simready-assets-9c38",
+        "date": "2026-11-13",
+        "company": "NVIDIA",
+        "title": "Build a Robot Pick-and-Place Simulation with SimReady Assets",
+        "summary": "NVIDIA 在 Hugging Face 發教學，用 SimReady 資產建立機器人取放模擬。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "how-amplitude-ships-product-improvements-in-1-2-days-with-op-803a",
         "date": "2026-11-12",
         "company": "OpenAI",
         "title": "How Amplitude ships product improvements in 1–2 days with OpenAI",
         "summary": "Amplitude 用 OpenAI 模型做出產品代理 Wave，宣稱改善可在 1 到 2 天內上線。",
-        "confidence": 73,
+        "confidence": 83,
         "heat": "未量測"
       },
       {
@@ -1668,15 +1695,33 @@
     "slug": "product-market",
     "name": "產品與商業驗證",
     "current_thesis": "本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。",
-    "current_now": "今天新增四則，全是單一來源的廠商自述。新加坡航空說 Kris 聊天機器人的 CSAT 翻倍，沒有絕對值。OpenAI 說逾 20,000 名退伍軍人與轉職軍人領了一年免費 ChatGPT Plus，是領取數不是續用數。NVIDIA 說視覺 AI 與機器人讓數千噸回收材料免於掩埋，沒有時間範圍與業者名稱。JioStar 與 Gilbert + Tobin 兩則訪談只有主題，沒有成效數字，證據不足，待補。前一輪：OpenAI 與 Upwork 的研究指出 AI 相關自由接案的預算與工時上升，OpenAI 是共同作者。OpenAI 的 ChatGPT Businesses 讓商家查看自己在 ChatGPT 的呈現，是否收費、如何排序沒寫。ChatGPT Enterprise 上架 AWS Marketplace，價格與抵用承諾額度沒寫。Anthropic 的〈Roadshow Launch〉依授權只放標題與連結。",
-    "current_next": "看新航是否補上 CSAT 絕對值與處理量；看免費方案是否擴到其他族群，或公布領取者的續訂情況；看 Businesses 是否公布排序規則、收費或廣告機制；看 Upwork 研究的方法與樣本，以及獨立研究是否得到相近結果；看 AWS Marketplace 與 Google Cloud Marketplace 的定價與抵扣條件；看 Roadshow Launch 原文有沒有可驗證的產品或時程訊息。",
+    "current_now": "今天新增兩則。NVIDIA 在 GFN Thursday 公告《Warhammer 40,000: Dawn of War IV》將上 GeForce NOW，並說 DLSS 5 將支援《War Thunder》與《Where Winds Meet》，上線日期與效能數據沒給，證據不足，待補。OpenAI 訪談澳洲律所 Gilbert + Tobin 執行長，談 AI 如何改寫法律業務，只有主題，沒有成效數字。前一輪：11-11 OpenAI 說逾 20,000 名退伍軍人與轉職軍人領了一年免費 ChatGPT Plus，是領取數不是續用數。11-10 新加坡航空說 Kris 聊天機器人的 CSAT 翻倍，沒有絕對值。同日 OpenAI 的 ChatGPT Businesses 讓商家查看自己在 ChatGPT 的呈現，是否收費、如何排序沒寫。OpenAI 與 Upwork 的研究指出 AI 相關自由接案的預算與工時上升，OpenAI 是共同作者。11-09 ChatGPT Enterprise 上架 AWS Marketplace，價格沒寫。Anthropic 的〈Roadshow Launch〉依授權只放標題與連結。",
+    "current_next": "看 NVIDIA 是否公布 DLSS 5 在 War Thunder 與 Where Winds Meet 的上線日期與效能數據；看 Gilbert + Tobin 或 OpenAI 是否補上法律業務的具體成效；看免費方案是否擴到其他族群，或公布領取者的續訂情況；看新航是否補上 CSAT 絕對值；看 Businesses 是否公布排序規則與收費機制；看 AWS Marketplace 的定價與抵扣條件；看 Roadshow Launch 原文有沒有可驗證的產品或時程訊息。",
     "events": [
+      {
+        "slug": "how-ai-is-helping-care-teams-get-patients-the-right-care-soo-4165",
+        "date": "2026-11-13",
+        "company": "NVIDIA",
+        "title": "How AI Is Helping Care Teams Get Patients the Right Care, Sooner",
+        "summary": "NVIDIA 部落格盤點醫療照護團隊如何用 AI 縮短病患等到適當照護的時間。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "a-new-dawn-in-the-cloud-warhammer-40-000-dawn-of-war-iv-is-c-387d",
         "date": "2026-11-12",
         "company": "NVIDIA",
         "title": "A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW",
         "summary": "《戰鎚 40,000：戰爭黎明 IV》將上 GeForce NOW，DLSS 5 也要進兩款遊戲。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "gondola-doubles-revenue-as-its-team-builds-more-with-codex-855e",
+        "date": "2026-11-12",
+        "company": "OpenAI",
+        "title": "Gondola doubles revenue as its team builds more with Codex",
+        "summary": "OpenAI 發布客戶案例：Gondola 用 Codex 讓主力工程師產出提高 50%，營收翻倍。",
         "confidence": 73,
         "heat": "未量測"
       },
@@ -1767,7 +1812,7 @@
         "company": "OpenAI",
         "title": "Introducing Businesses in ChatGPT",
         "summary": "OpenAI 推出 ChatGPT 內的 Businesses 功能，讓商家管理資訊並查看自己在 ChatGPT 的呈現。",
-        "confidence": 73,
+        "confidence": 83,
         "heat": "未量測"
       },
       {
@@ -3483,12 +3528,975 @@
     ]
   },
   {
+    "slug": "infra-cost",
+    "name": "基礎設施與成本",
+    "current_thesis": "本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。",
+    "current_now": "今天新增一則。NVIDIA 在 KubeCon 宣布捐出 OpenShell 並擴大開源與 AI 基礎設施投入，OpenShell 的用途與接收的社群摘要沒說清楚，證據不足，待補。前一輪：11-09 NVIDIA 為 SK 電信、LG、Upstage、Motif 四款韓國開放模型釋出 Dynamo 部署配方，處理單張 GPU 放不下的大模型，沒有吞吐量或延遲數字。OpenAI 介紹 Control Room，可追蹤研究設施上的模型工作負載並在安全疑慮時停掉，架構與觸發條件證據不足，待補。11-06 OpenAI 與 Hacktron 合作找自家系統漏洞，範圍與發現數量沒公開。NVIDIA 稱 GPU 記憶體壓力與價格上升會持續，具體數據沒給。",
+    "current_next": "看 OpenShell 是否進入 CNCF 等中立基金會、有哪些專案採用；看 Dynamo 配方公布的實測吞吐量與四款模型的部署案例；看 OpenAI 是否公布 Control Room 的實際停機事件；看 Hacktron 合作是否發布測試結果。",
+    "events": [
+      {
+        "slug": "llama-cpp-v1-0-0-a-stronger-foundation-for-the-local-ai-ecos-07ae",
+        "date": "2026-11-13",
+        "company": "ggml-org",
+        "title": "llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem",
+        "summary": "ggml-org 在 Hugging Face 發文宣布 llama.cpp 推出 v1.0.0。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-expands-open-source-commitment-with-openshell-donatio-efc0",
+        "date": "2026-11-10",
+        "company": "NVIDIA",
+        "title": "NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure",
+        "summary": "NVIDIA 在 KubeCon 宣布捐出 OpenShell，並擴大開源與 AI 基礎設施投入。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-dynamo-recipes-bring-korea-s-leading-open-models-to-p-7c43",
+        "date": "2026-11-09",
+        "company": "NVIDIA",
+        "title": "NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production",
+        "summary": "NVIDIA 為 SK 電信、LG、Upstage、Motif 四款韓國開放模型釋出 Dynamo 部署配方。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "control-room-a-central-system-to-track-and-stop-model-worklo-c8f3",
+        "date": "2026-11-09",
+        "company": "OpenAI",
+        "title": "Control Room: A central system to track and stop model workloads across our research infrastructure",
+        "summary": "OpenAI 介紹內部系統 Control Room，可追蹤研究設施上的模型工作負載並緊急停止。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "partnering-with-hacktron-to-find-vulnerabilities-in-openai-s-0603",
+        "date": "2026-11-06",
+        "company": "OpenAI",
+        "title": "Partnering with Hacktron to find vulnerabilities in OpenAI’s systems",
+        "summary": "OpenAI 找 Hacktron 合作，替自家系統找漏洞並測試與第三方服務的連接。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-nvidia-open-source-tools-are-helping-researchers-build-n-6289",
+        "date": "2026-11-06",
+        "company": "NVIDIA",
+        "title": "How NVIDIA Open Source Tools Are Helping Researchers Build Next-Generation 6G Networks",
+        "summary": "NVIDIA 開源 Aerial 滿一年，與 Sionna 等工具一起組成 6G 研究的開源基礎。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "more-performance-from-every-byte-how-full-stack-codesign-sol-51be",
+        "date": "2026-11-05",
+        "company": "NVIDIA",
+        "title": "More Performance From Every Byte: How Full-Stack Codesign Solves AI’s Memory Challenge",
+        "summary": "NVIDIA 說記憶體吃緊且漲價，主張靠軟硬體協同設計榨出每個位元組的效能。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "setting-a-new-standard-for-responsible-ai-infrastructure-efd8",
+        "date": "2026-11-05",
+        "company": "OpenAI",
+        "title": "Setting a new standard for responsible AI infrastructure",
+        "summary": "OpenAI 提出社區公約與算力園區政策藍圖，主張保護在地資源並創造工作。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "vera-delivers-the-best-of-both-worlds-highest-throughput-and-fea2",
+        "date": "2026-11-05",
+        "company": "NVIDIA",
+        "title": "Vera Delivers the Best of Both Worlds: Highest Throughput and Fastest Agents",
+        "summary": "NVIDIA 稱 Vera CPU 同時拿到最高吞吐與最快的代理執行。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "daybreak-red-is-now-available-in-aws-govcloud-us-east-513b",
+        "date": "2026-11-04",
+        "company": "OpenAI",
+        "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
+        "summary": "Daybreak Red 上架 AWS GovCloud（US-East），核准客戶可經 Amazon Bedrock 使用 GPT-5.6 Cyber。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "ai-is-changing-how-semiconductor-fabs-work-and-engineers-are-3c0d",
+        "date": "2026-11-03",
+        "company": "NVIDIA",
+        "title": "AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving Faster Because of It",
+        "summary": "NVIDIA 說 AI 正在改變半導體廠的工程工作，工程師反應更快。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "preparing-our-next-security-sprint-to-harden-openai-7ab0",
+        "date": "2026-11-02",
+        "company": "OpenAI",
+        "title": "Preparing our next security sprint to harden OpenAI",
+        "summary": "OpenAI 預告下一輪資安衝刺，找 Cathedral Systems 用 AI 測試自身防禦。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "scaling-git-at-openai-ab05",
+        "date": "2026-11-02",
+        "company": "OpenAI",
+        "title": "Scaling Git at OpenAI",
+        "summary": "OpenAI 公開自家 Git 相容後端 Pando，為 Codex 帶來的開發量級而做。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-the-grid-protectors-program-bda7",
+        "date": "2026-11-02",
+        "company": "OpenAI",
+        "title": "Introducing the Grid Protectors Program",
+        "summary": "OpenAI 推出 Grid Protectors 計畫，與電力業者合作，讓未來的算力園區支援電網穩定並避免推高用電成本。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-33-0-caa6",
+        "date": "2026-11-02",
+        "company": "vLLM",
+        "title": "v0.33.0",
+        "summary": "vLLM 發布 v0.33.0，累計 927 個 commit、389 位貢獻者，新增多個大型 MoE 模型支援。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "rewarding-defenders-with-bigger-bug-bounties-f5d6",
+        "date": "2026-11-02",
+        "company": "OpenAI",
+        "title": "Rewarding defenders with bigger bug bounties",
+        "summary": "OpenAI 調高資安漏洞賞金，並加入報告品質、忠誠度與優先活動三種加成。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "granite-switch-4-1-1-update-models-like-you-update-software-c534",
+        "date": "2026-10-29",
+        "company": "IBM",
+        "title": "Granite Switch 4.1.1 — Update models like you update software",
+        "summary": "IBM Granite 在 Hugging Face 發文，說明 Granite Switch 4.1.1 讓模型能像軟體一樣更新。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "thin-light-and-built-for-everything-nvidia-rtx-spark-windows-ebc3",
+        "date": "2026-10-28",
+        "company": "NVIDIA",
+        "title": "Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games",
+        "summary": "NVIDIA 說 RTX Spark 輕薄筆電已由六家品牌上市，並加入新模型、代理工具與遊戲。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "rapidly-scaling-online-storage-to-serve-over-1-billion-chatg-9938",
+        "date": "2026-10-23",
+        "company": "OpenAI",
+        "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
+        "summary": "OpenAI 講 Habitat 儲存層如何撐住逾 10 億 ChatGPT 使用者，讀取快 12 倍。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "does-your-model-run-on-aws-trainium-look-it-up-f0d3",
+        "date": "2026-10-23",
+        "company": "AWS",
+        "title": "Does Your Model Run on AWS Trainium? Look It Up",
+        "summary": "Hugging Face 發文教人查自己的模型能不能在 AWS Trainium 上跑。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-unveils-minerva-to-bring-end-to-end-observability-for-116a",
+        "date": "2026-10-22",
+        "company": "NVIDIA",
+        "title": "NVIDIA Unveils Minerva to Bring End-to-End Observability for AI Factories",
+        "summary": "NVIDIA 推出 Minerva，替 AI 工廠做端到端的可觀測性。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-companies-are-using-nvidia-dsx-to-break-the-power-bottle-9fce",
+        "date": "2026-10-22",
+        "company": "NVIDIA",
+        "title": "How Companies Are Using NVIDIA DSX to Break the Power Bottleneck",
+        "summary": "NVIDIA 稱電力是基礎設施最大瓶頸，用 DSX 平台把電網與 AI 工廠當一個系統規劃。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-cudss-now-generally-available-to-accelerate-engineeri-115b",
+        "date": "2026-10-21",
+        "company": "NVIDIA",
+        "title": "NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations",
+        "summary": "NVIDIA cuDSS 今天正式 GA，把工程與科學模擬的一段關鍵運算搬上 GPU。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "profiling-torchneuron-part-1-system-level-profiling-on-aws-t-92a5",
+        "date": "2026-10-21",
+        "company": "Amazon",
+        "title": "Profiling TorchNeuron (Part 1): System-level profiling on AWS Trainium.",
+        "summary": "Amazon 發表 TorchNeuron 剖析系列第一篇，講 AWS Trainium 的系統層級效能分析。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "bringing-the-spark-to-europe-local-intelligence-powers-next--94b0",
+        "date": "2026-10-21",
+        "company": "NVIDIA",
+        "title": "Bringing the Spark to Europe: Local Intelligence Powers Next Wave of Agents",
+        "summary": "NVIDIA 在 GTC Berlin 展示本地 AI 硬體全系列：RTX Spark、DGX Spark、DGX Station。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "google-cloud-and-nvidia-announce-general-availability-of-nvi-b189",
+        "date": "2026-10-21",
+        "company": "Google",
+        "title": "Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure",
+        "summary": "Google Cloud 與 NVIDIA 宣布 Vera Rubin 基礎設施將於下月 GA，之後擴展至歐洲。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-confidential-computing-expands-enabling-frontier-mode-d039",
+        "date": "2026-10-21",
+        "company": "NVIDIA",
+        "title": "NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure",
+        "summary": "NVIDIA 公布 OpenShell 參考架構，並擴充機密運算，讓前沿模型業者安全跨基礎設施擴展。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "anylanguagemodel-1-0-one-year-of-local-models-on-apple-platf-2d6c",
+        "date": "2026-10-20",
+        "company": "Hugging Face",
+        "title": "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms",
+        "summary": "AnyLanguageModel 釋出 1.0，聚焦 Apple 平台本地模型。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "mps-in-pytorch-2-15-2fa1",
+        "date": "2026-10-20",
+        "company": "Hugging Face",
+        "title": "MPS in PyTorch 2.15",
+        "summary": "Hugging Face 發文談 PyTorch 2.15 的 MPS 後端。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "hugging-face-torchtpu-tpus-natively-3bdd",
+        "date": "2026-10-20",
+        "company": "Hugging Face",
+        "title": "Hugging Face ❤️ TorchTPU: TPUs, Natively",
+        "summary": "Hugging Face 發文談在 TPU 上原生跑 PyTorch。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "european-leaders-turn-to-nvidia-vera-cpus-to-build-local-inf-ce71",
+        "date": "2026-10-20",
+        "company": "NVIDIA",
+        "title": "European Leaders Turn to NVIDIA Vera CPUs to Build Local Infrastructure",
+        "summary": "Nebius 與 Nscale 等業者轉向 NVIDIA Vera CPU，建歐洲本地 AI 基礎設施。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "torchneuron-running-hf-models-on-aws-trainium-is-easier-than-b29e",
+        "date": "2026-10-19",
+        "company": "Hugging Face",
+        "title": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
+        "summary": "Hugging Face 推出 TorchNeuron，讓 HF 模型更容易跑在 AWS Trainium 上。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "securing-america-s-compute-advantage-anthropic-s-position-on-dff5",
+        "date": "2026-10-19",
+        "company": "Anthropic",
+        "title": "Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule",
+        "summary": "Anthropic 官網新聞頁出現《Securing America S Compute Advantage Anthropic S Position On The Diffusion Rule》，內文未摘錄。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-32-0-fc5e",
+        "date": "2026-10-18",
+        "company": "vLLM",
+        "title": "v0.32.0",
+        "summary": "vLLM 釋出 v0.32.0，累計 814 個 commit、363 位貢獻者，新增 /v1/systemone 端點。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "rtx-spark-ignites-global-celebration-as-new-windows-pcs-arri-2d9a",
+        "date": "2026-10-17",
+        "company": "NVIDIA",
+        "title": "RTX Spark Ignites Global Celebration as New Windows PCs Arrive",
+        "summary": "NVIDIA 宣布 RTX Spark 筆電開賣，起價 2,399 美元，最高 128GB 統一記憶體。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "the-nordics-and-nvidia-show-what-s-possible-when-a-region-co-5544",
+        "date": "2026-10-15",
+        "company": "NVIDIA",
+        "title": "The Nordics and NVIDIA Show What’s Possible When a Region Commits to Advanced Computing",
+        "summary": "NVIDIA 發文談北歐國家投入先進運算，北歐新創密度居歐洲之冠。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "frontier-model-security-9707",
+        "date": "2026-10-15",
+        "company": "Anthropic",
+        "title": "Frontier Model Security",
+        "summary": "Anthropic 官網新聞頁出現《Frontier Model Security》，內文未摘錄。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-expands-advanced-technology-access-for-europe-s-scien-be17",
+        "date": "2026-10-15",
+        "company": "NVIDIA",
+        "title": "NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute",
+        "summary": "NVIDIA 宣布擴大歐洲科學界的先進運算取用，含開放學習資源、合作與算力。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "european-cities-deploy-nvidia-powered-ai-agents-to-run-smart-fbe8",
+        "date": "2026-10-14",
+        "company": "NVIDIA",
+        "title": "European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations",
+        "summary": "NVIDIA 稱歐洲多個城市用其加速運算建 physical AI agent，處理市政營運。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "all-systems-go-global-pc-app-ecosystem-ready-for-nvidia-rtx--7423",
+        "date": "2026-10-13",
+        "company": "NVIDIA",
+        "title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
+        "summary": "NVIDIA 稱全球 PC 應用生態已準備好支援 RTX Spark。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "ocp-global-summit-amid-ecosystem-adoption-nvidia-opens-vera--66a8",
+        "date": "2026-10-12",
+        "company": "NVIDIA",
+        "title": "OCP Global Summit: Amid Ecosystem Adoption, NVIDIA Opens Vera Rubin Architecture to Help Scale AI Factories Worldwide",
+        "summary": "NVIDIA 在 OCP 全球高峰會宣布開放 Vera Rubin 架構，主打 AI 工廠的開放標準。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "impactful-scheduling-for-gpu-clusters-ecfb",
+        "date": "2026-10-09",
+        "company": "Ai2",
+        "title": "Impactful scheduling for GPU clusters",
+        "summary": "Ai2 在 Hugging Face 發文談 GPU 叢集的排程方法。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "legalon-halves-codex-costs-while-maintaining-development-spe-3e80",
+        "date": "2026-10-08",
+        "company": "OpenAI",
+        "title": "LegalOn halves Codex costs while maintaining development speed",
+        "summary": "LegalOn 把每日 Codex 估計成本砍掉 65%，開發速度沒掉。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "rally-up-gears-of-war-e-day-launches-on-geforce-now-9cbb",
+        "date": "2026-10-08",
+        "company": "NVIDIA",
+        "title": "Rally Up: ‘Gears of War: E-Day’ Launches on GeForce NOW",
+        "summary": "《Gears of War: E-Day》上架 GeForce NOW，Fire TV 用戶將可直接買會員。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-microsoft-kick-off-a-new-beginning-for-windows-pcs-wi-8395",
+        "date": "2026-10-07",
+        "company": "Microsoft",
+        "title": "NVIDIA, Microsoft Kick Off a New Beginning for Windows PCs With RTX Spark and AI Agents",
+        "summary": "NVIDIA 與微軟聯手，讓 AI agent 在 Windows PC 本機執行。",
+        "confidence": 80,
+        "heat": "未量測"
+      },
+      {
+        "slug": "why-telecom-operators-are-building-their-ai-strategy-on-open-301d",
+        "date": "2026-10-06",
+        "company": "NVIDIA",
+        "title": "Why Telecom Operators Are Building Their AI Strategy on Open Models",
+        "summary": "NVIDIA 說電信業者把 AI 策略押在開放模型上，理由不只是成本。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-31-0-312d",
+        "date": "2026-10-05",
+        "company": "vLLM",
+        "title": "v0.31.0",
+        "summary": "vLLM 發布 v0.31.0，717 個 commit、307 位貢獻者，亮點是 DeepSeek-V4.1-Flash 的效能優化。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-dgx-spark-64gb-gives-developers-more-ways-to-build-an-f6eb",
+        "date": "2026-10-02",
+        "company": "NVIDIA",
+        "title": "NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI",
+        "summary": "NVIDIA DGX Spark 本月推出 64GB 統一記憶體版本。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "productive-durable-fungible-how-nvidia-ai-factories-maximize-7fcc",
+        "date": "2026-10-01",
+        "company": "NVIDIA",
+        "title": "Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment",
+        "summary": "NVIDIA 用投資報酬率框架推銷 AI 工廠，並稱每兆瓦約 6,000 萬美元。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "from-training-to-production-nvidia-and-coreweave-close-the-l-77e9",
+        "date": "2026-09-30",
+        "company": "CoreWeave",
+        "title": "From Training to Production, NVIDIA and CoreWeave Close the Loop on Agentic AI",
+        "summary": "NVIDIA 與 CoreWeave 宣布把下一代 NVIDIA 基礎設施帶進 CoreWeave 雲端，主打代理式 AI。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "advancing-private-ai-compute-with-secure-server-side-memory-101c",
+        "date": "2026-09-23",
+        "company": "Google DeepMind",
+        "title": "Advancing Private AI Compute with secure, server-side memory",
+        "summary": "Google DeepMind 替 Private AI Compute 加入伺服器端安全記憶體，支援個人化 AI 需求。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-to-use-nvidia-warp-and-mjwarp-to-accelerate-robotics-sim-5829",
+        "date": "2026-09-23",
+        "company": "NVIDIA",
+        "title": "How to Use NVIDIA Warp and MjWarp to Accelerate Robotics Simulation and Learning Workflows",
+        "summary": "NVIDIA 在 Hugging Face 發文教學，示範用 Warp 與 MjWarp 加速機器人模擬與學習流程。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-30-0-d743",
+        "date": "2026-09-22",
+        "company": "vLLM",
+        "title": "v0.30.0",
+        "summary": "vLLM v0.30.0 加入 DeepSeek-V4.1-Flash 支援，KV cache 全面採用 MXFP8 儲存。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "why-deploying-physical-ai-at-scale-demands-safety-at-every-l-38e8",
+        "date": "2026-09-21",
+        "company": "NVIDIA",
+        "title": "Why Deploying Physical AI at Scale Demands Safety at Every Layer",
+        "summary": "NVIDIA 引用產業預測，主張物理 AI 規模化部署必須在每一層都做好安全。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-launches-dsx-ready-to-qualify-power-and-cooling-produ-833d",
+        "date": "2026-09-21",
+        "company": "NVIDIA",
+        "title": "NVIDIA Launches DSX Ready to Qualify Power and Cooling Products for AI Factories",
+        "summary": "NVIDIA 推出 DSX Ready 認證計畫，替 AI 工廠篩選相容的電力與散熱產品。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-vera-rubin-nvl72-delivers-leading-performance-in-mlpe-0793",
+        "date": "2026-09-16",
+        "company": "NVIDIA",
+        "title": "NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut",
+        "summary": "NVIDIA Vera Rubin NVL72 在 MLPerf Inference v6.1 首次亮相就拿下領先成績。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "emerald-ai-google-and-nvidia-launch-alliance-to-advance-flex-53f4",
+        "date": "2026-09-16",
+        "company": "NVIDIA、Google、Emerald AI",
+        "title": "Emerald AI, Google and NVIDIA Launch Alliance to Advance Flexible AI Data Centers",
+        "summary": "Emerald AI、Google、NVIDIA 聯手成立 AI Energy Management Alliance，推動 AI 資料中心彈性用電。",
+        "confidence": 80,
+        "heat": "未量測"
+      },
+      {
+        "slug": "from-megawatts-to-tokens-how-nvidia-maximizes-ai-factory-pro-0fe6",
+        "date": "2026-09-15",
+        "company": "NVIDIA",
+        "title": "From Megawatts to Tokens: How NVIDIA Maximizes AI Factory Production",
+        "summary": "NVIDIA 部落格用一次電網調度案例，帶出 AI 工廠配合電網做需量反應的新做法。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "ai-infra-summit-nvidia-vera-rubin-and-dsx-platform-advanceme-18b2",
+        "date": "2026-09-15",
+        "company": "NVIDIA",
+        "title": "AI Infra Summit: NVIDIA Vera Rubin and DSX Platform Advancements Showcase Energy Efficiencies of Optimizing Tokens Per Watt for AI Factories",
+        "summary": "NVIDIA 在 AI Infra Summit 上談 Vera Rubin 與 DSX 平台如何拉高「每瓦 token 數」。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "rapidly-scaling-online-storage-to-serve-over-1-billion-chatg-4bdd",
+        "date": "2026-09-11",
+        "company": "OpenAI",
+        "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users",
+        "summary": "OpenAI 把內部儲存系統 Habitat 演化成支撐 10 億用戶的全球分散式平台。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "skild-ai-taps-nvidia-physical-ai-to-teach-robots-new-tasks-f-396d",
+        "date": "2026-09-10",
+        "company": "NVIDIA",
+        "title": "Skild AI Taps NVIDIA Physical AI to Teach Robots New Tasks From a Single Video",
+        "summary": "Skild AI用NVIDIA Physical AI技術，讓機器人看一支影片就學新任務。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "physical-ai-takes-the-wheel-how-the-world-s-robotaxi-leaders-5a8f",
+        "date": "2026-09-10",
+        "company": "NVIDIA",
+        "title": "Physical AI Takes the Wheel: How the World’s Robotaxi Leaders Are Building With NVIDIA Technologies",
+        "summary": "NVIDIA稱全球robotaxi市場2035年上看4000億美元，車隊業者正用其全端平台鋪路。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "async-grpo-with-lora-across-hf-jobs-a-bucket-a-proxy-and-no--a2b7",
+        "date": "2026-09-10",
+        "company": "Hugging Face",
+        "title": "Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL",
+        "summary": "Hugging Face 公開不靠 NCCL、靠 bucket 加 proxy 跨 HF Jobs 跑非同步 LoRA GRPO 訓練的做法。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "expanding-our-use-of-google-cloud-tpus-and-services-aab6",
+        "date": "2026-09-10",
+        "company": "Google",
+        "title": "Expanding Our Use Of Google Cloud Tpus And Services",
+        "summary": "Anthropic擴大使用Google雲端TPU與相關服務，具體用量與合約我們選擇不轉述。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "d-matrix-adopts-nvidia-nvlink-fusion-for-rack-scale-xpu-depl-e25a",
+        "date": "2026-09-10",
+        "company": "NVIDIA",
+        "title": "d-Matrix Adopts NVIDIA NVLink Fusion for Rack-Scale XPU Deployment",
+        "summary": "推論晶片商d-Matrix採用NVIDIA NVLink Fusion，串接次世代Raptor XPU。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "covering-electricity-price-increases-a97a",
+        "date": "2026-09-09",
+        "company": "Anthropic",
+        "title": "Covering Electricity Price Increases",
+        "summary": "Anthropic發布關於承擔電價上漲的公告，具體對象與金額我們選擇不轉述。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-29-0-d853",
+        "date": "2026-09-09",
+        "company": "vLLM",
+        "title": "v0.29.0",
+        "summary": "vLLM v0.29.0 發布，Model Runner V2 成為所有模型的預設執行路徑。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "sparks-fly-nvidia-accelerates-local-ai-at-ifa-2026-a2c6",
+        "date": "2026-09-03",
+        "company": "Microsoft",
+        "title": "Sparks Fly: NVIDIA Accelerates Local AI at IFA 2026",
+        "summary": "NVIDIA 與微軟在 IFA 2026 聯手推本地 AI 推論工具，10 月推出迷你電腦 RTX Spark",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "real-time-intelligence-with-ibm-time-series-models-on-conflu-eebb",
+        "date": "2026-09-02",
+        "company": "IBM Research",
+        "title": "Real-Time Intelligence with IBM Time Series Models on Confluent",
+        "summary": "IBM 時間序列模型接上 Confluent 做即時智慧，細節待補。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "introducing-huggingface-kernels-200-webgpu-kernels-for-local-0b7a",
+        "date": "2026-09-01",
+        "company": "Hugging Face",
+        "title": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
+        "summary": "Hugging Face 推出 @huggingface/kernels，內建超過 200 個 WebGPU 運算核心，主打瀏覽器端在地推論。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "model-hardware-standard-research-preview-a8a0",
+        "date": "2026-08-27",
+        "company": "Anthropic",
+        "title": "Model Hardware Standard Research Preview",
+        "summary": "Anthropic預覽一項名為Model Hardware Standard的新標準，具體規格內容未轉載，僅留標題與連結。",
+        "confidence": 80,
+        "heat": "未量測"
+      },
+      {
+        "slug": "delivering-vera-nvidia-s-first-cpu-built-for-agents-is-shipp-e437",
+        "date": "2026-08-27",
+        "company": "NVIDIA",
+        "title": "Delivering Vera: NVIDIA’s First CPU Built for Agents Is Shipping Now",
+        "summary": "NVIDIA首款專為AI代理打造的Vera CPU開始大規模出貨，副總裁Ian Buck親自將系統交付到AI生態圈各處。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-28-0-27f3",
+        "date": "2026-08-26",
+        "company": "vLLM",
+        "title": "v0.28.0",
+        "summary": "vLLM 發布 v0.28.0，這版對 Kimi-K3 做了一輪效能優化。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-nvlink-fusion-expands-with-nvhbm-custom-high-bandwidt-bf0a",
+        "date": "2026-08-26",
+        "company": "NVIDIA",
+        "title": "NVIDIA NVLink Fusion Expands With NVHBM Custom High-Bandwidth Memory",
+        "summary": "NVIDIA擴大NVLink Fusion支援自訂高頻寬記憶體NVHBM，回應AI代理與兆參數工作負載對基礎設施整合設計的需求。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "jalape-o-s-first-results-show-industry-leading-speed-and-eff-bfec",
+        "date": "2026-08-25",
+        "company": "OpenAI",
+        "title": "Jalapeño’s first results show industry-leading speed and efficiency in AI inference",
+        "summary": "OpenAI 公布自研推論晶片 Jalapeño 的第一批結果，宣稱吞吐量更高、延遲更低、更省電。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "with-groq-3-lpx-in-full-production-nvidia-extends-vera-rubin-a8db",
+        "date": "2026-08-24",
+        "company": "NVIDIA",
+        "title": "With Groq 3 LPX in Full Production, NVIDIA Extends Vera Rubin Inference for Agents",
+        "summary": "NVIDIA 擴充 Vera Rubin NVL72 的 agent 推論能力，同篇公告也提到 Groq 3 LPX 全面量產",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "up-to-30x-more-work-per-watt-nvidia-vera-rubin-nvl72-sets-a--de02",
+        "date": "2026-08-24",
+        "company": "NVIDIA",
+        "title": "Up to 30x More Work Per Watt: NVIDIA Vera Rubin NVL72 Sets a New Efficiency Standard for AI Agents",
+        "summary": "NVIDIA 稱 Vera Rubin NVL72 每瓦工作量提升 30 倍，理由是 agent 工作負載吃 token 更凶",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-xpus-meet-a-world-class-ai-factory-e6c7",
+        "date": "2026-08-24",
+        "company": "NVIDIA",
+        "title": "How XPUs Meet a World-Class AI Factory",
+        "summary": "NVIDIA 談 NVLink Fusion：讓第三方 XPU 也能接進自家的 AI 工廠架構",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "how-hugging-face-inference-endpoints-jobs-and-buckets-power--b1e2",
+        "date": "2026-08-21",
+        "company": "Hugging Face",
+        "title": "How Hugging Face Inference Endpoints, Jobs, and Buckets Power Search on Papers with Code",
+        "summary": "Hugging Face 用自家 Inference Endpoints、Jobs 與 Buckets 三項雲端服務，架起 Papers with Code 的論文搜尋功能。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "securing-the-infrastructure-of-intelligence-2212",
+        "date": "2026-08-17",
+        "company": "NVIDIA",
+        "title": "Securing the Infrastructure of Intelligence",
+        "summary": "NVIDIA 發部落格文，把「AI 工廠」的基礎設施安全定位成 AI 經濟的核心議題。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "same-cluster-33-points-more-utilization-what-changed-was-the-a219",
+        "date": "2026-08-17",
+        "company": "Dharma-AI",
+        "title": "Same Cluster, 33 Points More Utilization: What Changed Was the Order",
+        "summary": "Hugging Face 部落格作者 Dharma-AI 發文稱同一批 GPU 叢集只靠調整工作排程順序，就把使用率拉高了 33 個百分點。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "openai-joins-ports-pike-project-ae27",
+        "date": "2026-08-17",
+        "company": "OpenAI",
+        "title": "OpenAI joins PORTS-Pike project",
+        "summary": "OpenAI 加入 PORTS-Pike 專案，投入俄亥俄州南部社區、涉及數千個工作機會。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "why-scaling-ai-compute-performance-requires-a-new-power-arch-7838",
+        "date": "2026-08-11",
+        "company": "NVIDIA",
+        "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
+        "summary": "NVIDIA 談 AI 運算擴張的瓶頸從算力轉向電力，主張改用新供電架構。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-27-1-dc5c",
+        "date": "2026-08-11",
+        "company": "vLLM",
+        "title": "v0.27.1",
+        "summary": "vLLM 發布 v0.27.1 修補版，前一版 v0.27.0 已加入 Kimi K3 全端支援。",
+        "confidence": 83,
+        "heat": "未量測"
+      },
+      {
+        "slug": "making-knowledge-distillation-cheap-enough-to-run-at-scale-4457",
+        "date": "2026-08-10",
+        "company": "Multiverse Computing",
+        "title": "Making Knowledge Distillation Cheap Enough to Run at Scale",
+        "summary": "Multiverse Computing發文主張把知識蒸餾成本壓到可規模化執行，但未附具體數字。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "openai-s-letter-to-governor-abbott-on-responsible-ai-infrast-bbf2",
+        "date": "2026-08-10",
+        "company": "OpenAI",
+        "title": "OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas",
+        "summary": "OpenAI致函德州州長Abbott，說明在德州建置AI基礎設施的承諾與透明度主張。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "firebird-launches-cis-region-s-largest-ai-factory-in-armenia-46b3",
+        "date": "2026-08-08",
+        "company": "Firebird",
+        "title": "Firebird Launches CIS Region’s Largest AI Factory in Armenia",
+        "summary": "新興 AI 雲端業者 Firebird 在亞美尼亞啟用 CIS 地區最大的 AI Factory，採用 NVIDIA 加速運算與 Dell 高效能基礎設施。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-and-partners-build-in-america-for-america-11f6",
+        "date": "2026-08-05",
+        "company": "NVIDIA",
+        "title": "NVIDIA and Partners Build in America, for America",
+        "summary": "NVIDIA 與夥伴宣布加碼投資美國本土製造、供應鏈、電網與人才培育，這是一篇官方定調文，沒有點名具體投資金額或項目。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "as-ai-increases-demands-on-memory-storage-steps-up-5d61",
+        "date": "2026-08-04",
+        "company": "NVIDIA",
+        "title": "As AI Increases Demands on Memory, Storage Steps Up",
+        "summary": "NVIDIA 談 AI 把記憶體撐爆後，儲存架構得跟上——光加容量不夠，要有效率的儲存設計。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "building-abundant-intelligence-e5e5",
+        "date": "2026-07-31",
+        "company": "OpenAI",
+        "title": "Building abundant intelligence",
+        "summary": "OpenAI 發文談用全端方式讓先進 AI 更強、更便宜、更普及，但只有大方向沒有細節。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "powerful-compute-so-compact-it-s-clutch-build-ai-anywhere-wi-8eca",
+        "date": "2026-07-28",
+        "company": "NVIDIA",
+        "title": "Powerful Compute So Compact, It’s Clutch — Build AI Anywhere With NVIDIA Jetson",
+        "summary": "NVIDIA 用 Jetson 主打邊緣端「隨處建 AI」的行銷貼文",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-harnesses-vera-cpu-to-speed-up-design-of-next-generat-fdbc",
+        "date": "2026-07-27",
+        "company": "NVIDIA",
+        "title": "NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs and GPUs",
+        "summary": "NVIDIA 用 Vera CPU 加速 EDA 流程，攜手 Cadence、Synopsys 設計下一代 CPU 與 GPU。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "v0-26-0-74ed",
+        "date": "2026-07-25",
+        "company": "vLLM",
+        "title": "v0.26.0",
+        "summary": "vLLM 發布 v0.26.0，含 411 個 commit、新增 Inkling 模型家族支援與多項 GPU 推論優化。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "bringing-nunchaku-4-bit-diffusion-inference-to-diffusers-0475",
+        "date": "2026-07-23",
+        "company": "Hugging Face",
+        "title": "Bringing Nunchaku 4-bit Diffusion Inference to Diffusers",
+        "summary": "Nunchaku 把 4-bit 擴散模型推論接進 Diffusers 函式庫。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-ai-supercomputer-comes-online-at-naval-postgraduate-s-821b",
+        "date": "2026-07-23",
+        "company": "NVIDIA",
+        "title": "NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School",
+        "summary": "NVIDIA 在美國海軍研究院裝上 DGX GB300，黃仁勳到場啟用。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "building-ai-infrastructure-with-the-effingham-county-communi-7a1a",
+        "date": "2026-07-22",
+        "company": "OpenAI",
+        "title": "Building AI infrastructure with the Effingham County community",
+        "summary": "OpenAI 在喬治亞州 Effingham County 推 Project Camellia 基礎設施，綁能源、就業與社區投資承諾。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-open-sources-first-gpu-accelerated-medical-physics-si-d804",
+        "date": "2026-07-22",
+        "company": "NVIDIA",
+        "title": "NVIDIA Open Sources First GPU-Accelerated Medical Physics Simulation Framework",
+        "summary": "NVIDIA 開源 GPU 加速的醫療物理模擬框架，降低醫療機器人訓練門檻。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-and-partners-build-in-america-for-america-11f6",
+        "date": "2026-07-21",
+        "company": "NVIDIA",
+        "title": "NVIDIA and Partners Build in America, for America",
+        "summary": "NVIDIA 和夥伴宣示在美國本土投資製造、供應鏈、電網與人力。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "built-for-vera-rubin-nvidia-spectrum-6-arrives-in-gigascale--2d14",
+        "date": "2026-07-21",
+        "company": "NVIDIA",
+        "title": "Built for Vera Rubin, NVIDIA Spectrum-6 Arrives in Gigascale AI Factories",
+        "summary": "NVIDIA 推 Spectrum-6 網通，搭 Vera Rubin 進入 gigascale AI 工廠。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-vera-rubin-driving-performance-per-watt-lowest-token--34af",
+        "date": "2026-07-21",
+        "company": "NVIDIA",
+        "title": "NVIDIA Vera Rubin Driving Performance Per Watt, Lowest Token Cost for Partners Worldwide",
+        "summary": "NVIDIA Vera Rubin 量產鋪開，主打每瓦效能與更低的 token 成本。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "built-in-fort-worth-wistron-opens-advanced-manufacturing-pla-ce1f",
+        "date": "2026-07-21",
+        "company": "NVIDIA",
+        "title": "Built in Fort Worth: Wistron Opens Advanced Manufacturing Plant to Produce NVIDIA AI Systems",
+        "summary": "緯創在德州福和市開第一座美國廠，生產 NVIDIA AI 系統。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "bristol-myers-squibb-building-life-science-industry-s-most-a-a010",
+        "date": "2026-07-20",
+        "company": "NVIDIA",
+        "title": "Bristol Myers Squibb Building Life Science Industry’s Most Advanced AI Factory on NVIDIA Vera Rubin",
+        "summary": "必治妥施貴寶（BMS）要在 NVIDIA Vera Rubin 上蓋新一代 AI 工廠。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-vera-rubin-maximizes-intelligence-per-dollar-for-post-5933",
+        "date": "2026-07-17",
+        "company": "NVIDIA",
+        "title": "NVIDIA Vera Rubin Maximizes Intelligence per Dollar for Post-Training Workloads — a Key Metric for Agentic AI",
+        "summary": "NVIDIA Vera Rubin 主打每 token 成本最低，鎖定 agent 時代的後訓練。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "ai-innovators-adopt-nvidia-vera-why-max-single-threaded-cpu--81e5",
+        "date": "2026-07-07",
+        "company": "NVIDIA",
+        "title": "AI Innovators Adopt NVIDIA Vera — Why Max Single-Threaded CPU at Scale Matters",
+        "summary": "NVIDIA 拋出 Vera，把 CPU 重新講成 agentic AI 的關鍵瓶頸。",
+        "confidence": 73,
+        "heat": "未量測"
+      }
+    ]
+  },
+  {
     "slug": "global-map",
     "name": "全球創新版圖",
     "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "今天新增三則，兩則與韓國有關。NVIDIA 與韓國科學技術資訊通訊部擴大主權 AI 合作，涵蓋 AI 半導體、資料中心、人才、新創、模型、代理與資安，並為韓國 NPU 與 XPU 共同開發鋪路，摘要沒有時程與金額。另一組兩篇文章談韓國製造業的實體 AI，以及代理 AI 的安全：現代集團在探索 NemoClaw 藍圖與 OpenShell 執行環境，AIM Intelligence 把 Starfort 整合進 OpenShell，用詞是探索與整合，沒有部署規模。NVIDIA 在 Hugging Face 發布日本金融情境的合成人物資料集 Nemotron-Personas-Finance-Japan，資料量與授權證據不足，待補。前一輪：11-06 Open ASR Leaderboard 加入埃及與奈及利亞口音的英語，資料集規模與排名沒有證據。Project ProtoStar 只有標題，合作單位與時程沒有證據。10-22 NVIDIA 歐洲系列談公部門與 Earth-2，沒有點名機關與預算。",
-    "current_next": "看韓國合作公布 NPU 與 XPU 共同開發的時程與參與的韓國晶片業者；看現代集團或其他韓國業者公布 NemoClaw、OpenShell 的實際部署範圍；看 Nemotron-Personas-Finance-Japan 的下載數與日本金融任務上的第三方使用；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率；看 ProtoStar 首批資料集上線時間；看有沒有具名的歐洲政府機關公開採用開放模型。",
+    "current_now": "今天新增一則。OpenAI 宣布出資 200 萬美元，投入 AI 與兒童安全的研究，支持衡量年輕人風險與機會的共用工具，受款單位與期程沒給，證據不足，待補。前一輪：11-09 NVIDIA 與韓國科學技術資訊通訊部擴大主權 AI 合作，涵蓋 AI 半導體、資料中心、人才、新創、模型、代理與資安，摘要沒有時程與金額。同日另有兩篇談韓國製造業的實體 AI 與代理 AI 安全，用詞是探索與整合，沒有部署規模。NVIDIA 在 Hugging Face 發布日本金融情境的合成人物資料集 Nemotron-Personas-Finance-Japan，資料量與授權證據不足，待補。11-06 Open ASR Leaderboard 加入埃及與奈及利亞口音的英語，資料集規模與排名沒有證據。10-29 Project ProtoStar 只有標題，合作單位與時程沒有證據。",
+    "current_next": "看 OpenAI 公布 200 萬美元的受款研究團隊、衡量工具的公開時程，以及其他公司是否跟進；看韓國合作公布 NPU 與 XPU 共同開發的時程與參與業者；看現代集團或其他韓國業者公布 NemoClaw、OpenShell 的實際部署範圍；看 Nemotron-Personas-Finance-Japan 的下載數與第三方使用；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率；看 ProtoStar 首批資料集上線時間。",
     "events": [
+      {
+        "slug": "statement-comments-secretary-war-363c",
+        "date": "2026-11-13",
+        "company": "Anthropic",
+        "title": "Statement Comments Secretary War",
+        "summary": "Anthropic 新聞稿「Statement Comments Secretary War」，內文依授權限制不轉述。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "election-safeguards-update-a319",
+        "date": "2026-11-13",
+        "company": "Anthropic",
+        "title": "Election Safeguards Update",
+        "summary": "Anthropic 新聞稿「Election Safeguards Update」，內文依授權限制不轉述。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "supporting-research-on-ai-and-children-s-safety-afd9",
         "date": "2026-11-12",
