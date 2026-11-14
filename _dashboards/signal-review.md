@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-13"
+generated_day: "2026-11-14"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-13"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **611** 則／已裁決 **26** 則。
+待回答 **619** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#7d45278b`** — infra-cost
-  > 看 OpenShell 是否進入 CNCF 等中立基金會、有哪些專案採用；看 Dynamo 配方公布的實測吞吐量與四款模型的部署案例；看 OpenAI 是否公布 Control Room 的實際停機事件；看 Hacktron 合作是否發布測試結果。
+- **`infra-cost#e5f93a43`** — infra-cost
+  > 看 llama.cpp v1.0.0 的 release notes 有沒有 API、模型格式或相容性的穩定承諾；看 OpenShell 是否進入 CNCF 等中立基金會、有哪些專案採用；看 Dynamo 配方公布的實測吞吐量；看 OpenAI 是否公布 Control Room 的實際停機事件。
 
-- **`model-research#98006e61`** — model-research
-  > 看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 3D 微調指南用了哪個基礎模型、需要多少 GPU；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 AlphaGenome 2 是否釋出論文與基準對比；看 BotPsy 的權重是否公開；看 Gemini Robotics 2.5 是否公開評測數據；看 HOPE 的剪枝比例與基準分數。
+- **`model-research#4f1b5b60`** — model-research
+  > 看 XYBench 是否公開資料集與評分程式，以及主流模型的成績；看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 3D 微調指南用了哪個基礎模型、需要多少 GPU；看 AlphaGenome 2 是否釋出論文與基準對比；看 BotPsy 的權重是否公開；看 HOPE 的剪枝比例與基準分數。
 
-- **`product-market#3b8e3ef4`** — product-market
-  > 看 NVIDIA 是否公布 DLSS 5 在 War Thunder 與 Where Winds Meet 的上線日期與效能數據；看 Gilbert + Tobin 或 OpenAI 是否補上法律業務的具體成效；看免費方案是否擴到其他族群，或公布領取者的續訂情況；看新航是否補上 CSAT 絕對值；看 Businesses 是否公布排序規則與收費機制；看 AWS Marketplace 的定價與抵扣條件；看 Roadshow Launch 原文有沒有可驗證的產品或時程訊息。
+- **`product-market#bf575e2f`** — product-market
+  > 看 OpenAI 是否公開 Gondola 案例的衡量方式，或出現獨立來源驗證；看醫療案例中的臨床試驗配對與放射科輔助有沒有公開成效數據或院方採用公告；看 DLSS 5 的上線日期與效能數據；看 Gilbert + Tobin 是否補上具體成效；看免費方案的續訂情況；看新航是否補上 CSAT 絕對值；看 AWS Marketplace 的定價與抵扣條件。
 
 - **`capital-evolution#1645c047`** — capital-evolution
   > 看 NVIDIA 或被投資新創公開具體投資對象與金額；讀 Long Term Benefit Trust 原文，看治理安排是否有後續公告；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併；看 OpenAI 與 Orchestra Bio 是否公布交易條件。
 
-- **`agent-refactor#49718b8c`** — agent-refactor
-  > 看 Amplitude 或其客戶是否公開 Wave 的採用數據，以及其他供應商是否推出類似的產品代理；看 Holiday Extras 是否補上轉換率的幅度與對照期間；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果；看 Cogent 是否公布修補成功率與誤修率；看 CodeRabbit 是否公布出貨量與缺陷率的對照；看 Linux 核心上游是否合併那批修補。
+- **`agent-refactor#5579aea3`** — agent-refactor
+  > 看 SimReady 教學是否附開放資產或程式碼；看 Amplitude 或其客戶是否公開 Wave 的採用數據；看 Holiday Extras 是否補上轉換率的幅度與對照期間；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果；看 Cogent 是否公布修補成功率與誤修率；看 CodeRabbit 是否公布出貨量與缺陷率的對照。
 
-- **`global-map#80a74aca`** — global-map
-  > 看 OpenAI 公布 200 萬美元的受款研究團隊、衡量工具的公開時程，以及其他公司是否跟進；看韓國合作公布 NPU 與 XPU 共同開發的時程與參與業者；看現代集團或其他韓國業者公布 NemoClaw、OpenShell 的實際部署範圍；看 Nemotron-Personas-Finance-Japan 的下載數與第三方使用；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率；看 ProtoStar 首批資料集上線時間。
+- **`global-map#498df493`** — global-map
+  > 看兩篇 Anthropic 原文有沒有可驗證的政策動作，以及其他獨立來源的報導；看 OpenAI 公布 200 萬美元的受款研究團隊與衡量工具的公開時程；看韓國合作公布 NPU 與 XPU 共同開發的時程與參與業者；看 Nemotron-Personas-Finance-Japan 的第三方使用；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率。
 
-## 事件層（605）
+## 事件層（613）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1844,6 +1844,9 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-11-12-803a22#68e44f7f`** — evt-2026-11-12-803a22
   > 看 Amplitude 或其客戶是否公開 Wave 的採用數據，以及其他供應商是否推出類似的產品代理。
 
+- **`evt-2026-11-12-855ebd#e7ef16be`** — evt-2026-11-12-855ebd
+  > 觀察 OpenAI 是否公開這類案例的衡量方式，或出現獨立來源驗證 Codex 對工程產出的實際提升。
+
 - **`evt-2026-11-12-9317df#fd864a09`** — evt-2026-11-12-9317df
   > 原文連結有更新，或其他獨立來源發布評測與分析時，再補上有證據的判讀。
 
@@ -1858,3 +1861,24 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-11-12-b58850#585eeb74`** — evt-2026-11-12-b58850
   > 看指南用了哪個基礎模型、需要多少 GPU 資源，以及社群有沒有重現。
+
+- **`evt-2026-11-13-07ae84#e2857ee7`** — evt-2026-11-13-07ae84
+  > 查看 v1.0.0 的 release notes，確認是否有 API、模型格式或相容性的穩定承諾，以及下游專案是否跟進。
+
+- **`evt-2026-11-13-363c05#8f3ca680`** — evt-2026-11-13-363c05
+  > 閱讀原文後，再看是否有其他獨立媒體報導或後續官方動作。
+
+- **`evt-2026-11-13-416581#2e1f5dff`** — evt-2026-11-13-416581
+  > 觀察文中提到的臨床試驗配對或放射科輔助是否有公開的成效數據或院方採用公告。
+
+- **`evt-2026-11-13-9c3857#976e5f26`** — evt-2026-11-13-9c3857
+  > 觀察這份教學是否附帶開放的資產或程式碼，以及社群是否有人跟著復現。
+
+- **`evt-2026-11-13-a31951#77c1b490`** — evt-2026-11-13-a31951
+  > 閱讀原文後，看是否有其他獨立來源報導或後續的政策更新。
+
+- **`evt-2026-11-13-a319f0#12e1dcc9`** — evt-2026-11-13-a319f0
+  > 觀察 XYBench 是否公開資料集與評分程式，以及主流模型在上面的成績。
+
+- **`evt-2026-11-13-fe797a#0e5f6611`** — evt-2026-11-13-fe797a
+  > 閱讀原文後，看是否有政策條文的修訂或其他實驗室的對應動作。

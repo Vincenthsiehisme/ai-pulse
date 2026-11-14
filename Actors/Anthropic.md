@@ -3,17 +3,22 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-11-13'
+generated_day: '2026-11-14'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **138** 則：`published` 130、`review` 8
+事件 **143** 則：`published` 133、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-13 | [[Events/evt-2026-11-13-fe797a\|Reflections On Our Responsible Scaling Policy]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-a73b28\|Anthropic Is Endorsing Sb 53]] | review |
+| 2026-11-13 | [[Events/evt-2026-11-13-a31951\|Election Safeguards Update]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-6159c6\|Anthropic Institute Agenda]] | review |
+| 2026-11-13 | [[Events/evt-2026-11-13-363c05\|Statement Comments Secretary War]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-9317df\|Claude 4]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-30f9f6\|Roadshow Launch]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-58d399\|The Long Term Benefit Trust]] | published |

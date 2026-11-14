@@ -3,20 +3,17 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-13'
+generated_day: '2026-11-14'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **38** 則：`published` 28、`review` 10
+事件 **35** 則：`published` 28、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-13 | [[Events/evt-2026-11-13-a319f0\|XYBench: Helping with the problem behind the question]] | review |
-| 2026-11-13 | [[Events/evt-2026-11-13-9c3857\|Build a Robot Pick-and-Place Simulation with SimReady Assets]] | review |
-| 2026-11-13 | [[Events/evt-2026-11-13-07ae84\|llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem]] | review |
 | 2026-11-12 | [[Events/evt-2026-11-12-b58850\|The Definitive Fine-Tuning Guide for 3D Generation Models]] | published |
 | 2026-11-11 | [[Events/evt-2026-11-11-a332b2\|Token Pooling-Aware Training for Multi-Vector Embedding Models]] | review |
 | 2026-11-10 | [[Events/evt-2026-11-10-93b799\|Pay for Hugging Face Hub with your Google Cloud Account]] | published |

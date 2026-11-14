@@ -1,123 +1,146 @@
 [
   {
-    "full_name": "pingdotgg/t3code",
-    "desc": "The best way to control Claude Code, Codex and more from any computer or phone",
+    "full_name": "dansugc/reverse-engineer-marketing",
+    "desc": "Paste a link, get the whole marketing machine behind it: paid ads, organic social, SEO, Reddit, founders, funnel — evidence-cited. CLI, MCP server and a local web app that uses your Claude Code or Codex plan.",
     "language": "TypeScript",
     "topics": [
-      "agent-orchestration",
-      "agents",
-      "ai",
-      "chatgpt",
-      "claude",
-      "claude-code"
+      "ad-library",
+      "ai-agents",
+      "claude-code",
+      "codex",
+      "competitor-analysis",
+      "growth"
     ],
-    "stars": 59496,
-    "url": "https://github.com/pingdotgg/t3code",
+    "stars": 617,
+    "url": "https://github.com/dansugc/reverse-engineer-marketing",
     "stale_zh": null
   },
   {
-    "full_name": "zaxiu88888/issue-rag",
-    "desc": "RAG over GitHub issues, with a hand-reviewed eval set and an audit of the judge itself. Reports the interval, not just the best number.",
+    "full_name": "eust-w/opengeniemaster",
+    "desc": "Open-source embodied agent framework: execution, feedback, and continual improvement",
     "language": "Python",
-    "topics": [
-      "evaluation",
-      "github-issues",
-      "llm",
-      "llm-as-judge",
-      "python",
-      "rag"
-    ],
-    "stars": 387,
-    "url": "https://github.com/zaxiu88888/issue-rag",
-    "stale_zh": null
-  },
-  {
-    "full_name": "mdiri-ai/SoduWork",
-    "desc": "The AI-native engine for teams and their agents. Multi-harness, multi-agent, self-hosted.",
-    "language": "JavaScript",
     "topics": [
       "agent-harness",
-      "agent-orchestration",
-      "agent-workflows",
       "ai-agents",
-      "ai-workflows",
-      "anti-slop"
+      "continual-learning",
+      "embodied-ai",
+      "mcp",
+      "model-context-protocol"
     ],
-    "stars": 666,
-    "url": "https://github.com/mdiri-ai/SoduWork",
+    "stars": 402,
+    "url": "https://github.com/eust-w/opengeniemaster",
     "stale_zh": null
   },
   {
-    "full_name": "agentes-chat/agentes-chat",
-    "desc": "Open-source, self-hosted Slack alternative where your team and AI agents work together in channels and DMs. Agents run on Claude, ChatGPT/Codex, Gemini or Grok, with MCP tools, their own computer and browser, routines, memory and approvals. Web, desktop and phone apps. Docker Compose + Postgres. AGPL-3.0.",
+    "full_name": "SonicloudTech/mouse-mcp",
+    "desc": "Hardware mouse MCP server for AI agents on Windows x64. USB HID control and voice dictation; requires compatible uMouse hardware and firmware. 面向 AI 智能体的硬件鼠标 MCP：USB HID 控制与语音听写，需要兼容的 uMouse 设备与固件。",
     "language": "TypeScript",
     "topics": [
-      "agentic-ai",
       "ai-agents",
-      "browser-automation",
-      "chat",
-      "claude",
-      "claude-code"
+      "computer-use",
+      "desktop-automation",
+      "hardware",
+      "hid",
+      "mcp"
     ],
-    "stars": 1330,
-    "url": "https://github.com/agentes-chat/agentes-chat",
+    "stars": 403,
+    "url": "https://github.com/SonicloudTech/mouse-mcp",
     "stale_zh": null
   },
   {
-    "full_name": "sno-ai/sno-station",
-    "desc": "When Claude Code hits its usage limit, Codex picks the task up from the same memory. Sno Station puts Codex, Claude Code, Cursor, Hermes Agent and OpenClaw on one squad: they hand work to each other and review each other's code. Open source, runs on your computer.",
+    "full_name": "rush-db/rushdb",
+    "desc": "RushDB is a self-describing, graph-native database that helps AI agents reason over data with confidence: progressively introspect what's queryable—without guesswork.",
+    "language": "Rust",
+    "topics": [
+      "database",
+      "docker",
+      "self-hosted",
+      "graph-database",
+      "cloud",
+      "ai"
+    ],
+    "stars": 354,
+    "url": "https://github.com/rush-db/rushdb",
+    "stale_zh": "給 AI agent 的圖加向量資料庫與記憶層，丟入 JSON 即可查詢，免 schema，建在 Neo4j 上"
+  },
+  {
+    "full_name": "cth9191/animate",
+    "desc": "Procedural animation in any style for Claude Code: short single-file canvas videos with story, look and storyboard check-ins. 7 built-in styles or one matched from your references, your own music (beat-mapped), real product screenshots, every format from one piece.",
+    "language": "JavaScript",
+    "topics": [
+      "animation",
+      "canvas",
+      "claude-code",
+      "claude-code-plugin",
+      "claude-code-skill",
+      "explainer-video"
+    ],
+    "stars": 1890,
+    "url": "https://github.com/cth9191/animate",
+    "stale_zh": null
+  },
+  {
+    "full_name": "qybaihe/bla",
+    "desc": "🛡️ BLA (bla-agents / Blind LLM Agents) — Open-source Blue Defense MCP server & CLI protecting JS/TS, Electron ASAR, WASM, Python, Native Binaries, SQLite, GGUF/Safetensors & Android DEX against AI reverse-engineering agents (REA).",
     "language": "TypeScript",
     "topics": [
-      "agent-memory",
-      "agent-orchestration",
-      "agentic-coding",
-      "ai-code-review",
-      "ai-coding-agent",
-      "ai-memory"
+      "adversarial-ai",
+      "ai-security",
+      "android-security",
+      "binary-protection",
+      "claude-code",
+      "codex"
     ],
-    "stars": 1019,
-    "url": "https://github.com/sno-ai/sno-station",
-    "stale_zh": "讓 Codex、Claude Code、Cursor 等 agent 組成小隊，共用加密記憶、互相交辦與審查，在本機執行"
-  },
-  {
-    "full_name": "konlu/story-studio",
-    "desc": "从选题到剪映草稿的一站式 AI 短视频内容创作 Agent Skill",
-    "language": "Python",
-    "topics": [],
-    "stars": 1047,
-    "url": "https://github.com/konlu/story-studio",
+    "stars": 5672,
+    "url": "https://github.com/qybaihe/bla",
     "stale_zh": null
   },
   {
-    "full_name": "EL4CTEO/blender-skills",
-    "desc": "Professional Blender 5.3 workflows as Agent Skills for Claude Code, Codex, Gemini CLI, Copilot and Cursor: modeling, UVs, PBR, baking, rigging, animation, export and QA.",
-    "language": "Python",
-    "topics": [
-      "3d",
-      "agent-skills",
-      "ai-agents",
-      "blender",
-      "blender-python",
-      "bpy"
-    ],
-    "stars": 1054,
-    "url": "https://github.com/EL4CTEO/blender-skills",
-    "stale_zh": null
-  },
-  {
-    "full_name": "obsidianmd/obsidian-skills",
-    "desc": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.",
+    "full_name": "peonist-ai/halogen-flash-server",
+    "desc": "Local inference that behaves like a frontier API: Qwen3.8-Flash-Next on AMD Strix Halo plus small NPU models, over the OpenAI and Anthropic APIs on one port.",
     "language": "Shell",
     "topics": [
-      "agents",
-      "agentskills",
-      "bases",
-      "claude",
-      "clawdbot",
-      "cli"
+      "amd",
+      "gfx1151",
+      "gpu-inference",
+      "hip",
+      "inference-engine",
+      "llm"
     ],
-    "stars": 52280,
-    "url": "https://github.com/obsidianmd/obsidian-skills",
+    "stars": 1347,
+    "url": "https://github.com/peonist-ai/halogen-flash-server",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ComputerUseAgent/AutoCua",
+    "desc": "Automate with computer use agent (ComputerUse / CUA) for macOS, Windows, Linux, Browser, iOS & Android. It sees the screen, clicks, types, browses and writes the code too. One agent, every computer.",
+    "language": "Rust",
+    "topics": [
+      "browser-use",
+      "browser-use-agent",
+      "computer-agent",
+      "computer-use",
+      "ios-automation",
+      "linux-ai"
+    ],
+    "stars": 1222,
+    "url": "https://github.com/ComputerUseAgent/AutoCua",
+    "stale_zh": "Computer Use agent，跨 macOS、Windows、Linux、瀏覽器與手機，看螢幕、點擊、打字"
+  },
+  {
+    "full_name": "jiwoochris/artex-global",
+    "desc": "Global edition of ARTEX — an LLM multi-agent autonomous penetration-testing framework. English default, switchable to Korean/Chinese/Spanish/Japanese. For authorized, defensive and detection use only. (upstream: Autumn-27/ARTEX, AGPL-3.0)",
+    "language": "Go",
+    "topics": [
+      "ai-agent",
+      "autonomous-agents",
+      "blue-team",
+      "cybersecurity",
+      "detection-engineering",
+      "i18n"
+    ],
+    "stars": 3337,
+    "url": "https://github.com/jiwoochris/artex-global",
     "stale_zh": null
   }
 ]
