@@ -160,9 +160,9 @@
     "zh": "給 coding agent 用的 Chrome DevTools"
   },
   "ComputerUseAgent/AutoCua": {
-    "at": "2026-10-29T20:47:36+00:00",
-    "src_hash": "772c79bd8761",
-    "zh": "Computer Use agent，跨 macOS、Windows、Linux、瀏覽器與手機，看螢幕、點擊、打字"
+    "at": "2026-11-14T20:16:18+00:00",
+    "src_hash": "127d447aa475",
+    "zh": "Computer Use 代理，跨 macOS、Windows、Linux、瀏覽器與手機，看螢幕、點擊、打字、寫程式"
   },
   "CursorTouch/Windows-MCP": {
     "at": "2026-08-07T01:27:45+00:00",
@@ -694,6 +694,11 @@
     "src_hash": "94291621a3b8",
     "zh": "本地優先、完全由你掌握的 AI agent harness，含迴圈、記憶、評測，程式碼設計成長大後仍好讀"
   },
+  "SonicloudTech/mouse-mcp": {
+    "at": "2026-11-14T20:16:18+00:00",
+    "src_hash": "97fdd6873949",
+    "zh": "給 AI 代理的硬體滑鼠 MCP：USB HID 控制與語音聽寫，需 uMouse 硬體"
+  },
   "SouravBeraAkaSpeed/xiryn": {
     "at": "2026-10-24T18:28:06+00:00",
     "src_hash": "6ba194a37ba9",
@@ -1189,6 +1194,11 @@
     "src_hash": "7dfc27185c5f",
     "zh": "讓 AI agent 把任何單機遊戲改成可與朋友連線或分割畫面同玩，附 MCP server 與操作手冊"
   },
+  "cth9191/animate": {
+    "at": "2026-11-14T20:16:18+00:00",
+    "src_hash": "384e123099fa",
+    "zh": "給 Claude Code 的程序化動畫：單檔 canvas 短片，7 種內建風格，可配音樂與產品截圖"
+  },
   "ctoldigital/axuse": {
     "at": "2026-10-24T18:28:06+00:00",
     "src_hash": "950b35863989",
@@ -1203,6 +1213,11 @@
     "at": "2026-10-23T19:40:32+00:00",
     "src_hash": "5d5feee95a3a",
     "zh": "協調 Claude、Codex、Cursor 視窗的共用任務、預檢與獨立審查，附本機儀表板"
+  },
+  "dansugc/reverse-engineer-marketing": {
+    "at": "2026-11-14T20:16:18+00:00",
+    "src_hash": "bec80ed79c44",
+    "zh": "貼上連結，拆出背後的行銷機器：廣告、SEO、社群、漏斗，附證據"
   },
   "danyuchn/asd-ste100-skill": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1323,6 +1338,11 @@
     "at": "2026-10-20T19:46:47+00:00",
     "src_hash": "1adeafc2aa29",
     "zh": "利用平行圖運算的高效能向量資料庫"
+  },
+  "eust-w/opengeniemaster": {
+    "at": "2026-11-14T20:16:18+00:00",
+    "src_hash": "7f5a56f1f809",
+    "zh": "開源具身代理框架：執行、回饋與持續改進"
   },
   "everyinfra/everyinfra-agent-plugins": {
     "at": "2026-11-08T20:04:50+00:00",
@@ -1598,6 +1618,11 @@
     "at": "2026-09-08T19:19:22+00:00",
     "src_hash": "394531d8c3b6",
     "zh": "從零訓練一個 6,400 萬參數的 LLM，只要 2 小時"
+  },
+  "jiwoochris/artex-global": {
+    "at": "2026-11-14T20:16:18+00:00",
+    "src_hash": "7ee054547c11",
+    "zh": "LLM 多代理自主滲透測試框架 ARTEX 國際版，僅限授權、防禦與偵測用途"
   },
   "jnMetaCode/agency-agents-zh": {
     "at": "2026-10-21T19:47:16+00:00",
@@ -2194,6 +2219,11 @@
     "src_hash": "487fac0023c5",
     "zh": "Qdrant 向量資料庫的 JavaScript/TypeScript SDK"
   },
+  "qybaihe/bla": {
+    "at": "2026-11-14T20:16:18+00:00",
+    "src_hash": "f1370e0ea356",
+    "zh": "開源 MCP 伺服器與 CLI，保護程式與模型檔，防 AI 逆向代理"
+  },
   "qybaihe/mu": {
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "92e124b0f584",
@@ -2270,9 +2300,9 @@
     "zh": "AI 的文件處理平台"
   },
   "rush-db/rushdb": {
-    "at": "2026-10-08T20:58:31+00:00",
-    "src_hash": "ab925b80d05d",
-    "zh": "給 AI agent 的圖加向量資料庫與記憶層，丟入 JSON 即可查詢，免 schema，建在 Neo4j 上"
+    "at": "2026-11-14T20:16:18+00:00",
+    "src_hash": "d4c5f8aefd68",
+    "zh": "自描述的圖原生資料庫，讓 AI 代理可逐步探查可查詢的內容，不必靠猜"
   },
   "ruvnet/ruflo": {
     "at": "2026-10-03T18:55:46+00:00",

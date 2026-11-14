@@ -1,4 +1,4 @@
-# 已發布事件（633）
+# 已發布事件（641）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
@@ -7,14 +7,30 @@
   ggml-org 在 Hugging Face 發文宣布 llama.cpp 推出 v1.0.0。
 - **[[Events/evt-2026-11-13-363c05|Statement Comments Secretary War]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 新聞稿「Statement Comments Secretary War」，內文依授權限制不轉述。
+- **[[Events/evt-2026-11-13-4136eb|Us Elections Readiness]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布〈美國選舉準備〉，內文我們不轉述，請看原文。
 - **[[Events/evt-2026-11-13-416581|How AI Is Helping Care Teams Get Patients the Right Care, Sooner]]** — NVIDIA · product · conf 73 · heat 未量測
   NVIDIA 部落格盤點醫療照護團隊如何用 AI 縮短病患等到適當照護的時間。
+- **[[Events/evt-2026-11-13-5a6a0f|Shield helps technicians hand off legacy portal work with OpenAI]]** — OpenAI · product · conf 73 · heat 未量測
+  Shield 用 OpenAI 的 Forge 代理人，替 IT 技術人員接手舊版入口網站上的操作。
+- **[[Events/evt-2026-11-13-66c878|The Need For Transparency In Frontier Ai]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布〈前沿 AI 需要透明度〉，內文我們不轉述，請看原文。
+- **[[Events/evt-2026-11-13-7bd968|Activating asl3 Protections]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布〈啟動 ASL-3 保護措施〉，內文我們不轉述，請看原文。
 - **[[Events/evt-2026-11-13-9c3857|Build a Robot Pick-and-Place Simulation with SimReady Assets]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 在 Hugging Face 發教學，用 SimReady 資產建立機器人取放模擬。
 - **[[Events/evt-2026-11-13-a31951|Election Safeguards Update]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 新聞稿「Election Safeguards Update」，內文依授權限制不轉述。
 - **[[Events/evt-2026-11-13-a319f0|XYBench: Helping with the problem behind the question]]** — Ai2 · research · conf 73 · heat 未量測
   Ai2 在 Hugging Face 發表 XYBench，主題是處理問題背後真正的問題。
+- **[[Events/evt-2026-11-13-a73b28|Anthropic Is Endorsing Sb 53]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布〈Anthropic 支持 SB 53〉，內文我們不轉述，請看原文。
+- **[[Events/evt-2026-11-13-b89a76|Deprecation Commitments]]** — Anthropic · product · conf 73 · heat 未量測
+  Anthropic 發布〈模型停用承諾〉，內文我們不轉述，請看原文。
+- **[[Events/evt-2026-11-13-f979e1|Our Approach To Understanding And Addressing Ai Harms]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發布〈我們理解與處理 AI 危害的方法〉，內文我們不轉述，請看原文。
+- **[[Events/evt-2026-11-13-fabd73|Thoughts On America S Ai Action Plan]]** — Anthropic · policy · conf 83 · heat 未量測
+  Anthropic 發布〈對美國 AI 行動計畫的看法〉，內文我們不轉述，請看原文。
 - **[[Events/evt-2026-11-13-fe797a|Reflections On Our Responsible Scaling Policy]]** — Anthropic · policy · conf 73 · heat 未量測
   Anthropic 新聞稿「Reflections On Our Responsible Scaling Policy」，內文依授權限制不轉述。
 

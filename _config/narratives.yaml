@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-11-13'
+updated: '2026-11-14'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 今天新增兩則。Ai2 在 Hugging Face 發表 XYBench，主題是處理問題背後真正的問題，基準設計與結果手上沒有，證據不足，待補。Anthropic 的〈Reflections On Our Responsible Scaling Policy〉依授權只放標題與連結，內文請看原文。前一輪：11-12 IBM 說 Granite 4.1 的 3B 與 8B 已內建 LLMON，語法與評測不在手上。Anthropic 的〈Claude 4〉同樣只放標題與連結。Hugging Face 發布 3D 生成模型的 LoRA 微調指南，只有標題與網址。11-11 DeepMind 的 AlphaGenome 2 預測 DNA 序列與變異對特定人類細胞類型和疾病的影響，摘要沒有基準數字。同日 QVAC 的 BotPsy 主打十億參數以下的裝置端代理模型，沒有內文。11-09 Amazon 的 HOPE 談混合專家模型剪枝時保留彼此相依的專家，方法與結果未知。
-    next: 看 XYBench 是否公開資料集與評分程式，以及主流模型的成績；看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 3D 微調指南用了哪個基礎模型、需要多少 GPU；看 AlphaGenome 2 是否釋出論文與基準對比；看 BotPsy 的權重是否公開；看 HOPE 的剪枝比例與基準分數。
+    now: 今天新增五則，其中四則是 Anthropic 官網新聞頁文章：前沿 AI 透明度、ASL-3 保護措施、AI 危害處理方法，加上〈Reflections On Our Responsible Scaling Policy〉。授權只允許取標題與連結，內文請看原文。另一則是 Ai2 在 Hugging Face 發表的 XYBench，主題是處理問題背後真正的問題，基準設計與結果手上沒有，證據不足，待補。前一輪：11-12 IBM 說 Granite 4.1 的 3B 與 8B 已內建 LLMON，語法與評測不在手上。Anthropic 的〈Claude 4〉同樣只放標題與連結。11-11 DeepMind 的 AlphaGenome 2 預測 DNA 序列與變異對特定人類細胞類型和疾病的影響，摘要沒有基準數字。
+    next: 看 Anthropic 這幾篇原文有沒有可驗證的具體措施與觸發條件，以及這批文章的實際上架日期；看 XYBench 是否公開資料集與評分程式，以及主流模型的成績；看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 AlphaGenome 2 是否釋出論文與基準對比。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: '今天新增兩則，都屬廠商自述。OpenAI 的 Gondola 案例說 Codex 讓主力工程師產出提高 50%，標題稱營收翻倍，沒有第三方查證，也沒有公開衡量方式。NVIDIA 部落格盤點醫療團隊的 AI 應用，從臨床試驗配對到放射科輔助，沒有可比較的成效數字。前一輪：11-12 NVIDIA 公告《Warhammer 40,000: Dawn of War IV》將上 GeForce NOW，上線日期與效能數據沒給。OpenAI 訪談澳洲律所 Gilbert + Tobin 執行長，只有主題，沒有成效數字。11-11 OpenAI 說逾 20,000 名退伍軍人與轉職軍人領了一年免費 ChatGPT Plus，是領取數不是續用數。11-10 新加坡航空說 Kris 聊天機器人的 CSAT 翻倍，沒有絕對值。11-09 ChatGPT Enterprise 上架 AWS Marketplace，價格沒寫。'
-    next: 看 OpenAI 是否公開 Gondola 案例的衡量方式，或出現獨立來源驗證；看醫療案例中的臨床試驗配對與放射科輔助有沒有公開成效數據或院方採用公告；看 DLSS 5 的上線日期與效能數據；看 Gilbert + Tobin 是否補上具體成效；看免費方案的續訂情況；看新航是否補上 CSAT 絕對值；看 AWS Marketplace 的定價與抵扣條件。
+    now: '今天新增兩則。NVIDIA 部落格盤點醫療團隊如何用 AI 縮短病患等到適當照護的時間，沒有可比較的成效數字。Anthropic 的〈模型停用承諾〉依授權只放標題與連結，承諾內容請看原文。前一輪：11-12 OpenAI 的 Gondola 案例說 Codex 讓主力工程師產出提高 50%，標題稱營收翻倍，沒有第三方查證，也沒有公開衡量方式。同日 NVIDIA 公告《Warhammer 40,000: Dawn of War IV》將上 GeForce NOW，上線日期與效能數據沒給。11-11 OpenAI 說逾 20,000 名退伍軍人與轉職軍人領了一年免費 ChatGPT Plus，是領取數不是續用數。'
+    next: 看 Anthropic 〈模型停用承諾〉原文列出的通知期限與模型保存方式；看醫療案例有沒有公開成效數據或院方採用公告；看 OpenAI 是否公開 Gondola 案例的衡量方式，或出現獨立來源驗證；看 DLSS 5 的上線日期與效能數據；看免費方案的續訂情況。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -50,8 +50,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 今天新增一則。NVIDIA 與韓國科學技術資訊通訊部在 COEX 辦 AI 新創合作論壇，會見 20 多家新創，領域含基礎模型、實體 AI、AI 基礎設施與 AI 半導體，標題寫新的計畫中投資，投資對象與金額在摘要裡被截斷，證據不足，待補。前一輪：Anthropic 發表〈The Long Term Benefit Trust〉，來源不允許取用內文，我們只有標題與連結，原文在 anthropic.com/news/the-long-term-benefit-trust。11-04 OpenAI 宣布收購 Pierre Computer Company, Inc.，金額、條件與業務目前看不到。11-03 與 11-02 是兩則 OpenAI 人事公告，沒有金額或合約。
-    next: 看 NVIDIA 或被投資新創公開具體投資對象與金額；讀 Long Term Benefit Trust 原文，看治理安排是否有後續公告；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併；看 OpenAI 與 Orchestra Bio 是否公布交易條件。
+    now: 今天新增三則，都是 Anthropic 官網新聞頁文章，授權只允許取標題與連結：〈美國選舉準備〉、〈Anthropic 支持 SB 53〉、〈對美國 AI 行動計畫的看法〉。標題顯示 Anthropic 對選舉與美國 AI 立法、行動計畫表態，具體主張請看原文。前一輪：11-09 NVIDIA 與韓國科學技術資訊通訊部宣布對韓國新創的新投資計畫，投資對象與金額證據不足，待補。11-05 Anthropic 發表〈The Long Term Benefit Trust〉，同樣只有標題與連結。11-04 OpenAI 宣布收購 Pierre Computer Company, Inc.，金額、條件與業務目前看不到。11-03 與 11-02 是兩則 OpenAI 人事公告，沒有金額或合約。
+    next: 看 SB 53 的後續立法進度，以及其他業者是否表態；看這三篇原文的具體建議與實際上架日期；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
@@ -59,8 +59,8 @@ tracks:
       watch: 其他雲廠是否跟進同樣的形式。
   agent-refactor:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。
-    now: 今天新增一則。NVIDIA 在 Hugging Face 發教學，用 SimReady 資產建立機器人取放模擬，只有標題與一行說明，步驟與工具細節證據不足，待補。前一輪：11-12 兩則 OpenAI 官網客戶案例，屬廠商自述。Amplitude 的產品代理 Wave 建在 OpenAI 模型上，標題稱改善 1 到 2 天上線，改善前的基準沒給。Holiday Extras 用 Codex 開發應用，稱訂房轉換率提高，沒有幅度。11-10 DeepMind 的 AlphaProof Code 用 Lean 寫了三百萬行證明來驗證 Signal 的核心加密，涵蓋範圍摘要沒寫。同日 Cogent 用 OpenAI 模型加企業內部脈絡讓代理自動修補漏洞，沒有修補量與成效數字。11-09 OpenAI 的 CodeRabbit 案例說用 Codex 讓同一批工程師出貨 20 倍，計算口徑沒給。
-    next: 看 SimReady 教學是否附開放資產或程式碼；看 Amplitude 或其客戶是否公開 Wave 的採用數據；看 Holiday Extras 是否補上轉換率的幅度與對照期間；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果；看 Cogent 是否公布修補成功率與誤修率；看 CodeRabbit 是否公布出貨量與缺陷率的對照。
+    now: 今天新增兩則。OpenAI 客戶案例頁說 Shield 用 Forge 代理人替 IT 技術人員接手舊版入口網站的操作，沒有處理量或節省工時的數字。NVIDIA 在 Hugging Face 發教學，用 SimReady 資產建立機器人取放模擬，只有標題與一行說明，步驟與工具細節證據不足，待補。前一輪：11-12 兩則 OpenAI 官網客戶案例，屬廠商自述。Amplitude 的產品代理 Wave 建在 OpenAI 模型上，標題稱改善 1 到 2 天上線，改善前的基準沒給。Holiday Extras 用 Codex 開發應用，稱訂房轉換率提高，沒有幅度。11-10 DeepMind 的 AlphaProof Code 用 Lean 寫了三百萬行證明來驗證 Signal 的核心加密，涵蓋範圍摘要沒寫。
+    next: 看 Shield 或 OpenAI 是否公布 Forge 的處理量與節省工時；看 SimReady 教學是否附開放資產或程式碼；看 Amplitude 或其客戶是否公開 Wave 的採用數據；看 Holiday Extras 是否補上轉換率的幅度與對照期間；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果。
     lenses: []
   global-map:
     thesis: 尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。

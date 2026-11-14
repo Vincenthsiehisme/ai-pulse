@@ -1,6 +1,6 @@
 ---
 kind: dashboard
-generated: 2026-11-13 21:46Z
+generated: 2026-11-14 20:15Z
 ---
 
 # 每日精選
@@ -9,7 +9,7 @@ generated: 2026-11-13 21:46Z
 > 要審就直接開那一份 digest，把 frontmatter 的三格填了。
 > 判準與怎麼填見 `references/digest-review.md`。
 
-## 等你審（84）
+## 等你審（85）
 
 - **[[Digests/2026-08-14|GPT-5.6 教學、Gemini Flash 疊代、Amazon 機器人整合：今天拼的不是模型分數]]** — 2026-08-14 · 6 段
   - `review_question`：要填 ok 或 no，現在是 None
@@ -346,6 +346,10 @@ generated: 2026-11-13 21:46Z
 - **[[Digests/2026-11-13|今天的八則，多半是廠商自己說的]]** — 2026-11-13 · 8 段
   - `review_question`：要填 ok 或 no，現在是 None
   - `review_background`：還沒填（這篇有 1 個 B 級段落）
+  - `review_counter`：還沒填（這篇有 1 個 C 級段落）
+- **[[Digests/2026-11-14|Anthropic 新聞頁一次進來七篇政策文章，內文都看不到]]** — 2026-11-14 · 10 段
+  - `review_question`：要填 ok 或 no，現在是 None
+  - `review_background`：還沒填（這篇有 0 個 B 級段落）
   - `review_counter`：還沒填（這篇有 1 個 C 級段落）
 
 ## 內容改過，要重審（0）

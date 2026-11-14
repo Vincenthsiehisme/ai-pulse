@@ -1,8 +1,72 @@
 [
   {
-    "id": "evt-2026-11-12-855ebd",
-    "path": "evt-2026-11-12-855ebd.md",
-    "title": "Gondola doubles revenue as its team builds more with Codex",
+    "id": "evt-2026-11-13-09842e",
+    "path": "evt-2026-11-13-09842e.md",
+    "title": "A New Initiative For Developing Third Party Model Evaluations",
+    "fingerprint": null,
+    "facet": "benchmark",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/a-new-initiative-for-developing-third-party-model-evaluations",
+        "title": "A New Initiative For Developing Third Party Model Evaluations",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-13-4136eb",
+    "path": "evt-2026-11-13-4136eb.md",
+    "title": "Us Elections Readiness",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/us-elections-readiness",
+        "title": "Us Elections Readiness",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-13-5a6a0f",
+    "path": "evt-2026-11-13-5a6a0f.md",
+    "title": "Shield helps technicians hand off legacy portal work with OpenAI",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -11,9 +75,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/business/customer-stories/gondola",
-        "title": "Gondola doubles revenue as its team builds more with Codex",
-        "summary": "Gondola helps creatives get credit and get hired, with Codex raising its lead engineer’s output by 50% and ChatGPT simplifying daily work.",
+        "url": "https://openai.com/business/customer-stories/shield",
+        "title": "Shield helps technicians hand off legacy portal work with OpenAI",
+        "summary": "Shield uses OpenAI to help IT technicians hand off work in legacy portals. Its Forge agents navigate systems so technicians can focus on issues needing their judgment.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,49 +94,19 @@
     }
   },
   {
-    "id": "evt-2026-11-13-07ae84",
-    "path": "evt-2026-11-13-07ae84.md",
-    "title": "llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem",
+    "id": "evt-2026-11-13-6159c6",
+    "path": "evt-2026-11-13-6159c6.md",
+    "title": "Anthropic Institute Agenda",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
-        "title": "llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem",
-        "summary": "A Blog post by ggml-org on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-13-363c05",
-    "path": "evt-2026-11-13-363c05.md",
-    "title": "Statement Comments Secretary War",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
+    "company_guess": "Anthropic",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/statement-comments-secretary-war",
-        "title": "Statement Comments Secretary War",
+        "url": "https://www.anthropic.com/news/anthropic-institute-agenda",
+        "title": "Anthropic Institute Agenda",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -92,69 +126,9 @@
     }
   },
   {
-    "id": "evt-2026-11-13-416581",
-    "path": "evt-2026-11-13-416581.md",
-    "title": "How AI Is Helping Care Teams Get Patients the Right Care, Sooner",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/how-ai-is-helping-care-teams/",
-        "title": "How AI Is Helping Care Teams Get Patients the Right Care, Sooner",
-        "summary": "From pediatric research to smart hospitals, AI is helping care teams spend less time on routine tasks and more time with patients.  Health systems and startups are putting it to work across healthcare, from matching patients to clinical trials to supporting radiologists, hospital teams and patients ",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-13-9c3857",
-    "path": "evt-2026-11-13-9c3857.md",
-    "title": "Build a Robot Pick-and-Place Simulation with SimReady Assets",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/nvidia/simready-assets-robot-pick-and-place",
-        "title": "Build a Robot Pick-and-Place Simulation with SimReady Assets",
-        "summary": "A Blog post by NVIDIA on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-13-a31951",
-    "path": "evt-2026-11-13-a31951.md",
-    "title": "Election Safeguards Update",
+    "id": "evt-2026-11-13-66c878",
+    "path": "evt-2026-11-13-66c878.md",
+    "title": "The Need For Transparency In Frontier Ai",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -163,8 +137,8 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/election-safeguards-update",
-        "title": "Election Safeguards Update",
+        "url": "https://www.anthropic.com/news/the-need-for-transparency-in-frontier-ai",
+        "title": "The Need For Transparency In Frontier Ai",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -184,39 +158,9 @@
     }
   },
   {
-    "id": "evt-2026-11-13-a319f0",
-    "path": "evt-2026-11-13-a319f0.md",
-    "title": "XYBench: Helping with the problem behind the question",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/allenai/xybench",
-        "title": "XYBench: Helping with the problem behind the question",
-        "summary": "A Blog post by Ai2 on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-13-fe797a",
-    "path": "evt-2026-11-13-fe797a.md",
-    "title": "Reflections On Our Responsible Scaling Policy",
+    "id": "evt-2026-11-13-7bd968",
+    "path": "evt-2026-11-13-7bd968.md",
+    "title": "Activating asl3 Protections",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -225,8 +169,8 @@
     "evidence": [
       {
         "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/reflections-on-our-responsible-scaling-policy",
-        "title": "Reflections On Our Responsible Scaling Policy",
+        "url": "https://www.anthropic.com/news/activating-asl3-protections",
+        "title": "Activating asl3 Protections",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -238,6 +182,143 @@
         "has_text": 0,
         "unfetched": 0,
         "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-13-a73b28",
+    "path": "evt-2026-11-13-a73b28.md",
+    "title": "Anthropic Is Endorsing Sb 53",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/anthropic-is-endorsing-sb-53",
+        "title": "Anthropic Is Endorsing Sb 53",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-13-b89a76",
+    "path": "evt-2026-11-13-b89a76.md",
+    "title": "Deprecation Commitments",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/deprecation-commitments",
+        "title": "Deprecation Commitments",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-13-f979e1",
+    "path": "evt-2026-11-13-f979e1.md",
+    "title": "Our Approach To Understanding And Addressing Ai Harms",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/our-approach-to-understanding-and-addressing-ai-harms",
+        "title": "Our Approach To Understanding And Addressing Ai Harms",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 1
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-13-fabd73",
+    "path": "evt-2026-11-13-fabd73.md",
+    "title": "Thoughts On America S Ai Action Plan",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/thoughts-on-america-s-ai-action-plan",
+        "title": "Thoughts On America S Ai Action Plan",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/build-ai-in-america",
+        "title": "Build Ai In America",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 2
       },
       "needs_source_link": true,
       "reasons": [
