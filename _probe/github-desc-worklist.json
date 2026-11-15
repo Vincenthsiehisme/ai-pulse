@@ -1,146 +1,82 @@
 [
   {
-    "full_name": "dansugc/reverse-engineer-marketing",
-    "desc": "Paste a link, get the whole marketing machine behind it: paid ads, organic social, SEO, Reddit, founders, funnel — evidence-cited. CLI, MCP server and a local web app that uses your Claude Code or Codex plan.",
-    "language": "TypeScript",
-    "topics": [
-      "ad-library",
-      "ai-agents",
-      "claude-code",
-      "codex",
-      "competitor-analysis",
-      "growth"
-    ],
-    "stars": 617,
-    "url": "https://github.com/dansugc/reverse-engineer-marketing",
-    "stale_zh": null
-  },
-  {
-    "full_name": "eust-w/opengeniemaster",
-    "desc": "Open-source embodied agent framework: execution, feedback, and continual improvement",
+    "full_name": "canivel/dynolab",
+    "desc": "Dyno Lab — an AI safety, alignment and interpretability research workbench for Apple Silicon. Explore activations, probes, SAEs and interventions with local inference, a Python SDK, APIs and MCP.",
     "language": "Python",
     "topics": [
-      "agent-harness",
-      "ai-agents",
-      "continual-learning",
-      "embodied-ai",
-      "mcp",
-      "model-context-protocol"
+      "ai",
+      "ai-interpretability",
+      "ai-safety",
+      "aisafety",
+      "alignment",
+      "apple-silicon"
     ],
-    "stars": 402,
-    "url": "https://github.com/eust-w/opengeniemaster",
+    "stars": 377,
+    "url": "https://github.com/canivel/dynolab",
     "stale_zh": null
   },
   {
-    "full_name": "SonicloudTech/mouse-mcp",
-    "desc": "Hardware mouse MCP server for AI agents on Windows x64. USB HID control and voice dictation; requires compatible uMouse hardware and firmware. 面向 AI 智能体的硬件鼠标 MCP：USB HID 控制与语音听写，需要兼容的 uMouse 设备与固件。",
+    "full_name": "OpenTodoApp/OpenTodo",
+    "desc": "Your tasks, your server. An open-source, local-first task manager you can host yourself. Everything you expect from a commercial task app, without the subscription or the lock-in.",
     "language": "TypeScript",
     "topics": [
-      "ai-agents",
-      "computer-use",
-      "desktop-automation",
-      "hardware",
-      "hid",
-      "mcp"
+      "caldav",
+      "end-to-end-encryption",
+      "golang",
+      "gtd",
+      "kanban",
+      "local-first"
     ],
-    "stars": 403,
-    "url": "https://github.com/SonicloudTech/mouse-mcp",
+    "stars": 430,
+    "url": "https://github.com/OpenTodoApp/OpenTodo",
     "stale_zh": null
   },
   {
-    "full_name": "rush-db/rushdb",
-    "desc": "RushDB is a self-describing, graph-native database that helps AI agents reason over data with confidence: progressively introspect what's queryable—without guesswork.",
-    "language": "Rust",
+    "full_name": "SLEEPYBQ/MemoSync",
+    "desc": "Co-manage memory with your coding agent across sessions. A local workbench for Claude Code, Codex, Pi and OpenCode.",
+    "language": "TypeScript",
     "topics": [
-      "database",
-      "docker",
-      "self-hosted",
-      "graph-database",
-      "cloud",
-      "ai"
+      "agent-memory",
+      "agentic-coding",
+      "ai-agents",
+      "ai-coding",
+      "claude",
+      "claude-code"
     ],
-    "stars": 354,
-    "url": "https://github.com/rush-db/rushdb",
-    "stale_zh": "給 AI agent 的圖加向量資料庫與記憶層，丟入 JSON 即可查詢，免 schema，建在 Neo4j 上"
+    "stars": 325,
+    "url": "https://github.com/SLEEPYBQ/MemoSync",
+    "stale_zh": null
   },
   {
-    "full_name": "cth9191/animate",
-    "desc": "Procedural animation in any style for Claude Code: short single-file canvas videos with story, look and storyboard check-ins. 7 built-in styles or one matched from your references, your own music (beat-mapped), real product screenshots, every format from one piece.",
+    "full_name": "lemomo-ai/lemo-opuscar",
+    "desc": "A toolbox of film styles made in code for Claude Code: 99 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in code by Claude Opus 5.5, with no video model. By Lemomo. · 一套用代码做片的风格工具箱：99 种现成风格，也能做出你自己的",
     "language": "JavaScript",
     "topics": [
+      "agent-skills",
+      "ai-agents",
+      "ai-short-film",
+      "ai-video",
       "animation",
-      "canvas",
-      "claude-code",
-      "claude-code-plugin",
-      "claude-code-skill",
-      "explainer-video"
+      "canvas"
     ],
-    "stars": 1890,
-    "url": "https://github.com/cth9191/animate",
-    "stale_zh": null
+    "stars": 16700,
+    "url": "https://github.com/lemomo-ai/lemo-opuscar",
+    "stale_zh": "Claude Code 的影片風格工具箱：66 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
   },
   {
-    "full_name": "qybaihe/bla",
-    "desc": "🛡️ BLA (bla-agents / Blind LLM Agents) — Open-source Blue Defense MCP server & CLI protecting JS/TS, Electron ASAR, WASM, Python, Native Binaries, SQLite, GGUF/Safetensors & Android DEX against AI reverse-engineering agents (REA).",
+    "full_name": "s0ld13rr/pentestcode",
+    "desc": "PentestCode - Multi-agent AI penetration testing system with persistent engagement state, strategic coordination, and parallel autonomous operations.",
     "language": "TypeScript",
     "topics": [
-      "adversarial-ai",
+      "ai-agents",
       "ai-security",
-      "android-security",
-      "binary-protection",
-      "claude-code",
-      "codex"
+      "ai-security-tool",
+      "anthropic",
+      "gpt",
+      "openai"
     ],
-    "stars": 5672,
-    "url": "https://github.com/qybaihe/bla",
-    "stale_zh": null
-  },
-  {
-    "full_name": "peonist-ai/halogen-flash-server",
-    "desc": "Local inference that behaves like a frontier API: Qwen3.8-Flash-Next on AMD Strix Halo plus small NPU models, over the OpenAI and Anthropic APIs on one port.",
-    "language": "Shell",
-    "topics": [
-      "amd",
-      "gfx1151",
-      "gpu-inference",
-      "hip",
-      "inference-engine",
-      "llm"
-    ],
-    "stars": 1347,
-    "url": "https://github.com/peonist-ai/halogen-flash-server",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ComputerUseAgent/AutoCua",
-    "desc": "Automate with computer use agent (ComputerUse / CUA) for macOS, Windows, Linux, Browser, iOS & Android. It sees the screen, clicks, types, browses and writes the code too. One agent, every computer.",
-    "language": "Rust",
-    "topics": [
-      "browser-use",
-      "browser-use-agent",
-      "computer-agent",
-      "computer-use",
-      "ios-automation",
-      "linux-ai"
-    ],
-    "stars": 1222,
-    "url": "https://github.com/ComputerUseAgent/AutoCua",
-    "stale_zh": "Computer Use agent，跨 macOS、Windows、Linux、瀏覽器與手機，看螢幕、點擊、打字"
-  },
-  {
-    "full_name": "jiwoochris/artex-global",
-    "desc": "Global edition of ARTEX — an LLM multi-agent autonomous penetration-testing framework. English default, switchable to Korean/Chinese/Spanish/Japanese. For authorized, defensive and detection use only. (upstream: Autumn-27/ARTEX, AGPL-3.0)",
-    "language": "Go",
-    "topics": [
-      "ai-agent",
-      "autonomous-agents",
-      "blue-team",
-      "cybersecurity",
-      "detection-engineering",
-      "i18n"
-    ],
-    "stars": 3337,
-    "url": "https://github.com/jiwoochris/artex-global",
+    "stars": 1063,
+    "url": "https://github.com/s0ld13rr/pentestcode",
     "stale_zh": null
   }
 ]

@@ -3,18 +3,18 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-14'
+generated_day: '2026-11-15'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **234** 則：`published` 226、`review` 8
+事件 **234** 則：`published` 227、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-13 | [[Events/evt-2026-11-13-5a6a0f\|Shield helps technicians hand off legacy portal work with OpenAI]] | review |
+| 2026-11-13 | [[Events/evt-2026-11-13-5a6a0f\|Shield helps technicians hand off legacy portal work with OpenAI]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-afd9d6\|Supporting research on AI and children’s safety]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-950a8b\|Holiday Extras is rethinking what it can build with Codex]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-855ebd\|Gondola doubles revenue as its team builds more with Codex]] | published |

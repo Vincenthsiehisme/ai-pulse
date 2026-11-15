@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-14"
+generated_day: "2026-11-15"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-14"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **619** 則／已裁決 **26** 則。
+待回答 **627** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -27,22 +27,22 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`infra-cost#e5f93a43`** — infra-cost
   > 看 llama.cpp v1.0.0 的 release notes 有沒有 API、模型格式或相容性的穩定承諾；看 OpenShell 是否進入 CNCF 等中立基金會、有哪些專案採用；看 Dynamo 配方公布的實測吞吐量；看 OpenAI 是否公布 Control Room 的實際停機事件。
 
-- **`model-research#4f1b5b60`** — model-research
-  > 看 XYBench 是否公開資料集與評分程式，以及主流模型的成績；看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 3D 微調指南用了哪個基礎模型、需要多少 GPU；看 AlphaGenome 2 是否釋出論文與基準對比；看 BotPsy 的權重是否公開；看 HOPE 的剪枝比例與基準分數。
+- **`model-research#2780576b`** — model-research
+  > 看 Anthropic 這幾篇原文有沒有可驗證的具體措施與觸發條件，以及這批文章的實際上架日期；看 XYBench 是否公開資料集與評分程式，以及主流模型的成績；看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 AlphaGenome 2 是否釋出論文與基準對比。
 
-- **`product-market#bf575e2f`** — product-market
-  > 看 OpenAI 是否公開 Gondola 案例的衡量方式，或出現獨立來源驗證；看醫療案例中的臨床試驗配對與放射科輔助有沒有公開成效數據或院方採用公告；看 DLSS 5 的上線日期與效能數據；看 Gilbert + Tobin 是否補上具體成效；看免費方案的續訂情況；看新航是否補上 CSAT 絕對值；看 AWS Marketplace 的定價與抵扣條件。
+- **`product-market#5e68c909`** — product-market
+  > 看 Anthropic 〈模型停用承諾〉原文列出的通知期限與模型保存方式；看醫療案例有沒有公開成效數據或院方採用公告；看 OpenAI 是否公開 Gondola 案例的衡量方式，或出現獨立來源驗證；看 DLSS 5 的上線日期與效能數據；看免費方案的續訂情況。
 
-- **`capital-evolution#1645c047`** — capital-evolution
-  > 看 NVIDIA 或被投資新創公開具體投資對象與金額；讀 Long Term Benefit Trust 原文，看治理安排是否有後續公告；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併；看 OpenAI 與 Orchestra Bio 是否公布交易條件。
+- **`capital-evolution#4c82b2a1`** — capital-evolution
+  > 看 SB 53 的後續立法進度，以及其他業者是否表態；看這三篇原文的具體建議與實際上架日期；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併。
 
-- **`agent-refactor#5579aea3`** — agent-refactor
-  > 看 SimReady 教學是否附開放資產或程式碼；看 Amplitude 或其客戶是否公開 Wave 的採用數據；看 Holiday Extras 是否補上轉換率的幅度與對照期間；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果；看 Cogent 是否公布修補成功率與誤修率；看 CodeRabbit 是否公布出貨量與缺陷率的對照。
+- **`agent-refactor#148ef3b9`** — agent-refactor
+  > 看 Shield 或 OpenAI 是否公布 Forge 的處理量與節省工時；看 SimReady 教學是否附開放資產或程式碼；看 Amplitude 或其客戶是否公開 Wave 的採用數據；看 Holiday Extras 是否補上轉換率的幅度與對照期間；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果。
 
 - **`global-map#498df493`** — global-map
   > 看兩篇 Anthropic 原文有沒有可驗證的政策動作，以及其他獨立來源的報導；看 OpenAI 公布 200 萬美元的受款研究團隊與衡量工具的公開時程；看韓國合作公布 NPU 與 XPU 共同開發的時程與參與業者；看 Nemotron-Personas-Finance-Japan 的第三方使用；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率。
 
-## 事件層（613）
+## 事件層（621）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1868,8 +1868,20 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-11-13-363c05#8f3ca680`** — evt-2026-11-13-363c05
   > 閱讀原文後，再看是否有其他獨立媒體報導或後續官方動作。
 
+- **`evt-2026-11-13-4136eb#9c53fd77`** — evt-2026-11-13-4136eb
+  > 觀察原文列出的具體措施，以及後續是否有執行成果的更新。
+
 - **`evt-2026-11-13-416581#2e1f5dff`** — evt-2026-11-13-416581
   > 觀察文中提到的臨床試驗配對或放射科輔助是否有公開的成效數據或院方採用公告。
+
+- **`evt-2026-11-13-5a6a0f#73946392`** — evt-2026-11-13-5a6a0f
+  > 觀察 Shield 或 OpenAI 是否公布處理量、節省工時等數字。
+
+- **`evt-2026-11-13-66c878#66ab5cf7`** — evt-2026-11-13-66c878
+  > 觀察原文提出的具體透明度要求，以及是否對應到法案或業界做法。
+
+- **`evt-2026-11-13-7bd968#60c413e2`** — evt-2026-11-13-7bd968
+  > 觀察原文說明的觸發條件與具體防護項目。
 
 - **`evt-2026-11-13-9c3857#976e5f26`** — evt-2026-11-13-9c3857
   > 觀察這份教學是否附帶開放的資產或程式碼，以及社群是否有人跟著復現。
@@ -1879,6 +1891,18 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-11-13-a319f0#12e1dcc9`** — evt-2026-11-13-a319f0
   > 觀察 XYBench 是否公開資料集與評分程式，以及主流模型在上面的成績。
+
+- **`evt-2026-11-13-a73b28#c78568ac`** — evt-2026-11-13-a73b28
+  > 觀察法案後續的立法進度，以及其他業者的表態。
+
+- **`evt-2026-11-13-b89a76#2b56db3e`** — evt-2026-11-13-b89a76
+  > 觀察原文列出的停用通知期限與保存方式。
+
+- **`evt-2026-11-13-f979e1#47d7c558`** — evt-2026-11-13-f979e1
+  > 觀察原文的危害分類與對應的緩解做法。
+
+- **`evt-2026-11-13-fabd73#af3a81ec`** — evt-2026-11-13-fabd73
+  > 觀察兩篇原文的具體建議，以及政府後續是否採納。
 
 - **`evt-2026-11-13-fe797a#0e5f6611`** — evt-2026-11-13-fe797a
   > 閱讀原文後，看是否有政策條文的修訂或其他實驗室的對應動作。

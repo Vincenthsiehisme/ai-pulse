@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-14'
+generated_day: '2026-11-15'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**110 天**（2026-07-24 … 2026-11-14），去重後 **7252** 列。
+語料範圍：**111 天**（2026-07-24 … 2026-11-15），去重後 **7336** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,43 +17,43 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 230 | 2 |
-| Apple | 164 | 6 |
-| Amazon | 108 | 5 |
+| Show HN | 231 | 2 |
+| Apple | 166 | 6 |
+| Amazon | 109 | 5 |
 | Here | 72 | 9 |
-| LLMs | 69 | 13 |
+| LLMs | 71 | 14 |
 | There | 68 | 9 |
 | September | 67 | 8 |
-| They | 61 | 9 |
-| LLM | 61 | 12 |
+| LLM | 63 | 13 |
+| They | 62 | 9 |
+| CEO | 56 | 6 |
 | Muse | 56 | 6 |
-| CEO | 55 | 5 |
-| After | 54 | 6 |
+| After | 55 | 6 |
 | U.S | 53 | 8 |
 | October | 53 | 8 |
 | Trump | 52 | 5 |
 | One | 50 | 10 |
 | Pro | 50 | 8 |
 | Python | 48 | 5 |
+| When | 47 | 13 |
+| November | 47 | 6 |
 | San Francisco | 46 | 9 |
-| November | 46 | 6 |
-| When | 45 | 12 |
-| China | 44 | 8 |
+| China | 46 | 9 |
 | AI-powered | 43 | 10 |
+| July | 41 | 9 |
 | Android | 41 | 4 |
-| July | 40 | 9 |
 | Linux | 40 | 6 |
+| Jensen Huang | 40 | 5 |
 | With | 39 | 10 |
+| Chinese | 39 | 8 |
 | Rust | 39 | 3 |
-| Chinese | 38 | 8 |
 | Last | 38 | 7 |
-| Jensen Huang | 38 | 5 |
 | AI-generated | 35 | 9 |
 | Windows | 35 | 5 |
+| August | 34 | 8 |
 | Astra | 34 | 6 |
-| August | 33 | 8 |
-| IPO | 33 | 7 |
-| June | 32 | 7 |
+| IPO | 34 | 8 |
+| June | 33 | 7 |
 | Research | 32 | 6 |
 | These | 32 | 8 |
 | API | 32 | 6 |
@@ -62,13 +62,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Wednesday | 30 | 5 |
 | Samsung | 30 | 5 |
 | Building | 29 | 12 |
-| Elon Musk | 28 | 5 |
-| While | 28 | 4 |
-| SpaceX | 27 | 6 |
+| Elon Musk | 29 | 5 |
+| SpaceX | 29 | 7 |
+| While | 29 | 4 |
+| Fable | 28 | 8 |
 | Pixel | 27 | 3 |
 | Tuesday | 26 | 6 |
 | Opus | 26 | 6 |
-| Fable | 26 | 6 |
 | Xbox | 26 | 2 |
 | Thursday | 25 | 6 |
 | Monday | 25 | 4 |
@@ -94,29 +94,30 @@ generator: scripts/pulse-dictionary-gaps.py
 | Register | 32 | src-media-techcrunch |
 | A Blog | 30 | src-hf-blog |
 | Launch HN | 27 | src-hn-frontpage |
+| Opt | 25 | src-media-theverge |
 | MIT Technology Review | 25 | src-media-mit-techreview |
-| Opt | 24 | src-media-theverge |
+| Best Buy | 24 | src-media-theverge |
 | The Verge | 23 | src-media-theverge |
-| Best Buy | 23 | src-media-theverge |
 | Highlights | 21 | src-gh-vllm-releases |
+| Import AI | 20 | src-kol-importai |
 | Ask HN | 19 | src-hn-frontpage |
+| Datasette | 19 | src-kol-simonwillison |
 | GeForce NOW | 18 | src-nvidia-blog |
 | Hey HN | 18 | src-hn-frontpage |
 | Is Hiring | 18 | src-hn-frontpage |
-| Datasette | 17 | src-kol-simonwillison |
+| The Stepback | 16 | src-media-theverge |
 | Committee | 15 | src-ep-itre |
-| The Stepback | 15 | src-media-theverge |
 | Installer No | 14 | src-media-theverge |
 | Verge-iest | 14 | src-media-theverge |
 | Installer | 14 | src-media-theverge |
 | Disrupt | 12 | src-media-techcrunch |
 | TechCrunch Founder Summit | 12 | src-media-techcrunch |
+| Sunday | 11 | src-media-theverge |
 | The Algorithm | 11 | src-media-mit-techreview |
 | YC S26 | 11 | src-hn-frontpage |
 | Roundtables | 11 | src-media-mit-techreview |
 | Verge | 11 | src-media-theverge |
 | VCs | 11 | src-media-techcrunch |
-| Sunday | 10 | src-media-theverge |
 | FCC | 10 | src-media-theverge |
 | Victoria Song | 10 | src-media-theverge |
 | Startup Battlefield | 10 | src-media-techcrunch |
@@ -146,7 +147,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | On Equity | 7 | src-media-techcrunch |
 | Related | 6 | src-hn-frontpage |
 | AI Stage | 6 | src-media-techcrunch |
-| Los Angeles | 6 | src-media-theverge |
 
 ## 這一頁不保證什麼
 

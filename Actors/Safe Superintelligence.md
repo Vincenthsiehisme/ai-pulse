@@ -3,7 +3,7 @@ id: actor-safe-superintelligence
 kind: company
 in_dictionary: true
 aliases: ["SSI"]
-generated_day: '2026-11-14'
+generated_day: '2026-11-15'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

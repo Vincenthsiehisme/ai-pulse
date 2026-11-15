@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-14"
+generated_day: "2026-11-15"
 ---
 
 # 覆蓋缺口：我們看不到什麼
@@ -19,14 +19,14 @@ generated_day: "2026-11-14"
 |---|---:|---:|---:|:---:|---|
 | `benchmark` | 7 | 3 | 1 | 🔴 | 需求是獨立供給的 7.0 倍 |
 | `enterprise_adoption` | 4 | 2 | 5 | 🟢 | 獨立供給跟得上 |
-| `policy_execution` | 3 | 1 | 3 | 🟢 | 獨立供給跟得上 |
+| `policy_execution` | 3 | 1 | 4 | 🟢 | 獨立供給跟得上 |
 | `third_party_validation` | 1 | 0 | 10 | 🟢 | 獨立供給跟得上 |
 | `developer_feedback` | 1 | 1 | 3 | 🟢 | 獨立供給跟得上 |
 | `financial_impact` | 1 | 1 | 2 | 🟢 | 獨立供給跟得上 |
 | `product_release` | 1 | 12 | 2 | 🟢 | 獨立供給跟得上 |
 | `procurement` | 1 | 0 | 0 | 🔴 | 沒有任何來源在看 |
-| `social_signal` | 0 | 0 | 8 | ⚪ | 這一輪沒有人問到這一類 |
-| `research_replication` | 0 | 0 | 5 | ⚪ | 這一輪沒有人問到這一類 |
+| `social_signal` | 0 | 0 | 9 | ⚪ | 這一輪沒有人問到這一類 |
+| `research_replication` | 0 | 0 | 6 | ⚪ | 這一輪沒有人問到這一類 |
 | `legal_proceeding` | 0 | 0 | 3 | ⚪ | 這一輪沒有人問到這一類 |
 | `oss_release` | 0 | 7 | 3 | ⚪ | 這一輪沒有人問到這一類 |
 | `infrastructure` | 0 | 1 | 1 | ⚪ | 這一輪沒有人問到這一類 |

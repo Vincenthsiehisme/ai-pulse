@@ -3,22 +3,29 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-11-14'
+generated_day: '2026-11-15'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **143** 則：`published` 133、`review` 10
+事件 **150** 則：`published` 140、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
 | 2026-11-13 | [[Events/evt-2026-11-13-fe797a\|Reflections On Our Responsible Scaling Policy]] | published |
-| 2026-11-13 | [[Events/evt-2026-11-13-a73b28\|Anthropic Is Endorsing Sb 53]] | review |
+| 2026-11-13 | [[Events/evt-2026-11-13-fabd73\|Thoughts On America S Ai Action Plan]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-f979e1\|Our Approach To Understanding And Addressing Ai Harms]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-b89a76\|Deprecation Commitments]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-a73b28\|Anthropic Is Endorsing Sb 53]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-a31951\|Election Safeguards Update]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-7bd968\|Activating asl3 Protections]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-66c878\|The Need For Transparency In Frontier Ai]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-6159c6\|Anthropic Institute Agenda]] | review |
+| 2026-11-13 | [[Events/evt-2026-11-13-4136eb\|Us Elections Readiness]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-363c05\|Statement Comments Secretary War]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-09842e\|A New Initiative For Developing Third Party Model Evaluations]] | review |
 | 2026-11-12 | [[Events/evt-2026-11-12-9317df\|Claude 4]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-30f9f6\|Roadshow Launch]] | published |
 | 2026-11-05 | [[Events/evt-2026-11-05-58d399\|The Long Term Benefit Trust]] | published |

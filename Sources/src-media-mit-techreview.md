@@ -17,7 +17,7 @@ can_satisfy_primary: false
 endpoint: "https://www.technologyreview.com/feed/"
 robots_checked_day: "2026-11-13"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-11-14"
+last_observed_day: "2026-11-15"
 items_observed: 295
 events_bound: 0
 events_published: 0

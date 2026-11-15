@@ -1,5 +1,5 @@
 {
-  "generated_day": "2026-11-14",
+  "generated_day": "2026-11-15",
   "answered": 26,
   "unanswerable": 22,
   "other_ratio": 0.13636363636363635,
@@ -71,6 +71,7 @@
         "src-openai-blog"
       ],
       "policy_execution": [
+        "src-kol-importai",
         "src-media-arstechnica",
         "src-media-ieee-spectrum",
         "src-media-mit-techreview",
@@ -127,6 +128,7 @@
         "src-media-theverge"
       ],
       "research_replication": [
+        "src-kol-importai",
         "src-kol-lilianweng",
         "src-kol-raschka",
         "src-media-arstechnica",
@@ -135,6 +137,7 @@
       ],
       "social_signal": [
         "src-hn-frontpage",
+        "src-kol-importai",
         "src-kol-interconnects",
         "src-kol-karpathy",
         "src-kol-lilianweng",
@@ -258,6 +261,7 @@
         "src-media-theverge"
       ],
       "research_replication": [
+        "src-kol-importai",
         "src-kol-lilianweng",
         "src-kol-raschka",
         "src-media-arstechnica",
@@ -265,6 +269,7 @@
         "src-media-mit-techreview"
       ],
       "policy_execution": [
+        "src-kol-importai",
         "src-media-arstechnica",
         "src-media-ieee-spectrum",
         "src-media-mit-techreview"
@@ -273,6 +278,7 @@
         "src-media-theregister"
       ],
       "social_signal": [
+        "src-kol-importai",
         "src-kol-interconnects",
         "src-kol-karpathy",
         "src-kol-lilianweng",

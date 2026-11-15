@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-11-14'
+generated_day: '2026-11-15'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,11 +14,12 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **68** 則：`published` 57、`review` 11
+事件 **69** 則：`published` 58、`review` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
 | 2026-11-13 | [[Events/evt-2026-11-13-9c3857\|Build a Robot Pick-and-Place Simulation with SimReady Assets]] | published |
+| 2026-11-13 | [[Events/evt-2026-11-13-5a6a0f\|Shield helps technicians hand off legacy portal work with OpenAI]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-950a8b\|Holiday Extras is rethinking what it can build with Codex]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-803a22\|How Amplitude ships product improvements in 1–2 days with OpenAI]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-6f2bea\|Cogent and OpenAI build cyber defense factories for enterprises]] | published |

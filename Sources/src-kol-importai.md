@@ -11,19 +11,20 @@ source_category: "individual"
 corpus_type: "person_signal"
 region: "US"
 language: "en"
-lifecycle: "dormant"
+lifecycle: "probing"
+robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://importai.substack.com/feed"
-robots_checked_day: "2026-07-26"
-first_fetch_at:
-last_observed_day:
-items_observed:
+robots_checked_day: "2026-11-15"
+first_fetch_at: "2026-11-15"
+last_observed_day: "2026-11-15"
+items_observed: 20
 events_bound: 0
 events_published: 0
 health_score: 100
 consecutive_failures: 0
-last_status: "skipped_lifecycle"
+last_status: 200
 ---
 
 # Jack Clark（src-kol-importai）
@@ -34,14 +35,10 @@ last_status: "skipped_lifecycle"
 
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
-| 收錄 | `dormant` | **不會被抓**：lifecycle 不在 active / degraded / probing |
-| 已觀測 | **尚未抓取過** | 我們對它的產出量一無所知 |
+| 收錄 | `probing` | 會被抓 |
+| 已觀測 | 20 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 0 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 0 則 | 綁上了但門禁擋著——那是設計，不是故障 |
-
-> 這條來源**從來沒有成功抓取過一次**（`_probe/state.json` 沒有它的 `first_fetch_at`）。所以上面那格是**量不到**，不是量到 0——我們對它的產出量一無所知。（紅線 8）上一班的狀態是 `skipped_lifecycle`。
-
-> robots 狀態未知（`robots_ok:` 空）。空值的意思是**還沒量到**，不是站方允許、也不是站方禁止。
 
 > 這條來源不能單獨作為一手證據（`can_satisfy_primary: false`）。它的角色是佐證與獨立性，不是「事情發生了」的來源。
 
