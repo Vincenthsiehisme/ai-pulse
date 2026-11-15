@@ -594,6 +594,11 @@
     "src_hash": "53c35eed2801",
     "zh": "用來建構、評測並遞迴改進具身 agent 的統一框架，程式碼即將釋出"
   },
+  "OpenTodoApp/OpenTodo": {
+    "at": "2026-11-15T20:41:30+00:00",
+    "src_hash": "08cb511ea4d5",
+    "zh": "開源、local-first 的待辦管理工具，可自己架站。功能比得上商用待辦 app，不用訂閱也不被綁定"
+  },
   "Osmantic/ODS": {
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "fb5aba90cef7",
@@ -1730,9 +1735,9 @@
     "zh": "在同一個工作區裡建 Agentic workflow 與 RAG pipeline，可部署雲端、VPC 或自架環境"
   },
   "lemomo-ai/lemo-opuscar": {
-    "at": "2026-11-01T19:59:42+00:00",
-    "src_hash": "ec6196e2c4c5",
-    "zh": "Claude Code 的影片風格工具箱：66 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
+    "at": "2026-11-15T20:41:30+00:00",
+    "src_hash": "e08059741fb6",
+    "zh": "Claude Code 的影片風格工具箱：99 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
   },
   "lexifina/global-law": {
     "at": "2026-11-04T21:40:11+00:00",
@@ -2308,6 +2313,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "2db2cd973e1b",
     "zh": "agent meta-harness：部署多代理群、協調自動化工作流，整合 Claude Code、Codex 等工具"
+  },
+  "s0ld13rr/pentestcode": {
+    "at": "2026-11-15T20:41:30+00:00",
+    "src_hash": "7ce81a4f3c32",
+    "zh": "多 agent 的 AI 滲透測試系統，有持續的任務狀態、策略協調與平行的自主作業"
   },
   "sahenjp/RustXNG": {
     "at": "2026-11-03T21:25:10+00:00",
