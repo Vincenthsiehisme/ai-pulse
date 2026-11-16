@@ -1,5 +1,21 @@
 [
   {
+    "full_name": "hitkeeen/blender-ai-mcp-addon",
+    "desc": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon, copilot for 3D, bpy Python scripting, MCP integration.",
+    "language": "",
+    "topics": [
+      "ai-agents",
+      "ai-assistant",
+      "blender",
+      "blender-addon",
+      "blender-ai",
+      "blender-automation"
+    ],
+    "stars": 2178,
+    "url": "https://github.com/hitkeeen/blender-ai-mcp-addon",
+    "stale_zh": null
+  },
+  {
     "full_name": "canivel/dynolab",
     "desc": "Dyno Lab — an AI safety, alignment and interpretability research workbench for Apple Silicon. Explore activations, probes, SAEs and interventions with local inference, a Python SDK, APIs and MCP.",
     "language": "Python",
@@ -11,24 +27,56 @@
       "alignment",
       "apple-silicon"
     ],
-    "stars": 377,
+    "stars": 454,
     "url": "https://github.com/canivel/dynolab",
     "stale_zh": null
   },
   {
-    "full_name": "OpenTodoApp/OpenTodo",
-    "desc": "Your tasks, your server. An open-source, local-first task manager you can host yourself. Everything you expect from a commercial task app, without the subscription or the lock-in.",
+    "full_name": "JosssphZhou/poki",
+    "desc": "Poki uses your iPhone like you do. An open-source agent that sees your screen and taps, types, and swipes across any app on your real device. Runs locally, plugs right into Claude Code and any MCP agent.",
+    "language": "Swift",
+    "topics": [
+      "ai-agents",
+      "automation",
+      "ios",
+      "iphone",
+      "mcp",
+      "model-context-protocol"
+    ],
+    "stars": 1505,
+    "url": "https://github.com/JosssphZhou/poki",
+    "stale_zh": "讓 AI agent 操作真實 iPhone。本機 MCP server 與 agent，不需越獄，不需額外硬體"
+  },
+  {
+    "full_name": "simplexai-labs/linger",
+    "desc": "Linger is An Open-Source Personal Agent That Runs Fully on Your PC.  We aim to break Big Tech’s grip on AI by bringing powerful local AI to everyday computers through efficient model–harness co-design, so everyone can run their own.",
     "language": "TypeScript",
     "topics": [
-      "caldav",
-      "end-to-end-encryption",
-      "golang",
-      "gtd",
-      "kanban",
-      "local-first"
+      "agent-teams",
+      "local-llm",
+      "memory",
+      "personal-agent",
+      "proactive-agent",
+      "proactive-ai"
     ],
-    "stars": 430,
-    "url": "https://github.com/OpenTodoApp/OpenTodo",
+    "stars": 397,
+    "url": "https://github.com/simplexai-labs/linger",
+    "stale_zh": null
+  },
+  {
+    "full_name": "0sec-labs/0security",
+    "desc": "Software infrastructure to build and deploy sovereign, persistent AI security agents that continuously find, prove and fix security risks. Open source. Web UI, CLI, CI and MCP.",
+    "language": "TypeScript",
+    "topics": [
+      "llm-agents",
+      "security-research",
+      "security-tools",
+      "application-security",
+      "binary-analysis",
+      "cybersecurity"
+    ],
+    "stars": 1411,
+    "url": "https://github.com/0sec-labs/0security",
     "stale_zh": null
   },
   {
@@ -43,40 +91,72 @@
       "claude",
       "claude-code"
     ],
-    "stars": 325,
+    "stars": 343,
     "url": "https://github.com/SLEEPYBQ/MemoSync",
     "stale_zh": null
   },
   {
-    "full_name": "lemomo-ai/lemo-opuscar",
-    "desc": "A toolbox of film styles made in code for Claude Code: 99 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in code by Claude Opus 5.5, with no video model. By Lemomo. · 一套用代码做片的风格工具箱：99 种现成风格，也能做出你自己的",
-    "language": "JavaScript",
+    "full_name": "huawei-csl/MACaQ",
+    "desc": "SOTA model-agnostic quantization for GGUF, local inference and beyond. Quantize and run text, image, video and audio models with llama.cpp, vLLM, Diffusers and PyTorch.",
+    "language": "C++",
+    "topics": [
+      "ascend",
+      "audio",
+      "audio-generation",
+      "diffusers",
+      "gguf",
+      "gguf-quantization"
+    ],
+    "stars": 339,
+    "url": "https://github.com/huawei-csl/MACaQ",
+    "stale_zh": null
+  },
+  {
+    "full_name": "everyinfra/everyinfra-agent-plugins",
+    "desc": "EveryInfra MCP server & agent plugin: scraper API for TikTok, Instagram, Amazon, YouTube, Xiaohongshu & Douyin. 574 data APIs across 106 platforms, from $0.56/1K calls. For Claude Code, Cursor, Codex.",
+    "language": "Python",
+    "topics": [
+      "ai-agents",
+      "amazon-scraper",
+      "captcha-solver",
+      "claude-code",
+      "cursor",
+      "douyin"
+    ],
+    "stars": 551,
+    "url": "https://github.com/everyinfra/everyinfra-agent-plugins",
+    "stale_zh": "EveryInfra 的 MCP server 與 agent 外掛，提供 106 個平台、573 支爬取 API"
+  },
+  {
+    "full_name": "Kevin-Liu-01/Claude-of-Tanks",
+    "desc": "A World of Tanks-style armored combat simulator built directly with Three.js and Vite: 311 vehicles, 33 destructible battlefields, and 14 modes, with plate-level armor, ballistics, modules, spotting, and physics. Play in your browser on desktop or mobile. Built end-to-end by a multi-agent Claude/Codex pipeline.",
+    "language": "TypeScript",
+    "topics": [
+      "3d-game",
+      "browser-game",
+      "claude",
+      "game",
+      "gamedev",
+      "javascript"
+    ],
+    "stars": 541,
+    "url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks",
+    "stale_zh": "Three.js 做的《戰車世界》風格坦克模擬器，瀏覽器可玩，多 agent 流程完成"
+  },
+  {
+    "full_name": "Vincentwei1021/video-shotcraft",
+    "desc": "AI video skill for Claude Code & Codex — cinematic, editable product promos with Remotion: 124 shot recipe cards, 150 motion previews, beat sync, sound design, Motion Workbench & JianYing (CapCut CN) export.",
+    "language": "TypeScript",
     "topics": [
       "agent-skills",
       "ai-agents",
-      "ai-short-film",
       "ai-video",
-      "animation",
-      "canvas"
+      "claude-code",
+      "claude-code-skills",
+      "claude-skills"
     ],
-    "stars": 16700,
-    "url": "https://github.com/lemomo-ai/lemo-opuscar",
-    "stale_zh": "Claude Code 的影片風格工具箱：66 種現成風格，各附風格提示詞與純程式碼做的樣片，也能做自己的"
-  },
-  {
-    "full_name": "s0ld13rr/pentestcode",
-    "desc": "PentestCode - Multi-agent AI penetration testing system with persistent engagement state, strategic coordination, and parallel autonomous operations.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-agents",
-      "ai-security",
-      "ai-security-tool",
-      "anthropic",
-      "gpt",
-      "openai"
-    ],
-    "stars": 1063,
-    "url": "https://github.com/s0ld13rr/pentestcode",
+    "stars": 20571,
+    "url": "https://github.com/Vincentwei1021/video-shotcraft",
     "stale_zh": null
   }
 ]

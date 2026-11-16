@@ -3,17 +3,18 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-15'
+generated_day: '2026-11-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **35** 則：`published` 28、`review` 7
+事件 **36** 則：`published` 28、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-16 | [[Events/evt-2026-11-16-811566\|Hugging Face and OpenRouter join forces to make open-weight models easy to run]] | review |
 | 2026-11-12 | [[Events/evt-2026-11-12-b58850\|The Definitive Fine-Tuning Guide for 3D Generation Models]] | published |
 | 2026-11-11 | [[Events/evt-2026-11-11-a332b2\|Token Pooling-Aware Training for Multi-Vector Embedding Models]] | review |
 | 2026-11-10 | [[Events/evt-2026-11-10-93b799\|Pay for Hugging Face Hub with your Google Cloud Account]] | published |

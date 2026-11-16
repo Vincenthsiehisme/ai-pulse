@@ -3,17 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-15'
+generated_day: '2026-11-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **234** 則：`published` 227、`review` 7
+事件 **242** 則：`published` 227、`review` 15
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-16 | [[Events/evt-2026-11-16-f76949\|The King’s Trust and OpenAI launch £1m partnership]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-5669b3\|Broadening access to AI for scientists]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-528fb7\|Our first phase of embedded assessments]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-465dec\|LVMH’s Media Division announces strategic partnership with OpenAI]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-0c5fcf\|Science at the Frontier: How scientists use ChatGPT]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-05a728\|More ways to move care forward with ChatGPT for Healthcare]] | review |
+| 2026-11-15 | [[Events/evt-2026-11-15-7e4c1a\|Our new blog for science]] | review |
+| 2026-11-15 | [[Events/evt-2026-11-15-0b968e\|A step toward defining the Standard Model on a lattice]] | review |
 | 2026-11-13 | [[Events/evt-2026-11-13-5a6a0f\|Shield helps technicians hand off legacy portal work with OpenAI]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-afd9d6\|Supporting research on AI and children’s safety]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-950a8b\|Holiday Extras is rethinking what it can build with Codex]] | published |

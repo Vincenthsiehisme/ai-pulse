@@ -3,7 +3,7 @@ id: actor-nvidia、google、emerald-ai
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-11-15'
+generated_day: '2026-11-16'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

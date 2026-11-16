@@ -22,5 +22,141 @@
     "track": "全球創新版圖",
     "summary": "NVIDIA 在 Hugging Face 發布日本金融情境的合成人物資料集 Nemotron-Personas-Finance-Japan。",
     "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-15-0b968e",
+    "title": "A step toward defining the Standard Model on a lattice",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-15-7e4c1a",
+    "title": "Our new blog for science",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-05a728",
+    "title": "More ways to move care forward with ChatGPT for Healthcare",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-0b7d25",
+    "title": "v0.34.0",
+    "company": "MiniMax",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-0c5fcf",
+    "title": "Science at the Frontier: How scientists use ChatGPT",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-280887",
+    "title": "NVIDIA Expands Slurm to Bring Quantum Computing Into Supercomputing",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-40aaa9",
+    "title": "Advancing computer-use agents for healthcare teams",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-465dec",
+    "title": "LVMH’s Media Division announces strategic partnership with OpenAI",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-4862d9",
+    "title": "Lambda Boosts AI Factory Resiliency and Efficiency With NVIDIA Photonics",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-518e74",
+    "title": "NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With Leading Performance",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-528fb7",
+    "title": "Our first phase of embedded assessments",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-5669b3",
+    "title": "Broadening access to AI for scientists",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-56fd04",
+    "title": "NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-657514",
+    "title": "CUDA at 20: How the Platform Transformed Scientific Computing",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-6f8c70",
+    "title": "Strengthening the fight against online child sexual abuse with new tools and support",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-7e64a2",
+    "title": "Canadian Ai Research",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-811566",
+    "title": "Hugging Face and OpenRouter join forces to make open-weight models easy to run",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
   }
 ]
