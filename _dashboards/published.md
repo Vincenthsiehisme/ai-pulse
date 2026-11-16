@@ -1,6 +1,52 @@
-# 已發布事件（641）
+# 已發布事件（662）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-16
+- **[[Events/evt-2026-11-16-05a728|More ways to move care forward with ChatGPT for Healthcare]]** — OpenAI · product · conf 73 · heat 未量測
+  ChatGPT for Healthcare 加上 computer-use agent、更好的臨床回答與跨醫療軟體的外掛。
+- **[[Events/evt-2026-11-16-0b7d25|v0.34.0]]** — vLLM · infra · conf 73 · heat 未量測
+  vLLM v0.34.0 釋出，新增 10 個模型支援，KV cache 預設改成依暖機後實際剩餘記憶體配置。
+- **[[Events/evt-2026-11-16-280887|NVIDIA Expands Slurm to Bring Quantum Computing Into Supercomputing]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 擴充 Slurm，讓量子處理器能進入超算排程；文中稱各中心部署量近五年成長近七倍。
+- **[[Events/evt-2026-11-16-40aaa9|Advancing computer-use agents for healthcare teams]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發了一篇談醫療團隊 computer-use agent 的文章，但來源政策不允許轉述，內容請看原文。
+- **[[Events/evt-2026-11-16-465dec|LVMH’s Media Division announces strategic partnership with OpenAI]]** — OpenAI · capital · conf 73 · heat 未量測
+  LVMH 旗下媒體部門與 OpenAI 合作，要用 AI 支援新聞業，並讓旗下刊物能透過 ChatGPT 取得。
+- **[[Events/evt-2026-11-16-4862d9|Lambda Boosts AI Factory Resiliency and Efficiency With NVIDIA Photonics]]** — NVIDIA · infra · conf 73 · heat 未量測
+  Lambda 用 NVIDIA Photonics 共封裝光學（CPO）交換器串接 GB300 NVL72，目標是更有韌性、更省電的訓練網路。
+- **[[Events/evt-2026-11-16-518e74|NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With Leading Performance]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 說 Vera Rubin 首次出賽 MLPerf 就拿下 Training v6.1 全部項目，並首度參加 Endpoints 測試。
+- **[[Events/evt-2026-11-16-528fb7|Our first phase of embedded assessments]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 開始「嵌入式評估」，找 Apollo Research、METR、Transluce 與 Goodfire 獨立檢驗對齊、防護與監控系統。
+- **[[Events/evt-2026-11-16-5669b3|Broadening access to AI for scientists]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 擴大「ChatGPT for Academic Researchers」，提供全球 20 萬名研究者免費使用前沿模型。
+- **[[Events/evt-2026-11-16-56fd04|NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 在 SC26 推出 DGX Spark HPC 開發套件：四台 DGX Spark 以環狀直連組成叢集。
+- **[[Events/evt-2026-11-16-657514|CUDA at 20: How the Platform Transformed Scientific Computing]]** — NVIDIA · capital · conf 73 · heat 未量測
+  NVIDIA 在 SC26 紀念 CUDA 二十週年，表揚協助 GPU 運算成為科學與 AI 基礎的研究者與工程師。
+- **[[Events/evt-2026-11-16-6f8c70|Strengthening the fight against online child sexual abuse with new tools and support]]** — OpenAI · policy · conf 80 · heat 未量測
+  OpenAI 發表強化打擊網路兒少性剝削的新工具與支援，但來源政策不允許轉述，內容請看原文。
+- **[[Events/evt-2026-11-16-7e64a2|Canadian Ai Research]]** — Anthropic · policy · conf 73 · heat 未量測
+  Anthropic 發了一篇標題為「Canadian AI Research」的新聞稿，但來源政策不允許轉述，內容請看原文。
+- **[[Events/evt-2026-11-16-811566|Hugging Face and OpenRouter join forces to make open-weight models easy to run]]** — Hugging Face · product · conf 73 · heat 未量測
+  Hugging Face 與 OpenRouter 合作，目標是讓開放權重模型更容易跑起來。
+- **[[Events/evt-2026-11-16-a0f241|How the World’s Most Advanced AI Infrastructure Supply Chain Invents the Future]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 專訪營運主管 Deb Shoquist，談 AI 平台背後的供應鏈與製造。
+- **[[Events/evt-2026-11-16-a13cdb|AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and Developer Communities]]** — NVIDIA · capital · conf 73 · heat 未量測
+  NVIDIA 的 AI Day Seoul 兩天吸引逾 2,000 人，主題是實體 AI 與 AI agent。
+- **[[Events/evt-2026-11-16-ae9a1a|NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 擴充 CUDA-X 函式庫，新增 cuPhoton、cuPotential、cuSpa，讓 agent 與研究者加速科學運算。
+- **[[Events/evt-2026-11-16-c79f5b|At Holiday Extras, dots get to work before anyone asks]]** — OpenAI · product · conf 73 · heat 未量測
+  Holiday Extras 的客戶案例：OpenAI 的「dots」會在沒人要求時主動交出上線報告、提醒問題、通勤時講解會議。
+- **[[Events/evt-2026-11-16-e5509d|NVIDIA Announces Rubin HPC — A New GPU to Accelerate Agents for Science, Engineering and Analytics]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 在 SC26 宣布 Rubin HPC，Vera Rubin 平台裡專為模擬與資料處理設計的新 GPU。
+- **[[Events/evt-2026-11-16-f76949|The King’s Trust and OpenAI launch £1m partnership]]** — OpenAI · policy · conf 73 · heat 未量測
+  The King’s Trust 與 OpenAI 推出 100 萬英鎊合作，協助英國最多 25,000 名年輕人學會實用 AI 技能。
+
+## 2026-11-15
+- **[[Events/evt-2026-11-15-7e4c1a|Our new blog for science]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 開了一個科學專屬部落格，收研究者用 AI 做科學的發現、方法與第一手紀錄。
 
 ## 2026-11-13
 - **[[Events/evt-2026-11-13-07ae84|llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem]]** — ggml-org · infra · conf 73 · heat 未量測

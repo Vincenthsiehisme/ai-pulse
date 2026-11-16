@@ -4,6 +4,11 @@
     "src_hash": "d4977e04fec7",
     "zh": "開源 AI 資安工具組，含程式碼分析、滲透測試、弱點研究、逆向與修補的網頁介面，另有 CLI 與 MCP"
   },
+  "0sec-labs/0security": {
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "f2a9713ea2ee",
+    "zh": "部署自主、常駐的 AI 資安 agent，持續找出、驗證並修補風險，有 CLI 與 MCP"
+  },
   "0x4m4/hexstrike-ai": {
     "at": "2026-08-16T19:07:53+00:00",
     "src_hash": "ec8bf8d7b0af",
@@ -405,9 +410,9 @@
     "zh": "給 LLM agent 記憶用的 Datalog 引擎，附 MCP server 供多個 agent 共用"
   },
   "JosssphZhou/poki": {
-    "at": "2026-11-07T19:45:30+00:00",
-    "src_hash": "b6c7c6b70413",
-    "zh": "讓 AI agent 操作真實 iPhone。本機 MCP server 與 agent，不需越獄，不需額外硬體"
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "b46968e45b1e",
+    "zh": "開源 agent，在 iPhone 真機上點擊、輸入、滑動，本機執行，接 MCP agent"
   },
   "JuliusBrussee/caveman": {
     "at": "2026-09-17T19:14:47+00:00",
@@ -420,9 +425,9 @@
     "zh": "科學用 Agent Skills 庫：177 個驗證過的 skills 加 100 多個科學資料庫"
   },
   "Kevin-Liu-01/Claude-of-Tanks": {
-    "at": "2026-10-05T22:18:12+00:00",
-    "src_hash": "a8dc9ced5441",
-    "zh": "Three.js 做的《戰車世界》風格坦克模擬器，瀏覽器可玩，多 agent 流程完成"
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "288b4a8c1f93",
+    "zh": "Three.js 做的《戰車世界》風格坦克模擬器，311 輛車，瀏覽器可玩"
   },
   "KlaatAI/klaatcode": {
     "at": "2026-10-05T22:18:12+00:00",
@@ -684,6 +689,11 @@
     "src_hash": "d73c9d500f6f",
     "zh": "免費 SEO MCP server 與開源 SEO、GEO skill，做關鍵字研究、排名追蹤、稽核與反向連結"
   },
+  "SLEEPYBQ/MemoSync": {
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "17b5db8943b7",
+    "zh": "與 coding agent 跨 session 共管記憶的本機工作台，支援 Claude Code 與 Codex"
+  },
   "Sallyn0225/eidolon-sc": {
     "at": "2026-10-30T20:18:02+00:00",
     "src_hash": "99330eca0567",
@@ -773,6 +783,11 @@
     "at": "2026-10-19T20:49:33+00:00",
     "src_hash": "b2ae99790e76",
     "zh": "15 種動態設計風格，每種由 Claude Opus 5.5 依一個 prompt 寫程式產生，可看影片與原始碼"
+  },
+  "Vincentwei1021/video-shotcraft": {
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "e56dcc743620",
+    "zh": "Claude Code 與 Codex 的 AI 影片 skill，用 Remotion 做可編輯宣傳片"
   },
   "Vincentwei1021/video-talkcraft": {
     "at": "2026-10-28T20:42:53+00:00",
@@ -1104,6 +1119,11 @@
     "src_hash": "f79205906053",
     "zh": "整合 IDE 的程式 agent，由 Stencil Labs 開發"
   },
+  "canivel/dynolab": {
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "8f73ce2431e8",
+    "zh": "Apple Silicon 上的 AI 安全與可解釋性研究工作台，附 SDK、API 與 MCP"
+  },
   "capture0x/AdStrike": {
     "at": "2026-11-11T22:25:07+00:00",
     "src_hash": "9984497dc708",
@@ -1350,9 +1370,9 @@
     "zh": "開源具身代理框架：執行、回饋與持續改進"
   },
   "everyinfra/everyinfra-agent-plugins": {
-    "at": "2026-11-08T20:04:50+00:00",
-    "src_hash": "54a867222cff",
-    "zh": "EveryInfra 的 MCP server 與 agent 外掛，提供 106 個平台、573 支爬取 API"
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "0bd0b9b25162",
+    "zh": "EveryInfra 的 MCP server 與 agent 外掛，提供 106 個平台、574 支爬取 API"
   },
   "exa-labs/exa-mcp-server": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -1523,6 +1543,16 @@
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "899ff181356f",
     "zh": "把 DeepSeek Harness 變成自架的企業 agent 平台，含知識庫、深度研究、瀏覽器自動化與管理控制"
+  },
+  "hitkeeen/blender-ai-mcp-addon": {
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "8f084912b825",
+    "zh": "Blender 的 AI 助手與 MCP server，有視覺化對話與多 agent 流程"
+  },
+  "huawei-csl/MACaQ": {
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "9e903c065849",
+    "zh": "不限模型的 GGUF 量化工具，涵蓋文字、圖像、影片與音訊模型"
   },
   "huggingface/text-embeddings-inference": {
     "at": "2026-10-29T20:47:36+00:00",
@@ -2408,6 +2438,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "16dc11e259e0",
     "zh": "A 股短線復盤看板：漲停池、連板梯隊、龍虎榜、板塊資金一屏看完，衍生指標純計算，AI 只負責把數據串成盤面研判"
+  },
+  "simplexai-labs/linger": {
+    "at": "2026-11-16T23:58:55+00:00",
+    "src_hash": "322dfdba6339",
+    "zh": "開源個人 agent，完全在自己的電腦上執行，以模型與 harness 協同設計讓本機 AI 跑得動"
   },
   "simular-ai/Agent-S": {
     "at": "2026-10-01T20:41:09+00:00",

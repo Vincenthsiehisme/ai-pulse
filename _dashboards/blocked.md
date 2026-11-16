@@ -1,26 +1,9 @@
-# 被門禁擋下（95）
+# 被門禁擋下（74）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-11-16-05a728|More ways to move care forward with ChatGPT for Healthcare]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-0b7d25|v0.34.0]]** — MiniMax — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-0c5fcf|Science at the Frontier: How scientists use ChatGPT]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-280887|NVIDIA Expands Slurm to Bring Quantum Computing Into Supercomputing]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-465dec|LVMH’s Media Division announces strategic partnership with OpenAI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-4862d9|Lambda Boosts AI Factory Resiliency and Efficiency With NVIDIA Photoni]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-518e74|NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-528fb7|Our first phase of embedded assessments]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-5669b3|Broadening access to AI for scientists]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-56fd04|NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-657514|CUDA at 20: How the Platform Transformed Scientific Computing]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-811566|Hugging Face and OpenRouter join forces to make open-weight models eas]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-a0f241|How the World’s Most Advanced AI Infrastructure Supply Chain Invents t]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-a13cdb|AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and De]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-ae9a1a|NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-e5509d|NVIDIA Announces Rubin HPC — A New GPU to Accelerate Agents for Scienc]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-16-f76949|The King’s Trust and OpenAI launch £1m partnership]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-15-0b968e|A step toward defining the Standard Model on a lattice]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-15-7e4c1a|Our new blog for science]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-16-0c5fcf|Science at the Frontier: How scientists use ChatGPT]]** — OpenAI — blockers: thin_research_analysis
+- **[[Events/evt-2026-11-15-0b968e|A step toward defining the Standard Model on a lattice]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-13-09842e|A New Initiative For Developing Third Party Model Evaluations]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-13-6159c6|Anthropic Institute Agenda]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-11-a332b2|Token Pooling-Aware Training for Multi-Vector Embedding Models]]** — Hugging Face — blockers: thin_research_analysis
@@ -84,10 +67,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-11-16-40aaa9|Advancing computer-use agents for healthcare teams]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-16-6f8c70|Strengthening the fight against online child sexual abuse with new too]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-16-7e64a2|Canadian Ai Research]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-16-c79f5b|At Holiday Extras, dots get to work before anyone asks]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
