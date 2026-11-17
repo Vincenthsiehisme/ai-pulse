@@ -1,143 +1,143 @@
 {
-  "date": "2026-11-16",
-  "started_at": "2026-11-16 23:55Z",
-  "finished": true,
+  "date": "2026-11-17",
+  "started_at": "2026-11-17 23:15Z",
+  "finished": false,
   "cost_prev": {
-    "date": "2026-11-15",
+    "date": "2026-11-16",
     "rows": 1,
-    "usd_equiv": 0.504639,
+    "usd_equiv": 1.05444,
     "note": null,
-    "latest": "2026-11-15"
+    "latest": "2026-11-16"
   },
   "stages": [
     {
       "id": "align-main",
       "status": "noted",
-      "note": "從 `claude/sleepy-albattani-oxurny` 切回 `main` 並 ff 到 origin/main",
-      "at": "2026-11-16 23:55Z",
-      "full_output": "From https://github.com/Vincenthsiehisme/ai-pulse\n * branch            main       -> FETCH_HEAD\n   7b3f9e4..a70ef7f  main       -> origin/main\nYour branch is behind 'origin/main' by 20 commits, and can be fast-forwarded.\n  (use \"git pull\" to update your local branch)\nSwitched to branch 'main'\nUpdating 7b3f9e4..a70ef7f\nFast-forward\n Actors/AMD.md                                      |    2 +-\n Actors/AWS.md                                      |    2 +-\n Actors/Ai2.md                                      |    5 +-\n Actors/Alibaba.md                                  |    2 +-\n Actors/Allen Institute for AI.md                   |    2 +-\n Actors/AllenAI.md                                  |    2 +-\n Actors/Amazon.md                                   |    2 +-\n Actors/Anthropic.md                                |   18 +-\n Actors/Anysphere.md                                |    2 +-\n Actors/Baidu.md                                    |    2 +-\n Actors/Broadcom.md                                 |    2 +-\n Actors/ByteDance.md                                |    2 +-\n Actors/Cerebras.md                                 |    2 +-\n Actors/Cognition.md                                |    2 +-\n Actors/Cohere.md                                   |    2 +-\n Actors/CoreWeave.md                                |    2 +-\n Actors/DeepSeek.md                                 |    2 +-\n Actors/Dharma-AI.md                                |    2 +-\n Actors/Firebird.md                                 |    2 +-\n Actors/Fyxer.md                                    |    2 +-\n Actors/Gilbert + Tobin.md                          |    2 +-\n Actors/Google DeepMind.md                          |    2 +-\n Actors/Google.md                                   |    2 +-\n Actors/Groq.md                                     |    2 +-\n Actors/H company.md                                |    2 +-\n Actors/Hugging Face.md                             |    7 +-\n Actors/IBM Research.md                             |    2 +-\n Actors/IBM.md                                      |    5 +-\n \"Actors/Ita\\303\\272.md\"                            |    2 +-\n Actors/JioStar.md                                  |    2 +-\n Actors/Liquid AI.md                                |    2 +-\n Actors/LiquidAI.md                                 |    2 +-\n Actors/Meta.md                                     |    2 +-\n Actors/Microsoft.md                                |    2 +-\n Actors/MiniMax.md                                  |    8 +-\n Actors/Mistral AI.md                               |    2 +-\n Actors/Moonshot AI.md                              |    2 +-\n Actors/Multiverse Computing.md                     |    2 +-\n Actors/NTT DATA.md                                 |    2 +-\n Actors/NVIDIA.md                                   |   17 +-\n ...DIA\\343\\200\\201Google\\343\\200\\201Emerald AI.md\" |    2 +-\n Actors/Open Secure AI Alliance.md                  |    2 +-\n Actors/OpenAI.md                                   |   20 +-\n Actors/Perplexity.md                               |    2 +-\n Actors/QVAC.md                                     |    2 +-\n Actors/Reflection AI.md                            |    2 +-\n Actors/Safe Superintelligence.md                   |    2 +-\n Actors/Scale AI.md                                 |    2 +-\n Actors/ServiceNow.md                               |    2 +-\n Actors/Swiss AI Initiative.md                      |    2 +-\n Actors/TSMC.md                                     |    2 +-\n Actors/Technology Innovation Institute.md          |    2 +-\n Actors/Tencent.md                                  |    2 +-\n Actors/Thinking Machines Lab.md                    |    2 +-\n Actors/Virgin Atlantic.md                          |    2 +-\n Actors/Z.ai.md                                     |    2 +-\n Actors/Zapier.md                                   |    2 +-\n Actors/ggml-org.md                                 |   19 +\n Actors/vLLM.md                                     |    2 +-\n Actors/xAI.md                                      |    2 +-\n Digests/2026-11-12.md                              |   59 +\n Digests/2026-11-13.md                              |   65 +\n Digests/2026-11-14.md                              |   73 +\n Digests/2026-11-15.md                              |   48 +\n Events/evt-2026-11-10-93f5da.md                    |   16 +-\n Events/evt-2026-11-12-387d4d.md                    |   43 +-\n Events/evt-2026-11-12-3c4ee7.md                    |   46 +-\n Events/evt-2026-11-12-803a22.md                    |   58 +-\n Events/evt-2026-11-12-855ebd.md                    |   79 +\n Events/evt-2026-11-12-9317df.md                    |   61 +-\n Events/evt-2026-11-12-950a8b.md                    |   41 +-\n Events/evt-2026-11-12-afd9d6.md                    |   41 +-\n Events/evt-2026-11-12-b58850.md                    |   46 +-\n Events/evt-2026-11-13-07ae84.md                    |   79 +\n Events/evt-2026-11-13-09842e.md                    |   78 +\n Events/evt-2026-11-13-363c05.md                    |   77 +\n Events/evt-2026-11-13-4136eb.md                    |   78 +\n Events/evt-2026-11-13-416581.md                    |   79 +\n Events/evt-2026-11-13-5a6a0f.md                    |   79 +\n Events/evt-2026-11-13-6159c6.md                    |   77 +\n Events/evt-2026-11-13-66c878.md                    |   78 +\n Events/evt-2026-11-13-7bd968.md                    |   78 +\n Events/evt-2026-11-13-9c3857.md                    |   79 +\n Events/evt-2026-11-13-a31951.md                    |   77 +\n Events/evt-2026-11-13-a319f0.md                    |   79 +\n Events/evt-2026-11-13-a73b28.md                    |   78 +\n Events/evt-2026-11-13-b89a76.md                    |   77 +\n Events/evt-2026-11-13-f979e1.md                    |   77 +\n Events/evt-2026-11-13-fabd73.md                    |   85 +\n Events/evt-2026-11-13-fe797a.md                    |   77 +\n Events/evt-2026-11-15-0b968e.md                    |   81 +\n Events/evt-2026-11-15-7e4c1a.md                    |   76 +\n Events/evt-2026-11-16-05a728.md                    |   80 +\n Events/evt-2026-11-16-0b7d25.md                    |   76 +\n Events/evt-2026-11-16-0c5fcf.md                    |   79 +\n Events/evt-2026-11-16-280887.md                    |   82 +\n Events/evt-2026-11-16-40aaa9.md                    |   81 +\n Events/evt-2026-11-16-465dec.md                    |   81 +\n Events/evt-2026-11-16-4862d9.md                    |   83 +\n Events/evt-2026-11-16-518e74.md                    |   85 +\n Events/evt-2026-11-16-528fb7.md                    |   79 +\n Events/evt-2026-11-16-5669b3.md                    |   79 +\n Events/evt-2026-11-16-56fd04.md                    |   83 +\n Events/evt-2026-11-16-657514.md                    |   80 +\n Events/evt-2026-11-16-6f8c70.md                    |   92 +\n Events/evt-2026-11-16-7e64a2.md                    |   79 +\n Events/evt-2026-11-16-811566.md                    |   85 +\n Events/evt-2026-11-16-a0f241.md                    |   84 +\n Events/evt-2026-11-16-a13cdb.md                    |   85 +\n Events/evt-2026-11-16-ae9a1a.md                    |   83 +\n Events/evt-2026-11-16-c79f5b.md                    |   82 +\n Events/evt-2026-11-16-e5509d.md                    |   85 +\n Events/evt-2026-11-16-f76949.md                    |   80 +\n Sources/src-anthropic-news.md                      |   16 +-\n Sources/src-deepmind-blog.md                       |    8 +-\n Sources/src-gh-openai-codex.md                     |    2 +-\n Sources/src-gh-vllm-releases.md                    |   10 +-\n Sources/src-hf-blog.md                             |   16 +-\n Sources/src-hn-frontpage.md                        |   12 +-\n Sources/src-kol-importai.md                        |   21 +-\n Sources/src-kol-interconnects.md                   |    8 +-\n Sources/src-kol-karpathy.md                        |    4 +-\n Sources/src-kol-lilianweng.md                      |    2 +-\n Sources/src-kol-oneusefulthing.md                  |    4 +-\n Sources/src-kol-raschka.md                         |    8 +-\n Sources/src-kol-simonwillison.md                   |    8 +-\n Sources/src-kol-thezvi.md                          |   12 +-\n Sources/src-media-arstechnica.md                   |    8 +-\n Sources/src-media-ieee-spectrum.md                 |    8 +-\n Sources/src-media-mit-techreview.md                |    8 +-\n Sources/src-media-techcrunch.md                    |    8 +-\n Sources/src-media-theregister.md                   |    2 +-\n Sources/src-media-theverge.md                      |    8 +-\n Sources/src-media-venturebeat.md                   |    2 +-\n Sources/src-meta-research.md                       |    4 +-\n Sources/src-mistral-news.md                        |    2 +-\n Sources/src-msr-blog.md                            |    8 +-\n Sources/src-nvidia-blog.md                         |   16 +-\n Sources/src-openai-blog.md                         |   16 +-\n Sources/src-qwen-blog.md                           |    2 +-\n Sources/src-xai-news.md                            |    4 +-\n ...273\\237\\351\\253\\224\\351\\207\\215\\346\\247\\213.md\" |    8 +-\n \"Tracks/_\\346\\234\\252\\346\\255\\270\\351\\241\\236.md\"  |   41 +-\n ...211\\265\\346\\226\\260\\347\\211\\210\\345\\234\\226.md\" |    7 +-\n ...226\\275\\350\\210\\207\\346\\210\\220\\346\\234\\254.md\" |    5 +-\n ...212\\233\\350\\210\\207\\347\\240\\224\\347\\251\\266.md\" |   14 +-\n ...225\\206\\346\\245\\255\\351\\251\\227\\350\\255\\211.md\" |    8 +-\n ...205\\254\\345\\217\\270\\346\\274\\224\\345\\214\\226.md\" |    7 +-\n _config/narratives.yaml                            |   26 +-\n _config/sources.yaml                               |   56 +-\n _corpus/2026-11-13/src-anthropic-news.jsonl        |   40 +\n _corpus/2026-11-13/src-deepmind-blog.jsonl         |   30 +\n _corpus/2026-11-13/src-gh-vllm-releases.jsonl      |   20 +\n _corpus/2026-11-13/src-hf-blog.jsonl               |   20 +\n _corpus/2026-11-13/src-hn-frontpage.jsonl          |   30 +\n _corpus/2026-11-13/src-kol-interconnects.jsonl     |   20 +\n _corpus/2026-11-13/src-kol-karpathy.jsonl          |   10 +\n _corpus/2026-11-13/src-kol-oneusefulthing.jsonl    |   20 +\n _corpus/2026-11-13/src-kol-raschka.jsonl           |   20 +\n _corpus/2026-11-13/src-kol-simonwillison.jsonl     |   20 +\n _corpus/2026-11-13/src-media-arstechnica.jsonl     |   20 +\n _corpus/2026-11-13/src-media-ieee-spectrum.jsonl   |   20 +\n _corpus/2026-11-13/src-media-mit-techreview.jsonl  |   10 +\n _corpus/2026-11-13/src-media-techcrunch.jsonl      |   20 +\n _corpus/2026-11-13/src-media-theverge.jsonl        |   10 +\n _corpus/2026-11-13/src-meta-research.jsonl         |   10 +\n _corpus/2026-11-13/src-msr-blog.jsonl              |   10 +\n _corpus/2026-11-13/src-nvidia-blog.jsonl           |   18 +\n _corpus/2026-11-13/src-openai-blog.jsonl           |   50 +\n _corpus/2026-11-13/src-xai-news.jsonl              |   40 +\n _corpus/2026-11-14/src-anthropic-news.jsonl        |   40 +\n _corpus/2026-11-14/src-deepmind-blog.jsonl         |   30 +\n _corpus/2026-11-14/src-gh-vllm-releases.jsonl      |   20 +\n _corpus/2026-11-14/src-hn-frontpage.jsonl          |   30 +\n _corpus/2026-11-14/src-kol-interconnects.jsonl     |   20 +\n _corpus/2026-11-14/src-kol-karpathy.jsonl          |   10 +\n _corpus/2026-11-14/src-kol-oneusefulthing.jsonl    |   20 +\n _corpus/2026-11-14/src-kol-raschka.jsonl           |   20 +\n _corpus/2026-11-14/src-kol-simonwillison.jsonl     |   20 +\n _corpus/2026-11-14/src-media-arstechnica.jsonl     |   20 +\n _corpus/2026-11-14/src-media-ieee-spectrum.jsonl   |   20 +\n _corpus/2026-11-14/src-media-mit-techreview.jsonl  |   10 +\n _corpus/2026-11-14/src-media-techcrunch.jsonl      |   20 +\n _corpus/2026-11-14/src-media-theverge.jsonl        |   10 +\n _corpus/2026-11-14/src-meta-research.jsonl         |   10 +\n _corpus/2026-11-14/src-msr-blog.jsonl              |   10 +\n _corpus/2026-11-14/src-nvidia-blog.jsonl           |   18 +\n _corpus/2026-11-14/src-openai-blog.jsonl           |   50 +\n _corpus/2026-11-14/src-xai-news.jsonl              |   40 +\n _corpus/2026-11-15/src-anthropic-news.jsonl        |   40 +\n _corpus/2026-11-15/src-deepmind-blog.jsonl         |   30 +\n _corpus/2026-11-15/src-hn-frontpage.jsonl          |   30 +\n _corpus/2026-11-15/src-kol-importai.jsonl          |   20 +\n _corpus/2026-11-15/src-kol-interconnects.jsonl     |   20 +\n _corpus/2026-11-15/src-kol-karpathy.jsonl          |   10 +\n _corpus/2026-11-15/src-kol-oneusefulthing.jsonl    |   20 +\n _corpus/2026-11-15/src-kol-raschka.jsonl           |   20 +\n _corpus/2026-11-15/src-kol-simonwillison.jsonl     |   20 +\n _corpus/2026-11-15/src-kol-thezvi.jsonl            |   20 +\n _corpus/2026-11-15/src-media-arstechnica.jsonl     |   20 +\n _corpus/2026-11-15/src-media-ieee-spectrum.jsonl   |   20 +\n _corpus/2026-11-15/src-media-mit-techreview.jsonl  |   10 +\n _corpus/2026-11-15/src-media-techcrunch.jsonl      |   20 +\n _corpus/2026-11-15/src-media-theverge.jsonl        |   10 +\n _corpus/2026-11-15/src-meta-research.jsonl         |   10 +\n _corpus/2026-11-15/src-msr-blog.jsonl              |   10 +\n _corpus/2026-11-15/src-nvidia-blog.jsonl           |   18 +\n _corpus/2026-11-15/src-openai-blog.jsonl           |   50 +\n _corpus/2026-11-15/src-xai-news.jsonl              |   40 +\n _corpus/2026-11-16/src-anthropic-news.jsonl        |   40 +\n _corpus/2026-11-16/src-deepmind-blog.jsonl         |   30 +\n _corpus/2026-11-16/src-gh-vllm-releases.jsonl      |   20 +\n _corpus/2026-11-16/src-hf-blog.jsonl               |   20 +\n _corpus/2026-11-16/src-hn-frontpage.jsonl          |   30 +\n _corpus/2026-11-16/src-kol-interconnects.jsonl     |   20 +\n _corpus/2026-11-16/src-kol-karpathy.jsonl          |   10 +\n _corpus/2026-11-16/src-kol-oneusefulthing.jsonl    |   20 +\n _corpus/2026-11-16/src-kol-raschka.jsonl           |   20 +\n _corpus/2026-11-16/src-kol-simonwillison.jsonl     |   20 +\n _corpus/2026-11-16/src-media-arstechnica.jsonl     |   20 +\n _corpus/2026-11-16/src-media-ieee-spectrum.jsonl   |   20 +\n _corpus/2026-11-16/src-media-mit-techreview.jsonl  |   10 +\n _corpus/2026-11-16/src-media-techcrunch.jsonl      |   20 +\n _corpus/2026-11-16/src-media-theverge.jsonl        |   10 +\n _corpus/2026-11-16/src-meta-research.jsonl         |   10 +\n _corpus/2026-11-16/src-msr-blog.jsonl              |   10 +\n _corpus/2026-11-16/src-nvidia-blog.jsonl           |   18 +\n _corpus/2026-11-16/src-openai-blog.jsonl           |   50 +\n _corpus/2026-11-16/src-xai-news.jsonl              |   40 +\n _dashboards/backlog-status.md                      |   18 +-\n _dashboards/blocked.md                             |   34 +-\n _dashboards/coverage-gap.md                        |    8 +-\n _dashboards/dictionary-gaps.md                     |  140 +-\n _dashboards/digests.md                             |   20 +-\n _dashboards/health.md                              |  114 +-\n _dashboards/published.md                           |   52 +-\n _dashboards/signal-review.md                       |   99 +-\n _github/board.json                                 | 5534 ++++++++++----------\n _github/desc-coverage.json                         |   10 +-\n _github/desc-zh.json                               |  119 +-\n _github/state.json                                 | 3700 ++++++-------\n _probe/2026-11-13/report.md                        |  180 +\n _probe/2026-11-13/signals-scored.jsonl             |  374 ++\n _probe/2026-11-14/report.md                        |  183 +\n _probe/2026-11-14/signals-scored.jsonl             |  349 ++\n _probe/2026-11-15/report.md                        |  186 +\n _probe/2026-11-15/signals-scored.jsonl             |  347 ++\n _probe/2026-11-16/report.md                        |  187 +\n _probe/2026-11-16/signals-scored.jsonl             |  375 ++\n _probe/coverage-gap.json                           |    8 +-\n _probe/digest-apply-last.json                      |   19 +-\n _probe/digest-worklist.json                        | 2077 +++-----\n _probe/enrich-worklist.json                        |  273 +-\n _probe/github-desc-worklist.json                   |  172 +-\n _probe/narrative-history.jsonl                     |   26 +\n _probe/narrative-signatures.json                   |   12 +-\n _probe/narrative-state.json                        |   12 +-\n _probe/narrative-worklist.json                     | 3432 +-----------\n _probe/nightly-cost.jsonl                          |    4 +\n _probe/nightly-run.json                            |  128 +-\n _probe/seen.json                                   |  301 +-\n _probe/source-health.json                          |  262 +-\n _probe/source-history.jsonl                        |    2 +\n _probe/source-runs.jsonl                           |    4 +\n _probe/state.json                                  |   72 +-\n _probe/title-zh-worklist.json                      |  112 +-\n 266 files changed, 14766 insertions(+), 10401 deletions(-)\n create mode 100644 Actors/ggml-org.md\n create mode 100644 Digests/2026-11-12.md\n create mode 100644 Digests/2026-11-13.md\n create mode 100644 Digests/2026-11-14.md\n create mode 100644 Digests/2026-11-15.md\n create mode 100644 Events/evt-2026-11-12-855ebd.md\n create mode 100644 Events/evt-2026-11-13-07ae84.md\n create mode 100644 Events/evt-2026-11-13-09842e.md\n create mode 100644 Events/evt-2026-11-13-363c05.md\n create mode 100644 Events/evt-2026-11-13-4136eb.md\n create mode 100644 Events/evt-2026-11-13-416581.md\n create mode 100644 Events/evt-2026-11-13-5a6a0f.md\n create mode 100644 Events/evt-2026-11-13-6159c6.md\n create mode 100644 Events/evt-2026-11-13-66c878.md\n create mode 100644 Events/evt-2026-11-13-7bd968.md\n create mode 100644 Events/evt-2026-11-13-9c3857.md\n create mode 100644 Events/evt-2026-11-13-a31951.md\n create mode 100644 Events/evt-2026-11-13-a319f0.md\n create mode 100644 Events/evt-2026-11-13-a73b28.md\n create mode 100644 Events/evt-2026-11-13-b89a76.md\n create mode 100644 Events/evt-2026-11-13-f979e1.md\n create mode 100644 Events/evt-2026-11-13-fabd73.md\n create mode 100644 Events/evt-2026-11-13-fe797a.md\n create mode 100644 Events/evt-2026-11-15-0b968e.md\n create mode 100644 Events/evt-2026-11-15-7e4c1a.md\n create mode 100644 Events/evt-2026-11-16-05a728.md\n create mode 100644 Events/evt-2026-11-16-0b7d25.md\n create mode 100644 Events/evt-2026-11-16-0c5fcf.md\n create mode 100644 Events/evt-2026-11-16-280887.md\n create mode 100644 Events/evt-2026-11-16-40aaa9.md\n create mode 100644 Events/evt-2026-11-16-465dec.md\n create mode 100644 Events/evt-2026-11-16-4862d9.md\n create mode 100644 Events/evt-2026-11-16-518e74.md\n create mode 100644 Events/evt-2026-11-16-528fb7.md\n create mode 100644 Events/evt-2026-11-16-5669b3.md\n create mode 100644 Events/evt-2026-11-16-56fd04.md\n create mode 100644 Events/evt-2026-11-16-657514.md\n create mode 100644 Events/evt-2026-11-16-6f8c70.md\n create mode 100644 Events/evt-2026-11-16-7e64a2.md\n create mode 100644 Events/evt-2026-11-16-811566.md\n create mode 100644 Events/evt-2026-11-16-a0f241.md\n create mode 100644 Events/evt-2026-11-16-a13cdb.md\n create mode 100644 Events/evt-2026-11-16-ae9a1a.md\n create mode 100644 Events/evt-2026-11-16-c79f5b.md\n create mode 100644 Events/evt-2026-11-16-e5509d.md\n create mode 100644 Events/evt-2026-11-16-f76949.md\n create mode 100644 _corpus/2026-11-13/src-anthropic-news.jsonl\n create mode 100644 _corpus/2026-11-13/src-deepmind-blog.jsonl\n create mode 100644 _corpus/2026-11-13/src-gh-vllm-releases.jsonl\n create mode 100644 _corpus/2026-11-13/src-hf-blog.jsonl\n create mode 100644 _corpus/2026-11-13/src-hn-frontpage.jsonl\n create mode 100644 _corpus/2026-11-13/src-kol-interconnects.jsonl\n create mode 100644 _corpus/2026-11-13/src-kol-karpathy.jsonl\n create mode 100644 _corpus/2026-11-13/src-kol-oneusefulthing.jsonl\n create mode 100644 _corpus/2026-11-13/src-kol-raschka.jsonl\n create mode 100644 _corpus/2026-11-13/src-kol-simonwillison.jsonl\n create mode 100644 _corpus/2026-11-13/src-media-arstechnica.jsonl\n create mode 100644 _corpus/2026-11-13/src-media-ieee-spectrum.jsonl\n create mode 100644 _corpus/2026-11-13/src-media-mit-techreview.jsonl\n create mode 100644 _corpus/2026-11-13/src-media-techcrunch.jsonl\n create mode 100644 _corpus/2026-11-13/src-media-theverge.jsonl\n create mode 100644 _corpus/2026-11-13/src-meta-research.jsonl\n create mode 100644 _corpus/2026-11-13/src-msr-blog.jsonl\n create mode 100644 _corpus/2026-11-13/src-nvidia-blog.jsonl\n create mode 100644 _corpus/2026-11-13/src-openai-blog.jsonl\n create mode 100644 _corpus/2026-11-13/src-xai-news.jsonl\n create mode 100644 _corpus/2026-11-14/src-anthropic-news.jsonl\n create mode 100644 _corpus/2026-11-14/src-deepmind-blog.jsonl\n create mode 100644 _corpus/2026-11-14/src-gh-vllm-releases.jsonl\n create mode 100644 _corpus/2026-11-14/src-hn-frontpage.jsonl\n create mode 100644 _corpus/2026-11-14/src-kol-interconnects.jsonl\n create mode 100644 _corpus/2026-11-14/src-kol-karpathy.jsonl\n create mode 100644 _corpus/2026-11-14/src-kol-oneusefulthing.jsonl\n create mode 100644 _corpus/2026-11-14/src-kol-raschka.jsonl\n create mode 100644 _corpus/2026-11-14/src-kol-simonwillison.jsonl\n create mode 100644 _corpus/2026-11-14/src-media-arstechnica.jsonl\n create mode 100644 _corpus/2026-11-14/src-media-ieee-spectrum.jsonl\n create mode 100644 _corpus/2026-11-14/src-media-mit-techreview.jsonl\n create mode 100644 _corpus/2026-11-14/src-media-techcrunch.jsonl\n create mode 100644 _corpus/2026-11-14/src-media-theverge.jsonl\n create mode 100644 _corpus/2026-11-14/src-meta-research.jsonl\n create mode 100644 _corpus/2026-11-14/src-msr-blog.jsonl\n create mode 100644 _corpus/2026-11-14/src-nvidia-blog.jsonl\n create mode 100644 _corpus/2026-11-14/src-openai-blog.jsonl\n create mode 100644 _corpus/2026-11-14/src-xai-news.jsonl\n create mode 100644 _corpus/2026-11-15/src-anthropic-news.jsonl\n create mode 100644 _corpus/2026-11-15/src-deepmind-blog.jsonl\n create mode 100644 _corpus/2026-11-15/src-hn-frontpage.jsonl\n create mode 100644 _corpus/2026-11-15/src-kol-importai.jsonl\n create mode 100644 _corpus/2026-11-15/src-kol-interconnects.jsonl\n create mode 100644 _corpus/2026-11-15/src-kol-karpathy.jsonl\n create mode 100644 _corpus/2026-11-15/src-kol-oneusefulthing.jsonl\n create mode 100644 _corpus/2026-11-15/src-kol-raschka.jsonl\n create mode 100644 _corpus/2026-11-15/src-kol-simonwillison.jsonl\n create mode 100644 _corpus/2026-11-15/src-kol-thezvi.jsonl\n create mode 100644 _corpus/2026-11-15/src-media-arstechnica.jsonl\n create mode 100644 _corpus/2026-11-15/src-media-ieee-spectrum.jsonl\n create mode 100644 _corpus/2026-11-15/src-media-mit-techreview.jsonl\n create mode 100644 _corpus/2026-11-15/src-media-techcrunch.jsonl\n create mode 100644 _corpus/2026-11-15/src-media-theverge.jsonl\n create mode 100644 _corpus/2026-11-15/src-meta-research.jsonl\n create mode 100644 _corpus/2026-11-15/src-msr-blog.jsonl\n create mode 100644 _corpus/2026-11-15/src-nvidia-blog.jsonl\n create mode 100644 _corpus/2026-11-15/src-openai-blog.jsonl\n create mode 100644 _corpus/2026-11-15/src-xai-news.jsonl\n create mode 100644 _corpus/2026-11-16/src-anthropic-news.jsonl\n create mode 100644 _corpus/2026-11-16/src-deepmind-blog.jsonl\n create mode 100644 _corpus/2026-11-16/src-gh-vllm-releases.jsonl\n create mode 100644 _corpus/2026-11-16/src-hf-blog.jsonl\n create mode 100644 _corpus/2026-11-16/src-hn-frontpage.jsonl\n create mode 100644 _corpus/2026-11-16/src-kol-interconnects.jsonl\n create mode 100644 _corpus/2026-11-16/src-kol-karpathy.jsonl\n create mode 100644 _corpus/2026-11-16/src-kol-oneusefulthing.jsonl\n create mode 100644 _corpus/2026-11-16/src-kol-raschka.jsonl\n create mode 100644 _corpus/2026-11-16/src-kol-simonwillison.jsonl\n create mode 100644 _corpus/2026-11-16/src-media-arstechnica.jsonl\n create mode 100644 _corpus/2026-11-16/src-media-ieee-spectrum.jsonl\n create mode 100644 _corpus/2026-11-16/src-media-mit-techreview.jsonl\n create mode 100644 _corpus/2026-11-16/src-media-techcrunch.jsonl\n create mode 100644 _corpus/2026-11-16/src-media-theverge.jsonl\n create mode 100644 _corpus/2026-11-16/src-meta-research.jsonl\n create mode 100644 _corpus/2026-11-16/src-msr-blog.jsonl\n create mode 100644 _corpus/2026-11-16/src-nvidia-blog.jsonl\n create mode 100644 _corpus/2026-11-16/src-openai-blog.jsonl\n create mode 100644 _corpus/2026-11-16/src-xai-news.jsonl\n create mode 100644 _probe/2026-11-13/report.md\n create mode 100644 _probe/2026-11-13/signals-scored.jsonl\n create mode 100644 _probe/2026-11-14/report.md\n create mode 100644 _probe/2026-11-14/signals-scored.jsonl\n create mode 100644 _probe/2026-11-15/report.md\n create mode 100644 _probe/2026-11-15/signals-scored.jsonl\n create mode 100644 _probe/2026-11-16/report.md\n create mode 100644 _probe/2026-11-16/signals-scored.jsonl\n"
+      "note": "從 `claude/sleepy-albattani-3axsdr` 切回 `main` 並 ff 到 origin/main",
+      "at": "2026-11-17 23:15Z",
+      "full_output": "From https://github.com/Vincenthsiehisme/ai-pulse\n * branch            main       -> FETCH_HEAD\nYour branch is up to date with 'origin/main'.\nSwitched to branch 'main'\nAlready up to date.\n"
     },
     {
       "id": "precheck",
       "status": "ok",
-      "note": "今日 probe 已就緒（_probe/2026-11-16/report.md）",
-      "at": "2026-11-16 23:55Z"
+      "note": "今日 probe 已就緒（_probe/2026-11-17/report.md）",
+      "at": "2026-11-17 23:15Z"
     },
     {
       "id": "enrich-prep",
       "status": "ok",
-      "note": "pulse-enrich-prep  待 enrich=23  已 enrich 跳過=72",
-      "at": "2026-11-16 23:55Z"
+      "note": "pulse-enrich-prep  待 enrich=9  已 enrich 跳過=74",
+      "at": "2026-11-17 23:15Z"
     },
     {
       "id": "enrich-write",
       "status": "ok",
-      "note": "收到 enrich-result.json（23 筆，清單 23 筆）",
-      "at": "2026-11-16 23:57Z",
+      "note": "收到 enrich-result.json（9 筆，清單 9 筆）",
+      "at": "2026-11-17 23:15Z",
       "worklist": {
         "path": "_probe/enrich-worklist.json",
-        "count": 23,
-        "mtime": 1794873341
+        "count": 9,
+        "mtime": 1794957309
       }
     },
     {
       "id": "enrich-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-16 23:57Z"
+      "at": "2026-11-17 23:15Z"
     },
     {
       "id": "gate",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-16 23:57Z"
+      "at": "2026-11-17 23:15Z"
     },
     {
       "id": "dashboard",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-16 23:57Z"
+      "at": "2026-11-17 23:15Z"
     },
     {
       "id": "digest-prep",
       "status": "ok",
-      "note": "pulse-digest-prep  2026-11-16  mode=normal  素材=21 則  配對=210 組",
-      "at": "2026-11-16 23:57Z"
+      "note": "pulse-digest-prep  2026-11-17  mode=normal  素材=9 則  配對=36 組",
+      "at": "2026-11-17 23:16Z"
     },
     {
       "id": "digest-write",
       "status": "ok",
-      "note": "收到 digest.json（素材 21 則）",
-      "at": "2026-11-16 23:58Z",
+      "note": "收到 digest.json（素材 9 則）",
+      "at": "2026-11-17 23:16Z",
       "worklist": {
         "path": "_probe/digest-worklist.json",
-        "count": 21,
-        "mtime": 1794873466
+        "count": 9,
+        "mtime": 1794957361
       }
     },
     {
       "id": "digest-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-16 23:58Z"
+      "at": "2026-11-17 23:16Z"
     },
     {
       "id": "digest-gate",
       "status": "ok",
-      "note": "pulse-digest-gate  draft=87  reviewed=0  rejected=0  共 87 份  → _dashboards/digests.md",
-      "at": "2026-11-16 23:58Z"
+      "note": "pulse-digest-gate  draft=88  reviewed=0  rejected=0  共 88 份  → _dashboards/digests.md",
+      "at": "2026-11-17 23:16Z"
     },
     {
       "id": "narrative-prep",
       "status": "ok",
-      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=6",
-      "at": "2026-11-16 23:58Z"
+      "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=5",
+      "at": "2026-11-17 23:16Z"
     },
     {
       "id": "narrative-write",
       "status": "ok",
-      "note": "收到 narrative-result.json（6 筆，清單 6 筆）",
-      "at": "2026-11-16 23:58Z",
+      "note": "收到 narrative-result.json（5 筆，清單 5 筆）",
+      "at": "2026-11-17 23:16Z",
       "worklist": {
         "path": "_probe/narrative-worklist.json",
-        "count": 6,
-        "mtime": 1794873494
+        "count": 5,
+        "mtime": 1794957383
       }
     },
     {
       "id": "narrative-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-16 23:58Z"
+      "at": "2026-11-17 23:16Z"
     },
     {
       "id": "github-desc-write",
       "status": "ok",
-      "note": "收到 github-desc-result.json（10 筆，清單 10 筆）｜dry-run 退件（rc=1）後退回重寫過 1 次",
-      "at": "2026-11-16 23:58Z",
+      "note": "收到 github-desc-result.json（3 筆，清單 3 筆）｜dry-run 退件（rc=3）後退回重寫過 1 次",
+      "at": "2026-11-17 23:16Z",
       "worklist": {
         "path": "_probe/github-desc-worklist.json",
-        "count": 10,
-        "mtime": 1794873339
+        "count": 3,
+        "mtime": 1794957300
       },
       "bounces": 1,
-      "bounce_rc": 1
+      "bounce_rc": 3
     },
     {
       "id": "github-desc-apply",
       "status": "ok",
-      "note": "過關 10／退件 0；榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）",
-      "at": "2026-11-16 23:58Z"
+      "note": "過關 3／退件 0；榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）",
+      "at": "2026-11-17 23:16Z"
     },
     {
       "id": "title-write",
       "status": "ok",
       "note": "收到 title-zh-result.json（20 筆，清單 20 筆）｜dry-run 退件（rc=1）後退回重寫過 1 次",
-      "at": "2026-11-16 23:59Z",
+      "at": "2026-11-17 23:17Z",
       "worklist": {
         "path": "_probe/title-zh-worklist.json",
         "count": 20,
-        "mtime": 1794873339
+        "mtime": 1794957300
       },
       "bounces": 1,
       "bounce_rc": 1
@@ -145,29 +145,16 @@
     {
       "id": "title-apply",
       "status": "noted",
-      "note": "寫入 15 則，退件 5 則（原樣保留 2 則）",
-      "at": "2026-11-16 23:59Z",
-      "full_output": "pulse-title-apply  收到 20 條譯文\n\n  [退件] evt-2026-10-28-521bbb\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「NVIDIA Nemotron 3.5 Transcribe 與 Granary v2：可下提示、可調適的多語轉錄」\n  [退件] evt-2026-10-29-985dc6\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「Credit Saison 的 ChatGPT Enterprise 試辦，投資報酬率達 954%」\n  [退件] evt-2026-11-09-2874cb\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「Nemotron-Personas-Finance-Japan：呈現日本人口與金融情境的合成資料集」\n  [新增] evt-2026-11-15-0b968e\n         「朝向用格點定義標準模型邁出一步」\n         原文：A step toward defining the Standard Model on a lattice\n  [新增] evt-2026-11-15-7e4c1a\n         「我們的科學新部落格」\n         原文：Our new blog for science\n  [新增] evt-2026-11-16-05a728\n         「ChatGPT for Healthcare 推進醫療照護的更多方式」\n         原文：More ways to move care forward with ChatGPT for Healthcare\n  [原樣保留] evt-2026-11-16-0b7d25\n         「v0.34.0」\n         原文：v0.34.0\n  [新增] evt-2026-11-16-0c5fcf\n         「Science at the Frontier：科學家如何使用 ChatGPT」\n         原文：Science at the Frontier: How scientists use ChatGPT\n  [新增] evt-2026-11-16-280887\n         「NVIDIA 擴充 Slurm，把量子運算帶進超級電腦」\n         原文：NVIDIA Expands Slurm to Bring Quantum Computing Into Supercomputing\n  [新增] evt-2026-11-16-40aaa9\n         「推進醫療團隊適用的 computer-use agent」\n         原文：Advancing computer-use agents for healthcare teams\n  [新增] evt-2026-11-16-465dec\n         「LVMH 媒體部門宣布與 OpenAI 策略合作」\n         原文：LVMH’s Media Division announces strategic partnership with OpenAI\n  [新增] evt-2026-11-16-4862d9\n         「Lambda 用 NVIDIA Photonics 提升 AI 工廠韌性與效率」\n         原文：Lambda Boosts AI Factory Resiliency and Efficiency With NVIDIA Photonics\n  [退件] evt-2026-11-16-518e74\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「NVIDIA 橫掃 MLPerf Training 與 Endpoints，Vera Rubin 首度亮相」\n  [新增] evt-2026-11-16-528fb7\n         「我們的嵌入式評估第一階段」\n         原文：Our first phase of embedded assessments\n  [新增] evt-2026-11-16-5669b3\n         「擴大科學家使用 AI 的管道」\n         原文：Broadening access to AI for scientists\n  [新增] evt-2026-11-16-56fd04\n         「NVIDIA DGX Spark 開發套件讓書桌變成超算實驗室」\n         原文：NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab\n  [新增] evt-2026-11-16-657514\n         「CUDA 二十年：這個平台如何改變科學運算」\n         原文：CUDA at 20: How the Platform Transformed Scientific Computing\n  [新增] evt-2026-11-16-6f8c70\n         「以新工具與支援強化打擊網路兒少性剝削」\n         原文：Strengthening the fight against online child sexual abuse with new tools and support\n  [原樣保留] evt-2026-11-16-7e64a2\n         「Canadian Ai Research」\n         原文：Canadian Ai Research\n  [退件] evt-2026-11-16-811566\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「Hugging Face 與 OpenRouter 合作，讓開放權重模型更容易執行」\n\n  寫入 15 則，退件 5 則（原樣保留 2 則）\n"
+      "note": "寫入 19 則，退件 1 則（原樣保留 1 則）",
+      "at": "2026-11-17 23:17Z",
+      "full_output": "pulse-title-apply  收到 20 條譯文\n\n  [新增] evt-2026-10-28-521bbb\n         「Nemotron 3.5 Transcribe 與 Granary v2」\n         原文：NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt\n  [退件] evt-2026-10-29-985dc6\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「Credit Saison 試辦 ChatGPT Enterprise，ROI 954%」\n  [新增] evt-2026-11-09-2874cb\n         「Nemotron-Personas-Finance-Japan 合成資料集」\n         原文：Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context\n  [原樣保留] evt-2026-11-11-20a42d\n         「Grok Bot 1.0」\n         原文：Grok Bot 1.0\n  [新增] evt-2026-11-12-578333\n         「ChatGPT Ads 擴大到 44 個國家」\n         原文：ChatGPT Ads increases its market presence in 44 countries\n  [新增] evt-2026-11-16-518e74\n         「NVIDIA 橫掃 MLPerf，Vera Rubin 首度亮相」\n         原文：NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With Leading Performance\n  [新增] evt-2026-11-16-811566\n         「Hugging Face 與 OpenRouter 攜手合作」\n         原文：Hugging Face and OpenRouter join forces to make open-weight models easy to run\n  [新增] evt-2026-11-16-a0f241\n         「全球最先進的 AI 基礎設施供應鏈如何創造未來」\n         原文：How the World’s Most Advanced AI Infrastructure Supply Chain Invents the Future\n  [新增] evt-2026-11-16-a13cdb\n         「AI Day Seoul 集結韓國產業領袖、新創與開發者社群」\n         原文：AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and Developer Communities\n  [新增] evt-2026-11-16-ab10c9\n         「Revolut 如何拉高目標而不降低標準」\n         原文：How Revolut raises ambition without lowering the bar\n  [新增] evt-2026-11-16-ae9a1a\n         「NVIDIA CUDA-X 函式庫給 agent 加速科學發現的工具」\n         原文：NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery\n  [新增] evt-2026-11-16-c79f5b\n         「在 Holiday Extras，dots 不等人開口就先動工」\n         原文：At Holiday Extras, dots get to work before anyone asks\n  [新增] evt-2026-11-16-e5509d\n         「NVIDIA 發表 Rubin HPC 新 GPU」\n         原文：NVIDIA Announces Rubin HPC — A New GPU to Accelerate Agents for Science, Engineering and Analytics\n  [新增] evt-2026-11-16-f76949\n         「The King’s Trust 與 OpenAI 推出 100 萬英鎊合作」\n         原文：The King’s Trust and OpenAI launch £1m partnership\n  [新增] evt-2026-11-17-37b350\n         「Ian Buck 揭開 NVIDIA 的 SC26 週」\n         原文：Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents\n  [新增] evt-2026-11-17-56f2e7\n         「用 AI 強化北約與盟國的網路防禦」\n         原文：Strengthening NATO and allied cyber defenses with AI\n  [新增] evt-2026-11-17-6d0bd2\n         「推出 ChatGPT for Sales」\n         原文：Introducing ChatGPT for Sales\n  [新增] evt-2026-11-17-7f7dd6\n         「推出 OpenAI for Chile」\n         原文：Introducing OpenAI for Chile\n  [新增] evt-2026-11-17-d69535\n         「推出 GPT-6.2 Astra 與 Sol」\n         原文：Introducing GPT-6.2 Astra and Sol\n  [新增] evt-2026-11-17-f12b90\n         「Astra for Law 在法律智慧評測領先」\n         原文：Astra for Law leads in legal intelligence\n\n  寫入 19 則，退件 1 則（原樣保留 1 則）\n"
     },
     {
       "id": "render",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-16 23:59Z"
-    },
-    {
-      "id": "commit",
-      "status": "ok",
-      "note": "commit 8f48539 已推上 origin",
-      "at": "2026-11-16 23:59Z"
-    },
-    {
-      "id": "monitor",
-      "status": "ok",
-      "note": "rc=0",
-      "at": "2026-11-16 23:59Z",
-      "full_output": "pulse-monitor  2026-11-16\n  最後一次 probe: 2026-11-16（0 天前）\n  已上線=662  review=74（待處理=59／設計上擋著=15）  未 enrich=0  待處理最久=109 天（進庫天數）\n  人工判定不追=2（理由見 _dashboards/dropped.md）\n  沒收的修碼分支：0 支\n  每日精選：最後一篇 2026-11-16（0 天前）\n  潤稿鏈缺日：**量不到**——這是淺 checkout（`fetch-depth: 1`），看不到 commit 歷史。`data-refresh.yml` 要設 `fetch-depth: 0`\n  每日精選缺日：窗內 1 天沒有缺口\n  夜班成本（API 等價，帳本從 2026-10-01 起）\n    近 7 天 USD 5.4556｜有金額 7 天、量不到 0 天（null 0 行）、沒有帳本行 0 天\n    近 30 天 USD 22.6198｜有金額 30 天、量不到 0 天（null 0 行）、沒有帳本行 0 天\n  ── blocker 分佈 ──\n     52  thin_research_analysis\n     11  stale_backfill\n      9  generic_entity\n      4  thin_by_policy\n      1  thin_fact\n  ── 待處理卡最久的 5 則 ──\n    [109d/已enrich] Gemini Robotics 2 brings whole body intelligence to robots\n           thin_research_analysis\n    [109d/已enrich] GPU Management: Why Idle GPUs Are the New Grounded Aircraft\n           generic_entity\n    [108d/已enrich] Investigating Incidents Cybersecurity Evals\n           thin_research_analysis\n    [107d/已enrich] Ten advances in mathematics and theoretical computer science\n           thin_fact,thin_research_analysis\n    [97d/已enrich] Thinking of ACE? We Can Do It with Fewer Tokens\n           thin_research_analysis\n  ── 覆蓋範圍（近 30 天，實有語料 31 天）──\n     必盯實體                 來源   看見   事件   上線  最後看見\n     OpenAI                2 1256   88   82  0d 前\n     Anthropic             1  368   28   24  0d 前\n     Google DeepMind       1  130    8    7  0d 前\n     Google                1  372   10    9  0d 前\n     Meta                  1  295    0    0  0d 前\n     Microsoft             1  169    1    0  0d 前\n     NVIDIA                1  635   57   53  0d 前\n     Hugging Face          1  141   15   13  0d 前\n     xAI                   1    2    2    2  14d 前\n     Mistral AI            1    4    1    1  17d 前\n     Alibaba               1    1    0    0  20d 前\n     DeepSeek              0  311    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Safe Superintelligence    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Thinking Machines Lab    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cohere                0    1    0    0  20d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Perplexity            0    3    0    0  3d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Anysphere (Cursor)    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cognition             0    1    0    0  9d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Scale AI              0  265    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Z.ai                  0    1    0    0  1d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Moonshot AI           0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     MiniMax               0   62    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     ByteDance             0    1    0    0  13d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Baidu                 0    1    0    0  11d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Tencent               0    2    0    0  11d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AMD                   1   37    0    0  0d 前\n     TSMC                  0    6    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Broadcom              0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Groq                  0    2    0    0  19d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cerebras              0    1    0    0  22d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     CoreWeave             0    1    0    0  5d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AWS                   0   69    1    1  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     可跑來源 29 條，其中 6 條本窗口零產出：src-amd-ir, src-gh-openai-codex, src-media-theregister, src-media-venturebeat, src-mistral-news, src-qwen-blog\n     ⚠ 來源已死但每班照樣有貨 3 條：src-kol-lilianweng（最新 2026-07-04，落後 135 天，門檻 120）、src-meta-research（最新 2023-05-17，落後 1279 天，門檻 30）、src-xai-news（最新 2026-11-02，落後 14 天，門檻 14）\n     最新一筆 published 量不到：無\n"
+      "at": "2026-11-17 23:17Z"
     }
   ],
-  "updated_at": "2026-11-16 23:59Z"
+  "updated_at": "2026-11-17 23:17Z"
 }

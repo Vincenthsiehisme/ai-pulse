@@ -1,6 +1,20 @@
-# 已發布事件（662）
+# 已發布事件（671）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-17
+- **[[Events/evt-2026-11-17-37b350|Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA 在 SC26 發表 Nemotron for Science、Rubin HPC GPU 與科學用 AI agent 工具。
+- **[[Events/evt-2026-11-17-56f2e7|Strengthening NATO and allied cyber defenses with AI]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 與北約及盟國網路機構合作，協助可信任的防禦方找漏洞、測修補。
+- **[[Events/evt-2026-11-17-6d0bd2|Introducing ChatGPT for Sales]]** — OpenAI · product · conf 73 · heat 未量測
+  ChatGPT for Sales 推出 Sales 外掛，另有 30 多個新增或擴充的夥伴外掛。
+- **[[Events/evt-2026-11-17-7f7dd6|Introducing OpenAI for Chile]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 與智利政府合作，推動公部門 AI 採用、技能培訓與在地新創。
+- **[[Events/evt-2026-11-17-d69535|Introducing GPT-6.2 Astra and Sol]]** — OpenAI · model-capability · conf 80 · heat 未量測
+  OpenAI 發布 GPT-6.2 Astra 與 Sol 兩款模型，API 同步開放。
+- **[[Events/evt-2026-11-17-f12b90|Astra for Law leads in legal intelligence]]** — OpenAI · model-capability · conf 73 · heat 未量測
+  OpenAI 稱 Astra for Law 在涵蓋 24 個法律領域的發布評測中排名第一。
 
 ## 2026-11-16
 - **[[Events/evt-2026-11-16-05a728|More ways to move care forward with ChatGPT for Healthcare]]** — OpenAI · product · conf 73 · heat 未量測
@@ -35,6 +49,8 @@
   NVIDIA 專訪營運主管 Deb Shoquist，談 AI 平台背後的供應鏈與製造。
 - **[[Events/evt-2026-11-16-a13cdb|AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and Developer Communities]]** — NVIDIA · capital · conf 73 · heat 未量測
   NVIDIA 的 AI Day Seoul 兩天吸引逾 2,000 人，主題是實體 AI 與 AI agent。
+- **[[Events/evt-2026-11-16-ab10c9|How Revolut raises ambition without lowering the bar]]** — OpenAI · product · conf 73 · heat 未量測
+  Revolut 用 OpenAI 模型與 Codex，宣稱寫程式時間縮短 30 到 60%。
 - **[[Events/evt-2026-11-16-ae9a1a|NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA 擴充 CUDA-X 函式庫，新增 cuPhoton、cuPotential、cuSpa，讓 agent 與研究者加速科學運算。
 - **[[Events/evt-2026-11-16-c79f5b|At Holiday Extras, dots get to work before anyone asks]]** — OpenAI · product · conf 73 · heat 未量測
@@ -85,6 +101,8 @@
   《戰鎚 40,000：戰爭黎明 IV》將上 GeForce NOW，DLSS 5 也要進兩款遊戲。
 - **[[Events/evt-2026-11-12-3c4ee7|LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B]]** — IBM · model-capability · conf 73 · heat 未量測
   IBM Granite 4.1 的 3B 與 8B 模型內建 LLMON，一種為 LLM 設計的標記語言。
+- **[[Events/evt-2026-11-12-578333|ChatGPT Ads increases its market presence in 44 countries]]** — OpenAI · capital · conf 73 · heat 未量測
+  ChatGPT Ads 指定 Aleph 為 44 國獨家經銷商，提供在地開票與支援。
 - **[[Events/evt-2026-11-12-803a22|How Amplitude ships product improvements in 1–2 days with OpenAI]]** — OpenAI · product · conf 83 · heat 未量測
   Amplitude 用 OpenAI 模型做出產品代理 Wave，宣稱改善可在 1 到 2 天內上線。
 - **[[Events/evt-2026-11-12-855ebd|Gondola doubles revenue as its team builds more with Codex]]** — OpenAI · product · conf 73 · heat 未量測
@@ -103,6 +121,8 @@
 ## 2026-11-11
 - **[[Events/evt-2026-11-11-0f8cda|ChatGPT Plus for veterans and servicemembers]]** — OpenAI · product · conf 73 · heat 未量測
   超過 2 萬名退伍軍人與轉職中的現役軍人已領取一年免費 ChatGPT Plus。
+- **[[Events/evt-2026-11-11-20a42d|Grok Bot 1.0]]** — xAI · product · conf 73 · heat 未量測
+  xAI 發布 Grok Bot 1.0，內容我們不轉述，原文見 x.ai。
 - **[[Events/evt-2026-11-11-378012|AlphaGenome 2: Deciphering how cells read DNA to better understand disease]]** — Google DeepMind · research · conf 73 · heat 未量測
   DeepMind 發表 AlphaGenome 2，預測 DNA 序列與變異對特定人類細胞類型和疾病的影響。
 - **[[Events/evt-2026-11-11-cb9d65|How AI Helps Recyclers Turn Mixed Waste Into Reusable Material]]** — NVIDIA · product · conf 73 · heat 未量測

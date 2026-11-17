@@ -515,9 +515,9 @@
     "zh": "AnythingLLM：以本機優先為主的完整 agent 體驗，把 AI 握在自己手上"
   },
   "N1nEmAn/sapper-v2": {
-    "at": "2026-11-01T19:59:42+00:00",
-    "src_hash": "ba7be8493b56",
-    "zh": "自主滲透測試軍團：AI 指揮官加 worker 群與分層事實意圖圖，拿下騰訊智慧攻防線上賽冠軍"
+    "at": "2026-11-17T23:16:52+00:00",
+    "src_hash": "48aecaa0de8d",
+    "zh": "自主 AI 滲透測試軍團，稱奪下 634 隊競賽冠軍，可自行演化"
   },
   "N4darae/shrt": {
     "at": "2026-10-24T18:28:06+00:00",
@@ -1370,9 +1370,9 @@
     "zh": "開源具身代理框架：執行、回饋與持續改進"
   },
   "everyinfra/everyinfra-agent-plugins": {
-    "at": "2026-11-16T23:58:55+00:00",
-    "src_hash": "0bd0b9b25162",
-    "zh": "EveryInfra 的 MCP server 與 agent 外掛，提供 106 個平台、574 支爬取 API"
+    "at": "2026-11-17T23:16:52+00:00",
+    "src_hash": "d0617408a10d",
+    "zh": "EveryInfra 的 MCP server 與 agent 外掛，106 個平台共 612 支爬取 API"
   },
   "exa-labs/exa-mcp-server": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -1728,6 +1728,11 @@
     "at": "2026-11-10T21:34:44+00:00",
     "src_hash": "cf69b027b0b2",
     "zh": "住進手機或 Mac 裡，像人一樣操作任何 app，不用整合、不用 root，支援任意模型，記憶與密碼不離開裝置"
+  },
+  "kubai087/kubai-icons": {
+    "at": "2026-11-17T23:16:52+00:00",
+    "src_hash": "a5a96b6f6802",
+    "zh": "讓 coding agent 用統一風格畫動態圖示的 skill，附 2,600 多個開源圖示"
   },
   "kucherenko/jscpd": {
     "at": "2026-09-02T19:14:09+00:00",
