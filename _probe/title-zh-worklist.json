@@ -24,73 +24,17 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-11-15-0b968e",
-    "title": "A step toward defining the Standard Model on a lattice",
+    "id": "evt-2026-11-11-20a42d",
+    "title": "Grok Bot 1.0",
+    "company": "xAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-12-578333",
+    "title": "ChatGPT Ads increases its market presence in 44 countries",
     "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-15-7e4c1a",
-    "title": "Our new blog for science",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-05a728",
-    "title": "More ways to move care forward with ChatGPT for Healthcare",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-0b7d25",
-    "title": "v0.34.0",
-    "company": "MiniMax",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-0c5fcf",
-    "title": "Science at the Frontier: How scientists use ChatGPT",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-280887",
-    "title": "NVIDIA Expands Slurm to Bring Quantum Computing Into Supercomputing",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-40aaa9",
-    "title": "Advancing computer-use agents for healthcare teams",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-465dec",
-    "title": "LVMH’s Media Division announces strategic partnership with OpenAI",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-4862d9",
-    "title": "Lambda Boosts AI Factory Resiliency and Efficiency With NVIDIA Photonics",
-    "company": "NVIDIA",
     "track": null,
     "summary": "",
     "stale_zh": null
@@ -99,62 +43,118 @@
     "id": "evt-2026-11-16-518e74",
     "title": "NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With Leading Performance",
     "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-528fb7",
-    "title": "Our first phase of embedded assessments",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-5669b3",
-    "title": "Broadening access to AI for scientists",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-56fd04",
-    "title": "NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-657514",
-    "title": "CUDA at 20: How the Platform Transformed Scientific Computing",
-    "company": "NVIDIA",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-6f8c70",
-    "title": "Strengthening the fight against online child sexual abuse with new tools and support",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-16-7e64a2",
-    "title": "Canadian Ai Research",
-    "company": "industry",
-    "track": null,
-    "summary": "",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 說 Vera Rubin 首次出賽 MLPerf 就拿下 Training v6.1 全部項目，並首度參加 Endpoints 測試。",
     "stale_zh": null
   },
   {
     "id": "evt-2026-11-16-811566",
     "title": "Hugging Face and OpenRouter join forces to make open-weight models easy to run",
     "company": "Hugging Face",
+    "track": "產品與商業驗證",
+    "summary": "Hugging Face 與 OpenRouter 合作，目標是讓開放權重模型更容易跑起來。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-a0f241",
+    "title": "How the World’s Most Advanced AI Infrastructure Supply Chain Invents the Future",
+    "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 專訪營運主管 Deb Shoquist，談 AI 平台背後的供應鏈與製造。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-a13cdb",
+    "title": "AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and Developer Communities",
+    "company": "NVIDIA",
+    "track": "全球創新版圖",
+    "summary": "NVIDIA 的 AI Day Seoul 兩天吸引逾 2,000 人，主題是實體 AI 與 AI agent。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-ab10c9",
+    "title": "How Revolut raises ambition without lowering the bar",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-ae9a1a",
+    "title": "NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery",
+    "company": "NVIDIA",
+    "track": "Agent與軟體重構",
+    "summary": "NVIDIA 擴充 CUDA-X 函式庫，新增 cuPhoton、cuPotential、cuSpa，讓 agent 與研究者加速科學運算。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-c79f5b",
+    "title": "At Holiday Extras, dots get to work before anyone asks",
+    "company": "OpenAI",
+    "track": "Agent與軟體重構",
+    "summary": "Holiday Extras 的客戶案例：OpenAI 的「dots」會在沒人要求時主動交出上線報告、提醒問題、通勤時講解會議。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-e5509d",
+    "title": "NVIDIA Announces Rubin HPC — A New GPU to Accelerate Agents for Science, Engineering and Analytics",
+    "company": "NVIDIA",
+    "track": "基礎設施與成本",
+    "summary": "NVIDIA 在 SC26 宣布 Rubin HPC，Vera Rubin 平台裡專為模擬與資料處理設計的新 GPU。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-16-f76949",
+    "title": "The King’s Trust and OpenAI launch £1m partnership",
+    "company": "OpenAI",
+    "track": "全球創新版圖",
+    "summary": "The King’s Trust 與 OpenAI 推出 100 萬英鎊合作，協助英國最多 25,000 名年輕人學會實用 AI 技能。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-17-37b350",
+    "title": "Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-17-56f2e7",
+    "title": "Strengthening NATO and allied cyber defenses with AI",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-17-6d0bd2",
+    "title": "Introducing ChatGPT for Sales",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-17-7f7dd6",
+    "title": "Introducing OpenAI for Chile",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-17-d69535",
+    "title": "Introducing GPT-6.2 Astra and Sol",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-17-f12b90",
+    "title": "Astra for Law leads in legal intelligence",
+    "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null

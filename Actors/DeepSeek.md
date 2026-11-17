@@ -3,7 +3,7 @@ id: actor-deepseek
 kind: company
 in_dictionary: true
 aliases: ["深度求索"]
-generated_day: '2026-11-16'
+generated_day: '2026-11-17'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

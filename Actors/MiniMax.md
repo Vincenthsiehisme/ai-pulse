@@ -3,15 +3,17 @@ id: actor-minimax
 kind: company
 in_dictionary: true
 aliases: ["稀宇科技"]
-generated_day: '2026-11-16'
+generated_day: '2026-11-17'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # MiniMax
 
-事件 **1** 則：`review` 1
+事件 **0** 則：（無）
+
+字典收了它，但這段期間**一則事件都沒有**。這不代表它沒新聞——也可能是沒有任何一條來源看得到它（對照 `_config/sources.yaml` 的`coverage_watch`）。四態分離：收錄 ≠ 已觀測 ≠ 有效產出 ≠ 已發布。
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-16 | [[Events/evt-2026-11-16-0b7d25\|v0.34.0]] | review |
+| （目前沒有） | | |

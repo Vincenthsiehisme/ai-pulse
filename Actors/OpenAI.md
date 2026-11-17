@@ -3,30 +3,40 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-16'
+generated_day: '2026-11-17'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **242** 則：`published` 227、`review` 15
+事件 **252** 則：`published` 236、`review` 16
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-16 | [[Events/evt-2026-11-16-f76949\|The King’s Trust and OpenAI launch £1m partnership]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-5669b3\|Broadening access to AI for scientists]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-528fb7\|Our first phase of embedded assessments]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-465dec\|LVMH’s Media Division announces strategic partnership with OpenAI]] | review |
+| 2026-11-17 | [[Events/evt-2026-11-17-f12b90\|Astra for Law leads in legal intelligence]] | review |
+| 2026-11-17 | [[Events/evt-2026-11-17-d69535\|Introducing GPT-6.2 Astra and Sol]] | review |
+| 2026-11-17 | [[Events/evt-2026-11-17-7f7dd6\|Introducing OpenAI for Chile]] | review |
+| 2026-11-17 | [[Events/evt-2026-11-17-6d0bd2\|Introducing ChatGPT for Sales]] | review |
+| 2026-11-17 | [[Events/evt-2026-11-17-56f2e7\|Strengthening NATO and allied cyber defenses with AI]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-f76949\|The King’s Trust and OpenAI launch £1m partnership]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-c79f5b\|At Holiday Extras, dots get to work before anyone asks]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-ab10c9\|How Revolut raises ambition without lowering the bar]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-6f8c70\|Strengthening the fight against online child sexual abuse with new tools and support]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-5669b3\|Broadening access to AI for scientists]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-528fb7\|Our first phase of embedded assessments]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-465dec\|LVMH’s Media Division announces strategic partnership with OpenAI]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-40aaa9\|Advancing computer-use agents for healthcare teams]] | published |
 | 2026-11-16 | [[Events/evt-2026-11-16-0c5fcf\|Science at the Frontier: How scientists use ChatGPT]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-05a728\|More ways to move care forward with ChatGPT for Healthcare]] | review |
-| 2026-11-15 | [[Events/evt-2026-11-15-7e4c1a\|Our new blog for science]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-05a728\|More ways to move care forward with ChatGPT for Healthcare]] | published |
+| 2026-11-15 | [[Events/evt-2026-11-15-7e4c1a\|Our new blog for science]] | published |
 | 2026-11-15 | [[Events/evt-2026-11-15-0b968e\|A step toward defining the Standard Model on a lattice]] | review |
 | 2026-11-13 | [[Events/evt-2026-11-13-5a6a0f\|Shield helps technicians hand off legacy portal work with OpenAI]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-afd9d6\|Supporting research on AI and children’s safety]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-950a8b\|Holiday Extras is rethinking what it can build with Codex]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-855ebd\|Gondola doubles revenue as its team builds more with Codex]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-803a22\|How Amplitude ships product improvements in 1–2 days with OpenAI]] | published |
+| 2026-11-12 | [[Events/evt-2026-11-12-578333\|ChatGPT Ads increases its market presence in 44 countries]] | review |
 | 2026-11-11 | [[Events/evt-2026-11-11-0f8cda\|ChatGPT Plus for veterans and servicemembers]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-c70435\|Helping caregivers use AI in everyday life]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-b65c3c\|Singapore Airlines elevates travel & work with OpenAI technology]] | published |

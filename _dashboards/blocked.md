@@ -1,11 +1,20 @@
-# 被門禁擋下（74）
+# 被門禁擋下（83）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-17-37b350|Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of ]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-17-56f2e7|Strengthening NATO and allied cyber defenses with AI]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-17-6d0bd2|Introducing ChatGPT for Sales]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-17-7f7dd6|Introducing OpenAI for Chile]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-17-d69535|Introducing GPT-6.2 Astra and Sol]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-17-f12b90|Astra for Law leads in legal intelligence]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-16-0c5fcf|Science at the Frontier: How scientists use ChatGPT]]** — OpenAI — blockers: thin_research_analysis
+- **[[Events/evt-2026-11-16-ab10c9|How Revolut raises ambition without lowering the bar]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-15-0b968e|A step toward defining the Standard Model on a lattice]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-13-09842e|A New Initiative For Developing Third Party Model Evaluations]]** — Anthropic — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-13-6159c6|Anthropic Institute Agenda]]** — Anthropic — blockers: thin_research_analysis
+- **[[Events/evt-2026-11-12-578333|ChatGPT Ads increases its market presence in 44 countries]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-11-20a42d|Grok Bot 1.0]]** — xAI — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-11-11-a332b2|Token Pooling-Aware Training for Multi-Vector Embedding Models]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-09-88f821|Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots]]** — NVIDIA — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-06-71da0a|ToyBlocks: A controlled world for robot learning and evaluation]]** — Ai2 — blockers: thin_research_analysis

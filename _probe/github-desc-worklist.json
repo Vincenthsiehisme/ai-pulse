@@ -1,119 +1,23 @@
 [
   {
-    "full_name": "hitkeeen/blender-ai-mcp-addon",
-    "desc": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon, copilot for 3D, bpy Python scripting, MCP integration.",
-    "language": "",
-    "topics": [
-      "ai-agents",
-      "ai-assistant",
-      "blender",
-      "blender-addon",
-      "blender-ai",
-      "blender-automation"
-    ],
-    "stars": 2178,
-    "url": "https://github.com/hitkeeen/blender-ai-mcp-addon",
-    "stale_zh": null
-  },
-  {
-    "full_name": "canivel/dynolab",
-    "desc": "Dyno Lab — an AI safety, alignment and interpretability research workbench for Apple Silicon. Explore activations, probes, SAEs and interventions with local inference, a Python SDK, APIs and MCP.",
+    "full_name": "N1nEmAn/sapper-v2",
+    "desc": "The first fruit of the Nüwa tree — an autonomous AI pentest legion (634-team champion, 8h unattended, 1B tokens beat 4.5B). Not just a tool: evolvable by design. Grow your own fruit on the Nüwa Foundation (Create/Language/History).",
     "language": "Python",
     "topics": [
-      "ai",
-      "ai-interpretability",
-      "ai-safety",
-      "aisafety",
-      "alignment",
-      "apple-silicon"
-    ],
-    "stars": 454,
-    "url": "https://github.com/canivel/dynolab",
-    "stale_zh": null
-  },
-  {
-    "full_name": "JosssphZhou/poki",
-    "desc": "Poki uses your iPhone like you do. An open-source agent that sees your screen and taps, types, and swipes across any app on your real device. Runs locally, plugs right into Claude Code and any MCP agent.",
-    "language": "Swift",
-    "topics": [
+      "agentic-workflows",
       "ai-agents",
-      "automation",
-      "ios",
-      "iphone",
-      "mcp",
-      "model-context-protocol"
+      "ai-security",
+      "autonomous-agents",
+      "claude-code",
+      "ctf"
     ],
-    "stars": 1505,
-    "url": "https://github.com/JosssphZhou/poki",
-    "stale_zh": "讓 AI agent 操作真實 iPhone。本機 MCP server 與 agent，不需越獄，不需額外硬體"
-  },
-  {
-    "full_name": "simplexai-labs/linger",
-    "desc": "Linger is An Open-Source Personal Agent That Runs Fully on Your PC.  We aim to break Big Tech’s grip on AI by bringing powerful local AI to everyday computers through efficient model–harness co-design, so everyone can run their own.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-teams",
-      "local-llm",
-      "memory",
-      "personal-agent",
-      "proactive-agent",
-      "proactive-ai"
-    ],
-    "stars": 397,
-    "url": "https://github.com/simplexai-labs/linger",
-    "stale_zh": null
-  },
-  {
-    "full_name": "0sec-labs/0security",
-    "desc": "Software infrastructure to build and deploy sovereign, persistent AI security agents that continuously find, prove and fix security risks. Open source. Web UI, CLI, CI and MCP.",
-    "language": "TypeScript",
-    "topics": [
-      "llm-agents",
-      "security-research",
-      "security-tools",
-      "application-security",
-      "binary-analysis",
-      "cybersecurity"
-    ],
-    "stars": 1411,
-    "url": "https://github.com/0sec-labs/0security",
-    "stale_zh": null
-  },
-  {
-    "full_name": "SLEEPYBQ/MemoSync",
-    "desc": "Co-manage memory with your coding agent across sessions. A local workbench for Claude Code, Codex, Pi and OpenCode.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-memory",
-      "agentic-coding",
-      "ai-agents",
-      "ai-coding",
-      "claude",
-      "claude-code"
-    ],
-    "stars": 343,
-    "url": "https://github.com/SLEEPYBQ/MemoSync",
-    "stale_zh": null
-  },
-  {
-    "full_name": "huawei-csl/MACaQ",
-    "desc": "SOTA model-agnostic quantization for GGUF, local inference and beyond. Quantize and run text, image, video and audio models with llama.cpp, vLLM, Diffusers and PyTorch.",
-    "language": "C++",
-    "topics": [
-      "ascend",
-      "audio",
-      "audio-generation",
-      "diffusers",
-      "gguf",
-      "gguf-quantization"
-    ],
-    "stars": 339,
-    "url": "https://github.com/huawei-csl/MACaQ",
-    "stale_zh": null
+    "stars": 2317,
+    "url": "https://github.com/N1nEmAn/sapper-v2",
+    "stale_zh": "自主滲透測試軍團：AI 指揮官加 worker 群與分層事實意圖圖，拿下騰訊智慧攻防線上賽冠軍"
   },
   {
     "full_name": "everyinfra/everyinfra-agent-plugins",
-    "desc": "EveryInfra MCP server & agent plugin: scraper API for TikTok, Instagram, Amazon, YouTube, Xiaohongshu & Douyin. 574 data APIs across 106 platforms, from $0.56/1K calls. For Claude Code, Cursor, Codex.",
+    "desc": "EveryInfra MCP server & agent plugin: scraper API for TikTok, Instagram, Amazon, YouTube, Xiaohongshu & Douyin. 612 data APIs across 106 platforms, from $0.56/1K calls. For Claude Code, Cursor, Codex.",
     "language": "Python",
     "topics": [
       "ai-agents",
@@ -123,40 +27,24 @@
       "cursor",
       "douyin"
     ],
-    "stars": 551,
+    "stars": 581,
     "url": "https://github.com/everyinfra/everyinfra-agent-plugins",
-    "stale_zh": "EveryInfra 的 MCP server 與 agent 外掛，提供 106 個平台、573 支爬取 API"
+    "stale_zh": "EveryInfra 的 MCP server 與 agent 外掛，提供 106 個平台、574 支爬取 API"
   },
   {
-    "full_name": "Kevin-Liu-01/Claude-of-Tanks",
-    "desc": "A World of Tanks-style armored combat simulator built directly with Three.js and Vite: 311 vehicles, 33 destructible battlefields, and 14 modes, with plate-level armor, ballistics, modules, spotting, and physics. Play in your browser on desktop or mobile. Built end-to-end by a multi-agent Claude/Codex pipeline.",
-    "language": "TypeScript",
-    "topics": [
-      "3d-game",
-      "browser-game",
-      "claude",
-      "game",
-      "gamedev",
-      "javascript"
-    ],
-    "stars": 541,
-    "url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks",
-    "stale_zh": "Three.js 做的《戰車世界》風格坦克模擬器，瀏覽器可玩，多 agent 流程完成"
-  },
-  {
-    "full_name": "Vincentwei1021/video-shotcraft",
-    "desc": "AI video skill for Claude Code & Codex — cinematic, editable product promos with Remotion: 124 shot recipe cards, 150 motion previews, beat sync, sound design, Motion Workbench & JianYing (CapCut CN) export.",
-    "language": "TypeScript",
+    "full_name": "kubai087/kubai-icons",
+    "desc": "An agent skill that draws animated icons in one consistent style, for Claude Code, Codex and other coding agents. Comes with 2,600+ open-source icons for React, Vue and SVG, and a website to browse them.",
+    "language": "JavaScript",
     "topics": [
       "agent-skills",
       "ai-agents",
-      "ai-video",
-      "claude-code",
-      "claude-code-skills",
-      "claude-skills"
+      "animated-icons",
+      "animation",
+      "claude",
+      "claude-skill"
     ],
-    "stars": 20571,
-    "url": "https://github.com/Vincentwei1021/video-shotcraft",
+    "stars": 944,
+    "url": "https://github.com/kubai087/kubai-icons",
     "stale_zh": null
   }
 ]

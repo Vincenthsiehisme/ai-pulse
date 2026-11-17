@@ -3,26 +3,27 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-11-16'
+generated_day: '2026-11-17'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **145** 則：`dropped` 1、`published` 127、`review` 17
+事件 **146** 則：`dropped` 1、`published` 136、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-16 | [[Events/evt-2026-11-16-e5509d\|NVIDIA Announces Rubin HPC — A New GPU to Accelerate Agents for Science, Engineering and Analytics]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-ae9a1a\|NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-a13cdb\|AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and Developer Communities]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-a0f241\|How the World’s Most Advanced AI Infrastructure Supply Chain Invents the Future]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-657514\|CUDA at 20: How the Platform Transformed Scientific Computing]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-56fd04\|NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-518e74\|NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With Leading Performance]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-4862d9\|Lambda Boosts AI Factory Resiliency and Efficiency With NVIDIA Photonics]] | review |
-| 2026-11-16 | [[Events/evt-2026-11-16-280887\|NVIDIA Expands Slurm to Bring Quantum Computing Into Supercomputing]] | review |
+| 2026-11-17 | [[Events/evt-2026-11-17-37b350\|Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents]] | review |
+| 2026-11-16 | [[Events/evt-2026-11-16-e5509d\|NVIDIA Announces Rubin HPC — A New GPU to Accelerate Agents for Science, Engineering and Analytics]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-ae9a1a\|NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-a13cdb\|AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and Developer Communities]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-a0f241\|How the World’s Most Advanced AI Infrastructure Supply Chain Invents the Future]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-657514\|CUDA at 20: How the Platform Transformed Scientific Computing]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-56fd04\|NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-518e74\|NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With Leading Performance]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-4862d9\|Lambda Boosts AI Factory Resiliency and Efficiency With NVIDIA Photonics]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-280887\|NVIDIA Expands Slurm to Bring Quantum Computing Into Supercomputing]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-9c3857\|Build a Robot Pick-and-Place Simulation with SimReady Assets]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-416581\|How AI Is Helping Care Teams Get Patients the Right Care, Sooner]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-387d4d\|A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW]] | published |

@@ -16,10 +16,10 @@ license_note: "titles + links only"
 endpoint: "https://openai.com/news/rss.xml"
 robots_checked_day: "2026-11-13"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-11-16"
-items_observed: 323
-events_bound: 255
-events_published: 236
+last_observed_day: "2026-11-17"
+items_observed: 331
+events_bound: 262
+events_published: 245
 health_score: 100
 consecutive_failures: 0
 last_status: 200
@@ -34,9 +34,9 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 323 筆 | 抓到了，但站方那陣子沒發東西 |
-| 有效產出 | 255 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 236 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 已觀測 | 331 筆 | 抓到了，但站方那陣子沒發東西 |
+| 有效產出 | 262 則事件 | 抓到了但聚類沒把它綁成證據 |
+| 已發布 | 245 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**OpenAI**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 

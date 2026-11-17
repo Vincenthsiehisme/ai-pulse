@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-16"
+generated_day: "2026-11-17"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-16"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **627** 則／已裁決 **26** 則。
+待回答 **648** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#e5f93a43`** — infra-cost
-  > 看 llama.cpp v1.0.0 的 release notes 有沒有 API、模型格式或相容性的穩定承諾；看 OpenShell 是否進入 CNCF 等中立基金會、有哪些專案採用；看 Dynamo 配方公布的實測吞吐量；看 OpenAI 是否公布 Control Room 的實際停機事件。
+- **`infra-cost#cb2ca56a`** — infra-cost
+  > 看 Rubin HPC 的雙精度規格與出貨時間；看 MLPerf Training v6.1 其他廠商的送件情形，以及 Endpoints 的 10 倍是跟誰比；看 Lambda 公布的 CPO 部署規模、故障率與功耗；看 Slurm 量子擴充是否合入上游、有哪些量子廠商接上；看 vLLM 新模型支援的實測吞吐，以及 KV cache 預設改動有沒有引發記憶體回報；看 llama.cpp v1.0.0 有沒有穩定承諾；看 Dynamo 配方公布的實測吞吐量。
 
-- **`model-research#2780576b`** — model-research
-  > 看 Anthropic 這幾篇原文有沒有可驗證的具體措施與觸發條件，以及這批文章的實際上架日期；看 XYBench 是否公開資料集與評分程式，以及主流模型的成績；看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 AlphaGenome 2 是否釋出論文與基準對比。
+- **`model-research#2e099ab5`** — model-research
+  > 看 OpenAI 嵌入式評估的第一批報告何時發布，以及評估方能否自行署名公開；看 Anthropic 那幾篇原文有沒有可驗證的具體措施與觸發條件；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 AlphaGenome 2 是否釋出論文與基準對比。
 
-- **`product-market#5e68c909`** — product-market
-  > 看 Anthropic 〈模型停用承諾〉原文列出的通知期限與模型保存方式；看醫療案例有沒有公開成效數據或院方採用公告；看 OpenAI 是否公開 Gondola 案例的衡量方式，或出現獨立來源驗證；看 DLSS 5 的上線日期與效能數據；看免費方案的續訂情況。
+- **`product-market#619eb9dc`** — product-market
+  > 看學術研究者方案的申請條件與每人額度，以及校級合作是否同步出現；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口，以及開放模型在 OpenRouter 上的用量變化；看 OpenAI 科學部落格接下來的發文量與外部研究者署名；看 Anthropic 〈模型停用承諾〉原文列出的通知期限；看 OpenAI 是否公開 Gondola 案例的衡量方式；看免費方案的續訂情況。
 
-- **`capital-evolution#4c82b2a1`** — capital-evolution
-  > 看 SB 53 的後續立法進度，以及其他業者是否表態；看這三篇原文的具體建議與實際上架日期；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額、交割時間與團隊整併。
+- **`capital-evolution#d9bd32dc`** — capital-evolution
+  > 看 ChatGPT 內出現 LVMH 刊物的呈現方式，以及雙方是否公布授權與分潤條件；看 SB 53 的後續立法進度與其他業者是否表態；看那三篇 Anthropic 原文的具體建議；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額與交割時間。
 
-- **`agent-refactor#148ef3b9`** — agent-refactor
-  > 看 Shield 或 OpenAI 是否公布 Forge 的處理量與節省工時；看 SimReady 教學是否附開放資產或程式碼；看 Amplitude 或其客戶是否公開 Wave 的採用數據；看 Holiday Extras 是否補上轉換率的幅度與對照期間；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果。
+- **`agent-refactor#0edfe1f5`** — agent-refactor
+  > 看哪些醫療機構或軟體廠商公開採用 computer-use agent，以及有沒有臨床準確度的量化數字；看 dots 是否成為正式產品名稱、Holiday Extras 是否補上成效數據；看 CUDA-X 各函式庫的基準數字，以及有沒有 agent 框架官方整合；看 Shield 或 OpenAI 是否公布 Forge 的處理量與節省工時；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果。
 
-- **`global-map#498df493`** — global-map
-  > 看兩篇 Anthropic 原文有沒有可驗證的政策動作，以及其他獨立來源的報導；看 OpenAI 公布 200 萬美元的受款研究團隊與衡量工具的公開時程；看韓國合作公布 NPU 與 XPU 共同開發的時程與參與業者；看 Nemotron-Personas-Finance-Japan 的第三方使用；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率。
+- **`global-map#9e95fe1d`** — global-map
+  > 看韓國業者後續是否公布與 NVIDIA 的機器人或實體 AI 專案；看 King’s Trust 課程是否開跑、首批受訓人數與就業追蹤；看 Anthropic 加拿大那篇原文是投資、合作還是據點；看 OpenAI 200 萬美元的受款團隊；看韓國合作公布 NPU 與 XPU 共同開發的時程；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率。
 
-## 事件層（621）
+## 事件層（642）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1906,3 +1906,66 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-11-13-fe797a#0e5f6611`** — evt-2026-11-13-fe797a
   > 閱讀原文後，看是否有政策條文的修訂或其他實驗室的對應動作。
+
+- **`evt-2026-11-15-7e4c1a#c2cfa2bd`** — evt-2026-11-15-7e4c1a
+  > 部落格接下來幾週的發文量，以及是否有外部研究者署名的文章。
+
+- **`evt-2026-11-16-05a728#dbdd19cf`** — evt-2026-11-16-05a728
+  > 哪些醫療機構或軟體廠商公開採用，以及有沒有臨床準確度的量化數字。
+
+- **`evt-2026-11-16-0b7d25#e03da0d1`** — evt-2026-11-16-0b7d25
+  > MiniMax-M3.1-Flash 與 Mistral Large 4 在 vLLM 上的實測吞吐，以及預設改動有沒有引發記憶體相關的回報。
+
+- **`evt-2026-11-16-280887#0ca12ace`** — evt-2026-11-16-280887
+  > Slurm 擴充是否合入上游、有哪些量子廠商接上，以及超算中心實際排進量子工作負載的比例。
+
+- **`evt-2026-11-16-40aaa9#db652973`** — evt-2026-11-16-40aaa9
+  > 讀原文後再判斷，這裡不設訊號。
+
+- **`evt-2026-11-16-465dec#2e5809d9`** — evt-2026-11-16-465dec
+  > ChatGPT 內出現 LVMH 刊物的呈現方式，以及雙方是否公布授權與分潤條件。
+
+- **`evt-2026-11-16-4862d9#0e19c3f6`** — evt-2026-11-16-4862d9
+  > Lambda 公布的 CPO 部署規模、故障率與功耗對比，以及其他雲端業者是否跟進。
+
+- **`evt-2026-11-16-518e74#505ca7b1`** — evt-2026-11-16-518e74
+  > 其他廠商（如 AMD、Google）在 Training v6.1 的送件情形，以及 Endpoints 的 10 倍究竟是跟誰比。
+
+- **`evt-2026-11-16-528fb7#894a38a6`** — evt-2026-11-16-528fb7
+  > 第一批評估報告何時發布、是否由評估方自行署名，以及 OpenAI 是否因結果調整發布決定。
+
+- **`evt-2026-11-16-5669b3#5290c8a4`** — evt-2026-11-16-5669b3
+  > 申請條件與每人額度，以及學界機構是否同步簽署校級合作。
+
+- **`evt-2026-11-16-56fd04#198bc5b8`** — evt-2026-11-16-56fd04
+  > 定價與出貨時間，以及開發者回報桌面叢集與真實超算行為的落差。
+
+- **`evt-2026-11-16-657514#2e3e53a3`** — evt-2026-11-16-657514
+  > （無可驗證的後續訊號）可觀察 NVIDIA 是否在同場宣布與 CUDA 相關的新版本。
+
+- **`evt-2026-11-16-6f8c70#db652973`** — evt-2026-11-16-6f8c70
+  > 讀原文後再判斷，這裡不設訊號。
+
+- **`evt-2026-11-16-7e64a2#db652973`** — evt-2026-11-16-7e64a2
+  > 讀原文後再判斷，這裡不設訊號。
+
+- **`evt-2026-11-16-811566#65279f81`** — evt-2026-11-16-811566
+  > Hub 模型頁是否出現 OpenRouter 的呼叫入口，以及開放模型在 OpenRouter 上的用量變化。
+
+- **`evt-2026-11-16-a0f241#5c5bc686`** — evt-2026-11-16-a0f241
+  > （無可驗證的後續訊號）可留意 NVIDIA 後續是否公布具體產能或製造夥伴的擴張。
+
+- **`evt-2026-11-16-a13cdb#91024f39`** — evt-2026-11-16-a13cdb
+  > 韓國業者後續是否公布與 NVIDIA 的機器人或實體 AI 專案。
+
+- **`evt-2026-11-16-ae9a1a#7c43b4d7`** — evt-2026-11-16-ae9a1a
+  > 各函式庫公布的基準數字，以及有沒有 agent 框架官方整合 CUDA-X。
+
+- **`evt-2026-11-16-c79f5b#1613c33d`** — evt-2026-11-16-c79f5b
+  > dots 是否成為 OpenAI 正式對外的產品名稱，以及有無可量化的客戶成效數據。
+
+- **`evt-2026-11-16-e5509d#2ede4015`** — evt-2026-11-16-e5509d
+  > Rubin HPC 的雙精度規格、出貨時間，以及超算中心的採購公告。
+
+- **`evt-2026-11-16-f76949#89790ece`** — evt-2026-11-16-f76949
+  > 課程是否開跑、首批受訓人數，以及有無追蹤就業結果的公開數據。

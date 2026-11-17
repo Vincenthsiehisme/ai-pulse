@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-11-16'
+generated_day: '2026-11-17'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,14 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **69** 則：`published` 58、`review` 11
+事件 **73** 則：`published` 62、`review` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-16 | [[Events/evt-2026-11-16-c79f5b\|At Holiday Extras, dots get to work before anyone asks]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-ae9a1a\|NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-40aaa9\|Advancing computer-use agents for healthcare teams]] | published |
+| 2026-11-16 | [[Events/evt-2026-11-16-05a728\|More ways to move care forward with ChatGPT for Healthcare]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-9c3857\|Build a Robot Pick-and-Place Simulation with SimReady Assets]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-5a6a0f\|Shield helps technicians hand off legacy portal work with OpenAI]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-950a8b\|Holiday Extras is rethinking what it can build with Codex]] | published |

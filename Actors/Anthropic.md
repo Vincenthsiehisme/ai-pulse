@@ -3,17 +3,18 @@ id: actor-anthropic
 kind: company
 in_dictionary: true
 aliases: ["安索匹克"]
-generated_day: '2026-11-16'
+generated_day: '2026-11-17'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Anthropic
 
-事件 **150** 則：`published` 140、`review` 10
+事件 **151** 則：`published` 141、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-16 | [[Events/evt-2026-11-16-7e64a2\|Canadian Ai Research]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-fe797a\|Reflections On Our Responsible Scaling Policy]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-fabd73\|Thoughts On America S Ai Action Plan]] | published |
 | 2026-11-13 | [[Events/evt-2026-11-13-f979e1\|Our Approach To Understanding And Addressing Ai Harms]] | published |
