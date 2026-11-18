@@ -1,143 +1,143 @@
 {
-  "date": "2026-11-17",
-  "started_at": "2026-11-17 23:15Z",
-  "finished": true,
+  "date": "2026-11-18",
+  "started_at": "2026-11-18 22:46Z",
+  "finished": false,
   "cost_prev": {
-    "date": "2026-11-16",
+    "date": "2026-11-17",
     "rows": 1,
-    "usd_equiv": 1.05444,
+    "usd_equiv": 0.862684,
     "note": null,
-    "latest": "2026-11-16"
+    "latest": "2026-11-17"
   },
   "stages": [
     {
       "id": "align-main",
       "status": "noted",
-      "note": "從 `claude/sleepy-albattani-3axsdr` 切回 `main` 並 ff 到 origin/main",
-      "at": "2026-11-17 23:15Z",
+      "note": "從 `claude/sleepy-albattani-rf3ej6` 切回 `main` 並 ff 到 origin/main",
+      "at": "2026-11-18 22:46Z",
       "full_output": "From https://github.com/Vincenthsiehisme/ai-pulse\n * branch            main       -> FETCH_HEAD\nYour branch is up to date with 'origin/main'.\nSwitched to branch 'main'\nAlready up to date.\n"
     },
     {
       "id": "precheck",
       "status": "ok",
-      "note": "今日 probe 已就緒（_probe/2026-11-17/report.md）",
-      "at": "2026-11-17 23:15Z"
+      "note": "今日 probe 已就緒（_probe/2026-11-18/report.md）",
+      "at": "2026-11-18 22:46Z"
     },
     {
       "id": "enrich-prep",
       "status": "ok",
-      "note": "pulse-enrich-prep  待 enrich=9  已 enrich 跳過=74",
-      "at": "2026-11-17 23:15Z"
+      "note": "pulse-enrich-prep  待 enrich=13  已 enrich 跳過=74",
+      "at": "2026-11-18 22:47Z"
     },
     {
       "id": "enrich-write",
       "status": "ok",
-      "note": "收到 enrich-result.json（9 筆，清單 9 筆）",
-      "at": "2026-11-17 23:15Z",
+      "note": "收到 enrich-result.json（13 筆，清單 13 筆）",
+      "at": "2026-11-18 22:47Z",
       "worklist": {
         "path": "_probe/enrich-worklist.json",
-        "count": 9,
-        "mtime": 1794957309
+        "count": 13,
+        "mtime": 1795042021
       }
     },
     {
       "id": "enrich-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-17 23:15Z"
+      "at": "2026-11-18 22:47Z"
     },
     {
       "id": "gate",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-17 23:15Z"
+      "at": "2026-11-18 22:47Z"
     },
     {
       "id": "dashboard",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-17 23:15Z"
+      "at": "2026-11-18 22:48Z"
     },
     {
       "id": "digest-prep",
       "status": "ok",
-      "note": "pulse-digest-prep  2026-11-17  mode=normal  素材=9 則  配對=36 組",
-      "at": "2026-11-17 23:16Z"
+      "note": "pulse-digest-prep  2026-11-18  mode=normal  素材=10 則  配對=45 組",
+      "at": "2026-11-18 22:48Z"
     },
     {
       "id": "digest-write",
       "status": "ok",
-      "note": "收到 digest.json（素材 9 則）",
-      "at": "2026-11-17 23:16Z",
+      "note": "收到 digest.json（素材 10 則）",
+      "at": "2026-11-18 22:48Z",
       "worklist": {
         "path": "_probe/digest-worklist.json",
-        "count": 9,
-        "mtime": 1794957361
+        "count": 10,
+        "mtime": 1795042084
       }
     },
     {
       "id": "digest-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-17 23:16Z"
+      "at": "2026-11-18 22:48Z"
     },
     {
       "id": "digest-gate",
       "status": "ok",
-      "note": "pulse-digest-gate  draft=88  reviewed=0  rejected=0  共 88 份  → _dashboards/digests.md",
-      "at": "2026-11-17 23:16Z"
+      "note": "pulse-digest-gate  draft=89  reviewed=0  rejected=0  共 89 份  → _dashboards/digests.md",
+      "at": "2026-11-18 22:48Z"
     },
     {
       "id": "narrative-prep",
       "status": "ok",
       "note": "pulse-narrative-prep  有事件主線=6  待重寫(dirty)=5",
-      "at": "2026-11-17 23:16Z"
+      "at": "2026-11-18 22:48Z"
     },
     {
       "id": "narrative-write",
       "status": "ok",
       "note": "收到 narrative-result.json（5 筆，清單 5 筆）",
-      "at": "2026-11-17 23:16Z",
+      "at": "2026-11-18 22:48Z",
       "worklist": {
         "path": "_probe/narrative-worklist.json",
         "count": 5,
-        "mtime": 1794957383
+        "mtime": 1795042108
       }
     },
     {
       "id": "narrative-apply",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-17 23:16Z"
+      "at": "2026-11-18 22:48Z"
     },
     {
       "id": "github-desc-write",
       "status": "ok",
-      "note": "收到 github-desc-result.json（3 筆，清單 3 筆）｜dry-run 退件（rc=3）後退回重寫過 1 次",
-      "at": "2026-11-17 23:16Z",
+      "note": "收到 github-desc-result.json（9 筆，清單 9 筆）｜dry-run 退件（rc=1）後退回重寫過 1 次",
+      "at": "2026-11-18 22:48Z",
       "worklist": {
         "path": "_probe/github-desc-worklist.json",
-        "count": 3,
-        "mtime": 1794957300
+        "count": 9,
+        "mtime": 1795042004
       },
       "bounces": 1,
-      "bounce_rc": 3
+      "bounce_rc": 1
     },
     {
       "id": "github-desc-apply",
       "status": "ok",
-      "note": "過關 3／退件 0；榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）",
-      "at": "2026-11-17 23:16Z"
+      "note": "過關 9／退件 0；榜讀不到，這一班算不出覆蓋率（下一班 Actions 會算）",
+      "at": "2026-11-18 22:48Z"
     },
     {
       "id": "title-write",
       "status": "ok",
-      "note": "收到 title-zh-result.json（20 筆，清單 20 筆）｜dry-run 退件（rc=1）後退回重寫過 1 次",
-      "at": "2026-11-17 23:17Z",
+      "note": "收到 title-zh-result.json（14 筆，清單 14 筆）｜dry-run 退件（rc=1）後退回重寫過 1 次",
+      "at": "2026-11-18 22:49Z",
       "worklist": {
         "path": "_probe/title-zh-worklist.json",
-        "count": 20,
-        "mtime": 1794957300
+        "count": 14,
+        "mtime": 1795042004
       },
       "bounces": 1,
       "bounce_rc": 1
@@ -145,29 +145,16 @@
     {
       "id": "title-apply",
       "status": "noted",
-      "note": "寫入 19 則，退件 1 則（原樣保留 1 則）",
-      "at": "2026-11-17 23:17Z",
-      "full_output": "pulse-title-apply  收到 20 條譯文\n\n  [新增] evt-2026-10-28-521bbb\n         「Nemotron 3.5 Transcribe 與 Granary v2」\n         原文：NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt\n  [退件] evt-2026-10-29-985dc6\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「Credit Saison 試辦 ChatGPT Enterprise，ROI 954%」\n  [新增] evt-2026-11-09-2874cb\n         「Nemotron-Personas-Finance-Japan 合成資料集」\n         原文：Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context\n  [原樣保留] evt-2026-11-11-20a42d\n         「Grok Bot 1.0」\n         原文：Grok Bot 1.0\n  [新增] evt-2026-11-12-578333\n         「ChatGPT Ads 擴大到 44 個國家」\n         原文：ChatGPT Ads increases its market presence in 44 countries\n  [新增] evt-2026-11-16-518e74\n         「NVIDIA 橫掃 MLPerf，Vera Rubin 首度亮相」\n         原文：NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With Leading Performance\n  [新增] evt-2026-11-16-811566\n         「Hugging Face 與 OpenRouter 攜手合作」\n         原文：Hugging Face and OpenRouter join forces to make open-weight models easy to run\n  [新增] evt-2026-11-16-a0f241\n         「全球最先進的 AI 基礎設施供應鏈如何創造未來」\n         原文：How the World’s Most Advanced AI Infrastructure Supply Chain Invents the Future\n  [新增] evt-2026-11-16-a13cdb\n         「AI Day Seoul 集結韓國產業領袖、新創與開發者社群」\n         原文：AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and Developer Communities\n  [新增] evt-2026-11-16-ab10c9\n         「Revolut 如何拉高目標而不降低標準」\n         原文：How Revolut raises ambition without lowering the bar\n  [新增] evt-2026-11-16-ae9a1a\n         「NVIDIA CUDA-X 函式庫給 agent 加速科學發現的工具」\n         原文：NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery\n  [新增] evt-2026-11-16-c79f5b\n         「在 Holiday Extras，dots 不等人開口就先動工」\n         原文：At Holiday Extras, dots get to work before anyone asks\n  [新增] evt-2026-11-16-e5509d\n         「NVIDIA 發表 Rubin HPC 新 GPU」\n         原文：NVIDIA Announces Rubin HPC — A New GPU to Accelerate Agents for Science, Engineering and Analytics\n  [新增] evt-2026-11-16-f76949\n         「The King’s Trust 與 OpenAI 推出 100 萬英鎊合作」\n         原文：The King’s Trust and OpenAI launch £1m partnership\n  [新增] evt-2026-11-17-37b350\n         「Ian Buck 揭開 NVIDIA 的 SC26 週」\n         原文：Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents\n  [新增] evt-2026-11-17-56f2e7\n         「用 AI 強化北約與盟國的網路防禦」\n         原文：Strengthening NATO and allied cyber defenses with AI\n  [新增] evt-2026-11-17-6d0bd2\n         「推出 ChatGPT for Sales」\n         原文：Introducing ChatGPT for Sales\n  [新增] evt-2026-11-17-7f7dd6\n         「推出 OpenAI for Chile」\n         原文：Introducing OpenAI for Chile\n  [新增] evt-2026-11-17-d69535\n         「推出 GPT-6.2 Astra 與 Sol」\n         原文：Introducing GPT-6.2 Astra and Sol\n  [新增] evt-2026-11-17-f12b90\n         「Astra for Law 在法律智慧評測領先」\n         原文：Astra for Law leads in legal intelligence\n\n  寫入 19 則，退件 1 則（原樣保留 1 則）\n"
+      "note": "寫入 13 則，退件 1 則",
+      "at": "2026-11-18 22:49Z",
+      "full_output": "pulse-title-apply  收到 14 條譯文\n\n  [退件] evt-2026-10-29-985dc6\n         超過 40 字（標題要跟原文並排，兩行都得看得完）\n         「Credit Saison 試辦 ChatGPT Enterprise，投報率 954%」\n  [新增] evt-2026-11-18-06adba\n         「180B 參數塞進 32GB 記憶體：Transformers 的 MoE 推論」\n         原文：180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers\n  [新增] evt-2026-11-18-1cfed7\n         「推出 Gemini 4 Neon」\n         原文：Introducing Gemini 4 Neon\n  [新增] evt-2026-11-18-2d271d\n         「Codex 沙箱內部解析」\n         原文：Inside the Codex sandbox\n  [新增] evt-2026-11-18-38ef4c\n         「為什麼微調比 FLOPs 估算的更久」\n         原文：Why your fine-tuning job takes longer than the FLOPs say\n  [新增] evt-2026-11-18-3c0260\n         「管理前沿 AI 風險：從訓練到部署」\n         原文：Managing frontier AI risk: From training to deployment\n  [新增] evt-2026-11-18-4488cd\n         「Rumble-2-Flash：支援 40 多種語言的開放 0.5B 語音模型」\n         原文：Rumble-2-Flash: an open 0.5B speech model for 40+ languages\n  [新增] evt-2026-11-18-4f5128\n         「Le Figaro 與 OpenAI 合作，新聞內容進 ChatGPT」\n         原文：Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to ChatGPT\n  [新增] evt-2026-11-18-6892d5\n         「NVIDIA RTX Spark 小型桌機現已上市」\n         原文：NVIDIA RTX Spark Compact Desktops Out Now\n  [新增] evt-2026-11-18-b127b3\n         「DaisyRose-27B：推進後訓練效率的前沿」\n         原文：DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency\n  [新增] evt-2026-11-18-bb8179\n         「「沉默的共識」（The Silent Consensus）」\n         原文：The Silent Consensus\n  [新增] evt-2026-11-18-c82890\n         「Streamhouse 裡的時間序列模型：新前沿與使用案例」\n         原文：Time-Series Models in the Streamhouse: A New Frontier and Use Cases\n  [新增] evt-2026-11-18-c87bb7\n         「Genie 4 現已開放使用」\n         原文：Genie 4 is now available\n  [新增] evt-2026-11-18-fa6769\n         「用 OpenAI 模型推進晶片設計」\n         原文：Advancing chip design with OpenAI models\n\n  寫入 13 則，退件 1 則\n"
     },
     {
       "id": "render",
       "status": "ok",
       "note": "rc=0",
-      "at": "2026-11-17 23:17Z"
-    },
-    {
-      "id": "commit",
-      "status": "ok",
-      "note": "commit 4945336 已推上 origin",
-      "at": "2026-11-17 23:17Z"
-    },
-    {
-      "id": "monitor",
-      "status": "ok",
-      "note": "rc=0",
-      "at": "2026-11-17 23:17Z",
-      "full_output": "pulse-monitor  2026-11-17\n  最後一次 probe: 2026-11-17（0 天前）\n  已上線=671  review=74（待處理=59／設計上擋著=15）  未 enrich=0  待處理最久=110 天（進庫天數）\n  人工判定不追=2（理由見 _dashboards/dropped.md）\n  沒收的修碼分支：0 支\n  每日精選：最後一篇 2026-11-17（0 天前）\n  潤稿鏈缺日：**量不到**——這是淺 checkout（`fetch-depth: 1`），看不到 commit 歷史。`data-refresh.yml` 要設 `fetch-depth: 0`\n  每日精選缺日：窗內 1 天沒有缺口\n  夜班成本（API 等價，帳本從 2026-10-01 起）\n    近 7 天 USD 5.5641｜有金額 7 天、量不到 0 天（null 0 行）、沒有帳本行 0 天\n    近 30 天 USD 22.9978｜有金額 30 天、量不到 0 天（null 0 行）、沒有帳本行 0 天\n  ── blocker 分佈 ──\n     52  thin_research_analysis\n     11  stale_backfill\n      9  generic_entity\n      4  thin_by_policy\n      1  thin_fact\n  ── 待處理卡最久的 5 則 ──\n    [110d/已enrich] Gemini Robotics 2 brings whole body intelligence to robots\n           thin_research_analysis\n    [110d/已enrich] GPU Management: Why Idle GPUs Are the New Grounded Aircraft\n           generic_entity\n    [109d/已enrich] Investigating Incidents Cybersecurity Evals\n           thin_research_analysis\n    [108d/已enrich] Ten advances in mathematics and theoretical computer science\n           thin_fact,thin_research_analysis\n    [98d/已enrich] Thinking of ACE? We Can Do It with Fewer Tokens\n           thin_research_analysis\n  ── 覆蓋範圍（近 30 天，實有語料 31 天）──\n     必盯實體                 來源   看見   事件   上線  最後看見\n     OpenAI                2 1253   95   89  0d 前\n     Anthropic             1  351   28   24  0d 前\n     Google DeepMind       1  132    8    7  0d 前\n     Google                1  375   10    9  0d 前\n     Meta                  1  292    0    0  0d 前\n     Microsoft             1  170    1    0  0d 前\n     NVIDIA                1  649   57   53  0d 前\n     Hugging Face          1  141   15   13  0d 前\n     xAI                   1    2    3    3  15d 前\n     Mistral AI            1    4    1    1  18d 前\n     Alibaba               1    1    0    0  21d 前\n     DeepSeek              0  311    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Safe Superintelligence    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Thinking Machines Lab    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cohere                0    1    0    0  21d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Perplexity            0    3    0    0  4d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Anysphere (Cursor)    0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cognition             0    1    0    0  10d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Scale AI              0  261    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Z.ai                  0    1    0    0  2d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Moonshot AI           0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     MiniMax               0   63    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     ByteDance             0    1    0    0  14d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Baidu                 0    1    0    0  12d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Tencent               0    3    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AMD                   1   36    0    0  0d 前\n     TSMC                  0    7    0    0  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Broadcom              0    0    0    0  從未  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Groq                  0    2    0    0  20d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     Cerebras              0    1    0    0  23d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     CoreWeave             0    1    0    0  6d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     AWS                   0   73    1    1  0d 前  ○ 已知未覆蓋（設定檔標 pending，不觸警）\n     可跑來源 29 條，其中 6 條本窗口零產出：src-amd-ir, src-gh-openai-codex, src-media-theregister, src-media-venturebeat, src-mistral-news, src-qwen-blog\n     ⚠ 來源已死但每班照樣有貨 2 條：src-kol-lilianweng（最新 2026-07-04，落後 136 天，門檻 120）、src-meta-research（最新 2023-05-17，落後 1280 天，門檻 30）\n     最新一筆 published 量不到：無\n"
+      "at": "2026-11-18 22:49Z"
     }
   ],
-  "updated_at": "2026-11-17 23:17Z"
+  "updated_at": "2026-11-18 22:49Z"
 }

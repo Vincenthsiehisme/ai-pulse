@@ -5,9 +5,9 @@
     "zh": "開源 AI 資安工具組，含程式碼分析、滲透測試、弱點研究、逆向與修補的網頁介面，另有 CLI 與 MCP"
   },
   "0sec-labs/0security": {
-    "at": "2026-11-16T23:58:55+00:00",
-    "src_hash": "f2a9713ea2ee",
-    "zh": "部署自主、常駐的 AI 資安 agent，持續找出、驗證並修補風險，有 CLI 與 MCP"
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "3697d8e45acb",
+    "zh": "開源資安框架，部署常駐的 AI 資安 agent，持續找出、驗證並修補風險"
   },
   "0x4m4/hexstrike-ai": {
     "at": "2026-08-16T19:07:53+00:00",
@@ -1364,6 +1364,11 @@
     "src_hash": "1adeafc2aa29",
     "zh": "利用平行圖運算的高效能向量資料庫"
   },
+  "erkamyaman/rust-anything": {
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "d5bc4d96459f",
+    "zh": "把整個應用逐段改寫成 Rust，每步對照原程式的錄製行為驗證"
+  },
   "eust-w/opengeniemaster": {
     "at": "2026-11-14T20:16:18+00:00",
     "src_hash": "7f5a56f1f809",
@@ -1410,9 +1415,9 @@
     "zh": "唯讀 MCP server，讓 AI agent 搜尋、讀取你自己的 WhatsApp 訊息"
   },
   "firecrawl/firecrawl": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "97a2ec229740",
-    "zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "5e3b166bc02c",
+    "zh": "給 agent 用的資料 API，一個介面搜尋、抓取網頁，並串接 550 多個資料來源"
   },
   "flohoeller/affectui": {
     "at": "2026-10-30T20:18:02+00:00",
@@ -1530,9 +1535,9 @@
     "zh": "給 coding agent 長駐的 runtime"
   },
   "heygen-com/hyperframes": {
-    "at": "2026-07-27T19:23:58+00:00",
-    "src_hash": "b239f2c17c0e",
-    "zh": "寫 HTML、算繪成影片，為 agent 而生"
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "32f8e9357e55",
+    "zh": "免費開源的 AI 影片編輯器，描述想要的影片就產生可逐格修改的真實專案"
   },
   "hhblaze/DBreeze": {
     "at": "2026-10-24T18:28:06+00:00",
@@ -1650,9 +1655,9 @@
     "zh": "檢查 AI 引擎能否引用你的網站：免費 0–100 GEO 就緒分數，並用自己的 key 做每週引用追蹤"
   },
   "jingyaogong/minimind": {
-    "at": "2026-09-08T19:19:22+00:00",
-    "src_hash": "394531d8c3b6",
-    "zh": "從零訓練一個 6,400 萬參數的 LLM，只要 2 小時"
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "0812bdf6ba77",
+    "zh": "兩小時從零訓練出 6,400 萬參數的大模型"
   },
   "jiwoochris/artex-global": {
     "at": "2026-11-14T20:16:18+00:00",
@@ -2304,6 +2309,11 @@
     "src_hash": "b49c140fb240",
     "zh": "讓 Claude 改造任何你擁有的 PC 遊戲：含技能、工具與 fal MCP，涵蓋逆向工程、素材生成與遊戲內測試"
   },
+  "relatedb/relate": {
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "d940b0c4348b",
+    "zh": "用 Rust 寫的嵌入式本機圖形資料庫，支援 Cypher 25，可存記憶體或交易式檔案系統，為 agent 設計"
+  },
   "respanai/respan-gateway": {
     "at": "2026-11-01T19:59:42+00:00",
     "src_hash": "113961dc7930",
@@ -2503,6 +2513,11 @@
     "at": "2026-08-24T19:12:53+00:00",
     "src_hash": "b59774c79b1e",
     "zh": "開源推論伺服器與正式環境叢集，涵蓋 agent 需要的所有模型"
+  },
+  "sybil-solutions/inference-optimisation-skill": {
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "8e7542566f8a",
+    "zh": "agent skill，在任何硬體與量化下逐步調校本機 LLM 的推論速度"
   },
   "synergycodes/workflowbuilder": {
     "at": "2026-10-21T19:47:16+00:00",
@@ -2739,6 +2754,11 @@
     "src_hash": "ea43d89af93d",
     "zh": "語音 agent 的通用記憶基礎設施，分左腦存資訊、右腦存情緒，採全串流架構以降低延遲"
   },
+  "y5ez3g/facadecode": {
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "c70bf5faee0b",
+    "zh": "VS Code 的多 agent 協調器，讓 Claude Code、Codex 等 CLI 跨視窗互相操作"
+  },
   "yetone/magpie": {
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "1145a2413afb",
@@ -2753,6 +2773,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "436b76437fe1",
     "zh": "LLM 全端學習路線與中文教程，涵蓋 RAG、Agent、MCP、微調與部署"
+  },
+  "ysunyang4/Nexus": {
+    "at": "2026-11-18T22:48:54+00:00",
+    "src_hash": "509c6f2b22f3",
+    "zh": "透過 MCP 讓網頁版 AI 助理連到本機檔案、終端機、Git 與桌面工具，權限由使用者控制"
   },
   "zaxiu88888/issue-rag": {
     "at": "2026-11-13T21:46:45+00:00",

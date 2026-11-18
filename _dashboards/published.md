@@ -1,6 +1,28 @@
-# 已發布事件（671）
+# 已發布事件（681）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-18
+- **[[Events/evt-2026-11-18-06adba|180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 發文談用 Transformers 在 32GB 記憶體上跑 180B 參數的 MoE 模型。
+- **[[Events/evt-2026-11-18-1cfed7|Introducing Gemini 4 Neon]]** — Google DeepMind · model-capability · conf 80 · heat 未量測
+  Google DeepMind 發表 Gemini 4 Neon，本站僅收標題與連結。
+- **[[Events/evt-2026-11-18-2d271d|Inside the Codex sandbox]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 說明 Codex 在 macOS、Linux、Windows 上如何執行指令並限制檔案與網路權限。
+- **[[Events/evt-2026-11-18-3c0260|Managing frontier AI risk: From training to deployment]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 公開前沿 AI 風險從訓練到部署的管理做法，含對齊、沙箱、封鎖防護與監控。
+- **[[Events/evt-2026-11-18-4488cd|Rumble-2-Flash: an open 0.5B speech model for 40+ languages]]** — Hugging Face · model-capability · conf 73 · heat 未量測
+  Hugging Face 發文介紹 Rumble-2-Flash，開放的 0.5B 語音模型，支援 40 多種語言。
+- **[[Events/evt-2026-11-18-4f5128|Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to ChatGPT]]** — OpenAI · capital · conf 73 · heat 未量測
+  Le Groupe Figaro 與 OpenAI 合作，Le Figaro 的新聞將以摘要與節錄形式進入 ChatGPT。
+- **[[Events/evt-2026-11-18-6892d5|NVIDIA RTX Spark Compact Desktops Out Now]]** — NVIDIA · infra · conf 73 · heat 未量測
+  NVIDIA RTX Spark 小型桌機由 ASUS、Dell、MSI 推出，今日開賣，最高 128GB 統一記憶體。
+- **[[Events/evt-2026-11-18-b127b3|DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency]]** — RadixArk · model-capability · conf 73 · heat 未量測
+  RadixArk 在 Hugging Face 發文介紹 DaisyRose-27B，主打後訓練效率。
+- **[[Events/evt-2026-11-18-bb8179|The Silent Consensus]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 的 Dean Ball 發表「The Silent Consensus」，談更強的 AI 如何改變社會，以及人如何保有對制度的掌控。
+- **[[Events/evt-2026-11-18-c87bb7|Genie 4 is now available]]** — Google DeepMind · model-capability · conf 73 · heat 未量測
+  Google DeepMind 宣布 Genie 4 開放使用，本站僅收標題與連結。
 
 ## 2026-11-17
 - **[[Events/evt-2026-11-17-37b350|Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents]]** — NVIDIA · infra · conf 73 · heat 未量測

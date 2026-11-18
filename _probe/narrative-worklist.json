@@ -3,9 +3,45 @@
     "slug": "model-research",
     "name": "模型能力與研究",
     "current_thesis": "訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。",
-    "current_now": "今天新增一則。OpenAI 開始「嵌入式評估」，找 Apollo Research、METR、Transluce 與 Goodfire 獨立檢驗對齊、防護與監控系統，評估範圍、取得的權限與結果公開方式證據裡都沒有。前一輪：11-13 Anthropic 四篇新聞頁文章（前沿 AI 透明度、ASL-3 保護措施、AI 危害處理方法、Responsible Scaling Policy 回顧）依授權只放標題與連結；Ai2 的 XYBench 主題是處理問題背後真正的問題，基準設計與結果手上沒有。11-12 IBM 說 Granite 4.1 的 3B 與 8B 已內建 LLMON，Anthropic 的〈Claude 4〉同樣只放標題與連結。11-11 DeepMind 的 AlphaGenome 2 預測 DNA 序列與變異對特定人類細胞類型和疾病的影響，摘要沒有基準數字。",
-    "current_next": "看 OpenAI 嵌入式評估的第一批報告何時發布，以及評估方能否自行署名公開；看 Anthropic 那幾篇原文有沒有可驗證的具體措施與觸發條件；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡或論文有沒有公布對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊，以及獨立評測；看 AlphaGenome 2 是否釋出論文與基準對比。",
+    "current_now": "今天新增一則。OpenAI 發布 GPT-6.2 Astra 與 Sol，Astra 面向最難的專案，Sol 面向日常工作，API 同步開放（gpt-6.2-astra、gpt-6.2-sol）；價格與基準測試證據裡沒有，官方頁依授權只放標題與連結。前一輪：11-16 OpenAI 開始「嵌入式評估」，找 Apollo Research、METR、Transluce 與 Goodfire 獨立檢驗對齊、防護與監控系統，評估範圍與結果公開方式沒寫。11-13 Anthropic 四篇新聞頁文章（前沿 AI 透明度、ASL-3 保護措施、AI 危害處理方法、Responsible Scaling Policy 回顧）依授權只放標題與連結；Ai2 的 XYBench 基準設計與結果手上沒有。11-12 IBM 說 Granite 4.1 的 3B 與 8B 已內建 LLMON，Anthropic 的〈Claude 4〉同樣只放標題與連結。",
+    "current_next": "看 GPT-6.2 的價格與第三方基準測試，以及 Astra 與 Sol 在開發者實際工作流裡的取捨；看 OpenAI 嵌入式評估的第一批報告何時發布，評估方能否自行署名公開；看 Anthropic 那幾篇原文有沒有可驗證的具體措施與觸發條件；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡或論文有沒有對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊。",
     "events": [
+      {
+        "slug": "introducing-gemini-4-neon-1cfe",
+        "date": "2026-11-18",
+        "company": "Google DeepMind",
+        "title": "Introducing Gemini 4 Neon",
+        "summary": "Google DeepMind 發表 Gemini 4 Neon，本站僅收標題與連結。",
+        "confidence": 80,
+        "heat": "未量測"
+      },
+      {
+        "slug": "rumble-2-flash-an-open-0-5b-speech-model-for-40-languages-4488",
+        "date": "2026-11-18",
+        "company": "Hugging Face",
+        "title": "Rumble-2-Flash: an open 0.5B speech model for 40+ languages",
+        "summary": "Hugging Face 發文介紹 Rumble-2-Flash，開放的 0.5B 語音模型，支援 40 多種語言。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "daisyrose-27b-pushing-the-frontier-of-post-training-efficien-b127",
+        "date": "2026-11-18",
+        "company": "RadixArk",
+        "title": "DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency",
+        "summary": "RadixArk 在 Hugging Face 發文介紹 DaisyRose-27B，主打後訓練效率。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "genie-4-is-now-available-c87b",
+        "date": "2026-11-18",
+        "company": "Google DeepMind",
+        "title": "Genie 4 is now available",
+        "summary": "Google DeepMind 宣布 Genie 4 開放使用，本站僅收標題與連結。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "introducing-gpt-6-2-astra-and-sol-d695",
         "date": "2026-11-17",
@@ -1218,9 +1254,18 @@
     "slug": "agent-refactor",
     "name": "Agent 與軟體重構",
     "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "今天新增四則。OpenAI 的 ChatGPT for Healthcare 加上 computer-use agent、更好的臨床問答與跨醫療軟體的外掛，沒有功能細節與價格；同日另一篇談醫療團隊 computer-use agent 的文章依來源政策只放標題與連結。OpenAI 的 Holiday Extras 客戶案例說 dots 會在沒人要求時主動交出上線報告並提醒問題，dots 的產品形式證據沒有定義。NVIDIA 擴充 CUDA-X 函式庫，新增 cuPhoton、cuPotential、cuSpa，各函式庫的加速倍數不在證據內。前一輪：11-16 之前 OpenAI 客戶案例說 Shield 用 Forge 代理人替 IT 技術人員接手舊版入口網站的操作，Amplitude 的 Wave 標題稱改善 1 到 2 天上線，都沒有基準數字。11-10 DeepMind 的 AlphaProof Code 用 Lean 寫了三百萬行證明來驗證 Signal 的核心加密，涵蓋範圍摘要沒寫。",
-    "current_next": "看哪些醫療機構或軟體廠商公開採用 computer-use agent，以及有沒有臨床準確度的量化數字；看 dots 是否成為正式產品名稱、Holiday Extras 是否補上成效數據；看 CUDA-X 各函式庫的基準數字，以及有沒有 agent 框架官方整合；看 Shield 或 OpenAI 是否公布 Forge 的處理量與節省工時；看 Signal 或第三方是否獨立確認 AlphaProof Code 的證明結果。",
+    "current_now": "今天新增一則。OpenAI 推出 ChatGPT for Sales，含 Sales 外掛與 30 多個新增或擴充的夥伴外掛，用途是研究潛在客戶、準備提案、更新 CRM；外掛清單與寫回權限的控管方式證據裡沒有。前一輪：11-16 OpenAI 的 Revolut 案例宣稱用模型與 Codex 把寫程式時間縮短 30 到 60%，數字來自廠商自述，沒有基準線。ChatGPT for Healthcare 加上 computer-use agent、更好的臨床問答與跨醫療軟體的外掛，沒有功能細節與價格；同日另一篇談醫療團隊 computer-use agent 的文章只放標題與連結。Holiday Extras 案例說 dots 會在沒人要求時主動交出上線報告。NVIDIA 擴充 CUDA-X，新增 cuPhoton、cuPotential、cuSpa，加速倍數不在證據內。",
+    "current_next": "看 Sales 外掛清單是否涵蓋主要 CRM 廠商，有沒有企業公開導入後的流程數據；看 Revolut 是否公開 30 到 60% 的衡量方法；看哪些醫療機構公開採用 computer-use agent，有沒有臨床準確度的量化數字；看 dots 是否成為正式產品名稱；看 CUDA-X 各函式庫的基準數字，以及有沒有 agent 框架官方整合。",
     "events": [
+      {
+        "slug": "inside-the-codex-sandbox-2d27",
+        "date": "2026-11-18",
+        "company": "OpenAI",
+        "title": "Inside the Codex sandbox",
+        "summary": "OpenAI 說明 Codex 在 macOS、Linux、Windows 上如何執行指令並限制檔案與網路權限。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "introducing-chatgpt-for-sales-6d0b",
         "date": "2026-11-17",
@@ -1803,9 +1848,18 @@
     "slug": "product-market",
     "name": "產品與商業驗證",
     "current_thesis": "本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。",
-    "current_now": "今天新增四則。OpenAI 擴大 ChatGPT for Academic Researchers，讓全球 20 萬名研究者免費使用前沿模型，資格條件與額度沒給；同時開了科學專屬部落格。Hugging Face 與 OpenRouter 合作，目標是讓開放權重模型更容易跑起來，整合方式與定價證據只有通用簡介，待補。另有一篇 OpenAI 兒少安全文章依來源政策只放標題與連結。前一輪：NVIDIA 部落格盤點醫療團隊如何用 AI 縮短病患等到適當照護的時間，沒有可比較的成效數字；Anthropic 的〈模型停用承諾〉只放標題與連結。11-12 OpenAI 的 Gondola 案例說 Codex 讓主力工程師產出提高 50%，沒有第三方查證。11-11 OpenAI 說逾 20,000 名退伍軍人與轉職軍人領了一年免費 ChatGPT Plus，是領取數不是續用數。",
-    "current_next": "看學術研究者方案的申請條件與每人額度，以及校級合作是否同步出現；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口，以及開放模型在 OpenRouter 上的用量變化；看 OpenAI 科學部落格接下來的發文量與外部研究者署名；看 Anthropic 〈模型停用承諾〉原文列出的通知期限；看 OpenAI 是否公開 Gondola 案例的衡量方式；看免費方案的續訂情況。",
+    "current_now": "今天新增一則。OpenAI 稱 Astra for Law 在涵蓋 24 個法律領域的發布評測排名第一，ChatGPT Enterprise 客戶可申請使用；評測方法與對手證據裡沒有，是廠商自選評測。前一輪：11-12 ChatGPT Ads 指定 Aleph 為 44 國獨家經銷商，提供在地開票與支援，廣告營收規模沒給。11-16 OpenAI 擴大 ChatGPT for Academic Researchers，讓全球 20 萬名研究者免費使用前沿模型，資格條件與額度沒給；Hugging Face 與 OpenRouter 合作，整合方式與定價只有通用簡介。OpenAI 兒少安全文章與 Anthropic 的〈模型停用承諾〉只放標題與連結。11-12 Gondola 案例說 Codex 讓主力工程師產出提高 50%，沒有第三方查證。",
+    "current_next": "看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收，是否再增加經銷商；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 Anthropic 〈模型停用承諾〉原文列出的通知期限；看 OpenAI 是否公開 Gondola 案例的衡量方式。",
     "events": [
+      {
+        "slug": "le-groupe-figaro-and-openai-partner-to-bring-le-figaro-journ-4f51",
+        "date": "2026-11-18",
+        "company": "OpenAI",
+        "title": "Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to ChatGPT",
+        "summary": "Le Groupe Figaro 與 OpenAI 合作，Le Figaro 的新聞將以摘要與節錄形式進入 ChatGPT。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "astra-for-law-leads-in-legal-intelligence-f12b",
         "date": "2026-11-17",
@@ -3711,9 +3765,27 @@
     "slug": "infra-cost",
     "name": "基礎設施與成本",
     "current_thesis": "本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。",
-    "current_now": "今天新增七則，五則來自 NVIDIA 的 SC26 週。Rubin HPC 是 Vera Rubin 平台裡針對模擬與資料處理的新 GPU，規格與時程證據裡沒有；DGX Spark HPC 開發套件是四台 DGX Spark 環狀直連的桌面叢集；Slurm 擴充要把量子處理器排進超算排程，稿件自述近 30 個中心正在部署逾 50 顆量子處理器；NVIDIA 稱 Vera Rubin 首次參賽就拿下 MLPerf Training v6.1 全部項目，是廠商自述，其他廠商是否送件沒交代；Lambda 用 Photonics CPO 交換器串接 GB300 NVL72，功耗與故障率沒有數字。另有供應鏈主管專訪。非 NVIDIA 的一則是 vLLM v0.34.0，新增 10 個模型支援，KV cache 預設改成依暖機後實際剩餘記憶體配置。前一輪：ggml-org 宣布 llama.cpp 進入 v1.0.0，變更內容證據不足。11-09 NVIDIA 為四款韓國開放模型釋出 Dynamo 部署配方，沒有吞吐量或延遲數字。",
-    "current_next": "看 Rubin HPC 的雙精度規格與出貨時間；看 MLPerf Training v6.1 其他廠商的送件情形，以及 Endpoints 的 10 倍是跟誰比；看 Lambda 公布的 CPO 部署規模、故障率與功耗；看 Slurm 量子擴充是否合入上游、有哪些量子廠商接上；看 vLLM 新模型支援的實測吞吐，以及 KV cache 預設改動有沒有引發記憶體回報；看 llama.cpp v1.0.0 有沒有穩定承諾；看 Dynamo 配方公布的實測吞吐量。",
+    "current_now": "今天新增一則。NVIDIA 的 Ian Buck 在 SC26 週一特別演講上宣布給 AI agent 用的新工具（能規劃實驗、執行程式、檢查結果，跑在研究者自己的系統上）、Nemotron for Science 與 Rubin HPC GPU；來源摘要在此截斷，規格、價格與出貨時間證據不足。前一輪：Rubin HPC 是 Vera Rubin 平台裡針對模擬與資料處理的新 GPU；DGX Spark HPC 開發套件是四台 DGX Spark 環狀直連的桌面叢集；Slurm 擴充要把量子處理器排進超算排程；NVIDIA 稱 Vera Rubin 首次參賽就拿下 MLPerf Training v6.1 全部項目，是廠商自述；Lambda 用 Photonics CPO 交換器串接 GB300 NVL72，功耗與故障率沒有數字。vLLM v0.34.0 新增 10 個模型支援，KV cache 預設改成依暖機後實際剩餘記憶體配置。11-13 ggml-org 宣布 llama.cpp 進入 v1.0.0，變更內容證據不足。",
+    "current_next": "看 Rubin HPC 的規格與出貨時間，以及哪些國家實驗室或大學宣布採用；看 MLPerf Training v6.1 其他廠商的送件情形；看 Lambda 公布的 CPO 部署規模、故障率與功耗；看 Slurm 量子擴充是否合入上游；看 vLLM 新模型支援的實測吞吐，以及 KV cache 預設改動有沒有引發記憶體回報；看 llama.cpp v1.0.0 有沒有穩定承諾。",
     "events": [
+      {
+        "slug": "180b-parameters-32gb-of-ram-pushing-moe-inference-to-the-lim-06ad",
+        "date": "2026-11-18",
+        "company": "Hugging Face",
+        "title": "180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers",
+        "summary": "Hugging Face 發文談用 Transformers 在 32GB 記憶體上跑 180B 參數的 MoE 模型。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "nvidia-rtx-spark-compact-desktops-out-now-6892",
+        "date": "2026-11-18",
+        "company": "NVIDIA",
+        "title": "NVIDIA RTX Spark Compact Desktops Out Now",
+        "summary": "NVIDIA RTX Spark 小型桌機由 ASUS、Dell、MSI 推出，今日開賣，最高 128GB 統一記憶體。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "ian-buck-kicks-off-nvidia-s-week-at-sc26-as-science-enters-t-37b3",
         "date": "2026-11-17",
@@ -4728,9 +4800,27 @@
     "slug": "global-map",
     "name": "全球創新版圖",
     "current_thesis": "尚無足夠已發布事件可支撐判斷——等抓取鏈在這條主線收斂出事件後補上。",
-    "current_now": "今天新增三則。NVIDIA 的 AI Day Seoul 在 COEX 兩天吸引逾 2,000 人，主題是實體 AI 與 AI agent，沒有具體合作案或金額。The King’s Trust 與 OpenAI 推出 100 萬英鎊合作，協助英國最多 25,000 名年輕人學 AI 技能，課程與期程證據沒有。Anthropic 一篇標題為「Canadian AI Research」的新聞稿依授權只放標題與連結，內容請看原文。前一輪：Anthropic 的〈Statement Comments Secretary War〉與〈Election Safeguards Update〉同樣只放標題與連結。11-12 OpenAI 宣布出資 200 萬美元投入 AI 與兒童安全研究，受款單位與期程沒給。11-09 NVIDIA 與韓國科學技術資訊通訊部擴大主權 AI 合作，摘要沒有時程與金額。11-06 Open ASR Leaderboard 加入埃及與奈及利亞口音的英語，資料集規模沒有證據。",
-    "current_next": "看韓國業者後續是否公布與 NVIDIA 的機器人或實體 AI 專案；看 King’s Trust 課程是否開跑、首批受訓人數與就業追蹤；看 Anthropic 加拿大那篇原文是投資、合作還是據點；看 OpenAI 200 萬美元的受款團隊；看韓國合作公布 NPU 與 XPU 共同開發的時程；看 Open ASR Leaderboard 新增資料的規模與各模型錯誤率。",
+    "current_now": "今天新增兩則，都是 OpenAI 與政府的合作。OpenAI for Chile 與智利政府合作，方向是負責任的 AI 採用、公部門技能培訓、協助當地新創，金額、期程與授權條件證據沒有。OpenAI 與北約及盟國網路機構合作，讓受信任的防禦方用 AI 找漏洞、測修補，參與國與使用的模型沒寫。前一輪：NVIDIA 的 AI Day Seoul 兩天吸引逾 2,000 人，主題是實體 AI 與 AI agent，沒有具體合作案或金額。The King's Trust 與 OpenAI 推出 100 萬英鎊合作，協助英國最多 25,000 名年輕人學 AI 技能。Anthropic 的〈Canadian AI Research〉與另外兩篇新聞稿只放標題與連結。11-12 OpenAI 出資 200 萬美元投入 AI 與兒童安全研究，受款單位與期程沒給。",
+    "current_next": "看智利合作是否公布預算、參與的政府部門與首批新創名單；看北約合作是否公布參與機構與第一批可驗證的漏洞發現與修補成果；看 King's Trust 課程是否開跑、首批受訓人數；看 Anthropic 加拿大那篇原文是投資、合作還是據點；看 OpenAI 200 萬美元的受款團隊；看韓國業者後續是否公布與 NVIDIA 的機器人或實體 AI 專案。",
     "events": [
+      {
+        "slug": "managing-frontier-ai-risk-from-training-to-deployment-3c02",
+        "date": "2026-11-18",
+        "company": "OpenAI",
+        "title": "Managing frontier AI risk: From training to deployment",
+        "summary": "OpenAI 公開前沿 AI 風險從訓練到部署的管理做法，含對齊、沙箱、封鎖防護與監控。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
+      {
+        "slug": "the-silent-consensus-bb81",
+        "date": "2026-11-18",
+        "company": "OpenAI",
+        "title": "The Silent Consensus",
+        "summary": "OpenAI 的 Dean Ball 發表「The Silent Consensus」，談更強的 AI 如何改變社會，以及人如何保有對制度的掌控。",
+        "confidence": 73,
+        "heat": "未量測"
+      },
       {
         "slug": "strengthening-nato-and-allied-cyber-defenses-with-ai-56f2",
         "date": "2026-11-17",
