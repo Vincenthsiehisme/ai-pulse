@@ -1,50 +1,142 @@
 [
   {
-    "full_name": "N1nEmAn/sapper-v2",
-    "desc": "The first fruit of the Nüwa tree — an autonomous AI pentest legion (634-team champion, 8h unattended, 1B tokens beat 4.5B). Not just a tool: evolvable by design. Grow your own fruit on the Nüwa Foundation (Create/Language/History).",
-    "language": "Python",
-    "topics": [
-      "agentic-workflows",
-      "ai-agents",
-      "ai-security",
-      "autonomous-agents",
-      "claude-code",
-      "ctf"
-    ],
-    "stars": 2317,
-    "url": "https://github.com/N1nEmAn/sapper-v2",
-    "stale_zh": "自主滲透測試軍團：AI 指揮官加 worker 群與分層事實意圖圖，拿下騰訊智慧攻防線上賽冠軍"
-  },
-  {
-    "full_name": "everyinfra/everyinfra-agent-plugins",
-    "desc": "EveryInfra MCP server & agent plugin: scraper API for TikTok, Instagram, Amazon, YouTube, Xiaohongshu & Douyin. 612 data APIs across 106 platforms, from $0.56/1K calls. For Claude Code, Cursor, Codex.",
-    "language": "Python",
-    "topics": [
-      "ai-agents",
-      "amazon-scraper",
-      "captcha-solver",
-      "claude-code",
-      "cursor",
-      "douyin"
-    ],
-    "stars": 581,
-    "url": "https://github.com/everyinfra/everyinfra-agent-plugins",
-    "stale_zh": "EveryInfra 的 MCP server 與 agent 外掛，提供 106 個平台、574 支爬取 API"
-  },
-  {
-    "full_name": "kubai087/kubai-icons",
-    "desc": "An agent skill that draws animated icons in one consistent style, for Claude Code, Codex and other coding agents. Comes with 2,600+ open-source icons for React, Vue and SVG, and a website to browse them.",
-    "language": "JavaScript",
+    "full_name": "erkamyaman/rust-anything",
+    "desc": "Rewrite your whole app in Rust, one piece at a time, checked against the original's recorded behavior at every step. CLIs, HTTP servers and libraries in TypeScript, Python, C, Go, Ruby and Java.",
+    "language": "Rust",
     "topics": [
       "agent-skills",
-      "ai-agents",
-      "animated-icons",
-      "animation",
-      "claude",
-      "claude-skill"
+      "claude-code",
+      "cli",
+      "code-migration",
+      "codex",
+      "ffi"
     ],
-    "stars": 944,
-    "url": "https://github.com/kubai087/kubai-icons",
+    "stars": 3266,
+    "url": "https://github.com/erkamyaman/rust-anything",
     "stale_zh": null
+  },
+  {
+    "full_name": "ysunyang4/Nexus",
+    "desc": "Connect web AI assistants to local files, terminals, Git, and desktop tools through MCP, with user-controlled permissions.",
+    "language": "TypeScript",
+    "topics": [
+      "ai-agent",
+      "browser-extension",
+      "chrome-extension",
+      "llm",
+      "local-ai",
+      "mcp"
+    ],
+    "stars": 406,
+    "url": "https://github.com/ysunyang4/Nexus",
+    "stale_zh": null
+  },
+  {
+    "full_name": "relatedb/relate",
+    "desc": "An embedded local, agent-native graph database supporting Cypher 25 written in Rust. Memory or transactional filesystem.",
+    "language": "Rust",
+    "topics": [
+      "agent-memory",
+      "agent-sandbox-tools",
+      "agentic-ai",
+      "cypher",
+      "emedded-database",
+      "graph-database"
+    ],
+    "stars": 399,
+    "url": "https://github.com/relatedb/relate",
+    "stale_zh": null
+  },
+  {
+    "full_name": "sybil-solutions/inference-optimisation-skill",
+    "desc": "Agent skill for hill-climbing local LLM serving speed (decode, speculative decoding, prefill, KV, startup, TTFT) on any hardware and quantization",
+    "language": "Python",
+    "topics": [
+      "agent-skill",
+      "benchmarking",
+      "claude-code",
+      "inference",
+      "llm",
+      "speculative-decoding"
+    ],
+    "stars": 1090,
+    "url": "https://github.com/sybil-solutions/inference-optimisation-skill",
+    "stale_zh": null
+  },
+  {
+    "full_name": "0sec-labs/0security",
+    "desc": "Open-source cybersecurity harness to build and deploy sovereign, persistent AI security agents (sentinels) that continuously find, prove and fix security risks. Web UI, CLI, CI and MCP.",
+    "language": "TypeScript",
+    "topics": [
+      "llm-agents",
+      "security-research",
+      "security-tools",
+      "application-security",
+      "binary-analysis",
+      "cybersecurity"
+    ],
+    "stars": 1502,
+    "url": "https://github.com/0sec-labs/0security",
+    "stale_zh": "部署自主、常駐的 AI 資安 agent，持續找出、驗證並修補風險，有 CLI 與 MCP"
+  },
+  {
+    "full_name": "y5ez3g/facadecode",
+    "desc": "The multi-agent orchestrator for VS Code. Run Claude Code, Codex, and other agent CLIs that start, message, and operate each other across windows and machines.",
+    "language": "TypeScript",
+    "topics": [
+      "agent-orchestration",
+      "agentic-coding",
+      "ai-agents",
+      "antigravity",
+      "claude-code",
+      "claude-code-extension"
+    ],
+    "stars": 452,
+    "url": "https://github.com/y5ez3g/facadecode",
+    "stale_zh": null
+  },
+  {
+    "full_name": "heygen-com/hyperframes",
+    "desc": "AI video you can actually edit. HyperFrames is a free, open-source AI video editor. Describe any video and get a real project you can change down to the frame.",
+    "language": "TypeScript",
+    "topics": [
+      "ai",
+      "animation",
+      "ffmpeg",
+      "framework",
+      "gsap",
+      "html"
+    ],
+    "stars": 86507,
+    "url": "https://github.com/heygen-com/hyperframes",
+    "stale_zh": "寫 HTML、算繪成影片，為 agent 而生"
+  },
+  {
+    "full_name": "jingyaogong/minimind",
+    "desc": "🧠 两小时从 0 训出你的 64M 大模型。Train your own 64M LLM from scratch in 2 hours.",
+    "language": "Python",
+    "topics": [
+      "artificial-intelligence",
+      "large-language-model"
+    ],
+    "stars": 66486,
+    "url": "https://github.com/jingyaogong/minimind",
+    "stale_zh": "從零訓練一個 6,400 萬參數的 LLM，只要 2 小時"
+  },
+  {
+    "full_name": "firecrawl/firecrawl",
+    "desc": "Knowledge infrastructure to make your agents smarter. Search, scrape and 550+ data providers through one API.",
+    "language": "TypeScript",
+    "topics": [
+      "ai",
+      "crawler",
+      "markdown",
+      "scraper",
+      "html-to-markdown",
+      "llm"
+    ],
+    "stars": 203114,
+    "url": "https://github.com/firecrawl/firecrawl",
+    "stale_zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
   }
 ]

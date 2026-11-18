@@ -3,18 +3,19 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-11-17'
+generated_day: '2026-11-18'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **146** 則：`dropped` 1、`published` 136、`review` 9
+事件 **147** 則：`dropped` 1、`published` 137、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-17 | [[Events/evt-2026-11-17-37b350\|Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents]] | review |
+| 2026-11-18 | [[Events/evt-2026-11-18-6892d5\|NVIDIA RTX Spark Compact Desktops Out Now]] | review |
+| 2026-11-17 | [[Events/evt-2026-11-17-37b350\|Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents]] | published |
 | 2026-11-16 | [[Events/evt-2026-11-16-e5509d\|NVIDIA Announces Rubin HPC — A New GPU to Accelerate Agents for Science, Engineering and Analytics]] | published |
 | 2026-11-16 | [[Events/evt-2026-11-16-ae9a1a\|NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery]] | published |
 | 2026-11-16 | [[Events/evt-2026-11-16-a13cdb\|AI Day Seoul Brings Together Korea’s Industry Leaders, Startups and Developer Communities]] | published |

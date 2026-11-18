@@ -1,7 +1,18 @@
-# 被門禁擋下（74）
+# 被門禁擋下（87）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-18-06adba|180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with ]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-1cfed7|Introducing Gemini 4 Neon]]** — Google DeepMind — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
+- **[[Events/evt-2026-11-18-2d271d|Inside the Codex sandbox]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-38ef4c|Why your fine-tuning job takes longer than the FLOPs say]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-3c0260|Managing frontier AI risk: From training to deployment]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-4f5128|Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to C]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-6892d5|NVIDIA RTX Spark Compact Desktops Out Now]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-b127b3|DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-bb8179|The Silent Consensus]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-c82890|Time-Series Models in the Streamhouse: A New Frontier and Use Cases]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-fa6769|Advancing chip design with OpenAI models]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-16-0c5fcf|Science at the Frontier: How scientists use ChatGPT]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-15-0b968e|A step toward defining the Standard Model on a lattice]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-13-09842e|A New Initiative For Developing Third Party Model Evaluations]]** — Anthropic — blockers: thin_research_analysis
@@ -67,6 +78,8 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-11-18-4488cd|Rumble-2-Flash: an open 0.5B speech model for 40+ languages]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-18-c87bb7|Genie 4 is now available]]** — industry — blockers: placeholder_content, thin_by_policy, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity
