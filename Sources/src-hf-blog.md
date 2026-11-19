@@ -19,10 +19,10 @@ first_fetch_at: "2026-07-23"
 last_observed_day: "2026-11-18"
 items_observed: 141
 events_bound: 118
-events_published: 78
+events_published: 81
 health_score: 100
 consecutive_failures: 0
-last_status: 200
+last_status: 304
 ---
 
 # Hugging Face（src-hf-blog）
@@ -36,7 +36,7 @@ last_status: 200
 | 收錄 | `probing` | 會被抓 |
 | 已觀測 | 141 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 118 則事件 | 抓到了但聚類沒把它綁成證據 |
-| 已發布 | 78 則 | 綁上了但門禁擋著——那是設計，不是故障 |
+| 已發布 | 81 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 
 > 媒體集團：**HuggingFace**。獨立性是按 source + author + media group 判的，所以同一個 media_group 的兩條來源**加起來只算一個獨立聲音**。
 

@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-18"
+generated_day: "2026-11-19"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-18"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **657** 則／已裁決 **26** 則。
+待回答 **667** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -24,25 +24,25 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 ## 主線層（6）
 
-- **`infra-cost#58456f44`** — infra-cost
-  > 看 Rubin HPC 的規格與出貨時間，以及哪些國家實驗室或大學宣布採用；看 MLPerf Training v6.1 其他廠商的送件情形；看 Lambda 公布的 CPO 部署規模、故障率與功耗；看 Slurm 量子擴充是否合入上游；看 vLLM 新模型支援的實測吞吐，以及 KV cache 預設改動有沒有引發記憶體回報；看 llama.cpp v1.0.0 有沒有穩定承諾。
+- **`infra-cost#128c3e1e`** — infra-cost
+  > 看 RTX Spark 各機型定價與可跑的模型大小，以及 MoE 專家串流的 tokens/s 與是否併入 Transformers 正式版。 看 Rubin HPC 的規格與出貨時間，以及哪些國家實驗室或大學宣布採用；看 MLPerf Training v6.1 其他廠商的送件情形；看 Lambda 公布的 CPO 部署規模、故障率與功耗；看 Slurm 量子擴充是否合入上游；看 vLLM 新模型支援的實測吞吐，以及 KV cache 預設改動有沒有引發記憶體回報；看 llama.cpp v1.0.0 有沒有穩定承諾。
 
-- **`model-research#9192841a`** — model-research
-  > 看 GPT-6.2 的價格與第三方基準測試，以及 Astra 與 Sol 在開發者實際工作流裡的取捨；看 OpenAI 嵌入式評估的第一批報告何時發布，評估方能否自行署名公開；看 Anthropic 那幾篇原文有沒有可驗證的具體措施與觸發條件；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡或論文有沒有對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊。
+- **`model-research#2d6b2dfd`** — model-research
+  > 看 Gemini 4 Neon 與 Genie 4 原文公布的規格、基準測試與定價；看 Rumble-2-Flash 的語言別錯誤率與授權條款；看 DaisyRose-27B 是否公開權重與訓練成本。 看 GPT-6.2 的價格與第三方基準測試，以及 Astra 與 Sol 在開發者實際工作流裡的取捨；看 OpenAI 嵌入式評估的第一批報告何時發布，評估方能否自行署名公開；看 Anthropic 那幾篇原文有沒有可驗證的具體措施與觸發條件；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡或論文有沒有對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊。
 
-- **`product-market#07e5fcff`** — product-market
-  > 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收，是否再增加經銷商；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 Anthropic 〈模型停用承諾〉原文列出的通知期限；看 OpenAI 是否公開 Gondola 案例的衡量方式。
+- **`product-market#8b21131c`** — product-market
+  > 看雙方是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收，是否再增加經銷商；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 Anthropic 〈模型停用承諾〉原文列出的通知期限；看 OpenAI 是否公開 Gondola 案例的衡量方式。
 
 - **`capital-evolution#d9bd32dc`** — capital-evolution
   > 看 ChatGPT 內出現 LVMH 刊物的呈現方式，以及雙方是否公布授權與分潤條件；看 SB 53 的後續立法進度與其他業者是否表態；看那三篇 Anthropic 原文的具體建議；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額與交割時間。
 
-- **`agent-refactor#b45367c1`** — agent-refactor
-  > 看 Sales 外掛清單是否涵蓋主要 CRM 廠商，有沒有企業公開導入後的流程數據；看 Revolut 是否公開 30 到 60% 的衡量方法；看哪些醫療機構公開採用 computer-use agent，有沒有臨床準確度的量化數字；看 dots 是否成為正式產品名稱；看 CUDA-X 各函式庫的基準數字，以及有沒有 agent 框架官方整合。
+- **`agent-refactor#9f414d62`** — agent-refactor
+  > 看 Codex 沙箱原文是否列出各平台的隔離機制，以及外部資安研究者有沒有人驗證或繞過。 看 Sales 外掛清單是否涵蓋主要 CRM 廠商，有沒有企業公開導入後的流程數據；看 Revolut 是否公開 30 到 60% 的衡量方法；看哪些醫療機構公開採用 computer-use agent，有沒有臨床準確度的量化數字；看 dots 是否成為正式產品名稱；看 CUDA-X 各函式庫的基準數字，以及有沒有 agent 框架官方整合。
 
-- **`global-map#146f3c81`** — global-map
-  > 看智利合作是否公布預算、參與的政府部門與首批新創名單；看北約合作是否公布參與機構與第一批可驗證的漏洞發現與修補成果；看 King's Trust 課程是否開跑、首批受訓人數；看 Anthropic 加拿大那篇原文是投資、合作還是據點；看 OpenAI 200 萬美元的受款團隊；看韓國業者後續是否公布與 NVIDIA 的機器人或實體 AI 專案。
+- **`global-map#7602049d`** — global-map
+  > 看風險管理文章是否附可驗證的評估門檻，以及政策圈與第三方的回應；看 Dean Ball 那篇有沒有提出具體的制度建議。 看智利合作是否公布預算、參與的政府部門與首批新創名單；看北約合作是否公布參與機構與第一批可驗證的漏洞發現與修補成果；看 King's Trust 課程是否開跑、首批受訓人數；看 Anthropic 加拿大那篇原文是投資、合作還是據點；看 OpenAI 200 萬美元的受款團隊；看韓國業者後續是否公布與 NVIDIA 的機器人或實體 AI 專案。
 
-## 事件層（651）
+## 事件層（661）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -1996,3 +1996,33 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-11-17-f12b90#220d28ca`** — evt-2026-11-17-f12b90
   > 評測方法與對手是否公開，以及律所或法務部門的實際使用回報。
+
+- **`evt-2026-11-18-06adba#a6285f52`** — evt-2026-11-18-06adba
+  > 原文是否附 tokens/s 數字與支援的模型清單，以及功能是否併入 Transformers 正式版。
+
+- **`evt-2026-11-18-1cfed7#1a5ba8d6`** — evt-2026-11-18-1cfed7
+  > 原文公布的基準測試、API 上線時間與定價。
+
+- **`evt-2026-11-18-2d271d#4e79877d`** — evt-2026-11-18-2d271d
+  > 原文是否列出各平台的隔離機制，以及外部資安研究者是否有人驗證或繞過。
+
+- **`evt-2026-11-18-3c0260#2aa511e7`** — evt-2026-11-18-3c0260
+  > 原文是否附具體的評估門檻，以及監管機構或第三方是否引用。
+
+- **`evt-2026-11-18-4488cd#1b170afa`** — evt-2026-11-18-4488cd
+  > 原文的語言別錯誤率、授權條款，以及社群的實測回報。
+
+- **`evt-2026-11-18-4f5128#13f8c12f`** — evt-2026-11-18-4f5128
+  > 雙方是否公布條件或導流成效，以及其他歐洲出版商是否跟進。
+
+- **`evt-2026-11-18-6892d5#27af2e0b`** — evt-2026-11-18-6892d5
+  > 各家機型的定價、實際可跑的模型大小與吞吐量評測。
+
+- **`evt-2026-11-18-b127b3#9797a4f9`** — evt-2026-11-18-b127b3
+  > 原文的評測結果、訓練成本，以及模型權重是否開放。
+
+- **`evt-2026-11-18-bb8179#d6350ef2`** — evt-2026-11-18-bb8179
+  > 文中是否提出具體的制度建議，以及外界與政策圈的回應。
+
+- **`evt-2026-11-18-c87bb7#df2c853e`** — evt-2026-11-18-c87bb7
+  > 原文載明的開放地區、使用門檻與定價。

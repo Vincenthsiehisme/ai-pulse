@@ -3,18 +3,19 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-11-18'
+generated_day: '2026-11-19'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **35** 則：`published` 28、`review` 7
+事件 **36** 則：`published` 30、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-18 | [[Events/evt-2026-11-18-1cfed7\|Introducing Gemini 4 Neon]] | review |
+| 2026-11-18 | [[Events/evt-2026-11-18-c87bb7\|Genie 4 is now available]] | published |
+| 2026-11-18 | [[Events/evt-2026-11-18-1cfed7\|Introducing Gemini 4 Neon]] | published |
 | 2026-11-11 | [[Events/evt-2026-11-11-378012\|AlphaGenome 2: Deciphering how cells read DNA to better understand disease]] | published |
 | 2026-11-10 | [[Events/evt-2026-11-10-2c86c2\|Introducing AlphaProof Code: a breakthrough in verifying complex software at depth]] | published |
 | 2026-11-09 | [[Events/evt-2026-11-09-add137\|Gemini Robotics 2.5 accelerates real-world general dexterity]] | published |

@@ -1,8 +1,13 @@
-# 被門禁擋下（77）
+# 被門禁擋下（83）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-19-311148|NVIDIA and Microsoft Expand Accelerated Computing From Azure to Window]]** — Microsoft — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-19-f0e20c|How OpenAI’s Performance Factory keeps ChatGPT fast]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-18-38ef4c|Why your fine-tuning job takes longer than the FLOPs say]]** — Dharma-AI — blockers: thin_research_analysis
+- **[[Events/evt-2026-11-18-848f95|Research acceleration: The jagged frontier]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-8e14d3|How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-18-91ed0d|Anthropic Prices Initial Public Offering]]** — Anthropic — blockers: placeholder_content, thin_by_policy, missing_category, missing_track
 - **[[Events/evt-2026-11-18-c82890|Time-Series Models in the Streamhouse: A New Frontier and Use Cases]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-18-fa6769|Advancing chip design with OpenAI models]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-16-0c5fcf|Science at the Frontier: How scientists use ChatGPT]]** — OpenAI — blockers: thin_research_analysis
@@ -70,6 +75,7 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-11-19-b90430|Season’s Streamings and Savings: Black Friday Deals Come to GeForce NO]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity

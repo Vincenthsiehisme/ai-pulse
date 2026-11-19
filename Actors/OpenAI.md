@@ -3,22 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-18'
+generated_day: '2026-11-19'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **257** 則：`published` 243、`review` 14
+事件 **260** 則：`published` 247、`review` 13
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-19 | [[Events/evt-2026-11-19-f0e20c\|How OpenAI’s Performance Factory keeps ChatGPT fast]] | review |
 | 2026-11-18 | [[Events/evt-2026-11-18-fa6769\|Advancing chip design with OpenAI models]] | review |
-| 2026-11-18 | [[Events/evt-2026-11-18-bb8179\|The Silent Consensus]] | review |
-| 2026-11-18 | [[Events/evt-2026-11-18-4f5128\|Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to ChatGPT]] | review |
-| 2026-11-18 | [[Events/evt-2026-11-18-3c0260\|Managing frontier AI risk: From training to deployment]] | review |
-| 2026-11-18 | [[Events/evt-2026-11-18-2d271d\|Inside the Codex sandbox]] | review |
+| 2026-11-18 | [[Events/evt-2026-11-18-bb8179\|The Silent Consensus]] | published |
+| 2026-11-18 | [[Events/evt-2026-11-18-8e14d3\|How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise]] | review |
+| 2026-11-18 | [[Events/evt-2026-11-18-848f95\|Research acceleration: The jagged frontier]] | review |
+| 2026-11-18 | [[Events/evt-2026-11-18-4f5128\|Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to ChatGPT]] | published |
+| 2026-11-18 | [[Events/evt-2026-11-18-3c0260\|Managing frontier AI risk: From training to deployment]] | published |
+| 2026-11-18 | [[Events/evt-2026-11-18-2d271d\|Inside the Codex sandbox]] | published |
 | 2026-11-17 | [[Events/evt-2026-11-17-f12b90\|Astra for Law leads in legal intelligence]] | published |
 | 2026-11-17 | [[Events/evt-2026-11-17-d69535\|Introducing GPT-6.2 Astra and Sol]] | published |
 | 2026-11-17 | [[Events/evt-2026-11-17-7f7dd6\|Introducing OpenAI for Chile]] | published |

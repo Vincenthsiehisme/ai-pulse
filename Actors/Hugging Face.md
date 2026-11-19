@@ -3,21 +3,19 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-18'
+generated_day: '2026-11-19'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **40** 則：`published` 29、`review` 11
+事件 **38** 則：`published` 31、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-18 | [[Events/evt-2026-11-18-c82890\|Time-Series Models in the Streamhouse: A New Frontier and Use Cases]] | review |
-| 2026-11-18 | [[Events/evt-2026-11-18-b127b3\|DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency]] | review |
-| 2026-11-18 | [[Events/evt-2026-11-18-38ef4c\|Why your fine-tuning job takes longer than the FLOPs say]] | review |
-| 2026-11-18 | [[Events/evt-2026-11-18-06adba\|180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers]] | review |
+| 2026-11-18 | [[Events/evt-2026-11-18-4488cd\|Rumble-2-Flash: an open 0.5B speech model for 40+ languages]] | published |
+| 2026-11-18 | [[Events/evt-2026-11-18-06adba\|180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers]] | published |
 | 2026-11-16 | [[Events/evt-2026-11-16-811566\|Hugging Face and OpenRouter join forces to make open-weight models easy to run]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-b58850\|The Definitive Fine-Tuning Guide for 3D Generation Models]] | published |
 | 2026-11-11 | [[Events/evt-2026-11-11-a332b2\|Token Pooling-Aware Training for Multi-Vector Embedding Models]] | review |

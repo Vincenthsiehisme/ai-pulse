@@ -1,142 +1,146 @@
 [
   {
-    "full_name": "erkamyaman/rust-anything",
-    "desc": "Rewrite your whole app in Rust, one piece at a time, checked against the original's recorded behavior at every step. CLIs, HTTP servers and libraries in TypeScript, Python, C, Go, Ruby and Java.",
-    "language": "Rust",
-    "topics": [
-      "agent-skills",
-      "claude-code",
-      "cli",
-      "code-migration",
-      "codex",
-      "ffi"
-    ],
-    "stars": 3266,
-    "url": "https://github.com/erkamyaman/rust-anything",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ysunyang4/Nexus",
-    "desc": "Connect web AI assistants to local files, terminals, Git, and desktop tools through MCP, with user-controlled permissions.",
+    "full_name": "csr1010/whatsapp-ai-agent-sdk",
+    "desc": "The open-source AI agent SDK for WhatsApp. Bring your own model, your own number, your own data. Local-first, no forced cloud, no vendor lock-in.",
     "language": "TypeScript",
     "topics": [
+      "agent-framework",
       "ai-agent",
-      "browser-extension",
-      "chrome-extension",
+      "chatbot",
+      "instinct",
       "llm",
-      "local-ai",
-      "mcp"
+      "local-first"
     ],
-    "stars": 406,
-    "url": "https://github.com/ysunyang4/Nexus",
+    "stars": 306,
+    "url": "https://github.com/csr1010/whatsapp-ai-agent-sdk",
     "stale_zh": null
   },
   {
-    "full_name": "relatedb/relate",
-    "desc": "An embedded local, agent-native graph database supporting Cypher 25 written in Rust. Memory or transactional filesystem.",
-    "language": "Rust",
-    "topics": [
-      "agent-memory",
-      "agent-sandbox-tools",
-      "agentic-ai",
-      "cypher",
-      "emedded-database",
-      "graph-database"
-    ],
-    "stars": 399,
-    "url": "https://github.com/relatedb/relate",
-    "stale_zh": null
-  },
-  {
-    "full_name": "sybil-solutions/inference-optimisation-skill",
-    "desc": "Agent skill for hill-climbing local LLM serving speed (decode, speculative decoding, prefill, KV, startup, TTFT) on any hardware and quantization",
-    "language": "Python",
-    "topics": [
-      "agent-skill",
-      "benchmarking",
-      "claude-code",
-      "inference",
-      "llm",
-      "speculative-decoding"
-    ],
-    "stars": 1090,
-    "url": "https://github.com/sybil-solutions/inference-optimisation-skill",
-    "stale_zh": null
-  },
-  {
-    "full_name": "0sec-labs/0security",
-    "desc": "Open-source cybersecurity harness to build and deploy sovereign, persistent AI security agents (sentinels) that continuously find, prove and fix security risks. Web UI, CLI, CI and MCP.",
-    "language": "TypeScript",
-    "topics": [
-      "llm-agents",
-      "security-research",
-      "security-tools",
-      "application-security",
-      "binary-analysis",
-      "cybersecurity"
-    ],
-    "stars": 1502,
-    "url": "https://github.com/0sec-labs/0security",
-    "stale_zh": "部署自主、常駐的 AI 資安 agent，持續找出、驗證並修補風險，有 CLI 與 MCP"
-  },
-  {
-    "full_name": "y5ez3g/facadecode",
-    "desc": "The multi-agent orchestrator for VS Code. Run Claude Code, Codex, and other agent CLIs that start, message, and operate each other across windows and machines.",
-    "language": "TypeScript",
+    "full_name": "Tencent/LoopForge",
+    "desc": "Self-hosted workflows for coding-agent delivery. Orchestrate CodeBuddy, Codex and Claude Code with scripts and human approval gates. Includes Local workflows for coding assistants.",
+    "language": "Go",
     "topics": [
       "agent-orchestration",
-      "agentic-coding",
+      "agentic-workflow",
       "ai-agents",
-      "antigravity",
+      "ai-coding",
       "claude-code",
-      "claude-code-extension"
+      "code-review"
     ],
-    "stars": 452,
-    "url": "https://github.com/y5ez3g/facadecode",
+    "stars": 4049,
+    "url": "https://github.com/Tencent/LoopForge",
     "stale_zh": null
   },
   {
-    "full_name": "heygen-com/hyperframes",
-    "desc": "AI video you can actually edit. HyperFrames is a free, open-source AI video editor. Describe any video and get a real project you can change down to the frame.",
-    "language": "TypeScript",
+    "full_name": "JosssphZhou/poki",
+    "desc": "Poki uses your iPhone like you do. An open-source agent app that runs on your iPhone, reads the screen, and taps, types and swipes in real apps with your own model account.",
+    "language": "Swift",
     "topics": [
-      "ai",
-      "animation",
-      "ffmpeg",
-      "framework",
-      "gsap",
-      "html"
+      "ai-agents",
+      "ai-assistant",
+      "automation",
+      "claude-code",
+      "computer-use",
+      "gui-agent"
     ],
-    "stars": 86507,
-    "url": "https://github.com/heygen-com/hyperframes",
-    "stale_zh": "寫 HTML、算繪成影片，為 agent 而生"
+    "stars": 1650,
+    "url": "https://github.com/JosssphZhou/poki",
+    "stale_zh": "開源 agent，在 iPhone 真機上點擊、輸入、滑動，本機執行，接 MCP agent"
   },
   {
-    "full_name": "jingyaogong/minimind",
-    "desc": "🧠 两小时从 0 训出你的 64M 大模型。Train your own 64M LLM from scratch in 2 hours.",
+    "full_name": "Zackriya-Solutions/meetily",
+    "desc": "Privacy-first AI meeting note taker for Windows, macOS and Linux. Free, open source (MIT). On-device Whisper/Parakeet transcription and speaker diarization, no meeting bot. Open-source alternative to Granola, Otter and Fireflies. https://meetily.ai",
+    "language": "Rust",
+    "topics": [
+      "ai",
+      "ai-meeting-assistant",
+      "llm",
+      "local-ai",
+      "mac",
+      "meeting-minutes"
+    ],
+    "stars": 32871,
+    "url": "https://github.com/Zackriya-Solutions/meetily",
+    "stale_zh": "隱私優先的 AI 會議助理，Rust 寫成，本機即時逐字稿、講者辨識與 Ollama 摘要，不需雲端"
+  },
+  {
+    "full_name": "amitshekhariitbhu/ai-system-design",
+    "desc": "AI System Design - Learn how to design AI systems built on LLMs, RAG, and AI Agents step by step.",
+    "language": "Markdown",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-engineering",
+      "ai-system",
+      "ai-system-design",
+      "ai-systems"
+    ],
+    "stars": 1028,
+    "url": "https://github.com/amitshekhariitbhu/ai-system-design",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Tracer-Cloud/opensre",
+    "desc": "The open-source agent for CI/CD reliability.",
     "language": "Python",
     "topics": [
-      "artificial-intelligence",
-      "large-language-model"
+      "alerting",
+      "datadog",
+      "grafana",
+      "observability",
+      "remediation",
+      "root-cause-analysis"
     ],
-    "stars": 66486,
-    "url": "https://github.com/jingyaogong/minimind",
-    "stale_zh": "從零訓練一個 6,400 萬參數的 LLM，只要 2 小時"
+    "stars": 13092,
+    "url": "https://github.com/Tracer-Cloud/opensre",
+    "stale_zh": null
   },
   {
-    "full_name": "firecrawl/firecrawl",
-    "desc": "Knowledge infrastructure to make your agents smarter. Search, scrape and 550+ data providers through one API.",
+    "full_name": "Marker-Inc-Korea/AutoRAG",
+    "desc": "Your Personal Librarian Agent. Ask anything on your computer, organize files, remember important info and files.",
     "language": "TypeScript",
     "topics": [
-      "ai",
-      "crawler",
-      "markdown",
-      "scraper",
-      "html-to-markdown",
-      "llm"
+      "agentic-rag",
+      "ai-agents",
+      "document-parser",
+      "embeddings",
+      "hybrid-search",
+      "knowledge-base"
     ],
-    "stars": 203114,
-    "url": "https://github.com/firecrawl/firecrawl",
-    "stale_zh": "網頁資料 API，讓 AI agent 能搜尋、抓取並存取網路上的各種資料來源"
+    "stars": 6082,
+    "url": "https://github.com/Marker-Inc-Korea/AutoRAG",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mattabate/life-distributable",
+    "desc": "Manage many agents without getting distracted. Self-hosted, secure, and apps that edit themselves.",
+    "language": "Go",
+    "topics": [
+      "agent-swarm",
+      "agentic-ai",
+      "ai-agents",
+      "ai-assistants",
+      "ai-enablement",
+      "ai-swarm"
+    ],
+    "stars": 435,
+    "url": "https://github.com/mattabate/life-distributable",
+    "stale_zh": "在你自己的 Mac 上全天候處理生活事務的個人 agent，對 Claude Code 說一句話就能安裝"
+  },
+  {
+    "full_name": "openfilm/openfilm",
+    "desc": "The open source AI video agent: turns any coding agent into a video agent, with editors to change anything it makes.",
+    "language": "TypeScript",
+    "topics": [
+      "ai-video",
+      "claude-code",
+      "codex",
+      "coding-agents",
+      "html",
+      "motion-graphics"
+    ],
+    "stars": 8520,
+    "url": "https://github.com/openfilm/openfilm",
+    "stale_zh": "開源 AI 影片 agent，讓 coding agent 變成影片 agent，附編輯器可改任何產出"
   }
 ]
