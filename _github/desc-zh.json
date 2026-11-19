@@ -410,9 +410,9 @@
     "zh": "給 LLM agent 記憶用的 Datalog 引擎，附 MCP server 供多個 agent 共用"
   },
   "JosssphZhou/poki": {
-    "at": "2026-11-16T23:58:55+00:00",
-    "src_hash": "b46968e45b1e",
-    "zh": "開源 agent，在 iPhone 真機上點擊、輸入、滑動，本機執行，接 MCP agent"
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "e18c2fb0c4d9",
+    "zh": "iPhone 上的開源 agent app，讀取畫面並在真實 app 中點擊、輸入、滑動，用自己的模型帳號"
   },
   "JuliusBrussee/caveman": {
     "at": "2026-09-17T19:14:47+00:00",
@@ -498,6 +498,11 @@
     "at": "2026-10-11T19:50:00+00:00",
     "src_hash": "86bd833f4fdf",
     "zh": "注重隱私、可離線運作的開源 NotebookLM 替代品，AI agent 負責研究、轉換與編輯文件"
+  },
+  "Marker-Inc-Korea/AutoRAG": {
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "0a978634acfe",
+    "zh": "個人圖書館員 agent：在你的電腦上問任何事、整理檔案、記住重要資訊與檔案"
   },
   "MemPalace/mempalace": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -739,6 +744,11 @@
     "src_hash": "93b6db044229",
     "zh": "給動態設計用的 agent skill，把粗糙的 AI 影片改成像動態設計師做的成品"
   },
+  "Tencent/LoopForge": {
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "d32c7ff68ba8",
+    "zh": "自架 coding agent 交付流程，腳本加人工核准，串 CodeBuddy、Codex、Claude Code"
+  },
   "Tencent/WeKnora": {
     "at": "2026-09-18T19:12:51+00:00",
     "src_hash": "0cb7dedab815",
@@ -758,6 +768,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "15a22e233440",
     "zh": "Claude Code、Codex 的本機 gateway，免改客戶端即可切換上游，並追蹤每個請求"
+  },
+  "Tracer-Cloud/opensre": {
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "a5746d617060",
+    "zh": "開源的 CI/CD 可靠性 agent"
   },
   "Unstructured-IO/unstructured": {
     "at": "2026-10-15T19:35:35+00:00",
@@ -815,9 +830,9 @@
     "zh": "本機優先的 AI 創作工作站，含對話、漫畫、寫作與知識學習，支援 vLLM、llama.cpp 本地推理"
   },
   "Zackriya-Solutions/meetily": {
-    "at": "2026-10-18T18:23:02+00:00",
-    "src_hash": "dba0e7237da2",
-    "zh": "隱私優先的 AI 會議助理，Rust 寫成，本機即時逐字稿、講者辨識與 Ollama 摘要，不需雲端"
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "f1f08de32043",
+    "zh": "隱私優先的 AI 會議筆記工具，本機 Whisper/Parakeet 轉錄與講者辨識，不用會議機器人"
   },
   "Zaneris/passenger": {
     "at": "2026-11-11T22:25:07+00:00",
@@ -963,6 +978,11 @@
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "c3a8335eb3dc",
     "zh": "面向生產環境的 AI 工作流 runtime，可開發、驗證、復原複雜工作流並穩定交付成服務"
+  },
+  "amitshekhariitbhu/ai-system-design": {
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "af7aa4007e01",
+    "zh": "一步步學怎麼設計以 LLM、RAG 與 AI Agent 為基礎的 AI 系統"
   },
   "amitshekhariitbhu/llm-inference-engineering": {
     "at": "2026-10-08T20:58:31+00:00",
@@ -1218,6 +1238,11 @@
     "at": "2026-10-19T20:49:33+00:00",
     "src_hash": "7dfc27185c5f",
     "zh": "讓 AI agent 把任何單機遊戲改成可與朋友連線或分割畫面同玩，附 MCP server 與操作手冊"
+  },
+  "csr1010/whatsapp-ai-agent-sdk": {
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "ca86b629991f",
+    "zh": "WhatsApp 的開源 AI agent SDK，自帶模型、號碼與資料，本機優先，不強制上雲"
   },
   "cth9191/animate": {
     "at": "2026-11-14T20:16:18+00:00",
@@ -1845,9 +1870,9 @@
     "zh": "AI 原生 HTAP 資料庫，內建 Git-for-Data 與向量搜尋，作為智慧 agent 與應用的資料骨幹"
   },
   "mattabate/life-distributable": {
-    "at": "2026-11-11T22:25:07+00:00",
-    "src_hash": "6a3eec45114c",
-    "zh": "在你自己的 Mac 上全天候處理生活事務的個人 agent，對 Claude Code 說一句話就能安裝"
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "341b4557ded1",
+    "zh": "管理多個 agent 而不分心，自架、安全，app 能自己修改自己"
   },
   "mattpocock/skills": {
     "at": "2026-10-02T20:16:53+00:00",
@@ -2140,9 +2165,9 @@
     "zh": "開源 PDF 解析器，輸出可供 AI 使用的資料，並處理 PDF 無障礙"
   },
   "openfilm/openfilm": {
-    "at": "2026-10-20T19:46:47+00:00",
-    "src_hash": "4287c0741ff1",
-    "zh": "開源 AI 影片 agent，讓 coding agent 變成影片 agent，附編輯器可改任何產出"
+    "at": "2026-11-19T22:52:21+00:00",
+    "src_hash": "b9b791430d6e",
+    "zh": "開源 AI 影片 agent，讓任何 coding agent 變成影片 agent，附編輯器可改它做的任何內容"
   },
   "opensec-git/Pi-Bolt": {
     "at": "2026-10-24T18:28:06+00:00",

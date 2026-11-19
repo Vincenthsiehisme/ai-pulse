@@ -1,6 +1,14 @@
-# 已發布事件（681）
+# 已發布事件（687）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-19
+- **[[Events/evt-2026-11-19-311148|NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs]]** — Microsoft · infra · conf 73 · heat 未量測
+  NVIDIA 與微軟在 Ignite 宣布擴大合作，範圍從 Azure 基礎設施延伸到工業系統與 Windows PC。
+- **[[Events/evt-2026-11-19-b90430|Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  GeForce NOW 黑色星期五優惠：六個月方案首期六個月 7 折。
+- **[[Events/evt-2026-11-19-f0e20c|How OpenAI’s Performance Factory keeps ChatGPT fast]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 介紹 Performance Factory：用 Codex 驅動的流程找出並修掉效能問題，讓 ChatGPT 保持快速。
 
 ## 2026-11-18
 - **[[Events/evt-2026-11-18-06adba|180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers]]** — Hugging Face · infra · conf 73 · heat 未量測
@@ -17,6 +25,12 @@
   Le Groupe Figaro 與 OpenAI 合作，Le Figaro 的新聞將以摘要與節錄形式進入 ChatGPT。
 - **[[Events/evt-2026-11-18-6892d5|NVIDIA RTX Spark Compact Desktops Out Now]]** — NVIDIA · infra · conf 73 · heat 未量測
   NVIDIA RTX Spark 小型桌機由 ASUS、Dell、MSI 推出，今日開賣，最高 128GB 統一記憶體。
+- **[[Events/evt-2026-11-18-848f95|Research acceleration: The jagged frontier]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 發文量測程式碼代理加速 AI 研究的程度，並承認表現參差。
+- **[[Events/evt-2026-11-18-8e14d3|How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise]]** — OpenAI · product · conf 73 · heat 未量測
+  住友生命用 ChatGPT Enterprise 做保險同業研究、提案準備與投資分析程式碼，高階主管先用帶動導入。
+- **[[Events/evt-2026-11-18-91ed0d|Anthropic Prices Initial Public Offering]]** — Anthropic · capital · conf 73 · heat 未量測
+  Anthropic 公告 IPO 定價；本站依授權限制只給標題與連結。
 - **[[Events/evt-2026-11-18-b127b3|DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency]]** — RadixArk · model-capability · conf 73 · heat 未量測
   RadixArk 在 Hugging Face 發文介紹 DaisyRose-27B，主打後訓練效率。
 - **[[Events/evt-2026-11-18-bb8179|The Silent Consensus]]** — OpenAI · policy · conf 73 · heat 未量測

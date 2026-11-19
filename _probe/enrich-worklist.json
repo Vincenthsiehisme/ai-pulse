@@ -1,19 +1,19 @@
 [
   {
-    "id": "evt-2026-11-18-06adba",
-    "path": "evt-2026-11-18-06adba.md",
-    "title": "180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers",
+    "id": "evt-2026-11-18-848f95",
+    "path": "evt-2026-11-18-848f95.md",
+    "title": "Research acceleration: The jagged frontier",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "Hugging Face",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/moe-expert-streaming",
-        "title": "180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/research-acceleration-jagged-frontier",
+        "title": "Research acceleration: The jagged frontier",
+        "summary": "OpenAI measures how coding agents are accelerating AI research, where their performance remains uneven, and what this signals about recursive self-improvement.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,28 +30,49 @@
     }
   },
   {
-    "id": "evt-2026-11-18-1cfed7",
-    "path": "evt-2026-11-18-1cfed7.md",
-    "title": "Introducing Gemini 4 Neon",
-    "fingerprint": "google:gemini:4",
-    "facet": "release",
-    "company_guess": "Google DeepMind",
-    "independent_sources": 2,
+    "id": "evt-2026-11-18-8e14d3",
+    "path": "evt-2026-11-18-8e14d3.md",
+    "title": "How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/introducing-gemini-4-neon/",
-        "title": "Introducing Gemini 4 Neon",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/business/customer-stories/sumitomo-life",
+        "title": "How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise",
+        "summary": "Sumitomo Life uses ChatGPT Enterprise to research insurers, prepare proposals, and draft code for investment analysis. Early use by executives helped drive adoption.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
       },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-18-91ed0d",
+    "path": "evt-2026-11-18-91ed0d.md",
+    "title": "Anthropic Prices Initial Public Offering",
+    "fingerprint": null,
+    "facet": "pricing",
+    "company_guess": "Anthropic",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
       {
-        "source_id": "src-hn-frontpage",
-        "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
-        "title": "Gemini 4 Neon",
+        "source_id": "src-anthropic-news",
+        "url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering",
+        "title": "Anthropic Prices Initial Public Offering",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -62,7 +83,7 @@
       "counts": {
         "has_text": 0,
         "unfetched": 0,
-        "withheld": 2
+        "withheld": 1
       },
       "needs_source_link": true,
       "reasons": [
@@ -71,170 +92,20 @@
     }
   },
   {
-    "id": "evt-2026-11-18-2d271d",
-    "path": "evt-2026-11-18-2d271d.md",
-    "title": "Inside the Codex sandbox",
+    "id": "evt-2026-11-19-311148",
+    "path": "evt-2026-11-19-311148.md",
+    "title": "NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/inside-the-codex-sandbox",
-        "title": "Inside the Codex sandbox",
-        "summary": "See how Codex runs commands on your machine while enforcing the filesystem and network limits you control across macOS, Linux, and Windows.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-18-38ef4c",
-    "path": "evt-2026-11-18-38ef4c.md",
-    "title": "Why your fine-tuning job takes longer than the FLOPs say",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/Dharma-AI/predicting-fine-tuning-time",
-        "title": "Why your fine-tuning job takes longer than the FLOPs say",
-        "summary": "A Blog post by Dharma-AI on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-18-3c0260",
-    "path": "evt-2026-11-18-3c0260.md",
-    "title": "Managing frontier AI risk: From training to deployment",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/managing-frontier-ai-risk",
-        "title": "Managing frontier AI risk: From training to deployment",
-        "summary": "OpenAI explains how it manages frontier AI risk from training through deployment with model alignment, sandboxing, blocking safeguards, and monitoring.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-18-4488cd",
-    "path": "evt-2026-11-18-4488cd.md",
-    "title": "Rumble-2-Flash: an open 0.5B speech model for 40+ languages",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/rumble-2-flash",
-        "title": "Rumble-2-Flash: an open 0.5B speech model for 40+ languages",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-18-4f5128",
-    "path": "evt-2026-11-18-4f5128.md",
-    "title": "Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to ChatGPT",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/le-groupe-figaro-and-openai-announce-partnership",
-        "title": "Le Groupe Figaro and OpenAI partner to bring Le Figaro journalism to ChatGPT",
-        "summary": "Le Groupe Figaro and OpenAI partner to bring Le Figaro’s journalism to ChatGPT through summaries and excerpts, with links to original stories.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-18-6892d5",
-    "path": "evt-2026-11-18-6892d5.md",
-    "title": "NVIDIA RTX Spark Compact Desktops Out Now",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
+    "company_guess": "Microsoft",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/rtx-spark-desktop-local-ai-available-now/",
-        "title": "NVIDIA RTX Spark Compact Desktops Out Now",
-        "summary": "New NVIDIA RTX Spark compact desktops from ASUS, Dell and MSI are available today, bringing local AI agents, image and video generation, and model fine-tuning to a dedicated Windows PC. With up to 128GB of unified memory and NVIDIA’s AI software stack, these systems provide room for larger local mod",
+        "url": "https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs/",
+        "title": "NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs",
+        "summary": "NVIDIA and Microsoft are extending their full-stack collaboration to help organizations build, customize and deploy intelligent applications — from next-generation infrastructure on Azure to industrial systems and Windows PCs. At Microsoft Ignite, the companies are expanding access to Azure virtual ",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -251,175 +122,63 @@
     }
   },
   {
-    "id": "evt-2026-11-18-b127b3",
-    "path": "evt-2026-11-18-b127b3.md",
-    "title": "DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency",
-    "fingerprint": null,
-    "facet": "capability",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/RadixArk/daisyrose-27b-pushing-the-frontier-of-post-trainin",
-        "title": "DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency",
-        "summary": "A Blog post by RadixArk on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-18-bb8179",
-    "path": "evt-2026-11-18-bb8179.md",
-    "title": "The Silent Consensus",
+    "id": "evt-2026-11-19-b90430",
+    "path": "evt-2026-11-19-b90430.md",
+    "title": "Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/the-silent-consensus",
-        "title": "The Silent Consensus",
-        "summary": "Dean Ball, Head of Strategic Futures at OpenAI, examines how more capable AI could reshape society and how people can retain control of their institutions.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-18-c82890",
-    "path": "evt-2026-11-18-c82890.md",
-    "title": "Time-Series Models in the Streamhouse: A New Frontier and Use Cases",
-    "fingerprint": null,
-    "facet": "capital",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse",
-        "title": "Time-Series Models in the Streamhouse: A New Frontier and Use Cases",
-        "summary": "A Blog post by IBM Research on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-18-c87bb7",
-    "path": "evt-2026-11-18-c87bb7.md",
-    "title": "Genie 4 is now available",
-    "fingerprint": null,
-    "facet": "release",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/genie-4-is-now-available/",
-        "title": "Genie 4 is now available",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/genie-4-now-available-project-genie/",
-        "title": "Genie 4 is now available",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-black-friday-2026/",
+        "title": "Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW",
+        "summary": "GeForce NOW is kicking off Black Friday with more reasons to make time for gaming. Six-month memberships are back for a limited time. Save 30% on the first six-month term of a Performance or Ultimate membership. Big gaming plans, smaller price tag.  Keep the holiday savings going: Check out more NVI",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
       }
     ],
     "availability": {
       "counts": {
-        "has_text": 0,
+        "has_text": 1,
         "unfetched": 0,
-        "withheld": 2
+        "withheld": 0
       },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
+      "needs_source_link": false,
+      "reasons": []
     }
   },
   {
-    "id": "evt-2026-11-18-fa6769",
-    "path": "evt-2026-11-18-fa6769.md",
-    "title": "Advancing chip design with OpenAI models",
+    "id": "evt-2026-11-19-f0e20c",
+    "path": "evt-2026-11-19-f0e20c.md",
+    "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
     "fingerprint": null,
-    "facet": "update",
+    "facet": "capability",
     "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/advancing-chip-design-with-our-models",
-        "title": "Advancing chip design with OpenAI models",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
-      },
-      {
-        "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/advancing-chip-design-with-our-models/",
-        "title": "Advancing chip design with OpenAI models",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+        "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast",
+        "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
+        "summary": "Learn how OpenAI built the Performance Factory, a system of Codex-powered workflows that finds and fixes performance issues to help keep ChatGPT fast.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
       }
     ],
     "availability": {
       "counts": {
-        "has_text": 0,
+        "has_text": 1,
         "unfetched": 0,
-        "withheld": 2
+        "withheld": 0
       },
-      "needs_source_link": true,
-      "reasons": [
-        "license_note 限「標題＋連結」，這是我們自己的保守約束"
-      ]
+      "needs_source_link": false,
+      "reasons": []
     }
   }
 ]

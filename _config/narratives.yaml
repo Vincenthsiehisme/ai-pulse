@@ -3,12 +3,12 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-11-18'
+updated: '2026-11-19'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
-    now: 今天新增兩則，都在處理本地跑大模型的記憶體。NVIDIA RTX Spark 小型桌機由 ASUS、Dell、MSI 推出，今日開賣，最高 128GB 統一記憶體；Hugging Face 刊出用 Transformers 在 32GB 記憶體上跑 180B MoE 模型的文章。兩則都沒有價格、吞吐量或品質數字。 前一輪：11-17 新增一則。NVIDIA 的 Ian Buck 在 SC26 週一特別演講上宣布給 AI agent 用的新工具（能規劃實驗、執行程式、檢查結果，跑在研究者自己的系統上）、Nemotron for Science 與 Rubin HPC GPU；來源摘要在此截斷，規格、價格與出貨時間證據不足。前一輪：Rubin HPC 是 Vera Rubin 平台裡針對模擬與資料處理的新 GPU；DGX Spark HPC 開發套件是四台 DGX Spark 環狀直連的桌面叢集；Slurm 擴充要把量子處理器排進超算排程；NVIDIA 稱 Vera Rubin 首次參賽就拿下 MLPerf Training v6.1 全部項目，是廠商自述；Lambda 用 Photonics CPO 交換器串接 GB300 NVL72，功耗與故障率沒有數字。vLLM v0.34.0 新增 10 個模型支援，KV cache 預設改成依暖機後實際剩餘記憶體配置。11-13 ggml-org 宣布 llama.cpp 進入 v1.0.0，變更內容證據不足。
-    next: 看 RTX Spark 各機型定價與可跑的模型大小，以及 MoE 專家串流的 tokens/s 與是否併入 Transformers 正式版。 看 Rubin HPC 的規格與出貨時間，以及哪些國家實驗室或大學宣布採用；看 MLPerf Training v6.1 其他廠商的送件情形；看 Lambda 公布的 CPO 部署規模、故障率與功耗；看 Slurm 量子擴充是否合入上游；看 vLLM 新模型支援的實測吞吐，以及 KV cache 預設改動有沒有引發記憶體回報；看 llama.cpp v1.0.0 有沒有穩定承諾。
+    now: 今天新增兩則。NVIDIA 與微軟在 Microsoft Ignite 擴大合作，範圍從 Azure 基礎設施延伸到工業系統與 Windows PC，並擴大 Azure 虛擬機器等的取用管道；來源摘要在此截斷，機型規格與上市時間證據不足。OpenAI 介紹 Performance Factory，一套由 Codex 驅動、負責找出並修復效能問題的流程，用來維持 ChatGPT 的回應速度；架構與效能數字摘要沒有提供。 前一輪：11-18 NVIDIA RTX Spark 小型桌機由 ASUS、Dell、MSI 推出，今日開賣，最高 128GB 統一記憶體；Hugging Face 刊出用 Transformers 在 32GB 記憶體上跑 180B MoE 模型的文章，兩則都沒有價格、吞吐量或品質數字。11-17 NVIDIA 的 Ian Buck 在 SC26 宣布給 AI agent 用的新工具、Nemotron for Science 與 Rubin HPC GPU，規格、價格與出貨時間證據不足。11-16 NVIDIA 稱 Vera Rubin 首次參賽就拿下 MLPerf Training v6.1 全部項目，是廠商自述；Lambda 用 Photonics CPO 交換器串接 GB300 NVL72，功耗與故障率沒有數字；vLLM v0.34.0 新增 10 個模型支援，KV cache 預設改成依暖機後實際剩餘記憶體配置。11-13 llama.cpp 進入 v1.0.0，變更內容證據不足。
+    next: 看 Azure 新虛擬機器的實際規格、供應區域與上市日期；看 Performance Factory 有沒有公布修復數量、延遲改善幅度或人工介入比例；看 RTX Spark 各機型定價與可跑的模型大小，以及 MoE 專家串流的 tokens/s。 看 Rubin HPC 的規格與出貨時間；看 MLPerf Training v6.1 其他廠商的送件情形；看 Lambda 公布的 CPO 部署規模、故障率與功耗；看 vLLM 新模型支援的實測吞吐，以及 KV cache 預設改動有沒有引發記憶體回報；看 llama.cpp v1.0.0 有沒有穩定承諾。
     lenses:
     - role: 經營者
       question: 算力成本下降會改變我哪個經營控制點？
@@ -24,8 +24,8 @@ tracks:
       watch: 第三方 harness 的複現結果。
   model-research:
     thesis: 訊號集中在 Google DeepMind 的 Gemini Flash 輕量線快速分化，NVIDIA Nemotron 從另一端逼近——主軸是『小而專、成本導向』的模型迭代，而非追單一最強模型。
-    now: 今天新增四則。Google DeepMind 的 Gemini 4 Neon 與 Genie 4 開放使用，兩則都依授權只放標題與連結，規格與價格不在手上。Hugging Face 上有 Rumble-2-Flash（開放的 0.5B 語音模型，支援 40 多種語言）與 RadixArk 的 DaisyRose-27B（主打後訓練效率），兩篇的來源摘要都只有通用介紹，評測數字沒有。 前一輪：11-17 新增一則。OpenAI 發布 GPT-6.2 Astra 與 Sol，Astra 面向最難的專案，Sol 面向日常工作，API 同步開放（gpt-6.2-astra、gpt-6.2-sol）；價格與基準測試證據裡沒有，官方頁依授權只放標題與連結。前一輪：11-16 OpenAI 開始「嵌入式評估」，找 Apollo Research、METR、Transluce 與 Goodfire 獨立檢驗對齊、防護與監控系統，評估範圍與結果公開方式沒寫。11-13 Anthropic 四篇新聞頁文章（前沿 AI 透明度、ASL-3 保護措施、AI 危害處理方法、Responsible Scaling Policy 回顧）依授權只放標題與連結；Ai2 的 XYBench 基準設計與結果手上沒有。11-12 IBM 說 Granite 4.1 的 3B 與 8B 已內建 LLMON，Anthropic 的〈Claude 4〉同樣只放標題與連結。
-    next: 看 Gemini 4 Neon 與 Genie 4 原文公布的規格、基準測試與定價；看 Rumble-2-Flash 的語言別錯誤率與授權條款；看 DaisyRose-27B 是否公開權重與訓練成本。 看 GPT-6.2 的價格與第三方基準測試，以及 Astra 與 Sol 在開發者實際工作流裡的取捨；看 OpenAI 嵌入式評估的第一批報告何時發布，評估方能否自行署名公開；看 Anthropic 那幾篇原文有沒有可驗證的具體措施與觸發條件；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡或論文有沒有對比 JSON 與 XML 的準確率和 token 用量；看 Claude 4 原文有沒有可驗證的能力與價格資訊。
+    now: '今天新增一則。OpenAI 發文〈Research acceleration: The jagged frontier〉，量測程式碼代理加速 AI 研究的程度，並承認代理的表現參差；來源摘要沒有給加速倍數與方法，是 OpenAI 自家量測，沒有外部複現。 前一輪：11-18 新增四則。Google DeepMind 的 Gemini 4 Neon 與 Genie 4 開放使用，依授權只放標題與連結，規格與價格不在手上。Hugging Face 上有 Rumble-2-Flash（開放的 0.5B 語音模型，支援 40 多種語言）與 RadixArk 的 DaisyRose-27B（主打後訓練效率），兩篇的來源摘要都只有通用介紹，評測數字沒有。11-17 OpenAI 發布 GPT-6.2 Astra 與 Sol，Astra 面向最難的專案，Sol 面向日常工作，API 同步開放；價格與基準測試證據裡沒有。11-16 OpenAI 開始「嵌入式評估」，找 Apollo Research、METR、Transluce 與 Goodfire 獨立檢驗對齊、防護與監控系統，範圍與結果公開方式沒寫。11-13 Anthropic 四篇新聞頁文章依授權只放標題與連結；Ai2 的 XYBench 設計與結果手上沒有。11-12 IBM 說 Granite 4.1 的 3B 與 8B 已內建 LLMON。'
+    next: 看 OpenAI 那篇全文有沒有公布具體加速倍數與任務分類，以及其他實驗室有沒有發表可比較的量測；看 Gemini 4 Neon 與 Genie 4 原文公布的規格、基準測試與定價；看 Rumble-2-Flash 的語言別錯誤率與授權條款；看 DaisyRose-27B 是否公開權重與訓練成本。 看 GPT-6.2 的價格與第三方基準測試；看 OpenAI 嵌入式評估的第一批報告何時發布；看 Anthropic 那幾篇原文有沒有可驗證的具體措施；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡有沒有對比 JSON 與 XML 的準確率。
     lenses:
     - role: 產品
       question: 該選哪個輕量模型接進產品？
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 今天新增一則。Le Groupe Figaro 與 OpenAI 合作，Le Figaro 的新聞以摘要與節錄進入 ChatGPT，並附原文連結；授權費與期限證據裡沒有。 前一輪：11-17 新增一則。OpenAI 稱 Astra for Law 在涵蓋 24 個法律領域的發布評測排名第一，ChatGPT Enterprise 客戶可申請使用；評測方法與對手證據裡沒有，是廠商自選評測。前一輪：11-12 ChatGPT Ads 指定 Aleph 為 44 國獨家經銷商，提供在地開票與支援，廣告營收規模沒給。11-16 OpenAI 擴大 ChatGPT for Academic Researchers，讓全球 20 萬名研究者免費使用前沿模型，資格條件與額度沒給；Hugging Face 與 OpenRouter 合作，整合方式與定價只有通用簡介。OpenAI 兒少安全文章與 Anthropic 的〈模型停用承諾〉只放標題與連結。11-12 Gondola 案例說 Codex 讓主力工程師產出提高 50%，沒有第三方查證。
-    next: 看雙方是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收，是否再增加經銷商；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 Anthropic 〈模型停用承諾〉原文列出的通知期限；看 OpenAI 是否公開 Gondola 案例的衡量方式。
+    now: 今天新增兩則。住友生命用 ChatGPT Enterprise 研究保險同業、準備提案、撰寫投資分析程式碼，摘要提到主管先用帶動員工採用，採用率與成效數字沒給，是 OpenAI 自己發的客戶案例。另一則是 NVIDIA 的 GeForce NOW 黑色星期五促銷，六個月方案首期六個月 7 折，與 AI 產品線關聯薄弱。 前一輪：11-18 Le Groupe Figaro 與 OpenAI 合作，Le Figaro 的新聞以摘要與節錄進入 ChatGPT，並附原文連結；授權費與期限證據裡沒有。11-17 OpenAI 稱 Astra for Law 在涵蓋 24 個法律領域的發布評測排名第一，ChatGPT Enterprise 客戶可申請使用；評測方法與對手證據裡沒有，是廠商自選評測。11-16 OpenAI 擴大 ChatGPT for Academic Researchers，讓全球 20 萬名研究者免費使用前沿模型，資格條件與額度沒給；Hugging Face 與 OpenRouter 合作，整合方式與定價只有通用簡介。11-12 ChatGPT Ads 指定 Aleph 為 44 國獨家經銷商，廣告營收規模沒給；Gondola 案例說 Codex 讓主力工程師產出提高 50%，沒有第三方查證。
+    next: 看住友生命案例全文有沒有揭露使用人數、採用率或成效數字；看 Figaro 與 OpenAI 是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 OpenAI 是否公開 Gondola 案例的衡量方式。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
@@ -50,8 +50,8 @@ tracks:
       watch: 第二季後的留存或採用揭露。
   capital-evolution:
     thesis: 唯一一則資本訊號是 Google 以 4,000 萬美元 token 與額度綁 Genesis Mission——象徵意義大於金額，代表雲廠開始用『算力額度』而非現金當投資工具。
-    now: 今天新增兩則。LVMH 旗下媒體部門與 OpenAI 宣布策略合作，要用 AI 支援新聞業並讓刊物能透過 ChatGPT 取得，金額、期限與授權範圍證據裡都沒有。NVIDIA 在 SC26 紀念 CUDA 二十週年，是紀念稿，沒有新產品或新數字。前一輪：Anthropic 三篇新聞頁文章（美國選舉準備、支持 SB 53、對美國 AI 行動計畫的看法）依授權只放標題與連結。11-09 NVIDIA 與韓國科學技術資訊通訊部宣布對韓國新創的新投資計畫，投資對象與金額證據不足。11-05 Anthropic 發表〈The Long Term Benefit Trust〉，同樣只有標題與連結。11-04 OpenAI 宣布收購 Pierre Computer Company, Inc.，金額與業務目前看不到。
-    next: 看 ChatGPT 內出現 LVMH 刊物的呈現方式，以及雙方是否公布授權與分潤條件；看 SB 53 的後續立法進度與其他業者是否表態；看那三篇 Anthropic 原文的具體建議；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額與交割時間。
+    now: 今天新增一則。Anthropic 公告首次公開募股（IPO）已定價，標題為〈Anthropic Prices Initial Public Offering〉；這個來源依授權只放標題與連結，定價與發行規模我們不轉述，請看原文。 前一輪：11-16 LVMH 旗下媒體部門與 OpenAI 宣布策略合作，要用 AI 支援新聞業並讓刊物能透過 ChatGPT 取得，金額、期限與授權範圍證據裡都沒有；NVIDIA 在 SC26 紀念 CUDA 二十週年，是紀念稿，沒有新產品或新數字。11-13 Anthropic 三篇新聞頁文章（美國選舉準備、支持 SB 53、對美國 AI 行動計畫的看法）依授權只放標題與連結。11-09 NVIDIA 與韓國科學技術資訊通訊部宣布對韓國新創的新投資計畫，投資對象與金額證據不足。11-05 Anthropic 發表〈The Long Term Benefit Trust〉，同樣只有標題與連結。11-04 OpenAI 宣布收購 Pierre Computer Company, Inc.，金額與業務目前看不到。
+    next: 看 Anthropic 原文公布的定價與發行規模，以及掛牌後的交易表現與其他媒體的獨立報導；看 ChatGPT 內出現 LVMH 刊物的呈現方式，以及雙方是否公布授權與分潤條件；看 SB 53 的後續立法進度與其他業者是否表態；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額與交割時間。
     lenses:
     - role: 投資人
       question: 算力額度當投資，意味什麼？
