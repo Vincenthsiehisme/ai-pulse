@@ -1,146 +1,130 @@
 [
   {
-    "full_name": "csr1010/whatsapp-ai-agent-sdk",
-    "desc": "The open-source AI agent SDK for WhatsApp. Bring your own model, your own number, your own data. Local-first, no forced cloud, no vendor lock-in.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-framework",
-      "ai-agent",
-      "chatbot",
-      "instinct",
-      "llm",
-      "local-first"
-    ],
-    "stars": 306,
-    "url": "https://github.com/csr1010/whatsapp-ai-agent-sdk",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Tencent/LoopForge",
-    "desc": "Self-hosted workflows for coding-agent delivery. Orchestrate CodeBuddy, Codex and Claude Code with scripts and human approval gates. Includes Local workflows for coding assistants.",
-    "language": "Go",
-    "topics": [
-      "agent-orchestration",
-      "agentic-workflow",
-      "ai-agents",
-      "ai-coding",
-      "claude-code",
-      "code-review"
-    ],
-    "stars": 4049,
-    "url": "https://github.com/Tencent/LoopForge",
-    "stale_zh": null
-  },
-  {
-    "full_name": "JosssphZhou/poki",
-    "desc": "Poki uses your iPhone like you do. An open-source agent app that runs on your iPhone, reads the screen, and taps, types and swipes in real apps with your own model account.",
-    "language": "Swift",
-    "topics": [
-      "ai-agents",
-      "ai-assistant",
-      "automation",
-      "claude-code",
-      "computer-use",
-      "gui-agent"
-    ],
-    "stars": 1650,
-    "url": "https://github.com/JosssphZhou/poki",
-    "stale_zh": "開源 agent，在 iPhone 真機上點擊、輸入、滑動，本機執行，接 MCP agent"
-  },
-  {
-    "full_name": "Zackriya-Solutions/meetily",
-    "desc": "Privacy-first AI meeting note taker for Windows, macOS and Linux. Free, open source (MIT). On-device Whisper/Parakeet transcription and speaker diarization, no meeting bot. Open-source alternative to Granola, Otter and Fireflies. https://meetily.ai",
-    "language": "Rust",
-    "topics": [
-      "ai",
-      "ai-meeting-assistant",
-      "llm",
-      "local-ai",
-      "mac",
-      "meeting-minutes"
-    ],
-    "stars": 32871,
-    "url": "https://github.com/Zackriya-Solutions/meetily",
-    "stale_zh": "隱私優先的 AI 會議助理，Rust 寫成，本機即時逐字稿、講者辨識與 Ollama 摘要，不需雲端"
-  },
-  {
-    "full_name": "amitshekhariitbhu/ai-system-design",
-    "desc": "AI System Design - Learn how to design AI systems built on LLMs, RAG, and AI Agents step by step.",
-    "language": "Markdown",
-    "topics": [
-      "ai",
-      "ai-agents",
-      "ai-engineering",
-      "ai-system",
-      "ai-system-design",
-      "ai-systems"
-    ],
-    "stars": 1028,
-    "url": "https://github.com/amitshekhariitbhu/ai-system-design",
-    "stale_zh": null
-  },
-  {
-    "full_name": "Tracer-Cloud/opensre",
-    "desc": "The open-source agent for CI/CD reliability.",
+    "full_name": "iamajmeena/neonclipping",
+    "desc": "Paste a link, get captioned 9:16 clips in ~2 min. Free, local, open-source clipping engine (audio-first, YouTube captions, local LLM).",
     "language": "Python",
     "topics": [
-      "alerting",
-      "datadog",
-      "grafana",
-      "observability",
-      "remediation",
-      "root-cause-analysis"
+      "clipping",
+      "ffmpeg",
+      "shorts",
+      "video",
+      "whisper",
+      "yt-dlp"
     ],
-    "stars": 13092,
-    "url": "https://github.com/Tracer-Cloud/opensre",
+    "stars": 1232,
+    "url": "https://github.com/iamajmeena/neonclipping",
     "stale_zh": null
   },
   {
-    "full_name": "Marker-Inc-Korea/AutoRAG",
-    "desc": "Your Personal Librarian Agent. Ask anything on your computer, organize files, remember important info and files.",
+    "full_name": "stablyai/orca",
+    "desc": "Orca lets you run a fleet of bots with your own subscription (e.g. Claude Code, Grok, Agy, Codex). Available on desktop, mobile and remote runtime.",
     "language": "TypeScript",
     "topics": [
-      "agentic-rag",
+      "agent-ide",
       "ai-agents",
-      "document-parser",
-      "embeddings",
-      "hybrid-search",
-      "knowledge-base"
+      "automation",
+      "bot",
+      "claude-code",
+      "codex"
     ],
-    "stars": 6082,
-    "url": "https://github.com/Marker-Inc-Korea/AutoRAG",
+    "stars": 130970,
+    "url": "https://github.com/stablyai/orca",
+    "stale_zh": "用自己的訂閱同時跑多個 coding agent（Claude Code、Codex 等），支援桌面、手機與遠端"
+  },
+  {
+    "full_name": "firecrawl/firecrawl",
+    "desc": "Knowledge infrastructure to make your agents smarter. Search, scrape and access 550+ data providers through one API.",
+    "language": "TypeScript",
+    "topics": [
+      "ai",
+      "crawler",
+      "markdown",
+      "scraper",
+      "html-to-markdown",
+      "llm"
+    ],
+    "stars": 205184,
+    "url": "https://github.com/firecrawl/firecrawl",
+    "stale_zh": "給 agent 用的資料 API，一個介面搜尋、抓取網頁，並串接 550 多個資料來源"
+  },
+  {
+    "full_name": "molly554/whiteboard-ai-tutor",
+    "desc": "Open-source whiteboard AI tutor with animated lessons and interactive playback. Compare Claude, Gemini & DeepSeek across 288 generation runs and 64 blind-reviewed boards.",
+    "language": "HTML",
+    "topics": [
+      "ai-teacher",
+      "ai-tutor",
+      "ai-tutoring",
+      "ai-whiteboard",
+      "claude",
+      "deepseek"
+    ],
+    "stars": 456,
+    "url": "https://github.com/molly554/whiteboard-ai-tutor",
     "stale_zh": null
   },
   {
-    "full_name": "mattabate/life-distributable",
-    "desc": "Manage many agents without getting distracted. Self-hosted, secure, and apps that edit themselves.",
+    "full_name": "ghorbelhamdi/buddy-android",
+    "desc": "Android AI assistant in a floating bubble: Claude Code, Codex, OpenCode, Gemini (Antigravity CLI) or Grok use your phone for you — read the screen, tap, type. Runs on your own plan, open source, no root, no adb, no PC.",
+    "language": "Java",
+    "topics": [
+      "accessibility",
+      "ai-agent",
+      "ai-assistant",
+      "android",
+      "android-app",
+      "android-automation"
+    ],
+    "stars": 309,
+    "url": "https://github.com/ghorbelhamdi/buddy-android",
+    "stale_zh": null
+  },
+  {
+    "full_name": "MiniMax-AI/OpenAgentCore",
+    "desc": "The OpenAI Agents API, open source and self-hosted. Run Codex, Claude Code or MiniMax Code on your own machines with your own models, through the official OpenAI SDK.",
     "language": "Go",
     "topics": [
-      "agent-swarm",
-      "agentic-ai",
+      "agent-runtime",
       "ai-agents",
-      "ai-assistants",
-      "ai-enablement",
-      "ai-swarm"
-    ],
-    "stars": 435,
-    "url": "https://github.com/mattabate/life-distributable",
-    "stale_zh": "在你自己的 Mac 上全天候處理生活事務的個人 agent，對 Claude Code 說一句話就能安裝"
-  },
-  {
-    "full_name": "openfilm/openfilm",
-    "desc": "The open source AI video agent: turns any coding agent into a video agent, with editors to change anything it makes.",
-    "language": "TypeScript",
-    "topics": [
-      "ai-video",
       "claude-code",
       "codex",
-      "coding-agents",
-      "html",
-      "motion-graphics"
+      "coding-agent",
+      "llm"
     ],
-    "stars": 8520,
-    "url": "https://github.com/openfilm/openfilm",
-    "stale_zh": "開源 AI 影片 agent，讓 coding agent 變成影片 agent，附編輯器可改任何產出"
+    "stars": 344,
+    "url": "https://github.com/MiniMax-AI/OpenAgentCore",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Dodaios/ste80-humanizer",
+    "desc": "STE80 Humanizer: agent skill that removes AI tells and rewrites text 80% of the way to ASD-STE100 (Simplified Technical English), the method Andrej Karpathy shared.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "ai-writing",
+      "asd-ste100",
+      "claude-code",
+      "claude-skills",
+      "codex"
+    ],
+    "stars": 1015,
+    "url": "https://github.com/Dodaios/ste80-humanizer",
+    "stale_zh": null
+  },
+  {
+    "full_name": "asgeirtj/system_prompts_leaks",
+    "desc": "Leaked system prompts of ChatGPT, Claude, Gemini and more. The hidden system prompt of every popular chatbot, in full, every version since May 2025. Also Anthropic Claude Code, OpenAI Codex, Google Antigravity, xAI Grok, Meta Muse, Moonshot Kimi, Alibaba Qwen, Z.ai GLM ZCode, MiniMax, Cursor, Perplexity, DeepSeek and 30+ others. Updated daily.",
+    "language": "Python",
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-prompts",
+      "anthropic",
+      "chatbot",
+      "chatgpt"
+    ],
+    "stars": 72221,
+    "url": "https://github.com/asgeirtj/system_prompts_leaks",
+    "stale_zh": "蒐集各家外流的 system prompt，涵蓋 Claude、GPT、Gemini、Grok，定期更新"
   }
 ]

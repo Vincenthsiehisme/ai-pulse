@@ -15,9 +15,9 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://spectrum.ieee.org/feeds/topic/artificial-intelligence.rss"
-robots_checked_day: "2026-11-13"
+robots_checked_day: "2026-11-20"
 first_fetch_at: "2026-07-26"
-last_observed_day: "2026-11-19"
+last_observed_day: "2026-11-20"
 items_observed: 95
 events_bound: 1
 events_published: 1

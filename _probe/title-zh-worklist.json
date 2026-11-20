@@ -8,40 +8,32 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-11-18-848f95",
-    "title": "Research acceleration: The jagged frontier",
+    "id": "evt-2026-11-19-091c7d",
+    "title": "See PR scans in action",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-19-4e7808",
+    "title": "Get started with Daybreak Blue",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-19-6732dd",
+    "title": "Explore the Codex Security Plugin",
     "company": "OpenAI",
     "track": null,
     "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-11-18-8e14d3",
-    "title": "How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-18-91ed0d",
-    "title": "Anthropic Prices Initial Public Offering",
-    "company": "Anthropic",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-19-311148",
-    "title": "NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs",
-    "company": "Microsoft",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-19-b90430",
-    "title": "Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW",
+    "id": "evt-2026-11-19-678ad6",
+    "title": "Deploying Daybreak Red",
     "company": "industry",
     "track": null,
     "summary": "",
@@ -51,6 +43,46 @@
     "id": "evt-2026-11-19-f0e20c",
     "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
     "company": "OpenAI",
+    "track": "基礎設施與成本",
+    "summary": "OpenAI 介紹 Performance Factory：用 Codex 驅動的流程找出並修掉效能問題，讓 ChatGPT 保持快速。",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-20-065414",
+    "title": "Hebbia sees improvements in financial research with GPT-6 Astra",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-20-52a5df",
+    "title": "Can AI help scientists identify promising drug candidates?",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-20-e737a1",
+    "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-20-ecfda3",
+    "title": "Combatting adversarial distillation",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-20-fffc1c",
+    "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+    "company": "industry",
     "track": null,
     "summary": "",
     "stale_zh": null

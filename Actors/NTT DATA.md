@@ -3,7 +3,7 @@ id: actor-ntt-data
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-11-19'
+generated_day: '2026-11-20'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---

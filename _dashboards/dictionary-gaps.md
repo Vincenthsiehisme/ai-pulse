@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-19'
+generated_day: '2026-11-20'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**115 天**（2026-07-24 … 2026-11-19），去重後 **7662** 列。
+語料範圍：**116 天**（2026-07-24 … 2026-11-20），去重後 **7733** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,58 +17,59 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 239 | 2 |
-| Apple | 171 | 6 |
-| Amazon | 119 | 5 |
-| Here | 72 | 9 |
+| Show HN | 242 | 2 |
+| Apple | 173 | 6 |
+| Amazon | 120 | 5 |
+| Here | 74 | 9 |
+| There | 72 | 10 |
 | September | 71 | 8 |
 | LLMs | 71 | 14 |
-| There | 70 | 9 |
 | CEO | 68 | 6 |
 | LLM | 67 | 13 |
 | They | 65 | 9 |
-| Jensen Huang | 60 | 6 |
+| Jensen Huang | 61 | 6 |
 | Muse | 59 | 6 |
 | U.S | 57 | 8 |
+| Trump | 57 | 5 |
 | After | 57 | 6 |
-| Trump | 56 | 5 |
 | October | 56 | 8 |
 | One | 52 | 10 |
-| China | 51 | 9 |
-| November | 51 | 6 |
+| China | 52 | 9 |
+| November | 52 | 7 |
 | Python | 50 | 5 |
 | Pro | 50 | 8 |
 | When | 48 | 13 |
 | San Francisco | 47 | 9 |
 | With | 47 | 10 |
-| AI-powered | 45 | 10 |
+| AI-powered | 46 | 10 |
 | Chinese | 44 | 8 |
 | Rust | 43 | 3 |
+| Android | 43 | 4 |
 | July | 42 | 9 |
 | Linux | 42 | 6 |
-| Android | 42 | 4 |
+| IPO | 40 | 8 |
 | Astra | 39 | 6 |
-| IPO | 39 | 8 |
 | Last | 38 | 7 |
 | Windows | 38 | 6 |
 | AI-generated | 37 | 9 |
 | August | 36 | 8 |
 | These | 35 | 8 |
-| API | 34 | 6 |
+| API | 35 | 6 |
 | June | 33 | 7 |
 | Research | 33 | 6 |
 | Tuesday | 32 | 6 |
 | Learn | 32 | 6 |
 | Wednesday | 31 | 5 |
+| Samsung | 31 | 5 |
 | Huang | 31 | 5 |
 | Europe | 30 | 8 |
 | Building | 30 | 12 |
 | Elon Musk | 30 | 5 |
-| Samsung | 30 | 5 |
+| SpaceX | 30 | 7 |
 | Monday | 29 | 6 |
-| SpaceX | 29 | 7 |
+| Fable | 29 | 8 |
 | While | 29 | 4 |
-| Fable | 28 | 8 |
+| YouTube | 28 | 7 |
 | Mac | 27 | 4 |
 | Pixel | 27 | 3 |
 | Over | 27 | 7 |
@@ -76,7 +77,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Thursday | 26 | 6 |
 | Opus | 26 | 6 |
 | RAM | 26 | 3 |
-| YouTube | 26 | 7 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,22 +87,22 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 87 | src-media-mit-techreview |
+| The Download | 88 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 43 | src-kol-simonwillison |
 | Hi HN | 34 | src-hn-frontpage |
 | Register | 32 | src-media-techcrunch |
 | Launch HN | 31 | src-hn-frontpage |
 | A Blog | 31 | src-hf-blog |
-| Best Buy | 26 | src-media-theverge |
+| Best Buy | 27 | src-media-theverge |
 | Opt | 25 | src-media-theverge |
 | MIT Technology Review | 25 | src-media-mit-techreview |
 | Datasette | 24 | src-kol-simonwillison |
 | The Verge | 23 | src-media-theverge |
 | Highlights | 21 | src-gh-vllm-releases |
-| Import AI | 20 | src-kol-importai |
+| Import AI | 21 | src-kol-importai |
+| Hey HN | 20 | src-hn-frontpage |
 | Ask HN | 19 | src-hn-frontpage |
-| Hey HN | 19 | src-hn-frontpage |
 | Is Hiring | 19 | src-hn-frontpage |
 | GeForce NOW | 18 | src-nvidia-blog |
 | The Stepback | 16 | src-media-theverge |
@@ -110,8 +110,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | Installer No | 14 | src-media-theverge |
 | Verge-iest | 14 | src-media-theverge |
 | Installer | 14 | src-media-theverge |
+| Roundtables | 13 | src-media-mit-techreview |
 | The Algorithm | 12 | src-media-mit-techreview |
-| Roundtables | 12 | src-media-mit-techreview |
 | Disrupt | 12 | src-media-techcrunch |
 | TechCrunch Founder Summit | 12 | src-media-techcrunch |
 | FCC | 11 | src-media-theverge |
