@@ -1,10 +1,26 @@
-# 已發布事件（687）
+# 已發布事件（694）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
 
+## 2026-11-20
+- **[[Events/evt-2026-11-20-065414|Hebbia sees improvements in financial research with GPT-6 Astra]]** — OpenAI · model-capability · conf 73 · heat 未量測
+  Hebbia 在預發布評測中，GPT-6 Astra 於金融研究的來源涵蓋、引用相關性與呈現品質都有進步。
+- **[[Events/evt-2026-11-20-52a5df|Can AI help scientists identify promising drug candidates?]]** — OpenAI · research · conf 73 · heat 未量測
+  OpenAI 推出 MedChemBench，用來評估 AI 在早期藥物探索的判斷能力。
+- **[[Events/evt-2026-11-20-ecfda3|Combatting adversarial distillation]]** — OpenAI · policy · conf 73 · heat 未量測
+  OpenAI 發表〈Combatting Adversarial Distillation〉，我們依授權約束只附標題與連結，不轉述內文。
+
 ## 2026-11-19
+- **[[Events/evt-2026-11-19-091c7d|See PR scans in action]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 放出 PR scans 的操作示範，演示在 pull request 流程裡檢視掃描結果。
 - **[[Events/evt-2026-11-19-311148|NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs]]** — Microsoft · infra · conf 73 · heat 未量測
   NVIDIA 與微軟在 Ignite 宣布擴大合作，範圍從 Azure 基礎設施延伸到工業系統與 Windows PC。
+- **[[Events/evt-2026-11-19-4e7808|Get started with Daybreak Blue]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 商務學習頁上架 Daybreak Blue 的上手導覽影片。
+- **[[Events/evt-2026-11-19-6732dd|Explore the Codex Security Plugin]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發布 Codex Security Plugin 的示範影片，從起步演到檢視結果。
+- **[[Events/evt-2026-11-19-678ad6|Deploying Daybreak Red]]** — OpenAI · infra · conf 73 · heat 未量測
+  OpenAI 發布 Daybreak Red 的參考架構，用於有人監督的資安調查。
 - **[[Events/evt-2026-11-19-b90430|Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
   GeForce NOW 黑色星期五優惠：六個月方案首期六個月 7 折。
 - **[[Events/evt-2026-11-19-f0e20c|How OpenAI’s Performance Factory keeps ChatGPT fast]]** — OpenAI · infra · conf 73 · heat 未量測

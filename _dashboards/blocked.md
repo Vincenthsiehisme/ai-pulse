@@ -1,10 +1,7 @@
-# 被門禁擋下（86）
+# 被門禁擋下（79）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-11-20-065414|Hebbia sees improvements in financial research with GPT-6 Astra]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-20-ecfda3|Combatting adversarial distillation]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-19-6732dd|Explore the Codex Security Plugin]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-18-38ef4c|Why your fine-tuning job takes longer than the FLOPs say]]** — Dharma-AI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-18-c82890|Time-Series Models in the Streamhouse: A New Frontier and Use Cases]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-18-fa6769|Advancing chip design with OpenAI models]]** — OpenAI — blockers: thin_research_analysis
@@ -73,12 +70,8 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-11-20-52a5df|Can AI help scientists identify promising drug candidates?]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-20-e737a1|Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-20-fffc1c|Introducing harness adapters: adapt your favorite model to your harnes]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-19-091c7d|See PR scans in action]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-19-4e7808|Get started with Daybreak Blue]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-19-678ad6|Deploying Daybreak Red]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
+- **[[Events/evt-2026-11-20-e737a1|Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup]]** — industry — blockers: generic_entity
+- **[[Events/evt-2026-11-20-fffc1c|Introducing harness adapters: adapt your favorite model to your harnes]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-11-03-fc5d73|CWE-bench v2: More coverage, quality, and transparency]]** — industry — blockers: thin_research_analysis, generic_entity
 - **[[Events/evt-2026-10-21-4163ab|Patch the Planet: global response coordination as agents uncover criti]]** — industry — blockers: generic_entity

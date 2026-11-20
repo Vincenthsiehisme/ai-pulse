@@ -194,6 +194,11 @@
     "src_hash": "0a977cb7f34a",
     "zh": "讓 AI agent 像全場最懶的資深工程師那樣想：最好的程式是你沒寫的那段"
   },
+  "Dodaios/ste80-humanizer": {
+    "at": "2026-11-20T22:29:21+00:00",
+    "src_hash": "35d38dcddfbe",
+    "zh": "agent skill，去除 AI 腔，並把文字改寫到八成符合 ASD-STE100 簡化技術英文"
+  },
   "Donchitos/Claude-Code-Game-Studios": {
     "at": "2026-10-31T19:40:39+00:00",
     "src_hash": "9d527e159631",
@@ -513,6 +518,11 @@
     "at": "2026-11-05T21:42:35+00:00",
     "src_hash": "98b589441862",
     "zh": "給受管制團隊和想在本機跑 AI 的人，開源 Python agent 框架，可完全離線"
+  },
+  "MiniMax-AI/OpenAgentCore": {
+    "at": "2026-11-20T22:29:21+00:00",
+    "src_hash": "ea74184f3db3",
+    "zh": "開源、可自架的 OpenAI Agents API，透過官方 SDK 在自己的機器跑 Codex、Claude Code"
   },
   "Mintplex-Labs/anything-llm": {
     "at": "2026-10-06T20:41:13+00:00",
@@ -1050,9 +1060,9 @@
     "zh": "WorkBuddy 多帳號反向代理閘道，支援 Codex、Claude Code 與 OpenAI 用戶端"
   },
   "asgeirtj/system_prompts_leaks": {
-    "at": "2026-09-12T19:15:08+00:00",
-    "src_hash": "081f0cd29b0f",
-    "zh": "蒐集各家外流的 system prompt，涵蓋 Claude、GPT、Gemini、Grok，定期更新"
+    "at": "2026-11-20T22:29:21+00:00",
+    "src_hash": "1dd75592ba52",
+    "zh": "蒐集 ChatGPT、Claude、Gemini 等各家外流的 system prompt，每天更新"
   },
   "ayghri/i-have-adhd": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -1440,9 +1450,9 @@
     "zh": "唯讀 MCP server，讓 AI agent 搜尋、讀取你自己的 WhatsApp 訊息"
   },
   "firecrawl/firecrawl": {
-    "at": "2026-11-18T22:48:54+00:00",
-    "src_hash": "5e3b166bc02c",
-    "zh": "給 agent 用的資料 API，一個介面搜尋、抓取網頁，並串接 550 多個資料來源"
+    "at": "2026-11-20T22:29:21+00:00",
+    "src_hash": "531606aecbe4",
+    "zh": "讓 agent 更聰明的知識基礎設施，一個 API 搜尋、抓取並串接 550 多個資料供應商"
   },
   "flohoeller/affectui": {
     "at": "2026-10-30T20:18:02+00:00",
@@ -1478,6 +1488,11 @@
     "at": "2026-08-12T19:14:16+00:00",
     "src_hash": "e66c50f0ba6c",
     "zh": "用 C/C++ 做 LLM 推論"
+  },
+  "ghorbelhamdi/buddy-android": {
+    "at": "2026-11-20T22:29:21+00:00",
+    "src_hash": "571602425af2",
+    "zh": "Android 浮動泡泡 AI 助理，讓 Claude Code、Codex 等替你讀螢幕、點按、輸入，開源免 root"
   },
   "github/github-mcp-server": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1603,6 +1618,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "9ed7aa25db62",
     "zh": "不綁平台的 AI agent 瀏覽器操作，用 CLI 加 SDK 控制真實 Chrome，簡單好上手"
+  },
+  "iamajmeena/neonclipping": {
+    "at": "2026-11-20T22:29:21+00:00",
+    "src_hash": "819d3ca46a9e",
+    "zh": "貼上連結，約 2 分鐘產出附字幕的 9:16 短片。免費、本機執行、開源"
   },
   "iannuttall/seo": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -1978,6 +1998,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "2dfffa61ccd5",
     "zh": "魔搭 ModelScope Cookbook，開發者的開源模型應用實戰指南，涵蓋選型、推理、微調、RAG 與 Agent"
+  },
+  "molly554/whiteboard-ai-tutor": {
+    "at": "2026-11-20T22:29:21+00:00",
+    "src_hash": "206ec6621087",
+    "zh": "開源白板 AI 家教，有動畫課程與互動回放，並比較 Claude、Gemini、DeepSeek 的生成結果"
   },
   "morganlinton/BeautifulRust": {
     "at": "2026-10-27T20:22:03+00:00",
@@ -2525,9 +2550,9 @@
     "zh": "跨平台、高效率的 SQLite 擴充，替嵌入式資料庫加上向量搜尋"
   },
   "stablyai/orca": {
-    "at": "2026-11-06T21:12:40+00:00",
-    "src_hash": "40769c0bf9bb",
-    "zh": "用自己的訂閱同時跑多個 coding agent（Claude Code、Codex 等），支援桌面、手機與遠端"
+    "at": "2026-11-20T22:29:21+00:00",
+    "src_hash": "705ad490836d",
+    "zh": "用自己的訂閱同時跑一批 bot（Claude Code、Grok、Agy、Codex 等），支援桌面、手機與遠端執行"
   },
   "stas00/ml-engineering": {
     "at": "2026-10-05T22:18:12+00:00",

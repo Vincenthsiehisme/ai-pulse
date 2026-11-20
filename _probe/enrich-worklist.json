@@ -1,19 +1,19 @@
 [
   {
-    "id": "evt-2026-11-18-848f95",
-    "path": "evt-2026-11-18-848f95.md",
-    "title": "Research acceleration: The jagged frontier",
+    "id": "evt-2026-11-19-091c7d",
+    "path": "evt-2026-11-19-091c7d.md",
+    "title": "See PR scans in action",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/research-acceleration-jagged-frontier",
-        "title": "Research acceleration: The jagged frontier",
-        "summary": "OpenAI measures how coding agents are accelerating AI research, where their performance remains uneven, and what this signals about recursive self-improvement.",
+        "url": "https://openai.com/business/learn/pr-scans-demo",
+        "title": "See PR scans in action",
+        "summary": "Watch a walkthrough of PR scans and see how the presenter reviews scan results in a pull request workflow.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,20 +30,20 @@
     }
   },
   {
-    "id": "evt-2026-11-18-8e14d3",
-    "path": "evt-2026-11-18-8e14d3.md",
-    "title": "How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise",
+    "id": "evt-2026-11-19-4e7808",
+    "path": "evt-2026-11-19-4e7808.md",
+    "title": "Get started with Daybreak Blue",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/business/customer-stories/sumitomo-life",
-        "title": "How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise",
-        "summary": "Sumitomo Life uses ChatGPT Enterprise to research insurers, prepare proposals, and draft code for investment analysis. Early use by executives helped drive adoption.",
+        "url": "https://openai.com/business/learn/daybreak-blue-onboarding-demo",
+        "title": "Get started with Daybreak Blue",
+        "summary": "Watch a walkthrough of onboarding to Daybreak Blue, with a closer look at the setup experience and how to get started.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -60,19 +60,178 @@
     }
   },
   {
-    "id": "evt-2026-11-18-91ed0d",
-    "path": "evt-2026-11-18-91ed0d.md",
-    "title": "Anthropic Prices Initial Public Offering",
+    "id": "evt-2026-11-19-6732dd",
+    "path": "evt-2026-11-19-6732dd.md",
+    "title": "Explore the Codex Security Plugin",
     "fingerprint": null,
-    "facet": "pricing",
-    "company_guess": "Anthropic",
+    "facet": "update",
+    "company_guess": "OpenAI",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-anthropic-news",
-        "url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering",
-        "title": "Anthropic Prices Initial Public Offering",
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/business/learn/codex-security-plugin-demo",
+        "title": "Explore the Codex Security Plugin",
+        "summary": "Watch a demo of the Codex Security Plugin and see the workflow in action, from getting started to reviewing the results shown in the recording.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-19-678ad6",
+    "path": "evt-2026-11-19-678ad6.md",
+    "title": "Deploying Daybreak Red",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/business/learn/deploying-daybreak-red",
+        "title": "Deploying Daybreak Red",
+        "summary": "Explore a reference architecture for supervised security investigations with Daybreak Red, including safety controls, setup, and monitoring.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-20-065414",
+    "path": "evt-2026-11-20-065414.md",
+    "title": "Hebbia sees improvements in financial research with GPT-6 Astra",
+    "fingerprint": "openai:gpt:6",
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/business/customer-stories/hebbia",
+        "title": "Hebbia sees improvements in financial research with GPT-6 Astra",
+        "summary": "Hebbia tested GPT-6 Astra for financial research. Its prerelease evaluations found gains in source coverage, citation relevance, and presentation quality.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-20-52a5df",
+    "path": "evt-2026-11-20-52a5df.md",
+    "title": "Can AI help scientists identify promising drug candidates?",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/introducing-medchembench",
+        "title": "Can AI help scientists identify promising drug candidates?",
+        "summary": "MedChemBench evaluates how well AI models interpret molecular structures, reason from experimental evidence, and select compounds in early drug discovery.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-20-e737a1",
+    "path": "evt-2026-11-20-e737a1.md",
+    "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+    "fingerprint": null,
+    "facet": "capability",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/inkling2mini",
+        "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-20-ecfda3",
+    "path": "evt-2026-11-20-ecfda3.md",
+    "title": "Combatting adversarial distillation",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/combatting-adversarial-distillation",
+        "title": "Combatting Adversarial Distillation",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/combatting-adversarial-distillation/",
+        "title": "Combatting Adversarial Distillation",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -83,7 +242,7 @@
       "counts": {
         "has_text": 0,
         "unfetched": 0,
-        "withheld": 1
+        "withheld": 2
       },
       "needs_source_link": true,
       "reasons": [
@@ -92,80 +251,20 @@
     }
   },
   {
-    "id": "evt-2026-11-19-311148",
-    "path": "evt-2026-11-19-311148.md",
-    "title": "NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs",
+    "id": "evt-2026-11-20-fffc1c",
+    "path": "evt-2026-11-20-fffc1c.md",
+    "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
     "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Microsoft",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs/",
-        "title": "NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs",
-        "summary": "NVIDIA and Microsoft are extending their full-stack collaboration to help organizations build, customize and deploy intelligent applications — from next-generation infrastructure on Azure to industrial systems and Windows PCs. At Microsoft Ignite, the companies are expanding access to Azure virtual ",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-19-b90430",
-    "path": "evt-2026-11-19-b90430.md",
-    "title": "Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW",
-    "fingerprint": null,
-    "facet": "update",
+    "facet": "capability",
     "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-black-friday-2026/",
-        "title": "Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW",
-        "summary": "GeForce NOW is kicking off Black Friday with more reasons to make time for gaming. Six-month memberships are back for a limited time. Save 30% on the first six-month term of a Performance or Ultimate membership. Big gaming plans, smaller price tag.  Keep the holiday savings going: Check out more NVI",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-19-f0e20c",
-    "path": "evt-2026-11-19-f0e20c.md",
-    "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
-    "fingerprint": null,
-    "facet": "capability",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast",
-        "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
-        "summary": "Learn how OpenAI built the Performance Factory, a system of Codex-powered workflows that finds and fixes performance issues to help keep ChatGPT fast.",
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+        "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
