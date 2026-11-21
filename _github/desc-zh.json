@@ -250,8 +250,8 @@
     "zh": "給 AI agent 用的本體增強生成（Ontology-Augmented Generation）"
   },
   "Folkbench/folkbench": {
-    "at": "2026-10-13T20:55:59+00:00",
-    "src_hash": "7b04273e730e",
+    "at": "2026-11-21T21:18:30+00:00",
+    "src_hash": "2abbe4ecdc3f",
     "zh": "AI API 中轉站評測排行與切換工具，實測可用率、延遲與價格，適用 Claude Code、Codex"
   },
   "FrigadeHQ/hob": {
@@ -450,9 +450,9 @@
     "zh": "本機深度研究工具，SimpleQA 約 95%，支援各種本機與雲端 LLM，10 多個搜尋引擎，全程本機加密"
   },
   "Leonxlnx/earshot": {
-    "at": "2026-10-20T19:46:47+00:00",
-    "src_hash": "b8a1b6dc3947",
-    "zh": "讓 coding agent 聽音訊、審查並產生聲音，只用 CPU，開源"
+    "at": "2026-11-21T21:18:30+00:00",
+    "src_hash": "7c03e737f9dc",
+    "zh": "給 coding agent 的音效工具，用白話描述，以程式碼產生聲音，只用 CPU，開源"
   },
   "Leonxlnx/taste-skill": {
     "at": "2026-10-14T19:51:47+00:00",
@@ -693,6 +693,11 @@
     "at": "2026-11-11T22:25:07+00:00",
     "src_hash": "0da090c8d834",
     "zh": "AWS Trainium 上的開源 LLM 推論引擎，支援百萬 token 上下文與 OpenAI 相容 API"
+  },
+  "RustingStudio/RustingStrata": {
+    "at": "2026-11-21T21:18:30+00:00",
+    "src_hash": "5a0e755f8572",
+    "zh": "純 Rust 的 GGUF LLM 推論引擎，可跑超出 VRAM 的模型，支援 CUDA 與 Vulkan"
   },
   "Ryder-Sun/Meldwork": {
     "at": "2026-10-07T20:56:20+00:00",
@@ -954,6 +959,11 @@
     "src_hash": "0705446b2547",
     "zh": "讓 agent 一鍵產出商用等級的產品宣傳片，會作曲，指著畫面就能改"
   },
+  "alexeyw/lot-map": {
+    "at": "2026-11-21T21:18:30+00:00",
+    "src_hash": "24a2280f48a3",
+    "zh": "Claude Code 的即時地圖，在對話旁顯示 agent 的工具呼叫、hook 與 subagent，僅在本機運作"
+  },
   "alexgreensh/attention-span": {
     "at": "2026-10-05T22:18:12+00:00",
     "src_hash": "94cea6919d81",
@@ -1093,6 +1103,11 @@
     "at": "2026-07-29T19:13:52+00:00",
     "src_hash": "5e2cb29a04e7",
     "zh": "《深入理解 AI Agent：設計原理與工程實踐》（李博杰 著）開源主倉庫：全書正文、PDF 與各章配套程式碼"
+  },
+  "bookwjitchieni1986/blender-ai-mcp-addon": {
+    "at": "2026-11-21T21:18:30+00:00",
+    "src_hash": "8f084912b825",
+    "zh": "Blender 的 AI 助手與 MCP server，含視覺化對話與場景工具，可接 Claude、Gemini 等"
   },
   "botpress/botpress": {
     "at": "2026-11-04T21:40:11+00:00",
@@ -2400,9 +2415,9 @@
     "zh": "AI 的文件處理平台"
   },
   "rush-db/rushdb": {
-    "at": "2026-11-14T20:16:18+00:00",
-    "src_hash": "d4c5f8aefd68",
-    "zh": "自描述的圖原生資料庫，讓 AI 代理可逐步探查可查詢的內容，不必靠猜"
+    "at": "2026-11-21T21:18:30+00:00",
+    "src_hash": "7bf89d1fce5b",
+    "zh": "給 AI 用的資料庫，同一筆資料可做圖、向量與分析查詢，單一 Rust 執行檔"
   },
   "ruvnet/ruflo": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -2430,8 +2445,8 @@
     "zh": "在 Slack、Teams、Discord 放開源 AI 隊友，可自架，不限模型"
   },
   "sansan0/TrendRadar": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "a7b112c33175",
+    "at": "2026-11-21T21:18:30+00:00",
+    "src_hash": "f8c1861e2165",
     "zh": "AI 輿情與熱點監控，彙整多平台與 RSS，可依關鍵字篩選，支援 MCP 與多管道推播"
   },
   "sarpstar/cinecode": {
