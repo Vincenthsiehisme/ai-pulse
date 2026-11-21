@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-11-20'
+generated_day: '2026-11-21'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---
@@ -14,10 +14,14 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **76** 則：`published` 65、`review` 11
+事件 **80** 則：`published` 68、`review` 12
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-20 | [[Events/evt-2026-11-20-fffc1c\|Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost]] | review |
+| 2026-11-19 | [[Events/evt-2026-11-19-678ad6\|Deploying Daybreak Red]] | published |
+| 2026-11-19 | [[Events/evt-2026-11-19-6732dd\|Explore the Codex Security Plugin]] | published |
+| 2026-11-19 | [[Events/evt-2026-11-19-091c7d\|See PR scans in action]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-2d271d\|Inside the Codex sandbox]] | published |
 | 2026-11-17 | [[Events/evt-2026-11-17-6d0bd2\|Introducing ChatGPT for Sales]] | published |
 | 2026-11-16 | [[Events/evt-2026-11-16-c79f5b\|At Holiday Extras, dots get to work before anyone asks]] | published |

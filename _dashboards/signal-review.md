@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-20"
+generated_day: "2026-11-21"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-20"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **673** 則／已裁決 **26** 則。
+待回答 **680** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -27,22 +27,22 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`infra-cost#cea206d1`** — infra-cost
   > 看 Azure 新虛擬機器的實際規格、供應區域與上市日期；看 Performance Factory 有沒有公布修復數量、延遲改善幅度或人工介入比例；看 RTX Spark 各機型定價與可跑的模型大小，以及 MoE 專家串流的 tokens/s。 看 Rubin HPC 的規格與出貨時間；看 MLPerf Training v6.1 其他廠商的送件情形；看 Lambda 公布的 CPO 部署規模、故障率與功耗；看 vLLM 新模型支援的實測吞吐，以及 KV cache 預設改動有沒有引發記憶體回報；看 llama.cpp v1.0.0 有沒有穩定承諾。
 
-- **`model-research#44f03891`** — model-research
-  > 看 OpenAI 那篇全文有沒有公布具體加速倍數與任務分類，以及其他實驗室有沒有發表可比較的量測；看 Gemini 4 Neon 與 Genie 4 原文公布的規格、基準測試與定價；看 Rumble-2-Flash 的語言別錯誤率與授權條款；看 DaisyRose-27B 是否公開權重與訓練成本。 看 GPT-6.2 的價格與第三方基準測試；看 OpenAI 嵌入式評估的第一批報告何時發布；看 Anthropic 那幾篇原文有沒有可驗證的具體措施；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡有沒有對比 JSON 與 XML 的準確率。
+- **`model-research#ce229066`** — model-research
+  > 看 MedChemBench 是否公開資料集與評分程式，以及有沒有 OpenAI 以外的模型被納入報告；看對抗式蒸餾那篇原文有沒有提出可驗證的偵測或防護做法，其他模型廠商是否跟進。 看 OpenAI 那篇全文有沒有公布具體加速倍數與任務分類，以及其他實驗室有沒有發表可比較的量測；看 Gemini 4 Neon 與 Genie 4 原文公布的規格、基準測試與定價；看 Rumble-2-Flash 的語言別錯誤率與授權條款；看 DaisyRose-27B 是否公開權重與訓練成本。 看 GPT-6.2 的價格與第三方基準測試；看 OpenAI 嵌入式評估的第一批報告何時發布；看 Anthropic 那幾篇原文有沒有可驗證的具體措施；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡有沒有對比 JSON 與 XML 的準確率。
 
-- **`product-market#fae0ece6`** — product-market
-  > 看住友生命案例全文有沒有揭露使用人數、採用率或成效數字；看 Figaro 與 OpenAI 是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 OpenAI 是否公開 Gondola 案例的衡量方式。
+- **`product-market#28e3519b`** — product-market
+  > 看 Hebbia 案例有沒有公開評測數字與對照基準，或其他金融客戶的獨立回報；看 OpenAI 是否公開 Daybreak Blue 的產品說明頁，並交代它與 Daybreak Red 的關係。 看住友生命案例全文有沒有揭露使用人數、採用率或成效數字；看 Figaro 與 OpenAI 是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 OpenAI 是否公開 Gondola 案例的衡量方式。
 
 - **`capital-evolution#c1eb0bb8`** — capital-evolution
   > 看 Anthropic 原文公布的定價與發行規模，以及掛牌後的交易表現與其他媒體的獨立報導；看 ChatGPT 內出現 LVMH 刊物的呈現方式，以及雙方是否公布授權與分潤條件；看 SB 53 的後續立法進度與其他業者是否表態；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額與交割時間。
 
-- **`agent-refactor#9f414d62`** — agent-refactor
-  > 看 Codex 沙箱原文是否列出各平台的隔離機制，以及外部資安研究者有沒有人驗證或繞過。 看 Sales 外掛清單是否涵蓋主要 CRM 廠商，有沒有企業公開導入後的流程數據；看 Revolut 是否公開 30 到 60% 的衡量方法；看哪些醫療機構公開採用 computer-use agent，有沒有臨床準確度的量化數字；看 dots 是否成為正式產品名稱；看 CUDA-X 各函式庫的基準數字，以及有沒有 agent 框架官方整合。
+- **`agent-refactor#3a497228`** — agent-refactor
+  > 看 PR scans 與 Codex Security Plugin 有沒有正式文件、可量測的偵測成效或第三方使用回報；看 Daybreak Red 全文的權限範圍與稽核紀錄機制。 看 Codex 沙箱原文是否列出各平台的隔離機制，以及外部資安研究者有沒有人驗證或繞過。 看 Sales 外掛清單是否涵蓋主要 CRM 廠商，有沒有企業公開導入後的流程數據；看 Revolut 是否公開 30 到 60% 的衡量方法；看哪些醫療機構公開採用 computer-use agent，有沒有臨床準確度的量化數字；看 dots 是否成為正式產品名稱；看 CUDA-X 各函式庫的基準數字，以及有沒有 agent 框架官方整合。
 
 - **`global-map#7602049d`** — global-map
   > 看風險管理文章是否附可驗證的評估門檻，以及政策圈與第三方的回應；看 Dean Ball 那篇有沒有提出具體的制度建議。 看智利合作是否公布預算、參與的政府部門與首批新創名單；看北約合作是否公布參與機構與第一批可驗證的漏洞發現與修補成果；看 King's Trust 課程是否開跑、首批受訓人數；看 Anthropic 加拿大那篇原文是投資、合作還是據點；看 OpenAI 200 萬美元的受款團隊；看韓國業者後續是否公布與 NVIDIA 的機器人或實體 AI 專案。
 
-## 事件層（667）
+## 事件層（674）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -2036,11 +2036,32 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`evt-2026-11-18-c87bb7#df2c853e`** — evt-2026-11-18-c87bb7
   > 原文載明的開放地區、使用門檻與定價。
 
+- **`evt-2026-11-19-091c7d#d3a4e340`** — evt-2026-11-19-091c7d
+  > OpenAI 是否發布 PR scans 的正式文件、支援範圍或定價。
+
 - **`evt-2026-11-19-311148#3b66cf97`** — evt-2026-11-19-311148
   > Azure 新虛擬機器的實際規格、供應區域與上市日期；Windows PC 端的具體功能。
+
+- **`evt-2026-11-19-4e7808#6b218056`** — evt-2026-11-19-4e7808
+  > OpenAI 是否公開 Daybreak Blue 的產品說明頁，並與 Daybreak Red 的關係交代清楚。
+
+- **`evt-2026-11-19-6732dd#6bcffc1c`** — evt-2026-11-19-6732dd
+  > Codex Security Plugin 是否出現正式文件、可量測的偵測成效或第三方使用回報。
+
+- **`evt-2026-11-19-678ad6#b8e13b39`** — evt-2026-11-19-678ad6
+  > 全文是否公開具體的權限範圍、稽核紀錄機制，以及 Daybreak Red 與 Blue 的分工。
 
 - **`evt-2026-11-19-b90430#774490e8`** — evt-2026-11-19-b90430
   > 無明確可驗證的 AI 相關訊號。
 
 - **`evt-2026-11-19-f0e20c#13e9e1b3`** — evt-2026-11-19-f0e20c
   > 文章是否公布修復數量、延遲改善幅度或人工介入比例。
+
+- **`evt-2026-11-20-065414#104f0f7b`** — evt-2026-11-20-065414
+  > 是否有公開的評測數字、對照基準，或其他金融客戶的獨立回報。
+
+- **`evt-2026-11-20-52a5df#1c0a1875`** — evt-2026-11-20-52a5df
+  > MedChemBench 是否公開資料集與評分程式，以及是否有 OpenAI 以外的模型被納入報告。
+
+- **`evt-2026-11-20-ecfda3#efca1440`** — evt-2026-11-20-ecfda3
+  > 原文是否提出可驗證的偵測或防護做法，以及其他模型廠商是否跟進同類說明。

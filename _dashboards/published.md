@@ -63,7 +63,7 @@
   ChatGPT for Sales 推出 Sales 外掛，另有 30 多個新增或擴充的夥伴外掛。
 - **[[Events/evt-2026-11-17-7f7dd6|Introducing OpenAI for Chile]]** — OpenAI · policy · conf 73 · heat 未量測
   OpenAI 與智利政府合作，推動公部門 AI 採用、技能培訓與在地新創。
-- **[[Events/evt-2026-11-17-d69535|Introducing GPT-6.2 Astra and Sol]]** — OpenAI · model-capability · conf 80 · heat 未量測
+- **[[Events/evt-2026-11-17-d69535|Introducing GPT-6.2 Astra and Sol]]** — OpenAI · model-capability · conf 87 · heat 未量測
   OpenAI 發布 GPT-6.2 Astra 與 Sol 兩款模型，API 同步開放。
 - **[[Events/evt-2026-11-17-f12b90|Astra for Law leads in legal intelligence]]** — OpenAI · model-capability · conf 73 · heat 未量測
   OpenAI 稱 Astra for Law 在涵蓋 24 個法律領域的發布評測中排名第一。

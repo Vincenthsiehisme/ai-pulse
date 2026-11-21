@@ -18,7 +18,7 @@ can_satisfy_primary: false
 endpoint: "https://importai.substack.com/feed"
 robots_checked_day: "2026-11-15"
 first_fetch_at: "2026-11-15"
-last_observed_day: "2026-11-20"
+last_observed_day: "2026-11-21"
 items_observed: 21
 events_bound: 0
 events_published: 0

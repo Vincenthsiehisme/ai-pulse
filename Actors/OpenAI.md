@@ -3,21 +3,25 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-20'
+generated_day: '2026-11-21'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **263** 則：`published` 250、`review` 13
+事件 **267** 則：`published` 257、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-20 | [[Events/evt-2026-11-20-ecfda3\|Combatting adversarial distillation]] | review |
-| 2026-11-20 | [[Events/evt-2026-11-20-065414\|Hebbia sees improvements in financial research with GPT-6 Astra]] | review |
+| 2026-11-20 | [[Events/evt-2026-11-20-ecfda3\|Combatting adversarial distillation]] | published |
+| 2026-11-20 | [[Events/evt-2026-11-20-52a5df\|Can AI help scientists identify promising drug candidates?]] | published |
+| 2026-11-20 | [[Events/evt-2026-11-20-065414\|Hebbia sees improvements in financial research with GPT-6 Astra]] | published |
 | 2026-11-19 | [[Events/evt-2026-11-19-f0e20c\|How OpenAI’s Performance Factory keeps ChatGPT fast]] | published |
-| 2026-11-19 | [[Events/evt-2026-11-19-6732dd\|Explore the Codex Security Plugin]] | review |
+| 2026-11-19 | [[Events/evt-2026-11-19-678ad6\|Deploying Daybreak Red]] | published |
+| 2026-11-19 | [[Events/evt-2026-11-19-6732dd\|Explore the Codex Security Plugin]] | published |
+| 2026-11-19 | [[Events/evt-2026-11-19-4e7808\|Get started with Daybreak Blue]] | published |
+| 2026-11-19 | [[Events/evt-2026-11-19-091c7d\|See PR scans in action]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-fa6769\|Advancing chip design with OpenAI models]] | review |
 | 2026-11-18 | [[Events/evt-2026-11-18-bb8179\|The Silent Consensus]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-8e14d3\|How Sumitomo Life’s leaders helped teams adopt ChatGPT Enterprise]] | published |

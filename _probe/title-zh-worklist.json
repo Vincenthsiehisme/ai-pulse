@@ -8,38 +8,6 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-11-19-091c7d",
-    "title": "See PR scans in action",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-19-4e7808",
-    "title": "Get started with Daybreak Blue",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-19-6732dd",
-    "title": "Explore the Codex Security Plugin",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-19-678ad6",
-    "title": "Deploying Daybreak Red",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-11-19-f0e20c",
     "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
     "company": "OpenAI",
@@ -48,43 +16,11 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-11-20-065414",
-    "title": "Hebbia sees improvements in financial research with GPT-6 Astra",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-20-52a5df",
-    "title": "Can AI help scientists identify promising drug candidates?",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-20-e737a1",
-    "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-20-ecfda3",
-    "title": "Combatting adversarial distillation",
-    "company": "OpenAI",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
     "id": "evt-2026-11-20-fffc1c",
     "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
     "company": "industry",
-    "track": null,
-    "summary": "",
+    "track": "Agent與軟體重構",
+    "summary": "Hugging Face 介紹 harness adapters，讓慣用模型適配自家 harness 以改善表現與成本。",
     "stale_zh": null
   }
 ]
