@@ -11,9 +11,12 @@ if ! gitleaks stdin -v --redact --no-banner < "$1"; then
   exit 1
 fi
 
-# 標題＝第一個不是空行、不是 # 註解的行。格式只驗得到形狀，「寫的是為什麼不是改了什麼」要人看。
+# 標題＝去掉註解行之後第一個非空行。註解字元照 git 自己的 core.commentChar／core.commentString（git stripspace 會讀），
+# 不寫死 #。格式只驗得到形狀，「寫的是為什麼不是改了什麼」要人看。
+# 擋不到：commit.cleanup 是 verbatim／whitespace（或 -m 不經編輯器）時 git 會保留 # 開頭的首行，這裡仍把它當註解跳過。
 # type 後面可以帶 Conventional Commits 的 (scope)，例如 fix(github board): …；擋它是誤擋，意思一樣。
-subject=$(sed -n -e '/^[[:space:]]*#/d' -e '/^[[:space:]]*$/d' -e p -e q "$1")
+stripped=$(git stripspace --strip-comments < "$1")
+subject=$(printf '%s\n' "$stripped" | sed -n -e '/^[[:space:]]*$/d' -e p -e q)
 case "$subject" in
   # git 自己產生的標題：merge、revert，與 rebase --autosquash 用的 fixup!／squash!／amend!
   "Merge "*|"Revert \""*|"fixup! "*|"squash! "*|"amend! "*) exit 0 ;;

@@ -47,7 +47,8 @@ hook，所有 worktree 的 commit 都不掃。確認有沒有作用：`git hook 
 沒裝 gitleaks 時三支都直接擋 commit，不會安靜略過。
 
 本機 hook 擋不到的路：`--no-verify`、GitHub 網頁 merge、`git rebase --continue`（解衝突時新貼進去的內容）、
-無衝突的 cherry-pick 與 rebase 重放、fast-forward。密鑰誤報在那一行加 `# gitleaks:allow` 並寫理由：它整行放行，
+無衝突的 cherry-pick 與 rebase 重放、fast-forward；被 git 判成 binary 的檔（`.gitattributes` 標 `-diff`／`binary`、
+超過 `core.bigFileThreshold`），gitleaks 與個資檢查都看不到內容，不要把文字檔標成 binary。密鑰誤報在那一行加 `# gitleaks:allow` 並寫理由：它整行放行，
 只能用在整行都是公開資料的地方，commit message 裡不准寫它（寫了，message 掃描也會放行）。測試檔裡故意造的
 假手機、假身分證格式在那一行寫 `pii:allow` 加理由；真資料不准這樣放行，email 一律改用 `example.com` 這類保留網域。
 PR 說明照 `.github/pull_request_template.md` 寫。
