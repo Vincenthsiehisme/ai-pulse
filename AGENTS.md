@@ -54,9 +54,10 @@ hook，所有 worktree 的 commit 都不掃。確認有沒有作用：`git hook 
 PR 說明照 `.github/pull_request_template.md` 寫。
 
 資料 commit（上面第 2 條那一類）在 GitHub Actions 與雲端 routine 裡 commit，那裡沒設 `core.hooksPath`，不經過
-這組 hook；不要在那兩處設它，那裡沒有 gitleaks，三支都會擋。`probe <日期>: …`、`nightly: enrich …` 不合
-`<type>: <為什麼>`：在啟用了 hook 的本機 clone 手跑 `pulse-probe.py`，它的 commit 會被 commit-msg 擋，而它只把
-commit 失敗印成 warn，資料留在工作樹沒進 commit。
+這組 hook；不要在那兩處設它，那裡沒有 gitleaks，三支都會擋。`commit-msg` 另外放行這兩種機器標題的完整格式
+（`nightly: enrich + narrative|digest <日期>`、`probe <日期>: <n> items / <n> sources`），本機手跑 `pulse-probe.py`
+才不會被擋；近似的人寫標題照樣擋。改了產生器的標題格式，要同一個 PR 改 `commit-msg` 那條正則，不然本機跑會被擋，
+而 `pulse-probe.py` 只把 commit 失敗印成 warn。
 
 ## Review
 
