@@ -46,8 +46,8 @@ fi
 stripped=$(printf '%s\n' "$message" | git stripspace --strip-comments)
 subject=$(printf '%s\n' "$stripped" | sed -n -e '/^[[:space:]]*$/d' -e p -e q)
 case "$subject" in
-  # git 自己產生的標題：merge、revert，與 rebase --autosquash 用的 fixup!／squash!／amend!
-  "Merge "*|"Revert \""*|"fixup! "*|"squash! "*|"amend! "*) exit 0 ;;
+  # git 自己產生的標題：merge、revert、revert 一個 revert（git 2.43 起叫 Reapply），與 rebase --autosquash 用的 fixup!／squash!／amend!
+  "Merge "*|"Revert \""*|"Reapply \""*|"fixup! "*|"squash! "*|"amend! "*) exit 0 ;;
 esac
 # 機器資料 commit 的兩種固定標題，照產生器的完整格式比對到行尾（2026-11-22 使用者裁 D23 採 (a)）：
 #   nightly: enrich + narrative|digest <日期>   scripts/enrich-runbook.md 的 commit 指令；監控用 ^nightly: enrich 找它
