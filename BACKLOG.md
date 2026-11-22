@@ -889,9 +889,10 @@ commit 的程式〉。
 的現在本來就這樣；#114 的 `commit-msg` 放行這兩種完整標題（使用者裁），只是讓啟用 hook 之後維持原狀，而不是
 被擋下又因為 `pulse-probe.py` 只印 warn 而安靜漏 commit。
 
-要做的事：產生器只 stage 自己產生的路徑（AGENTS.md 第 2 條那份清單），工作樹還有別的改動就明確失敗、exit 非 0；
-`pulse-probe.py` 的 commit 失敗也不要只印 warn。另一條路是 `commit-msg` 放行機器標題時一併驗 staged 路徑都在資料
-清單裡，但那會讓 hook 跟資料清單變成兩份要同步，較差。
+要做的事：每個入口執行前先要求工作樹乾淨，不乾淨就明確失敗、exit 非 0；commit 時只 stage 這一次實際產生的檔案，
+不用 `git add -A`。不能拿 AGENTS.md 第 2 條那份整體資料清單當白名單：它涵蓋所有鏈的產物，probe 會把別條鏈留下的
+`Events/`、`Digests/` 改動一起帶進來；`_config/sources.yaml`、`_config/narratives.yaml` 是按欄位分權的，整檔 stage
+會把人管的欄位也帶進來。`pulse-probe.py` 的 commit 失敗也不要只印 warn。
 
 ---
 

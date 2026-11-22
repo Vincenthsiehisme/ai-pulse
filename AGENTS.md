@@ -33,7 +33,8 @@ quota、覆蓋門檻）也走這條；`_config/narratives.yaml` 除了 `now` / `
 
 `.githooks/pre-commit` 擋 staged 改動裡的密鑰（gitleaks）與測試檔新增行裡的個資格式；`.githooks/commit-msg` 擋
 commit message 裡的密鑰，並驗標題是 `<type>: <為什麼>`；`.githooks/pre-merge-commit` 在沒有衝突、git 直接建
-merge commit 時跑同一支 pre-commit（git 這時不呼叫 pre-commit）。哪些算測試檔、哪些 email 放行、type 有哪些，
+merge commit 時跑同一支 pre-commit（git 這時不呼叫 pre-commit）；`git am` 不呼叫前兩支，`pre-applypatch`、
+`applypatch-msg` 轉給同兩支。哪些算測試檔、哪些 email 放行、type 有哪些，
 寫在各支開頭的註解，這裡不抄第二份。**在主 clone 啟用一次，所有 worktree 共用**：
 
 ```bash

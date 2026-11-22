@@ -6,7 +6,10 @@ if ! command -v gitleaks >/dev/null 2>&1; then
   echo "commit-msg：找不到 gitleaks（macOS：brew install gitleaks）。不裝就不能 commit，不是略過。" >&2
   exit 1
 fi
-if ! gitleaks stdin -v --redact --no-banner < "$1"; then
+# git commit -v（或 commit.verbose=true）會把 staged diff 接在 scissors 線底下，那段不會進 commit message；
+# 先切掉再掃，不然 diff 的上下文裡有密鑰就誤擋。scissors 線前面是註解字元，後面固定是這串。
+message=$(sed '/ -------------------------* >8 -------------------------*$/,$d' "$1")
+if ! printf '%s\n' "$message" | gitleaks stdin -v --redact --no-banner; then
   echo "commit-msg：commit message 裡有疑似密鑰，commit 已擋下。改掉 message 再 commit。" >&2
   exit 1
 fi
@@ -14,7 +17,7 @@ fi
 # 標題＝去掉註解行之後第一個非空行。註解字元照 git 自己的 core.commentChar／core.commentString（git stripspace 會讀），
 # 不寫死 #。格式只驗得到形狀，「寫的是為什麼不是改了什麼」要人看。
 # 擋不到：commit.cleanup 是 verbatim／whitespace（或 -m 不經編輯器）時 git 會保留 # 開頭的首行，這裡仍把它當註解跳過。
-stripped=$(git stripspace --strip-comments < "$1")
+stripped=$(printf '%s\n' "$message" | git stripspace --strip-comments)
 subject=$(printf '%s\n' "$stripped" | sed -n -e '/^[[:space:]]*$/d' -e p -e q)
 case "$subject" in
   # git 自己產生的標題：merge、revert，與 rebase --autosquash 用的 fixup!／squash!／amend!
