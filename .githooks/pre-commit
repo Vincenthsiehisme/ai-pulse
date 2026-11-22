@@ -1,0 +1,67 @@
+#!/bin/sh
+# commit 前擋兩樣：staged 改動裡的密鑰（gitleaks），與測試檔新增行裡的個資格式（下面的 awk）。
+# 啟用方式只寫在 AGENTS.md〈commit 前的檢查〉，這裡不留第二份指令。
+set -e
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "pre-commit：找不到 gitleaks（macOS：brew install gitleaks）。不裝就不能 commit，不是略過。" >&2
+  exit 1
+fi
+gitleaks git --pre-commit --staged -v --redact --no-banner .
+
+# 測試檔的個資格式。測試檔＝路徑上有 tests/、test/、fixtures/、fixture/、__tests__/、testdata/ 這層目錄，
+# 或檔名以 test、selftest 開頭再接 - _ .，或結尾是 _test.*、-test.*、.test.*、.spec.* 這類。
+# 只看這次新增的行，不看整份檔。合法的只有這幾種，其餘都擋：
+#   email 只准保留網域（example.com／.org／.net 與它們的子網域、*.example、*.test、*.invalid、*.localhost）、
+#   本機部分是 noreply／no-reply 的服務位址、不帶 + 的 *@users.noreply.github.com（bot 帳號）；
+#   台灣手機號碼（09 開頭十碼）與身分證／居留證格式（一個大寫字母接 1、2、8、9 再接八碼）一律擋。
+# 要測格式而故意造的假手機、假身分證，在同一行寫 pii:allow 並寫理由；真資料不准這樣放行。
+# 前後綴、rename 偵測與外部 diff 工具都明確指定，不讓使用者的 git 設定改掉輸出格式。
+# 先存進變數再交給 awk：寫成管線的話 git 失敗會被 awk 的 0 蓋掉，等於沒掃就放行。
+staged=$(git -c core.quotePath=false diff --cached -U0 --no-color --no-ext-diff --no-renames \
+    --src-prefix=a/ --dst-prefix=b/ --diff-filter=d)
+printf '%s\n' "$staged" | awk '
+function is_test(p,   n, parts, i, base) {
+  n = split(p, parts, "/")
+  for (i = 1; i < n; i++)
+    if (parts[i] ~ /^(tests?|fixtures?|__tests__|testdata)$/) return 1
+  base = parts[n]
+  if (base ~ /^(test|selftest)([-_.]|$)/) return 1
+  if (base ~ /[-_.](test|spec)\.[A-Za-z0-9]+$/) return 1
+  return 0
+}
+function email_ok(m,   at, local, dom) {
+  at = index(m, "@"); local = tolower(substr(m, 1, at - 1)); dom = tolower(substr(m, at + 1))
+  if (dom ~ /(^|\.)example\.(com|org|net)$/) return 1
+  if (dom ~ /\.(example|test|invalid|localhost)$/) return 1
+  if (local ~ /^no-?reply$/) return 1
+  if (dom == "users.noreply.github.com" && local !~ /\+/) return 1
+  return 0
+}
+function hit(kind) {
+  printf "pre-commit：%s:%d 疑似%s（值不印出）\n", file, ln, kind > "/dev/stderr"
+  bad = 1
+}
+function scan(s,   rest, m) {
+  if (s ~ /pii:allow/) return
+  rest = s
+  while (match(rest, /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z][A-Za-z]+/)) {
+    m = substr(rest, RSTART, RLENGTH); rest = substr(rest, RSTART + RLENGTH)
+    if (!email_ok(m)) hit("email（非保留網域）")
+  }
+  # 前後各補一個空白當邊界，更長數字串中間的十碼不算
+  if (match(" " s " ", /[^0-9]09[0-9][0-9][- ]?[0-9][0-9][0-9][- ]?[0-9][0-9][0-9][^0-9]/)) hit("台灣手機號碼")
+  if (match(" " s " ", /[^A-Za-z0-9][A-Z][1289][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][^0-9]/)) hit("身分證／居留證號")
+}
+# 檔頭只認 diff --git 之後、第一個 @@ 之前的 +++ 行；內容是「++ 」開頭的新增行也長成 +++，不能當檔頭
+/^diff --git / { hdr = 1; in_test = 0; next }
+hdr && /^\+\+\+ / { file = substr($0, 7); in_test = is_test(file); next }
+/^@@ / { hdr = 0; split($3, plus, ","); ln = substr(plus[1], 2) + 0; next }
+hdr { next }
+/^\+/ { if (in_test) scan(substr($0, 2)); ln++; next }
+END {
+  if (bad) {
+    print "pre-commit：測試檔不准用真實個資（DEV-STANDARDS〈測試〉）。email 改成 example.com 這類保留網域；" > "/dev/stderr"
+    print "故意造的假手機、假身分證在那一行加 pii:allow 與理由。commit 已擋下。" > "/dev/stderr"
+    exit 1
+  }
+}'

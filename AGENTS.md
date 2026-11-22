@@ -28,3 +28,38 @@ quota、覆蓋門檻）也走這條；`_config/narratives.yaml` 除了 `now` / `
 半夜潤稿 routine 裡作用，擋 agent 自己跑 apply、自己 commit／push／stash、寫交棒檔以外的檔，
 收尾沒有原樣帶 driver 摘要也會被擋。被擋時理由寫在 stderr，規格在
 [references/nightly-guard.md](references/nightly-guard.md)；範圍外的事寫進摘要，不要換寫法繞過去。
+
+## commit 前的檢查
+
+`.githooks/pre-commit` 擋 staged 改動裡的密鑰（gitleaks）與測試檔新增行裡的個資格式；`.githooks/commit-msg` 擋
+commit message 裡的密鑰，並驗標題是 `<type>: <為什麼>`；`.githooks/pre-merge-commit` 在沒有衝突、git 直接建
+merge commit 時跑同一支 pre-commit（git 這時不呼叫 pre-commit）。哪些算測試檔、哪些 email 放行、type 有哪些，
+寫在各支開頭的註解，這裡不抄第二份。**在主 clone 啟用一次，所有 worktree 共用**：
+
+```bash
+brew install gitleaks
+git config core.hooksPath "$(git rev-parse --show-toplevel)/.githooks"    # 在主 clone 裡跑（不是 worktree）；一定要絕對路徑
+```
+
+一定要絕對路徑：相對的 `.githooks` 會從每個 worktree 自己的根目錄找，還沒有這些 hook 的舊分支 worktree 會被
+git 安靜略過。hook 讀的是主 clone 工作樹裡的 `.githooks/`：主 clone 更新到含這個目錄的 main 之前，git 找不到
+hook，所有 worktree 的 commit 都不掃。確認有沒有作用：`git hook run pre-commit`，印 `cannot find a hook` 就是沒有。
+沒裝 gitleaks 時三支都直接擋 commit，不會安靜略過。
+
+本機 hook 擋不到的路：`--no-verify`、GitHub 網頁 merge、`git rebase --continue`（解衝突時新貼進去的內容）、
+無衝突的 cherry-pick 與 rebase 重放、fast-forward。密鑰誤報在那一行加 `# gitleaks:allow` 並寫理由：它整行放行，
+只能用在整行都是公開資料的地方，commit message 裡不准寫它（寫了，message 掃描也會放行）。測試檔裡故意造的
+假手機、假身分證格式在那一行寫 `pii:allow` 加理由；真資料不准這樣放行，email 一律改用 `example.com` 這類保留網域。
+PR 說明照 `.github/pull_request_template.md` 寫。
+
+資料 commit（上面第 2 條那一類）在 GitHub Actions 與雲端 routine 裡 commit，那裡沒設 `core.hooksPath`，不經過
+這組 hook；不要在那兩處設它，那裡沒有 gitleaks，三支都會擋。`commit-msg` 另外放行 `nightly: enrich …` 與
+`probe <日期>: …` 兩種固定標題，本機手跑 `pulse-probe.py` 時才不會被擋（它把 commit 失敗只印成 warn）。
+
+## Review
+
+派 reviewer 時指到這一節。
+
+- 這個 repo 壞掉的樣子：數字看起來正常但其實是空轉，或夜裡的資料鏈卡住（CONTRIBUTING.md〈PR 內容要求〉〈兩條路，別走錯〉）。審的時候問「壞了儀表板會顯示什麼」。
+- 可以跳過：第 2 條列的資料路徑（`_corpus/`、`_probe/`、`Events/`、`Sources/`、`_dashboards/`、`Tracks/`、`Actors/`、`Digests/`、`_github/`、`dist/`），那是機器產物。
+- 最多回 5 條，會壞的排前面。
