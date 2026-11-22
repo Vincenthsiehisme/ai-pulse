@@ -54,13 +54,14 @@ hook，所有 worktree 的 commit 都不掃。確認有沒有作用：`git hook 
 PR 說明照 `.github/pull_request_template.md` 寫。
 
 資料 commit（上面第 2 條那一類）在 GitHub Actions 與雲端 routine 裡 commit，那裡沒設 `core.hooksPath`，不經過
-這組 hook；不要在那兩處設它，那裡沒有 gitleaks，三支都會擋。`commit-msg` 另外放行 `nightly: enrich …` 與
-`probe <日期>: …` 兩種固定標題，本機手跑 `pulse-probe.py` 時才不會被擋（它把 commit 失敗只印成 warn）。
+這組 hook；不要在那兩處設它，那裡沒有 gitleaks，三支都會擋。`probe <日期>: …`、`nightly: enrich …` 不合
+`<type>: <為什麼>`：在啟用了 hook 的本機 clone 手跑 `pulse-probe.py`，它的 commit 會被 commit-msg 擋，而它只把
+commit 失敗印成 warn，資料留在工作樹沒進 commit。
 
 ## Review
 
 派 reviewer 時指到這一節。
 
 - 這個 repo 壞掉的樣子：數字看起來正常但其實是空轉，或夜裡的資料鏈卡住（CONTRIBUTING.md〈PR 內容要求〉〈兩條路，別走錯〉）。審的時候問「壞了儀表板會顯示什麼」。
-- 可以跳過：第 2 條列的資料路徑（`_corpus/`、`_probe/`、`Events/`、`Sources/`、`_dashboards/`、`Tracks/`、`Actors/`、`Digests/`、`_github/`、`dist/`），那是機器產物。
+- 第 2 條列的資料路徑（`_corpus/`、`_probe/`、`Events/`、`Sources/`、`_dashboards/`、`Tracks/`、`Actors/`、`Digests/`、`_github/`、`dist/`）是機器產物，內容不逐行審；但它們出現在程式或文件 PR 裡本身就要指出（CONTRIBUTING.md：人不手改這些檔），要求移除或附可重跑的產生證據。
 - 最多回 5 條，會壞的排前面。

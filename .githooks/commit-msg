@@ -14,22 +14,15 @@ fi
 # 標題＝去掉註解行之後第一個非空行。註解字元照 git 自己的 core.commentChar／core.commentString（git stripspace 會讀），
 # 不寫死 #。格式只驗得到形狀，「寫的是為什麼不是改了什麼」要人看。
 # 擋不到：commit.cleanup 是 verbatim／whitespace（或 -m 不經編輯器）時 git 會保留 # 開頭的首行，這裡仍把它當註解跳過。
-# type 後面可以帶 Conventional Commits 的 (scope)，例如 fix(github board): …；擋它是誤擋，意思一樣。
 stripped=$(git stripspace --strip-comments < "$1")
 subject=$(printf '%s\n' "$stripped" | sed -n -e '/^[[:space:]]*$/d' -e p -e q)
 case "$subject" in
   # git 自己產生的標題：merge、revert，與 rebase --autosquash 用的 fixup!／squash!／amend!
   "Merge "*|"Revert \""*|"fixup! "*|"squash! "*|"amend! "*) exit 0 ;;
 esac
-# 機器資料 commit 的兩種固定標題（CONTRIBUTING.md〈兩條路，別走錯〉第一條；references/health-alarms.md 的監控用 ^nightly: enrich 找它，不能改）。
-# 它們平常在 GitHub Actions 與雲端 routine 裡 commit，那裡沒設 core.hooksPath、不經過這支；
-# 列在這裡是為了本機手跑 pulse-probe.py 時不被擋，它把 commit 失敗只印成 warn。
-if printf '%s\n' "$subject" | grep -Eq '^(nightly: enrich |probe [0-9]{4}-[0-9]{2}-[0-9]{2}: )'; then
+if printf '%s\n' "$subject" | grep -Eq '^(feat|fix|chore|docs|refactor|test|style|perf|ci|build|revert): [^[:space:]]'; then
   exit 0
 fi
-if printf '%s\n' "$subject" | grep -Eq '^(feat|fix|chore|docs|refactor|test|style|perf|ci|build|revert)(\([^()]+\))?: [^[:space:]]'; then
-  exit 0
-fi
-echo "commit-msg：標題要寫成 <type>: <為什麼>（type 後可帶 (scope)），type 是 feat fix chore docs refactor test style perf ci build revert 其中一個（小寫、" >&2
+echo "commit-msg：標題要寫成 <type>: <為什麼>，type 是 feat fix chore docs refactor test style perf ci build revert 其中一個（小寫、" >&2
 echo "冒號後一個空白再接內容）。例：fix: 空清單走到渲染才爆，改成取資料當下就擋。commit 已擋下。" >&2
 exit 1
