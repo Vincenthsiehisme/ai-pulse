@@ -1,1 +1,43 @@
-[]
+[
+  {
+    "id": "evt-2026-11-22-c77a97",
+    "path": "evt-2026-11-22-c77a97.md",
+    "title": "Perplexity and Intelligence",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Perplexity",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/perplexity-and-intelligence",
+        "title": "Perplexity and Intelligence",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      },
+      {
+        "source_id": "src-hn-frontpage",
+        "url": "https://openai.com/index/perplexity-and-intelligence/",
+        "title": "Perplexity and Intelligence",
+        "summary": "",
+        "availability": "withheld",
+        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
+        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 0,
+        "withheld": 2
+      },
+      "needs_source_link": true,
+      "reasons": [
+        "license_note 限「標題＋連結」，這是我們自己的保守約束"
+      ]
+    }
+  }
+]

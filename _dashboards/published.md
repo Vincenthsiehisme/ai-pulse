@@ -1,6 +1,10 @@
-# 已發布事件（694）
+# 已發布事件（695）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-22
+- **[[Events/evt-2026-11-22-c77a97|Perplexity and Intelligence]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 官網 11 月 22 日出現一篇標題為〈Perplexity and Intelligence〉的文章，內文我們沒有取用。
 
 ## 2026-11-20
 - **[[Events/evt-2026-11-20-065414|Hebbia sees improvements in financial research with GPT-6 Astra]]** — OpenAI · model-capability · conf 73 · heat 未量測

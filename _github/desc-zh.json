@@ -249,6 +249,11 @@
     "src_hash": "992d00a6fe2e",
     "zh": "給 AI agent 用的本體增強生成（Ontology-Augmented Generation）"
   },
+  "FlorianBruniaux/claude-code-ultimate-guide": {
+    "at": "2026-11-22T21:25:06+00:00",
+    "src_hash": "522423357ad3",
+    "zh": "Claude Code 指南：agentic 工作流、hooks、skills、MCP、測驗與範本"
+  },
   "Folkbench/folkbench": {
     "at": "2026-11-21T21:18:30+00:00",
     "src_hash": "2abbe4ecdc3f",
@@ -405,9 +410,9 @@
     "zh": "iPad 優先的開源 iOS AI Agent，裝置端跑 Linux、Python、Git，自帶 API key"
   },
   "Johnson-Durui/Companion-Space": {
-    "at": "2026-10-02T20:16:53+00:00",
-    "src_hash": "fb91a4bbdf8d",
-    "zh": "本機優先的二次元陪伴學習應用"
+    "at": "2026-11-22T21:25:06+00:00",
+    "src_hash": "74c7d3163b3a",
+    "zh": "像視訊通話一樣的本機二次元 AI 一對一家教，內建 6 位動態老師、同步白板與 FSRS 複習"
   },
   "JordyZomer/lemmalog": {
     "at": "2026-10-04T18:54:49+00:00",
@@ -528,6 +533,11 @@
     "at": "2026-10-06T20:41:13+00:00",
     "src_hash": "99deb4ae38eb",
     "zh": "AnythingLLM：以本機優先為主的完整 agent 體驗，把 AI 握在自己手上"
+  },
+  "Moh4696/cinematic-skill": {
+    "at": "2026-11-22T21:25:06+00:00",
+    "src_hash": "c8b2226557bd",
+    "zh": "用程式碼做旁白式電影短片的 agent skill，支援 Claude Code、Codex"
   },
   "N1nEmAn/sapper-v2": {
     "at": "2026-11-17T23:16:52+00:00",
@@ -659,6 +669,11 @@
     "src_hash": "0a2b2642ca68",
     "zh": "用 Python 快速建立 MCP 伺服器與用戶端"
   },
+  "Protocol-zero-0/compound-memory": {
+    "at": "2026-11-22T21:25:06+00:00",
+    "src_hash": "96156bf09e20",
+    "zh": "Claude Code 與 Codex 的長期記憶，把每天對話整理成偏好與決定，新 session 自動帶入"
+  },
   "Purewhiter/mobilegym": {
     "at": "2026-10-15T19:35:35+00:00",
     "src_hash": "1a6cbb711796",
@@ -725,9 +740,9 @@
     "zh": "基於 AI 的 Python 爬蟲工具"
   },
   "ShenSeanChen/waku-agent": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "94291621a3b8",
-    "zh": "本地優先、完全由你掌握的 AI agent harness，含迴圈、記憶、評測，程式碼設計成長大後仍好讀"
+    "at": "2026-11-22T21:25:06+00:00",
+    "src_hash": "9f48ffe0e6f8",
+    "zh": "開源 AI agent harness，含迴圈、記憶、評測與常駐層，程式碼好讀"
   },
   "SonicloudTech/mouse-mcp": {
     "at": "2026-11-14T20:16:18+00:00",
@@ -878,6 +893,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "87ab976f53a8",
     "zh": "以 Hermes Agent 驅動的攻擊式資安、bug bounty 與紅隊 agent 框架，串接多個 LLM"
+  },
+  "a2ui-project/a2ui": {
+    "at": "2026-11-22T21:25:06+00:00",
+    "src_hash": "11deee90b1b2",
+    "zh": "開源 generative UI 框架：agent 串流版面資料，App 用原生元件渲染"
   },
   "aaif-goose/goose": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -2613,6 +2633,11 @@
     "at": "2026-10-16T19:09:41+00:00",
     "src_hash": "9159f3a50003",
     "zh": "ChatGPT Intelligent UI 的開源版，回答以地圖、圖表等互動介面串流呈現"
+  },
+  "thomasunise/casecite": {
+    "at": "2026-11-22T21:25:06+00:00",
+    "src_hash": "1ea2b8e05c81",
+    "zh": "開源、可自架的法律判例 RAG 研究與文件分析平台"
   },
   "tickernelz/opencode-mem": {
     "at": "2026-07-30T19:18:19+00:00",

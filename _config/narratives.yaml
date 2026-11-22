@@ -3,7 +3,7 @@
 # 依 speak-human-tw 重寫，且夾在兩道確定性關卡之間——prep 用事件簽章變化決定「哪條要重寫」（不由 LLM 判斷），
 # apply 過 voice_clean 機械清理、不新增語意。thesis、lenses 不由此流程動。
 version: 1
-updated: '2026-11-20'
+updated: '2026-11-22'
 tracks:
   infra-cost:
     thesis: 本週這條線的訊號幾乎全來自 NVIDIA 一家——主軸是把 agent 與後訓練時代的『每一塊錢算力』壓低，並從資料中心往機器人、邊緣、實體模擬延伸。
@@ -37,8 +37,8 @@ tracks:
       watch: 獨立評測是否支持廠商宣稱的定位差異。
   product-market:
     thesis: 本週產品訊號都是 Google DeepMind 把 Gemini 能力『接進具體產品入口』——資安（Flash Cyber 找修漏洞）與即時語音翻譯（接進 Meet、翻譯、AI Studio）。主軸是能力落地成可用功能，而非發表新模型。
-    now: 今天新增兩則與 AI 產品相關。Hebbia 的客戶案例說，GPT-6 Astra 在預發布評測中，金融研究的來源涵蓋、引用相關性與呈現品質都有進步，沒有幅度與對照模型，是廠商刊登的客戶說法。Daybreak Blue 有一支上手導覽影片，摘要沒說明產品本身做什麼。另有 NVIDIA 的 GeForce NOW 黑色星期五促銷，與 AI 產品線關聯薄弱。 前一輪：新增兩則。住友生命用 ChatGPT Enterprise 研究保險同業、準備提案、撰寫投資分析程式碼，摘要提到主管先用帶動員工採用，採用率與成效數字沒給，是 OpenAI 自己發的客戶案例。另一則是 NVIDIA 的 GeForce NOW 黑色星期五促銷，六個月方案首期六個月 7 折，與 AI 產品線關聯薄弱。 前一輪：11-18 Le Groupe Figaro 與 OpenAI 合作，Le Figaro 的新聞以摘要與節錄進入 ChatGPT，並附原文連結；授權費與期限證據裡沒有。11-17 OpenAI 稱 Astra for Law 在涵蓋 24 個法律領域的發布評測排名第一，ChatGPT Enterprise 客戶可申請使用；評測方法與對手證據裡沒有，是廠商自選評測。11-16 OpenAI 擴大 ChatGPT for Academic Researchers，讓全球 20 萬名研究者免費使用前沿模型，資格條件與額度沒給；Hugging Face 與 OpenRouter 合作，整合方式與定價只有通用簡介。11-12 ChatGPT Ads 指定 Aleph 為 44 國獨家經銷商，廣告營收規模沒給；Gondola 案例說 Codex 讓主力工程師產出提高 50%，沒有第三方查證。
-    next: 看 Hebbia 案例有沒有公開評測數字與對照基準，或其他金融客戶的獨立回報；看 OpenAI 是否公開 Daybreak Blue 的產品說明頁，並交代它與 Daybreak Red 的關係。 看住友生命案例全文有沒有揭露使用人數、採用率或成效數字；看 Figaro 與 OpenAI 是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 OpenAI 是否公開 Gondola 案例的衡量方式。
+    now: 今天新增一則。OpenAI 官網發了一篇標題為〈Perplexity and Intelligence〉的文章，授權只允許取用標題與連結，內文我們沒取用，主題與產品關聯無法判斷，原文見 https://openai.com/index/perplexity-and-intelligence。 前一輪：今天新增兩則與 AI 產品相關。Hebbia 的客戶案例說，GPT-6 Astra 在預發布評測中，金融研究的來源涵蓋、引用相關性與呈現品質都有進步，沒有幅度與對照模型，是廠商刊登的客戶說法。Daybreak Blue 有一支上手導覽影片，摘要沒說明產品本身做什麼。另有 NVIDIA 的 GeForce NOW 黑色星期五促銷，與 AI 產品線關聯薄弱。 前一輪：新增兩則。住友生命用 ChatGPT Enterprise 研究保險同業、準備提案、撰寫投資分析程式碼，摘要提到主管先用帶動員工採用，採用率與成效數字沒給，是 OpenAI 自己發的客戶案例。另一則是 NVIDIA 的 GeForce NOW 黑色星期五促銷，六個月方案首期六個月 7 折，與 AI 產品線關聯薄弱。 前一輪：11-18 Le Groupe Figaro 與 OpenAI 合作，Le Figaro 的新聞以摘要與節錄進入 ChatGPT，並附原文連結；授權費與期限證據裡沒有。11-17 OpenAI 稱 Astra for Law 在涵蓋 24 個法律領域的發布評測排名第一，ChatGPT Enterprise 客戶可申請使用；評測方法與對手證據裡沒有，是廠商自選評測。11-16 OpenAI 擴大 ChatGPT for Academic Researchers，讓全球 20 萬名研究者免費使用前沿模型，資格條件與額度沒給；Hugging Face 與 OpenRouter 合作，整合方式與定價只有通用簡介。11-12 ChatGPT Ads 指定 Aleph 為 44 國獨家經銷商，廣告營收規模沒給；Gondola 案例說 Codex 讓主力工程師產出提高 50%，沒有第三方查證。
+    next: 看〈Perplexity and Intelligence〉原文實際講什麼，以及有沒有第二個獨立來源引述；看 Hebbia 案例有沒有公開評測數字與對照基準，或其他金融客戶的獨立回報；看 OpenAI 是否公開 Daybreak Blue 的產品說明頁，並交代它與 Daybreak Red 的關係。 看住友生命案例全文有沒有揭露使用人數、採用率或成效數字；看 Figaro 與 OpenAI 是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 OpenAI 是否公開 Gondola 案例的衡量方式。
     lenses:
     - role: 經營者
       question: 這會不會動到我的產品入口？
