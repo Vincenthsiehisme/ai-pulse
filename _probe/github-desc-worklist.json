@@ -1,122 +1,122 @@
 [
   {
-    "full_name": "bookwjitchieni1986/blender-ai-mcp-addon",
-    "desc": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon, copilot for 3D, bpy Python scripting, MCP integration.",
-    "language": "",
-    "topics": [
-      "ai-agents",
-      "ai-assistant",
-      "blender",
-      "blender-addon",
-      "blender-ai",
-      "blender-automation"
-    ],
-    "stars": 2234,
-    "url": "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
-    "stale_zh": null
-  },
-  {
-    "full_name": "alexeyw/lot-map",
-    "desc": "Lot Map for Claude Code: a live map beside the chat that shows what the agent is doing. Tool calls, model steps, hooks, skills and subagents light up as they happen. Local only, in 8 languages.",
-    "language": "TypeScript",
-    "topics": [
-      "agent-observability",
-      "ai-agents",
-      "claude",
-      "claude-code",
-      "claude-code-plugin",
-      "developer-tools"
-    ],
-    "stars": 1103,
-    "url": "https://github.com/alexeyw/lot-map",
-    "stale_zh": null
-  },
-  {
-    "full_name": "sansan0/TrendRadar",
-    "desc": "⭐AI-driven public opinion & trend monitor with multi-platform aggregation, RSS, web search, MCP & smart alerts.🎯 告别信息过载，你的 AI     舆情监控助手与热点筛选工具！聚合多平台热点 + RSS 订阅 + 定时联网搜索，支持关键词与 AI 智能筛选。AI 翻译 + AI 分析简报直推手机，支持接入 MCP     架构，赋能 AI 自然语言对话分析、实时检索、情感洞察与趋势预测。支持 Docker，数据本地/云端自持。集成微信/飞书/钉钉/Telegram/邮件/ntfy/Bark/Slack     等渠道智能推送。",
+    "full_name": "Johnson-Durui/Companion-Space",
+    "desc": "伴学空间 · 像打视频电话一样的本地二次元 AI 1v1 导师（内置 6 位动态老师 + 同步白板 + FSRS 复习）| Local-first video-call anime AI tutor with synced board & 6 animated tutors",
     "language": "Python",
     "topics": [
-      "data-analysis",
-      "python",
-      "trending-topics",
-      "news",
-      "hot-news",
-      "docker"
+      "ai-companion",
+      "fastapi",
+      "local-first",
+      "rag",
+      "self-hosted",
+      "voice-ai"
     ],
-    "stars": 63779,
-    "url": "https://github.com/sansan0/TrendRadar",
-    "stale_zh": "AI 輿情與熱點監控，彙整多平台與 RSS，可依關鍵字篩選，支援 MCP 與多管道推播"
+    "stars": 603,
+    "url": "https://github.com/Johnson-Durui/Companion-Space",
+    "stale_zh": "本機優先的二次元陪伴學習應用"
   },
   {
-    "full_name": "rush-db/rushdb",
-    "desc": "The database for AI: graph, vector and analytics on the same records, with a live schema of labels, fields and values that agents read before they query. One Rust binary, Apache-2.0.",
-    "language": "Rust",
+    "full_name": "Protocol-zero-0/compound-memory",
+    "desc": "Long-term memory for Claude Code and Codex: turns your daily AI sessions into a persistent memory of your preferences, decisions and open threads, injected at the start of every new session, on any machine. Local-first, zero dependencies. 让 AI 跨会话、跨机器、跨工具记住你。",
+    "language": "Python",
     "topics": [
-      "ai",
+      "agent-memory",
       "ai-agents",
       "ai-memory",
-      "analytics",
-      "cloud",
-      "cypher"
+      "claude-code",
+      "claude-code-hooks",
+      "codex"
     ],
-    "stars": 380,
-    "url": "https://github.com/rush-db/rushdb",
-    "stale_zh": "自描述的圖原生資料庫，讓 AI 代理可逐步探查可查詢的內容，不必靠猜"
-  },
-  {
-    "full_name": "RustingStudio/RustingStrata",
-    "desc": "Pure-Rust LLM inference engine for GGUF (Qwen, DeepSeek, GLM, Hy4, Flint). Runs models bigger than your VRAM on CUDA and Vulkan, with MTP drafts and an OpenAI/Anthropic server. 12 GB RTX 3060 vs llama.cpp: Qwen3.6-35B-A3B UD-Q5_K_M 80.5 vs 64.4 tok/s, Flint UD-Q5_K_XL 64.6 vs 48.6. With MTP: 108 tok/s (UD-Q3_K_M), up to 160 (UD-Q2_K_XL).",
-    "language": "Rust",
-    "topics": [
-      "anthropic-api",
-      "cuda",
-      "gguf",
-      "inference",
-      "llama-cpp",
-      "llm"
-    ],
-    "stars": 330,
-    "url": "https://github.com/RustingStudio/RustingStrata",
+    "stars": 338,
+    "url": "https://github.com/Protocol-zero-0/compound-memory",
     "stale_zh": null
   },
   {
-    "full_name": "Folkbench/folkbench",
-    "desc": "AI API 中转站推荐与评测：中转站排行榜、中转站检测、Claude / GPT / Gemini 中转站对比 · AI API relay rankings · Folkbench Switch for Claude Code, Codex & Gemini CLI",
-    "language": "TypeScript",
-    "topics": [
-      "ai-coding",
-      "aider",
-      "api-gateway",
-      "api-relay",
-      "benchmark",
-      "claude"
-    ],
-    "stars": 3247,
-    "url": "https://github.com/Folkbench/folkbench",
-    "stale_zh": "AI API 中轉站評測排行與切換工具，實測可用率、延遲與價格，適用 Claude Code、Codex"
-  },
-  {
-    "full_name": "Leonxlnx/earshot",
-    "desc": "Sound effects for coding agents: ask in plain words and earshot renders the sound in code. CPU-only, no audio model, open source.",
+    "full_name": "ShenSeanChen/waku-agent",
+    "desc": "Waku Agent is an open-source AI agent harness you own: loop, memory, evals, and an always-on layer (event inbox, timers, approvals, outbox), in code that stays readable.",
     "language": "Python",
     "topics": [
-      "ai-agents",
-      "audio",
-      "claude-code",
-      "mcp",
-      "sfx",
-      "sound-design"
+      "agent-framework",
+      "ai-agent",
+      "ai-assistant",
+      "claude",
+      "evals",
+      "llm"
     ],
-    "stars": 5466,
-    "url": "https://github.com/Leonxlnx/earshot",
-    "stale_zh": "讓 coding agent 聽音訊、審查並產生聲音，只用 CPU，開源"
+    "stars": 2223,
+    "url": "https://github.com/ShenSeanChen/waku-agent",
+    "stale_zh": "本地優先、完全由你掌握的 AI agent harness，含迴圈、記憶、評測，程式碼設計成長大後仍好讀"
+  },
+  {
+    "full_name": "a2ui-project/a2ui",
+    "desc": "Open-source generative UI framework: agents stream layout data, and apps render it with native components in React, Angular, Lit, Flutter, SwiftUI and Jetpack Compose.",
+    "language": "TypeScript",
+    "topics": [
+      "a2a",
+      "a2ui",
+      "agent",
+      "angular",
+      "flutter",
+      "generative-ui"
+    ],
+    "stars": 18102,
+    "url": "https://github.com/a2ui-project/a2ui",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Moh4696/cinematic-skill",
+    "desc": "Agent skill for narrated cinematic films built entirely from code: one continuous camera over photos, maps and cards, timed to the voice. Claude Code, Codex, Cursor, Gemini CLI.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "claude-code",
+      "codex",
+      "documentary",
+      "explainer-video",
+      "motion-graphics"
+    ],
+    "stars": 912,
+    "url": "https://github.com/Moh4696/cinematic-skill",
+    "stale_zh": null
+  },
+  {
+    "full_name": "FlorianBruniaux/claude-code-ultimate-guide",
+    "desc": "The most comprehensive Claude Code guide: agentic workflows, hooks, skills, MCP servers, quizzes, and production-ready templates. 430K+ lines.",
+    "language": "Python",
+    "topics": [
+      "agentic-coding",
+      "ai-assistant",
+      "ai-coding",
+      "ai-pair-programming",
+      "anthropic",
+      "best-practices"
+    ],
+    "stars": 6951,
+    "url": "https://github.com/FlorianBruniaux/claude-code-ultimate-guide",
+    "stale_zh": null
+  },
+  {
+    "full_name": "thomasunise/casecite",
+    "desc": "CaseCite is an open-source, self-hosted legal RAG caselaw research & document analysis platform.",
+    "language": "Python",
+    "topics": [
+      "ai-agent",
+      "ai-agents",
+      "ai-tools",
+      "case-law",
+      "caselaw",
+      "harvey"
+    ],
+    "stars": 355,
+    "url": "https://github.com/thomasunise/casecite",
+    "stale_zh": null
   },
   {
     "full_name": "google-labs-code/stitch-skills",
     "desc": "A library of Agent Skills designed to work with the Stitch MCP server. Each skill follows the Agent Skills open standard, for compatibility with coding agents such as Antigravity, Gemini CLI, Claude Code, Cursor.",
     "language": "TypeScript",
     "topics": [],
-    "stars": 11369,
+    "stars": 11862,
     "url": "https://github.com/google-labs-code/stitch-skills",
     "stale_zh": null
   }

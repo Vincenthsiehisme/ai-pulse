@@ -16,13 +16,13 @@ license_note: "release notes + link"
 endpoint: "vllm-project/vllm"
 robots_checked_day:
 first_fetch_at: "2026-07-23"
-last_observed_day: "2026-11-20"
+last_observed_day: "2026-11-22"
 items_observed: 30
 events_bound: 9
 events_published: 9
 health_score: 100
 consecutive_failures: 0
-last_status: 403
+last_status: 200
 ---
 
 # vllm-project（src-gh-vllm-releases）

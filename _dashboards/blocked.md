@@ -1,7 +1,8 @@
-# 被門禁擋下（79）
+# 被門禁擋下（80）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
+- **[[Events/evt-2026-11-22-c77a97|Perplexity and Intelligence]]** — Perplexity — blockers: placeholder_content, thin_fact, missing_category, missing_track
 - **[[Events/evt-2026-11-18-38ef4c|Why your fine-tuning job takes longer than the FLOPs say]]** — Dharma-AI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-18-c82890|Time-Series Models in the Streamhouse: A New Frontier and Use Cases]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-18-fa6769|Advancing chip design with OpenAI models]]** — OpenAI — blockers: thin_research_analysis
