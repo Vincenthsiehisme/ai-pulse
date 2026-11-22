@@ -1,0 +1,65 @@
+#!/bin/sh
+# 兩件事：commit message 裡的密鑰（gitleaks；pre-commit 執行時 message 還不存在，所以在這支），
+# 與標題格式 `<type>: <為什麼>`（DEV-STANDARDS〈Commit message〉）。啟用方式見 AGENTS.md〈commit 前的檢查〉。
+set -e
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "commit-msg：找不到 gitleaks（macOS：brew install gitleaks）。不裝就不能 commit，不是略過。" >&2
+  exit 1
+fi
+# git commit -v（或 commit.verbose=true）會把 staged diff 接在切線底下，那段不會進 commit message，不切掉的話
+# diff 上下文裡的密鑰會誤擋。只在三件事都成立時切，其餘整份照掃（寧可誤擋，不漏掃）：
+#   整行恰好是 git 的切線（註解字元照 core.commentString／core.commentChar，前後各 24 個 -）；
+#   切線底下第一個非註解行是 diff --git，真的是 verbose diff；不是 git am 來的（applypatch-msg 設 FROM_GIT_AM）。
+#   切了就寫回 message 檔，見底下。
+cc=$(git config core.commentString || git config core.commentChar || echo '#')
+if [ -n "${FROM_GIT_AM:-}" ] || [ "$cc" = auto ]; then
+  message=$(cat "$1")
+else
+  message=$(awk -v cut="$cc ------------------------ >8 ------------------------" -v cc="$cc" '
+    { line[NR] = $0 }
+    END {
+      last = NR
+      for (i = 1; i <= NR && last == NR; i++) {
+        if (line[i] != cut) continue
+        for (j = i + 1; j <= NR; j++) {
+          if (index(line[j], cc) == 1) continue
+          if (line[j] ~ /^diff --git /) last = i - 1
+          break
+        }
+      }
+      for (i = 1; i <= last; i++) print line[i]
+    }' "$1")
+  # 真的切了就把切過的內容寫回 message 檔（2026-11-22 使用者裁 D24 採 (a)）：git 在這支之後重讀這個檔，
+  # 底下掃的就是會進 commit 的內容；偽造成 verbose diff 的尾段會被切掉，進不了 commit，也就沒有漏掃。
+  if [ "$message" != "$(cat "$1")" ]; then
+    printf '%s\n' "$message" > "$1"
+  fi
+fi
+if ! printf '%s\n' "$message" | gitleaks stdin -v --redact --no-banner; then
+  echo "commit-msg：commit message 裡有疑似密鑰，commit 已擋下。改掉 message 再 commit。" >&2
+  exit 1
+fi
+
+# 標題＝去掉註解行之後第一個非空行。註解字元照 git 自己的 core.commentChar／core.commentString（git stripspace 會讀），
+# 不寫死 #。格式只驗得到形狀，「寫的是為什麼不是改了什麼」要人看。
+# 擋不到：commit.cleanup 是 verbatim／whitespace（或 -m 不經編輯器）時 git 會保留 # 開頭的首行，這裡仍把它當註解跳過。
+stripped=$(printf '%s\n' "$message" | git stripspace --strip-comments)
+subject=$(printf '%s\n' "$stripped" | sed -n -e '/^[[:space:]]*$/d' -e p -e q)
+case "$subject" in
+  # git 自己產生的標題：merge、revert，與 rebase --autosquash 用的 fixup!／squash!／amend!
+  "Merge "*|"Revert \""*|"fixup! "*|"squash! "*|"amend! "*) exit 0 ;;
+esac
+# 機器資料 commit 的兩種固定標題，照產生器的完整格式比對到行尾（2026-11-22 使用者裁 D23 採 (a)）：
+#   nightly: enrich + narrative|digest <日期>   scripts/enrich-runbook.md 的 commit 指令；監控用 ^nightly: enrich 找它
+#   probe <日期>: <n> items / <n> sources      scripts/pulse-probe.py 的 git_commit
+# 它們平常在 GitHub Actions 與雲端 routine 裡 commit，那裡沒設 core.hooksPath、不經過這支；放行是為了本機手跑時
+# 不被擋（pulse-probe.py 把 commit 失敗只印成 warn）。只認完整格式：人寫的近似標題照樣擋，不能拿來偽造監控訊號。
+if printf '%s\n' "$subject" | grep -Eq '^(nightly: enrich \+ (narrative|digest) [0-9]{4}-[0-9]{2}-[0-9]{2}|probe [0-9]{4}-[0-9]{2}-[0-9]{2}: [0-9]+ items / [0-9]+ sources)$'; then
+  exit 0
+fi
+if printf '%s\n' "$subject" | grep -Eq '^(feat|fix|chore|docs|refactor|test|style|perf|ci|build|revert): [^[:space:]]'; then
+  exit 0
+fi
+echo "commit-msg：標題要寫成 <type>: <為什麼>，type 是 feat fix chore docs refactor test style perf ci build revert 其中一個（小寫、" >&2
+echo "冒號後一個空白再接內容）。例：fix: 空清單走到渲染才爆，改成取資料當下就擋。commit 已擋下。" >&2
+exit 1

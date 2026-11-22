@@ -1,0 +1,4 @@
+#!/bin/sh
+# git am 用 patch 帶的 message 建 commit 時呼叫這支，不呼叫 commit-msg。交給同一支 commit-msg，規則只有一份。
+# patch 帶的 message 會原樣進 commit，不做 verbose 切線截斷。
+FROM_GIT_AM=1 exec "$(dirname "$0")/commit-msg" "$@"

@@ -881,6 +881,20 @@ commit 的程式〉。
 - **T3-F3-2：routine 觸發文字被包一層時不記。** `is_cost_routine` 要第一則使用者訊息以身分句開頭；`/fire` 帶的
   text 要是被平台包在別的字前面，那一晚整個不記。上線後看 C3 那晚的 transcript 第一則訊息長什麼樣再決定。
 
+## `probe-與-enrich-本機手跑會把髒工作樹一起-commit`
+
+2026-11-22 PR #114 的 Codex 審查抓到的。`scripts/pulse-probe.py` 的 commit 前做 `git add -A`，`scripts/enrich-runbook.md`
+的推回指令也一樣。在含未提交程式碼、設定或文件的本機 clone 手跑，那些改動會一起被包進 `probe <日期>: …` 或
+`nightly: enrich …` 這顆資料 commit，繞過「碼、CI、`_config/`、文件一律走 PR」。這不是 #114 引入的：沒有 hook
+的現在本來就這樣；#114 的 `commit-msg` 放行這兩種完整標題（使用者裁），只是讓啟用 hook 之後維持原狀，而不是
+被擋下又因為 `pulse-probe.py` 只印 warn 而安靜漏 commit。
+
+要做的事：每個入口執行前先要求工作樹乾淨，不乾淨就明確失敗、exit 非 0；commit 時只 stage 這一次實際產生的檔案，
+不用 `git add -A`。不能拿 AGENTS.md 第 2 條那份整體資料清單當白名單：它涵蓋所有鏈的產物，probe 會把別條鏈留下的
+`Events/`、`Digests/` 改動一起帶進來；`_config/sources.yaml`、`_config/narratives.yaml` 是按欄位分權的，整檔 stage
+會把人管的欄位也帶進來，所以 commit 前要再查一次工作樹，這兩個檔逐欄位比對 HEAD：除了機器欄位（`lifecycle`／
+`robots_ok`、`now`／`next`），任何欄位變了就失敗；或乾脆在隔離的 worktree 裡跑。`pulse-probe.py` 的 commit 失敗也不要只印 warn。
+
 ---
 
 ## 附：已經修掉的
