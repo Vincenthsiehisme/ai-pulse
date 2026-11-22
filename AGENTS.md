@@ -48,11 +48,17 @@ hook，所有 worktree 的 commit 都不掃。確認有沒有作用：`git hook 
 沒裝 gitleaks 時三支都直接擋 commit，不會安靜略過。
 
 本機 hook 擋不到的路：`--no-verify`、GitHub 網頁 merge、`git rebase --continue`（解衝突時新貼進去的內容）、
-無衝突的 cherry-pick 與 rebase 重放、fast-forward；被 git 判成 binary 的檔（`.gitattributes` 標 `-diff`／`binary`、
+無衝突的 cherry-pick、預設 backend 的 rebase 重放與 `rebase -i` 的 squash／fixup、無衝突的 `git revert`、fast-forward；被 git 判成 binary 的檔（`.gitattributes` 標 `-diff`／`binary`、
 超過 `core.bigFileThreshold`），gitleaks 與個資檢查都看不到內容，不要把文字檔標成 binary。密鑰誤報在那一行加 `# gitleaks:allow` 並寫理由：它整行放行，
 只能用在整行都是公開資料的地方，commit message 裡不准寫它（寫了，message 掃描也會放行）。測試檔裡故意造的
 假手機、假身分證格式在那一行寫 `pii:allow` 加理由；真資料不准這樣放行，email 一律改用 `example.com` 這類保留網域。
 PR 說明照 `.github/pull_request_template.md` 寫。
+
+會被擋、要自己處理的幾種：整合分支的 merge 用 git 預設標題（`git merge --no-ff --no-edit`），`-m "merge: …"` 會被擋在
+merge 進行中，用 `git merge --abort` 退出；`git merge --squash` 預填的 `Squashed commit of the following:` 要自己改標題；
+有衝突的 cherry-pick 解完 `--continue` 會跑 commit-msg，舊格式標題會停在 cherry-pick 進行中；`git rebase --apply` 走
+`git am`，重放舊格式標題的 commit 時會停住：先 `git rebase --abort` 退回原狀（`--continue` 會回「沒有變更」卡住，`--skip`
+會丟掉那個 commit），再改用預設 backend，或先用 `rebase -i` 的 reword 把標題改成新格式。
 
 資料 commit（上面第 2 條那一類）在 GitHub Actions 與雲端 routine 裡 commit，那裡沒設 `core.hooksPath`，不經過
 這組 hook；不要在那兩處設它，那裡沒有 gitleaks，三支都會擋。`commit-msg` 另外放行這兩種機器標題的完整格式
