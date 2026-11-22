@@ -10,6 +10,7 @@ fi
 # diff 上下文裡的密鑰會誤擋。只在三件事都成立時切，其餘整份照掃（寧可誤擋，不漏掃）：
 #   整行恰好是 git 的切線（註解字元照 core.commentString／core.commentChar，前後各 24 個 -）；
 #   切線底下第一個非註解行是 diff --git，真的是 verbose diff；不是 git am 來的（applypatch-msg 設 FROM_GIT_AM）。
+#   切了就寫回 message 檔，見底下。
 cc=$(git config core.commentString || git config core.commentChar || echo '#')
 if [ -n "${FROM_GIT_AM:-}" ] || [ "$cc" = auto ]; then
   message=$(cat "$1")
@@ -28,6 +29,11 @@ else
       }
       for (i = 1; i <= last; i++) print line[i]
     }' "$1")
+  # 真的切了就把切過的內容寫回 message 檔（2026-11-22 使用者裁 D24 採 (a)）：git 在這支之後重讀這個檔，
+  # 底下掃的就是會進 commit 的內容；偽造成 verbose diff 的尾段會被切掉，進不了 commit，也就沒有漏掃。
+  if [ "$message" != "$(cat "$1")" ]; then
+    printf '%s\n' "$message" > "$1"
+  fi
 fi
 if ! printf '%s\n' "$message" | gitleaks stdin -v --redact --no-banner; then
   echo "commit-msg：commit message 裡有疑似密鑰，commit 已擋下。改掉 message 再 commit。" >&2
