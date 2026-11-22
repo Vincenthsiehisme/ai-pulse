@@ -892,7 +892,8 @@ commit 的程式〉。
 要做的事：每個入口執行前先要求工作樹乾淨，不乾淨就明確失敗、exit 非 0；commit 時只 stage 這一次實際產生的檔案，
 不用 `git add -A`。不能拿 AGENTS.md 第 2 條那份整體資料清單當白名單：它涵蓋所有鏈的產物，probe 會把別條鏈留下的
 `Events/`、`Digests/` 改動一起帶進來；`_config/sources.yaml`、`_config/narratives.yaml` 是按欄位分權的，整檔 stage
-會把人管的欄位也帶進來。`pulse-probe.py` 的 commit 失敗也不要只印 warn。
+會把人管的欄位也帶進來，所以 commit 前要再查一次工作樹，這兩個檔逐欄位比對 HEAD：除了機器欄位（`lifecycle`／
+`robots_ok`、`now`／`next`），任何欄位變了就失敗；或乾脆在隔離的 worktree 裡跑。`pulse-probe.py` 的 commit 失敗也不要只印 warn。
 
 ---
 

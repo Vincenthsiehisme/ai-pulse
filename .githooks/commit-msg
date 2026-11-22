@@ -6,9 +6,29 @@ if ! command -v gitleaks >/dev/null 2>&1; then
   echo "commit-msg：找不到 gitleaks（macOS：brew install gitleaks）。不裝就不能 commit，不是略過。" >&2
   exit 1
 fi
-# git commit -v（或 commit.verbose=true）會把 staged diff 接在 scissors 線底下，那段不會進 commit message；
-# 先切掉再掃，不然 diff 的上下文裡有密鑰就誤擋。scissors 線前面是註解字元，後面固定是這串。
-message=$(sed '/ -------------------------* >8 -------------------------*$/,$d' "$1")
+# git commit -v（或 commit.verbose=true）會把 staged diff 接在切線底下，那段不會進 commit message，不切掉的話
+# diff 上下文裡的密鑰會誤擋。只在三件事都成立時切，其餘整份照掃（寧可誤擋，不漏掃）：
+#   整行恰好是 git 的切線（註解字元照 core.commentString／core.commentChar，前後各 24 個 -）；
+#   切線底下第一個非註解行是 diff --git，真的是 verbose diff；不是 git am 來的（applypatch-msg 設 FROM_GIT_AM）。
+cc=$(git config core.commentString || git config core.commentChar || echo '#')
+if [ -n "${FROM_GIT_AM:-}" ] || [ "$cc" = auto ]; then
+  message=$(cat "$1")
+else
+  message=$(awk -v cut="$cc ------------------------ >8 ------------------------" -v cc="$cc" '
+    { line[NR] = $0 }
+    END {
+      last = NR
+      for (i = 1; i <= NR && last == NR; i++) {
+        if (line[i] != cut) continue
+        for (j = i + 1; j <= NR; j++) {
+          if (index(line[j], cc) == 1) continue
+          if (line[j] ~ /^diff --git /) last = i - 1
+          break
+        }
+      }
+      for (i = 1; i <= last; i++) print line[i]
+    }' "$1")
+fi
 if ! printf '%s\n' "$message" | gitleaks stdin -v --redact --no-banner; then
   echo "commit-msg：commit message 裡有疑似密鑰，commit 已擋下。改掉 message 再 commit。" >&2
   exit 1
