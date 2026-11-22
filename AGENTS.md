@@ -55,7 +55,8 @@ hook，所有 worktree 的 commit 都不掃。確認有沒有作用：`git hook 
 PR 說明照 `.github/pull_request_template.md` 寫。
 
 會被擋、要自己處理的幾種：整合分支的 merge 用 git 預設標題（`git merge --no-ff --no-edit`），`-m "merge: …"` 會被擋在
-merge 進行中，用 `git merge --abort` 退出；`git merge --squash` 預填的 `Squashed commit of the following:` 要自己改標題；
+merge 進行中：直接 `git commit -m "chore: 整合 …"` 用合格標題完成這次 merge（解好的衝突留著、照樣是兩個 parent），
+`git merge --abort` 會連解好的衝突一起丟掉，只在確定不要這次 merge 時用；`git merge --squash` 預填的 `Squashed commit of the following:` 要自己改標題；
 有衝突的 cherry-pick 解完 `--continue` 會跑 commit-msg，舊格式標題會停在 cherry-pick 進行中；`git rebase --apply` 走
 `git am`，重放舊格式標題的 commit 時會停住：先 `git rebase --abort` 退回原狀（`--continue` 會回「沒有變更」卡住，`--skip`
 會丟掉那個 commit），再改用預設 backend，或先用 `rebase -i` 的 reword 把標題改成新格式。
