@@ -214,6 +214,11 @@
     "src_hash": "fc62dd628b23",
     "zh": "Blender 5.3 專業工作流程的 Agent Skills，涵蓋建模、UV、PBR、烘焙、綁定、動畫、匯出與 QA"
   },
+  "EL4CTEO/fast-anything": {
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "f9a9550e736e",
+    "zh": "不必整個改寫成 Rust，只把 Python、Node、Ruby 程式裡慢的 5% 交給 agent 移植並驗證"
+  },
   "EXXETA/exxperts": {
     "at": "2026-11-03T21:25:10+00:00",
     "src_hash": "072b98a13453",
@@ -799,6 +804,11 @@
     "src_hash": "15a22e233440",
     "zh": "Claude Code、Codex 的本機 gateway，免改客戶端即可切換上游，並追蹤每個請求"
   },
+  "ThreatDefence/agentic-attack-detections": {
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "e0a992efce1c",
+    "zh": "AI agent 攻擊框架的偵測規則與 IOC，含 Sigma、YARA、Splunk 等格式"
+  },
   "Tracer-Cloud/opensre": {
     "at": "2026-11-19T22:52:21+00:00",
     "src_hash": "a5746d617060",
@@ -848,6 +858,11 @@
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "912806067f80",
     "zh": "把 ChatGPT 變成本機 agent 執行環境，透過單一 MCP 連線操作電腦、使用本機工具"
+  },
+  "YOLOW92/pagesift": {
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "2f98eb334a7f",
+    "zh": "Rust 寫的本機優先網頁與文件擷取引擎，含 PDF／Office／OCR 解析"
   },
   "Yeachan-Heo/oh-my-claudecode": {
     "at": "2026-10-03T18:55:46+00:00",
@@ -963,6 +978,11 @@
     "at": "2026-10-03T18:55:46+00:00",
     "src_hash": "e8f3d861fbb7",
     "zh": "建構並運行你看得見、看得懂、信得過的 agent"
+  },
+  "agentverse-os/AgentVerse-OS": {
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "8c2c86cf3131",
+    "zh": "單機個人雲端 OS，給開發者與 AI agent，瀏覽器桌面、944 個自架應用"
   },
   "agentvivekkumar/dontbemichael": {
     "at": "2026-10-13T20:55:59+00:00",
@@ -1210,9 +1230,9 @@
     "zh": "Agent skill：用一句話描述你的技術堆疊，產出附官方 logo 的架構圖"
   },
   "cathrynlavery/diagram-design": {
-    "at": "2026-10-21T19:47:16+00:00",
-    "src_hash": "677a90ddba8d",
-    "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，45 種圖型，純 HTML＋SVG"
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "592be8e6cf7c",
+    "zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，52 種圖型，純 HTML＋SVG"
   },
   "cayu-dev/cayu": {
     "at": "2026-10-09T20:27:19+00:00",
@@ -1445,9 +1465,9 @@
     "zh": "開源具身代理框架：執行、回饋與持續改進"
   },
   "everyinfra/everyinfra-agent-plugins": {
-    "at": "2026-11-17T23:16:52+00:00",
-    "src_hash": "d0617408a10d",
-    "zh": "EveryInfra 的 MCP server 與 agent 外掛，106 個平台共 612 支爬取 API"
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "8d3c2ed7d665",
+    "zh": "EveryInfra 的 MCP server 與 agent 外掛，718 支爬取 API 涵蓋 110 個平台"
   },
   "exa-labs/exa-mcp-server": {
     "at": "2026-10-01T20:41:09+00:00",
@@ -1610,9 +1630,9 @@
     "zh": "給 coding agent 長駐的 runtime"
   },
   "heygen-com/hyperframes": {
-    "at": "2026-11-18T22:48:54+00:00",
-    "src_hash": "32f8e9357e55",
-    "zh": "免費開源的 AI 影片編輯器，描述想要的影片就產生可逐格修改的真實專案"
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "7ec326056b70",
+    "zh": "開源 AI 影片編輯器，用 Claude Code、Codex 或 Studio app 寫 HTML 輸出 MP4"
   },
   "hhblaze/DBreeze": {
     "at": "2026-10-24T18:28:06+00:00",
@@ -1775,9 +1795,9 @@
     "zh": "給編碼 agent 的本機影片剪輯工具，42 個 FFmpeg 工具加 MCP server，免雲端"
   },
   "kaomei/stickman-video-director": {
-    "at": "2026-10-30T20:18:02+00:00",
-    "src_hash": "eaaaf042f461",
-    "zh": "把任何腳本變成多種風格的火柴人動畫影片，供無臉 YouTube 頻道使用，自動處理畫面、旁白、字幕與音效，免費開源"
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "d37c5647c560",
+    "zh": "AI agent skill，把腳本做成火柴人動畫影片，14 種以上風格，MIT 免費開源"
   },
   "keptinventory/kept": {
     "at": "2026-10-27T20:22:03+00:00",
@@ -2773,6 +2793,11 @@
     "at": "2026-07-27T19:23:58+00:00",
     "src_hash": "0973420ed49d",
     "zh": "給 AI agent 的自我演化情境資料庫，整合 agent 記憶、RAG 知識與技能"
+  },
+  "w01fb0ss/PiBot": {
+    "at": "2026-11-24T02:42:56+00:00",
+    "src_hash": "31dbf6efaf8e",
+    "zh": "開源、本機優先的桌面 AI agent 團隊，含群聊、computer use、MCP 與核准"
   },
   "wangmiaozero/pi-harness": {
     "at": "2026-10-15T19:35:35+00:00",

@@ -1,6 +1,16 @@
-# 已發布事件（695）
+# 已發布事件（699）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-23
+- **[[Events/evt-2026-11-23-2eb36a|OpenAI and Cisco introduce Shirudo]]** — OpenAI · infra · conf 80 · heat 未量測
+  OpenAI 與 Cisco 發表開源執行環境 Shirudo，用來保護尚未修補的 Linux。
+- **[[Events/evt-2026-11-23-312f2b|Merry Making: Play, Build and Create With NVIDIA Technologies This Holiday Season]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 發表假期主題部落格，介紹年末適合送禮與自己動手玩的 NVIDIA 技術。
+- **[[Events/evt-2026-11-23-3a78b1|Richpanel helps companies automate 50% of support in 30 days]]** — OpenAI · product · conf 73 · heat 未量測
+  客服平台 Richpanel 稱用 OpenAI 模型，能在 30 天內自動處理 50% 客服。
+- **[[Events/evt-2026-11-23-f0ea29|Connected intelligence for in-house legal]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 發表一場企業法務主題影片，談 AI 如何串接商業脈絡與外部律師協作。
 
 ## 2026-11-22
 - **[[Events/evt-2026-11-22-c77a97|Perplexity and Intelligence]]** — OpenAI · product · conf 73 · heat 未量測

@@ -1,12 +1,10 @@
-# 被門禁擋下（86）
+# 被門禁擋下（82）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-11-23-2eb36a|OpenAI and Cisco introduce Shirudo]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-23-312f2b|Merry Making: Play, Build and Create With NVIDIA Technologies This Hol]]** — NVIDIA — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-23-3a78b1|Richpanel helps companies automate 50% of support in 30 days]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-23-f0ea29|Connected intelligence for in-house legal]]** — OpenAI — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-23-f76cd2|RoboTrack: Point tracking for real-world robotic manipulation]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-23-5de010|How to build and maintain an agentic evaluation]]** — Hugging Face — blockers: thin_research_analysis
+- **[[Events/evt-2026-11-23-8f8cc9|Finding faster quantum algorithms with agents and formal verification]]** — Google DeepMind — blockers: thin_research_analysis
+- **[[Events/evt-2026-11-23-f76cd2|RoboTrack: Point tracking for real-world robotic manipulation]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-18-38ef4c|Why your fine-tuning job takes longer than the FLOPs say]]** — Dharma-AI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-18-c82890|Time-Series Models in the Streamhouse: A New Frontier and Use Cases]]** — IBM Research — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-18-fa6769|Advancing chip design with OpenAI models]]** — OpenAI — blockers: thin_research_analysis
@@ -75,8 +73,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-11-23-5de010|How to build and maintain an agentic evaluation]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-23-8f8cc9|Finding faster quantum algorithms with agents and formal verification]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-20-e737a1|Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-11-20-fffc1c|Introducing harness adapters: adapt your favorite model to your harnes]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity
