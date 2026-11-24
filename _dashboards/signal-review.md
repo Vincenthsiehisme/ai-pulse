@@ -1,5 +1,5 @@
 ---
-generated_day: "2026-11-22"
+generated_day: "2026-11-24"
 ---
 
 # 待回答：我上次說要看什麼，結果呢
@@ -9,7 +9,7 @@ generated_day: "2026-11-22"
 
 **這一頁不判定任何事。** 它只是把該問的問題整理出來讓人回答。為什麼不自動判定，見 `docs/design/2026-08-11-theme-tracking-revisited.md`。
 
-待回答 **680** 則／已裁決 **26** 則。
+待回答 **681** 則／已裁決 **26** 則。
 
 回答方式：
 
@@ -30,8 +30,8 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`model-research#ce229066`** — model-research
   > 看 MedChemBench 是否公開資料集與評分程式，以及有沒有 OpenAI 以外的模型被納入報告；看對抗式蒸餾那篇原文有沒有提出可驗證的偵測或防護做法，其他模型廠商是否跟進。 看 OpenAI 那篇全文有沒有公布具體加速倍數與任務分類，以及其他實驗室有沒有發表可比較的量測；看 Gemini 4 Neon 與 Genie 4 原文公布的規格、基準測試與定價；看 Rumble-2-Flash 的語言別錯誤率與授權條款；看 DaisyRose-27B 是否公開權重與訓練成本。 看 GPT-6.2 的價格與第三方基準測試；看 OpenAI 嵌入式評估的第一批報告何時發布；看 Anthropic 那幾篇原文有沒有可驗證的具體措施；看 XYBench 是否公開資料集與評分程式；看 LLMON 的模型卡有沒有對比 JSON 與 XML 的準確率。
 
-- **`product-market#28e3519b`** — product-market
-  > 看 Hebbia 案例有沒有公開評測數字與對照基準，或其他金融客戶的獨立回報；看 OpenAI 是否公開 Daybreak Blue 的產品說明頁，並交代它與 Daybreak Red 的關係。 看住友生命案例全文有沒有揭露使用人數、採用率或成效數字；看 Figaro 與 OpenAI 是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 OpenAI 是否公開 Gondola 案例的衡量方式。
+- **`product-market#25e847f2`** — product-market
+  > 看〈Perplexity and Intelligence〉原文實際講什麼，以及有沒有第二個獨立來源引述；看 Hebbia 案例有沒有公開評測數字與對照基準，或其他金融客戶的獨立回報；看 OpenAI 是否公開 Daybreak Blue 的產品說明頁，並交代它與 Daybreak Red 的關係。 看住友生命案例全文有沒有揭露使用人數、採用率或成效數字；看 Figaro 與 OpenAI 是否公布合作條件或導流成效，以及其他歐洲出版商是否跟進。 看 Astra for Law 的評測方法與對手是否公開，以及律所的實際使用回報；看 OpenAI 或 Aleph 是否公布 44 國的廣告主數量或營收；看學術研究者方案的申請條件與每人額度；看 Hub 模型頁是否出現 OpenRouter 的呼叫入口；看 OpenAI 是否公開 Gondola 案例的衡量方式。
 
 - **`capital-evolution#c1eb0bb8`** — capital-evolution
   > 看 Anthropic 原文公布的定價與發行規模，以及掛牌後的交易表現與其他媒體的獨立報導；看 ChatGPT 內出現 LVMH 刊物的呈現方式，以及雙方是否公布授權與分潤條件；看 SB 53 的後續立法進度與其他業者是否表態；看 NVIDIA 或被投資新創公開具體投資對象與金額；看 OpenAI 或 Pierre 是否公布交易金額與交割時間。
@@ -42,7 +42,7 @@ python scripts/pulse-signal-review.py --answer <sid> \
 - **`global-map#7602049d`** — global-map
   > 看風險管理文章是否附可驗證的評估門檻，以及政策圈與第三方的回應；看 Dean Ball 那篇有沒有提出具體的制度建議。 看智利合作是否公布預算、參與的政府部門與首批新創名單；看北約合作是否公布參與機構與第一批可驗證的漏洞發現與修補成果；看 King's Trust 課程是否開跑、首批受訓人數；看 Anthropic 加拿大那篇原文是投資、合作還是據點；看 OpenAI 200 萬美元的受款團隊；看韓國業者後續是否公布與 NVIDIA 的機器人或實體 AI 專案。
 
-## 事件層（674）
+## 事件層（675）
 
 - **`evt-2026-07-07-81e525#9653fa46`** — evt-2026-07-07-81e525
   > 獨立的 agent 工作負載 benchmark、Vera 的實際規格與供貨時間。
@@ -2065,3 +2065,6 @@ python scripts/pulse-signal-review.py --answer <sid> \
 
 - **`evt-2026-11-20-ecfda3#efca1440`** — evt-2026-11-20-ecfda3
   > 原文是否提出可驗證的偵測或防護做法，以及其他模型廠商是否跟進同類說明。
+
+- **`evt-2026-11-22-c77a97#7ba154cb`** — evt-2026-11-22-c77a97
+  > 有第二個獨立來源報導或引述這篇文章的內容，或原文的實際主題被人工確認。

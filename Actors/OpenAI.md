@@ -3,17 +3,21 @@ id: actor-openai
 kind: company
 in_dictionary: true
 aliases: ["Open AI", "OpenAI Inc"]
-generated_day: '2026-11-22'
+generated_day: '2026-11-24'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # OpenAI
 
-事件 **267** 則：`published` 257、`review` 10
+事件 **271** 則：`published` 258、`review` 13
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-23 | [[Events/evt-2026-11-23-f0ea29\|Connected intelligence for in-house legal]] | review |
+| 2026-11-23 | [[Events/evt-2026-11-23-3a78b1\|Richpanel helps companies automate 50% of support in 30 days]] | review |
+| 2026-11-23 | [[Events/evt-2026-11-23-2eb36a\|OpenAI and Cisco introduce Shirudo]] | review |
+| 2026-11-22 | [[Events/evt-2026-11-22-c77a97\|Perplexity and Intelligence]] | published |
 | 2026-11-20 | [[Events/evt-2026-11-20-ecfda3\|Combatting adversarial distillation]] | published |
 | 2026-11-20 | [[Events/evt-2026-11-20-52a5df\|Can AI help scientists identify promising drug candidates?]] | published |
 | 2026-11-20 | [[Events/evt-2026-11-20-065414\|Hebbia sees improvements in financial research with GPT-6 Astra]] | published |

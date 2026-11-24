@@ -18,8 +18,8 @@ can_satisfy_primary: false
 endpoint: "https://simonwillison.net/atom/everything/"
 robots_checked_day: "2026-11-20"
 first_fetch_at: "2026-07-25"
-last_observed_day: "2026-11-22"
-items_observed: 356
+last_observed_day: "2026-11-24"
+items_observed: 360
 events_bound: 14
 events_published: 12
 health_score: 100
@@ -36,7 +36,7 @@ last_status: 200
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
 | 收錄 | `probing` | 會被抓 |
-| 已觀測 | 356 筆 | 抓到了，但站方那陣子沒發東西 |
+| 已觀測 | 360 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 14 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 12 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 

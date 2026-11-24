@@ -3,7 +3,7 @@ id: track-agent-refactor
 kind: track
 slug: agent-refactor
 color: '#4ee4ba'
-generated_day: '2026-11-22'
+generated_day: '2026-11-24'
 generator: scripts/pulse-entity-notes.py
 tags: [track]
 ---

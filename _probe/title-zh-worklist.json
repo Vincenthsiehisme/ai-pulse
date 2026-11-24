@@ -8,17 +8,57 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-11-19-f0e20c",
-    "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
+    "id": "evt-2026-11-23-2eb36a",
+    "title": "OpenAI and Cisco introduce Shirudo",
     "company": "OpenAI",
-    "track": "基礎設施與成本",
-    "summary": "OpenAI 介紹 Performance Factory：用 Codex 驅動的流程找出並修掉效能問題，讓 ChatGPT 保持快速。",
+    "track": null,
+    "summary": "",
     "stale_zh": null
   },
   {
-    "id": "evt-2026-11-22-c77a97",
-    "title": "Perplexity and Intelligence",
-    "company": "Perplexity",
+    "id": "evt-2026-11-23-312f2b",
+    "title": "Merry Making: Play, Build and Create With NVIDIA Technologies This Holiday Season",
+    "company": "NVIDIA",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-23-3a78b1",
+    "title": "Richpanel helps companies automate 50% of support in 30 days",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-23-5de010",
+    "title": "How to build and maintain an agentic evaluation",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-23-8f8cc9",
+    "title": "Finding faster quantum algorithms with agents and formal verification",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-23-f0ea29",
+    "title": "Connected intelligence for in-house legal",
+    "company": "OpenAI",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-23-f76cd2",
+    "title": "RoboTrack: Point tracking for real-world robotic manipulation",
+    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null

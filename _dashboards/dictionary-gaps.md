@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-22'
+generated_day: '2026-11-24'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**118 天**（2026-07-24 … 2026-11-22），去重後 **7816** 列。
+語料範圍：**119 天**（2026-07-24 … 2026-11-24），去重後 **7884** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,36 +17,37 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 246 | 2 |
-| Apple | 174 | 6 |
-| Amazon | 122 | 5 |
+| Show HN | 247 | 2 |
+| Apple | 175 | 6 |
+| Amazon | 123 | 5 |
 | Here | 75 | 9 |
+| There | 73 | 10 |
 | LLMs | 72 | 14 |
-| There | 72 | 10 |
+| CEO | 72 | 7 |
+| Jensen Huang | 72 | 6 |
 | September | 71 | 8 |
 | LLM | 68 | 13 |
-| CEO | 68 | 6 |
 | They | 67 | 9 |
-| Jensen Huang | 62 | 6 |
+| U.S | 61 | 8 |
+| Trump | 61 | 5 |
+| After | 59 | 6 |
 | Muse | 59 | 6 |
-| After | 58 | 6 |
-| U.S | 57 | 8 |
-| Trump | 57 | 5 |
 | October | 56 | 8 |
+| One | 54 | 10 |
 | China | 54 | 9 |
 | November | 54 | 7 |
-| One | 53 | 10 |
 | Python | 52 | 5 |
 | Pro | 52 | 8 |
 | San Francisco | 48 | 9 |
 | When | 48 | 13 |
-| With | 47 | 10 |
+| With | 48 | 10 |
 | AI-powered | 46 | 10 |
-| Chinese | 44 | 8 |
-| Rust | 44 | 3 |
+| Chinese | 46 | 8 |
+| Rust | 45 | 3 |
+| Linux | 45 | 6 |
 | Android | 44 | 4 |
 | July | 42 | 9 |
-| Linux | 42 | 6 |
+| Huang | 41 | 6 |
 | IPO | 40 | 8 |
 | Astra | 39 | 6 |
 | Last | 38 | 7 |
@@ -60,15 +61,14 @@ generator: scripts/pulse-dictionary-gaps.py
 | Tuesday | 32 | 6 |
 | Learn | 32 | 6 |
 | Wednesday | 31 | 5 |
+| Elon Musk | 31 | 5 |
+| SpaceX | 31 | 7 |
 | While | 31 | 4 |
 | Samsung | 31 | 5 |
-| Huang | 31 | 5 |
 | Europe | 30 | 8 |
+| Monday | 30 | 6 |
 | Building | 30 | 12 |
-| Elon Musk | 30 | 5 |
-| SpaceX | 30 | 7 |
 | Friday | 30 | 4 |
-| Monday | 29 | 6 |
 | Fable | 29 | 8 |
 | YouTube | 28 | 7 |
 | Thursday | 27 | 6 |
@@ -87,38 +87,40 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 88 | src-media-mit-techreview |
+| The Download | 89 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 43 | src-kol-simonwillison |
 | Hi HN | 34 | src-hn-frontpage |
+| A Blog | 32 | src-hf-blog |
 | Register | 32 | src-media-techcrunch |
 | Launch HN | 31 | src-hn-frontpage |
-| A Blog | 31 | src-hf-blog |
 | Best Buy | 29 | src-media-theverge |
 | Opt | 26 | src-media-theverge |
+| The Verge | 25 | src-media-theverge |
 | MIT Technology Review | 25 | src-media-mit-techreview |
-| The Verge | 24 | src-media-theverge |
 | Datasette | 24 | src-kol-simonwillison |
 | Highlights | 21 | src-gh-vllm-releases |
 | Ask HN | 21 | src-hn-frontpage |
 | Import AI | 21 | src-kol-importai |
 | Hey HN | 20 | src-hn-frontpage |
-| Is Hiring | 19 | src-hn-frontpage |
+| Is Hiring | 20 | src-hn-frontpage |
 | GeForce NOW | 18 | src-nvidia-blog |
 | The Stepback | 17 | src-media-theverge |
 | Committee | 15 | src-ep-itre |
 | Installer No | 15 | src-media-theverge |
 | Verge-iest | 15 | src-media-theverge |
 | Installer | 15 | src-media-theverge |
+| The Algorithm | 13 | src-media-mit-techreview |
 | Roundtables | 13 | src-media-mit-techreview |
-| The Algorithm | 12 | src-media-mit-techreview |
 | Disrupt | 12 | src-media-techcrunch |
 | TechCrunch Founder Summit | 12 | src-media-techcrunch |
 | FCC | 11 | src-media-theverge |
 | YC S26 | 11 | src-hn-frontpage |
 | Verge | 11 | src-media-theverge |
 | VCs | 11 | src-media-techcrunch |
+| Apple TV | 10 | src-media-theverge |
 | PlayStation | 10 | src-media-theverge |
+| Grand Theft Auto | 10 | src-media-theverge |
 | Victoria Song | 10 | src-media-theverge |
 | Startup Battlefield | 10 | src-media-techcrunch |
 | Moscone West | 10 | src-media-techcrunch |
@@ -128,8 +130,6 @@ generator: scripts/pulse-dictionary-gaps.py
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | Open-source | 9 | src-hn-frontpage |
-| Apple TV | 9 | src-media-theverge |
-| Grand Theft Auto | 9 | src-media-theverge |
 | Series A | 9 | src-media-techcrunch |
 | Optimizer | 9 | src-media-theverge |
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
