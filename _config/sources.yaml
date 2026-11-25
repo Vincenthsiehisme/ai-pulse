@@ -1330,7 +1330,7 @@ kol_sources:
     # [待驗證] feed payload 未在本機解碼。
     # 單篇動輒上萬字的週報型彙整 → 摘要截斷後資訊密度會很低，首週要看實際產出再調。
 
-  robots_checked_at: '2026-11-15T20:37:24+00:00'
+  robots_checked_at: '2026-11-25T00:10:47+00:00'
 - id: src-kol-oneusefulthing
   track: kol
   owner: Ethan Mollick
@@ -1417,7 +1417,7 @@ kol_sources:
   quota_per_run: 20
   can_satisfy_primary: false
 
-  robots_checked_at: '2026-11-15T20:37:24+00:00'
+  robots_checked_at: '2026-11-25T00:10:47+00:00'
 - id: src-kol-raschka
   track: kol
   owner: Sebastian Raschka
