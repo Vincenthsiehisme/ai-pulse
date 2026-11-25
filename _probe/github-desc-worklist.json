@@ -1,146 +1,157 @@
 [
   {
-    "full_name": "sous-labs/songe",
-    "desc": "A training engine for your local model, using your idle compute",
+    "full_name": "google-research/paper-orchestra",
+    "desc": "PaperOrchestra is a multi-agent framework for automated AI research paper writing.",
     "language": "Python",
     "topics": [
-      "coding-agents",
-      "distillation",
-      "fine-tuning",
-      "llm",
-      "local-llm",
-      "lora"
+      "ai-research-assistant",
+      "multi-agent-systems"
     ],
-    "stars": 660,
-    "url": "https://github.com/sous-labs/songe",
+    "stars": 6420,
+    "url": "https://github.com/google-research/paper-orchestra",
     "stale_zh": null
   },
   {
-    "full_name": "XinaTian/MROffice",
-    "desc": "MR Office — the open-source editors of the AI office suite closest to Microsoft Office: documents, spreadsheets, presentations, PDF and code in the browser. Copilot in every editor edits real Word, Excel and PowerPoint files with you; an MCP server lets Claude, ChatGPT, Cursor and Codex create and edit them; embed it in your app with one line.",
+    "full_name": "Johnson-Durui/Companion-Space",
+    "desc": "Local-first 1v1 anime AI tutor — just 1 API key or local subscription (Antigravity/Codex/Ollama). 6 tutors (27/27 motion), interactive math board, solve studio, reader & FSRS. 只需1个Key或本机订阅的本地二次元1v1 AI导师。",
+    "language": "Python",
+    "topics": [
+      "ai-companion",
+      "fastapi",
+      "local-first",
+      "rag",
+      "self-hosted",
+      "voice-ai"
+    ],
+    "stars": 699,
+    "url": "https://github.com/Johnson-Durui/Companion-Space",
+    "stale_zh": "像視訊通話一樣的本機二次元 AI 一對一家教，內建 6 位動態老師、同步白板與 FSRS 複習"
+  },
+  {
+    "full_name": "WeWorker/WeWorker",
+    "desc": "Open-source desktop AI agent that takes real actions on websites — 33 adapters for mail, shopping, social, and more.",
+    "language": "JavaScript",
+    "topics": [
+      "adapter",
+      "ai-agent",
+      "ai-automation",
+      "browser-agent",
+      "browser-automation",
+      "browser-extension"
+    ],
+    "stars": 332,
+    "url": "https://github.com/WeWorker/WeWorker",
+    "stale_zh": null
+  },
+  {
+    "full_name": "mankidev/antialgorithm",
+    "desc": "Agent skill that steers the model away from its first, most average pick in creative work: names, ideas, logo, posters, UI.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "claude-code",
+      "claude-code-plugin",
+      "claude-skills",
+      "codex",
+      "creative-writing"
+    ],
+    "stars": 878,
+    "url": "https://github.com/mankidev/antialgorithm",
+    "stale_zh": null
+  },
+  {
+    "full_name": "felipebasurto/unslop-ui",
+    "desc": "Agent skill that cuts AI tells from UI copy, charts and dashboards: eyebrows, numbering, botsplaining, decorative icons, badges and status dots. Opt-in surface rules.",
     "language": "TypeScript",
     "topics": [
-      "ai",
-      "ai-agent",
+      "agent-skills",
+      "ai-slop",
       "claude-code",
+      "claude-skills",
       "codex",
-      "copilot",
       "cursor"
     ],
-    "stars": 3774,
-    "url": "https://github.com/XinaTian/MROffice",
+    "stars": 867,
+    "url": "https://github.com/felipebasurto/unslop-ui",
     "stale_zh": null
   },
   {
-    "full_name": "21stware/bowel",
-    "desc": "Native mihomo (Clash Meta) client for macOS, Windows, Linux & Android: GPU-rendered Go UI, no Electron or WebView. Rules, TUN, gateway mode, CLI/TUI and a built-in MCP server.",
-    "language": "Go",
+    "full_name": "0sec-labs/0security",
+    "desc": "Open-source AI security agents that continuously find, prove and fix security risks. CLI, web console and GitHub Action. Bring your own model.",
+    "language": "TypeScript",
     "topics": [
-      "android",
-      "clash",
-      "clash-meta",
-      "flutter",
-      "golang",
-      "gui"
+      "llm-agents",
+      "security-research",
+      "security-tools",
+      "application-security",
+      "binary-analysis",
+      "cybersecurity"
     ],
-    "stars": 654,
-    "url": "https://github.com/21stware/bowel",
-    "stale_zh": null
+    "stars": 1624,
+    "url": "https://github.com/0sec-labs/0security",
+    "stale_zh": "開源資安框架，部署常駐的 AI 資安 agent，持續找出、驗證並修補風險"
   },
   {
-    "full_name": "pierridotite/mobile-agent-testers",
-    "desc": "20 AI testers on 20 different phones, in parallel, on GitHub's free runners: Claude Code agents on iOS Simulators and Android emulators that find broken flows, translation, layout and accessibility bugs",
-    "language": "Python",
+    "full_name": "MemTensor/memmy-agent",
+    "desc": "🍙  A personal AI agent & local memory hub for all AI agents, gives every AI one shared, fully controlled memory and persistent context — all AI remember the same you. Now supports Claude Code, Codex, OpenClaw and Hermes Agent etc.",
+    "language": "TypeScript",
     "topics": [
-      "accessibility-testing",
+      "agent",
       "ai-agents",
-      "ai-testing",
-      "android",
-      "android-emulator",
-      "claude"
+      "memory",
+      "agentic-ai",
+      "llm",
+      "long-term-memory"
     ],
-    "stars": 1840,
-    "url": "https://github.com/pierridotite/mobile-agent-testers",
+    "stars": 2337,
+    "url": "https://github.com/MemTensor/memmy-agent",
     "stale_zh": null
   },
   {
-    "full_name": "Fei-Craft/DS-Bot",
-    "desc": "A team of long-lived bots for DeepSeek Harness, with main bots, bot-to-bot messages and group chats.",
-    "language": "JavaScript",
+    "full_name": "SXP-Simon/Panache",
+    "desc": "「予你勇气，写你所想」Design and export handwritten pages with your choice of paper, ink, and layout,  through a local MCP server with AI assistants. Panache turn notes, LaTeX math, tables, diagrams and thoughts into pages.",
+    "language": "Dart",
     "topics": [
-      "bot",
-      "deepseek-harness",
-      "dsh-plugin",
-      "multi-agent"
-    ],
-    "stars": 8846,
-    "url": "https://github.com/Fei-Craft/DS-Bot",
-    "stale_zh": null
-  },
-  {
-    "full_name": "kaomei/stickman-video-director",
-    "desc": "AI Agent Skill (Claude Code, Codex & more): Turn any script into animated stickman videos for faceless YouTube, Shorts & TikTok. 20+ styles with voiceover, captions & SFX. Free & open-source (MIT).",
-    "language": "JavaScript",
-    "topics": [
-      "ai-animation-generator",
-      "ai-video-production",
-      "stickman",
-      "agent-skills",
-      "animation",
-      "claude-code"
-    ],
-    "stars": 8068,
-    "url": "https://github.com/kaomei/stickman-video-director",
-    "stale_zh": "AI agent skill，把腳本做成火柴人動畫影片，14 種以上風格，MIT 免費開源"
-  },
-  {
-    "full_name": "qier222/YesPlayMusic",
-    "desc": "A better-looking desktop music player for local files, media servers, and plugins. For macOS, Windows and Linux.",
-    "language": "C",
-    "topics": [
-      "desktop-app",
-      "emby",
       "flutter",
-      "javascript",
-      "jellyfin",
-      "linux"
+      "handwriting-converter",
+      "handwriting-generator",
+      "handwriting-simulator",
+      "rust"
     ],
-    "stars": 33699,
-    "url": "https://github.com/qier222/YesPlayMusic",
+    "stars": 589,
+    "url": "https://github.com/SXP-Simon/Panache",
     "stale_zh": null
   },
   {
-    "full_name": "boringmarketer/boring-marketing-skills",
-    "desc": "32 free marketing skills for your AI agent: research, positioning, copy, pages, SEO, AI search, ads, email and content, plus a deep local-business pack. MIT.",
+    "full_name": "test-zeus-ai/testzeus-hercules",
+    "desc": "Hercules is the world’s first open-source testing agent, enabling UI, API, Security, Accessibility, and Visual validations – all without code or maintenance. Automate testing effortlessly and let Hercules handle the heavy lifting! ⚡",
     "language": "Python",
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agents",
+      "ai",
+      "autogen",
+      "automation"
+    ],
+    "stars": 1254,
+    "url": "https://github.com/test-zeus-ai/testzeus-hercules",
+    "stale_zh": null
+  },
+  {
+    "full_name": "tt-a1i/archify",
+    "desc": "Turn any idea, plan, or codebase into an interactive diagram or one-page answer: 10 diagram types, Architecture Diagnosis, Story video and PR walkthroughs. An Agent Skill for Claude Code, Codex, Cursor and more.",
+    "language": "JavaScript",
     "topics": [
       "agent-skills",
       "ai-agents",
+      "architecture-diagram",
       "claude-code",
-      "codex",
-      "copywriting",
-      "local-seo"
+      "claude-skills",
+      "code-analysis"
     ],
-    "stars": 844,
-    "url": "https://github.com/boringmarketer/boring-marketing-skills",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ops120/wechat-local-viewer",
-    "desc": "微信本地聊天记录查看器 — 会话浏览/全文搜索/多格式导出/可选 LLM 智能总结，全部本地运行，零外部依赖。",
-    "language": "Python",
-    "topics": [],
-    "stars": 389,
-    "url": "https://github.com/ops120/wechat-local-viewer",
-    "stale_zh": null
-  },
-  {
-    "full_name": "OpenSenseNova/SenseNova-RoboRSI",
-    "desc": "A unified framework for building, evaluating, and recursively improving embodied agents. 🚀",
-    "language": "Python",
-    "topics": [],
-    "stars": 983,
-    "url": "https://github.com/OpenSenseNova/SenseNova-RoboRSI",
-    "stale_zh": "用來建構、評測並遞迴改進具身 agent 的統一框架，程式碼即將釋出"
+    "stars": 99908,
+    "url": "https://github.com/tt-a1i/archify",
+    "stale_zh": "agent skill，把想法、計畫或程式碼轉成可互動的架構圖"
   }
 ]

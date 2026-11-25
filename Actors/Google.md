@@ -10,10 +10,11 @@ tags: [actor, company]
 
 # Google
 
-事件 **10** 則：`published` 5、`review` 5
+事件 **11** 則：`published` 5、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-24 | [[Events/evt-2026-11-24-99fa68\|From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity]] | review |
 | 2026-11-03 | [[Events/evt-2026-11-03-267137\|Agentic cheminformatics with Google Antigravity]] | published |
 | 2026-10-21 | [[Events/evt-2026-10-21-b189ca\|Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure]] | published |
 | 2026-10-15 | [[Events/evt-2026-10-15-45643f\|Accelerating the search for antimicrobial peptides with Google Antigravity]] | published |

@@ -21,8 +21,8 @@ items_observed: 0
 events_bound: 0
 events_published: 0
 health_score: 0
-consecutive_failures: 92
-last_status: 403
+consecutive_failures: 93
+last_status: "error"
 ---
 
 # OpenAI（src-gh-openai-codex）

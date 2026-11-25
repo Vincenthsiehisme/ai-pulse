@@ -10,13 +10,14 @@ tags: [actor, company]
 
 # OpenAI
 
-事件 **274** 則：`published` 261、`review` 13
+事件 **275** 則：`published` 264、`review` 11
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-24 | [[Events/evt-2026-11-24-c16cb4\|Searching for distant planets with Astra]] | review |
+| 2026-11-24 | [[Events/evt-2026-11-24-c16cb4\|Searching for distant planets with Astra]] | published |
 | 2026-11-24 | [[Events/evt-2026-11-24-bec7d1\|GPT-6 models demonstrate intrinsic protein-design capabilities]] | review |
-| 2026-11-24 | [[Events/evt-2026-11-24-4bef30\|Clay helps sales teams win with Codex and ChatGPT]] | review |
+| 2026-11-24 | [[Events/evt-2026-11-24-a86988\|How Intentful uses dots to make more time for growth]] | published |
+| 2026-11-24 | [[Events/evt-2026-11-24-4bef30\|Clay helps sales teams win with Codex and ChatGPT]] | published |
 | 2026-11-23 | [[Events/evt-2026-11-23-f0ea29\|Connected intelligence for in-house legal]] | published |
 | 2026-11-23 | [[Events/evt-2026-11-23-3a78b1\|Richpanel helps companies automate 50% of support in 30 days]] | published |
 | 2026-11-23 | [[Events/evt-2026-11-23-2eb36a\|OpenAI and Cisco introduce Shirudo]] | published |

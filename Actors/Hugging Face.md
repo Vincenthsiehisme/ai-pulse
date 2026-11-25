@@ -10,11 +10,12 @@ tags: [actor, company]
 
 # Hugging Face
 
-事件 **40** 則：`published` 31、`review` 9
+事件 **41** 則：`published` 31、`review` 10
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-24 | [[Events/evt-2026-11-24-8c2ee1\|Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton]] | review |
+| 2026-11-25 | [[Events/evt-2026-11-25-b19121\|An Indic Voice Agent with CUGA]] | review |
+| 2026-11-25 | [[Events/evt-2026-11-25-42d6b7\|Where scientists draw the line on AI agents]] | review |
 | 2026-11-23 | [[Events/evt-2026-11-23-5de010\|How to build and maintain an agentic evaluation]] | review |
 | 2026-11-18 | [[Events/evt-2026-11-18-4488cd\|Rumble-2-Flash: an open 0.5B speech model for 40+ languages]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-06adba\|180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers]] | published |

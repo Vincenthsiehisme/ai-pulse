@@ -10,10 +10,11 @@ tags: [actor, company]
 
 # NVIDIA
 
-事件 **149** 則：`dropped` 1、`published` 140、`review` 8
+事件 **150** 則：`dropped` 1、`published` 141、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-24 | [[Events/evt-2026-11-24-8c2ee1\|Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton]] | published |
 | 2026-11-23 | [[Events/evt-2026-11-23-312f2b\|Merry Making: Play, Build and Create With NVIDIA Technologies This Holiday Season]] | published |
 | 2026-11-19 | [[Events/evt-2026-11-19-b90430\|Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-6892d5\|NVIDIA RTX Spark Compact Desktops Out Now]] | published |

@@ -14,10 +14,11 @@ tags: [track]
 
 上面這句是 `_config/narratives.yaml` 的編輯層 `thesis`。每夜重寫的 `now` / `next` **刻意不抄過來**——抄過來會出現兩份可能不一致的同一段話，要讀就去看那個檔。
 
-事件 **81** 則：`published` 69、`review` 12
+事件 **82** 則：`published` 70、`review` 12
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-24 | [[Events/evt-2026-11-24-a86988\|How Intentful uses dots to make more time for growth]] | published |
 | 2026-11-23 | [[Events/evt-2026-11-23-3a78b1\|Richpanel helps companies automate 50% of support in 30 days]] | published |
 | 2026-11-20 | [[Events/evt-2026-11-20-fffc1c\|Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost]] | review |
 | 2026-11-19 | [[Events/evt-2026-11-19-678ad6\|Deploying Daybreak Red]] | published |
