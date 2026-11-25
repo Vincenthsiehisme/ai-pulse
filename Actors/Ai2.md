@@ -3,7 +3,7 @@ id: actor-ai2
 kind: company
 in_dictionary: false
 aliases: []
-generated_day: '2026-11-24'
+generated_day: '2026-11-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
@@ -12,10 +12,11 @@ tags: [actor, company]
 
 > ⚠ **字典裡沒有這家公司。** 它是從 Event 的 `company` 欄位冒出來的，代表 `_config/entities.yaml` 少收了一條——或者 `infer_company()` 推錯了。兩種都要人看一眼。
 
-事件 **11** 則：`published` 6、`review` 5
+事件 **12** 則：`published` 6、`review` 6
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-23 | [[Events/evt-2026-11-23-f76cd2\|RoboTrack: Point tracking for real-world robotic manipulation]] | review |
 | 2026-11-13 | [[Events/evt-2026-11-13-a319f0\|XYBench: Helping with the problem behind the question]] | published |
 | 2026-11-06 | [[Events/evt-2026-11-06-71da0a\|ToyBlocks: A controlled world for robot learning and evaluation]] | review |
 | 2026-11-03 | [[Events/evt-2026-11-03-466907\|StateBench: Testing how language models track state changes over long documents]] | published |

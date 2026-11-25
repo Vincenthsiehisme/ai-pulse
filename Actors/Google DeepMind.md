@@ -3,17 +3,18 @@ id: actor-google-deepmind
 kind: company
 in_dictionary: true
 aliases: ["DeepMind", "GDM", "Google Brain"]
-generated_day: '2026-11-24'
+generated_day: '2026-11-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Google DeepMind
 
-事件 **36** 則：`published` 30、`review` 6
+事件 **37** 則：`published` 30、`review` 7
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-23 | [[Events/evt-2026-11-23-8f8cc9\|Finding faster quantum algorithms with agents and formal verification]] | review |
 | 2026-11-18 | [[Events/evt-2026-11-18-c87bb7\|Genie 4 is now available]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-1cfed7\|Introducing Gemini 4 Neon]] | published |
 | 2026-11-11 | [[Events/evt-2026-11-11-378012\|AlphaGenome 2: Deciphering how cells read DNA to better understand disease]] | published |

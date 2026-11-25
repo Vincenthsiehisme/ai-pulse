@@ -1,128 +1,85 @@
 [
   {
-    "full_name": "EL4CTEO/fast-anything",
-    "desc": "Don't rewrite it in Rust. Rewrite the 5% that's slow: profile Python, Node or Ruby apps, port the hot functions with your coding agent, prove they behave the same.",
-    "language": "Rust",
-    "topics": [
-      "agent-skills",
-      "ai-agents",
-      "claude-code",
-      "claude-code-plugin",
-      "codex",
-      "developer-tools"
-    ],
-    "stars": 3185,
-    "url": "https://github.com/EL4CTEO/fast-anything",
-    "stale_zh": null
-  },
-  {
-    "full_name": "w01fb0ss/PiBot",
-    "desc": "Open-source, local-first AI agent team for your desktop: multi-agent group chats, computer use, browser, MCP, routines and approvals. macOS, Windows, Linux + Android. Built on pi.",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "ai-agent",
-      "ai-agents",
-      "ai-assistant",
-      "android",
-      "automation"
-    ],
-    "stars": 507,
-    "url": "https://github.com/w01fb0ss/PiBot",
-    "stale_zh": null
-  },
-  {
-    "full_name": "ThreatDefence/agentic-attack-detections",
-    "desc": "Detection rules and IOCs for AI agent attack frameworks: ARTEX, Cairn, PentAGI, HexStrike, CyberStrikeAI, Strix, Hermes Agent, Agent Zero, RedAmon, Xalgorix, Pentest Swarm AI. KQL hunts for Microsoft Sentinel and Defender XDR, Sigma, Suricata, Zeek, YARA, Splunk, Elastic, STIX 2.1.",
+    "full_name": "sous-labs/songe",
+    "desc": "A training engine for your local model, using your idle compute",
     "language": "Python",
     "topics": [
-      "agentic-ai",
-      "ai-security",
-      "blue-team",
-      "defender-xdr",
-      "detection-engineering",
-      "ioc"
+      "coding-agents",
+      "distillation",
+      "fine-tuning",
+      "llm",
+      "local-llm",
+      "lora"
     ],
-    "stars": 569,
-    "url": "https://github.com/ThreatDefence/agentic-attack-detections",
+    "stars": 660,
+    "url": "https://github.com/sous-labs/songe",
     "stale_zh": null
   },
   {
-    "full_name": "everyinfra/everyinfra-agent-plugins",
-    "desc": "EveryInfra MCP server & agent plugin: scraper API for TikTok, Instagram, Amazon, YouTube, Xiaohongshu & Douyin. 718 data APIs across 110 platforms, from $0.56/1K calls. For Claude Code, Cursor, Codex.",
-    "language": "Python",
-    "topics": [
-      "ai-agents",
-      "amazon-scraper",
-      "captcha-solver",
-      "claude-code",
-      "cursor",
-      "douyin"
-    ],
-    "stars": 757,
-    "url": "https://github.com/everyinfra/everyinfra-agent-plugins",
-    "stale_zh": "EveryInfra 的 MCP server 與 agent 外掛，106 個平台共 612 支爬取 API"
-  },
-  {
-    "full_name": "agentverse-os/AgentVerse-OS",
-    "desc": "Personal cloud OS for a developer and their AI agents on a single server. One-command install on Ubuntu, then everything in the browser: a windowed desktop, isolated workspaces with VS Code, Claude Code and Codex, a store of 944 self-hosted apps, backups and updates. Access only via Tailscale, nothing exposed to the internet. Rust core, Svelte UI.",
-    "language": "Rust",
-    "topics": [],
-    "stars": 809,
-    "url": "https://github.com/agentverse-os/AgentVerse-OS",
-    "stale_zh": null
-  },
-  {
-    "full_name": "cathrynlavery/diagram-design",
-    "desc": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, Qoder, and Pi. 52 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
-    "language": "HTML",
-    "topics": [
-      "agent-skills",
-      "claude-code",
-      "codex",
-      "data-visualization",
-      "diagrams",
-      "drawio"
-    ],
-    "stars": 71040,
-    "url": "https://github.com/cathrynlavery/diagram-design",
-    "stale_zh": "給 Claude Code、Codex 等工具的編輯級圖表設計，45 種圖型，純 HTML＋SVG"
-  },
-  {
-    "full_name": "heygen-com/hyperframes",
-    "desc": "Open-source AI video editor: edit your own footage, or create and remake any video with Claude Code, Codex or the free Studio app. Write HTML, render MP4. By HeyGen.",
+    "full_name": "XinaTian/MROffice",
+    "desc": "MR Office — the open-source editors of the AI office suite closest to Microsoft Office: documents, spreadsheets, presentations, PDF and code in the browser. Copilot in every editor edits real Word, Excel and PowerPoint files with you; an MCP server lets Claude, ChatGPT, Cursor and Codex create and edit them; embed it in your app with one line.",
     "language": "TypeScript",
     "topics": [
-      "agent-skills",
       "ai",
-      "ai-agents",
-      "ai-video",
-      "ai-video-editor",
-      "animation"
+      "ai-agent",
+      "claude-code",
+      "codex",
+      "copilot",
+      "cursor"
     ],
-    "stars": 88994,
-    "url": "https://github.com/heygen-com/hyperframes",
-    "stale_zh": "免費開源的 AI 影片編輯器，描述想要的影片就產生可逐格修改的真實專案"
+    "stars": 3774,
+    "url": "https://github.com/XinaTian/MROffice",
+    "stale_zh": null
   },
   {
-    "full_name": "YOLOW92/pagesift",
-    "desc": "Local-first web & document ingestion engine in Rust — HTTP/browser capture, layout-aware PDF/Office/OCR parsing, persistent sync, verifiable data graphs, and evidence-grounded AI context.",
-    "language": "Rust",
+    "full_name": "21stware/bowel",
+    "desc": "Native mihomo (Clash Meta) client for macOS, Windows, Linux & Android: GPU-rendered Go UI, no Electron or WebView. Rules, TUN, gateway mode, CLI/TUI and a built-in MCP server.",
+    "language": "Go",
     "topics": [
-      "ai-agents",
-      "browser-automation",
-      "crawl4ai-alternative",
-      "data-extraction",
-      "document-parsing",
-      "firecrawl"
+      "android",
+      "clash",
+      "clash-meta",
+      "flutter",
+      "golang",
+      "gui"
     ],
-    "stars": 308,
-    "url": "https://github.com/YOLOW92/pagesift",
+    "stars": 654,
+    "url": "https://github.com/21stware/bowel",
+    "stale_zh": null
+  },
+  {
+    "full_name": "pierridotite/mobile-agent-testers",
+    "desc": "20 AI testers on 20 different phones, in parallel, on GitHub's free runners: Claude Code agents on iOS Simulators and Android emulators that find broken flows, translation, layout and accessibility bugs",
+    "language": "Python",
+    "topics": [
+      "accessibility-testing",
+      "ai-agents",
+      "ai-testing",
+      "android",
+      "android-emulator",
+      "claude"
+    ],
+    "stars": 1840,
+    "url": "https://github.com/pierridotite/mobile-agent-testers",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Fei-Craft/DS-Bot",
+    "desc": "A team of long-lived bots for DeepSeek Harness, with main bots, bot-to-bot messages and group chats.",
+    "language": "JavaScript",
+    "topics": [
+      "bot",
+      "deepseek-harness",
+      "dsh-plugin",
+      "multi-agent"
+    ],
+    "stars": 8846,
+    "url": "https://github.com/Fei-Craft/DS-Bot",
     "stale_zh": null
   },
   {
     "full_name": "kaomei/stickman-video-director",
-    "desc": "AI Agent Skill (Claude Code, Codex & more): Turn any script into animated stickman videos for faceless YouTube, Shorts & TikTok. 14+ styles with voiceover, captions & SFX. Free & open-source (MIT).",
+    "desc": "AI Agent Skill (Claude Code, Codex & more): Turn any script into animated stickman videos for faceless YouTube, Shorts & TikTok. 20+ styles with voiceover, captions & SFX. Free & open-source (MIT).",
     "language": "JavaScript",
     "topics": [
       "ai-animation-generator",
@@ -132,8 +89,58 @@
       "animation",
       "claude-code"
     ],
-    "stars": 7733,
+    "stars": 8068,
     "url": "https://github.com/kaomei/stickman-video-director",
-    "stale_zh": "把任何腳本變成多種風格的火柴人動畫影片，供無臉 YouTube 頻道使用，自動處理畫面、旁白、字幕與音效，免費開源"
+    "stale_zh": "AI agent skill，把腳本做成火柴人動畫影片，14 種以上風格，MIT 免費開源"
+  },
+  {
+    "full_name": "qier222/YesPlayMusic",
+    "desc": "A better-looking desktop music player for local files, media servers, and plugins. For macOS, Windows and Linux.",
+    "language": "C",
+    "topics": [
+      "desktop-app",
+      "emby",
+      "flutter",
+      "javascript",
+      "jellyfin",
+      "linux"
+    ],
+    "stars": 33699,
+    "url": "https://github.com/qier222/YesPlayMusic",
+    "stale_zh": null
+  },
+  {
+    "full_name": "boringmarketer/boring-marketing-skills",
+    "desc": "32 free marketing skills for your AI agent: research, positioning, copy, pages, SEO, AI search, ads, email and content, plus a deep local-business pack. MIT.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "claude-code",
+      "codex",
+      "copywriting",
+      "local-seo"
+    ],
+    "stars": 844,
+    "url": "https://github.com/boringmarketer/boring-marketing-skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "ops120/wechat-local-viewer",
+    "desc": "微信本地聊天记录查看器 — 会话浏览/全文搜索/多格式导出/可选 LLM 智能总结，全部本地运行，零外部依赖。",
+    "language": "Python",
+    "topics": [],
+    "stars": 389,
+    "url": "https://github.com/ops120/wechat-local-viewer",
+    "stale_zh": null
+  },
+  {
+    "full_name": "OpenSenseNova/SenseNova-RoboRSI",
+    "desc": "A unified framework for building, evaluating, and recursively improving embodied agents. 🚀",
+    "language": "Python",
+    "topics": [],
+    "stars": 983,
+    "url": "https://github.com/OpenSenseNova/SenseNova-RoboRSI",
+    "stale_zh": "用來建構、評測並遞迴改進具身 agent 的統一框架，程式碼即將釋出"
   }
 ]

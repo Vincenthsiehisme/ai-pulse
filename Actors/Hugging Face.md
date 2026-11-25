@@ -3,18 +3,19 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-24'
+generated_day: '2026-11-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **39** 則：`published` 31、`review` 8
+事件 **40** 則：`published` 31、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-23 | [[Events/evt-2026-11-23-f76cd2\|RoboTrack: Point tracking for real-world robotic manipulation]] | review |
+| 2026-11-24 | [[Events/evt-2026-11-24-8c2ee1\|Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton]] | review |
+| 2026-11-23 | [[Events/evt-2026-11-23-5de010\|How to build and maintain an agentic evaluation]] | review |
 | 2026-11-18 | [[Events/evt-2026-11-18-4488cd\|Rumble-2-Flash: an open 0.5B speech model for 40+ languages]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-06adba\|180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers]] | published |
 | 2026-11-16 | [[Events/evt-2026-11-16-811566\|Hugging Face and OpenRouter join forces to make open-weight models easy to run]] | published |

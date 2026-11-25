@@ -16,15 +16,15 @@ robots_ok: true
 license_note: "titles + excerpt + link"
 can_satisfy_primary: false
 endpoint: "https://importai.substack.com/feed"
-robots_checked_day: "2026-11-15"
+robots_checked_day: "2026-11-25"
 first_fetch_at: "2026-11-15"
-last_observed_day: "2026-11-21"
-items_observed: 21
+last_observed_day: "2026-11-25"
+items_observed: 22
 events_bound: 0
 events_published: 0
 health_score: 100
 consecutive_failures: 0
-last_status: "robots_unknown"
+last_status: 200
 ---
 
 # Jack Clark（src-kol-importai）
@@ -35,8 +35,8 @@ last_status: "robots_unknown"
 
 | 層 | 數字 | 這一格是 0 代表什麼 |
 |---|---|---|
-| 收錄 | `probing` | **每班都被跳過**：robots.txt 取不到，保守跳過（不是站方拒絕） |
-| 已觀測 | 21 筆 | 抓到了，但站方那陣子沒發東西 |
+| 收錄 | `probing` | 會被抓 |
+| 已觀測 | 22 筆 | 抓到了，但站方那陣子沒發東西 |
 | 有效產出 | 0 則事件 | 抓到了但聚類沒把它綁成證據 |
 | 已發布 | 0 則 | 綁上了但門禁擋著——那是設計，不是故障 |
 

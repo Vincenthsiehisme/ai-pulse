@@ -3,18 +3,18 @@ id: actor-nvidia
 kind: company
 in_dictionary: true
 aliases: ["輝達", "英偉達"]
-generated_day: '2026-11-24'
+generated_day: '2026-11-25'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # NVIDIA
 
-事件 **149** 則：`dropped` 1、`published` 139、`review` 9
+事件 **149** 則：`dropped` 1、`published` 140、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-23 | [[Events/evt-2026-11-23-312f2b\|Merry Making: Play, Build and Create With NVIDIA Technologies This Holiday Season]] | review |
+| 2026-11-23 | [[Events/evt-2026-11-23-312f2b\|Merry Making: Play, Build and Create With NVIDIA Technologies This Holiday Season]] | published |
 | 2026-11-19 | [[Events/evt-2026-11-19-b90430\|Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-6892d5\|NVIDIA RTX Spark Compact Desktops Out Now]] | published |
 | 2026-11-17 | [[Events/evt-2026-11-17-37b350\|Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents]] | published |

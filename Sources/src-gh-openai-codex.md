@@ -22,7 +22,7 @@ events_bound: 0
 events_published: 0
 health_score: 0
 consecutive_failures: 92
-last_status: "error"
+last_status: 403
 ---
 
 # OpenAI（src-gh-openai-codex）
