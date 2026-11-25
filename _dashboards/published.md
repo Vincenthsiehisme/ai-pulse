@@ -1,6 +1,16 @@
-# 已發布事件（699）
+# 已發布事件（703）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-24
+- **[[Events/evt-2026-11-24-4bef30|Clay helps sales teams win with Codex and ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 客戶案例：Clay 用 ChatGPT 與 Codex 整合協助銷售團隊。
+- **[[Events/evt-2026-11-24-8c2ee1|Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton]]** — NVIDIA · research · conf 73 · heat 未量測
+  NVIDIA 在 Hugging Face 發文，介紹 Microduck 機器人用 Isaac Lab 與 Newton 做避障的模擬到實機流程。
+- **[[Events/evt-2026-11-24-a86988|How Intentful uses dots to make more time for growth]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 客戶案例：Intentful 的 Marina Petrova 用名為 Aria 的 dot 處理研究與提案。
+- **[[Events/evt-2026-11-24-c16cb4|Searching for distant planets with Astra]]** — OpenAI · product · conf 73 · heat 未量測
+  OpenAI 介紹兩位業餘天文學家用 Codex 與 Astra 在公開資料中找可能的系外行星。
 
 ## 2026-11-23
 - **[[Events/evt-2026-11-23-2eb36a|OpenAI and Cisco introduce Shirudo]]** — OpenAI · infra · conf 80 · heat 未量測

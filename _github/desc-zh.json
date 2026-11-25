@@ -34,6 +34,11 @@
     "src_hash": "9f9b012a91f6",
     "zh": "在 Windows 把 bash 指令轉成 PowerShell 執行，免 VM 與 WSL，附 MCP 與 CLI"
   },
+  "21stware/bowel": {
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "ce0a0f0009d1",
+    "zh": "mihomo（Clash Meta）跨平台原生用戶端，不用 Electron，內建 MCP server"
+  },
   "Agent-Field/CodeAF": {
     "at": "2026-10-08T20:58:31+00:00",
     "src_hash": "f9700f13ee25",
@@ -238,6 +243,11 @@
     "at": "2026-08-10T19:09:33+00:00",
     "src_hash": "0e143566f257",
     "zh": "讓2.78兆參數的Kimi K3在單顆CPU、8.24GB RAM上跑推論，純C99實作，不用BLAS、框架或GPU"
+  },
+  "Fei-Craft/DS-Bot": {
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "dcd5f1ee174b",
+    "zh": "給 DeepSeek Harness 用的長駐 bot 團隊，含主 bot、bot 間訊息與群組聊天"
   },
   "Fei2411/DS-Bot": {
     "at": "2026-10-26T20:51:43+00:00",
@@ -625,9 +635,9 @@
     "zh": "開源的代理式影片製作系統：12 條製作流程、100 多個工具、700 多份技能與知識檔，把 AI 寫碼助手變成影片工作室"
   },
   "OpenSenseNova/SenseNova-RoboRSI": {
-    "at": "2026-10-30T20:18:02+00:00",
-    "src_hash": "53c35eed2801",
-    "zh": "用來建構、評測並遞迴改進具身 agent 的統一框架，程式碼即將釋出"
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "62d5d29bec29",
+    "zh": "用來建構、評測並遞迴改進具身 agent 的統一框架"
   },
   "OpenTodoApp/OpenTodo": {
     "at": "2026-11-15T20:41:30+00:00",
@@ -858,6 +868,11 @@
     "at": "2026-10-18T18:23:02+00:00",
     "src_hash": "912806067f80",
     "zh": "把 ChatGPT 變成本機 agent 執行環境，透過單一 MCP 連線操作電腦、使用本機工具"
+  },
+  "XinaTian/MROffice": {
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "9f5245147311",
+    "zh": "開源 AI 辦公套件：瀏覽器內編輯文件、試算表、簡報與 PDF，內建 Copilot 與 MCP server"
   },
   "YOLOW92/pagesift": {
     "at": "2026-11-24T02:42:56+00:00",
@@ -1148,6 +1163,11 @@
     "at": "2026-11-21T21:18:30+00:00",
     "src_hash": "8f084912b825",
     "zh": "Blender 的 AI 助手與 MCP server，含視覺化對話與場景工具，可接 Claude、Gemini 等"
+  },
+  "boringmarketer/boring-marketing-skills": {
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "eaea616acf1d",
+    "zh": "給 AI agent 用的 32 個行銷 skill，涵蓋研究、定位、文案、SEO、廣告與電子報，MIT 授權"
   },
   "botpress/botpress": {
     "at": "2026-11-04T21:40:11+00:00",
@@ -1795,9 +1815,9 @@
     "zh": "給編碼 agent 的本機影片剪輯工具，42 個 FFmpeg 工具加 MCP server，免雲端"
   },
   "kaomei/stickman-video-director": {
-    "at": "2026-11-24T02:42:56+00:00",
-    "src_hash": "d37c5647c560",
-    "zh": "AI agent skill，把腳本做成火柴人動畫影片，14 種以上風格，MIT 免費開源"
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "b6c8a2ce10b8",
+    "zh": "AI agent skill，把腳本做成火柴人動畫影片，20 種以上風格，MIT 免費開源"
   },
   "keptinventory/kept": {
     "at": "2026-10-27T20:22:03+00:00",
@@ -2254,6 +2274,11 @@
     "src_hash": "b4261fbb6f13",
     "zh": "把編碼 agent Pi 預先編譯成單一原生執行檔，啟動快 10 倍，CPU 少用 7 倍，記憶體少用 4.5 倍"
   },
+  "ops120/wechat-local-viewer": {
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "f3d05fa43015",
+    "zh": "微信本機聊天記錄檢視器：瀏覽會話、全文搜尋、多格式匯出，可選 LLM 摘要，全程本機執行"
+  },
   "oriveo/oriveo": {
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "645f094272ca",
@@ -2314,6 +2339,11 @@
     "src_hash": "c9b0f5a771e0",
     "zh": "可嵌入的 Go 向量資料庫，介面近似 Chroma，無第三方相依，記憶體內運行並可選擇持久化"
   },
+  "pierridotite/mobile-agent-testers": {
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "11f92fa8d9fd",
+    "zh": "在 GitHub 免費 runner 上同時用 20 個 AI 代理測 20 支手機，找流程、翻譯、版面與無障礙問題"
+  },
   "pinecone-io/python-sdk": {
     "at": "2026-09-24T19:28:45+00:00",
     "src_hash": "01abf8e637f5",
@@ -2368,6 +2398,11 @@
     "at": "2026-10-16T19:09:41+00:00",
     "src_hash": "487fac0023c5",
     "zh": "Qdrant 向量資料庫的 JavaScript/TypeScript SDK"
+  },
+  "qier222/YesPlayMusic": {
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "a9d84ca4c020",
+    "zh": "外觀更好看的桌面音樂播放器，支援本機檔案、媒體伺服器與外掛，適用 macOS、Windows、Linux"
   },
   "qybaihe/bla": {
     "at": "2026-11-14T20:16:18+00:00",
@@ -2593,6 +2628,11 @@
     "at": "2026-10-16T19:09:41+00:00",
     "src_hash": "5c153bafeb67",
     "zh": "整理自實際生產環境的 AI 寫程式工具包：Claude Code 外掛、subagent 編排、品質關卡與現成提示詞"
+  },
+  "sous-labs/songe": {
+    "at": "2026-11-25T00:15:41+00:00",
+    "src_hash": "99ff156d98ea",
+    "zh": "用閒置算力訓練本機模型的訓練引擎"
   },
   "springvoiceswell/semrush-ai-tool": {
     "at": "2026-10-17T18:04:23+00:00",

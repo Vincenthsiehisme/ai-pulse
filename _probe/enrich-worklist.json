@@ -1,18 +1,108 @@
 [
   {
-    "id": "evt-2026-11-23-2eb36a",
-    "path": "evt-2026-11-23-2eb36a.md",
-    "title": "OpenAI and Cisco introduce Shirudo",
+    "id": "evt-2026-11-24-4bef30",
+    "path": "evt-2026-11-24-4bef30.md",
+    "title": "Clay helps sales teams win with Codex and ChatGPT",
     "fingerprint": null,
-    "facet": "release",
+    "facet": "update",
     "company_guess": "OpenAI",
-    "independent_sources": 2,
+    "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/introducing-shirudo",
-        "title": "Shirudo: OpenAI and Cisco's open-source runtime for shielding unpatched Linux",
+        "url": "https://openai.com/business/customer-stories/clay-plugins-openai",
+        "title": "Clay helps sales teams win with Codex and ChatGPT",
+        "summary": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models handling the reasoning.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-24-8c2ee1",
+    "path": "evt-2026-11-24-8c2ee1.md",
+    "title": "Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nvidia/microduck-obstacle-avoidance",
+        "title": "Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton",
+        "summary": "A Blog post by NVIDIA on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-24-a86988",
+    "path": "evt-2026-11-24-a86988.md",
+    "title": "How Intentful uses dots to make more time for growth",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/business/customer-stories/intentful-dots",
+        "title": "How Intentful uses dots to make more time for growth",
+        "summary": "Marina Petrova’s dot Aria helps research websites and build proposals, while proactively flagging messages and resolving issues.",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-24-bec7d1",
+    "path": "evt-2026-11-24-bec7d1.md",
+    "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+    "fingerprint": "openai:gpt:6",
+    "facet": "capability",
+    "company_guess": "OpenAI",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-openai-blog",
+        "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+        "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -20,8 +110,8 @@
       },
       {
         "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/introducing-shirudo/",
-        "title": "Shirudo: OpenAI and Cisco's open-source runtime for shielding unpatched Linux",
+        "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/",
+        "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -41,39 +131,9 @@
     }
   },
   {
-    "id": "evt-2026-11-23-312f2b",
-    "path": "evt-2026-11-23-312f2b.md",
-    "title": "Merry Making: Play, Build and Create With NVIDIA Technologies This Holiday Season",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "NVIDIA",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-nvidia-blog",
-        "url": "https://blogs.nvidia.com/blog/nvidia-technologies-holidays-2026/",
-        "title": "Merry Making: Play, Build and Create With NVIDIA Technologies This Holiday Season",
-        "summary": "The elves don’t have to be the only ones busy in the workshop this holiday season. With the lights twinkling and the gift wrap out, it’s the perfect time to give someone — or yourself — a spark to take a hobby to the next level. For some, that means diving into a new game. [&#8230;]",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-23-3a78b1",
-    "path": "evt-2026-11-23-3a78b1.md",
-    "title": "Richpanel helps companies automate 50% of support in 30 days",
+    "id": "evt-2026-11-24-c16cb4",
+    "path": "evt-2026-11-24-c16cb4.md",
+    "title": "Searching for distant planets with Astra",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "OpenAI",
@@ -82,129 +142,9 @@
     "evidence": [
       {
         "source_id": "src-openai-blog",
-        "url": "https://openai.com/business/customer-stories/richpanel-ai-customer-support",
-        "title": "Richpanel helps companies automate 50% of support in 30 days",
-        "summary": "Richpanel uses GPT-6 Astra and GPT-6.1 Sol to equip its AI support agents with tools and procedures, and GPT-6 Luna for their conversations.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-23-5de010",
-    "path": "evt-2026-11-23-5de010.md",
-    "title": "How to build and maintain an agentic evaluation",
-    "fingerprint": null,
-    "facet": "benchmark",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/agentic-evals",
-        "title": "How to build and maintain an agentic evaluation",
-        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-23-8f8cc9",
-    "path": "evt-2026-11-23-8f8cc9.md",
-    "title": "Finding faster quantum algorithms with agents and formal verification",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "industry",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-deepmind-blog",
-        "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
-        "title": "Finding faster quantum algorithms with agents and formal verification",
-        "summary": "Using agent teams and formal verification to improve quantum algorithms for fusion and chemistry.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-23-f0ea29",
-    "path": "evt-2026-11-23-f0ea29.md",
-    "title": "Connected intelligence for in-house legal",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "OpenAI",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/business/learn/connected-intelligence-for-in-house-legal",
-        "title": "Connected intelligence for in-house legal",
-        "summary": "Watch OpenAI’s Stacey Wang and Craig Bruney, Mary O’Carroll of LECG, and Cooley’s Richard Segal explore how AI can help in-house legal teams connect business context, build reusable workflows and get more from outside counsel.",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
-      }
-    ],
-    "availability": {
-      "counts": {
-        "has_text": 1,
-        "unfetched": 0,
-        "withheld": 0
-      },
-      "needs_source_link": false,
-      "reasons": []
-    }
-  },
-  {
-    "id": "evt-2026-11-23-f76cd2",
-    "path": "evt-2026-11-23-f76cd2.md",
-    "title": "RoboTrack: Point tracking for real-world robotic manipulation",
-    "fingerprint": null,
-    "facet": "update",
-    "company_guess": "Hugging Face",
-    "independent_sources": 1,
-    "tier_evidence": 1,
-    "evidence": [
-      {
-        "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/allenai/robotrack",
-        "title": "RoboTrack: Point tracking for real-world robotic manipulation",
-        "summary": "A Blog post by Ai2 on Hugging Face",
+        "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
+        "title": "Searching for distant planets with Astra",
+        "summary": "See how two amateur astronomers used Codex and Astra to find potential exoplanets in public data from NASA’s Kepler and TESS space telescopes.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
