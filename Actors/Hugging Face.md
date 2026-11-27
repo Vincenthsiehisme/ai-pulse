@@ -3,17 +3,19 @@ id: actor-huggingface
 kind: company
 in_dictionary: true
 aliases: ["HuggingFace", "抱抱臉", "HF"]
-generated_day: '2026-11-25'
+generated_day: '2026-11-27'
 generator: scripts/pulse-entity-notes.py
 tags: [actor, company]
 ---
 
 # Hugging Face
 
-事件 **41** 則：`published` 31、`review` 10
+事件 **43** 則：`published` 31、`review` 12
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-26 | [[Events/evt-2026-11-26-ed24f4\|Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference]] | review |
+| 2026-11-26 | [[Events/evt-2026-11-26-eb75d5\|Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon]] | review |
 | 2026-11-25 | [[Events/evt-2026-11-25-b19121\|An Indic Voice Agent with CUGA]] | review |
 | 2026-11-25 | [[Events/evt-2026-11-25-42d6b7\|Where scientists draw the line on AI agents]] | review |
 | 2026-11-23 | [[Events/evt-2026-11-23-5de010\|How to build and maintain an agentic evaluation]] | review |

@@ -1,5 +1,53 @@
 [
   {
+    "full_name": "opensetlabs/openset-llm",
+    "desc": "Fast local LLM inference on plain CPUs. No GPU, 8 GB of RAM. OpenAI-compatible server.",
+    "language": "C++",
+    "topics": [
+      "ai",
+      "avx512",
+      "cpu-inference",
+      "edge-ai",
+      "gguf",
+      "inference-engine"
+    ],
+    "stars": 1731,
+    "url": "https://github.com/opensetlabs/openset-llm",
+    "stale_zh": null
+  },
+  {
+    "full_name": "yetone/magpie",
+    "desc": "Pool every plan you pay for — Claude, ChatGPT, Copilot, GLM Coding Plan, Kimi Code and more — and use them in any agent: Claude Code, Codex, Claude Desktop… When one runs out, the next takes over.",
+    "language": "Go",
+    "topics": [
+      "ai-agents",
+      "chatgpt",
+      "claude",
+      "claude-code",
+      "codex",
+      "deepseek"
+    ],
+    "stars": 42018,
+    "url": "https://github.com/yetone/magpie",
+    "stale_zh": "在選單列統一管理各 agent 用的模型，例如 Codex 跑 DeepSeek、Claude Code 跑 Kimi"
+  },
+  {
+    "full_name": "danielwh2/sprite-stacking",
+    "desc": "Agent skill: turn four pixel art views into fake-3D sprites you can spin. Works with Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Pi.",
+    "language": "HTML",
+    "topics": [
+      "agent-skills",
+      "claude-code",
+      "codex",
+      "cursor",
+      "fake-3d",
+      "gamedev"
+    ],
+    "stars": 1035,
+    "url": "https://github.com/danielwh2/sprite-stacking",
+    "stale_zh": null
+  },
+  {
     "full_name": "google-research/paper-orchestra",
     "desc": "PaperOrchestra is a multi-agent framework for automated AI research paper writing.",
     "language": "Python",
@@ -7,25 +55,9 @@
       "ai-research-assistant",
       "multi-agent-systems"
     ],
-    "stars": 6420,
+    "stars": 6511,
     "url": "https://github.com/google-research/paper-orchestra",
     "stale_zh": null
-  },
-  {
-    "full_name": "Johnson-Durui/Companion-Space",
-    "desc": "Local-first 1v1 anime AI tutor — just 1 API key or local subscription (Antigravity/Codex/Ollama). 6 tutors (27/27 motion), interactive math board, solve studio, reader & FSRS. 只需1个Key或本机订阅的本地二次元1v1 AI导师。",
-    "language": "Python",
-    "topics": [
-      "ai-companion",
-      "fastapi",
-      "local-first",
-      "rag",
-      "self-hosted",
-      "voice-ai"
-    ],
-    "stars": 699,
-    "url": "https://github.com/Johnson-Durui/Companion-Space",
-    "stale_zh": "像視訊通話一樣的本機二次元 AI 一對一家教，內建 6 位動態老師、同步白板與 FSRS 複習"
   },
   {
     "full_name": "WeWorker/WeWorker",
@@ -39,24 +71,8 @@
       "browser-automation",
       "browser-extension"
     ],
-    "stars": 332,
+    "stars": 366,
     "url": "https://github.com/WeWorker/WeWorker",
-    "stale_zh": null
-  },
-  {
-    "full_name": "mankidev/antialgorithm",
-    "desc": "Agent skill that steers the model away from its first, most average pick in creative work: names, ideas, logo, posters, UI.",
-    "language": "Python",
-    "topics": [
-      "agent-skills",
-      "claude-code",
-      "claude-code-plugin",
-      "claude-skills",
-      "codex",
-      "creative-writing"
-    ],
-    "stars": 878,
-    "url": "https://github.com/mankidev/antialgorithm",
     "stale_zh": null
   },
   {
@@ -71,71 +87,8 @@
       "codex",
       "cursor"
     ],
-    "stars": 867,
+    "stars": 928,
     "url": "https://github.com/felipebasurto/unslop-ui",
-    "stale_zh": null
-  },
-  {
-    "full_name": "0sec-labs/0security",
-    "desc": "Open-source AI security agents that continuously find, prove and fix security risks. CLI, web console and GitHub Action. Bring your own model.",
-    "language": "TypeScript",
-    "topics": [
-      "llm-agents",
-      "security-research",
-      "security-tools",
-      "application-security",
-      "binary-analysis",
-      "cybersecurity"
-    ],
-    "stars": 1624,
-    "url": "https://github.com/0sec-labs/0security",
-    "stale_zh": "開源資安框架，部署常駐的 AI 資安 agent，持續找出、驗證並修補風險"
-  },
-  {
-    "full_name": "MemTensor/memmy-agent",
-    "desc": "🍙  A personal AI agent & local memory hub for all AI agents, gives every AI one shared, fully controlled memory and persistent context — all AI remember the same you. Now supports Claude Code, Codex, OpenClaw and Hermes Agent etc.",
-    "language": "TypeScript",
-    "topics": [
-      "agent",
-      "ai-agents",
-      "memory",
-      "agentic-ai",
-      "llm",
-      "long-term-memory"
-    ],
-    "stars": 2337,
-    "url": "https://github.com/MemTensor/memmy-agent",
-    "stale_zh": null
-  },
-  {
-    "full_name": "SXP-Simon/Panache",
-    "desc": "「予你勇气，写你所想」Design and export handwritten pages with your choice of paper, ink, and layout,  through a local MCP server with AI assistants. Panache turn notes, LaTeX math, tables, diagrams and thoughts into pages.",
-    "language": "Dart",
-    "topics": [
-      "flutter",
-      "handwriting-converter",
-      "handwriting-generator",
-      "handwriting-simulator",
-      "rust"
-    ],
-    "stars": 589,
-    "url": "https://github.com/SXP-Simon/Panache",
-    "stale_zh": null
-  },
-  {
-    "full_name": "test-zeus-ai/testzeus-hercules",
-    "desc": "Hercules is the world’s first open-source testing agent, enabling UI, API, Security, Accessibility, and Visual validations – all without code or maintenance. Automate testing effortlessly and let Hercules handle the heavy lifting! ⚡",
-    "language": "Python",
-    "topics": [
-      "agent",
-      "agentic-ai",
-      "agents",
-      "ai",
-      "autogen",
-      "automation"
-    ],
-    "stars": 1254,
-    "url": "https://github.com/test-zeus-ai/testzeus-hercules",
     "stale_zh": null
   },
   {
@@ -150,8 +103,55 @@
       "claude-skills",
       "code-analysis"
     ],
-    "stars": 99908,
+    "stars": 100561,
     "url": "https://github.com/tt-a1i/archify",
     "stale_zh": "agent skill，把想法、計畫或程式碼轉成可互動的架構圖"
+  },
+  {
+    "full_name": "erkamyaman/rust-anything",
+    "desc": "Rewrite your app in Rust, piece by piece, checked against the original at every step. Works with TypeScript, JavaScript, Python, Go, Ruby, Java, C, PHP, C#, Kotlin and PowerShell.",
+    "language": "Rust",
+    "topics": [
+      "agent-skills",
+      "claude-code",
+      "codex",
+      "ffi",
+      "mcp",
+      "migration"
+    ],
+    "stars": 10209,
+    "url": "https://github.com/erkamyaman/rust-anything",
+    "stale_zh": "把整個應用逐段改寫成 Rust，每步對照原程式的錄製行為驗證"
+  },
+  {
+    "full_name": "Moh4696/cinematic-skill",
+    "desc": "Agent skill for narrated cinematic films built entirely from code.",
+    "language": "Python",
+    "topics": [
+      "agent-skills",
+      "claude-code",
+      "codex",
+      "documentary",
+      "explainer-video",
+      "motion-graphics"
+    ],
+    "stars": 1053,
+    "url": "https://github.com/Moh4696/cinematic-skill",
+    "stale_zh": "用程式碼做旁白式電影短片的 agent skill，支援 Claude Code、Codex"
+  },
+  {
+    "full_name": "SXP-Simon/Panache",
+    "desc": "「予你勇气，写你所想」Design and export handwritten pages with your choice of paper, ink, and layout,  through a local MCP server with AI assistants. Panache turn notes, LaTeX math, tables, diagrams and thoughts into pages.",
+    "language": "Dart",
+    "topics": [
+      "flutter",
+      "handwriting-converter",
+      "handwriting-generator",
+      "handwriting-simulator",
+      "rust"
+    ],
+    "stars": 616,
+    "url": "https://github.com/SXP-Simon/Panache",
+    "stale_zh": null
   }
 ]

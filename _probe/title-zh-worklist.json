@@ -46,5 +46,37 @@
     "track": null,
     "summary": "",
     "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-26-44661e",
+    "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-26-d4cb70",
+    "title": "Come for the Games, Stay for the Community With GeForce NOW",
+    "company": "industry",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-26-eb75d5",
+    "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
+  },
+  {
+    "id": "evt-2026-11-26-ed24f4",
+    "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+    "company": "Hugging Face",
+    "track": null,
+    "summary": "",
+    "stale_zh": null
   }
 ]

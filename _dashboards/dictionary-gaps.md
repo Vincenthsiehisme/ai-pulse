@@ -1,11 +1,11 @@
 ---
-generated_day: '2026-11-25'
+generated_day: '2026-11-27'
 generator: scripts/pulse-dictionary-gaps.py
 ---
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**120 天**（2026-07-24 … 2026-11-25），去重後 **7974** 列。
+語料範圍：**121 天**（2026-07-24 … 2026-11-27），去重後 **8023** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -17,25 +17,25 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 來源數 |
 |---|---|---|
-| Show HN | 249 | 2 |
+| Show HN | 253 | 2 |
 | Apple | 175 | 6 |
 | Amazon | 126 | 5 |
+| Here | 79 | 9 |
 | Jensen Huang | 79 | 7 |
-| Here | 77 | 9 |
 | LLMs | 74 | 14 |
-| There | 73 | 10 |
+| There | 74 | 10 |
 | CEO | 73 | 7 |
 | September | 71 | 8 |
 | They | 68 | 9 |
 | LLM | 68 | 13 |
-| U.S | 62 | 8 |
+| U.S | 63 | 8 |
 | Trump | 62 | 5 |
 | Muse | 62 | 6 |
 | After | 59 | 6 |
 | One | 57 | 10 |
-| October | 56 | 8 |
+| October | 57 | 8 |
+| China | 55 | 9 |
 | November | 55 | 7 |
-| China | 54 | 9 |
 | Python | 52 | 5 |
 | Pro | 52 | 8 |
 | With | 50 | 10 |
@@ -43,9 +43,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | San Francisco | 48 | 9 |
 | AI-powered | 46 | 10 |
 | Chinese | 46 | 8 |
+| Rust | 46 | 3 |
 | Linux | 46 | 6 |
-| Rust | 45 | 3 |
-| Android | 44 | 4 |
+| Android | 45 | 4 |
 | Huang | 43 | 6 |
 | July | 42 | 9 |
 | IPO | 41 | 8 |
@@ -64,13 +64,13 @@ generator: scripts/pulse-dictionary-gaps.py
 | Elon Musk | 32 | 5 |
 | SpaceX | 32 | 7 |
 | Monday | 31 | 6 |
+| Building | 31 | 13 |
 | While | 31 | 4 |
 | Samsung | 31 | 5 |
+| Friday | 31 | 4 |
 | Europe | 30 | 8 |
-| Building | 30 | 12 |
-| Friday | 30 | 4 |
 | Fable | 29 | 8 |
-| YouTube | 28 | 7 |
+| YouTube | 29 | 7 |
 | Over | 28 | 7 |
 | Thursday | 27 | 6 |
 | Some | 27 | 8 |
@@ -87,10 +87,10 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 91 | src-media-mit-techreview |
+| The Download | 92 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 43 | src-kol-simonwillison |
-| Hi HN | 34 | src-hn-frontpage |
+| Hi HN | 35 | src-hn-frontpage |
 | A Blog | 33 | src-hf-blog |
 | Register | 32 | src-media-techcrunch |
 | Launch HN | 31 | src-hn-frontpage |
@@ -104,24 +104,23 @@ generator: scripts/pulse-dictionary-gaps.py
 | Ask HN | 21 | src-hn-frontpage |
 | Is Hiring | 21 | src-hn-frontpage |
 | Hey HN | 20 | src-hn-frontpage |
-| GeForce NOW | 18 | src-nvidia-blog |
+| GeForce NOW | 19 | src-nvidia-blog |
 | The Stepback | 17 | src-media-theverge |
 | Committee | 15 | src-ep-itre |
 | Installer No | 15 | src-media-theverge |
 | Verge-iest | 15 | src-media-theverge |
 | Installer | 15 | src-media-theverge |
+| FCC | 13 | src-media-theverge |
 | The Algorithm | 13 | src-media-mit-techreview |
 | Roundtables | 13 | src-media-mit-techreview |
-| FCC | 12 | src-media-theverge |
 | Verge | 12 | src-media-theverge |
 | Disrupt | 12 | src-media-techcrunch |
 | TechCrunch Founder Summit | 12 | src-media-techcrunch |
 | YC S26 | 11 | src-hn-frontpage |
+| Apple TV | 11 | src-media-theverge |
 | Victoria Song | 11 | src-media-theverge |
 | VCs | 11 | src-media-techcrunch |
-| Apple TV | 10 | src-media-theverge |
 | PlayStation | 10 | src-media-theverge |
-| Grand Theft Auto | 10 | src-media-theverge |
 | Optimizer | 10 | src-media-theverge |
 | Startup Battlefield | 10 | src-media-techcrunch |
 | Moscone West | 10 | src-media-techcrunch |
@@ -133,20 +132,21 @@ generator: scripts/pulse-dictionary-gaps.py
 | Open-source | 9 | src-hn-frontpage |
 | IBM Research | 9 | src-hf-blog |
 | Series A | 9 | src-media-techcrunch |
+| Nintendo Switch | 9 | src-media-theverge |
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
 | Code | 8 | src-hn-frontpage |
 | Datasette Agent | 8 | src-kol-simonwillison |
 | Wi-Fi | 8 | src-media-theverge |
-| Nintendo Switch | 8 | src-media-theverge |
-| Following | 7 | src-media-theverge |
+| Zelda | 8 | src-media-theverge |
 | Woot | 7 | src-media-theverge |
 | Galaxy Z Fold | 7 | src-media-theverge |
 | Spider-Man | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
 | Bose | 7 | src-media-theverge |
+| Rockstar Games | 7 | src-media-theverge |
 | YC S23 | 7 | src-hn-frontpage |
-| Zelda | 7 | src-media-theverge |
 | RCE | 7 | src-hn-frontpage |
+| YC W24 | 7 | src-hn-frontpage |
 
 ## 這一頁不保證什麼
 
