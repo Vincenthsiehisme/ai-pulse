@@ -6,10 +6,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 
 | track | 條目 | 5a author 有值 | 5b 可解析自然人 | 實體命中率 |
 |---|---|---|---|---|
-| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 5/30 = 17% |
+| aggregator | 30 | 30/30 = 100% | 0/30 = 0% | 4/30 = 13% |
 | kol | 90 | 60/90 = 67% | 60/90 = 67% | 33/90 = 37% |
-| media | 80 | 80/80 = 100% | 76/80 = 95% | 31/80 = 39% |
-| official | 238 | 48/238 = 20% | 20/238 = 8% | 155/238 = 65% |
+| media | 80 | 80/80 = 100% | 78/80 = 98% | 30/80 = 38% |
+| official | 238 | 48/238 = 20% | 20/238 = 8% | 153/238 = 64% |
 
 - **5a（author 有值）只用來偵測 adapter 解析失敗**，不作任何人物層判斷。M1 實測 120/120 有值卻幾乎不可用，這個數字單獨看會騙人。
 - **5b（可解析自然人）才決定人物層與獨立性升級有沒有用。**官方線若過低，people.yaml 只在 KOL 線生效。
@@ -20,10 +20,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | kind | 筆數 | 計入 5b |
 |---|---|---|
 | none | 220 |  |
-| person | 147 | ✓ |
-| handle | 53 |  |
-| org | 9 |  |
+| person | 149 | ✓ |
+| handle | 52 |  |
 | multi_person | 9 | ✓ |
+| org | 8 |  |
 
 分類全為字面規則，無推論。判不出來一律 unknown 且不計入 5b（保守預設）。
 `multi_person` 是共同作者串，本專案判定為可解析到自然人；
@@ -40,25 +40,24 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | Anson Ho | person | src-msr-blog |
 | Connie Loizos | person | src-media-techcrunch |
 | Theresa Loconsolo, Rebecca Bellan | multi_person | src-media-techcrunch |
-| Faustine Ngila | person | src-media-ieee-spectrum |
+| Jackie Snow | person | src-media-ieee-spectrum |
 | Anritsu | handle | src-media-ieee-spectrum |
 | Thomas Macaulay | person | src-media-mit-techreview |
 | Jeremy Hsu | person | src-media-arstechnica |
 | Dan Kagan-Kans, Understanding AI | multi_person | src-media-arstechnica |
-| Andrew Webster | person | src-media-theverge |
-| Verge Staff | org | src-media-theverge |
+| Sheena Vasani | person | src-media-theverge |
 | Nathan Lambert | person | src-kol-interconnects |
 | Ethan Mollick | person | src-kol-oneusefulthing |
 | Sebastian Raschka, PhD | person | src-kol-raschka |
-| Kotlopou | handle | src-hn-frontpage |
+| jlelse | handle | src-hn-frontpage |
 
 ## 命中的實體型別分佈
 
-- company: 113
-- product_line: 84
-- technology: 24
+- company: 106
+- product_line: 87
 - product: 23
-- framework: 19
+- technology: 22
+- framework: 20
 - infrastructure: 8
 
 ## 字典補漏候選（未命中且跨來源出現）
@@ -71,35 +70,40 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 |---|---|---|
 | Jensen Huang | 8 | 2 |
 | With | 7 | 5 |
+| Black Friday | 6 | 3 |
+| Amazon | 6 | 3 |
 | From | 5 | 5 |
 | Muse | 5 | 3 |
+| Over | 5 | 3 |
 | LLMs | 5 | 3 |
-| See | 4 | 2 |
+| Learn | 4 | 4 |
 | Science | 4 | 3 |
 | AI-generated | 4 | 4 |
-| Amazon | 4 | 3 |
+| Mini | 4 | 3 |
+| Build | 4 | 4 |
+| Every | 4 | 3 |
 | Huang | 4 | 2 |
 | When | 4 | 2 |
-| Over | 4 | 3 |
-| Here | 4 | 2 |
-| Learn | 3 | 3 |
+| Some | 4 | 4 |
 | AI-assisted | 3 | 3 |
 | Frontier | 3 | 3 |
 | America | 3 | 2 |
 | Python | 3 | 3 |
 | Building | 3 | 3 |
+| Neon | 3 | 3 |
 | Carbon | 3 | 2 |
-| Build | 3 | 3 |
-| Black Friday | 3 | 3 |
+| Many | 3 | 3 |
 | Edition | 3 | 2 |
 | U.S | 3 | 2 |
-| Grand Theft Auto | 3 | 2 |
+| Walmart | 3 | 2 |
 | October | 3 | 2 |
 | September | 3 | 2 |
 | May | 3 | 3 |
 | One | 3 | 2 |
+| November | 3 | 2 |
 | YouTube | 3 | 2 |
 | LLM | 3 | 2 |
+| Hacker News | 3 | 3 |
 
 ### 單來源高頻（觀察用，不列入晉升）
 
@@ -116,8 +120,10 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | The Download | 4 | src-media-mit-techreview |
 | Show HN | 4 | src-hn-frontpage |
 | Explore | 3 | src-openai-blog |
+| See | 3 | src-openai-blog |
 | These | 3 | src-media-ieee-spectrum |
 | Trump | 3 | src-media-arstechnica |
+| Here | 3 | src-kol-simonwillison |
 
 ## 來源狀態
 
@@ -132,8 +138,8 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-gh-vllm-releases | official | 200 | 20 | 0 |  | None |  |
 | src-gh-openai-codex | official | error | 0 | 0 |  | None | ValueError: upstream: body too large |
 | src-deepmind-blog | official | 200 | 30 | 0 |  | True |  |
-| src-hf-blog | official | 200 | 20 | 3 |  | True |  |
-| src-nvidia-blog | official | 200 | 18 | 1 |  | True |  |
+| src-hf-blog | official | 200 | 20 | 1 |  | True |  |
+| src-nvidia-blog | official | 200 | 18 | 0 |  | True |  |
 | src-msr-blog | official | 200 | 10 | 0 |  | True |  |
 | src-meta-research | official | 200 | 10 | 0 |  | True |  |
 | src-xai-news | official | 200 | 40 | 0 |  | True |  |
@@ -141,21 +147,21 @@ M1 產出。來源數與條目數不是驗收標準，下面兩個比率才是�
 | src-qwen-blog | official | 304 | 0 | 0 |  | True |  |
 | src-amd-ir | official | robots_unknown | 0 | 0 |  | None | robots.txt 取不到，保守跳過 |
 | src-media-venturebeat | media | 429 | 0 | 0 |  | True |  |
-| src-media-techcrunch | media | 200 | 20 | 2 |  | True |  |
-| src-media-ieee-spectrum | media | 200 | 20 | 0 |  | True |  |
-| src-media-mit-techreview | media | 200 | 10 | 2 |  | True |  |
+| src-media-techcrunch | media | 200 | 20 | 0 |  | True |  |
+| src-media-ieee-spectrum | media | 200 | 20 | 1 |  | True |  |
+| src-media-mit-techreview | media | 200 | 10 | 3 |  | True |  |
 | src-media-theregister | media | robots_disallow | 0 | 0 |  | False |  |
 | src-media-arstechnica | media | 200 | 20 | 0 |  | True |  |
-| src-media-theverge | media | 200 | 10 | 8 |  | True |  |
+| src-media-theverge | media | 200 | 10 | 10 |  | True |  |
 | src-kol-karpathy | kol | 200 | 10 | 0 |  | True |  |
-| src-kol-simonwillison | kol | 200 | 20 | 5 |  | True |  |
+| src-kol-simonwillison | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-interconnects | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-thezvi | kol | robots_unknown | 0 | 0 |  | False | robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕） |
 | src-kol-oneusefulthing | kol | 200 | 20 | 0 |  | True |  |
 | src-kol-lilianweng | kol | 304 | 0 | 0 |  | True |  |
 | src-kol-importai | kol | robots_unknown | 0 | 0 |  | False | robots.txt 回 401/403，取不到內容，保守跳過（非站方拒絕） |
 | src-kol-raschka | kol | 200 | 20 | 0 |  | True |  |
-| src-hn-frontpage | aggregator | 200 | 30 | 28 |  | True |  |
+| src-hn-frontpage | aggregator | 200 | 30 | 29 |  | True |  |
 
 `skipped_lifecycle` = 未被請求，error 欄顯示其 lifecycle 值。
 `robots_unknown` = robots.txt 取不到而保守跳過，不是對方拒絕（含 401/403：拿不到檔案，多半是 WAF 擋雲端 IP）。
