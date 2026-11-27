@@ -550,9 +550,9 @@
     "zh": "AnythingLLM：以本機優先為主的完整 agent 體驗，把 AI 握在自己手上"
   },
   "Moh4696/cinematic-skill": {
-    "at": "2026-11-22T21:25:06+00:00",
-    "src_hash": "c8b2226557bd",
-    "zh": "用程式碼做旁白式電影短片的 agent skill，支援 Claude Code、Codex"
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "3b22148402a8",
+    "zh": "用程式碼製作含旁白的電影短片的 agent skill"
   },
   "N1nEmAn/sapper-v2": {
     "at": "2026-11-17T23:16:52+00:00",
@@ -744,6 +744,11 @@
     "src_hash": "17b5db8943b7",
     "zh": "與 coding agent 跨 session 共管記憶的本機工作台，支援 Claude Code 與 Codex"
   },
+  "SXP-Simon/Panache": {
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "1893f9d3108e",
+    "zh": "透過本機 MCP 伺服器讓 AI 助理設計並匯出手寫頁面，可選紙張、墨水與版面，支援 LaTeX 數學式、表格與圖表"
+  },
   "Sallyn0225/eidolon-sc": {
     "at": "2026-10-30T20:18:02+00:00",
     "src_hash": "99330eca0567",
@@ -863,6 +868,11 @@
     "at": "2026-10-14T19:51:47+00:00",
     "src_hash": "2f0b960b4fc0",
     "zh": "精選 300 多個由產品原廠發布的官方 MCP server 目錄，不收非官方 fork 與已停更專案"
+  },
+  "WeWorker/WeWorker": {
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "95ffdd9e17ec",
+    "zh": "開源桌面 AI agent，能在網站上實際操作，內建 33 個郵件、購物、社群等轉接器"
   },
   "XiaoPuOuO/openchatx-mcp": {
     "at": "2026-10-18T18:23:02+00:00",
@@ -1349,6 +1359,11 @@
     "src_hash": "5d5feee95a3a",
     "zh": "協調 Claude、Codex、Cursor 視窗的共用任務、預檢與獨立審查，附本機儀表板"
   },
+  "danielwh2/sprite-stacking": {
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "736fdb26d98a",
+    "zh": "agent skill：把四個視角的像素圖轉成可旋轉的偽 3D sprite"
+  },
   "dansugc/reverse-engineer-marketing": {
     "at": "2026-11-14T20:16:18+00:00",
     "src_hash": "bec80ed79c44",
@@ -1475,9 +1490,9 @@
     "zh": "利用平行圖運算的高效能向量資料庫"
   },
   "erkamyaman/rust-anything": {
-    "at": "2026-11-18T22:48:54+00:00",
-    "src_hash": "d5bc4d96459f",
-    "zh": "把整個應用逐段改寫成 Rust，每步對照原程式的錄製行為驗證"
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "bab36185ab3c",
+    "zh": "把整個應用逐段改寫成 Rust，每步對照原程式驗證，支援 TypeScript、Python、Go 等多種語言"
   },
   "eust-w/opengeniemaster": {
     "at": "2026-11-14T20:16:18+00:00",
@@ -1513,6 +1528,11 @@
     "at": "2026-10-04T18:54:49+00:00",
     "src_hash": "4d138d86591c",
     "zh": "Claude Agent Skill，做不切換投影片的連續運鏡動態影片，用於產品發表與功能展示"
+  },
+  "felipebasurto/unslop-ui": {
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "415339175a1f",
+    "zh": "agent skill：去掉 UI 文案、圖表與儀表板裡的 AI 腔，如眉標、編號、裝飾圖示、徽章與狀態點，規則可選用"
   },
   "fidetolabs/qanat": {
     "at": "2026-10-19T20:49:33+00:00",
@@ -1583,6 +1603,11 @@
     "at": "2026-10-01T20:41:09+00:00",
     "src_hash": "aae307cecf19",
     "zh": "把 Gemini 帶進終端機的開源 AI agent"
+  },
+  "google-research/paper-orchestra": {
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "7b37e9effc06",
+    "zh": "用多 agent 自動撰寫 AI 研究論文的框架"
   },
   "google/adk-python": {
     "at": "2026-10-07T20:56:20+00:00",
@@ -2274,6 +2299,11 @@
     "src_hash": "b4261fbb6f13",
     "zh": "把編碼 agent Pi 預先編譯成單一原生執行檔，啟動快 10 倍，CPU 少用 7 倍，記憶體少用 4.5 倍"
   },
+  "opensetlabs/openset-llm": {
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "f02713c8c4ad",
+    "zh": "在一般 CPU 上跑本地 LLM 推論，不需 GPU，8 GB RAM 即可，附 OpenAI 相容伺服器"
+  },
   "ops120/wechat-local-viewer": {
     "at": "2026-11-25T00:15:41+00:00",
     "src_hash": "f3d05fa43015",
@@ -2740,9 +2770,9 @@
     "zh": "AI 自主滲透測試系統，多 agent LLM，以 Go 與 Next.js 寫成，百度 agent+ 攻防挑戰賽冠軍"
   },
   "tt-a1i/archify": {
-    "at": "2026-10-04T18:54:49+00:00",
-    "src_hash": "2df0c5090dd9",
-    "zh": "agent skill，把想法、計畫或程式碼轉成可互動的架構圖"
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "55edeb401920",
+    "zh": "agent skill，把想法、計畫或程式碼轉成可互動的架構圖或單頁解答，含 10 種圖型與 PR 導覽"
   },
   "uclanlp/OpenVLHarness": {
     "at": "2026-11-12T22:01:23+00:00",
@@ -2915,9 +2945,9 @@
     "zh": "VS Code 的多 agent 協調器，讓 Claude Code、Codex 等 CLI 跨視窗互相操作"
   },
   "yetone/magpie": {
-    "at": "2026-10-03T18:55:46+00:00",
-    "src_hash": "1145a2413afb",
-    "zh": "在選單列統一管理各 agent 用的模型，例如 Codex 跑 DeepSeek、Claude Code 跑 Kimi"
+    "at": "2026-11-27T00:12:11+00:00",
+    "src_hash": "392e4406f699",
+    "zh": "把 Claude、ChatGPT、Copilot 等已付費方案併成額度池，一個用完自動換下一個"
   },
   "yjid/kensaku": {
     "at": "2026-11-08T20:04:50+00:00",

@@ -1,12 +1,28 @@
-# 已發布事件（703）
+# 已發布事件（709）
 
 > 由 pulse-dashboard.py 自動產生，只列 status: published。
+
+## 2026-11-26
+- **[[Events/evt-2026-11-26-d4cb70|Come for the Games, Stay for the Community With GeForce NOW]]** — NVIDIA · product · conf 73 · heat 未量測
+  NVIDIA 這週 GFN Thursday 以 GeForce NOW 大使與社群版主為主題。
+- **[[Events/evt-2026-11-26-eb75d5|Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon]]** — ggml-org · infra · conf 80 · heat 未量測
+  ggml-org 推出針對 AMD Ryzen 與 Radeon 的 llama.cpp 基準測試儀表板。
+- **[[Events/evt-2026-11-26-ed24f4|Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference]]** — NVIDIA · model-capability · conf 73 · heat 未量測
+  NVIDIA 發表 Nemotron 3.5 Parse 的開放資料、微調與加速推論內容。
+
+## 2026-11-25
+- **[[Events/evt-2026-11-25-5791af|Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000]]** — Hugging Face · infra · conf 73 · heat 未量測
+  Hugging Face 上一篇談 Inkling 2 Mini 在單張 RTX PRO 6000 上調校推論的文章，內文未取得。
+- **[[Events/evt-2026-11-25-b19121|An Indic Voice Agent with CUGA]]** — IBM · product · conf 73 · heat 未量測
+  IBM Research 在 Hugging Face 發表以 CUGA 打造的印度語系語音 agent，內文未取得。
 
 ## 2026-11-24
 - **[[Events/evt-2026-11-24-4bef30|Clay helps sales teams win with Codex and ChatGPT]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 客戶案例：Clay 用 ChatGPT 與 Codex 整合協助銷售團隊。
 - **[[Events/evt-2026-11-24-8c2ee1|Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton]]** — NVIDIA · research · conf 73 · heat 未量測
   NVIDIA 在 Hugging Face 發文，介紹 Microduck 機器人用 Isaac Lab 與 Newton 做避障的模擬到實機流程。
+- **[[Events/evt-2026-11-24-99fa68|From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity]]** — Google · product · conf 73 · heat 未量測
+  DeepMind 發表 Mass Spec Skills，讓科學家在 Google Antigravity 裡解讀串聯質譜。
 - **[[Events/evt-2026-11-24-a86988|How Intentful uses dots to make more time for growth]]** — OpenAI · product · conf 73 · heat 未量測
   OpenAI 客戶案例：Intentful 的 Marina Petrova 用名為 Aria 的 dot 處理研究與提案。
 - **[[Events/evt-2026-11-24-c16cb4|Searching for distant planets with Astra]]** — OpenAI · product · conf 73 · heat 未量測

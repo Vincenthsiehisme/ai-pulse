@@ -1,12 +1,9 @@
-# 被門禁擋下（91）
+# 被門禁擋下（85）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
-- **[[Events/evt-2026-11-26-eb75d5|Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-26-ed24f4|Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inf]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-25-42d6b7|Where scientists draw the line on AI agents]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-25-b19121|An Indic Voice Agent with CUGA]]** — Hugging Face — blockers: placeholder_content, thin_fact, missing_category, missing_track
-- **[[Events/evt-2026-11-24-99fa68|From spectrum to structure: Identifying molecules with Mass Spec Skill]]** — Google — blockers: placeholder_content, thin_fact, missing_category, missing_track
+- **[[Events/evt-2026-11-26-44661e|Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent s]]** — Hugging Face — blockers: thin_research_analysis
+- **[[Events/evt-2026-11-25-42d6b7|Where scientists draw the line on AI agents]]** — Ai2 — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-24-bec7d1|GPT-6 models demonstrate intrinsic protein-design capabilities]]** — OpenAI — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-23-5de010|How to build and maintain an agentic evaluation]]** — Hugging Face — blockers: thin_research_analysis
 - **[[Events/evt-2026-11-23-8f8cc9|Finding faster quantum algorithms with agents and formal verification]]** — Google DeepMind — blockers: thin_research_analysis
@@ -79,9 +76,6 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
-- **[[Events/evt-2026-11-26-44661e|Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent s]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-26-d4cb70|Come for the Games, Stay for the Community With GeForce NOW]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
-- **[[Events/evt-2026-11-25-5791af|Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-20-e737a1|Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-11-20-fffc1c|Introducing harness adapters: adapt your favorite model to your harnes]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity

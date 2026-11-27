@@ -1,19 +1,19 @@
 [
   {
-    "id": "evt-2026-11-24-4bef30",
-    "path": "evt-2026-11-24-4bef30.md",
-    "title": "Clay helps sales teams win with Codex and ChatGPT",
+    "id": "evt-2026-11-24-99fa68",
+    "path": "evt-2026-11-24-99fa68.md",
+    "title": "From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "Google",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/business/customer-stories/clay-plugins-openai",
-        "title": "Clay helps sales teams win with Codex and ChatGPT",
-        "summary": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models handling the reasoning.",
+        "source_id": "src-deepmind-blog",
+        "url": "https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity/",
+        "title": "From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity",
+        "summary": "Mass Spec Skills empowers scientists using Google Antigravity to interpret tandem mass spectra.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -30,9 +30,9 @@
     }
   },
   {
-    "id": "evt-2026-11-24-8c2ee1",
-    "path": "evt-2026-11-24-8c2ee1.md",
-    "title": "Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton",
+    "id": "evt-2026-11-25-42d6b7",
+    "path": "evt-2026-11-25-42d6b7.md",
+    "title": "Where scientists draw the line on AI agents",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "Hugging Face",
@@ -41,28 +41,30 @@
     "evidence": [
       {
         "source_id": "src-hf-blog",
-        "url": "https://huggingface.co/blog/nvidia/microduck-obstacle-avoidance",
-        "title": "Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton",
-        "summary": "A Blog post by NVIDIA on Hugging Face",
-        "availability": "has_text",
-        "availability_reason": "",
-        "writing_hint": "內容在手上，照證據寫。"
+        "url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents",
+        "title": "Where scientists draw the line on AI agents",
+        "summary": "",
+        "availability": "unfetched",
+        "availability_reason": "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口",
+        "writing_hint": "不要寫進文章。這是我們沒抓到，屬於故障不屬於證據狀態；文章裡就當這一則只有標題。"
       }
     ],
     "availability": {
       "counts": {
-        "has_text": 1,
-        "unfetched": 0,
+        "has_text": 0,
+        "unfetched": 1,
         "withheld": 0
       },
       "needs_source_link": false,
-      "reasons": []
+      "reasons": [
+        "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口"
+      ]
     }
   },
   {
-    "id": "evt-2026-11-24-a86988",
-    "path": "evt-2026-11-24-a86988.md",
-    "title": "How Intentful uses dots to make more time for growth",
+    "id": "evt-2026-11-25-5791af",
+    "path": "evt-2026-11-25-5791af.md",
+    "title": "Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000",
     "fingerprint": null,
     "facet": "update",
     "company_guess": "industry",
@@ -70,10 +72,74 @@
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/business/customer-stories/intentful-dots",
-        "title": "How Intentful uses dots to make more time for growth",
-        "summary": "Marina Petrova’s dot Aria helps research websites and build proposals, while proactively flagging messages and resolving issues.",
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb",
+        "title": "Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000",
+        "summary": "",
+        "availability": "unfetched",
+        "availability_reason": "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口",
+        "writing_hint": "不要寫進文章。這是我們沒抓到，屬於故障不屬於證據狀態；文章裡就當這一則只有標題。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 1,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": [
+        "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-25-b19121",
+    "path": "evt-2026-11-25-b19121.md",
+    "title": "An Indic Voice Agent with CUGA",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "Hugging Face",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+        "title": "An Indic Voice Agent with CUGA",
+        "summary": "",
+        "availability": "unfetched",
+        "availability_reason": "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口",
+        "writing_hint": "不要寫進文章。這是我們沒抓到，屬於故障不屬於證據狀態；文章裡就當這一則只有標題。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 0,
+        "unfetched": 1,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": [
+        "來源允許摘錄，但這一筆沒取到——是我們這邊的缺口"
+      ]
+    }
+  },
+  {
+    "id": "evt-2026-11-26-44661e",
+    "path": "evt-2026-11-26-44661e.md",
+    "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
+    "fingerprint": null,
+    "facet": "benchmark",
+    "company_guess": "industry",
+    "independent_sources": 1,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/training-swarms",
+        "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
+        "summary": "We’re on a journey to advance and democratize artificial intelligence through open source and open science.",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
@@ -90,28 +156,58 @@
     }
   },
   {
-    "id": "evt-2026-11-24-bec7d1",
-    "path": "evt-2026-11-24-bec7d1.md",
-    "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
-    "fingerprint": "openai:gpt:6",
-    "facet": "capability",
-    "company_guess": "OpenAI",
+    "id": "evt-2026-11-26-d4cb70",
+    "path": "evt-2026-11-26-d4cb70.md",
+    "title": "Come for the Games, Stay for the Community With GeForce NOW",
+    "fingerprint": null,
+    "facet": "update",
+    "company_guess": "industry",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
-        "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
-        "summary": "",
-        "availability": "withheld",
-        "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
-        "writing_hint": "寫出來並且給連結：說明為什麼我們不轉述、原文在哪裡。不要寫成「證據不足」——那會告訴讀者沒有更多可知道的，而那是假的。"
+        "source_id": "src-nvidia-blog",
+        "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-community-war-thunder-reward/",
+        "title": "Come for the Games, Stay for the Community With GeForce NOW",
+        "summary": "Good games bring people together. This GFN Thursday, GeForce NOW is celebrating the members, creators and community moderators who turn every session into something worth sharing. From friendships formed in online lobbies to new worlds explored on everyday devices, GeForce NOW Ambassadors share thei",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
+      }
+    ],
+    "availability": {
+      "counts": {
+        "has_text": 1,
+        "unfetched": 0,
+        "withheld": 0
+      },
+      "needs_source_link": false,
+      "reasons": []
+    }
+  },
+  {
+    "id": "evt-2026-11-26-eb75d5",
+    "path": "evt-2026-11-26-eb75d5.md",
+    "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+    "fingerprint": null,
+    "facet": "benchmark",
+    "company_guess": "Hugging Face",
+    "independent_sources": 2,
+    "tier_evidence": 1,
+    "evidence": [
+      {
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+        "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+        "summary": "A Blog post by ggml-org on Hugging Face",
+        "availability": "has_text",
+        "availability_reason": "",
+        "writing_hint": "內容在手上，照證據寫。"
       },
       {
         "source_id": "src-hn-frontpage",
-        "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/",
-        "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+        "url": "https://devnull.land/amd-specific-llama-cpp",
+        "title": "AMD-specific fork of llama.cpp",
         "summary": "",
         "availability": "withheld",
         "availability_reason": "license_note 限「標題＋連結」，這是我們自己的保守約束",
@@ -120,9 +216,9 @@
     ],
     "availability": {
       "counts": {
-        "has_text": 0,
+        "has_text": 1,
         "unfetched": 0,
-        "withheld": 2
+        "withheld": 1
       },
       "needs_source_link": true,
       "reasons": [
@@ -131,20 +227,20 @@
     }
   },
   {
-    "id": "evt-2026-11-24-c16cb4",
-    "path": "evt-2026-11-24-c16cb4.md",
-    "title": "Searching for distant planets with Astra",
+    "id": "evt-2026-11-26-ed24f4",
+    "path": "evt-2026-11-26-ed24f4.md",
+    "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
     "fingerprint": null,
     "facet": "update",
-    "company_guess": "OpenAI",
+    "company_guess": "Hugging Face",
     "independent_sources": 1,
     "tier_evidence": 1,
     "evidence": [
       {
-        "source_id": "src-openai-blog",
-        "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
-        "title": "Searching for distant planets with Astra",
-        "summary": "See how two amateur astronomers used Codex and Astra to find potential exoplanets in public data from NASA’s Kepler and TESS space telescopes.",
+        "source_id": "src-hf-blog",
+        "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+        "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+        "summary": "A Blog post by NVIDIA on Hugging Face",
         "availability": "has_text",
         "availability_reason": "",
         "writing_hint": "內容在手上，照證據寫。"
