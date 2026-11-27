@@ -1,4 +1,4 @@
-# 被門禁擋下（85）
+# 被門禁擋下（86）
 
 > status: review，未通過 readiness gate。多為行銷 PR 或非 AI 政策噪音。
 
@@ -76,6 +76,7 @@
 - **[[Events/evt-2026-05-21-814d64|We’re launching the Google DeepMind Accelerator program in Asia Pacifi]]** — Google DeepMind — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-c9a5ce|Introducing Google Antigravity 2.0]]** — Google — blockers: stale_backfill
 - **[[Events/evt-2026-05-17-feeb57|Introducing Gemini Omni]]** — Google — blockers: stale_backfill
+- **[[Events/evt-2026-11-27-5136f9|Taking Trainium3 to the Track: Generating Videos with LTX-2.5]]** — industry — blockers: placeholder_content, thin_fact, generic_entity, missing_category, missing_track
 - **[[Events/evt-2026-11-20-e737a1|Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-11-20-fffc1c|Introducing harness adapters: adapt your favorite model to your harnes]]** — industry — blockers: generic_entity
 - **[[Events/evt-2026-11-05-f5fc9d|A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech T]]** — industry — blockers: thin_research_analysis, generic_entity

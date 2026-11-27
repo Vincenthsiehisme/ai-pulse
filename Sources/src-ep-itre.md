@@ -14,7 +14,7 @@ lifecycle: "dormant"
 robots_ok: true
 license_note: "titles + links only"
 endpoint: "https://www.europarl.europa.eu/rss/committee/itre/en.xml"
-robots_checked_day: "2026-07-26"
+robots_checked_day: "2026-11-27"
 first_fetch_at: "2026-07-23"
 last_observed_day: "2026-07-24"
 items_observed: 25

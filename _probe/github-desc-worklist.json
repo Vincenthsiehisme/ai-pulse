@@ -1,157 +1,155 @@
 [
   {
-    "full_name": "opensetlabs/openset-llm",
-    "desc": "Fast local LLM inference on plain CPUs. No GPU, 8 GB of RAM. OpenAI-compatible server.",
-    "language": "C++",
+    "full_name": "alesha-pro/llm.asm",
+    "desc": "Qwen3-0.6B inference (12 KB), bare-metal bootable OS (22 KB), and from-scratch Mini-GPT trainer with live Braille TUI (32 KB) in 100% pure x86-64 NASM assembly. Zero C, zero libc, zero dependencies.",
+    "language": "Assembly",
     "topics": [
-      "ai",
-      "avx512",
-      "cpu-inference",
-      "edge-ai",
-      "gguf",
-      "inference-engine"
+      "assembly",
+      "avx2",
+      "bare-metal",
+      "llm",
+      "machine-learning",
+      "nasm"
     ],
-    "stars": 1731,
-    "url": "https://github.com/opensetlabs/openset-llm",
+    "stars": 2191,
+    "url": "https://github.com/alesha-pro/llm.asm",
     "stale_zh": null
   },
   {
-    "full_name": "yetone/magpie",
-    "desc": "Pool every plan you pay for — Claude, ChatGPT, Copilot, GLM Coding Plan, Kimi Code and more — and use them in any agent: Claude Code, Codex, Claude Desktop… When one runs out, the next takes over.",
-    "language": "Go",
-    "topics": [
-      "ai-agents",
-      "chatgpt",
-      "claude",
-      "claude-code",
-      "codex",
-      "deepseek"
-    ],
-    "stars": 42018,
-    "url": "https://github.com/yetone/magpie",
-    "stale_zh": "在選單列統一管理各 agent 用的模型，例如 Codex 跑 DeepSeek、Claude Code 跑 Kimi"
-  },
-  {
-    "full_name": "danielwh2/sprite-stacking",
-    "desc": "Agent skill: turn four pixel art views into fake-3D sprites you can spin. Works with Claude Code, Codex, Cursor, OpenCode, Gemini CLI, Pi.",
-    "language": "HTML",
-    "topics": [
-      "agent-skills",
-      "claude-code",
-      "codex",
-      "cursor",
-      "fake-3d",
-      "gamedev"
-    ],
-    "stars": 1035,
-    "url": "https://github.com/danielwh2/sprite-stacking",
-    "stale_zh": null
-  },
-  {
-    "full_name": "google-research/paper-orchestra",
-    "desc": "PaperOrchestra is a multi-agent framework for automated AI research paper writing.",
-    "language": "Python",
-    "topics": [
-      "ai-research-assistant",
-      "multi-agent-systems"
-    ],
-    "stars": 6511,
-    "url": "https://github.com/google-research/paper-orchestra",
-    "stale_zh": null
-  },
-  {
-    "full_name": "WeWorker/WeWorker",
-    "desc": "Open-source desktop AI agent that takes real actions on websites — 33 adapters for mail, shopping, social, and more.",
-    "language": "JavaScript",
-    "topics": [
-      "adapter",
-      "ai-agent",
-      "ai-automation",
-      "browser-agent",
-      "browser-automation",
-      "browser-extension"
-    ],
-    "stars": 366,
-    "url": "https://github.com/WeWorker/WeWorker",
-    "stale_zh": null
-  },
-  {
-    "full_name": "felipebasurto/unslop-ui",
-    "desc": "Agent skill that cuts AI tells from UI copy, charts and dashboards: eyebrows, numbering, botsplaining, decorative icons, badges and status dots. Opt-in surface rules.",
+    "full_name": "qianyiai/KuroCat",
+    "desc": "KuroCat — Free open-source 3D/2D desktop typing cat & AI coding companion (Bongo Cat alternative · Tauri v2 + Rust + MCP · Claude/Codex/DeepSeek/OBS · Win/Mac/Linux/Android)｜开源3D桌面打字小黑猫与AI伴侣",
     "language": "TypeScript",
     "topics": [
-      "agent-skills",
-      "ai-slop",
-      "claude-code",
-      "claude-skills",
-      "codex",
-      "cursor"
+      "3d",
+      "ai-companion",
+      "android",
+      "bongo-cat",
+      "bongocat",
+      "claude-code"
     ],
-    "stars": 928,
-    "url": "https://github.com/felipebasurto/unslop-ui",
+    "stars": 1762,
+    "url": "https://github.com/qianyiai/KuroCat",
     "stale_zh": null
   },
   {
-    "full_name": "tt-a1i/archify",
-    "desc": "Turn any idea, plan, or codebase into an interactive diagram or one-page answer: 10 diagram types, Architecture Diagnosis, Story video and PR walkthroughs. An Agent Skill for Claude Code, Codex, Cursor and more.",
-    "language": "JavaScript",
+    "full_name": "Johnson-Durui/Companion-Space",
+    "desc": "Local-first 1v1 anime AI tutor — just 1 API key or local subscription (Antigravity/Codex/Ollama). 6 tutors (27/27 motion), interactive math board, solve studio, reader & FSRS. 只需1个Key或本机订阅的本地二次元1v1 AI导师。",
+    "language": "Python",
     "topics": [
-      "agent-skills",
-      "ai-agents",
-      "architecture-diagram",
-      "claude-code",
-      "claude-skills",
-      "code-analysis"
+      "ai-companion",
+      "fastapi",
+      "local-first",
+      "rag",
+      "self-hosted",
+      "voice-ai"
     ],
-    "stars": 100561,
-    "url": "https://github.com/tt-a1i/archify",
-    "stale_zh": "agent skill，把想法、計畫或程式碼轉成可互動的架構圖"
+    "stars": 796,
+    "url": "https://github.com/Johnson-Durui/Companion-Space",
+    "stale_zh": "像視訊通話一樣的本機二次元 AI 一對一家教，內建 6 位動態老師、同步白板與 FSRS 複習"
   },
   {
-    "full_name": "erkamyaman/rust-anything",
-    "desc": "Rewrite your app in Rust, piece by piece, checked against the original at every step. Works with TypeScript, JavaScript, Python, Go, Ruby, Java, C, PHP, C#, Kotlin and PowerShell.",
+    "full_name": "fahniazz/claude-shorts-skills",
+    "desc": "Claude Code skills that turn your PC into an animation studio: 3D cartoon story Shorts (three.js + Remotion), word-synced green-screen captions, Minecraft short scripts and multi-agent Minecraft story videos. No AI video generator.",
+    "language": "TypeScript",
+    "topics": [
+      "animation",
+      "claude-code",
+      "claude-skills",
+      "remotion",
+      "threejs",
+      "youtube-shorts"
+    ],
+    "stars": 375,
+    "url": "https://github.com/fahniazz/claude-shorts-skills",
+    "stale_zh": null
+  },
+  {
+    "full_name": "JEen-wang/Adaptive-rag",
+    "desc": "按问题复杂度自动分流的电商客服 RAG：简单问题直接回答；复杂问题经过多跳检索并自我纠错；查单、退改通过工具调用完成，且高风险写操作必须先经人工确认。基于 FastAPI 和 LangGraph，混合检索并附带引用，内置离线评测与 Prometheus 指标。涵盖简历写法和项目面试拷打",
+    "language": "Python",
+    "topics": [
+      "adaptive-rag",
+      "llm-agents",
+      "rag",
+      "rag-evaluation",
+      "rag-pipeline",
+      "self-rag"
+    ],
+    "stars": 305,
+    "url": "https://github.com/JEen-wang/Adaptive-rag",
+    "stale_zh": null
+  },
+  {
+    "full_name": "Kevin-Liu-01/Claude-of-Tanks",
+    "desc": "A World of Tanks-style armored combat simulator built directly with Three.js and Vite: 311 vehicles, 33 destructible battlefields, and 15 modes, with plate-level armor, ballistics, modules, spotting, and physics. Play in your browser on desktop or mobile. Built end-to-end by a multi-agent Claude/Codex pipeline.",
+    "language": "TypeScript",
+    "topics": [
+      "3d-game",
+      "browser-game",
+      "claude",
+      "game",
+      "gamedev",
+      "javascript"
+    ],
+    "stars": 558,
+    "url": "https://github.com/Kevin-Liu-01/Claude-of-Tanks",
+    "stale_zh": "Three.js 做的《戰車世界》風格坦克模擬器，311 輛車，瀏覽器可玩"
+  },
+  {
+    "full_name": "EL4CTEO/fast-anything",
+    "desc": "Don't rewrite it in Rust. Rewrite the 5% that's slow: profile your app, port the hot functions with your coding agent, prove they behave the same. Python, JS/TS, Ruby, Java, Kotlin, Go, PHP, C/C++, C#, R.",
     "language": "Rust",
     "topics": [
       "agent-skills",
+      "ai-agents",
       "claude-code",
+      "claude-code-plugin",
       "codex",
-      "ffi",
-      "mcp",
-      "migration"
+      "developer-tools"
     ],
-    "stars": 10209,
-    "url": "https://github.com/erkamyaman/rust-anything",
-    "stale_zh": "把整個應用逐段改寫成 Rust，每步對照原程式的錄製行為驗證"
+    "stars": 4459,
+    "url": "https://github.com/EL4CTEO/fast-anything",
+    "stale_zh": "不必整個改寫成 Rust，只把 Python、Node、Ruby 程式裡慢的 5% 交給 agent 移植並驗證"
   },
   {
-    "full_name": "Moh4696/cinematic-skill",
-    "desc": "Agent skill for narrated cinematic films built entirely from code.",
+    "full_name": "0xethanq/astra-quant-agent",
+    "desc": "AstraQuant | Autonomous crypto trading system with multi-LLM council, deterministic Python risk gates & OKX execution · 多大模型与确定性代码风控量化交易系统",
     "language": "Python",
     "topics": [
-      "agent-skills",
-      "claude-code",
-      "codex",
-      "documentary",
-      "explainer-video",
-      "motion-graphics"
+      "ai-agents",
+      "ai-trading",
+      "algorithmic-trading",
+      "crypto-trading",
+      "fastapi",
+      "llm"
     ],
-    "stars": 1053,
-    "url": "https://github.com/Moh4696/cinematic-skill",
-    "stale_zh": "用程式碼做旁白式電影短片的 agent skill，支援 Claude Code、Codex"
+    "stars": 426,
+    "url": "https://github.com/0xethanq/astra-quant-agent",
+    "stale_zh": "結合多個大模型分析與確定性程式風控的自主量化交易系統，可在 OKX 下單"
   },
   {
-    "full_name": "SXP-Simon/Panache",
-    "desc": "「予你勇气，写你所想」Design and export handwritten pages with your choice of paper, ink, and layout,  through a local MCP server with AI assistants. Panache turn notes, LaTeX math, tables, diagrams and thoughts into pages.",
-    "language": "Dart",
+    "full_name": "obsidianmd/obsidian-skills",
+    "desc": "Teach your agent to use Obsidian and open formats including Markdown, Bases, JSON Canvas.",
+    "language": "Shell",
     "topics": [
-      "flutter",
-      "handwriting-converter",
-      "handwriting-generator",
-      "handwriting-simulator",
-      "rust"
+      "agents",
+      "agentskills",
+      "bases",
+      "chatgpt",
+      "claude",
+      "claude-code"
     ],
-    "stars": 616,
-    "url": "https://github.com/SXP-Simon/Panache",
+    "stars": 54324,
+    "url": "https://github.com/obsidianmd/obsidian-skills",
+    "stale_zh": "Obsidian 的 Agent Skills，教 agent 使用 Obsidian CLI 與開放格式"
+  },
+  {
+    "full_name": "THU-MAIC/OpenMAIC",
+    "desc": "Open Multi-Agent Interactive Classroom — Get an immersive, multi-agent learning experience in just one click",
+    "language": "TypeScript",
+    "topics": [],
+    "stars": 44888,
+    "url": "https://github.com/THU-MAIC/OpenMAIC",
     "stale_zh": null
   }
 ]

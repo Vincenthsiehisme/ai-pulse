@@ -10,10 +10,12 @@ tags: [actor, company]
 
 # NVIDIA
 
-事件 **150** 則：`dropped` 1、`published` 141、`review` 8
+事件 **152** 則：`dropped` 1、`published` 143、`review` 8
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-26 | [[Events/evt-2026-11-26-ed24f4\|Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference]] | published |
+| 2026-11-26 | [[Events/evt-2026-11-26-d4cb70\|Come for the Games, Stay for the Community With GeForce NOW]] | published |
 | 2026-11-24 | [[Events/evt-2026-11-24-8c2ee1\|Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton]] | published |
 | 2026-11-23 | [[Events/evt-2026-11-23-312f2b\|Merry Making: Play, Build and Create With NVIDIA Technologies This Holiday Season]] | published |
 | 2026-11-19 | [[Events/evt-2026-11-19-b90430\|Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW]] | published |

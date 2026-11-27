@@ -5,7 +5,7 @@ generator: scripts/pulse-dictionary-gaps.py
 
 # 字典補漏候選（跨天累積）
 
-語料範圍：**121 天**（2026-07-24 … 2026-11-27），去重後 **8023** 列。
+語料範圍：**121 天**（2026-07-24 … 2026-11-27），去重後 **8032** 列。
 晉升門檻：跨 ≥2 來源、≥3 次（`gate.yaml` 的 `clustering.unknown_entity`，與 `_probe/<日>/report.md`
 的當班區塊讀同一份）。
 
@@ -18,10 +18,10 @@ generator: scripts/pulse-dictionary-gaps.py
 | 候選 | 次數 | 來源數 |
 |---|---|---|
 | Show HN | 253 | 2 |
-| Apple | 175 | 6 |
-| Amazon | 126 | 5 |
-| Here | 79 | 9 |
+| Apple | 177 | 6 |
+| Amazon | 129 | 5 |
 | Jensen Huang | 79 | 7 |
+| Here | 78 | 9 |
 | LLMs | 74 | 14 |
 | There | 74 | 10 |
 | CEO | 73 | 7 |
@@ -34,8 +34,8 @@ generator: scripts/pulse-dictionary-gaps.py
 | After | 59 | 6 |
 | One | 57 | 10 |
 | October | 57 | 8 |
+| November | 57 | 7 |
 | China | 55 | 9 |
-| November | 55 | 7 |
 | Python | 52 | 5 |
 | Pro | 52 | 8 |
 | With | 50 | 10 |
@@ -43,9 +43,9 @@ generator: scripts/pulse-dictionary-gaps.py
 | San Francisco | 48 | 9 |
 | AI-powered | 46 | 10 |
 | Chinese | 46 | 8 |
-| Rust | 46 | 3 |
 | Linux | 46 | 6 |
-| Android | 45 | 4 |
+| Rust | 45 | 3 |
+| Android | 44 | 4 |
 | Huang | 43 | 6 |
 | July | 42 | 9 |
 | IPO | 41 | 8 |
@@ -59,24 +59,24 @@ generator: scripts/pulse-dictionary-gaps.py
 | June | 33 | 7 |
 | Research | 33 | 6 |
 | Tuesday | 33 | 6 |
+| Learn | 33 | 6 |
+| SpaceX | 33 | 7 |
 | Wednesday | 32 | 5 |
-| Learn | 32 | 6 |
 | Elon Musk | 32 | 5 |
-| SpaceX | 32 | 7 |
+| Friday | 32 | 4 |
 | Monday | 31 | 6 |
 | Building | 31 | 13 |
 | While | 31 | 4 |
 | Samsung | 31 | 5 |
-| Friday | 31 | 4 |
 | Europe | 30 | 8 |
+| Some | 29 | 8 |
 | Fable | 29 | 8 |
 | YouTube | 29 | 7 |
-| Over | 28 | 7 |
+| Over | 29 | 7 |
 | Thursday | 27 | 6 |
-| Some | 27 | 8 |
 | Mac | 27 | 4 |
 | Pixel | 27 | 3 |
-| Most | 26 | 9 |
+| Xbox | 27 | 2 |
 
 ## 單來源高頻（觀察用，不列入晉升）
 
@@ -87,18 +87,18 @@ generator: scripts/pulse-dictionary-gaps.py
 
 | 候選 | 次數 | 唯一來源 |
 |---|---|---|
-| The Download | 92 | src-media-mit-techreview |
+| The Download | 93 | src-media-mit-techreview |
 | TechCrunch Disrupt | 77 | src-media-techcrunch |
 | Tags | 43 | src-kol-simonwillison |
 | Hi HN | 35 | src-hn-frontpage |
 | A Blog | 33 | src-hf-blog |
 | Register | 32 | src-media-techcrunch |
 | Launch HN | 31 | src-hn-frontpage |
-| Best Buy | 29 | src-media-theverge |
+| Best Buy | 30 | src-media-theverge |
 | Opt | 27 | src-media-theverge |
 | The Verge | 27 | src-media-theverge |
+| MIT Technology Review | 27 | src-media-mit-techreview |
 | Datasette | 26 | src-kol-simonwillison |
-| MIT Technology Review | 25 | src-media-mit-techreview |
 | Import AI | 22 | src-kol-importai |
 | Highlights | 21 | src-gh-vllm-releases |
 | Ask HN | 21 | src-hn-frontpage |
@@ -110,17 +110,17 @@ generator: scripts/pulse-dictionary-gaps.py
 | Installer No | 15 | src-media-theverge |
 | Verge-iest | 15 | src-media-theverge |
 | Installer | 15 | src-media-theverge |
-| FCC | 13 | src-media-theverge |
 | The Algorithm | 13 | src-media-mit-techreview |
 | Roundtables | 13 | src-media-mit-techreview |
+| FCC | 12 | src-media-theverge |
 | Verge | 12 | src-media-theverge |
 | Disrupt | 12 | src-media-techcrunch |
 | TechCrunch Founder Summit | 12 | src-media-techcrunch |
 | YC S26 | 11 | src-hn-frontpage |
-| Apple TV | 11 | src-media-theverge |
+| PlayStation | 11 | src-media-theverge |
 | Victoria Song | 11 | src-media-theverge |
 | VCs | 11 | src-media-techcrunch |
-| PlayStation | 10 | src-media-theverge |
+| Apple TV | 10 | src-media-theverge |
 | Optimizer | 10 | src-media-theverge |
 | Startup Battlefield | 10 | src-media-techcrunch |
 | Moscone West | 10 | src-media-techcrunch |
@@ -130,21 +130,21 @@ generator: scripts/pulse-dictionary-gaps.py
 | Regulations | 9 | src-ep-itre |
 | European Biotech Act | 9 | src-ep-itre |
 | Open-source | 9 | src-hn-frontpage |
+| Wi-Fi | 9 | src-media-theverge |
 | IBM Research | 9 | src-hf-blog |
 | Series A | 9 | src-media-techcrunch |
-| Nintendo Switch | 9 | src-media-theverge |
 | At TechCrunch Disrupt | 8 | src-media-techcrunch |
 | Code | 8 | src-hn-frontpage |
 | Datasette Agent | 8 | src-kol-simonwillison |
-| Wi-Fi | 8 | src-media-theverge |
-| Zelda | 8 | src-media-theverge |
+| Nintendo Switch | 8 | src-media-theverge |
 | Woot | 7 | src-media-theverge |
 | Galaxy Z Fold | 7 | src-media-theverge |
 | Spider-Man | 7 | src-media-theverge |
 | Decoder | 7 | src-media-theverge |
 | Bose | 7 | src-media-theverge |
-| Rockstar Games | 7 | src-media-theverge |
+| Innovators Under | 7 | src-media-mit-techreview |
 | YC S23 | 7 | src-hn-frontpage |
+| Zelda | 7 | src-media-theverge |
 | RCE | 7 | src-hn-frontpage |
 | YC W24 | 7 | src-hn-frontpage |
 

@@ -8,73 +8,9 @@
     "stale_zh": null
   },
   {
-    "id": "evt-2026-11-24-8c2ee1",
-    "title": "Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton",
-    "company": "NVIDIA",
-    "track": "模型能力與研究",
-    "summary": "NVIDIA 在 Hugging Face 發文，介紹 Microduck 機器人用 Isaac Lab 與 Newton 做避障的模擬到實機流程。",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-24-99fa68",
-    "title": "From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity",
-    "company": "Google",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-25-42d6b7",
-    "title": "Where scientists draw the line on AI agents",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-25-5791af",
-    "title": "Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000",
+    "id": "evt-2026-11-27-5136f9",
+    "title": "Taking Trainium3 to the Track: Generating Videos with LTX-2.5",
     "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-25-b19121",
-    "title": "An Indic Voice Agent with CUGA",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-26-44661e",
-    "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-26-d4cb70",
-    "title": "Come for the Games, Stay for the Community With GeForce NOW",
-    "company": "industry",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-26-eb75d5",
-    "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
-    "company": "Hugging Face",
-    "track": null,
-    "summary": "",
-    "stale_zh": null
-  },
-  {
-    "id": "evt-2026-11-26-ed24f4",
-    "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
-    "company": "Hugging Face",
     "track": null,
     "summary": "",
     "stale_zh": null

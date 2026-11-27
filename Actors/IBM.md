@@ -12,10 +12,11 @@ tags: [actor, company]
 
 > ⚠ **字典裡沒有這家公司。** 它是從 Event 的 `company` 欄位冒出來的，代表 `_config/entities.yaml` 少收了一條——或者 `infer_company()` 推錯了。兩種都要人看一眼。
 
-事件 **8** 則：`published` 6、`review` 2
+事件 **9** 則：`published` 7、`review` 2
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
+| 2026-11-25 | [[Events/evt-2026-11-25-b19121\|An Indic Voice Agent with CUGA]] | published |
 | 2026-11-12 | [[Events/evt-2026-11-12-3c4ee7\|LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B]] | published |
 | 2026-10-29 | [[Events/evt-2026-10-29-c5342e\|Granite Switch 4.1.1 — Update models like you update software]] | published |
 | 2026-10-22 | [[Events/evt-2026-10-22-2853b8\|Ensemble forecasting with IBM Granite time-series models]] | review |

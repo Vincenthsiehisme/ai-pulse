@@ -10,14 +10,12 @@ tags: [actor, company]
 
 # Hugging Face
 
-事件 **43** 則：`published` 31、`review` 12
+事件 **41** 則：`published` 32、`review` 9
 
 | 日期 | 事件 | 狀態 |
 |---|---|---|
-| 2026-11-26 | [[Events/evt-2026-11-26-ed24f4\|Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference]] | review |
-| 2026-11-26 | [[Events/evt-2026-11-26-eb75d5\|Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon]] | review |
-| 2026-11-25 | [[Events/evt-2026-11-25-b19121\|An Indic Voice Agent with CUGA]] | review |
-| 2026-11-25 | [[Events/evt-2026-11-25-42d6b7\|Where scientists draw the line on AI agents]] | review |
+| 2026-11-26 | [[Events/evt-2026-11-26-44661e\|Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems]] | review |
+| 2026-11-25 | [[Events/evt-2026-11-25-5791af\|Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000]] | published |
 | 2026-11-23 | [[Events/evt-2026-11-23-5de010\|How to build and maintain an agentic evaluation]] | review |
 | 2026-11-18 | [[Events/evt-2026-11-18-4488cd\|Rumble-2-Flash: an open 0.5B speech model for 40+ languages]] | published |
 | 2026-11-18 | [[Events/evt-2026-11-18-06adba\|180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers]] | published |
